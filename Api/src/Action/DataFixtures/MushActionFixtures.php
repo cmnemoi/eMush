@@ -83,6 +83,9 @@ class MushActionFixtures extends Fixture
         $bypassTerminalAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::BYPASS_TERMINAL));
         $manager->persist($bypassTerminalAction);
 
+        $becomeAnonymousAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::BECOME_ANONYMOUS));
+        $manager->persist($becomeAnonymousAction);
+
         $manager->flush();
 
         $this->addReference(self::EXTRACT_SPORE, $extractSporeAction);
@@ -99,5 +102,6 @@ class MushActionFixtures extends Fixture
         $this->addReference(ActionEnum::REMOVE_CAMERA_NIMBLE_FINGERS->value, $removeCameraNimbleFingersAction);
         $this->addReference(ActionEnum::INSTALL_CAMERA_NIMBLE_FINGERS->value, $installCameraNimbleFingersAction);
         $this->addReference(ActionEnum::BYPASS_TERMINAL->value, $bypassTerminalAction);
+        $this->addReference(ActionEnum::BECOME_ANONYMOUS->value, $becomeAnonymousAction);
     }
 }

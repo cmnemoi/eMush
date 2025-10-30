@@ -2006,11 +2006,18 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
-
         [
             'name' => PlayerStatusEnum::HAS_ADAPTED_EPIGENETICS . '_default',
             'statusName' => PlayerStatusEnum::HAS_ADAPTED_EPIGENETICS,
             'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => PlayerStatusEnum::IS_ANONYMOUS . '_default',
+            'statusName' => PlayerStatusEnum::IS_ANONYMOUS,
+            'visibility' => 'private',
             'type' => 'status_config',
             'modifierConfigs' => [],
             'actionConfigs' => [],

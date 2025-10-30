@@ -299,6 +299,9 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::NINJA,
+                actionConfigs: [
+                    ActionEnum::BECOME_ANONYMOUS,
+                ],
             ),
             new SkillConfigDto(
                 name: SkillEnum::NURSE,

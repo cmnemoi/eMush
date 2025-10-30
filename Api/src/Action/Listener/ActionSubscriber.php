@@ -68,7 +68,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         $action = $event->getActionConfig();
         $player = $event->getAuthor();
 
-        if ($action->getActionName() !== ActionEnum::GET_UP && $player->hasStatus(PlayerStatusEnum::LYING_DOWN)) {
+        if (\in_array($action->getActionName()->value, ActionEnum::getDoesNotForceAGetUpActions(), true) === false && $player->hasStatus(PlayerStatusEnum::LYING_DOWN)) {
             /** @var Action $getUpAction */
             $getUpAction = $player
                 ->getActions($player, ActionHolderEnum::PLAYER)

@@ -72,6 +72,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
     public const string IN_ORBIT_STATUS = 'in_orbit_status';
     public const string POC_PILOT_SKILL_STATUS = 'poc_pilot_skill_status';
     public const string ASTRONAVIGATION_NERON_CPU_PRIORITY_STATUS = 'astronavigation_neron_cpu_priority_status';
+    public const string IS_ANONYMOUS = 'is_anonymous';
 
     public function load(ObjectManager $manager): void
     {
@@ -672,6 +673,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasAdaptedEpigenetics);
 
+        $isAnonymous = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::IS_ANONYMOUS . '_default')
+        );
+        $manager->persist($isAnonymous);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -754,7 +760,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($pointlessPlayer)
             ->addStatusConfig($firstStarmapFragment)
             ->addStatusConfig($first)
-            ->addStatusConfig($hasAdaptedEpigenetics);
+            ->addStatusConfig($hasAdaptedEpigenetics)
+            ->addStatusConfig($isAnonymous);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -831,6 +838,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT, $firstStarmapFragment);
         $this->addReference(PlayerStatusEnum::FIRST, $first);
         $this->addReference(PlayerStatusEnum::HAS_ADAPTED_EPIGENETICS, $hasAdaptedEpigenetics);
+        $this->addReference(self::IS_ANONYMOUS, $isAnonymous);
 
         $manager->flush();
     }

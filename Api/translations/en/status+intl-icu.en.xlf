@@ -1623,5 +1623,15 @@
         <target>:point: Firefighter : Tries to extinguish the fire in the room before moving. Is also immune to fire damage.</target>
       </segment>
     </unit>
+    <unit id="is_anonymous">
+      <segment id="name" state="translated">
+        <source>is_anonymous.name</source>
+        <target>Ninja</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>is_anonymous.description</source>
+        <target>Your **Public** actions are anonymous. Your **Secret** and **Covert** actions are going to reveal your true identity, on the other hand...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

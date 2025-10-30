@@ -21,6 +21,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Entity\Skill;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ActionNormalizer implements NormalizerInterface
@@ -161,7 +162,7 @@ class ActionNormalizer implements NormalizerInterface
         ?LogParameterInterface $actionTarget,
         AbstractAction $actionClass
     ): array {
-        $actionName = $actionClass->getActionName();
+        $actionName = $this->getActionKey($currentPlayer, $actionClass);
         $actionConfig = $actionClass->getActionConfig();
 
         // translation parameters
@@ -169,7 +170,7 @@ class ActionNormalizer implements NormalizerInterface
         $translationParameters = $this->getTranslationParameters($actionClass, $currentPlayer, $actionTarget);
 
         $normalizedAction['name'] = $this->translationService->translate(
-            $actionClass->hasTag(ActionTypeEnum::ACTION_MUSH_ALTERNATIVE->toString()) ? "mush.{$actionName}.name" : "{$actionName}.name",
+            "{$actionName}.name",
             $translationParameters,
             'actions',
             $language
@@ -185,7 +186,7 @@ class ActionNormalizer implements NormalizerInterface
             $normalizedAction['canExecute'] = false;
         } else {
             $description = $this->translationService->translate(
-                $actionClass->hasTag(ActionTypeEnum::ACTION_MUSH_ALTERNATIVE->toString()) ? "mush.{$actionName}.description" : "{$actionName}.description",
+                "{$actionName}.description",
                 $translationParameters,
                 'actions',
                 $language
@@ -292,5 +293,18 @@ class ActionNormalizer implements NormalizerInterface
         }
 
         return $skillPointCosts;
+    }
+
+    private function getActionKey(Player $currentPlayer, AbstractAction $actionClass): string
+    {
+        $actionName = $actionClass->getActionName();
+
+        // A switch in case we need more alternative names
+        switch ($actionName) {
+            case ActionEnum::BECOME_ANONYMOUS->value:
+                return $currentPlayer->hasStatus(PlayerStatusEnum::IS_ANONYMOUS) ? ActionEnum::BECOME_ANONYMOUS_REVERSE->value : $actionName;
+        }
+
+        return $actionClass->hasTag(ActionTypeEnum::ACTION_MUSH_ALTERNATIVE->toString()) ? "mush.{$actionName}" : $actionName;
     }
 }

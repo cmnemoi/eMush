@@ -288,7 +288,7 @@ final class RoomLogService implements RoomLogServiceInterface
         $player = $event->getAuthor();
 
         $parameters = [];
-        $parameters[$player->getLogKey()] = $player->getLogName();
+        $parameters[$player->getLogKey()] = $actionResult?->getVisibility() === VisibilityEnum::PUBLIC ? $player->getAnonymousKeyOrLogName() : $player->getLogName();
 
         if (($quantity = $actionResult?->getQuantity()) !== null) {
             $parameters['quantity'] = $quantity;

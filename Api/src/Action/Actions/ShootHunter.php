@@ -131,7 +131,7 @@ class ShootHunter extends AttemptAction
     {
         $logKey = $this->getActionName();
         $logParameters = [
-            $this->player->getLogKey() => $this->player->getLogName(),
+            $this->player->getLogKey() => $this->player->getAnonymousKeyOrLogName(),
             $hunter->getLogKey() => $hunter->getLogName(),
         ];
         $this->roomLogService->createLog(

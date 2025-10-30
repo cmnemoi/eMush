@@ -143,7 +143,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
         $parameters = $event->getLogParameters();
         if ($player && !isset($parameters[$player->getLogKey()])) {
-            $parameters[$player->getLogKey()] = $player->getLogName();
+            $parameters[$player->getLogKey()] = $player->getAnonymousKeyOrLogName();
         }
 
         /** @var Place $logPlace */

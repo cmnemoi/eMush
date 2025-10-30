@@ -106,7 +106,7 @@ abstract class AbstractUpgradeDrone extends AbstractAction
             player: $this->player,
             parameters: [
                 'target_drone' => $this->translatedDroneName(),
-                $this->player->getLogKey() => $this->player->getLogName(),
+                $this->player->getLogKey() => $this->player->getAnonymousKeyOrLogName(),
             ],
             dateTime: new \DateTime(),
         );

@@ -1370,9 +1370,14 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->hasModifierByModifierName(ModifierNameEnum::MUTE_PREVENT_MESSAGES_MODIFIER);
     }
 
-    public function shouldBeAnonymous($tags): bool
+    public function shouldBeAnonymous(): bool
     {
-        return \in_array(ActionEnum::HIT->value, $tags, true) && $this->hasSkill(SkillEnum::NINJA);
+        return $this->hasStatus(PlayerStatusEnum::IS_ANONYMOUS);
+    }
+
+    public function getAnonymousKeyOrLogName(): string
+    {
+        return $this->hasStatus(PlayerStatusEnum::IS_ANONYMOUS) ? CharacterEnum::SOMEONE : $this->getLogName();
     }
 
     public function canTradePlayer(self $player): bool

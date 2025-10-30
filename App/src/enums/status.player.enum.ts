@@ -39,6 +39,7 @@ export enum StatusPlayerNameEnum {
     HYPERACTIVE = 'hyperactive',
     BRAINSYNC = 'brainsync',
     BEGINNER = 'beginner',
+    IS_ANONYMOUS = 'is_anonymous'
 };
 
 export const statusPlayerEnum: {[index: string]: any} = {
@@ -155,5 +156,8 @@ export const statusPlayerEnum: {[index: string]: any} = {
     },
     [StatusPlayerNameEnum.BEGINNER]: {
         'icon': getImgUrl('status/beginner.png')
+    },
+    [StatusPlayerNameEnum.IS_ANONYMOUS]: {
+        'icon': getImgUrl('status/is_anonymous.png')
     }
 };

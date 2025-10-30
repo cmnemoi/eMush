@@ -11,11 +11,9 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\WeaponEventEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\RoomLog\Entity\RoomLog;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -259,28 +257,6 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->whenChunHitsKuanTi();
 
         $this->thenKuanTiShouldHaveMoreOrEqualThanHealthPoint(9, $I);
-    }
-
-    public function ninjaLogShouldBeAnonymous(FunctionalTester $I): void
-    {
-        $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
-
-        $this->givenHitActionHasSuccessRate(100);
-
-        $this->givenChunIsANinja($I);
-
-        $this->whenChunHitsKuanTi();
-
-        $roomLog = $I->grabEntityFromRepository(
-            entity: RoomLog::class,
-            params: [
-                'log' => WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT,
-            ]
-        );
-
-        $character = $roomLog->getParameters()['character'];
-
-        $I->assertEquals($character, CharacterEnum::SOMEONE);
     }
 
     public function armorsShouldNotHealPlayer(FunctionalTester $I): void

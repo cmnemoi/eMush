@@ -136,7 +136,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
             visibility: VisibilityEnum::PUBLIC,
             type: 'event_log',
             player: $pilot,
-            parameters: [$pilot->getLogKey() => $pilot->getLogName()],
+            parameters: [$pilot->getLogKey() => $pilot->getAnonymousKeyOrLogName()],
             dateTime: $time,
         );
     }

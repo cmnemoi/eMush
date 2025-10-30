@@ -108,7 +108,7 @@ class OpenContainer extends AbstractAction
         $logKey = $this->gameEquipmentTarget()->getName();
         $content = $this->gameEquipmentService->findGameEquipmentConfigFromNameAndDaedalus($contentName, $this->gameEquipmentTarget()->getDaedalus());
         $logParameters = [
-            $this->player->getLogKey() => $this->player->getLogName(),
+            $this->player->getLogKey() => $this->player->getAnonymousKeyOrLogName(),
             $content->getLogKey() => $content->getEquipmentShortName(),
             'quantity' => $contentQuantity,
         ];

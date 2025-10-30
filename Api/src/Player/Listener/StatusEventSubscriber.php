@@ -145,6 +145,7 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         }
         $this->removePlayerSpores($player);
         $this->statusService->removeStatus(SkillPointsEnum::SPORE_POINTS->toString(), $player, $event->getTags(), $event->getTime());
+        $this->statusService->removeStatus(PlayerStatusEnum::IS_ANONYMOUS, $player, $event->getTags(), $event->getTime());
     }
 
     private function removePlayerSpores(Player $player): void

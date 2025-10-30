@@ -955,7 +955,7 @@
       </segment>
       <segment id="ninja.description" state="translated">
         <source>ninja.description</source>
-        <target>Thanks to your overcharged myelin, your speed of movement is incredible.//:point: Your **hand-to-hand** attacks are now **anonymous** actions.</target>
+        <target>Thanks to your overcharged myelin, your speed of movement is incredible.//:point: Unlock the action "Becoming a ninja".//:point: When you are a ninja, your **Public** actions are anonymous. Your **Secret** and **Covert** actions are going to reveal your true identity, on the other hand...</target>
       </segment>
     </unit>
     <unit id="neron_depression">

@@ -1813,5 +1813,25 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action ne peut être utilisée qu'une seule fois. Êtes-vous sûr de vouloir continuer ?</target>
       </segment>
     </unit>
+    <unit id="become_anonymous">
+      <segment id="name" state="initial">
+        <source>become_anonymous.name</source>
+        <target>Devenir un ninja</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>become_anonymous.description</source>
+        <target>Se mouvoir si vite que l'œil humain n'arrive plus à suivre.//Vos actions **Publiques** sont anonymes.</target>
+      </segment>
+    </unit>
+      <unit id="become_anonymous_reverse">
+      <segment id="name" state="initial">
+        <source>become_anonymous_reverse.name</source>
+        <target>Redevenir banal</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>become_anonymous_reverse.description</source>
+        <target>Parfois, on est plus discret en étant soi-même.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

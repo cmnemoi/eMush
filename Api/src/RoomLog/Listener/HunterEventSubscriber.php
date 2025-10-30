@@ -46,7 +46,7 @@ final class HunterEventSubscriber implements EventSubscriberInterface
             $player,
             [
                 $hunter->getLogKey() => $hunter->getName(),
-                $player->getLogKey() => $player->getLogName(),
+                $player->getLogKey() => $player->getAnonymousKeyOrLogName(),
             ],
             $event->getTime()
         );

@@ -1781,5 +1781,25 @@ Or you simply need some fresh air.... or not.</target>
         <target>This action can only be performed once. Are you sure you want to continue?</target>
       </segment>
     </unit>
+    <unit id="become_anonymous">
+      <segment id="name" state="initial">
+        <source>become_anonymous.name</source>
+        <target>Become ninja</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>become_anonymous.description</source>
+        <target>Moving so fast that the human eye can't follow you.//Your **Public** actions are anonymous.</target>
+      </segment>
+    </unit>
+      <unit id="become_anonymous_reverse">
+      <segment id="name" state="initial">
+        <source>become_anonymous_reverse.name</source>
+        <target>Become mundane</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>become_anonymous_reverse.description</source>
+        <target>Sometimes, being yourself is the best way to not be seen.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

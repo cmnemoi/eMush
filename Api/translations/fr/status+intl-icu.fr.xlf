@@ -1631,5 +1631,15 @@
         <target>:point: Pompier : Tente d'éteindre les incendies dans la pièce avant de se déplacer. Deviens également ignifuge.</target>
       </segment>
     </unit>
+    <unit id="is_anonymous">
+      <segment id="name" state="translated">
+        <source>is_anonymous.name</source>
+        <target>Ninja</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>is_anonymous.description</source>
+        <target>Vos actions **Publiques** sont anonymes. Vos actions **Discrètes** et **Furtives** révéleront votre identité par contre...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -78,7 +78,7 @@ final class PlayerSubscriber implements EventSubscriberInterface
             'actions_log',
             $player,
             [
-                $player->getLogKey() => $player->getLogName(),
+                $player->getLogKey() => $player->getAnonymousKeyOrLogName(),
                 $placeForTranslation->getLogKey() => $placeForTranslation->getLogName(),
                 $prepositionKey => $translatedPreposition,
             ],

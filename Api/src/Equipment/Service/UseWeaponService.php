@@ -16,7 +16,6 @@ use Mush\Equipment\Repository\WeaponEffectConfigRepositoryInterface;
 use Mush\Equipment\Repository\WeaponEventConfigRepositoryInterface;
 use Mush\Equipment\ValueObject\DamageSpread;
 use Mush\Game\Entity\Collection\ProbaCollection;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
 use Mush\Game\Service\Random\ProbaCollectionRandomElementServiceInterface as ProbaCollectionRandomElementInterface;
@@ -196,7 +195,7 @@ final readonly class UseWeaponService
         $target = $result->getTargetAsPlayer();
 
         $parameters = [
-            $attacker->getLogKey() => $attacker->shouldBeAnonymous($tags) ? CharacterEnum::SOMEONE : $attacker->getLogName(),
+            $attacker->getLogKey() => $attacker->getAnonymousKeyOrLogName(),
         ];
         if ($target !== null) {
             $parameters['target_' . $target->getLogKey()] = $target->getLogName();

@@ -104,9 +104,7 @@ enum ActionEnum: string
     case BYPASS_TERMINAL = 'bypass_terminal';
     case CONTACT_SOL = 'contact_sol';
     case INSTALL_CAMERA = 'install_camera';
-    case INSTALL_CAMERA_NIMBLE_FINGERS = 'install_camera_nimble_fingers';
     case REMOVE_CAMERA = 'remove_camera';
-    case REMOVE_CAMERA_NIMBLE_FINGERS = 'remove_camera_nimble_fingers';
     case CHECK_SPORE_LEVEL = 'check_spore_level';
     case REMOVE_SPORE = 'remove_spore';
     case TAKEOFF = 'takeoff';
@@ -173,6 +171,10 @@ enum ActionEnum: string
     case SLIME_TRAP = 'slime_trap';
     case GIVE_NIGHTMARE = 'give_nightmare';
     case ADAPT_EPIGENETICS = 'adapt_epigenetics';
+    case BECOME_ANONYMOUS = 'become_anonymous';
+    case BECOME_ANONYMOUS_REVERSE = 'become_anonymous_reverse';
+    case INSTALL_CAMERA_NIMBLE_FINGERS = 'install_camera_nimble_fingers';
+    case REMOVE_CAMERA_NIMBLE_FINGERS = 'remove_camera_nimble_fingers';
 
     // Terminal related actions
     case EXIT_TERMINAL = 'exit_terminal';
@@ -298,6 +300,15 @@ enum ActionEnum: string
             self::HIT->value,
             self::ATTACK->value,
             self::SHOOT->value,
+        ];
+    }
+
+    public static function getDoesNotForceAGetUpActions(): array
+    {
+        return [
+            self::GET_UP->value,
+            self::BECOME_ANONYMOUS->value,
+            self::BECOME_ANONYMOUS_REVERSE->value,
         ];
     }
 

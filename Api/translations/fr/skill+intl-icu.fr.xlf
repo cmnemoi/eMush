@@ -962,7 +962,7 @@
       </segment>
       <segment id="ninja.description" state="translated">
         <source>ninja.description</source>
-        <target>Grâce à votre myéline survoltée, votre vitesse de déplacement est incroyable.//:point: Vos attaques de **corps-à-corps** deviennent des actions **anonymes**.</target>
+        <target>Grâce à votre myéline survoltée, votre vitesse de déplacement est incroyable.//:point: Débloque l'action "Devenir un ninja".//:point: Quand vous agissez comme un ninja, vos actions **Publiques** sont anonymes. Vos actions **Discrètes** et **Furtives** révéleront votre identité par contre...</target>
       </segment>
     </unit>
     <unit id="neron_depression">

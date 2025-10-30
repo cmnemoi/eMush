@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Enum\GameFruitEnum;
+use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -407,15 +408,12 @@ final class PlantCycleHandlerTest extends TestCase
         $this->plantCycleHandler->handleNewDay($gamePlant, new \DateTime());
     }
 
-    public function testShouldCreateJumpkinFruitIfHalloweenEvent(): void
+    public function testShouldCreateJumpkinFruitFromBananaTreeIfHalloweenEvent(): void
     {
-        $place = new Place();
-        $place
-            ->setDaedalus($this->daedalus)
-            ->setName(RoomEnum::LABORATORY);
+        $place = Place::createRoomByNameInDaedalus(name: RoomEnum::LABORATORY, daedalus: $this->daedalus);
 
-        // given I have a plant
-        $gamePlant = $this->createPlant($place);
+        // given I have a banana tree
+        $gamePlant = $this->createPlant($place, name: GamePlantEnum::BANANA_TREE);
 
         // given the daedalus is in a halloween event
         $this->daedalus->getDaedalusConfig()->setHoliday(HolidayEnum::HALLOWEEN);
@@ -426,7 +424,7 @@ final class PlantCycleHandlerTest extends TestCase
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
         // given universe state allows jumpkin fruit creation
-        $this->randomService->shouldReceive('rollTwiceAndAverage')->with(1, 100)->andReturn(100);
+        $this->randomService->shouldReceive('isDoubleRollSuccessful')->with(5)->andReturn(true);
 
         // Then I expect 2 fruits to be created : 1 normal and 1 jumpkin
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
@@ -438,7 +436,46 @@ final class PlantCycleHandlerTest extends TestCase
         $this->plantCycleHandler->handleNewDay($gamePlant, new \DateTime());
     }
 
-    private function createPlant(EquipmentHolderInterface $holder): GameItem
+    /**
+     * @dataProvider provideShouldCreateJumpkinFruitFromAlienPlantIfHalloweenEventCases
+     */
+    public function testShouldCreateJumpkinFruitFromAlienPlantIfHalloweenEvent(string $plantName): void
+    {
+        $place = Place::createRoomByNameInDaedalus(name: RoomEnum::LABORATORY, daedalus: $this->daedalus);
+
+        // given I have an alien plant
+        $gamePlant = $this->createPlant($place, name: $plantName);
+
+        // given the daedalus is in a halloween event
+        $this->daedalus->getDaedalusConfig()->setHoliday(HolidayEnum::HALLOWEEN);
+
+        // Setup universe state
+        $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($this->getPlantEffect());
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->statusService->shouldReceive('createStatusFromName')->once();
+
+        // given universe state allows jumpkin fruit creation
+        $this->randomService->shouldReceive('isDoubleRollSuccessful')->with(20)->andReturn(true);
+
+        // Then I expect 2 fruits to be created : 1 normal and 1 jumpkin
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->withArgs(
+            static fn ($fruitName) => $fruitName === GameFruitEnum::JUMPKIN
+        )->once();
+
+        // When a new day comes for the plant
+        $this->plantCycleHandler->handleNewDay($gamePlant, new \DateTime());
+    }
+
+    public static function provideShouldCreateJumpkinFruitFromAlienPlantIfHalloweenEventCases(): iterable
+    {
+        return array_map(
+            static fn (string $plantName) => ['plantName' => $plantName],
+            GamePlantEnum::getAlienPlants()
+        );
+    }
+
+    private function createPlant(EquipmentHolderInterface $holder, string $name = 'plant name'): GameItem
     {
         $newFruit = new ItemConfig();
         $newFruit->setEquipmentName('fruit name');
@@ -456,7 +493,7 @@ final class PlantCycleHandlerTest extends TestCase
 
         $gamePlant = new GameItem($holder);
         $gamePlant
-            ->setName('plant name')
+            ->setName($name)
             ->setEquipment($plant);
 
         return $gamePlant;

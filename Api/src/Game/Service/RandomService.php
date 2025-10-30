@@ -73,7 +73,7 @@ class RandomService implements RandomServiceInterface
         return $this->randomPercent() <= $successRate;
     }
 
-    public function isActionSuccessful(int $successRate): bool
+    public function isDoubleRollSuccessful(int $successRate): bool
     {
         return $this->rollTwiceAndAverage(1, 100) <= $successRate;
     }

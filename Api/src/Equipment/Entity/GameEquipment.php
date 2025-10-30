@@ -26,6 +26,7 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
+use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Service\TranslationServiceInterface as Translate;
@@ -648,6 +649,11 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
     public function isAnAlienFruit(): bool
     {
         return GameFruitEnum::getAlienFruits()->contains($this->getName());
+    }
+
+    public function isAlienPlant(): bool
+    {
+        return \in_array($this->getName(), GamePlantEnum::getAlienPlants(), true);
     }
 
     public function isABanana(): bool

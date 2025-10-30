@@ -31,7 +31,8 @@ use Mush\Status\Service\StatusServiceInterface;
 
 final class PlantCycleHandler extends AbstractCycleHandler
 {
-    private const HALLOWEEN_JUMPKIN_SPAWN_RATE = 20;
+    private const HALLOWEEN_JUMPKIN_SPAWN_RATE_FOR_BANANA_TREE = 5;
+    private const HALLOWEEN_JUMPKIN_SPAWN_RATE_FOR_ALIEN_PLANT = 20;
 
     protected string $name = EquipmentMechanicEnum::PLANT;
 
@@ -250,7 +251,9 @@ final class PlantCycleHandler extends AbstractCycleHandler
             return new ArrayCollection();
         }
 
-        if (!$this->isBiasedRollSuccessful(successRate: self::HALLOWEEN_JUMPKIN_SPAWN_RATE)) {
+        $successRate = $gamePlant->isAlienPlant() ? self::HALLOWEEN_JUMPKIN_SPAWN_RATE_FOR_ALIEN_PLANT : self::HALLOWEEN_JUMPKIN_SPAWN_RATE_FOR_BANANA_TREE;
+
+        if (!$this->randomService->isDoubleRollSuccessful($successRate)) {
             return new ArrayCollection();
         }
 
@@ -260,10 +263,5 @@ final class PlantCycleHandler extends AbstractCycleHandler
     private function isHalloweenEvent(GameEquipment $gamePlant): bool
     {
         return $gamePlant->getDaedalus()->getDaedalusConfig()->getHoliday() === HolidayEnum::HALLOWEEN;
-    }
-
-    private function isBiasedRollSuccessful(int $successRate): bool
-    {
-        return $this->randomService->rollTwiceAndAverage(1, 100) >= $successRate;
     }
 }

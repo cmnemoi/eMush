@@ -19,6 +19,7 @@
 	},
 	"footer": {
 		"alphaVersion": "Version Alpha",
+		"betaVersion": "Version Bêta",
 		"crowdin": "Vous pouvez nous aider à traduire le jeu sur ",
 		"developers": "Développement",
 		"coreTeam": "L'équipe d'eMush :",

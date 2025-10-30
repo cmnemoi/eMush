@@ -1,8 +1,8 @@
 <template>
     <div class="banner">
         <div class="logo">
-            <router-link v-if="loggedIn" :to="{ name: 'GamePage' }" @click="reloadData"><img :src="getImgUrl('logo_new.png')" alt="eMush logo"></router-link>
-            <router-link v-else :to="{ name: 'HomePage' }"><img :src="getImgUrl('logo_new.png')" alt="eMush logo"></router-link>
+            <router-link v-if="loggedIn" :to="{ name: 'GamePage' }" @click="reloadData"><img :src="getImgUrl('logo_beta.png')" alt="eMush logo"></router-link>
+            <router-link v-else :to="{ name: 'HomePage' }"><img :src="getImgUrl('logo_beta.png')" alt="eMush logo"></router-link>
         </div>
         <div class="mainmenu">
             <router-link v-if="loggedIn"  :to="{ name: 'GamePage' }">Daedalus</router-link>
@@ -117,6 +117,9 @@ export default defineComponent ({
 .logo {
     height: 100%;
     margin: -0.05em 5em 0.1em 5em;
+    img {
+         width: 300px;
+    }
 }
 
 </style>

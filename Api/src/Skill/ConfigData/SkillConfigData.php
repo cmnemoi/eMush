@@ -401,7 +401,7 @@ abstract class SkillConfigData
             new SkillConfigDto(
                 name: SkillEnum::SABOTEUR,
                 modifierConfigs: [
-                    ModifierNameEnum::PLAYER_DOUBLE_PERCENTAGE_ON_SABOTAGE,
+                    ModifierNameEnum::PLAYER_TRIPLE_PERCENTAGE_ON_SABOTAGE,
                 ],
             ),
             new SkillConfigDto(

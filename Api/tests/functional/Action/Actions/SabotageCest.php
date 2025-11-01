@@ -76,7 +76,7 @@ final class SabotageCest extends AbstractFunctionalTest
         $I->assertEquals(ActionImpossibleCauseEnum::NOT_A_ROOM, $this->sabotageAction->cannotExecuteReason());
     }
 
-    public function saboteurShouldHaveDoubledSuccessRate(FunctionalTester $I): void
+    public function saboteurShouldHaveTripledSuccessRate(FunctionalTester $I): void
     {
         $this->givenPlayerHasSaboteurSkill($I);
 
@@ -84,7 +84,7 @@ final class SabotageCest extends AbstractFunctionalTest
 
         $this->whenPlayerTriesToSabotagePasiphae();
 
-        $this->thenActionSuccessRateShouldBe(24, $I);
+        $this->thenActionSuccessRateShouldBe(36, $I);
     }
 
     public function shouldNotBeExecutableOnReinforcedEquipment(FunctionalTester $I): void

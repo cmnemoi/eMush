@@ -3207,7 +3207,7 @@ abstract class ModifierConfigData
             'eventActivationRequirements' => [],
         ],
         [
-            'name' => ModifierNameEnum::PLAYER_DOUBLE_PERCENTAGE_ON_SABOTAGE,
+            'name' => ModifierNameEnum::PLAYER_TRIPLE_PERCENTAGE_ON_SABOTAGE,
             'modifierName' => ModifierNameEnum::SABOTEUR_MODIFIER,
             'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
@@ -3215,7 +3215,7 @@ abstract class ModifierConfigData
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
-            'delta' => 2,
+            'delta' => 3,
             'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
             'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
             'modifierActivationRequirements' => [],

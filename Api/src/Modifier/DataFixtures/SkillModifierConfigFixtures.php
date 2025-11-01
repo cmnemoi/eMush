@@ -229,7 +229,7 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $manager->persist($mycologistModifier);
 
         $saboteurModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_DOUBLE_PERCENTAGE_ON_SABOTAGE)
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_TRIPLE_PERCENTAGE_ON_SABOTAGE)
         );
         $this->addReference($saboteurModifier->getName(), $saboteurModifier);
         $manager->persist($saboteurModifier);

@@ -71,6 +71,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
 
         $statuses = $this->normalizeStatuses(
             $room,
+            $currentPlayer,
             $format,
             $context
         );
@@ -130,13 +131,16 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         return $players;
     }
 
-    private function normalizeStatuses(Place $room, ?string $format, array $context): array
+    private function normalizeStatuses(Place $room, Player $currentPlayer, ?string $format, array $context): array
     {
         $statuses = [];
 
         /** @var Status $status */
         foreach ($room->getStatuses() as $status) {
             if ($status->getVisibility() === VisibilityEnum::PUBLIC) {
+                $statuses[] = $this->normalizer->normalize($status, $format, $context);
+            }
+            if ($status->getVisibility() === VisibilityEnum::MUSH && $currentPlayer->isMush()) {
                 $statuses[] = $this->normalizer->normalize($status, $format, $context);
             }
         }

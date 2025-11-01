@@ -857,7 +857,7 @@ abstract class StatusConfigData
         [
             'name' => 'mush_default',
             'statusName' => 'mush',
-            'visibility' => 'mush',
+            'visibility' => VisibilityEnum::MUSH,
             'type' => 'charge_status_config',
             'chargeVisibility' => 'hidden',
             'chargeStrategy' => ChargeStrategyTypeEnum::DAILY_DECREMENT_RESET,
@@ -879,9 +879,9 @@ abstract class StatusConfigData
         [
             'name' => 'contaminated_default',
             'statusName' => 'contaminated',
-            'visibility' => 'mush',
+            'visibility' => VisibilityEnum::MUSH,
             'type' => 'charge_status_config',
-            'chargeVisibility' => 'mush',
+            'chargeVisibility' => VisibilityEnum::MUSH,
             'chargeStrategy' => 'none',
             'maxCharge' => null,
             'startCharge' => 1,

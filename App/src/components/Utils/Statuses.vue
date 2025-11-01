@@ -17,6 +17,7 @@
 <script lang="ts">
 import { statusPlayerEnum } from "@/enums/status.player.enum";
 import { statusItemEnum } from "@/enums/status.item.enum";
+import { statusRoomEnum } from "@/enums/status.room.enum";
 import { defineComponent } from "vue";
 import { Status } from "@/entities/Status";
 import { getImgUrl } from "@/utils/getImgUrl";
@@ -50,7 +51,7 @@ export default defineComponent ({
                 case "equipment":
                     return statusItemEnum[status.key]?.icon || null;
                 case "room":
-                    return getImgUrl('alerts/fire.png');
+                    return statusRoomEnum[status.key]?.icon || null;
                 default:
                     return null;
                 }

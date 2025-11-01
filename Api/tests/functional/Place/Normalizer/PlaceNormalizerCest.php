@@ -16,6 +16,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Normalizer\PlaceNormalizer;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -150,6 +151,26 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(EquipmentEnum::SWEDISH_SOFA, $placeNormalizedItems[1]['key']);
     }
 
+    public function shouldNormalizeNoMushTrapForHuman(FunctionalTester $I): void
+    {
+        $this->givenPlaceIsTrapped();
+
+        $this->whenPlaceIsNormalized();
+
+        $this->thenNormalizedPlaceDoesNotHaveVisibleTrappedStatus($I);
+    }
+
+    public function shouldNormalizeVisibleMushTrapForMush(FunctionalTester $I): void
+    {
+        $this->givenPlaceIsTrapped();
+
+        $this->convertPlayerToMush($I, $this->player);
+
+        $this->whenPlaceIsNormalized();
+
+        $this->thenNormalizedPlaceHasVisibleTrappedStatus($I);
+    }
+
     private function givenPlaceHasPostIt(): void
     {
         $this->postIt = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -170,6 +191,16 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenPlaceIsTrapped(): void
+    {
+        $this->statusService->createStatusFromName(
+            PlaceStatusEnum::MUSH_TRAPPED->value,
+            $this->player->getPlace(),
+            [],
+            new \DateTime()
+        );
+    }
+
     private function whenPlaceIsNormalized(): void
     {
         $this->normalizedPlace = $this->placeNormalizer->normalize(
@@ -184,6 +215,18 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
         $placeNormalizedItems = $this->normalizedPlace['items'];
         $I->assertEquals(ItemEnum::POST_IT, $placeNormalizedItems[0]['key']);
         $I->assertEquals(GameDrugEnum::BACTA, $placeNormalizedItems[1]['key']);
+    }
+
+    private function thenNormalizedPlaceDoesNotHaveVisibleTrappedStatus(FunctionalTester $I): void
+    {
+        $placeNormalizedStatus = $this->normalizedPlace['statuses'];
+        $I->assertEmpty($placeNormalizedStatus);
+    }
+
+    private function thenNormalizedPlaceHasVisibleTrappedStatus(FunctionalTester $I): void
+    {
+        $placeNormalizedStatus = $this->normalizedPlace['statuses'];
+        $I->assertEquals(PlaceStatusEnum::MUSH_TRAPPED->value, $placeNormalizedStatus[0]['key']);
     }
 
     private function givenPlayerTakesPostIt(): void

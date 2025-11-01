@@ -1567,6 +1567,18 @@
         <target>Cette pièce est en flammes !</target>
       </segment>
     </unit>
+    <unit id="mush_trapped.name">
+      <segment state="translated">
+        <source>mush_trapped.name</source>
+        <target>Salle piégée!</target>
+      </segment>
+    </unit>
+    <unit id="mush_trapped.description">
+      <segment state="translated">
+        <source>mush_trapped.description</source>
+        <target>Le prochain humain qui interagira avec la salle, un équipement, ou l'étagère se prendra un spore. **Attention à ne pas activer le piège vous même...**</target>
+      </segment>
+    </unit>
     <unit id="genius_idea">
       <segment id="name" state="translated">
         <source>genius_idea.name</source>

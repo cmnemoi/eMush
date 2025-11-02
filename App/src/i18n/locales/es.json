@@ -1,8 +1,8 @@
 {
 	"title": {
-		"endOfAdventure": "eMush - ¡Fin de la aventura!",
-		"headline": "eMush - Juego multijugador cooperativo: ¡Traiciones y supervivencia en el espacio!",
-		"youAreDead": "eMush - ¡Estás muerto!"
+		"endOfAdventure": "eMush - ¡Fin de la aventura! | ({count}) eMush - ¡Fin de la aventura! | ({count}) eMush - ¡Fin de la aventura!",
+		"headline": "eMush - Juego multijugador cooperativo: ¡Traiciones y supervivencia en el espacio! | ({count}) eMush - Juego multijugador cooperativo: ¡Traiciones y supervivencia en el espacio! | ({count}) eMush - Juego multijugador cooperativo: ¡Traiciones y supervivencia en el espacio!",
+		"youAreDead": "eMush - ¡Estás muerto! | ({count}) eMush - ¡Estás muerto! | ({count}) eMush - ¡Estás muerto!"
 	},
 	"alpha": {
 		"homepage": "<em>eMush</em> no está abierto al público en este momento ya que el juego no está completamente terminado y está... ¡¡¡Lleno de <em class='red'>Mush</em><em>!!!</em><br><br>Si estás interesado en el juego, no dudes en unirte a nuestro <a href='https://discord.gg/ERc3svy'>Discord</a> y a los <a href='https://eternal-twin.net/forum'>foros de Eternaltwin</a>. Toda la información está disponible en <a href='https://eternal-twin.net'>Eternaltwin</a>.<br><br>Acerca del alpha de eMush, las naves privadas se lanzan regularmente con la ayuda de voluntarios en <a href='https://discord.gg/ERc3svy'>Discord</a>. Para ser parte de una nave alpha, tendrás que registrarte en <a href='https://eternal-twin.net'>Eternaltwin</a> y unirte a la lista de voluntarios de <a href='https://discord.gg/ERc3svy'>Discord</a>.<br><br><em>Si no estás preseleccionado para una nave alpha, ¡no te preocupes!</em> La lista de selección rota en cada nave para ofrecerle a todos una oportunidad.",
@@ -766,9 +766,9 @@
 		"banAllUsers": {
 			"title": "Bannir plusieurs utilisateurs",
 			"description": "Vous pouvez bannir plusieurs utilisateurs en une seule fois en copiant leurs identifiants dans la zone de texte ci-dessous.",
-			"uuidsLabel": "identifiants des utilisateurs",
+			"uuidsLabel": "Identifiants des utilisateurs",
 			"uuidsPlaceholder": "Coller les identifiants des utilisateurs (un par ligne ou séparés par des virgules)",
-			"uuidsHelp": "Copiez les identifiants des utilisateurs à bannir, un par ligne ou séparés par des virgules.",
+			"uuidsHelp": "Coller les identifiants des utilisateurs à bannir, un par ligne ou séparés par des virgules.",
 			"reasonLabel": "Motif",
 			"messageLabel": "Mensaje",
 			"messagePlaceholder": "Message explicatif pour les utilisateurs",
@@ -890,7 +890,7 @@
 			"sanction": "Detalles de la sanción",
 			"report": "Detalles",
 			"user": "Nombre de usuario",
-			"player": "Personaje jugado",
+			"player": "Personaje jugado :",
 			"endDate": "Fin de la sanción",
 			"startDate": "Inicio de la sanción",
 			"reportDate": "Fecha de la denuncia",

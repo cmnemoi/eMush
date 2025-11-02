@@ -1767,6 +1767,16 @@ Or you simply need some fresh air.... or not.</target>
         <target>Allows you to check who is onboard.</target>
       </segment>
     </unit>
+    <unit id="whisper">
+      <segment id="name" state="translated">
+        <source>whisper.name</source>
+        <target>Whisper</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>whisper.description</source>
+        <target>Start a private converation with a teammate.</target>
+      </segment>
+    </unit>
     <unit id="adapt_epigenetics">
       <segment id="name" state="translated">
         <source>adapt_epigenetics.name</source>
@@ -1782,21 +1792,21 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
     </unit>
     <unit id="become_anonymous">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>become_anonymous.name</source>
-        <target>Become ninja</target>
+        <target>Become a ninja</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>become_anonymous.description</source>
         <target>Moving so fast that the human eye can't follow you.//Your **Public** actions are anonymous.</target>
       </segment>
     </unit>
-      <unit id="become_anonymous_reverse">
-      <segment id="name" state="initial">
+    <unit id="become_anonymous_reverse">
+      <segment id="name" state="translated">
         <source>become_anonymous_reverse.name</source>
         <target>Become mundane</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>become_anonymous_reverse.description</source>
         <target>Sometimes, being yourself is the best way to not be seen.</target>
       </segment>

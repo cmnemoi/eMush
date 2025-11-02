@@ -1559,6 +1559,18 @@
         <target>fire.description</target>
       </segment>
     </unit>
+    <unit id="mush_trapped.name">
+      <segment state="initial">
+        <source>mush_trapped.name</source>
+        <target>mush_trapped.name</target>
+      </segment>
+    </unit>
+    <unit id="mush_trapped.description">
+      <segment state="initial">
+        <source>mush_trapped.description</source>
+        <target>mush_trapped.description</target>
+      </segment>
+    </unit>
     <unit id="genius_idea">
       <segment id="name" state="initial">
         <source>genius_idea.name</source>
@@ -1621,6 +1633,16 @@
       <segment id="description" state="initial">
         <source>firefighter_drone_upgrade.description</source>
         <target>firefighter_drone_upgrade.description</target>
+      </segment>
+    </unit>
+    <unit id="is_anonymous">
+      <segment id="name" state="initial">
+        <source>is_anonymous.name</source>
+        <target>is_anonymous.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>is_anonymous.description</source>
+        <target>is_anonymous.description</target>
       </segment>
     </unit>
   </file>

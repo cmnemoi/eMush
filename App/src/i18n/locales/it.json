@@ -19,6 +19,7 @@
 	},
 	"footer": {
 		"alphaVersion": "Version Alpha",
+		"betaVersion": "Version Bêta",
 		"crowdin": "Vous pouvez nous aider à traduire le jeu sur ",
 		"developers": "Développement",
 		"coreTeam": "L'équipe d'eMush :",
@@ -109,7 +110,10 @@
 			"daedalus_destroyed": "Daedalus détruit",
 			"killed_by_neron": "Équipage contaminé assassiné par NERON",
 			"super_nova": "Super Nova"
-		}
+		},
+		"category": "Catégorie",
+		"timeSurvived": "Jours survécus",
+		"mushTriumph": "Cycles survécus"
 	},
 	"theEnd": {
 		"headliner": "Tête d'affiche :",
@@ -143,6 +147,7 @@
 			"injury": "Blessé à mort !",
 			"burnt": "Calciné par un incendie inopportun !",
 			"clumsiness": "Tellement mal en point qu'un rien vous a achevé...",
+			"clumsiness_cat": "Achevé par un matou mal léché",
 			"space_battle": "Mort dans l'explosion de votre vaisseau suite à des tirs ennemis!",
 			"space_asphyxiated": "Mort abandonné dans l'espace intersidéral !",
 			"beheaded": "Décapité par un fâcheux !",
@@ -165,6 +170,14 @@
 	},
 	"userBanner": {
 		"userShips": "Fiche"
+	},
+	"achievements": {
+		"title": "Statistiques",
+		"points": "{points} points",
+		"tabs": {
+			"statistics": "Statistiques",
+			"gains": "Gains ({count})"
+		}
 	},
 	"userProfile": {
 		"shipHistory": {
@@ -747,7 +760,24 @@
 	"moderation": {
 		"banner": {
 			"players": "Joueurs",
-			"users": "Utilisateurs"
+			"users": "Utilisateurs",
+			"banAllUsers": "Bannir plusieurs utilisateurs"
+		},
+		"banAllUsers": {
+			"title": "Bannir plusieurs utilisateurs",
+			"description": "Vous pouvez bannir plusieurs utilisateurs en une seule fois en copiant leurs identifiants dans la zone de texte ci-dessous.",
+			"uuidsLabel": "identifiants des utilisateurs",
+			"uuidsPlaceholder": "Coller les identifiants des utilisateurs (un par ligne ou séparés par des virgules)",
+			"uuidsHelp": "Copiez les identifiants des utilisateurs à bannir, un par ligne ou séparés par des virgules.",
+			"reasonLabel": "Motif",
+			"messageLabel": "Message",
+			"messagePlaceholder": "Message explicatif pour les utilisateurs",
+			"durationLabel": "Durée (en jours)",
+			"submit": "Bannir les utilisateurs",
+			"submitting": "Bannissement en cours...",
+			"success": "{count} utilisateur(s) banni(s) avec succès",
+			"error": "Erreur lors du bannissement des utilisateurs",
+			"noUuidsError": "Aucun identifiant valide trouvé"
 		},
 		"filters": {
 			"cycle": "Cycle",
@@ -796,7 +826,8 @@
 		},
 		"userList": {
 			"userId": "Identifiant de l'utilisateur",
-			"roles": "Rôles"
+			"roles": "Rôles",
+			"createdAt": "Date de création"
 		},
 		"sanction": {
 			"id": "Numéro",
@@ -936,7 +967,8 @@
 		"suspendSanction": "Suspendre la sanction",
 		"suspendSanctionDescription": "Suspendre la sanction. La date de fin est définie à la date courante. La sanction reste dans l'historique de l'utilisateur",
 		"removeSanction": "Supprimer la sanction",
-		"removeSanctionDescription": "Supprimer la sanction. La sanction est complétement supprimée de l'historique de l'utilisateur"
+		"removeSanctionDescription": "Supprimer la sanction. La sanction est complétement supprimée de l'historique de l'utilisateur",
+		"byIp": "Bannir par IPs"
 	},
 	"rules": {
 		"title": "Règlement de eMush",
@@ -1019,8 +1051,8 @@
 				"name": "Paramètres",
 				"subscribeToNotifications": "S'abonner aux notifications",
 				"notifications": "Notifications",
-				"hideMushActions": "Masquer les actions Mush",
-				"showMushActions": "Afficher les actions Mush"
+				"actionTabs": "Séparer les actions Mush et humaines",
+				"doubleTap": "Double clic pour les actions"
 			}
 		},
 		"topBar": {
@@ -1058,5 +1090,20 @@
 			"unsubscribeError": "Une erreur s'est produite lors de la désabonnement des notifications."
 		},
 		"newVersion": "Une nouvelle version du jeu est disponible, veuillez vider votre cache."
-	}
+	},
+	"actionTabs": {
+		"human": {
+			"name": "Actions humaines",
+			"description": "Affichez vos actions humaines."
+		},
+		"mush": {
+			"name": "Actions Mush",
+			"description": "Affichez vos actions Mush."
+		},
+		"admin": {
+			"name": "Actions admin",
+			"description": "Affichez vos actions admin."
+		}
+	},
+	"ranking-humantriumph": "Triomphe humain"
 }

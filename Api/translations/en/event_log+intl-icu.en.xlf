@@ -165,7 +165,7 @@
         <target>:broken_equipments: {equipment_first_letter, select,
     vowel {An **{equipment}** has been broken!}
     consonant {A **{equipment}** has been broken!}
-    other {invalid equipment_first_letter input}
+    other {invalid equipment_first_letter input for {equipment}}
 }</target>
       </segment>
     </unit>
@@ -175,7 +175,7 @@
         <target>:broken_equipments: {equipment_first_letter, select,
     vowel {An **{equipment}** has been destroyed!}
     consonant {A **{equipment}** has been destroyed!}
-    other {invalid equipment_first_letter input}
+    other {invalid equipment_first_letter input for {equipment}}
 }</target>
       </segment>
     </unit>

@@ -831,7 +831,7 @@
     <unit id="ocd">
       <segment id="ocd.name" state="translated">
         <source>ocd.name</source>
-        <target>OCD</target>
+        <target>Meticulous</target>
       </segment>
       <segment id="ocd.description" state="translated">
         <source>ocd.description</source>

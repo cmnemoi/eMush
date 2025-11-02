@@ -605,6 +605,12 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
         <target>**{character}** ha ingresado al **{target_equipment}**.</target>
       </segment>
     </unit>
+    <unit id="bypass_terminal_success">
+      <segment id="name" state="translated">
+        <source>bypass_terminal_success</source>
+        <target>**{character}** ha ingresado al **{target_equipment}**.</target>
+      </segment>
+    </unit>
     <unit id="takeoff_success">
       <segment id="takeoff_success" state="translated">
         <source>takeoff_success</source>
@@ -1029,6 +1035,12 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
       <segment id="exchange_body_success" state="translated">
         <source>exchange_body_success</source>
         <target>***Solo para la moderación***: **{character}** se transfiere a **{target_character}**.</target>
+      </segment>
+    </unit>
+    <unit id="adapt_epigenetics_success">
+      <segment id="adapt_epigenetics_success" state="translated">
+        <source>adapt_epigenetics_success</source>
+        <target>¡Cambio de planes! Has reiniciado tus habilidades Mush.</target>
       </segment>
     </unit>
   </file>

@@ -286,7 +286,7 @@
     <unit id="psychopat">
       <segment id="psychopat.name" state="translated">
         <source>psychopat.name</source>
-        <target> Psi-Chao-Pata</target>
+        <target>Psi-Chao-Pata</target>
       </segment>
       <segment id="psychopat.log" state="translated">
         <source>psychopat.log</source>

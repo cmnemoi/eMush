@@ -4,13 +4,13 @@
     <unit id="xyloph_decoded_nothing">
       <segment id="xyloph_decoded_nothing" state="translated">
         <source>xyloph_decoded_nothing</source>
-        <target>Accès à la base de donnée de Xyloph autorisée. Rien à en tirer...La donnée a été corrompue par un virus rhizhomal.</target>
+        <target>Accès à la base de donnée de Xyloph autorisée. Rien à en tirer... La donnée a été corrompue par un virus rhizhomal.</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_magnetite">
       <segment id="xyloph_decoded_magnetite" state="translated">
         <source>xyloph_decoded_magnetite</source>
-        <target>Accès à la base de donnée de Xyloph autorisée. La liaison est de mauvaise qualité... Très mauvaise, sans doute le nuage de magnetite que vous traversez en ce moment.</target>
+        <target>Accès à la base de donnée de Xyloph autorisée. La liaison est de mauvaise qualité... Très mauvaise, sans doute le nuage de magnétite que vous traversez en ce moment.</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_snow">

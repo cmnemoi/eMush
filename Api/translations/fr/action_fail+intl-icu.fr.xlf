@@ -68,7 +68,7 @@
         <target>{character_gender, select,
             male {Vous ne pouvez pas agir car vous êtes enfermé dans une capsule spatiale.}
             female {Vous ne pouvez pas agir car vous êtes enfermée dans une capsule spatiale.}
-            other {invalid gender input}
+            other {invalid gender input for {character}}
             }</target>
       </segment>
     </unit>
@@ -121,13 +121,7 @@
     <unit id="dirty_restriction">
       <segment id="description" state="translated">
         <source>dirty_restriction.description</source>
-        <target>{character_gender, select,
-            male {Alerte, ne pas approcher ! Accès aux terminaux strictement interdit !
-            Note : « Muffle, comment osez vous !? *Revenez quand vous serez propre*.»}
-            female {Alerte, ne pas approcher ! Accès aux terminaux strictement interdit !
-            Note : « Muffle, comment osez vous !? *Revenez quand vous serez propre*.»}
-            other {invalid gender input}
-            }</target>
+        <target>Alerte, ne pas approcher ! Accès aux terminaux strictement interdit ! Note : « Mufle, comment osez-vous !? *Revenez quand vous serez propre*.»</target>
       </segment>
     </unit>
     <unit id="terminal_role_restricted">
@@ -202,7 +196,7 @@
         <target>{character_gender, select,
             male {Vous êtes déjà très lié à cette personne.}
             female {Vous êtes déjà très liée à cette personne.}
-            other {invalid gender input}
+            other {invalid gender input for {character}}
             }</target>
       </segment>
     </unit>
@@ -212,7 +206,7 @@
         <target>{character_gender, select,
             male {Vous n'êtes pas intéressé par ce genre d'interaction sociale...}
             female {Vous n'êtes pas intéressée par ce genre d'interaction sociale...}
-            other {invalid gender input}
+            other {invalid gender input for {character}}
             }</target>
       </segment>
     </unit>
@@ -382,7 +376,7 @@
         <target>{character_gender, select,
             male {Vous êtes rassasié.}
             female {Vous êtes rassasiée.}
-            other {invalid gender input}
+            other {invalid gender input for {character}}
             }</target>
       </segment>
     </unit>
@@ -524,7 +518,7 @@
         <target>{character_gender, select,
             male {Vous êtes déjà couché.}
             female {Vous êtes déjà couchée.}
-            other {invalid gender input}
+            other {invalid gender input for {character}}
             }</target>
       </segment>
     </unit>
@@ -546,7 +540,7 @@
         <target>{character_gender, select,
             male {Cette action nécessite que vous soyez allongé.}
             female {Cette action nécessite que vous soyez allongée.}
-            other {invalid gender input}
+            other {invalid gender input for {character}}
             }</target>
       </segment>
     </unit>
@@ -580,7 +574,7 @@
         <target>{character_gender, select,
             male {Impossible de prononcer le moindre mot tant que vous ne vous serez pas débarrassé de ce fichu bout de scotch.}
             female {Impossible de prononcer le moindre mot tant que vous ne vous serez pas débarrassée de ce fichu bout de scotch.}
-            other {invalid gender input}
+            other {invalid gender input for {character}}
             }</target>
       </segment>
     </unit>
@@ -611,7 +605,7 @@
     <unit id="update_talkie_require_tracker">
       <segment id="description" state="translated">
         <source>update_talkie_require_tracker.description</source>
-        <target>Pour une raison obscure, vous avez besoin de votre tracker pour mettre à jour votre talkie.</target>
+        <target>Pour une raison obscure, vous avez besoin de votre traqueur pour mettre à jour votre talkie.</target>
       </segment>
     </unit>
     <unit id="immunized_remove_spore">
@@ -620,7 +614,7 @@
         <target>{character_gender, select,
             male {Vous êtes immunisé contre le Mush, pourquoi vouloir vous faire du mal ?}
             female {Vous êtes immunisée contre le Mush, pourquoi vouloir vous faire du mal ?}
-            other {invalid gender input}
+            other {invalid gender input for {character}}
             }</target>
       </segment>
     </unit>
@@ -687,13 +681,13 @@
     <unit id="cycle_limit_every_2">
       <segment id="description" state="translated">
         <source>cycle_limit_every_2.description</source>
-        <target>Cette action ne peut être effectuée qu'une fois tout les deux cycles. Elle sera de nouveau disponible au prochain cycle impair.</target>
+        <target>Cette action ne peut être effectuée qu'une fois tous les deux cycles. Elle sera de nouveau disponible au prochain cycle impair.</target>
       </segment>
     </unit>
     <unit id="cycle_limit_every_4">
       <segment id="description" state="translated">
         <source>cycle_limit_every_4.description</source>
-        <target>Cette action ne peut être effectuée qu'une fois tout les quatre cycles. Elle sera de nouveau disponible dans quelques cycles.</target>
+        <target>Cette action ne peut être effectuée qu'une fois tous les quatre cycles. Elle sera de nouveau disponible dans quelques cycles.</target>
       </segment>
     </unit>
     <unit id="no_working_door">
@@ -735,7 +729,7 @@
     <unit id="player_is_germaphobic">
       <segment id="description" state="translated">
         <source>player_is_germaphobic.description</source>
-        <target>L'idée d'approcher encore plus ce nid à germes vous écoeure... Qui sait où ça a trainé?</target>
+        <target>L'idée d'approcher encore plus ce nid à germes vous écœure... Qui sait où ça a trainé ?</target>
       </segment>
     </unit>
     <unit id="eden_not_computed">
@@ -807,7 +801,7 @@
     <unit id="room_too_messy">
       <segment id="description" state="translated">
         <source>room_too_messy.description</source>
-        <target>Quel bazar là dedans! Impossible de trouver un bon angle pour jeter la balle.</target>
+        <target>Quel bazar là-dedans! Impossible de trouver un bon angle pour jeter la balle.</target>
       </segment>
     </unit>
     <unit id="room_too_small">
@@ -819,13 +813,13 @@
     <unit id="room_too_tight">
       <segment id="description" state="translated">
         <source>room_too_tight.description</source>
-        <target>Il n'y a pas assez de place pour manoeuvrer ici...</target>
+        <target>Il n'y a pas assez de place pour manœuvrer ici...</target>
       </segment>
     </unit>
     <unit id="room_too_sad">
       <segment id="description" state="translated">
         <source>room_too_sad.description</source>
-        <target>Presque, mais... Pavlov se sent esseulé. Peut être qu'une pièce qui lui rappelle son meilleur ami...</target>
+        <target>Presque, mais... Pavlov se sent esseulé. Peut-être qu'une pièce qui lui rappelle son meilleur ami...</target>
       </segment>
     </unit>
     <unit id="wants_walkies">

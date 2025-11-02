@@ -79,7 +79,7 @@ final class HunterNormalizerCest extends AbstractFunctionalTest
                         'moralPointCost' => 0,
                         'skillPointCosts' => [],
                         'successRate' => 30,
-                        'description' => 'Tire une charge de Telsatron sur un vaisseau ennemi.',
+                        'description' => 'Tire une charge de Teslatron sur un vaisseau ennemi.',
                         'canExecute' => true,
                         'confirmation' => null,
                         'isMushAction' => false,

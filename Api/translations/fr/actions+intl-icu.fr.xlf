@@ -213,7 +213,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>infect.description</source>
-        <target>Poinçonner une personne avec une spore permets de l'infecter. Pour cela, vous devez avoir des spores sur vous. Au bout de trois infections, le personnage aura achevé son voyage vers le Mush.</target>
+        <target>Poinçonner une personne avec une spore permet de l'infecter. Pour cela, vous devez avoir des spores sur vous. Au bout de trois infections, le personnage aura achevé son voyage vers le Mush.</target>
       </segment>
     </unit>
     <unit id="lie_down">
@@ -840,7 +840,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>shoot_hunter.description</source>
-        <target>Tire une charge de Telsatron sur un vaisseau ennemi.</target>
+        <target>Tire une charge de Teslatron sur un vaisseau ennemi.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_turret">
@@ -860,7 +860,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>shoot_random_hunter.description</source>
-        <target>Tire une charge de Telsatron sur un vaisseau ennemi.</target>
+        <target>Tire une charge de Teslatron sur un vaisseau ennemi.</target>
       </segment>
     </unit>
     <unit id="takeoff">
@@ -934,7 +934,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>collect_scrap.description</source>
-        <target>Tiens, il y a quelque chose qui traine dans le vide inter-sidéral. Heureusement, avec le Pasiphae, on peut le ramasser. Le Pasiphae, un vaisseau qu'il est bien à piloter.</target>
+        <target>Tiens, il y a quelque chose qui traine dans le vide intersidéral. Heureusement, avec le Pasiphae, on peut le ramasser. Le Pasiphae, un vaisseau qu'il est bien à piloter.</target>
       </segment>
     </unit>
     <unit id="renovate">
@@ -952,7 +952,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
     <unit id="auto_eject">
       <segment id="name" state="translated">
         <source>auto_eject.name</source>
-        <target>Auto-Ejection</target>
+        <target>Auto-éjection</target>
       </segment>
       <segment id="description" state="translated">
         <source>auto_eject.description</source>
@@ -1126,7 +1126,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>takeoff_to_planet_patrol_ship.description</source>
-        <target>Vous pouvez atterir sur une planète avec un patrouilleur... *À vos risques et périls...*</target>
+        <target>Vous pouvez atterrir sur une planète avec un patrouilleur... *À vos risques et périls...*</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>takeoff_to_planet_patrol_ship.confirmation</source>
@@ -1558,7 +1558,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>cure.description</source>
-        <target>Le vaccin anti-Mush injecte un retro-fongique puissant qui annule tout les effets du Mush sur un sujet infecté.</target>
+        <target>Le vaccin anti-Mush injecte un rétro-fongique puissant qui annule tous les effets du Mush sur un sujet infecté.</target>
       </segment>
     </unit>
     <unit id="daunt">
@@ -1780,21 +1780,21 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="check_roster">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>check_roster.name</source>
         <target>Lister l'équipage</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>check_roster.description</source>
         <target>Permet de vérifier qui se trouve à bord.</target>
       </segment>
     </unit>
     <unit id="whisper">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>whisper.name</source>
         <target>Chuchoter</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>whisper.description</source>
         <target>Initie une conversation privée avec cet équipier.</target>
       </segment>
@@ -1814,21 +1814,21 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="become_anonymous">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>become_anonymous.name</source>
         <target>Devenir un ninja</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>become_anonymous.description</source>
         <target>Se mouvoir si vite que l'œil humain n'arrive plus à suivre.//Vos actions **Publiques** sont anonymes.</target>
       </segment>
     </unit>
-      <unit id="become_anonymous_reverse">
-      <segment id="name" state="initial">
+    <unit id="become_anonymous_reverse">
+      <segment id="name" state="translated">
         <source>become_anonymous_reverse.name</source>
         <target>Redevenir banal</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>become_anonymous_reverse.description</source>
         <target>Parfois, on est plus discret en étant soi-même.</target>
       </segment>

@@ -2000,8 +2000,7 @@ Neutraliza la contaminación Mush encapsulando la espora en un quiste lejos del 
       <segment id="description" state="translated">
         <source>spore_sucker.description</source>
         <target>El Extractor de Esporas eliminará cualquier espora que pueda haber empezado a contaminarte.
-¡Atención! ¡Esta acción te costará 3 :hp:!
-</target>
+¡Atención! ¡Esta acción te costará 3 :hp:!</target>
       </segment>
       <segment id="examine" state="translated">
         <source>spore_sucker.examine</source>
@@ -2137,7 +2136,7 @@ Tienes la impresión de que esto te quiere hablar... ¿Estás seguro?</target>
 //
 :point: Revela las acciones **discretas** y **furtivas** realizadas en la sala donde está instalado.//  
 :point: **No** revela su propio sabotaje ni embarramiento.//  
-:point: **No** funciona en el inventario.//  </target>
+:point: **No** funciona en el inventario.//</target>
       </segment>
       <segment id="examine" state="translated">
         <source>camera.examine</source>
@@ -3061,8 +3060,7 @@ Sirve para colocar una planta en el jardín.</target>
       </segment>
       <segment id="description" state="translated">
         <source>tubiliscus.description</source>
-        <target>La última moda en el cultivo de árboles venusinos es cultivar tu propio Tubiliscus. Sus frutos tienen múltiples y variados usos.
-</target>
+        <target>La última moda en el cultivo de árboles venusinos es cultivar tu propio Tubiliscus. Sus frutos tienen múltiples y variados usos.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>tubiliscus.examine</source>

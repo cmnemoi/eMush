@@ -124,7 +124,7 @@
           other {them}
 } leaves nobody in any doubt of his intentions.}
     female {**{character}** seems interested in **{target_character}**, the fluttering of their eyelashes is a good indicator of their most intimate thoughts.}
-    other {invalid gender input}
+    other {invalid gender input for {character}}
 }</target>
       </segment>
     </unit>
@@ -519,7 +519,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>{character_gender, select,
     male {That's strange **{character}** takes out a powder case and daubs himself with white and black. He doesn't look good at all.}
     female {That's strange **{character}** takes out a compact and daubs herself with black and white. She doesn't look good at all.}
-    other {invalid gender input}
+    other {invalid gender input for {character}}
 }</target>
       </segment>
     </unit>
@@ -551,7 +551,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>{character_gender, select,
                     male {**{character}** ungagged himself.}
                     female {**{character}** ungagged herself.}
-                    other {invalid gender input}
+                    other {invalid gender input for {character}}
                     }</target>
       </segment>
     </unit>
@@ -573,7 +573,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>{character_gender, select,
                 male {**{character}** was obviously in a hurry, he opens a space-time portal and jumps in with both feet. We shouldn't see him again soon.}
                 female {**{character}** was obviously in a hurry, she opens a space-time portal and jumps in with both feet. We should not see her again soon.}
-                other {invalid character_gender input}
+                other {invalid gender input for {character}}
                 }</target>
       </segment>
     </unit>

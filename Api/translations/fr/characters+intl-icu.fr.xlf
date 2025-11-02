@@ -416,7 +416,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>gioele.tips</source>
-        <target>**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Scanner des planètes** à l'aide du Terminal Astro sur le Pont pour organiser des expéditions.//**Eliminez les Mushs découverts** avec votre compétence Robuste.</target>
+        <target>**Participer aux projets NERON** à l'aide du cœur de NERON au Nexus pour améliorer le vaisseau.//**Scanner des planètes** à l'aide du Terminal Astro sur le Pont pour organiser des expéditions.//**Éliminez les Mushs découverts** avec votre compétence Robuste.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>gioele.tutorial</source>
@@ -583,7 +583,7 @@
       </segment>
       <segment id="fullname" state="translated">
         <source>kuan_ti.fullname</source>
-        <target>Lai Kuan-Ti</target>
+        <target>Lai Kuan Ti</target>
       </segment>
       <segment id="initials" state="translated">
         <source>kuan_ti.initials</source>

@@ -28,7 +28,7 @@
       </segment>
       <segment id="cold_description" state="translated">
         <source>nothing_to_report.cold_description</source>
-        <target>A part le froid mordant qui gèle vos doigts de pieds, il n'y a pas grand chose d'intéressant dans cette zone… Brrrr…</target>
+        <target>A part le froid mordant qui gèle vos doigts de pieds, il n'y a pas grand-chose d'intéressant dans cette zone… Brrrr…</target>
       </segment>
       <segment id="swamp_description" state="translated">
         <source>nothing_to_report.swamp_description</source>
@@ -45,7 +45,7 @@
       <segment id="volcanic_activity_description" state="translated">
         <source>nothing_to_report.volcanic_activity_description</source>
         <target>{version, select,
-        1 {Un grand volcan trône au milieu de cette zone, à votre niveau de grands jets de vapeurs hantent le paysage. Une odeur de souffre brûle vos narines…}
+        1 {Un grand volcan trône au milieu de cette zone, à votre niveau de grands jets de vapeurs hantent le paysage. Une odeur de soufre brûle vos narines…}
         other {De très bucoliques rivières de lave traversent paisiblement la région.}}</target>
       </segment>
       <segment id="desert_description" state="translated">
@@ -177,7 +177,7 @@
       </segment>
       <segment id="insect_description" state="translated">
         <source>accident.insect_description</source>
-        <target>Un scolopendre géant se laisse tomber d'un arbre sur {character}. {character} parvient à le repousser mais la créature a entamé son repas…</target>
+        <target>Une scolopendre géante se laisse tomber d'un arbre sur {character}. {character} parvient à le repousser mais la créature a entamé son repas…</target>
       </segment>
       <segment id="cave_description" state="translated">
         <source>accident.cave_description</source>
@@ -545,7 +545,7 @@
     <unit id="again">
       <segment id="name" state="translated">
         <source>again.name</source>
-        <target>Érrance</target>
+        <target>Errance</target>
       </segment>
       <segment id="description" state="translated">
         <source>again.description</source>

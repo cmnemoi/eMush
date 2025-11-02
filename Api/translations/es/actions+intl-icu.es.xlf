@@ -515,9 +515,17 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
         <source>install_camera.name</source>
         <target>Instalar</target>
       </segment>
+      <segment id="mush.name" state="translated">
+        <source>mush.install_camera.name</source>
+        <target>Permite instalar un equipo para hacerlo útil.</target>
+      </segment>
       <segment id="description" state="translated">
         <source>install_camera.description</source>
-        <target>Permite instalar un equipo para hacerlo útil.</target>
+        <target>Esta acción te permite instalar un equipo para poder utilizarlo.</target>
+      </segment>
+      <segment id="mush.description" state="translated">
+        <source>mush.install_camera.description</source>
+        <target>Esta acción te permite instalar un equipo para poder utilizarlo.//No existe riesgo de ensuciarse.</target>
       </segment>
     </unit>
     <unit id="remove_camera">
@@ -525,9 +533,17 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
         <source>remove_camera.name</source>
         <target>Sacar</target>
       </segment>
+      <segment id="mush.name" state="translated">
+        <source>mush.remove_camera.name</source>
+        <target>Permite sacar un objeto para impedir que funcione o para desplazarlo.</target>
+      </segment>
       <segment id="description" state="translated">
         <source>remove_camera.description</source>
         <target>Permite sacar un objeto para impedir que funcione o para desplazarlo.</target>
+      </segment>
+      <segment id="mush.description" state="translated">
+        <source>mush.remove_camera.description</source>
+        <target>Permite sacar un objeto para impedir que funcione o para desplazarlo.//No existe riesgo de ensuciarse.</target>
       </segment>
     </unit>
     <unit id="examine">
@@ -852,6 +868,16 @@ Ya sea por una mutación genética incomprensible o por pura locura homicida, un
       <segment id="description" state="translated">
         <source>access_terminal.description</source>
         <target>Accede a los servicios disponibles de esta terminal.</target>
+      </segment>
+    </unit>
+    <unit id="bypass_terminal">
+      <segment id="name" state="translated">
+        <source>bypass_terminal.name</source>
+        <target>Acceder al terminal en secreto</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>bypass_terminal.description</source>
+        <target>Accede a los servicios de este terminal en secreto.</target>
       </segment>
     </unit>
     <unit id="land">
@@ -1741,6 +1767,50 @@ Todos tus camaradas serán *notificados* y el anuncio permanecerá en la pestañ
       <segment id="description" state="translated">
         <source>check_roster.description</source>
         <target>Te permite saber quién está a bordo.</target>
+      </segment>
+    </unit>
+    <unit id="whisper">
+      <segment id="name" state="translated">
+        <source>whisper.name</source>
+        <target>Cuchichear</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>whisper.description</source>
+        <target>Iniciar una conversación privada con este camarada.</target>
+      </segment>
+    </unit>
+    <unit id="adapt_epigenetics">
+      <segment id="name" state="translated">
+        <source>adapt_epigenetics.name</source>
+        <target>Adaptación forzada</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>adapt_epigenetics.description</source>
+        <target>Permite reiniciar tu selección de habilidades Mush (excepto Epigenética).</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>adapt_epigenetics.confirmation</source>
+        <target>Esta acción solo puede realizarse una vez. ¿Seguro que quieres continuar?</target>
+      </segment>
+    </unit>
+    <unit id="become_anonymous">
+      <segment id="name" state="translated">
+        <source>become_anonymous.name</source>
+        <target>Convertirte en un ninja</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>become_anonymous.description</source>
+        <target>Te mueves tan rápido que el ojo humano no puede seguirte.//Tus acciones Públicas se vuelven anónimas.</target>
+      </segment>
+    </unit>
+    <unit id="become_anonymous_reverse">
+      <segment id="name" state="translated">
+        <source>become_anonymous_reverse.name</source>
+        <target>Volverte común</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>become_anonymous_reverse.description</source>
+        <target>A veces, ser uno mismo es la mejor manera de no ser visto.</target>
       </segment>
     </unit>
   </file>

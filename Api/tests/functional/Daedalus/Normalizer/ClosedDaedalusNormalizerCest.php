@@ -57,7 +57,7 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
                     'value' => 5,
                 ],
                 [
-                    'name' => 'Spores générés',
+                    'name' => 'Spores générées',
                     'value' => 4,
                 ],
                 [

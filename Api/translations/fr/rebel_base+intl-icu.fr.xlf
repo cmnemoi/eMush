@@ -124,7 +124,7 @@
     <unit id="contacting">
       <segment id="description" state="translated">
         <source>contacting.description</source>
-        <target>Cette base rebelle a lancé un signal. En le décodant, vous obtiendrez des informations précieuses voir même des avantages pour l'équipage. Si vous tardez à le traiter, ce signal sera perdu à jamais.</target>
+        <target>Cette base rebelle a lancé un signal. En le décodant, vous obtiendrez des informations précieuses, voire des avantages pour l'équipage. Si vous tardez à le traiter, ce signal sera perdu à jamais.</target>
       </segment>
     </unit>
   </file>

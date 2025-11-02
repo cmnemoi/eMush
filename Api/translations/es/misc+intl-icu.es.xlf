@@ -131,5 +131,23 @@
         <target>Otorga {quantity} :triumph:</target>
       </segment>
     </unit>
+    <unit id="cryo_module">
+      <segment id="awake" state="translated">
+        <source>awake</source>
+        <target>{character_gender, select, male {Despierto} female {Despierta} other {Despierto}}</target>
+      </segment>
+      <segment id="cryogenized" state="translated">
+        <source>cryogenized</source>
+        <target>{character_gender, select, male {Criogenizado} female {Criogenizada} other {Criogenizado}}</target>
+      </segment>
+      <segment id="dead" state="translated">
+        <source>dead</source>
+        <target>{character_gender, select, male {Muerto} female {Muerta} other {Muerto}}</target>
+      </segment>
+      <segment id="inactive" state="translated">
+        <source>inactive</source>
+        <target>{character_gender, select, male {Inactivo} female {Inactiva} other {Inactivo}}</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

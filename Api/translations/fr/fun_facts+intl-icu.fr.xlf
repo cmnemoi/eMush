@@ -108,7 +108,7 @@
       </segment>
       <segment id="most_talkative.description" state="translated">
         <source>most_talkative.description</source>
-        <target>La petite voix qu'on entend de jour comme de nuit dans le talkie-walkie walkie. Adieu solitude !</target>
+        <target>La petite voix qu'on entend de jour comme de nuit dans le talkie-walkie. Adieu solitude !</target>
       </segment>
     </unit>
     <unit id="less_talkative">
@@ -258,7 +258,7 @@
       </segment>
       <segment id="drug_addict.description" state="translated">
         <source>drug_addict.description</source>
-        <target>Grand utilisateur de produit pas nets qui font voir des bambis hilares et des poulpes sacrés.</target>
+        <target>Grand utilisateur de produits pas nets qui font voir des bambis hilares et des poulpes sacrés.</target>
       </segment>
     </unit>
     <unit id="knife_evader">

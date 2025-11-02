@@ -90,7 +90,7 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
                         'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
         :point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//
         :point: Peut **Démonter** des objets.//
-        :point: Peut **Renforcer** des objets.//
+        :point: Peut **Blinder** des objets.//
         :point: Chances de réussites doublées pour les **Réparations**.//
         :point: Chances de réussites doublées pour les **Rénovations**.//
         :point: Bonus pour développer certains **Projets NERON** et **réparer PILGRED**.',

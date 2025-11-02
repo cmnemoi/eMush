@@ -343,6 +343,24 @@
         <target>Lo que sea que hiciste, lo hiciste muy mal. Terriblemente mal. Tan mal que acabaste lastimándote y no un poco. Qué pena.</target>
       </segment>
     </unit>
+    <unit id="clumsiness_cat">
+      <segment id="name" state="translated">
+        <source>clumsiness_cat.name</source>
+        <target>Muerto en circunstancias felinas</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>clumsiness_cat.short_name</source>
+        <target>Abatido por un felino muy enfadado</target>
+      </segment>
+      <segment id="category" state="translated">
+        <source>clumsiness_cat.category</source>
+        <target>¡Eres comida para gatos!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>clumsiness_cat.description</source>
+        <target>¿Nunca te enseñaron a dejar dormir a los gatos?</target>
+      </segment>
+    </unit>
     <unit id="space_battle">
       <segment id="name" state="translated">
         <source>space_battle.name</source>

@@ -314,7 +314,7 @@
       </segment>
       <segment id="eden_mush_invasion.log" state="translated">
         <source>eden_mush_invasion.log</source>
-        <target>Vous avez gagné {quantity} :triumph_mush: en invahissant Eden en tant que Mush !</target>
+        <target>Vous avez gagné {quantity} :triumph_mush: en envahissant Eden en tant que Mush !</target>
       </segment>
     </unit>
     <unit id="eden_mush_intruder">
@@ -460,7 +460,7 @@
       </segment>
       <segment id="looking_for_kivanc.personal_description" state="translated">
         <source>looking_for_kivanc.personal_description</source>
-        <target>Paola gagne {quantity} :triumph: lorsque le contact avec Kivanç est rétabli au Centre de Communuication.</target>
+        <target>Paola gagne {quantity} :triumph: lorsque le contact avec Kivanç est rétabli au Centre de Communication.</target>
       </segment>
     </unit>
     <unit id="star_map_1">
@@ -702,7 +702,7 @@
     <unit id="cm_all_mush_humanicide">
       <segment id="cm_all_mush_humanicide.name" state="translated">
         <source>cm_all_mush_humanicide.name</source>
-        <target>Humanicide</target>
+        <target>Humanocide</target>
       </segment>
       <segment id="cm_all_mush_humanicide.log" state="translated">
         <source>cm_all_mush_humanicide.log</source>
@@ -842,7 +842,7 @@
       </segment>
       <segment id="lover.log" state="translated">
         <source>lover.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en réuissant un flirt réciproque en tant que Derek !</target>
+        <target>Vous avez gagné {quantity} :triumph: en réussissant un flirt réciproque en tant que Derek !</target>
       </segment>
       <segment id="lover.personal_description" state="translated">
         <source>lover.personal_description</source>

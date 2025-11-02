@@ -1201,7 +1201,7 @@
         <source>zeta_waves.description</source>
         <target>Increases by 2 the maximum number of **private channels**.</target>
       </segment>
-      <segment id="zeta_waves.lore" state="initial">
+      <segment id="zeta_waves.lore" state="translated">
         <source>zeta_waves.lore</source>
         <target>Based on the work of Eridiani's physicists, we can invent new zeta wave transmitters to increase the amount of frequencies we can use for communication. Now we merely need a way to be able to follow five conversations at once.</target>
       </segment>

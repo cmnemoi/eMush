@@ -11,6 +11,16 @@
         <target>inactivity.description</target>
       </segment>
     </unit>
+    <unit id="achievement_unlocked">
+      <segment id="key" state="initial">
+        <source>achievement_unlocked.title</source>
+        <target>achievement_unlocked.title</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>achievement_unlocked.description</source>
+        <target>achievement_unlocked.description</target>
+      </segment>
+    </unit>
     <unit id="ok">
       <segment state="initial">
         <source>ok</source>

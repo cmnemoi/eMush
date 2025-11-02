@@ -343,6 +343,24 @@
         <target>clumsiness.description</target>
       </segment>
     </unit>
+    <unit id="clumsiness_cat">
+      <segment id="name" state="initial">
+        <source>clumsiness_cat.name</source>
+        <target>clumsiness_cat.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>clumsiness_cat.short_name</source>
+        <target>clumsiness_cat.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>clumsiness_cat.category</source>
+        <target>clumsiness_cat.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>clumsiness_cat.description</source>
+        <target>clumsiness_cat.description</target>
+      </segment>
+    </unit>
     <unit id="space_battle">
       <segment id="name" state="initial">
         <source>space_battle.name</source>

@@ -1,0 +1,1023 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="statistics.ext">
+    <unit id="cat_cuddled">
+      <segment id="name" state="initial">
+        <source>cat_cuddled.name</source>
+        <target>cat_cuddled.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>cat_cuddled.description</source>
+        <target>cat_cuddled.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>cat_cuddled_1.name</source>
+        <target>cat_cuddled_1.name</target>
+      </segment>
+    </unit>
+    <unit id="coffee_taken">
+      <segment id="name" state="initial">
+        <source>coffee_taken.name</source>
+        <target>coffee_taken.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>coffee_taken.description</source>
+        <target>coffee_taken.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>coffee_taken_1.name</source>
+        <target>coffee_taken_1.name</target>
+      </segment>
+    </unit>
+    <unit id="cooked_taken">
+      <segment id="name" state="initial">
+        <source>cooked_taken.name</source>
+        <target>cooked_taken.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>cooked_taken.description</source>
+        <target>cooked_taken.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>cooked_taken_1.name</source>
+        <target>cooked_taken_1.name</target>
+      </segment>
+    </unit>
+    <unit id="door_repaired">
+      <segment id="name" state="initial">
+        <source>door_repaired.name</source>
+        <target>door_repaired.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>door_repaired.description</source>
+        <target>door_repaired.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>door_repaired_1.name</source>
+        <target>door_repaired_1.name</target>
+      </segment>
+    </unit>
+    <unit id="explorer">
+      <segment id="name" state="initial">
+        <source>explorer.name</source>
+        <target>explorer.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>explorer.description</source>
+        <target>explorer.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>explorer_1.name</source>
+        <target>explorer_1.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>explorer_50.name</source>
+        <target>explorer_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>explorer_200.name</source>
+        <target>explorer_200.name</target>
+      </segment>
+      <segment id="x1000" state="initial">
+        <source>explorer_1000.name</source>
+        <target>explorer_1000.name</target>
+      </segment>
+    </unit>
+    <unit id="artefact_specialist">
+      <segment id="name" state="initial">
+        <source>artefact_specialist.name</source>
+        <target>artefact_specialist.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>artefact_specialist.description</source>
+        <target>artefact_specialist.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>artefact_specialist_1.name</source>
+        <target>artefact_specialist_1.name</target>
+      </segment>
+      <segment id="x2" state="initial">
+        <source>artefact_specialist_2.name</source>
+        <target>artefact_specialist_2.name</target>
+      </segment>
+      <segment id="x3" state="initial">
+        <source>artefact_specialist_3.name</source>
+        <target>artefact_specialist_3.name</target>
+      </segment>
+      <segment id="x4" state="initial">
+        <source>artefact_specialist_4.name</source>
+        <target>artefact_specialist_4.name</target>
+      </segment>
+      <segment id="x5" state="initial">
+        <source>artefact_specialist_5.name</source>
+        <target>artefact_specialist_5.name</target>
+      </segment>
+      <segment id="x6" state="initial">
+        <source>artefact_specialist_6.name</source>
+        <target>artefact_specialist_6.name</target>
+      </segment>
+      <segment id="x7" state="initial">
+        <source>artefact_specialist_7.name</source>
+        <target>artefact_specialist_7.name</target>
+      </segment>
+      <segment id="x8" state="initial">
+        <source>artefact_specialist_8.name</source>
+        <target>artefact_specialist_8.name</target>
+      </segment>
+    </unit>
+    <unit id="camera_installed">
+      <segment id="name" state="initial">
+        <source>camera_installed.name</source>
+        <target>camera_installed.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>camera_installed.description</source>
+        <target>camera_installed.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>camera_installed_1.name</source>
+        <target>camera_installed_1.name</target>
+      </segment>
+    </unit>
+    <unit id="planet_scanned">
+      <segment id="name" state="initial">
+        <source>planet_scanned.name</source>
+        <target>planet_scanned.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>planet_scanned.description</source>
+        <target>planet_scanned.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>planet_scanned_1.name</source>
+        <target>planet_scanned_1.name</target>
+      </segment>
+    </unit>
+    <unit id="signal_fire">
+      <segment id="name" state="initial">
+        <source>signal_fire.name</source>
+        <target>signal_fire.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>signal_fire.description</source>
+        <target>signal_fire.description</target>
+      </segment>
+    </unit>
+    <unit id="extinguish_fire">
+      <segment id="name" state="initial">
+        <source>extinguish_fire.name</source>
+        <target>extinguish_fire.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>extinguish_fire.description</source>
+        <target>extinguish_fire.description</target>
+      </segment>
+    </unit>
+    <unit id="give_mission">
+      <segment id="name" state="initial">
+        <source>give_mission.name</source>
+        <target>give_mission.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>give_mission.description</source>
+        <target>give_mission.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>give_mission_1.name</source>
+        <target>give_mission_1.name</target>
+      </segment>
+      <segment id="x10" state="initial">
+        <source>give_mission_10.name</source>
+        <target>give_mission_10.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>give_mission_50.name</source>
+        <target>give_mission_50.name</target>
+      </segment>
+      <segment id="x100" state="initial">
+        <source>give_mission_100.name</source>
+        <target>give_mission_100.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>give_mission_500.name</source>
+        <target>give_mission_500.name</target>
+      </segment>
+    </unit>
+    <unit id="explo_feed">
+      <segment id="name" state="initial">
+        <source>explo_feed.name</source>
+        <target>explo_feed.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>explo_feed.description</source>
+        <target>explo_feed.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>explo_feed_1.name</source>
+        <target>explo_feed_1.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>explo_feed_50.name</source>
+        <target>explo_feed_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>explo_feed_200.name</source>
+        <target>explo_feed_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>explo_feed_500.name</source>
+        <target>explo_feed_500.name</target>
+      </segment>
+      <segment id="x1000" state="initial">
+        <source>explo_feed_1000.name</source>
+        <target>explo_feed_1000.name</target>
+      </segment>
+    </unit>
+    <unit id="signal_equip">
+      <segment id="name" state="initial">
+        <source>signal_equip.name</source>
+        <target>signal_equip.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>signal_equip.description</source>
+        <target>signal_equip.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>signal_equip_1.name</source>
+        <target>signal_equip_1.name</target>
+      </segment>
+      <segment id="x20" state="initial">
+        <source>signal_equip_20.name</source>
+        <target>signal_equip_20.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>signal_equip_50.name</source>
+        <target>signal_equip_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>signal_equip_200.name</source>
+        <target>signal_equip_200.name</target>
+      </segment>
+      <segment id="x1000" state="initial">
+        <source>signal_equip_1000.name</source>
+        <target>signal_equip_1000.name</target>
+      </segment>
+    </unit>
+    <unit id="gagged">
+      <segment id="name" state="initial">
+        <source>gagged.name</source>
+        <target>gagged.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>gagged.description</source>
+        <target>gagged.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>gagged_1.name</source>
+        <target>gagged_1.name</target>
+      </segment>
+    </unit>
+    <unit id="succeeded_inspection">
+      <segment id="name" state="initial">
+        <source>succeeded_inspection.name</source>
+        <target>succeeded_inspection.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>succeeded_inspection.description</source>
+        <target>succeeded_inspection.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>succeeded_inspection_1.name</source>
+        <target>succeeded_inspection_1.name</target>
+      </segment>
+    </unit>
+    <unit id="back_to_root">
+      <segment id="name" state="initial">
+        <source>back_to_root.name</source>
+        <target>back_to_root.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>back_to_root.description</source>
+        <target>back_to_root.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>back_to_root_1.name</source>
+        <target>back_to_root_1.name</target>
+      </segment>
+    </unit>
+    <unit id="new_plants">
+      <segment id="name" state="initial">
+        <source>new_plants.name</source>
+        <target>new_plants.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>new_plants.description</source>
+        <target>new_plants.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>new_plants_1.name</source>
+        <target>new_plants_1.name</target>
+      </segment>
+    </unit>
+    <unit id="andie">
+      <segment id="name" state="initial">
+        <source>andie.name</source>
+        <target>andie.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>andie.description</source>
+        <target>andie.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>andie_50.name</source>
+        <target>andie_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>andie_200.name</source>
+        <target>andie_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>andie_500.name</source>
+        <target>andie_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>andie_2000.name</source>
+        <target>andie_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>andie_10000.name</source>
+        <target>andie_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="jin_su">
+      <segment id="name" state="initial">
+        <source>jin_su.name</source>
+        <target>jin_su.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>jin_su.description</source>
+        <target>jin_su.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>jin_su_50.name</source>
+        <target>jin_su_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>jin_su_200.name</source>
+        <target>jin_su_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>jin_su_500.name</source>
+        <target>jin_su_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>jin_su_2000.name</source>
+        <target>jin_su_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>jin_su_10000.name</source>
+        <target>jin_su_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="chun">
+      <segment id="name" state="initial">
+        <source>chun.name</source>
+        <target>chun.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>chun.description</source>
+        <target>chun.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>chun_50.name</source>
+        <target>chun_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>chun_200.name</source>
+        <target>chun_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>chun_500.name</source>
+        <target>chun_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>chun_2000.name</source>
+        <target>chun_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>chun_10000.name</source>
+        <target>chun_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="kuan_ti">
+      <segment id="name" state="initial">
+        <source>kuan_ti.name</source>
+        <target>kuan_ti.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>kuan_ti.description</source>
+        <target>kuan_ti.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>kuan_ti_50.name</source>
+        <target>kuan_ti_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>kuan_ti_200.name</source>
+        <target>kuan_ti_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>kuan_ti_500.name</source>
+        <target>kuan_ti_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>kuan_ti_2000.name</source>
+        <target>kuan_ti_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>kuan_ti_10000.name</source>
+        <target>kuan_ti_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="chao">
+      <segment id="name" state="initial">
+        <source>chao.name</source>
+        <target>chao.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>chao.description</source>
+        <target>chao.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>chao_50.name</source>
+        <target>chao_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>chao_200.name</source>
+        <target>chao_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>chao_500.name</source>
+        <target>chao_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>chao_2000.name</source>
+        <target>chao_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>chao_10000.name</source>
+        <target>chao_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="gioele">
+      <segment id="name" state="initial">
+        <source>gioele.name</source>
+        <target>gioele.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>gioele.description</source>
+        <target>gioele.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>gioele_50.name</source>
+        <target>gioele_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>gioele_200.name</source>
+        <target>gioele_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>gioele_500.name</source>
+        <target>gioele_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>gioele_2000.name</source>
+        <target>gioele_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>gioele_10000.name</source>
+        <target>gioele_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="eleesha">
+      <segment id="name" state="initial">
+        <source>eleesha.name</source>
+        <target>eleesha.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>eleesha.description</source>
+        <target>eleesha.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>eleesha_50.name</source>
+        <target>eleesha_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>eleesha_200.name</source>
+        <target>eleesha_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>eleesha_500.name</source>
+        <target>eleesha_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>eleesha_2000.name</source>
+        <target>eleesha_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>eleesha_10000.name</source>
+        <target>eleesha_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="finola">
+      <segment id="name" state="initial">
+        <source>finola.name</source>
+        <target>finola.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>finola.description</source>
+        <target>finola.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>finola_50.name</source>
+        <target>finola_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>finola_200.name</source>
+        <target>finola_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>finola_500.name</source>
+        <target>finola_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>finola_2000.name</source>
+        <target>finola_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>finola_10000.name</source>
+        <target>finola_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="terrence">
+      <segment id="name" state="initial">
+        <source>terrence.name</source>
+        <target>terrence.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>terrence.description</source>
+        <target>terrence.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>terrence_50.name</source>
+        <target>terrence_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>terrence_200.name</source>
+        <target>terrence_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>terrence_500.name</source>
+        <target>terrence_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>terrence_2000.name</source>
+        <target>terrence_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>terrence_10000.name</source>
+        <target>terrence_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="eden">
+      <segment id="name" state="initial">
+        <source>eden.name</source>
+        <target>eden.name</target>
+      </segment>
+      <segment id="x1_description" state="initial">
+        <source>eden.description</source>
+        <target>eden.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>eden_1.name</source>
+        <target>eden_1.name</target>
+      </segment>
+      <segment id="x5" state="initial">
+        <source>eden_5.name</source>
+        <target>eden_5.name</target>
+      </segment>
+      <segment id="x10" state="initial">
+        <source>eden_10.name</source>
+        <target>eden_10.name</target>
+      </segment>
+      <segment id="x20" state="initial">
+        <source>eden_20.name</source>
+        <target>eden_20.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>eden_50.name</source>
+        <target>eden_50.name</target>
+      </segment>
+    </unit>
+    <unit id="contributions">
+      <segment id="name" state="initial">
+        <source>contributions.name</source>
+        <target>contributions.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>contributions.description</source>
+        <target>contributions.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>contributions_1.name</source>
+        <target>contributions_1.name</target>
+      </segment>
+      <segment id="x5" state="initial">
+        <source>contributions_5.name</source>
+        <target>contributions_5.name</target>
+      </segment>
+      <segment id="x20" state="initial">
+        <source>contributions_20.name</source>
+        <target>contributions_20.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>contributions_50.name</source>
+        <target>contributions_50.name</target>
+      </segment>
+      <segment id="x100" state="initial">
+        <source>contributions_100.name</source>
+        <target>contributions_100.name</target>
+      </segment>
+      <segment id="x300" state="initial">
+        <source>contributions_300.name</source>
+        <target>contributions_300.name</target>
+      </segment>
+      <segment id="x700" state="initial">
+        <source>contributions_700.name</source>
+        <target>contributions_700.name</target>
+      </segment>
+      <segment id="x1500" state="initial">
+        <source>contributions_1500.name</source>
+        <target>contributions_1500.name</target>
+      </segment>
+    </unit>
+    <unit id="frieda">
+      <segment id="name" state="initial">
+        <source>frieda.name</source>
+        <target>frieda.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>frieda.description</source>
+        <target>frieda.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>frieda_50.name</source>
+        <target>frieda_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>frieda_200.name</source>
+        <target>frieda_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>frieda_500.name</source>
+        <target>frieda_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>frieda_2000.name</source>
+        <target>frieda_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>frieda_10000.name</source>
+        <target>frieda_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="hua">
+      <segment id="name" state="initial">
+        <source>hua.name</source>
+        <target>hua.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>hua.description</source>
+        <target>hua.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>hua_50.name</source>
+        <target>hua_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>hua_200.name</source>
+        <target>hua_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>hua_500.name</source>
+        <target>hua_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>hua_2000.name</source>
+        <target>hua_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>hua_10000.name</source>
+        <target>hua_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="ian">
+      <segment id="name" state="initial">
+        <source>ian.name</source>
+        <target>ian.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>ian.description</source>
+        <target>ian.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>ian_50.name</source>
+        <target>ian_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>ian_200.name</source>
+        <target>ian_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>ian_500.name</source>
+        <target>ian_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>ian_2000.name</source>
+        <target>ian_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>ian_10000.name</source>
+        <target>ian_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="janice">
+      <segment id="name" state="initial">
+        <source>janice.name</source>
+        <target>janice.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>janice.description</source>
+        <target>janice.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>janice_50.name</source>
+        <target>janice_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>janice_200.name</source>
+        <target>janice_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>janice_500.name</source>
+        <target>janice_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>janice_2000.name</source>
+        <target>janice_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>janice_10000.name</source>
+        <target>janice_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="stephen">
+      <segment id="name" state="initial">
+        <source>stephen.name</source>
+        <target>stephen.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>stephen.description</source>
+        <target>stephen.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>stephen_50.name</source>
+        <target>stephen_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>stephen_200.name</source>
+        <target>stephen_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>stephen_500.name</source>
+        <target>stephen_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>stephen_2000.name</source>
+        <target>stephen_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>stephen_10000.name</source>
+        <target>stephen_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="derek">
+      <segment id="name" state="initial">
+        <source>derek.name</source>
+        <target>derek.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>derek.description</source>
+        <target>derek.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>derek_50.name</source>
+        <target>derek_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>derek_200.name</source>
+        <target>derek_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>derek_500.name</source>
+        <target>derek_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>derek_2000.name</source>
+        <target>derek_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>derek_10000.name</source>
+        <target>derek_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="daily_order">
+      <segment id="name" state="initial">
+        <source>daily_order.name</source>
+        <target>daily_order.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>daily_order.description</source>
+        <target>daily_order.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>daily_order_1.name</source>
+        <target>daily_order_1.name</target>
+      </segment>
+      <segment id="x10" state="initial">
+        <source>daily_order_10.name</source>
+        <target>daily_order_10.name</target>
+      </segment>
+      <segment id="x20" state="initial">
+        <source>daily_order_20.name</source>
+        <target>daily_order_20.name</target>
+      </segment>
+    </unit>
+    <unit id="paola">
+      <segment id="name" state="initial">
+        <source>paola.name</source>
+        <target>paola.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>paola.description</source>
+        <target>paola.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>paola_50.name</source>
+        <target>paola_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>paola_200.name</source>
+        <target>paola_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>paola_500.name</source>
+        <target>paola_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>paola_2000.name</source>
+        <target>paola_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>paola_10000.name</source>
+        <target>paola_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="raluca">
+      <segment id="name" state="initial">
+        <source>raluca.name</source>
+        <target>raluca.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>raluca.description</source>
+        <target>raluca.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>raluca_50.name</source>
+        <target>raluca_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>raluca_200.name</source>
+        <target>raluca_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>raluca_500.name</source>
+        <target>raluca_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>raluca_2000.name</source>
+        <target>raluca_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>raluca_10000.name</source>
+        <target>raluca_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="roland">
+      <segment id="name" state="initial">
+        <source>roland.name</source>
+        <target>roland.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>roland.description</source>
+        <target>roland.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>roland_50.name</source>
+        <target>roland_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>roland_200.name</source>
+        <target>roland_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>roland_500.name</source>
+        <target>roland_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>roland_2000.name</source>
+        <target>roland_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>roland_10000.name</source>
+        <target>roland_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="game_without_sleep">
+      <segment id="name" state="initial">
+        <source>game_without_sleep.name</source>
+        <target>game_without_sleep.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>game_without_sleep.description</source>
+        <target>game_without_sleep.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>game_without_sleep_1.name</source>
+        <target>game_without_sleep_1.name</target>
+      </segment>
+      <segment id="x20" state="initial">
+        <source>game_without_sleep_20.name</source>
+        <target>game_without_sleep_20.name</target>
+      </segment>
+      <segment id="x100" state="initial">
+        <source>game_without_sleep_100.name</source>
+        <target>game_without_sleep_100.name</target>
+      </segment>
+    </unit>
+    <unit id="mush_cycles">
+      <segment id="name" state="initial">
+        <source>mush_cycles.name</source>
+        <target>mush_cycles.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mush_cycles.description</source>
+        <target>mush_cycles.description</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>mush_cycles_50.name</source>
+        <target>mush_cycles_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>mush_cycles_200.name</source>
+        <target>mush_cycles_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>mush_cycles_500.name</source>
+        <target>mush_cycles_500.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>mush_cycles_2000.name</source>
+        <target>mush_cycles_2000.name</target>
+      </segment>
+      <segment id="x10000" state="initial">
+        <source>mush_cycles_10000.name</source>
+        <target>mush_cycles_10000.name</target>
+      </segment>
+    </unit>
+    <unit id="eden_contaminated">
+      <segment id="name" state="initial">
+        <source>eden_contaminated.name</source>
+        <target>eden_contaminated.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>eden_contaminated.description</source>
+        <target>eden_contaminated.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>eden_contaminated_1.name</source>
+        <target>eden_contaminated_1.name</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

@@ -1187,5 +1187,23 @@
         <target>guarana_cappuccino.lore</target>
       </segment>
     </unit>
+    <unit id="zeta_waves">
+      <segment id="zeta_waves.type" state="initial">
+        <source>zeta_waves.type</source>
+        <target>zeta_waves.type</target>
+      </segment>
+      <segment id="zeta_waves.name" state="initial">
+        <source>zeta_waves.name</source>
+        <target>zeta_waves.name</target>
+      </segment>
+      <segment id="zeta_waves.description" state="initial">
+        <source>zeta_waves.description</source>
+        <target>zeta_waves.description</target>
+      </segment>
+      <segment id="zeta_waves.lore" state="initial">
+        <source>zeta_waves.lore</source>
+        <target>zeta_waves.lore</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

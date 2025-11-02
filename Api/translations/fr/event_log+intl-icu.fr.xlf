@@ -110,6 +110,7 @@
         <target>{target_equipment_gender, select,
                         male {**{character}** a fait tomber un **{target_equipment}**.}
                         female {**{character}** a fait tomber une **{target_equipment}**.}
+                        name {**{character}** a fait tomber **{target_equipment}**.}
                         other {invalid gender input}
                 }</target>
       </segment>
@@ -188,7 +189,7 @@
         <target>:broken_equipments: {equipment_gender, select,
                     male {Un **{equipment}** a été cassé !}
                     female {Une **{equipment}** a été cassée !}
-                    other {invalid gender input}
+                    other {invalid gender input for {equipment}}
                 }</target>
       </segment>
     </unit>
@@ -198,7 +199,7 @@
         <target>:broken_equipments: {equipment_gender, select,
                     male {Un **{equipment}** a été détruit !}
                     female {Une **{equipment}** a été détruite !}
-                    other {invalid gender input}
+                    other {invalid gender input for {equipment}}
                 }</target>
       </segment>
     </unit>

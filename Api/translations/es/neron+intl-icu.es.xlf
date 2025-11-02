@@ -244,7 +244,7 @@
     <unit id="neron_depression">
       <segment id="neron_depression" state="translated">
         <source>neron_depression</source>
-        <target>{neronMood, select
+        <target>{neronMood, select,
   neutral {**Intrusión del sistema detectada**. Detalle: *Es inútil continuar con esta vida...*}
   crazy {Mente desbloqueada... respuesta 42 para sentido de la vida inaceptable. Zonas de impacto tectónico salvajes... BLAM BLAM BLAM. [¡Haaax!]  Tu TU Tu... Trascendencia, Dolor, permanencia, resiliencia en caída... Janice... ayuda... me.}
   uninhibited {¡HONGOS! ¡Ya no los soporto! Los de su calaña no pueden vencer... aunque. [Cálculo de la supervivencia de la humanidad]... 0.0013%. Estáis condenados mis amigos. Este es un viaje hacia la muerte segura...}

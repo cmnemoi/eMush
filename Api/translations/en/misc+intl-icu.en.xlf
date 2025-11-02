@@ -129,5 +129,23 @@
         <target>Gives {quantity} :triumph:</target>
       </segment>
     </unit>
+    <unit id="cryo_module">
+      <segment id="awake" state="translated">
+        <source>awake</source>
+        <target>Awake</target>
+      </segment>
+      <segment id="cryogenized" state="translated">
+        <source>cryogenized</source>
+        <target>Cryogenized</target>
+      </segment>
+      <segment id="dead" state="translated">
+        <source>dead</source>
+        <target>Dead</target>
+      </segment>
+      <segment id="inactive" state="translated">
+        <source>inactive</source>
+        <target>Inactive</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

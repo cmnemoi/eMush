@@ -145,7 +145,7 @@ final class GoBerserkCest extends AbstractFunctionalTest
         $this->whenKuanTiMutates();
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: "**Kuan Ti** se recroqueville. Il semble souffrir, ses cris résonnent, il vomit une bile immonde qui fait fondre ses vêtements...Quelle horreur\u{a0}! Il a complètement changé de forme\u{a0}!",
+            expectedRoomLog: "**Kuan Ti** se recroqueville. Il semble souffrir, ses cris résonnent, il vomit une bile immonde qui fait fondre ses vêtements... Quelle horreur\u{a0}! Il a complètement changé de forme\u{a0}!",
             actualRoomLogDto: new RoomLogDto(
                 player: $this->kuanTi,
                 log: ActionLogEnum::MUTATE_SUCCESS,

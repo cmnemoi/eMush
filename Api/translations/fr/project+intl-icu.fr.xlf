@@ -890,7 +890,7 @@
       </segment>
       <segment id="mushicide_soap.description" state="translated">
         <source>mushicide_soap.description</source>
-        <target>À chaque douche vous détruisez une spore présent sur vous.</target>
+        <target>À chaque douche vous détruisez une spore présente sur vous.</target>
       </segment>
       <segment id="mushicide_soap.lore" state="translated">
         <source>mushicide_soap.lore</source>
@@ -1054,7 +1054,7 @@
       </segment>
       <segment id="perpetual_hydration.name" state="translated">
         <source>perpetual_hydration.name</source>
-        <target>Hydratation perpetuelle</target>
+        <target>Hydratation perpétuelle</target>
       </segment>
       <segment id="perpetual_hydration.lore" state="translated">
         <source>perpetual_hydration.lore</source>
@@ -1130,7 +1130,7 @@
       </segment>
       <segment id="super_calculator.lore" state="translated">
         <source>super_calculator.lore</source>
-        <target>Neron est certes un être sensible, mais niveau calcul c'est pas trop ça... En analysant la structure moléculaire du crystalite, vous pensez pouvoir bricoler de quoi lui permettre d'interpoler les données stockées à l'intérieur.</target>
+        <target>Neron est certes un être sensible, mais niveau calcul c'est pas trop ça... En analysant la structure moléculaire du cristalite, vous pensez pouvoir bricoler de quoi lui permettre d'interpoler les données stockées à l'intérieur.</target>
       </segment>
     </unit>
     <unit id="tesla_sup2x">
@@ -1166,7 +1166,7 @@
       </segment>
       <segment id="ultra_healing_pomade.lore" state="translated">
         <source>ultra_healing_pomade.lore</source>
-        <target>Grâce à quelques astuces basiques de chimie organique, vous pensez pouvoir mettre au point un medikit de base bien supérieur à ces vieux machins de la FDS.</target>
+        <target>Grâce à quelques astuces basiques de chimie organique, vous pensez pouvoir mettre au point un médikit de base bien supérieur à ces vieux machins de la FDS.</target>
       </segment>
     </unit>
     <unit id="guarana_cappuccino">
@@ -1184,7 +1184,7 @@
       </segment>
       <segment id="guarana_cappuccino.lore" state="translated">
         <source>guarana_cappuccino.lore</source>
-        <target>Le dose de cafféine incluse dans le café de notre cher distributeur est bien trop élevée pour que nous puissions envisager un nouveau surdosage. Cependant, en ajoutant des extraits de guarana sous forme d'une émulsion crémeuse sur la partie supérieure de chaque expresso, il devrait être possible d'augmenter encore un peu le caractère énergisant de la boisson.</target>
+        <target>La dose de caféine incluse dans le café de notre cher distributeur est bien trop élevée pour que nous puissions envisager un nouveau surdosage. Cependant, en ajoutant des extraits de guarana sous forme d'une émulsion crémeuse sur la partie supérieure de chaque expresso, il devrait être possible d'augmenter encore un peu le caractère énergisant de la boisson.</target>
       </segment>
     </unit>
     <unit id="zeta_waves">

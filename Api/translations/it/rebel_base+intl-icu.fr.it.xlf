@@ -85,6 +85,20 @@
         <target>cygni.description</target>
       </segment>
     </unit>
+    <unit id="eridiani">
+      <segment id="name" state="initial">
+        <source>eridiani.name</source>
+        <target>eridiani.name</target>
+      </segment>
+      <segment id="hoverName" state="initial">
+        <source>eridiani.hoverName</source>
+        <target>eridiani.hoverName</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>eridiani.description</source>
+        <target>eridiani.description</target>
+      </segment>
+    </unit>
     <unit id="unknown">
       <segment id="name" state="initial">
         <source>unknown.name</source>

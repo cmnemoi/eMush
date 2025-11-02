@@ -19,6 +19,7 @@
 	},
 	"footer": {
 		"alphaVersion": "Versión Alpha",
+		"betaVersion": "Versión beta",
 		"crowdin": "Puedes ayudarnos a traducir el juego en ",
 		"developers": "Desarrolladores",
 		"coreTeam": "El equipo de eMush:",
@@ -64,7 +65,7 @@
 			},
 			"myhordes": {
 				"name": "MyHordes",
-				"description": "¡El primer juego gratuito de supervivencia de zombis que tiene lugar en un mundo hostil poblado por zombis!"
+				"description": "¡El primer juego gratuito de supervivencia de zombies que tiene lugar en un mundo hostil poblado por zombies!"
 			},
 			"neoparc": {
 				"name": "Neoparc",
@@ -102,14 +103,17 @@
 		"all": "Todas las naves",
 		"french": "Naves francesas",
 		"english": "Naves inglesas",
-		"spanish": "Vaisseaux espagnols",
+		"spanish": "Naves españolas",
 		"endCause": {
 			"sol_return": "El Daedalus regresó a Sol",
 			"eden": "El Daedalus aterrizó en Edén",
 			"daedalus_destroyed": "Daedalus destruido",
 			"killed_by_neron": "Tripulación contaminada asesinada por NERON",
 			"super_nova": "Supernova"
-		}
+		},
+		"category": "Categoría",
+		"timeSurvived": "Días sobrevividos",
+		"mushTriumph": "Ciclos sobrevividos"
 	},
 	"theEnd": {
 		"headliner": "Rol estelar:",
@@ -143,6 +147,7 @@
 			"injury": "¡Herido de muerte!",
 			"burnt": "¡Calcinado por un incendio inoportuno!",
 			"clumsiness": "Muerto por una tontería.",
+			"clumsiness_cat": "Abatido por un felino muy enfadado",
 			"space_battle": "¡Muerto dentro de un patrullero destruido!",
 			"space_asphyxiated": "¡Muerto abandonado en el espacio exterior!",
 			"beheaded": "¡Decapitado por molesto!",
@@ -161,27 +166,35 @@
 		"historyAndTriumph": "Historial y Gloria",
 		"historyAndTriumphDescription": "Clic aquí para conocer el historial y la gloria de **{character}**.",
 		"triumph": "Gloria",
-		"cheaterMessage": "Ce vaisseau a enfreint le règlement de eMush. Il a donc été exclu du classement par un administrateur."
+		"cheaterMessage": "Esta nave ha infringido las reglas de eMush. Por lo tanto, un administrador lo ha excluido de la clasificación."
 	},
 	"userBanner": {
 		"userShips": "Ficha"
 	},
+	"achievements": {
+		"title": "Estadísticas",
+		"points": "{points} puntos",
+		"tabs": {
+			"statistics": "Estadísticas",
+			"gains": "Ganancias ({count})"
+		}
+	},
 	"userProfile": {
 		"shipHistory": {
-			"character": "personnage",
-			"days": "jours",
-			"explorations": "explorations",
-			"researches": "recherches",
-			"neronProjects": "projets NERON",
-			"scannedPlanets": "planètes scannées",
-			"titles": "titres",
-			"triumph": "triomphe",
-			"endCause": "cause de fin",
+			"character": "personaje",
+			"days": "días",
+			"explorations": "exploraciones",
+			"researches": "investigaciones",
+			"neronProjects": "proyectos NERON",
+			"scannedPlanets": "planetas escaneados",
+			"titles": "títulos",
+			"triumph": "gloria",
+			"endCause": "causa de fin",
 			"daedalus": "daedalus",
 			"awards": "Clasificación",
-			"trips": "Voyages"
+			"trips": "Viajes"
 		},
-		"pageTitle": "Fiche de "
+		"pageTitle": "Ficha de {user}"
 	},
 	"login": "Conectarse",
 	"logout": "Desconectarse",
@@ -747,7 +760,24 @@
 	"moderation": {
 		"banner": {
 			"players": "Jugadores",
-			"users": "Usuarios"
+			"users": "Usuarios",
+			"banAllUsers": "Bannir plusieurs utilisateurs"
+		},
+		"banAllUsers": {
+			"title": "Bannir plusieurs utilisateurs",
+			"description": "Vous pouvez bannir plusieurs utilisateurs en une seule fois en copiant leurs identifiants dans la zone de texte ci-dessous.",
+			"uuidsLabel": "identifiants des utilisateurs",
+			"uuidsPlaceholder": "Coller les identifiants des utilisateurs (un par ligne ou séparés par des virgules)",
+			"uuidsHelp": "Copiez les identifiants des utilisateurs à bannir, un par ligne ou séparés par des virgules.",
+			"reasonLabel": "Motif",
+			"messageLabel": "Mensaje",
+			"messagePlaceholder": "Message explicatif pour les utilisateurs",
+			"durationLabel": "Durée (en jours)",
+			"submit": "Bannir les utilisateurs",
+			"submitting": "Bannissement en cours...",
+			"success": "{count} utilisateur(s) banni(s) avec succès",
+			"error": "Erreur lors du bannissement des utilisateurs",
+			"noUuidsError": "Aucun identifiant valide trouvé"
 		},
 		"filters": {
 			"cycle": "Ciclo",
@@ -796,7 +826,8 @@
 		},
 		"userList": {
 			"userId": "Identificador del usuario",
-			"roles": "Roles"
+			"roles": "Roles",
+			"createdAt": "Date de création"
 		},
 		"sanction": {
 			"id": "Número",
@@ -936,7 +967,8 @@
 		"suspendSanction": "Suspender la sanción.",
 		"suspendSanctionDescription": "Suspender la sanción. La fecha de fin se fija a la fecha actual. La sanción permanece en el historial del usuario.",
 		"removeSanction": "Suprimir la sanción",
-		"removeSanctionDescription": "Suprimir la sanción. La sanción es completamente eliminada del historial del usuario."
+		"removeSanctionDescription": "Suprimir la sanción. La sanción es completamente eliminada del historial del usuario.",
+		"byIp": "Bannir par IPs"
 	},
 	"rules": {
 		"title": "Reglamento de eMush",
@@ -1019,12 +1051,12 @@
 				"name": "Parámetros",
 				"subscribeToNotifications": "Suscribirse a las notificaciones",
 				"notifications": "Notificaciones",
-				"hideMushActions": "Ocultar acciones de los Mush",
-				"showMushActions": "Mostrar acciones de los Mush"
+				"actionTabs": "Separar las acciones de Mush y de humanos",
+				"doubleTap": "Doble clic para las acciones"
 			}
 		},
 		"topBar": {
-			"login": "Acceso",
+			"login": "Acceder",
 			"notifications": "{count} notificación | {count} notificaciones",
 			"register": "Crea una cuenta"
 		}
@@ -1058,5 +1090,20 @@
 			"unsubscribeError": "Se produjo un error al darse de baja de las notificaciones."
 		},
 		"newVersion": "Hay una nueva versión del juego disponible. Por favor, borra la caché."
-	}
+	},
+	"actionTabs": {
+		"human": {
+			"name": "Acciones humanas",
+			"description": "Mostrar tus acciones humanas."
+		},
+		"mush": {
+			"name": "Acciones Mush",
+			"description": "Mostrar tus acciones Mush."
+		},
+		"admin": {
+			"name": "Acciones admin",
+			"description": "Mostrar tus acciones admin."
+		}
+	},
+	"ranking-humantriumph": "Triomphe humain"
 }

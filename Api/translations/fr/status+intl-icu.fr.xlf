@@ -1156,7 +1156,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>brainsync.description</source>
-        <target>Vous êtes doté d'un penselien ce qui permet de se passer de talky-walky.</target>
+        <target>Vous êtes doté d'un penselien ce qui permet de se passer de talkie-walkie.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>brainsync.examine</source>
@@ -1576,7 +1576,7 @@
     <unit id="mush_trapped.description">
       <segment state="translated">
         <source>mush_trapped.description</source>
-        <target>Le prochain humain qui interagira avec la salle, un équipement, ou l'étagère se prendra un spore. **Attention à ne pas activer le piège vous même...**</target>
+        <target>Le prochain humain qui interagira avec la salle, un équipement, ou l'étagère se prendra une spore. **Attention à ne pas activer le piège vous-même...**</target>
       </segment>
     </unit>
     <unit id="genius_idea">

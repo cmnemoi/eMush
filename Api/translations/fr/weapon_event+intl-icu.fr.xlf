@@ -180,13 +180,13 @@
     <unit id="natamy_rifle_drop_weapon">
       <segment id="natamy_rifle_drop_weapon" state="translated">
         <source>natamy_rifle_drop_weapon</source>
-        <target>Nul mot de saurait décrire l'incroyable acrobatie de l'arme de **{character}** qui finit par atterrir par terre...</target>
+        <target>Nul mot ne saurait décrire l'incroyable acrobatie de l'arme de **{character}** qui finit par atterrir par terre...</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_plus_2_damage">
       <segment id="natamy_rifle_shooter_plus_2_damage" state="translated">
         <source>natamy_rifle_shooter_plus_2_damage</source>
-        <target>L'oeil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_character}**...</target>
+        <target>L'œil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_character}**...</target>
       </segment>
     </unit>
     <unit id="knife_successful_hit_10_minor_haemorrhage">
@@ -386,13 +386,13 @@
     <unit id="old_faithful_drop_weapon">
       <segment id="old_faithful_drop_weapon" state="translated">
         <source>old_faithful_drop_weapon</source>
-        <target>Nul mot de saurait décrire l'incroyable acrobatie de l'arme de **{character}** qui finit par atterrir par terre...</target>
+        <target>Nul mot ne saurait décrire l'incroyable acrobatie de l'arme de **{character}** qui finit par atterrir par terre...</target>
       </segment>
     </unit>
     <unit id="old_faithful_shooter_plus_2_damage">
       <segment id="old_faithful_shooter_plus_2_damage" state="translated">
         <source>old_faithful_shooter_plus_2_damage</source>
-        <target>L'oeil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_character}**...</target>
+        <target>L'œil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_character}**...</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_successful_shot">
@@ -481,13 +481,13 @@
     <unit id="lizaro_jungle_drop_weapon">
       <segment id="lizaro_jungle_drop_weapon" state="translated">
         <source>lizaro_jungle_drop_weapon</source>
-        <target>Nul mot de saurait décrire l'incroyable acrobatie de l'arme de **{character}** qui finit par atterrir par terre...</target>
+        <target>Nul mot ne saurait décrire l'incroyable acrobatie de l'arme de **{character}** qui finit par atterrir par terre...</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_shooter_plus_2_damage">
       <segment id="lizaro_jungle_shooter_plus_2_damage" state="translated">
         <source>lizaro_jungle_shooter_plus_2_damage</source>
-        <target>L'oeil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_character}**...</target>
+        <target>L'œil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_character}**...</target>
       </segment>
     </unit>
     <unit id="bare_hands_successful_hit">
@@ -532,19 +532,19 @@
     <unit id="grenade_successful_throw_splash_damage_all">
       <segment id="grenade_successful_throw_splash_damage_all" state="translated">
         <source>grenade_successful_throw_splash_damage_all</source>
-        <target>:grenade: Ploc...ploc...ploc...pschhhhh...**{character}** se jette à couvert pendant que les autres regardent à leur pieds. L'explosion souffle tout le monde !</target>
+        <target>:grenade: Ploc...ploc...ploc...pschhhhh...**{character}** se jette à couvert pendant que les autres regardent à leurs pieds. L'explosion souffle tout le monde !</target>
       </segment>
     </unit>
     <unit id="grenade_critical_throw_splash_damage_all_break_items_splash_wounds">
       <segment id="grenade_critical_throw_splash_damage_all_break_items_splash_wounds" state="translated">
         <source>grenade_critical_throw_splash_damage_all_break_items_splash_wounds</source>
-        <target>:grenade: Ploc...poc...poc...pschhhhh...**{character}** se jette à couvert pendant que les autres regardent à leur pieds. Tiens, une gre...</target>
+        <target>:grenade: Ploc...poc...poc...pschhhhh...**{character}** se jette à couvert pendant que les autres regardent à leurs pieds. Tiens, une gre...</target>
       </segment>
     </unit>
     <unit id="grenade_failure_placeholder">
       <segment id="grenade_failure_placeholder" state="translated">
         <source>grenade_failure_placeholder</source>
-        <target>:grenade: Ploc...poc...poc...pschhhhh...**{character}** se jette à couvert pendant que les autres regardent à leur pieds. Mais...? Rien ne se passe... Les admins sont impressionnés, vous avez réussi l'impossible.</target>
+        <target>:grenade: Ploc...poc...poc...pschhhhh...**{character}** se jette à couvert pendant que les autres regardent à leurs pieds. Mais...? Rien ne se passe... Les admins sont impressionnés, vous avez réussi l'impossible.</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash">
@@ -593,7 +593,7 @@
     <unit id="rocket_launcher_fumble_6_items_backfire_rocketted">
       <segment id="rocket_launcher_fumble_6_items_backfire_rocketted" state="translated">
         <source>rocket_launcher_fumble_6_items_backfire_rocketted</source>
-        <target>Comble de malchance, le manuel d'utilisation du lance-roquette compte 2234 pages. Malheureusement pour **{character}** qui n'en a lu que 2233. Sur la dernière était bien précisé de ne pas appuyer sur le bouton rouge.</target>
+        <target>Comble de malchance, le manuel d'utilisation du lance-roquette compte 2234 pages. Malheureusement pour **{character}** qui n'en a lu que 2233. C'est sur la dernière qu'il était précisé de ne pas appuyer sur le bouton rouge.</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_fumble_8_splash_50_percent_4_items">

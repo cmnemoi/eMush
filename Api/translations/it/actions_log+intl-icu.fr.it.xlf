@@ -469,6 +469,12 @@
         <target>access_terminal_success</target>
       </segment>
     </unit>
+    <unit id="bypass_terminal_success">
+      <segment id="name" state="initial">
+        <source>bypass_terminal_success</source>
+        <target>bypass_terminal_success</target>
+      </segment>
+    </unit>
     <unit id="takeoff_success">
       <segment id="takeoff_success" state="initial">
         <source>takeoff_success</source>
@@ -875,6 +881,12 @@
       <segment id="exchange_body_success" state="initial">
         <source>exchange_body_success</source>
         <target>exchange_body_success</target>
+      </segment>
+    </unit>
+    <unit id="adapt_epigenetics_success">
+      <segment id="adapt_epigenetics_success" state="initial">
+        <source>adapt_epigenetics_success</source>
+        <target>adapt_epigenetics_success</target>
       </segment>
     </unit>
   </file>

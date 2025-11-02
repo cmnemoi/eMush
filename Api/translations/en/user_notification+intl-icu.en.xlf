@@ -11,6 +11,16 @@
         <target>Return to the Daedalus, {user}!</target>
       </segment>
     </unit>
+    <unit id="achievement_unlocked">
+      <segment id="key" state="translated">
+        <source>achievement_unlocked.title</source>
+        <target>Congratulations, you have earned the **{achievement}** title!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>achievement_unlocked.description</source>
+        <target>Congratulations, you have earned the **{achievement}** title!</target>
+      </segment>
+    </unit>
     <unit id="ok">
       <segment state="translated">
         <source>ok</source>

@@ -28,7 +28,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>magnetite.description</source>
-        <target>La liaison est de mauvaise qualité...très mauvaise, sans doute le nuage de magnetite que vous traversez en ce moment.//**Provoque une perte de liaison et une baisse de signal significative.**</target>
+        <target>La liaison est de mauvaise qualité...très mauvaise, sans doute le nuage de magnétite que vous traversez en ce moment.//**Provoque une perte de liaison et une baisse de signal significative.**</target>
       </segment>
     </unit>
     <unit id="nothing">
@@ -74,7 +74,7 @@
     <unit id="ghost_chun">
       <segment id="name" state="translated">
         <source>ghost_chun.name</source>
-        <target>Codex du genome de Zhong Chun</target>
+        <target>Codex du gênome de Zhong Chun</target>
       </segment>
       <segment id="description" state="translated">
         <source>ghost_chun.description</source>
@@ -98,7 +98,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>cook.description</source>
-        <target>Vous tombez sur un fichier contenant des recettes. Beaucoup de recettes. Beaucoup Beaucoup de recettes.//**Provoque l'impression d'un Apprentron pour devenir Cuistot.**</target>
+        <target>Vous tombez sur un fichier contenant des recettes. Beaucoup de recettes. Beaucoup, beaucoup de recettes.//**Provoque l'impression d'un Apprentron pour devenir Cuistot.**</target>
       </segment>
     </unit>
     <unit id="mage_books">
@@ -108,7 +108,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>mage_books.description</source>
-        <target>Vous avis mis la main sur l'archive du centre de formation de Xyloph ! Ce trésor d'intelligence vous aidera a former les abrutis de votre équipage...//**Provoque l'impression de 2** ***Apprentrons***.</target>
+        <target>Vous avis mis la main sur l'archive du centre de formation de Xyloph ! Ce trésor d'intelligence vous aidera à former les abrutis de votre équipage...//**Provoque l'impression de 2** ***Apprentrons***.</target>
       </segment>
     </unit>
     <unit id="list">

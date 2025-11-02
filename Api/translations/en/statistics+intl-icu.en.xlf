@@ -1,16 +1,1022 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
   <file id="statistics.ext">
-    <unit id="planet_scanned.name">
+    <unit id="cat_cuddled">
+      <segment id="name" state="translated">
+        <source>cat_cuddled.name</source>
+        <target>Cat cuddles</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>cat_cuddled.description</source>
+        <target>Number of times you have caught Schrödinger.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>cat_cuddled_1.name</source>
+        <target>Felinophile</target>
+      </segment>
+    </unit>
+    <unit id="coffee_taken">
+      <segment id="name" state="translated">
+        <source>coffee_taken.name</source>
+        <target>Caffeine junkie</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>coffee_taken.description</source>
+        <target>Number of coffees taken from the machine.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>coffee_taken_1.name</source>
+        <target>Coffee barprop</target>
+      </segment>
+    </unit>
+    <unit id="cooked_taken">
+      <segment id="name" state="translated">
+        <source>cooked_taken.name</source>
+        <target>Cooked rations eaten</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>cooked_taken.description</source>
+        <target>Cooked rations eaten</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>cooked_taken_1.name</source>
+        <target>Max Nomnom</target>
+      </segment>
+    </unit>
+    <unit id="door_repaired">
+      <segment id="name" state="translated">
+        <source>door_repaired.name</source>
+        <target>Doors repaired</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>door_repaired.description</source>
+        <target>Doors you have repaired with TLC.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>door_repaired_1.name</source>
+        <target>Locksmith</target>
+      </segment>
+    </unit>
+    <unit id="explorer">
+      <segment id="name" state="translated">
+        <source>explorer.name</source>
+        <target>Explorer</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>explorer.description</source>
+        <target>Number of times you have explored a planet and come back alive.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>explorer_1.name</source>
+        <target>Explorer</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>explorer_50.name</source>
+        <target>Great explorer</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>explorer_200.name</source>
+        <target>Boundary breaker</target>
+      </segment>
+      <segment id="x1000" state="translated">
+        <source>explorer_1000.name</source>
+        <target>Christopher Colon</target>
+      </segment>
+    </unit>
+    <unit id="artefact_specialist">
+      <segment id="name" state="translated">
+        <source>artefact_specialist.name</source>
+        <target>Artefact specialist</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>artefact_specialist.description</source>
+        <target>The maximum number of different types of artefacts collected by your crew on an expedition during a single game.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>artefact_specialist_1.name</source>
+        <target>Sweeper</target>
+      </segment>
+      <segment id="x2" state="translated">
+        <source>artefact_specialist_2.name</source>
+        <target>Scavenger</target>
+      </segment>
+      <segment id="x3" state="translated">
+        <source>artefact_specialist_3.name</source>
+        <target>Seeker</target>
+      </segment>
+      <segment id="x4" state="translated">
+        <source>artefact_specialist_4.name</source>
+        <target>Explorer</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>artefact_specialist_5.name</source>
+        <target>Guardian</target>
+      </segment>
+      <segment id="x6" state="translated">
+        <source>artefact_specialist_6.name</source>
+        <target>Shaman</target>
+      </segment>
+      <segment id="x7" state="translated">
+        <source>artefact_specialist_7.name</source>
+        <target>Magician</target>
+      </segment>
+      <segment id="x8" state="translated">
+        <source>artefact_specialist_8.name</source>
+        <target>Prophet</target>
+      </segment>
+    </unit>
+    <unit id="camera_installed">
+      <segment id="name" state="translated">
+        <source>camera_installed.name</source>
+        <target>Telegenius</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>camera_installed.description</source>
+        <target>Cameras installed</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>camera_installed_1.name</source>
+        <target>Telegenic</target>
+      </segment>
+    </unit>
+    <unit id="planet_scanned">
       <segment id="name" state="translated">
         <source>planet_scanned.name</source>
         <target>Planets detected</target>
       </segment>
-    </unit>
-    <unit id="planet_scanned.description">
       <segment id="description" state="translated">
         <source>planet_scanned.description</source>
-        <target>Planets detected.</target>
+        <target>Number of planets you have discovered.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>planet_scanned_1.name</source>
+        <target>Navigator</target>
+      </segment>
+    </unit>
+    <unit id="signal_fire">
+      <segment id="name" state="translated">
+        <source>signal_fire.name</source>
+        <target>Fire reports</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>signal_fire.description</source>
+        <target>Number of fires you have reported.</target>
+      </segment>
+    </unit>
+    <unit id="extinguish_fire">
+      <segment id="name" state="translated">
+        <source>extinguish_fire.name</source>
+        <target>Fire extinguisher</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>extinguish_fire.description</source>
+        <target>Number of fires you have extinguished.</target>
+      </segment>
+    </unit>
+    <unit id="give_mission">
+      <segment id="name" state="translated">
+        <source>give_mission.name</source>
+        <target>Missions</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>give_mission.description</source>
+        <target>Missions you have delegated which have been accepted.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>give_mission_1.name</source>
+        <target>Soldier</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>give_mission_10.name</source>
+        <target>Chief</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>give_mission_50.name</source>
+        <target>Captain</target>
+      </segment>
+      <segment id="x100" state="translated">
+        <source>give_mission_100.name</source>
+        <target>Commander</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>give_mission_500.name</source>
+        <target>General</target>
+      </segment>
+    </unit>
+    <unit id="explo_feed">
+      <segment id="name" state="translated">
+        <source>explo_feed.name</source>
+        <target>Quartermaster</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>explo_feed.description</source>
+        <target>Food brought back from expeditions. You must have survived...</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>explo_feed_1.name</source>
+        <target>Berry harvester</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>explo_feed_50.name</source>
+        <target>Hunter</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>explo_feed_200.name</source>
+        <target>Safari leader</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>explo_feed_500.name</source>
+        <target>Agent of genocide</target>
+      </segment>
+      <segment id="x1000" state="translated">
+        <source>explo_feed_1000.name</source>
+        <target>Grand destroyer of solar systems</target>
+      </segment>
+    </unit>
+    <unit id="signal_equip">
+      <segment id="name" state="translated">
+        <source>signal_equip.name</source>
+        <target>Breakdown reporter</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>signal_equip.description</source>
+        <target>Number of damaged pieces of equipment you have reported.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>signal_equip_1.name</source>
+        <target>Surface agent</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>signal_equip_20.name</source>
+        <target>Maintenance operative</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>signal_equip_50.name</source>
+        <target>Equipment supervisor</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>signal_equip_200.name</source>
+        <target>Equipementeer</target>
+      </segment>
+      <segment id="x1000" state="translated">
+        <source>signal_equip_1000.name</source>
+        <target>Finished product inspector</target>
+      </segment>
+    </unit>
+    <unit id="gagged">
+      <segment id="name" state="translated">
+        <source>gagged.name</source>
+        <target>Gagged</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>gagged.description</source>
+        <target>Number of times you have been gagged.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>gagged_1.name</source>
+        <target>Gagged</target>
+      </segment>
+    </unit>
+    <unit id="succeeded_inspection">
+      <segment id="name" state="translated">
+        <source>succeeded_inspection.name</source>
+        <target>Successful inspections</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>succeeded_inspection.description</source>
+        <target>They who search, find!</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>succeeded_inspection_1.name</source>
+        <target>Elijah Baley</target>
+      </segment>
+    </unit>
+    <unit id="back_to_root">
+      <segment id="name" state="translated">
+        <source>back_to_root.name</source>
+        <target>Sol</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>back_to_root.description</source>
+        <target>Number of return trips made to Sol. How was the trip?</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>back_to_root_1.name</source>
+        <target>Citizen of Sol</target>
+      </segment>
+    </unit>
+    <unit id="new_plants">
+      <segment id="name" state="translated">
+        <source>new_plants.name</source>
+        <target>Plantations</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>new_plants.description</source>
+        <target>Plants you have raised.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>new_plants_1.name</source>
+        <target>Aphid</target>
+      </segment>
+    </unit>
+    <unit id="andie">
+      <segment id="name" state="translated">
+        <source>andie.name</source>
+        <target>Number of cycles spent honoring the SDF</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>andie.description</source>
+        <target>You have lived as a pawn of the Federation. It's time to change teams!</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>andie_50.name</source>
+        <target>I believe in the federation!</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>andie_200.name</source>
+        <target>Something strange is going on!</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>andie_500.name</source>
+        <target>Did they lie to me?</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>andie_2000.name</source>
+        <target>Idol of the youth</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>andie_10000.name</source>
+        <target>A brilliant future awaits!</target>
+      </segment>
+    </unit>
+    <unit id="jin_su">
+      <segment id="name" state="translated">
+        <source>jin_su.name</source>
+        <target>Number of cycles won playing as the chief</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>jin_su.description</source>
+        <target>You were the captain of the Daedalus, so... how did it feel? All-powerful?</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>jin_su_50.name</source>
+        <target>FDS bootlicker</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>jin_su_200.name</source>
+        <target>Oye Oye! Captain Abandoned</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>jin_su_500.name</source>
+        <target>Admiral-ien</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>jin_su_2000.name</source>
+        <target>The boss</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>jin_su_10000.name</source>
+        <target>Supreme Commander-in-Chief</target>
+      </segment>
+    </unit>
+    <unit id="chun">
+      <segment id="name" state="translated">
+        <source>chun.name</source>
+        <target>Number of cycles you've spent providing blood samples</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>chun.description</source>
+        <target>You lived in the body of the most popular of human guinea pigs, although this wasn't exactly the type of celebrity you dreamed of becoming!</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>chun_50.name</source>
+        <target>At... atmush !</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>chun_200.name</source>
+        <target>You will not contaminate me!</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>chun_500.name</source>
+        <target>Biological Reinforcements</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>chun_2000.name</source>
+        <target>DNA++ v2</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>chun_10000.name</source>
+        <target>Humanity's Last Hope</target>
+      </segment>
+    </unit>
+    <unit id="kuan_ti">
+      <segment id="name" state="translated">
+        <source>kuan_ti.name</source>
+        <target>Number of cycles won contemplating your work</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>kuan_ti.description</source>
+        <target>You were the designer of the Daedalus, so... how did you feel? Proud?</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>kuan_ti_50.name</source>
+        <target>Lego system</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>kuan_ti_200.name</source>
+        <target>Steel plated and diamond studded</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>kuan_ti_500.name</source>
+        <target>Space-iceberg proof</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>kuan_ti_2000.name</source>
+        <target>Backwards-compatible architect</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>kuan_ti_10000.name</source>
+        <target>Universally classy</target>
+      </segment>
+    </unit>
+    <unit id="chao">
+      <segment id="name" state="translated">
+        <source>chao.name</source>
+        <target>Number of cycles spent taking stuff out</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>chao.description</source>
+        <target>You have been a galactic sharp-shooter, are you still as trigger-happy?</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>chao_50.name</source>
+        <target>Boom! hahahaha...</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>chao_200.name</source>
+        <target>Keep your friends close, and your enemies closer.</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>chao_500.name</source>
+        <target>If you're asking the question, Doctor Caliber has the answer.</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>chao_2000.name</source>
+        <target>If any of you move, I will execute every last one of you!</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>chao_10000.name</source>
+        <target>Last Action Weirdo</target>
+      </segment>
+    </unit>
+    <unit id="gioele">
+      <segment id="name" state="translated">
+        <source>gioele.name</source>
+        <target>Number of turns spent counting your cash</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>gioele.description</source>
+        <target>Being a billionaire is a dream on Earth... But in space, with a Mush on board...</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>gioele_50.name</source>
+        <target>Me first!</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>gioele_200.name</source>
+        <target>There's nothing for people like you round here!</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>gioele_500.name</source>
+        <target>Are you talking to me?</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>gioele_2000.name</source>
+        <target>There's cash to be made here, I can smell it!</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>gioele_10000.name</source>
+        <target>The guy's worth 3 billion and change!</target>
+      </segment>
+    </unit>
+    <unit id="eleesha">
+      <segment id="name" state="translated">
+        <source>eleesha.name</source>
+        <target>Number of cycles spent fixing your barnet fair</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eleesha.description</source>
+        <target>You've been bopping round the corridors to the rhythm of disco-pop, it's a shame this costume doesn't have sequins...</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>eleesha_50.name</source>
+        <target>Funk Soul lover</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>eleesha_200.name</source>
+        <target>Daddy cool</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>eleesha_500.name</source>
+        <target>The tigress of the Daedalus</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>eleesha_2000.name</source>
+        <target>Live on Eleesha TV</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>eleesha_10000.name</source>
+        <target>Undercover lover</target>
+      </segment>
+    </unit>
+    <unit id="finola">
+      <segment id="name" state="translated">
+        <source>finola.name</source>
+        <target>Number of cycles examining the infinitely small</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>finola.description</source>
+        <target>You were a renowned scientist, could you be persuaded to refute that for a tasty bonus?</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>finola_50.name</source>
+        <target>What on earth am I doing?</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>finola_200.name</source>
+        <target>Neutrino mutation detected</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>finola_500.name</source>
+        <target>The universe in 10²²</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>finola_2000.name</source>
+        <target>Plancking in the labs again</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>finola_10000.name</source>
+        <target>Master of the universe</target>
+      </segment>
+    </unit>
+    <unit id="terrence">
+      <segment id="name" state="translated">
+        <source>terrence.name</source>
+        <target>Number of cycles spent sulking in a corner</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>terrence.description</source>
+        <target>You lived as a brilliant engineer, and those who underestimated you regret it bitterly!</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>terrence_50.name</source>
+        <target>Rock n Roll!</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>terrence_200.name</source>
+        <target>Roll with the punches!</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>terrence_500.name</source>
+        <target>The Downhill Don</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>terrence_2000.name</source>
+        <target>T-4000 concept</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>terrence_10000.name</source>
+        <target>They see me rollin'</target>
+      </segment>
+    </unit>
+    <unit id="eden">
+      <segment id="name" state="translated">
+        <source>eden.name</source>
+        <target>Eden, the promised land</target>
+      </segment>
+      <segment id="x1_description" state="translated">
+        <source>eden.description</source>
+        <target>Title uniquely awarded to survivors of the Daedalus who reached Eden, the promised land.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_1.name</source>
+        <target>Don't hate the player!</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>eden_5.name</source>
+        <target>Where's Eden?</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>eden_10.name</source>
+        <target>Eden Pioneer</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>eden_20.name</source>
+        <target>Edenian</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>eden_50.name</source>
+        <target>Founder of the Order of Eden</target>
+      </segment>
+    </unit>
+    <unit id="contributions">
+      <segment id="name" state="translated">
+        <source>contributions.name</source>
+        <target>Contributions</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>contributions.description</source>
+        <target>You have contributed to eMush development and with your help, it has evolved. Thank you!</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>contributions_1.name</source>
+        <target>Contributor</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>contributions_5.name</source>
+        <target>“I could totally put this on a CV…“</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>contributions_20.name</source>
+        <target>Ship it!</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>contributions_50.name</source>
+        <target>eMush Driven Development</target>
+      </segment>
+      <segment id="x100" state="translated">
+        <source>contributions_100.name</source>
+        <target>Experience creator</target>
+      </segment>
+      <segment id="x300" state="translated">
+        <source>contributions_300.name</source>
+        <target>Interstellar Kent Beck</target>
+      </segment>
+      <segment id="x700" state="translated">
+        <source>contributions_700.name</source>
+        <target>Grand fixer of Cest</target>
+      </segment>
+      <segment id="x1500" state="translated">
+        <source>contributions_1500.name</source>
+        <target>Keeper of the source code</target>
+      </segment>
+    </unit>
+    <unit id="frieda">
+      <segment id="name" state="translated">
+        <source>frieda.name</source>
+        <target>Number of cycles won reading the cards</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>frieda.description</source>
+        <target>You were the navigator of the Daedalus, so... how did it feel? Dizzying?</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>frieda_50.name</source>
+        <target>Navigator-mented</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>frieda_200.name</source>
+        <target>After the nebula, take a right</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>frieda_500.name</source>
+        <target>Compass in the eye</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>frieda_2000.name</source>
+        <target>Astro-Physico-Navigato</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>frieda_10000.name</source>
+        <target>Encyclopedia Universalo</target>
+      </segment>
+    </unit>
+    <unit id="hua">
+      <segment id="name" state="translated">
+        <source>hua.name</source>
+        <target>Number of cycles spent having close encounters of the third kind</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>hua.description</source>
+        <target>You were a legendary explorer, how did it go... were you disappointed not to have 3 eyes?</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>hua_50.name</source>
+        <target>A mars and we're off</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>hua_200.name</source>
+        <target>Dude, where's my ship?</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>hua_500.name</source>
+        <target>You don't exactly look like a lucky charm!</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>hua_2000.name</source>
+        <target>Everyone is lost bar me?!</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>hua_10000.name</source>
+        <target>The epic voyages of Jiang Hua</target>
+      </segment>
+    </unit>
+    <unit id="ian">
+      <segment id="name" state="translated">
+        <source>ian.name</source>
+        <target>Number of cycles spent cultivating psychotropic plants</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>ian.description</source>
+        <target>You were once a nature lover, at the end of your days you'll surely make good fertilizer.</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>ian_50.name</source>
+        <target>She likes a little, a lot...</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>ian_200.name</source>
+        <target>The friend of Triffids</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>ian_500.name</source>
+        <target>Fruitician</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>ian_2000.name</source>
+        <target>Is that a banana in your pocket!</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>ian_10000.name</source>
+        <target>Flower power</target>
+      </segment>
+    </unit>
+    <unit id="janice">
+      <segment id="name" state="translated">
+        <source>janice.name</source>
+        <target>Number of cycles won... listening to others</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>janice.description</source>
+        <target>You were the psychologist of the Daedalus, so... how did you feel? Mad?</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>janice_50.name</source>
+        <target>zZz....zZzz...</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>janice_200.name</source>
+        <target>Gnan Gnan Style</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>janice_500.name</source>
+        <target>In the eyes, I read it in your eyes!</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>janice_2000.name</source>
+        <target>Psycho-Bimbo</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>janice_10000.name</source>
+        <target>Janice S. Freud</target>
+      </segment>
+    </unit>
+    <unit id="stephen">
+      <segment id="name" state="translated">
+        <source>stephen.name</source>
+        <target>Number of cycles spent cooking up suspect dishes</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>stephen.description</source>
+        <target>Lesson 1, Act 1 : Where is Stephen ? Stephen is ... in the kitchen !</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>stephen_50.name</source>
+        <target>Dinner's ready!</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>stephen_200.name</source>
+        <target>No, I also cook.</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>stephen_500.name</source>
+        <target>Hokuto of the Kitchen</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>stephen_2000.name</source>
+        <target>Descendant of Casey Ryback</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>stephen_10000.name</source>
+        <target>Master chief</target>
+      </segment>
+    </unit>
+    <unit id="derek">
+      <segment id="name" state="translated">
+        <source>derek.name</source>
+        <target>Number of cycles spent as an intergalactic Don Juan</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>derek.description</source>
+        <target>You lived as a self-proclaimed intergalactic super hero, and those who mocked you will be reminded of it one day!</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>derek_50.name</source>
+        <target>Space virgin</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>derek_200.name</source>
+        <target>Who wants me?</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>derek_500.name</source>
+        <target>Fire on anything that twitches!</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>derek_2000.name</source>
+        <target>Eyes on the prize!</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>derek_10000.name</source>
+        <target>Zero-gravity Casanova</target>
+      </segment>
+    </unit>
+    <unit id="daily_order">
+      <segment id="name" state="translated">
+        <source>daily_order.name</source>
+        <target>General announcement</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>daily_order.description</source>
+        <target>General announcements sent</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>daily_order_1.name</source>
+        <target>Orator</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>daily_order_10.name</source>
+        <target>Loudspeaker</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>daily_order_20.name</source>
+        <target>Herald</target>
+      </segment>
+    </unit>
+    <unit id="paola">
+      <segment id="name" state="translated">
+        <source>paola.name</source>
+        <target>Number of cycles spent surfing the lowest frequencies</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>paola.description</source>
+        <target>You have been an intrepid system rebel, nothing and nobody can distract you from the truth!</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>paola_50.name</source>
+        <target>bzzzz...Bzzztt!</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>paola_200.name</source>
+        <target>Purple tuft emitter</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>paola_500.name</source>
+        <target>Radiohead</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>paola_2000.name</source>
+        <target>Video killed, radio star</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>paola_10000.name</source>
+        <target>2,21 GigaHertz!</target>
+      </segment>
+    </unit>
+    <unit id="raluca">
+      <segment id="name" state="translated">
+        <source>raluca.name</source>
+        <target>Number of cycles spent stroking your cat</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>raluca.description</source>
+        <target>Yeah, nobody pretends to understand a single word you say, maybe now would be a good time to come back to the land of the mortals.</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>raluca_50.name</source>
+        <target>Miaow Miaow</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>raluca_200.name</source>
+        <target>Reverso-combustible-spatio-temporal convector functional</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>raluca_500.name</source>
+        <target>Bedtime NERON! You too Schrödinger!</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>raluca_2000.name</source>
+        <target>Pilgred in love</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>raluca_10000.name</source>
+        <target>In Pilgred we trust</target>
+      </segment>
+    </unit>
+    <unit id="roland">
+      <segment id="name" state="translated">
+        <source>roland.name</source>
+        <target>Number of cycles won running round in circles</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>roland.description</source>
+        <target>You were the most feared hunter aboard the Daedalus... In saying that, there weren't that many hunters...</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>roland_50.name</source>
+        <target>Choo choo!</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>roland_200.name</source>
+        <target>Full speed ahead!</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>roland_500.name</source>
+        <target>Ever further, ever faster!</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>roland_2000.name</source>
+        <target>Spatio-temporal interlooper</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>roland_10000.name</source>
+        <target>Ace of all ace space-cases</target>
+      </segment>
+    </unit>
+    <unit id="game_without_sleep">
+      <segment id="name" state="translated">
+        <source>game_without_sleep.name</source>
+        <target>Days without sleep</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>game_without_sleep.description</source>
+        <target>Number of trips you have completed without sleep. This trophy is only awarded if you survive beyond day 6.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>game_without_sleep_1.name</source>
+        <target>Awakened</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>game_without_sleep_20.name</source>
+        <target>Insomniac</target>
+      </segment>
+      <segment id="x100" state="translated">
+        <source>game_without_sleep_100.name</source>
+        <target>Ultralucid</target>
+      </segment>
+    </unit>
+    <unit id="mush_cycles">
+      <segment id="name" state="translated">
+        <source>mush_cycles.name</source>
+        <target>Number of cycles spent fungifying in a dark corner</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>mush_cycles.description</source>
+        <target>Gnarf, shnarf... brarf... Reproduction... Mushhhh!</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>mush_cycles_50.name</source>
+        <target>Mushi mushi?</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>mush_cycles_200.name</source>
+        <target>Bright eyes and a bushy skin?!</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>mush_cycles_500.name</source>
+        <target>Passenger 16</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>mush_cycles_2000.name</source>
+        <target>Day of the tentacle</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>mush_cycles_10000.name</source>
+        <target>Total Mushification</target>
+      </segment>
+    </unit>
+    <unit id="eden_contaminated">
+      <segment id="name" state="translated">
+        <source>eden_contaminated.name</source>
+        <target>Eden, contaminated land</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eden_contaminated.description</source>
+        <target>Title reserved for Mushs who have infested Eden, the contaminated land!</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_contaminated_1.name</source>
+        <target>Devourer of worlds</target>
       </segment>
     </unit>
   </file>

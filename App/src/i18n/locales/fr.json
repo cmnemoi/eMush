@@ -110,7 +110,10 @@
 			"daedalus_destroyed": "Daedalus détruit",
 			"killed_by_neron": "Équipage contaminé assassiné par NERON",
 			"super_nova": "Supernova"
-		}
+		},
+		"category": "Catégorie",
+		"timeSurvived": "Jours survécus",
+		"mushTriumph": "Cycles survécus"
 	},
 	"theEnd": {
 		"headliner": "Tête d'affiche :",
@@ -306,7 +309,7 @@
 			"tagConstraints": "Condition sur les tags de l'événement",
 			"directModifier": "Modificateur direct",
 			"modifierName": "Nom du modificateur",
-			"eventModifier": "Tout les modificateurs d'événements",
+			"eventModifier": "Tous les modificateurs d'événements",
 			"priority": "Ordre d'application",
 			"modifierStrategy": "Stratégie du modificateur"
 		},
@@ -379,7 +382,7 @@
 			"initFuel": "Fuel de départ",
 			"initHull": "Armure de départ",
 			"initShield": "Bouclier de départ",
-			"dailySporeNb": "Nombre de spores quotidiens",
+			"dailySporeNb": "Nombre de spores quotidiennes",
 			"maxOxygen": "Oxygène maximal",
 			"maxFuel": "Fuel maximal",
 			"maxHull": "Armure maximale",
@@ -572,7 +575,7 @@
 		},
 		"consumableDiseaseConfig": {
 			"pageTitle": "Modification de la configuration des maladies de la nourriture ",
-			"curesName": "Maladies guéries par la nourritre (maladie => probabilité qu'elle soit choisie)",
+			"curesName": "Maladies guéries par la nourriture (maladie => probabilité qu'elle soit choisie)",
 			"diseasesName": "Maladies provoquées par la nourriture (maladie => probabilité qu'elle soit choisie)",
 			"diseasesChances": "Probabilité de contracter une maladie (probabilité => probabilité qu'elle soit choisie)",
 			"curesChances": "Probabilité de guérir d'une maladie (probabilité => probabilité qu'elle soit choisie)",
@@ -713,7 +716,7 @@
 		"joinUs": "Inscrivez-vous !",
 		"play": "Jouer !",
 		"synopsis": "Vous allez vous réveiller avec 15 autres joueurs dans le Daedalus. Comme vous, ils fuient le <em>Mush</em>, un champignon qui ravage la planète Terre et menace l'Humanité.",
-		"followUs": "Suivez nous :",
+		"followUs": "Suivez-nous :",
 		"latestNews": "Dernière news :",
 		"seeAllNews": "Voir toutes les news"
 	},
@@ -763,9 +766,9 @@
 		"banAllUsers": {
 			"title": "Bannir plusieurs utilisateurs",
 			"description": "Vous pouvez bannir plusieurs utilisateurs en une seule fois en copiant leurs identifiants dans la zone de texte ci-dessous.",
-			"uuidsLabel": "identifiants des utilisateurs",
+			"uuidsLabel": "Identifiants des utilisateurs",
 			"uuidsPlaceholder": "Coller les identifiants des utilisateurs (un par ligne ou séparés par des virgules)",
-			"uuidsHelp": "Copiez les identifiants des utilisateurs à bannir, un par ligne ou séparés par des virgules.",
+			"uuidsHelp": "Coller les identifiants des utilisateurs à bannir, un par ligne ou séparés par des virgules.",
 			"reasonLabel": "Motif",
 			"messageLabel": "Message",
 			"messagePlaceholder": "Message explicatif pour les utilisateurs",
@@ -887,7 +890,7 @@
 			"sanction": "Détails de la sanction",
 			"report": "Détails",
 			"user": "Nom d'utilisateur : ",
-			"player": "Personage joué : ",
+			"player": "Personnage joué : ",
 			"endDate": "Fin de la sanction : ",
 			"startDate": "Début de la sanction : ",
 			"reportDate": "Date de la plainte : ",
@@ -1098,8 +1101,9 @@
 			"description": "Affichez vos actions Mush."
 		},
 		"admin": {
-			"name": "Actions admin",
+			"name": "Admin actions",
 			"description": "Affichez vos actions admin."
 		}
-	}
+	},
+	"ranking-humantriumph": "Triomphe humain"
 }

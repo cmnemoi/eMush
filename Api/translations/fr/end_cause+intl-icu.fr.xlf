@@ -178,7 +178,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>abandoned.description</source>
-        <target>Le Daedalus est parti sans vous, mais que leur avez vous donc fait ?</target>
+        <target>Le Daedalus est parti sans vous, mais que leur avez-vous donc fait ?</target>
       </segment>
     </unit>
     <unit id="allergy">
@@ -484,7 +484,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>metal_plate.description</source>
-        <target>Le Daedalus est une poubelle volante… Vous saviez que  Vous n'auriez pas dû trainer sous cette plaque branlante…</target>
+        <target>Le Daedalus est une poubelle volante… Vous saviez que vous n'auriez pas dû trainer sous cette plaque branlante…</target>
       </segment>
     </unit>
     <unit id="rocketed">

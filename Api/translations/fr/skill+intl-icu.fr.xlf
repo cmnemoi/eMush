@@ -93,7 +93,7 @@
         <target>Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
         :point: +1 :pa_eng: (point d'action **Réparation**) par jour.//
         :point: Peut **Démonter** des objets.//
-        :point: Peut **Renforcer** des objets.//
+        :point: Peut **Blinder** des objets.//
         :point: Chances de réussites doublées pour les **Réparations**.//
         :point: Chances de réussites doublées pour les **Rénovations**.//
         :point: Bonus pour développer certains **Projets NERON** et **réparer PILGRED**.</target>
@@ -158,7 +158,7 @@
         <source>shrink.description</source>
         <target>Le Psy occupe un poste de soutien psychologique. Il permet de garder le moral et soigne les maladies psychologiques.//
 :point: A chaque cycle, **1 Point de Moral (:pmo:) est régénéré** à chaque personnage allongé dans sa pièce.//
-:point: **Soigne les maladies Psy** de ces patients.//
+:point: **Soigne les maladies Psy** de ses patients.//
 :point: Accorde l'action **Réconforter**, laquelle améliore le moral.//
 :point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
@@ -418,7 +418,7 @@
       </segment>
       <segment id="fertile.description" state="translated">
         <source>fertile.description</source>
-        <target>Votre production de spore est remarquable pour le genre. Spore un jour, spore toujours.//:point: Chaque jour, vous pouvez générer un spore **gratuitement**.</target>
+        <target>Votre production de spore est remarquable pour le genre. Spore un jour, spore toujours.//:point: Chaque jour, vous pouvez générer une spore **gratuitement**.</target>
       </segment>
     </unit>
     <unit id="splashproof">
@@ -488,7 +488,7 @@
       </segment>
       <segment id="wrestler.description" state="translated">
         <source>wrestler.description</source>
-        <target>Les german suplex du Lutteur font trembler les vertèbres de tous ses adversaires.//:point: Vos attaques de corps-à-corps infligent **2 dégats supplémentaires** si vous n'êtes pas muté.//:point: Vous disposez de l'action **Mettre à la porte**.</target>
+        <target>Les german suplex du Lutteur font trembler les vertèbres de tous ses adversaires.//:point: Vos attaques de corps-à-corps infligent **2 dégâts supplémentaires** si vous n'êtes pas muté.//:point: Vous disposez de l'action **Mettre à la porte**.</target>
       </segment>
     </unit>
     <unit id="sprinter">
@@ -532,7 +532,7 @@
       </segment>
       <segment id="trapper.description" state="translated">
         <source>trapper.description</source>
-        <target>Surprise !//:point: Pour **1** :pa:, vous pouvez piéger une **pièce** avec une **spore**. Si une personne manipule un **objet** ou un **équipement** de la pièce, elle sera **infectée**. Si c'est un Mush (dont vous-même) ou un Immunisé, la spore est perdu.</target>
+        <target>Surprise !//:point: Pour **1** :pa:, vous pouvez piéger une **pièce** avec une **spore**. Si une personne manipule un **objet** ou un **équipement** de la pièce, elle sera **infectée**. Si c'est un Mush (dont vous-même) ou un Immunisé, la spore est perdue.</target>
       </segment>
     </unit>
     <unit id="tracker">
@@ -562,7 +562,7 @@
       </segment>
       <segment id="pyromaniac.description" state="translated">
         <source>pyromaniac.description</source>
-        <target>Le pyromane peut injecter des microspores explosifs dans un support inflammable afin de déclencher une combustion violente susceptible d'endommager à terme le vaisseau.//:point: Pour **4** :pa:, vous pouvez déclencher un **incendie** dans une salle.</target>
+        <target>Le pyromane peut injecter des microspores explosives dans un support inflammable afin de déclencher une combustion violente susceptible d'endommager à terme le vaisseau.//:point: Pour **4** :pa:, vous pouvez déclencher un **incendie** dans une salle.</target>
       </segment>
     </unit>
     <unit id="observant">
@@ -652,7 +652,7 @@
       </segment>
       <segment id="mycologist.description" state="translated">
         <source>mycologist.description</source>
-        <target>Le Mycologiste peut soigner les infections fongiques à l'**Infirmerie** ou à l'aide d'un **Medikit**.//:point: Vos soins retirent automatiquement une spore.</target>
+        <target>Le Mycologiste peut soigner les infections fongiques à l'**Infirmerie** ou à l'aide d'un **Médikit**.//:point: Vos soins retirent automatiquement une spore.</target>
       </segment>
     </unit>
     <unit id="fungal_kitchen">
@@ -682,7 +682,7 @@
       </segment>
       <segment id="saboteur.description" state="translated">
         <source>saboteur.description</source>
-        <target>Votre salive produit un acide liquide léger suffisant pour court circuiter à peu près n'importe quoi...//:point: Vos chances de succès pour le **sabotage** d'équipement sont **doublées**.</target>
+        <target>Votre salive produit un acide liquide léger suffisant pour court-circuiter à peu près n'importe quoi...//:point: Vos chances de succès pour le **sabotage** d'équipement sont **doublées**.</target>
       </segment>
     </unit>
     <unit id="disheartening_contact">
@@ -798,11 +798,11 @@
     <unit id="crazy_eye">
       <segment id="crazy_eye.name" state="translated">
         <source>crazy_eye.name</source>
-        <target>Oeil fou</target>
+        <target>Œil fou</target>
       </segment>
       <segment id="crazy_eye.description" state="translated">
         <source>crazy_eye.description</source>
-        <target>Il n'y a pas moyen de vous surprendre vous anticipez tout les mouvements de vos ennemis mais également ceux de vos prétendus alliés. //:point: Toutes les actions agressives vous ciblant coûtent 2 :pa: supplémentaires.</target>
+        <target>Il n'y a pas moyen de vous surprendre vous anticipez tous les mouvements de vos ennemis mais également ceux de vos prétendus alliés. //:point: Toutes les actions agressives vous ciblant coûtent 2 :pa: supplémentaires.</target>
       </segment>
     </unit>
     <unit id="medic">
@@ -882,7 +882,7 @@
       </segment>
       <segment id="antique_perfume.description" state="translated">
         <source>antique_perfume.description</source>
-        <target>Ah cha ils chavaient faire de frais parfums chez Fraigonard en mille neuf chent quatre-ving douche...//:point: A chaque **douche**, vous gagnez une immunité de **2** cycles contre les **infections Mush**.</target>
+        <target>Ah cha ils chavaient faire de frais parfums chez Fraigonard en mille neuf chent quatre-vingt douche...//:point: A chaque **douche**, vous gagnez une immunité de **2** cycles contre les **infections Mush**.</target>
       </segment>
     </unit>
     <unit id="self_sacrifice">

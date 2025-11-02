@@ -135,7 +135,7 @@ final class AchievementControllerCest
             LanguageEnum::ENGLISH => [
                 'language' => LanguageEnum::ENGLISH,
                 'expectedName' => 'Planets detected',
-                'expectedDescription' => 'Planets detected.',
+                'expectedDescription' => 'Number of planets you have discovered.',
             ],
         ];
     }

@@ -508,9 +508,17 @@
         <source>install_camera.name</source>
         <target>install_camera.name</target>
       </segment>
+      <segment id="mush.name" state="translated">
+        <source>mush.install_camera.name</source>
+        <target>install_camera.description</target>
+      </segment>
       <segment id="description" state="initial">
         <source>install_camera.description</source>
         <target>install_camera.description</target>
+      </segment>
+      <segment id="mush.description" state="initial">
+        <source>mush.install_camera.description</source>
+        <target>mush.install_camera.description</target>
       </segment>
     </unit>
     <unit id="remove_camera">
@@ -518,9 +526,17 @@
         <source>remove_camera.name</source>
         <target>remove_camera.name</target>
       </segment>
+      <segment id="mush.name" state="translated">
+        <source>mush.remove_camera.name</source>
+        <target>remove_camera.description</target>
+      </segment>
       <segment id="description" state="initial">
         <source>remove_camera.description</source>
         <target>remove_camera.description</target>
+      </segment>
+      <segment id="mush.description" state="initial">
+        <source>mush.remove_camera.description</source>
+        <target>mush.remove_camera.description</target>
       </segment>
     </unit>
     <unit id="examine">
@@ -839,6 +855,16 @@
       <segment id="description" state="initial">
         <source>access_terminal.description</source>
         <target>access_terminal.description</target>
+      </segment>
+    </unit>
+    <unit id="bypass_terminal">
+      <segment id="name" state="initial">
+        <source>bypass_terminal.name</source>
+        <target>bypass_terminal.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>bypass_terminal.description</source>
+        <target>bypass_terminal.description</target>
       </segment>
     </unit>
     <unit id="land">
@@ -1707,6 +1733,50 @@
       <segment id="description" state="initial">
         <source>check_roster.description</source>
         <target>check_roster.description</target>
+      </segment>
+    </unit>
+    <unit id="whisper">
+      <segment id="name" state="initial">
+        <source>whisper.name</source>
+        <target>whisper.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>whisper.description</source>
+        <target>whisper.description</target>
+      </segment>
+    </unit>
+    <unit id="adapt_epigenetics">
+      <segment id="name" state="initial">
+        <source>adapt_epigenetics.name</source>
+        <target>adapt_epigenetics.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>adapt_epigenetics.description</source>
+        <target>adapt_epigenetics.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>adapt_epigenetics.confirmation</source>
+        <target>adapt_epigenetics.confirmation</target>
+      </segment>
+    </unit>
+    <unit id="become_anonymous">
+      <segment id="name" state="initial">
+        <source>become_anonymous.name</source>
+        <target>become_anonymous.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>become_anonymous.description</source>
+        <target>become_anonymous.description</target>
+      </segment>
+    </unit>
+    <unit id="become_anonymous_reverse">
+      <segment id="name" state="initial">
+        <source>become_anonymous_reverse.name</source>
+        <target>become_anonymous_reverse.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>become_anonymous_reverse.description</source>
+        <target>become_anonymous_reverse.description</target>
       </segment>
     </unit>
   </file>

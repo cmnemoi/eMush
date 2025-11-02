@@ -34,7 +34,7 @@
     <unit id="sporesCreated">
       <segment state="translated">
         <source>sporesCreated</source>
-        <target>Spores générés</target>
+        <target>Spores générées</target>
       </segment>
     </unit>
     <unit id="mushAmount">

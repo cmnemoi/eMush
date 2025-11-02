@@ -1655,6 +1655,18 @@ Todas tus acciones se vuelven más difíciles.</target>
         <target>¡Esta sala está en llamas!</target>
       </segment>
     </unit>
+    <unit id="mush_trapped.name">
+      <segment state="translated">
+        <source>mush_trapped.name</source>
+        <target>¡Sala atrapada!</target>
+      </segment>
+    </unit>
+    <unit id="mush_trapped.description">
+      <segment state="translated">
+        <source>mush_trapped.description</source>
+        <target>La próxima persona que interactúe con la habitación, un equipo o la estantería recibirá una espora. Ten cuidado de no activar la trampa tú mismo…</target>
+      </segment>
+    </unit>
     <unit id="genius_idea">
       <segment id="name" state="translated">
         <source>genius_idea.name</source>
@@ -1725,6 +1737,16 @@ Todas tus acciones se vuelven más difíciles.</target>
       <segment id="description" state="translated">
         <source>firefighter_drone_upgrade.description</source>
         <target>:point: Bombero: Intenta apagar los incendios en la sala antes de desplazarse. También se protege del fuego.</target>
+      </segment>
+    </unit>
+    <unit id="is_anonymous">
+      <segment id="name" state="translated">
+        <source>is_anonymous.name</source>
+        <target>Ninja</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>is_anonymous.description</source>
+        <target>Tus acciones **Públicas** son anónimas. En cambio, tus acciones **Secretas** y **Furtivas** revelarán tu verdadera identidad…</target>
       </segment>
     </unit>
   </file>

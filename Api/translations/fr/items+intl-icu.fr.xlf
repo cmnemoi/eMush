@@ -578,11 +578,11 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
       </segment>
       <segment id="description" state="translated">
         <source>kubinus.description</source>
-        <target>Le kubinus fait l'objet de l'adoration d'une secte de mathématicien tordus, fanatiques de formes parfaites et de saveurs carrés.</target>
+        <target>Le kubinus fait l'objet de l'adoration d'une secte de mathématiciens tordus, fanatiques de formes parfaites et de saveurs carrés.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>kubinus.examine</source>
-        <target>Le kubinus fait l'objet de l'adoration d'une secte de mathématicien tordus, fanatiques de formes parfaites et de saveurs carrés.</target>
+        <target>Le kubinus fait l'objet de l'adoration d'une secte de mathématiciens tordus, fanatiques de formes parfaites et de saveurs carrés.</target>
       </segment>
     </unit>
     <unit id="caleboot">
@@ -844,7 +844,7 @@ Lors des cycles pairs, vous gagnez 1 pm de plus lors des transferts.</target>
         <source>rolling_boulder.examine</source>
         <target>Il secoue pas mal et fait beaucoup de bruit dans les coursives, mais il permet de se déplacer d'un bout à l'autre du Daedalus sans se fatiguer.
 Lors des cycles pairs, vous gagnez 1 pm de plus lors des transferts.
-Les câlins de la bête sont littérallement insupportable, le pire ce sont les léchouilles...</target>
+Les câlins de la bête sont littéralement insupportables, le pire, ce sont les léchouilles...</target>
       </segment>
     </unit>
     <unit id="sniper_helmet">
@@ -966,7 +966,7 @@ Vous n'avez jamais vraiment compris l'utilité du vaguoscope mais de toute faço
       </segment>
       <segment id="description" state="translated">
         <source>plastenite_armor.description</source>
-        <target>Cette armure est conseillée pour partir en expédition.//Absorbe 1 point de dégats de combat.</target>
+        <target>Cette armure est conseillée pour partir en expédition.//Absorbe 1 point de dégât de combat.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>plastenite_armor.examine</source>
@@ -1068,7 +1068,7 @@ Le joueur peut sortir dans l'espace depuis une baie de lancement pour une missio
       <segment id="examine" state="translated">
         <source>stainproof_apron.examine</source>
         <target>Vous ne vous salissez jamais en effectuant des actions salissantes.
-Un vieux tablier fatigué avec écrit dessus : "Meilleur ingénieur de mon coeur". Nul ne sait qui a ramené ça mais il peut servir...</target>
+Un vieux tablier fatigué avec écrit dessus : "Meilleur ingénieur de mon cœur". Nul ne sait qui a ramené ça mais il peut servir...</target>
       </segment>
     </unit>
     <unit id="soap">
@@ -1222,11 +1222,11 @@ L' Écholocateur est un outil puissant pour les corps expéditionnaire en milieu
     <unit id="quadrimetric_compass">
       <segment id="name" state="translated">
         <source>quadrimetric_compass.name</source>
-        <target>Boussole Quadrimetric</target>
+        <target>Boussole Quadrimétrique</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>quadrimetric_compass.short_name</source>
-        <target>Boussole Quadrimetric</target>
+        <target>Boussole Quadrimétrique</target>
       </segment>
       <segment id="genre" state="translated">
         <source>quadrimetric_compass.gender</source>
@@ -1526,7 +1526,7 @@ Le MAD Kube, prisé par tous. Bien peu arrivent à le résoudre en moins de 26 m
       </segment>
       <segment id="description" state="translated">
         <source>microwave.description</source>
-        <target>Le micro-onde permet de cuisiner rapidement et efficacement. Par contre, on est toujours pas sûr de son absence de nocivité.</target>
+        <target>Le micro-ondes permet de cuisiner rapidement et efficacement. Par contre, on est toujours pas sûr de son absence de nocivité.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>microwave.examine</source>
@@ -1879,7 +1879,7 @@ Après les terribles guerres du Mush, il a été décidé par les états majors,
       </segment>
       <segment id="description" state="translated">
         <source>retro_fungal_serum.description</source>
-        <target>Le sérum retro-fongique permet d'éradiquer la présence du Mush dans le système nerveux d'un vertébré.</target>
+        <target>Le sérum rétro-fongique permet d'éradiquer la présence du Mush dans le système nerveux d'un vertébré.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>retro_fungal_serum.examine</source>
@@ -1971,7 +1971,7 @@ On aurait pu s'en servir en cuisine, mais le chef n'en voulait pas...</target>
       </segment>
       <segment id="description" state="translated">
         <source>invertebrate_shell.description</source>
-        <target>Incroyable, ce paisible crustacé alien en forme de tube a exactement le même diamètre que les obus tesla des tourelles du Daedalus !//+100% aux dégats de la tourelle où il est placé. Si détruit, provoque une explosion dans la pièce.</target>
+        <target>Incroyable, ce paisible crustacé alien en forme de tube a exactement le même diamètre que les obus tesla des tourelles du Daedalus !//+100% aux dégâts de la tourelle où il est placé. Si détruit, provoque une explosion dans la pièce.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>invertebrate_shell.examine</source>
@@ -2080,7 +2080,7 @@ La caméra ne détecte pas son propre sabotage.</target>
       <segment id="examine" state="translated">
         <source>mush_genome_disk.examine</source>
         <target>Le monde du Mush enfin percé à jour en seulement une disquette !
-Ce disque contient le génome du Mush décrypté. En soit il ne peut pas vous servir à grand chose, même pas comme arme.</target>
+Ce disque contient le génome du Mush décrypté. En soit il ne peut pas vous servir à grand-chose, même pas comme arme.</target>
       </segment>
     </unit>
     <unit id="mush_sample">
@@ -2165,7 +2165,7 @@ La Myco-Alarme détecte les fortes concentrations de mycotoxine. Si le Mush déc
       <segment id="examine" state="translated">
         <source>starmap_fragment.examine</source>
         <target>Un éclat de carte stellaire qui pourrait peut-être vous conduire vers un nouvel Eden.
-Les extra-terrestres qui ont laissé ça là devait s'en servir pour quelque chose... Peut-être qu'en les analysant vous pourrez en apprendre plus sur eux...</target>
+Les extra-terrestres qui ont laissé ça là devaient s'en servir pour quelque chose... Peut-être qu'en les analysant vous pourrez en apprendre plus sur eux...</target>
       </segment>
     </unit>
     <unit id="water_stick">
@@ -2192,7 +2192,7 @@ Les extra-terrestres qui ont laissé ça là devait s'en servir pour quelque cho
       <segment id="examine" state="translated">
         <source>water_stick.examine</source>
         <target>Il permet de rester hydraté en toute circonstance, mais personne n'est décidé à rechercher où il doit être inséré pour cela.
-Quelle idée de rapporter cette chose à bord... Ca vous rappelle des souvenirs douteux de Venus...</target>
+Quelle idée de rapporter cette chose à bord... Ça vous rappelle des souvenirs douteux de Venus...</target>
       </segment>
     </unit>
     <unit id="old_faithful">
@@ -2353,7 +2353,7 @@ Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire
       </segment>
       <segment id="examine" state="translated">
         <source>natamy_rifle.examine</source>
-        <target>Le fusil Natamy est un fusil d'assaut anti-Mush.//Expédition : + 1 à la force de votre équipe en cas de combat.//Le fusil bien particulier mis au point par l'équipage. Ses munitions au bicarbonate de sodium et à la retro-patuline ont des propriétés anti-fongiques.</target>
+        <target>Le fusil Natamy est un fusil d'assaut anti-Mush.//Expédition : + 1 à la force de votre équipe en cas de combat.//Le fusil bien particulier mis au point par l'équipage. Ses munitions au bicarbonate de sodium et à la rétro-patuline ont des propriétés anti-fongiques.</target>
       </segment>
     </unit>
     <unit id="grenade">
@@ -2606,7 +2606,7 @@ La capsule OxyTron de la société AirGaz Permet de déplacer de l'oxygène sous
       <segment id="examine" state="translated">
         <source>space_capsule.examine</source>
         <target>La capsule spatiale renferme sûrement quelque chose dont vous avez extrêmement besoin. Et puis c'est tellement bonnnn...
-Une capsule contient quelque chose. Vous ne pourrez savoir ce que c'est qu'en l'ouvrant. Etes-vous prêt pour la surprise ?</target>
+Une capsule contient quelque chose. Vous ne pourrez savoir ce que c'est qu'en l'ouvrant. Êtes-vous prêt pour la surprise ?</target>
       </segment>
     </unit>
     <unit id="swedish_sofa">
@@ -3178,11 +3178,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>lombrick_bar.description</source>
-        <target>Un curieux mélange de chenilles et autres vers aglomérés dans une barre sous plastique. Glups...</target>
+        <target>Un curieux mélange de chenilles et autres vers agglomérés dans une barre sous plastique. Glups...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>lombrick_bar.examine</source>
-        <target>Un curieux mélange de chenilles et autres vers aglomérés dans une barre sous plastique. Glups...</target>
+        <target>Un curieux mélange de chenilles et autres vers agglomérés dans une barre sous plastique. Glups...</target>
       </segment>
     </unit>
     <unit id="organic_waste">
@@ -3230,7 +3230,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>proactive_puffed_rice.description</source>
-        <target>La plaie des mécaniciens. Ces grains de riz doivent être stockés dans un lieu hermetique, sinon ils s'échappent et partent se cacher dans les mécanismes des portes automatiques.</target>
+        <target>La plaie des mécaniciens. Ces grains de riz doivent être stockés dans un lieu hermétique, sinon ils s'échappent et partent se cacher dans les mécanismes des portes automatiques.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>proactive_puffed_rice.examine</source>
@@ -3290,11 +3290,11 @@ Impérissable
       </segment>
       <segment id="description" state="translated">
         <source>anabolic.description</source>
-        <target>Ces petits cubes de testosterone frétillants doivent être consommés avec modération.</target>
+        <target>Ces petits cubes de testostérone frétillants doivent être consommés avec modération.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>anabolic.examine</source>
-        <target>Ces petits cubes de testosterone frétillants doivent être consommés avec modération.</target>
+        <target>Ces petits cubes de testostérone frétillants doivent être consommés avec modération.</target>
       </segment>
     </unit>
     <unit id="coffee">
@@ -3424,11 +3424,11 @@ Impérissable
       </segment>
       <segment id="description" state="translated">
         <source>supervitamin_bar.description</source>
-        <target>Le produit spatial SNC le plus en vogue. Dans certaines tributs d'Amérique du Sud, il remplace avantageusement l'ayahuasca. Contient uniquement des choses mauvaises pour votre santé !</target>
+        <target>Le produit spatial SNC le plus en vogue. Dans certaines tribus d'Amérique du Sud, il remplace avantageusement l'ayahuasca. Contient uniquement des choses mauvaises pour votre santé !</target>
       </segment>
       <segment id="examine" state="translated">
         <source>supervitamin_bar.examine</source>
-        <target>Le produit spatial SNC le plus en vogue. Dans certaines tributs d'Amérique du Sud, il remplace avantageusement l'ayahuasca. Contient uniquement des choses mauvaises pour votre santé !</target>
+        <target>Le produit spatial SNC le plus en vogue. Dans certaines tribus d'Amérique du Sud, il remplace avantageusement l'ayahuasca. Contient uniquement des choses mauvaises pour votre santé !</target>
       </segment>
     </unit>
     <unit id="blueprint">
@@ -3439,7 +3439,7 @@ Impérissable
                     other {{equipment_gender, select,
                         male {Plan du {equipment}}
                         female {Plan de la {equipment}}
-                        other {invalid gender input}
+                        other {invalid gender input for {equipment}}
                     }}
                 }</target>
       </segment>
@@ -3672,7 +3672,7 @@ La caméra ne détecte pas son propre sabotage.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>anniversary_gift.examine</source>
-        <target>Un an de plus à survivre les contrées glacées de l'espace? Ça se fête!//Contient quelque chose qui vous serait bien utile... ou pas!//Il est interdit d'ouvrir les cadeaux des autres. C'est personnel, ces choses là!</target>
+        <target>Un an de plus à survivre les contrées glacées de l'espace? Ça se fête!//Contient quelque chose qui vous serait bien utile... ou pas!//Il est interdit d'ouvrir les cadeaux des autres. C'est personnel, ces choses-là!</target>
       </segment>
     </unit>
     <unit id="pavlov">

@@ -19,6 +19,7 @@
 	},
 	"footer": {
 		"alphaVersion": "Alpha Version",
+		"betaVersion": "Beta version",
 		"crowdin": "You can help us translate the game on ",
 		"developers": "Development",
 		"coreTeam": "The eMush team:",
@@ -109,7 +110,10 @@
 			"daedalus_destroyed": "Daedalus destroyed",
 			"killed_by_neron": "Contaminated crew assassinated by NERON",
 			"super_nova": "Supernova"
-		}
+		},
+		"category": "Category",
+		"timeSurvived": "Survived days",
+		"mushTriumph": "Survived cycles"
 	},
 	"theEnd": {
 		"headliner": "Starring role :",
@@ -167,6 +171,14 @@
 	"userBanner": {
 		"userShips": "File"
 	},
+	"achievements": {
+		"title": "Statistics",
+		"points": "{points} points",
+		"tabs": {
+			"statistics": "Statistics",
+			"gains": "Titles ({count})"
+		}
+	},
 	"userProfile": {
 		"shipHistory": {
 			"character": "character",
@@ -176,7 +188,7 @@
 			"neronProjects": "NERON projects",
 			"scannedPlanets": "scanned planets",
 			"titles": "titles",
-			"triumph": "triumph",
+			"triumph": "glory",
 			"endCause": "end cause",
 			"daedalus": "daedalus",
 			"awards": "Awards",
@@ -748,7 +760,24 @@
 	"moderation": {
 		"banner": {
 			"players": "Players",
-			"users": "Users"
+			"users": "Users",
+			"banAllUsers": "Ban multiple users"
+		},
+		"banAllUsers": {
+			"title": "Ban multiple users",
+			"description": "You can ban multiple users at the same time by copying their IDs in the next textarea.",
+			"uuidsLabel": "User IDs",
+			"uuidsPlaceholder": "Paste user IDs (one per line, or separated by commas)",
+			"uuidsHelp": "Paste user IDs (one per line, or separated by commas)",
+			"reasonLabel": "Reason",
+			"messageLabel": "Message",
+			"messagePlaceholder": "Explicative message for users",
+			"durationLabel": "Duration (in days)",
+			"submit": "Ban users",
+			"submitting": "Ban ongoing...",
+			"success": "{count} user(s) banned successfully",
+			"error": "Error during users ban",
+			"noUuidsError": "No valid IDs found"
 		},
 		"filters": {
 			"cycle": "Cycle",
@@ -797,7 +826,8 @@
 		},
 		"userList": {
 			"userId": "User identifier",
-			"roles": "Roles"
+			"roles": "Roles",
+			"createdAt": "Creation date"
 		},
 		"sanction": {
 			"id": "Number",
@@ -937,7 +967,8 @@
 		"suspendSanction": "Suspend sanction",
 		"suspendSanctionDescription": "Suspend sanction. The end date is set to the current date. The sanction remains in the user's history.",
 		"removeSanction": "Delete sanction",
-		"removeSanctionDescription": "Delete sanction. The sanction is completely removed from the user's history."
+		"removeSanctionDescription": "Delete sanction. The sanction is completely removed from the user's history.",
+		"byIp": "Ban by IPs"
 	},
 	"rules": {
 		"title": "Rules of eMush",
@@ -1020,8 +1051,8 @@
 				"name": "Settings",
 				"subscribeToNotifications": "Subscribe to notifications",
 				"notifications": "Notifications",
-				"hideMushActions": "Hide Mush actions",
-				"showMushActions": "Display Mush actions"
+				"actionTabs": "Separate Mush and human actions",
+				"doubleTap": "Double tap for actions"
 			}
 		},
 		"topBar": {
@@ -1059,5 +1090,20 @@
 			"unsubscribeError": "An error occurred while unsubscribing from notifications."
 		},
 		"newVersion": "A new version of the game is available. Please clear your cache."
-	}
+	},
+	"actionTabs": {
+		"human": {
+			"name": "Human actions",
+			"description": "Display your human actions."
+		},
+		"mush": {
+			"name": "Mush actions",
+			"description": "Display your Mush actions."
+		},
+		"admin": {
+			"name": "Admin actions",
+			"description": "Display your admin actions."
+		}
+	},
+	"ranking-humantriumph": "Human glory"
 }

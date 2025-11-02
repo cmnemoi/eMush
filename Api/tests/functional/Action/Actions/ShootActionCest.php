@@ -806,11 +806,11 @@ final class ShootActionCest extends AbstractFunctionalTest
             ],
             WeaponEventEnum::NATAMY_RIFLE_DROP_WEAPON->toString() => [
                 WeaponEventEnum::NATAMY_RIFLE_DROP_WEAPON->toString(),
-                'Nul mot de saurait décrire l\'incroyable acrobatie de l\'arme de **Chun** qui finit par atterrir par terre...',
+                'Nul mot ne saurait décrire l\'incroyable acrobatie de l\'arme de **Chun** qui finit par atterrir par terre...',
             ],
             WeaponEventEnum::NATAMY_RIFLE_SHOOTER_PLUS_2_DAMAGE->toString() => [
                 WeaponEventEnum::NATAMY_RIFLE_SHOOTER_PLUS_2_DAMAGE->toString(),
-                'L\'oeil vif, la rage au corps, **Chun** réussit magnifiquement son tir en plein dans la poitrine de **Kuan Ti**...',
+                'L\'œil vif, la rage au corps, **Chun** réussit magnifiquement son tir en plein dans la poitrine de **Kuan Ti**...',
             ],
             WeaponEventEnum::OLD_FAITHFUL_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY->toString() => [
                 WeaponEventEnum::OLD_FAITHFUL_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY->toString(),
@@ -846,11 +846,11 @@ final class ShootActionCest extends AbstractFunctionalTest
             ],
             WeaponEventEnum::OLD_FAITHFUL_DROP_WEAPON->toString() => [
                 WeaponEventEnum::OLD_FAITHFUL_DROP_WEAPON->toString(),
-                'Nul mot de saurait décrire l\'incroyable acrobatie de l\'arme de **Chun** qui finit par atterrir par terre...',
+                'Nul mot ne saurait décrire l\'incroyable acrobatie de l\'arme de **Chun** qui finit par atterrir par terre...',
             ],
             WeaponEventEnum::OLD_FAITHFUL_SHOOTER_PLUS_2_DAMAGE->toString() => [
                 WeaponEventEnum::OLD_FAITHFUL_SHOOTER_PLUS_2_DAMAGE->toString(),
-                'L\'oeil vif, la rage au corps, **Chun** réussit magnifiquement son tir en plein dans la poitrine de **Kuan Ti**...',
+                'L\'œil vif, la rage au corps, **Chun** réussit magnifiquement son tir en plein dans la poitrine de **Kuan Ti**...',
             ],
             WeaponEventEnum::LIZARO_JUNGLE_HEADSHOT_2->toString() => [
                 WeaponEventEnum::LIZARO_JUNGLE_HEADSHOT_2->toString(),

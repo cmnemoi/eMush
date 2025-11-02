@@ -160,7 +160,7 @@
       </segment>
       <segment id="pilgred.lore" state="translated">
         <source>pilgred.lore</source>
-        <target/>
+        <target>&lt;target/&gt;</target>
       </segment>
     </unit>
     <unit id="plasma_shield">
@@ -1185,6 +1185,24 @@
       <segment id="guarana_cappuccino.lore" state="translated">
         <source>guarana_cappuccino.lore</source>
         <target>La dosis de cafeína incluida en el café de nuestra cafetera es demasiado alta para considerar aumentarla... Sin embargo, añadiendo extractos de guaraná en forma de emulsión cremosa sobre cada expreso, debería ser posible potenciar un poco las propiedades energizantes de nuestra bebida favorita.</target>
+      </segment>
+    </unit>
+    <unit id="zeta_waves">
+      <segment id="zeta_waves.type" state="translated">
+        <source>zeta_waves.type</source>
+        <target>Invest.</target>
+      </segment>
+      <segment id="zeta_waves.name" state="translated">
+        <source>zeta_waves.name</source>
+        <target>Transmisor de ondas Zeta</target>
+      </segment>
+      <segment id="zeta_waves.description" state="translated">
+        <source>zeta_waves.description</source>
+        <target>Aumenta en 2 el número máximo de canales privados.</target>
+      </segment>
+      <segment id="zeta_waves.lore" state="translated">
+        <source>zeta_waves.lore</source>
+        <target>Basándonos en el trabajo de los físicos de Eridiani, podemos inventar nuevos transmisores de ondas zeta para aumentar la cantidad de frecuencias disponibles para la comunicación. Ahora solo necesitamos una forma de seguir cinco conversaciones al mismo tiempo.</target>
       </segment>
     </unit>
   </file>

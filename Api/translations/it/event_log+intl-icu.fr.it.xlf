@@ -115,6 +115,12 @@
         <target>clumsiness</target>
       </segment>
     </unit>
+    <unit id="clumsiness_cat">
+      <segment state="initial">
+        <source>clumsiness_cat</source>
+        <target>clumsiness_cat</target>
+      </segment>
+    </unit>
     <unit id="clumsiness_prevented">
       <segment state="initial">
         <source>clumsiness_prevented</source>

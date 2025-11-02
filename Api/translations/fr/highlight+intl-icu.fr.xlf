@@ -20,7 +20,7 @@
     <unit id="eat_spore">
       <segment id="highlight" state="translated">
         <source>eat_spore.highlight</source>
-        <target>Miam un spore shomp shomp et ça repart !</target>
+        <target>Miam une spore shomp shomp et ça repart !</target>
       </segment>
     </unit>
     <unit id="extract_spore">
@@ -126,7 +126,7 @@
     <unit id="boring_speech">
       <segment id="highlight" state="translated">
         <source>boring_speech.highlight</source>
-        <target>Vous avez donné un discours passionant (ou pas...) !</target>
+        <target>Vous avez donné un discours passionnant (ou pas...) !</target>
       </segment>
     </unit>
     <unit id="make_sick">
@@ -256,7 +256,7 @@
     <unit id="ceasefire">
       <segment id="highlight" state="translated">
         <source>ceasefire.highlight</source>
-        <target>Lassé de cette enfer, vous avez déclaré un cessez-le-feu !</target>
+        <target>Lassé de cet enfer, vous avez déclaré un cessez-le-feu !</target>
       </segment>
     </unit>
     <unit id="exchange_body">
@@ -492,13 +492,13 @@
     <unit id="conversion.player">
       <segment id="highlight" state="translated">
         <source>conversion.player.highlight</source>
-        <target>Vous avez empétré **{target_character}** dans vos rhizomes, {target_character_gender, select, male {il} other {elle}} fait désormais parti du Mush !</target>
+        <target>Vous avez empêtré **{target_character}** dans vos rhizomes, {target_character_gender, select, male {il} other {elle}} fait désormais partie du Mush !</target>
       </segment>
     </unit>
     <unit id="conversion.player_target">
       <segment id="highlight" state="translated">
         <source>conversion.player_target.highlight</source>
-        <target>Vous faites parti du Mush grâce à **{character}** !</target>
+        <target>Vous faites partie du Mush grâce à **{character}** !</target>
       </segment>
     </unit>
     <unit id="conversion.player.highlight_transfer">

@@ -157,6 +157,12 @@
         <target>clumsiness.description</target>
       </segment>
     </unit>
+    <unit id="clumsiness_cat">
+      <segment state="initial">
+        <source>clumsiness_cat.description</source>
+        <target>clumsiness_cat.description</target>
+      </segment>
+    </unit>
     <unit id="soiled">
       <segment state="initial">
         <source>soiled.description</source>

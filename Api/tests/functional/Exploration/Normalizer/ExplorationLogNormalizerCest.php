@@ -1162,7 +1162,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'id' => $explorationLog->getId(),
                 'planetSectorKey' => PlanetSectorEnum::LOST,
                 'planetSectorName' => 'Perdu',
-                'eventName' => 'Érrance',
+                'eventName' => 'Errance',
                 'eventDescription' => 'Malgré les recherches, vous n\'avez trouvé aucune trace de Chun. Pourtant elle doit bien être quelque part !',
                 'eventOutcome' => 'Échec de l\'exploration de la zone. Il reste quand même des choses à découvrir…',
             ],

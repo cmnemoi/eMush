@@ -18,13 +18,13 @@
       </segment>
       <segment id="description" state="translated">
         <source>food_poisoning.description</source>
-        <target>Vous êtes très atteint, vous vomissez, y en a partout. quelle idée de manger ça aussi. Ah bravo...</target>
+        <target>Vous êtes très atteint, vous vomissez, y en a partout. Quelle idée de manger ça aussi. Ah bravo...</target>
       </segment>
     </unit>
     <unit id="gastroenteritis">
       <segment id="name" state="translated">
         <source>gastroenteritis.name</source>
-        <target>GastroEntérite</target>
+        <target>Gastro-entérite</target>
       </segment>
       <segment id="description" state="translated">
         <source>gastroenteritis.description</source>
@@ -78,7 +78,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>extreme_tinnitus.description</source>
-        <target>Vos oreilles sifflent fort en permanence, ce qui peut devenir très fatiguant à la longue.</target>
+        <target>Vos oreilles sifflent fort en permanence, ce qui peut devenir très fatigant à la longue.</target>
       </segment>
     </unit>
     <unit id="flu">
@@ -164,7 +164,7 @@
     <unit id="sepsis">
       <segment id="name" state="translated">
         <source>sepsis.name</source>
-        <target>Infection aïgue</target>
+        <target>Infection aiguë</target>
       </segment>
       <segment id="description" state="translated">
         <source>sepsis.description</source>
@@ -188,7 +188,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>skin_inflammation.description</source>
-        <target>Quelqu'en soit la source, vous n'en avez cure, ça démange là et c'est très pénible.</target>
+        <target>Quelle qu'en soit la source, vous n'en avez cure, ça démange là et c'est très pénible.</target>
       </segment>
     </unit>
     <unit id="slight_nausea">
@@ -268,7 +268,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>chronic_migraine.description</source>
-        <target>Une grosse migraine bien carabinée vous prend de temps à autres... et puis quand elle vous prend c'est le grand déménagement... pas de chance.</target>
+        <target>Une grosse migraine bien carabinée vous prend de temps à autre... et puis quand elle vous prend c'est le grand déménagement... pas de chance.</target>
       </segment>
     </unit>
     <unit id="chronic_vertigo">
@@ -278,7 +278,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>chronic_vertigo.description</source>
-        <target>Vous avez des vertiges chroniques ce qui vous incapacite grandement.</target>
+        <target>Vous avez des vertiges chroniques, ce qui vous incapacite grandement.</target>
       </segment>
     </unit>
     <unit id="coprolalia">
@@ -298,7 +298,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>crabism.description</source>
-        <target>De temps à autre, vous vous mettez à marcher de côté ou à vous jetez par terre pour ensuite rentrer dans une courte période régressive.</target>
+        <target>De temps à autre, vous vous mettez à marcher de côté ou à vous jeter par terre pour ensuite rentrer dans une courte période régressive.</target>
       </segment>
     </unit>
     <unit id="depression">
@@ -324,7 +324,7 @@
     <unit id="psychotic_episodes">
       <segment id="name" state="translated">
         <source>psychotic_episodes.name</source>
-        <target>Episodes Psychotiques</target>
+        <target>Épisodes Psychotiques</target>
       </segment>
       <segment id="description" state="translated">
         <source>psychotic_episodes.description</source>

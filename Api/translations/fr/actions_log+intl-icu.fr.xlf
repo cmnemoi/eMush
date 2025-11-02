@@ -75,7 +75,7 @@
                         44 {**{character}** s'est mangé son petit repas.}
                         45 {**{character}** s'est mangé son petit repas, gurps.}
                         46 {**{character}** s'est mangé son petit repas, merci.}
-                        other {"invalid version number"}
+                        other {**{character}** invalid version number for consume_success log}
                     }</target>
       </segment>
     </unit>
@@ -145,7 +145,7 @@
     <unit id="express_cook_success">
       <segment id="express_cook_success" state="translated">
         <source>express_cook_success</source>
-        <target>**{character}** s'est passé quelque chose au micro-onde.</target>
+        <target>**{character}** s'est passé quelque chose au micro-ondes.</target>
       </segment>
     </unit>
     <unit id="extract_spore_success">
@@ -160,7 +160,7 @@
         <target>{character_gender, select,
                     male {**{character}** semble intéressé par **{target_character}**. Ce regard qu'il lui lance ne trompera personne sur ses intentions.}
                     female {**{character}** a l'air intéressée par **{target_character}**, ce papillonnement de sourcil est tout à fait révélateur de ses pensées secrètes.}
-                    other {invalid gender input}
+                    other {invalid gender input for {character}}
                 }</target>
       </segment>
     </unit>
@@ -193,14 +193,14 @@
                     male {{target_character_gender, select,
                         male {**{character}** s'est rapproché de **{target_character}** avec un regard de prédateur... et l'a poinçonné discrètement !}
                         female {**{character}** s'est rapproché de **{target_character}** avec un regard de prédateur... et l'a poinçonnée discrètement !}
-                        other {invalid gender input}
+                        other {invalid gender input for {target_character}}
                     }}
                     female {{target_character_gender, select,
                          male {**{character}** s'est rapprochée de **{target_character}** avec un regard de prédateur... et l'a poinçonné discrètement !}
                          female {**{character}** s'est rapprochée de **{target_character}** avec un regard de prédateur... et l'a poinçonnée discrètement !}
-                         other {invalid gender input}
+                         other {invalid gender input for {target_character}}
                     }}
-                    other {invalid gender input}
+                    other {invalid gender input for {character}}
                 }</target>
       </segment>
     </unit>
@@ -460,7 +460,7 @@
         <target>{equipment_gender, select,
                         male {**{character}** a découvert un **{equipment}** caché.}
                         female {**{character}** a découvert une **{equipment}** cachée.}
-                        other {invalid gender input}
+                        other {invalid gender input for {equipment}}
                 }</target>
       </segment>
     </unit>
@@ -482,7 +482,7 @@
         <target>{character_gender, select,
                     male {Vous vous lavez et vous vous sentez brûlé, meurtri par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...}
                     female {Vous vous lavez et vous vous sentez brûlée, meurtrie par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...}
-                    other {invalid gender input}
+                    other {invalid gender input for {character}}
                 }</target>
       </segment>
     </unit>
@@ -498,7 +498,7 @@
         <target>{character_gender, select,
                         male {Vous vous lavez et vous vous sentez brûlé, meurtri par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...}
                         female {Vous vous lavez et vous vous sentez brûlée, meurtrie par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...}
-                        other {invalid gender input}
+                        other {invalid gender input for {character}}
                 }</target>
       </segment>
     </unit>
@@ -510,7 +510,7 @@
                         2 {**{character}** déchire un petit bout de papier avec un air satisfait.}
                         3 {**{character}** déchire un petit bout de papier avec un air soucieux.}
                         4 {**{character}** déchire un petit bout de papier avec un air soulagé.}
-                        other {"invalid version number"}
+                        other {**{character}** invalid version number for shred_succcess}
                     }</target>
       </segment>
     </unit>
@@ -520,7 +520,7 @@
         <target>{target_equipment_gender, select,
                         male {**{character}** a pris un **{target_equipment}**.}
                         female {**{character}** a pris une **{target_equipment}**.}
-                        other {invalid gender input}
+                        other {invalid gender input for {equipment}}
                 }</target>
       </segment>
     </unit>
@@ -643,7 +643,7 @@
         <target>{character_gender, select,
                     male {**{character}** est entouré d'un halo lumineux. D'horribles tentacules bleus iridescents parcourent son corps. La lumière qu'il émet est aveuglante. Ses blessures sont parfaitement guéries !}
                     female {**{character}** est entourée d'un halo lumineux. D'horribles tentacules bleus iridescents lui courent sur le corps... ses blessures semblent guérir d'elles-même !}
-                    other {invalid gender input}
+                    other {ultraheal_success invalid gender input for {character}}
                 }</target>
       </segment>
     </unit>
@@ -683,20 +683,20 @@
         <target>{character_gender, select,
                     male {**{character}** essaie de résoudre cet affreux kube.}
                     female {**{character}** a décidé de tenter cet insupportable petit kube.}
-                    other {invalid gender input}
+                    other {try_kube invalid gender input for {character}}
                 }</target>
       </segment>
     </unit>
     <unit id="remove_spore_success">
       <segment id="remove_spore_fail" state="translated">
         <source>remove_spore_success</source>
-        <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Tiens qu'est ce que c'est que ça ?</target>
+        <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Tiens qu'est-ce que c'est que ça ?</target>
       </segment>
     </unit>
     <unit id="remove_spore_fail">
       <segment id="remove_spore_fail" state="translated">
         <source>remove_spore_fail</source>
-        <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Heureusement vous n'aviez aucun spore à récupérer.</target>
+        <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Heureusement vous n'aviez aucune spore à récupérer.</target>
       </segment>
     </unit>
     <unit id="public_broadcast">
@@ -759,7 +759,7 @@
         <target>{character_gender, select,
                     male {C'est étrange **{character}** sort un poudrier et se badigeonne de blanc et de noir. Il n'a vraiment pas l'air dans son assiette.}
                     female {C'est étrange **{character}** sort un poudrier et se badigeonne de blanc et de noir. Elle n'a vraiment pas l'air dans son assiette.}
-                    other {invalid gender input}
+                    other {invalid gender input for {character}}
                     }</target>
       </segment>
     </unit>
@@ -787,7 +787,7 @@
         <target>{character_gender, select,
                     male {**{character}** s'est débâillonné.}
                     female {**{character}** s'est débâillonnée.}
-                    other {invalid gender input}
+                    other {invalid gender input for {character}}
                     }</target>
       </segment>
     </unit>
@@ -809,7 +809,7 @@
         <target>{character_gender, select,
                 male {**{character}** était visiblement très pressé, il ouvre un portail spatio-temporel et saute dedans à pieds joints. On ne devrait pas le revoir de sitôt.}
                 female {**{character}** était visiblement très pressée, elle ouvre un portail spatio-temporel et saute dedans à pieds joints. On ne devrait pas la revoir de sitôt.}
-                other {invalid character_gender input}
+                other {invalid gender input for {character}}
                 }</target>
       </segment>
     </unit>
@@ -1192,9 +1192,9 @@
       <segment id="cure_cat_success" state="translated">
         <source>cure_cat_success</source>
         <target>{character, select,
-        Raluca {**{character}** sait parfaitement comment dompter le mauvais caractère de **{target_equipment}**. Elle le pose délicatement sur un meuble, lui fait de nombreuses caresses pour le distraire, une petite grattouille derrière l'oreille et une soudaine piqûre dans le derrière ! Le chat s'enfuit non sans lancer un regard accusateur à celle qui tenait encore la seringue dans sa main}
-        other {**{character}** sert fortement **{target_equipment}** pour l'empêcher de s'échapper. La créature se débat comme elle peut, mais il est rapidement trop tard : le liquide jaune et visqueux lui a été injecté ! Aussitôt que la pression sur son corps se relâche, elle se libère pour se cacher dans la pièce en feulant}
-        }.</target>
+        Raluca {**{character}** sait parfaitement comment dompter le mauvais caractère de **{target_equipment}**. Elle le pose délicatement sur un meuble, lui fait de nombreuses caresses pour le distraire, une petite grattouille derrière l'oreille et une soudaine piqûre dans le derrière ! Le chat s'enfuit non sans lancer un regard accusateur à celle qui tenait encore la seringue dans sa main.}
+        other {**{character}** serre fortement **{target_equipment}** pour l'empêcher de s'échapper. Le matou se débat comme il peut, mais il est rapidement trop tard : le liquide jaune et visqueux lui a été injecté ! Aussitôt que la pression sur son corps se relâche, il se libère pour se cacher dans la pièce en feulant.}
+        }</target>
       </segment>
     </unit>
     <unit id="cure_cat_fail">
@@ -1206,13 +1206,13 @@
     <unit id="shoot_cat_success">
       <segment id="shoot_cat_success" state="translated">
         <source>shoot_cat_success</source>
-        <target>L'oeil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_equipment}**...</target>
+        <target>L'œil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_equipment}**...</target>
       </segment>
     </unit>
     <unit id="shoot_cat_critical_success">
       <segment id="shoot_cat_critical_success" state="translated">
         <source>shoot_cat_critical_success</source>
-        <target>L'oeil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_equipment}**...</target>
+        <target>L'œil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_equipment}**...</target>
       </segment>
     </unit>
     <unit id="shoot_cat_fail">
@@ -1333,7 +1333,7 @@
     <unit id="mutate_success">
       <segment id="mutate_success" state="translated">
         <source>mutate_success</source>
-        <target>**{character}** se recroqueville. Il semble souffrir, ses cris résonnent, il vomit une bile immonde qui fait fondre ses vêtements...Quelle horreur ! Il a complètement changé de forme !</target>
+        <target>**{character}** se recroqueville. Il semble souffrir, ses cris résonnent, il vomit une bile immonde qui fait fondre ses vêtements... Quelle horreur ! Il a complètement changé de forme !</target>
       </segment>
     </unit>
     <unit id="exchange_body_success">

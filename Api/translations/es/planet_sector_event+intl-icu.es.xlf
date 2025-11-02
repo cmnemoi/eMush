@@ -330,6 +330,12 @@
         <target>Probabilidad de combate anulada por {skill}.</target>
       </segment>
     </unit>
+    <unit id="death_prevented_by_skill">
+      <segment id="description" state="translated">
+        <source>death_prevented_by_skill</source>
+        <target>Probabilidad de muerte anulada porque el equipo de expedición tiene la habilidad: {skill}</target>
+      </segment>
+    </unit>
     <unit id="kill_random">
       <segment id="name" state="translated">
         <source>kill_random.name</source>

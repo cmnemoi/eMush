@@ -83,7 +83,7 @@ final class RebelBaseNormalizerCest extends AbstractFunctionalTest
             'key' => 'wolf',
             'name' => '???',
             'hoverName' => '???',
-            'description' => 'Cette base rebelle a lancé un signal. En le décodant, vous obtiendrez des informations précieuses voir même des avantages pour l\'équipage. Si vous tardez à le traiter, ce signal sera perdu à jamais.',
+            'description' => 'Cette base rebelle a lancé un signal. En le décodant, vous obtiendrez des informations précieuses, voire des avantages pour l\'équipage. Si vous tardez à le traiter, ce signal sera perdu à jamais.',
             'signal' => '50%',
             'isContacting' => true,
             'isLost' => false,

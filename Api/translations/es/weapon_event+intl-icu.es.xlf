@@ -40,7 +40,7 @@
     <unit id="blaster_shooter_plus_1_damage_target_damaged_ears">
       <segment id="blaster_shooter_plus_1_damage_target_damaged_ears" state="translated">
         <source>blaster_shooter_plus_1_damage_target_damaged_ears</source>
-        <target>Que resuene el rugido de los blasters: solo los supervivientes hablarán de ello. **{character}** está bien {character_gender, select, female {posicionada} other {posicionado}} para saberlo. **{target_character}** pierde el sentido de la audición. </target>
+        <target>Que resuene el rugido de los blasters: solo los supervivientes hablarán de ello. **{character}** está bien {character_gender, select, female {posicionada} other {posicionado}} para saberlo. **{target_character}** pierde el sentido de la audición.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma">
@@ -272,7 +272,7 @@
                 female{abrumada y mareada} 
                 male{abrumado y mareado} 
                 other {abrumade y mareade}
-                } </target>
+                }</target>
       </segment>
     </unit>
     <unit id="old_faithful_successful_shot">
@@ -487,13 +487,13 @@
     <unit id="bare_hands_failed_hit">
       <segment id="bare_hands_failed_hit" state="translated">
         <source>bare_hands_failed_hit</source>
-        <target>**{character}** falla su ataque a **{target_character}**. </target>
+        <target>**{character}** falla su ataque a **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="bare_hands_fumble">
       <segment id="bare_hands_fumble" state="translated">
         <source>bare_hands_fumble</source>
-        <target>**{character}** intenta golpear a **{target_character}**, pero su puño acaba impactando la pared... Ayayayayy... </target>
+        <target>**{character}** intenta golpear a **{target_character}**, pero su puño acaba impactando la pared... Ayayayayy...</target>
       </segment>
     </unit>
     <unit id="grenade_successful_throw_splash_damage_all">

@@ -69,7 +69,7 @@ final class XylophEntryNormalizerCest extends AbstractFunctionalTest
             [
                 'key' => 'magnetite',
                 'name' => 'Infidélité du sans-fil...',
-                'description' => 'La liaison est de mauvaise qualité...très mauvaise, sans doute le nuage de magnetite que vous traversez en ce moment.//**Provoque une perte de liaison et une baisse de signal significative.**',
+                'description' => 'La liaison est de mauvaise qualité...très mauvaise, sans doute le nuage de magnétite que vous traversez en ce moment.//**Provoque une perte de liaison et une baisse de signal significative.**',
                 'isDecoded' => true,
             ],
             [

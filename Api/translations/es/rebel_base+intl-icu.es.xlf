@@ -86,6 +86,20 @@
         <target>Saludamos a la tripulación del Daedalus. Cygni fue explorado durante vuestro viaje. La Federación no sabe que la mayoría de nuestra información viene de la humanidad. Hemos logrado engañar a los Mush enviando señales falsas gracias a un Pheromódem mejorado. Gracias a esto, ahora nos preparamos para un contraataque. Los planos de nuestro misil SP2SP-230 han sido transferidos a NERON.//**Los daños provocados por los Patrulleros aumentan en 1 punto.**//**+ 3 :pmo: a toda la tripulación.**</target>
       </segment>
     </unit>
+    <unit id="eridiani">
+      <segment id="name" state="translated">
+        <source>eridiani.name</source>
+        <target>Eridiani</target>
+      </segment>
+      <segment id="hoverName" state="translated">
+        <source>eridiani.hoverName</source>
+        <target>Mensaje del Consejo de Eridiani</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eridiani.description</source>
+        <target>Consejo de Eridiani al Daedalus. Este mensaje será breve, ya que la Federación ha interceptado nuestras comunicaciones públicas. Nuestros físicos han comenzado a trabajar en un nuevo tipo de longitud de onda como alternativa. Les enviamos sus avances.// **Desbloquea la investigación: Transmisor de ondas Zeta**.</target>
+      </segment>
+    </unit>
     <unit id="unknown">
       <segment id="name" state="translated">
         <source>unknown.name</source>

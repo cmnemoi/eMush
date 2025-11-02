@@ -271,6 +271,12 @@
         <target>whisper_mute.description</target>
       </segment>
     </unit>
+    <unit id="whisper_player_no_available_channel">
+      <segment id="description" state="initial">
+        <source>whisper_player_no_available_channel.description</source>
+        <target>whisper_player_no_available_channel.description</target>
+      </segment>
+    </unit>
     <unit id="whisper_target_no_available_channel">
       <segment id="description" state="initial">
         <source>whisper_target_no_available_channel.description</source>

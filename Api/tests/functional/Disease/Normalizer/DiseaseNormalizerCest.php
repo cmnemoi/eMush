@@ -112,7 +112,7 @@ final class DiseaseNormalizerCest extends AbstractFunctionalTest
             ],
             'gastroenteritis' => [
                 'diseaseKey' => DiseaseEnum::GASTROENTERIS,
-                'diseaseName' => 'GastroEntérite',
+                'diseaseName' => 'Gastro-entérite',
                 'diseaseType' => MedicalConditionTypeEnum::DISEASE,
                 'diseaseDescription' => 'Y a-t-il vraiment besoin de faire un dessin, de parler de l\'odeur ou des spasmes de l\'estomac ?//Max :hp: **-1**.//Chaque cycle, fait perdre **1** :pm:.//Chaque cycle, **16%** de chances de perdre **1** :hp:.//À chaque action **Consommer**, fait perdre **1** :pa:.//Fait subir le symptôme **Vomissements**.//Fait subir le symptôme **Nausée**.//Chaque cycle, rend sale.',
             ],

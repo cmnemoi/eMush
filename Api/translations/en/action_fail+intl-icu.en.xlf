@@ -262,13 +262,19 @@
     <unit id="mutated">
       <segment id="description" state="translated">
         <source>mutated.description</source>
-        <target>A mutated can't do that. He can only move, sabotage and strike, and that's more than enough...</target>
+        <target>A mutated mush can't do that. They can only move, sabotage and strike, and that's more than enough...</target>
       </segment>
     </unit>
     <unit id="whisper_mute">
       <segment id="description" state="translated">
         <source>whisper_mute.description</source>
         <target>You cannot communicate anymore.</target>
+      </segment>
+    </unit>
+    <unit id="whisper_player_no_available_channel">
+      <segment id="description" state="translated">
+        <source>whisper_player_no_available_channel.description</source>
+        <target>You are already too busy with other conversations.</target>
       </segment>
     </unit>
     <unit id="whisper_target_no_available_channel">

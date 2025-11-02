@@ -1079,5 +1079,15 @@
 //:point: Por **3** :pa:, podrás marear a NERON en el próximo ciclo para modificar aleatoriamente sus ajustes.//:point: No funciona en el DMZ si está Activado.</target>
       </segment>
     </unit>
+    <unit id="epigenetics">
+      <segment id="epigenetics.name" state="translated">
+        <source>epigenetics.name</source>
+        <target>Epigenética</target>
+      </segment>
+      <segment id="epigenetics.description" state="translated">
+        <source>epigenetics.description</source>
+        <target>:beta: Puedes adaptarte a cualquier dificultad. // :point: **Única**: Por **2** :pa:, puedes reiniciar tus habilidades **Mush** seleccionadas (excepto Epigenética). //// Esta habilidad está en :beta: beta: agradecemos tus comentarios en el foro y el Discord de Eternaltwin.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

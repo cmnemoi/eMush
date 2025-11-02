@@ -181,7 +181,7 @@ Le Cœur de NERON permet de modifier ses programmes pour l'améliorer.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>bios_terminal.examine</source>
-        <target>Permet à l' Admin. NERON de modifier certains comportements de l' IA de bord. Lors de la psychothérapie de NERON, l'interface de celui-ci à été ouverte pour qu'il soit plus malléable. L' interface basique d'entrée-sortie reste donc accessible pour une poignée d'élus.</target>
+        <target>Permet à l'Admin. NERON de modifier certains comportements de l'IA de bord. Lors de la psychothérapie de NERON, l'interface de celui-ci a été ouverte pour qu'il soit plus malléable. L'interface basique d'entrée-sortie reste donc accessible pour une poignée d'élus.</target>
       </segment>
     </unit>
     <unit id="calculator">
@@ -493,7 +493,7 @@ Le Cœur de NERON permet de modifier ses programmes pour l'améliorer.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>kitchen.examine</source>
-        <target>Domaine réservé d'un célèbre moustachu. Sert aussi à faire la popote. Poste de cuisine d'élite inter-galactique, certaines compétences en arts martiaux peuvent être nécessaires.</target>
+        <target>Domaine réservé d'un célèbre moustachu. Sert aussi à faire la popote. Poste de cuisine d'élite intergalactique, certaines compétences en arts martiaux peuvent être nécessaires.</target>
       </segment>
     </unit>
     <unit id="reactor_lateral">

@@ -223,7 +223,7 @@
       <segment id="knife_instagib_bled" state="translated">
         <source>knife_instagib_bled</source>
         <target>{version, select,  
-            1 {The last words of **{target_character}** could have been "You too, **{character}**..." as **{target_character}** dies, {target_character_gender, select,  
+            1 {The last words of **{target_character}** could have been "Et tu, **{character}**?" as **{target_character}** dies, {target_character_gender, select,  
                 female {stabbed}  
                 male {stabbed}  
                 other {stabbed}  

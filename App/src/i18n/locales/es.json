@@ -113,7 +113,9 @@
 		},
 		"category": "Categoría",
 		"timeSurvived": "Días sobrevividos",
-		"mushTriumph": "Ciclos sobrevividos"
+		"mushTriumph": "Gloria Mush",
+		"triumphSum": "Suma de gloria",
+		"highestTriumph": "Gloria máxima"
 	},
 	"theEnd": {
 		"headliner": "Rol estelar:",

@@ -113,7 +113,9 @@
 		},
 		"category": "Catégorie",
 		"timeSurvived": "Jours survécus",
-		"mushTriumph": "Cycles survécus"
+		"mushTriumph": "Triomphe Mush",
+		"triumphSum": "Somme du triomphe",
+		"highestTriumph": "Plus haut triomphe"
 	},
 	"theEnd": {
 		"headliner": "Tête d'affiche :",

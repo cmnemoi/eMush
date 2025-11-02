@@ -1,8 +1,8 @@
 {
 	"title": {
-		"endOfAdventure": "eMush - Fin de l'aventure | ({count}) eMush - Fin de l'aventure | ({count})  eMush - Fin de l'aventure !",
+		"endOfAdventure": "eMush - Fin de l'aventure ! | ({count}) eMush - Fin de l'aventure ! | ({count})  eMush - Fin de l'aventure !",
 		"headline": "eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace ! | ({count}) eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace ! | ({count}) eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace !",
-		"youAreDead": "eMush - Vous êtes mort | ({count}) eMush - Vous êtes mort | ({count}) eMush - Vous êtes mort !"
+		"youAreDead": "eMush - Vous êtes mort ! | ({count}) eMush - Vous êtes mort ! | ({count}) eMush - Vous êtes mort !"
 	},
 	"alpha": {
 		"homepage": "<em>eMush</em> n'est actuellement pas ouvert au public car le jeu n'est pas terminé et est infesté de <em class='red'>Mushs</em> <em>!!!</em><br><br>Si vous êtes intéressé par le projet, n'hésitez pas à nous rejoindre sur <a href='https://discord.gg/ERc3svy'>Discord</a> et sur les <a href='https://eternal-twin.net/forum'>forums d'Eternaltwin</a>. Toutes les informations sont disponibles sur <a href='https://eternal-twin.net'>Eternaltwin</a>.<br><br>Concernant eMush alpha, des vaisseaux privés sont lancés régulièrement avec des volontaires sur <a href='https://discord.gg/ERc3svy'>Discord</a>. Pour faire partie d'un vaisseau alpha, vous aurez besoin d'un compte <a href='https://eternal-twin.net/'>Eternaltwin</a> et de rejoindre la liste de volontaires sur <a href='https://discord.gg/ERc3svy'>Discord</a>.<br><br><em>Si vous n'êtes pas sélectionné pour un vaisseau alpha , pas d'inquiétude !</em> La liste des personnes sélectionnées change pour chaque vaisseau afin de fournir une chance à tous.",
@@ -113,7 +113,9 @@
 		},
 		"category": "Catégorie",
 		"timeSurvived": "Jours survécus",
-		"mushTriumph": "Cycles survécus"
+		"mushTriumph": "Cycles survécus",
+		"triumphSum": "Somme du triomphe",
+		"highestTriumph": "Plus haut triomphe"
 	},
 	"theEnd": {
 		"headliner": "Tête d'affiche :",
@@ -1101,7 +1103,7 @@
 			"description": "Affichez vos actions Mush."
 		},
 		"admin": {
-			"name": "Admin actions",
+			"name": "Actions admin",
 			"description": "Affichez vos actions admin."
 		}
 	},

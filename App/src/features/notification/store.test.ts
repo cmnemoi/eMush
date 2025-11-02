@@ -23,8 +23,7 @@ describe("Notification Store", () => {
                     notificationService,
                     translate: (key: string) => key
                 }),
-                toast: toastModule,
-                auth: { state: { accessToken: 'token' } }
+                toast: toastModule
             }
         });
     });
@@ -161,8 +160,7 @@ describe("Notification Store", () => {
                     notificationService,
                     translate: (key: string) => key
                 }),
-                toast: toastModule,
-                auth: { state: { accessToken: 'token' } }
+                toast: toastModule
             }
         });
 
@@ -181,8 +179,7 @@ describe("Notification Store", () => {
                     notificationService,
                     translate: (key: string) => key
                 }),
-                toast: toastModule,
-                auth: { state: { accessToken: 'token' } }
+                toast: toastModule
             }
         });
 

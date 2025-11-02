@@ -4,7 +4,7 @@ export class FakeNotificationService implements NotificationServiceInterface {
     isUserSubscribed = false;
     throw = false;
 
-    async subscribe(token: string = ''): Promise<void> {
+    async subscribe(): Promise<void> {
         if (this.throw) {
             throw new Error("Fake notification service error");
         }
@@ -12,7 +12,7 @@ export class FakeNotificationService implements NotificationServiceInterface {
         this.isUserSubscribed = true;
     }
 
-    async unsubscribe(token: string = ''): Promise<void> {
+    async unsubscribe(): Promise<void> {
         if (this.throw) {
             throw new Error("Fake notification service error");
         }

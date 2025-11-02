@@ -45,9 +45,9 @@ export function createNotificationsModule(
             hasOpenedUserMenu: (state: NotificationState): boolean => state.hasOpenedUserMenu
         },
         actions: {
-            async subscribe({ commit, dispatch, rootState }): Promise<void> {
+            async subscribe({ commit, dispatch }): Promise<void> {
                 try {
-                    await notificationService.subscribe(rootState.auth.accessToken);
+                    await notificationService.subscribe();
                     localStorageService.setItemAsBoolean('subscriptionStatus', true);
                     commit('setSubscriptionStatus', true);
                     dispatch('toast/openSuccessToast', translate('toast.notification.subscribeSuccess'), { root: true });
@@ -57,9 +57,9 @@ export function createNotificationsModule(
                     throw error;
                 }
             },
-            async unsubscribe({ commit, dispatch, rootState }): Promise<void> {
+            async unsubscribe({ commit, dispatch }): Promise<void> {
                 try {
-                    await notificationService.unsubscribe(rootState.auth.accessToken);
+                    await notificationService.unsubscribe();
                     localStorageService.setItemAsBoolean('subscriptionStatus', false);
                     commit('setSubscriptionStatus', false);
                     dispatch('toast/openInfoToast', translate('toast.notification.unsubscribeSuccess'), { root: true });

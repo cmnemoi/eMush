@@ -122,7 +122,7 @@
 
                 <div v-for="(notification, index) in notifications" :key="index" class="notification">
                     <div class="element">
-                        <span v-html="formatText(notification)"></span>
+                        <span v-html="formatText($t(notification))" />
                     </div>
                     <div class="element">
                         <a class="go" @click="removeNotification(notification)">{{ $t('hud.userMenu.ok') }}</a>

@@ -87,6 +87,8 @@ const actions: ActionTree<any, any> = {
             console.error(e);
             commit('setAuthenticated', false);
             return null;
+        } finally {
+            commit('setLoading', false);
         }
     },
 
@@ -139,6 +141,10 @@ const mutations = {
 
     setHasAcceptedRules(state: AuthState, hasAcceptedRules: boolean): void {
         state.hasAcceptedRules = hasAcceptedRules;
+    },
+
+    setLoading(state: AuthState, loading: boolean): void {
+        state.loading = loading;
     }
 };
 

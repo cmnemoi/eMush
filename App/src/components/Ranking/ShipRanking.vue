@@ -111,7 +111,7 @@ export default defineComponent({
             },
             rowData: {} as RankingDaedalus,
             filter: '',
-            sortField: 'endDay',
+            sortField: 'cycles_survived',
             sortDirection: 'DESC',
             loading: false,
             pageSizeOptions: [
@@ -152,7 +152,8 @@ export default defineComponent({
             await this.loadDaedalusRanking({
                 language: this.language,
                 page: this.pagination.currentPage,
-                itemsPerPage: this.pagination.pageSize
+                itemsPerPage: this.pagination.pageSize,
+                sort: this.sortField
             });
             this.rowData = this.ranking.data;
             this.pagination.totalItem = this.ranking.totalItems;
@@ -179,21 +180,19 @@ export default defineComponent({
             this.loadData();
         },
         updateFilterAndReloadData() {
-            this.loadData();
-        },
-        updateFilter() {
             this.pagination.currentPage = 1;
+            this.loadData();
         },
         updateCategory() {
             if (this.category === 'timeSurvived') {
-                this.sortField = 'daysSurvived';
+                this.sortField = 'cycles_survived';
             } else if (this.category === 'humanTriumph') {
-                this.sortField = 'humanTriumphSum';
+                this.sortField = 'human_triumph_sum';
             } else if (this.category === 'mushTriumph') {
-                this.sortField = 'mushTriumphSum';
+                this.sortField = 'mush_triumph_sum';
             }
             this.fields = this.getFieldFromCategory(this.category);
-            this.updateFilter();
+            this.updateFilterAndReloadData();
         },
         getFieldFromCategory(category: string): Array <{key: string; name: string; sortable: boolean; slot?: boolean; image?: string}> {
             switch (category) {

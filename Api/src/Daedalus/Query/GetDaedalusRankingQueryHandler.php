@@ -87,7 +87,7 @@ final readonly class GetDaedalusRankingQueryHandler
         }
 
         $sql .= '
-            ORDER BY cycles_survived DESC, daedalus_closed.id ASC
+            ORDER BY ' . $query->sort . ' DESC, daedalus_closed.id ASC
             LIMIT :limit OFFSET :offset';
 
         return $this->connection->executeQuery($sql, $params)->fetchAllAssociative();

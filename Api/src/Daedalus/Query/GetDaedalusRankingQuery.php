@@ -16,5 +16,7 @@ final readonly class GetDaedalusRankingQuery
         public int $page = 1,
         #[Assert\GreaterThan(0)]
         public int $itemsPerPage = 10,
+        #[Assert\Choice(['cycles_survived', 'human_triumph_sum', 'mush_triumph_sum'])]
+        public string $sort = 'cycles_survived',
     ) {}
 }

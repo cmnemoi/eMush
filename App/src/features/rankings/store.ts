@@ -7,7 +7,7 @@ export type DaedalusRankingState = {
 };
 
 export function createDaedalusRankingModule(
-    loadDaedalusRanking: (language: string, page: number, itemsPerPage: number) => Promise<RankingDaedalus>
+    loadDaedalusRanking: (language: string, page: number, itemsPerPage: number, sort: string) => Promise<RankingDaedalus>
 ): Module<DaedalusRankingState, Record<string, any>> {
     return {
         namespaced: true,
@@ -28,10 +28,10 @@ export function createDaedalusRankingModule(
             ranking: (state: DaedalusRankingState): RankingDaedalus => state.ranking
         },
         actions: {
-            async loadRanking({ commit }, { language, page, itemsPerPage }: { language: string, page: number, itemsPerPage: number }) {
+            async loadRanking({ commit }, { language, page, itemsPerPage, sort }: { language: string, page: number, itemsPerPage: number, sort: string }) {
                 commit('setLoading', true);
                 try {
-                    const ranking = await loadDaedalusRanking(language, page, itemsPerPage);
+                    const ranking = await loadDaedalusRanking(language, page, itemsPerPage, sort);
                     commit('setRanking', ranking);
                 } catch (error) {
                     console.error(error);

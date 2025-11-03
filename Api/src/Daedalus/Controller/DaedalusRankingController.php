@@ -45,6 +45,13 @@ final class DaedalusRankingController extends AbstractController
         required: false,
         example: 10,
     )]
+    #[OA\Parameter(
+        name: 'sort',
+        in: 'query',
+        description: 'Sort field',
+        required: false,
+        example: 'cycles_survived',
+    )]
     #[Get(path: '/daedaluses/ranking')]
     public function __invoke(#[MapQueryString] GetDaedalusRankingQuery $daedalusRankingQuery): JsonResponse
     {

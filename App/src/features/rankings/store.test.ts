@@ -43,7 +43,7 @@ describe("Daedalus ranking store", () => {
                     totalItems: 2 }))
             }
         });
-        await store.dispatch("daedalusRanking/loadRanking", { language: "en", page: 1, itemsPerPage: 10 });
+        await store.dispatch("daedalusRanking/loadRanking", { language: "en", page: 1, itemsPerPage: 10, sort: "cycles_survived" });
         expect(store.state.daedalusRanking.loading).toBe(false);
         expect(store.state.daedalusRanking.ranking).toEqual(
             {

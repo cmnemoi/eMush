@@ -86,7 +86,7 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
         'icon': getImgUrl('char/head/hua.png')
     },
     [StatisticEnum.KUAN_TI]: {
-        'icon': getImgUrl('char/head/kuanti.png')
+        'icon': getImgUrl('char/head/kuan_ti.png')
     },
     [StatisticEnum.PAOLA]: {
         'icon': getImgUrl('char/head/paola.png')
@@ -119,7 +119,7 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
         'icon': getImgUrl('achievements/camera.png')
     },
     [StatisticEnum.EXTINGUISH_FIRE]: {
-        'icon': getImgUrl('achievements/extinguish_fire.png')
+        'icon': getImgUrl('achievements/signal_fire.png')
     },
     [StatisticEnum.GAGGED]: {
         'icon': getImgUrl('status/gagged.png')

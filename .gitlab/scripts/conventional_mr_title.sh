@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TITLE="$CI_MERGE_REQUEST_TITLE"
-REGEX="^(feat|fix|docs|style|refactor|test|chore|ci|internal)(\(.+\))?: .+$"
+REGEX="^(feat|fix|docs|style|refactor|test|chore|ci|internal|revert)(\(.+\))?: .+$"
 
 if [[ ! "$TITLE" =~ $REGEX ]]; then
     echo -e "ERROR: Merge request title does not follow Conventional Commits format (https://www.conventionalcommits.org/en/v1.0.0/).\n"

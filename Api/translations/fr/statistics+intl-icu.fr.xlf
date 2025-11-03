@@ -83,48 +83,6 @@
         <target>Christophe Colomb</target>
       </segment>
     </unit>
-    <unit id="artefact_specialist">
-      <segment id="name" state="translated">
-        <source>artefact_specialist.name</source>
-        <target>Spécialiste en artefacts</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>artefact_specialist.description</source>
-        <target>Nombre maximal d'artefacts différents que vous avez collecté en expédition au cours d'une seule partie.</target>
-      </segment>
-      <segment id="x1" state="translated">
-        <source>artefact_specialist_1.name</source>
-        <target>Balayeur</target>
-      </segment>
-      <segment id="x2" state="translated">
-        <source>artefact_specialist_2.name</source>
-        <target>Fouineur</target>
-      </segment>
-      <segment id="x3" state="translated">
-        <source>artefact_specialist_3.name</source>
-        <target>Chercheur</target>
-      </segment>
-      <segment id="x4" state="translated">
-        <source>artefact_specialist_4.name</source>
-        <target>Explorateur</target>
-      </segment>
-      <segment id="x5" state="translated">
-        <source>artefact_specialist_5.name</source>
-        <target>Gardien</target>
-      </segment>
-      <segment id="x6" state="translated">
-        <source>artefact_specialist_6.name</source>
-        <target>Shaman</target>
-      </segment>
-      <segment id="x7" state="translated">
-        <source>artefact_specialist_7.name</source>
-        <target>Magicien</target>
-      </segment>
-      <segment id="x8" state="translated">
-        <source>artefact_specialist_8.name</source>
-        <target>Prophète</target>
-      </segment>
-    </unit>
     <unit id="camera_installed">
       <segment id="name" state="translated">
         <source>camera_installed.name</source>

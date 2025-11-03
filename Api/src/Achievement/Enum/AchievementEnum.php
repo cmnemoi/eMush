@@ -26,14 +26,6 @@ enum AchievementEnum: string
     case EXPLORER_50 = 'explorer_50';
     case EXPLORER_200 = 'explorer_200';
     case EXPLORER_1000 = 'explorer_1000';
-    case ARTEFACT_SPECIALIST_1 = 'artefact_specialist_1';
-    case ARTEFACT_SPECIALIST_2 = 'artefact_specialist_2';
-    case ARTEFACT_SPECIALIST_3 = 'artefact_specialist_3';
-    case ARTEFACT_SPECIALIST_4 = 'artefact_specialist_4';
-    case ARTEFACT_SPECIALIST_5 = 'artefact_specialist_5';
-    case ARTEFACT_SPECIALIST_6 = 'artefact_specialist_6';
-    case ARTEFACT_SPECIALIST_7 = 'artefact_specialist_7';
-    case ARTEFACT_SPECIALIST_8 = 'artefact_specialist_8';
     case BACK_TO_ROOT_1 = 'back_to_root_1';
     case CAMERA_INSTALLED_1 = 'camera_installed_1';
     case GAME_WITHOUT_SLEEP_1 = 'game_without_sleep_1';

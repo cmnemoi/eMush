@@ -7,7 +7,6 @@ namespace Mush\Tests\functional\Exploration\Service;
 use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -28,7 +27,6 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
-use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -772,134 +770,6 @@ final class ExplorationServiceCest extends AbstractExplorationTester
                 ->getPlaceByNameOrThrow($this->daedalus->getPlanetPlace()->getName())
                 ->hasEquipmentByName(EquipmentEnum::PATROL_SHIP)
         );
-    }
-
-    public function closeExplorationShouldIncrementArtefactSpecialistStatistic(FunctionalTester $I): void
-    {
-        $planet = $this->givenAPlanetWithDesertSector($I);
-
-        $exploration = $this->givenAnExplorationIsCreated(
-            planet: $planet,
-            explorators: new PlayerCollection([$this->player1, $this->player2]),
-        );
-
-        $this->givenArtefactsOnThePlanet();
-
-        $this->whenExplorationIsClosed($exploration);
-
-        $this->thenPlayerShouldHaveArtefactSpecialistStatisticSetTo(3, $this->player1, $I);
-        $this->thenPlayerShouldHaveArtefactSpecialistStatisticSetTo(3, $this->player2, $I);
-    }
-
-    public function closeExplorationShouldNotIncrementArtefactSpecialistStatisticIfAlreadyHigher(FunctionalTester $I): void
-    {
-        $planet = $this->givenAPlanetWithDesertSector($I);
-
-        $exploration = $this->givenAnExplorationIsCreated(
-            planet: $planet,
-            explorators: new PlayerCollection([$this->player1]),
-        );
-
-        $this->givenPlayerHasArtefactSpecialistStatistic(5, $this->player1, $I);
-        $this->givenArtefactsOnThePlanet();
-
-        $this->whenExplorationIsClosed($exploration);
-
-        $this->thenPlayerShouldHaveArtefactSpecialistStatisticSetTo(5, $this->player1, $I);
-    }
-
-    public function closeExplorationShouldNotIncrementArtefactSpecialistStatisticIfNoArtefactsDiscovered(FunctionalTester $I): void
-    {
-        $planet = $this->givenAPlanetWithDesertSector($I);
-
-        $exploration = $this->givenAnExplorationIsCreated(
-            planet: $planet,
-            explorators: new PlayerCollection([$this->player1]),
-        );
-
-        $this->givenNonArtefactEquipmentOnThePlanet();
-
-        $this->whenExplorationIsClosed($exploration);
-
-        $I->assertNull($this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::ARTEFACT_SPECIALIST, $this->player1->getUser()->getId()));
-    }
-
-    private function givenAPlanetWithDesertSector(FunctionalTester $I): Planet
-    {
-        return $this->createPlanet([PlanetSectorEnum::DESERT], $I);
-    }
-
-    private function givenAnExplorationIsCreated(Planet $planet, PlayerCollection $explorators): Exploration
-    {
-        return $this->createExploration(
-            planet: $planet,
-            explorators: $explorators,
-        );
-    }
-
-    private function givenArtefactsOnThePlanet(): void
-    {
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GearItemEnum::ALIEN_BOTTLE_OPENER,
-            equipmentHolder: $this->daedalus->getPlanetPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GearItemEnum::ROLLING_BOULDER,
-            equipmentHolder: $this->daedalus->getPlanetPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GearItemEnum::PRINTED_CIRCUIT_JELLY,
-            equipmentHolder: $this->daedalus->getPlanetPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
-    }
-
-    private function givenNonArtefactEquipmentOnThePlanet(): void
-    {
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::METAL_SCRAPS,
-            equipmentHolder: $this->daedalus->getPlanetPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::PLASTIC_SCRAPS,
-            equipmentHolder: $this->daedalus->getPlanetPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::THICK_TUBE,
-            equipmentHolder: $this->daedalus->getPlanetPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
-    }
-
-    private function whenExplorationIsClosed(Exploration $exploration): void
-    {
-        $this->explorationService->closeExploration($exploration, ['test']);
-    }
-
-    private function thenPlayerShouldHaveArtefactSpecialistStatisticSetTo(int $expectedCount, Player $player, FunctionalTester $I): void
-    {
-        $statisticRepository = $I->grabService('Mush\Achievement\Repository\StatisticRepositoryInterface');
-        $statistic = $statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::ARTEFACT_SPECIALIST, $player->getUser()->getId());
-        $I->assertNotNull($statistic);
-        $I->assertEquals($expectedCount, $statistic->getCount());
-    }
-
-    private function givenPlayerHasArtefactSpecialistStatistic(int $count, Player $player, FunctionalTester $I): void
-    {
-        $statisticRepository = $I->grabService('Mush\Achievement\Repository\StatisticRepositoryInterface');
-        $statistic = $statisticRepository->findOrCreateByNameAndUserId(StatisticEnum::ARTEFACT_SPECIALIST, $player->getUser()->getId());
-        $statistic->incrementCount($count - $statistic->getCount()); // Set to exact count
-        $statisticRepository->save($statistic);
     }
 
     private function skillExplorationCycleIncrementDataProvider(): iterable

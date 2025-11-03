@@ -20,7 +20,6 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::DOOR_REPAIRED),
             new StatisticConfigDto(StatisticEnum::EXPLO_FEED),
             new StatisticConfigDto(StatisticEnum::EXPLORER),
-            new StatisticConfigDto(StatisticEnum::ARTEFACT_SPECIALIST),
             new StatisticConfigDto(StatisticEnum::BACK_TO_ROOT, isRare: true),
             new StatisticConfigDto(StatisticEnum::CAMERA_INSTALLED),
             new StatisticConfigDto(StatisticEnum::EXTINGUISH_FIRE),

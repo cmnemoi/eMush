@@ -130,46 +130,6 @@ abstract class AchievementConfigData
                 threshold: 1_000,
             ),
             new AchievementConfigDto(
-                name: AchievementEnum::ARTEFACT_SPECIALIST_1,
-                points: 1,
-                threshold: 1,
-            ),
-            new AchievementConfigDto(
-                name: AchievementEnum::ARTEFACT_SPECIALIST_2,
-                points: 5,
-                threshold: 2,
-            ),
-            new AchievementConfigDto(
-                name: AchievementEnum::ARTEFACT_SPECIALIST_3,
-                points: 10,
-                threshold: 3,
-            ),
-            new AchievementConfigDto(
-                name: AchievementEnum::ARTEFACT_SPECIALIST_4,
-                points: 20,
-                threshold: 4,
-            ),
-            new AchievementConfigDto(
-                name: AchievementEnum::ARTEFACT_SPECIALIST_5,
-                points: 1,
-                threshold: 5,
-            ),
-            new AchievementConfigDto(
-                name: AchievementEnum::ARTEFACT_SPECIALIST_6,
-                points: 1,
-                threshold: 6,
-            ),
-            new AchievementConfigDto(
-                name: AchievementEnum::ARTEFACT_SPECIALIST_7,
-                points: 1,
-                threshold: 7,
-            ),
-            new AchievementConfigDto(
-                name: AchievementEnum::ARTEFACT_SPECIALIST_8,
-                points: 1,
-                threshold: 8,
-            ),
-            new AchievementConfigDto(
                 name: AchievementEnum::BACK_TO_ROOT_1,
                 points: 1,
                 threshold: 1,

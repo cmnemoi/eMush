@@ -83,48 +83,6 @@
         <target>Starship Trooper</target>
       </segment>
     </unit>
-    <unit id="artefact_specialist">
-      <segment id="name" state="translated">
-        <source>artefact_specialist.name</source>
-        <target>Especialista en artefactos</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>artefact_specialist.description</source>
-        <target>Cantidad máxima de artefactos diferentes colectados en expedición por tu equipo durante una sola partida.</target>
-      </segment>
-      <segment id="x1" state="translated">
-        <source>artefact_specialist_1.name</source>
-        <target>Barredor</target>
-      </segment>
-      <segment id="x2" state="translated">
-        <source>artefact_specialist_2.name</source>
-        <target>Recogedor</target>
-      </segment>
-      <segment id="x3" state="translated">
-        <source>artefact_specialist_3.name</source>
-        <target>Buscón</target>
-      </segment>
-      <segment id="x4" state="translated">
-        <source>artefact_specialist_4.name</source>
-        <target>Pillo</target>
-      </segment>
-      <segment id="x5" state="translated">
-        <source>artefact_specialist_5.name</source>
-        <target>Guardián</target>
-      </segment>
-      <segment id="x6" state="translated">
-        <source>artefact_specialist_6.name</source>
-        <target>Brujo</target>
-      </segment>
-      <segment id="x7" state="translated">
-        <source>artefact_specialist_7.name</source>
-        <target>Mago</target>
-      </segment>
-      <segment id="x8" state="translated">
-        <source>artefact_specialist_8.name</source>
-        <target>Profeta</target>
-      </segment>
-    </unit>
     <unit id="camera_installed">
       <segment id="name" state="translated">
         <source>camera_installed.name</source>

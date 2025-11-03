@@ -34,7 +34,7 @@
     <unit id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target">
       <segment id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target" state="translated">
         <source>blaster_shooter_plus_2_max_damage_20_random_injury_to_target</source>
-        <target>Hay a penas un parpadeo entre el disparo de **{character}**’ y el impacto de la bala sobre **{target_character}**.</target>
+        <target>Hay apenas un parpadeo entre el disparo de **{character}**’ y el impacto de la bala sobre **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_1_damage_target_damaged_ears">
@@ -99,7 +99,7 @@
     <unit id="natamy_rifle_headshot">
       <segment id="natamy_rifle_headshot" state="translated">
         <source>natamy_rifle_headshot</source>
-        <target>**{character}** intenta disparar en la cabeza de **{target_character}** exitosamente.</target>
+        <target>**{character}** dispara en la cabeza de **{target_character}** exitosamente.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury">
@@ -143,13 +143,13 @@
     <unit id="natamy_rifle_shooter_burnt_hand">
       <segment id="natamy_rifle_shooter_burnt_hand" state="translated">
         <source>natamy_rifle_shooter_burnt_hand</source>
-        <target>Disparando a **{target_character}**, **{character}** se quema con su arma. Espectacular.</target>
+        <target>Al disparar a **{target_character}**, **{character}** se quema con su arma. Grandioso.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_broken_shoulder">
       <segment id="natamy_rifle_shooter_broken_shoulder" state="translated">
         <source>natamy_rifle_shooter_broken_shoulder</source>
-        <target>**{character}** debió haber anticipado el reculo del arma, fallando el tiro sobre **{target_character}** y lastimando su propio hombro. Bravo.</target>
+        <target>**{character}** debió haber anticipado el retroceso del arma, falla su tiro hacia **{target_character}** y lastima su propio hombro. Bravo.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_failed_shot">
@@ -224,7 +224,7 @@
     <unit id="knife_plus_2_damage_punctured_lung">
       <segment id="knife_plus_2_damage_punctured_lung" state="translated">
         <source>knife_plus_2_damage_punctured_lung</source>
-        <target>Tal vez una esquiva mal cronometrada, tal vez un movimiento equivocado, tal vez una pobre imitación de combate visto en un holodisco... **{target_character}** se empala fuertemente en la espada de **{character}**.</target>
+        <target>Tal vez una esquiva mal cronometrada, tal vez un movimiento equivocado, tal vez una pobre imitación de combate visto en un holodisco... **{target_character}** se empala fuertemente en el filo de **{character}**.</target>
       </segment>
     </unit>
     <unit id="knife_failed_hit">
@@ -236,7 +236,7 @@
     <unit id="knife_break_weapon">
       <segment id="knife_break_weapon" state="translated">
         <source>knife_break_weapon</source>
-        <target>Zip, el arma de **{character}** esquiva elegantemente a **{target_character}** solo para aplastarse en un muro insolente. La cuchilla se rompe.</target>
+        <target>Zip, el arma de **{character}** esquiva elegantemente a **{target_character}** solo para aplastarse en un muro insolente. El cuchillo se rompe.</target>
       </segment>
     </unit>
     <unit id="knife_break_weapon_shooter_torn_tongue">
@@ -256,8 +256,8 @@
         <source>knife_shooter_drop_weapon</source>
         <target>{version, select,  
                   1 {Quien hubiera pensado que  **{target_character}** tenía tan buenos reflejos... **{character}** pierde su arma en el intercambio.}  
-                  2 {Al intenta atacar a **{target_character}**,  **{character}** se tropieza sobre una alfombra imaginaria y deja caer la cuchilla.}  
-                  other {Al intenta atacar a **{target_character}**,  **{character}** se tropieza sobre una alfombra imaginaria y deja caer la cuchilla.}  
+                  2 {Al intenta atacar a **{target_character}**,  **{character}** se tropieza sobre una alfombra imaginaria y deja caer su cuchillo.}  
+                  other {Al intenta atacar a **{target_character}**,  **{character}** se tropieza sobre una alfombra imaginaria y deja caer su cuchillo.}  
 }</target>
       </segment>
     </unit>
@@ -268,7 +268,7 @@
                 female{la} 
                 male{le} 
                 other {le}
-                } amenaza con su cuchilla. Demasiado rápido, demasiado preciso, demasiado... **{character}** hace un esfuerzo sobre-humano pero termina {character_gender, select, 
+                } amenaza con su cuchillo. Demasiado rápido, demasiado preciso, demasiado... **{character}** hace un esfuerzo sobre-humano pero termina {character_gender, select, 
                 female{abrumada y mareada} 
                 male{abrumado y mareado} 
                 other {abrumade y mareade}

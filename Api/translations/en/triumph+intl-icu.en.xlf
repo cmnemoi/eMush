@@ -832,7 +832,7 @@
     <unit id="pretty_cook.log">
       <segment state="translated">
         <source>pretty_cook.log</source>
-        <target>You have earned {quantity} :triumph: by participating in an expedition combat as Stephen !</target>
+        <target>You have earned {quantity} :triumph: by participating in an expedition combat as Stephen!</target>
       </segment>
     </unit>
     <unit id="lover">

@@ -113,9 +113,10 @@
 		},
 		"category": "Catégorie",
 		"timeSurvived": "Jours survécus",
-		"mushTriumph": "Triomphe Mush",
+		"mushTriumph": "Mush triumph",
 		"triumphSum": "Somme du triomphe",
-		"highestTriumph": "Plus haut triomphe"
+		"highestTriumph": "Plus haut triomphe",
+		"humanTriumph": "Triomphe humain"
 	},
 	"theEnd": {
 		"headliner": "Tête d'affiche :",
@@ -1106,6 +1107,5 @@
 			"name": "Actions admin",
 			"description": "Affichez vos actions admin."
 		}
-	},
-	"ranking-humantriumph": "Triomphe humain"
+	}
 }

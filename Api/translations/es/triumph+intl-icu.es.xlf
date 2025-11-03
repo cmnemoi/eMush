@@ -549,7 +549,7 @@
       <segment id="fast_forward.personal_description" state="translated">
         <source>fast_forward.personal_description</source>
         <target>Jin Su gana {quantity} :triumph: por cada viaje a un planeta realizado bajo su comando. 
-Una vez ganado más que {regressiveFactor}, pasará menos frecuentemente.</target>
+Después de ganar más de {regressiveFactor}, esto será menos frecuente.</target>
       </segment>
     </unit>
     <unit id="planet_searcher">
@@ -809,7 +809,7 @@ Una vez ganado más que {regressiveFactor}, pasará menos frecuentemente.</targe
     <unit id="alien_friend.log">
       <segment state="translated">
         <source>alien_friend.log</source>
-        <target>¡Has ganado {quantity} :triumph: al contactar una forma de vida extraterrestre siendo Janice !</target>
+        <target>¡Has ganado {quantity} :triumph: al contactar una forma de vida extraterrestre siendo Janice!</target>
       </segment>
     </unit>
     <unit id="alien_friend.personal_description">
@@ -833,7 +833,7 @@ Una vez ganado más que {regressiveFactor}, pasará menos frecuentemente.</targe
     <unit id="pretty_cook.log">
       <segment state="translated">
         <source>pretty_cook.log</source>
-        <target>¡Has ganado {quantity} :triumph: al participar en un combate durante una expedición siendo Stephen !</target>
+        <target>¡Has ganado {quantity} :triumph: al participar en un combate durante una expedición siendo Stephen!</target>
       </segment>
     </unit>
     <unit id="lover">
@@ -843,11 +843,11 @@ Una vez ganado más que {regressiveFactor}, pasará menos frecuentemente.</targe
       </segment>
       <segment id="lover.log" state="translated">
         <source>lover.log</source>
-        <target>Has ganado {quantity} :triumph: al flirtear con éxito mutuamente como Derek.</target>
+        <target>¡Has ganado {quantity} :triumph: al flirtear con éxito mutuamente como Derek!</target>
       </segment>
       <segment id="lover.personal_description" state="translated">
         <source>lover.personal_description</source>
-        <target>Has ganado {quantity} :triumph: al flirtear con éxito mutuamente como Derek.</target>
+        <target>Derek gana {quantity} :triumph: por cada acto amor recíproco.</target>
       </segment>
     </unit>
     <unit id="andie_fate">
@@ -899,7 +899,7 @@ Una vez ganado más que {regressiveFactor}, pasará menos frecuentemente.</targe
       </segment>
       <segment id="all_pregnant.log" state="translated">
         <source>all_pregnant.log</source>
-        <target>Nueva Esperanza</target>
+        <target>¡Has ganado {quantity} :triumph: porque uno de tus compañeros está esperando un evento feliz!</target>
       </segment>
     </unit>
   </file>

@@ -256,7 +256,7 @@
         <source>paranoid.description</source>
         <target>{character_gender, select,
         female {La paranoica}
-        other {El paranoico}} piensa que todos sus compañeros son potencialmente peligrosos, anda siempre vigilando sus espaldas con sus 2 cámaras extra.//:point: Comienza la partida con 2 **Cámaras** adicionales.//:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
+        other {El paranoico}} piensa que todos sus compañeros son potencialmente peligrosos, anda siempre vigilando sus espaldas con su cámara extra.//:point: Comienza la partida con 1 **Cámara** adicional.//:point: Las acciones **Instalar** y **Sacar** son **gratis** para ti.//:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="biologist">
@@ -355,7 +355,7 @@
       </segment>
       <segment id="anonymush.description" state="translated">
         <source>anonymush.description</source>
-        <target>Tus mycotoxinas son indetectables en la atmósfera. ¡Eres discreto como todo buen predador!//:point: Apareces como humano en la barra de tripulantes... hasta que mueras.</target>
+        <target>Tus micotoxinas son indetectables en la atmósfera. ¡Eres discreto como todo buen predador!//:point: Apareces como humano en la barra de tripulantes... hasta que mueras.</target>
       </segment>
     </unit>
     <unit id="determined">
@@ -365,7 +365,7 @@
       </segment>
       <segment id="determined.description" state="translated">
         <source>determined.description</source>
-        <target>Cuando ha comenzado una tarea, nada perturba a este personaje perseverante.//:point: Al **fallar** en una acción, el % de probabilidades de éxito **aumenta más rápido**.</target>
+        <target>Cuando ha comenzado una tarea, nada perturba a este personaje perseverante.//:point: Si **fallas** una acción, la probabilidad de éxito **aumenta en x1.5** *(en vez de x1.25)*.</target>
       </segment>
     </unit>
     <unit id="optimist">
@@ -486,7 +486,7 @@
       </segment>
       <segment id="infector.description" state="translated">
         <source>infector.description</source>
-        <target>Pica, pica y repica.//:point: Diario: Te pemite **picar** una segunda vez.</target>
+        <target>Pica, pica y repica.//:point: Diario: Te permite **picar** una segunda vez al día.</target>
       </segment>
     </unit>
     <unit id="sneak">
@@ -595,14 +595,14 @@
     <unit id="tracker">
       <segment id="tracker.name" state="translated">
         <source>tracker.name</source>
-        <target>Detective</target>
+        <target>Rastreador</target>
       </segment>
       <segment id="tracker.description" state="translated">
         <source>tracker.description</source>
         <target>{character_gender, select,
-        female {La}
-        other {El}} detective ve la procedencia y la dirección de cada tripulante. Puede imprimir un reporte en el tabulador, es decir, una lista de personas que revela si al menos una está infectada con el Mush.//:point: Acceso completo al **registro de desplazamiento**.//
-:point: Permite **imprimir la lista secreta** en la Tabuladora.</target>
+        female {La rastreadora}
+        other {El rastreador}} ve la procedencia y la dirección de cada tripulante. Puede imprimir un reporte en el tabulador, es decir, una lista de personas que revela si al menos una está infectada con el Mush.//:point: Acceso completo al **registro de desplazamiento**.//
+:point: Permite **imprimir la lista secreta** en la Tabuladora.//:point: Expedición: Previene el evento **Muerte** al buscar compañeros perdidos.</target>
       </segment>
     </unit>
     <unit id="bacterophiliac">
@@ -688,7 +688,7 @@
       </segment>
       <segment id="politician.description" state="translated">
         <source>politician.description</source>
-        <target>¡O están contigo o contra ti!//:point: **Único** : Por **3** :pa: puedes declarar un Golpe en el Nexus. Desde el próximo ciclo, NERON te considerará como el nuevo comandante Daedalus.</target>
+        <target>¡O están contigo o contra ti!//:point: **Único**: Por **3**:pa: puedes declarar un Golpe en el Nexus. A partir del próximo ciclo, NERON te considerará como el nuevo comandante del Daedalus.</target>
       </segment>
     </unit>
     <unit id="victimizer">
@@ -746,7 +746,7 @@
       </segment>
       <segment id="hard_boiled.description" state="translated">
         <source>hard_boiled.description</source>
-        <target>Tu epidermis es más dura que la de un rinoceronte plutoniano.</target>
+        <target>Tu epidermis es más dura que la de un rinoceronte plutoniano.//:point: Todo el **daño en combate** que recibas es **reducido por un punto**, excepto en combates de expedición.</target>
       </segment>
     </unit>
     <unit id="saboteur">
@@ -766,7 +766,7 @@
       </segment>
       <segment id="disheartening_contact.description" state="translated">
         <source>disheartening_contact.description</source>
-        <target>Las feromónas Mush pueden ser tan atroces que pueden desestabilizar a cualquiera, y eso te puede ser útil...//:point: Por **2** :pa: puedes hacerle perder **2** :pmo: a un compañero.</target>
+        <target>Las feromonas Mush pueden ser tan atroces que pueden desestabilizar a cualquiera, y eso te puede ser útil...//:point: Por **2** :pa: puedes hacerle perder **2** :pmo: a un compañero.</target>
       </segment>
     </unit>
     <unit id="slimetrap">

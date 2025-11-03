@@ -115,7 +115,8 @@
 		"timeSurvived": "Días sobrevividos",
 		"mushTriumph": "Gloria Mush",
 		"triumphSum": "Suma de gloria",
-		"highestTriumph": "Gloria máxima"
+		"highestTriumph": "Gloria máxima",
+		"humanTriumph": "Gloria humana"
 	},
 	"theEnd": {
 		"headliner": "Rol estelar:",
@@ -370,7 +371,7 @@
 			"maintenanceOn": "Poner el juego en mantenimiento",
 			"maintenanceOff": "Retirar el juego del mantenimiento",
 			"createAPlanet": "Crear un planeta",
-			"markAsCheater": "Marquer le Daedalus comme tricheurs"
+			"markAsCheater": "Marcar Daedalus como tramposos"
 		},
 		"save": "Guardar",
 		"show": "Mostrar",
@@ -763,23 +764,23 @@
 		"banner": {
 			"players": "Jugadores",
 			"users": "Usuarios",
-			"banAllUsers": "Bannir plusieurs utilisateurs"
+			"banAllUsers": "Banear múltiples usuarios"
 		},
 		"banAllUsers": {
-			"title": "Bannir plusieurs utilisateurs",
-			"description": "Vous pouvez bannir plusieurs utilisateurs en une seule fois en copiant leurs identifiants dans la zone de texte ci-dessous.",
-			"uuidsLabel": "Identifiants des utilisateurs",
-			"uuidsPlaceholder": "Coller les identifiants des utilisateurs (un par ligne ou séparés par des virgules)",
-			"uuidsHelp": "Coller les identifiants des utilisateurs à bannir, un par ligne ou séparés par des virgules.",
-			"reasonLabel": "Motif",
+			"title": "Banear múltiples usuarios",
+			"description": "Puedes banear a múltiples usuarios al mismo tiempo pegando sus cuentas en la siguiente área de texto.",
+			"uuidsLabel": "Cuentas de usuarios",
+			"uuidsPlaceholder": "Pegar las cuentas de los usuarios (una por línea, o separado por comas)",
+			"uuidsHelp": "Pegar las cuentas de los usuarios (una por línea, o separado por comas)",
+			"reasonLabel": "Motivo",
 			"messageLabel": "Mensaje",
-			"messagePlaceholder": "Message explicatif pour les utilisateurs",
-			"durationLabel": "Durée (en jours)",
-			"submit": "Bannir les utilisateurs",
-			"submitting": "Bannissement en cours...",
-			"success": "{count} utilisateur(s) banni(s) avec succès",
-			"error": "Erreur lors du bannissement des utilisateurs",
-			"noUuidsError": "Aucun identifiant valide trouvé"
+			"messagePlaceholder": "Mensaje explicativo para los usuarios",
+			"durationLabel": "Duración (en días)",
+			"submit": "Banear usuarios",
+			"submitting": "Baneo en curso...",
+			"success": "{count} usuario(s) baneados exitosamente",
+			"error": "Error durante el baneo del usuario",
+			"noUuidsError": "Ninguna cuenta válida encontrada"
 		},
 		"filters": {
 			"cycle": "Ciclo",
@@ -829,7 +830,7 @@
 		"userList": {
 			"userId": "Identificador del usuario",
 			"roles": "Roles",
-			"createdAt": "Date de création"
+			"createdAt": "Fecha de creación"
 		},
 		"sanction": {
 			"id": "Número",
@@ -970,14 +971,14 @@
 		"suspendSanctionDescription": "Suspender la sanción. La fecha de fin se fija a la fecha actual. La sanción permanece en el historial del usuario.",
 		"removeSanction": "Suprimir la sanción",
 		"removeSanctionDescription": "Suprimir la sanción. La sanción es completamente eliminada del historial del usuario.",
-		"byIp": "Bannir par IPs"
+		"byIp": "Banear por IPs"
 	},
 	"rules": {
 		"title": "Reglamento de eMush",
 		"introduction": {
 			"textIntro": "eMush es un juego comunitario que ofrece múltiples formas de comunicarse y comportarse. El objetivo de este reglamento es garantizar el buen desarrollo de las partidas y asegurar una experiencia de juego agradable para todos los jugadores. Las normas aquí expuestas no son exhaustivas y pueden evolucionar a medida que avance el desarrollo del juego. Los jugadores serán informados de cualquier actualización mediante una notificación en el servidor de Discord de Eternaltwin.",
 			"alphaLeeway": "Las reglas marcadas por este icono indican que se permite cierta tolerancia durante el período de alpha abierta (ver último párrafo).",
-			"lastUpdated": "<em>Last update: August 10, 2025</em>"
+			"lastUpdated": "<em>Última actualización: 10 de agosto de 2025</em>"
 		},
 		"communication": {
 			"title": "Comunicación",
@@ -1106,6 +1107,5 @@
 			"name": "Acciones admin",
 			"description": "Mostrar tus acciones admin."
 		}
-	},
-	"ranking-humantriumph": "Triomphe humain"
+	}
 }

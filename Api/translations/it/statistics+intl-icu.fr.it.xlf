@@ -83,48 +83,6 @@
         <target>explorer_1000.name</target>
       </segment>
     </unit>
-    <unit id="artefact_specialist">
-      <segment id="name" state="initial">
-        <source>artefact_specialist.name</source>
-        <target>artefact_specialist.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>artefact_specialist.description</source>
-        <target>artefact_specialist.description</target>
-      </segment>
-      <segment id="x1" state="initial">
-        <source>artefact_specialist_1.name</source>
-        <target>artefact_specialist_1.name</target>
-      </segment>
-      <segment id="x2" state="initial">
-        <source>artefact_specialist_2.name</source>
-        <target>artefact_specialist_2.name</target>
-      </segment>
-      <segment id="x3" state="initial">
-        <source>artefact_specialist_3.name</source>
-        <target>artefact_specialist_3.name</target>
-      </segment>
-      <segment id="x4" state="initial">
-        <source>artefact_specialist_4.name</source>
-        <target>artefact_specialist_4.name</target>
-      </segment>
-      <segment id="x5" state="initial">
-        <source>artefact_specialist_5.name</source>
-        <target>artefact_specialist_5.name</target>
-      </segment>
-      <segment id="x6" state="initial">
-        <source>artefact_specialist_6.name</source>
-        <target>artefact_specialist_6.name</target>
-      </segment>
-      <segment id="x7" state="initial">
-        <source>artefact_specialist_7.name</source>
-        <target>artefact_specialist_7.name</target>
-      </segment>
-      <segment id="x8" state="initial">
-        <source>artefact_specialist_8.name</source>
-        <target>artefact_specialist_8.name</target>
-      </segment>
-    </unit>
     <unit id="camera_installed">
       <segment id="name" state="initial">
         <source>camera_installed.name</source>

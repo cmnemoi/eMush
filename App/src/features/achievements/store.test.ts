@@ -140,6 +140,84 @@ describe("Achievements Store", () => {
         ]);
     });
 
+    it("should return top N statistics with rare stats first, then sorted by DESC count", async () => {
+        const store = createStore({
+            modules: {
+                achievements: createAchievementsModule({ fetchUserStatistics, fetchUserAchievements })
+            }
+        });
+        store.state.achievements.statistics = [
+            {
+                key: "rare_stat_1",
+                name: "Rare Statistic 1",
+                description: "Rare stat with low count",
+                count: 5,
+                formattedCount: "x5",
+                isRare: true
+            },
+            {
+                key: "rare_stat_2",
+                name: "Rare Statistic 2",
+                description: "Rare stat with high count",
+                count: 10,
+                formattedCount: "x10",
+                isRare: true
+            },
+            {
+                key: "common_stat_1",
+                name: "Common Statistic 1",
+                description: "Common stat with high count",
+                count: 20,
+                formattedCount: "x20",
+                isRare: false
+            },
+            {
+                key: "common_stat_2",
+                name: "Common Statistic 2",
+                description: "Common stat with low count",
+                count: 15,
+                formattedCount: "x15",
+                isRare: false
+            }
+        ];
+
+        const statistics = store.getters["achievements/topNStatistics"](10); // Get all
+        expect(statistics).toEqual([
+            {
+                key: "rare_stat_2",
+                name: "Rare Statistic 2",
+                description: "Rare stat with high count",
+                count: 10,
+                formattedCount: "x10",
+                isRare: true
+            },
+            {
+                key: "rare_stat_1",
+                name: "Rare Statistic 1",
+                description: "Rare stat with low count",
+                count: 5,
+                formattedCount: "x5",
+                isRare: true
+            },
+            {
+                key: "common_stat_1",
+                name: "Common Statistic 1",
+                description: "Common stat with high count",
+                count: 20,
+                formattedCount: "x20",
+                isRare: false
+            },
+            {
+                key: "common_stat_2",
+                name: "Common Statistic 2",
+                description: "Common stat with low count",
+                count: 15,
+                formattedCount: "x15",
+                isRare: false
+            }
+        ]);
+    });
+
     it("should return number of statistics as sum of achievement points", async () => {
         const store = createStore({
             modules: {

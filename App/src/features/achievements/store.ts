@@ -23,18 +23,17 @@ export function createAchievementsModule(gateway: AchievementsGateway): Module<A
             }
         },
         getters: {
-            statistics(state): Statistic[] {
-                return state.statistics;
+            statistics: (state): Statistic[] => state.statistics,
+            topNStatistics: (state) => (n: number) => {
+                return [...state.statistics].sort((a, b) => {
+                    if (a.isRare !== b.isRare) {
+                        return a.isRare ? -1 : 1;
+                    }
+                    return b.count - a.count;
+                }).slice(0, n);
             },
-            topNStatistics: (state) => (n: integer) => {
-                return [...state.statistics].sort((a, b) => b.count - a.count).slice(0, n);
-            },
-            achievements(state): Achievement[] {
-                return state.achievements;
-            },
-            points(state): number {
-                return state.achievements.reduce((acc, achievement) => acc + achievement.points, 0);
-            }
+            achievements: (state): Achievement[] => state.achievements,
+            points: (state): number => state.achievements.reduce((acc, achievement) => acc + achievement.points, 0)
         },
         actions: {
             async fetchStatistics({ commit }, { userId, language }): Promise<void> {

@@ -4,8 +4,7 @@
     <unit id="efficiency">
       <segment id="efficiency" state="translated">
         <source>efficiency</source>
-        <target>Efficiency: {min_efficiency}-{max_efficiency}%
-</target>
+        <target>Efficiency: {min_efficiency}-{max_efficiency}%</target>
       </segment>
     </unit>
     <unit id="efficiencyTooltipHeader">
@@ -159,9 +158,9 @@
         <source>pilgred.description</source>
         <target>Repairing PILGRED gives you access to new space routes, including the route to Earth. In addition, the coffee machine will regenerate four times as fast.</target>
       </segment>
-      <segment id="pilgred.lore" state="translated">
+      <segment id="pilgred.lore" state="final">
         <source>pilgred.lore</source>
-        <target>&lt;target/&gt;</target>
+        <target/>
       </segment>
     </unit>
     <unit id="plasma_shield">

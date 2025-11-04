@@ -158,9 +158,9 @@
         <source>pilgred.description</source>
         <target>Reparar PILGRED te permitirá abrir nuevas rutas especiales, una de ellas hacia la Tierra. Además, la cafetera se regenerará el cuádruple de rápido.</target>
       </segment>
-      <segment id="pilgred.lore" state="translated">
+      <segment id="pilgred.lore" state="final">
         <source>pilgred.lore</source>
-        <target>&lt;target/&gt;</target>
+        <target/>
       </segment>
     </unit>
     <unit id="plasma_shield">

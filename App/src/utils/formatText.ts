@@ -68,6 +68,10 @@ export const helpers = {
     }
 };
 
+export function regexEscape(text: string): string {
+    return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 export function formatText(text: string|null): string {
     if (text === null) {
         return "";
@@ -81,18 +85,35 @@ export function formatText(text: string|null): string {
     });
 
     // Handle both markdown-style links (e.g [Mushpedia](https://mushpedia.com))
-    // and direct links from the game (e.g https://emush.eternaltwin.org/news)
-    const markdownLinkRegex = /\[([^\]]+)\]\(([^\)]+)\)|((https:\/\/)?(staging\.)?emush\.eternaltwin\.org\/[^\s\)\"\'\< ]*)/g;
+    // and direct links (e.g. https://emush.eternaltwin.org/news) to known hosts.
     function markdownSubstitution(substring: string, p1: string, p2: string, p3: string): string {
-        return !p1 ? `<a href=\'${p3}\' title=\'${p3}\'>${p3}</a>` : `<a href=\'${p2}\' title=\'${p2}\'>${p1}</a>`;
+        return !p1 ? `<a href='${p3}' title='${p3}' target='_blank' rel='noopener noreferrer'>${p3}</a>` : `<a href='${p2}' title='${p2}' target='_blank' rel='noopener noreferrer'>${p1}</a>`;
     }
-
+    const knownHosts = [
+        "localhost",
+        "emush.eternaltwin.org",
+        "staging.emush.eternaltwin.org",
+        "emushpedia.miraheze.org",
+        "www.mushpedia.com"
+    ];
+    const knowHostsRegex = "(?:(?:" + knownHosts.map(regexEscape).join(")|(?:") + "))";
+    const markdownLinkRegex = new RegExp(
+        String.raw`\[([^\]]+)\]\((https?:\/\/${knowHostsRegex}[^\s)\]'"<]*)\)|(https?:\/\/${knowHostsRegex}[^;:!?.\s)\]'"<]*)`,
+        "gi"
+    );
     formattedText = formattedText.replaceAll(markdownLinkRegex, markdownSubstitution);
 
-    formattedText = formattedText.replaceAll(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    formattedText = formattedText.replaceAll(/\*(.*?)\*/g, '<em>$1</em>');
-    formattedText = formattedText.replaceAll(/~~(.*?)~~/g, '<s>$1</s>');
-    formattedText = formattedText.replace(/(?<!http:|https:)\/\//g, '<br>');
+
+    // Text formatting
+    formattedText = formattedText
+        .replaceAll(/^(\/neron )/ig, '<strong class="neron">/neron </strong>')
+        .replaceAll(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>')
+        .replaceAll(/(?<!\*)\*\*(?!\*)(.+?)(?<!\*)\*\*(?!\*)/g, '<strong>$1</strong>')
+        .replaceAll(/\*\*\*(?!\*)(.+?)(?<!\*)\*\*\*/g, '<strong><em>$1</em></strong>')
+        .replaceAll(/~~([^~]+?)~~/g, '<s>$1</s>')
+        .replaceAll(/(?<!https?:)\/\//g, "<br>");
+
+    // Emotes
     Object.values(CharacterEnum).forEach((character: string) => {
         formattedText = formattedText.replaceAll(new RegExp(`:${character}:`, 'g'), helpers.computeCharacterImageHtmlByKey(character));
     });
@@ -117,6 +138,58 @@ export function formatText(text: string|null): string {
     Object.values(SkillPointEnum).forEach((skillPoint: string) => {
         formattedText = formattedText.replaceAll(new RegExp(`:${skillPoint}:`, 'g'), helpers.computeSkillPointIconHtmlByKey(skillPoint));
     });
+
+    return formattedText;
+}
+
+/**
+ * Like `formatText()` but actually keep the Markdown syntax visible.
+ */
+export function formatSyntax(text: string | null): string {
+    if (text === null) return "";
+
+    let formattedText = sanitizeHtml(text, {
+        allowedTags: [ 'strong', 'em', 'a', 's', 'br' ],
+        allowedAttributes: { 'a': [ 'href', 'title' ] }
+    });
+
+    // Handle both markdown-style links (e.g [Mushpedia](https://mushpedia.com))
+    // and direct links (e.g. https://emush.eternaltwin.org/news) to known hosts.
+    const knownHosts = [
+        "localhost",
+        "emush.eternaltwin.org",
+        "staging.emush.eternaltwin.org",
+        "emushpedia.miraheze.org",
+        "www.mushpedia.com"
+    ];
+    const knowHostsRegex = "(?:(?:" + knownHosts.map(regexEscape).join(")|(?:") + "))";
+    const markdownLinkRegex = new RegExp(
+        String.raw`\[([^\]]+)\]\((https?:\/\/${knowHostsRegex}[^\s)\]'"<]*)\)|(https?:\/\/${knowHostsRegex}[^,;:!?.\s)\]'"<]*)`, "gi"
+    );
+    formattedText = formattedText.replaceAll(
+        markdownLinkRegex,
+        (substring, p1, p2, p3) => {
+            if (p1 && p2) {
+                // Markdown link
+                const safeUrl = sanitizeHtml(p2, { allowedTags: [], allowedAttributes: {} });
+                const safeLabel = sanitizeHtml(p1, { allowedTags: [], allowedAttributes: {} });
+                return `<a href='${safeUrl}' title='${safeUrl}' target='_blank' rel='noopener noreferrer'>[${safeLabel}](${safeUrl})</a>`;
+            } else if (p3) {
+                // Raw link
+                const safeUrl = sanitizeHtml(p3, { allowedTags: [], allowedAttributes: {} });
+                return `<a href='${safeUrl}' title='${safeUrl}' target='_blank' rel='noopener noreferrer'>${safeUrl}</a>`;
+            }
+            return substring;
+        }
+    );
+
+    // Text formatting
+    formattedText = formattedText
+        .replaceAll(/^(\/neron )/ig, '<strong class="neron">/neron </strong>')
+        .replaceAll(/(?<!\*)(\*(?!\*).+?(?<!\*)\*)(?!\*)/g, '<em>$1</em>')
+        .replaceAll(/(?<!\*)(\*\*(?!\*).+?(?<!\*)\*\*)(?!\*)/g, '<strong>$1</strong>')
+        .replaceAll(/(\*\*\*(?!\*).+?(?<!\*)\*\*\*)/g, '<strong><em>$1</em></strong>')
+        .replaceAll(/(~~[^~]+?~~)/g, '<s>$1</s>');
 
     return formattedText;
 }

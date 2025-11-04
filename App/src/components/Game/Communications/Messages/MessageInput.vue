@@ -1,18 +1,21 @@
 <template>
     <form class="chat-input">
         <div v-if="!showRichEditor" class="form-container">
-            <textarea
-                v-model="text"
-                ref="input"
-                class="messageInput-area"
-                :placeholder="$t('game.communications.myMessageHere')"
-                @keydown.enter.exact.prevent="sendNewMessage()"
-                @keydown.enter.ctrl.exact.prevent="breakLine"
-                @keydown.enter.shift.exact.prevent="breakLine"
-                @keyup="resize()"
-                @focusout ="updateTypedMessage(text)"
-                @keyup.enter.exact.prevent="clearTypedMessage"
-            />
+            <div class="input-wrapper">
+                <div ref="preview" class="input-preview" v-html="formatSyntax(text)"/>
+                <textarea
+                    v-model="text"
+                    ref="input"
+                    class="input-area"
+                    :placeholder="$t('game.communications.myMessageHere')"
+                    @keydown.enter.exact.prevent="sendNewMessage()"
+                    @keydown.enter.ctrl.exact.prevent="breakLine"
+                    @keydown.enter.shift.exact.prevent="breakLine"
+                    @keyup="resize()"
+                    @focusout ="updateTypedMessage(text)"
+                    @keyup.enter.exact.prevent="clearTypedMessage"
+                />
+            </div>
             <div class="buttons-container">
                 <Tippy tag="button" class="format-button" @click.prevent="openRichEditor">
                     <img :src="getImgUrl('comms/buttonFormat.png')" alt="format">
@@ -49,6 +52,7 @@ import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 import RichTextEditor from "./RichTextEditor/RichTextEditor.vue";
 import { Tippy } from "vue-tippy";
+import { formatSyntax } from "@/utils/formatText";
 
 export default defineComponent ({
     name: "MessageInput",
@@ -79,13 +83,14 @@ export default defineComponent ({
         })
     },
     methods: {
+        formatSyntax,
         getImgUrl,
         sendNewMessage(messageToSend?: string): void {
             const textToSend = messageToSend !== undefined ? messageToSend : this.text;
             this.showRichEditor = false;
 
             if (textToSend.length > 0) {
-                const formattedText = textToSend.replace(/\n/g, "//");
+                const formattedText = textToSend.replace(/\n/g, "//").replace(/^(\/neron )/ig, '/neron ');
 
                 this.sendMessage({
                     text: formattedText,
@@ -117,10 +122,13 @@ export default defineComponent ({
             this.text = '';
         },
         resize() {
-            const element = this.$refs.input;
-            if (!element) return;
-            element.style.height = "auto";
-            element.style.height = element.scrollHeight + 2 + "px";
+            const input = this.$refs.input;
+            const preview = this.$refs.preview;
+            if (!input) return;
+            input.style.height = "auto";
+            input.style.height = input.scrollHeight + 2 + "px";
+            preview.style.height = "auto";
+            preview.style.height = input.scrollHeight + 2 + "px";
         },
         openRichEditor(): void {
             this.showRichEditor = true;
@@ -152,61 +160,101 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
-    .chat-input {
+.chat-input {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    padding: 7px 7px 4px 7px;
+    overflow: hidden;
+}
+.form-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 5px;
+    margin-top:2px;
+    width: 100%;
+}
+.input-wrapper {
+    position: relative;
+    flex: 1;
+
+    &:active .input-preview,
+    &:focus-within .input-preview {
+        font-style: initial;
+        opacity: 1 !important;
+    }
+}
+.input-preview {
+    display: block;
+    resize: none;
+    overflow-y: scroll;
+    width: 100%;
+    min-height: 58px;
+    max-height: 348px;
+    background: #fff;
+    padding: 3px 5px;
+    font-family: "Fira Mono", Consolas, monospace;
+    font-size: 0.85em;
+    font-style: italic;
+    line-height: 15px;
+    word-break: break-word;
+    white-space: pre-wrap;
+    opacity: 0.75;
+    box-shadow: 0 1px 0 white;
+    border: 1px solid #aad4e5;
+    border-radius: 3px;
+    z-index: 50;
+    @extend %game-scrollbar;
+
+    :deep(em) {
+        color: $red;
+    }
+    :deep(.neron) {
+        color: #387ce3;
+        font-family: "Fira Mono", Consolas, monospace;
+    }
+}
+.input-area {
+    position: absolute;
+    resize: none;
+    overflow-y: scroll;
+    width: 100%;
+    min-height: 58px;
+    max-height: 348px;
+    padding: 3px 5px;
+    font-family: "Fira Mono", Consolas, monospace;
+    font-size: 0.85em;
+    color: transparent;
+    caret-color: #000;
+    line-height: 15px;
+    word-break: break-word;
+    border: none;
+    box-shadow: none;
+    z-index: 100;
+    background: transparent;
+    @extend %game-scrollbar;
+}
+.format-button, .submit-button {
+    cursor: pointer;
+    @include button-style();
+
+    & {
+        width: 24px;
+        height: 24px;
         display: flex;
-        position: relative;
-        flex-direction: row;
-        padding: 7px 7px 4px 7px;
-        overflow: hidden;
+        align-items: center;
+        justify-content: center;
     }
-    .form-container {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-end;
-        gap: 5px;
-        margin-top:2px;
-        width: 100%;
+
+    &:first-child {
+        margin-bottom: 4px; /* Espace entre les deux boutons */
     }
-    .messageInput-area {
-        flex: 1; /* Le textarea prend tout l'espace disponible */
-        resize: vertical;
-        overflow-y: scroll;
-        min-height: 58px;
-        max-height: 348px;
-        padding: 3px 5px;
-        font-style: italic;
-        opacity: 0.75;
-        box-shadow: 0 1px 0 white;
-        border: 1px solid #aad4e5;
-        border-radius: 3px;
-        @extend %game-scrollbar;
 
-        &:active,
-        &:focus {
-            font-style: initial;
-            opacity: 1;
-        }
+    img {
+        width: 24px;
+        max-height: 24px;
     }
-    .format-button, .submit-button {
-        cursor: pointer;
-        @include button-style();
-
-        & {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        &:first-child {
-            margin-bottom: 4px; /* Espace entre les deux boutons */
-        }
-
-        img {
-            width: 24px;
-            max-height: 24px;
-        }
-    }
+}
 
 </style>

@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 
 import { describe, it, beforeEach, afterEach, expect } from 'vitest';
-import { formatText, helpers } from './formatText';
+import { formatSyntax, formatText, helpers } from './formatText';
 
 describe('formatText', () => {
 
@@ -90,26 +90,33 @@ describe('formatText', () => {
 
             expect(result).to.equal("Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 <img/> OU + 1 <img/> OU + 2<img/>.");
         });
-        it('should replace [Twinpedia](https://twin.tithom.fr/mush) by a link', () => {
-            const text = "[Twinpedia](https://twin.tithom.fr/mush)";
-
-            const result = formatText(text);
-
-            expect(result).to.equal("<a href='https://twin.tithom.fr/mush' title='https://twin.tithom.fr/mush'>Twinpedia</a>");
-        });
         it('should replace [Règlement](https://emush.eternaltwin.org/rules) by a link', () => {
             const text = "[Règlement](https://emush.eternaltwin.org/rules)";
 
             const result = formatText(text);
 
-            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules'>Règlement</a>");
+            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules' target='_blank' rel='noopener noreferrer'>Règlement</a>");
+        });
+        it('should not replace [Unknown](https://unknown.host.org) by a link', () => {
+            const text = "[Unknown](https://unknown.host.org)";
+
+            const result = formatText(text);
+
+            expect(result).to.equal(text);
         });
         it('should replace https://emush.eternaltwin.org/rules by a link', () => {
             const text = "https://emush.eternaltwin.org/rules";
 
             const result = formatText(text);
 
-            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules'>https://emush.eternaltwin.org/rules</a>");
+            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules' target='_blank' rel='noopener noreferrer'>https://emush.eternaltwin.org/rules</a>");
+        });
+        it('should not replace https://unknown.host.org by a link', () => {
+            const text = "https://unknown.host.org";
+
+            const result = formatText(text);
+
+            expect(result).to.equal(text);
         });
     });
 
@@ -135,11 +142,112 @@ describe('formatText', () => {
                 "<em><strong>INVENTAIRE</em></strong>"
             ]).to.include(result);
         });
-        it('should allow multiple nested bold, italic and strike elements', () => {
+        it('should allow multiple nested bold, italic and strike elements: "**~~mixed *nested* text~~**"', () => {
             const text = "**~~mixed *nested* text~~**";
+
             const result = formatText(text);
 
             expect(result).to.equal("<strong><s>mixed <em>nested</em> text</s></strong>");
+        });
+        it('should allow multiple nested bold, italic and strike elements: "*~~mixed **nested** text~~*"', () => {
+            const text = "*~~mixed **nested** text~~*";
+
+            const result = formatText(text);
+
+            expect(result).to.equal("<em><s>mixed <strong>nested</strong> text</s></em>");
+        });
+    });
+});
+
+describe('formatSyntax', () => {
+
+    describe('Simple tests', () => {
+        it('return an empty string when given an empty string', () => {
+            const text = "";
+
+            const result = formatSyntax(text);
+
+            expect(result).to.equal("");
+        });
+        it('should replace **abc** with <strong>**abc**</strong>', () => {
+            const text = "**Raluca** a pris un Débris métallique.";
+
+            const result = formatSyntax(text);
+
+            expect(result).to.equal("<strong>**Raluca**</strong> a pris un Débris métallique.");
+        });
+        it('should replace *abc* with <em>*abc*</em>', () => {
+            const text = "*Raluca* a pris un Débris métallique.";
+
+            const result = formatSyntax(text);
+
+            expect(result).to.equal("<em>*Raluca*</em> a pris un Débris métallique.");
+        });
+        it('should replace [Règlement](https://emush.eternaltwin.org/rules) by a link while keeping the formatting', () => {
+            const text = "[Règlement](https://emush.eternaltwin.org/rules)";
+
+            const result = formatSyntax(text);
+
+            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules' target='_blank' rel='noopener noreferrer'>[Règlement](https://emush.eternaltwin.org/rules)</a>");
+        });
+        it('should not replace [Unknown](https://unknown.host.org) by a link', () => {
+            const text = "[Unknown](https://unknown.host.org)";
+
+            const result = formatSyntax(text);
+
+            expect(result).to.equal(text);
+        });
+        it('should replace https://emush.eternaltwin.org/rules by a link', () => {
+            const text = "https://emush.eternaltwin.org/rules";
+
+            const result = formatSyntax(text);
+
+            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules' target='_blank' rel='noopener noreferrer'>https://emush.eternaltwin.org/rules</a>");
+        });
+        it('should not replace https://unknown.host.org by a link', () => {
+            const text = "https://unknown.host.org";
+
+            const result = formatSyntax(text);
+
+            expect(result).to.equal(text);
+        });
+    });
+
+    describe("Complex tests", () => {
+        it('should allow multiple bold and italic elements', () => {
+            const text = `**Raluca** a laché *un* **Débris métallique**
+            **Raluca** a pris *un* **Débris métallique.**`;
+
+            const result = formatSyntax(text);
+
+            expect(result).to.equal(`<strong>**Raluca**</strong> a laché <em>*un*</em> <strong>**Débris métallique**</strong>
+            <strong>**Raluca**</strong> a pris <em>*un*</em> <strong>**Débris métallique.**</strong>`);
+        });
+        it('should allow combination of bold and italic', () => {
+            const text = "***INVENTAIRE***";
+
+            const result = formatSyntax(text);
+
+            expect([
+                "<strong><em>***INVENTAIRE***</em></strong>",
+                "<em><strong>***INVENTAIRE***</strong></em>",
+                "<strong><em>***INVENTAIRE***</strong></em>",
+                "<em><strong>***INVENTAIRE***</em></strong>"
+            ]).to.include(result);
+        });
+        it('should allow multiple nested bold, italic and strike elements: "**~~mixed *nested* text~~**"', () => {
+            const text = "**~~mixed *nested* text~~**";
+
+            const result = formatSyntax(text);
+
+            expect(result).to.equal("<strong>**<s>~~mixed <em>*nested*</em> text~~</s>**</strong>");
+        });
+        it('should allow multiple nested bold, italic and strike elements: "*~~mixed **nested** text~~*"', () => {
+            const text = "*~~mixed **nested** text~~*";
+
+            const result = formatSyntax(text);
+
+            expect(result).to.equal("<em>*<s>~~mixed <strong>**nested**</strong> text~~</s>*</em>");
         });
     });
 });

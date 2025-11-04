@@ -25,6 +25,7 @@ docker/docker-compose.dev.yml
 *.sql
 
 TODO.md
+server_pids
 
 # .log files
 *.log

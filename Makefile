@@ -42,6 +42,10 @@ docker-start: docker-stop
 docker-stop:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml stop
 
+.PHONY: docker-down
+docker-down:
+	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml down
+
 .PHONY: docker-watch
 docker-watch:
 	docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-recreate --remove-orphans

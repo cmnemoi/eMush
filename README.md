@@ -1,7 +1,6 @@
 # Project eMush
 
-[![pipeline](https://gitlab.com/eternaltwin/mush/mush/badges/develop/pipeline.svg)](https://gitlab.com/eternaltwin/mush/mush/-/pipelines?ref=develop)
-[![coverage](https://gitlab.com/eternaltwin/mush/mush/badges/develop/coverage.svg?job=api-test-develop&key_text=Backend+Coverage&key_width=130)](https://gitlab.com/eternaltwin/mush/mush/-/graphs/develop/charts)
+[![pipeline](https://gitlab.com/eternaltwin/mush/mush/badges/main/pipeline.svg)](https://gitlab.com/eternaltwin/mush/mush/-/pipelines?ref=main)
 [![discord](https://user-content.gitlab-static.net/7e2a439cd72fbe75267ad51eece2abd136f004b2/68747470733a2f2f696d672e736869656c64732e696f2f646973636f72642f363933303832303131343834363834333438)](https://discord.com/channels/693082011484684348/746873392463872071)
 [![localization](https://user-content.gitlab-static.net/d208b981d10933645dfa09029e4afbd7ea88b82e/68747470733a2f2f6261646765732e63726f7764696e2e6e65742f652f36626663626161663734323533613238333761646162303566613035353165332f6c6f63616c697a65642e737667)](https://eternaltwin.crowdin.com/emush)
 
@@ -21,14 +20,6 @@ Please read [APP.md](./App/README.md) for details on the app architecture.
 
 ## Getting Started
 
-### Gitpod : your development environment in the cloud
-
-If you don't want to go through the installation process, you can use the project's Gitpod workspace:
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://gitlab.com/eternaltwin/mush/mush)
-
-This will create a new workspace in the cloud with all the dependencies installed and the project ready to run with your prefered IDE. You need a Gitpod account to use this feature.
-
 ### Installing with Docker (recommended)
 
 #### Windows
@@ -37,11 +28,11 @@ This will create a new workspace in the cloud with all the dependencies installe
 - Install [Ubuntu](https://apps.microsoft.com/detail/9msvkqc78pk6) with WSL2 : `wsl --install -d Ubuntu` ;
   - WSL2 should be installed by default on recent Windows 10+ versions. Try running `wsl --set-default-version 2` in a Powershell terminal. If it doesn't work, follow the instructions [here](https://learn.microsoft.com/fr-fr/windows/wsl/install-manual).
 - Launch it : `wsl -d Ubuntu` ;
-- Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_docker_install.sh?ref_type=heads | bash` in your WSL2 terminal.
+- Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/main/clone_and_docker_install.sh?ref_type=heads | bash` in your WSL2 terminal.
 
 #### Ubuntu (recommended)
 
-Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_docker_install.sh?ref_type=heads | bash` in your terminal.
+Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/main/clone_and_docker_install.sh?ref_type=heads | bash` in your terminal.
 
 #### MacOS
 
@@ -81,7 +72,7 @@ If you don't want to use Docker, here are two installation scripts.
 Run those commands in a Powershell terminal:
 
 ```powershell
-Invoke-WebRequest -Uri "https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_install.ps1?ref_type=heads" -OutFile "clone_and_install.ps1"
+Invoke-WebRequest -Uri "https://gitlab.com/eternaltwin/mush/mush/-/raw/main/clone_and_install.ps1?ref_type=heads" -OutFile "clone_and_install.ps1"
 .\clone_and_install.ps1
 ```
 
@@ -89,7 +80,7 @@ If you encounter any issue (very likely), refer to legacy installation instructi
 
 #### Ubuntu
 
-Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_install.sh?ref_type=heads | bash` in your terminal.
+Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/main/clone_and_install.sh?ref_type=heads | bash` in your terminal.
 
 ### Post-installation
 

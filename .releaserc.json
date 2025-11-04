@@ -1,0 +1,16 @@
+{
+  "branches": ["main"],
+  "tagFormat": "${version}",
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    ["@semantic-release/exec", {
+      "prepareCmd": "jq '.version = \"${nextRelease.version}\"' App/package.json > tmp.json && mv tmp.json App/package.json && jq '.version = \"${nextRelease.version}\"' Api/composer.json > tmp.json && mv tmp.json Api/composer.json"
+    }],
+    ["@semantic-release/git", {
+      "assets": ["CHANGELOG.md", "App/package.json", "Api/composer.json"]
+    }],
+    "@semantic-release/gitlab"
+  ]
+}

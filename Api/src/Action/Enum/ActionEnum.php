@@ -225,6 +225,7 @@ enum ActionEnum: string
             self::EXAMINE,
             self::MOVE,
             self::TAKE,
+            self::TAKE_CAT,
             self::TOGGLE_MAGNETIC_NET,
             self::TOGGLE_NERON_INHIBITION,
             self::TOGGLE_PLASMA_SHIELD,
@@ -366,7 +367,6 @@ enum ActionEnum: string
             self::INSTALL_CAMERA,
             self::INSTALL_CAMERA_NIMBLE_FINGERS,
             self::INSERT_FUEL_CHAMBER,
-            self::EXTINGUISH,
             self::EXTINGUISH_MANUALLY,
             self::REPORT_FIRE,
         ]);

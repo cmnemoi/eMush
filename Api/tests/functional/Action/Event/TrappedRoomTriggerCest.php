@@ -6,6 +6,7 @@ namespace Mush\tests\functional\Action\Event;
 
 use Mush\Action\Actions\Move;
 use Mush\Action\Actions\ReadDocument;
+use Mush\Action\Actions\Repair;
 use Mush\Action\Actions\Search;
 use Mush\Action\Actions\Take;
 use Mush\Action\Entity\Action;
@@ -15,10 +16,15 @@ use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\MushMessageEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\EquipmentHolderInterface;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Player;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -37,11 +43,13 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
     private ActionConfig $readDocumentActionConfig;
     private ActionConfig $searchActionConfig;
     private ActionConfig $moveActionConfig;
+    private ActionConfig $repairActionConfig;
 
     private Take $take;
     private ReadDocument $readDocument;
     private Search $search;
     private Move $move;
+    private Repair $repair;
 
     public function _before(FunctionalTester $I): void
     {
@@ -53,32 +61,23 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         $this->readDocumentActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::READ_DOCUMENT]);
         $this->searchActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SEARCH]);
         $this->moveActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOVE]);
+        $this->repairActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => 'repair_percent_25']);
+        $this->repairActionConfig->setSuccessRate(100);
 
         $this->take = $I->grabService(Take::class);
         $this->readDocument = $I->grabService(ReadDocument::class);
         $this->search = $I->grabService(Search::class);
         $this->move = $I->grabService(Move::class);
+        $this->repair = $I->grabService(Repair::class);
 
         $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
     }
 
     public function shouldRemoveTrappedStatusFromPlayerRoom(FunctionalTester $I): void
     {
-        // given KT's room has been trapped
-        $this->statusService->createStatusFromName(
-            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
-            holder: $this->kuanTi->getPlace(),
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->givenRoomHasBeenTrapped($this->kuanTi->getPlace());
 
-        // given a post it in the room
-        $postIt = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::POST_IT,
-            equipmentHolder: $this->kuanTi->getPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
+        $postIt = $this->givenEquipmentHeldBy(ItemEnum::POST_IT, $this->kuanTi->getPlace());
 
         // when KT starts an action
         $this->take->loadParameters(
@@ -95,21 +94,9 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
 
     public function shouldInfectPlayerInteractingWithTrappedRoom(FunctionalTester $I): void
     {
-        // given KT's room has been trapped
-        $this->statusService->createStatusFromName(
-            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
-            holder: $this->kuanTi->getPlace(),
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->givenRoomHasBeenTrapped($this->kuanTi->getPlace());
 
-        // given a post it in the room
-        $postIt = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::POST_IT,
-            equipmentHolder: $this->kuanTi->getPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
+        $postIt = $this->givenEquipmentHeldBy(ItemEnum::POST_IT, $this->kuanTi->getPlace());
 
         // when KT starts an action
         $this->take->loadParameters(
@@ -127,15 +114,9 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNotInfectImmunizedPlayerInteractingWithTrappedRoom(FunctionalTester $I): void
+    public function shouldDestroyTrapWhenImmunizedPlayerInteractsWithTrappedRoom(FunctionalTester $I): void
     {
-        // given Chun's room has been trapped
-        $this->statusService->createStatusFromName(
-            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
-            holder: $this->chun->getPlace(),
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->givenRoomHasBeenTrapped($this->chun->getPlace());
 
         // given chun is immunized
         $this->statusService->createStatusFromName(
@@ -145,13 +126,7 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // given a post it in the room
-        $postIt = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::POST_IT,
-            equipmentHolder: $this->chun->getPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
+        $postIt = $this->givenEquipmentHeldBy(ItemEnum::POST_IT, $this->chun->getPlace());
 
         // when Chun starts an action
         $this->take->loadParameters(
@@ -162,6 +137,9 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         );
         $this->take->execute();
 
+        // then the trapped status should be removed from the room
+        $I->assertFalse($this->chun->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
+
         // then Chun should not get a spore
         $I->assertEquals(
             expected: 0,
@@ -169,15 +147,9 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNotInfectMushPlayerInteractingWithTrappedRoom(FunctionalTester $I): void
+    public function shouldDestroyTrapWhenMushPlayerInteractsWithTrappedRoom(FunctionalTester $I): void
     {
-        // given KT's room has been trapped
-        $this->statusService->createStatusFromName(
-            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
-            holder: $this->kuanTi->getPlace(),
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->givenRoomHasBeenTrapped($this->kuanTi->getPlace());
 
         // given KT is mush
         $this->statusService->createStatusFromName(
@@ -187,13 +159,7 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // given a post it in the room
-        $postIt = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::POST_IT,
-            equipmentHolder: $this->kuanTi->getPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
+        $postIt = $this->givenEquipmentHeldBy(ItemEnum::POST_IT, $this->kuanTi->getPlace());
 
         // when KT starts an action
         $this->take->loadParameters(
@@ -204,6 +170,9 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         );
         $this->take->execute();
 
+        // then the trapped status should be removed from the room
+        $I->assertFalse($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
+
         // then KT should not get a spore
         $I->assertEquals(
             expected: 0,
@@ -213,21 +182,9 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
 
     public function shouldPrintAMessageInMushChannelAfterPlayerInteractsWithTrappedRoom(FunctionalTester $I): void
     {
-        // given KT's room has been trapped
-        $this->statusService->createStatusFromName(
-            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
-            holder: $this->kuanTi->getPlace(),
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->givenRoomHasBeenTrapped($this->kuanTi->getPlace());
 
-        // given a post it in the room
-        $postIt = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::POST_IT,
-            equipmentHolder: $this->kuanTi->getPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
+        $postIt = $this->givenEquipmentHeldBy(ItemEnum::POST_IT, $this->kuanTi->getPlace());
 
         // when KT starts an action
         $this->take->loadParameters(
@@ -249,22 +206,9 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
 
     public function shouldPrintMushChannelMessageWithRightParameters(FunctionalTester $I): void
     {
-        // given KT's room has been trapped by Gioele
-        $this->statusService->createStatusFromName(
-            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
-            holder: $this->kuanTi->getPlace(),
-            tags: [],
-            time: new \DateTime(),
-            target: $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE)
-        );
+        $this->givenRoomHasBeenTrappedByGioele($this->kuanTi->getPlace(), $I);
 
-        // given a post it in the room
-        $postIt = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::POST_IT,
-            equipmentHolder: $this->kuanTi->getPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
+        $postIt = $this->givenEquipmentHeldBy(ItemEnum::POST_IT, $this->kuanTi->getPlace());
 
         // when KT starts an action
         $this->take->loadParameters(
@@ -296,21 +240,9 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
 
     public function shouldNotTriggerRoomTrapIfEquipmentIsNotInTheRoom(FunctionalTester $I): void
     {
-        // given KT's room has been trapped
-        $this->statusService->createStatusFromName(
-            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
-            holder: $this->kuanTi->getPlace(),
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->givenRoomHasBeenTrapped($this->kuanTi->getPlace());
 
-        // given a post it in KT's inventory
-        $postIt = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::POST_IT,
-            equipmentHolder: $this->kuanTi,
-            reasons: [],
-            time: new \DateTime(),
-        );
+        $postIt = $this->givenEquipmentHeldBy(ItemEnum::POST_IT, $this->kuanTi);
 
         // when KT starts an action
         $this->readDocument->loadParameters(
@@ -321,25 +253,12 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         );
         $this->readDocument->execute();
 
-        // then room trap should not be triggered
-        $I->assertTrue($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
-
-        // then KT should not get a spore
-        $I->assertEquals(
-            expected: 0,
-            actual: $this->kuanTi->getSpores(),
-        );
+        $this->thenTrapInRoomDidntTriggerOn($this->kuanTi->getPlace(), $this->kuanTi, $I);
     }
 
     public function shouldTriggerRoomTrapForSpecificActions(FunctionalTester $I): void
     {
-        // given KT's room has been trapped
-        $this->statusService->createStatusFromName(
-            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
-            holder: $this->kuanTi->getPlace(),
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->givenRoomHasBeenTrapped($this->kuanTi->getPlace());
 
         $this->search->loadParameters(
             actionConfig: $this->searchActionConfig,
@@ -348,25 +267,12 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         );
         $this->search->execute();
 
-        // then trap should be triggered
-        $I->assertFalse($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
-
-        // then KT should get a spore
-        $I->assertEquals(
-            expected: 1,
-            actual: $this->kuanTi->getSpores(),
-        );
+        $this->thenTrapInRoomTriggeredOn($this->kuanTi->getPlace(), $this->kuanTi, $I);
     }
 
     public function shouldNotTriggerRoomTrapWhenExitingTheRoom(FunctionalTester $I): void
     {
-        // given KT's room has been trapped
-        $this->statusService->createStatusFromName(
-            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
-            holder: $this->kuanTi->getPlace(),
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->givenRoomHasBeenTrapped($this->kuanTi->getPlace());
 
         // given a door in the room
         $door = Door::createFromRooms($this->kuanTi->getPlace(), $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus));
@@ -382,26 +288,12 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         );
         $this->move->execute();
 
-        // then trap should not be triggered
-        $I->assertTrue($this->kuanTi->getPreviousRoom()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value), 'Room trap should not be triggered');
-
-        // then KT should not get a spore
-        $I->assertEquals(
-            expected: 0,
-            actual: $this->kuanTi->getSpores(),
-            message: 'KT should not get a spore',
-        );
+        $this->thenTrapInRoomDidntTriggerOn($this->kuanTi->getPreviousRoom(), $this->kuanTi, $I);
     }
 
     public function shouldNotTriggerRoomTrapWhenExitingTheRoomFromBed(FunctionalTester $I): void
     {
-        // given KT's room has been trapped
-        $this->statusService->createStatusFromName(
-            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
-            holder: $this->kuanTi->getPlace(),
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->givenRoomHasBeenTrapped($this->kuanTi->getPlace());
 
         // given KT is lying down
         $this->statusService->createStatusFromName(
@@ -425,10 +317,135 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         );
         $this->move->execute();
 
-        // then trap should not be triggered
-        $I->assertTrue($this->kuanTi->getPreviousRoom()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value), 'Room trap should not be triggered');
+        $this->thenTrapInRoomDidntTriggerOn($this->kuanTi->getPreviousRoom(), $this->kuanTi, $I);
+    }
 
-        // then KT should not get a spore
-        $I->assertEquals(0, $this->kuanTi->getSpores(), 'KT should not get a spore');
+    public function shouldTriggerRoomTrapWhenRepairingADoor(FunctionalTester $I): void
+    {
+        $this->givenRoomHasBeenTrapped($this->kuanTi->getPlace());
+
+        // given a BROKEN door in the room
+        $door = Door::createFromRooms($this->kuanTi->getPlace(), $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus));
+        $door->setEquipment($I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']));
+        $I->haveInRepository($door);
+
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $door,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when KT starts an action
+        $this->repair->loadParameters(
+            actionConfig: $this->repairActionConfig,
+            actionProvider: $door,
+            player: $this->kuanTi,
+            target: $door,
+        );
+        $this->repair->execute();
+
+        $this->thenTrapInRoomTriggeredOn($this->kuanTi->getPlace(), $this->kuanTi, $I);
+    }
+
+    public function shouldTriggerRoomTrapWhenRepairingADoorFromOtherSide(FunctionalTester $I): void
+    {
+        $this->givenRoomHasBeenTrapped($this->kuanTi->getPlace());
+
+        // given a BROKEN door in the room with room1 and room2 swapped
+        $door = Door::createFromRooms($this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus), $this->kuanTi->getPlace());
+        $door->setEquipment($I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']));
+        $I->haveInRepository($door);
+
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $door,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when KT starts an action
+        $this->repair->loadParameters(
+            actionConfig: $this->repairActionConfig,
+            actionProvider: $door,
+            player: $this->kuanTi,
+            target: $door,
+        );
+        $this->repair->execute();
+
+        $this->thenTrapInRoomTriggeredOn($this->kuanTi->getPlace(), $this->kuanTi, $I);
+    }
+
+    public function shouldNotTriggerRoomTrapWhenTrapIsOnOtherSideOfDoor(FunctionalTester $I): void
+    {
+        // given a BROKEN door in the room with room1 and room2 swapped
+        $door = Door::createFromRooms($this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus), $this->kuanTi->getPlace());
+        $door->setEquipment($I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']));
+        $I->haveInRepository($door);
+
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $door,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        $this->givenRoomHasBeenTrapped($this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR));
+
+        // when KT starts an action
+        $this->repair->loadParameters(
+            actionConfig: $this->repairActionConfig,
+            actionProvider: $door,
+            player: $this->kuanTi,
+            target: $door,
+        );
+        $this->repair->execute();
+
+        $this->thenTrapInRoomDidntTriggerOn($this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR), $this->kuanTi, $I);
+    }
+
+    private function givenRoomHasBeenTrapped(Place $room): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
+            holder: $room,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenRoomHasBeenTrappedByGioele(Place $room, FunctionalTester $I): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
+            holder: $room,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE)
+        );
+    }
+
+    private function givenEquipmentHeldBy(string $equipment, EquipmentHolderInterface $holder): GameEquipment
+    {
+        return $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: $equipment,
+            equipmentHolder: $holder,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function thenTrapInRoomDidntTriggerOn(Place $room, Player $player, FunctionalTester $I): void
+    {
+        $I->assertTrue($room->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
+
+        $I->assertEquals(0, $player->getSpores());
+    }
+
+    private function thenTrapInRoomTriggeredOn(Place $room, Player $player, FunctionalTester $I): void
+    {
+        $I->assertFalse($room->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
+
+        $I->assertEquals(1, $player->getSpores());
     }
 }

@@ -86,7 +86,7 @@ class Door extends GameEquipment
 
     public function shouldTriggerRoomTrap(): bool
     {
-        return false;
+        return true;
     }
 
     public function isBreakable(): bool

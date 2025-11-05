@@ -182,13 +182,16 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
 
     public function shouldTriggerRoomTrap(): bool
     {
-        $authorInteractsWithRoomEquipment = $this->actionProvider instanceof GameEquipment && $this->actionProvider->shouldTriggerRoomTrap();
-        $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap = $this->actionProvider instanceof GameEquipment === false
-            && $this->actionConfig->shouldTriggerRoomTrap();
+        $authorInteractsWithRoomEquipmentOrShelfItem = $this->actionProvider instanceof GameEquipment && $this->actionProvider->shouldTriggerRoomTrap();
+        // shouldTriggerRoomTrap always return true on equipments and doors, and returns true on items if their holder is a Place (i.e. they're in a shelf).
+        $actionShouldAlwaysTriggerRoomTrap = $this->actionConfig->shouldAlwaysTriggerRoomTrap();
 
-        return $this->doesNotHaveTag(self::FORCED_GET_UP)
+        // @TODO --> in actions that check for ingredients in both inventory and shelf (i.e. Planting, Grafting, Building), we should create a "required interacting with shelf" event tag if at least one ingredient was taken from the shelf rather than personal inventory
+
+        return $this->getActionName() !== ActionEnum::MOVE
+            && $this->doesNotHaveTag(self::FORCED_GET_UP)
             && $this->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->toString())
-            && ($authorInteractsWithRoomEquipment || $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap);
+            && ($authorInteractsWithRoomEquipmentOrShelfItem || $actionShouldAlwaysTriggerRoomTrap);
     }
 
     public function shouldCreateParfumeAntiqueImmunizedStatus(): bool

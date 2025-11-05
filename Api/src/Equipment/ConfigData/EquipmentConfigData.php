@@ -2337,8 +2337,6 @@ class EquipmentConfigData
             'isStackable' => null,
             'actions' => [
                 'repair_percent_25',
-                'sabotage_percent_25',
-                ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
             ],

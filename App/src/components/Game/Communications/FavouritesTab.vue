@@ -84,7 +84,7 @@ export default defineComponent ({
     .unit {
         border-bottom: 1px solid rgb(170, 212, 229);
 
-        .chat-input { margin: 5px 0 2px 50px !important; padding: 0 0 0 2px !important; }
+        .chat-input { margin: 5px 0 2px 50px !important; padding: 0 !important; }
     }
 
     .toggle-children {

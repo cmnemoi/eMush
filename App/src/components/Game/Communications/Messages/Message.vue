@@ -346,7 +346,7 @@ export default defineComponent ({
 }
 
 .child-message {
-    margin-left: 52px;
+    margin-left: 50px;
 
     .character-head {
         margin-right: 3px;

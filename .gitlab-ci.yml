@@ -181,7 +181,7 @@ generate-changelog:
   when: manual
   rules:
     - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_MESSAGE !~ /^chore\(release\)/'
-      when: always
+      when: manual
 
 deploy-staging:
   stage: release

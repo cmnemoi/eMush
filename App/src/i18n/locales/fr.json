@@ -1092,7 +1092,7 @@
 			"unsubscribeSuccess": "Vous vous êtes désabonné des notifications.",
 			"unsubscribeError": "Une erreur s'est produite lors de la désabonnement des notifications."
 		},
-		"newVersion": "Une nouvelle version du jeu est disponible, veuillez vider votre cache."
+		"newVersion": "Une nouvelle version du jeu est disponible, veuillez actualiser la page, ou vider votre cache si vous continuez à voir ce message."
 	},
 	"actionTabs": {
 		"human": {

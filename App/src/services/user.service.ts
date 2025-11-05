@@ -177,10 +177,19 @@ const UserService = {
         } catch (error) {
             console.error(error);
         }
+    },
+
+    getVersion: async function(): Promise<string> {
+        try {
+            const response = await ApiService.get(urlJoin(API_URL, 'version'));
+            return response.data.version;
+        } catch (error: any) {
+            console.error('Error getting version:', error);
+            return '';
+        }
     }
 };
 
 export default UserService;
-
 export { AuthenticationError, UserService };
 

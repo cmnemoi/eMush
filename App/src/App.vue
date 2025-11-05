@@ -32,6 +32,7 @@ import { mapActions, mapGetters } from "vuex";
 import TopBar from "./components/Hud/TopBar.vue";
 import UserMenu from "./components/Hud/UserMenu.vue";
 import ToastContainer from "./components/ToastContainer.vue";
+import { version } from '../package.json';
 
 export default defineComponent({
     name: 'App',
@@ -79,7 +80,8 @@ export default defineComponent({
         ...mapActions({
             loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus',
             loadUserSanctions: 'moderation/loadUserSanctions',
-            openNewsToast: 'toast/openNewsToast'
+            openNewsToast: 'toast/openNewsToast',
+            openWarningToast: 'toast/openWarningToast'
         })
     },
     async beforeMount() {
@@ -94,6 +96,12 @@ export default defineComponent({
             if (userHasNotReadLatestNews) {
                 this.openNewsToast(this.$t('game.popUp.newNews'));
             }
+        }
+
+        // Check version mismatch
+        const serverVersion = await UserService.getVersion();
+        if (serverVersion !== version) {
+            this.openWarningToast(this.$t('toast.newVersion'));
         }
     }
 });

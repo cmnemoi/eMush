@@ -9,7 +9,8 @@
       "prepareCmd": "jq '.version = \"${nextRelease.version}\"' App/package.json > tmp.json && mv tmp.json App/package.json && jq '.version = \"${nextRelease.version}\"' Api/composer.json > tmp.json && mv tmp.json Api/composer.json"
     }],
     ["@semantic-release/git", {
-      "assets": ["CHANGELOG.md", "App/package.json", "Api/composer.json"]
+      "assets": ["CHANGELOG.md", "App/package.json", "Api/composer.json"],
+      "message": "chore(release): ${nextRelease.version} \n\n${nextRelease.notes}"
     }],
     "@semantic-release/gitlab"
   ]

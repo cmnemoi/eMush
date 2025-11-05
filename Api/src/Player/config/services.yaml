@@ -1,6 +1,6 @@
 
 parameters:
-  env(ANTI_SPAM): 'true'
+  env(ANTI_SPAM): 'false'
 
 services:
 

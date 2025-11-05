@@ -2,6 +2,7 @@ stages:
   - build
   - test
   - release
+  - deploy
 
 .php_template: &php_template
   image: registry.gitlab.com/eternaltwin/mush/mush/api:php-8.4
@@ -88,6 +89,16 @@ api-test:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes: ["Api/**/*.php", "Api/**/*.xlf"]
 
+api-unit:
+  <<: *php_template
+  stage: test
+  needs:
+    - job: build-front
+  script:
+    - php vendor/bin/codecept run tests/unit
+  only:
+    - main
+
 api-lint:
   <<: *php_template
   stage: test
@@ -170,20 +181,20 @@ generate-changelog:
     - main
 
 deploy-staging:
-  stage: test
+  stage: release
   image: alpine:latest
   before_script:
     - apk add --no-cache curl jq
   script:
     - sh ./.gitlab/scripts/deploy.sh staging
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_MESSAGE =~ /^chore\(release\)/'
-      when: always
-    - when: never
+  only:
+    - main
 
 deploy-production:
-  stage: release
+  stage: deploy
   image: alpine:latest
+  needs:
+    - job: deploy-staging
   before_script:
     - apk add --no-cache curl jq
   script:

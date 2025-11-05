@@ -96,8 +96,9 @@ api-unit:
     - job: build-front
   script:
     - php vendor/bin/codecept run tests/unit
-  only:
-    - main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_MESSAGE !~ /^chore\(release\)/'
+      when: always
 
 api-lint:
   <<: *php_template
@@ -153,7 +154,8 @@ front-test:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes: ["App/**/*.vue", "App/**/*.ts", "App/**/*.scss", "App/**/*.css"]
-    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_MESSAGE !~ /^chore\(release\)/'
+      when: always
     
 # Generate a CHANGELOG.md file and create a new release on GitLab while merging to master
 generate-changelog:
@@ -177,8 +179,9 @@ generate-changelog:
   script:
     - semantic-release
   when: manual
-  only:
-    - main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_MESSAGE !~ /^chore\(release\)/'
+      when: always
 
 deploy-staging:
   stage: release

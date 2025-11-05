@@ -1,3 +1,10 @@
+## [0.16.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.16.0...0.16.1) (2025-11-05)
+
+
+### Bug Fixes
+
+* revert chat live preview (dbd7eb1) ([b6a5a3b](https://gitlab.com/eternaltwin/mush/mush/commit/b6a5a3babeaa2b616b407ad70f3b8cb44b963497))
+
 # [0.16.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.15.3...0.16.0) (2025-11-04)
 
 

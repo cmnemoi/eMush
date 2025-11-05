@@ -1,3 +1,11 @@
+## [0.16.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.16.1...0.16.2) (2025-11-05)
+
+
+### Bug Fixes
+
+* disable anti-spam ([b2a2b53](https://gitlab.com/eternaltwin/mush/mush/commit/b2a2b530d4453c3eaa6ba19dde476752031439a6))
+* room traps can now be triggered by repairing doors ([e66829b](https://gitlab.com/eternaltwin/mush/mush/commit/e66829b802433fe2c0b73df3815fd7807f92b823))
+
 ## [0.16.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.16.0...0.16.1) (2025-11-05)
 
 

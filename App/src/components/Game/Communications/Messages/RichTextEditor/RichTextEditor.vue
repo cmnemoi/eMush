@@ -90,7 +90,7 @@ export default defineComponent({
     computed: {
         formattedPreview(): string {
             // Conversion des marqueurs markdown en HTML pour la prévisualisation
-            return formatText(this.editedText);
+            return formatText(this.editedText.replace(/\n/g, "//"));
         }
     },
     watch: {

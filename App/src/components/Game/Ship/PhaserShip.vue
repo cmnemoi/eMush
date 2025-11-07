@@ -37,14 +37,6 @@ onMounted(async () => {
     // Launch new scene
     gameInstance.value = phaserScene.launch(sceneContainer, props.player);
 });
-
-onBeforeUnmount(() => {
-    // Delete scene before destroying the container
-    if (gameInstance.value !== null) {
-        gameInstance.value.destroy(true);
-        gameInstance.value = null;
-    }
-});
 </script>
 
 

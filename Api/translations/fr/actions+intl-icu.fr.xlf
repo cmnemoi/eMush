@@ -1833,5 +1833,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Parfois, on est plus discret en étant soi-même.</target>
       </segment>
     </unit>
+    <unit id="force_cycle_change">
+      <segment id="name" state="translated">
+        <source>force_cycle_change.name</source>
+        <target>Avancer d'un cycle</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>force_cycle_change.description</source>
+        <target>Permet de briser le continuum temporel grâce à vos pouvoirs de techno-mage. Le futur, c'est maintenant.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

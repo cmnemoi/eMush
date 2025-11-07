@@ -1811,5 +1811,15 @@ Or you simply need some fresh air.... or not.</target>
         <target>Sometimes, being yourself is the best way to not be seen.</target>
       </segment>
     </unit>
+    <unit id="force_cycle_change">
+      <segment id="name" state="translated">
+        <source>force_cycle_change.name</source>
+        <target>Moving one cycle forward</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>force_cycle_change.description</source>
+        <target>Allow to break the temporal continuum with your tech-wizard's powers. The future is now.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

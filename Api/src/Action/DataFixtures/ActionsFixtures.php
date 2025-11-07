@@ -118,9 +118,11 @@ class ActionsFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        /** @TODO remove this after alpha */
         $suicide = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SUICIDE));
         $manager->persist($suicide);
+
+        $forceCycleChange = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::FORCE_CYCLE_CHANGE));
+        $manager->persist($forceCycleChange);
 
         $autoDestroy = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::AUTO_DESTROY));
         $manager->persist($autoDestroy);
@@ -1186,6 +1188,7 @@ class ActionsFixtures extends Fixture
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
+        $this->addReference(ActionEnum::FORCE_CYCLE_CHANGE->value, $forceCycleChange);
         $this->addReference(self::AUTO_DESTROY, $autoDestroy);
         $this->addReference(self::KILL_PLAYER, $killPlayer);
 

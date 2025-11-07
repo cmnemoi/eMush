@@ -15,7 +15,8 @@
         v-if="isRoot && !isSystemMessage"
         :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
         @click="$emit('reply')"
-        @mouseover="read(message)"
+        @mouseover="read(message);mouseOver = true"
+        @mouseleave="mouseOver = false"
     >
         <div class="character-body">
             <img :src="characterPortrait" alt="Character image">
@@ -26,24 +27,13 @@
         </p>
         <div class="actions" @click.stop>
             <ActionButtons
-                v-if="isPlayerAlive && channel.supportsReplies()"
-                :actions="['reply']"
+                v-if="mouseOver"
+                :actions="actions"
                 @reply="$emit('reply')"
-            />
-            <ActionButtons
-                v-if="isPlayerAlive && channel.supportsFavorite()"
-                :actions="channel.isFavorite() ? ['unfavorite'] : ['favorite']"
                 @favorite="favorite(message)"
                 @unfavorite="unfavorite(message)"
-            />
-            <ActionButtons
-                :actions="['report']"
                 @report=openReportDialog
-            />
-            <ActionButtons
-                v-if="adminMode"
-                :actions="['delete']"
-                @delete="openModerationDialog('delete_message')"
+                @delete="openModerationDialog()"
             />
         </div>
     </div>
@@ -62,7 +52,8 @@
         v-else-if="!isRoot"
         :class="isHidden ? 'message child-message hidden' : 'message child-message'"
         @click="$emit('reply')"
-        @mouseover="read(message)"
+        @mouseover="read(message);mouseOver = true"
+        @mouseleave="mouseOver = false"
     >
         <p :class="['text', { unread: message.isUnread }]">
             <img class="character-head" :src="characterPortrait" alt="Character portrait">
@@ -71,24 +62,13 @@
         </p>
         <div class="actions" @click.stop>
             <ActionButtons
-                v-if="isPlayerAlive && channel.supportsReplies()"
-                :actions="['reply']"
+                v-if="mouseOver"
+                :actions="actions"
                 @reply="$emit('reply')"
-            />
-            <ActionButtons
-                v-if="isPlayerAlive && channel.supportsFavorite()"
-                :actions="channel.isFavorite() ? ['unfavorite'] : ['favorite']"
                 @favorite="favorite(message)"
                 @unfavorite="unfavorite(message)"
-            />
-            <ActionButtons
-                :actions="['report']"
                 @report=openReportDialog
-            />
-            <ActionButtons
-                v-if="adminMode"
-                :actions="['delete']"
-                @delete="openModerationDialog('delete_message')"
+                @delete="openModerationDialog()"
             />
         </div>
     </div>
@@ -96,16 +76,16 @@
 
 <script lang="ts">
 import ActionButtons from "@/components/Game/Communications/ActionButtons.vue";
-import { formatText } from "@/utils/formatText";
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import { fr } from 'date-fns/locale';
-import { mapActions, mapGetters } from "vuex";
-import { Message } from "@/entities/Message";
-import { CharacterEnum, characterEnum } from "@/enums/character";
-import { defineComponent } from "vue";
-import ModerationService from "@/services/moderation.service";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 import ReportPopup from "@/components/Moderation/ReportPopup.vue";
+import { Message } from "@/entities/Message";
+import { CharacterEnum, characterEnum } from "@/enums/character";
+import ModerationService from "@/services/moderation.service";
+import { formatText } from "@/utils/formatText";
+import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
+import { fr } from 'date-fns/locale';
+import { defineComponent } from "vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default defineComponent ({
     name: "Message",
@@ -117,7 +97,8 @@ export default defineComponent ({
     data() {
         return {
             moderationDialogVisible: false,
-            reportPopupVisible: false
+            reportPopupVisible: false,
+            mouseOver: false
         };
     },
     props: {
@@ -138,11 +119,11 @@ export default defineComponent ({
             default: false
         }
     },
-    emits: {
-        // No validation
-        click: null,
-        report: null
-    },
+    emits: [
+        'click',
+        'report',
+        'reply'
+    ],
     computed: {
         ...mapGetters({
             channel: 'communication/currentChannel',
@@ -170,6 +151,23 @@ export default defineComponent ({
                 return false;
             }
             return !['finished'].includes(this.player.gameStatus);
+        },
+        actions: function(): Array<string> {
+            const actions = [];
+            if (this.isPlayerAlive) {
+                if (this.channel.supportsReplies()) {
+                    actions.push('reply');
+                }
+                if (this.channel.supportsFavorite()) {
+                    this.channel.isFavorite() ? actions.push('unfavorite') : actions.push('favorite');
+                }
+            }
+            if(this.adminMode) {
+                actions.push('delete');
+            }
+
+            actions.push('report');
+            return actions;
         }
     },
     methods: {

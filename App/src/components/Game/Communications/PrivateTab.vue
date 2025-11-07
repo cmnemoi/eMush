@@ -2,7 +2,6 @@
     <TabContainer id="private-discussion-tab" :channel="channel" :new-message-allowed = "newMessagesAllowed">
         <div class="actions">
             <ActionButtons
-                class="action-buttons"
                 :actions="['refresh', 'invite', 'leave']"
                 @leave="leavePrivateChannel(channel); closeInvitation()"
                 @invite="getInvitablePlayersToPrivateChannel(channel)"

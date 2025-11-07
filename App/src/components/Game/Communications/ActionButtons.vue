@@ -17,9 +17,9 @@
 
 <script lang="ts">
 
+import { getImgUrl } from "@/utils/getImgUrl";
 import { defineComponent } from "vue";
 import { Tippy } from "vue-tippy";
-import { getImgUrl } from "@/utils/getImgUrl";
 
 const availableActions: {[index: string]: any} = {
     favorite: { icon: getImgUrl('comms/fav.png'), wording: 'game.communications.bookmark', description: 'game.communications.bookmarkDescription' },
@@ -36,7 +36,7 @@ export default defineComponent ({
     components: { Tippy },
     props: {
         actions: {
-            type: Array,
+            type: Array<string>,
             require: true
         }
     },
@@ -44,7 +44,17 @@ export default defineComponent ({
         action() {
             return (actionType: string) => availableActions[actionType] || {};
         }
-    }
+    },
+    emits: [
+        'favorite',
+        'unfavorite',
+        'invite',
+        'leave',
+        'refresh',
+        'reply',
+        'report',
+        'delete'
+    ]
 });
 </script>
 

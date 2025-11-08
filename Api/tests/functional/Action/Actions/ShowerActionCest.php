@@ -523,6 +523,30 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $this->thenActionCostShouldBe(1, $I);
     }
 
+    public function shouldCostOneLessActionPointWithSplashproof(FunctionalTester $I): void
+    {
+        $this->givenActionCostIs(2);
+
+        $this->addSkillToPlayer(SkillEnum::SPLASHPROOF, $I, $this->player);
+
+        $this->whenPlayerTriesToTakeShower();
+
+        $this->thenActionCostShouldBe(1, $I);
+    }
+
+    public function splashproofAndSoapCantStack(FunctionalTester $I): void
+    {
+        $this->givenActionCostIs(2);
+
+        $this->addSkillToPlayer(SkillEnum::SPLASHPROOF, $I, $this->player);
+
+        $this->givenPlayerHasSuperSoap();
+
+        $this->whenPlayerTriesToTakeShower();
+
+        $this->thenActionCostShouldBe(1, $I);
+    }
+
     private function givenPlayerHasAntiquePerfumeSkill(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::ANTIQUE_PERFUME, $I);

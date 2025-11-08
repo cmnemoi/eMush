@@ -428,7 +428,7 @@
       </segment>
       <segment id="splashproof.description" state="translated">
         <source>splashproof.description</source>
-        <target>La recherche fongique a mis au point un nouveau mucus parfait pour donner le change.//:point: **Se doucher** ne vous fait perdre **aucun** :hp:.</target>
+        <target>La recherche fongique a mis au point un nouveau mucus parfait pour donner le change.//:point: **Se doucher** ne vous fait perdre **aucun** :hp:.//:beta: **Se doucher** coûte 1 :pa: de moins (non-cumulable avec le Savon).//// Le nouvel effet de cette compétence est en :beta: bêta-test: faites vos retours sur le forum ou le discord Eternaltwin.</target>
       </segment>
     </unit>
     <unit id="infector">

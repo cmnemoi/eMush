@@ -599,6 +599,28 @@ abstract class ModifierConfigData
             'delta' => -1,
             'targetVariable' => PlayerVariableEnum::ACTION_POINT,
             'mode' => 'additive',
+            'modifierActivationRequirements' => [
+                ModifierRequirementEnum::PLAYER_IS_NOT_SPLASHPROOF,
+            ],
+            'tagConstraints' => [
+                ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => ModifierNameEnum::SPLASHPROOF_MODIFIER_MINUS_1_ACTION_POINT_ON_SHOWER_NO_STACK_SOAP,
+            'modifierName' => ModifierNameEnum::SPLASHPROOF_MODIFIER_MINUS_1_ACTION_POINT_ON_SHOWER_NO_STACK_SOAP,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => -1,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,

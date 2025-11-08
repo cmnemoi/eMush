@@ -22,6 +22,7 @@ use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Enum\HunterVariableEnum;
+use Mush\Modifier\ConfigData\ModifierActivationRequirementData;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
@@ -108,6 +109,11 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setModifierName(ModifierNameEnum::GLOVES_MODIFIER);
         $manager->persist($glovesModifier);
 
+        $notSplashproofRequirement = ModifierActivationRequirement::fromConfigData(
+            ModifierActivationRequirementData::getByName(ModifierRequirementEnum::PLAYER_IS_NOT_SPLASHPROOF)
+        );
+        $manager->persist($notSplashproofRequirement);
+
         $soapModifier = new VariableEventModifierConfig('soapShowerActionModifier');
         $soapModifier
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -119,7 +125,8 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
                 ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierActivationRequirements([$notSplashproofRequirement]);
         $manager->persist($soapModifier);
 
         $aimModifier = new VariableEventModifierConfig('increaseShootPercentage33Percent');

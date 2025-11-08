@@ -5,7 +5,6 @@ namespace Mush\Modifier\ModifierRequirementHandler;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
-use Mush\Player\Entity\Player;
 use Mush\Status\Entity\StatusHolderInterface;
 
 class RequirementHasStatus extends AbstractModifierRequirementHandler
@@ -20,17 +19,9 @@ class RequirementHasStatus extends AbstractModifierRequirementHandler
             throw new \LogicException('STATUS activationRequirement can only be applied on a statusHolder');
         }
 
-        /** @var Player $player */
-        $player = $holder;
-        $expectedStatus = $modifierRequirement->getActivationRequirement();
-        if ($expectedStatus === null) {
-            throw new \LogicException('provide a status for player_status activationRequirement');
-        }
+        $expectedStatus = $modifierRequirement->getActivationRequirementOrThrow();
 
-        if ($modifierRequirement->getValue() === ModifierRequirementEnum::ABSENT_STATUS) {
-            return !$player->hasStatus($expectedStatus);
-        }
-
-        return $player->hasStatus($expectedStatus);
+        return ($modifierRequirement->getValue() === ModifierRequirementEnum::ABSENT_STATUS)
+            ? !$holder->hasStatus($expectedStatus) : $holder->hasStatus($expectedStatus);
     }
 }

@@ -425,7 +425,7 @@
       </segment>
       <segment id="splashproof.description" state="translated">
         <source>splashproof.description</source>
-        <target>You are of a fearful nature and you instinctively know how to make yourself scarce in order to avoid any and all attempts at physical contact.//:point: **Taking a shower** doesn't cause you to lose **any** :hp:.</target>
+        <target>Fungal research breakthroughs have allowed for a new type of mucus that grants perfect impermeability.//:point: **Taking a shower** doesn't cause you to lose **any** :hp:.//:beta: **Taking a shower** costs 1 :pa: less (does not stack with Soap). //// This skill's change is in :beta: beta: we welcome your feedback on the Eternaltwin forum and Discord.</target>
       </segment>
     </unit>
     <unit id="infector">

@@ -443,6 +443,9 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::SPLASHPROOF,
+                modifierConfigs: [
+                    ModifierNameEnum::SPLASHPROOF_MODIFIER_MINUS_1_ACTION_POINT_ON_SHOWER_NO_STACK_SOAP,
+                ]
             ),
             new SkillConfigDto(
                 name: SkillEnum::SURVIVALIST,

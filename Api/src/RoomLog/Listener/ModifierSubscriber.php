@@ -10,6 +10,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ModifierSubscriber implements EventSubscriberInterface
@@ -72,8 +73,11 @@ class ModifierSubscriber implements EventSubscriberInterface
                 return;
         }
 
-        // Log for disabled require to get another player in the room
         if ($logKey === LogEnum::HELP_DISABLED && $player instanceof Player) {
+            if ($player->hasStatus(PlayerStatusEnum::IS_ANONYMOUS)) {
+                return;
+            }
+            // Log for disabled require to get another player in the room
             $otherPlayers = $player->getPlace()->getPlayers()->getPlayerAlive()->filter(
                 static fn (Player $otherPlayer) => ($player->getLogName() !== $otherPlayer->getLogName())
             );

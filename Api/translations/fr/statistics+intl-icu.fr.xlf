@@ -977,5 +977,27 @@
         <target>Dévoreur des mondes</target>
       </segment>
     </unit>
+    <unit id="politician">
+      <segment id="name" state="translated">
+        <source>politician.name</source>
+        <target>Homme politique</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>politician.description</source>
+        <target>Nombre de discours prononcés devant plus de huit spectateurs.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>politician_1.name</source>
+        <target>Conseiller municipal</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>politician_10.name</source>
+        <target>Maire</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>politician_50.name</source>
+        <target>Escroc</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

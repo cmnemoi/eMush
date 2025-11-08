@@ -34,11 +34,12 @@ final readonly class ActionEventSubscriber implements EventSubscriberInterface
 
         $author = $event->getAuthor();
         $statisticName = match ($event->getActionName()) {
+            ActionEnum::BORING_SPEECH, ActionEnum::MOTIVATIONAL_SPEECH => $event->getAuthorOrThrow()->getAlivePlayersInRoomExceptSelf()->count() >= 8 ? StatisticEnum::POLITICIAN : StatisticEnum::NULL,
             ActionEnum::COFFEE => StatisticEnum::COFFEE_TAKEN,
-            ActionEnum::SEARCH => StatisticEnum::SUCCEEDED_INSPECTION,
-            ActionEnum::CONSUME => $this->getConsumeStatisticToIncrementFromEvent($event),
             ActionEnum::COM_MANAGER_ANNOUNCEMENT => StatisticEnum::DAILY_ORDER,
+            ActionEnum::CONSUME => $this->getConsumeStatisticToIncrementFromEvent($event),
             ActionEnum::INSTALL_CAMERA => StatisticEnum::CAMERA_INSTALLED,
+            ActionEnum::SEARCH => StatisticEnum::SUCCEEDED_INSPECTION,
             default => StatisticEnum::NULL,
         };
 

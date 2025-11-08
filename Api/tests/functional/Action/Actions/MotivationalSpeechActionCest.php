@@ -2,9 +2,12 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\MotivationalSpeech;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -25,6 +28,7 @@ final class MotivationalSpeechActionCest extends AbstractFunctionalTest
 
     private ChooseSkillUseCase $chooseSkillUseCase;
     private PlayerServiceInterface $playerService;
+    private StatisticRepositoryInterface $statisticRepository;
 
     public function _before(FunctionalTester $I)
     {
@@ -33,6 +37,7 @@ final class MotivationalSpeechActionCest extends AbstractFunctionalTest
         $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOTIVATIONAL_SPEECH]);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
     }
 
     public function testMotivationalSpeech(FunctionalTester $I)
@@ -65,6 +70,39 @@ final class MotivationalSpeechActionCest extends AbstractFunctionalTest
         $this->whenChunGivesMotivationalSpeech();
 
         $this->thenKuanTiShouldHaveMoralePoints(10, $I);
+    }
+
+    public function shouldGivePoliticianStatistic(FunctionalTester $I): void
+    {
+        $this->givenChunIsLeader($I);
+
+        for ($i = 0; $i < 7; ++$i) {
+            $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::PAOLA);
+        }
+
+        $this->whenChunGivesMotivationalSpeech();
+
+        $I->assertEquals(
+            expected: 1,
+            actual: $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::POLITICIAN, $this->chun->getUser()->getId())?->getCount(),
+            message: 'Politician statistic should be incremented'
+        );
+    }
+
+    public function shouldNotGivePoliticianStatisticIfLessThan8Players(FunctionalTester $I): void
+    {
+        $this->givenChunIsLeader($I);
+
+        for ($i = 0; $i < 5; ++$i) {
+            $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::PAOLA);
+        }
+
+        $this->whenChunGivesMotivationalSpeech();
+
+        $I->assertNull(
+            $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::POLITICIAN, $this->chun->getUser()->getId())?->getId(),
+            message: 'Politician statistic should not be incremented'
+        );
     }
 
     private function givenChunIsLeader(FunctionalTester $I): void

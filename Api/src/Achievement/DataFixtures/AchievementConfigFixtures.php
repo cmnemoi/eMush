@@ -17,7 +17,7 @@ final class AchievementConfigFixtures extends Fixture implements DependentFixtur
     {
         foreach (AchievementConfigData::getAll() as $achievementConfigDto) {
             /** @var StatisticConfig $statisticConfig */
-            $statisticConfig = $this->getReference($achievementConfigDto->statistic->value);
+            $statisticConfig = $this->getReference($achievementConfigDto->statistic->value . '_statistic_config');
 
             $achievementConfig = new AchievementConfig(
                 name: $achievementConfigDto->name,

@@ -16,7 +16,7 @@ final class StatisticConfigFixtures extends Fixture
         foreach (StatisticConfigData::getAll() as $statisticConfigDto) {
             $statisticConfig = StatisticConfig::fromDto($statisticConfigDto);
             $manager->persist($statisticConfig);
-            $this->addReference($statisticConfigDto->name->value, $statisticConfig);
+            $this->addReference($statisticConfigDto->name->value . '_statistic_config', $statisticConfig);
         }
 
         $manager->flush();

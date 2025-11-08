@@ -729,6 +729,9 @@ abstract class AchievementConfigData
                 points: 10,
                 threshold: 1,
             ),
+            new AchievementConfigDto(name: AchievementEnum::POLITICIAN_1, points: 1, threshold: 1),
+            new AchievementConfigDto(name: AchievementEnum::POLITICIAN_20, points: 1, threshold: 20),
+            new AchievementConfigDto(name: AchievementEnum::POLITICIAN_50, points: 1, threshold: 50),
         ];
     }
 

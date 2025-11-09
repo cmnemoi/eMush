@@ -46,8 +46,23 @@ export function applyFormattingForType(text: string, type: FormattingType): stri
     }
 }
 
-export function formatCharacterName(characterName: string): string {
-    return `:${characterName}:`;
+export function getFormattingLengthForType(type: FormattingType): number {
+    switch (type) {
+    case 'bold':
+        return 2;
+    case 'italic':
+        return 1;
+    case 'bolditalic':
+        return 3;
+    case 'strike':
+        return 2;
+    default:
+        return 0;
+    }
+}
+
+export function formatEmote(emote: string): string {
+    return `:${emote}:`;
 }
 
 export function applySelectedTextFormatting(

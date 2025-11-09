@@ -1,17 +1,35 @@
 <template>
     <div class="message-input-advanced-overlay" v-if="visible" @click.self="cancel">
         <div class="text-format-dialog">
-            <div class="format-controls">
-                <RichTextEditorButton
-                    v-for="button in richTextEditorButtons"
-                    :key="button.type + button.action"
-                    :type="button.type"
-                    :label="$t(button.label)"
-                    :title="$t(button.title)"
-                    @click="executeRichEditorAction(button)"
-                />
+            <div class="preview-area" v-html="formattedPreview"></div>
+
+            <div class="toolbar">
+                <div class="toolbar-formatting">
+                    <RichTextEditorFormattingButton
+                        v-for="button in richTextEditorFormattingButtons"
+                        :key="button.type + button.action"
+                        :type="button.type"
+                        :label="$t(button.label)"
+                        :title="$t(button.title)"
+                        @click="executeRichEditorAction(button)"
+                    />
+                </div>
+                <div class="toolbar-dialog-buttons">
+                    <button
+                        class="format-button"
+                        @click="cancel"
+                    >
+                        <img :src="getImgUrl('comms/close.png')" alt="cancel">
+                    </button>
+                    <button
+                        type="button"
+                        class="format-button confirm-btn"
+                        @click="confirm"
+                        :title="$t('game.communications.buttonValidateAdvEditor')">
+                        <img :src="getImgUrl('comms/submit.gif')" alt="send">
+                    </button>
+                </div>
             </div>
-            <RichTextEditorCharacterEmotes v-if="showCharacterGrid" :characters="characters" @character-selected="insertCharacter" />
 
             <textarea
                 v-model="editedText"
@@ -22,23 +40,17 @@
                 ref="textEditor"
             ></textarea>
 
-            <div class="preview-area" v-html="formattedPreview"></div>
-
-            <div class="dialog-buttons">
-                <button
-                    class="format-button"
-                    @click="cancel"
-                >
-                    <img :src="getImgUrl('comms/close.png')" alt="cancel">
-                </button>
-                <button
-                    type="button"
-                    class="format-button confirm-btn"
-                    @click="confirm"
-                    :title="$t('game.communications.buttonValidateAdvEditor')">
-                    <img :src="getImgUrl('comms/submit.gif')" alt="send">
-                </button>
-            </div>
+            <ul class="emote-tabs">
+                <RichTextEditorEmoteButton
+                    v-for="(button, i) in richTextEditorEmoteButtons"
+                    :key="i"
+                    :config="button"
+                    :selected="selectedEmoteTab == i"
+                    @select="selectedEmoteTab = i"
+                />
+            </ul>
+            <RichTextEditorEmotePanel v-if="selectedEmoteTab != -1" :config="richTextEditorEmoteButtons[selectedEmoteTab]" @emote="insertEmote" />
+            <div v-else class="emote-line"/>
         </div>
     </div>
 </template>
@@ -48,22 +60,28 @@ import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { characterEnum, CharacterInfos } from "@/enums/character";
 import { formatText } from "@/utils/formatText";
-import RichTextEditorCharacterEmotes from "./RichTextEditorCharacterEmotes.vue";
-import RichTextEditorButton from "./RichTextEditorButton.vue";
-import { richTextEditorButtons, RichTextEditorButtonConfig, FormattingType } from "./RichTextEditorConfig";
+import RichTextEditorEmotePanel from "./RichTextEditorEmotePanel.vue";
+import RichTextEditorEmoteButton  from "./RichTextEditorEmoteButton.vue";
+import RichTextEditorFormattingButton from "./RichTextEditorFormattingButton.vue";
+import {
+    richTextEditorFormattingButtons, RichTextEditorFormattingButtonConfig, FormattingType,
+    richTextEditorEmoteButtons
+} from "./RichTextEditorConfig";
 import {
     applySelectedTextFormatting,
     clearSelectedTextFormattingLogic,
     insertTextAtPositionLogic,
-    formatCharacterName,
-    TextSelection
+    formatEmote,
+    TextSelection,
+    getFormattingLengthForType
 } from "@/utils/richTextFormatter";
 
 export default defineComponent({
     name: "RichTextEditor",
     components: {
-        RichTextEditorCharacterEmotes,
-        RichTextEditorButton
+        RichTextEditorEmoteButton,
+        RichTextEditorEmotePanel,
+        RichTextEditorFormattingButton
     },
     props: {
         initialText: {
@@ -78,13 +96,15 @@ export default defineComponent({
     data() {
         return {
             editedText: this.initialText,
+            selectedEmoteTab: 0,
             selection: {
                 start: 0,
                 end: 0
             },
             showCharacterGrid: false,
             characters: characterEnum as {[key: string]: CharacterInfos},
-            richTextEditorButtons
+            richTextEditorEmoteButtons,
+            richTextEditorFormattingButtons
         };
     },
     computed: {
@@ -114,7 +134,7 @@ export default defineComponent({
             };
         },
 
-        executeRichEditorAction(button: RichTextEditorButtonConfig): void {
+        executeRichEditorAction(button: RichTextEditorFormattingButtonConfig): void {
             switch (button.action) {
             case 'clearFormatting':
                 this.clearFormatting();
@@ -125,24 +145,26 @@ export default defineComponent({
                 }
                 this.applyFormatting(button.actionParam as FormattingType);
                 break;
-            case 'toggleCharacterGrid':
-                this.toggleCharacterGrid();
-                break;
             }
         },
 
         applyFormatting(type: FormattingType): void {
             const element = this.$refs.textEditor as HTMLTextAreaElement;
-            const selection = this.getTextSelection(element);
+            let selection = this.getTextSelection(element);
 
+            // If no text was selected create a new formatted block at cursor position
             if (!this.isValidSelection(selection)) {
-                return;
+                selection = {
+                    start: element.selectionStart,
+                    end: element.selectionStart
+                };
             }
 
             try {
                 const { newFullText, modifiedPart } = applySelectedTextFormatting(this.editedText, selection, type);
+                const cursorPosition = selection.start + modifiedPart.length - getFormattingLengthForType(type);
                 this.editedText = newFullText;
-                this.updateCursorPosition(element, selection.start + modifiedPart.length);
+                this.updateCursorPosition(element, cursorPosition);
             } catch (error) {
                 console.error('Error applying formatting:', error);
             }
@@ -165,17 +187,17 @@ export default defineComponent({
             }
         },
 
-        insertCharacter(characterName: string): void {
+        insertEmote(emote: string): void {
             const element = this.$refs.textEditor as HTMLTextAreaElement;
             const cursorPosition = element.selectionStart;
 
             try {
-                const formattedCharacter = formatCharacterName(characterName);
+                const formattedCharacter = formatEmote(emote);
                 this.editedText = insertTextAtPositionLogic(this.editedText, cursorPosition, formattedCharacter);
                 this.updateCursorPosition(element, cursorPosition + formattedCharacter.length);
                 this.closeCharacterGrid();
             } catch (error) {
-                console.error('Error inserting character:', error);
+                console.error('Error inserting emote:', error);
             }
         },
 
@@ -264,7 +286,6 @@ export default defineComponent({
         position: sticky;
         max-width: 97%;
         justify-content: left;
-        align-items: left;
         z-index: 1000;
     }
 
@@ -279,21 +300,33 @@ export default defineComponent({
         max-height: 90vh;
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 5px;
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
         span {
             display: inline; /* Forcer les <span> à être inline */
         }
     }
 
-    .format-controls {
+    .toolbar {
         display: flex;
         flex-flow: row wrap;
         gap: 5px;
-        justify-content: flex-start;
-        margin-bottom: 10px;
+        justify-content: space-between;
         flex-wrap: wrap;
     }
+
+    .toolbar-formatting {
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        gap: 5px;
+    }
+
+    .toolbar-dialog-buttons{
+        flex-flow: row wrap;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
 
     .edit-area {
         width: 100%;
@@ -307,15 +340,15 @@ export default defineComponent({
 
     .preview-area {
         width: 100%;
-        min-height: 120px;
-        max-height: 150px;
+        min-height: 90px;
         padding: 8px;
         border: 1px solid #ddd;
         border-radius: 3px;
-        background-color: #f9f9f9;
+        background-color: #eee;
         overflow-y: auto;
         scroll-behavior: smooth;
         display: inline;
+        word-break: break-word;
         :deep(em) {
             color: color.adjust(#cf1830, $lightness: 15%);
         }
@@ -353,6 +386,19 @@ export default defineComponent({
             background-color: #00B0EC;
         }
     }
+
+    .emote-tabs {
+        float: left;
+        max-width: 70%;
+    }
+
+    .emote-line {
+        margin-top: -5px;
+        border: 2px solid #0074df;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+
     .character-grid {
         display: grid;
         position: absolute; /* Positionnement absolu pour superposer */
@@ -386,7 +432,6 @@ export default defineComponent({
         }
 
         img {
-            width: 16px;
             height: 16px;
             object-fit: cover;
             border-radius: 5%;

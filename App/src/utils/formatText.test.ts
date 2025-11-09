@@ -1,29 +1,10 @@
 import sinon from 'sinon';
 
+import * as formatTextModule from './formatText';
 import { describe, it, beforeEach, afterEach, expect } from 'vitest';
-import { formatText, helpers } from './formatText';
+import { formatText } from './formatText';
 
 describe('formatText', () => {
-
-    beforeEach(() => {
-        sinon.stub(helpers, "computeEmoteHtmlByKey").returns("<img/>");
-        sinon.stub(helpers, "computeUiIconHtmlByKey").returns("<img/>");
-        sinon.stub(helpers, "computeCharacterImageHtmlByKey").returns("<img/>");
-        sinon.stub(helpers, "computeAlertImageHtmlByKey").returns("<img/>");
-        sinon.stub(helpers, "computeItemStatusImageHtmlByKey").returns("<img/>");
-        sinon.stub(helpers, "computePlayerStatusImageHtmlByKey").returns("<img/>");
-        sinon.stub(helpers, "computeTitleImageHtmlByKey").returns("<img/>");
-    });
-
-    afterEach(() => {
-        (helpers.computeEmoteHtmlByKey as any).restore();
-        (helpers.computeUiIconHtmlByKey as any).restore();
-        (helpers.computeCharacterImageHtmlByKey as any).restore();
-        (helpers.computeAlertImageHtmlByKey as any).restore();
-        (helpers.computeItemStatusImageHtmlByKey as any).restore();
-        (helpers.computePlayerStatusImageHtmlByKey as any).restore();
-        (helpers.computeTitleImageHtmlByKey as any).restore();
-    });
 
     describe('Simple tests', () => {
         it('return an empty string when given an empty string', () => {
@@ -53,19 +34,19 @@ describe('formatText', () => {
             Vous avez perdu 3 :hp:
             Vous avez perdu 3 :pmo:`;
 
-            const result = formatText(text);
+            const result = formatText(text).replace(/<img[^>]*>/g, "<img/>");
 
             expect(result).to.equal(`Vous avez gagné 1 <img/>
             Vous avez gagné 1 <img/>
             Vous avez perdu 3 <img/>
             Vous avez perdu 3 <img/>`);
         });
-        it('should replace :hungry: with an image', () => {
-            const text = `Vous avez faim :hungry:`;
+        it('should not replace :does_not_exists:', () => {
+            const text = `Quel est le sens de la vie :does_not_exists: ?`;
 
             const result = formatText(text);
 
-            expect(result).to.equal(`Vous avez faim <img/>`);
+            expect(result).to.equal(text);
         });
         it('should replace // with <br>', () => {
             const text = `Raluca a pris un Débris métallique.//Raluca a pris un Débris métallique.`;
@@ -86,32 +67,40 @@ describe('formatText', () => {
         it('should replace 1 :pmo: by 1 image', () => {
             const text = "Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 :hp: OU + 1 :pmo: OU + 2:pm:.";
 
-            const result = formatText(text);
+            const result = formatText(text).replace(/<img\b[^>]*>/g, "<img/>");
 
             expect(result).to.equal("Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 <img/> OU + 1 <img/> OU + 2<img/>.");
-        });
-        it('should replace [Twinpedia](https://twin.tithom.fr/mush) by a link', () => {
-            const text = "[Twinpedia](https://twin.tithom.fr/mush)";
-
-            const result = formatText(text);
-
-            expect(result).to.equal("<a href='https://twin.tithom.fr/mush' title='https://twin.tithom.fr/mush'>Twinpedia</a>");
         });
         it('should replace [Règlement](https://emush.eternaltwin.org/rules) by a link', () => {
             const text = "[Règlement](https://emush.eternaltwin.org/rules)";
 
             const result = formatText(text);
 
-            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules'>Règlement</a>");
+            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules' target='_blank' rel='noopener noreferrer'>Règlement</a>");
+        });
+        it('should not replace [Unknown](https://unknown.host.org) by a link', () => {
+            const text = "[Unknown](https://unknown.host.org)";
+
+            const result = formatText(text);
+
+            expect(result).to.equal(text);
         });
         it('should replace https://emush.eternaltwin.org/rules by a link', () => {
             const text = "https://emush.eternaltwin.org/rules";
 
             const result = formatText(text);
 
-            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules'>https://emush.eternaltwin.org/rules</a>");
+            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules' target='_blank' rel='noopener noreferrer'>https://emush.eternaltwin.org/rules</a>");
+        });
+        it('should not replace https://unknown.host.org by a link', () => {
+            const text = "https://unknown.host.org";
+
+            const result = formatText(text);
+
+            expect(result).to.equal(text);
         });
     });
+
 
     describe("Complex tests", () => {
         it('should allow multiple bold and italic elements', () => {

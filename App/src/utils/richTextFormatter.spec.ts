@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
     cleanExistingFormatting,
     applyFormattingForType,
-    formatCharacterName,
+    formatEmote,
     applySelectedTextFormatting,
     clearSelectedTextFormattingLogic,
     insertTextAtPositionLogic,
@@ -132,14 +132,14 @@ describe('richTextFormatter', () => {
         });
     });
 
-    describe('formatCharacterName', () => {
-        it('should wrap character name with colons', () => {
-            const result = formatCharacterName('mush');
+    describe('formatEmote', () => {
+        it('should wrap emote name with colons', () => {
+            const result = formatEmote('mush');
             expect(result).toBe(':mush:');
         });
 
         it('should handle empty string', () => {
-            const result = formatCharacterName('');
+            const result = formatEmote('');
             expect(result).toBe('::');
         });
     });

@@ -20,13 +20,18 @@ export enum EmoteCharacterEnum {
     ROLAND = 'roland',
     STEPHEN = 'stephen',
     TERRENCE = 'terrence',
+    NERON = 'neron',
+    FEMALE_ADMIN = "female_admin",
+    MALE_ADMIN = "male_admin",
 }
 
 export const EmoteCharacterAliases: { [index: string]: string } = {
     ['kuanti']: EmoteCharacterEnum.KUAN_TI,
     ['kuan']: EmoteCharacterEnum.KUAN_TI,
     ['jinsu']: EmoteCharacterEnum.JIN_SU,
-    ['jin']: EmoteCharacterEnum.JIN_SU
+    ['jin']: EmoteCharacterEnum.JIN_SU,
+    ['female']: EmoteCharacterEnum.FEMALE_ADMIN,
+    ['male']: EmoteCharacterEnum.MALE_ADMIN
 };
 
 export const EmoteCharacterIcons: { [index: string]: string } = {
@@ -48,5 +53,8 @@ export const EmoteCharacterIcons: { [index: string]: string } = {
     [EmoteCharacterEnum.RALUCA]: getImgUrl('char/head/raluca.png'),
     [EmoteCharacterEnum.ROLAND]: getImgUrl('char/head/roland.png'),
     [EmoteCharacterEnum.STEPHEN]: getImgUrl('char/head/stephen.png'),
-    [EmoteCharacterEnum.TERRENCE]: getImgUrl('char/head/terrence.png')
+    [EmoteCharacterEnum.TERRENCE]: getImgUrl('char/head/terrence.png'),
+    [EmoteCharacterEnum.NERON]: getImgUrl('ui_icons/action_points/pa_core.png'),
+    [EmoteCharacterEnum.FEMALE_ADMIN]: getImgUrl('char/head/lambda_f.png'),
+    [EmoteCharacterEnum.MALE_ADMIN]: getImgUrl('char/head/lambda_m.png')
 };

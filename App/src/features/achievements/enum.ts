@@ -41,6 +41,7 @@ export const enum StatisticEnum {
     MUSH_CYCLES = "mush_cycles",
     EDEN_CONTAMINATED = "eden_contaminated",
     POLITICIAN = "politician",
+    HUNTER_DOWN = "hunter_down",
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -163,5 +164,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.POLITICIAN]: {
         'icon': getImgUrl('achievements/politician.png')
+    },
+    [StatisticEnum.HUNTER_DOWN]: {
+        'icon': getImgUrl('alerts/hunter.png')
     }
 };

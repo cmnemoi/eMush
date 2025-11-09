@@ -999,5 +999,35 @@
         <target>Escroc</target>
       </segment>
     </unit>
+    <unit id="hunter_down">
+      <segment id="name" state="translated">
+        <source>hunter_down.name</source>
+        <target>Hunters abattus</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>hunter_down.description</source>
+        <target>Nombre de hunters abattus par vos soins.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>hunter_down_1.name</source>
+        <target>Cancrelat</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>hunter_down_20.name</source>
+        <target>Pilote</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>hunter_down_50.name</source>
+        <target>Chasseur</target>
+      </segment>
+      <segment id="x100" state="translated">
+        <source>hunter_down_100.name</source>
+        <target>Pilote d'élite</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>hunter_down_500.name</source>
+        <target>Fléau fongique</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

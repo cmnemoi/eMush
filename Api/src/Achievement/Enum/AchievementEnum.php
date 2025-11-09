@@ -152,6 +152,11 @@ enum AchievementEnum: string
     case POLITICIAN_1 = 'politician_1';
     case POLITICIAN_20 = 'politician_20';
     case POLITICIAN_50 = 'politician_50';
+    case HUNTER_DOWN_1 = 'hunter_down_1';
+    case HUNTER_DOWN_20 = 'hunter_down_20';
+    case HUNTER_DOWN_50 = 'hunter_down_50';
+    case HUNTER_DOWN_100 = 'hunter_down_100';
+    case HUNTER_DOWN_500 = 'hunter_down_500';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

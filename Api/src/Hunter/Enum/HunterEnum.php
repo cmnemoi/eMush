@@ -46,4 +46,11 @@ class HunterEnum
             self::TRAX,
         ]);
     }
+
+    public static function getNonHostiles(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::TRANSPORT,
+        ]);
+    }
 }

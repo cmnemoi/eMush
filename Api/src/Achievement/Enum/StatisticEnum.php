@@ -47,6 +47,7 @@ enum StatisticEnum: string
     case MUSH_CYCLES = 'mush_cycles';
     case EDEN_CONTAMINATED = 'eden_contaminated';
     case POLITICIAN = 'politician';
+    case HUNTER_DOWN = 'hunter_down';
     case NULL = '';
 
     public static function fromOrNull(string $value): self

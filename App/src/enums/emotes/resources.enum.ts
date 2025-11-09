@@ -69,25 +69,25 @@ export const EmoteResourcesAliases: { [index: string]: string } = {
     ['glory_mush']: EmoteResourcesEnum.TRIUMP_MUSH
 };
 
-export const EmoteResourcesIcons: { [index: string]: string } = {
-    [EmoteResourcesEnum.HP]: getImgUrl('ui_icons/player_variables/hp.png'),
-    [EmoteResourcesEnum.MORAL]: getImgUrl('ui_icons/player_variables/moral.png'),
-    [EmoteResourcesEnum.AP]: getImgUrl('ui_icons/player_variables/pa.png'),
-    [EmoteResourcesEnum.MP]: getImgUrl('ui_icons/player_variables/pm.png'),
-    [EmoteResourcesEnum.AP_COMP]: getImgUrl('ui_icons/action_points/pa_comp.png'),
-    [EmoteResourcesEnum.AP_COOK]: getImgUrl('ui_icons/action_points/pa_cook.png'),
-    [EmoteResourcesEnum.AP_CORE]: getImgUrl('ui_icons/action_points/pa_core.png'),
-    [EmoteResourcesEnum.AP_TECH]: getImgUrl('ui_icons/action_points/pa_tech.png'),
-    [EmoteResourcesEnum.AP_GARDEN]: getImgUrl('ui_icons/action_points/pa_garden.png'),
-    [EmoteResourcesEnum.AP_HEAL]: getImgUrl('ui_icons/action_points/pa_heal.png'),
-    [EmoteResourcesEnum.AP_PILGRED]: getImgUrl('ui_icons/action_points/pa_pilgred.png'),
-    [EmoteResourcesEnum.AP_SHOOT]: getImgUrl('ui_icons/action_points/pa_shoot.png'),
-    [EmoteResourcesEnum.ARMOR]: getImgUrl('shield.png'),
-    [EmoteResourcesEnum.SHIELD]: getImgUrl('plasma.png'),
-    [EmoteResourcesEnum.SHIELD_OFF]: getImgUrl('plasma_off.png'),
-    [EmoteResourcesEnum.OXYGEN]: getImgUrl('o2.png'),
-    [EmoteResourcesEnum.OXYGEN_ALERT]: getImgUrl('alerts/o2alert.png'),
-    [EmoteResourcesEnum.FUEL]: getImgUrl('ui_icons/fuel.png'),
-    [EmoteResourcesEnum.TRIUMPH]: getImgUrl('ui_icons/player_variables/triumph.png'),
-    [EmoteResourcesEnum.TRIUMP_MUSH]: getImgUrl('ui_icons/player_variables/triumph_mush.png')
+export const EmoteResourcesIcons: {[index: string]: {img: string; max_height: string;}}= {
+    [EmoteResourcesEnum.HP]: { img: getImgUrl('ui_icons/player_variables/hp.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.MORAL]: { img: getImgUrl('ui_icons/player_variables/moral.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.AP]: { img: getImgUrl('ui_icons/player_variables/pa.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.MP]: { img: getImgUrl('ui_icons/player_variables/pm.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.AP_COMP]: { img: getImgUrl('ui_icons/action_points/pa_comp.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.AP_COOK]: { img: getImgUrl('ui_icons/action_points/pa_cook.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.AP_CORE]: { img: getImgUrl('ui_icons/action_points/pa_core.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.AP_TECH]: { img: getImgUrl('ui_icons/action_points/pa_tech.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.AP_GARDEN]: { img: getImgUrl('ui_icons/action_points/pa_garden.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.AP_HEAL]: { img: getImgUrl('ui_icons/action_points/pa_heal.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.AP_PILGRED]: { img: getImgUrl('ui_icons/action_points/pa_pilgred.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.AP_SHOOT]: { img: getImgUrl('ui_icons/action_points/pa_shoot.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.ARMOR]: { img: getImgUrl('shield.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.SHIELD]: { img: getImgUrl('plasma.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.SHIELD_OFF]: { img: getImgUrl('plasma_off.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.OXYGEN]: { img: getImgUrl('o2.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.OXYGEN_ALERT]: { img: getImgUrl('alerts/o2alert.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.FUEL]: { img: getImgUrl('ui_icons/fuel.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.TRIUMPH]: { img: getImgUrl('ui_icons/player_variables/triumph.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.TRIUMP_MUSH]: { img: getImgUrl('ui_icons/player_variables/triumph_mush.png'), max_height: "1.2em" }
 };

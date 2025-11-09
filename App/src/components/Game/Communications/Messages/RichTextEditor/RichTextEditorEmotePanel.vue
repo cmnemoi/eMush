@@ -6,7 +6,7 @@
             class="emote-item"
             @click="$emit('emote', emote)">
             <div class="emote-thumb">
-                <img :src="config.iconEnum[emote]">
+                <img :src="config.iconEnum[emote].img">
             </div>
         </div>
     </div>
@@ -38,7 +38,6 @@ export default defineComponent({
     flex-direction: row;
     flex-wrap: wrap;
     margin-top: -5px;
-    padding: 3px;
     border: 2px solid #c2f3fc;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;

@@ -388,8 +388,8 @@ export default defineComponent({
     }
 
     .emote-tabs {
-        float: left;
-        max-width: 70%;
+        justify-content: space-between;
+        margin-right: -4px;
     }
 
     .emote-line {

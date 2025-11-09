@@ -12,28 +12,35 @@ import {
 import { EmoteAstroAliases, EmoteAstroIcons } from "@/enums/emotes/astro.enum";
 import { EmoteEternalTwinAliases, EmoteEternalTwinIcons } from "@/enums/emotes/eternaltwin.enum";
 import { EmoteStatusAliases, EmoteStatusIcons } from "@/enums/emotes/status.enum";
+import { EmoteMuxxuAliases, EmoteMuxxuIcons } from "@/enums/emotes/muxxu.enum";
+import { EmoteTwinoidAliases, EmoteTwinoidIcons } from "@/enums/emotes/twinoid.enum";
 
 const emoteAliasesEnums = {
-    ...EmoteCharacterAliases,
-    ...EmoteResourcesAliases,
-    ...EmoteIconAliases,
-    ...EmoteStatusAliases,
-    ...EmoteHumanSkillAliases,
-    ...EmoteMushSkillAliases,
     ...EmoteAstroAliases,
-    ...EmoteEternalTwinAliases
+    ...EmoteCharacterAliases,
+    ...EmoteEternalTwinAliases,
+    ...EmoteHumanSkillAliases,
+    ...EmoteIconAliases,
+    ...EmoteMushSkillAliases,
+    ...EmoteMuxxuAliases,
+    ...EmoteResourcesAliases,
+    ...EmoteStatusAliases,
+    ...EmoteTwinoidAliases
 };
 
 const emoteIconEnums = {
-    ...EmoteCharacterIcons,
-    ...EmoteResourcesIcons,
-    ...EmoteIconIcons,
-    ...EmoteStatusIcons,
-    ...EmoteHumanSkillIcons,
-    ...EmoteMushSkillIcons,
     ...EmoteAstroIcons,
-    ...EmoteEternalTwinIcons
+    ...EmoteCharacterIcons,
+    ...EmoteEternalTwinIcons,
+    ...EmoteHumanSkillIcons,
+    ...EmoteIconIcons,
+    ...EmoteMushSkillIcons,
+    ...EmoteMuxxuIcons,
+    ...EmoteResourcesIcons,
+    ...EmoteStatusIcons,
+    ...EmoteTwinoidIcons
 };
+
 
 function markdownLinkSubstitution(_: string, p1: string, p2: string, p3: string): string {
     if (!p1) {
@@ -48,7 +55,7 @@ function markdownLinkSubstitution(_: string, p1: string, p2: string, p3: string)
 function emoteSubstitution(substring: string, p1: string): string {
     const key = p1 in emoteAliasesEnums ? emoteAliasesEnums[p1] : p1;
     if (key in emoteIconEnums) {
-        return `<img src='${emoteIconEnums[key]}' alt='${substring}' style="max-height: 16px;">`;
+        return `<img src='${emoteIconEnums[key].img}' alt='${substring}' style="max-height: ${emoteIconEnums[key].max_height};">`;
     }
     return substring;
 }

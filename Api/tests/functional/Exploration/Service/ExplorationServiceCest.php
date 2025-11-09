@@ -8,7 +8,6 @@ use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Achievement\Repository\StatisticRepositoryInterface;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
@@ -61,21 +60,15 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
-        // given there is Icarus Bay on this Daedalus
-        $icarusBay = $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
+        // grab icarus bay created by parent
+        $icarusBay = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY);
 
         // given player1 and player2 are in Icarus Bay
         $this->player1->changePlace($icarusBay);
         $this->player2->changePlace($icarusBay);
 
-        // given there is the Icarus ship in Icarus Bay
-        /** @var EquipmentConfig $icarusConfig */
-        $icarusConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::ICARUS]);
-        $this->icarus = new GameEquipment($icarusBay);
-        $this->icarus
-            ->setName(EquipmentEnum::ICARUS)
-            ->setEquipment($icarusConfig);
-        $I->haveInRepository($this->icarus);
+        // grab icarus created by parent
+        $this->icarus = $icarusBay->getEquipmentByNameOrThrow(EquipmentEnum::ICARUS);
 
         // given a planet with oxygen is found
         $planetName = new PlanetName();
@@ -262,6 +255,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
 
         // when dispatchExplorationEvent is called
         for ($i = 0; $i < $exploration->getNumberOfSectionsToVisit(); ++$i) {
+            $this->explorationService->selectNextSectorIfAble($exploration);
             $this->explorationService->dispatchExplorationEvent($exploration);
         }
 

@@ -52,6 +52,9 @@ class Exploration
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isChangingCycle = false;
 
+    #[ORM\ManyToOne(targetEntity: PlanetSector::class)]
+    private ?PlanetSector $nextSector;
+
     public function __construct(Planet $planet)
     {
         $this->planet = $planet;
@@ -202,6 +205,23 @@ class Exploration
     public function setIsChangingCycle(bool $isChangingCycle): void
     {
         $this->isChangingCycle = $isChangingCycle;
+    }
+
+    public function getNextSector(): ?PlanetSector
+    {
+        return $this->nextSector;
+    }
+
+    public function getNextSectorOrThrow(): PlanetSector
+    {
+        return $this->nextSector instanceof PlanetSector ? $this->nextSector : throw new \RuntimeException('Planet does not have a next sector');
+    }
+
+    public function setNextSector(?PlanetSector $planetSector): self
+    {
+        $this->nextSector = $planetSector;
+
+        return $this;
     }
 
     public function getDaedalus(): Daedalus

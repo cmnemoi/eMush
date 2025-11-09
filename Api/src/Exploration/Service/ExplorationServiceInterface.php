@@ -22,5 +22,7 @@ interface ExplorationServiceInterface
 
     public function getDummyExplorationForLostPlayer(ClosedExploration $closedExploration): Exploration;
 
+    public function selectNextSectorIfAble(Exploration $exploration): Exploration;
+
     public function persist(array $entities): void;
 }

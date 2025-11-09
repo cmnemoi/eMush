@@ -219,7 +219,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // when an exploration is created, the disaster event is dispatched
         $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::LANDING], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::OXYGEN], $I),
             explorators: $this->players
         );
 
@@ -245,7 +245,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // when an exploration is created, the disaster event is dispatched
         $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::LANDING], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::OXYGEN], $I),
             explorators: $this->players
         );
 

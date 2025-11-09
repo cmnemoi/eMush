@@ -12,8 +12,11 @@ use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
+use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Normalizer\ExplorationLogNormalizer;
+use Mush\Game\Enum\EventEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillEnum;
@@ -30,6 +33,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     private Exploration $exploration;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -40,6 +44,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
     public function testNormalizeLandingNothingToReportEventWithPilot(FunctionalTester $I): void
@@ -117,9 +122,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             explorators: $this->players,
         );
 
-        // given two extra steps are made to trigger the tired event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when tired event exploration log is normalized
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
@@ -177,8 +180,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             explorators: $this->players,
         );
 
-        // given two extra steps are made to trigger the tired event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(1);
 
         // when tired event exploration log is normalized
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
@@ -219,9 +221,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $eventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::ARTEFACT]);
         $eventConfig->setOutputTable([ItemEnum::STARMAP_FRAGMENT => 1]);
 
-        // given two extra steps are made to trigger the artefact event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when artefact event exploration log is normalized
         /** @var ExplorationLog $explorationLog */
@@ -279,8 +279,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $eventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::ARTEFACT]);
         $eventConfig->setOutputTable([ItemEnum::STARMAP_FRAGMENT => 1]);
 
-        // given two extra steps are made to trigger the artefact event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(1);
 
         // when artefact event exploration log is normalized
         /** @var ExplorationLog $explorationLog */
@@ -331,9 +330,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $eventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::ARTEFACT]);
         $eventConfig->setOutputTable([ItemEnum::BABEL_MODULE => 1]);
 
-        // given two extra steps are made to trigger the artefact event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when artefact event exploration log is normalized
         /** @var ExplorationLog $explorationLog */
@@ -416,10 +413,9 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the kill all event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(1);
         if (!$closedExploration->isExplorationFinished()) {
-            $this->explorationService->dispatchExplorationEvent($this->exploration);
+            $this->givenExpeditionMovedForwardThisManySteps(1);
         }
 
         // when kill all event exploration log is normalized
@@ -457,9 +453,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the fight event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when fight exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -515,8 +509,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given fight event is triggered
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(1);
 
         // when intelligent sector event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -568,9 +561,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the fight event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when fight exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -621,8 +612,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given fight event is triggered
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(1);
 
         // when intelligent sector event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -659,9 +649,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the kill all event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when kill all event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -698,9 +686,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the kill all event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when kill all event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -737,9 +723,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the harvest event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when harvest event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -776,9 +760,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the harvest event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when harvest event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -826,8 +808,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given one extra step are made to trigger the harvest event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(1);
 
         // when harvest event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -875,8 +856,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given one extra step are made to trigger the harvest event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(1);
 
         // when harvest event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -927,8 +907,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given one extra step are made to trigger the harvest event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(1);
 
         // when harvest event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -965,9 +944,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the disease event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when disease event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -1022,10 +999,9 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given one extra step are made to trigger the provision event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(1);
 
-        // when kill all event exploration log is normalized
+        // when provision event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
             static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::PROVISION
         )->first();
@@ -1060,9 +1036,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the starmap event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when starmap event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -1099,9 +1073,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the mush trap event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when mush trap event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -1146,9 +1118,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the kill all event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when kill all event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -1193,9 +1163,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the item lost event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when item lost event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -1232,9 +1200,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the item lost event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when intelligent sector event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -1271,10 +1237,9 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the back event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(1);
         if (!$closedExploration->isExplorationFinished()) {
-            $this->explorationService->dispatchExplorationEvent($this->exploration);
+            $this->givenExpeditionMovedForwardThisManySteps(1);
         }
 
         // when back event exploration log is normalized
@@ -1326,9 +1291,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the player lost event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(1);
 
         // when player lost event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -1373,9 +1336,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the find lost event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when find lost event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -1419,9 +1380,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the find lost event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when kill lost event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -1473,9 +1432,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
         $closedExploration = $this->exploration->getClosedExploration();
 
-        // given two extra steps are made to trigger the find lost event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(2);
 
         // when kill lost event exploration log is normalized
         $explorationLog = $closedExploration->getLogs()->filter(
@@ -1527,8 +1484,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             explorators: new ArrayCollection([$this->player]),
         );
 
-        // given accident is triggered
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(1);
 
         // when accident exploration log is normalized
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
@@ -1575,8 +1531,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             explorators: new ArrayCollection([$this->player]),
         );
 
-        // given accident is triggered
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(1);
 
         // when accident exploration log is normalized
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
@@ -1628,8 +1583,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             explorators: new ArrayCollection([$this->player]),
         );
 
-        // given fuel event is triggered
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->givenExpeditionMovedForwardThisManySteps(1);
 
         // when fuel event exploration log is normalized
         $explorationLog = $this->exploration->getClosedExploration()->getLogs()->filter(
@@ -1654,5 +1608,18 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     private function givenPlayerHasSkill(Player $player, SkillEnum $skill, FunctionalTester $I): void
     {
         $this->addSkillToPlayer($skill, $I, $player);
+    }
+
+    private function givenExpeditionMovedForwardThisManySteps(int $steps): void
+    {
+        $cycleEvent = new ExplorationEvent(
+            $this->exploration,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime(),
+        );
+
+        for ($i = 0; $i < $steps; ++$i) {
+            $this->eventService->callEvent($cycleEvent, ExplorationEvent::EXPLORATION_NEW_CYCLE);
+        }
     }
 }

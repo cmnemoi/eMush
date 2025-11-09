@@ -38,6 +38,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         $exploration = $this->explorationService->dispatchLandingEvent($event->getExploration());
 
         $exploration->incrementCycle();
+        $this->explorationService->selectNextSectorIfAble($exploration);
         $this->explorationService->persist([$exploration]);
 
         $this->closeExplorationIfNeeded($exploration);
@@ -54,6 +55,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         }
 
         $exploration->incrementCycle();
+        $this->explorationService->selectNextSectorIfAble($exploration);
         $this->explorationService->persist([$exploration]);
 
         $this->closeExplorationIfNeeded($exploration);

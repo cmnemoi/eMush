@@ -132,10 +132,8 @@ final class ExplorationService implements ExplorationServiceInterface
     public function dispatchExplorationEvent(Exploration $exploration): Exploration
     {
         $closedExploration = $exploration->getClosedExploration();
-        $planet = $exploration->getPlanet();
+        $sector = $exploration->getNextSectorOrThrow();
 
-        /** @var PlanetSector $sector */
-        $sector = $this->randomService->getRandomPlanetSectorsToVisit($planet, 1)->first();
         $sector->visit();
         $closedExploration->addExploredSectorKey($sector->getName());
 
@@ -190,6 +188,21 @@ final class ExplorationService implements ExplorationServiceInterface
         }
 
         $this->entityManager->flush();
+    }
+
+    public function selectNextSectorIfAble(Exploration $exploration): Exploration
+    {
+        $planet = $exploration->getPlanet();
+        if ($exploration->getPlanet()->getUnvisitedSectors()->isEmpty()) {
+            $exploration->setNextSector(null);
+        } else {
+            /** @var PlanetSector $sector */
+            $sector = $this->randomService->getRandomPlanetSectorsToVisit($planet, 1)->first();
+
+            $exploration->setNextSector($sector);
+        }
+
+        return $exploration;
     }
 
     private function drawPlanetSectorEvent(PlanetSector $sector, Exploration $exploration): string

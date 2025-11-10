@@ -97,11 +97,15 @@ const actions: ActionTree<any, any> = {
 
             commit('setChannels', sortedChannels);
 
-            // if public channel is no longer available, reset currentChannel to room log
-            if (
-                state.currentChannel.scope === undefined
-                || sortedChannels.filter((channel: Channel) => channel.id === state.currentChannel.id).length === 0
-            ) {
+            // search if current channel is still in the loaded list
+            const updatedCurrentChannel = state.currentChannel
+                ? sortedChannels.find((c: Channel) => c.id === state.currentChannel.id)
+                : undefined;
+
+            // if still exist, re-set it, otherwise set to public channel or room log
+            if (updatedCurrentChannel) {
+                commit('setCurrentChannel', updatedCurrentChannel);
+            } else {
                 if (getters.publicChannel) {
                     commit('setCurrentChannel', getters.publicChannel);
                 } else {

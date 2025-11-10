@@ -2,7 +2,7 @@
     <div class="terminal" v-if="player.terminal">
         <h1><img :src="getImgUrl('spot2.svg')">{{ player.terminal.name }}</h1>
         <div class="terminal-container">
-            <TerminalTips :content="player.terminal.tips" />
+            <TerminalTips :content="player.terminal.tips" :player="player" />
             <AstroTerminal v-if="player.isFocusedOnTerminal(TerminalEnum.ASTRO_TERMINAL)" :terminal="player.terminal" />
             <CommandTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.COMMAND_TERMINAL)" :terminal="player.terminal" />
             <BlockOfPostItTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.BLOCK_OF_POST_IT)" :terminal="player.terminal" />

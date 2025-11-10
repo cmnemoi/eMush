@@ -311,6 +311,9 @@ const mutations: MutationTree<any> = {
 
     setCurrentChannel(state: any, channel: Channel | null): void {
         state.currentChannel = channel;
+        state.invitablePlayerMenuOpen = false;
+        state.invitablePlayers = [];
+        state.invitationChannel = null;
     },
 
     setChannels(state: any, channels: Channel[]): void {

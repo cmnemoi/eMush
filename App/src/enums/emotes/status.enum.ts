@@ -89,7 +89,8 @@ export const EmoteStatusAliases: { [index: string]: string } = {
     ['commander']: EmoteStatusEnum.COMMANDER,
     ['comm_manager']: EmoteStatusEnum.COMMS_MANAGER,
     ['comms_manager']: EmoteStatusEnum.COMMS_MANAGER,
-    ['neron_manager']: EmoteStatusEnum.NERON_MANAGER
+    ['neron_manager']: EmoteStatusEnum.NERON_MANAGER,
+    ['com_manager']: EmoteStatusEnum.COMMS_MANAGER
 };
 
 export const EmoteStatusIcons: {[index: string]: {img: string; max_height: string;}}= {

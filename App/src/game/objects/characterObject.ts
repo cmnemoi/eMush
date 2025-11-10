@@ -69,6 +69,10 @@ export default class CharacterObject extends InteractObject {
 
             if (bed !== null) {
                 this.applyEquipmentInteractionInformation(bed);
+            } else {
+                this.flipX = Math.random() > 0.5;
+                this.anims.play('right');
+                this.checkPositionDepth();
             }
         } else if (room && room.type === 'space') {
             this.play('space_giggle');
@@ -79,9 +83,7 @@ export default class CharacterObject extends InteractObject {
                 this.interactedEquipment = null;
             }
             //Set the initial sprite randomly such as it faces the screen
-            if (Math.random() > 0.5) {
-                this.flipX = true;
-            }
+            this.flipX = Math.random() > 0.5;
             this.anims.play('right');
             this.checkPositionDepth();
         }

@@ -157,6 +157,12 @@ enum AchievementEnum: string
     case HUNTER_DOWN_50 = 'hunter_down_50';
     case HUNTER_DOWN_100 = 'hunter_down_100';
     case HUNTER_DOWN_500 = 'hunter_down_500';
+    case LIKES_1 = 'likes_1';
+    case LIKES_20 = 'likes_20';
+    case LIKES_50 = 'likes_50';
+    case LIKES_100 = 'likes_100';
+    case LIKES_200 = 'likes_200';
+    case LIKES_500 = 'likes_500';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

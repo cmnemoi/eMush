@@ -160,11 +160,8 @@ final class PlayerService implements PlayerServiceInterface
     {
         $playerInfo = $player->getPlayerInfo();
 
-        /** @var ClosedPlayer $closedPlayer */
         $closedPlayer = $playerInfo->getClosedPlayer();
-
-        $closedPlayer
-            ->setMessage($message);
+        $closedPlayer->setMessage($message);
 
         // Avoid duplicates
         $likedPlayers = array_unique($likedPlayers);
@@ -180,6 +177,7 @@ final class PlayerService implements PlayerServiceInterface
                 $likedClosedPlayer = $likedPlayer->getPlayerInfo()->getClosedPlayer();
                 $likedClosedPlayer->addLike();
                 $this->persistClosedPlayer($likedClosedPlayer);
+                $this->eventService->callEvent(new PlayerEvent($likedPlayer, [], new \DateTime()), PlayerEvent::PLAYER_GOT_LIKED);
             }
         }
 

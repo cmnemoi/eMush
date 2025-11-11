@@ -34,6 +34,7 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, Tr
     public const string TITLE_ATTRIBUTED = 'title.attributed';
     public const string TITLE_REMOVED = 'title.removed';
     public const string FIRST_PLAYER_ON_BOARD = 'first.player.on.board';
+    public const string PLAYER_GOT_LIKED = 'player.got.liked';
 
     protected string $visibility = VisibilityEnum::PRIVATE;
     protected ?CharacterConfig $characterConfig = null;

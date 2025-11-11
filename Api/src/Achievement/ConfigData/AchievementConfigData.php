@@ -737,6 +737,12 @@ abstract class AchievementConfigData
             new AchievementConfigDto(name: AchievementEnum::POLITICIAN_1, points: 1, threshold: 1),
             new AchievementConfigDto(name: AchievementEnum::POLITICIAN_20, points: 1, threshold: 20),
             new AchievementConfigDto(name: AchievementEnum::POLITICIAN_50, points: 1, threshold: 50),
+            new AchievementConfigDto(name: AchievementEnum::LIKES_1, points: 0, threshold: 1),
+            new AchievementConfigDto(name: AchievementEnum::LIKES_20, points: 0, threshold: 20),
+            new AchievementConfigDto(name: AchievementEnum::LIKES_50, points: 0, threshold: 50),
+            new AchievementConfigDto(name: AchievementEnum::LIKES_100, points: 0, threshold: 100),
+            new AchievementConfigDto(name: AchievementEnum::LIKES_200, points: 0, threshold: 200),
+            new AchievementConfigDto(name: AchievementEnum::LIKES_500, points: 0, threshold: 500),
         ];
     }
 

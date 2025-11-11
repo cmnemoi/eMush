@@ -1029,5 +1029,39 @@
         <target>Fléau fongique</target>
       </segment>
     </unit>
+    <unit id="likes">
+      <segment id="name" state="translated">
+        <source>likes.name</source>
+        <target>Tout le monde vous aime !</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>likes.description</source>
+        <target>Nombre de fois où l'on vous a apprécié au cours d'une partie.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>likes_1.name</source>
+        <target>Bon élement</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>likes_20.name</source>
+        <target>Jugé sympathique</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>likes_50.name</source>
+        <target>Aimable à souhait</target>
+      </segment>
+      <segment id="x100" state="translated">
+        <source>likes_100.name</source>
+        <target>Adorable personne</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>likes_200.name</source>
+        <target>Chouchou de l’équipage</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>likes_500.name</source>
+        <target>Filtre d'amour numérique</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -19,6 +19,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
     {
         return [
             PlayerEvent::END_PLAYER => ['onPlayerEnd', EventPriorityEnum::LOWEST],
+            PlayerEvent::PLAYER_GOT_LIKED => ['onPlayerGotLiked', EventPriorityEnum::LOWEST],
         ];
     }
 
@@ -36,6 +37,19 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
             new IncrementUserStatisticCommand(
                 userId: $player->getUser()->getId(),
                 statisticName: StatisticEnum::GAME_WITHOUT_SLEEP,
+                language: $player->getLanguage(),
+            )
+        );
+    }
+
+    public function onPlayerGotLiked(PlayerEvent $event): void
+    {
+        $player = $event->getPlayer();
+
+        $this->commandBus->dispatch(
+            new IncrementUserStatisticCommand(
+                userId: $player->getUser()->getId(),
+                statisticName: StatisticEnum::LIKES,
                 language: $player->getLanguage(),
             )
         );

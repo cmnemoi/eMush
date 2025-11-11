@@ -4,12 +4,6 @@
         <div class="paragraph">
             <h1 class="mainTitle">{{ $t("rules.title") }}</h1>
             <p class="text"> {{ $t( "rules.introduction.textIntro" ) }} </p>
-            <div class="alphaLeeway">
-                <span>
-                    <img class="alpha" :src="getImgUrl('ui_icons/action_points/pa_core.png')">
-                    {{ $t( "rules.introduction.alphaLeeway" ) }}
-                </span>
-            </div>
             <p class="text" v-html="$t('rules.introduction.lastUpdated')"></p>
         </div>
 
@@ -19,7 +13,7 @@
             <ul class="rulesList">
                 <li class="rule"> <span v-html="$t('rules.communication.mandatoryCommunication')"></span></li>
                 <li class="rule"> <span v-html="$t('rules.communication.courtesy')"></span></li>
-                <li class="rule"><img class="alpha" :src="getImgUrl('ui_icons/action_points/pa_core.png')"> <span v-html="$t('rules.communication.spokenLanguage')"></span></li>
+                <li class="rule"> <span v-html="$t('rules.communication.spokenLanguage')"></span></li>
                 <li class="rule"> <span v-html="$t('rules.communication.flood')"></span></li>
                 <li class="rule"> <span v-html="$t('rules.communication.metagaming')"></span></li>
             </ul>
@@ -29,9 +23,9 @@
             <h2 class="subtitle">{{ $t("rules.behaviour.title") }}</h2>
             <p class="text"> {{ $t("rules.behaviour.introText") }} </p>
             <ul class="rulesList">
-                <li class="rule"> <span v-html="$t('rules.behaviour.multiAccounts')"></span></li>
-                <li class="rule"> <span v-html="$t('rules.behaviour.suicide')"></span></li>
-                <li class="rule"><img class="alpha" :src="getImgUrl('ui_icons/action_points/pa_core.png')"> <span v-html="$t('rules.behaviour.spoilingHuman')"></span></li>
+                <li class="rule"><span v-html="$t('rules.behaviour.multiAccounts')"></span></li>
+                <li class="rule"><span v-html="$t('rules.behaviour.suicide')"></span></li>
+                <li class="rule"><span v-html="$t('rules.behaviour.spoilingHuman')"></span></li>
                 <li class="rule"><span  v-html="$t('rules.behaviour.spoilingMush')"></span></li>
                 <li class="rule"><span  v-html="$t('rules.behaviour.mushCooperation')"></span></li>
             </ul>
@@ -49,7 +43,6 @@
             <p class="text"> {{ $t("rules.alphaRules.introText") }} </p>
             <ul class="rulesList">
                 <li class="rule" v-html="$t('rules.alphaRules.tests')"></li>
-                <li class="rule" v-html="$t('rules.alphaRules.spokenLanguage')"></li>
             </ul>
             <p class="text"> {{ $t("rules.alphaRules.endText") }} </p>
         </div>

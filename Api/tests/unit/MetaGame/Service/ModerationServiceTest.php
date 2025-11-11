@@ -10,7 +10,9 @@ use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\MetaGame\Service\ModerationService;
 use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Tests\Unit\MetaGame\TestDoubles\FakeModerationSanctionRepository;
 use Mush\User\Entity\User;
+use Mush\User\Factory\UserFactory;
 use Mush\User\Repository\BannedIpRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -25,6 +27,8 @@ final class ModerationServiceTest extends TestCase
     /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
+    private FakeModerationSanctionRepository $moderationSanctionRepository;
+
     private ModerationServiceInterface $service;
 
     /**
@@ -34,12 +38,14 @@ final class ModerationServiceTest extends TestCase
     {
         $this->entityManager = \Mockery::mock(EntityManager::class);
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
+        $this->moderationSanctionRepository = new FakeModerationSanctionRepository();
 
         $this->service = new ModerationService(
             entityManager: $this->entityManager,
             playerService: self::createStub(PlayerServiceInterface::class),
             translationService: $this->translationService,
             bannedIpRepository: self::createStub(BannedIpRepositoryInterface::class),
+            moderationSanctionRepository: $this->moderationSanctionRepository
         );
     }
 
@@ -53,9 +59,9 @@ final class ModerationServiceTest extends TestCase
 
     public function testBan()
     {
-        $user = new User();
+        $user = UserFactory::createUser();
 
-        $this->entityManager->shouldReceive('persist')->twice();
+        $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->banUser(
@@ -63,17 +69,19 @@ final class ModerationServiceTest extends TestCase
             author: new User(),
             reason: 'reason',
             message: 'adminMessage',
+            duration: new \DateInterval('P3D')
         );
 
+        dump($this->moderationSanctionRepository->findAllBansNotYetTriggeredForAll());
         self::assertCount(1, $user->getModerationSanctions());
         self::assertTrue($user->isBanned());
     }
 
     public function testPermanentBan()
     {
-        $user = new User();
+        $user = UserFactory::createUser();
 
-        $this->entityManager->shouldReceive('persist')->twice();
+        $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->banUser(

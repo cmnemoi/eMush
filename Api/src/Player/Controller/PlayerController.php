@@ -10,6 +10,7 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
 use Mush\MetaGame\Service\AdminServiceInterface;
+use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Entity\Dto\PlayerCreateRequest;
 use Mush\Player\Entity\Dto\PlayerEndRequest;
 use Mush\Player\Entity\Player;
@@ -42,13 +43,16 @@ class PlayerController extends AbstractGameController
     private ChooseSkillUseCase $chooseSkillUseCase;
     private DeletePlayerNotificationUseCase $deletePlayerNotification;
 
+    private ModerationServiceInterface $moderationService;
+
     public function __construct(
         AdminServiceInterface $adminService,
         PlayerServiceInterface $playerService,
         CycleServiceInterface $cycleStrategyService,
         ValidatorInterface $validator,
         ChooseSkillUseCase $chooseSkillUseCase,
-        DeletePlayerNotificationUseCase $deletePlayerNotification
+        DeletePlayerNotificationUseCase $deletePlayerNotification,
+        ModerationServiceInterface $moderationService
     ) {
         parent::__construct($adminService);
         $this->playerService = $playerService;
@@ -56,6 +60,7 @@ class PlayerController extends AbstractGameController
         $this->validator = $validator;
         $this->chooseSkillUseCase = $chooseSkillUseCase;
         $this->deletePlayerNotification = $deletePlayerNotification;
+        $this->moderationService = $moderationService;
     }
 
     /**

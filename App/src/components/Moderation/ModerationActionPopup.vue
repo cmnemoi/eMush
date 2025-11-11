@@ -19,9 +19,6 @@
         <label>{{ $t("moderation.adminMessage") }}:
             <textarea v-model="moderationMessage" />
         </label>
-        <label v-if="showDateOptions">{{ $t("moderation.startDate") }}:
-            <input type="date" v-model="moderationStartDate" />
-        </label>
         <label v-if="showDateOptions">{{ $t("moderation.duration") }}:
             <select v-model="moderationDuration">
                 <option value="">{{ $t('moderation.durations.permanent') }}</option>
@@ -53,7 +50,6 @@ export default {
         return {
             moderationReason: "",
             moderationMessage: "",
-            moderationStartDate: "",
             moderationDuration: "",
             moderationIpBan: false
         };
@@ -81,9 +77,6 @@ export default {
             params.append('byIp', this.moderationIpBan);
             if (this.moderationMessage) {
                 params.append('adminMessage', this.moderationMessage);
-            }
-            if (this.moderationStartDate) {
-                params.append('startDate', this.moderationStartDate);
             }
             if (this.moderationDuration) {
                 params.append('duration', this.moderationDuration);

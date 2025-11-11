@@ -99,6 +99,7 @@ export default defineComponent ({
             deleteAllStatusesByName: 'adminActions/deleteAllStatusesByName',
             proposeProjects: 'adminActions/proposeNewNeronProjectsForOnGoingDaedaluses',
             resetRulesAcceptance: 'adminActions/resetRulesAcceptanceForAllUsers'
+
         }),
         createEquipment(createEquipmentDto: CreateEquipmentDto) {
             this.createEquipmentForOnGoingDaedaluses(createEquipmentDto);

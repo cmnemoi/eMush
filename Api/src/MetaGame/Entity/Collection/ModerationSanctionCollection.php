@@ -5,42 +5,35 @@ namespace Mush\MetaGame\Entity\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\MetaGame\Enum\ModerationSanctionEnum;
-use Mush\Player\Entity\Player;
 
 /**
- * @template-extends ArrayCollection<int, Player>
+ * @template-extends ArrayCollection<int, ModerationSanction>
  */
 class ModerationSanctionCollection extends ArrayCollection
 {
     /**
-     * @psalm-suppress InvalidArgument
-     */
-    public function getActiveSanction(): self
-    {
-        return $this->filter(static fn (ModerationSanction $moderationAction) => $moderationAction->getIsActive());
-    }
-
-    /**
-     * @psalm-suppress InvalidArgument
+     * @psalm-suppress PossiblyFalseReference
+     * If `$bans` is not empty, we know for sure `$bans->first()` is not false, come on, psalm...
      */
     public function isBanned(): bool
     {
-        $activeBans = $this->filter(static fn (ModerationSanction $moderationAction) => (
-            $moderationAction->getIsActive()
-            && $moderationAction->getModerationAction() === ModerationSanctionEnum::BAN_USER
-        ));
+        $bans = $this->filter(
+            static fn (ModerationSanction $moderationAction) => $moderationAction->isType(ModerationSanctionEnum::BAN_USER)
+        );
 
-        return $activeBans->count() > 0;
-    }
+        $activeBan = $bans->first();
+        if ($bans->isEmpty()) {
+            return false;
+        }
 
-    /**
-     * @psalm-suppress InvalidArgument
-     */
-    public function getWarnings(): self
-    {
-        return $this->filter(static fn (ModerationSanction $moderationAction) => (
-            $moderationAction->getIsActive()
-            && $moderationAction->getModerationAction() === ModerationSanctionEnum::WARNING
-        ));
+        // get the last ban given
+        /** @var ModerationSanction $ban */
+        foreach ($bans as $ban) {
+            if ($ban->getStartDate() > $activeBan->getStartDate()) {
+                $activeBan = $ban;
+            }
+        }
+
+        return $activeBan ? $activeBan->isActive() : false;
     }
 }

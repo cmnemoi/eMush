@@ -89,7 +89,6 @@ final class QuarantineAndBanAllUsersCommandHandlerTest extends TestCase
             userUuids: [$this->userToBan1->getUserId(), $this->userToBan2->getUserId()],
             reason: 'Test ban reason',
             message: 'Test ban message',
-            startingDate: new \DateTime(),
             duration: $duration
         );
 
@@ -108,7 +107,6 @@ final class QuarantineAndBanAllUsersCommandHandlerTest extends TestCase
             userUuids: [$this->userToBan1->getUserId(), $this->userToBan2->getUserId()],
             reason: 'Test ban reason',
             message: 'Test ban message',
-            startingDate: new \DateTime(),
             duration: null
         );
 

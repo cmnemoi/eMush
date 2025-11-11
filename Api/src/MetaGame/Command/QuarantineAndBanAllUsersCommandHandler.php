@@ -42,7 +42,6 @@ final readonly class QuarantineAndBanAllUsersCommandHandler
             author: $author,
             reason: $command->reason,
             message: $command->message,
-            startingDate: $command->startingDate,
             duration: $command->duration,
             byIp: $command->byIp,
         );

@@ -11,6 +11,7 @@ use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\MetaGame\Entity\SanctionEvidence;
 use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 use Mush\MetaGame\Enum\ModerationSanctionEnum;
+use Mush\MetaGame\Repository\ModerationSanctionRepositoryInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -27,6 +28,7 @@ final class ModerationService implements ModerationServiceInterface
         private EntityManagerInterface $entityManager,
         private PlayerServiceInterface $playerService,
         private TranslationServiceInterface $translationService,
+        private ModerationSanctionRepositoryInterface $moderationSanctionRepository,
     ) {}
 
     public function editClosedPlayerMessage(
@@ -52,7 +54,6 @@ final class ModerationService implements ModerationServiceInterface
             author: $author,
             sanctionType: ModerationSanctionEnum::DELETE_END_MESSAGE,
             reason: $reason,
-            startingDate: new \DateTime(),
             message: $adminMessage
         );
     }
@@ -73,7 +74,6 @@ final class ModerationService implements ModerationServiceInterface
             author: $author,
             sanctionType: ModerationSanctionEnum::HIDE_END_MESSAGE,
             reason: $reason,
-            startingDate: new \DateTime(),
             message: $adminMessage
         );
     }
@@ -94,8 +94,7 @@ final class ModerationService implements ModerationServiceInterface
     {
         $moderationAction->setEndDate(new \DateTime());
 
-        $this->entityManager->persist($moderationAction);
-        $this->entityManager->flush();
+        $this->moderationSanctionRepository->save($moderationAction);
     }
 
     public function banUser(
@@ -103,7 +102,6 @@ final class ModerationService implements ModerationServiceInterface
         User $author,
         string $reason,
         ?string $message = null,
-        ?\DateTime $startingDate = null,
         ?\DateInterval $duration = null,
         bool $byIp = false
     ): User {
@@ -115,16 +113,24 @@ final class ModerationService implements ModerationServiceInterface
             }
         }
 
-        return $this->addSanctionEntity(
+        $sanction = $this->addSanctionEntity(
             user: $user,
             player: null,
             author: $author,
-            sanctionType: ModerationSanctionEnum::BAN_USER,
+            sanctionType: ModerationSanctionEnum::BAN_USER_PENDING,
             reason: $reason,
-            startingDate: $startingDate,
             message: $message,
-            duration: $duration,
+            duration: new \DateInterval('P0D'),
         );
+
+        if ($duration) {
+            $sanction->setBanLength($duration);
+            $this->moderationSanctionRepository->save($sanction);
+        }
+
+        $this->triggerUserBans($user);
+
+        return $user;
     }
 
     public function addSanctionEntity(
@@ -133,18 +139,13 @@ final class ModerationService implements ModerationServiceInterface
         User $author,
         string $sanctionType,
         string $reason,
-        ?\DateTime $startingDate = null,
         ?string $message = null,
         ?\DateInterval $duration = null,
         bool $isVisibleByUser = false,
         ?SanctionEvidenceInterface $sanctionEvidence = null
-    ): User {
-        if ($startingDate === null) {
-            $startingDate = new \DateTime();
-        }
-
+    ): ModerationSanction {
         if ($duration !== null) {
-            $endDate = clone $startingDate;
+            $endDate = new \DateTime();
             $endDate->add($duration);
         } else {
             // if sanction is permanent, set end date to
@@ -158,7 +159,7 @@ final class ModerationService implements ModerationServiceInterface
             $sanctionEvidenceEntity = null;
         }
 
-        $sanction = new ModerationSanction($user, $startingDate);
+        $sanction = new ModerationSanction($user, new \DateTime());
         $sanction
             ->setModerationAction($sanctionType)
             ->setPlayer($player)
@@ -172,10 +173,10 @@ final class ModerationService implements ModerationServiceInterface
         $user->addModerationSanction($sanction);
 
         $this->entityManager->persist($user);
-        $this->entityManager->persist($sanction);
+        $this->moderationSanctionRepository->save($sanction);
         $this->entityManager->flush();
 
-        return $user;
+        return $sanction;
     }
 
     public function quarantinePlayer(
@@ -192,7 +193,6 @@ final class ModerationService implements ModerationServiceInterface
             author: $author,
             sanctionType: ModerationSanctionEnum::QUARANTINE_PLAYER,
             reason: $reason,
-            startingDate: new \DateTime(),
             message: $message
         );
 
@@ -216,7 +216,6 @@ final class ModerationService implements ModerationServiceInterface
             author: $author,
             sanctionType: ModerationSanctionEnum::DELETE_MESSAGE,
             reason: $reason,
-            startingDate: new \DateTime(),
             message: $adminMessage
         );
 
@@ -234,20 +233,20 @@ final class ModerationService implements ModerationServiceInterface
         User $author,
         string $reason,
         string $message,
-        ?\DateTime $startingDate = null,
         ?\DateInterval $duration = null,
     ): User {
-        return $this->addSanctionEntity(
+        $this->addSanctionEntity(
             user: $user,
             player: null,
             author: $author,
             sanctionType: ModerationSanctionEnum::WARNING,
             reason: $reason,
-            startingDate: $startingDate,
             message: $message,
             duration: $duration,
             isVisibleByUser: true
         );
+
+        return $user;
     }
 
     public function reportPlayer(
@@ -263,7 +262,6 @@ final class ModerationService implements ModerationServiceInterface
             author: $author,
             sanctionType: ModerationSanctionEnum::REPORT,
             reason: $reason,
-            startingDate: new \DateTime(),
             message: $message,
             sanctionEvidence: $sanctionEvidence
         );
@@ -283,9 +281,24 @@ final class ModerationService implements ModerationServiceInterface
 
         $moderationAction->setModerationAction($decision);
 
-        $this->entityManager->persist($moderationAction);
-        $this->entityManager->flush();
+        $this->moderationSanctionRepository->save($moderationAction);
 
         return $moderationAction;
+    }
+
+    public function triggerUserBans(User $user): void
+    {
+        if ($user->isInGame()) {
+            return;
+        }
+
+        $banNotYetTriggered = $this->moderationSanctionRepository->findAllBansNotYetTriggeredForUser($user);
+        foreach ($banNotYetTriggered as $sanction) {
+            $duration = $sanction->getBanLength();
+            $date = $duration === null ? new \DateTime('99999/12/31') : new \DateTime()->add($duration);
+            $sanction->setEndDate($date);
+            $sanction->setModerationAction(ModerationSanctionEnum::BAN_USER);
+            $this->moderationSanctionRepository->save($sanction);
+        }
     }
 }

@@ -52,6 +52,9 @@ class ModerationSanction
     #[ORM\OneToOne(mappedBy: 'moderationSanction', targetEntity: SanctionEvidence::class, cascade: ['ALL'])]
     private ?SanctionEvidence $sanctionEvidence;
 
+    #[ORM\Column(type: 'dateinterval', nullable: true)]
+    private ?\DateInterval $banLength = null;
+
     public function __construct(User $user, \DateTime $startDate)
     {
         $this->startDate = $startDate;
@@ -188,6 +191,11 @@ class ModerationSanction
         return false;
     }
 
+    public function isActive(): bool
+    {
+        return $this->getIsActive();
+    }
+
     public function getIsReport(): bool
     {
         return $this->isReport;
@@ -234,5 +242,22 @@ class ModerationSanction
     public function getSanctionEvidenceArray(): ?array
     {
         return $this->sanctionEvidence?->getEvidenceAsArray();
+    }
+
+    public function setBanLength(\DateInterval $banLength): static
+    {
+        $this->banLength = $banLength;
+
+        return $this;
+    }
+
+    public function getBanLength(): ?\DateInterval
+    {
+        return $this->banLength;
+    }
+
+    public function isType(string $type): bool
+    {
+        return $this->moderationAction === $type;
     }
 }

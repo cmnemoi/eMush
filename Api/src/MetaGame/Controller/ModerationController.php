@@ -114,13 +114,6 @@ final class ModerationController extends AbstractFOSRestController
             $duration = null;
         }
 
-        $startDateString = $request->get('startDate');
-        if ($startDateString !== null) {
-            $startDate = new \DateTime($startDateString);
-        } else {
-            $startDate = null;
-        }
-
         /** @var User $sanctionAuthor */
         $sanctionAuthor = $this->getUser();
 
@@ -129,7 +122,6 @@ final class ModerationController extends AbstractFOSRestController
             author: $sanctionAuthor,
             reason: $request->get('reason'),
             message: $request->get('adminMessage', null),
-            startingDate: $startDate,
             duration: $duration,
             byIp: $request->get('byIp') === 'true'
         );
@@ -199,13 +191,6 @@ final class ModerationController extends AbstractFOSRestController
             $duration = null;
         }
 
-        $startDateString = $request->get('startDate');
-        if ($startDateString !== null) {
-            $startDate = new \DateTime($startDateString);
-        } else {
-            $startDate = null;
-        }
-
         /** @var User $sanctionAuthor */
         $sanctionAuthor = $this->getUser();
 
@@ -214,7 +199,6 @@ final class ModerationController extends AbstractFOSRestController
             author: $sanctionAuthor,
             reason: $request->get('reason'),
             message: $request->get('adminMessage', ''),
-            startingDate: $startDate,
             duration: $duration,
         );
 
@@ -918,9 +902,14 @@ final class ModerationController extends AbstractFOSRestController
     #[IsGranted('IS_REQUEST_USER', subject: 'user', message: 'You cannot access other player\'s sanctions!')]
     public function getUserActiveBansAndWarnings(User $user): View
     {
-        $warnings = $this->moderationSanctionRepository->findAllUserActiveBansAndWarnings($user);
+        $warnings = $this->moderationSanctionRepository->findUserAllActiveWarnings($user);
+        $ban = $this->moderationSanctionRepository->findUserActiveBan($user);
 
-        return $this->view($warnings, Response::HTTP_OK);
+        if ($ban !== null) {
+            $warnings->add($ban);
+        }
+
+        return $this->view($warnings->toArray(), Response::HTTP_OK);
     }
 
     private function denyAccessIfNotModerator(): void

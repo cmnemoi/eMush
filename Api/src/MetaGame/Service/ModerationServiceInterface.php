@@ -19,7 +19,6 @@ interface ModerationServiceInterface
         User $author,
         string $reason,
         ?string $message = null,
-        ?\DateTime $startingDate = null,
         ?\DateInterval $duration = null,
         bool $byIp = false
     ): User;
@@ -57,7 +56,6 @@ interface ModerationServiceInterface
         User $author,
         string $reason,
         string $message,
-        ?\DateTime $startingDate = null,
         ?\DateInterval $duration = null,
     ): User;
 
@@ -81,4 +79,18 @@ interface ModerationServiceInterface
     public function suspendSanction(
         ModerationSanction $moderationAction
     ): void;
+
+    public function addSanctionEntity(
+        User $user,
+        ?PlayerInfo $player,
+        User $author,
+        string $sanctionType,
+        string $reason,
+        ?string $message = null,
+        ?\DateInterval $duration = null,
+        bool $isVisibleByUser = false,
+        ?SanctionEvidenceInterface $sanctionEvidence = null
+    ): ModerationSanction;
+
+    public function triggerUserBans(User $user): void;
 }

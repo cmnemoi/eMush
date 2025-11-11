@@ -26,7 +26,6 @@ final class FakeModerationService implements ModerationServiceInterface
         User $author,
         string $reason,
         ?string $message = null,
-        ?\DateTime $startingDate = null,
         ?\DateInterval $duration = null,
         bool $byIp = false
     ): User {
@@ -40,7 +39,6 @@ final class FakeModerationService implements ModerationServiceInterface
             'author' => $author,
             'reason' => $reason,
             'message' => $message,
-            'startingDate' => $startingDate,
             'duration' => $endDate,
         ];
 
@@ -69,13 +67,12 @@ final class FakeModerationService implements ModerationServiceInterface
         User $author,
         string $sanctionType,
         string $reason,
-        ?\DateTime $startingDate = null,
         ?string $message = null,
         ?\DateInterval $duration = null,
         bool $isVisibleByUser = false,
         ?SanctionEvidenceInterface $sanctionEvidence = null
-    ): User {
-        return $user;
+    ): ModerationSanction {
+        return new ModerationSanction(new User(), new \DateTime());
     }
 
     public function editClosedPlayerMessage(
@@ -111,7 +108,6 @@ final class FakeModerationService implements ModerationServiceInterface
         User $author,
         string $reason,
         string $message,
-        ?\DateTime $startingDate = null,
         ?\DateInterval $duration = null,
     ): User {
         return $user;
@@ -133,4 +129,6 @@ final class FakeModerationService implements ModerationServiceInterface
     ): ModerationSanction {
         return $moderationAction;
     }
+
+    public function triggerUserBans(User $user): void {}
 }

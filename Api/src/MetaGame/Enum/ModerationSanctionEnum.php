@@ -14,6 +14,7 @@ class ModerationSanctionEnum
 {
     // moderation actions
     public const string BAN_USER = 'ban_user';
+    public const string BAN_USER_PENDING = 'ban_user_pending';
     public const string QUARANTINE_PLAYER = 'quarantine_player';
     public const string WARNING = 'warning';
     public const string DELETE_MESSAGE = 'delete_message';

@@ -1189,5 +1189,19 @@
         <target>Expert en Mush</target>
       </segment>
     </unit>
+    <unit id="rebels">
+      <segment id="name" state="translated">
+        <source>rebels.name</source>
+        <target>5ème colonne</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>rebels.description</source>
+        <target>Bases rebelles contactées par vos soins.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>rebels_1.name</source>
+        <target>Radio pirate</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

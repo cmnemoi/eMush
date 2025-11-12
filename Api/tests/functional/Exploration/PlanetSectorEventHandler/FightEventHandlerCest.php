@@ -482,6 +482,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         $this->decodeRebelBase->execute(
             rebelBase: $centauriRebelBase,
+            author: $this->player,
             progress: 100,
         );
     }

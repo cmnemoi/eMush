@@ -141,6 +141,7 @@ final class ShootHunterPatrolShipCest extends AbstractFunctionalTest
 
         $this->decodeRebelBase->execute(
             rebelBase: $cygniRebelBase,
+            author: $this->player,
             progress: 100,
         );
     }

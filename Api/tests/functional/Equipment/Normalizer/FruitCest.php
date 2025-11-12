@@ -180,6 +180,7 @@ final class FruitCest extends AbstractFunctionalTest
 
         $this->decodeRebelBase->execute(
             rebelBase: $siriusRebelBase,
+            author: $this->player,
             progress: 100,
         );
     }

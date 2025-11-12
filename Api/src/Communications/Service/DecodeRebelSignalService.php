@@ -7,9 +7,11 @@ namespace Mush\Communications\Service;
 use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Event\RebelBaseDecodedEvent;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Status\Service\StatusServiceInterface;
 
 final readonly class DecodeRebelSignalService
@@ -22,14 +24,19 @@ final readonly class DecodeRebelSignalService
         private StatusServiceInterface $statusService,
     ) {}
 
-    public function execute(RebelBase $rebelBase, int $progress, array $tags = []): void
+    public function execute(RebelBase $rebelBase, int $progress, Player $author, array $tags = []): void
     {
         $this->increaseDecodingProgress($rebelBase, $progress);
 
         if ($rebelBase->isDecoded()) {
-            $this->createRebelBaseModifiers($rebelBase, $tags);
-            $this->createRebelBaseStatus($rebelBase, $tags);
+            $daedalus = $this->daedalusRepository->findByIdOrThrow($rebelBase->getDaedalusId());
+            $this->createRebelBaseModifiersForDaedalus($rebelBase, $daedalus, $tags);
+            $this->createRebelBaseStatusForDaedalus($rebelBase, $daedalus, $tags);
             $this->endRebelBaseContact($rebelBase);
+            $this->eventService->callEvent(
+                event: new RebelBaseDecodedEvent($rebelBase, $author, $tags),
+                name: RebelBaseDecodedEvent::class,
+            );
         }
     }
 
@@ -39,10 +46,8 @@ final readonly class DecodeRebelSignalService
         $this->rebelBaseRepository->save($rebelBase);
     }
 
-    private function createRebelBaseModifiers(RebelBase $rebelBase, array $tags): void
+    private function createRebelBaseModifiersForDaedalus(RebelBase $rebelBase, Daedalus $daedalus, array $tags): void
     {
-        $daedalus = $this->daedalusRepository->findByIdOrThrow($rebelBase->getDaedalusId());
-
         foreach ($rebelBase->getModifierConfigs() as $modifierConfig) {
             $this->modifierCreationService->createModifier(
                 modifierConfig: $modifierConfig,
@@ -52,22 +57,15 @@ final readonly class DecodeRebelSignalService
                 time: new \DateTime(),
             );
         }
-
-        $tags[] = $rebelBase->getName()->toString();
-        $this->eventService->callEvent(
-            event: new RebelBaseDecodedEvent($daedalus, $tags),
-            name: RebelBaseDecodedEvent::class,
-        );
     }
 
-    private function createRebelBaseStatus(RebelBase $rebelBase, array $tags): void
+    private function createRebelBaseStatusForDaedalus(RebelBase $rebelBase, Daedalus $daedalus, array $tags): void
     {
         $statusConfig = $rebelBase->getStatusConfig();
         if ($statusConfig === null) {
             return;
         }
 
-        $daedalus = $this->daedalusRepository->findByIdOrThrow($rebelBase->getDaedalusId());
         foreach ($daedalus->getAlivePlayers() as $player) {
             $this->statusService->createStatusFromConfig(
                 statusConfig: $statusConfig,

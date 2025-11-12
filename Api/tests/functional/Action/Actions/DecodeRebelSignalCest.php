@@ -391,6 +391,26 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $I->assertTrue($this->daedalus->hasStatus(DaedalusStatusEnum::COMMUNICATIONS_EXPERT));
     }
 
+    public function shouldIncrementRebelsStatistic(FunctionalTester $I): void
+    {
+        $this->givenNeronVersion(1);
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenRebelBaseIsContacting(RebelBaseEnum::WOLF, $I);
+        $this->givenRebelBaseSignalIsAt(RebelBaseEnum::WOLF, 99);
+
+        $this->whenPlayerDecodesRebelSignal(RebelBaseEnum::WOLF);
+
+        $I->assertEquals(
+            actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                name: StatisticEnum::REBELS,
+                userId: $this->player->getUser()->getId(),
+            )?->getCount(),
+            expected: 1,
+        );
+    }
+
     private function givenCommsCenterInRoom(): void
     {
         $this->commsCenter = $this->gameEquipmentService->createGameEquipmentFromName(

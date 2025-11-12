@@ -217,6 +217,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $decodeRebelBase->execute(
             rebelBase: $siriusRebelBase,
             progress: 100,
+            author: $this->player,
         );
     }
 

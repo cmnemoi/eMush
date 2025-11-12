@@ -91,6 +91,7 @@ final class DecodeRebelSignal extends AbstractAction
     {
         $this->decodeRebelBase->execute(
             rebelBase: $this->rebelBase(),
+            author: $this->player,
             progress: $this->randomService->rollTwiceAndAverage(1, $this->getOutputQuantity())
         );
     }

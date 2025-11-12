@@ -254,6 +254,7 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
         $this->rebelBaseRepository->save($wolfRebelBase);
         $this->decodeRebelBase->execute(
             rebelBase: $wolfRebelBase,
+            author: $this->player,
             progress: 100,
         );
 

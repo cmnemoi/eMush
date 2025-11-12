@@ -2,7 +2,7 @@
     <div class="terminal">
         <h1><img :src="getImgUrl('spot2.svg')">{{ $t('game.commanderOrderPanel.title') }}</h1>
         <div class="commander-order-terminal-container">
-            <TerminalTips :content="$t('game.commanderOrderPanel.tips')" />
+            <TerminalTips :content="$t('game.commanderOrderPanel.tips')" :player="player"/>
             <form class="chat-input">
                 <textarea
                     v-model="mission"

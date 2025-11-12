@@ -23,7 +23,7 @@ export default defineComponent ({
         },
         player: {
             type: Player,
-            required: true
+            required: false
         }
     },
     methods: {
@@ -35,7 +35,7 @@ export default defineComponent ({
             return formatText(text);
         },
         isBeginner() :boolean{
-            return this.player.hasStatusByKey('beginner');
+            return this.player?.hasStatusByKey('beginner') ?? false;
         }
     }
 });

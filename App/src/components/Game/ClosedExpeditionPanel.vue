@@ -8,7 +8,7 @@
                     <img class="planet-img" :src="getImgUrl('astro/planet_unknown.png')">
                     <ul class="crew">
                         <li v-for="(explorator, i) in closedExploration.explorators" :key="i">
-                            <img :src="getExploratorBody(explorator)" :alt="explorator">
+                            <img :src="getExploratorBody(explorator)" :alt="'explorator'">
                             <p>
                                 <img class="explorator-status" :src="getImgUrl('in_game.png')" v-if="explorator.isAlive">
                                 <img class="explorator-status" :src="getImgUrl('ui_icons/dead.png')" v-else>

@@ -1,6 +1,6 @@
 <template>
     <div class="panel" v-if="exploration">
-        <TerminalTips :content="exploration.uiElements.tips" />
+        <TerminalTips :content="exploration.uiElements.tips" :player="player"/>
         <section class="planet">
             <h3>{{ exploration.planet.name }}</h3>
             <span class="estimate">{{ exploration.estimatedDuration }}</span>

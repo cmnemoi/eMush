@@ -21,12 +21,15 @@ final readonly class ActionEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ActionEvent::POST_ACTION => ['onPostAction', EventPriorityEnum::LOWEST],
+            ActionEvent::POST_ACTION => [
+                ['onPostSuccessfulAction', EventPriorityEnum::LOWEST],
+                ['onPostFailedAction', EventPriorityEnum::LOWEST],
+            ],
             CommanderMissionAcceptedEvent::class => ['onCommanderMissionAccepted', EventPriorityEnum::LOWEST],
         ];
     }
 
-    public function onPostAction(ActionEvent $event): void
+    public function onPostSuccessfulAction(ActionEvent $event): void
     {
         if ($event->getActionResultOrThrow()->isAFail()) {
             return;
@@ -41,6 +44,27 @@ final readonly class ActionEventSubscriber implements EventSubscriberInterface
             ActionEnum::INSTALL_CAMERA => StatisticEnum::CAMERA_INSTALLED,
             ActionEnum::SEARCH => StatisticEnum::SUCCEEDED_INSPECTION,
             ActionEnum::SELF_SURGERY, ActionEnum::SURGERY => StatisticEnum::SURGEON,
+            default => StatisticEnum::NULL,
+        };
+
+        $this->commandBus->dispatch(
+            new IncrementUserStatisticCommand(
+                userId: $author->getUser()->getId(),
+                statisticName: $statisticName,
+                language: $author->getLanguage(),
+            )
+        );
+    }
+
+    public function onPostFailedAction(ActionEvent $event): void
+    {
+        if ($event->getActionResultOrThrow()->isASuccess()) {
+            return;
+        }
+
+        $author = $event->getAuthor();
+        $statisticName = match ($event->getActionName()) {
+            ActionEnum::SELF_SURGERY, ActionEnum::SURGERY => StatisticEnum::BUTCHER,
             default => StatisticEnum::NULL,
         };
 

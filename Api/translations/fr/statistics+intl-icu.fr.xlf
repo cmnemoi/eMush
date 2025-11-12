@@ -1077,5 +1077,19 @@
         <target>Chirurgien</target>
       </segment>
     </unit>
+    <unit id="butcher">
+      <segment id="name" state="translated">
+        <source>butcher.name</source>
+        <target>Boucher</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>butcher.description</source>
+        <target>Actes de chirurgie ratés.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>butcher_1.name</source>
+        <target>Boucher</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

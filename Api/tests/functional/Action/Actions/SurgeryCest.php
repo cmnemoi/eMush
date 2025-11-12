@@ -183,6 +183,26 @@ final class SurgeryCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldIncrementButcherStatisticOnFail(FunctionalTester $I): void
+    {
+        $this->givenChunHasMedikit();
+
+        $this->givenKuanTiIsInjured();
+
+        $this->givenKuanTiIsLaidDown();
+
+        $this->givenSurgeryFailRateIs(100);
+
+        $this->givenSurgeryCriticalRateIs(0);
+
+        $this->whenChunMakesASurgeryOnKuanTi();
+
+        $I->assertEquals(
+            expected: 1,
+            actual: $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::BUTCHER, $this->chun->getUser()->getId())?->getCount(),
+        );
+    }
+
     private function givenKuanTiIsInjured(): void
     {
         $this->playerDiseaseService->createDiseaseFromName(

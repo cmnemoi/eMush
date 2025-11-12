@@ -748,6 +748,11 @@ abstract class AchievementConfigData
                 points: 1,
                 threshold: 1,
             ),
+            new AchievementConfigDto(
+                name: AchievementEnum::BUTCHER_1,
+                points: 1,
+                threshold: 1,
+            ),
         ];
     }
 

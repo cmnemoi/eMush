@@ -59,6 +59,7 @@ enum StatisticEnum: string
     case DAY_15_REACHED = 'day_15_reached';
     case DAY_20_REACHED = 'day_20_reached';
     case DAY_30_REACHED = 'day_30_reached';
+    case MUSH_GENOME = 'mush_genome';
     case NULL = '';
 
     public static function fromOrNull(string $value): self

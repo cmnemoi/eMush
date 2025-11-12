@@ -788,6 +788,11 @@ abstract class AchievementConfigData
                 points: 0,
                 threshold: 1,
             ),
+            new AchievementConfigDto(
+                name: AchievementEnum::MUSH_GENOME_1,
+                points: 0,
+                threshold: 1
+            ),
         ];
     }
 

@@ -1175,5 +1175,19 @@
         <target>Nombre de fois où vous avez atteint le jour 30.</target>
       </segment>
     </unit>
+    <unit id="mush_genome">
+      <segment id="name" state="translated">
+        <source>mush_genome.name</source>
+        <target>Décrypteur de l'énigme</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>mush_genome.description</source>
+        <target>Durant un de vos voyages, votre équipage a résolu l'énigme du génome Mush.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>mush_genome_1.name</source>
+        <target>Expert en Mush</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -51,7 +51,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         Player $player,
         array $tags = [],
     ): void {
-        if ($xylophEntry->IsDecoded()) {
+        if ($xylophEntry->isDecoded()) {
             throw new GameException('This Xyloph database entry is already unlocked!');
         }
 
@@ -77,7 +77,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
 
         $tags[] = $xylophEntry->getName()->toString();
         $this->eventService->callEvent(
-            event: new XylophEntryDecodedEvent($daedalus, $tags),
+            event: new XylophEntryDecodedEvent($xylophEntry, $player, $tags),
             name: XylophEntryDecodedEvent::class,
         );
         $this->markXylophDatabaseDecoded($xylophEntry);

@@ -65,6 +65,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::DAY_15_REACHED, isRare: true),
             new StatisticConfigDto(StatisticEnum::DAY_20_REACHED, isRare: true),
             new StatisticConfigDto(StatisticEnum::DAY_30_REACHED, isRare: true),
+            new StatisticConfigDto(StatisticEnum::MUSH_GENOME),
         ];
     }
 

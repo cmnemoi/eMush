@@ -167,6 +167,11 @@ enum AchievementEnum: string
     case BUTCHER_1 = 'butcher_1';
     case COMMUNICATION_EXPERT_1 = 'communication_expert_1';
     case COMMUNICATION_EXPERT_5 = 'communication_expert_5';
+    case DAY_5_REACHED_1 = 'day_5_reached_1';
+    case DAY_10_REACHED_1 = 'day_10_reached_1';
+    case DAY_15_REACHED_1 = 'day_15_reached_1';
+    case DAY_20_REACHED_1 = 'day_20_reached_1';
+    case DAY_30_REACHED_1 = 'day_30_reached_1';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

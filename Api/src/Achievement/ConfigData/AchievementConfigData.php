@@ -763,6 +763,31 @@ abstract class AchievementConfigData
                 points: 5,
                 threshold: 5,
             ),
+            new AchievementConfigDto(
+                name: AchievementEnum::DAY_5_REACHED_1,
+                points: 1,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::DAY_10_REACHED_1,
+                points: 1,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::DAY_15_REACHED_1,
+                points: 1,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::DAY_20_REACHED_1,
+                points: 1,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::DAY_30_REACHED_1,
+                points: 0,
+                threshold: 1,
+            ),
         ];
     }
 

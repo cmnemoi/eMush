@@ -6,6 +6,7 @@ namespace Mush\Achievement\Listener;
 
 use Mush\Achievement\Command\IncrementUserStatisticCommand;
 use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Player\Entity\Player;
@@ -20,8 +21,24 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => ['onDaedalusNewCycle', EventPriorityEnum::LOWEST],
             DaedalusEvent::FINISH_DAEDALUS => ['onDaedalusFinish', EventPriorityEnum::HIGHEST],
         ];
+    }
+
+    public function onDaedalusNewCycle(DaedalusCycleEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+
+        foreach ($daedalus->getAlivePlayers() as $player) {
+            $this->commandBus->dispatch(
+                new IncrementUserStatisticCommand(
+                    userId: $player->getUser()->getId(),
+                    statisticName: StatisticEnum::fromDaedalusDate($daedalus->getGameDate()),
+                    language: $daedalus->getLanguage(),
+                )
+            );
+        }
     }
 
     public function onDaedalusFinish(DaedalusEvent $event): void

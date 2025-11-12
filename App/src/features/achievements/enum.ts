@@ -47,6 +47,11 @@ export const enum StatisticEnum {
     SURGEON = "surgeon",
     BUTCHER = "butcher",
     COMMUNICATION_EXPERT = "communication_expert",
+    DAY_5_REACHED = "day_5_reached",
+    DAY_10_REACHED = "day_10_reached",
+    DAY_15_REACHED = "day_15_reached",
+    DAY_20_REACHED = "day_20_reached",
+    DAY_30_REACHED = "day_30_reached",
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -187,5 +192,20 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.COMMUNICATION_EXPERT]: {
         'icon': getImgUrl('title_com_manager.png')
+    },
+    [StatisticEnum.DAY_5_REACHED]: {
+        'icon': getImgUrl('achievements/day5.png')
+    },
+    [StatisticEnum.DAY_10_REACHED]: {
+        'icon': getImgUrl('achievements/day10.png')
+    },
+    [StatisticEnum.DAY_15_REACHED]: {
+        'icon': getImgUrl('achievements/day15.png')
+    },
+    [StatisticEnum.DAY_20_REACHED]: {
+        'icon': getImgUrl('achievements/day20.png')
+    },
+    [StatisticEnum.DAY_30_REACHED]: {
+        'icon': getImgUrl('achievements/day30.png')
     }
 };

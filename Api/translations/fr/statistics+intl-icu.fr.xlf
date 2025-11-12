@@ -1109,5 +1109,71 @@
         <target>Chef des communications</target>
       </segment>
     </unit>
+    <unit id="day_5_reached">
+      <segment id="name" state="translated">
+        <source>day_5_reached.name</source>
+        <target>Jour 5 atteint</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>day_5_reached.description</source>
+        <target>Nombre de fois où vous avez atteint le jour 5.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>day_5_reached_1.name</source>
+        <target>Survivant</target>
+      </segment>
+    </unit>
+    <unit id="day_10_reached">
+      <segment id="name" state="translated">
+        <source>day_10_reached.name</source>
+        <target>Jour 10 atteint</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>day_10_reached.description</source>
+        <target>Nombre de fois où vous avez atteint le jour 10.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>day_10_reached_1.name</source>
+        <target>Héros</target>
+      </segment>
+    </unit>
+    <unit id="day_15_reached">
+      <segment id="name" state="translated">
+        <source>day_15_reached.name</source>
+        <target>Jour 15 atteint</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>day_15_reached.description</source>
+        <target>Nombre de fois où vous avez atteint le jour 15.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>day_15_reached_1.name</source>
+        <target>Ancien</target>
+      </segment>
+    </unit>
+    <unit id="day_20_reached">
+      <segment id="name" state="translated">
+        <source>day_20_reached.name</source>
+        <target>Jour 20 atteint</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>day_20_reached.description</source>
+        <target>Nombre de fois où vous avez atteint le jour 20.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>day_20_reached_1.name</source>
+        <target>Divinité</target>
+      </segment>
+    </unit>
+    <unit id="day_30_reached">
+      <segment id="name" state="translated">
+        <source>day_30_reached.name</source>
+        <target>Jour 30 atteint</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>day_30_reached.description</source>
+        <target>Nombre de fois où vous avez atteint le jour 30.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

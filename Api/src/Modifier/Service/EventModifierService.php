@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Modifier\Service;
 
 use Mush\Action\Enum\ActionEnum;
@@ -33,13 +35,33 @@ class EventModifierService implements EventModifierServiceInterface
         $this->modifierRequirementService = $modifierRequirementService;
     }
 
-    // return an array with all the event to dispatch
-    // the event are returned in their priority order
+    /**
+     * Returns an array with all the events to dispatch : the events are returned in their priority order.
+     */
     public function applyModifiers(AbstractGameEvent $initialEvent, array $priorities): EventChain
     {
         $modifiers = $initialEvent->getModifiersByPriorities($priorities);
 
+        // sort the modifiers to apply them in the correct order
+        $modifiers = $modifiers->sortModifiers();
+        $preAttemptIncreaseModifiers = [];
+        $postAttemptIncreaseModifiers = [];
+
+        foreach ($modifiers as $modifier) {
+            /** @var EventModifierConfig $modifierConfig */
+            $modifierConfig = $modifier->getModifierConfig();
+            if ($modifierConfig->priorityLessThan(ModifierPriorityEnum::ATTEMPT_INCREASE)) {
+                $preAttemptIncreaseModifiers[] = $modifier;
+            } else {
+                $postAttemptIncreaseModifiers[] = $modifier;
+            }
+        }
+
         $events = new EventChain([$initialEvent]);
+
+        foreach ($preAttemptIncreaseModifiers as $modifier) {
+            $events = $this->applyModifier($modifier, $initialEvent, $events);
+        }
 
         // @TODO add a new modifier strategy to handle the increase due to attempts (require a better handling of the modifier "origin")
         // if the event is an action, we need to apply the increase due to successive attempts
@@ -48,10 +70,7 @@ class EventModifierService implements EventModifierServiceInterface
             $initialEvent->setQuantity($initialValue);
         }
 
-        // sort the modifiers to apply them in the correct order
-        $modifiers = $modifiers->sortModifiers();
-
-        foreach ($modifiers as $modifier) {
+        foreach ($postAttemptIncreaseModifiers as $modifier) {
             $events = $this->applyModifier($modifier, $initialEvent, $events);
         }
 

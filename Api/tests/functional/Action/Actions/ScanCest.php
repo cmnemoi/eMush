@@ -89,14 +89,7 @@ final class ScanCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // when player scans
-        $this->scanAction->loadParameters(
-            actionConfig: $this->scanActionConfig,
-            actionProvider: $this->astroTerminal,
-            player: $this->player,
-            target: $this->astroTerminal
-        );
-        $this->scanAction->execute();
+        $this->whenPlayerScans();
 
         // then the action is not visible
         $I->assertFalse($this->scanAction->isVisible());
@@ -104,14 +97,7 @@ final class ScanCest extends AbstractFunctionalTest
 
     public function testScanSuccessCreatesAPlanet(FunctionalTester $I): void
     {
-        // when player scans
-        $this->scanAction->loadParameters(
-            actionConfig: $this->scanActionConfig,
-            actionProvider: $this->astroTerminal,
-            player: $this->player,
-            target: $this->astroTerminal
-        );
-        $this->scanAction->execute();
+        $this->whenPlayerScans();
 
         // then a planet is created
         $I->seeInRepository(Planet::class);
@@ -119,14 +105,7 @@ final class ScanCest extends AbstractFunctionalTest
 
     public function testScanSuccessPlanetHasADistanceBetweenTwoAndNine(FunctionalTester $I): void
     {
-        // when player scans
-        $this->scanAction->loadParameters(
-            actionConfig: $this->scanActionConfig,
-            actionProvider: $this->astroTerminal,
-            player: $this->player,
-            target: $this->astroTerminal
-        );
-        $this->scanAction->execute();
+        $this->whenPlayerScans();
 
         // then a planet is created
         /** @var Planet $planet */
@@ -164,6 +143,40 @@ final class ScanCest extends AbstractFunctionalTest
         );
     }
 
+    public function testScanSuccessRateWithWorkingPlanetScannerIsCorrectlyMultipliedByFailedAttempts(FunctionalTester $I): void
+    {
+        // given success rate of the action is 0%, so it'll fail
+        $this->scanActionConfig->setSuccessRate(0);
+
+        // when player scans, so there's one banked failed scan
+        $this->whenPlayerScans();
+
+        // given there is a planet scanner on the Daedalus
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PLANET_SCANNER,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given success rate of the action is 50%
+        $this->scanActionConfig->setSuccessRate(50);
+
+        // when player scans
+        $this->scanAction->loadParameters(
+            actionConfig: $this->scanActionConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->astroTerminal
+        );
+
+        // then success rate is improved by the right amount
+        $I->assertEquals(
+            expected: 99,
+            actual: $this->scanAction->getSuccessRate()
+        );
+    }
+
     public function testScanSuccessRevealsPlanetSectorsIfMagellanLiquidMapIsInTheRoom(FunctionalTester $I): void
     {
         // given magellan's liquid map is on the bridge
@@ -177,14 +190,7 @@ final class ScanCest extends AbstractFunctionalTest
         // given success rate of the action is 100%, so it will succeed
         $this->scanActionConfig->setSuccessRate(100);
 
-        // when player scans
-        $this->scanAction->loadParameters(
-            actionConfig: $this->scanActionConfig,
-            actionProvider: $this->astroTerminal,
-            player: $this->player,
-            target: $this->astroTerminal
-        );
-        $this->scanAction->execute();
+        $this->whenPlayerScans();
 
         // then the scanned planet should have some sections revealed
         /** @var Planet $planet */
@@ -217,14 +223,7 @@ final class ScanCest extends AbstractFunctionalTest
         // given success rate of the action is 0%, so it will fail
         $this->scanActionConfig->setSuccessRate(0);
 
-        // when player scans
-        $this->scanAction->loadParameters(
-            actionConfig: $this->scanActionConfig,
-            actionProvider: $this->astroTerminal,
-            player: $this->player,
-            target: $this->astroTerminal
-        );
-        $this->scanAction->execute();
+        $this->whenPlayerScans();
 
         // then I should not see a public log to tell that the map worked
         $I->dontSeeInRepository(
@@ -253,14 +252,7 @@ final class ScanCest extends AbstractFunctionalTest
         // given success rate of the action is 100%, so it will succeed
         $this->scanActionConfig->setSuccessRate(100);
 
-        // when player scans
-        $this->scanAction->loadParameters(
-            actionConfig: $this->scanActionConfig,
-            actionProvider: $this->astroTerminal,
-            player: $this->player,
-            target: $this->astroTerminal
-        );
-        $this->scanAction->execute();
+        $this->whenPlayerScans();
 
         // then the scanned planet should have 1 sector revealed
         /** @var Planet $planet */
@@ -283,14 +275,7 @@ final class ScanCest extends AbstractFunctionalTest
         $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::CHIPSET_ACCELERATION]);
         $I->canSeeInRepository(Project::class, ['config' => $projectConfig]);
 
-        // when player scans
-        $this->scanAction->loadParameters(
-            actionConfig: $this->scanActionConfig,
-            actionProvider: $this->astroTerminal,
-            player: $this->player,
-            target: $this->astroTerminal
-        );
-        $this->scanAction->execute();
+        $this->whenPlayerScans();
 
         $I->assertEquals(8 - 2, $this->player->getActionPoint());
     }
@@ -299,14 +284,8 @@ final class ScanCest extends AbstractFunctionalTest
     {
         // given the planets found counter is set to 0
         $this->daedalus->getDaedalusInfo()->setDaedalusStatistics(new DaedalusStatistics(planetsFound: 0));
-        // when player scans
-        $this->scanAction->loadParameters(
-            actionConfig: $this->scanActionConfig,
-            actionProvider: $this->astroTerminal,
-            player: $this->player,
-            target: $this->astroTerminal
-        );
-        $this->scanAction->execute();
+
+        $this->whenPlayerScans();
 
         // then the planets found counter should be incremented to 1.
         $I->assertEquals(1, $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getPlanetsFound(), 'planetsFound should be 1.');

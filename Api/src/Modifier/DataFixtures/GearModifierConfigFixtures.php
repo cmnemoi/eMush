@@ -257,7 +257,7 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setDelta(30)
             ->setMode(VariableModifierModeEnum::ADDITIVE)
             ->setTargetEvent(ActionVariableEvent::ROLL_ACTION_PERCENTAGE)
-            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setPriority(ModifierPriorityEnum::INITIAL_SET_VALUE)
             ->setTagConstraints([ActionEnum::SCAN->value => ModifierRequirementEnum::ANY_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($planetScannerModifier);

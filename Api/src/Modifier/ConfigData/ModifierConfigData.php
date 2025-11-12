@@ -1839,7 +1839,7 @@ abstract class ModifierConfigData
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'priority' => ModifierPriorityEnum::INITIAL_SET_VALUE,
             'applyOnTarget' => false,
             'modifierRange' => 'daedalus',
             'type' => 'variable_event_modifier',

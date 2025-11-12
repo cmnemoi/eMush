@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Modifier\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -87,6 +89,11 @@ class EventModifierConfig extends AbstractModifierConfig
         $this->priority = $priority;
 
         return $this;
+    }
+
+    public function priorityLessThan(string $priority): bool
+    {
+        return $this->getPriorityAsInteger() < ModifierPriorityEnum::getPriorityAsInteger($priority);
     }
 
     public function getApplyWhenTargeted(): bool

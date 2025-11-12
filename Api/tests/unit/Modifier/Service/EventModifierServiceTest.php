@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Modifier\Service;
 
 use Mockery;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Status\Repository;
 
 use Mush\Daedalus\Entity\Daedalus;
@@ -15,16 +17,22 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
-use Mush\Status\Repository\StatusRepository;
+use Mush\Status\Repository\StatusRepositoryInterface;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class StatusRepositoryCest
+/**
+ * @internal
+ */
+final class StatusRepositoryCest extends AbstractFunctionalTest
 {
-    private StatusRepository $repository;
+    private StatusRepositoryInterface $statusRepository;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
-        $this->repository = $I->grabService(StatusRepository::class);
+        parent::_before($I);
+
+        $this->statusRepository = $I->grabService(StatusRepositoryInterface::class);
     }
 
     public function testFindByCriteria(FunctionalTester $I)
@@ -71,7 +79,7 @@ class StatusRepositoryCest
         $criteria1 = new StatusCriteria($daedalus1);
         $criteria2 = new StatusCriteria($daedalus2);
 
-        $result = $this->repository->findByCriteria($criteria1);
+        $result = $this->statusRepository->findByCriteria($criteria1);
 
         $I->assertCount(0, $result);
 
@@ -115,11 +123,11 @@ class StatusRepositoryCest
         $status5 = new Status($door, $statusConfig5);
         $I->haveInRepository($status5);
 
-        $result = $this->repository->findByCriteria($criteria1);
+        $result = $this->statusRepository->findByCriteria($criteria1);
 
         $I->assertCount(5, $result);
 
-        $result = $this->repository->findByCriteria($criteria2);
+        $result = $this->statusRepository->findByCriteria($criteria2);
 
         $I->assertCount(0, $result);
     }
@@ -170,25 +178,25 @@ class StatusRepositoryCest
         $criteria = new StatusCriteria($daedalus);
         $criteria->setName('nothing');
 
-        $result = $this->repository->findByCriteria($criteria);
+        $result = $this->statusRepository->findByCriteria($criteria);
 
         $I->assertCount(0, $result);
 
         $criteria->setName(['nothing']);
 
-        $result = $this->repository->findByCriteria($criteria);
+        $result = $this->statusRepository->findByCriteria($criteria);
 
         $I->assertCount(0, $result);
 
         $criteria->setName(['name_item', 'name_equipment']);
 
-        $result = $this->repository->findByCriteria($criteria);
+        $result = $this->statusRepository->findByCriteria($criteria);
 
         $I->assertCount(2, $result);
 
         $criteria->setName('name_player');
 
-        $result = $this->repository->findByCriteria($criteria);
+        $result = $this->statusRepository->findByCriteria($criteria);
 
         $I->assertCount(1, $result);
     }

@@ -2,13 +2,23 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\UpgradeNeron;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communications\Entity\NeronVersion;
+use Mush\Communications\Entity\RebelBase;
+use Mush\Communications\Entity\RebelBaseConfig;
+use Mush\Communications\Entity\XylophConfig;
+use Mush\Communications\Entity\XylophEntry;
+use Mush\Communications\Enum\RebelBaseEnum;
+use Mush\Communications\Enum\XylophEnum;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
+use Mush\Communications\Repository\RebelBaseRepositoryInterface;
+use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -17,6 +27,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -32,6 +43,9 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private NeronVersionRepositoryInterface $neronVersionRepository;
     private StatusServiceInterface $statusService;
+    private RebelBaseRepositoryInterface $rebelBaseRepository;
+    private XylophRepositoryInterface $xylophRepository;
+    private StatisticRepositoryInterface $statisticRepository;
 
     private GameEquipment $commsCenter;
 
@@ -46,6 +60,9 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
+        $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::UPGRADE_NERON->toString()]);
         $this->upgradeNeron = $I->grabService(UpgradeNeron::class);
@@ -56,13 +73,13 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
             ->filter(static fn (Project $project) => !\in_array($project->getName(), [ProjectName::FIRE_SENSOR->toString(), ProjectName::DOOR_SENSOR->toString()], true))
             ->map(static fn (Project $project) => $project->unpropose());
 
-        $this->createNeronVersionForDaedalus();
         $this->givenACommsCenterInChunRoom();
         $this->givenChunIsFocusedOnCommsCenter();
     }
 
     public function shouldNotBeVisibleIfPlayerIsNotFocusedOnCommsCenter(FunctionalTester $I): void
     {
+        $this->createNeronVersionForDaedalus();
         $this->givenChunIsNotFocusedOnCommsCenter();
 
         $this->whenChunTriesToUpgradeNeron();
@@ -72,6 +89,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
 
     public function shouldNotBeExecutableForNonCommsManager(FunctionalTester $I): void
     {
+        $this->createNeronVersionForDaedalus();
         $this->whenChunTriesToUpgradeNeron();
 
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::COMS_NOT_OFFICER, $I);
@@ -79,6 +97,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
 
     public function shouldNotBeExecutableIfLinkWithSolIsNotEstablished(FunctionalTester $I): void
     {
+        $this->createNeronVersionForDaedalus();
         $this->givenChunIsCommsManager();
         $this->givenChunIsDirty();
 
@@ -89,6 +108,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
 
     public function shouldNotBeExecutableIfPlayerIsDirty(FunctionalTester $I): void
     {
+        $this->createNeronVersionForDaedalus();
         $this->givenChunIsCommsManager();
 
         $this->whenChunTriesToUpgradeNeron();
@@ -98,6 +118,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
 
     public function shouldNotBeExecutableIfThereIsNoMoreAvailableNeronProjects(FunctionalTester $I): void
     {
+        $this->createNeronVersionForDaedalus();
         $this->givenChunIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
         $this->givenThereIsNoneAvailableNeronProjects();
@@ -109,6 +130,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
 
     public function shouldFinishANeronProjectOnSuccess(FunctionalTester $I): void
     {
+        $this->createNeronVersionForDaedalus();
         $this->givenChunIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
         $this->givenNeronMinorVersionIs(99);
@@ -120,6 +142,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
 
     public function shouldPrintPublicLogOnSuccess(FunctionalTester $I): void
     {
+        $this->createNeronVersionForDaedalus();
         $this->givenChunIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
         $this->givenNeronMinorVersionIs(99);
@@ -131,6 +154,21 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
             actualRoomLogDto: new RoomLogDto($this->chun, ActionLogEnum::UPGRADE_NERON_SUCCESS, VisibilityEnum::PUBLIC, inPlayerRoom: false),
             I: $I,
         );
+    }
+
+    public function shouldIncrementCommunicationExpertStatisticWhenXylophAndRebelBasesAreCompleted(FunctionalTester $I): void
+    {
+        $this->createNeronVersionForDaedalus(major: 4, minor: 99);
+        $this->givenChunIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenRebelBaseIsCompleted(RebelBaseEnum::WOLF, $I);
+        $this->givenXylophIsUnlocked(XylophEnum::KIVANC, $I);
+
+        $this->whenChunUpgradesNeron();
+        $this->whenChunUpgradesNeron();
+
+        $this->thenCommunicationExpertStatisticShouldBe(1, $I);
+        $I->assertTrue($this->daedalus->hasStatus(DaedalusStatusEnum::COMMUNICATIONS_EXPERT));
     }
 
     private function whenChunTriesToUpgradeNeron(): void
@@ -225,9 +263,9 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
         $neronVersion->increment($minor);
     }
 
-    private function createNeronVersionForDaedalus(): void
+    private function createNeronVersionForDaedalus(int $major = 1, int $minor = 0): void
     {
-        $this->neronVersionRepository->save(new NeronVersion($this->daedalus->getId()));
+        $this->neronVersionRepository->save(new NeronVersion($this->daedalus->getId(), $major, $minor));
     }
 
     private function thenIShouldSeeAFinishedNeronProject(FunctionalTester $I): void
@@ -236,6 +274,37 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
             expectedCount: 1,
             haystack: $this->daedalus->getFinishedNeronProjects(),
             message: 'There should be 1 finished neron project, found: ' . \count($this->daedalus->getFinishedNeronProjects()),
+        );
+    }
+
+    private function givenRebelBaseIsCompleted(RebelBaseEnum $rebelBaseEnum, FunctionalTester $I): void
+    {
+        $rebeBase = new RebelBase(
+            config: $I->grabEntityFromRepository(RebelBaseConfig::class, ['name' => $rebelBaseEnum->value]),
+            daedalusId: $this->daedalus->getId(),
+        );
+        $rebeBase->increaseDecodingProgress(100);
+        $this->rebelBaseRepository->save($rebeBase);
+    }
+
+    private function givenXylophIsUnlocked(XylophEnum $xylophEnum, FunctionalTester $I): void
+    {
+        $xyloph = new XylophEntry(
+            xylophConfig: $I->grabEntityFromRepository(XylophConfig::class, ['name' => $xylophEnum->value]),
+            daedalusId: $this->daedalus->getId(),
+        );
+        $xyloph->unlockDatabase();
+        $this->xylophRepository->save($xyloph);
+    }
+
+    private function thenCommunicationExpertStatisticShouldBe(int $expected, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $expected,
+            actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                name: StatisticEnum::COMMUNICATION_EXPERT,
+                userId: $this->player->getUser()->getId(),
+            )?->getCount(),
         );
     }
 

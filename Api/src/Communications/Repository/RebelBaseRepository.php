@@ -20,6 +20,17 @@ final class RebelBaseRepository extends ServiceEntityRepository implements Rebel
         parent::__construct($registry, RebelBase::class);
     }
 
+    public function areAllRebelBasesDecoded(int $daedalusId): bool
+    {
+        $queryBuilder = $this->createQueryBuilder('rebelBase')
+            ->select('rebelBase')
+            ->where('rebelBase.daedalus = :daedalusId')
+            ->andWhere('rebelBase.signal < 100')
+            ->setParameter('daedalusId', $daedalusId);
+
+        return \count($queryBuilder->getQuery()->getResult()) === 0;
+    }
+
     public function deleteAllByDaedalusId(int $daedalusId): void
     {
         $this->createQueryBuilder('rebelBase')

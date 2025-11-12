@@ -531,6 +531,7 @@ class GameConfigData
                     PlayerStatusEnum::FIRST . '_default',
                     PlayerStatusEnum::HAS_ADAPTED_EPIGENETICS . '_default',
                     PlayerStatusEnum::IS_ANONYMOUS . '_default',
+                    DaedalusStatusEnum::COMMUNICATIONS_EXPERT . '_default',
                 ],
                 'triumphConfigs' => array_map(static fn (TriumphConfigDto $triumphConfig) => $triumphConfig->name->toConfigKey('default'), TriumphConfigData::getAll()),
                 'hunterConfigs' => [

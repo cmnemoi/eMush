@@ -46,6 +46,7 @@ export const enum StatisticEnum {
     TERRENCE = "terrence",
     SURGEON = "surgeon",
     BUTCHER = "butcher",
+    COMMUNICATION_EXPERT = "communication_expert",
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -183,5 +184,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.BUTCHER]: {
         'icon': getImgUrl('achievements/butcher.png')
+    },
+    [StatisticEnum.COMMUNICATION_EXPERT]: {
+        'icon': getImgUrl('title_com_manager.png')
     }
 };

@@ -20,7 +20,7 @@
       "pathMappings": {
         "/www": "${workspaceFolder}/Api"
       },
-      "program": "docker exec -u dev mush-php php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" vendor/bin/codecept run tests/unit",
+      "program": "docker exec -u dev mush-php php -d error_reporting='E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED' vendor/bin/codecept run tests/unit",
     }
   ]
 }

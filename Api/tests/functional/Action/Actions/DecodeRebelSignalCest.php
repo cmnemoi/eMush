@@ -6,11 +6,14 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Codeception\Attribute\DataProvider;
 use Codeception\Example;
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Actions\DecodeRebelSignal;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Communications\Entity\NeronVersion;
 use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Entity\RebelBaseConfig;
 use Mush\Communications\Entity\XylophConfig;
@@ -18,6 +21,7 @@ use Mush\Communications\Entity\XylophEntry;
 use Mush\Communications\Enum\RebelBaseEnum;
 use Mush\Communications\Enum\XylophEnum;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
+use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Communications\Service\DecodeXylophDatabaseServiceInterface;
@@ -30,6 +34,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Exception\GameException;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -46,9 +51,11 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
     private DecodeXylophDatabaseServiceInterface $decodeXylophDatabaseService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
+    private NeronVersionRepositoryInterface $neronVersionRepository;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
     private StatusServiceInterface $statusService;
     private XylophRepositoryInterface $xylophRepository;
+    private StatisticRepositoryInterface $statisticRepository;
 
     private GameEquipment $commsCenter;
 
@@ -61,15 +68,19 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->decodeXylophDatabaseService = $I->grabService(DecodeXylophDatabaseServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
+        $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
         $this->givenCommsCenterInRoom();
     }
 
     public function shouldNotBeVisibleIfPlayerIsNotFocusedOnCommsCenter(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->whenPlayerTriesToDecodeRebelSignal();
 
         $this->thenActionIsNotVisible($I);
@@ -77,6 +88,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function shouldNotBeExecutableIfPlayerIsNotCommsManager(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
 
         $this->whenPlayerTriesToDecodeRebelSignal();
@@ -86,6 +99,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function shouldNotBeExecutableIfLinkWithSolIsNotEstablished(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
 
@@ -96,6 +111,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function shouldNotBeExecutableIfPlayerIsDirty(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -108,6 +125,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function shouldNotBeExecutableIfNoRebelBaseIsNotContacting(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -119,6 +138,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function shouldThrowWhenTryingToDecodeNotContactingRebelBase(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -132,6 +153,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function shouldMarkRebelBaseAsNonContactingOnSuccess(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -145,6 +168,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function kaladaanRebelBaseShouldGiveSixMoralePointsOnSuccess(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -161,6 +186,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function kaladaanRebelBaseShouldNotGiveSixMoralePointsOnFailure(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -178,6 +205,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
     #[DataProvider('rationTypesProvider')]
     public function siriusShouldAddPlusOneActionPointForRationsOnSuccess(FunctionalTester $I, Example $rationExample): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -194,6 +223,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function siriusDoesNotAddPlusOneActionPointForBananasOnSuccess(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -210,6 +241,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function luytenCetiShouldCreateBrainsyncStatusOnSuccess(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -224,6 +257,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function cygniRebelBaseShouldGiveThreeMoralePointsOnSuccess(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -240,6 +275,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function wolfShouldGiveEightTriumphPointsOnSuccess(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -257,6 +294,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function shouldDoubleOutputQuantityOnRebelSkill(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -271,6 +310,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function shouldDoubleOutputQuantityOnKivancDecoded(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -285,6 +326,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function shouldQuadrupleOutputQuantityWhenRebelHasContactedKivanc(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -300,6 +343,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function shouldIncrementRebelBasesCounterOnSuccess(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -316,6 +361,8 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
     public function shouldImproveCommsAdvancedStatistic(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -326,6 +373,22 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         // then comms advanced statistic should be incremented to 1
         $I->assertEquals(1, $this->player->getPlayerInfo()->getStatistics()->getCommsAdvanced());
         $I->assertEquals(0, $this->player->getPlayerInfo()->getStatistics()->getLinkImproved());
+    }
+
+    public function shouldIncrementCommunicationExpertStatisticWhenLastRebelBaseIsDecoded(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenNeronVersion(5);
+        $this->givenDecodedXylophEntry($I);
+        $this->givenRebelBaseIsContacting(RebelBaseEnum::WOLF, $I);
+        $this->givenRebelBaseSignalIsAt(RebelBaseEnum::WOLF, 99);
+
+        $this->whenPlayerDecodesRebelSignal(RebelBaseEnum::WOLF);
+
+        $this->thenCommunicationExpertStatisticShouldBe(1, $I);
+        $I->assertTrue($this->daedalus->hasStatus(DaedalusStatusEnum::COMMUNICATIONS_EXPERT));
     }
 
     private function givenCommsCenterInRoom(): void
@@ -550,6 +613,36 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
     private function thenKuanTiShouldHaveBrainsync(FunctionalTester $I): void
     {
         $I->assertTrue($this->kuanTi->hasStatus(PlayerStatusEnum::BRAINSYNC));
+    }
+
+    private function givenNeronVersion(int $version): void
+    {
+        $neronVersion = new NeronVersion($this->daedalus->getId(), major: $version);
+        $this->neronVersionRepository->save($neronVersion);
+    }
+
+    private function givenDecodedXylophEntry(FunctionalTester $I): void
+    {
+        $xylophEntry = new XylophEntry(
+            xylophConfig: $I->grabEntityFromRepository(XylophConfig::class, ['name' => XylophEnum::KIVANC]),
+            daedalusId: $this->daedalus->getId(),
+        );
+        $xylophEntry->unlockDatabase();
+        $this->xylophRepository->save($xylophEntry);
+    }
+
+    private function thenCommunicationExpertStatisticShouldBe(int $expected, FunctionalTester $I): void
+    {
+        foreach ($this->players as $player) {
+            $I->assertEquals(
+                expected: $expected,
+                actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                    name: StatisticEnum::COMMUNICATION_EXPERT,
+                    userId: $player->getUser()->getId(),
+                )?->getCount(),
+                message: "{$player->getName()} should have {$expected} communication expert statistic count",
+            );
+        }
     }
 
     private function rationTypesProvider(): array

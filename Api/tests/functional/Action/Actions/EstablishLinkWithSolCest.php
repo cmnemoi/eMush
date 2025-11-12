@@ -13,7 +13,9 @@ use Mush\Alert\Enum\AlertEnum;
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Communications\Entity\LinkWithSol;
+use Mush\Communications\Entity\NeronVersion;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
+use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Communications\Service\KillLinkWithSolService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -44,6 +46,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private KillLinkWithSolService $killLinkWithSolService;
+    private NeronVersionRepositoryInterface $neronVersionRepository;
 
     private ActionConfig $actionConfig;
     private EstablishLinkWithSol $establishLinkWithSol;
@@ -59,6 +62,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->killLinkWithSolService = $I->grabService(KillLinkWithSolService::class);
+        $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
 
         $this->actionConfig = $I->grabEntityFromRepository(
             ActionConfig::class,
@@ -75,6 +79,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldNotBeVisibleIfPlayerIsNotFocusedOnCommsCenter(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenChunIsNotFocusedOnCommsCenter();
 
         $this->whenChunTriesToEstablishLinkWithSol();
@@ -84,6 +90,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldIncreaseLinkStrength(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenLinkWithSolStrengthIs(12);
 
         $this->whenChunEstablishesLinkWithSol();
@@ -93,6 +101,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function brokenAntennaShouldIncreasesAPCost(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenChunHasActionPoints(3);
 
         $this->givenAntennaIsBroken();
@@ -104,6 +114,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldEstablishLinkWithSolOnSuccess(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenLinkWithSolStrengthIs(100);
 
         $this->whenChunEstablishesLinkWithSol();
@@ -113,6 +125,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldBeExecutableOnePerDay(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenChunEstablishesLinkWithSol();
 
         $this->whenChunTriesToEstablishLinkWithSol();
@@ -122,6 +136,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldNotBeExecutableIfPlayerIsDirty(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenChunIsDirty();
 
         $this->whenChunTriesToEstablishLinkWithSol();
@@ -131,6 +147,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldGiveMoraleToAllCrewWhenSucceedsForTheFirstTime(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenLinkWithSolStrengthIs(100);
 
         $this->givenAllPlayersHaveMorale(0);
@@ -142,6 +160,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldNotGiveMoraleToAllCrewWhenSucceedsForTheSecondTime(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenLinkWithSolStrengthIs(100);
 
         $this->givenAllPlayersHaveMorale(0);
@@ -157,6 +177,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function radioExpertInRoomShouldGiveBonusToLinkStrength(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenLinkWithSolStrengthIs(0);
 
         $this->givenChunIsARadioExpert($I);
@@ -168,6 +190,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function radioExpertShouldHaveBonusToLinkStrength(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenLinkWithSolStrengthIs(0);
 
         $this->givenChunIsARadioExpert($I);
@@ -179,6 +203,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldCreateANeronAnnouncementWhenSucceedsForTheFirstTime(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenLinkWithSolStrengthIs(100);
 
         $this->givenChunEstablishesLinkWithSol();
@@ -188,6 +214,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldPrintAPrivateLogOnFailure(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenLinkWithSolStrengthIs(0);
         $this->givenLinkProgressWillBe(0);
 
@@ -206,6 +234,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldPrintAPrivateLogOnSuccess(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenLinkWithSolStrengthIs(100);
 
         $this->whenChunEstablishesLinkWithSol();
@@ -223,6 +253,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function spatialWaveRadarProjectShouldDoubleSignalStrength(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenSpatialWaveRadarProjectIsFinished($I);
 
         $this->givenLinkWithSolStrengthIs(0);
@@ -234,6 +266,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldNotBeVisibleIfLinkIsAlreadyEstablished(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenLinkWithSolStrengthIs(100);
 
         $this->givenChunEstablishesLinkWithSol();
@@ -245,6 +279,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldUseITPointsInsteadOfActionPoints(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenChunHasITPoints(1);
         $this->givenChunHasActionPoints(2);
 
@@ -256,6 +292,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function radioExpertInRoomBonusDoNotStack(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenLinkWithSolStrengthIs(0);
         $this->givenChunIsARadioExpert($I);
         $this->givenJaniceIsARadioExpert($I);
@@ -267,6 +305,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldRemoveCommunicationsDownAlertOnSuccess(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenLinkWithSolStrengthIs(100);
 
         $this->whenChunEstablishesLinkWithSol();
@@ -276,6 +316,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldGiveTriumphWhenSuccedingForTheFirstTime(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenLinkWithSolStrengthIs(100);
 
         $this->whenChunEstablishesLinkWithSol();
@@ -285,6 +327,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldNotGiveTriumphWhenSucceedingForTheSecondTime(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenLinkWithSolStrengthIs(100);
         $this->givenChunEstablishesLinkWithSol();
         $this->givenLinkWithSolIsKilled();
@@ -296,6 +340,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldImproveStatistic(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->whenChunEstablishesLinkWithSol();
 
         $this->thenChunShouldHaveLinkImprovedStatistic(1, $I);
@@ -304,6 +350,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldImproveStatisticOnSuccess(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenLinkWithSolStrengthIs(100);
 
         $this->whenChunEstablishesLinkWithSol();
@@ -587,5 +635,11 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     private function thenChunShouldHaveCommsAdvancedStatistic(int $quantity, FunctionalTester $I): void
     {
         $I->assertEquals($quantity, $this->chun->getPlayerInfo()->getStatistics()->getCommsAdvanced());
+    }
+
+    private function givenNeronVersion(int $version): void
+    {
+        $neronVersion = new NeronVersion($this->daedalus->getId(), major: $version);
+        $this->neronVersionRepository->save($neronVersion);
     }
 }

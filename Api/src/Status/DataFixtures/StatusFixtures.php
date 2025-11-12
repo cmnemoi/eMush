@@ -678,6 +678,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($isAnonymous);
 
+        $communicationsExpert = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(DaedalusStatusEnum::COMMUNICATIONS_EXPERT . '_default')
+        );
+        $manager->persist($communicationsExpert);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -761,7 +766,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($firstStarmapFragment)
             ->addStatusConfig($first)
             ->addStatusConfig($hasAdaptedEpigenetics)
-            ->addStatusConfig($isAnonymous);
+            ->addStatusConfig($isAnonymous)
+            ->addStatusConfig($communicationsExpert);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -839,6 +845,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::FIRST, $first);
         $this->addReference(PlayerStatusEnum::HAS_ADAPTED_EPIGENETICS, $hasAdaptedEpigenetics);
         $this->addReference(self::IS_ANONYMOUS, $isAnonymous);
+        $this->addReference(DaedalusStatusEnum::COMMUNICATIONS_EXPERT, $communicationsExpert);
 
         $manager->flush();
     }

@@ -9,6 +9,8 @@ use Mush\Communications\Enum\RebelBaseEnum;
 
 interface RebelBaseRepositoryInterface
 {
+    public function areAllRebelBasesDecoded(int $daedalusId): bool;
+
     public function deleteAllByDaedalusId(int $daedalusId): void;
 
     /**

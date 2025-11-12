@@ -2022,6 +2022,14 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => DaedalusStatusEnum::COMMUNICATIONS_EXPERT . '_default',
+            'statusName' => DaedalusStatusEnum::COMMUNICATIONS_EXPERT,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

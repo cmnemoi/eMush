@@ -51,6 +51,7 @@ enum StatisticEnum: string
     case LIKES = 'likes';
     case SURGEON = 'surgeon';
     case BUTCHER = 'butcher';
+    case COMMUNICATION_EXPERT = 'communication_expert';
     case NULL = '';
 
     public static function fromOrNull(string $value): self

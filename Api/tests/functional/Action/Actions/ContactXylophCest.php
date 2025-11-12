@@ -4,17 +4,23 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\ContactXyloph;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Entity\NeronVersion;
+use Mush\Communications\Entity\RebelBase;
+use Mush\Communications\Entity\RebelBaseConfig;
 use Mush\Communications\Entity\XylophConfig;
 use Mush\Communications\Entity\XylophEntry;
+use Mush\Communications\Enum\RebelBaseEnum;
 use Mush\Communications\Enum\XylophEnum;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
+use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -27,6 +33,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -43,10 +50,12 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
-    private XylophRepositoryInterface $xylophRepository;
-    private StatusServiceInterface $statusService;
     private NeronVersionRepositoryInterface $neronVersionRepository;
+    private RebelBaseRepositoryInterface $rebelBaseRepository;
     private RoomLogServiceInterface $roomLogService;
+    private StatusServiceInterface $statusService;
+    private StatisticRepositoryInterface $statisticRepository;
+    private XylophRepositoryInterface $xylophRepository;
 
     private GameEquipment $commsCenter;
     private GameEquipment $antenna;
@@ -60,10 +69,12 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
-        $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
+        $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->roomLogService = $I->grabService(RoomLogServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
 
         // setup projects which do not need specific room to exist to avoid errors in tests
         $this->daedalus
@@ -76,6 +87,8 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
     public function shouldNotBeVisibleIfPlayerIsNotFocusedOnCommsCenter(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->whenPlayerTriesToContactXyloph();
 
         $this->thenActionIsNotVisible($I);
@@ -83,6 +96,8 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
     public function shouldNotBeExecutableIfPlayerIsNotCommsManager(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenLinkWithSolIsEstablished();
 
@@ -93,6 +108,8 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
     public function shouldNotBeExecutableIfLinkWithSolIsNotEstablished(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
 
@@ -103,6 +120,8 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
     public function shouldNotBeExecutableIfPlayerIsDirty(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -115,6 +134,8 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
     public function shouldNotBeVisibleIfThereIsNoUndecodedXyloph(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -126,6 +147,8 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
     public function shouldSuccessfullyContactXylophWhenAllRequirementsAreMet(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -140,6 +163,8 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
     public function shouldConsumeThreeActionPointsIfAntennaIsBroken(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -157,6 +182,8 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
     public function shouldConsumeTwoActionPointsWithFunctionalAntenna(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -173,6 +200,8 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
     public function shouldConsumeZeroActionPointsWhenITPointsAvailable(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -191,6 +220,8 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
     public function shouldLoseLinkOnSnowXyloph(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -204,6 +235,8 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
     public function shouldDecreaseLinkStrengthToZeroWhenLessThanTwentyOnMagnetiteXyloph(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -219,6 +252,8 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
     public function shouldDecreaseLinkStrengthByExactlyTwentyOnMagnetiteXyloph(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -234,6 +269,8 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
     public function shouldGiveMushGenomeDiskOnDiskXyloph(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -264,6 +301,8 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
     public function shouldGiveMostWeightedXyloph(FunctionalTester $I): void
     {
+        $this->givenNeronVersion(1);
+
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
@@ -277,6 +316,21 @@ final class ContactXylophCest extends AbstractFunctionalTest
         $this->thenXylophDatabaseShouldBeDecoded(XylophEnum::NOTHING, $I);
         $this->thenXylophDatabaseShouldNotBeDecoded(XylophEnum::SNOW, $I);
         $this->thenXylophDatabaseShouldNotBeDecoded(XylophEnum::DISK, $I);
+    }
+
+    public function shouldIncrementCommunicationExpertStatisticWhenLastXylophIsContacted(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenNeronVersion(5);
+        $this->givenADecodedRebelBase($I);
+        $this->givenXylophEntryToDecode($I);
+
+        $this->whenPlayerContactsXyloph();
+
+        $this->thenCommunicationExpertStatisticShouldBe(1, $I);
+        $I->assertTrue($this->daedalus->hasStatus(DaedalusStatusEnum::COMMUNICATIONS_EXPERT));
     }
 
     private function givenCommsCenterInRoom(): void
@@ -466,6 +520,41 @@ final class ContactXylophCest extends AbstractFunctionalTest
     private function thenProjectCountShouldBe(int $expectedCount, FunctionalTester $I): void
     {
         $I->assertEquals($expectedCount, $this->finishedNeronProjectCount());
+    }
+
+    private function givenNeronVersion(int $version): void
+    {
+        $neronVersion = new NeronVersion($this->daedalus->getId(), major: $version);
+        $this->neronVersionRepository->save($neronVersion);
+    }
+
+    private function givenADecodedRebelBase(FunctionalTester $I): void
+    {
+        $rebelBase = new RebelBase(
+            config: $I->grabEntityFromRepository(RebelBaseConfig::class, ['name' => RebelBaseEnum::WOLF]),
+            daedalusId: $this->daedalus->getId(),
+        );
+        $rebelBase->increaseDecodingProgress(100);
+    }
+
+    private function givenXylophEntryToDecode(FunctionalTester $I): void
+    {
+        $xylophEntry = new XylophEntry(
+            xylophConfig: $I->grabEntityFromRepository(XylophConfig::class, ['name' => XylophEnum::KIVANC]),
+            daedalusId: $this->daedalus->getId(),
+        );
+        $this->xylophRepository->save($xylophEntry);
+    }
+
+    private function thenCommunicationExpertStatisticShouldBe(int $expected, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $expected,
+            actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                name: StatisticEnum::COMMUNICATION_EXPERT,
+                userId: $this->player->getUser()->getId(),
+            )?->getCount(),
+        );
     }
 
     private function thenPlayerShouldSeeXylophContactLog(XylophEnum $entry, FunctionalTester $I)

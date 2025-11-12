@@ -4,21 +4,24 @@ namespace Mush\Status\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Communications\Service\ShouldIncrementCommunicationsExpertStatisticService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\MakePlayerActiveService;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class ActionSubscriber implements EventSubscriberInterface
+final readonly class ActionSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private MakePlayerActiveService $makePlayerActiveService,
         private StatusServiceInterface $statusService,
+        private ShouldIncrementCommunicationsExpertStatisticService $shouldIncrementCommunicationsExpertStatistic,
     ) {}
 
     public static function getSubscribedEvents(): array
@@ -62,6 +65,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         $this->immunizeAntiquePerfumePlayerAfterAShower($event);
         $this->removeLyingDownStatusIfPlayerWakesUpAfterAction($event);
         $this->removeFocusedStatusIfPlayerIsAccessingTakenBlockOfPostIt($event);
+        $this->updateDaedalusCommunicationsExpertStatus($event);
     }
 
     private function immunizeAntiquePerfumePlayerAfterAShower(ActionEvent $event): void
@@ -109,6 +113,23 @@ final class ActionSubscriber implements EventSubscriberInterface
                 holder: $focusedPlayer,
                 tags: $event->getTags(),
                 time: $event->getTime()
+            );
+        }
+    }
+
+    private function updateDaedalusCommunicationsExpertStatus(ActionEvent $event): void
+    {
+        if (!$event->getActionName()->isCommsAction()) {
+            return;
+        }
+
+        $daedalus = $event->getDaedalus();
+        if ($this->shouldIncrementCommunicationsExpertStatistic->execute($daedalus->getId())) {
+            $this->statusService->createStatusFromName(
+                statusName: DaedalusStatusEnum::COMMUNICATIONS_EXPERT,
+                holder: $daedalus,
+                tags: $event->getTags(),
+                time: $event->getTime(),
             );
         }
     }

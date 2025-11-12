@@ -42,6 +42,11 @@ class XylophConfig
         $this->modifierConfigs = $modifierConfigs;
     }
 
+    public static function createNull(): self
+    {
+        return new self('', XylophEnum::NULL, 0, 0, new ArrayCollection());
+    }
+
     public function getName(): XylophEnum
     {
         return $this->name;

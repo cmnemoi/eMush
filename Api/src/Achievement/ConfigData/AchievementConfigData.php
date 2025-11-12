@@ -753,6 +753,16 @@ abstract class AchievementConfigData
                 points: 1,
                 threshold: 1,
             ),
+            new AchievementConfigDto(
+                name: AchievementEnum::COMMUNICATION_EXPERT_1,
+                points: 5,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::COMMUNICATION_EXPERT_5,
+                points: 5,
+                threshold: 5,
+            ),
         ];
     }
 

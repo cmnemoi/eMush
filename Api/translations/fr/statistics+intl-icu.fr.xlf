@@ -1091,5 +1091,23 @@
         <target>Boucher</target>
       </segment>
     </unit>
+    <unit id="communication_expert">
+      <segment id="name" state="translated">
+        <source>communication_expert.name</source>
+        <target>Responsable des communications</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>communication_expert.description</source>
+        <target>Durant un de vos voyages, votre équipage a réussi à effectuer une quantité de tâches légendaire au centre des communications.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>communication_expert_1.name</source>
+        <target>Responsable des communications</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>communication_expert_5.name</source>
+        <target>Chef des communications</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

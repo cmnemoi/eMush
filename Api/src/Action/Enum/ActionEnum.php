@@ -373,6 +373,16 @@ enum ActionEnum: string
         ]);
     }
 
+    public function isCommsAction(): bool
+    {
+        return \in_array($this, [
+            self::CONTACT_XYLOPH,
+            self::DECODE_REBEL_SIGNAL,
+            self::UPGRADE_NERON,
+            self::ESTABLISH_LINK_WITH_SOL,
+        ], true);
+    }
+
     public static function getAllAsStrings(): ArrayCollection
     {
         $actions = new ArrayCollection();

@@ -12,6 +12,16 @@ final class InMemoryRebelBaseRepository implements RebelBaseRepositoryInterface
 {
     private array $rebelBases = [];
 
+    public function areAllRebelBasesDecoded(int $daedalusId): bool
+    {
+        $this->rebelBases = array_filter(
+            $this->rebelBases,
+            static fn (RebelBase $rebelBase) => $rebelBase->getDaedalusId() === $daedalusId && !$rebelBase->isDecoded()
+        );
+
+        return \count($this->rebelBases) === 0;
+    }
+
     public function deleteAllByDaedalusId(int $daedalusId): void
     {
         $this->rebelBases = array_filter(

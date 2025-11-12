@@ -9,6 +9,7 @@ use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Equipment\Entity\Door;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
@@ -30,24 +31,8 @@ final readonly class StatusEventSubscriber implements EventSubscriberInterface
 
     public function onStatusApplied(StatusEvent $event): void
     {
-        $player = $event->getStatusHolder();
-        if (!$player instanceof Player) {
-            return;
-        }
-
-        $statisticName = match ($event->getStatusName()) {
-            PlayerStatusEnum::GAGGED => StatisticEnum::GAGGED,
-            PlayerStatusEnum::HAS_PETTED_CAT => StatisticEnum::CAT_CUDDLED,
-            default => StatisticEnum::NULL,
-        };
-
-        $this->commandBus->dispatch(
-            new IncrementUserStatisticCommand(
-                userId: $player->getUser()->getId(),
-                statisticName: $statisticName,
-                language: $player->getLanguage(),
-            )
-        );
+        $this->incrementStatsFromDaedalusStatuses($event);
+        $this->incrementStatsFromPlayerStatuses($event);
     }
 
     public function onStatusRemoved(StatusEvent $event): void
@@ -68,6 +53,43 @@ final readonly class StatusEventSubscriber implements EventSubscriberInterface
                 userId: $author->getUser()->getId(),
                 statisticName: $statisticName,
                 language: $author->getLanguage(),
+            )
+        );
+    }
+
+    private function incrementStatsFromDaedalusStatuses(StatusEvent $event): void
+    {
+        if ($event->getStatusName() === DaedalusStatusEnum::COMMUNICATIONS_EXPERT) {
+            foreach ($event->getDaedalus()->getAlivePlayers() as $player) {
+                $this->commandBus->dispatch(
+                    new IncrementUserStatisticCommand(
+                        userId: $player->getUser()->getId(),
+                        statisticName: StatisticEnum::COMMUNICATION_EXPERT,
+                        language: $player->getLanguage(),
+                    )
+                );
+            }
+        }
+    }
+
+    private function incrementStatsFromPlayerStatuses(StatusEvent $event): void
+    {
+        $player = $event->getStatusHolder();
+        if (!$player instanceof Player) {
+            return;
+        }
+
+        $statisticName = match ($event->getStatusName()) {
+            PlayerStatusEnum::GAGGED => StatisticEnum::GAGGED,
+            PlayerStatusEnum::HAS_PETTED_CAT => StatisticEnum::CAT_CUDDLED,
+            default => StatisticEnum::NULL,
+        };
+
+        $this->commandBus->dispatch(
+            new IncrementUserStatisticCommand(
+                userId: $player->getUser()->getId(),
+                statisticName: $statisticName,
+                language: $player->getLanguage(),
             )
         );
     }

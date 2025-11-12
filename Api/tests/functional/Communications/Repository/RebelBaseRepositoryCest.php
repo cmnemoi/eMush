@@ -45,6 +45,28 @@ final class RebelBaseRepositoryCest extends AbstractFunctionalTest
         $I->assertEquals(RebelBaseEnum::KALADAAN, $rebelBase->getName());
     }
 
+    public function areAllRebelBasesDecodedShouldReturnTrueWhenAllAreDecoded(FunctionalTester $I): void
+    {
+        $this->givenRebelBasesExists([RebelBaseEnum::WOLF, RebelBaseEnum::KALADAAN], $I);
+        $this->givenRebelBaseIsDecoded(RebelBaseEnum::WOLF);
+        $this->givenRebelBaseIsDecoded(RebelBaseEnum::KALADAAN);
+
+        $result = $this->rebelBaseRepository->areAllRebelBasesDecoded($this->daedalus->getId());
+
+        $I->assertTrue($result);
+    }
+
+    public function areAllRebelBasesDecodedShouldReturnFalseWhenNotAllAreDecoded(FunctionalTester $I): void
+    {
+        $this->givenRebelBasesExists([RebelBaseEnum::WOLF, RebelBaseEnum::KALADAAN], $I);
+        $this->givenRebelBaseIsDecoded(RebelBaseEnum::WOLF);
+        // KALADAAN not decoded
+
+        $result = $this->rebelBaseRepository->areAllRebelBasesDecoded($this->daedalus->getId());
+
+        $I->assertFalse($result);
+    }
+
     private function givenRebelBasesExists(array $rebelBaseNames, FunctionalTester $I): void
     {
         foreach ($rebelBaseNames as $rebelBaseName) {
@@ -64,6 +86,13 @@ final class RebelBaseRepositoryCest extends AbstractFunctionalTest
     {
         $rebelBase = $this->rebelBaseRepository->findByDaedalusIdAndNameOrThrow($this->daedalus->getId(), $rebelBaseName);
         $rebelBase->endContact();
+        $this->rebelBaseRepository->save($rebelBase);
+    }
+
+    private function givenRebelBaseIsDecoded(RebelBaseEnum $rebelBaseName): void
+    {
+        $rebelBase = $this->rebelBaseRepository->findByDaedalusIdAndNameOrThrow($this->daedalus->getId(), $rebelBaseName);
+        $rebelBase->increaseDecodingProgress(100);
         $this->rebelBaseRepository->save($rebelBase);
     }
 }

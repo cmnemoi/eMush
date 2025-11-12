@@ -18,7 +18,7 @@ use Mush\Status\Entity\StatusTarget;
 /**
  * @template-extends ServiceEntityRepository<Status>
  */
-class StatusRepository extends ServiceEntityRepository
+class StatusRepository extends ServiceEntityRepository implements StatusRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {

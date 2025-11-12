@@ -114,4 +114,9 @@ final class ProjectEvent extends AbstractGameEvent implements TriumphSourceEvent
     {
         return true;
     }
+
+    public function getLanguage(): string
+    {
+        return $this->getDaedalus()->getLanguage();
+    }
 }

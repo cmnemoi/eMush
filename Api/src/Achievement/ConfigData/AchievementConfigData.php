@@ -798,6 +798,11 @@ abstract class AchievementConfigData
                 points: 1,
                 threshold: 1,
             ),
+            new AchievementConfigDto(
+                name: AchievementEnum::PILGRED_IS_BACK_1,
+                points: 1,
+                threshold: 1,
+            ),
         ];
     }
 

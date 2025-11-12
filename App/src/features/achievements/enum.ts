@@ -54,6 +54,7 @@ export const enum StatisticEnum {
     DAY_30_REACHED = "day_30_reached",
     MUSH_GENOME = "mush_genome",
     REBELS = "rebels",
+    PILGRED_IS_BACK = "pilgred_is_back",
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -215,5 +216,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.REBELS]: {
         'icon': getImgUrl('achievements/5pillar.png')
+    },
+    [StatisticEnum.PILGRED_IS_BACK]: {
+        'icon': getImgUrl('ui_icons/action_points/pa_pilgred.png')
     }
 };

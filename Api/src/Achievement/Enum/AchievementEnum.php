@@ -174,6 +174,7 @@ enum AchievementEnum: string
     case DAY_30_REACHED_1 = 'day_30_reached_1';
     case MUSH_GENOME_1 = 'mush_genome_1';
     case REBELS_1 = 'rebels_1';
+    case PILGRED_IS_BACK_1 = 'pilgred_is_back_1';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

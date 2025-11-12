@@ -1203,5 +1203,19 @@
         <target>Radio pirate</target>
       </segment>
     </unit>
+    <unit id="pilgred_is_back">
+      <segment id="name" state="translated">
+        <source>pilgred_is_back.name</source>
+        <target>PILGRED EST DE RETOUR !</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>pilgred_is_back.description</source>
+        <target>Nombre de voyages où votre équipage a réussi à remettre PILGRED en ligne.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>pilgred_is_back_1.name</source>
+        <target>Propulsion de prochaine génération</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -743,6 +743,11 @@ abstract class AchievementConfigData
             new AchievementConfigDto(name: AchievementEnum::LIKES_100, points: 0, threshold: 100),
             new AchievementConfigDto(name: AchievementEnum::LIKES_200, points: 0, threshold: 200),
             new AchievementConfigDto(name: AchievementEnum::LIKES_500, points: 0, threshold: 500),
+            new AchievementConfigDto(
+                name: AchievementEnum::SURGEON_1,
+                points: 1,
+                threshold: 1,
+            ),
         ];
     }
 

@@ -57,6 +57,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::HUNTER_DOWN),
             new StatisticConfigDto(StatisticEnum::POLITICIAN, isRare: true),
             new StatisticConfigDto(StatisticEnum::LIKES),
+            new StatisticConfigDto(StatisticEnum::SURGEON),
         ];
     }
 

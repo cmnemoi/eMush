@@ -163,6 +163,7 @@ enum AchievementEnum: string
     case LIKES_100 = 'likes_100';
     case LIKES_200 = 'likes_200';
     case LIKES_500 = 'likes_500';
+    case SURGEON_1 = 'surgeon_1';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

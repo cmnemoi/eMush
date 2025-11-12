@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\Surgery;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -30,6 +32,7 @@ final class SurgeryCest extends AbstractFunctionalTest
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private StatisticRepositoryInterface $statisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
@@ -39,6 +42,7 @@ final class SurgeryCest extends AbstractFunctionalTest
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::MEDIC, $I, player: $this->chun);
     }
@@ -157,6 +161,26 @@ final class SurgeryCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveTriumph(5, $this->chun, $I);
 
         $this->thenPlayerShouldHaveTriumph(0, $this->kuanTi, $I);
+    }
+
+    public function shouldIncrementSurgeonStatisticOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenChunHasMedikit();
+
+        $this->givenKuanTiIsInjured();
+
+        $this->givenKuanTiIsLaidDown();
+
+        $this->givenSurgeryFailRateIs(0);
+
+        $this->givenSurgeryCriticalRateIs(0);
+
+        $this->whenChunMakesASurgeryOnKuanTi();
+
+        $I->assertEquals(
+            expected: 1,
+            actual: $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::SURGEON, $this->chun->getUser()->getId())?->getCount(),
+        );
     }
 
     private function givenKuanTiIsInjured(): void

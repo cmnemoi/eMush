@@ -1063,5 +1063,19 @@
         <target>Filtre d'amour numérique</target>
       </segment>
     </unit>
+    <unit id="surgeon">
+      <segment id="name" state="translated">
+        <source>surgeon.name</source>
+        <target>Chirurgies</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>surgeon.description</source>
+        <target>Actes de chirurgie réussies.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>surgeon_1.name</source>
+        <target>Chirurgien</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

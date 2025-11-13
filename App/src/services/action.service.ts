@@ -10,11 +10,9 @@ import store from "@/store";
 import { Hunter } from "@/entities/Hunter";
 import { Terminal } from "@/entities/Terminal";
 import { Planet } from "@/entities/Planet";
-import { Project } from "@/entities/Project"; // @ts-ignore
+import { Project } from "@/entities/Project";
 
-// @ts-ignore
 const PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "player");
-// @ts-ignore
 const ACTION_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "action_configs");
 
 const EquipmentClassName = "Mush\\Equipment\\Entity\\GameEquipment";

@@ -73,7 +73,7 @@
                     <span>{{ $t('game.communications.day') }} {{ cycleRoomLog.day }} {{ $t('game.communications.cycle') }}  {{cycleRoomLog.cycle }}</span>
                 </div>
                 <div class="cycle-events">
-                    <Log v-for="(roomLog, id) in cycleRoomLog.roomLogs" :key="id" :room-log="roomLog" />
+                    <Log v-for="(roomLog, roomLogId) in cycleRoomLog.roomLogs" :key="roomLogId" :room-log="roomLog" />
                 </div>
             </section>
         </div>

@@ -4,7 +4,6 @@ import store from "@/store";
 import { News } from "@/entities/News";
 import qs from "qs";
 
-// @ts-ignore
 const NEWS_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "news");
 
 const NewsService = {

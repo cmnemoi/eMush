@@ -872,14 +872,14 @@
                     }"
                 />
                 <li
-                    v-for="player in playersPoints"
-                    :key="player.name"
+                    v-for="playerPoint in playersPoints"
+                    :key="playerPoint.name"
                     :style="{
-                        left: `${player.left}px`,
-                        top: `${player.top}px`,
-                        background: `${player.color}`
+                        left: `${playerPoint.left}px`,
+                        top: `${playerPoint.top}px`,
+                        background: `${playerPoint.color}`
                     }"
-                    :class="`${player.name}`"
+                    :class="`${playerPoint.name}`"
                 />
             </ul>
         </div>

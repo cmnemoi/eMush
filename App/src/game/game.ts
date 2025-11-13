@@ -1,7 +1,6 @@
 import Phaser from 'phaser';
 import daedalusScene from "@/game/scenes/daedalusScene";
 import { Player } from "@/entities/Player";
-//@ts-ignore
 import PhaserNavMeshPlugin from "phaser-navmesh";
 
 

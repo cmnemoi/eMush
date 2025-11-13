@@ -1,7 +1,6 @@
 import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import DaedalusScene from "@/game/scenes/daedalusScene";
-//@ts-ignore
 import { PhaserNavMeshPlugin, PhaserNavMesh } from "phaser-navmesh";
 
 export class NavMeshGrid

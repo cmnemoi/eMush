@@ -30,6 +30,7 @@ export default {
             required: false
         },
         modelValue: {
+            type: [String, Number],
             required: true
         },
         id: {
@@ -51,7 +52,8 @@ export default {
                 return 'input-default';
             }
         }
-    }
+    },
+    emits: ['update:modelValue']
 };
 </script>
 

@@ -148,7 +148,7 @@
                         <span>{{ $t('game.communications.day') }} {{ cycleRoomLog.day }} {{ $t('game.communications.cycle') }}  {{cycleRoomLog.cycle }}</span>
                     </div>
                     <div class="cycle-events">
-                        <Log v-for="(roomLog, id) in cycleRoomLog.roomLogs" :key="id" :room-log="roomLog" />
+                        <Log v-for="(roomLog, roomLogId) in cycleRoomLog.roomLogs" :key="roomLogId" :room-log="roomLog" />
                     </div>
                 </section>
             </div>
@@ -202,8 +202,8 @@
                         {{ ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) }}
                     </button>
                     <Message
-                        v-for="(child, id) in message.children"
-                        :key="id"
+                        v-for="(child, childId) in message.children"
+                        :key="childId"
                         :message="child"
                         :is-replyable="false"
                         :admin-mode = "true"
@@ -289,7 +289,7 @@
         <div v-for="(channel, id) in privateChannels" :key="id" class="messages-container">
             <h2>{{ $t('moderation.privateChannel') }} {{ channel.id }} :</h2>
             <div v-if="channel.messages.length > 0">
-                <section v-for="(message, id) in channel.messages" :key="id">
+                <section v-for="(message, messageId) in channel.messages" :key="messageId">
                     <Message
                         :message="message"
                         :is-root="true"
@@ -445,6 +445,7 @@ export default defineComponent({
             selectedSanction: {}
         };
     },
+    emits: ['close'],
     methods: {
         openModerationDialog(moderationAction: { key: string, value: string }) {
             this.currentAction = moderationAction;

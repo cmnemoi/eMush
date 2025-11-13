@@ -129,8 +129,7 @@ export default defineComponent({
     },
     methods: {
         create(): void {
-            // @ts-ignore
-            const newDiseaseConfig = (new DiseaseConfig()).load(this.diseaseConfig?.jsonEncode());
+            const newDiseaseConfig = new DiseaseConfig().load(this.diseaseConfig?.jsonEncode());
 
             newDiseaseConfig.id = null;
             if (this.diseaseConfig?.modifierConfigs !== undefined){

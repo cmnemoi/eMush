@@ -36,15 +36,24 @@
     </PopUp>
 </template>
 
-<script>
+<script lang="ts">
 import PopUp from "@/components/Utils/PopUp.vue";
 import { moderationReasons, sanctionDuration } from "@/enums/moderation_reason.enum";
+import { PropType } from "vue";
+
+type ModerationAction = {
+    key: string,
+    value: string
+}
 
 export default {
     components: { PopUp },
     props: {
         moderationDialogVisible: Boolean,
-        action: { key: String, value: String } // moderation action that opened the pop-up
+        action: {
+            type: Object as PropType<ModerationAction>,
+            required: true
+        } // moderation action that opened the pop-up
     },
     data() {
         return {
@@ -54,6 +63,7 @@ export default {
             moderationIpBan: false
         };
     },
+    emits: ['close', 'submitSanction'],
     computed: {
         showDateOptions() {
             // display the starting date and duration of the sanction only for ban and warning

@@ -40,7 +40,7 @@ export default class IsometricGeom extends Phaser.Geom.Polygon implements Phaser
         });
     }
 
-    //@ts-ignore
+    //@ts-expect-error I don't know
     getRandomPoint(point: Phaser.Geom.Point): Phaser.Geom.Point
     {
         const rand_Iso = new IsometricCoordinates(

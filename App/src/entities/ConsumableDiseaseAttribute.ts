@@ -1,5 +1,3 @@
-import { ConsumableDiseaseConfig } from "@/entities/Config/ConsumableDiseaseConfig";
-
 export class ConsumableDiseaseAttribute {
     public iri: string|null;
     public id: integer|null;
@@ -50,22 +48,5 @@ export class ConsumableDiseaseAttribute {
         }
 
         return this;
-    }
-    private loadMapAttribute(object: any, attributeName: string, map: Map<any, number>) {
-        if (typeof object[attributeName] !== 'undefined') {
-            for (const [key, value] of Object.entries(object[attributeName])) {
-                if (typeof key === 'string' && typeof value === 'number') {
-                    map.set(key, value);
-                }
-            }
-        }
-    }
-    private encodeMapAttribute(data: any, attributeName: string, map: Map<any, number>) {
-        const mapObject : object = {};
-        map.forEach((value, key) => {
-            // @ts-ignore
-            mapObject[key] = value;
-        });
-        data[attributeName] = mapObject;
     }
 }

@@ -238,6 +238,7 @@ export default defineComponent ({
             default: false
         }
     },
+    emits: ['update:modelValue'],
     computed: {
         selected: {
             get: function () {

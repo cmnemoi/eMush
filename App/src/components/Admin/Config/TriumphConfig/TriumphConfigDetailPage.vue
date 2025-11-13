@@ -63,8 +63,7 @@ export default defineComponent({
     },
     methods: {
         create(): void {
-            // @ts-ignore
-            const newTriumphConfig = (new TriumphConfig()).load(this.triumphConfig?.jsonEncode());
+            const newTriumphConfig = new TriumphConfig().load(this.triumphConfig?.jsonEncode());
 
             newTriumphConfig.id = null;
             GameConfigService.createTriumphConfig(newTriumphConfig).then((res: TriumphConfig | null) => {

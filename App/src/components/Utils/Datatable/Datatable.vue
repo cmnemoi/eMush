@@ -79,6 +79,7 @@ export default defineComponent ({
             default: false
         },
         rowData: {
+            type: Array,
             required: true
         },
         pagination: {

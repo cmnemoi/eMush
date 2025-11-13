@@ -107,6 +107,7 @@ export default defineComponent({
             richTextEditorFormattingButtons
         };
     },
+    emits: ['cancel', 'send'],
     computed: {
         formattedPreview(): string {
             // Conversion des marqueurs markdown en HTML pour la prévisualisation

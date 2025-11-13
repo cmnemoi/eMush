@@ -36,7 +36,21 @@ import NotFoundPage from "@/components/NotFoundPage.vue";
 import FakeAdminPage from "@/components/FakeAdminPage.vue";
 import ModerationBanAllUsers from "@/components/Moderation/ModerationBanAllUsers.vue";
 
-const routes = [
+interface RouteMeta {
+    authorize?: UserRole[];
+}
+
+interface RouteRecord {
+    path: string;
+    name: string;
+    component: any;
+    meta?: RouteMeta;
+    redirect?: { name: string } | string;
+    children?: RouteRecord[];
+    beforeEnter?: (_to: any, _from: any, next: any) => void;
+}
+
+const routes: RouteRecord[] = [
     {
         path: "/",
         name: "HomePage",
@@ -60,8 +74,7 @@ const routes = [
         name: "MePage",
         component: UserPage,
         meta: { authorize: [UserRole.USER] },
-        // @ts-ignore
-        beforeEnter: (to, from, next) => {
+        beforeEnter: (_to, _from, next) => {
             const currentUser = store.getters["auth/getUserInfo"];
             if (currentUser) {
                 next({ name: 'UserPage', params: { userId: currentUser.userId } });

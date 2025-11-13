@@ -21,6 +21,7 @@ export default defineComponent ({
         title: String,
         isOpen: Boolean
     },
+    emits: ['exit'],
     computed:{
         hasCancelListener() : boolean {
             return (this.$attrs && this.$attrs.onExit) as boolean;

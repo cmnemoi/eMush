@@ -15,16 +15,16 @@
             </form>
             <div class="radio-buttons-container">
                 <label
-                    v-for="player in contactablePlayers"
-                    :key="player.id"
+                    v-for="contactablePlayer in contactablePlayers"
+                    :key="contactablePlayer.id"
                 >
                     <input
                         type="radio"
                         v-model="selectedSubordinate"
-                        :value="player.key"
-                        :checked="selectedSubordinate === player.key"
+                        :value="contactablePlayer.key"
+                        :checked="selectedSubordinate === contactablePlayer.key"
                     />
-                    {{ player.name }}
+                    {{ contactablePlayer.name }}
                 </label>
             </div>
             <div class="send-button" v-if="selectedSubordinate && mission">

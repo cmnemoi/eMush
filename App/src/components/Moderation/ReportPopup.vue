@@ -68,6 +68,7 @@ export default defineComponent ({
             reportedPlayer: ""
         };
     },
+    emits: ['close', 'submitReport'],
     computed: {
         ...mapGetters({
             user: 'auth/getUserInfo',

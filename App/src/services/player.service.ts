@@ -11,9 +11,7 @@ type AvailableSkill = {
     description: string;
 }
 
-// @ts-ignore
 const PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "player");
-// @ts-ignore
 const CLOSED_PLAYER_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "closed_players");
 
 const PlayerService = {

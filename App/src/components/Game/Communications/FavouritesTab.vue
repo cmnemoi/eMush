@@ -1,6 +1,6 @@
 <template>
     <TabContainer id="favorites-tab" :channel="channel" :new-message-allowed = "newMessagesAllowed">
-        <section v-for="(message, id) in messages" :key="id" class="unit">
+        <section v-for="(message, messageId) in messages" :key="messageId" class="unit">
             <Message
                 :message="message"
                 :is-root="true"
@@ -15,8 +15,8 @@
                 {{ ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) }}
             </button>
             <Message
-                v-for="(child, id) in message.children"
-                :key="id"
+                v-for="(child, childId) in message.children"
+                :key="childId"
                 :message="child"
                 :is-replyable="true"
                 @reply="replyTo(message)"

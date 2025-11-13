@@ -6,9 +6,9 @@ export default class MushTiledLayer extends Phaser.Tilemaps.LayerData {
         const existingKeys = ['depth', 'walkingDepth'];
         if (existingKeys.includes(property)) {
             for (let i = 0; i < this.properties.length; i++) {
-                //@ts-ignore
+                // @ts-expect-error Phaser did not type correctly its API.
                 if (this.properties[i].name === property) {
-                    //@ts-ignore
+                    // @ts-expect-error Phaser did not type correctly its API.
                     return this.properties[i].value;
                 }
             }

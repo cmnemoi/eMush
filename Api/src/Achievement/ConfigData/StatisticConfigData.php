@@ -73,6 +73,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::KIVANC_CONTACTED),
             new StatisticConfigDto(StatisticEnum::ARTEFACT_SPECIALIST),
             new StatisticConfigDto(StatisticEnum::TEAM_ALL_REBELS),
+            new StatisticConfigDto(StatisticEnum::PLASMA_SHIELD),
         ];
     }
 

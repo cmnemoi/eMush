@@ -1321,5 +1321,19 @@
         <target>Libération</target>
       </segment>
     </unit>
+    <unit id="plasma_shield">
+      <segment id="name" state="translated">
+        <source>plasma_shield.name</source>
+        <target>Bouclier plasma</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>plasma_shield.description</source>
+        <target>Nombre de fois où le Bouclier plasma a été mis en service par votre équipage durant un voyage.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>plasma_shield_1.name</source>
+        <target>Protecteur</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

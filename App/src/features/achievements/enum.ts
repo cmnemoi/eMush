@@ -60,6 +60,7 @@ export const enum StatisticEnum {
     KIVANC_CONTACTED = "kivanc_contacted",
     ARTEFACT_SPECIALIST = "artefact_specialist",
     TEAM_ALL_REBELS = "team_all_rebels",
+    PLASMA_SHIELD = "plasma_shield",
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -239,5 +240,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.TEAM_ALL_REBELS]: {
         'icon': getImgUrl('achievements/revolution.png')
+    },
+    [StatisticEnum.PLASMA_SHIELD]: {
+        'icon': getImgUrl('plasma.png')
     }
 };

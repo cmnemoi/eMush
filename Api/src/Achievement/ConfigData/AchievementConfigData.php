@@ -859,6 +859,7 @@ abstract class AchievementConfigData
             new AchievementConfigDto(name: AchievementEnum::TEAM_ALL_REBELS_1, points: 1, threshold: 1),
             new AchievementConfigDto(name: AchievementEnum::TEAM_ALL_REBELS_5, points: 1, threshold: 5),
             new AchievementConfigDto(name: AchievementEnum::TEAM_ALL_REBELS_10, points: 1, threshold: 10),
+            new AchievementConfigDto(name: AchievementEnum::PLASMA_SHIELD_1, points: 1, threshold: 1),
         ];
     }
 

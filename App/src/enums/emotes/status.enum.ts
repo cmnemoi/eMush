@@ -1,7 +1,4 @@
 import { getImgUrl } from "@/utils/getImgUrl";
-import { EmoteCharacterEnum } from "@/enums/emotes/characters.enum";
-
-
 
 export enum EmoteStatusEnum {
     ARTEFACT = 'st_artefact',
@@ -68,6 +65,8 @@ export const EmoteStatusAliases: { [index: string]: string } = {
     ['com_manager']: EmoteStatusEnum.COMMS_MANAGER,
     ['comm_manager']: EmoteStatusEnum.COMMS_MANAGER,
     ['comms_manager']: EmoteStatusEnum.COMMS_MANAGER,
+    ['neron_manager']: EmoteStatusEnum.NERON_MANAGER,
+    ['neron_admin']: EmoteStatusEnum.NERON_MANAGER,
     ['demoralized']: EmoteStatusEnum.DEMORALIZED,
     ['ill']: EmoteStatusEnum.DISEASE,
     ['disease']: EmoteStatusEnum.DISEASE,

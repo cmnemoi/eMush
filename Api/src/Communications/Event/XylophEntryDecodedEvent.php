@@ -8,6 +8,7 @@ use Mush\Communications\Entity\XylophEntry;
 use Mush\Communications\Enum\XylophEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Event\TriumphSourceEventTrait;
@@ -37,8 +38,13 @@ final class XylophEntryDecodedEvent extends AbstractGameEvent implements Triumph
         return $this->getAuthorOrThrow()->getDaedalus();
     }
 
+    public function getAlivePlayers(): PlayerCollection
+    {
+        return $this->getDaedalus()->getAlivePlayers();
+    }
+
     public function getLanguage(): string
     {
-        return $this->getAuthorOrThrow()->getLanguage();
+        return $this->getDaedalus()->getLanguage();
     }
 }

@@ -57,6 +57,7 @@ export const enum StatisticEnum {
     PILGRED_IS_BACK = "pilgred_is_back",
     DAY_MAX = "day_max",
     DRUGS_TAKEN = "drugs_taken",
+    KIVANC_CONTACTED = "kivanc_contacted",
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -227,5 +228,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.DRUGS_TAKEN]: {
         'icon': getImgUrl('ui_icons/pill.png')
+    },
+    [StatisticEnum.KIVANC_CONTACTED]: {
+        'icon': getImgUrl('ui_icons/action_points/pa_kivanc.png')
     }
 };

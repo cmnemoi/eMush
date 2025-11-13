@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Achievement\Event;
 
+use Codeception\Attribute\DataProvider;
+use Codeception\Example;
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Communications\Entity\XylophConfig;
@@ -21,7 +23,7 @@ final class XylophEntryDecodedEventCest extends AbstractFunctionalTest
     private DecodeXylophDatabaseService $decodeXylophDatabase;
     private StatisticRepositoryInterface $statisticRepository;
 
-    private XylophEntry $genomeDiskEntry;
+    private XylophEntry $xylophEntry;
 
     public function _before(FunctionalTester $I): void
     {
@@ -31,42 +33,60 @@ final class XylophEntryDecodedEventCest extends AbstractFunctionalTest
         $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
     }
 
-    public function shouldGiveMushGenomeStatistic(FunctionalTester $I): void
+    #[DataProvider('xylophEntryProvider')]
+    public function shouldGiveAssociatedStatistic(FunctionalTester $I, Example $example): void
     {
-        $this->givenGenomeDiskEntry($I);
+        $this->givenXylophEntry($example['xylophEntry'], $I);
 
-        $this->whenPlayerDecodesGenomeDiskEntry();
+        $this->whenPlayerDecodesEntry();
 
-        $this->thenPlayerShouldHaveMushGenomeStatistic($I);
+        $this->thenAlivePlayersShouldHaveStatistic($example['statistic'], $I);
     }
 
-    private function givenGenomeDiskEntry(FunctionalTester $I): void
+    protected function xylophEntryProvider(): array
     {
-        $this->genomeDiskEntry = new XylophEntry(
-            xylophConfig: $I->grabEntityFromRepository(XylophConfig::class, params: ['name' => XylophEnum::DISK]),
+        return [
+            [
+                'xylophEntry' => XylophEnum::DISK,
+                'statistic' => StatisticEnum::MUSH_GENOME,
+            ],
+            [
+                'xylophEntry' => XylophEnum::KIVANC,
+                'statistic' => StatisticEnum::KIVANC_CONTACTED,
+            ],
+        ];
+    }
+
+    private function givenXylophEntry(XylophEnum $entryName, FunctionalTester $I): void
+    {
+        $this->xylophEntry = new XylophEntry(
+            xylophConfig: $I->grabEntityFromRepository(XylophConfig::class, params: ['name' => $entryName]),
             daedalusId: $this->daedalus->getId(),
         );
+        $I->haveInRepository($this->xylophEntry);
     }
 
-    private function whenPlayerDecodesGenomeDiskEntry(): void
+    private function whenPlayerDecodesEntry(): void
     {
-        $this->decodeXylophDatabase->execute($this->genomeDiskEntry, player: $this->player);
+        $this->decodeXylophDatabase->execute($this->xylophEntry, player: $this->player);
     }
 
-    private function thenPlayerShouldHaveMushGenomeStatistic(FunctionalTester $I): void
+    private function thenAlivePlayersShouldHaveStatistic(StatisticEnum $statisticName, FunctionalTester $I): void
     {
-        $I->assertEquals(
-            expected: [
-                'name' => StatisticEnum::MUSH_GENOME,
-                'count' => 1,
-                'userId' => $this->player->getUser()->getId(),
-                'isRare' => false,
-            ],
-            actual: $this->statisticRepository->findByNameAndUserIdOrNull(
-                StatisticEnum::MUSH_GENOME,
-                $this->player->getUser()->getId()
-            )?->toArray(),
-            message: "{$this->player->getLogName()} should have mush genome statistic"
-        );
+        foreach ($this->players as $player) {
+            $I->assertEquals(
+                expected: [
+                    'name' => $statisticName,
+                    'count' => 1,
+                    'userId' => $player->getUser()->getId(),
+                    'isRare' => false,
+                ],
+                actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                    $statisticName,
+                    $player->getUser()->getId()
+                )?->toArray(),
+                message: "{$player->getLogName()} should have {$statisticName->value} statistic"
+            );
+        }
     }
 }

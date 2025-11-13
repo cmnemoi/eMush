@@ -187,6 +187,7 @@ enum AchievementEnum: string
     case DAY_MAX_12 = 'day_max_12';
     case DAY_MAX_13 = 'day_max_13';
     case DRUGS_TAKEN_1 = 'drugs_taken_1';
+    case KIVANC_CONTACTED_1 = 'kivanc_contacted_1';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

@@ -26,15 +26,18 @@ final readonly class XylophEntryDecodedEventSubscriber implements EventSubscribe
     {
         $statisticName = match ($event->entryName) {
             XylophEnum::DISK => StatisticEnum::MUSH_GENOME,
+            XylophEnum::KIVANC => StatisticEnum::KIVANC_CONTACTED,
             default => StatisticEnum::NULL,
         };
 
-        $this->commandBus->dispatch(
-            new IncrementUserStatisticCommand(
-                userId: $event->getAuthorOrThrow()->getUser()->getId(),
-                statisticName: $statisticName,
-                language: $event->getLanguage(),
-            )
-        );
+        foreach ($event->getAlivePlayers() as $player) {
+            $this->commandBus->dispatch(
+                new IncrementUserStatisticCommand(
+                    userId: $player->getUser()->getId(),
+                    statisticName: $statisticName,
+                    language: $event->getLanguage(),
+                )
+            );
+        }
     }
 }

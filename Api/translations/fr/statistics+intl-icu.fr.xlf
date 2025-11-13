@@ -1285,5 +1285,19 @@
         <target>Cacheton</target>
       </segment>
     </unit>
+    <unit id="kivanc_contacted">
+      <segment id="name" state="translated">
+        <source>kivanc_contacted.name</source>
+        <target>Kivanç Terzi contacté</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>kivanc_contacted.description</source>
+        <target>Nombre de fois où votre équipage a contacté Kivanç Terzi.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>kivanc_contacted_1.name</source>
+        <target>Chef rebelle</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

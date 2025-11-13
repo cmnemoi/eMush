@@ -196,6 +196,9 @@ enum AchievementEnum: string
     case ARTEFACT_SPECIALIST_6 = 'artefact_specialist_6';
     case ARTEFACT_SPECIALIST_7 = 'artefact_specialist_7';
     case ARTEFACT_SPECIALIST_8 = 'artefact_specialist_8';
+    case TEAM_ALL_REBELS_1 = 'team_all_rebels_1';
+    case TEAM_ALL_REBELS_5 = 'team_all_rebels_5';
+    case TEAM_ALL_REBELS_10 = 'team_all_rebels_10';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

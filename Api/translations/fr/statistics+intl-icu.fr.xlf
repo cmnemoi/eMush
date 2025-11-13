@@ -1299,5 +1299,27 @@
         <target>Chef rebelle</target>
       </segment>
     </unit>
+    <unit id="team_all_rebels">
+      <segment id="name" state="translated">
+        <source>team_all_rebels.name</source>
+        <target>Révolution !</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>team_all_rebels.description</source>
+        <target>Votre équipe a décodé tous les signaux rebelles durant un voyage.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>team_all_rebels_1.name</source>
+        <target>Commune</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>team_all_rebels_5.name</source>
+        <target>Révolution</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>team_all_rebels_10.name</source>
+        <target>Libération</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

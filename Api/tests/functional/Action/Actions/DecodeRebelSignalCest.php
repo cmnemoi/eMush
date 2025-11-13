@@ -411,6 +411,28 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldIncrementTeamAllRebelsStatisticWhenAllRebelAreDecoded(FunctionalTester $I): void
+    {
+        $this->givenNeronVersion(1);
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenRebelBaseIsContacting(RebelBaseEnum::WOLF, $I);
+        $this->givenRebelBaseSignalIsAt(RebelBaseEnum::WOLF, 99);
+
+        $this->whenPlayerDecodesRebelSignal(RebelBaseEnum::WOLF);
+
+        foreach ($this->players as $player) {
+            $I->assertEquals(
+                actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                    name: StatisticEnum::TEAM_ALL_REBELS,
+                    userId: $player->getUser()->getId(),
+                )?->getCount(),
+                expected: 1,
+            );
+        }
+    }
+
     private function givenCommsCenterInRoom(): void
     {
         $this->commsCenter = $this->gameEquipmentService->createGameEquipmentFromName(

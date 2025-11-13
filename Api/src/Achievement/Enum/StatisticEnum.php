@@ -66,6 +66,7 @@ enum StatisticEnum: string
     case DRUGS_TAKEN = 'drugs_taken';
     case KIVANC_CONTACTED = 'kivanc_contacted';
     case ARTEFACT_SPECIALIST = 'artefact_specialist';
+    case TEAM_ALL_REBELS = 'team_all_rebels';
     case NULL = '';
 
     public static function fromOrNull(string $value): self

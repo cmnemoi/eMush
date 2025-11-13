@@ -803,6 +803,17 @@ abstract class AchievementConfigData
                 points: 1,
                 threshold: 1,
             ),
+            new AchievementConfigDto(name: AchievementEnum::DAY_MAX_3, points: 1, threshold: 3),
+            new AchievementConfigDto(name: AchievementEnum::DAY_MAX_4, points: 1, threshold: 4),
+            new AchievementConfigDto(name: AchievementEnum::DAY_MAX_5, points: 1, threshold: 5),
+            new AchievementConfigDto(name: AchievementEnum::DAY_MAX_6, points: 1, threshold: 6),
+            new AchievementConfigDto(name: AchievementEnum::DAY_MAX_7, points: 1, threshold: 7),
+            new AchievementConfigDto(name: AchievementEnum::DAY_MAX_8, points: 1, threshold: 8),
+            new AchievementConfigDto(name: AchievementEnum::DAY_MAX_9, points: 1, threshold: 9),
+            new AchievementConfigDto(name: AchievementEnum::DAY_MAX_10, points: 1, threshold: 10),
+            new AchievementConfigDto(name: AchievementEnum::DAY_MAX_11, points: 4, threshold: 11),
+            new AchievementConfigDto(name: AchievementEnum::DAY_MAX_12, points: 0, threshold: 12),
+            new AchievementConfigDto(name: AchievementEnum::DAY_MAX_13, points: 0, threshold: 13),
         ];
     }
 

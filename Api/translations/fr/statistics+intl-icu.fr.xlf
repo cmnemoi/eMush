@@ -1217,5 +1217,59 @@
         <target>Propulsion de prochaine génération</target>
       </segment>
     </unit>
+    <unit id="day_max">
+      <segment id="name" state="translated">
+        <source>day_max.name</source>
+        <target>Voyage le plus long</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>day_max.description</source>
+        <target>Durée en jours de votre plus long voyage à bord du Daedalus.</target>
+      </segment>
+      <segment id="x3" state="translated">
+        <source>day_max_3.name</source>
+        <target>Day Of The Locusts</target>
+      </segment>
+      <segment id="x4" state="translated">
+        <source>day_max_4.name</source>
+        <target>Hero Of The Day</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>day_max_5.name</source>
+        <target>If Today Was Your Last Day</target>
+      </segment>
+      <segment id="x6" state="translated">
+        <source>day_max_6.name</source>
+        <target>One More Rainy Day</target>
+      </segment>
+      <segment id="x7" state="translated">
+        <source>day_max_7.name</source>
+        <target>Day Sleeper</target>
+      </segment>
+      <segment id="x8" state="translated">
+        <source>day_max_8.name</source>
+        <target>Eight Days A Week</target>
+      </segment>
+      <segment id="x9" state="translated">
+        <source>day_max_9.name</source>
+        <target>Rainy Day Dream Away</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>day_max_10.name</source>
+        <target>A Hard Day's Night</target>
+      </segment>
+      <segment id="x11" state="translated">
+        <source>day_max_11.name</source>
+        <target>Perfect Day</target>
+      </segment>
+      <segment id="x12" state="translated">
+        <source>day_max_12.name</source>
+        <target>Glory Days</target>
+      </segment>
+      <segment id="x13" state="translated">
+        <source>day_max_13.name</source>
+        <target>Oh Happy Days</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

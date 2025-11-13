@@ -38,7 +38,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $statistic = StatisticEnum::from($example['statistic']);
 
         $this->givenExtraPlace($I);
-        $this->givenDaedalusIsAtDayMinusOneCycleEight($day);
+        $this->givenDaedalusIsAtDayXCycle8($day - 1);
         $this->whenNewCycle();
         $this->thenAllAlivePlayersHaveStatistic($statistic, $I);
     }
@@ -47,9 +47,39 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
     public function shouldNotGiveDayReachedStatisticIfNotNewDay(FunctionalTester $I, Example $example): void
     {
         $this->givenExtraPlace($I);
-        $this->givenDaedalusIsAtDayCycleOne($example['day']);
+        $this->givenDaedalusIsAtDayXCycle1($example['day']);
         $this->whenNewCycle();
         $this->thenAlivePlayersDoNotHaveStatistic(StatisticEnum::from($example['statistic']), $I);
+    }
+
+    public function shouldUpdateDayMaxStatisticAtDayChange(FunctionalTester $I): void
+    {
+        $this->givenExtraPlace($I);
+        $this->givenDaedalusIsAtDayXCycle8(2);
+        $this->whenNewCycle();
+        foreach ($this->players as $player) {
+            $I->assertEquals(
+                expected: 3,
+                actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                    StatisticEnum::DAY_MAX,
+                    $player->getUser()->getId()
+                )?->getCount(),
+                message: "{$player->getLogName()} should have day max statistic equal to 3"
+            );
+        }
+
+        $this->givenDaedalusIsAtDayXCycle8(3);
+        $this->whenNewCycle();
+        foreach ($this->players as $player) {
+            $I->assertEquals(
+                expected: 4,
+                actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                    StatisticEnum::DAY_MAX,
+                    $player->getUser()->getId()
+                )?->getCount(),
+                message: "{$player->getLogName()} should have day max statistic equal to 4"
+            );
+        }
     }
 
     public function dayReachedDataProvider(): array
@@ -83,12 +113,12 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $this->createExtraPlace(RoomEnum::FRONT_STORAGE, $I, $this->daedalus);
     }
 
-    private function givenDaedalusIsAtDayMinusOneCycleEight(int $day): void
+    private function givenDaedalusIsAtDayXCycle8(int $day): void
     {
-        $this->daedalus->setDay($day - 1)->setCycle(8);
+        $this->daedalus->setDay($day)->setCycle(8);
     }
 
-    private function givenDaedalusIsAtDayCycleOne(int $day): void
+    private function givenDaedalusIsAtDayXCycle1(int $day): void
     {
         $this->daedalus->setDay($day)->setCycle(1);
     }

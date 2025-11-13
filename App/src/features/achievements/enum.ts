@@ -55,6 +55,7 @@ export const enum StatisticEnum {
     MUSH_GENOME = "mush_genome",
     REBELS = "rebels",
     PILGRED_IS_BACK = "pilgred_is_back",
+    DAY_MAX = "day_max",
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -219,5 +220,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.PILGRED_IS_BACK]: {
         'icon': getImgUrl('ui_icons/action_points/pa_pilgred.png')
+    },
+    [StatisticEnum.DAY_MAX]: {
+        'icon': getImgUrl('comms/calendar.png')
     }
 };

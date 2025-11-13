@@ -175,6 +175,17 @@ enum AchievementEnum: string
     case MUSH_GENOME_1 = 'mush_genome_1';
     case REBELS_1 = 'rebels_1';
     case PILGRED_IS_BACK_1 = 'pilgred_is_back_1';
+    case DAY_MAX_3 = 'day_max_3';
+    case DAY_MAX_4 = 'day_max_4';
+    case DAY_MAX_5 = 'day_max_5';
+    case DAY_MAX_6 = 'day_max_6';
+    case DAY_MAX_7 = 'day_max_7';
+    case DAY_MAX_8 = 'day_max_8';
+    case DAY_MAX_9 = 'day_max_9';
+    case DAY_MAX_10 = 'day_max_10';
+    case DAY_MAX_11 = 'day_max_11';
+    case DAY_MAX_12 = 'day_max_12';
+    case DAY_MAX_13 = 'day_max_13';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

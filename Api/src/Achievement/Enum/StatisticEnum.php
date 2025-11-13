@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Achievement\Enum;
 
-use Mush\Daedalus\ValueObject\GameDate;
-
 enum StatisticEnum: string
 {
     case CAT_CUDDLED = 'cat_cuddled';
@@ -62,6 +60,7 @@ enum StatisticEnum: string
     case MUSH_GENOME = 'mush_genome';
     case REBELS = 'rebels';
     case PILGRED_IS_BACK = 'pilgred_is_back';
+    case DAY_MAX = 'day_max';
     case NULL = '';
 
     public static function fromOrNull(string $value): self
@@ -69,13 +68,9 @@ enum StatisticEnum: string
         return self::tryFrom($value) ?? self::NULL;
     }
 
-    public static function fromDaedalusDate(GameDate $date): self
+    public static function fromDaedalusDay(int $day): self
     {
-        if ($date->cycle() !== 1) {
-            return self::NULL;
-        }
-
-        return match ($date->day()) {
+        return match ($day) {
             5 => self::DAY_5_REACHED,
             10 => self::DAY_10_REACHED,
             15 => self::DAY_15_REACHED,

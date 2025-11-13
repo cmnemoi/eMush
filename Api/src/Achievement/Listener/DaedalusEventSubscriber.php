@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Mush\Achievement\Listener;
 
 use Mush\Achievement\Command\IncrementUserStatisticCommand;
+use Mush\Achievement\Command\UpdateUserStatisticIfSuperiorCommand;
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -28,14 +30,27 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
 
     public function onDaedalusNewCycle(DaedalusCycleEvent $event): void
     {
+        if ($event->doesNotHaveTag(EventEnum::NEW_DAY)) {
+            return;
+        }
+
         $daedalus = $event->getDaedalus();
 
         foreach ($daedalus->getAlivePlayers() as $player) {
             $this->commandBus->dispatch(
                 new IncrementUserStatisticCommand(
                     userId: $player->getUser()->getId(),
-                    statisticName: StatisticEnum::fromDaedalusDate($daedalus->getGameDate()),
+                    statisticName: StatisticEnum::fromDaedalusDay($daedalus->getDay()),
                     language: $daedalus->getLanguage(),
+                )
+            );
+
+            $this->commandBus->dispatch(
+                new UpdateUserStatisticIfSuperiorCommand(
+                    userId: $player->getUser()->getId(),
+                    statisticName: StatisticEnum::DAY_MAX,
+                    language: $daedalus->getLanguage(),
+                    newValue: $daedalus->getDay(),
                 )
             );
         }

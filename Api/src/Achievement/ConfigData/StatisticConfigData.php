@@ -68,13 +68,14 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::MUSH_GENOME),
             new StatisticConfigDto(StatisticEnum::REBELS),
             new StatisticConfigDto(StatisticEnum::PILGRED_IS_BACK, isRare: true),
+            new StatisticConfigDto(StatisticEnum::DAY_MAX),
         ];
     }
 
     public static function getByName(StatisticEnum $name): StatisticConfigDto
     {
         if ($name === StatisticEnum::NULL) {
-            return new StatisticConfigDto(StatisticEnum::NULL, false);
+            return new StatisticConfigDto(StatisticEnum::NULL);
         }
 
         $statistics = array_filter(self::getAll(), static fn (StatisticConfigDto $dto) => $dto->name === $name);

@@ -69,7 +69,13 @@ export enum EmoteHumanSkillEnum {
     WRESTLER = 'sk_wrestler',
 }
 
-export const EmoteHumanSkillAliases: { [index: string]: string } = { };
+export const EmoteHumanSkillAliases: { [index: string]: string } = {
+    ['conceptor']: EmoteHumanSkillEnum.CONCEPTOR,
+    ['technician']: EmoteHumanSkillEnum.ENGINEER,
+    ['shooter']: EmoteHumanSkillEnum.GUNNER,
+    ['pilot']: EmoteHumanSkillEnum.PILOT
+};
+
 
 export const EmoteHumanSkillIcons: {[index: string]: {img: string; max_height: string;}}= {
     [EmoteHumanSkillEnum.ABNEGATION]: { img: getImgUrl('skills/human/abnegation.png'), max_height: "1.2em" },

@@ -17,8 +17,8 @@ export enum EmoteEternalTwinEnum {
 }
 
 export const EmoteEternalTwinAliases: { [index: string]: string } = {
-    ['ready']: EmoteEternalTwinEnum.READY,
-    ['ingame']: EmoteEternalTwinEnum.INGAME
+    ['ingame']: EmoteEternalTwinEnum.INGAME,
+    ['ready']: EmoteEternalTwinEnum.READY
 };
 
 export const EmoteEternalTwinIcons: {[index: string]: {img: string; max_height: string;}}= {

@@ -14,7 +14,7 @@ export enum EmoteCharacterEnum {
     JANICE = 'janice',
     JIN_SU = 'jin_su',
     KUAN_TI = 'kuan_ti',
-    MUSH = 'mush',
+    MUSH = 'berserk',
     PAOLA = 'paola',
     RALUCA = 'raluca',
     ROLAND = 'roland',
@@ -26,11 +26,11 @@ export enum EmoteCharacterEnum {
 }
 
 export const EmoteCharacterAliases: { [index: string]: string } = {
-    ['kuanti']: EmoteCharacterEnum.KUAN_TI,
-    ['kuan']: EmoteCharacterEnum.KUAN_TI,
-    ['jinsu']: EmoteCharacterEnum.JIN_SU,
-    ['jin']: EmoteCharacterEnum.JIN_SU,
     ['female']: EmoteCharacterEnum.FEMALE_ADMIN,
+    ['jin']: EmoteCharacterEnum.JIN_SU,
+    ['jinsu']: EmoteCharacterEnum.JIN_SU,
+    ['kuan']: EmoteCharacterEnum.KUAN_TI,
+    ['kuanti']: EmoteCharacterEnum.KUAN_TI,
     ['male']: EmoteCharacterEnum.MALE_ADMIN
 };
 

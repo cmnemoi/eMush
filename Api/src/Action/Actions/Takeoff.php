@@ -12,6 +12,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\PatrolShipManoeuvreServiceInterface;
+use Mush\Action\Validator\HasBrokenPatrolShip;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NeronCrewLock;
 use Mush\Action\Validator\PlaceType;
@@ -79,6 +80,10 @@ final class Takeoff extends AbstractAction
         $metadata->addConstraint(new NeronCrewLock([
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::TERMINAL_NERON_LOCK,
+        ]));
+        $metadata->addConstraint(new HasBrokenPatrolShip([
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::BROKEN_EQUIPMENT,
         ]));
     }
 

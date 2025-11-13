@@ -239,6 +239,28 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $I->assertEquals(ActionImpossibleCauseEnum::DAEDALUS_TRAVELING, $this->takeoffAction->cannotExecuteReason());
     }
 
+    public function playerShouldNotBeAbleToTakeOffIfPatrolShipIsBroken(FunctionalTester $I): void
+    {
+        // given the patrol ship (Pasiphae) is broken
+        $this->statusService->createStatusFromName(
+            EquipmentStatusEnum::BROKEN,
+            $this->pasiphae,
+            [],
+            new \DateTime()
+        );
+
+        // when a pilot (Terrence) tries to take off with the broken ship
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $this->pasiphae,
+            player: $this->terrence,
+            target: $this->pasiphae
+        );
+
+        // then the action cannot be executed
+        $I->assertEquals(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $this->takeoffAction->cannotExecuteReason());
+    }
+
     public function testTakeOffActionDropCriticalItems(FunctionalTester $I): void
     {
         // given player has the extinguisher in their inventory

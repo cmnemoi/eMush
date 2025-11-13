@@ -56,6 +56,7 @@ export const enum StatisticEnum {
     REBELS = "rebels",
     PILGRED_IS_BACK = "pilgred_is_back",
     DAY_MAX = "day_max",
+    DRUGS_TAKEN = "drugs_taken",
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -223,5 +224,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.DAY_MAX]: {
         'icon': getImgUrl('comms/calendar.png')
+    },
+    [StatisticEnum.DRUGS_TAKEN]: {
+        'icon': getImgUrl('ui_icons/pill.png')
     }
 };

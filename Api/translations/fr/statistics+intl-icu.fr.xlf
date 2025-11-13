@@ -1271,5 +1271,19 @@
         <target>Oh Happy Days</target>
       </segment>
     </unit>
+    <unit id="drugs_taken">
+      <segment id="name" state="translated">
+        <source>drugs_taken.name</source>
+        <target>Laissez manger les petits cachets !</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>drugs_taken.description</source>
+        <target>Nombre de gourmandises que vous avez avalées.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>drugs_taken_1.name</source>
+        <target>Cacheton</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

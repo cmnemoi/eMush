@@ -814,6 +814,7 @@ abstract class AchievementConfigData
             new AchievementConfigDto(name: AchievementEnum::DAY_MAX_11, points: 4, threshold: 11),
             new AchievementConfigDto(name: AchievementEnum::DAY_MAX_12, points: 0, threshold: 12),
             new AchievementConfigDto(name: AchievementEnum::DAY_MAX_13, points: 0, threshold: 13),
+            new AchievementConfigDto(name: AchievementEnum::DRUGS_TAKEN_1, points: 1, threshold: 1),
         ];
     }
 

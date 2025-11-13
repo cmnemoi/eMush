@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\ConsumeDrug;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -10,14 +13,9 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\GameDrugEnum;
-use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
@@ -35,6 +33,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
+    private StatisticRepositoryInterface $statisticRepository;
 
     public function _before(FunctionalTester $I)
     {
@@ -44,6 +43,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
     }
 
     public function shouldPreventTakingAnotherDrugForCurrentCycle(FunctionalTester $I): void
@@ -176,40 +176,36 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         $I->assertEquals(0, $this->chun->getPlayerInfo()->getStatistics()->getTimesEaten());
     }
 
-    private function getDrugItem(): GameItem
+    public function shouldIncrementDrugsTakenStatisticWhenPlayerConsumePill(FunctionalTester $I): void
     {
-        $ration = new Drug();
-        $ration
-            ->setActions(new ArrayCollection([$this->consumeConfig]))
-            ->setName(GameRationEnum::STANDARD_RATION . '_' . GameConfigEnum::TEST);
-        $I->haveInRepository($ration);
+        $this->givenPlayerHasFood(GameDrugEnum::BACTA);
 
-        $effect = new ConsumableEffect();
-        $effect
-            ->setSatiety(0)
-            ->setActionPoint(2)
-            ->setMovementPoint(3)
-            ->setMoralPoint(4)
-            ->setHealthPoint(5)
-            ->setDaedalus($this->daedalus)
-            ->setRation($ration);
-        $I->haveInRepository($effect);
+        $this->whenPlayerConsumesFood(GameDrugEnum::BACTA);
 
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, [
-            'mechanics' => new ArrayCollection([$ration]),
-            'name' => GameRationEnum::STANDARD_RATION,
-        ]);
+        $I->assertEquals(1, $this->statisticRepository->findByNameAndUserIdOrNull(
+            name: StatisticEnum::DRUGS_TAKEN,
+            userId: $this->player->getUser()->getId(),
+        )?->getCount());
+    }
 
-        $I->haveInRepository($equipmentConfig);
+    private function givenPlayerHasFood(string $food): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: $food,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
 
-        $this->daedalus->getGameConfig()->addEquipmentConfig($equipmentConfig);
-
-        $room = $this->chun->getPlace();
-        $gameItem = new GameItem($room);
-        $gameItem
-            ->setEquipment($equipmentConfig)
-            ->setName('ration');
-        $I->haveInRepository($gameItem);
+    private function whenPlayerConsumesFood(string $food): void
+    {
+        $this->consumeAction->loadParameters(
+            actionConfig: $this->consumeConfig,
+            actionProvider: $this->player->getEquipmentByName($food),
+            player: $this->player,
+            target: $this->player->getEquipmentByName($food),
+        );
+        $this->consumeAction->execute();
     }
 }

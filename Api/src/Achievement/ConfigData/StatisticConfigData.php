@@ -69,6 +69,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::REBELS),
             new StatisticConfigDto(StatisticEnum::PILGRED_IS_BACK, isRare: true),
             new StatisticConfigDto(StatisticEnum::DAY_MAX),
+            new StatisticConfigDto(StatisticEnum::DRUGS_TAKEN),
         ];
     }
 

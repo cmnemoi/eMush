@@ -94,20 +94,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import urlJoin from "url-join";
-import Datatable from "@/components/Utils/Datatable/Datatable.vue";
-import qs from "qs";
-import ApiService from "@/services/api.service";
-import { mapGetters } from "vuex";
-import ModerationService from "@/services/moderation.service";
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
-import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
-import { ModerationSanction } from "@/entities/ModerationSanction";
+import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
-import router from "@/router";
-import { characterEnum } from "@/enums/character";
+import { ModerationSanction } from "@/entities/ModerationSanction";
 import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
+import { characterEnum } from "@/enums/character";
+import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
+import router from "@/router";
+import ApiService from "@/services/api.service";
+import ModerationService from "@/services/moderation.service";
+import qs from "qs";
+import urlJoin from "url-join";
+import { defineComponent } from "vue";
+import { mapGetters } from "vuex";
 
 interface SanctionListData {
     userId: string,

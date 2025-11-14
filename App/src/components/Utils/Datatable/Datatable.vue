@@ -42,10 +42,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
 import Pagination from "@/components/Utils/Datatable/Pagination.vue";
 import Spinner from "@/components/Utils/Spinner.vue";
 import { formatText } from "@/utils/formatText";
+import { defineComponent } from "vue";
 
 export interface Header {
     key: string,
@@ -142,7 +142,6 @@ export default defineComponent ({
 
 .datatable-container {
     position: relative;
-    overflow-x: auto;
     max-width: 100%;
 }
 
@@ -150,8 +149,8 @@ table {
     background: #222b6b;
     border-radius: 5px;
     border-collapse: collapse;
-    min-width: 100%;
-    width: max-content;
+    width: 100%;
+    table-layout: auto;
 
     tbody tr {
         border-top: 1px solid rgba(0,0,0,0.2);

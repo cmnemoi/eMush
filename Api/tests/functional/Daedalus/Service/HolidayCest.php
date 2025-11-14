@@ -59,13 +59,6 @@ final class HolidayCest extends AbstractFunctionalTest
         $this->thenNeronAnnouncesAnniversary($I);
     }
 
-    public function halloweenCreatesJumpkinInGardenWhenShipStarts(FunctionalTester $I): void
-    {
-        $this->givenHolidayIs(HolidayEnum::HALLOWEEN);
-        $this->whenGardenIsCreated($I);
-        $this->thenJumpkinIsInGarden($I);
-    }
-
     public function halloweenCreatesNeronAnnouncementWhenShipIsFull(FunctionalTester $I): void
     {
         $this->givenHolidayIs(HolidayEnum::HALLOWEEN);

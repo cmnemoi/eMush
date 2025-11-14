@@ -6,7 +6,6 @@ use Mush\Equipment\Entity\Config\SpaceShipConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentEventReason;
-use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -102,31 +101,9 @@ class PlaceInitSubscriber implements EventSubscriberInterface
             $this->gameEquipmentService->persist($door);
         }
 
-        if ($this->shouldCreateHalloweenJumpkin($event)) {
-            $this->createHalloweenJumpkin($event);
-        }
         if ($this->shouldCreateAprilFoolsPavlov($event)) {
             $this->createAprilFoolsPavlov($event);
         }
-    }
-
-    private function shouldCreateHalloweenJumpkin(PlaceInitEvent $event): bool
-    {
-        $place = $event->getPlace();
-        $daedalus = $place->getDaedalus();
-
-        return $daedalus->getDaedalusConfig()->getHoliday() === HolidayEnum::HALLOWEEN && $place->getName() === RoomEnum::HYDROPONIC_GARDEN;
-    }
-
-    private function createHalloweenJumpkin(PlaceInitEvent $event): void
-    {
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GameFruitEnum::JUMPKIN,
-            equipmentHolder: $event->getPlace(),
-            reasons: $event->getTags(),
-            time: $event->getTime(),
-            visibility: VisibilityEnum::HIDDEN,
-        );
     }
 
     private function shouldCreateAprilFoolsPavlov(PlaceInitEvent $event): bool

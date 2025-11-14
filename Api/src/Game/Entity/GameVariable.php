@@ -22,6 +22,9 @@ class GameVariable
 
     #[ORM\Column(type: 'integer', length: 255, nullable: true)]
     protected ?int $minValue;
+    #[ORM\Version]
+    #[ORM\Column(type: 'integer')]
+    private int $version = 1;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]

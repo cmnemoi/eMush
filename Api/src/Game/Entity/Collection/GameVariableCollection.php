@@ -26,6 +26,10 @@ abstract class GameVariableCollection
 {
     #[ORM\OneToMany(mappedBy: 'gameVariableCollection', targetEntity: GameVariable::class, cascade: ['ALL'])]
     protected Collection $gameVariables;
+    #[ORM\Version]
+    #[ORM\Column(type: 'integer')]
+    private int $version = 1;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]

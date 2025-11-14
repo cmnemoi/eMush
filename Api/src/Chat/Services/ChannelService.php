@@ -276,6 +276,17 @@ final class ChannelService implements ChannelServiceInterface
                     return;
                 }
 
+                $player = $playerInfo->getPlayer();
+                if (!$player) {
+                    throw new \Exception('Player is not defined');
+                }
+
+                // check player has enough private channels
+                $currentChannelCount = $this->getPlayerChannels($player, true)->count();
+                if ($currentChannelCount >= $player->getMaxPrivateChannels()) {
+                    throw new \Exception('Player has too many private channels');
+                }
+
                 $channelPlayer = new ChannelPlayer();
                 $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
                 $channel->addParticipant($channelPlayer);

@@ -141,6 +141,11 @@ class AbstractGameEvent extends Event
         return $this->hasTag($tag) === false;
     }
 
+    public function doesNotHaveAnyTag(array $tags): bool
+    {
+        return $this->hasAnyTag($tags) === false;
+    }
+
     public function mapLog(array $map): ?string
     {
         $logs = array_intersect_key($map, array_flip($this->tags));

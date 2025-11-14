@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Daedalus\Service;
 
+use Codeception\Attribute\DataProvider;
+use Codeception\Example;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Enum\CharacterSetEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
@@ -28,6 +32,7 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerNotification;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -201,6 +206,41 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         );
     }
 
+    #[DataProvider('happyEndsDataProvider')]
+    public function shouldNotifyExplorationEndNormallyOnHappyEnds(FunctionalTester $I, Example $example): void
+    {
+        // given there is an exploration ongoing
+        $exploration = $this->createExploration($I);
+
+        // when daedalus is ended
+        $endDaedalusEvent = new DaedalusEvent(
+            $this->daedalus,
+            [$example['end_cause']],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($endDaedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
+
+        // then I should see a log explaining that exploration has been finished
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getLogName(),
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => LogEnum::EXPLORATION_FINISHED,
+            ]
+        );
+
+        // then I should see a notification explaining that exploration has been finished
+        $I->seeInRepository(
+            entity: PlayerNotification::class,
+            params: [
+                'player' => $this->player,
+                'message' => PlayerNotificationEnum::EXPLORATION_CLOSED->toString(),
+            ]
+        );
+    }
+
     public function testSetAvailableCharactersAprilFools(FunctionalTester $I): void
     {
         $this->givenHolidayIsAprilFools();
@@ -330,10 +370,6 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         $desertSector = new PlanetSector($desertSectorConfig, $planet);
         $I->haveInRepository($desertSector);
 
-        $seismicSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::SEISMIC_ACTIVITY . '_default']);
-        $seismicSector = new PlanetSector($seismicSectorConfig, $planet);
-        $I->haveInRepository($seismicSector);
-
         $oxygenSectorConfig = $I->grabEntityFromRepository(PlanetSectorConfig::class, ['name' => PlanetSectorEnum::OXYGEN . '_default']);
         $oxygenSector = new PlanetSector($oxygenSectorConfig, $planet);
         $I->haveInRepository($oxygenSector);
@@ -342,7 +378,7 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         $hydroCarbonSector = new PlanetSector($hydroCarbonSectorConfig, $planet);
         $I->haveInRepository($hydroCarbonSector);
 
-        $planet->setSectors(new ArrayCollection([$desertSector, $seismicSector, $oxygenSector, $hydroCarbonSector]));
+        $planet->setSectors(new ArrayCollection([$desertSector, $oxygenSector, $hydroCarbonSector]));
 
         // given the Daedalus is in orbit around the planet
         $this->statusService->createStatusFromName(
@@ -423,5 +459,13 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
         $I->assertCount(16, $this->daedalus->getAvailableCharacters());
         $I->assertCount(2, $absentCharacters);
+    }
+
+    private function happyEndsDataProvider(): array
+    {
+        return [
+            ['end_cause' => EndCauseEnum::SOL_RETURN],
+            ['end_cause' => EndCauseEnum::EDEN],
+        ];
     }
 }

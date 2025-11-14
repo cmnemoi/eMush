@@ -12,6 +12,7 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\UpdatePlayerNotificationService;
@@ -76,7 +77,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             $event->hasAllTags([PlanetSectorEvent::BACK, PlanetSectorEnum::MANKAROG]) => PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_MANKAROG,
             $event->hasAllTags([PlanetSectorEvent::BACK, PlanetSectorEnum::SEISMIC_ACTIVITY]) => PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_SEISMIC_ACTIVITY,
             $event->hasAllTags([PlanetSectorEvent::BACK, PlanetSectorEnum::VOLCANIC_ACTIVITY]) => PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY,
-            $event->hasAnyTag([DaedalusEvent::FINISH_DAEDALUS, ExplorationEvent::ALL_EXPLORATORS_ARE_DEAD]) => PlayerNotificationEnum::EXPLORATION_CLOSED_EVERYONE_DEAD,
+            $event->hasAnyTag([DaedalusEvent::FINISH_DAEDALUS, ExplorationEvent::ALL_EXPLORATORS_ARE_DEAD]) && $event->doesNotHaveAnyTag([EndCauseEnum::EDEN, EndCauseEnum::SOL_RETURN]) => PlayerNotificationEnum::EXPLORATION_CLOSED_EVERYONE_DEAD,
             $event->hasTag(ExplorationEvent::ALL_EXPLORATORS_STUCKED) => PlayerNotificationEnum::EXPLORATION_CLOSED_NO_SPACESUIT,
             default => PlayerNotificationEnum::EXPLORATION_CLOSED,
         };

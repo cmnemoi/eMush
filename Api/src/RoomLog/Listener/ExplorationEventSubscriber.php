@@ -9,6 +9,7 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -58,7 +59,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             $event->hasAnyTag([
                 ExplorationEvent::ALL_EXPLORATORS_ARE_DEAD,
                 DaedalusEvent::FINISH_DAEDALUS,
-            ])
+            ]) && $event->doesNotHaveAnyTag([EndCauseEnum::EDEN, EndCauseEnum::SOL_RETURN])
         ) {
             foreach ($explorators as $explorator) {
                 $this->roomLogService->createLog(

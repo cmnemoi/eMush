@@ -44,14 +44,14 @@
 </template>
 
 <script lang="ts">
-import { Player } from "@/entities/Player";
-import { defineComponent } from "vue";
-import { ActionEnum } from "@/enums/action.enum";
-import { Action } from "@/entities/Action";
-import { mapActions, mapGetters } from "vuex";
-import ActionButton from "@/components/Utils/ActionButton.vue";
-import { getImgUrl } from "@/utils/getImgUrl";
 import TerminalTips from "@/components/Game/Terminals/TerminalTips.vue";
+import ActionButton from "@/components/Utils/ActionButton.vue";
+import { Action } from "@/entities/Action";
+import { Player } from "@/entities/Player";
+import { ActionEnum } from "@/enums/action.enum";
+import { getImgUrl } from "@/utils/getImgUrl";
+import { defineComponent } from "vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default defineComponent ({
     name: "CommanderOrderPanel",
@@ -78,7 +78,7 @@ export default defineComponent ({
         ...mapActions({
             'executeAction': 'action/executeAction',
             'closeCommanderOrderPanel': 'player/closeCommanderOrderPanel',
-            'getContactablePlayers': 'communication/getContactablePlayers'
+            'getAvailaibleSubordinatesForMission': 'communication/getAvailaibleSubordinatesForMission'
         }),
         breakLine(): void {
             // find current caret position
@@ -111,7 +111,7 @@ export default defineComponent ({
         };
     },
     beforeMount() {
-        this.getContactablePlayers(this.player);
+        this.getAvailaibleSubordinatesForMission(this.player);
     }
 });
 </script>

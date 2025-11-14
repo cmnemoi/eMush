@@ -1,13 +1,12 @@
-import ApiService from "@/services/api.service";
 import { Channel } from "@/entities/Channel";
+import { ContactablePlayer } from "@/entities/ContactablePlayer";
 import { Message } from "@/entities/Message";
-import { RoomLog } from "@/entities/RoomLog";
 import { Player } from "@/entities/Player";
+import { RoomLog } from "@/entities/RoomLog";
 import { ChannelType } from "@/enums/communication.enum";
+import ApiService from "@/services/api.service";
 import { AxiosResponse } from "axios";
 import urlJoin from "url-join";
-import { ContactablePlayer } from "@/entities/ContactablePlayer";
-import { fileURLToPath } from "node:url";
 
 const API_URL = import.meta.env.VITE_APP_API_URL as string;
 
@@ -118,8 +117,8 @@ const CommunicationService = {
         return (new Channel()).load(response.data);
     },
 
-    getContactablePlayers: async(player: Player): Promise<ContactablePlayer[]> => {
-        const playersData = await ApiService.get(urlJoin(PLAYER_ENDPOINT, String(player.id), 'contactable-players'));
+    getAvailaibleSubordinatesForMission: async(player: Player): Promise<ContactablePlayer[]> => {
+        const playersData = await ApiService.get(urlJoin(PLAYER_ENDPOINT, String(player.id), 'availaible-subordinates'));
 
         const players: ContactablePlayer[] = [];
         if (playersData.data) {

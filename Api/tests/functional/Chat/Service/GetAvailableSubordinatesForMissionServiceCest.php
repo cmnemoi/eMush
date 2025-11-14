@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Chat\Service;
 
 use Mush\Chat\Services\ChannelServiceInterface;
-use Mush\Chat\UseCase\GetContactablePlayersUseCase;
+use Mush\Chat\Services\GetAvailableSubordinatesForMissionService;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -14,11 +14,11 @@ use Mush\Tests\FunctionalTester;
 /**
  * @internal
  */
-final class GetContactablePlayersCest extends AbstractFunctionalTest
+final class GetAvailableSubordinatesForMissionServiceCest extends AbstractFunctionalTest
 {
     private ChannelServiceInterface $channelService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private GetContactablePlayersUseCase $getContactablePlayers;
+    private GetAvailableSubordinatesForMissionService $getContactablePlayers;
 
     public function _before(FunctionalTester $I): void
     {
@@ -26,7 +26,7 @@ final class GetContactablePlayersCest extends AbstractFunctionalTest
 
         $this->channelService = $I->grabService(ChannelServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->getContactablePlayers = $I->grabService(GetContactablePlayersUseCase::class);
+        $this->getContactablePlayers = $I->grabService(GetAvailableSubordinatesForMissionService::class);
     }
 
     public function shouldReturnPlayersWithFullPrivateChannels(FunctionalTester $I): void

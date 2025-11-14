@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\Chat\UseCase;
 
-use Mush\Chat\UseCase\GetContactablePlayersUseCase;
+use Mush\Chat\Services\GetAvailableSubordinatesForMissionService;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\Enum\ItemEnum;
@@ -22,9 +22,9 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  */
-final class GetContactablePlayersUseCaseTest extends TestCase
+final class GetAvailableSubordinatesForMissionServiceTest extends TestCase
 {
-    private GetContactablePlayersUseCase $useCase;
+    private GetAvailableSubordinatesForMissionService $service;
 
     private Daedalus $daedalus;
     private Player $jinSu;
@@ -32,7 +32,7 @@ final class GetContactablePlayersUseCaseTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->useCase = new GetContactablePlayersUseCase();
+        $this->service = new GetAvailableSubordinatesForMissionService();
         $this->daedalus = DaedalusFactory::createDaedalus();
         $this->jinSu = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::JIN_SU, $this->daedalus);
         $this->chun = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $this->daedalus);
@@ -41,7 +41,7 @@ final class GetContactablePlayersUseCaseTest extends TestCase
     public function testShouldReturnPlayersInTheRoom(): void
     {
         // when I call use case on Jin Su
-        $contactablePlayers = $this->useCase->execute($this->jinSu);
+        $contactablePlayers = $this->service->execute($this->jinSu);
 
         // then I should see Chun in contactable players
         self::assertContains($this->chun, $contactablePlayers->toArray());
@@ -63,7 +63,7 @@ final class GetContactablePlayersUseCaseTest extends TestCase
         $paola->changePlace($frontCorridor);
 
         // when I call use case on Jin Su
-        $contactablePlayers = $this->useCase->execute($this->jinSu);
+        $contactablePlayers = $this->service->execute($this->jinSu);
 
         // then I should see Paola in contactable players
         self::assertContains($paola, $contactablePlayers->toArray());
@@ -85,7 +85,7 @@ final class GetContactablePlayersUseCaseTest extends TestCase
         $paola->changePlace($frontCorridor);
 
         // when I call use case on Jin Su
-        $contactablePlayers = $this->useCase->execute($this->jinSu);
+        $contactablePlayers = $this->service->execute($this->jinSu);
 
         // then I should see Paola in contactable players
         self::assertContains($paola, $contactablePlayers->toArray());
@@ -107,7 +107,7 @@ final class GetContactablePlayersUseCaseTest extends TestCase
         $paola->changePlace($frontCorridor);
 
         // when I call use case on Jin Su
-        $contactablePlayers = $this->useCase->execute($this->jinSu);
+        $contactablePlayers = $this->service->execute($this->jinSu);
 
         // then I should see Paola in contactable players
         self::assertContains($paola, $contactablePlayers->toArray());
@@ -126,7 +126,7 @@ final class GetContactablePlayersUseCaseTest extends TestCase
         $paola->changePlace($frontCorridor);
 
         // when I call use case on Jin Su
-        $contactablePlayers = $this->useCase->execute($this->jinSu);
+        $contactablePlayers = $this->service->execute($this->jinSu);
 
         // then I should see Paola in contactable players
         self::assertContains($paola, $contactablePlayers->toArray());
@@ -148,7 +148,7 @@ final class GetContactablePlayersUseCaseTest extends TestCase
         $paola->changePlace($frontCorridor);
 
         // when I call use case on Jin Su
-        $contactablePlayers = $this->useCase->execute($this->jinSu);
+        $contactablePlayers = $this->service->execute($this->jinSu);
 
         // then I should see Paola in contactable players
         self::assertContains($paola, $contactablePlayers->toArray());
@@ -167,7 +167,7 @@ final class GetContactablePlayersUseCaseTest extends TestCase
         $paola->changePlace($frontCorridor);
 
         // when I call use case on Jin Su
-        $contactablePlayers = $this->useCase->execute($this->jinSu);
+        $contactablePlayers = $this->service->execute($this->jinSu);
 
         // then I should not see Paola in contactable players
         self::assertNotContains($paola, $contactablePlayers->toArray());

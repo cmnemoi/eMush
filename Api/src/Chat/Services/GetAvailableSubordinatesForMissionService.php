@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mush\Chat\UseCase;
+namespace Mush\Chat\Services;
 
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 
-final class GetContactablePlayersUseCase
+final readonly class GetAvailableSubordinatesForMissionService
 {
     public function execute(Player $player): PlayerCollection
     {

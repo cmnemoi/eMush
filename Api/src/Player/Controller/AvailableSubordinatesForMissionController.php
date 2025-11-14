@@ -6,7 +6,7 @@ namespace Mush\Player\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
-use Mush\Chat\UseCase\GetContactablePlayersUseCase;
+use Mush\Chat\Services\GetAvailableSubordinatesForMissionService;
 use Mush\Game\Controller\AbstractGameController;
 use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Entity\Player;
@@ -18,17 +18,17 @@ use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-final class ContactablePlayersController extends AbstractGameController
+final class AvailableSubordinatesForMissionController extends AbstractGameController
 {
     public function __construct(
         AdminServiceInterface $adminService,
-        private readonly GetContactablePlayersUseCase $getContactablePlayers,
+        private readonly GetAvailableSubordinatesForMissionService $getAvailaibleSubordinatesForMission,
     ) {
         parent::__construct($adminService);
     }
 
     /**
-     * Get contactable players.
+     * Get availaible subordinates for mission.
      *
      * @OA\Tag(name="Player")
      *
@@ -42,9 +42,9 @@ final class ContactablePlayersController extends AbstractGameController
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Get(path="/player/{id}/contactable-players")
+     * @Rest\Get(path="/player/{id}/availaible-subordinates")
      */
-    public function contactablePlayersEndpoint(Player $player): View
+    public function availaibleSubordinatesEndpoint(Player $player): View
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -52,7 +52,7 @@ final class ContactablePlayersController extends AbstractGameController
         $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $this->getUserOrThrow());
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
 
-        return $this->view($this->getContactablePlayers->execute($player), Response::HTTP_OK);
+        return $this->view($this->getAvailaibleSubordinatesForMission->execute($player), Response::HTTP_OK);
     }
 
     private function getUserOrThrow(): User

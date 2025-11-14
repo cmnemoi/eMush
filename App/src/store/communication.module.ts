@@ -1,9 +1,9 @@
-import CommunicationService from "@/services/communication.service";
 import { Channel } from "@/entities/Channel";
-import { ActionTree, GetterTree, MutationTree } from "vuex";
-import { ChannelType } from "@/enums/communication.enum";
-import { Message } from "@/entities/Message";
 import { ContactablePlayer } from "@/entities/ContactablePlayer";
+import { Message } from "@/entities/Message";
+import { ChannelType } from "@/enums/communication.enum";
+import CommunicationService from "@/services/communication.service";
+import { ActionTree, GetterTree, MutationTree } from "vuex";
 
 const state =  {
     currentChannel: new Channel(),
@@ -210,9 +210,9 @@ const actions: ActionTree<any, any> = {
         commit('setInvitablePlayers', { invitablePlayers: invitablePlayers });
     },
 
-    async getContactablePlayers({ commit }, player) {
+    async getAvailaibleSubordinatesForMission({ commit }, player) {
         commit("player/setLoading", true, { root: true });
-        const contactablePlayers = await CommunicationService.getContactablePlayers(player);
+        const contactablePlayers = await CommunicationService.getAvailaibleSubordinatesForMission(player);
         commit("player/setLoading", false, { root: true });
         commit('setContactablePlayers', contactablePlayers);
     },

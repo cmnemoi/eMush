@@ -9,11 +9,11 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\CanContactACrewmate;
+use Mush\Action\Validator\CanOrderACrewmate;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NeedTitle;
-use Mush\Chat\UseCase\GetContactablePlayersUseCase;
+use Mush\Chat\Services\GetAvailableSubordinatesForMissionService;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Exception\GameException;
 use Mush\Game\Service\EventServiceInterface;
@@ -36,7 +36,7 @@ final class CommanderOrder extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         private readonly AddCommanderMissionToPlayerService $addCommanderMissionToPlayer,
-        private readonly GetContactablePlayersUseCase $getContactablePlayers,
+        private readonly GetAvailableSubordinatesForMissionService $getAvailaibleSubordinatesForMission,
         private readonly UpdatePlayerNotificationService $updatePlayerNotification,
         private readonly StatusServiceInterface $statusService
     ) {
@@ -57,7 +57,7 @@ final class CommanderOrder extends AbstractAction
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::ISSUE_MISSION_ALREADY_ISSUED,
             ]),
-            new CanContactACrewmate([
+            new CanOrderACrewmate([
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::ISSUE_MISSION_NO_TARGET,
             ]),
@@ -86,7 +86,7 @@ final class CommanderOrder extends AbstractAction
 
     private function checkSubordinateIsContactable(): void
     {
-        if ($this->getContactablePlayers->execute($this->player)->contains($this->subordinate())) {
+        if ($this->getAvailaibleSubordinatesForMission->execute($this->player)->contains($this->subordinate())) {
             return;
         }
 

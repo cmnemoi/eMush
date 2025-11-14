@@ -389,6 +389,11 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty() === false;
     }
 
+    public function hasItem(GameItem $item): bool
+    {
+        return $this->getEquipments()->contains($item);
+    }
+
     public function hasOperationalEquipmentByName(string $name): bool
     {
         return $this->getEquipments()->filter(

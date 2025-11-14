@@ -29,7 +29,7 @@ final class ActionProviderIsInPlayerInventoryValidator extends ConstraintValidat
 
         $player = $value->getPlayer();
 
-        if ($player->hasEquipmentByName($actionProvider->getName()) === false) {
+        if (!$player->hasItem($actionProvider)) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }

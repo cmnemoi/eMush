@@ -9,6 +9,7 @@ use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\Graft;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\Error;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameFruitEnum;
@@ -197,6 +198,22 @@ final class GraftCest extends AbstractFunctionalTest
         $this->thenNewPlantsStatisticShouldBeIncrementedForPlayer($this->chun, $I);
     }
 
+    public function shouldTakeFruitFromPlayerInventory(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasABananaTree();
+        $this->givenAnAnemoleInKuanTiRoom();
+        $this->givenKuanTiHasAnAnemole();
+        $this->givenKuanTiIsABotanist($I);
+
+        $result = $this->whenKuanTiGraftsOnBananaTree(
+            $this->kuanTi->getPlace()->getEquipmentByName(GameFruitEnum::ANEMOLE),
+            $this->bananaTree
+        );
+
+        $I->assertInstanceOf(Error::class, $result);
+        $I->assertEquals('The action provider must be in the player inventory.', $result->getMessage());
+    }
+
     private function givenKuanTiHasABananaTree(): void
     {
         $this->bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -324,6 +341,18 @@ final class GraftCest extends AbstractFunctionalTest
             actionProvider: $this->anemole,
             player: $this->chun,
             target: $this->bananaTree,
+        );
+
+        return $this->graft->execute();
+    }
+
+    private function whenKuanTiGraftsOnBananaTree(GameItem $fruit, GameItem $tree): ActionResult
+    {
+        $this->graft->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $fruit,
+            player: $this->kuanTi,
+            target: $tree,
         );
 
         return $this->graft->execute();

@@ -2,6 +2,7 @@
 
 namespace Mush\Status\Listener;
 
+use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GearItemEnum;
@@ -81,11 +82,17 @@ final class EquipmentSubscriber implements EventSubscriberInterface
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
         $equipment = $event->getGameEquipment();
-        $this->makeLaidDownPlayersGetUp($equipment, $event->getTags(), $event->getTime());
+        $holder = $equipment->getHolder();
+
+        $this->makeLaidDownPlayerGetUp($equipment, $event->getTags(), $event->getTime());
+
+        if ($this->shouldRemoveBurdenedStatus($equipment, $holder)) {
+            $this->statusService->removeStatus(PlayerStatusEnum::BURDENED, $event->getPlayerHolderOrThrow(), $event->getTags(), $event->getTime());
+        }
+
         $this->statusService->removeAllStatuses($equipment, $event->getTags(), $event->getTime());
 
-        if ($event->hasAllTags([GearItemEnum::INVERTEBRATE_SHELL, EventEnum::FIRE])
-        && $event->doesNotHaveTag('shell_explosion')) {
+        if ($event->hasAllTags([GearItemEnum::INVERTEBRATE_SHELL, EventEnum::FIRE]) && $event->doesNotHaveTag('shell_explosion')) {
             $event->addTag('shell_explosion');
             $this->breakPlaceEquipment($event);
         }
@@ -129,15 +136,9 @@ final class EquipmentSubscriber implements EventSubscriberInterface
         $reasons = $event->getTags();
         $time = $event->getTime();
 
-        $player = $equipment->getHolder();
-        if ($player instanceof Player
-            && $player->hasStatus(PlayerStatusEnum::BURDENED)
-            && $equipment->hasStatus(EquipmentStatusEnum::HEAVY)
-            && $player->getEquipments()->filter(static function (GameItem $item) {
-                return $item->hasStatus(EquipmentStatusEnum::HEAVY);
-            })->count() <= 1
-        ) {
-            $this->statusService->removeStatus(PlayerStatusEnum::BURDENED, $player, $reasons, $time);
+        $holder = $equipment->getHolder();
+        if ($this->shouldRemoveBurdenedStatus($equipment, $holder)) {
+            $this->statusService->removeStatus(PlayerStatusEnum::BURDENED, $event->getPlayerHolderOrThrow(), $reasons, $time);
         }
     }
 
@@ -160,7 +161,7 @@ final class EquipmentSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function makeLaidDownPlayersGetUp(
+    private function makeLaidDownPlayerGetUp(
         GameEquipment $equipment,
         array $tags,
         \DateTime $time
@@ -169,7 +170,7 @@ final class EquipmentSubscriber implements EventSubscriberInterface
             return;
         }
 
-        foreach ($equipment->getPlace()->getPlayers()->getPlayerAlive() as $player) {
+        foreach ($equipment->getPlace()->getAlivePlayers() as $player) {
             if ($player->getStatusByName(PlayerStatusEnum::LYING_DOWN)?->getTarget()?->getName() === $equipment->getName()) {
                 $this->statusService->removeStatus(
                     PlayerStatusEnum::LYING_DOWN,
@@ -185,5 +186,16 @@ final class EquipmentSubscriber implements EventSubscriberInterface
     private function removeStatusIfExists(object $statuses, string $statusToRemove): object
     {
         return $statuses->filter(static fn (Status $status) => $status->getName() !== $statusToRemove);
+    }
+
+    private function shouldRemoveBurdenedStatus(GameEquipment $equipment, EquipmentHolderInterface $holder): bool
+    {
+        if (!$holder instanceof Player) {
+            return false;
+        }
+
+        return $holder->hasStatus(PlayerStatusEnum::BURDENED)
+            && $equipment->hasStatus(EquipmentStatusEnum::HEAVY)
+            && $holder->getEquipments()->filter(static fn (GameItem $item) => $item->hasStatus(EquipmentStatusEnum::HEAVY))->count() <= 1;
     }
 }

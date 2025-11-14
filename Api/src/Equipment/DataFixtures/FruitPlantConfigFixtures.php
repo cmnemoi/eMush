@@ -9,7 +9,6 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ExtraEffectEnum;
 use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Fruit;
@@ -128,7 +127,6 @@ class FruitPlantConfigFixtures extends Fixture implements DependentFixtureInterf
                 ->setPlantName($plantName)
                 ->setActionPoints([1 => 100])
                 ->setMoralPoints([0 => 30, 1 => 70])
-                ->setExtraEffects([ExtraEffectEnum::EXTRA_PA_GAIN => 50])
                 ->setSatiety(1)
                 ->setActions($fruitActions)
                 ->buildName(EquipmentMechanicEnum::FRUIT . '_' . $fruitName, GameConfigEnum::DEFAULT);

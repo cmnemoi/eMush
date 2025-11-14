@@ -103,6 +103,16 @@ class EquipmentEvent extends EquipmentCycleEvent implements LoggableEventInterfa
         return true;
     }
 
+    public function getPlayerHolderOrThrow(): Player
+    {
+        $holder = $this->getGameEquipment()->getHolder();
+        if (!$holder instanceof Player) {
+            throw new \LogicException('Equipment holder is not a player');
+        }
+
+        return $holder;
+    }
+
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {
         return match ($targetSetting) {

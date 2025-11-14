@@ -132,6 +132,11 @@ class Planet implements LogParameterInterface, ActionHolderInterface
         return $this->sectors->exists(static fn ($key, PlanetSector $sector) => $sector->getName() === $name);
     }
 
+    public function getSectorByNameOrThrow(string $name): PlanetSector
+    {
+        return $this->sectors->filter(static fn ($sector) => $sector->getName() === $name)->first() ?: throw new \RuntimeException("Sector {$name} not found");
+    }
+
     /** @return Collection<int, PlanetSector> */
     public function getRevealedSectors(): Collection
     {

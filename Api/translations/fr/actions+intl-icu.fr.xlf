@@ -1843,5 +1843,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet de briser le continuum temporel grâce à vos pouvoirs de techno-mage. Le futur, c'est maintenant.</target>
       </segment>
     </unit>
+    <unit id="force_exploration_step">
+      <segment id="name" state="translated">
+        <source>force_exploration_step.name</source>
+        <target>Forcer l'étape d'expédition</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>force_exploration_step.description</source>
+        <target>Avance l'expédition d'un cycle. Finola estime une amélioration de survie de ±0,0002%. Étude non revue par les pairs (ni par NERON).</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

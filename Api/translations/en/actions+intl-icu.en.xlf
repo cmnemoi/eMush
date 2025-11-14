@@ -1821,5 +1821,15 @@ Or you simply need some fresh air.... or not.</target>
         <target>Allow to break the temporal continuum with your tech-wizard's powers. The future is now.</target>
       </segment>
     </unit>
+    <unit id="force_exploration_step">
+      <segment id="name" state="translated">
+        <source>force_exploration_step.name</source>
+        <target>Force expedition step</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>force_exploration_step.description</source>
+        <target>Advances the expedition by one cycle. Finola estimates a ±0.0002% increase in survival. Study not peer-reviewed (nor reviewed by NERON).</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

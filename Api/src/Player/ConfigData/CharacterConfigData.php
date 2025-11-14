@@ -23,6 +23,7 @@ class CharacterConfigData
         'trigger_all_rebel_contacts',
         'create_trade',
         ActionEnum::FORCE_CYCLE_CHANGE->value,
+        ActionEnum::FORCE_EXPLORATION_STEP->value,
         ActionEnum::ACCEPT_MISSION->value,
         ActionEnum::REJECT_MISSION->value,
         ActionEnum::COMMANDER_ORDER->value,

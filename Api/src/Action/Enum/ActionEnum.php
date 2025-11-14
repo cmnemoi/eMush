@@ -16,6 +16,7 @@ enum ActionEnum: string
     case TRIGGER_ALL_REBEL_CONTACTS = 'trigger_all_rebel_contacts';
     case CREATE_TRADE = 'create_trade';
     case FORCE_CYCLE_CHANGE = 'force_cycle_change';
+    case FORCE_EXPLORATION_STEP = 'force_exploration_step';
 
     // alpha actions
     case REJUVENATE = 'rejuvenate';

@@ -25,7 +25,6 @@ import MaintenancePage from "@/components/MaintenancePage.vue";
 import ModerationWarningBanner from "@/components/Moderation/ModerationWarningBanner.vue";
 import Thanks from "@/components/Thanks.vue";
 import Spinner from "@/components/Utils/Spinner.vue";
-import { TokenService } from "@/services/storage.service";
 import UserService from "@/services/user.service";
 import store from "@/store";
 import { defineComponent } from "vue";
@@ -85,11 +84,6 @@ export default defineComponent({
     },
     async beforeMount() {
         await this.loadGameMaintenanceStatus();
-
-        // Try to restore session from httpOnly cookie
-        if (TokenService.getUserInfo()) {
-            await store.dispatch('auth/userInfo');
-        }
 
         if (this.user) {
             await this.loadUserSanctions(this.user.id);

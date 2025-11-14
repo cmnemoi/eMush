@@ -1,40 +1,39 @@
-import { createRouter, createWebHistory } from "vue-router";
-import GamePage from "@/components/GamePage.vue";
-import RankingPage from "@/components/Ranking/RankingPage.vue";
-import ShipRanking from "@/components/Ranking/ShipRanking.vue";
-import Token from "@/components/Token.vue";
-import { is_granted, UserRole } from "@/enums/user_role.enum";
-import store from "@/store";
-import HomePage from "@/components/HomePage.vue";
-import UserListPage from "@/components/Admin/User/UserListPage.vue";
-import UserDetailPage from "@/components/Admin/User/UserDetailPage.vue";
-import DaedalusListPage from "@/components/Admin/Daedalus/DaedalusListPage.vue";
-import DaedalusDetailPage from "@/components/Admin/Daedalus/DaedalusDetailPage.vue";
+import AdminActionsPage from "@/components/Admin/Actions/AdminActionsPage.vue";
+import AdminConfigPage from "@/components/Admin/AdminConfigPage.vue";
 import AdminHomePage from "@/components/Admin/AdminHomePage.vue";
 import AdminPage from "@/components/Admin/AdminPage.vue";
-import AdminConfigPage from "@/components/Admin/AdminConfigPage.vue";
-import TheEndPage from "@/components/Ranking/TheEndPage.vue";
-import UserPage from "@/components/User/UserPage.vue";
+import DaedalusDetailPage from "@/components/Admin/Daedalus/DaedalusDetailPage.vue";
+import DaedalusListPage from "@/components/Admin/Daedalus/DaedalusListPage.vue";
+import NeronAnnouncementPage from "@/components/Admin/Daedalus/NeronAnnouncementPage.vue";
 import NewsListPage from "@/components/Admin/News/NewsListPage.vue";
 import NewsWritePage from "@/components/Admin/News/NewsWritePage.vue";
-import NewsPage from "@/components/NewsPage.vue";
-import NeronAnnouncementPage from "@/components/Admin/Daedalus/NeronAnnouncementPage.vue";
-import ModerationPlayerListPage from "@/components/Moderation/ModerationPlayerListPage.vue";
-import ModerationViewPlayerDetailPage from "@/components/Moderation/ModerationViewPlayerDetailPage.vue";
-import ModerationPage from "@/components/Moderation/ModerationPage.vue";
-import ModerationHomePage from "@/components/Moderation/ModerationHomePage.vue";
-import { adminConfigRoutes } from "@/router/adminConfigPages";
-import SanctionListPage from "@/components/Moderation/SanctionListPage.vue";
-import ClosedExpeditionPanel from "@/components/Game/ClosedExpeditionPanel.vue";
-import Rules from "@/components/Rules.vue";
-import AdminActionsPage from "@/components/Admin/Actions/AdminActionsPage.vue";
-import ModerationReportListPage from "@/components/Moderation/ModerationReportListPage.vue";
-import ModerationShipListPage from "@/components/Moderation/ModerationShipListPage.vue";
-import ModerationShipViewPage from "@/components/Moderation/ModerationShipViewPage.vue";
-import { User } from "@/entities/User";
-import NotFoundPage from "@/components/NotFoundPage.vue";
+import UserDetailPage from "@/components/Admin/User/UserDetailPage.vue";
+import UserListPage from "@/components/Admin/User/UserListPage.vue";
 import FakeAdminPage from "@/components/FakeAdminPage.vue";
+import ClosedExpeditionPanel from "@/components/Game/ClosedExpeditionPanel.vue";
+import GamePage from "@/components/GamePage.vue";
+import HomePage from "@/components/HomePage.vue";
 import ModerationBanAllUsers from "@/components/Moderation/ModerationBanAllUsers.vue";
+import ModerationHomePage from "@/components/Moderation/ModerationHomePage.vue";
+import ModerationPage from "@/components/Moderation/ModerationPage.vue";
+import ModerationPlayerListPage from "@/components/Moderation/ModerationPlayerListPage.vue";
+import ModerationReportListPage from "@/components/Moderation/ModerationReportListPage.vue";
+import ModerationShipViewPage from "@/components/Moderation/ModerationShipViewPage.vue";
+import ModerationViewPlayerDetailPage from "@/components/Moderation/ModerationViewPlayerDetailPage.vue";
+import SanctionListPage from "@/components/Moderation/SanctionListPage.vue";
+import NewsPage from "@/components/NewsPage.vue";
+import NotFoundPage from "@/components/NotFoundPage.vue";
+import RankingPage from "@/components/Ranking/RankingPage.vue";
+import ShipRanking from "@/components/Ranking/ShipRanking.vue";
+import TheEndPage from "@/components/Ranking/TheEndPage.vue";
+import Rules from "@/components/Rules.vue";
+import Token from "@/components/Token.vue";
+import UserPage from "@/components/User/UserPage.vue";
+import { User } from "@/entities/User";
+import { is_granted, UserRole } from "@/enums/user_role.enum";
+import { adminConfigRoutes } from "@/router/adminConfigPages";
+import store from "@/store";
+import { createRouter, createWebHistory } from "vue-router";
 
 interface RouteMeta {
     authorize?: UserRole[];
@@ -241,12 +240,6 @@ const routes: RouteRecord[] = [
                 name: "ModerationReportList",
                 path: 'reports',
                 component: ModerationReportListPage
-            },
-            {
-                name: "ModerationShipList",
-                path: 'ships',
-                component: ModerationShipListPage
-
             },
             {
                 name: "ModerationShipView",

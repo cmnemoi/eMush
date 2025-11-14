@@ -83,16 +83,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import DropList from "@/components/Utils/DropList.vue";
-import qs from "qs";
+import { characterEnum } from "@/enums/character";
 import AdminService from "@/services/admin.service";
+import ModerationService from "@/services/moderation.service";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import ModerationService from "@/services/moderation.service";
+import qs from "qs";
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-import { characterEnum } from "@/enums/character";
 
 export default defineComponent({
     name: "ModerationPlayerListPage",
@@ -216,7 +216,9 @@ export default defineComponent({
                 })
                 .then((remoteRowData: any) => {
                     this.rowData = remoteRowData['hydra:member'];
-                    this.pagination.totalItem = remoteRowData['hydra:totalItems'];
+
+                    // if all items are null, set totalItem to 0
+                    this.pagination.totalItem = this.rowData.length === 0 ? 0 : remoteRowData['hydra:totalItems'];
                     this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
                     this.loading = false;
                 });

@@ -8,9 +8,9 @@ Mush\Daedalus\Entity\Daedalus:
   collectionOperations:
     get:
       filters: [ 'daedalus.search_filter', 'default.order_filter' ]
-      security: 'is_granted("ROLE_MODERATOR")'
+      security: 'is_granted("ROLE_ADMIN")'
     post:
-      security: 'is_granted("ROLE_MODERATOR")'
+      security: 'is_granted("ROLE_ADMIN")'
   itemOperations:
     get:
-      security: 'is_granted("ROLE_MODERATOR")'
+      security: 'is_granted("ROLE_ADMIN")'

@@ -11,7 +11,6 @@
                 @keydown.enter.shift.exact.prevent="breakLine"
                 @keyup="resize()"
                 @focusout ="updateTypedMessage(text)"
-                @keyup.enter.exact.prevent="clearTypedMessage"
             />
             <div class="buttons-container">
                 <Tippy tag="button" class="format-button" @click.prevent="openRichEditor">
@@ -24,8 +23,7 @@
                 <button
                     class="submit-button"
                     :disabled="text <= 0"
-                    @click="sendNewMessage()"
-                    @click.stop="clearTypedMessage">
+                    @click="sendNewMessage()">
                     <img :src="getImgUrl('comms/submit.gif')" alt="submit">
                 </button>
             </div>
@@ -94,6 +92,7 @@ export default defineComponent ({
                     player: this.player
                 });
                 this.text = "";
+                this.clearTypedMessage();
                 this.closeRichEditor();
             }
         },
@@ -103,10 +102,16 @@ export default defineComponent ({
             const caretPos = element.selectionStart;
 
             // insert \n at the caret position
-            element.value = element.value.slice(0, caretPos) + "\n" + element.value.slice(caretPos);
+            const newValue = element.value.slice(0, caretPos) + "\n" + element.value.slice(caretPos);
 
-            // move caret to the end of the inserted "//"
-            element.selectionStart = element.selectionEnd = caretPos + 1;
+            // update both element.value and Vue model to keep them in sync
+            element.value = newValue;
+            this.text = newValue;
+
+            // move caret after the inserted line break
+            this.$nextTick(() => {
+                element.selectionStart = element.selectionEnd = caretPos + 1;
+            });
         },
         ...mapActions('communication', [
             'sendMessage',

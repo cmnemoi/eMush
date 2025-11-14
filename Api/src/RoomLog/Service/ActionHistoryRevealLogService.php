@@ -13,6 +13,9 @@ use Mush\RoomLog\Enum\LogEnum;
 
 final class ActionHistoryRevealLogService
 {
+    // ": {equipment}" placeholder
+    private const string ACTION_PARAMETER_PLACEHOLDER_REGEX = '/\s*:\s*\{[^}]+\}/';
+
     public function __construct(
         private RoomLogServiceInterface $roomLogService,
         private TranslationServiceInterface $translationService,
@@ -34,18 +37,10 @@ final class ActionHistoryRevealLogService
 
     private function getTranslatedPlayerActions(Player $player, int $numberOfActions): array
     {
-        $translatedActions = [];
-        foreach ($player->getActionHistory(limit: $numberOfActions) as $action) {
-            $translatedAction = $this->translationService->translate(
-                key: \sprintf('%s.name', $action->toString()),
-                parameters: [],
-                domain: 'actions',
-                language: $player->getLanguage(),
-            );
-            $translatedActions[] = \sprintf('**%s**', $translatedAction);
-        }
-
-        return $translatedActions;
+        return array_map(
+            fn (string $translatedName) => $this->formatName($translatedName, $player),
+            array_map(fn (ActionEnum $actionName) => $this->translateActionName($actionName, $player), $player->getActionHistory(limit: $numberOfActions))
+        );
     }
 
     private function getLogParametersFromTranslatedActions(Player $player, array $translatedActions): array
@@ -86,5 +81,27 @@ final class ActionHistoryRevealLogService
             ActionEnum::TORTURE->value => $action->playerTarget(),
             default => throw new \InvalidArgumentException("{$action->getActionName()} action does not support action reveal!"),
         };
+    }
+
+    private function formatName(string $translatedActionName, Player $player): string
+    {
+        // replace parameters placeholder like "Graft : {equipment}" by "Graft"
+        /** @var ?string $cleanedActionName */
+        $cleanedActionName = preg_replace(self::ACTION_PARAMETER_PLACEHOLDER_REGEX, '', $translatedActionName);
+        if ($cleanedActionName === null) {
+            throw new \RuntimeException("Something went wrong when cleaning translation for action {$translatedActionName}");
+        }
+
+        return \sprintf('**%s**', $cleanedActionName);
+    }
+
+    private function translateActionName(ActionEnum $action, Player $player): string
+    {
+        return $this->translationService->translate(
+            key: \sprintf('%s.name', $action->toString()),
+            parameters: [],
+            domain: 'actions',
+            language: $player->getLanguage(),
+        );
     }
 }

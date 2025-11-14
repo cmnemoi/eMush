@@ -84,7 +84,25 @@ const actions: ActionTree<any, any> = {
             commit('setAuthenticated', true);
             return userInfo;
         } catch (e) {
-            console.error(e);
+            commit('setAuthenticated', false);
+            return null;
+        } finally {
+            commit('setLoading', false);
+        }
+    },
+
+    async restoreSession({ commit }): Promise<User|null> {
+        commit('resetUserInfo');
+        try {
+            const userInfo = await UserService.restoreSession();
+            if (userInfo) {
+                commit('setUserInfo', userInfo);
+                commit('setAuthenticated', true);
+            } else {
+                commit('setAuthenticated', false);
+            }
+            return userInfo;
+        } catch (e) {
             commit('setAuthenticated', false);
             return null;
         } finally {

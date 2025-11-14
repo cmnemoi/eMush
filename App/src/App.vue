@@ -85,6 +85,9 @@ export default defineComponent({
     async beforeMount() {
         await this.loadGameMaintenanceStatus();
 
+        // Try to restore session from cookie
+        await store.dispatch('auth/restoreSession');
+
         if (this.user) {
             await this.loadUserSanctions(this.user.id);
             const userHasNotReadLatestNews = await UserService.hasNotReadLatestNews();

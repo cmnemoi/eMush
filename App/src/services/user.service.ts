@@ -68,6 +68,29 @@ const UserService = {
     },
 
     /**
+     * Try to restore user session from httpOnly cookie without showing error popups.
+     * Used for silent session restoration on app startup.
+     **/
+    restoreSession: async function(): Promise<User | null> {
+        // Temporarily unmount error interceptor to avoid showing 403 popup
+        ApiService.unmountErrorInterceptor();
+
+        try {
+            const response = await ApiService.get(urlJoin(userEndPoint, 'me'));
+            const user = new User().load(response.data);
+            TokenService.saveUserInfo(user);
+
+            return user;
+        } catch (error) {
+            // Session restoration failed silently (expired cookie, not logged in, etc.)
+            return null;
+        } finally {
+            // Re-mount error interceptor
+            ApiService.mountErrorInterceptor();
+        }
+    },
+
+    /**
      * Logout the current user by clearing the httpOnly cookie and user info.
      **/
     async logout(): Promise<void> {

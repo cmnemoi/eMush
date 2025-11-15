@@ -14,7 +14,7 @@ const state =  {
     loadingChannels: false,
     loadingByChannelId: {},
     messagesByChannelId: {},
-    typedMessage: '',
+    typedMessage: {},
     readMessageMutex: false,
     currentChannelNumberOfNewMessages: 0,
     timeLimit: 48,
@@ -44,7 +44,7 @@ const getters: GetterTree<any, any> = {
         return state.channels;
     },
     typedMessage(state) {
-        return state.typedMessage;
+        return state.typedMessage[state.currentChannel.id] || "";
     },
     readMessageMutex(state) {
         return state.readMessageMutex;
@@ -304,7 +304,7 @@ const actions: ActionTree<any, any> = {
 };
 
 const mutations: MutationTree<any> = {
-    setLoadingOfChannels(state: any, newStatus: string): void {
+    setLoadingOfChannels(state: any, newStatus: boolean): void {
         state.loadingChannels = newStatus;
     },
 
@@ -328,6 +328,7 @@ const mutations: MutationTree<any> = {
         state.channels = state.channels.filter(({ id }: {id: number}) => id !== channel.id);
         delete state.loadingByChannelId[channel.id];
         delete state.messagesByChannelId[channel.id];
+        delete state.typedMessage[channel.id];
     },
 
     invitablePlayerMenu(state: any, { isOpen, channel }): void {
@@ -345,7 +346,10 @@ const mutations: MutationTree<any> = {
     },
 
     setTypedMessage(state: any, message: string): void {
-        state.typedMessage = message;
+        state.typedMessage = {
+            ...state.typedMessage,
+            [state.currentChannel.id]: message
+        };
     },
 
     clearChannels(): void {
@@ -358,7 +362,7 @@ const mutations: MutationTree<any> = {
         state.channels = [];
         state.readMessageMutex = false;
         state.currentChannelNumberOfNewMessages = 0;
-        state.typedMessage = '';
+        state.typedMessage = {};
     },
 
     setReadMessageMutex(state: any, mutex: boolean): void {

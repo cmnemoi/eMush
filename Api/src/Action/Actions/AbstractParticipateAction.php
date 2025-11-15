@@ -12,6 +12,7 @@ use Mush\Action\Validator\NoEfficiency;
 use Mush\Action\Validator\ProjectRequirements;
 use Mush\Action\Validator\Reach;
 use Mush\Action\Validator\TargetProjectFinished;
+use Mush\Action\Validator\TargetProjectProposed;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Project\Entity\Project;
@@ -47,6 +48,7 @@ abstract class AbstractParticipateAction extends AbstractAction
         ]));
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new TargetProjectFinished(['groups' => ['visibility']]));
+        $metadata->addConstraint(new TargetProjectProposed(['groups' => ['visibility']]));
         $metadata->addConstraint(new NoEfficiency(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::NO_EFFICIENCY]));
     }
 

@@ -6,5 +6,5 @@ namespace Mush\Action\Validator;
 
 final class TargetProjectFinished extends ClassConstraint
 {
-    public string $message = 'The project you want to participate in is already finished.';
+    public string $message = 'The project you want to participate is already finished.';
 }

@@ -300,6 +300,7 @@ final class ParticipateCest extends AbstractFunctionalTest
 
         // when Chun participates in another project
         $otherProject = $this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD);
+        $otherProject->propose();
         $this->participateAction->loadParameters(
             actionConfig: $this->actionConfig,
             actionProvider: $this->terminal,
@@ -479,6 +480,23 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->whenKuanTriesToParticipateInProject();
 
         $this->thenKuanTiShouldHaveEfficiency(new PlayerEfficiency(9, 9), $I);
+    }
+
+    public function shouldNotBeVisibleIfProjectIsNotProposed(FunctionalTester $I): void
+    {
+        // given project is not proposed
+        $this->project->unpropose();
+
+        // when player tries to participate in the project
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->player,
+            target: $this->project
+        );
+
+        // then the action should not be visible
+        $I->assertFalse($this->participateAction->isVisible(), 'Action should not be visible');
     }
 
     private function givenKuanTiIsAnITExpert(FunctionalTester $I): void

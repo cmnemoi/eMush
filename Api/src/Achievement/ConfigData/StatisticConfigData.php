@@ -71,6 +71,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::DAY_MAX),
             new StatisticConfigDto(StatisticEnum::DRUGS_TAKEN),
             new StatisticConfigDto(StatisticEnum::KIVANC_CONTACTED),
+            new StatisticConfigDto(StatisticEnum::ARTEFACT_SPECIALIST),
         ];
     }
 

@@ -188,6 +188,14 @@ enum AchievementEnum: string
     case DAY_MAX_13 = 'day_max_13';
     case DRUGS_TAKEN_1 = 'drugs_taken_1';
     case KIVANC_CONTACTED_1 = 'kivanc_contacted_1';
+    case ARTEFACT_SPECIALIST_1 = 'artefact_specialist_1';
+    case ARTEFACT_SPECIALIST_2 = 'artefact_specialist_2';
+    case ARTEFACT_SPECIALIST_3 = 'artefact_specialist_3';
+    case ARTEFACT_SPECIALIST_4 = 'artefact_specialist_4';
+    case ARTEFACT_SPECIALIST_5 = 'artefact_specialist_5';
+    case ARTEFACT_SPECIALIST_6 = 'artefact_specialist_6';
+    case ARTEFACT_SPECIALIST_7 = 'artefact_specialist_7';
+    case ARTEFACT_SPECIALIST_8 = 'artefact_specialist_8';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

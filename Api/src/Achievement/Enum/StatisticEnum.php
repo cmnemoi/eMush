@@ -63,6 +63,7 @@ enum StatisticEnum: string
     case DAY_MAX = 'day_max';
     case DRUGS_TAKEN = 'drugs_taken';
     case KIVANC_CONTACTED = 'kivanc_contacted';
+    case ARTEFACT_SPECIALIST = 'artefact_specialist';
     case NULL = '';
 
     public static function fromOrNull(string $value): self

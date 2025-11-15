@@ -28,6 +28,13 @@ final readonly class UpdateUserStatisticIfSuperiorCommandHandler
         $statistic->updateIfSuperior($command->newValue);
         $this->statisticRepository->save($statistic);
 
-        $this->eventService->callEvent(new StatisticIncrementedEvent($statistic->getId(), $command->language), StatisticIncrementedEvent::class);
+        $this->eventService->callEvent(
+            new StatisticIncrementedEvent(
+                $statistic->getId(),
+                $statistic->getUserId(),
+                $command->language
+            ),
+            StatisticIncrementedEvent::class
+        );
     }
 }

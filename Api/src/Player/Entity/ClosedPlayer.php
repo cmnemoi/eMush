@@ -353,4 +353,9 @@ class ClosedPlayer implements SanctionEvidenceInterface
 
         return $this;
     }
+
+    public function getName(): string
+    {
+        return $this->playerInfo->getName();
+    }
 }

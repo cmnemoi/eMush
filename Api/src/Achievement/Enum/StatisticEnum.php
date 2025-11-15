@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Achievement\Enum;
 
+use Mush\Game\Enum\CharacterEnum;
+
 enum StatisticEnum: string
 {
     case CAT_CUDDLED = 'cat_cuddled';
@@ -81,5 +83,10 @@ enum StatisticEnum: string
             30 => self::DAY_30_REACHED,
             default => self::NULL,
         };
+    }
+
+    public static function getCyclesStatFromCharacterName(string $character): self
+    {
+        return $character === CharacterEnum::MUSH ? self::MUSH_CYCLES : self::fromOrNull($character);
     }
 }

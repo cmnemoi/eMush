@@ -203,7 +203,7 @@ final class PlayerService implements PlayerServiceInterface
             return $player;
         }
 
-        $player->getPlayerInfo()->incrementCyclesCount();
+        $player->getUser()->incrementCyclesCount($player);
 
         if ($player->hasZeroMoralPoint()) {
             $this->handleZeroMoralPointEffects($player, $date);

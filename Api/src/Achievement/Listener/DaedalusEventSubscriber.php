@@ -13,12 +13,17 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\User\Entity\User;
+use Mush\User\Repository\UserRepositoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private MessageBusInterface $commandBus) {}
+    public function __construct(
+        private MessageBusInterface $commandBus,
+        private UserRepositoryInterface $userRepository,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -59,7 +64,7 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
     public function onDaedalusFinish(DaedalusEvent $event): void
     {
         $this->incrementEndCauseStatisticFromEvent($event);
-        $this->incrementHumanCyclesStatisticFromEvent($event);
+        $this->incrementCharacterCyclesStatisticFromEvent($event);
     }
 
     private function incrementEndCauseStatisticFromEvent(DaedalusEvent $event): void
@@ -79,29 +84,42 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function incrementHumanCyclesStatisticFromEvent(DaedalusEvent $event): void
+    private function incrementCharacterCyclesStatisticFromEvent(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
         $language = $daedalus->getLanguage();
 
+        // Collect processed users to avoid processing duplicates
+        $processedUserIds = [];
+
         /** @var Player $player */
         foreach ($daedalus->getPlayers() as $player) {
-            $this->commandBus->dispatch(
-                new IncrementUserStatisticCommand(
-                    userId: $player->getUser()->getId(),
-                    statisticName: StatisticEnum::fromOrNull($player->getName()),
-                    language: $language,
-                    increment: $player->getPlayerInfo()->getHumanCyclesCount(),
-                )
-            );
-            $this->commandBus->dispatch(
-                new IncrementUserStatisticCommand(
-                    userId: $player->getUser()->getId(),
-                    statisticName: StatisticEnum::MUSH_CYCLES,
-                    language: $language,
-                    increment: $player->getPlayerInfo()->getMushCyclesCount(),
-                )
-            );
+            $user = $player->getUser();
+            $userId = $user->getId();
+
+            // Skip if already processed
+            if (isset($processedUserIds[$userId])) {
+                continue;
+            }
+
+            // Mark user as processed
+            $processedUserIds[$userId] = true;
+
+            // Increment statistics for all characters the user played
+            foreach ($user->getCycleCounts()->toArray() as $character => $cycleCount) {
+                $this->commandBus->dispatch(
+                    new IncrementUserStatisticCommand(
+                        userId: $userId,
+                        statisticName: StatisticEnum::getCyclesStatFromCharacterName($character),
+                        language: $language,
+                        increment: $cycleCount
+                    )
+                );
+            }
+
+            // Reset user cycle counts to avoid accumulating cycles across multiple games
+            $user->resetCycleCounts();
+            $this->userRepository->save($user);
         }
     }
 

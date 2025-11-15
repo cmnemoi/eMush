@@ -8,10 +8,15 @@ use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Action\Actions\ExchangeBody;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -51,8 +56,90 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
         $I->assertNull($this->statisticRepository->findByNameAndUserIdOrNull(
             name: StatisticEnum::from($this->player->getName()),
             userId: $this->player->getUser()->getId()
-        ));
+        )?->getId());
         $this->thenPlayerMushCyclesStatisticShouldBeIncrementedBy(5, $I);
+    }
+
+    public function shouldIncrementMultipleCharactersCyclesAndMushCyclesStatisticAfterTransfer(FunctionalTester $I): void
+    {
+        $user1 = $this->chun->getUser();
+        $user2 = $this->kuanTi->getUser();
+
+        // given user1 has 2 cycles as chun
+        $this->givenPlayerHasLivedCycles(2, $this->chun);
+
+        // given user2 has 5 cycles as kuan ti
+        $this->givenPlayerHasLivedCycles(5, $this->kuanTi);
+
+        // given user 2 is now mush
+        $this->convertPlayerToMush($I, $this->kuanTi);
+
+        // given user 2 has 2 cycles as mush
+        $this->givenPlayerHasLivedCycles(2, $this->kuanTi);
+
+        // given kuan Ti transfers into chun
+        $this->givenPlayerTransfersInto($this->kuanTi, $this->chun, $I);
+
+        // given user1 has 2 cycles as kuan ti
+        $this->givenPlayerHasLivedCycles(2, $this->kuanTi);
+
+        // given user2 has 2 cycles as mush
+        $this->givenPlayerHasLivedCycles(2, $this->chun);
+
+        $this->whenDaedalusEndsWithSuperNova();
+
+        // then user1 should have 2 cycles as chun
+        $I->assertEquals(
+            expected: 2,
+            actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                name: StatisticEnum::CHUN,
+                userId: $user1->getId()
+            )?->getCount(),
+            message: 'user1 should have 2 cycles as chun'
+        );
+
+        // then user1 should have 2 cycles as kuan ti
+        $I->assertEquals(
+            expected: 2,
+            actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                name: StatisticEnum::KUAN_TI,
+                userId: $user1->getId()
+            )?->getCount(),
+            message: 'user1 should have 2 cycles as kuan ti'
+        );
+
+        // then user2 should have 5 cycles as kuan ti
+        $I->assertEquals(
+            expected: 5,
+            actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                name: StatisticEnum::KUAN_TI,
+                userId: $user2->getId()
+            )?->getCount(),
+            message: 'user2 should have 5 cycles as kuan ti'
+        );
+
+        // then user2 should have 2 cycles as mush
+        $I->assertEquals(
+            expected: 4,
+            actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                name: StatisticEnum::MUSH_CYCLES,
+                userId: $user2->getId()
+            )?->getCount(),
+            message: 'user2 should have 2 cycles as mush'
+        );
+    }
+
+    public function shouldResetUserCycleCountsAfterDaedalusEnd(FunctionalTester $I): void
+    {
+        $user = $this->chun->getUser();
+
+        // given user1 has 2 cycles as chun
+        $this->givenPlayerHasLivedCycles(2, $this->chun);
+
+        $this->whenDaedalusEndsWithSuperNova();
+
+        // then user cycle counts should be reset
+        $I->assertEquals(0, $user->getCycleCounts()->getForCharacter(CharacterEnum::CHUN));
     }
 
     protected function characterDataProvider(): array
@@ -78,14 +165,35 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
         ];
     }
 
+    private function givenPlayerTransfersInto(Player $player, Player $target, FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::TRANSFER, $I, $player);
+
+        $target->setSpores(1);
+
+        /** @var ExchangeBody $exchangeBody */
+        $exchangeBody = $I->grabService(ExchangeBody::class);
+        $actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::EXCHANGE_BODY]);
+
+        $exchangeBody->loadParameters(
+            actionConfig: $actionConfig,
+            actionProvider: $player,
+            player: $player,
+            target: $target,
+        );
+        $exchangeBody->execute();
+    }
+
     private function givenPlayerIsInDaedalus(FunctionalTester $I, string $character): void
     {
         $this->player = $this->addPlayerByCharacter($I, $this->daedalus, $character);
     }
 
-    private function givenPlayerHasLivedCycles(int $cycles): void
+    private function givenPlayerHasLivedCycles(int $cycles, ?Player $player = null): void
     {
-        $this->player->getPlayerInfo()->incrementCyclesCount($cycles);
+        $player ??= $this->player;
+
+        $player->getUser()->incrementCyclesCount($player, $cycles);
     }
 
     private function whenDaedalusEndsWithSuperNova(): void

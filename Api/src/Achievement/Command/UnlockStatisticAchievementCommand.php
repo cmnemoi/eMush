@@ -15,6 +15,6 @@ final readonly class UnlockStatisticAchievementCommand
 
     public static function fromEvent(StatisticIncrementedEvent $event): self
     {
-        return new self($event->getStatisticId(), $event->getLanguage());
+        return new self($event->statisticId, $event->language);
     }
 }

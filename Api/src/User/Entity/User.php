@@ -7,8 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Achievement\Entity\PendingStatistics;
+use Mush\Achievement\ValueObject\CycleCounts;
 use Mush\MetaGame\Entity\Collection\ModerationSanctionCollection;
 use Mush\MetaGame\Entity\ModerationSanction;
+use Mush\Player\Entity\Player;
 use Mush\User\Enum\RoleEnum;
 use Mush\User\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -59,10 +62,14 @@ class User implements UserInterface
     #[ORM\Column(type: 'json', nullable: false, options: ['default' => '{}'])]
     private array $hashedIps = [];
 
+    #[ORM\Embedded(PendingStatistics::class, columnPrefix: false)]
+    private PendingStatistics $pendingStatistics;
+
     public function __construct()
     {
         $this->moderationSanctions = new ArrayCollection();
         $this->lastActivityAt = new \DateTime();
+        $this->pendingStatistics = new PendingStatistics();
     }
 
     public function getId(): int
@@ -270,6 +277,25 @@ class User implements UserInterface
         if (!\in_array($ip, $this->hashedIps, true)) {
             $this->hashedIps[] = $ip;
         }
+
+        return $this;
+    }
+
+    public function incrementCyclesCount(Player $player, int $increment = 1): self
+    {
+        $this->pendingStatistics->incrementCyclesCountForPlayer($player, $increment);
+
+        return $this;
+    }
+
+    public function getCycleCounts(): CycleCounts
+    {
+        return $this->pendingStatistics->getCycleCounts();
+    }
+
+    public function resetCycleCounts(): self
+    {
+        $this->pendingStatistics->resetCycleCounts();
 
         return $this;
     }

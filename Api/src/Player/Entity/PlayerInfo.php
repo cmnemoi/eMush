@@ -84,6 +84,15 @@ class PlayerInfo
         return $this->player;
     }
 
+    public function getPlayerOrThrow(): Player
+    {
+        if (!$this->player) {
+            throw new \RuntimeException('Player not found');
+        }
+
+        return $this->player;
+    }
+
     public function getUser(): User
     {
         return $this->user;
@@ -185,23 +194,9 @@ class PlayerInfo
         return array_diff($this->titles, $titles) === [];
     }
 
-    public function getHumanCyclesCount(): int
-    {
-        return $this->humanCyclesCount;
-    }
-
-    public function getMushCyclesCount(): int
-    {
-        return $this->mushCyclesCount;
-    }
-
     public function incrementCyclesCount(int $increment = 1): static
     {
-        if ($this->player?->isMush()) {
-            $this->mushCyclesCount += $increment;
-        } else {
-            $this->humanCyclesCount += $increment;
-        }
+        $this->getUser()->incrementCyclesCount($this->getPlayerOrThrow(), $increment);
 
         return $this;
     }

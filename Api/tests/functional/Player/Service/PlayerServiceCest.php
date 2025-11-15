@@ -279,11 +279,11 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         /** @var Player $player */
         $player = $this->player;
 
-        $initialCycles = $player->getPlayerInfo()->getHumanCyclesCount();
+        $initialCycles = $player->getUser()->getCycleCounts()->getForCharacter($this->player->getName());
 
         $this->whenNewCycleIsHandledForPlayer($player);
 
-        $this->thenPlayerHumanCycleCountShouldBeIncremented($I, $player, $initialCycles);
+        $I->assertEquals($initialCycles + 1, $player->getUser()->getCycleCounts()->getForCharacter($this->player->getName()));
     }
 
     public function testHandleNewCycleDoesNotIncrementCycleCountForDeadPlayer(FunctionalTester $I): void
@@ -293,25 +293,11 @@ final class PlayerServiceCest extends AbstractFunctionalTest
 
         $this->whenPlayerIsKilledWithEndCause($player, EndCauseEnum::INJURY);
 
-        $cyclesAfterDeath = $player->getPlayerInfo()->getHumanCyclesCount();
+        $cyclesAfterDeath = $player->getUser()->getCycleCounts()->getForCharacter($this->player->getName());
 
         $this->whenNewCycleIsHandledForPlayer($player);
 
-        $this->thenPlayerHumanCycleCountShouldNotBeIncremented($I, $player, $cyclesAfterDeath);
-    }
-
-    public function testHandleNewCycleDoesNotIncrementCycleCountForMushPlayer(FunctionalTester $I): void
-    {
-        /** @var Player $player */
-        $player = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ANDIE);
-
-        $this->convertPlayerToMush($I, $player);
-
-        $initialCycles = $player->getPlayerInfo()->getHumanCyclesCount();
-
-        $this->whenNewCycleIsHandledForPlayer($player);
-
-        $this->thenPlayerHumanCycleCountShouldNotBeIncremented($I, $player, $initialCycles);
+        $I->assertEquals($cyclesAfterDeath, $player->getUser()->getCycleCounts()->getForCharacter($this->player->getName()));
     }
 
     private function whenPlayerIsKilledWithEndCause(Player $player, string $endCause): void
@@ -458,15 +444,5 @@ final class PlayerServiceCest extends AbstractFunctionalTest
     private function thenUserShouldBeInGame(FunctionalTester $I, User $user): void
     {
         $I->assertTrue($user->isInGame());
-    }
-
-    private function thenPlayerHumanCycleCountShouldBeIncremented(FunctionalTester $I, Player $player, int $initialCycles): void
-    {
-        $I->assertEquals($initialCycles + 1, $player->getPlayerInfo()->getHumanCyclesCount());
-    }
-
-    private function thenPlayerHumanCycleCountShouldNotBeIncremented(FunctionalTester $I, Player $player, int $cyclesAfterDeath): void
-    {
-        $I->assertEquals($cyclesAfterDeath, $player->getPlayerInfo()->getHumanCyclesCount());
     }
 }

@@ -61,7 +61,7 @@
       </segment>
       <segment id="externalResources.wiki" state="translated">
         <source>tips.externalResources.wiki</source>
-        <target>**Le wiki** Twinpédia</target>
+        <target>**Le wiki** eMushpedia</target>
       </segment>
       <segment id="externalResources.tutorialsLink" state="translated">
         <source>tips.externalResources.tutorialsLink</source>
@@ -69,7 +69,7 @@
       </segment>
       <segment id="externalResources.wikiLink" state="translated">
         <source>tips.externalResources.wikiLink</source>
-        <target>https://twin.tithom.fr/mush</target>
+        <target>https://emushpedia.miraheze.org/</target>
       </segment>
       <segment id="missions.title" state="translated">
         <source>tips.missions.title</source>

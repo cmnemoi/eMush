@@ -366,11 +366,6 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'equipmentToAdd' => EquipmentEnum::SNC_KITCHEN,
             ],
             [
-                'project' => ProjectName::MUSHICIDE_SOAP->value,
-                'equipmentToRemove' => GearItemEnum::SOAP,
-                'equipmentToAdd' => GearItemEnum::SUPER_SOAPER,
-            ],
-            [
                 'project' => ProjectName::NATAMY_RIFLE->value,
                 'equipmentToRemove' => ItemEnum::BLASTER,
                 'equipmentToAdd' => ItemEnum::NATAMY_RIFLE,
@@ -385,6 +380,13 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'project' => ProjectName::NATAMY_RIFLE->value,
                 'equipmentToRemove' => ItemEnum::BLASTER,
                 'equipmentToAdd' => ItemEnum::NATAMY_RIFLE,
+                'place' => RoomEnum::LABORATORY,
+                'quantity' => 1,
+            ],
+            [
+                'project' => ProjectName::MUSHICIDE_SOAP->value,
+                'equipmentToRemove' => GearItemEnum::SOAP,
+                'equipmentToAdd' => GearItemEnum::SUPER_SOAPER,
                 'place' => RoomEnum::LABORATORY,
                 'quantity' => 1,
             ],

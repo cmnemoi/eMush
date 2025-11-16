@@ -45,6 +45,8 @@ abstract class ReplaceEquipmentConfigData
                 name: self::REPLACE_SOAP_BY_SUPER_SOAP,
                 equipmentName: GearItemEnum::SUPER_SOAPER,
                 replaceEquipmentName: GearItemEnum::SOAP,
+                placeName: RoomEnum::LABORATORY,
+                quantity: 1,
             ),
             new ReplaceEquipmentConfigDto(
                 name: self::REPLACE_1_LABORATORY_BY_NATAMY_RIFLE,

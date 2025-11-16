@@ -50,7 +50,7 @@ class RationCycleHandler extends AbstractCycleHandler
         $this->spoilFood($gameEquipment, $rationType);
         $this->gameEquipmentService->persist($gameEquipment);
 
-        $this->destroySpoiledFood($gameEquipment);
+        $this->destroySpoiledFood($gameEquipment, $dateTime);
     }
 
     private function spoilFood(GameEquipment $gameRation, Ration $ration): void
@@ -88,7 +88,7 @@ class RationCycleHandler extends AbstractCycleHandler
         $this->statusService->createStatusFromName($nextStatus, $gameRation, [EventEnum::NEW_DAY], new \DateTime());
     }
 
-    private function destroySpoiledFood(GameEquipment $gameRation): void
+    private function destroySpoiledFood(GameEquipment $gameRation, \DateTime $dateTime): void
     {
         $neron = $gameRation->getDaedalus()->getNeron();
 
@@ -100,6 +100,7 @@ class RationCycleHandler extends AbstractCycleHandler
                 $gameRation,
                 $visibility,
                 [LogEnum::FOOD_DESTROYED_BY_NERON],
+                $dateTime
             );
         }
     }

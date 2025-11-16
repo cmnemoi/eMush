@@ -23,7 +23,7 @@ final readonly class CreateTransportTradeService
         private TradeRepositoryInterface $tradeRepository,
     ) {}
 
-    public function execute(int $transportId): void
+    public function execute(int $transportId, \DateTime $time): void
     {
         $hunter = $this->hunterRepository->findByIdOrThrow($transportId);
 
@@ -33,7 +33,7 @@ final readonly class CreateTransportTradeService
         $this->tradeRepository->save($trade);
 
         $this->eventService->callEvent(
-            event: new TradeCreatedEvent($hunter->getDaedalus()),
+            event: new TradeCreatedEvent($hunter->getDaedalus(), time: $time),
             name: TradeCreatedEvent::class
         );
     }

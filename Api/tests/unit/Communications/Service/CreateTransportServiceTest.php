@@ -84,7 +84,7 @@ final class CreateTransportServiceTest extends TestCase
 
     private function whenCreatingTradeForTransport(int $transportId): void
     {
-        $this->createTransportService->execute(transportId: $transportId);
+        $this->createTransportService->execute(transportId: $transportId, time: new \DateTime());
     }
 
     private function thenTradeShouldBeCreatedForTransport(int $transportId): void
@@ -98,6 +98,6 @@ final class CreateTransportServiceTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Cannot create trade for non-transport hunter');
 
-        $this->createTransportService->execute(transportId: $hunterId);
+        $this->createTransportService->execute(transportId: $hunterId, time: new \DateTime());
     }
 }

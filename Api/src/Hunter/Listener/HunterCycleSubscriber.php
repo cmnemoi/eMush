@@ -65,7 +65,7 @@ final class HunterCycleSubscriber implements EventSubscriberInterface
         $maxTransportSpawnRate = $daedalus->getGameConfig()->getDifficultyConfig()->getMaxTransportSpawnRate();
         $transportSpawnRate = max($minTransportSpawnRate, $maxTransportSpawnRate - $daedalus->getDay());
         if ($this->d100Roll->isSuccessful($transportSpawnRate)) {
-            $this->createHunter->execute(HunterEnum::TRANSPORT, $daedalus->getId());
+            $this->createHunter->execute(HunterEnum::TRANSPORT, $daedalus->getId(), $event->getTime());
         }
     }
 

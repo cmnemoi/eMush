@@ -18,7 +18,7 @@ final readonly class CreateHunterService
         private HunterRepositoryInterface $hunterRepository,
     ) {}
 
-    public function execute(string $hunterName, int $daedalusId): void
+    public function execute(string $hunterName, int $daedalusId, \DateTime $time = new \DateTime()): void
     {
         $daedalus = $this->daedalusRepository->findByIdOrThrow($daedalusId);
 
@@ -29,7 +29,7 @@ final readonly class CreateHunterService
         $this->hunterRepository->save($hunter);
 
         if ($hunterName === HunterEnum::TRANSPORT) {
-            $this->createTransportTrade->execute($hunter->getId());
+            $this->createTransportTrade->execute($hunter->getId(), $time);
         }
     }
 }

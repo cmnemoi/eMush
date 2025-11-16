@@ -304,9 +304,10 @@ final class ReportFireCest extends AbstractFunctionalTest
     private function thenNeronThreadUpdatedAtDateShouldBeNow(Message $failuresThread, FunctionalTester $I): void
     {
         $now = new \DateTime();
-        $I->assertEquals(
-            expected: $now->format('H:i:s'),
-            actual: $failuresThread->getUpdatedAt()->format('H:i:s'),
+        $I->assertEqualsWithDelta(
+            expected: $now->getTimestamp(),
+            actual: $failuresThread->getUpdatedAt()->getTimestamp(),
+            delta: 1,
             message: "NERON failure thread updated at date should be {$now->format('H:i:s')}, but got {$failuresThread->getUpdatedAt()->format('H:i:s')}"
         );
     }

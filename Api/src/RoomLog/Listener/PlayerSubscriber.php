@@ -53,6 +53,10 @@ final class PlayerSubscriber implements EventSubscriberInterface
 
     public function onPlayerChangedPlace(PlayerChangedPlaceEvent $event): void
     {
+        if ($event->getPlace()->isNotARoom() || $event->getOldPlace()->isNotARoom()) {
+            return;
+        }
+
         $this->createMoveLogFromEvent($event, logKey: ActionLogEnum::EXIT_ROOM);
         $this->createMoveLogFromEvent($event, logKey: ActionLogEnum::ENTER_ROOM);
     }

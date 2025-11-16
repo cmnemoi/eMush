@@ -737,6 +737,18 @@ other {**Vuelve cuando estés limpio.**"}
         <target>NERON ha alcanzado su número máximo de versiones.</target>
       </segment>
     </unit>
+    <unit id="room_on_fire">
+      <segment id="description" state="initial">
+        <source>room_on_fire.description</source>
+        <target>room_on_fire.description</target>
+      </segment>
+    </unit>
+    <unit id="room_selected_for_fire">
+      <segment id="description" state="initial">
+        <source>room_selected_for_fire.description</source>
+        <target>room_selected_for_fire.description</target>
+      </segment>
+    </unit>
     <unit id="dog_is_seasick">
       <segment id="description" state="translated">
         <source>dog_is_seasick.description</source>

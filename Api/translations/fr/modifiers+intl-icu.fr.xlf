@@ -194,7 +194,7 @@
       </segment>
     </unit>
     <unit id="coprolalia_messages_on_new_message">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>coprolalia_messages_on_new_message.description</source>
         <target>Vos messages sont parfois modifiés.</target>
       </segment>
@@ -202,13 +202,13 @@
     <unit id="paranoia_denial_on_read_message">
       <segment id="description" state="translated">
         <source>paranoia_denial_on_read_message.description</source>
-        <target>Vos messages sont parfois modifiés.</target>
+        <target>Vos messages sont parfois modifiés, et vous vous en rendez compte... de temps en temps.</target>
       </segment>
     </unit>
     <unit id="paranoia_messages_on_new_message">
       <segment id="description" state="translated">
         <source>paranoia_messages_on_new_message.description</source>
-        <target>Vos messages sont parfois modifiés.</target>
+        <target>Vos messages sont parfois modifiés, et vous vous en rendez compte... de temps en temps.</target>
       </segment>
     </unit>
     <unit id="change.variable.increase_on_player.new.cycle">

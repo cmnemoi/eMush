@@ -1005,8 +1005,8 @@
 			"allPlatformText": "In case of repeat offences or of behaviour that is considered serious enough, the sanctions can be applied to all the games and functionalities of the Eternaltwin platform."
 		},
 		"alphaRules": {
-			"title": "Rules specific to the open alpha",
-			"introText": "In the aim of contributing actively to the development and testing of the game, allowances are made to the rules marked by this icon in the preceding rules. These allowances are applicable until the opening of the game in a new phase, and players will be notified of any modification.",
+			"title": "Rules specific to the beta testing phase",
+			"introText": "In the aim of actively contributing to the development and testing of the game, certain allowances apply and are explained in the points below. These allowances remain valid until the game enters a new phase, and players will be notified of any changes.",
 			"tests": "<strong>Testing facilitation</strong> : The aim of the beta testing phase is to involve the community in the development of the game, to obtain feedback and bug reports. To this end, any bug must be reported immediately to the development team without being exploited.",
 			"spokenLanguage": "<strong>Allowances on the spoken language</strong>: During the development phases, the frequentation of the various servers can be unequal. In that context, players not having knowledge of the French language are allowed to join games on the French server. It is then recommended to notify the crew and to make particular efforts to communicate with them.",
 			"cooperation": "<strong>Allowances on the cooperation between humans and Mush</strong>: In order to test the game’s functionalities, the “investigation” part of the Mush game is not expected to be respected. In particular, cooperation between humans and Mush is tolerated in order to test game mechanisms.",

@@ -1005,8 +1005,8 @@
 			"allPlatformText": "En caso de reincidencia o de comportamiento considerado lo suficientemente grave, las sanciones pueden aplicarse a la totalidad de juegos y funcionalidades de la plataforma Eternaltwin."
 		},
 		"alphaRules": {
-			"title": "Reglas específicas de la Alpha abierta",
-			"introText": "Con el fin de contribuir activamente al desarrollo y las pruebas del juego, se permite cierta tolerancia en la aplicación de las reglas que estén previamente marcadas por este icono. Estas tolerancias son válidas hasta que el juego pase a una nueva fase, y los jugadores serán notificados de cualquier notificación.",
+			"title": "Reglas específicas de la fase de pruebas beta",
+			"introText": "Con el fin de contribuir activamente al desarrollo y a las pruebas del juego, se aplican ciertas tolerancias que se explican en los puntos siguientes. Estas tolerancias serán válidas hasta que el juego entre en una nueva fase, y los jugadores serán notificados de cualquier cambio.",
 			"tests": "<strong>Facilitación de las pruebas</strong>: El objetivo de la fase beta es involucrar a la comunidad en el desarrollo del juego, para recibir retroalimentación y reportes de errores. Para este efecto, cualquier error debe ser reportado inmediatamente sin ser abusado.",
 			"spokenLanguage": "<strong>Tolerancia del lenguaje hablado</strong>: Durante las fases de desarrollo, la frecuentación de los diferentes servidores puede ser dispareja. En este contexto, está permitido que jugadores sin buen dominio del lenguaje Francés se unan a naves en el servidor Francés. Se recomienda notificarlo a la tripulación y hacer un esfuerzo particular por comunicarse con los compañeros.",
 			"cooperation": "<strong>Tolerancia de la cooperación entre humanos y Mush</strong>: A fin de probar las funcionalidades del juego, no se espera que se respete la parte de \"investigación\" del juego Mush. En particular, la cooperación entre humanos y Mush es tolerada para poder probar las mecánicas del juego.",

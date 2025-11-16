@@ -120,7 +120,7 @@ final class DiseaseNormalizerCest extends AbstractFunctionalTest
                 'diseaseKey' => DisorderEnum::PARANOIA,
                 'diseaseName' => 'Crise Paranoïaque',
                 'diseaseType' => MedicalConditionTypeEnum::DISORDER,
-                'diseaseDescription' => 'Vous avez peur pour votre vie et éventuellement le faites savoir.//Max :pmo: **-3**.//Vos messages sont parfois modifiés.',
+                'diseaseDescription' => 'Vous avez peur pour votre vie et éventuellement le faites savoir.//Max :pmo: **-3**.//Vos messages sont parfois modifiés, et vous vous en rendez compte... de temps en temps.',
             ],
         ];
     }

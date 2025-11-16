@@ -978,7 +978,7 @@
 		"introduction": {
 			"textIntro": "eMush est un jeu communautaire présentant de nombreuses façons de communiquer et de se comporter. L’objectif de ce règlement est de permettre le bon déroulement des parties et d’assurer une expérience de jeu agréable pour tous les joueurs. Les règles énoncées ne se veulent pas exhaustives et sont amenées à évoluer au fur et à mesure du développement du jeu. Les joueurs seront informés lors de toute mise à jour par une notification sur le serveur Discord d’Eternaltwin.",
 			"alphaLeeway": "Les règles signalées par cette icône indiquent qu’une tolérance durant la période d’alpha ouverte s’applique (voir dernier paragraphe).",
-			"lastUpdated": "<em>Dernière mise à jour : 10 août 2025</em>"
+			"lastUpdated": "<em>Dernière mise à jour : 16 novembre 2025</em>"
 		},
 		"communication": {
 			"title": "Communication",
@@ -1007,7 +1007,7 @@
 		"alphaRules": {
 			"title": "Règles spécifiques à l’alpha ouverte",
 			"introText": "Dans le but de contribuer activement au développement et au test du jeu, des tolérances s’appliquent aux règles signalées par cette icône dans les points précédents. Ces tolérances sont valables jusqu’à la sortie du jeu dans une nouvelle phase, et les joueurs seront notifiés de tout changement.",
-			"tests": "<strong>Bon déroulement des tests</strong> : Le but de cette période d’alpha est d’impliquer la communauté dans le développement du jeu, d’obtenir des retours d’expérience ainsi que des rapports de bugs. A cet effet, tout bug doit être reporté immédiatement à l’équipe de développement sans être exploité, et il reste interdit d’avoir des comportements nuisant gravement à l’expérience de jeu des autres joueurs. Pour connaître les fonctionnalités disponibles, consultez la <a href='https://discord.com/channels/693082011484684348/693144970433003540/1079173112848994304'>feuille de route</a>.",
+			"tests": "<strong>Bon déroulement des tests</strong> : Le but de cette période de bêta-test est d’impliquer la communauté dans le développement du jeu, d’obtenir des retours d’expérience ainsi que des rapports de bugs. À cet effet, tout bug doit être reporté immédiatement à l’équipe de développement sans être exploité.",
 			"spokenLanguage": "<strong>Tolérance sur la langue parlée</strong> : Durant les phases de développement, la fréquentation des différents serveurs peut être inégale. Dans ce contexte, il est toléré que les joueurs n’ayant pas une bonne maîtrise du français rejoignent les parties du serveur français. Il est alors recommandé de le signaler et de faire des efforts particuliers pour communiquer avec les équipiers.",
 			"cooperation": "<strong>Tolérance sur la coopération entre les humains et les mushs</strong> : À des fins de tests des fonctionnalités, il n’est pas attendu que la partie “enquête” du jeu Mush soit respectée. En particulier, il est toléré pour les mushs et les humains de collaborer pour tester les mécaniques du jeu.",
 			"endText": "Notez que toutes les règles non marquées par une icône restent pleinement applicables durant la période de l’alpha."

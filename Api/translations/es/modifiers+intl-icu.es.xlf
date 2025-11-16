@@ -202,13 +202,13 @@
     <unit id="paranoia_denial_on_read_message">
       <segment id="description" state="translated">
         <source>paranoia_denial_on_read_message.description</source>
-        <target>Tus mensajes a veces se modifican.</target>
+        <target>Tus mensajes a veces se modifican, y te das cuenta de ello… de vez en cuando.</target>
       </segment>
     </unit>
     <unit id="paranoia_messages_on_new_message">
       <segment id="description" state="translated">
         <source>paranoia_messages_on_new_message.description</source>
-        <target>Tus mensajes a veces se modifican.</target>
+        <target>Tus mensajes a veces se modifican, y te das cuenta de ello… de vez en cuando.</target>
       </segment>
     </unit>
     <unit id="change.variable.increase_on_player.new.cycle">

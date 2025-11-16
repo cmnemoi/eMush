@@ -555,7 +555,7 @@
       </segment>
       <segment id="pyromaniac.description" state="translated">
         <source>pyromaniac.description</source>
-        <target>The oily sweat of the mush burn so well, if only you had a spark...//:point: For **4** :pa: you can trap a room, a **fire** will start in it at the beginning of the next cycle.</target>
+        <target>The pyromaniac injects explosive microspores into an inflammable medium which triggers a violent combustion which is liable to do long-term damage to the ship.//:point: For **4** :pa: you can start a **fire** in a room.</target>
       </segment>
     </unit>
     <unit id="observant">

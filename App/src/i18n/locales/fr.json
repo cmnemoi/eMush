@@ -1005,8 +1005,8 @@
 			"allPlatformText": "En cas de récidive ou de comportement jugé suffisamment grave, les sanctions peuvent s’appliquer à l’ensemble des jeux et fonctionnalités du réseau Eternaltwin."
 		},
 		"alphaRules": {
-			"title": "Règles spécifiques à l’alpha ouverte",
-			"introText": "Dans le but de contribuer activement au développement et au test du jeu, des tolérances s’appliquent aux règles signalées par cette icône dans les points précédents. Ces tolérances sont valables jusqu’à la sortie du jeu dans une nouvelle phase, et les joueurs seront notifiés de tout changement.",
+			"title": "Règles spécifiques à la phase de bêta-test",
+			"introText": "Dans le but de contribuer activement au développement et au test du jeu, des tolérances s'appliquent et sont expliquées par les points ci-dessous. Ces tolérances sont valables jusqu’à la sortie du jeu dans une nouvelle phase, et les joueurs seront notifiés de tout changement.",
 			"tests": "<strong>Bon déroulement des tests</strong> : Le but de cette période de bêta-test est d’impliquer la communauté dans le développement du jeu, d’obtenir des retours d’expérience ainsi que des rapports de bugs. À cet effet, tout bug doit être reporté immédiatement à l’équipe de développement sans être exploité.",
 			"spokenLanguage": "<strong>Tolérance sur la langue parlée</strong> : Durant les phases de développement, la fréquentation des différents serveurs peut être inégale. Dans ce contexte, il est toléré que les joueurs n’ayant pas une bonne maîtrise du français rejoignent les parties du serveur français. Il est alors recommandé de le signaler et de faire des efforts particuliers pour communiquer avec les équipiers.",
 			"cooperation": "<strong>Tolérance sur la coopération entre les humains et les mushs</strong> : À des fins de tests des fonctionnalités, il n’est pas attendu que la partie “enquête” du jeu Mush soit respectée. En particulier, il est toléré pour les mushs et les humains de collaborer pour tester les mécaniques du jeu.",

@@ -93,6 +93,97 @@
                         <span>{{ $t('hud.userMenu.rules') }}</span>
                     </router-link>
 
+                    <router-link
+                        v-if="isAdmin"
+                        to="/admin"
+                        class="link"
+                        @click="closeUserMenu">
+                        <svg
+                            class="svgLinkIcon"
+                            focusable="false"
+                            aria-hidden="true"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                d="M17 11c.34 0 .67.04 1 .09V6.27L10.5 3 3 6.27v4.91c0 4.54 3.2 8.79 7.5 9.82.55-.13 1.08-.32 1.6-.55-.69-.98-1.1-2.17-1.1-3.45 0-3.31 2.69-6 6-6"
+                            ></path>
+                            <path
+                                d="M17 13c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4m0 1.38c.62 0 1.12.51 1.12 1.12s-.51 1.12-1.12 1.12-1.12-.51-1.12-1.12.5-1.12 1.12-1.12m0 5.37c-.93 0-1.74-.46-2.24-1.17.05-.72 1.51-1.08 2.24-1.08s2.19.36 2.24 1.08c-.5.71-1.31 1.17-2.24 1.17"
+                            ></path>
+                        </svg>
+                        <span>{{ $t('hud.userMenu.admin') }}</span>
+                    </router-link>
+
+                    <router-link
+                        v-if="isModerator && !isAdmin"
+                        to="/moderation"
+                        class="link"
+                        @click="closeUserMenu">
+                        <svg
+                            class="svgLinkIcon"
+                            focusable="false"
+                            aria-hidden="true"
+                            viewBox="0 0 14 14"
+                        >
+                            <path
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                                d="M3.877 6.266a1.5 1.5 0 0 1 0-2.122L7.462.56a1.5 1.5 0 0 1 2.122 0l1.583 1.584a1.5 1.5 0 0 1 0 2.121L9.91 5.521L13.7 9.31a.75.75 0 1 1-1.062 1.06L8.85 6.583L7.582 7.85a1.5 1.5 0 0 1-2.12 0zM1.331 12.38h-.5a.75.75 0 0 0 0 1.5h7.5a.75.75 0 0 0 0-1.5h-.5v-1.75a.5.5 0 0 0-.5-.5h-5.5a.5.5 0 0 0-.5.5z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span>{{ $t('hud.userMenu.moderation') }}</span>
+                    </router-link>
+
+                    <a
+                        :href="wikiLink"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        class="link">
+                        <svg
+                            class="svgLinkIcon"
+                            focusable="false"
+                            aria-hidden="true"
+                            viewBox="0 0 8 8"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M1 0C.93 0 .87.01.81.03C.42.11.11.42.03.81C0 .87 0 .93 0 1v5.5C0 7.33.67 8 1.5 8H7V7H1.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5H7V.5c0-.28-.22-.5-.5-.5H6v3L5 2L4 3V0z"/>
+                        </svg>
+                        <span>{{ $t('hud.userMenu.wiki') }}</span>
+                    </a>
+
+                    <a
+                        :href="discordLink"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        class="link">
+                        <svg
+                            class="svgLinkIcon discord"
+                            focusable="false"
+                            aria-hidden="true"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"
+                            ></path>
+                        </svg>
+                        <span>{{ $t('hud.userMenu.discord') }}</span>
+                    </a>
+
+                    <a
+                        :href="forumLink"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        class="link">
+                        <svg
+                            class="svgLinkIcon"
+                            focusable="false"
+                            aria-hidden="true"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M7 18q-.425 0-.712-.288T6 17v-2h13V6h2q.425 0 .713.288T22 7v15l-4-4zm-5-1V3q0-.425.288-.712T3 2h13q.425 0 .713.288T17 3v9q0 .425-.288.713T16 13H6z"/>
+                        </svg>
+                        <span>{{ $t('hud.userMenu.forum') }}</span>
+                    </a>
+
                     <div class="link" @click="logoutAndRedirectToHome">
                         <svg
                             class="svgLinkIcon logout"
@@ -157,20 +248,28 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { useStore } from 'vuex';
 import LocaleChange from '../Utils/LocaleChange.vue';
 import { Settings } from '@/features/settings/store';
 import router from '@/router';
 import { formatText } from '@/utils/formatText';
+import { getDiscordLink, getForumLink, getWikiLink } from '@/utils/links';
 
 const store = useStore();
+
+const discordLink = getDiscordLink();
+const forumLink = getForumLink();
 
 // Computed properties
 const userMenu = computed(() => store.getters['popup/userMenu']);
 const username = computed((): string => store.getters['auth/username']);
 const notifications = computed((): string[] => store.getters['notifications/notifications']);
 const parameters = computed((): Settings[] => store.getters['settings/settings']);
+const isAdmin = computed((): boolean => store.getters['auth/isAdmin']);
+const isModerator = computed((): boolean => store.getters['auth/isModerator']);
+const locale = computed((): string => store.getters['locale/currentLocale']);
+const wikiLink = computed(() => getWikiLink(locale.value));
 
 // Methods
 const closeUserMenu = () => store.dispatch('popup/closeUserMenu');
@@ -408,10 +507,6 @@ const clearNotifications = () => store.dispatch('notifications/clearNotification
 				transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1);
 				font-size: 2.8rem;
 				color: rgb(254, 125, 0);
-			}
-			.admin {
-				fill: currentcolor;
-				color: rgb(2, 136, 209);
 			}
 			.logout {
 				fill: currentcolor;

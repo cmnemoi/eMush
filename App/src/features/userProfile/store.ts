@@ -8,7 +8,7 @@ export type UserProfileState = {
 };
 
 export function createUserProfileModule(
-    loadShipsHistory: (userId: number, page: number, itemsPerPage: number, language: string) => Promise<ShipHistory>,
+    loadShipsHistory: (userId: string, page: number, itemsPerPage: number, language: string) => Promise<ShipHistory>,
     loadUserById: (userId: string) => Promise<User>
 ): Module<UserProfileState, Record<string, any>> {
     return {

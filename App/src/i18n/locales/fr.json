@@ -89,7 +89,10 @@
 		"news": "News",
 		"forum": "Forum",
 		"admin": "Admin",
-		"moderation": "Modération"
+		"moderation": "Modération",
+		"rules": "Règlement",
+		"discord": "Discord",
+		"wiki": "Wiki"
 	},
 	"ranking": {
 		"ship_end_cause": "Cause de la destruction",
@@ -1042,6 +1045,11 @@
 			"rules": "Règlement",
 			"daedalus": "Daedalus",
 			"logout": "Déconnexion",
+			"admin": "Admin",
+			"moderation": "Modération",
+			"discord": "Discord",
+			"forum": "Forum",
+			"wiki": "Wiki",
 			"notifications": {
 				"title": "Notifications",
 				"empty": "Plus rien à voir ici !",

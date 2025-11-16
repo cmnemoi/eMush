@@ -22,7 +22,6 @@ import { createDaedalusRankingModule } from "@/features/rankings/store";
 import { gateway as daedalusRankingGateway } from "@/features/rankings/gateway";
 import { createUserProfileModule } from "@/features/userProfile/store";
 import { gateway as userProfileGateway } from "@/features/userProfile/gateway";
-import UserService from "@/services/user.service";
 import { createAchievementsModule } from "@/features/achievements/store";
 import { achievementsGateway } from "@/features/achievements/gateway";
 
@@ -54,7 +53,11 @@ export default createStore({
         daedalusRanking: createDaedalusRankingModule(daedalusRankingGateway.loadDaedalusRanking),
         userProfile: createUserProfileModule(
             userProfileGateway.loadShipsHistory,
-            UserService.loadUser
+            // Lazy load UserService to avoid circular dependency
+            async (userId: string) => {
+                const UserService = (await import("@/services/user.service")).default;
+                return UserService.loadUser(userId);
+            }
         )
     }
 });

@@ -4,33 +4,26 @@
             {{ title }}
         </h1>
         <slot />
-        <button v-if="hasCancelListener" class="modal-close" @click="$emit('exit', $event)">
+        <button v-if="closable" class="modal-close" @click="$emit('exit', $event)">
             <img :src="getImgUrl('comms/close.png')" alt="close">
         </button>
     </div>
 </template>
 
-<script lang="ts">
-
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import { getImgUrl } from "@/utils/getImgUrl";
 
-export default defineComponent ({
-    name: "GamePopUp",
-    props: {
-        title: String,
-        isOpen: Boolean
-    },
-    emits: ['exit'],
-    computed:{
-        hasCancelListener() : boolean {
-            return (this.$attrs && this.$attrs.onExit) as boolean;
-        }
-    },
-    methods: {
-        getImgUrl
-    }
+withDefaults(defineProps<{
+    title?: string;
+    isOpen?: boolean;
+    closable?: boolean;
+}>(), {
+    closable: true
 });
+
+defineEmits<{
+    exit: [event: Event];
+}>();
 </script>
 
 <style  lang="scss" scoped>

@@ -5,6 +5,7 @@
             class="expedition"
             v-if="exploration"
             :is-open="exploration !== null"
+            :closable="false"
         >
             <span v-html="formatText(exploration.planet)" />
             <span v-html="formatText(exploration.explorators)" />
@@ -15,9 +16,9 @@
 
 <script lang="ts">
 import GamePopUp from "@/components/Utils/GamePopUp.vue";
+import { DaedalusExploration } from "@/entities/DaedalusExploration";
 import { formatText } from "@/utils/formatText";
 import { defineComponent } from "vue";
-import { DaedalusExploration } from "@/entities/DaedalusExploration";
 
 export default defineComponent ({
     name: "ExpeditionPopUp",

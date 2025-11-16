@@ -1458,7 +1458,7 @@ class ActionData
         [
             'name' => 'fake_disease',
             'action_name' => ActionEnum::FAKE_DISEASE,
-            'types' => [ActionTypeEnum::ACTION_ADMIN, ActionTypeEnum::ACTION_MUSH],
+            'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'secret', 'fail' => 'private'],

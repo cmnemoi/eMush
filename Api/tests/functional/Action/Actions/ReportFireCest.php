@@ -14,6 +14,7 @@ use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\NeronMessageEnum;
+use Mush\Chat\Services\NeronMessageServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -30,6 +31,7 @@ final class ReportFireCest extends AbstractFunctionalTest
 
     private StatusServiceInterface $statusService;
     private StatisticRepositoryInterface $statisticRepository;
+    private NeronMessageServiceInterface $neronMessageService;
 
     private Status $fireStatus;
 
@@ -41,6 +43,7 @@ final class ReportFireCest extends AbstractFunctionalTest
         $this->reportFire = $I->grabService(ReportFire::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->neronMessageService = $I->grabService(NeronMessageServiceInterface::class);
     }
 
     public function shouldNotBeVisibleIfRoomDoesNotHaveFire(FunctionalTester $I): void
@@ -129,6 +132,17 @@ final class ReportFireCest extends AbstractFunctionalTest
 
         $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::SIGNAL_FIRE, $this->player->getUser()->getId());
         $I->assertEquals(1, $statistic->getCount());
+    }
+
+    public function shouldPushNeronThreadMessageUp(FunctionalTester $I): void
+    {
+        $this->givenRoomHasFire();
+        $failuresThread = $this->givenEquipmentFailureNeronThreadAlreadyExists();
+        $this->givenFailureThreadHasBeenUpdated1HourAgo($failuresThread);
+
+        $this->whenPlayerReportsFire();
+
+        $this->thenNeronThreadUpdatedAtDateShouldBeNow($failuresThread, $I);
     }
 
     private function givenRoomHasFire(): void
@@ -272,5 +286,28 @@ final class ReportFireCest extends AbstractFunctionalTest
         );
 
         $I->assertEquals($this->player2->getPlayerInfo(), $alertElement->getPlayerInfo());
+    }
+
+    private function givenEquipmentFailureNeronThreadAlreadyExists(): Message
+    {
+        return $this->neronMessageService->getMessageNeronCycleFailures(
+            daedalus: $this->daedalus,
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenFailureThreadHasBeenUpdated1HourAgo(Message $failuresThread): void
+    {
+        $failuresThread->setUpdatedAt(new \DateTime('-1 hour'));
+    }
+
+    private function thenNeronThreadUpdatedAtDateShouldBeNow(Message $failuresThread, FunctionalTester $I): void
+    {
+        $now = new \DateTime();
+        $I->assertEquals(
+            expected: $now->format('H:i:s'),
+            actual: $failuresThread->getUpdatedAt()->format('H:i:s'),
+            message: "NERON failure thread updated at date should be {$now->format('H:i:s')}, but got {$failuresThread->getUpdatedAt()->format('H:i:s')}"
+        );
     }
 }

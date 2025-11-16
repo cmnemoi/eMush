@@ -15,6 +15,7 @@ use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\NeronMessageEnum;
+use Mush\Chat\Services\NeronMessageService;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
@@ -36,8 +37,10 @@ final class ReportEquipmentCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private StatisticRepositoryInterface $statisticRepository;
+    private NeronMessageService $neronMessageService;
 
     private GameEquipment $equipment;
+    private ?Message $failuresThread = null;
 
     public function _before(FunctionalTester $I): void
     {
@@ -48,6 +51,7 @@ final class ReportEquipmentCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->neronMessageService = $I->grabService(NeronMessageService::class);
     }
 
     public function shouldNotBeVisibleIfEquipmentIsNotBroken(FunctionalTester $I): void
@@ -134,6 +138,17 @@ final class ReportEquipmentCest extends AbstractFunctionalTest
         $this->whenPlayerReportsDoor();
 
         $this->thenDoorAlertElementShouldBeCreatedWithPlayerInfo($I);
+    }
+
+    public function shouldPushNeronThreadMessageUp(FunctionalTester $I): void
+    {
+        $this->givenBrokenEquipmentInPlayerRoom();
+        $this->givenEquipmentFailureNeronThreadAlreadyExists();
+        $this->givenFailureThreadHasBeenUpdatedOneHourAgo();
+
+        $this->whenPlayerReportsEquipment();
+
+        $this->thenNeronThreadUpdatedAtDateShouldBeNow($I);
     }
 
     public function shouldIncrementStatistic(FunctionalTester $I): void
@@ -306,6 +321,29 @@ final class ReportEquipmentCest extends AbstractFunctionalTest
                 'equipment' => $this->equipment,
                 'playerInfo' => $this->player->getPlayerInfo(),
             ]
+        );
+    }
+
+    private function givenEquipmentFailureNeronThreadAlreadyExists(): void
+    {
+        $this->failuresThread = $this->neronMessageService->getMessageNeronCycleFailures(
+            daedalus: $this->daedalus,
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenFailureThreadHasBeenUpdatedOneHourAgo(): void
+    {
+        $this->failuresThread->setUpdatedAt(new \DateTime('-1 hour'));
+    }
+
+    private function thenNeronThreadUpdatedAtDateShouldBeNow(FunctionalTester $I): void
+    {
+        $now = new \DateTime();
+        $I->assertEquals(
+            expected: $now->format('H:i:s'),
+            actual: $this->failuresThread->getUpdatedAt()->format('H:i:s'),
+            message: "NERON failure thread updated at date should be {$now->format('H:i:s')}, but got {$this->failuresThread->getUpdatedAt()->format('H:i:s')}"
         );
     }
 }

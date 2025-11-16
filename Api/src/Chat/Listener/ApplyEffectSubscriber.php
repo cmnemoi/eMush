@@ -35,11 +35,15 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
 
         $parentMessage = $this->neronMessageService->getMessageNeronCycleFailures($daedalus, $event->getTime(), $event->getTags());
 
+        // last update of a message is disabled by default (to avoid players to up messages every time they read it)
+        // we need to update it manually so failure thread gets uped in the tchat
+        $parentMessage->setUpdatedAt($event->getTime());
+
         $this->neronMessageService->createNeronMessage(
             NeronMessageEnum::REPORT_FIRE,
             $player->getDaedalus(),
             [LanguageEnum::CHARACTER => $player->getLogName(), LanguageEnum::ROOMS => $place->getName()],
-            new \DateTime(),
+            $event->getTime(),
             $parentMessage
         );
     }
@@ -56,11 +60,15 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
 
         $parentMessage = $this->neronMessageService->getMessageNeronCycleFailures($daedalus, $event->getTime(), $event->getTags());
 
+        // last update of a message is disabled by default (to avoid players to up messages every time they read it)
+        // we need to update it manually so failure thread gets uped in the tchat
+        $parentMessage->setUpdatedAt($event->getTime());
+
         $this->neronMessageService->createNeronMessage(
             NeronMessageEnum::REPORT_EQUIPMENT,
             $player->getDaedalus(),
             ['character' => $player->getLogName(), $equipment->getLogKey() => $equipment->getLogName()],
-            new \DateTime(),
+            $event->getTime(),
             $parentMessage
         );
     }

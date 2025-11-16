@@ -1,3 +1,10 @@
+## [0.17.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.17.0...0.17.1) (2025-11-16)
+
+
+### Bug Fixes
+
+* Ensure game pop-ups are always closable ([acebcf4](https://gitlab.com/eternaltwin/mush/mush/commit/acebcf4889c2c91500926f93025cbadf5dec2a15))
+
 # [0.17.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.16.2...0.17.0) (2025-11-16)
 
 

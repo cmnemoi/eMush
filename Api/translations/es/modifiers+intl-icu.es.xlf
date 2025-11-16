@@ -43,7 +43,7 @@
     <unit id="roll.action.percentage_decrease_shoot">
       <segment id="description" state="translated">
         <source>roll.action.percentage_decrease_shoot.description</source>
-        <target>Precisión **- {quantity}%**.</target>
+        <target>Precisión con armas de fuego **- {quantity}%**.</target>
       </segment>
     </unit>
     <unit id="biting_on_player.new.cycle">

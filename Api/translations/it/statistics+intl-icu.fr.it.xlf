@@ -977,5 +977,327 @@
         <target>eden_contaminated_1.name</target>
       </segment>
     </unit>
+    <unit id="politician">
+      <segment id="name" state="initial">
+        <source>politician.name</source>
+        <target>politician.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>politician.description</source>
+        <target>politician.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>politician_1.name</source>
+        <target>politician_1.name</target>
+      </segment>
+      <segment id="x10" state="initial">
+        <source>politician_10.name</source>
+        <target>politician_10.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>politician_50.name</source>
+        <target>politician_50.name</target>
+      </segment>
+    </unit>
+    <unit id="hunter_down">
+      <segment id="name" state="initial">
+        <source>hunter_down.name</source>
+        <target>hunter_down.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>hunter_down.description</source>
+        <target>hunter_down.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>hunter_down_1.name</source>
+        <target>hunter_down_1.name</target>
+      </segment>
+      <segment id="x20" state="initial">
+        <source>hunter_down_20.name</source>
+        <target>hunter_down_20.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>hunter_down_50.name</source>
+        <target>hunter_down_50.name</target>
+      </segment>
+      <segment id="x100" state="initial">
+        <source>hunter_down_100.name</source>
+        <target>hunter_down_100.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>hunter_down_500.name</source>
+        <target>hunter_down_500.name</target>
+      </segment>
+    </unit>
+    <unit id="likes">
+      <segment id="name" state="initial">
+        <source>likes.name</source>
+        <target>likes.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>likes.description</source>
+        <target>likes.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>likes_1.name</source>
+        <target>likes_1.name</target>
+      </segment>
+      <segment id="x20" state="initial">
+        <source>likes_20.name</source>
+        <target>likes_20.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>likes_50.name</source>
+        <target>likes_50.name</target>
+      </segment>
+      <segment id="x100" state="initial">
+        <source>likes_100.name</source>
+        <target>likes_100.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>likes_200.name</source>
+        <target>likes_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>likes_500.name</source>
+        <target>likes_500.name</target>
+      </segment>
+    </unit>
+    <unit id="surgeon">
+      <segment id="name" state="initial">
+        <source>surgeon.name</source>
+        <target>surgeon.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>surgeon.description</source>
+        <target>surgeon.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>surgeon_1.name</source>
+        <target>surgeon_1.name</target>
+      </segment>
+    </unit>
+    <unit id="butcher">
+      <segment id="name" state="initial">
+        <source>butcher.name</source>
+        <target>butcher.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>butcher.description</source>
+        <target>butcher.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>butcher_1.name</source>
+        <target>butcher_1.name</target>
+      </segment>
+    </unit>
+    <unit id="communication_expert">
+      <segment id="name" state="initial">
+        <source>communication_expert.name</source>
+        <target>communication_expert.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>communication_expert.description</source>
+        <target>communication_expert.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>communication_expert_1.name</source>
+        <target>communication_expert_1.name</target>
+      </segment>
+      <segment id="x5" state="initial">
+        <source>communication_expert_5.name</source>
+        <target>communication_expert_5.name</target>
+      </segment>
+    </unit>
+    <unit id="day_5_reached">
+      <segment id="name" state="initial">
+        <source>day_5_reached.name</source>
+        <target>day_5_reached.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>day_5_reached.description</source>
+        <target>day_5_reached.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>day_5_reached_1.name</source>
+        <target>day_5_reached_1.name</target>
+      </segment>
+    </unit>
+    <unit id="day_10_reached">
+      <segment id="name" state="initial">
+        <source>day_10_reached.name</source>
+        <target>day_10_reached.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>day_10_reached.description</source>
+        <target>day_10_reached.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>day_10_reached_1.name</source>
+        <target>day_10_reached_1.name</target>
+      </segment>
+    </unit>
+    <unit id="day_15_reached">
+      <segment id="name" state="initial">
+        <source>day_15_reached.name</source>
+        <target>day_15_reached.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>day_15_reached.description</source>
+        <target>day_15_reached.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>day_15_reached_1.name</source>
+        <target>day_15_reached_1.name</target>
+      </segment>
+    </unit>
+    <unit id="day_20_reached">
+      <segment id="name" state="initial">
+        <source>day_20_reached.name</source>
+        <target>day_20_reached.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>day_20_reached.description</source>
+        <target>day_20_reached.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>day_20_reached_1.name</source>
+        <target>day_20_reached_1.name</target>
+      </segment>
+    </unit>
+    <unit id="day_30_reached">
+      <segment id="name" state="initial">
+        <source>day_30_reached.name</source>
+        <target>day_30_reached.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>day_30_reached.description</source>
+        <target>day_30_reached.description</target>
+      </segment>
+    </unit>
+    <unit id="mush_genome">
+      <segment id="name" state="initial">
+        <source>mush_genome.name</source>
+        <target>mush_genome.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mush_genome.description</source>
+        <target>mush_genome.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>mush_genome_1.name</source>
+        <target>mush_genome_1.name</target>
+      </segment>
+    </unit>
+    <unit id="rebels">
+      <segment id="name" state="initial">
+        <source>rebels.name</source>
+        <target>rebels.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>rebels.description</source>
+        <target>rebels.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>rebels_1.name</source>
+        <target>rebels_1.name</target>
+      </segment>
+    </unit>
+    <unit id="pilgred_is_back">
+      <segment id="name" state="initial">
+        <source>pilgred_is_back.name</source>
+        <target>pilgred_is_back.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>pilgred_is_back.description</source>
+        <target>pilgred_is_back.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>pilgred_is_back_1.name</source>
+        <target>pilgred_is_back_1.name</target>
+      </segment>
+    </unit>
+    <unit id="day_max">
+      <segment id="name" state="initial">
+        <source>day_max.name</source>
+        <target>day_max.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>day_max.description</source>
+        <target>day_max.description</target>
+      </segment>
+      <segment id="x3" state="initial">
+        <source>day_max_3.name</source>
+        <target>day_max_3.name</target>
+      </segment>
+      <segment id="x4" state="initial">
+        <source>day_max_4.name</source>
+        <target>day_max_4.name</target>
+      </segment>
+      <segment id="x5" state="initial">
+        <source>day_max_5.name</source>
+        <target>day_max_5.name</target>
+      </segment>
+      <segment id="x6" state="initial">
+        <source>day_max_6.name</source>
+        <target>day_max_6.name</target>
+      </segment>
+      <segment id="x7" state="initial">
+        <source>day_max_7.name</source>
+        <target>day_max_7.name</target>
+      </segment>
+      <segment id="x8" state="initial">
+        <source>day_max_8.name</source>
+        <target>day_max_8.name</target>
+      </segment>
+      <segment id="x9" state="initial">
+        <source>day_max_9.name</source>
+        <target>day_max_9.name</target>
+      </segment>
+      <segment id="x10" state="initial">
+        <source>day_max_10.name</source>
+        <target>day_max_10.name</target>
+      </segment>
+      <segment id="x11" state="initial">
+        <source>day_max_11.name</source>
+        <target>day_max_11.name</target>
+      </segment>
+      <segment id="x12" state="initial">
+        <source>day_max_12.name</source>
+        <target>day_max_12.name</target>
+      </segment>
+      <segment id="x13" state="initial">
+        <source>day_max_13.name</source>
+        <target>day_max_13.name</target>
+      </segment>
+    </unit>
+    <unit id="drugs_taken">
+      <segment id="name" state="initial">
+        <source>drugs_taken.name</source>
+        <target>drugs_taken.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>drugs_taken.description</source>
+        <target>drugs_taken.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>drugs_taken_1.name</source>
+        <target>drugs_taken_1.name</target>
+      </segment>
+    </unit>
+    <unit id="kivanc_contacted">
+      <segment id="name" state="initial">
+        <source>kivanc_contacted.name</source>
+        <target>kivanc_contacted.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>kivanc_contacted.description</source>
+        <target>kivanc_contacted.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>kivanc_contacted_1.name</source>
+        <target>kivanc_contacted_1.name</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

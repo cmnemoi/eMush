@@ -1813,5 +1813,25 @@ Todos tus camaradas serán *notificados* y el anuncio permanecerá en la pestañ
         <target>A veces, ser uno mismo es la mejor manera de no ser visto.</target>
       </segment>
     </unit>
+    <unit id="force_cycle_change">
+      <segment id="name" state="translated">
+        <source>force_cycle_change.name</source>
+        <target>Avanzar un ciclo</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>force_cycle_change.description</source>
+        <target>Permite romper el continuo temporal con tus poderes de mago tecnológico. El futuro es ahora.</target>
+      </segment>
+    </unit>
+    <unit id="force_exploration_step">
+      <segment id="name" state="translated">
+        <source>force_exploration_step.name</source>
+        <target>Forzar paso de expedición</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>force_exploration_step.description</source>
+        <target>Avanza la expedición un ciclo. Finola estima un aumento del ±0,0002 % en la supervivencia. Estudio no revisado por pares (ni revisado por NERON).</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -1333,7 +1333,7 @@
     <unit id="mutate_success">
       <segment id="mutate_success" state="translated">
         <source>mutate_success</source>
-        <target>**{character}** se recroqueville. Il semble souffrir, ses cris résonnent, il vomit une bile immonde qui fait fondre ses vêtements... Quelle horreur ! Il a complètement changé de forme !</target>
+        <target>:mush: **{character}** se recroqueville. {character_gender, select, female {Elle} other {Il}} semble souffrir, ses cris résonnent, {character_gender, select, female {elle} other {il}} vomit une bile immonde qui fait fondre ses vêtements... Quelle horreur ! {character_gender, select, female {Elle} other {Il}} a complètement changé de forme !</target>
       </segment>
     </unit>
     <unit id="exchange_body_success">

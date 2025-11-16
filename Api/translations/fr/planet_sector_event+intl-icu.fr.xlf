@@ -503,7 +503,7 @@
       </segment>
       <segment id="forest_description" state="translated">
         <source>disease.forest_description</source>
-        <target>Une liane gluante frôle la joue de {character}.</target>
+        <target>Une ribambelle de lianes gluantes descendues de la canopée vous frôlent le visage en dégageant une odeur malodorante.</target>
       </segment>
       <segment id="swamp_description" state="translated">
         <source>disease.swamp_description</source>
@@ -511,7 +511,7 @@
       </segment>
       <segment id="insect_description" state="translated">
         <source>disease.insect_description</source>
-        <target>Soudain {character} se met à hurler, une grosse araignée fluorescente s'enfuit de sa combinaison, apparemment elle lui a mordu le téton !</target>
+        <target>Vous passez un sale moment à écarter des toiles d'araignée pour vous frayer un passage... Les bestioles fluorescentes prennent leur revanche en perçant vos vêtements de leurs crocs baveux.</target>
       </segment>
     </unit>
     <unit id="starmap">

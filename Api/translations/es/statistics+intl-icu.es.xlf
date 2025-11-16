@@ -977,5 +977,327 @@
         <target>Devorador de mundos</target>
       </segment>
     </unit>
+    <unit id="politician">
+      <segment id="name" state="translated">
+        <source>politician.name</source>
+        <target>Político</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>politician.description</source>
+        <target>Discurso dado a más de 8 espectadores.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>politician_1.name</source>
+        <target>Parlanchín</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>politician_10.name</source>
+        <target>Charlatán</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>politician_50.name</source>
+        <target>Embustero</target>
+      </segment>
+    </unit>
+    <unit id="hunter_down">
+      <segment id="name" state="translated">
+        <source>hunter_down.name</source>
+        <target>Hunters derribados</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>hunter_down.description</source>
+        <target>Hunters derribados por ti.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>hunter_down_1.name</source>
+        <target>Tirapiedras</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>hunter_down_20.name</source>
+        <target>Piloto</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>hunter_down_50.name</source>
+        <target>Piloto de caza</target>
+      </segment>
+      <segment id="x100" state="translated">
+        <source>hunter_down_100.name</source>
+        <target>Artillero espacial</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>hunter_down_500.name</source>
+        <target>Destroyer</target>
+      </segment>
+    </unit>
+    <unit id="likes">
+      <segment id="name" state="translated">
+        <source>likes.name</source>
+        <target>¡Todo el mundo te ama!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>likes.description</source>
+        <target>Número de veces que fuiste apreciado durante una partida.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>likes_1.name</source>
+        <target>Buen compañero</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>likes_20.name</source>
+        <target>Considerado simpático</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>likes_50.name</source>
+        <target>Encantadoramente amable</target>
+      </segment>
+      <segment id="x100" state="translated">
+        <source>likes_100.name</source>
+        <target>Persona adorable</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>likes_200.name</source>
+        <target>Favorito de la tripulación</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>likes_500.name</source>
+        <target>Filtro de amor digital</target>
+      </segment>
+    </unit>
+    <unit id="surgeon">
+      <segment id="name" state="translated">
+        <source>surgeon.name</source>
+        <target>Cirujano</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>surgeon.description</source>
+        <target>Operaciones quirúrgicas exitosas.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>surgeon_1.name</source>
+        <target>Cirujano de Bergerac</target>
+      </segment>
+    </unit>
+    <unit id="butcher">
+      <segment id="name" state="translated">
+        <source>butcher.name</source>
+        <target>Carnicero</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>butcher.description</source>
+        <target>Cirugías fallidas.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>butcher_1.name</source>
+        <target>Carnicero</target>
+      </segment>
+    </unit>
+    <unit id="communication_expert">
+      <segment id="name" state="translated">
+        <source>communication_expert.name</source>
+        <target>Oficial de comunicaciones</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>communication_expert.description</source>
+        <target>Durante uno de tus viajes, tu equipo ha logrado realizar una gran cantidad de tareas en el módulo de comunicación</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>communication_expert_1.name</source>
+        <target>Oficial de comunicaciones</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>communication_expert_5.name</source>
+        <target>Ministro de comunicaciones</target>
+      </segment>
+    </unit>
+    <unit id="day_5_reached">
+      <segment id="name" state="translated">
+        <source>day_5_reached.name</source>
+        <target>Día 5 alcanzado</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>day_5_reached.description</source>
+        <target>Día 5 alcanzado.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>day_5_reached_1.name</source>
+        <target>Superviviente</target>
+      </segment>
+    </unit>
+    <unit id="day_10_reached">
+      <segment id="name" state="translated">
+        <source>day_10_reached.name</source>
+        <target>Día 10 alcanzado</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>day_10_reached.description</source>
+        <target>Día 10 alcanzado.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>day_10_reached_1.name</source>
+        <target>Héroe</target>
+      </segment>
+    </unit>
+    <unit id="day_15_reached">
+      <segment id="name" state="translated">
+        <source>day_15_reached.name</source>
+        <target>Día 15 alcanzado</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>day_15_reached.description</source>
+        <target>Día 15 alcanzado.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>day_15_reached_1.name</source>
+        <target>Antiguo</target>
+      </segment>
+    </unit>
+    <unit id="day_20_reached">
+      <segment id="name" state="translated">
+        <source>day_20_reached.name</source>
+        <target>Día 20 alcanzado</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>day_20_reached.description</source>
+        <target>Día 20 alcanzado.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>day_20_reached_1.name</source>
+        <target>Divinidad</target>
+      </segment>
+    </unit>
+    <unit id="day_30_reached">
+      <segment id="name" state="translated">
+        <source>day_30_reached.name</source>
+        <target>Día 30 alcanzado</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>day_30_reached.description</source>
+        <target>Día 30 alcanzado.</target>
+      </segment>
+    </unit>
+    <unit id="mush_genome">
+      <segment id="name" state="translated">
+        <source>mush_genome.name</source>
+        <target>Revelador de enigmas</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>mush_genome.description</source>
+        <target>Durante uno de tus viajes, tu equipo ha resuelto el enigma del genoma Mush.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>mush_genome_1.name</source>
+        <target>Experto en mush</target>
+      </segment>
+    </unit>
+    <unit id="rebels">
+      <segment id="name" state="translated">
+        <source>rebels.name</source>
+        <target>Contacto rebelde</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>rebels.description</source>
+        <target>Bases rebeldes contactadas por ti.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>rebels_1.name</source>
+        <target>Radio pirata</target>
+      </segment>
+    </unit>
+    <unit id="pilgred_is_back">
+      <segment id="name" state="translated">
+        <source>pilgred_is_back.name</source>
+        <target>¡PILGRED ESTÁ DE VUELTA!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>pilgred_is_back.description</source>
+        <target>Cantidad de viajes en los que la tripulación volvió a poner a PILGRED en línea.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>pilgred_is_back_1.name</source>
+        <target>Propulsión de ùltima generación</target>
+      </segment>
+    </unit>
+    <unit id="day_max">
+      <segment id="name" state="translated">
+        <source>day_max.name</source>
+        <target>El viaje más largo</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>day_max.description</source>
+        <target>El viaje más largo en tiempo que has realizado a bordo del Daedalus.</target>
+      </segment>
+      <segment id="x3" state="translated">
+        <source>day_max_3.name</source>
+        <target>El día de la langosta</target>
+      </segment>
+      <segment id="x4" state="translated">
+        <source>day_max_4.name</source>
+        <target>Héroe del día</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>day_max_5.name</source>
+        <target>El día de mi suerte</target>
+      </segment>
+      <segment id="x6" state="translated">
+        <source>day_max_6.name</source>
+        <target>Días aquellos</target>
+      </segment>
+      <segment id="x7" state="translated">
+        <source>day_max_7.name</source>
+        <target>El día trajo la oscuridad</target>
+      </segment>
+      <segment id="x8" state="translated">
+        <source>day_max_8.name</source>
+        <target>Un buen día para morir</target>
+      </segment>
+      <segment id="x9" state="translated">
+        <source>day_max_9.name</source>
+        <target>Los últimos días</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>day_max_10.name</source>
+        <target>A Hard Day's Night</target>
+      </segment>
+      <segment id="x11" state="translated">
+        <source>day_max_11.name</source>
+        <target>Día perfecto</target>
+      </segment>
+      <segment id="x12" state="translated">
+        <source>day_max_12.name</source>
+        <target>Días de gloria</target>
+      </segment>
+      <segment id="x13" state="translated">
+        <source>day_max_13.name</source>
+        <target>Días felices</target>
+      </segment>
+    </unit>
+    <unit id="drugs_taken">
+      <segment id="name" state="translated">
+        <source>drugs_taken.name</source>
+        <target>¡Las pastillitas son mías!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>drugs_taken.description</source>
+        <target>Pastillas y otras sustancias consumidas.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>drugs_taken_1.name</source>
+        <target>Automedicado</target>
+      </segment>
+    </unit>
+    <unit id="kivanc_contacted">
+      <segment id="name" state="translated">
+        <source>kivanc_contacted.name</source>
+        <target>Kivanç Terzi contactado</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>kivanc_contacted.description</source>
+        <target>La tripulación ha contactado con Kivanç Terzi.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>kivanc_contacted_1.name</source>
+        <target>Cabecilla</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

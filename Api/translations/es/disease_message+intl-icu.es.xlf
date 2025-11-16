@@ -203,7 +203,7 @@
                     other {invalid adjective}
                     }</target>
       </segment>
-      <segment id="adjective_coprolalia" state="translated">
+      <segment id="adjective_coprolalia" state="final">
         <source>adjective_coprolalia</source>
         <target/>
       </segment>

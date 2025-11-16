@@ -366,7 +366,7 @@
       </segment>
       <segment id="solid.description" state="translated">
         <source>solid.description</source>
-        <target>Vous n'avez aucune pénalité lorsque vous transportez un objet lourd. Pratique aussi pour les combats au corps-à-corps.//:point: Vos attaques de corps-à-corps infligent **un point de dégât supplémentaire**.//:point: **Pas de pénalités** pour les objets lourds.//:point: Dispose de la possibilité de **Mettre à la porte**.</target>
+        <target>Vous n'avez aucune pénalité lorsque vous transportez un objet lourd. Pratique aussi pour les combats au corps-à-corps.//:point: Vos attaques de corps-à-corps infligent **un point de dégât supplémentaire**.//:point: **Pas de pénalités** pour les objets lourds.//:point: Dispose de la possibilité de **Mettre à la porte**.//:point: Ne se cumule pas avec **Lutteur**.</target>
       </segment>
     </unit>
     <unit id="genius">
@@ -488,7 +488,7 @@
       </segment>
       <segment id="wrestler.description" state="translated">
         <source>wrestler.description</source>
-        <target>Les german suplex du Lutteur font trembler les vertèbres de tous ses adversaires.//:point: Vos attaques de corps-à-corps infligent **2 dégâts supplémentaires** si vous n'êtes pas muté.//:point: Vous disposez de l'action **Mettre à la porte**.</target>
+        <target>Les german suplex du Lutteur font trembler les vertèbres de tous ses adversaires.//:point: Vos attaques de corps-à-corps infligent **2 dégâts supplémentaires** si vous n'êtes pas muté.//:point: Vous disposez de l'action **Mettre à la porte**.//:point: Ne se cumule pas avec **Robuste**.</target>
       </segment>
     </unit>
     <unit id="sprinter">
@@ -682,7 +682,7 @@
       </segment>
       <segment id="saboteur.description" state="translated">
         <source>saboteur.description</source>
-        <target>Votre salive produit un acide liquide léger suffisant pour court-circuiter à peu près n'importe quoi...//:point: Vos chances de succès pour le **sabotage** d'équipement sont **doublées**.</target>
+        <target>Votre salive produit un acide liquide léger suffisant pour court-circuiter à peu près n'importe quoi...//:beta: Vos chances de succès pour le **sabotage** d'équipement sont **triplées**.</target>
       </segment>
     </unit>
     <unit id="disheartening_contact">
@@ -932,7 +932,7 @@
       </segment>
       <segment id="nimble_fingers.description" state="translated">
         <source>nimble_fingers.description</source>
-        <target>Avec un petit peu d'aide de vos rhizomes vous pouvez faire des choses merveilleuses. Comme manipuler des caméras par exemple...//:point: Vous pouvez **Installer discrètement** et **Enlever discrètement** les caméras.</target>
+        <target>Avec un petit peu d'aide de vos rhizomes vous pouvez faire des choses merveilleuses. Comme manipuler des caméras par exemple...//:point: En plus des installations standard, vous pouvez **installer** et **enlever** les caméras de façon **discrète**.</target>
       </segment>
     </unit>
     <unit id="polymath">

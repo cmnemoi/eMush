@@ -493,7 +493,7 @@
       </segment>
       <segment id="forest_description" state="translated">
         <source>disease.forest_description</source>
-        <target>Una liana pegajosa roza la mejilla de {character}.</target>
+        <target>Un enjambre de enredaderas colgantes cubre al grupo y comienzan a emitir gases malolientes.</target>
       </segment>
       <segment id="swamp_description" state="translated">
         <source>disease.swamp_description</source>
@@ -501,7 +501,7 @@
       </segment>
       <segment id="insect_description" state="translated">
         <source>disease.insect_description</source>
-        <target>De repente, {character} empieza a gritar, y una enorme araña fluorescente se escapa de su traje. ¡Nadie quiere arañas correteando por su traje!</target>
+        <target>Tu camino te lleva directamente a través de un nido de arañas luminosas. Responden a la perturbación de sus telas con la misma moneda, sin dejar a nadie a salvo de sus picaduras infectadas.</target>
       </segment>
     </unit>
     <unit id="starmap">

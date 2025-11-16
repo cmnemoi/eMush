@@ -302,7 +302,7 @@
     <unit id="disorder_treated_player">
       <segment state="translated">
         <source>disorder_treated_player</source>
-        <target>**{character}** is happy. The **{target_character}** session went well. But more will be required.</target>
+        <target>**{character}** is happy. **{target_character}**'s session went well. But more will be required.</target>
       </segment>
     </unit>
     <unit id="disorder_cured_player">

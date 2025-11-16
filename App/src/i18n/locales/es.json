@@ -978,7 +978,7 @@
 		"introduction": {
 			"textIntro": "eMush es un juego comunitario que ofrece múltiples formas de comunicarse y comportarse. El objetivo de este reglamento es garantizar el buen desarrollo de las partidas y asegurar una experiencia de juego agradable para todos los jugadores. Las normas aquí expuestas no son exhaustivas y pueden evolucionar a medida que avance el desarrollo del juego. Los jugadores serán informados de cualquier actualización mediante una notificación en el servidor de Discord de Eternaltwin.",
 			"alphaLeeway": "Las reglas marcadas por este icono indican que se permite cierta tolerancia durante el período de alpha abierta (ver último párrafo).",
-			"lastUpdated": "<em>Última actualización: 10 de agosto de 2025</em>"
+			"lastUpdated": "<em>Última actualización: 16 de noviembre de 2025</em>"
 		},
 		"communication": {
 			"title": "Comunicación",
@@ -1007,7 +1007,7 @@
 		"alphaRules": {
 			"title": "Reglas específicas de la Alpha abierta",
 			"introText": "Con el fin de contribuir activamente al desarrollo y las pruebas del juego, se permite cierta tolerancia en la aplicación de las reglas que estén previamente marcadas por este icono. Estas tolerancias son válidas hasta que el juego pase a una nueva fase, y los jugadores serán notificados de cualquier notificación.",
-			"tests": "<strong>Facilitación de las pruebas</strong>: El objetivo de la fase alpha es involucrar a la comunidad en el desarrollo del juego, para recibir retroalimentación y reportes de errores. Para este efecto, cualquier error debe ser reportado inmediatamente sin ser abusado, y permanece prohibido comportarse de manera que afecta gravemente la experiencia de juego de los demás juegadores. Para consultar las funcionalidades disponibles, por favor consulta la <a href='https://discord.com/channels/693082011484684348/693144970433003540/1079173112848994304'>hoja de ruta</a>.",
+			"tests": "<strong>Facilitación de las pruebas</strong>: El objetivo de la fase beta es involucrar a la comunidad en el desarrollo del juego, para recibir retroalimentación y reportes de errores. Para este efecto, cualquier error debe ser reportado inmediatamente sin ser abusado.",
 			"spokenLanguage": "<strong>Tolerancia del lenguaje hablado</strong>: Durante las fases de desarrollo, la frecuentación de los diferentes servidores puede ser dispareja. En este contexto, está permitido que jugadores sin buen dominio del lenguaje Francés se unan a naves en el servidor Francés. Se recomienda notificarlo a la tripulación y hacer un esfuerzo particular por comunicarse con los compañeros.",
 			"cooperation": "<strong>Tolerancia de la cooperación entre humanos y Mush</strong>: A fin de probar las funcionalidades del juego, no se espera que se respete la parte de \"investigación\" del juego Mush. En particular, la cooperación entre humanos y Mush es tolerada para poder probar las mecánicas del juego.",
 			"endText": "Note que todas las reglas no marcadas por el icono permanecen completamente aplicables durante el período de Alpha."
@@ -1092,7 +1092,7 @@
 			"unsubscribeSuccess": "Te has dado de baja de las notificaciones.",
 			"unsubscribeError": "Se produjo un error al darse de baja de las notificaciones."
 		},
-		"newVersion": "Hay una nueva versión del juego disponible. Por favor, borra la caché."
+		"newVersion": "Hay una nueva versión del juego disponible. Actualiza la página o borra la caché si sigues viendo este mensaje."
 	},
 	"actionTabs": {
 		"human": {

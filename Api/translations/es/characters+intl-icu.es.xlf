@@ -263,7 +263,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>eleesha.tips</source>
-        <target>//**Investiga para identificar a los Mushs** con tus compañeros humanos mediante canales privados, así como con tus habilidades de Detective y Observador.//**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.//**Repara los equipos rotos** usando tu habilidad de Técnico.</target>
+        <target>//**Investiga para identificar a los Mushs** con tus compañeros humanos mediante canales privados, así como con tus habilidades de Rastreador y Observador.//**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.//**Repara los equipos rotos** usando tu habilidad de Técnico.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>eleesha.tutorial</source>

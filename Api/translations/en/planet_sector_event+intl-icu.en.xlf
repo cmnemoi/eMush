@@ -485,7 +485,7 @@
       </segment>
       <segment id="forest_description" state="translated">
         <source>disease.forest_description</source>
-        <target>A creeping vine brushed past {character}'s cheek.</target>
+        <target>A swarm of hanging vines drapes over the group and starts emitting foul smelling fumes.</target>
       </segment>
       <segment id="swamp_description" state="translated">
         <source>disease.swamp_description</source>
@@ -493,7 +493,7 @@
       </segment>
       <segment id="insect_description" state="translated">
         <source>disease.insect_description</source>
-        <target>Suddenly {character} starts screaming, and a huge glowing spider shoots out of their suit. NOBODY wants spiders scuttling around their suit!</target>
+        <target>Your path takes you straight through a glowing spider nest. They respond to the disturbance to their webs in kind, leaving none safe from their infected bites.</target>
       </segment>
     </unit>
     <unit id="starmap">

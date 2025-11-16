@@ -800,21 +800,21 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="covert">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>covert.name</source>
         <target>Action furtive</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>covert.description</source>
         <target>Cette action est **Furtive**. Elle sera révélée par les Caméras.</target>
       </segment>
     </unit>
     <unit id="secret">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>secret.name</source>
         <target>Action discrète</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>secret.description</source>
         <target>Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.</target>
       </segment>

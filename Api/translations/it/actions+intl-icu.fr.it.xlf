@@ -1779,5 +1779,25 @@
         <target>become_anonymous_reverse.description</target>
       </segment>
     </unit>
+    <unit id="force_cycle_change">
+      <segment id="name" state="initial">
+        <source>force_cycle_change.name</source>
+        <target>force_cycle_change.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>force_cycle_change.description</source>
+        <target>force_cycle_change.description</target>
+      </segment>
+    </unit>
+    <unit id="force_exploration_step">
+      <segment id="name" state="initial">
+        <source>force_exploration_step.name</source>
+        <target>force_exploration_step.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>force_exploration_step.description</source>
+        <target>force_exploration_step.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

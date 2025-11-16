@@ -412,7 +412,7 @@
       <segment id="solid.description" state="translated">
         <source>solid.description</source>
         <target>No sufres al transportar objetos pesados. Muy bueno también para los combates cuerpo a cuerpo.//:point: Tus ataques cuerpo a cuerpo causan **1 punto de daño adicional**.//
-:point: **No eres penalizado** al llevar objetos pesados.//:point: Puedes **expulsar** de la sala a un tripulante por 2 :pa:.</target>
+:point: **No eres penalizado** al llevar objetos pesados.//:point: Puedes **expulsar** de la sala a un tripulante por 2 :pa:.//:point: :point: No se acumula con **Luchador**.</target>
       </segment>
     </unit>
     <unit id="genius">
@@ -545,7 +545,7 @@
         <source>wrestler.description</source>
         <target>{character_gender, select,
         female {Los músculos de la luchadora hacen temblar los huesos de todos sus adversarios.}
-        other {Los músculos del luchador hacen temblar los huesos de todos sus adversarios.}}//:point: Tus ataques cuerpo a cuerpo causan **2 puntos de daño adicionales si no has mutado.**// :point: Puedes **expulsar** de la sala a un tripulante por 2 :pa:.</target>
+        other {Los músculos del luchador hacen temblar los huesos de todos sus adversarios.}}//:point: Tus ataques cuerpo a cuerpo causan **2 puntos de daño adicionales si no has mutado.**// :point: Puedes **expulsar** de la sala a un tripulante por 2 :pa:.// :point: No se acumula con **Robusto**.</target>
       </segment>
     </unit>
     <unit id="sprinter">
@@ -756,7 +756,7 @@
       </segment>
       <segment id="saboteur.description" state="translated">
         <source>saboteur.description</source>
-        <target>Tu saliva contiene una sustancia capaz de hacer que cualquier cosa tenga un corto circuito...//:point: Las probabilidades de éxito de tus **Sabotajes** a los equipos **se duplican**.</target>
+        <target>Tu saliva contiene una sustancia capaz de hacer que cualquier cosa tenga un corto circuito...//:beta: Las probabilidades de éxito de tus **Sabotajes** a los equipos se **triplican**.</target>
       </segment>
     </unit>
     <unit id="disheartening_contact">

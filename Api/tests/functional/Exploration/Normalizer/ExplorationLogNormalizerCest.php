@@ -959,7 +959,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorKey' => PlanetSectorEnum::FOREST,
                 'planetSectorName' => 'Forêt',
                 'eventName' => 'Maladie',
-                'eventDescription' => 'Une liane gluante frôle la joue de Chun.',
+                'eventDescription' => 'Une ribambelle de lianes gluantes descendues de la canopée vous frôlent le visage en dégageant une odeur malodorante.',
                 'eventOutcome' => 'Un équipier tombe malade.',
             ],
             actual: $normalizedExplorationLog,

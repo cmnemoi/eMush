@@ -702,7 +702,7 @@
       </segment>
       <segment id="abstract" state="translated">
         <source>raluca.abstract</source>
-        <target>Physics genius at the age of 11, Raluca is the inventor of the PILGRED reversible combustion reactor as equipped on the Daedalus. Alongside Lai Kuan Ti, she also designed almost all of the on-board modules and is capable of improving them further. Suffering from autism, Raluca will only tolerate the presence of Schrödinger, her cat which she managed to smuggle on board in spite of the doctor's recommendations. Her disputes with NERON are legendary.</target>
+        <target>Physics genius at the age of 11, Raluca is the inventor of the PILGRED reversible combustion reactor as equipped on the Daedalus. Alongside Lai Kuan Ti, she also designed almost all of the on-board modules and is capable of improving them further. Due to anxieties linked to her autism, Raluca will only tolerate the presence of Schrödinger, her cat which she managed to smuggle on board in spite of the doctor's recommendations. Her disputes with NERON are legendary.</target>
       </segment>
       <segment id="biography" state="translated">
         <source>raluca.biography</source>

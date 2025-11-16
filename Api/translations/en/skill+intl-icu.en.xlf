@@ -675,7 +675,7 @@
       </segment>
       <segment id="saboteur.description" state="translated">
         <source>saboteur.description</source>
-        <target>Your saliva becomes lightly acidic which is sufficient to short-circuit pretty much anything...//:point: Your chances of success in attempts to **sabotage** equipment are **doubled**.</target>
+        <target>Your saliva becomes lightly acidic which is sufficient to short-circuit pretty much anything...//:beta: Your chances of success in attempts to **sabotage** equipment are **tripled**.</target>
       </segment>
     </unit>
     <unit id="disheartening_contact">
@@ -925,7 +925,7 @@
       </segment>
       <segment id="nimble_fingers.description" state="translated">
         <source>nimble_fingers.description</source>
-        <target>With a little bit of help from your rhizomes, you can do some wonderful things. Manipulating cameras for example...//:point: You can **Install secretly** and **Remove secretly** the cameras.</target>
+        <target>With a little bit of help from your rhizomes, you can do some wonderful things. Manipulating cameras for example...//:point: On top of their standard actions, you can ***secretly*** **Install** and **Remove** the cameras.</target>
       </segment>
     </unit>
     <unit id="polymath">

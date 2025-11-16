@@ -660,7 +660,7 @@
       </segment>
     </unit>
     <unit id="spread_fire_success">
-      <segment id="spread_fire_success" state="translated">
+      <segment id="spread_fire_success" state="final">
         <source>spread_fire_success</source>
         <target>:mush: Tiens... ça se réchauffe par ici... **{character}** a mis le feu...</target>
       </segment>

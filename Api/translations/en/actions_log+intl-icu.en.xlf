@@ -423,7 +423,7 @@
       </segment>
     </unit>
     <unit id="spread_fire_success">
-      <segment id="spread_fire_success" state="translated">
+      <segment id="spread_fire_success" state="final">
         <source>spread_fire_success</source>
         <target>:mush: Well... it's getting hot in here... **{character}** has set fire to the room...</target>
       </segment>

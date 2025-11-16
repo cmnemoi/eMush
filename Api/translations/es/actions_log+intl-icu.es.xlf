@@ -434,7 +434,7 @@ other {Que extraño, **{character}** ha hecho que salga humo del **{target_equip
       </segment>
     </unit>
     <unit id="spread_fire_success">
-      <segment id="spread_fire_success" state="translated">
+      <segment id="spread_fire_success" state="final">
         <source>spread_fire_success</source>
         <target>:mush: Vaya... hace mucho calor aquí... **{character}** ha iniciado un incendio...</target>
       </segment>

@@ -738,15 +738,15 @@ other {**Vuelve cuando estés limpio.**"}
       </segment>
     </unit>
     <unit id="room_on_fire">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>room_on_fire.description</source>
-        <target>room_on_fire.description</target>
+        <target>No sirve de nada echar leña al fuego.</target>
       </segment>
     </unit>
     <unit id="room_selected_for_fire">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>room_selected_for_fire.description</source>
-        <target>room_selected_for_fire.description</target>
+        <target>No hace falta volver a colocar una trampa en esta sala.</target>
       </segment>
     </unit>
     <unit id="dog_is_seasick">

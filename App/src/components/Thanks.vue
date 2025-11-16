@@ -7,7 +7,7 @@
                     <h3>{{ $t('footer.coreTeam') }}</h3>
                     <ul>
                         <li v-for="member in team" :key="member.name">
-                            <template v-if="member.coreTeam && member.active">
+                            <template v-if="member.coreTeam">
                                 <img :src="getRoleImage(member.role)" :alt="member.role">
                                 <span class="name">{{ member.name }}</span>
                             </template>
@@ -159,15 +159,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import { crowdin, team } from '@/enums/footer';
-import { version } from '../../package.json';
-import { mapActions } from "vuex";
-import { mapGetters } from 'vuex';
-import { getImgUrl } from '@/utils/getImgUrl';
 import { getEternaltwinGames } from '@/utils/getEternaltwinGames';
-import { Tippy } from 'vue-tippy';
+import { getImgUrl } from '@/utils/getImgUrl';
 import urlJoin from 'url-join';
+import { defineComponent } from 'vue';
+import { Tippy } from 'vue-tippy';
+import { mapActions, mapGetters } from "vuex";
+import { version } from '../../package.json';
 
 export default defineComponent({
     name: 'Thanks',

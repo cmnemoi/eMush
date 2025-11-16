@@ -425,7 +425,7 @@
     <unit id="spread_fire_success">
       <segment id="spread_fire_success" state="translated">
         <source>spread_fire_success</source>
-        <target>:mush: Well... it's getting hot in here... **{character}** has set fire to the room...</target>
+        <target>What **{character}** is doing with the electrical wires... ? This doesn't feel right... :fires:</target>
       </segment>
     </unit>
     <unit id="install_camera">

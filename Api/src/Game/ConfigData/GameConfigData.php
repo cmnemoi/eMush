@@ -521,6 +521,7 @@ class GameConfigData
                     PlayerStatusEnum::SELECTED_FOR_ANXIETY_ATTACK . '_default',
                     PlaceStatusEnum::SELECTED_FOR_JOLT->value . '_default',
                     PlaceStatusEnum::SELECTED_FOR_ELECTROCUTION->value . '_default',
+                    PlaceStatusEnum::SELECTED_FOR_FIRE->value . '_default',
                     PlayerStatusEnum::SELECTED_FOR_BOARD_DISEASE . '_default',
                     PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE . '_default',
                     PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE . '_default',

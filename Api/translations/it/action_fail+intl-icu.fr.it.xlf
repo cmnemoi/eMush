@@ -709,6 +709,18 @@
         <target>max_neron_version_reached.description</target>
       </segment>
     </unit>
+    <unit id="room_on_fire">
+      <segment id="description" state="final">
+        <source>room_on_fire.description</source>
+        <target>It is useless to poor oil on this fire.</target>
+      </segment>
+    </unit>
+    <unit id="room_selected_for_fire">
+      <segment id="description" state="final">
+        <source>room_selected_for_fire.description</source>
+        <target>It is useless to trap that room twice.</target>
+      </segment>
+    </unit>
     <unit id="dog_is_seasick">
       <segment id="description" state="initial">
         <source>dog_is_seasick.description</source>

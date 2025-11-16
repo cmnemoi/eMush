@@ -124,6 +124,8 @@ abstract class ActionImpossibleCauseEnum
     public const string TRADE_TERMS_NOT_MET = 'trade_terms_not_met';
     public const string CYCLE_LIMIT_EVERY_4 = 'cycle_limit_every_4';
     public const string CYCLE_LIMIT_EVERY_2 = 'cycle_limit_every_2';
+    public const string ROOM_ON_FIRE = 'room_on_fire';
+    public const string ROOM_SELECTED_FOR_FIRE = 'room_selected_for_fire';
 
     // April Fools Dog messages
     public const string DOG_IS_SEASICK = 'dog_is_seasick';

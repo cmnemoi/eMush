@@ -11,6 +11,7 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -38,7 +39,8 @@ class SpreadFire extends AbstractAction
     {
         $metadata->addConstraint(new HasStatus(['status' => PlayerStatusEnum::MUSH, 'target' => HasStatus::PLAYER, 'groups' => ['visibility']]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'room', 'message' => ActionImpossibleCauseEnum::NOT_A_ROOM]));
-        $metadata->addConstraint(new HasStatus(['status' => StatusEnum::FIRE, 'target' => HasStatus::PLAYER_ROOM, 'contain' => false, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new HasStatus(['status' => StatusEnum::FIRE, 'target' => HasStatus::PLAYER_ROOM, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::ROOM_ON_FIRE]));
+        $metadata->addConstraint(new HasStatus(['status' => PlaceStatusEnum::SELECTED_FOR_FIRE->toString(), 'target' => HasStatus::PLAYER_ROOM, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::ROOM_SELECTED_FOR_FIRE]));
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool
@@ -54,7 +56,7 @@ class SpreadFire extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $this->statusService->createStatusFromName(
-            StatusEnum::FIRE,
+            PlaceStatusEnum::SELECTED_FOR_FIRE->toString(),
             $this->player->getPlace(),
             $this->getActionConfig()->getActionTags(),
             new \DateTime(),

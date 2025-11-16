@@ -11,6 +11,7 @@ enum PlaceStatusEnum: string
     case MUSH_TRAPPED = 'mush_trapped';
     case SELECTED_FOR_ELECTROCUTION = 'selected_for_electrocution';
     case SELECTED_FOR_JOLT = 'selected_for_jolt';
+    case SELECTED_FOR_FIRE = 'selected_for_fire';
 
     public function toString(): string
     {

@@ -662,7 +662,7 @@
     <unit id="spread_fire_success">
       <segment id="spread_fire_success" state="translated">
         <source>spread_fire_success</source>
-        <target>:mush: Tiens... ça se réchauffe par ici... **{character}** a mis le feu...</target>
+        <target>Mais que fait  **{character}** avec l'installation électrique... ? Cela ne sent vraiment pas bon...:fires:</target>
       </segment>
     </unit>
     <unit id="install_camera">

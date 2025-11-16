@@ -750,6 +750,18 @@
         <target>NERON a atteint son numéro de version maximal.</target>
       </segment>
     </unit>
+    <unit id="room_on_fire">
+      <segment id="description" state="final">
+        <source>room_on_fire.description</source>
+        <target>Cela ne sert à rien d'ajouter de l'huile sur le feu.</target>
+      </segment>
+    </unit>
+    <unit id="room_selected_for_fire">
+      <segment id="description" state="final">
+        <source>room_selected_for_fire.description</source>
+        <target>Inutile de piéger cette salle une seconde fois.</target>
+      </segment>
+    </unit>
     <unit id="dog_is_seasick">
       <segment id="description" state="translated">
         <source>dog_is_seasick.description</source>

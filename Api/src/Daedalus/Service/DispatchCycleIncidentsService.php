@@ -194,7 +194,7 @@ final class DispatchCycleIncidentsService
     {
         return match ($incidentName) {
             CycleIncidentEnum::ELECTROCUTION => $daedalus->getRooms()->getAllWithoutStatus(PlaceStatusEnum::SELECTED_FOR_ELECTROCUTION->toString())->toArray(),
-            CycleIncidentEnum::FIRE => $daedalus->getRooms()->getAllWithoutStatus(StatusEnum::FIRE)->toArray(),
+            CycleIncidentEnum::FIRE => $daedalus->getRooms()->getAllWithoutStatus(StatusEnum::FIRE)->getAllWithoutStatus(PlaceStatusEnum::SELECTED_FOR_FIRE->toString())->toArray(),
             CycleIncidentEnum::JOLT => $daedalus->getRooms()->getAllWithAlivePlayers()->getAllWithoutStatus(PlaceStatusEnum::SELECTED_FOR_JOLT->toString())->toArray(),
             default => throw new \LogicException("Incident type {$incidentName->toString()} not supported"),
         };

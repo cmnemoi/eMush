@@ -8,11 +8,14 @@ use Mush\Action\Actions\AdaptEpigenetics;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -73,6 +76,21 @@ final class AdaptEpigeneticsCest extends AbstractFunctionalTest
         $this->givenKuanTiHasSkill(SkillEnum::FERTILE, $I);
         $this->whenKuanTiAdapts();
         $this->thenKuanTiHasStatusHasAdaptedEpigenetics($I);
+    }
+
+    public function shouldPrintPrivateLog(FunctionalTester $I): void
+    {
+        $this->whenKuanTiAdapts();
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: "Un changement de tactique s'impose! Vous avez réinitialisé vos compétences.",
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->player,
+                log: ActionLogEnum::ADAPT_EPIGENETICS,
+                visibility: VisibilityEnum::PRIVATE,
+                inPlayerRoom: false,
+            ),
+            I: $I
+        );
     }
 
     private function givenKuanTiIsMush(): void

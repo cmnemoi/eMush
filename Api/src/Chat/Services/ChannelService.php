@@ -282,9 +282,11 @@ final class ChannelService implements ChannelServiceInterface
                 }
 
                 // check player has enough private channels
-                $currentChannelCount = $this->getPlayerChannels($player, true)->count();
-                if ($currentChannelCount >= $player->getMaxPrivateChannels()) {
-                    throw new \Exception('Player has too many private channels');
+                if ($channel->isPrivate()) {
+                    $currentChannelCount = $this->getPlayerChannels($player, true)->count();
+                    if ($currentChannelCount >= $player->getMaxPrivateChannels()) {
+                        throw new \Exception('Player has too many private channels');
+                    }
                 }
 
                 $channelPlayer = new ChannelPlayer();

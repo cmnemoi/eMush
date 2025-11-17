@@ -91,7 +91,7 @@ class GameConfig
     #[ORM\ManyToMany(targetEntity: TradeConfig::class)]
     private Collection $tradeConfigs;
 
-    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    #[ORM\Column(type: 'json', nullable: false, options: ['default' => '[]'])]
     private array $specialOptions = [];
 
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]

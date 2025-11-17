@@ -103,7 +103,7 @@ class DifficultyConfig
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $maxTransportSpawnRate = 0;
 
-    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    #[ORM\Column(type: 'json', nullable: false, options: ['default' => '[]'])]
     private array $randomSpores = [];
 
     public function __construct() {}

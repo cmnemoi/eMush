@@ -12,7 +12,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\Planet;
 use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Place\Entity\Place;
@@ -38,7 +37,6 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
     public const string RESULT_ACTION = 'result.action';
     public const string EXECUTE_ACTION = 'execute.action';
     public const string FORCED_GET_UP = 'forced.get.up';
-    private const OBSERVANT_REVEAL_CHANCE = 25;
 
     private ActionConfig $actionConfig;
     private ActionProviderInterface $actionProvider;
@@ -217,13 +215,6 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
         $player = $this->getPlayerActionTarget();
 
         return $player->hasStatus(PlayerStatusEnum::LYING_DOWN) && $this->hasAnyTag(ActionEnum::getForceGetUpActions());
-    }
-
-    public function shouldCreateLogNoticedLog(D100RollServiceInterface $d100Roll): bool
-    {
-        $player = $this->getAuthor();
-
-        return $player->getPlace()->hasAlivePlayerWithSkill(SkillEnum::OBSERVANT) && $d100Roll->isSuccessful(self::OBSERVANT_REVEAL_CHANCE);
     }
 
     public function actionResultDoesNotHaveContent(): bool

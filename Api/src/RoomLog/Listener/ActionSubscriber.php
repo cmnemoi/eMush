@@ -4,7 +4,6 @@ namespace Mush\RoomLog\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -17,7 +16,6 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -75,7 +73,6 @@ final class ActionSubscriber implements EventSubscriberInterface
 
         $this->handlePlayerWakeUpLog($event);
         $this->handleContentLog($event);
-        $this->handleObservantNoticedSomethingLog($event);
         $this->handleMycoAlarmLog($event);
     }
 
@@ -125,16 +122,6 @@ final class ActionSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function handleObservantNoticedSomethingLog(ActionEvent $event): void
-    {
-        $player = $event->getAuthor();
-
-        if ($event->shouldCreateLogNoticedLog($this->d100Roll) && ($unnoticedSecretRevealedLog = $this->getUnnoticedSecretRevealedLog($player))) {
-            $this->createObservantNoticeSomethingLog($player);
-            $this->markLogAsNoticed($unnoticedSecretRevealedLog);
-        }
-    }
-
     private function handleMycoAlarmLog(ActionEvent $event): void
     {
         if ($event->shouldMakeMycoAlarmRing()) {
@@ -162,44 +149,6 @@ final class ActionSubscriber implements EventSubscriberInterface
         );
     }
 
-    private function createEnterRoomLog(ActionEvent $event): void
-    {
-        $door = $event->getDoorActionTargetOrThrow();
-        $player = $event->getAuthor();
-
-        $this->roomLogService->createLog(
-            ActionLogEnum::ENTER_ROOM,
-            $player->getPlace(),
-            VisibilityEnum::PUBLIC,
-            'actions_log',
-            $player,
-            [
-                $player->getLogKey() => $player->getLogName(),
-                ...$this->getEnterLogParameters($player, $door),
-            ],
-            $event->getTime()
-        );
-    }
-
-    private function createExitRoomLog(ActionEvent $event): void
-    {
-        $door = $event->getDoorActionTargetOrThrow();
-        $player = $event->getAuthor();
-
-        $this->roomLogService->createLog(
-            ActionLogEnum::EXIT_ROOM,
-            $player->getPlace(),
-            VisibilityEnum::PUBLIC,
-            'actions_log',
-            $player,
-            [
-                $player->getLogKey() => $player->getLogName(),
-                ...$this->getExitLogParameters($player, $door),
-            ],
-            $event->getTime()
-        );
-    }
-
     private function createTakeoffActionLog(ActionEvent $event): void
     {
         $actionResult = $event->getActionResultOrThrow();
@@ -218,38 +167,6 @@ final class ActionSubscriber implements EventSubscriberInterface
             ],
             $event->getTime()
         );
-    }
-
-    private function getEnterLogParameters(Player $player, Door $door): array
-    {
-        $placeName = $door->getOtherRoom($player->getPlace())->getLogName();
-        $enterLocPrep = $this->translationService->translate(
-            "{$placeName}.enter_loc_prep",
-            [],
-            'rooms',
-            $player->getLanguage()
-        );
-
-        return [
-            'place' => $placeName,
-            'enter_loc_prep' => $enterLocPrep,
-        ];
-    }
-
-    private function getExitLogParameters(Player $player, Door $door): array
-    {
-        $placeName = $door->getOtherRoom($player->getPlace())->getLogName();
-        $exitLocPrep = $this->translationService->translate(
-            "{$placeName}.exit_loc_prep",
-            [],
-            'rooms',
-            $player->getLanguage()
-        );
-
-        return [
-            'place' => $placeName,
-            'exit_loc_prep' => $exitLocPrep,
-        ];
     }
 
     private function getPatrolShipLogParameters(Player $player, GameEquipment $patrolShip): array
@@ -388,36 +305,6 @@ final class ActionSubscriber implements EventSubscriberInterface
             VisibilityEnum::REVEALED => $statistic->incrementUnstealthActionsTaken(),
             default => $statistic->incrementStealthActionsTaken(),
         };
-    }
-
-    private function createObservantNoticeSomethingLog(Player $player): void
-    {
-        $observantPlayer = $player->getAlivePlayersInRoom()->getOnePlayerWithSkillOrThrow(SkillEnum::OBSERVANT);
-        $this->roomLogService->createLog(
-            LogEnum::OBSERVANT_NOTICED_SOMETHING,
-            $observantPlayer->getPlace(),
-            VisibilityEnum::PUBLIC,
-            'event_log',
-            $observantPlayer,
-            [$observantPlayer->getLogKey() => $observantPlayer->getLogName()],
-            new \DateTime()
-        );
-    }
-
-    private function getUnnoticedSecretRevealedLog(Player $player): ?RoomLog
-    {
-        $unnoticedSecretRevealedLog = $this->roomLogService->getRoomLog($player)->filter(
-            static fn (RoomLog $roomLog) => $roomLog->getBaseVisibility() === VisibilityEnum::SECRET
-            && $roomLog->getVisibility() === VisibilityEnum::REVEALED && $roomLog->isUnnoticed()
-        )->first() ?: null;
-
-        return $unnoticedSecretRevealedLog;
-    }
-
-    private function markLogAsNoticed(RoomLog $roomLog): void
-    {
-        $roomLog->markAsNoticed();
-        $this->roomLogService->persist($roomLog);
     }
 
     private function createMycoAlarmRingLog(ActionEvent $event): void

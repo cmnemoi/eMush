@@ -572,7 +572,7 @@
       </segment>
       <segment id="observant.description" state="translated">
         <source>observant.description</source>
-        <target>Vos capacités d'observation sont hors pair. Rien ne vous échappe, ni les tours de passe-passe, ni les cachettes faciles. //:point: L'action **Fouiller** vous coûte un :pa: de moins.//:point: Vous avez **25% de chances de détecter les actions discrètes** de votre pièce.//:point: Vous avez **25% de chances de révéler les actions furtives** réalisées en votre présence.</target>
+        <target>Vos capacités d'observation sont hors pair. Rien ne vous échappe, ni les tours de passe-passe, ni les cachettes faciles. //:point: L'action **Fouiller** vous coûte un :pa: de moins.//:point: Vous avez **25% de chances de révéler les actions furtives** réalisées en votre présence.</target>
       </segment>
     </unit>
     <unit id="detached_crewmember">

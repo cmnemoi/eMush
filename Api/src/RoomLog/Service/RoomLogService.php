@@ -267,7 +267,6 @@ final class RoomLogService implements RoomLogServiceInterface
 
         if ($this->observantRevealsLog($player, $visibility)) {
             $this->createObservantNoticeSomethingLog($player);
-            $roomLog->markAsNoticed();
 
             return VisibilityEnum::REVEALED;
         }

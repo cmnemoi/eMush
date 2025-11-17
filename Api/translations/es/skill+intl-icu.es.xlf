@@ -632,8 +632,7 @@
       </segment>
       <segment id="observant.description" state="translated">
         <source>observant.description</source>
-        <target>Tienes un talento para detectar lo que otros ignoran. Nada se te escapa, ni los juegos de manos, ni los escondites.//:point: La acción **Hurgar** te cuesta 1 :pa: menos.//
-:point: Tienes **25% de probabilidades de detectar las acciones discretas** en la sala actual.//:point: Tienes un **25% de probabilidades de revelar las acciones furtivas** realizadas en tu presencia.</target>
+        <target>Tienes un talento para detectar lo que otros ignoran. Nada se te escapa, ni los juegos de manos, ni los escondites.//:point: La acción **Hurgar** te cuesta 1 :pa: menos.//:point: Tienes un **25% de probabilidades de revelar las acciones furtivas** realizadas en tu presencia.</target>
       </segment>
     </unit>
     <unit id="detached_crewmember">

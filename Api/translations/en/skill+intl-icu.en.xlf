@@ -565,7 +565,7 @@
       </segment>
       <segment id="observant.description" state="translated">
         <source>observant.description</source>
-        <target>You have a talent for perceiving what others miss. Nothing gets by you, neither sleight-of-hand nor hiding spots. //:point: The **Search** action costs 1 :pa: less.//:point: You have a **25% chance of detecting secret activity** in your current room.//:point: You have a **25% chance of revealing covert actions** performed in your presence.</target>
+        <target>You have a talent for perceiving what others miss. Nothing gets by you, neither sleight-of-hand nor hiding spots. //:point: The **Search** action costs 1 :pa: less.//:point: You have a **25% chance of revealing covert actions** performed in your presence.</target>
       </segment>
     </unit>
     <unit id="detached_crewmember">

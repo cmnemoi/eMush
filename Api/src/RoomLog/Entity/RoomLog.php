@@ -67,9 +67,6 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => VisibilityEnum::HIDDEN])]
     private string $baseVisibility = VisibilityEnum::HIDDEN;
 
-    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
-    private bool $noticed = false;
-
     public function __construct()
     {
         $this->readers = new ArrayCollection();
@@ -276,16 +273,6 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
         $this->baseVisibility = $baseVisibility;
 
         return $this;
-    }
-
-    public function isUnnoticed(): bool
-    {
-        return $this->noticed === false;
-    }
-
-    public function markAsNoticed(): void
-    {
-        $this->noticed = true;
     }
 
     public function getClassName(): string

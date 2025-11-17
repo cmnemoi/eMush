@@ -114,7 +114,7 @@ export default defineComponent({
     flex-grow: 1;
     min-width: 100%;
     min-height: 100%;
-    background: #0f0f43 url("/src/assets/images/bg.jpg") no-repeat center 0;
+    background: #0f0f43 url("/src/assets/images/bg.jpg") no-repeat center 32px;
     overflow-y: auto;
     padding-top: 32px;
 }

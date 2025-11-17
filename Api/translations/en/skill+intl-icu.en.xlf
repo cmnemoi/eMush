@@ -210,7 +210,7 @@
       <segment id="nurse.description" state="translated">
         <source>nurse.description</source>
         <target>Always ready to help.//
-:point: +1 :pa_heal: every day (**Heal** Action Point).//
+:point: +2 :pa_heal: every day (**Heal** Action Point).//
 :point: Can read **properties of medicines**.//
 :point: Bonus for developing certain **NERON projects**.</target>
       </segment>

@@ -211,7 +211,7 @@
       <segment id="nurse.description" state="translated">
         <source>nurse.description</source>
         <target>L'Infirmier est toujours prêt à rendre service.//
-:point: +1 :pa_heal: chaque jour (point d'action **Soin**).//
+:point: +2 :pa_heal: chaque jour (point d'action **Soin**).//
 :point: Peut lire les **propriétés des médicaments.**//
 :point: Bonus pour participer à certains **Projets NERON**.</target>
       </segment>

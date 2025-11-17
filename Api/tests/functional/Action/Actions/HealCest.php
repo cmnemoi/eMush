@@ -20,6 +20,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -226,7 +227,7 @@ final class HealCest extends AbstractFunctionalTest
 
     private function givenChunHasTwoNursePoints(FunctionalTester $I): void
     {
-        $I->assertEquals(2, $this->player->getSkillByNameOrThrow(SkillEnum::NURSE)->getSkillPoints());
+        $this->player->getChargeStatusByName(SkillPointsEnum::NURSE_POINTS->toString())->setCharge(2);
     }
 
     private function givenChunHasTenActionPoints(): void

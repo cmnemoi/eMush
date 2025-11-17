@@ -241,7 +241,7 @@
         <source>nurse.description</source>
         <target>{character_gender, select,
         female {La enfermera siempre está lista para servir.}
-        other {El enfermero siempre está listo para servir.}}//":point: +1 :pa_heal: cada día (punto de acción **Curar**).//
+        other {El enfermero siempre está listo para servir.}}//":point: +2 :pa_heal: cada día (punto de acción **Curar**).//
 :point: Puede leer las **propiedades de los medicamentos.**//:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>

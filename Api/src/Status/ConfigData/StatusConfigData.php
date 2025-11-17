@@ -1309,8 +1309,8 @@ abstract class StatusConfigData
             'type' => 'charge_status_config',
             'chargeVisibility' => VisibilityEnum::HIDDEN,
             'chargeStrategy' => ChargeStrategyTypeEnum::SKILL_POINTS_INCREMENT,
-            'maxCharge' => 2,
-            'startCharge' => 2,
+            'maxCharge' => 4,
+            'startCharge' => 4,
             'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_NURSE],
             'autoRemove' => false,
             'modifierConfigs' => [

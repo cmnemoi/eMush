@@ -89,7 +89,10 @@
 		"news": "Noticias",
 		"forum": "Foro",
 		"admin": "Admin",
-		"moderation": "Moderación"
+		"moderation": "Moderación",
+		"rules": "Règlement",
+		"discord": "Discord",
+		"wiki": "Wiki"
 	},
 	"ranking": {
 		"ship_end_cause": "Causa de destrucción",
@@ -291,7 +294,11 @@
 			"triumphConfigs": "Configuraciones de Gloria",
 			"diseaseCauseConfigs": "Configuración de causas de enfermedades",
 			"diseaseConfigs": "Configuración de enfermedades",
-			"consumableDiseaseConfigs": "Configuración de enfermedades de consumibles"
+			"consumableDiseaseConfigs": "Configuración de enfermedades de consumibles",
+			"specialOptions": {
+				"title": "Options de jeu",
+				"randomSpores": "option_random_spore"
+			}
 		},
 		"modifierConfig": {
 			"name": "Nombre",
@@ -418,7 +425,8 @@
 			"difficultyModes": "Modos de dificultad (nombre => día de activación)",
 			"hunterSpawnRate": "Tasa de aparición de Hunters al cambio de ciclo",
 			"hunterSafeCycles": "Ciclos en los que no pueden aparecer hunters",
-			"startingHuntersTruceCycles": "Cantidad de ciclos antes de que aparezcan nuevos Hunters al comienzo del juego"
+			"startingHuntersTruceCycles": "Cantidad de ciclos antes de que aparezcan nuevos Hunters al comienzo del juego",
+			"randomSpores": "Nombre de spores distribué en début de partie si l'option est active"
 		},
 		"characterConfig": {
 			"name": "Nombre",
@@ -1042,6 +1050,11 @@
 			"rules": "Reglas",
 			"daedalus": "Daedalus",
 			"logout": "Desconectarse",
+			"admin": "Admin",
+			"moderation": "Modération",
+			"discord": "Discord",
+			"forum": "Forum",
+			"wiki": "Wiki",
 			"notifications": {
 				"title": "Notificaciones",
 				"empty": "¡Nada que ver aquí!",

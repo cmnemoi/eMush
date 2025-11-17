@@ -89,7 +89,10 @@
 		"news": "News",
 		"forum": "Forum",
 		"admin": "Admin",
-		"moderation": "Moderation"
+		"moderation": "Moderation",
+		"rules": "Règlement",
+		"discord": "Discord",
+		"wiki": "Wiki"
 	},
 	"ranking": {
 		"ship_end_cause": "End cause",
@@ -291,7 +294,11 @@
 			"triumphConfigs": "Triumph configs",
 			"diseaseCauseConfigs": "Disease causes configuration",
 			"diseaseConfigs": "Diseases configuration",
-			"consumableDiseaseConfigs": "Consumable disease configs"
+			"consumableDiseaseConfigs": "Consumable disease configs",
+			"specialOptions": {
+				"title": "Options de jeu",
+				"randomSpores": "option_random_spore"
+			}
 		},
 		"modifierConfig": {
 			"name": "Name",
@@ -418,7 +425,8 @@
 			"difficultyModes": "Difficulty modes (name => day triggered)",
 			"hunterSpawnRate": "Hunter spawn rate at cycle change",
 			"hunterSafeCycles": "Cycles when no hunter can spawn",
-			"startingHuntersTruceCycles": "Cycles at the beginning of the game with no new hunters spawning"
+			"startingHuntersTruceCycles": "Cycles at the beginning of the game with no new hunters spawning",
+			"randomSpores": "Nombre de spores distribué en début de partie si l'option est active"
 		},
 		"characterConfig": {
 			"name": "Name",
@@ -1042,6 +1050,11 @@
 			"rules": "Rules",
 			"daedalus": "Daedalus",
 			"logout": "Logout",
+			"admin": "Admin",
+			"moderation": "Modération",
+			"discord": "Discord",
+			"forum": "Forum",
+			"wiki": "Wiki",
 			"notifications": {
 				"title": "Notifications",
 				"empty": "Nothing to see here!",

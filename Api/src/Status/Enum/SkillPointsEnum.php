@@ -28,6 +28,7 @@ enum SkillPointsEnum: string
             SkillEnum::BOTANIST => self::BOTANIST_POINTS,
             SkillEnum::CHEF => self::CHEF_POINTS,
             SkillEnum::CONCEPTOR => self::CONCEPTOR_POINTS,
+            SkillEnum::FERTILE => self::SPORE_POINTS,
             SkillEnum::NURSE => self::NURSE_POINTS,
             SkillEnum::IT_EXPERT => self::IT_EXPERT_POINTS,
             SkillEnum::PHYSICIST => self::PILGRED_POINTS,

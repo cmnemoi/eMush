@@ -117,13 +117,41 @@ final class DeletePlayerSkillServiceTest extends TestCase
         $this->thenIShouldNotSeeModifierInRepository($modifier);
     }
 
-    public function testShouldDeleteSkillPoints(): void
+    /**
+     * @dataProvider provideShouldDeleteSkillPointsCases
+     */
+    public function testShouldDeleteSkillPoints(SkillEnum $skill, SkillPointsEnum $skillPoints): void
     {
-        $this->givenPlayerHasSkillWithPoints(SkillEnum::TECHNICIAN);
+        $this->givenPlayerHasSkillWithPoints($skill);
 
-        $this->whenIDeleteSkill(SkillEnum::TECHNICIAN);
+        $this->whenIDeleteSkill($skill);
 
-        $this->thenIShouldNotSeeSkillPointsInRepository(SkillPointsEnum::TECHNICIAN_POINTS);
+        $this->thenIShouldNotSeeSkillPointsInRepository($skillPoints);
+    }
+
+    public static function provideShouldDeleteSkillPointsCases(): iterable
+    {
+        return SkillPointsEnum::getAll()->map(static fn (SkillPointsEnum $skillPoints) => [
+            $skillPoints->value => [
+                match ($skillPoints) {
+                    SkillPointsEnum::BOTANIST_POINTS => SkillEnum::BOTANIST,
+                    SkillPointsEnum::CHEF_POINTS => SkillEnum::CHEF,
+                    SkillPointsEnum::CONCEPTOR_POINTS => SkillEnum::CONCEPTOR,
+                    SkillPointsEnum::IT_EXPERT_POINTS => SkillEnum::IT_EXPERT,
+                    SkillPointsEnum::NURSE_POINTS => SkillEnum::NURSE,
+                    SkillPointsEnum::PILGRED_POINTS => SkillEnum::PHYSICIST,
+                    SkillPointsEnum::POLYMATH_IT_POINTS => SkillEnum::POLYMATH,
+                    SkillPointsEnum::SHOOTER_POINTS => SkillEnum::SHOOTER,
+                    SkillPointsEnum::TECHNICIAN_POINTS => SkillEnum::TECHNICIAN,
+                    SkillPointsEnum::SPORE_POINTS => SkillEnum::FERTILE,
+                    default => throw new \LogicException("Skill points {$skillPoints->toString()} not found"),
+                },
+                $skillPoints,
+            ],
+        ])->reduce(
+            static fn (array $carry, array $item) => array_merge($carry, $item),
+            []
+        );
     }
 
     private function givenPlayerHasSkill(SkillEnum $skill): void

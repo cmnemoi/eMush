@@ -12,6 +12,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -91,6 +92,14 @@ final class AdaptEpigeneticsCest extends AbstractFunctionalTest
             ),
             I: $I
         );
+    }
+
+    public function shouldRemoveSkillPoints(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasSkill(SkillEnum::FERTILE, $I);
+        $this->whenKuanTiAdapts();
+
+        $I->assertNull($this->kuanTi->getStatusByName(SkillPointsEnum::SPORE_POINTS->toString())?->getId());
     }
 
     private function givenKuanTiIsMush(): void

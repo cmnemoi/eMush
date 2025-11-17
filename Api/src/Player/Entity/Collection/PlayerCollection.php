@@ -226,6 +226,11 @@ class PlayerCollection extends ArrayCollection
         return implode(',', $names);
     }
 
+    public function getActiveNonImmuneHumanPlayers(): self
+    {
+        return $this->getHumanPlayer()->getPlayerAlive()->getActivePlayers()->getAllWithoutStatus(PlayerStatusEnum::IMMUNIZED);
+    }
+
     private function getPlayerWithStatus(string $status): ?Player
     {
         return $this->filter(static fn (Player $player) => $player->hasStatus($status))->first() ?: null;

@@ -91,6 +91,9 @@ class GameConfig
     #[ORM\ManyToMany(targetEntity: TradeConfig::class)]
     private Collection $tradeConfigs;
 
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    private array $specialOptions = [];
+
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name;
 
@@ -552,5 +555,29 @@ class GameConfig
         $this->tradeConfigs->add($tradeConfig);
 
         return $this;
+    }
+
+    public function getSpecialOptions(): array
+    {
+        return $this->specialOptions;
+    }
+
+    public function setSpecialOptions(array $specialOptions): static
+    {
+        $this->specialOptions = $specialOptions;
+
+        return $this;
+    }
+
+    public function addSpecialOption(string $option): static
+    {
+        $this->specialOptions[] = $option;
+
+        return $this;
+    }
+
+    public function hasSpecialOption(string $option): bool
+    {
+        return \in_array($option, $this->specialOptions, true);
     }
 }

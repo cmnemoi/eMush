@@ -10,4 +10,5 @@ abstract class GameConfigEnum
     public const string BLITZ = 'blitz';
     public const string ALPHA = 'alpha';
     public const string TEST = 'test';
+    public const string OPTION_RANDOM_SPORE = 'option_random_spore';
 }

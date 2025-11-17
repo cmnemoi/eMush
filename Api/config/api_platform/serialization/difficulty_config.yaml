@@ -48,3 +48,5 @@ Mush\Game\Entity\DifficultyConfig:
       groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
     startingHuntersNumberOfTruceCycles:
       groups: [ 'difficulty_config_read', 'difficulty_config_write' ]
+    randomSpores:
+      groups: [ 'difficulty_config_read', 'difficulty_config_write' ]

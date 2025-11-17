@@ -6,6 +6,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
@@ -191,6 +192,38 @@ final class FilledDaedalusCest extends AbstractFunctionalTest
         $this->givenDaedalusIsFull($I);
         $this->shouldSpawnMushSample($I);
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::STARTING);
+    }
+
+    public function testShouldGiveSporeIfRandomSporesOptionIsActivated(FunctionalTester $I): void
+    {
+        $this->daedalus->getGameConfig()->setSpecialOptions([GameConfigEnum::OPTION_RANDOM_SPORE]);
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setRandomSpores([2 => 100]);
+
+        $this->givenDaedalusIsFull($I);
+
+        $numberOfSpore = 0;
+
+        foreach ($this->daedalus->getPlayers() as $player) {
+            $numberOfSpore += $player->getSpores();
+        }
+
+        $I->assertEquals(2, $numberOfSpore);
+    }
+
+    public function testShouldNotGiveSporeIfRandomSporesOptionIsNotActivated(FunctionalTester $I): void
+    {
+        $this->daedalus->getGameConfig()->setSpecialOptions([]);
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setRandomSpores([2 => 100]);
+
+        $this->givenDaedalusIsFull($I);
+
+        $numberOfSpore = 0;
+
+        foreach ($this->daedalus->getPlayers() as $player) {
+            $numberOfSpore += $player->getSpores();
+        }
+
+        $I->assertEquals(0, $numberOfSpore);
     }
 
     private function givenDaedalusIsFull($I)

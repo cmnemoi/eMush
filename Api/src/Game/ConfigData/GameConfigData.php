@@ -9,6 +9,7 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Project\Enum\ProjectName;
@@ -767,6 +768,9 @@ class GameConfigData
                     TradeEnum::HUMAN_VS_FUEL,
                     TradeEnum::HUMAN_VS_OXY,
                     TradeEnum::HUMAN_VS_TREE,
+                ],
+                'specialOptions' => [
+                    // GameConfigEnum::OPTION_RANDOM_SPORE,
                 ],
             ],
         ];

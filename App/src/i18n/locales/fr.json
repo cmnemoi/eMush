@@ -294,7 +294,11 @@
 			"triumphConfigs": "Sources de triomphe",
 			"diseaseCauseConfigs": "Configuration des causes de maladie",
 			"diseaseConfigs": "Configurations de maladie",
-			"consumableDiseaseConfigs": "Configuration des maladies des consommables"
+			"consumableDiseaseConfigs": "Configuration des maladies des consommables",
+			"specialOptions" : {
+				"title" : "Options de jeu",
+				"randomSpores" : "option_random_spore"
+			}
 		},
 		"modifierConfig": {
 			"name": "Nom",
@@ -421,7 +425,8 @@
 			"difficultyModes": "Modes de difficulté (nom => jour de déclenchement)",
 			"hunterSpawnRate": "Taux d'apparition des hunters au changement de cycle",
 			"hunterSafeCycles": "Cycles où les hunters ne peuvent apparaître",
-			"startingHuntersTruceCycles": "Nombre de cycles avant l'apparition de nouveaux hunters au début de la partie"
+			"startingHuntersTruceCycles": "Nombre de cycles avant l'apparition de nouveaux hunters au début de la partie",
+			"randomSpores" : "Nombre de spores distribué en début de partie si l'option est active"
 		},
 		"characterConfig": {
 			"name": "Nom",

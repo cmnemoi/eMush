@@ -21,6 +21,7 @@ export class GameConfig {
     public diseaseConfig: DiseaseConfig[]|null;
     public consumableDiseaseConfig: ConsumableDiseaseConfig[]|null;
     public difficultyConfig: DifficultyConfig|null;
+    public specialOptions: Array<string>;
 
     constructor() {
         this.iri = null;
@@ -35,12 +36,14 @@ export class GameConfig {
         this.diseaseConfig = null;
         this.consumableDiseaseConfig = null;
         this.difficultyConfig = null;
+        this.specialOptions = [];
     }
     load(object:any) : GameConfig {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;
             this.name = object.name;
+            this.specialOptions = object.specialOptions;
             if (typeof object.daedalusConfig !== "undefined") {
                 this.daedalusConfig = new DaedalusConfig().load(object.daedalusConfig);
             }
@@ -133,7 +136,8 @@ export class GameConfig {
             'diseaseCauseConfig': diseaseCauseConfigs,
             'diseaseConfig': diseaseConfigs,
             'consumableDiseaseConfig': consumableDiseaseConfigs,
-            'difficultyConfig': this.difficultyConfig?.iri
+            'difficultyConfig': this.difficultyConfig?.iri,
+            'specialOptions' : this.specialOptions
         };
 
         return data;

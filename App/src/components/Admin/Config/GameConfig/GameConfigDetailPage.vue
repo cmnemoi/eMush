@@ -9,6 +9,20 @@
                 :errors="errors.name"
             />
         </div>
+
+        <h3>{{ $t('admin.gameConfig.specialOptions.title') }}</h3>
+        <ul>
+            <li v-for="value in optionsList" :key = value>
+                {{ $t(value) }}
+            </li>
+        </ul>
+        <StringArrayManager
+            :array="gameConfig.specialOptions"
+            id="gameConfig_specialOptions"
+            @add-element="gameConfig.specialOptions?.push($event)"
+            @remove-element="gameConfig?.specialOptions?.splice(gameConfig?.specialOptions.indexOf($event), 1)"
+        ></StringArrayManager>
+
         <h3>{{ $t("admin.gameConfig.daedalusConfig") }}</h3>
         <ChildManager
             :child="gameConfig.daedalusConfig"
@@ -133,11 +147,13 @@ import { removeItem } from "@/utils/misc";
 import { resourceLimits } from "worker_threads";
 import { gameConfig } from "@/store/game_config.module";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
 
 
 interface GameConfigState {
     gameConfig: null|GameConfig
-    errors: any
+    errors: any,
+    optionsList : Array<string>
 }
 
 export default defineComponent({
@@ -146,12 +162,16 @@ export default defineComponent({
         ChildCollectionManager,
         ChildManager,
         Input,
-        UpdateConfigButtons
+        UpdateConfigButtons,
+        StringArrayManager
     },
     data: function (): GameConfigState {
         return {
             gameConfig: null,
-            errors: {}
+            errors: {},
+            optionsList: [
+                'admin.gameConfig.specialOptions.randomSpores'
+            ]
         };
     },
     methods: {

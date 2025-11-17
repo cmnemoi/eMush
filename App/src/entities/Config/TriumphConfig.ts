@@ -19,9 +19,9 @@ export class TriumphConfig {
             this.iri = object['@id'];
             this.id = object.id;
             this.name = object.name;
-            this.triumph = object.triumph;
+            this.triumph = object.quantity;
             this.isAllCrew = object.isAllCrew;
-            this.team = object.team;
+            this.team = object.scope;
         }
         return this;
     }
@@ -29,9 +29,9 @@ export class TriumphConfig {
         return {
             'id': this.id,
             'name': this.name,
-            'triumph': this.triumph,
+            'quantity': this.triumph,
             'isAllCrew': this.isAllCrew,
-            'team': this.team
+            'scope': this.team
         };
     }
     decode(jsonString : string): TriumphConfig {

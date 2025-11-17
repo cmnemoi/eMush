@@ -187,6 +187,15 @@
             @add-tuple="addNewDifficultyModes"
             @remove-index="removeDifficultyModes"
         />
+        <MapManager
+            :label="$t('admin.difficultyConfig.randomSpores')"
+            :map="difficultyConfig.randomSpores"
+            id="difficultyConfig_randomSpores"
+            map-indexes-type="number"
+            map-values-type="number"
+            @add-tuple="addNewRandomSporesOption"
+            @remove-index="removeRandomSporeOption"
+        />
         <UpdateConfigButtons :create="false" @update="update"/>
     </div>
 </template>
@@ -325,6 +334,18 @@ export default defineComponent({
         removeDifficultyModes(index: string): void {
             if (this.difficultyConfig && this.difficultyConfig.difficultyModes) {
                 this.difficultyConfig.difficultyModes.delete(index);
+            }
+        },
+        addNewRandomSporesOption(tuple: any[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.difficultyConfig && this.difficultyConfig.randomSpores) {
+                this.difficultyConfig.randomSpores.set(index, value);
+            }
+        },
+        removeRandomSporeOption(index: number): void {
+            if (this.difficultyConfig && this.difficultyConfig.randomSpores) {
+                this.difficultyConfig.randomSpores.delete(index);
             }
         }
     },

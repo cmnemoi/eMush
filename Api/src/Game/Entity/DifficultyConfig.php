@@ -103,6 +103,9 @@ class DifficultyConfig
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $maxTransportSpawnRate = 0;
 
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    private array $randomSpores = [];
+
     public function __construct() {}
 
     public static function fromDto(DifficultyConfigDto $dto): self
@@ -450,6 +453,18 @@ class DifficultyConfig
     public function setMaxTransportSpawnRate(int $maxTransportSpawnRate): static
     {
         $this->maxTransportSpawnRate = $maxTransportSpawnRate;
+
+        return $this;
+    }
+
+    public function getRandomSpores(): ProbaCollection
+    {
+        return new ProbaCollection($this->randomSpores);
+    }
+
+    public function setRandomSpores(array $randomSpores): static
+    {
+        $this->randomSpores = $randomSpores;
 
         return $this;
     }

@@ -16,6 +16,7 @@ final readonly class DifficultyConfigDto
      * @param array<int, int>    $tremorPlayerDamage
      * @param array<int, int>    $metalPlatePlayerDamage
      * @param array<int, int>    $panicCrisisPlayerDamage
+     * @param array<int>         $randomSpores
      */
     public function __construct(
         public string $name,
@@ -46,5 +47,6 @@ final readonly class DifficultyConfigDto
         public int $linkWithSolCycleFailureRate,
         public int $minTransportSpawnRate,
         public int $maxTransportSpawnRate,
+        public array $randomSpores,
     ) {}
 }

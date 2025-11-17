@@ -83,6 +83,7 @@ abstract class DifficultyConfigData
                 linkWithSolCycleFailureRate: 3,
                 minTransportSpawnRate: 5,
                 maxTransportSpawnRate: 15,
+                randomSpores: [2 => 75, 3 => 19, 4 => 6],
             ),
         ];
     }

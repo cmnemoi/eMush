@@ -24,6 +24,7 @@ export class DifficultyConfig {
     public hunterSpawnRate: integer|null;
     public hunterSafeCycles: integer[]|null;
     public startingHuntersTruceCycles: integer|null;
+    public randomSpores: Map<integer, integer>|null;
 
     constructor() {
         this.iri = null;
@@ -51,6 +52,7 @@ export class DifficultyConfig {
         this.hunterSpawnRate = null;
         this.hunterSafeCycles = [];
         this.startingHuntersTruceCycles = null;
+        this.randomSpores = new Map<integer, integer>();
     }
     load(object:any) : DifficultyConfig {
         if (typeof object !== "undefined") {
@@ -79,6 +81,7 @@ export class DifficultyConfig {
             this.hunterSpawnRate = object.hunterSpawnRate;
             this.hunterSafeCycles = object.hunterSafeCycles;
             this.startingHuntersTruceCycles = object.startingHuntersNumberOfTruceCycles;
+            this.loadMapAttribute(object, 'randomSpores', this.randomSpores);
         }
         return this;
     }
@@ -110,6 +113,7 @@ export class DifficultyConfig {
         this.encodeMapAttribute(data, 'metalPlatePlayerDamage', this.metalPlatePlayerDamage);
         this.encodeMapAttribute(data, 'panicCrisisPlayerDamage', this.panicCrisisPlayerDamage);
         this.encodeMapAttribute(data, 'difficultyModes', this.difficultyModes);
+        this.encodeMapAttribute(data, 'randomSpores', this.randomSpores);
 
         return data;
     }

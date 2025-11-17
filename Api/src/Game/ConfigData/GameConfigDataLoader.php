@@ -58,6 +58,7 @@ class GameConfigDataLoader extends ConfigDataLoader
             $this->setGameConfigRebelBaseConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigXylophConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigTradeConfigs($gameConfig, $gameConfigData);
+            $this->setGameConfigSpecialOptions($gameConfig, $gameConfigData);
 
             $this->entityManager->persist($gameConfig);
         }
@@ -320,5 +321,10 @@ class GameConfigDataLoader extends ConfigDataLoader
 
             $gameConfig->addTradeConfig($tradeConfig);
         }
+    }
+
+    private function setGameConfigSpecialOptions(GameConfig $gameConfig, array $gameConfigData): void
+    {
+        $gameConfig->setSpecialOptions($gameConfigData['specialOptions']);
     }
 }

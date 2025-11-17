@@ -74,6 +74,11 @@ class TriumphConfig
         $this->registerWhenZero = $registerWhenZero;
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     public function getName(): TriumphEnum
     {
         return $this->name;

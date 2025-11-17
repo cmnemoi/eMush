@@ -12,6 +12,7 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -25,6 +26,7 @@ final class ExtractSporeCest extends AbstractFunctionalTest
     private ActionConfig $extractSporeActionConfig;
     private ExtractSpore $extractSporeAction;
 
+    private DeletePlayerSkillService $deletePlayerSkill;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
@@ -35,6 +37,7 @@ final class ExtractSporeCest extends AbstractFunctionalTest
         $this->extractSporeAction = $I->grabService(ExtractSpore::class);
         $this->extractSporeActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => 'extract_spore']);
 
+        $this->deletePlayerSkill = $I->grabService(DeletePlayerSkillService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -150,6 +153,43 @@ final class ExtractSporeCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldBeDirty($I);
 
         $this->thenKuanTiHasNoNotifications($I);
+    }
+
+    public function shouldMarkFertileAsUsedToday(FunctionalTester $I): void
+    {
+        // given Kuan Ti has Fertile skill
+        $this->addSkillToPlayer(SkillEnum::FERTILE, $I, $this->kuanTi);
+
+        $this->givenActionCostActionPoints(2, $I);
+
+        $this->whenKuanTiExtractsSpore();
+
+        $I->assertTrue($this->kuanTi->hasStatus(PlayerStatusEnum::HAS_USED_FERTILE_TODAY));
+    }
+
+    public function fertileShouldNotApplyDuringTheSameDay(FunctionalTester $I): void
+    {
+        // given Kuan Ti has Fertile skill
+        $this->addSkillToPlayer(SkillEnum::FERTILE, $I, $this->kuanTi);
+
+        $this->givenActionCostActionPoints(2, $I);
+
+        $this->whenKuanTiExtractsSpore();
+
+        // given KT loses fertile skill
+        $this->deletePlayerSkill->execute(skillName: SkillEnum::FERTILE, player: $this->kuanTi);
+
+        // given KT gets fertile skill again
+        $this->addSkillToPlayer(SkillEnum::FERTILE, $I, $this->kuanTi);
+
+        $this->extractSporeAction->loadParameters(
+            actionConfig: $this->extractSporeActionConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi
+        );
+
+        // then fertile does not apply
+        $I->assertEquals(2, $this->extractSporeAction->getActionPointCost());
     }
 
     private function givenAntisporeGasIsCompleted(FunctionalTester $I): void

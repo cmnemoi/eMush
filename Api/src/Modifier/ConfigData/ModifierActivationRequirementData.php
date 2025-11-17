@@ -156,6 +156,12 @@ class ModifierActivationRequirementData
             'activationRequirement' => 'splashproof',
             'value' => ModifierRequirementEnum::ABSENT_SKILL,
         ],
+        [
+            'name' => ModifierRequirementEnum::PLAYER_HAS_NOT_USED_FERTILE_TODAY,
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_STATUS,
+            'activationRequirement' => PlayerStatusEnum::HAS_USED_FERTILE_TODAY,
+            'value' => ModifierRequirementEnum::ABSENT_STATUS,
+        ],
     ];
 
     public static function getByName(string $name): array

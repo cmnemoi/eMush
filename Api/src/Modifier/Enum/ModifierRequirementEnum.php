@@ -52,6 +52,7 @@ abstract class ModifierRequirementEnum
     public const string PLAYER_IS_NOT_MUSH = 'player_is_not_mush';
     public const string PLAYER_IS_NOT_HYPERACTIVE = 'player_is_not_hyperactive';
     public const string PLAYER_IS_NOT_SPLASHPROOF = 'player_is_not_splashproof';
+    public const string PLAYER_HAS_NOT_USED_FERTILE_TODAY = 'player_has_not_used_fertile_today';
     public const string HOLDER_NAME = 'holder_name';
     public const string STATUS_CHARGE_REACHES = 'status_charge_reaches';
     public const string LYING_DOWN_STATUS_CHARGE_REACHES_4 = 'LYING_DOWN_STATUS_CHARGE_REACHES_4';

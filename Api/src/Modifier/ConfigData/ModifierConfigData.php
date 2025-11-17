@@ -2931,7 +2931,9 @@ abstract class ModifierConfigData
             'delta' => 0,
             'targetVariable' => PlayerVariableEnum::ACTION_POINT,
             'mode' => VariableModifierModeEnum::SET_VALUE,
-            'modifierActivationRequirements' => [],
+            'modifierActivationRequirements' => [
+                ModifierRequirementEnum::PLAYER_HAS_NOT_USED_FERTILE_TODAY,
+            ],
             'tagConstraints' => [
                 ActionEnum::EXTRACT_SPORE->value => ModifierRequirementEnum::ANY_TAGS,
             ],

@@ -8,9 +8,12 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Game\DataFixtures\GameConfigFixtures;
+use Mush\Modifier\ConfigData\ModifierActivationRequirementData;
 use Mush\Modifier\ConfigData\ModifierConfigData;
+use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Status\ConfigData\StatusConfigData;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\SkillPointsEnum;
@@ -96,9 +99,15 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $nursePoints->setModifierConfigs([$nursePointsModifier]);
         $manager->persist($nursePoints);
 
+        $hasNotUsedFertileTodayRequirement = ModifierActivationRequirement::fromConfigData(
+            ModifierActivationRequirementData::getByName(ModifierRequirementEnum::PLAYER_HAS_NOT_USED_FERTILE_TODAY)
+        );
+        $manager->persist($hasNotUsedFertileTodayRequirement);
+
         $sporePointsModifier = VariableEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName(ModifierNameEnum::SKILL_POINT_SPORE)
         );
+        $sporePointsModifier->setModifierActivationRequirements([$hasNotUsedFertileTodayRequirement]);
         $manager->persist($sporePointsModifier);
 
         $sporePoints = ChargeStatusConfig::fromConfigData(

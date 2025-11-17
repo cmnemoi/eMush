@@ -653,6 +653,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($personalTriumphRegression);
 
+        $hasUsedFertileToday = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_USED_FERTILE_TODAY . '_default')
+        );
+        $manager->persist($hasUsedFertileToday);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -717,7 +722,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($joltCooldown)
             ->addStatusConfig($anxietyAttackCooldown)
             ->addStatusConfig($fireWillHappen)
-            ->addStatusConfig($personalTriumphRegression);
+            ->addStatusConfig($personalTriumphRegression)
+            ->addStatusConfig($hasUsedFertileToday);
 
         $manager->persist($gameConfig);
 
@@ -786,6 +792,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::SELECTED_FOR_ANXIETY_ATTACK, $anxietyAttackCooldown);
         $this->addReference(PlayerStatusEnum::PERSONAL_TRIUMPH_REGRESSION, $personalTriumphRegression);
         $this->addReference(PlaceStatusEnum::SELECTED_FOR_FIRE->toString(), $fireWillHappen);
+        $this->addReference(PlayerStatusEnum::HAS_USED_FERTILE_TODAY, $hasUsedFertileToday);
     }
 
     public function getDependencies(): array

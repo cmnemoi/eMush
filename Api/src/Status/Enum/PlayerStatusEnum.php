@@ -86,4 +86,5 @@ abstract class PlayerStatusEnum
     public const string FIRST = 'first';
     public const string HAS_ADAPTED_EPIGENETICS = 'has_adapted_epigenetics';
     public const string IS_ANONYMOUS = 'is_anonymous';
+    public const string HAS_USED_FERTILE_TODAY = 'has_used_fertile_today';
 }

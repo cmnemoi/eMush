@@ -231,7 +231,7 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
         'icon': getImgUrl('ui_icons/pill.png')
     },
     [StatisticEnum.KIVANC_CONTACTED]: {
-        'icon': getImgUrl('ui_icons/action_points/pa_kivanc.png')
+        'icon': getImgUrl('achievements/kivanc.png')
     },
     [StatisticEnum.ARTEFACT_SPECIALIST]: {
         'icon': getImgUrl('achievements/collection.png')

@@ -90,7 +90,7 @@
 		"forum": "Forum",
 		"admin": "Admin",
 		"moderation": "Moderation",
-		"rules": "Règlement",
+		"rules": "Rules",
 		"discord": "Discord",
 		"wiki": "Wiki"
 	},
@@ -296,7 +296,7 @@
 			"diseaseConfigs": "Diseases configuration",
 			"consumableDiseaseConfigs": "Consumable disease configs",
 			"specialOptions": {
-				"title": "Options de jeu",
+				"title": "Game options",
 				"randomSpores": "option_random_spore"
 			}
 		},
@@ -1051,7 +1051,7 @@
 			"daedalus": "Daedalus",
 			"logout": "Logout",
 			"admin": "Admin",
-			"moderation": "Modération",
+			"moderation": "Moderation",
 			"discord": "Discord",
 			"forum": "Forum",
 			"wiki": "Wiki",

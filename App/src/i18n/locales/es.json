@@ -90,7 +90,7 @@
 		"forum": "Foro",
 		"admin": "Admin",
 		"moderation": "Moderación",
-		"rules": "Règlement",
+		"rules": "Reglas",
 		"discord": "Discord",
 		"wiki": "Wiki"
 	},
@@ -296,7 +296,7 @@
 			"diseaseConfigs": "Configuración de enfermedades",
 			"consumableDiseaseConfigs": "Configuración de enfermedades de consumibles",
 			"specialOptions": {
-				"title": "Options de jeu",
+				"title": "Opciones de juego",
 				"randomSpores": "option_random_spore"
 			}
 		},
@@ -426,7 +426,7 @@
 			"hunterSpawnRate": "Tasa de aparición de Hunters al cambio de ciclo",
 			"hunterSafeCycles": "Ciclos en los que no pueden aparecer hunters",
 			"startingHuntersTruceCycles": "Cantidad de ciclos antes de que aparezcan nuevos Hunters al comienzo del juego",
-			"randomSpores": "Nombre de spores distribué en début de partie si l'option est active"
+			"randomSpores": "Número de esporas distribuidas al inicio de la partida si la opción está activada"
 		},
 		"characterConfig": {
 			"name": "Nombre",
@@ -1051,9 +1051,9 @@
 			"daedalus": "Daedalus",
 			"logout": "Desconectarse",
 			"admin": "Admin",
-			"moderation": "Modération",
+			"moderation": "Moderación",
 			"discord": "Discord",
-			"forum": "Forum",
+			"forum": "Foro",
 			"wiki": "Wiki",
 			"notifications": {
 				"title": "Notificaciones",

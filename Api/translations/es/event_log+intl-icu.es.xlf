@@ -943,16 +943,6 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
         <target>Tu habilidad **Estratega Militar* ha dado sus frutos, has perdido algunos de tus agresores en el brazo de una nebulosa.</target>
       </segment>
     </unit>
-    <unit id="drop_success">
-      <segment id="drop_success" state="final">
-        <source>drop_success</source>
-        <target>{target_equipment_gender, select,
-male {**{character}** ha dejado un **{target_equipment}**.}
-female {**{character}** ha dejado una **{target_equipment}**.}
-other {invalid gender input}
-}</target>
-      </segment>
-    </unit>
     <unit id="opportunist_worked">
       <segment id="opportunist_worked" state="translated">
         <source>opportunist_worked</source>

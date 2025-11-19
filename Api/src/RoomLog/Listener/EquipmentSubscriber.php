@@ -54,8 +54,8 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ActionEnum::COLLECT_SCRAP->value => LogEnum::SCRAP_COLLECTED,
         EventEnum::PRINT_DOCUMENT => LogEnum::TABULATRIX_PRINTS,
         ProjectName::FOOD_RETAILER->value => LogEnum::FRUIT_TRANSPORTED,
-        Takeoff::DROP_CRITICAL_ITEM => LogEnum::DROP_SUCCESS,
-        ActionEnum::CURE_CAT->value => LogEnum::DROP_SUCCESS,
+        Takeoff::DROP_CRITICAL_ITEM => ActionLogEnum::DROP,
+        ActionEnum::CURE_CAT->value => ActionLogEnum::DROP,
         PlayerStatusEnum::HIGHLY_INACTIVE => LogEnum::OBJECT_FELL,
     ];
     private RoomLogServiceInterface $roomLogService;
@@ -148,11 +148,12 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
         /** @var Place $logPlace */
         $logPlace = $event instanceof MoveEquipmentEvent ? $event->getNewHolder() : $event->getPlace();
+        $logKey === ActionLogEnum::DROP ? $logType = 'actions_log' : $logType = 'event_log';
         $this->roomLogService->createLog(
             $logKey,
             $logPlace,
             $visibility,
-            'event_log',
+            $logType,
             $player,
             $parameters,
             $event->getTime(),

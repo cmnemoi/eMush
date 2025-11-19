@@ -993,12 +993,6 @@
         <target>Your Strateguru skill has proven useful, you have lost some of your attackers in the spirals of a nebula...</target>
       </segment>
     </unit>
-    <unit id="drop_success">
-      <segment id="drop_success" state="translated">
-        <source>drop_success</source>
-        <target>**{character}** has dropped a **{target_equipment}**.</target>
-      </segment>
-    </unit>
     <unit id="opportunist_worked">
       <segment id="opportunist_worked" state="translated">
         <source>opportunist_worked</source>

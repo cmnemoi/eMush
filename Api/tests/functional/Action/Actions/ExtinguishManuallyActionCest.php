@@ -2,6 +2,8 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\ExtinguishManually;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -22,6 +24,7 @@ final class ExtinguishManuallyActionCest extends AbstractFunctionalTest
     private ExtinguishManually $extinguishManuallyAction;
     private StatusServiceInterface $statusService;
     private ActionConfig $actionConfig;
+    private StatisticRepositoryInterface $statisticRepository;
 
     public function _before(FunctionalTester $I)
     {
@@ -32,6 +35,7 @@ final class ExtinguishManuallyActionCest extends AbstractFunctionalTest
         $this->extinguishManuallyAction = $I->grabService(ExtinguishManually::class);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::EXTINGUISH_MANUALLY]);
         $this->actionConfig->setSuccessRate(100);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
     }
 
     public function testExtinguishManually(FunctionalTester $I)
@@ -68,5 +72,44 @@ final class ExtinguishManuallyActionCest extends AbstractFunctionalTest
             'log' => ActionLogEnum::EXTINGUISH_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+    }
+
+    public function shouldIncrementStatistic(FunctionalTester $I): void
+    {
+        $this->givenFireInRoom();
+
+        $this->addSkillToPlayer(SkillEnum::FIREFIGHTER, $I, $this->player);
+
+        $this->givenActionSuccessRateIs(100);
+
+        $this->whenPlayerExtinguishFire();
+
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EXTINGUISH_FIRE, $this->player->getUser()->getId());
+        $I->assertEquals(1, $statistic?->getCount());
+    }
+
+    private function givenFireInRoom(): void
+    {
+        $this->statusService->createStatusFromName(
+            StatusEnum::FIRE,
+            $this->player->getPlace(),
+            [],
+            new \DateTime()
+        );
+    }
+
+    private function givenActionSuccessRateIs(int $successRate): void
+    {
+        $this->actionConfig->setSuccessRate($successRate);
+    }
+
+    private function whenPlayerExtinguishFire(): void
+    {
+        $this->extinguishManuallyAction->loadParameters(
+            $this->actionConfig,
+            $this->player,
+            $this->player
+        );
+        $this->extinguishManuallyAction->execute();
     }
 }

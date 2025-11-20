@@ -67,8 +67,9 @@ class ExtinguishManually extends AttemptAction
             $this->statusService->removeStatus(
                 StatusEnum::FIRE,
                 $this->player->getPlace(),
-                $this->getActionConfig()->getActionTags(),
-                new \DateTime()
+                $this->getTags(),
+                new \DateTime(),
+                author: $this->player,
             );
         }
     }

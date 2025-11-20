@@ -24,6 +24,7 @@ use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Factory\StatusFactory;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -76,31 +77,11 @@ final class PlayerSubscriberTest extends TestCase
     public function testShouldNotCreateTraumaOnMushPlayerOnPlayerDeath(): void
     {
         // given a Mush player
-        $mushPlayer = \Mockery::mock(Player::class);
-        $mushPlayer->shouldReceive('getId')->andReturn(1);
-        $mushPlayer->shouldReceive('hasStatus')->with(PlayerStatusEnum::MUSH)->andReturn(true);
-        $mushPlayer->shouldReceive('getMedicalConditions')->andReturn(new PlayerDiseaseCollection([]));
-        $mushPlayer->makePartial();
-
-        $mushPlayerInfo = new PlayerInfo($mushPlayer, new User(), new CharacterConfig());
-        $mushPlayer->shouldReceive('getPlayerInfo')->andReturn($mushPlayerInfo);
+        $mushPlayer = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
+        StatusFactory::createStatusByNameForHolder(PlayerStatusEnum::MUSH, $mushPlayer);
 
         // given some player who will die
-        $deadPlayer = \Mockery::mock(Player::class);
-        $deadPlayer->shouldReceive('getId')->andReturn(2);
-        $deadPlayer->shouldReceive('getMedicalConditions')->andReturn(new PlayerDiseaseCollection([]));
-        $deadPlayer->makePartial();
-
-        $deadPlayerInfo = new PlayerInfo($deadPlayer, new User(), new CharacterConfig());
-        $deadPlayer->shouldReceive('getPlayerInfo')->andReturn($deadPlayerInfo);
-
-        // given players are in the same place
-        $place = \Mockery::mock(Place::class);
-        $place->shouldReceive('getPlayers')->andReturn(new PlayerCollection([$mushPlayer, $deadPlayer]));
-        $place->makePartial();
-
-        $deadPlayer->shouldReceive('getPlace')->andReturn($place);
-        $mushPlayer->shouldReceive('getPlace')->andReturn($place);
+        $deadPlayer = PlayerFactory::createPlayerWithDaedalus($mushPlayer->getDaedalus());
 
         // given universe state should make that the mush player have author trauma, but witness trauma is never tested since author is excluded
         $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_AUTHOR_PROBABILTY)->andReturn(true);

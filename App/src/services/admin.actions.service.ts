@@ -45,6 +45,15 @@ const AdminActionsService = {
         return await ApiService.post(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'mark-daedalus-as-cheater'), {
             closedDaedalusId: closedDaedalusId
         });
+    },
+    finishProjectForDaedalus: async(projectName: string, daedalus: integer): Promise<any> => {
+        return await ApiService.post(
+            urlJoin(ADMIN_ACTIONS_ENDPOINT, 'finish-project-for-daedalus'),
+            {
+                projectName: projectName,
+                daedalus: daedalus
+            }
+        );
     }
 };
 export default AdminActionsService;

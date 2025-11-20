@@ -25,6 +25,7 @@
 import { ChannelType } from "@/enums/communication.enum";
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { mapGetters } from "vuex";
 
 export default defineComponent ({
     props: {
@@ -44,12 +45,15 @@ export default defineComponent ({
         'select'
     ],
     computed: {
+        ...mapGetters({
+            player: 'player/player'
+        }),
         icon(): string {
             switch (this.type) {
             case ChannelType.FAVORITES:
                 return getImgUrl('comms/fav.png');
             case ChannelType.MUSH:
-                return getImgUrl('comms/mush.png'); //TODO should return comms/pheromodem.png if player is human
+                return this.player.isMush ? getImgUrl('comms/mush.png') : getImgUrl('comms/pheromodem.png');
             case ChannelType.PRIVATE:
                 return getImgUrl('comms/private.png');
             case ChannelType.PUBLIC:

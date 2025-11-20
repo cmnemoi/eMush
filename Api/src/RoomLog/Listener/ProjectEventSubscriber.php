@@ -28,7 +28,7 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
 
     private function createResearchCompletedLog(ProjectEvent $event): void
     {
-        if (!$event->shouldPrintResearchCompletedLog()) {
+        if (!$event->shouldPrintResearchCompletedLog() || !$event->hasAuthor()) {
             return;
         }
 

@@ -51,13 +51,9 @@ final class ProjectEvent extends AbstractGameEvent implements TriumphSourceEvent
         return $this->project;
     }
 
-    /**
-     * @psalm-suppress InvalidNullableReturnType
-     * @psalm-suppress NullableReturnStatement
-     */
     public function getAuthor(): Player
     {
-        return $this->author;
+        return $this->author ?? Player::createNull();
     }
 
     public function getDaedalus(): Daedalus

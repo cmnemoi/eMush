@@ -1127,7 +1127,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function isNull(): bool
     {
-        return $this->getName() === CharacterEnum::NULL;
+        return $this->getId() === 0;
     }
 
     public function isDead(): bool

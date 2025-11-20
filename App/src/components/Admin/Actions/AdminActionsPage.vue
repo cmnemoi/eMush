@@ -27,6 +27,13 @@
             {{ $t('admin.actions.projects.propose') }}
         </button>
     </div>
+    <div class="flex-row">
+        <Input :label="$t('admin.actions.project.name')" type="text" v-model="finishDaedalusProjectDto.projectName" />
+        <Input :label="$t('admin.actions.equipment.daedalus')" type="number" v-model="finishDaedalusProjectDto.daedalus" />
+        <button class="action-button" @click="finishDaedalusProject(finishDaedalusProjectDto)">
+            {{ $t('admin.actions.projects.finishForDaedalus') }}
+        </button>
+    </div>
     <h2>{{$t('admin.actions.statuses.title') }}</h2>
     <div class="flex-row">
         <Input :label="$t('admin.actions.statuses.name')" type="text" v-model="deleteAllStatusesDto.statusName" />
@@ -66,6 +73,11 @@ interface DeleteAllStatusesDto {
     statusName: string;
 }
 
+interface FinishDaedalusProjectDto{
+    projectName: string;
+    daedalus: number;
+}
+
 export default defineComponent ({
     name: 'AdminActionsPage',
     components: {
@@ -87,6 +99,10 @@ export default defineComponent ({
             },
             deleteAllStatusesDto: {
                 statusName: 'mush'
+            },
+            finishDaedalusProjectDto: {
+                projectName: 'pheromodem',
+                daedalus: 1
             }
         };
     },
@@ -98,8 +114,8 @@ export default defineComponent ({
             createStatuses: 'adminActions/createPlayersAllInitStatusesForOnGoingDaedaluses',
             deleteAllStatusesByName: 'adminActions/deleteAllStatusesByName',
             proposeProjects: 'adminActions/proposeNewNeronProjectsForOnGoingDaedaluses',
-            resetRulesAcceptance: 'adminActions/resetRulesAcceptanceForAllUsers'
-
+            resetRulesAcceptance: 'adminActions/resetRulesAcceptanceForAllUsers',
+            finishProjectForDaedalus: 'adminActions/finishProjectForDaedalus'
         }),
         createEquipment(createEquipmentDto: CreateEquipmentDto) {
             this.createEquipmentForOnGoingDaedaluses(createEquipmentDto);
@@ -109,6 +125,9 @@ export default defineComponent ({
         },
         deleteAllStatuses(deleteAllStatusesDto: DeleteAllStatusesDto) {
             this.deleteAllStatusesByName(deleteAllStatusesDto);
+        },
+        finishDaedalusProject(finishDaedalusProjectDto: FinishDaedalusProjectDto) {
+            this.finishProjectForDaedalus(finishDaedalusProjectDto);
         }
     }
 });

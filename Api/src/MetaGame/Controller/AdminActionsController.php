@@ -15,8 +15,11 @@ use Mush\MetaGame\Command\MarkDaedalusAsCheaterCommand;
 use Mush\MetaGame\Command\MarkDaedalusAsCheaterCommandHandler;
 use Mush\MetaGame\Dto\CreateEquipmentForDaedalusDto;
 use Mush\MetaGame\Dto\CreateEquipmentForDaedalusesDto;
+use Mush\MetaGame\Dto\CreateProjectForDaedalusDto;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Enum\ProjectName;
+use Mush\Project\Service\FinishProjectService;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
 use Mush\Project\UseCase\ProposeNewNeronProjectsUseCase;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -47,6 +50,7 @@ final class AdminActionsController extends AbstractFOSRestController
         private readonly MarkDaedalusAsCheaterCommandHandler $handler,
         private readonly ProposeNewNeronProjectsUseCase $proposeNewNeronProjectsUseCase,
         private readonly StatusServiceInterface $statusService,
+        private readonly FinishProjectService $finishProjectService,
     ) {}
 
     /**
@@ -195,6 +199,28 @@ final class AdminActionsController extends AbstractFOSRestController
         }
 
         return $this->view(['detail' => 'Neron projects proposed successfully.'], Response::HTTP_OK);
+    }
+
+    /**
+     * Finish project for a given Daedalus.
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Post(path="/finish-project-for-daedalus")
+     */
+    #[IsGranted('ROLE_ADMIN')]
+    public function finishProjectForDaedalusEndpoint(Request $request): View
+    {
+        $dto = new CreateProjectForDaedalusDto(...$request->toArray());
+        $daedalus = $this->daedalusRepository->find($dto->daedalus);
+        $project = $daedalus->getProjectByName(ProjectName::tryFrom($dto->projectName));
+
+        $this->finishProjectService->execute($project);
+
+        return $this->view(
+            ['detail' => "{$dto->projectName} created successfully for Daedalus {$daedalus->getId()}."],
+            Response::HTTP_CREATED
+        );
     }
 
     /**

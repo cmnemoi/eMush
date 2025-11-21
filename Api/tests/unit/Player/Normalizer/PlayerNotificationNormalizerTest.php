@@ -51,6 +51,7 @@ final class PlayerNotificationNormalizerTest extends TestCase
         self::assertEquals('Title', $result['title']);
         self::assertEquals('Subtitle', $result['subTitle']);
         self::assertEquals('Description', $result['description']);
+        self::assertFalse($result['canBeSkipped']);
     }
 
     public function testShouldNormalizeNotificationWithoutImage(): void

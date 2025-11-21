@@ -21,22 +21,18 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Player\Service\UpdatePlayerNotificationService;
 use Mush\Player\ValueObject\PlayerHighlight;
-use Mush\RoomLog\Service\RoomLogService;
-use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class StatusEventSubscriber implements EventSubscriberInterface
+final readonly class StatusEventSubscriber implements EventSubscriberInterface
 {
     public const FOUND_MORALE_BOOST = 3;
 
     public function __construct(
-        private DeletePlayerSkillService $deletePlayerSkill,
         private EventServiceInterface $eventService,
         private PlayerRepositoryInterface $playerRepository,
-        private RoomLogService $roomLogService,
         private readonly UpdatePlayerNotificationService $updatePlayerNotification,
         private StatusServiceInterface $statusService,
     ) {}
@@ -116,7 +112,7 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         $this->updatePlayerNotification->execute(
             player: $dirtyPlayer,
             message: PlayerNotificationEnum::SOILED,
-            parameters: [$dirtyPlayer->getLogKey() => $dirtyPlayer->getLogName()]
+            parameters: [$dirtyPlayer->getLogKey() => $dirtyPlayer->getLogName()],
         );
     }
 

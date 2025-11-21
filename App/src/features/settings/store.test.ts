@@ -37,6 +37,12 @@ describe("Settings store", () => {
                 icon: 'M9.5 2a2.5 2.5 0 0 1 2.495 2.336L12 4.5v4.605l5.442.605a4 4 0 0 1 3.553 3.772l.005.203V14a8 8 0 0 1-7.75 7.996L13 22h-.674a8 8 0 0 1-7.024-4.171l-.131-.251l-2.842-5.684c-.36-.72-.093-1.683.747-2.028c1.043-.427 2.034-.507 3.055.012q.333.17.654.414l.215.17V4.5A2.5 2.5 0 0 1 9.5 2m0 2a.5.5 0 0 0-.492.41L9 4.5V13a1 1 0 0 1-1.78.625l-.332-.407l-.303-.354c-.58-.657-1.001-1.02-1.36-1.203a1.2 1.2 0 0 0-.694-.137l-.141.02l2.57 5.14a6 6 0 0 0 5.123 3.311l.243.005H13a6 6 0 0 0 5.996-5.775L19 14v-.315a2 2 0 0 0-1.621-1.964l-.158-.024l-5.442-.604a2 2 0 0 1-1.773-1.829L10 9.105V4.5a.5.5 0 0 0-.5-.5M4 6a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2zm12-1a1 1 0 0 1 .117 1.993L16 7h-1a1 1 0 0 1-.117-1.993L15 5zM4.707 1.293l1 1a1 1 0 0 1-1.414 1.414l-1-1a1 1 0 0 1 1.414-1.414m11 0a1 1 0 0 1 0 1.414l-1 1a1 1 0 1 1-1.414-1.414l1-1a1 1 0 0 1 1.414 0',
                 value: false,
                 action: 'settings/toggleDoubleTapVisibility'
+            },
+            lessPopups: {
+                name: 'lessPopups',
+                icon: 'M16 2H7.979C6.88 2 6 2.88 6 3.98V12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m0 10H8V4h8zM4 10H2v6c0 1.1.9 2 2 2h6v-2H4z',
+                value: false,
+                action: 'settings/togglelessPopups'
             }
         });
     });
@@ -69,5 +75,20 @@ describe("Settings store", () => {
 
         expect(store.getters["settings/doubleTap"]).toBe(false);
         expect(localStorageService.getItemAsBoolean('doubleTap')).toBe(false);
+    });
+
+    it("should mark in game popups as activated", () => {
+        store.dispatch("settings/togglelessPopups");
+
+        expect(store.getters["settings/lessPopups"]).toBe(true);
+        expect(localStorageService.getItemAsBoolean('lessPopups')).toBe(true);
+    });
+
+    it("should mark in game popups as deactivated", () => {
+        store.dispatch("settings/togglelessPopups");
+        store.dispatch("settings/togglelessPopups");
+
+        expect(store.getters["settings/lessPopups"]).toBe(false);
+        expect(localStorageService.getItemAsBoolean('lessPopups')).toBe(false);
     });
 });

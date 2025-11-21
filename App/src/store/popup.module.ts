@@ -1,4 +1,7 @@
+import { Player } from "@/entities/Player";
+import PlayerService from "@/services/player.service";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
+import store from ".";
 
 type BasicPopUp = {
     title?: string;
@@ -89,12 +92,11 @@ const mutations: MutationTree<any> = {
     closeLearnSkillPopUp(state) {
         state.learnSkillPopUp.isOpen = false;
     },
-    openPlayerNotificationPopUp(state, player) {
+    openPlayerNotificationPopUp(state, player: Player) {
         const notification = player?.notification;
         if (!notification) {
             return;
         }
-
         state.playerNotificationPopUp.title = notification.title;
         state.playerNotificationPopUp.subTitle = notification.subTitle;
         state.playerNotificationPopUp.description = notification.description;
@@ -143,7 +145,16 @@ const actions: ActionTree<any, any> = {
     closeLearnSkillPopUp({ commit }) {
         commit('closeLearnSkillPopUp');
     },
-    openPlayerNotificationPopUp({ commit }, { player }) {
+    async openPlayerNotificationPopUp({ commit }, { player }) {
+        if (!player.notification) {
+            return;
+        }
+
+        if (player.notification.canBeSkipped && store.getters['settings/lessPopups']) {
+            await PlayerService.deleteNotification(player);
+            return;
+        }
+
         commit('openPlayerNotificationPopUp', player);
     },
     closePlayerNotificationPopUp({ commit }) {

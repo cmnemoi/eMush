@@ -76,10 +76,7 @@ final readonly class ActionVariableSubscriber implements EventSubscriberInterfac
                 default => throw new \InvalidArgumentException("Unknown end cause: {$endCause}"),
             };
 
-            $this->updatePlayerNotification->execute(
-                player: $event->getAuthor(),
-                message: $notification,
-            );
+            $this->updatePlayerNotification->execute(player: $event->getAuthor(), message: $notification);
         }
     }
 

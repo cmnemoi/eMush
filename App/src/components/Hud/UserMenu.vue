@@ -248,13 +248,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue';
-import { useStore } from 'vuex';
-import LocaleChange from '../Utils/LocaleChange.vue';
 import { Settings } from '@/features/settings/store';
 import router from '@/router';
 import { formatText } from '@/utils/formatText';
 import { getDiscordLink, getForumLink, getWikiLink } from '@/utils/links';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+import LocaleChange from '../Utils/LocaleChange.vue';
 
 const store = useStore();
 

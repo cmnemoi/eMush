@@ -44,4 +44,16 @@ enum PlayerNotificationEnum: string
             default => '',
         };
     }
+
+    public function canBeSkipped(): bool
+    {
+        return \in_array($this, [
+            self::CLUMSINESS,
+            self::EXCHANGE_BODY_MUSH,
+            self::EXPLORATION_CLOSED,
+            self::MISSION_RECEIVED,
+            self::SOILED,
+            self::WELCOME_ON_BOARD,
+        ], true);
+    }
 }

@@ -8,11 +8,9 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\PlayerNotification;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class PlayerNotificationNormalizer implements NormalizerInterface
+final readonly class PlayerNotificationNormalizer implements NormalizerInterface
 {
-    public function __construct(
-        private TranslationServiceInterface $translationService,
-    ) {}
+    public function __construct(private TranslationServiceInterface $translationService) {}
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
@@ -22,7 +20,7 @@ final class PlayerNotificationNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            PlayerNotification::class => false,
+            PlayerNotification::class => true,
         ];
     }
 
@@ -34,6 +32,7 @@ final class PlayerNotificationNormalizer implements NormalizerInterface
             'title' => $this->translatedNotificationKey('title', $notification),
             'subTitle' => $this->translatedNotificationKey('subTitle', $notification),
             'description' => $this->translatedNotificationKey('description', $notification),
+            'canBeSkipped' => $notification->canBeSkipped(),
             'image' => $notification->getImage(),
         ];
     }

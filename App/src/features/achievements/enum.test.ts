@@ -17,7 +17,7 @@ describe("StatisticRecords", () => {
         for (const statisticKey of recordKeys) {
             const icon = StatisticRecords[statisticKey]?.icon;
 
-            expect(icon).not.toBe("");
+            expect(icon, `Icon for ${statisticKey} should not be empty`).not.toBe("");
         }
     });
 });

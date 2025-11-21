@@ -1,17 +1,17 @@
-import { Daedalus } from "@/entities/Daedalus";
-import { Room } from "@/entities/Room";
-import { Item } from "@/entities/Item";
-import { Status } from "@/entities/Status";
 import { Action } from "@/entities/Action";
 import { Character } from "@/entities/Character";
-import { QuantityPoint } from "@/entities/QuantityPoint";
-import { NameDescObject } from "@/entities/NameDescObject";
-import { SpaceBattle } from "./SpaceBattle";
-import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
-import { Terminal } from "@/entities/Terminal";
+import { Daedalus } from "@/entities/Daedalus";
 import { Exploration } from "@/entities/Exploration";
-import { TerminalEnum } from "@/enums/terminal.enum";
+import { Item } from "@/entities/Item";
+import { NameDescObject } from "@/entities/NameDescObject";
+import { QuantityPoint } from "@/entities/QuantityPoint";
+import { Room } from "@/entities/Room";
 import { SkillPoint } from "@/entities/SkillPoint";
+import { Status } from "@/entities/Status";
+import { Terminal } from "@/entities/Terminal";
+import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
+import { TerminalEnum } from "@/enums/terminal.enum";
+import { SpaceBattle } from "./SpaceBattle";
 
 export type Skill = {
     key: string;
@@ -24,6 +24,7 @@ export type PlayerNotification = {
     title?: string;
     subTitle?: string;
     description: string;
+    canBeSkipped: boolean;
     image: string;
 };
 

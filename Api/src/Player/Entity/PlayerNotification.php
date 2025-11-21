@@ -62,4 +62,9 @@ class PlayerNotification
     {
         return $this->player->getLanguage();
     }
+
+    public function canBeSkipped(): bool
+    {
+        return PlayerNotificationEnum::from($this->message)->canBeSkipped();
+    }
 }

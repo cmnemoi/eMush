@@ -1068,7 +1068,8 @@
 				"subscribeToNotifications": "S'abonner aux notifications",
 				"notifications": "Notifications",
 				"actionTabs": "Séparer les actions Mush et humaines",
-				"doubleTap": "Double clic pour les actions"
+				"doubleTap": "Double clic pour les actions",
+				"lessPopups": "Moins de popups en jeu"
 			}
 		},
 		"topBar": {

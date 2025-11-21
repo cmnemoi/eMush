@@ -1,8 +1,8 @@
-import ApiService from "@/services/api.service";
-import { Player } from "@/entities/Player";
-import store from "@/store/index";
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import { DeadPlayerInfo } from "@/entities/DeadPlayerInfo";
+import { Player } from "@/entities/Player";
+import ApiService from "@/services/api.service";
+import store from "@/store/index";
 import urlJoin from "url-join";
 
 type AvailableSkill = {
@@ -112,9 +112,7 @@ const PlayerService = {
     },
 
     deleteNotification: async (player: Player): Promise<void> => {
-        await store.dispatch('player/setLoading', { loading: true });
         await ApiService.delete(urlJoin(PLAYER_ENDPOINT, String(player.id), 'notification'));
-        await store.dispatch('player/setLoading', { loading: false });
     },
 
     toggleMissionCompletion: async (missionId: number): Promise<void> => {

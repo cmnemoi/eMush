@@ -37,7 +37,11 @@ final class UpdatePlayerNotificationServiceTest extends TestCase
         $this->updatePlayerNotificationService->execute($player, PlayerNotificationEnum::MISSION_RECEIVED);
 
         // then I should have a new notification
-        self::assertEquals(PlayerNotificationEnum::MISSION_RECEIVED->toString(), $this->playerNotificationRepository->findByPlayer($player)->getMessage());
+        $savedNotification = $this->playerNotificationRepository->findByPlayer($player);
+        self::assertEquals('mission_received', $savedNotification->getMessage());
+        self::assertEquals('', $savedNotification->getImage());
+        self::assertEquals([], $savedNotification->getParameters());
+        self::assertTrue($savedNotification->canBeSkipped());
     }
 
     public function testShouldCreatePlayerNotification(): void
@@ -46,10 +50,14 @@ final class UpdatePlayerNotificationServiceTest extends TestCase
         $player = PlayerFactory::createPlayer();
 
         // when I update the notification
-        $this->updatePlayerNotificationService->execute($player, PlayerNotificationEnum::MISSION_SENT);
+        $this->updatePlayerNotificationService->execute($player, PlayerNotificationEnum::SOILED);
 
         // then I should have a new notification
-        self::assertEquals(PlayerNotificationEnum::MISSION_SENT->toString(), $this->playerNotificationRepository->findByPlayer($player)->getMessage());
+        $savedNotification = $this->playerNotificationRepository->findByPlayer($player);
+        self::assertEquals('soiled', $savedNotification->getMessage());
+        self::assertEquals('', $savedNotification->getImage());
+        self::assertEquals([], $savedNotification->getParameters());
+        self::assertTrue($savedNotification->canBeSkipped());
     }
 
     public function testShouldAutomaticallyAddImageParameterForWelcomeMushNotification(): void

@@ -23,8 +23,8 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     {
         return [
             ExplorationEvent::ALL_EXPLORATORS_STUCKED => 'onAllExploratorsStucked',
-            ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::LOWEST],
-            ExplorationEvent::EXPLORATION_NEW_CYCLE => ['onExplorationNewCycle', EventPriorityEnum::LOWEST],
+            ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::LOW],
+            ExplorationEvent::EXPLORATION_NEW_CYCLE => ['onExplorationNewCycle', EventPriorityEnum::LOW],
         ];
     }
 

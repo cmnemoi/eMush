@@ -612,7 +612,7 @@
       </segment>
       <segment id="u_turn.description" state="translated">
         <source>u_turn.description</source>
-        <target>Il faut savoir changer de certitudes.//:point: Pour 2 :pa:, en expédition, vous permet de rentrer sur le Daedalus en urgence.</target>
+        <target>Il faut savoir changer de certitudes.//:point: Pour 2 :pa:, en expédition, vous permet de rentrer sur le Daedalus en urgence.//:beta: Vous savez **quel secteur sera visité en prochain** en expédition.</target>
       </segment>
     </unit>
     <unit id="politician">
@@ -742,7 +742,7 @@
       </segment>
       <segment id="traitor.description" state="translated">
         <source>traitor.description</source>
-        <target>Vous avez développé un sens pour attirer les ennuis. Tiens un Mankarog... Et si on le chatouillait pour voir...//:point: Probabilités de **résultats négatifs dans les expéditions** auxquelles vous participez sont **multipliées par 2**.</target>
+        <target>Vous avez développé un sens pour attirer les ennuis. Tiens un Mankarog... Et si on le chatouillait pour voir...//:point: Probabilités de **résultats négatifs dans les expéditions** auxquelles vous participez sont **multipliées par 2**.//:beta: Vous savez **quel secteur sera visité en prochain** en expédition.</target>
       </segment>
     </unit>
     <unit id="cold_blooded">

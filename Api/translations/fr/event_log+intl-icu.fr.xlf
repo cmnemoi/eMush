@@ -688,6 +688,12 @@
         <target>L'exploration est revenue plus tôt que prévu : personne n'avait de combinaison !</target>
       </segment>
     </unit>
+    <unit id="expedition_event_preview">
+      <segment id="expedition_event_preview" state="translated">
+        <source>expedition_event_preview</source>
+        <target>Une analyse visuelle compétente de l'horizon indique que le groupe se dirige vers un secteur **{next_sector}**.</target>
+      </segment>
+    </unit>
     <unit id="liquid_map_helped">
       <segment id="liquid_map_helped" state="translated">
         <source>liquid_map_helped</source>

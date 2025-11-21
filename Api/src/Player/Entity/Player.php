@@ -988,6 +988,11 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->exploration;
     }
 
+    public function getExploration(): ?Exploration
+    {
+        return $this->exploration;
+    }
+
     public function setExploration(?Exploration $exploration): static
     {
         $this->exploration = $exploration;

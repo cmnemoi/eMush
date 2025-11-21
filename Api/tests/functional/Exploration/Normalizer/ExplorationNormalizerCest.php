@@ -57,6 +57,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
             planet: $this->planet,
             explorators: new PlayerCollection([$this->chun]),
         );
+        $this->exploration->setNextSector($this->planet->getSectors()->first());
     }
 
     public function testNormalize(FunctionalTester $I): void
@@ -82,6 +83,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
                     'sectors' => [
                         [
                             'id' => $this->planet->getSectors()->first()->getId(),
+                            'updatedAt' => $this->planet->getSectors()->first()->getUpdatedAt()->format(\DateTimeInterface::ATOM),
                             'key' => PlanetSectorEnum::UNKNOWN,
                             'name' => '???',
                             'description' => 'Caractéristique inconnue.',
@@ -140,6 +142,9 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
             time: new \DateTime()
         );
 
+        // given Chun has U-Turn skill
+        $this->addSkillToPlayer(SkillEnum::U_TURN, $I, $this->chun);
+
         // given the exploration is finished
         $closedExploration = $this->exploration->getClosedExploration();
         $this->explorationService->closeExploration($this->exploration, []);
@@ -166,6 +171,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
                     'sectors' => [
                         [
                             'id' => $this->planet->getSectors()->first()->getId(),
+                            'updatedAt' => $this->planet->getSectors()->first()->getUpdatedAt()->format(\DateTimeInterface::ATOM),
                             'key' => PlanetSectorEnum::UNKNOWN,
                             'name' => '???',
                             'description' => 'Caractéristique inconnue.',
@@ -211,6 +217,68 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
                 ],
             ],
             actual: $normalizedExploration
+        );
+    }
+
+    public function testNormalizeForTraitorPlayer(FunctionalTester $I): void
+    {
+        // given Chun has U-Turn skill
+        $this->addSkillToPlayer(SkillEnum::TRAITOR, $I, $this->chun);
+
+        $this->convertPlayerToMush($I, $this->chun);
+
+        // when the exploration is normalized for Chun
+        $normalizedExploration = $this->explorationNormalizer->normalize(
+            $this->exploration,
+            format: null,
+            context: ['currentPlayer' => $this->chun]
+        );
+
+        // then Chun should see the next sector as revealed and highlighted
+        $I->assertEquals(
+            expected: [
+                [
+                    'id' => $this->planet->getSectors()->first()->getId(),
+                    'updatedAt' => $this->planet->getSectors()->first()->getUpdatedAt()->format(\DateTimeInterface::ATOM),
+                    'key' => PlanetSectorEnum::OXYGEN,
+                    'name' => 'Oxygène',
+                    'description' => 'Présence d\'oxygène dans l\'atmosphère.//:mush: Votre sournoiserie vous indique que l\'expédition parcourra cette section à la prochaine étape.',
+                    'isVisited' => false,
+                    'isRevealed' => false,
+                    'isNextSector' => true,
+                ],
+            ],
+            actual: $normalizedExploration['planet']['sectors']
+        );
+    }
+
+    public function testNormalizeForUTurnPlayer(FunctionalTester $I): void
+    {
+        // given Chun has U-Turn skill
+        $this->addSkillToPlayer(SkillEnum::U_TURN, $I, $this->chun);
+
+        // when the exploration is normalized for Chun
+        $normalizedExploration = $this->explorationNormalizer->normalize(
+            $this->exploration,
+            format: null,
+            context: ['currentPlayer' => $this->chun]
+        );
+
+        // then Chun should see the next sector as revealed and highlighted
+        $I->assertEquals(
+            expected: [
+                [
+                    'id' => $this->planet->getSectors()->first()->getId(),
+                    'updatedAt' => $this->planet->getSectors()->first()->getUpdatedAt()->format(\DateTimeInterface::ATOM),
+                    'key' => PlanetSectorEnum::OXYGEN,
+                    'name' => 'Oxygène',
+                    'description' => 'Présence d\'oxygène dans l\'atmosphère.//:st_genius_idea: Votre intuition vous indique que l\'expédition parcourra cette section à la prochaine étape.',
+                    'isVisited' => false,
+                    'isRevealed' => false,
+                    'isNextSector' => true,
+                ],
+            ],
+            actual: $normalizedExploration['planet']['sectors']
         );
     }
 }

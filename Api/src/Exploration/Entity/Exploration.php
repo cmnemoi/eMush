@@ -328,4 +328,9 @@ class Exploration
     {
         return $this->getAliveExplorators()->getPlayersWithSkill(SkillEnum::TRAITOR);
     }
+
+    public function getPlayersWhoCanSeeNextSector(): PlayerCollection
+    {
+        return $this->getAliveExplorators()->getPlayersWithAnySkill([SkillEnum::TRAITOR, SkillEnum::U_TURN]);
+    }
 }

@@ -12,6 +12,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ExplorationEventSubscriber implements EventSubscriberInterface
@@ -29,6 +30,8 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     {
         return [
             ExplorationEvent::EXPLORATION_FINISHED => ['onExplorationFinished', EventPriorityEnum::LOWEST],
+            ExplorationEvent::EXPLORATION_NEW_CYCLE => ['distributeSpoilers', EventPriorityEnum::LOWEST],
+            ExplorationEvent::EXPLORATION_STARTED => ['distributeSpoilers', EventPriorityEnum::LOWEST],
         ];
     }
 
@@ -83,6 +86,37 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                     player: $explorator,
                     parameters: [
                         'exploration_link' => "<a href='{$explorationUrl}'>" . strtoupper($here) . '</a>',
+                    ]
+                );
+            }
+        }
+    }
+
+    public function distributeSpoilers(ExplorationEvent $event): void
+    {
+        $exploration = $event->getExploration();
+
+        if ($exploration->getNextSector() === null) {
+            return;
+        }
+
+        $nextSectorName = $this->translateService->translate(
+            key: $exploration->getNextSectorOrThrow()->getName() . '.name',
+            parameters: [],
+            domain: 'planet',
+            language: $exploration->getDaedalus()->getLanguage()
+        );
+
+        foreach ($exploration->getPlayersWhoCanSeeNextSector() as $previewer) {
+            if ($previewer->doesNotHaveStatus(PlayerStatusEnum::LOST)) {
+                $this->roomLogService->createLog(
+                    logKey: LogEnum::EXPEDITION_EVENT_PREVIEW,
+                    place: $previewer->getPlace(),
+                    visibility: VisibilityEnum::PRIVATE,
+                    player: $previewer,
+                    type: 'event_log',
+                    parameters: [
+                        'next_sector' => $nextSectorName,
                     ]
                 );
             }

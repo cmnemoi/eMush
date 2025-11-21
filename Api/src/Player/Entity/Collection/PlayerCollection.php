@@ -65,6 +65,12 @@ class PlayerCollection extends ArrayCollection
         return $this->filter(static fn (Player $player) => $player->hasSkill($skill));
     }
 
+    /** @param array<SkillEnum> $expectedSkills */
+    public function getPlayersWithAnySkill(array $expectedSkills): self
+    {
+        return $this->filter(static fn (Player $player) => $player->hasAnySkill($expectedSkills));
+    }
+
     public function getPlayersWithoutSkill(SkillEnum $skill): self
     {
         return $this->filter(static fn (Player $player) => $player->doesNotHaveSkill($skill));

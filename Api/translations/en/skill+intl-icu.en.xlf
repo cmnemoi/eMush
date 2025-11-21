@@ -605,7 +605,7 @@
       </segment>
       <segment id="u_turn.description" state="translated">
         <source>u_turn.description</source>
-        <target>You've got to know how to change your certitudes.//:point: When on an expedition, if there's an emergency, you can return to the Daedalus for 2 :pa:.</target>
+        <target>You've got to know how to change your certitudes.//:point: When on an expedition, if there's an emergency, you can return to the Daedalus for 2 :pa:.//:beta: You can tell **which sector will be visited next** in expedition.</target>
       </segment>
     </unit>
     <unit id="politician">
@@ -735,7 +735,7 @@
       </segment>
       <segment id="traitor.description" state="translated">
         <source>traitor.description</source>
-        <target>You have developed an innate ability to attract misfortune. Look - a Mankarog... Let's see what happens when we tickle it...//:point: **Doubles** the probability of getting **negative results** during expeditions that you participate in.</target>
+        <target>You have developed an innate ability to attract misfortune. Look - a Mankarog... Let's see what happens when we tickle it...//:point: **Doubles** the probability of getting **negative results** during expeditions that you participate in.//:beta: You can tell **which sector will be visited next** in expedition.</target>
       </segment>
     </unit>
     <unit id="cold_blooded">

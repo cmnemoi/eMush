@@ -193,7 +193,8 @@ final class ExplorationService implements ExplorationServiceInterface
     public function selectNextSectorIfAble(Exploration $exploration): Exploration
     {
         $planet = $exploration->getPlanet();
-        if ($exploration->getPlanet()->getUnvisitedSectors()->isEmpty()) {
+        // do not roll a next sector if the planet is fully explored or the expedition is about to close
+        if ($exploration->getPlanet()->getUnvisitedSectors()->isEmpty() || $exploration->getCycle() >= $exploration->getNumberOfSectionsToVisit() + 1) {
             $exploration->setNextSector(null);
         } else {
             /** @var PlanetSector $sector */

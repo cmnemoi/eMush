@@ -28,9 +28,9 @@
             <ul class="analysis" v-if="show">
                 <Tippy
                     tag="li"
-                    v-for="(sector, i) in exploration.planet.sectors"
-                    :key="i"
-                    :class="sector.isVisited ? '' : 'unexplored'">
+                    v-for="sector in exploration.planet.sectors"
+                    :key="`${sector.id}-${sector.updatedAt}-${sector.description}`"
+                    :class="{ 'unexplored': !sector.isVisited, 'next-sector': sector.isNextSector }">
                     <img :src="getSectorImage(sector.key)" :alt="sector.name">
                     <template #content>
                         <h1 v-html="formatText(sector.name)" />
@@ -48,8 +48,7 @@
                 <template #default="slotProps">
                     <div v-if="!isCycleChangeAvailable(exploration)" class="timer">
                         <img :src="getImgUrl('casio.png')">
-                        <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour
-                        }}h</span>
+                        <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour}}h</span>
                         <span class="cycle-time-left">{{ slotProps.min }}m</span>
                         <span class="cycle-time-left">{{ slotProps.sec }}s</span>
                     </div>
@@ -253,6 +252,20 @@ export default defineComponent ({
     .unexplored {
         filter: grayscale(1);
         opacity: 0.5;
+    }
+
+    .next-sector {
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 4px;
+            background: rgba(139, 13, 76, 0.3);
+            box-shadow: 0 0 12px 3px $red;
+            pointer-events: none;
+        }
     }
 }
 

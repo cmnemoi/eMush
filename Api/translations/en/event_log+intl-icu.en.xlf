@@ -621,6 +621,12 @@
         <target>The exploration came back sooner than expected: nobody had a spacesuit!</target>
       </segment>
     </unit>
+    <unit id="expedition_event_preview">
+      <segment id="expedition_event_preview" state="translated">
+        <source>expedition_event_preview</source>
+        <target>A thorough visual analysis of the landscape indicates a **{next_sector}** sector is up next.</target>
+      </segment>
+    </unit>
     <unit id="liquid_map_helped">
       <segment id="liquid_map_helped" state="translated">
         <source>liquid_map_helped</source>

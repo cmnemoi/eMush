@@ -479,5 +479,11 @@
                 other {}}</target>
       </segment>
     </unit>
+    <unit id="next_sector">
+      <segment id="name" state="translated">
+        <source>next_sector</source>
+        <target>{isMush, select, true {:mush: Votre sournoiserie} other {:st_genius_idea: Votre intuition}} vous indique que l'expédition parcourra cette section à la prochaine étape.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

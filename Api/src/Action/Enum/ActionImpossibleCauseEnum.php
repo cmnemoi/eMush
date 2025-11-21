@@ -126,6 +126,7 @@ abstract class ActionImpossibleCauseEnum
     public const string CYCLE_LIMIT_EVERY_2 = 'cycle_limit_every_2';
     public const string ROOM_ON_FIRE = 'room_on_fire';
     public const string ROOM_SELECTED_FOR_FIRE = 'room_selected_for_fire';
+    public const string RUN_HOME_LOST = 'run_home_lost';
 
     // April Fools Dog messages
     public const string DOG_IS_SEASICK = 'dog_is_seasick';

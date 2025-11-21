@@ -846,5 +846,11 @@
         <target>Jouer avec Pavlov est un moment spécial. C'est un tête-à-tête, pas plus, pas moins.</target>
       </segment>
     </unit>
+    <unit id="run_home_lost">
+      <segment id="description" state="translated">
+        <source>run_home_lost.description</source>
+        <target>Difficile de prendre ces jambes à son cou avant de retrouver la trace des autres...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -17,7 +17,11 @@ self.addEventListener('push', event => {
         sendNotificationToAllClients(notification);
         event.waitUntil(
             checkIfAnyClientIsActive().then(hasActiveClient => {
-                if (!hasActiveClient || notification.options.data.priority === 'high') {
+                if (notification.options.data.priority === 'urgent') {
+                    return self.registration.showNotification(notification.title || '', notification.options || {});
+                }
+
+                if (!hasActiveClient && notification.options.data.priority === 'high') {
                     return self.registration.showNotification(notification.title || '', notification.options || {});
                 }
             })
@@ -27,7 +31,11 @@ self.addEventListener('push', event => {
             const notification = event.data.text();
             event.waitUntil(
                 checkIfAnyClientIsActive().then(hasActiveClient => {
-                    if (!hasActiveClient || notification.options.data.priority === 'high') {
+                    if (notification.options.data.priority === 'urgent') {
+                        return self.registration.showNotification('Notification', { body: notification });
+                    }
+
+                    if (!hasActiveClient && notification.options.data.priority === 'high') {
                         return self.registration.showNotification('Notification', { body: notification });
                     }
                 })

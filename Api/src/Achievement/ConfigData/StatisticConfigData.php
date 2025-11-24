@@ -72,6 +72,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::DAY_MAX, StatisticStrategyEnum::MAX),
             new StatisticConfigDto(StatisticEnum::DRUGS_TAKEN, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::KIVANC_CONTACTED, StatisticStrategyEnum::INCREMENT),
+            new StatisticConfigDto(StatisticEnum::NILS_CONTACTED, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::ARTEFACT_SPECIALIST, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::TEAM_ALL_REBELS, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::PLASMA_SHIELD, StatisticStrategyEnum::INCREMENT),

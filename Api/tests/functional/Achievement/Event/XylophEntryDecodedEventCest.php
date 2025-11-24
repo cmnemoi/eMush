@@ -54,6 +54,10 @@ final class XylophEntryDecodedEventCest extends AbstractFunctionalTest
                 'xylophEntry' => XylophEnum::KIVANC,
                 'statistic' => StatisticEnum::KIVANC_CONTACTED,
             ],
+            [
+                'xylophEntry' => XylophEnum::GHOST_SAMPLE,
+                'statistic' => StatisticEnum::NILS_CONTACTED,
+            ],
         ];
     }
 

@@ -25,6 +25,7 @@ final readonly class XylophEntryDecodedEventSubscriber implements EventSubscribe
     {
         $statisticName = match ($event->entryName) {
             XylophEnum::DISK => StatisticEnum::MUSH_GENOME,
+            XylophEnum::GHOST_SAMPLE => StatisticEnum::NILS_CONTACTED,
             XylophEnum::KIVANC => StatisticEnum::KIVANC_CONTACTED,
             default => StatisticEnum::NULL,
         };

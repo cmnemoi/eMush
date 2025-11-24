@@ -58,6 +58,7 @@ export const enum StatisticEnum {
     DAY_MAX = "day_max",
     DRUGS_TAKEN = "drugs_taken",
     KIVANC_CONTACTED = "kivanc_contacted",
+    NILS_CONTACTED = "nils_contacted",
     ARTEFACT_SPECIALIST = "artefact_specialist",
     TEAM_ALL_REBELS = "team_all_rebels",
     PLASMA_SHIELD = "plasma_shield",
@@ -239,6 +240,9 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.KIVANC_CONTACTED]: {
         'icon': getImgUrl('achievements/kivanc.png')
+    },
+    [StatisticEnum.NILS_CONTACTED]: {
+        'icon': getImgUrl('achievements/nils.png')
     },
     [StatisticEnum.ARTEFACT_SPECIALIST]: {
         'icon': getImgUrl('achievements/collection.png')

@@ -65,6 +65,7 @@ enum StatisticEnum: string
     case DAY_MAX = 'day_max';
     case DRUGS_TAKEN = 'drugs_taken';
     case KIVANC_CONTACTED = 'kivanc_contacted';
+    case NILS_CONTACTED = 'nils_contacted';
     case ARTEFACT_SPECIALIST = 'artefact_specialist';
     case TEAM_ALL_REBELS = 'team_all_rebels';
     case PLASMA_SHIELD = 'plasma_shield';

@@ -816,6 +816,7 @@ abstract class AchievementConfigData
             new AchievementConfigDto(name: AchievementEnum::DAY_MAX_13, points: 0, threshold: 13),
             new AchievementConfigDto(name: AchievementEnum::DRUGS_TAKEN_1, points: 1, threshold: 1),
             new AchievementConfigDto(name: AchievementEnum::KIVANC_CONTACTED_1, points: 1, threshold: 1),
+            new AchievementConfigDto(name: AchievementEnum::NILS_CONTACTED_1, points: 1, threshold: 1),
             new AchievementConfigDto(
                 name: AchievementEnum::ARTEFACT_SPECIALIST_1,
                 points: 1,

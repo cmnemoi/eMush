@@ -1299,6 +1299,20 @@
         <target>{gender, select, female {Cheffe} other {Chef}} rebelle</target>
       </segment>
     </unit>
+    <unit id="nils_contacted">
+      <segment id="name" state="initial">
+        <source>nils_contacted.name</source>
+        <target>nils_contacted.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>nils_contacted.description</source>
+        <target>nils_contacted.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>nils_contacted_1.name</source>
+        <target>nils_contacted_1.name</target>
+      </segment>
+    </unit>
     <unit id="team_all_rebels">
       <segment id="name" state="translated">
         <source>team_all_rebels.name</source>

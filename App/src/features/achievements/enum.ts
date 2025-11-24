@@ -61,6 +61,7 @@ export const enum StatisticEnum {
     ARTEFACT_SPECIALIST = "artefact_specialist",
     TEAM_ALL_REBELS = "team_all_rebels",
     PLASMA_SHIELD = "plasma_shield",
+    GRENADIER = 'grenadier',
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -243,5 +244,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.PLASMA_SHIELD]: {
         'icon': getImgUrl('plasma.png')
+    },
+    [StatisticEnum.GRENADIER]: {
+        'icon': getImgUrl('achievements/grenadier.png')
     }
 };

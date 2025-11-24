@@ -1335,5 +1335,19 @@
         <target>Protecteur</target>
       </segment>
     </unit>
+    <unit id="grenadier">
+      <segment id="name" state="initial">
+        <source>grenadier.name</source>
+        <target>grenadier.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>grenadier.description</source>
+        <target>grenadier.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>grenadier_1.name</source>
+        <target>grenadier_1.name</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

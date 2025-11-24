@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Exploration\PlanetSectorEventHandler;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Entity\RebelBaseConfig;
 use Mush\Communications\Enum\RebelBaseEnum;
@@ -42,6 +44,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     private Player $janice;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
     private DecodeRebelSignalService $decodeRebelBase;
+    private StatisticRepositoryInterface $statisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
@@ -53,6 +56,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->decodeRebelBase = $I->grabService(DecodeRebelSignalService::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
         // given our explorators are Chun, Kuan-Ti, Derek, and Janice
         $this->chun = $this->player;
@@ -151,10 +155,12 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $this->thenExpeditionStrengthShouldBe(18, $explorationLog, $I);
 
         $this->thenPlayerShouldHaveGrenades(0, $this->chun, $I);
-
         $this->thenPlayerShouldHaveGrenades(1, $this->kuanTi, $I);
-
         $this->thenPlayerShouldHaveGrenades(1, $raluca, $I);
+
+        $this->thenPlayerShouldHaveGrenadierStatistic(3, $this->chun, $I);
+        $this->thenPlayerShouldHaveGrenadierStatistic(3, $this->kuanTi, $I);
+        $this->thenPlayerShouldHaveGrenadierStatistic(3, $raluca, $I);
     }
 
     public function testFightEventNotUsingGrenadesIfWeHaveEnoughPointsToKillWithoutThem(FunctionalTester $I): void
@@ -500,6 +506,14 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     private function thenPlayerShouldHaveGrenades(int $expectedCount, Player $player, FunctionalTester $I)
     {
         $I->assertCount($expectedCount, $player->getEquipments()->filter(static fn ($equipment) => $equipment->getName() === ItemEnum::GRENADE));
+    }
+
+    private function thenPlayerShouldHaveGrenadierStatistic(int $expectedCount, Player $player, FunctionalTester $I)
+    {
+        $I->assertEquals($expectedCount, $this->statisticRepository->findByNameAndUserIdOrNull(
+            name: StatisticEnum::GRENADIER,
+            userId: $player->getUser()->getId(),
+        )?->getCount());
     }
 
     private function thenPlayerShouldHaveHealthPoints(int $expectedCount, Player $player, FunctionalTester $I)

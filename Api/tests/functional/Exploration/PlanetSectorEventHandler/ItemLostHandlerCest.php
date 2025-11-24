@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Exploration\PlanetSectorEventHandler;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Planet;
@@ -19,6 +21,7 @@ final class ItemLostHandlerCest extends AbstractExplorationTester
 {
     private ItemLost $itemLostHandler;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatisticRepositoryInterface $statisticRepository;
 
     private Planet $planet;
 
@@ -28,6 +31,7 @@ final class ItemLostHandlerCest extends AbstractExplorationTester
 
         $this->itemLostHandler = $I->grabService(ItemLost::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
         $this->planet = $this->createPlanet([PlanetSectorEnum::OXYGEN, PlanetSectorEnum::INTELLIGENT], $I);
 
@@ -54,5 +58,27 @@ final class ItemLostHandlerCest extends AbstractExplorationTester
 
         $I->assertTrue($this->chun->doesNotHaveEquipment(ItemEnum::OLD_FAITHFUL), 'Chun should not have the old faithful');
         $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::BURDENED), 'Chun should not have burdened status');
+    }
+
+    public function shouldNotIncrementGrenadierStatisticOnGrenadeStolen(FunctionalTester $I): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::GRENADE,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::ITEM_LOST]);
+        $sector = $this->planet->getSectorByNameOrThrow(PlanetSectorEnum::INTELLIGENT);
+        $event = new PlanetSectorEvent($sector, $fightEventConfig);
+
+        $this->itemLostHandler->handle($event);
+
+        $I->assertTrue($this->chun->doesNotHaveEquipment(ItemEnum::GRENADE), 'Chun should not have the grenade');
+        $I->assertNull($this->statisticRepository->findByNameAndUserIdOrNull(
+            name: StatisticEnum::GRENADIER,
+            userId: $this->chun->getUser()->getId(),
+        ), 'Chun should not receive grenadier statistic');
     }
 }

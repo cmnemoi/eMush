@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
@@ -37,16 +38,19 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
     private DiseaseCauseServiceInterface $diseaseCauseService;
     private RoomLogServiceInterface $roomLogService;
+    private DeleteEquipmentServiceInterface $deleteEquipmentService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         RandomServiceInterface $randomService,
         TranslationServiceInterface $translationService,
+        DeleteEquipmentServiceInterface $deleteEquipmentService,
         DiseaseCauseServiceInterface $diseaseCauseService,
         RoomLogServiceInterface $roomLogService
     ) {
         parent::__construct($entityManager, $eventService, $randomService, $translationService);
+        $this->deleteEquipmentService = $deleteEquipmentService;
         $this->diseaseCauseService = $diseaseCauseService;
         $this->roomLogService = $roomLogService;
     }
@@ -157,11 +161,12 @@ final class Fight extends AbstractPlanetSectorEventHandler
                 $damageWithoutGrenades -= $grenade->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON)->getExpeditionBonus();
 
                 $fighterGrenades->removeElement($grenade);
-                $this->entityManager->remove($grenade);
+                $this->deleteEquipmentService->execute(
+                    gameEquipment: $grenade,
+                    tags: $event->getTags()
+                );
             }
         }
-
-        $this->entityManager->flush();
     }
 
     private function inflictDamageToExplorators(PlanetSectorEvent $event, int $damage): void

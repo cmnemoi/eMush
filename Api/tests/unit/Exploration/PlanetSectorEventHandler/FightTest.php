@@ -12,6 +12,7 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
+use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetName;
@@ -48,6 +49,9 @@ final class FightTest extends TestCase
 
     private Fight $fightEventHandler;
 
+    /** @var DeleteEquipmentServiceInterface|Mockery\Mock */
+    private DeleteEquipmentServiceInterface $deleteEquipmentService;
+
     /** @var DiseaseCauseServiceInterface|Mockery\Mock */
     private DiseaseCauseServiceInterface $diseaseCauseService;
 
@@ -69,6 +73,7 @@ final class FightTest extends TestCase
     /** @before */
     protected function setUp(): void
     {
+        $this->deleteEquipmentService = \Mockery::mock(DeleteEquipmentServiceInterface::class);
         $this->diseaseCauseService = \Mockery::mock(DiseaseCauseServiceInterface::class);
         $this->entityManager = \Mockery::spy(EntityManagerInterface::class);
         $this->eventService = \Mockery::spy(EventServiceInterface::class);
@@ -81,6 +86,7 @@ final class FightTest extends TestCase
             $this->eventService,
             $this->randomService,
             $this->translationService,
+            $this->deleteEquipmentService,
             $this->diseaseCauseService,
             $this->roomLogService,
         );

@@ -3390,7 +3390,7 @@ class EquipmentConfigData
         [
             'name' => 'hydropot_default',
             'equipmentName' => 'hydropot',
-            'breakableType' => BreakableTypeEnum::DESTROY_ON_BREAK,
+            'breakableType' => BreakableTypeEnum::NONE,
             'dismountedProducts' => [],
             'isPersonal' => false,
             'type' => 'item_config',

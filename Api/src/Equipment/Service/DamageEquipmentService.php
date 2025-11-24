@@ -7,7 +7,6 @@ namespace Mush\Equipment\Service;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -15,7 +14,6 @@ final class DamageEquipmentService implements DamageEquipmentServiceInterface
 {
     public function __construct(
         private DeleteEquipmentServiceInterface $deleteEquipment,
-        private EventServiceInterface $eventService,
         private StatusServiceInterface $statusService
     ) {}
 

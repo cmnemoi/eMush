@@ -3,6 +3,7 @@
 namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\EquipmentInitEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -13,6 +14,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
@@ -78,6 +80,8 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
+        $this->createHydropotIfPlantIsDestroyedByFire($event);
+
         $this->eventService->callEvent($event, EquipmentEvent::EQUIPMENT_DELETE);
     }
 
@@ -145,5 +149,20 @@ class EquipmentSubscriber implements EventSubscriberInterface
         foreach ($itemsToDestroy as $item) {
             $this->deleteEquipmentService->execute($item);
         }
+    }
+
+    private function createHydropotIfPlantIsDestroyedByFire(EquipmentEvent $event): void
+    {
+        $gameEquipment = $event->getGameEquipment();
+        if (!$gameEquipment->isAPlant() || $event->doesNotHaveTag(StatusEnum::FIRE)) {
+            return;
+        }
+
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::HYDROPOT,
+            equipmentHolder: $gameEquipment->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
     }
 }

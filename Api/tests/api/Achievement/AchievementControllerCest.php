@@ -48,6 +48,7 @@ final class AchievementControllerCest
         $I->sendGetRequest('/statistics', [
             'userId' => $this->user->getUserId(),
             'language' => $example['language'],
+            'gender' => 'male',
         ]);
 
         $I->seeResponseCodeIs(Response::HTTP_OK);
@@ -92,6 +93,7 @@ final class AchievementControllerCest
         $I->sendGetRequest('/achievements', [
             'userId' => $this->user->getUserId(),
             'language' => 'fr',
+            'gender' => 'male',
         ]);
 
         $I->seeResponseCodeIs(Response::HTTP_OK);
@@ -104,6 +106,53 @@ final class AchievementControllerCest
             'points' => 1,
             'formattedPoints' => '+1',
             'isRare' => false,
+        ]]);
+    }
+
+    public function shouldReturnUserFemaleAchievements(ApiTester $I): void
+    {
+        $otherUser = $I->loginUser('default');
+        $statistic = new Statistic(
+            config: $I->grabEntityFromRepository(StatisticConfig::class, ['name' => StatisticEnum::CONTRIBUTIONS]),
+            userId: $this->user->getId()
+        );
+        $this->statisticRepository->save($statistic);
+
+        $otherStatistic = new Statistic(
+            config: $I->grabEntityFromRepository(StatisticConfig::class, ['name' => StatisticEnum::CONTRIBUTIONS]),
+            userId: $otherUser->getId()
+        );
+        $this->statisticRepository->save($otherStatistic);
+
+        $this->achievementRepository->save(
+            new Achievement(
+                config: $I->grabEntityFromRepository(AchievementConfig::class, ['name' => AchievementEnum::CONTRIBUTIONS_1]),
+                statisticId: $statistic->getId()
+            )
+        );
+        $this->achievementRepository->save(
+            new Achievement(
+                config: $I->grabEntityFromRepository(AchievementConfig::class, ['name' => AchievementEnum::CONTRIBUTIONS_1]),
+                statisticId: $otherStatistic->getId()
+            )
+        );
+
+        $I->sendGetRequest('/achievements', [
+            'userId' => $this->user->getUserId(),
+            'language' => 'fr',
+            'gender' => 'female',
+        ]);
+
+        $I->seeResponseCodeIs(Response::HTTP_OK);
+        $I->seeResponseContainsJson([[
+            'key' => 'contributions_1',
+            'name' => 'Contributrice',
+            'statisticKey' => 'contributions',
+            'statisticName' => 'Contributions x1',
+            'statisticDescription' => 'Vous avez participé au développement de eMush et grâce à vous on l\'a fait avancer : merci !',
+            'points' => 0,
+            'formattedPoints' => '+0',
+            'isRare' => true,
         ]]);
     }
 

@@ -17,3 +17,5 @@ export type Achievement = {
     formattedPoints: string;
     isRare: boolean;
 };
+
+export type Gender = 'male' | 'female';

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Achievement\Query;
 
+use Mush\Game\Enum\LanguageEnum;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class GetUserStatisticsQuery
@@ -11,12 +12,14 @@ final readonly class GetUserStatisticsQuery
     public function __construct(
         #[Assert\NotBlank]
         public string $userId,
-        #[Assert\NotBlank]
+        #[Assert\Choice([LanguageEnum::FRENCH, LanguageEnum::ENGLISH, LanguageEnum::SPANISH])]
         public string $language,
+        #[Assert\Choice(['male', 'female'])]
+        public string $gender,
     ) {}
 
     public function toNormalizationContext(): array
     {
-        return ['language' => $this->language];
+        return ['language' => $this->language, 'gender' => $this->gender];
     }
 }

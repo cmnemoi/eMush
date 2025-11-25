@@ -7,6 +7,33 @@
                 <!-- Title Section - Full width header -->
                 <div class="title-header">
                     <h2 class="title">{{ $t('achievements.title') }}</h2>
+                    <!-- Gender Selection -->
+                    <div class="gender-selection">
+                        <Tippy>
+                            <button
+                                class="gender-button"
+                                :class="{ active: selectedGender === 'male' }"
+                                @click="updateGender('male')"
+                            >
+                                <img :src="getImgUrl('male.png')" alt="Male" />
+                            </button>
+                            <template #content>
+                                {{ $t('achievements.gender.masculine') }}
+                            </template>
+                        </Tippy>
+                        <Tippy>
+                            <button
+                                class="gender-button"
+                                :class="{ active: selectedGender === 'female' }"
+                                @click="updateGender('female')"
+                            >
+                                <img :src="getImgUrl('female.png')" alt="Female" />
+                            </button>
+                            <template #content>
+                                {{ $t('achievements.gender.feminine') }}
+                            </template>
+                        </Tippy>
+                    </div>
                 </div>
 
                 <!-- Points Section -->
@@ -97,7 +124,8 @@ import { useRoute } from 'vue-router';
 import { Tippy } from 'vue-tippy';
 import { useStore } from 'vuex';
 import { StatisticRecords } from './enum';
-import { Achievement, Statistic } from './models';
+import { Achievement, Gender, Statistic } from './models';
+import { getImgUrl } from '@/utils/getImgUrl';
 
 const route = useRoute();
 const store = useStore();
@@ -110,14 +138,16 @@ const totalPoints = computed<integer>(() => store.getters['achievements/points']
 const achievements = computed<Achievement[]>(() => store.getters['achievements/achievements']);
 const achievementCount = computed<integer>(() => store.getters['achievements/achievements'].length);
 const userId = computed<string>(() => route.params.userId as string);
+const selectedGender = computed<Gender>(() => store.getters['achievements/selectedGender']);
 
 // Store actions
-async function fetchStatistics(payload: { userId: string; language: string }) {
+async function fetchStatistics(payload: { userId: string; language: string; gender: Gender }) {
     await store.dispatch('achievements/fetchStatistics', payload);
 }
-async function fetchAchievements(payload: { userId: string; language: string }) {
+async function fetchAchievements(payload: { userId: string; language: string; gender: Gender }) {
     await store.dispatch('achievements/fetchAchievements', payload);
 }
+const updateGender = async (gender: Gender) => store.dispatch('achievements/updateGender', gender);
 
 const setActiveCard = (card: string) => activeCard.value = card;
 const setActiveTab = (tab: string) => activeTab.value = tab;
@@ -125,28 +155,21 @@ const setActiveTab = (tab: string) => activeTab.value = tab;
 // Reacting to component lifecycle
 onBeforeMount(async () => {
     await Promise.allSettled([
-        fetchStatistics({ userId: userId.value, language: language.value }),
-        fetchAchievements({ userId: userId.value, language: language.value })
+        fetchStatistics({ userId: userId.value, language: language.value, gender: selectedGender.value }),
+        fetchAchievements({ userId: userId.value, language: language.value, gender: selectedGender.value })
     ]);
 });
 
-watch(language, async (language) => {
+watch([language, selectedGender, route], async () => {
     await Promise.allSettled([
-        fetchStatistics({ userId: userId.value, language: language }),
-        fetchAchievements({ userId: userId.value, language: language })
-    ]);
-});
-
-watch(route, async () => {
-    await Promise.allSettled([
-        fetchStatistics({ userId: userId.value, language: language.value }),
-        fetchAchievements({ userId: userId.value, language: language.value })
+        fetchStatistics({ userId: userId.value, language: language.value, gender: selectedGender.value }),
+        fetchAchievements({ userId: userId.value, language: language.value, gender: selectedGender.value })
     ]);
 });
 
 // Component local data
 const activeCard   = ref<string>('');
-const activeTab    = ref<'stats'   | string>('stats');
+const activeTab    = ref<'stats' | string>('stats');
 </script>
 
 <style scoped lang="scss">
@@ -193,27 +216,65 @@ const activeTab    = ref<'stats'   | string>('stats');
 
 .title-header {
   margin: -20px -20px 8px -20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: #20224D;
+  background-image: radial-gradient(circle at 1px 1px, #232344 1px, transparent 0);
+  background-size: 8px 8px;
+  padding: 8px 16px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 
   .title {
     margin: 0;
     font-size: 18px;
     color: #ffffff;
-    background-color: #20224D;
-    background-image: radial-gradient(circle at 1px 1px, #232344 1px, transparent 0);
-    background-size: 8px 8px;
-    padding: 8px 16px;
-    border-radius: 0;
-    width: 100%;
-    box-sizing: border-box;
     text-align: center;
+    padding-right: 50px;
+    padding-left: 50px;
+  }
 
-    // Effet de relief
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.05),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-      0 2px 4px rgba(0, 0, 0, 0.1);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  .gender-selection {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+
+    .gender-button {
+      width: 16px;
+      height: 16px;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &.active {
+        opacity: 1;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
   }
 }
 

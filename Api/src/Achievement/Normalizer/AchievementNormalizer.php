@@ -28,12 +28,13 @@ final class AchievementNormalizer implements NormalizerInterface
     {
         $achievementViewModel = $this->achievementViewModel($object);
         $language = $this->getLanguageFromContext($context);
+        $gender = $this->getGenderFromContext($context);
 
         return [
             'key' => $achievementViewModel->key,
             'name' => $this->translationService->translate(
                 key: \sprintf('%s.name', $achievementViewModel->key),
-                parameters: [],
+                parameters: ['gender' => $gender],
                 domain: 'statistics',
                 language: $language,
             ),
@@ -42,13 +43,16 @@ final class AchievementNormalizer implements NormalizerInterface
                 key: \sprintf('%s.name', $achievementViewModel->statisticKey),
                 parameters: [
                     'count' => $achievementViewModel->threshold,
+                    'gender' => $gender,
                 ],
                 domain: 'statistics',
                 language: $language,
             ), $achievementViewModel->threshold),
             'statisticDescription' => $this->translationService->translate(
                 key: \sprintf('%s.description', $achievementViewModel->statisticKey),
-                parameters: [],
+                parameters: [
+                    'gender' => $gender,
+                ],
                 domain: 'statistics',
                 language: $language,
             ),
@@ -70,5 +74,14 @@ final class AchievementNormalizer implements NormalizerInterface
         }
 
         return $context['language'];
+    }
+
+    private function getGenderFromContext(array $context): string
+    {
+        if (!\array_key_exists('gender', $context)) {
+            throw new \InvalidArgumentException('Gender must be provided in the context for Achievement normalization.');
+        }
+
+        return $context['gender'];
     }
 }

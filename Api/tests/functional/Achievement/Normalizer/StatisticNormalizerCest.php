@@ -33,7 +33,11 @@ final class StatisticNormalizerCest extends AbstractFunctionalTest
             isRare: false,
         );
 
-        $normalizedStatistic = $this->statisticNormalizer->normalize($statistic, format: null, context: ['language' => LanguageEnum::FRENCH]);
+        $normalizedStatistic = $this->statisticNormalizer->normalize(
+            $statistic,
+            format: null,
+            context: ['language' => LanguageEnum::FRENCH, 'gender' => 'male']
+        );
 
         $I->assertEquals(
             expected: [

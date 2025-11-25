@@ -588,7 +588,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>contributions_1.name</source>
-        <target>Contributeur</target>
+        <target>{gender, select, female {Contributrice} other {Contributeur}}</target>
       </segment>
       <segment id="x5" state="translated">
         <source>contributions_5.name</source>
@@ -604,19 +604,19 @@
       </segment>
       <segment id="x100" state="translated">
         <source>contributions_100.name</source>
-        <target>Créateur d'expériences</target>
+        <target>{gender, select, female {Créatrice} other {Créateur}} d'expériences</target>
       </segment>
       <segment id="x300" state="translated">
         <source>contributions_300.name</source>
-        <target>Kent Beck de l'espace</target>
+        <target>{gender, select, female {Emily Bache} other {Kent Beck}} de l'espace</target>
       </segment>
       <segment id="x700" state="translated">
         <source>contributions_700.name</source>
-        <target>Grand Réparateur de Cest</target>
+        <target>{gender, select, female {Grande Réparatrice} other {Grand Réparateur}} de Cest</target>
       </segment>
       <segment id="x1500" state="translated">
         <source>contributions_1500.name</source>
-        <target>Gardien du code source</target>
+        <target>{gender, select, female {Productrice} other {Producteur}} de boutons à cliquer</target>
       </segment>
     </unit>
     <unit id="frieda">

@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { createStore, Store } from "vuex";
 import { createAchievementsModule } from "./store";
-import { Achievement, Statistic } from "./models";
+import { Achievement, Gender, Statistic } from "./models";
 
 describe("Achievements Store", () => {
     let store: Store<Record<string, any>>;
-    const fetchUserStatistics: (userId: string, language: string) => Promise<Statistic[]> = async (userId: string, language: string) => {
+    const fetchUserStatistics: (userId: string, language: string, gender: Gender) => Promise<Statistic[]> = async (userId: string, language: string, gender: Gender) => {
         return Promise.resolve([{
             key: "test_statistic",
             name: "Test Statistic",
@@ -15,7 +15,7 @@ describe("Achievements Store", () => {
             isRare: false
         }]);
     };
-    const fetchUserAchievements: (userId: string, language: string) => Promise<Achievement[]> = async (userId: string, language: string) => {
+    const fetchUserAchievements: (userId: string, language: string, gender: Gender) => Promise<Achievement[]> = async (userId: string, language: string, gender: Gender) => {
         return Promise.resolve([{
             key: "test_achievement_1",
             name: "Test Achievement 1",
@@ -39,7 +39,8 @@ describe("Achievements Store", () => {
     it("should initialize with default state", () => {
         expect(store.state.achievements).toEqual({
             statistics: [],
-            achievements: []
+            achievements: [],
+            selectedGender: 'male'
         });
     });
 
@@ -265,5 +266,11 @@ describe("Achievements Store", () => {
                 isRare: false
             }
         ]);
+    });
+
+    it("should update gender", async () => {
+        await store.dispatch('achievements/updateGender', 'female');
+
+        expect(store.state.achievements.selectedGender).toEqual('female');
     });
 });

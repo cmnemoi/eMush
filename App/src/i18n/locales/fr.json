@@ -183,6 +183,10 @@
 		"tabs": {
 			"statistics": "Statistiques",
 			"gains": "Gains ({count})"
+		},
+		"gender": {
+			"masculine": "Masculin",
+			"feminine": "Féminin"
 		}
 	},
 	"userProfile": {

@@ -28,18 +28,19 @@ final readonly class StatisticNormalizer implements NormalizerInterface
     {
         $statisticViewModel = $this->statisticViewModel($object);
         $language = $this->getLanguageFromContext($context);
+        $gender = $this->getGenderFromContext($context);
 
         return [
             'key' => $statisticViewModel->key,
             'name' => $this->translationService->translate(
                 key: \sprintf('%s.name', $statisticViewModel->key),
-                parameters: [],
+                parameters: ['gender' => $gender],
                 domain: 'statistics',
                 language: $language,
             ),
             'description' => $this->translationService->translate(
                 key: \sprintf('%s.description', $statisticViewModel->key),
-                parameters: [],
+                parameters: ['gender' => $gender],
                 domain: 'statistics',
                 language: $language,
             ),
@@ -61,5 +62,14 @@ final readonly class StatisticNormalizer implements NormalizerInterface
         }
 
         return $context['language'];
+    }
+
+    private function getGenderFromContext(array $context): string
+    {
+        if (!\array_key_exists('gender', $context)) {
+            throw new \InvalidArgumentException('Gender must be provided in the context for Statistic normalization.');
+        }
+
+        return $context['gender'];
     }
 }

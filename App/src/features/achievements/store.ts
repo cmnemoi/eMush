@@ -1,10 +1,11 @@
 import { Module } from "vuex";
-import { Achievement, Statistic } from "./models";
+import { Achievement, Gender, Statistic } from "./models";
 import { AchievementsGateway } from "./gateway";
 
 export type AchievementsState = {
     statistics: Statistic[];
     achievements: Achievement[];
+    selectedGender: Gender;
 };
 
 export function createAchievementsModule(gateway: AchievementsGateway): Module<AchievementsState, Record<string, any>> {
@@ -12,7 +13,8 @@ export function createAchievementsModule(gateway: AchievementsGateway): Module<A
         namespaced: true,
         state: (): AchievementsState => ({
             statistics: [],
-            achievements: []
+            achievements: [],
+            selectedGender: 'male'
         }),
         mutations: {
             setStatistics(state, statistics: Statistic[]) {
@@ -20,6 +22,9 @@ export function createAchievementsModule(gateway: AchievementsGateway): Module<A
             },
             setAchievements(state, achievements: Achievement[]) {
                 state.achievements = achievements;
+            },
+            setGender(state, gender: Gender) {
+                state.selectedGender = gender;
             }
         },
         getters: {
@@ -33,26 +38,30 @@ export function createAchievementsModule(gateway: AchievementsGateway): Module<A
                 }).slice(0, n);
             },
             achievements: (state): Achievement[] => state.achievements,
-            points: (state): number => state.achievements.reduce((acc, achievement) => acc + achievement.points, 0)
+            points: (state): number => state.achievements.reduce((acc, achievement) => acc + achievement.points, 0),
+            selectedGender: (state): Gender => state.selectedGender
         },
         actions: {
-            async fetchStatistics({ commit }, { userId, language }): Promise<void> {
+            async fetchStatistics({ commit }, { userId, language, gender }): Promise<void> {
                 try {
-                    const statistics = await gateway.fetchUserStatistics(userId, language);
+                    const statistics = await gateway.fetchUserStatistics(userId, language, gender);
                     commit("setStatistics", statistics);
                 } catch (error) {
                     console.error(error);
                     throw error;
                 }
             },
-            async fetchAchievements({ commit }, { userId, language }): Promise<void> {
+            async fetchAchievements({ commit }, { userId, language, gender }): Promise<void> {
                 try {
-                    const achievements = await gateway.fetchUserAchievements(userId, language);
+                    const achievements = await gateway.fetchUserAchievements(userId, language, gender);
                     commit("setAchievements", achievements);
                 } catch (error) {
                     console.error(error);
                     throw error;
                 }
+            },
+            updateGender({ commit }, gender: Gender): void {
+                commit('setGender', gender);
             }
         }
     };

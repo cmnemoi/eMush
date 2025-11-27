@@ -5,7 +5,7 @@ export interface Contributor {
 }
 
 export const team: (Contributor)[] = [
-    { name: 'Evian', role: 'admin', coreTeam: true },
+    { name: 'Evian', role: 'developer', coreTeam: false },
     { name: 'Breut', role: 'admin', coreTeam: true },
     { name: 'gowoons', role: 'developer', coreTeam: false },
     { name: 'A7', role: 'developer', coreTeam: false },

@@ -8,7 +8,17 @@
                 <div />
             </div>
             <div class="character-info">
-                <span class="character-name">{{ player.character.name }}</span>
+                <span class="character-name">
+                    {{ player.character.name }}
+                    <Tippy tag="span">
+                        <router-link :to="`biography/${player.character.key}`">
+                            <img :src="getImgUrl('ui_icons/book.png')" alt="biography" />
+                        </router-link>
+                        <template #content>
+                            <p>{{ $t('biography.readCharacterBiography', { characterName: player.character.name }) }}</p>
+                        </template>
+                    </Tippy>
+                </span>
                 <div class="titles">
                     <Tippy tag="ul" v-for="(key) in player.titles" :key="key">
                         <div class="title"><TitleImage :title="key" /><span class="title-name">{{ key.name }}</span></div>
@@ -126,16 +136,16 @@
 </template>
 
 <script lang="ts">
-import { Daedalus } from "@/entities/Daedalus";
-import { Player } from "@/entities/Player";
+import LearnSkillMenu from "@/components/Game/LearnSkillMenu.vue";
+import Alerts from "@/components/Game/Ship/Alerts.vue";
+import SkillSelectionMenu from "@/components/Game/SkillSelectionMenu.vue";
 import CountdownTimer from "@/components/Utils/CountdownTimer.vue";
 import TitleImage from "@/components/Utils/TitleImage.vue";
-import Alerts from "@/components/Game/Ship/Alerts.vue";
-import LearnSkillMenu from "@/components/Game/LearnSkillMenu.vue";
-import SkillSelectionMenu from "@/components/Game/SkillSelectionMenu.vue";
-import { defineComponent } from "vue";
+import { Daedalus } from "@/entities/Daedalus";
+import { Player } from "@/entities/Player";
 import PlayerService from "@/services/player.service";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 
 
@@ -264,6 +274,12 @@ span.tippy-tooltip {
         font-size: 1.05em;
         font-weight: 700;
         text-transform: uppercase;
+
+        img {
+            vertical-align: baseline;
+            position: relative;
+            top: 2px;
+        }
     }
 
     .titles {

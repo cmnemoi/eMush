@@ -31,6 +31,7 @@ import Token from "@/components/Token.vue";
 import UserPage from "@/components/User/UserPage.vue";
 import { User } from "@/entities/User";
 import { is_granted, UserRole } from "@/enums/user_role.enum";
+import CharacterBiographyView from "@/features/biography/CharacterBiographyView.vue";
 import { adminConfigRoutes } from "@/router/adminConfigPages";
 import store from "@/store";
 import { createRouter, createWebHistory } from "vue-router";
@@ -300,6 +301,11 @@ const routes: RouteRecord[] = [
         path: "/:pathMatch(.*)*",
         name: "NotFound",
         component: NotFoundPage
+    },
+    {
+        path: "/biography/:characterName",
+        name: "CharacterBiographyView",
+        component: CharacterBiographyView
     }
 ];
 

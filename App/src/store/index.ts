@@ -24,6 +24,8 @@ import { createUserProfileModule } from "@/features/userProfile/store";
 import { gateway as userProfileGateway } from "@/features/userProfile/gateway";
 import { createAchievementsModule } from "@/features/achievements/store";
 import { achievementsGateway } from "@/features/achievements/gateway";
+import { createCharacterBiographyModule } from "@/features/biography/store";
+import { BiographyService } from "@/services/biography.service";
 
 export default createStore({
     modules: {
@@ -58,6 +60,9 @@ export default createStore({
                 const UserService = (await import("@/services/user.service")).default;
                 return UserService.loadUser(userId);
             }
+        ),
+        biography: createCharacterBiographyModule(
+            BiographyService.loadCharacterBiography
         )
     }
 });

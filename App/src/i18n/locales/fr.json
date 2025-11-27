@@ -1125,5 +1125,9 @@
 			"name": "Actions admin",
 			"description": "Affichez vos actions admin."
 		}
+	},
+	"biography": {
+		"readCharacterBiography": "Lire la biographie de {characterName}",
+		"pageTitle": "Biographie détaillée :"
 	}
 }

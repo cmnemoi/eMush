@@ -26,7 +26,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>andie.age</source>
-        <target>24 ans</target>
+        <target>***Âge :*** 24 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>andie.description</source>
@@ -34,7 +34,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>andie.employment</source>
-        <target>Sous-lieutenant de la FDS</target>
+        <target>***Profession :*** Sous-lieutenant de la FDS</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>andie.bioAbstract</source>
+        <target>***Résumé :*** Le Sous-lieutenant Andie Graham n'est toujours pas au courant que le Daedalus a coupé ses liens avec la FDS. Il/Elle pense toujours être en mission pour le bien de la fédération et participe activement à la réussite de sa mission. Apprenant que son idole, le Sergent Derek Hogan, fait partie de l'équipage du Daedelus, Andie postule pour une place à bord. Ses compétences variées font de lui/elle une recrue indispensable au succès de la mission.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>andie.abstract</source>
@@ -74,7 +78,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>chao.age</source>
-        <target>34 ans</target>
+        <target>***Âge :*** 34 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>chao.description</source>
@@ -82,7 +86,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>chao.employment</source>
-        <target>Chef de l'équipe de sécurité</target>
+        <target>***Profession :*** Chef de l'équipe de sécurité</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>chao.bioAbstract</source>
+        <target>***Résumé :*** Wang Chao est assigné à la protection armée de l'équipage. Son caractère chaotique fait de Chao une menace pour ses ennemis comme pour ses amis. Malgré ses erreurs de jeunesse, Chao a gagné une relative confiance de la part de l'équipe en organisant le convoi de départ surprise de Daedalus et en les protégeant efficacement contre ses ex-collègues de la FDS.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>chao.abstract</source>
@@ -123,7 +131,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>chun.age</source>
-        <target>33 ans</target>
+        <target>***Âge :*** 33 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>chun.description</source>
@@ -131,7 +139,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>chun.employment</source>
-        <target>Agent de maintenance</target>
+        <target>***Profession :*** Agent de maintenance</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>chun.bioAbstract</source>
+        <target>***Résumé :*** Parce qu'elle est la seule survivante de l'équipe médicale de Tamina, Chun a été embarquée sur le Daedalus pour être assujettie à plusieurs analyses. Cryogénisée par la Fédération pendant plus de 9 ans pour assurer son silence, puis harcelée par les journalistes, Chun n'a jamais connu une vie normale. Elle est pourtant la clé pour la survie de l'espèce humaine, Zhong Chun doit survivre à tout prix.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>chun.abstract</source>
@@ -178,7 +190,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>derek.age</source>
-        <target>à peine plus de 39 ans</target>
+        <target>***Âge :*** à peine plus de 39 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>derek.description</source>
@@ -186,7 +198,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>derek.employment</source>
-        <target>Ex-sergent de la FDS</target>
+        <target>***Profession :*** Ex-sergent de la FDS</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>derek.bioAbstract</source>
+        <target>***Résumé :*** Derek Hogan est assigné à la sécurité du Daedalus. Robuste et sûr de lui, il sera un atout conséquent pour la réussite de cette mission extrême. Son passé est une succession d'évènements plus incroyables les uns que les autres. Derek a tout connu, les champs de bataille sur Sol, les missions suicides de Tau-Ceti... Pourtant il recherche toujours l'âme soeur. Depuis le départ précipité de son foyer, Derek a voué son existence à la gent féminine, qui lui rend bien mal.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>derek.abstract</source>
@@ -228,7 +244,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>eleesha.age</source>
-        <target>30 ans</target>
+        <target>***Âge :*** 30 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>eleesha.description</source>
@@ -236,7 +252,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>eleesha.employment</source>
-        <target>Grand reporter</target>
+        <target>***Profession :*** Grand reporter</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>eleesha.bioAbstract</source>
+        <target>***Résumé :*** Eleesha est journaliste d'investigation chez SNC (Sol News Channel). Elle a obtenu des fiches médicales de plusieurs leaders politiques et financiers de la Fédération, prouvant leur infection au Mush. Après la déprogrammation de son reportage, Eleesha prend la fuite sur Jupiter car elle craint d'être éliminée. Elle révèle l'affaire à l'équipe du Daedalus et obtient une couverture de mécano.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>eleesha.abstract</source>
@@ -285,7 +305,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>finola.age</source>
-        <target>30 ans</target>
+        <target>***Âge :*** 30 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>finola.description</source>
@@ -293,7 +313,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>finola.employment</source>
-        <target>Biologiste</target>
+        <target>***Profession :*** Biologiste</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>finola.bioAbstract</source>
+        <target>***Résumé :*** Finola est à l'origine d'une grande partie des découvertes sur le Mush. Lorsqu'elle est contactée par Lai Kuan-Ti qui lui présente le projet Daedalus, elle refuse de quitter Antémis ou elle mène son projet de fongicide. À l'aide de ses hommes de main, Kuan-Ti fait enlever Finola et la cryogénise sans son consentement pour l'expédition.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>finola.abstract</source>
@@ -336,7 +360,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>frieda.age</source>
-        <target>66 ans</target>
+        <target>***Âge :*** 66 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>frieda.description</source>
@@ -344,7 +368,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>frieda.employment</source>
-        <target>Navigatrice</target>
+        <target>***Profession :*** Navigatrice</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>frieda.bioAbstract</source>
+        <target>***Résumé :*** Née au 21ème siècle, elle a plus de 45 années d'expériences en matière de navigation trans-système. Au cours de ses études, elle a mis en évidence l'effet de fronde de Shapiro. Décryogénisée au 31ème siècle, son travail de repérage des corps célestes a déjà servi à de grands explorateurs tels que GL Maubrick ou Kim Jin-Su. Aujourd'hui à la retraite en Bavière, elle est appelée sur Xyloph-17 pour devenir la navigatrice du Daedalus.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>frieda.abstract</source>
@@ -388,7 +416,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>gioele.age</source>
-        <target>55 ans</target>
+        <target>***Âge :*** 55 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>gioele.description</source>
@@ -396,7 +424,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>gioele.employment</source>
-        <target>Armateur milliardaire Oisif</target>
+        <target>***Profession :*** Armateur milliardaire Oisif</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>gioele.bioAbstract</source>
+        <target>***Résumé :*** Gioele Rinaldo est l'armateur du vaisseau, c'est un milliardaire terrien passionné d'exploration spatiale qui a financé le projet initial du Daedaelus. Face à la menace Mush, Gioele panique et obtient in extremis de la part des concepteurs un poste de navigateur sur le vaisseau. Il parvient également à évincer un biologiste de l'équipe pour placer sa fille Paola.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>gioele.abstract</source>
@@ -438,7 +470,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>hua.age</source>
-        <target>32 ans</target>
+        <target>***Âge :*** 32 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>hua.description</source>
@@ -446,7 +478,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>hua.employment</source>
-        <target>Exploratrice de surface</target>
+        <target>***Profession :*** Exploratrice de surface</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>hua.bioAbstract</source>
+        <target>***Résumé :*** Spécialisée dans les missions d'approches de planète inconnue, Hua est capable d'atterrir dans n'importes quelles conditions sur à peu près n'importes quelles surfaces. Elle était présente dans L'Epygron, premier vaisseau d'exploration à rencontrer une forme de vie extra-terrestre.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>hua.abstract</source>
@@ -488,7 +524,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>ian.age</source>
-        <target>42 ans</target>
+        <target>***Âge :*** 42 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>ian.description</source>
@@ -496,7 +532,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>ian.employment</source>
-        <target>Botaniste</target>
+        <target>***Profession :*** Botaniste</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>ian.bioAbstract</source>
+        <target>***Résumé :*** Ian Soulton a activement participé aux recherches sur le Mush. Autorité en la matière, mais aussi en botanique, il a participé aux recensements de nombreuses espèces extra-terrestres et a élaboré plusieurs centaines d'hybrides de plantes terrestres. Sa curiosité pour les espèces de fruit est particulièrement frappante.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>ian.abstract</source>
@@ -540,7 +580,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>jin_su.age</source>
-        <target>40 ans</target>
+        <target>***Âge :*** 40 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>jin_su.description</source>
@@ -548,7 +588,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>jin_su.employment</source>
-        <target>Explorateur de l'inconnu</target>
+        <target>***Profession :*** Explorateur de l'inconnu</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>jin_su.bioAbstract</source>
+        <target>***Résumé :*** Jin Su a débuté très jeune dans des missions d'analyse sur Barnard Star. Il est rapidement promu au rang de Commandant et se voit confier des expéditions importantes sur Ross 154 et Epsilon Indi. Sur Tau-Ceti, la découverte de plusieurs gisements de Boxylium font de Jin-Su une célébrité interplanétaire. En 3146, il est nommé par la Fédération pour commander l'exécution du projet Magellan. Suite à l'invasion du Mush sur Sol, il conçoit les plans du Daedalus avec Lai Kuan Ti, et rassemble un équipage d'élite pour assurer la survie de l'espèce humaine dans une autre galaxie.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>jin_su.abstract</source>
@@ -591,7 +635,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>kuan_ti.age</source>
-        <target>37 ans</target>
+        <target>***Âge :*** 37 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>kuan_ti.description</source>
@@ -599,7 +643,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>kuan_ti.employment</source>
-        <target>Concepteur du Daedalus</target>
+        <target>***Profession :*** Concepteur du Daedalus</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>kuan_ti.bioAbstract</source>
+        <target>***Résumé :*** Lai Kuan Ti est l'un des deux concepteurs du Daedalus. Il ne prête guère attention à l'arrivée du Mush sur Tau-Ceti jusqu’à ce que Eleesha Williams lui apprenne le stade avancé de propagation du mycélium à l’intérieur du système Sol. Kuan Ti, Raluca et Jin Su décident alors d'avancer de 8 ans le lancement de leur programme d'exploration avant que la Fédération n'y mette un terme.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>kuan_ti.abstract</source>
@@ -641,7 +689,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>paola.age</source>
-        <target>23 ans</target>
+        <target>***Âge :*** 23 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>paola.description</source>
@@ -649,7 +697,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>paola.employment</source>
-        <target>Officier principal des Communications</target>
+        <target>***Profession :*** Officier principal des Communications</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>paola.bioAbstract</source>
+        <target>***Résumé :*** Fille de l'armateur Gioele Rinaldo. Elle vit dans le désir constant d'une aventure qui bouleversera son existence. Pour dénoncer le système néo-colonialiste de la Féderation, elle monte une radio pirate dans son campus avec son petit-ami Kivanç Terzi. A cette occasion, elle intercepte accidentellement des communications Mush troublantes révélant une invasion prochaine. En fuite, elle rejoint son père qui lui permet d'embarquer sur le Daedalus, abandonnant sur Sol l'homme de sa vie.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>paola.abstract</source>
@@ -690,7 +742,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>raluca.age</source>
-        <target>25 ans</target>
+        <target>***Âge :*** 25 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>raluca.description</source>
@@ -698,7 +750,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>raluca.employment</source>
-        <target>Physicienne</target>
+        <target>***Profession :*** Physicienne</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>raluca.bioAbstract</source>
+        <target>***Résumé :*** Génie de la physique dès l'âge de 11 ans, Raluca est l'inventeuse du réacteur à combustion réversible PILGRED équipé sur le Daedalus. Elle a également conçu avec Lai Kuan Ti la quasi-totalité des modules du vaisseau et peut encore les améliorer. Souffrant d'anxiétés liées à son autisme, Raluca ne supporte que la présence de son chat Schrödinger qu'elle a réussi à faire monter à bord contre l'avis des médecins. Ses disputes avec NERON sont légendaires.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>raluca.abstract</source>
@@ -744,7 +800,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>roland.age</source>
-        <target>27 ans</target>
+        <target>***Âge :*** 27 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>roland.description</source>
@@ -752,7 +808,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>roland.employment</source>
-        <target>Pilote d'élite</target>
+        <target>***Profession :*** Pilote d'élite</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>roland.bioAbstract</source>
+        <target>***Résumé :*** Après une brillante mais tumultueuse ascension à l'académie de pilotes d'élite de la FDS, Roland Zuccali est finalement mis à pied suite à un contrôle anti-mush positif. Innocenté puis manipulé par ses supérieurs, Roland perd toute confiance en la FDS et déserte finalement durant la Sale Guerre contre les rebelles. Il est désormais pilote au sein de l'équipe du Daedalus.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>roland.abstract</source>
@@ -794,7 +854,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>stephen.age</source>
-        <target>47 ans</target>
+        <target>***Âge :*** 47 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>stephen.description</source>
@@ -802,7 +862,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>stephen.employment</source>
-        <target>Cuisinier</target>
+        <target>***Profession :*** Cuisinier</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>stephen.bioAbstract</source>
+        <target>***Résumé :*** Stephen fut consécutivement groom dans un train interplanétaire, esclave dans une mine de cobalt au Mexique, sénateur de la coalition Chili Con Latte, mercenaire spatial, percepteur privé de taxes fédérales, convoyeur de fond, kidnappeur de jeune fille, mineur de Boxylium, militaire cuistot de la FDS, et même condamné à mort. Son périple le mène sur Xyloph-17 où il est cryogénisé par erreur, et embarqué à l'intérieur du Daedalus.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>stephen.abstract</source>
@@ -849,7 +913,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>terrence.age</source>
-        <target>44 ans</target>
+        <target>***Âge :*** 44 ans</target>
       </segment>
       <segment id="description" state="translated">
         <source>terrence.description</source>
@@ -857,7 +921,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>terrence.employment</source>
-        <target>Mécanicien spécialisé dans la robotique</target>
+        <target>***Profession :*** Mécanicien spécialisé dans la robotique</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>terrence.bioAbstract</source>
+        <target>***Résumé :*** Gravement blessé pendant un raid trop ambitieux contre les rebelles sur Sol, Terrence est resté dans le coma pendant 6 mois. Retourné meurtri à la vie civile, cloué dans un fauteuil, Terrence a décidé de se consacrer à l'ingénierie de haut niveau et à la création d'automates. Le rêve de sa vie est de mettre au point des chasseurs sans pilote et des corps contrôlables à distance.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>terrence.abstract</source>
@@ -901,7 +969,7 @@
       </segment>
       <segment id="age" state="translated">
         <source>janice.age</source>
-        <target>26 ans</target>
+        <target>***Âge :*** 26 ans</target>
       </segment>
       <segment id="description" state="final">
         <source>janice.description</source>
@@ -909,7 +977,11 @@
       </segment>
       <segment id="employment" state="translated">
         <source>janice.employment</source>
-        <target>Psychologue Digitale</target>
+        <target>***Profession :*** Psychologue Digitale</target>
+      </segment>
+      <segment id="bioAbstract" state="translated">
+        <source>janice.bioAbstract</source>
+        <target>***Résumé :*** Janice s'occupe de toute la partie informatique du vaisseau. Elle gère les défragmentations psychanalytiques régulières de NERON et a mis en place le protocole de sécurité A-TRUE, qui autorise l'ordinateur central à nommer lui-même son administrateur. Janice gère également le suivi psychologique des membres du Daedalus.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>janice.abstract</source>

@@ -137,6 +137,11 @@ final class PlayerService implements PlayerServiceInterface
             // Lock Daedalus to prevent concurrent player creation
             $daedalus = $this->daedalusRepository->lockAndRefresh($daedalus);
 
+            // Check if daedalus is not filled
+            if (!$daedalus->isFilling()) {
+                throw new \RuntimeException('Cannot join a Daedalus already filled');
+            }
+
             // Check if player already exists
             $existingPlayer = $this->playerRepository->findOneByUserAndDaedalus($user, $daedalus);
             if ($existingPlayer) {

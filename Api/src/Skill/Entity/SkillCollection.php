@@ -7,6 +7,7 @@ namespace Mush\Skill\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Order;
+use Mush\Skill\Enum\SkillEnum;
 
 /**
  * @template-extends ArrayCollection<int, Skill>
@@ -38,5 +39,10 @@ class SkillCollection extends ArrayCollection
         $criteria = Criteria::create()->orderBy([$criteria => $order]);
 
         return new self($this->matching($criteria)->toArray());
+    }
+
+    public function getAllExcept(SkillEnum $skillName): self
+    {
+        return $this->filter(static fn (Skill $skill) => $skill->getName() !== $skillName);
     }
 }

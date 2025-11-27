@@ -25,6 +25,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillConfigCollection;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Repository\TriumphConfigRepositoryInterface;
@@ -269,7 +270,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $normalizedSkillPoints = [];
 
         /** @var Skill $skill */
-        foreach ($player->getSkillsWithPoints() as $skill) {
+        foreach ($player->getSkillsWithPoints()->getAllExcept(SkillEnum::FERTILE) as $skill) {
             $skillPoints = $skill->getSkillPointsName();
             $normalizedSkillPoints[] = [
                 'key' => $skillPoints,

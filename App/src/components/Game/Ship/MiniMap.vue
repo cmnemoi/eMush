@@ -890,13 +890,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, watch } from "vue";
-import { useStore } from "vuex";
-import { RoomsEnum } from '@/enums/room.enum';
-import { DoorsEnum } from '@/enums/doors.enum';
-import { Minimap, ActopiPlayer, HexColor } from "@/entities/Minimap";
-import { Player } from "@/entities/Player";
+import { ActopiPlayer, HexColor, Minimap } from "@/entities/Minimap";
 import { Room } from "@/entities/Room";
+import { DoorsEnum } from '@/enums/doors.enum';
+import { RoomsEnum } from '@/enums/room.enum';
+import { computed, onMounted, ref, watch } from "vue";
+import { useStore } from "vuex";
 
 interface PlayersPoints {
     left: number;
@@ -914,7 +913,7 @@ interface Doors {
 const store = useStore();
 
 const daedalus = computed(() => store.getters['daedalus/daedalus']);
-const minimap = computed(() => store.getters['daedalus/minimap']);
+const minimap = computed<Minimap[]>(() => store.getters['daedalus/minimap']);
 const player = computed(() => store.getters['player/player']);
 
 const mapClass = computed((): string => {
@@ -949,6 +948,10 @@ const displayName = (room: string): void => {
 
 const updateRoomDisplay = (room: string): void => {
     const roomData = minimap.value.find((rooms: Minimap) => rooms.name === room);
+    if (!roomData) {
+        return;
+    }
+
     const count = roomData.players_count;
     const initials = roomData.actopi.length > 0 ? roomData.actopi.map((player: ActopiPlayer) => player.initials).join(' ') : '';
     let display = roomName.value;
@@ -957,6 +960,9 @@ const updateRoomDisplay = (room: string): void => {
     }
     if (count > 0) {
         display += ` (${count})`;
+    }
+    if (roomData.fire) {
+        display += ' 🔥';
     }
     roomName.value = display;
 };

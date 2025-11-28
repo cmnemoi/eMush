@@ -3,3 +3,4 @@ services:
         public: true
     WebPush\WebPushService:
         class: Mush\Tests\unit\TestDoubles\Service\FakeWebPushService
+        public: true

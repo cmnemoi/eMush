@@ -18,7 +18,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>achievement_unlocked.description</source>
-        <target>Félicitations, vous avez remporté le titre **{achievement}** !</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="ok">
@@ -37,6 +37,26 @@
       <segment state="translated">
         <source>later</source>
         <target>Plus tard...</target>
+      </segment>
+    </unit>
+    <unit id="daedalus_filled">
+      <segment id="key" state="translated">
+        <source>daedalus_filled.title</source>
+        <target>Votre partie démarre !</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>daedalus_filled.description</source>
+        <target>Le Daedalus décolle. Bruits suspects inclus gratuitement.</target>
+      </segment>
+    </unit>
+    <unit id="daedalus_finished">
+      <segment id="key" state="translated">
+        <source>daedalus_finished.title</source>
+        <target>Fin de l'aventure !</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>daedalus_finished.description</source>
+        <target>Votre partie avec {character} est finie. La page de fin vous attend dans votre profil.</target>
       </segment>
     </unit>
   </file>

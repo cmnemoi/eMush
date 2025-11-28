@@ -85,20 +85,17 @@ describe("Notification Store", () => {
     });
 
     it("should add notification to store", async () => {
-        const notification = "notification";
+        await store.dispatch("notifications/addNotification", { title: "title", body: "body" });
 
-        await store.dispatch("notifications/addNotification", notification);
-
-        expect(store.getters["notifications/notifications"]).toEqual(["notification"]);
+        expect(store.getters["notifications/notifications"]).toEqual(["title//body"]);
         expect(store.getters["notifications/notificationsCount"]).toBe(1);
-        expect(localStorageService.getItemAsArray('notifications')).toEqual(["notification"]);
+        expect(localStorageService.getItemAsArray('notifications')).toEqual(["title//body"]);
     });
 
     it("should remove notification from store", async () => {
-        const notification = "notification";
-        await store.dispatch("notifications/addNotification", notification);
+        await store.dispatch("notifications/addNotification", { title: "title", body: "body" });
 
-        await store.dispatch("notifications/removeNotification", notification);
+        await store.dispatch("notifications/removeNotification", "title//body");
 
         expect(store.getters["notifications/notifications"]).toEqual([]);
         expect(store.getters["notifications/notificationsCount"]).toBe(0);

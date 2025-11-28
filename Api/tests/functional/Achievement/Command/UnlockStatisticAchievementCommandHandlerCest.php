@@ -85,7 +85,7 @@ final class UnlockStatisticAchievementCommandHandlerCest
         $this->thenNotificationShouldMatch([
             'key' => 'achievement_unlocked',
             'title' => 'Félicitations, vous avez remporté le titre **Navigateur** !',
-            'description' => 'Félicitations, vous avez remporté le titre **Navigateur** !',
+            'description' => '',
             'actions' => [
                 ['action' => 'ok', 'title' => 'Ok'],
             ],

@@ -70,7 +70,8 @@ export function createNotificationsModule(
                     throw error;
                 }
             },
-            addNotification({ state, commit }, notification: string): void {
+            addNotification({ state, commit }, payload: { title: string, body: string }): void {
+                const notification = `${payload.title}//${payload.body}`;
                 const updatedNotifications = [notification, ...state.notifications];
                 commit('setNotifications', updatedNotifications);
                 localStorageService.saveItemAsArray('notifications', updatedNotifications);

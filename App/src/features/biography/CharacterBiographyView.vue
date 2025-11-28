@@ -9,8 +9,8 @@
             </div>
         </div>
         <h2 class="full-row">{{ $t('biography.pageTitle') }}</h2>
-        <CharacterBiographyTimeLine :bio="biography" />
-        <CharacterBiographyDetails :character-name="characterName" :details="details" />
+        <CharacterBiographyDetails class="details" :character-name="characterName" :details="details" />
+        <CharacterBiographyTimeLine class="timeline" :bio="biography" />
     </div>
 </template>
 
@@ -55,30 +55,49 @@ const goToCharacter = (character: CharacterEnum) => {
     grid-column: 1 / -1;
     margin-bottom: auto;
     margin-top: 0.4rem;
+    order: 1;
 }
 
 .box-container {
     display: grid;
-    grid-template-columns: 1fr 250px;
+    grid-template-columns: 1fr;
     gap: 1rem;
-    padding-top: 48px;
-    position: relative;
 }
 
 .navigation-bar {
-    position: absolute;
+    grid-column: 1 / -1;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
-    padding: 6px 1rem;
+    padding: 6px 0;
     margin: 0;
     min-height: 45px;
     box-sizing: border-box;
-    top: 8px;
-    left: 0;
-    right: 0;
+    order: 0;
+}
+
+.details {
+    order: 2;
+}
+
+.timeline {
+    order: 3;
+}
+
+@media (min-width: 768px) {
+    .box-container {
+        grid-template-columns: 1fr 250px;
+    }
+
+    .details {
+        order: 3;
+    }
+
+    .timeline {
+        order: 2;
+    }
 }
 </style>

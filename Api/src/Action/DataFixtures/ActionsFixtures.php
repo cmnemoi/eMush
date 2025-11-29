@@ -1185,6 +1185,9 @@ class ActionsFixtures extends Fixture
         $adaptEpigenetics = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::ADAPT_EPIGENETICS));
         $manager->persist($adaptEpigenetics);
 
+        $sabotageExploration = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SABOTAGE_EXPLORATION));
+        $manager->persist($sabotageExploration);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1344,5 +1347,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::TOGGLE_DEATH_ANNOUNCEMENTS->value, $toggleDeathAnnouncements);
         $this->addReference(ActionEnum::WHISPER->value, $whisper);
         $this->addReference(ActionEnum::ADAPT_EPIGENETICS->value, $adaptEpigenetics);
+        $this->addReference(ActionEnum::SABOTAGE_EXPLORATION->value, $sabotageExploration);
     }
 }

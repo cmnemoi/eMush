@@ -24,14 +24,15 @@ final class PlanetSectorEventSubscriber implements EventSubscriberInterface
 
     public function onPlanetSectorEvent(PlanetSectorEvent $event): void
     {
-        if ($event->isNegative() === false) {
+        $exploration = $event->getExploration();
+
+        if (!$exploration->isSabotaged()) {
             return;
         }
 
-        $exploration = $event->getExploration();
         foreach ($exploration->getTraitors() as $traitor) {
             $this->roomLogService->createLog(
-                logKey: LogEnum::TRAITOR_WORKED,
+                logKey: $event->isNegative() ? LogEnum::TRAITOR_WORKED : LogEnum::TRAITOR_PREVENTED,
                 place: $traitor->getPlace(),
                 visibility: VisibilityEnum::PRIVATE,
                 player: $traitor,

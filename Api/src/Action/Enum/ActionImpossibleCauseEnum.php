@@ -127,6 +127,9 @@ abstract class ActionImpossibleCauseEnum
     public const string ROOM_ON_FIRE = 'room_on_fire';
     public const string ROOM_SELECTED_FOR_FIRE = 'room_selected_for_fire';
     public const string RUN_HOME_LOST = 'run_home_lost';
+    public const string SABOTAGE_EXPLORATION_LOST = 'sabotage_exploration_lost';
+    public const string EXPLORATION_ALREADY_SABOTAGED = 'exploration_already_sabotaged';
+    public const string SABOTAGE_EXPLORATION_SPENT = 'sabotage_exploration_spent';
 
     // April Fools Dog messages
     public const string DOG_IS_SEASICK = 'dog_is_seasick';

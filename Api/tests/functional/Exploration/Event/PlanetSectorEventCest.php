@@ -1901,6 +1901,8 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             I: $I
         );
 
+        $exploration->setIsSabotaged(true);
+
         $this->whenExplorationEventIsDispatched($exploration);
 
         $this->ISeeTranslatedRoomLogInRepository(
@@ -1921,23 +1923,22 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
                 'playerInfo' => $this->kuanTi->getPlayerInfo(),
             ]
         );
-
-        $I->assertEquals(1, $this->chun->getPlayerInfo()->getStatistics()->getTraitorUsed());
-        $I->assertEquals(0, $this->kuanTi->getPlayerInfo()->getStatistics()->getTraitorUsed());
     }
 
-    public function traitorExploratorShouldNotHaveAPrivateLogWhenTriggeringPositiveEvent(FunctionalTester $I): void
+    public function traitorExploratorShouldHaveAPrivateLogWhenTriggeringPositiveEvent(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::TRAITOR, $I);
+        $this->addSkillToPlayer(SkillEnum::DIPLOMAT, $I, $this->kuanTi);
 
         $this->givenOnlyThisEventCanHappenInSector(
             event: PlanetSectorEvent::NOTHING_TO_REPORT,
             sector: PlanetSectorEnum::LANDING,
         );
 
-        $this->givenOnlyThisEventCanHappenInSector(
-            event: PlanetSectorEvent::ARTEFACT,
-            sector: PlanetSectorEnum::INTELLIGENT,
+        // given only fight and nothing to report events can happen in intelligent sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: ['fight_1' => PHP_INT_MAX - 1, 'nothing_to_report' => 1]
         );
 
         $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
@@ -1946,18 +1947,28 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             I: $I
         );
 
+        $exploration->setIsSabotaged(true);
+
         $this->whenExplorationEventIsDispatched($exploration);
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: ':mush: Votre sabotage a été empêché par un membre de l\'équipe d\'exploration. Ils sont vraiment trop viligants...',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: LogEnum::TRAITOR_PREVENTED,
+                visibility: VisibilityEnum::PRIVATE,
+            ),
+            I: $I
+        );
 
         $I->cantSeeInRepository(
             entity: RoomLog::class,
             params: [
                 'visibility' => VisibilityEnum::PRIVATE,
-                'log' => LogEnum::TRAITOR_WORKED,
+                'log' => LogEnum::TRAITOR_PREVENTED,
+                'playerInfo' => $this->kuanTi->getPlayerInfo(),
             ]
         );
-
-        $I->assertEquals(0, $this->chun->getPlayerInfo()->getStatistics()->getTraitorUsed());
-        $I->assertEquals(0, $this->kuanTi->getPlayerInfo()->getStatistics()->getTraitorUsed());
     }
 
     private function givenChunIsASurvivalist(FunctionalTester $I): void

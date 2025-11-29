@@ -603,6 +603,12 @@
         <target>Votre sabotage échoue... c'est plus dur qu'il n'y parait.</target>
       </segment>
     </unit>
+    <unit id="sabotage_exploration_success">
+      <segment id="sabotage_exploration_success" state="translated">
+        <source>sabotage_exploration_success</source>
+        <target>:mush: Voilà qui est fait. Le prochain secteur aura un résultat... explosif.</target>
+      </segment>
+    </unit>
     <unit id="extinguish_success">
       <segment id="extinguish_success" state="translated">
         <source>extinguish_success</source>

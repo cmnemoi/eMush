@@ -77,6 +77,7 @@ abstract class LogEnum
     public const string OBSERVANT_NOTICED_SOMETHING = 'observant_noticed_something';
     public const string DELOGGED = 'delogged';
     public const string TRAITOR_WORKED = 'traitor_worked';
+    public const string TRAITOR_PREVENTED = 'traitor_prevented';
     public const string LEARNED_SKILL = 'learned_skill';
     public const string STRATEGURU_WORKED = 'strateguru_worked';
     public const string DRONE_EXTINGUISHED_FIRE = 'drone_extinguished_fire';
@@ -101,7 +102,7 @@ abstract class LogEnum
     public const string NPC_ENTERED_ROOM = 'npc_entered_room';
     public const string TRADE_ASSETS_CREATED = 'trade_assets_created';
     public const string FOOD_DESTROYED_BY_NERON = 'food_destroyed_by_neron';
-    public const string EXPEDITION_EVENT_PREVIEW = 'expedition_event_preview';
+    public const string EXPLORATION_EVENT_PREVIEW = 'exploration_event_preview';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

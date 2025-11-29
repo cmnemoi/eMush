@@ -150,15 +150,6 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
 
     public function onPlanetSectorEvent(PlanetSectorEvent $event): void
     {
-        if ($event->isNegative()) {
-            /** @var Player $traitor */
-            foreach ($event->getExploration()->getTraitors() as $traitor) {
-                $traitor->getPlayerInfo()->getStatistics()->incrementTraitorUsed();
-
-                $this->playerRepository->save($traitor);
-            }
-        }
-
         /** @var Player $lostPlayer */
         foreach ($event->getDaedalus()->getLostPlayers() as $lostPlayer) {
             $lostPlayer->getPlayerInfo()->getStatistics()->incrementLostCycles();
@@ -278,6 +269,7 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
             ActionEnum::SCAN => $event->getActionResultOrThrow()->isASuccess() ? $stat->changePlanetScanRatio(-1) : null,
             ActionEnum::SHOOT_CAT => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementKillCount() : null,
             ActionEnum::TRY_KUBE => $stat->incrementKubeUsed(),
+            ActionEnum::SABOTAGE_EXPLORATION => $stat->incrementTraitorUsed(),
             default => null,
         };
     }

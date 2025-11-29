@@ -79,6 +79,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     public function onExplorationFinished(ExplorationEvent $event): void
     {
         $this->removeStuckInTheShipStatusToExplorators($event);
+        $this->removeUsedTraitorStatusToExplorators($event);
 
         if ($event->getExploration()->isAnyExploratorAlive()) {
             $this->addLootedOxygenToDaedalus($event);
@@ -180,6 +181,21 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         foreach ($exploratorsWithoutSpaceSuit as $explorator) {
             $this->statusService->removeStatus(
                 statusName: PlayerStatusEnum::STUCK_IN_THE_SHIP,
+                holder: $explorator,
+                tags: $event->getTags(),
+                time: $event->getTime(),
+            );
+        }
+    }
+
+    private function removeUsedTraitorStatusToExplorators(ExplorationEvent $event): void
+    {
+        $spentTraitors = $event->getExploration()->getSpentTraitors();
+
+        /** @var Player $explorator */
+        foreach ($spentTraitors as $explorator) {
+            $this->statusService->removeStatus(
+                statusName: PlayerStatusEnum::HAS_USED_TRAITOR_THIS_EXPEDITION,
                 holder: $explorator,
                 tags: $event->getTags(),
                 time: $event->getTime(),

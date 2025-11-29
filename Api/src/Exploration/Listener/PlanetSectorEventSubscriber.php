@@ -34,5 +34,9 @@ final class PlanetSectorEventSubscriber implements EventSubscriberInterface
         }
 
         $planetSectorEventHandler->handle($event);
+
+        if ($event->getExploration()->isSabotaged()) {
+            $event->getExploration()->setIsSabotaged(false);
+        }
     }
 }

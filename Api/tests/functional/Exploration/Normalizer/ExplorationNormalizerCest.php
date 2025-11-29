@@ -222,7 +222,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
 
     public function testNormalizeForTraitorPlayer(FunctionalTester $I): void
     {
-        // given Chun has U-Turn skill
+        // given Chun has Traitor skill
         $this->addSkillToPlayer(SkillEnum::TRAITOR, $I, $this->chun);
 
         $this->convertPlayerToMush($I, $this->chun);

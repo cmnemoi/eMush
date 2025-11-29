@@ -852,5 +852,23 @@
         <target>Difficile de prendre ces jambes à son cou avant de retrouver la trace des autres...</target>
       </segment>
     </unit>
+    <unit id="sabotage_exploration_lost">
+      <segment id="description" state="translated">
+        <source>sabotage_exploration_lost.description</source>
+        <target>Vous êtes ici, et l'exploration est ailleurs. Comment comptez-vous la saboter?</target>
+      </segment>
+    </unit>
+    <unit id="sabotage_exploration_spent">
+      <segment id="description" state="translated">
+        <source>sabotage_exploration_spent.description</source>
+        <target>Vous avez déjà saboté un secteur lors de cette exploration.</target>
+      </segment>
+    </unit>
+    <unit id="exploration_already_sabotaged">
+      <segment id="description" state="translated">
+        <source>exploration_already_sabotaged.description</source>
+        <target>Les grands champis se rencontrent. Un de vos compagnons prévoit déjà de ruiner le prochain secteur.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

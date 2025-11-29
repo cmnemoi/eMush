@@ -110,7 +110,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         foreach ($exploration->getPlayersWhoCanSeeNextSector() as $previewer) {
             if ($previewer->doesNotHaveStatus(PlayerStatusEnum::LOST)) {
                 $this->roomLogService->createLog(
-                    logKey: LogEnum::EXPEDITION_EVENT_PREVIEW,
+                    logKey: LogEnum::EXPLORATION_EVENT_PREVIEW,
                     place: $previewer->getPlace(),
                     visibility: VisibilityEnum::PRIVATE,
                     player: $previewer,

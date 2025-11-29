@@ -404,6 +404,16 @@ Thanks for your help!</target>
         <target>Breaks the targeted equipment.</target>
       </segment>
     </unit>
+    <unit id="sabotage_exploration">
+      <segment id="name" state="translated">
+        <source>sabotage_exploration.name</source>
+        <target>Sabotage the Expedition!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>sabotage_exploration.description</source>
+        <target>All this trip is missing is a pinch of chaos. // The next visited sector will have a **negative outcome**.</target>
+      </segment>
+    </unit>
     <unit id="take_shower">
       <segment id="name" state="translated">
         <source>take_shower.name</source>

@@ -683,6 +683,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($communicationsExpert);
 
+        $hasUsedTraitor = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_USED_TRAITOR_THIS_EXPEDITION . '_default')
+        );
+        $manager->persist($hasUsedTraitor);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -767,7 +772,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($first)
             ->addStatusConfig($hasAdaptedEpigenetics)
             ->addStatusConfig($isAnonymous)
-            ->addStatusConfig($communicationsExpert);
+            ->addStatusConfig($communicationsExpert)
+            ->addStatusConfig($hasUsedTraitor);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -846,6 +852,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_ADAPTED_EPIGENETICS, $hasAdaptedEpigenetics);
         $this->addReference(self::IS_ANONYMOUS, $isAnonymous);
         $this->addReference(DaedalusStatusEnum::COMMUNICATIONS_EXPERT, $communicationsExpert);
+        $this->addReference(PlayerStatusEnum::HAS_USED_TRAITOR_THIS_EXPEDITION, $hasUsedTraitor);
 
         $manager->flush();
     }

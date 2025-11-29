@@ -176,6 +176,7 @@ enum ActionEnum: string
     case BECOME_ANONYMOUS_REVERSE = 'become_anonymous_reverse';
     case INSTALL_CAMERA_NIMBLE_FINGERS = 'install_camera_nimble_fingers';
     case REMOVE_CAMERA_NIMBLE_FINGERS = 'remove_camera_nimble_fingers';
+    case SABOTAGE_EXPLORATION = 'sabotage_exploration';
 
     // Terminal related actions
     case EXIT_TERMINAL = 'exit_terminal';

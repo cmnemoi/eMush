@@ -621,9 +621,9 @@
         <target>The exploration came back sooner than expected: nobody had a spacesuit!</target>
       </segment>
     </unit>
-    <unit id="expedition_event_preview">
-      <segment id="expedition_event_preview" state="translated">
-        <source>expedition_event_preview</source>
+    <unit id="exploration_event_preview">
+      <segment id="exploration_event_preview" state="translated">
+        <source>exploration_event_preview</source>
         <target>A thorough visual analysis of the landscape indicates a **{next_sector}** sector is up next.</target>
       </segment>
     </unit>
@@ -979,6 +979,12 @@
       <segment id="traitor_worked" state="translated">
         <source>traitor_worked</source>
         <target>:mush: Your treacherous action has led to an unfortunate incident.</target>
+      </segment>
+    </unit>
+    <unit id="traitor_prevented">
+      <segment id="traitor_prevented" state="translated">
+        <source>traitor_prevented</source>
+        <target>:mush: Your sabotage was prevented by an exploration crewmember. They have eyes behind their backs...</target>
       </segment>
     </unit>
     <unit id="learned_skill">

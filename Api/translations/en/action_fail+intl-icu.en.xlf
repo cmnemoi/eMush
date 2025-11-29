@@ -805,5 +805,29 @@
         <target>Two's company, but three's a crowd... Get the hint.</target>
       </segment>
     </unit>
+    <unit id="run_home_lost">
+      <segment id="description" state="translated">
+        <source>run_home_lost.description</source>
+        <target>Where would you want to run off to? You've lost sight of the ship...</target>
+      </segment>
+    </unit>
+    <unit id="sabotage_exploration_lost">
+      <segment id="description" state="translated">
+        <source>sabotage_exploration_lost.description</source>
+        <target>You are here, the exploration is elsewhere. How would you sabotage it?</target>
+      </segment>
+    </unit>
+    <unit id="sabotage_exploration_spent">
+      <segment id="description" state="translated">
+        <source>sabotage_exploration_spent.description</source>
+        <target>You have already sabotaged a sector this exploration.</target>
+      </segment>
+    </unit>
+    <unit id="exploration_already_sabotaged">
+      <segment id="description" state="translated">
+        <source>exploration_already_sabotaged.description</source>
+        <target>Hive minds think alike. One of your companions has already sabotaged the next sector.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

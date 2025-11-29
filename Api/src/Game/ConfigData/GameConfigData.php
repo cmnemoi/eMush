@@ -535,6 +535,7 @@ class GameConfigData
                     PlayerStatusEnum::IS_ANONYMOUS . '_default',
                     DaedalusStatusEnum::COMMUNICATIONS_EXPERT . '_default',
                     PlayerStatusEnum::HAS_USED_FERTILE_TODAY . '_default',
+                    PlayerStatusEnum::HAS_USED_TRAITOR_THIS_EXPEDITION . '_default',
                 ],
                 'triumphConfigs' => array_map(static fn (TriumphConfigDto $triumphConfig) => $triumphConfig->name->toConfigKey('default'), TriumphConfigData::getAll()),
                 'hunterConfigs' => [

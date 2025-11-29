@@ -374,6 +374,12 @@
         <target>Your sabotage attempt failed... it's trickier than it seems.</target>
       </segment>
     </unit>
+    <unit id="sabotage_exploration_success">
+      <segment id="sabotage_exploration_success" state="translated">
+        <source>sabotage_exploration_success</source>
+        <target>:mush: Loosen this, tighten that... The next sector will have an "interesting" outcome.</target>
+      </segment>
+    </unit>
     <unit id="extinguish_success">
       <segment id="extinguish_success" state="translated">
         <source>extinguish_success</source>

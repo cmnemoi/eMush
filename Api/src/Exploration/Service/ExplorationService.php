@@ -193,7 +193,7 @@ final class ExplorationService implements ExplorationServiceInterface
     public function selectNextSectorIfAble(Exploration $exploration): Exploration
     {
         $planet = $exploration->getPlanet();
-        // do not roll a next sector if the planet is fully explored or the expedition is about to close
+        // do not roll a next sector if the planet is fully explored or the exploration is about to close
         if ($exploration->getPlanet()->getUnvisitedSectors()->isEmpty() || $exploration->getCycle() >= $exploration->getNumberOfSectionsToVisit() + 1) {
             $exploration->setNextSector(null);
         } else {
@@ -221,12 +221,11 @@ final class ExplorationService implements ExplorationServiceInterface
             $newProbability = $sectorEvents->getElementProbability(PlanetSectorEvent::NOTHING_TO_REPORT) * 2;
             $sectorEvents->setElementProbability(PlanetSectorEvent::NOTHING_TO_REPORT, $newProbability);
         }
-        if ($exploration->hasATraitor()) {
+        if ($exploration->isSabotaged()) {
             /** @var string $eventKey */
             foreach ($sectorEvents->getKeys() as $eventKey) {
-                if ($this->findPlanetSectorEventConfigByName($eventKey)->isNegative()) {
-                    $newProbability = $sectorEvents->getElementProbability($eventKey) * 2;
-                    $sectorEvents->setElementProbability($eventKey, $newProbability);
+                if (!$this->findPlanetSectorEventConfigByName($eventKey)->isNegative()) {
+                    $sectorEvents->remove($eventKey);
                 }
             }
         }

@@ -482,7 +482,10 @@ abstract class SkillConfigData
                 name: SkillEnum::TRACKER,
             ),
             new SkillConfigDto(
-                name: SkillEnum::TRAITOR
+                name: SkillEnum::TRAITOR,
+                actionConfigs: [
+                    ActionEnum::SABOTAGE_EXPLORATION,
+                ],
             ),
             new SkillConfigDto(
                 name: SkillEnum::TRANSFER,

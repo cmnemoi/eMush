@@ -688,9 +688,9 @@
         <target>L'exploration est revenue plus tôt que prévu : personne n'avait de combinaison !</target>
       </segment>
     </unit>
-    <unit id="expedition_event_preview">
-      <segment id="expedition_event_preview" state="translated">
-        <source>expedition_event_preview</source>
+    <unit id="exploration_event_preview">
+      <segment id="exploration_event_preview" state="translated">
+        <source>exploration_event_preview</source>
         <target>Une analyse visuelle compétente de l'horizon indique que le groupe se dirige vers un secteur **{next_sector}**.</target>
       </segment>
     </unit>
@@ -1123,6 +1123,12 @@
       <segment id="traitor_worked" state="translated">
         <source>traitor_worked</source>
         <target>:mush: Votre action de traîtrise a favorisé un incident fâcheux.</target>
+      </segment>
+    </unit>
+    <unit id="traitor_prevented">
+      <segment id="traitor_prevented" state="translated">
+        <source>traitor_prevented</source>
+        <target>:mush: Votre sabotage a été empêché par un membre de l'équipe d'exploration. Ils sont vraiment trop viligants...</target>
       </segment>
     </unit>
     <unit id="learned_skill">

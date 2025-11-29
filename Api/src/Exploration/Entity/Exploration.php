@@ -52,6 +52,9 @@ class Exploration
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isChangingCycle = false;
 
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    private bool $isSabotaged = false;
+
     #[ORM\ManyToOne(targetEntity: PlanetSector::class)]
     private ?PlanetSector $nextSector;
 
@@ -96,6 +99,13 @@ class Exploration
     {
         return $this->getExplorators()->filter(
             static fn (Player $explorator) => !$explorator->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)
+        );
+    }
+
+    public function getSpentTraitors(): PlayerCollection
+    {
+        return $this->getExplorators()->filter(
+            static fn (Player $explorator) => $explorator->hasStatus(PlayerStatusEnum::HAS_USED_TRAITOR_THIS_EXPEDITION)
         );
     }
 
@@ -222,6 +232,16 @@ class Exploration
         $this->nextSector = $planetSector;
 
         return $this;
+    }
+
+    public function isSabotaged(): bool
+    {
+        return $this->isSabotaged;
+    }
+
+    public function setIsSabotaged(bool $isSabotaged): void
+    {
+        $this->isSabotaged = $isSabotaged;
     }
 
     public function getDaedalus(): Daedalus

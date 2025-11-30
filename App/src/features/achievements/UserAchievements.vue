@@ -81,18 +81,18 @@
                 </div>
             </div>
 
-            <!-- Statistics List -->
-            <div class="stats-list" v-if="activeTab === 'stats'">
+            <!-- Statistics Grid -->
+            <div class="stats-grid" v-if="activeTab === 'stats'">
                 <Tippy
-                    class="stat-item"
+                    class="stat-grid-item"
                     v-for="statistic in statistics"
                     :key="statistic.name"
+                    :class="{ rare: statistic.isRare }"
                 >
-                    <div class="stat-icon">
+                    <div class="grid-item-value" :class="{ rare: statistic.isRare }">{{ statistic.formattedCount }}</div>
+                    <div class="grid-item-icon">
                         <img :src="StatisticRecords[statistic.key].icon" :alt="statistic.name" />
                     </div>
-                    <div class="stat-name" :class="{ rare: statistic.isRare }">{{ statistic.name }}</div>
-                    <div class="stat-value" :class="{ rare: statistic.isRare }">{{ statistic.formattedCount }}</div>
                     <template #content>
                         <h1>{{ statistic.name }}</h1>
                         <p>{{ statistic.description }}</p>
@@ -179,6 +179,7 @@ const activeTab    = ref<'stats' | string>('stats');
   position: relative;
   padding-top: 15px;
   margin: 0 auto;
+  max-width: 400px;
 }
 
 .crown {
@@ -385,6 +386,78 @@ const activeTab    = ref<'stats' | string>('stats');
   }
 }
 
+.stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 12px;
+  background-color: #353A8E;
+
+  .stat-grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #292C69;
+    border: 1px solid #3f5a70;
+    border-radius: 4px;
+    padding: 8px 4px;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.2s ease;
+    width: 40px;
+    min-height: 40px;
+
+    &:hover {
+      border-color: white;
+    }
+
+    &.rare {
+      border-color: #F0B449;
+
+      &:hover {
+        border-color: white;
+      }
+    }
+
+    .grid-item-value {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #353A8E;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 1px 6px;
+      border: 1px solid #3f5a70;
+      border-radius: 2px;
+      min-width: 16px;
+      text-align: center;
+
+      &.rare {
+        color: #F0B449;
+        border-color: #F0B449;
+      }
+    }
+
+    .grid-item-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+      }
+    }
+  }
+}
+
 .stats-list {
   max-height: 300px;
   overflow-y: auto;
@@ -435,19 +508,23 @@ const activeTab    = ref<'stats' | string>('stats');
 }
 
 // Scrollbar styling for webkit browsers
+.stats-grid::-webkit-scrollbar,
 .stats-list::-webkit-scrollbar {
   width: 6px;
 }
 
+.stats-grid::-webkit-scrollbar-track,
 .stats-list::-webkit-scrollbar-track {
   background: #34495e;
 }
 
+.stats-grid::-webkit-scrollbar-thumb,
 .stats-list::-webkit-scrollbar-thumb {
   background: #7f8c8d;
   border-radius: 3px;
 }
 
+.stats-grid::-webkit-scrollbar-thumb:hover,
 .stats-list::-webkit-scrollbar-thumb:hover {
   background: #95a5a6;
 }

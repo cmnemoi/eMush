@@ -24,7 +24,7 @@
 		"developers": "Development",
 		"coreTeam": "The eMush team:",
 		"contributors": "Thanks to our contributors:",
-		"translatorsAndAlphaTesters": "to our translators and all alpha testers :)",
+		"translatorsAndAlphaTesters": "to our translators and all beta testers :)",
 		"emush": "eMush",
 		"eternaltwin": "eMush is a non-commercial website run by volunteers. It is part of the <a href={eternaltwinUrl}>Eternaltwin</a> project, whose goal is to preserve Motion Twin's games, that is, to keep them accessible even if the official site shuts down. <strong>We are not affiliated with Motion Twin</strong>.",
 		"legal": "Legal notice",
@@ -183,6 +183,10 @@
 		"tabs": {
 			"statistics": "Statistics",
 			"gains": "Titles ({count})"
+		},
+		"gender": {
+			"masculine": "Masculine",
+			"feminine": "Feminine"
 		}
 	},
 	"userProfile": {
@@ -1068,7 +1072,8 @@
 				"subscribeToNotifications": "Subscribe to notifications",
 				"notifications": "Notifications",
 				"actionTabs": "Separate Mush and human actions",
-				"doubleTap": "Double tap for actions"
+				"doubleTap": "Double tap for actions",
+				"lessPopups": "Less ingame popups"
 			}
 		},
 		"topBar": {
@@ -1122,6 +1127,7 @@
 		}
 	},
 	"biography": {
+		"readCharacterBiography": "Read {characterName}'s biography",
 		"pageTitle": "Detailed biography:"
 	}
 }

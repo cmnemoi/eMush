@@ -34,7 +34,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>eden.description</source>
-        <target>De la escoria de la humanidad surge la esperanza En un nuevo planeta, un nuevo comienzo y la continuación de las aventuras de nuestros héroes. Pero esta es otra historia.</target>
+        <target>De la escoria de la humanidad surge la esperanza. En un nuevo planeta, un nuevo comienzo y la continuación de las aventuras de nuestros héroes. Pero esta es otra historia.</target>
       </segment>
     </unit>
     <unit id="daedalus_destroyed">

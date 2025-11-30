@@ -4,7 +4,7 @@
     <unit id="acid_reflux">
       <segment id="name" state="translated">
         <source>acid_reflux.name</source>
-        <target>Reflujo gastroesofágico</target>
+        <target>Reflujo gástrico</target>
       </segment>
       <segment id="description" state="translated">
         <source>acid_reflux.description</source>
@@ -28,7 +28,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>gastroenteritis.description</source>
-        <target>¿Realmente es necesario hacer un diagrama? Describir en detalle el olor o los espasmos estomacales?</target>
+        <target>¿Realmente es necesario hacer un análisis clínico? ¿Describir en detalle el olor o los espasmos estomacales?</target>
       </segment>
     </unit>
     <unit id="tapeworm">
@@ -198,7 +198,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>slight_nausea.description</source>
-        <target>Te sientes mareado... Va a pasar, piensa en algo bonito... Buuuuuaaaajjjj...</target>
+        <target>Tienes mareos... Va a pasar, piensa en algo bonito... Buuuuuaaaajjjj...</target>
       </segment>
     </unit>
     <unit id="smallpox">
@@ -354,7 +354,7 @@
     <unit id="weapon_phobia">
       <segment id="name" state="translated">
         <source>weapon_phobia.name</source>
-        <target>Fobia de las armas</target>
+        <target>Fobia a las armas</target>
       </segment>
       <segment id="description" state="translated">
         <source>weapon_phobia.description</source>
@@ -378,7 +378,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>burns_90_of_body.description</source>
-        <target>Tu cuerpo esta muy gravemente quemado y en riesgo de septicemia.</target>
+        <target>Tu cuerpo está muy gravemente quemado y en riesgo de septicemia.</target>
       </segment>
     </unit>
     <unit id="broken_finger">
@@ -504,7 +504,7 @@
     <unit id="damaged_ears">
       <segment id="name" state="translated">
         <source>damaged_ears.name</source>
-        <target>Oidos incapacitados</target>
+        <target>Oídos incapacitados</target>
       </segment>
       <segment id="description" state="translated">
         <source>damaged_ears.description</source>
@@ -564,7 +564,7 @@
     <unit id="inner_ear_damaged">
       <segment id="name" state="translated">
         <source>inner_ear_damaged.name</source>
-        <target>Oido interno lesionado</target>
+        <target>Oído interno lesionado</target>
       </segment>
       <segment id="description" state="translated">
         <source>inner_ear_damaged.description</source>

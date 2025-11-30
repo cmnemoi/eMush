@@ -429,7 +429,7 @@
       </segment>
       <segment id="predator_description" state="translated">
         <source>provision.predator_description</source>
-        <target>You come across a deadly Skinner. The creature is immobilized, semmingly asleep. You take advantage of this to settle the score, and snag some rations of meat!</target>
+        <target>You come across a deadly Skinner. The creature is immobilized, seemingly asleep. You take advantage of this to settle the score, and snag some rations of meat!</target>
       </segment>
       <segment id="intelligent_description" state="translated">
         <source>provision.intelligent_description</source>

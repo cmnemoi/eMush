@@ -36,17 +36,21 @@
         <source>andie.employment</source>
         <target>andie.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>andie.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>andie.bioAbstract</source>
         <target>andie.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>andie.biography</source>
+      <segment id="abstract" state="translated">
+        <source>andie.abstract</source>
         <target>andie.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>andie.tips</source>
+      <segment id="biography" state="translated">
+        <source>andie.biography</source>
         <target>andie.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>andie.tips</source>
+        <target>andie.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>andie.tutorial</source>
@@ -78,17 +82,21 @@
         <source>chao.employment</source>
         <target>chao.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>chao.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>chao.bioAbstract</source>
         <target>chao.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>chao.biography</source>
+      <segment id="abstract" state="translated">
+        <source>chao.abstract</source>
         <target>chao.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>chao.tips</source>
+      <segment id="biography" state="translated">
+        <source>chao.biography</source>
         <target>chao.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>chao.tips</source>
+        <target>chao.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>chao.tutorial</source>
@@ -120,17 +128,21 @@
         <source>chun.employment</source>
         <target>chun.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>chun.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>chun.bioAbstract</source>
         <target>chun.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>chun.biography</source>
+      <segment id="abstract" state="translated">
+        <source>chun.abstract</source>
         <target>chun.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>chun.tips</source>
+      <segment id="biography" state="translated">
+        <source>chun.biography</source>
         <target>chun.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>chun.tips</source>
+        <target>chun.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>chun.tutorial</source>
@@ -162,17 +174,21 @@
         <source>derek.employment</source>
         <target>derek.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>derek.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>derek.bioAbstract</source>
         <target>derek.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>derek.biography</source>
+      <segment id="abstract" state="translated">
+        <source>derek.abstract</source>
         <target>derek.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>derek.tips</source>
+      <segment id="biography" state="translated">
+        <source>derek.biography</source>
         <target>derek.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>derek.tips</source>
+        <target>derek.tutorial</target>
       </segment>
       <segment id="tips" state="initial">
         <source>derek.tutorial</source>
@@ -204,17 +220,21 @@
         <source>eleesha.employment</source>
         <target>eleesha.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>eleesha.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>eleesha.bioAbstract</source>
         <target>eleesha.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>eleesha.biography</source>
+      <segment id="abstract" state="translated">
+        <source>eleesha.abstract</source>
         <target>eleesha.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>eleesha.tips</source>
+      <segment id="biography" state="translated">
+        <source>eleesha.biography</source>
         <target>eleesha.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>eleesha.tips</source>
+        <target>eleesha.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>eleesha.tutorial</source>
@@ -246,17 +266,21 @@
         <source>finola.employment</source>
         <target>finola.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>finola.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>finola.bioAbstract</source>
         <target>finola.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>finola.biography</source>
+      <segment id="abstract" state="translated">
+        <source>finola.abstract</source>
         <target>finola.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>finola.tips</source>
+      <segment id="biography" state="translated">
+        <source>finola.biography</source>
         <target>finola.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>finola.tips</source>
+        <target>finola.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>finola.tutorial</source>
@@ -288,17 +312,21 @@
         <source>frieda.employment</source>
         <target>frieda.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>frieda.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>frieda.bioAbstract</source>
         <target>frieda.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>frieda.biography</source>
+      <segment id="abstract" state="translated">
+        <source>frieda.abstract</source>
         <target>frieda.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>frieda.tips</source>
+      <segment id="biography" state="translated">
+        <source>frieda.biography</source>
         <target>frieda.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>frieda.tips</source>
+        <target>frieda.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>frieda.tutorial</source>
@@ -330,17 +358,21 @@
         <source>gioele.employment</source>
         <target>gioele.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>gioele.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>gioele.bioAbstract</source>
         <target>gioele.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>gioele.biography</source>
+      <segment id="abstract" state="translated">
+        <source>gioele.abstract</source>
         <target>gioele.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>gioele.tips</source>
+      <segment id="biography" state="translated">
+        <source>gioele.biography</source>
         <target>gioele.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>gioele.tips</source>
+        <target>gioele.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>gioele.tutorial</source>
@@ -372,17 +404,21 @@
         <source>hua.employment</source>
         <target>hua.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>hua.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>hua.bioAbstract</source>
         <target>hua.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>hua.biography</source>
+      <segment id="abstract" state="translated">
+        <source>hua.abstract</source>
         <target>hua.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>hua.tips</source>
+      <segment id="biography" state="translated">
+        <source>hua.biography</source>
         <target>hua.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>hua.tips</source>
+        <target>hua.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>hua.tutorial</source>
@@ -414,17 +450,21 @@
         <source>ian.employment</source>
         <target>ian.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>ian.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>ian.bioAbstract</source>
         <target>ian.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>ian.biography</source>
+      <segment id="abstract" state="translated">
+        <source>ian.abstract</source>
         <target>ian.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>ian.tips</source>
+      <segment id="biography" state="translated">
+        <source>ian.biography</source>
         <target>ian.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>ian.tips</source>
+        <target>ian.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>ian.tutorial</source>
@@ -456,17 +496,21 @@
         <source>jin_su.employment</source>
         <target>jin_su.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>jin_su.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>jin_su.bioAbstract</source>
         <target>jin_su.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>jin_su.biography</source>
+      <segment id="abstract" state="translated">
+        <source>jin_su.abstract</source>
         <target>jin_su.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>jin_su.tips</source>
+      <segment id="biography" state="translated">
+        <source>jin_su.biography</source>
         <target>jin_su.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>jin_su.tips</source>
+        <target>jin_su.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>jin_su.tutorial</source>
@@ -498,17 +542,21 @@
         <source>kuan_ti.employment</source>
         <target>kuan_ti.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>kuan_ti.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>kuan_ti.bioAbstract</source>
         <target>kuan_ti.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>kuan_ti.biography</source>
+      <segment id="abstract" state="translated">
+        <source>kuan_ti.abstract</source>
         <target>kuan_ti.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>kuan_ti.tips</source>
+      <segment id="biography" state="translated">
+        <source>kuan_ti.biography</source>
         <target>kuan_ti.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>kuan_ti.tips</source>
+        <target>kuan_ti.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>kuan_ti.tutorial</source>
@@ -540,17 +588,21 @@
         <source>paola.employment</source>
         <target>paola.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>paola.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>paola.bioAbstract</source>
         <target>paola.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>paola.biography</source>
+      <segment id="abstract" state="translated">
+        <source>paola.abstract</source>
         <target>paola.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>paola.tips</source>
+      <segment id="biography" state="translated">
+        <source>paola.biography</source>
         <target>paola.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>paola.tips</source>
+        <target>paola.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>paola.tutorial</source>
@@ -582,17 +634,21 @@
         <source>raluca.employment</source>
         <target>raluca.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>raluca.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>raluca.bioAbstract</source>
         <target>raluca.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>raluca.biography</source>
+      <segment id="abstract" state="translated">
+        <source>raluca.abstract</source>
         <target>raluca.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>raluca.tips</source>
+      <segment id="biography" state="translated">
+        <source>raluca.biography</source>
         <target>raluca.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>raluca.tips</source>
+        <target>raluca.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>raluca.tutorial</source>
@@ -624,17 +680,21 @@
         <source>roland.employment</source>
         <target>roland.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>roland.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>roland.bioAbstract</source>
         <target>roland.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>roland.biography</source>
+      <segment id="abstract" state="translated">
+        <source>roland.abstract</source>
         <target>roland.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>roland.tips</source>
+      <segment id="biography" state="translated">
+        <source>roland.biography</source>
         <target>roland.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>roland.tips</source>
+        <target>roland.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>roland.tutorial</source>
@@ -666,17 +726,21 @@
         <source>stephen.employment</source>
         <target>stephen.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>stephen.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>stephen.bioAbstract</source>
         <target>stephen.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>stephen.biography</source>
+      <segment id="abstract" state="translated">
+        <source>stephen.abstract</source>
         <target>stephen.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>stephen.tips</source>
+      <segment id="biography" state="translated">
+        <source>stephen.biography</source>
         <target>stephen.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>stephen.tips</source>
+        <target>stephen.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>stephen.tutorial</source>
@@ -708,17 +772,21 @@
         <source>terrence.employment</source>
         <target>terrence.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>terrence.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>terrence.bioAbstract</source>
         <target>terrence.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>terrence.biography</source>
+      <segment id="abstract" state="translated">
+        <source>terrence.abstract</source>
         <target>terrence.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>terrence.tips</source>
+      <segment id="biography" state="translated">
+        <source>terrence.biography</source>
         <target>terrence.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>terrence.tips</source>
+        <target>terrence.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>terrence.tutorial</source>
@@ -750,17 +818,21 @@
         <source>janice.employment</source>
         <target>janice.employment</target>
       </segment>
-      <segment id="abstract" state="initial">
-        <source>janice.abstract</source>
+      <segment id="bioAbstract" state="translated">
+        <source>janice.bioAbstract</source>
         <target>janice.abstract</target>
       </segment>
-      <segment id="biography" state="initial">
-        <source>janice.biography</source>
+      <segment id="abstract" state="translated">
+        <source>janice.abstract</source>
         <target>janice.biography</target>
       </segment>
-      <segment id="tips" state="initial">
-        <source>janice.tips</source>
+      <segment id="biography" state="translated">
+        <source>janice.biography</source>
         <target>janice.tips</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>janice.tips</source>
+        <target>janice.tutorial</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>janice.tutorial</source>

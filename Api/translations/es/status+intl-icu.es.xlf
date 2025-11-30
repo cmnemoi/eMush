@@ -36,7 +36,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>heavy.description</source>
-        <target>Este objeto es particularmente pesado.</target>
+        <target>Este objeto es particularmente pesado. Transportarlo contigo costará 2 :pm: más.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>heavy.examine</source>
@@ -1136,7 +1136,7 @@
     <unit id="antisocial">
       <segment id="name" state="translated">
         <source>antisocial.name</source>
-        <target>Antisocial</target>
+        <target>Asocial</target>
       </segment>
       <segment id="description" state="translated">
         <source>antisocial.description</source>
@@ -1186,7 +1186,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>burdened.description</source>
-        <target>Llevas objetos bastante pesados. Tus movimientos son más costosos.</target>
+        <target>Llevas objetos bastante pesados. Tus movimientos costarán 2 :pm: más.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>burdened.examine</source>
@@ -1393,7 +1393,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>hyperactive.description</source>
-        <target>Ganas un punto de movimiento :pm: extra en cada cambio de ciclo ciclo. // No ganas ningún punto de acción :pa: adicional al recostarte.</target>
+        <target>Ganas un punto de movimiento :pm: extra en cada cambio de ciclo. // No ganas ningún punto de acción :pa: adicional al recostarte.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>hyperactive.examine</source>

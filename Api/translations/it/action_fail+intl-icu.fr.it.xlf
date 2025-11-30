@@ -805,5 +805,29 @@
         <target>playtime_solo.description</target>
       </segment>
     </unit>
+    <unit id="run_home_lost">
+      <segment id="description" state="initial">
+        <source>run_home_lost.description</source>
+        <target>run_home_lost.description</target>
+      </segment>
+    </unit>
+    <unit id="sabotage_exploration_lost">
+      <segment id="description" state="initial">
+        <source>sabotage_exploration_lost.description</source>
+        <target>sabotage_exploration_lost.description</target>
+      </segment>
+    </unit>
+    <unit id="sabotage_exploration_spent">
+      <segment id="description" state="initial">
+        <source>sabotage_exploration_spent.description</source>
+        <target>sabotage_exploration_spent.description</target>
+      </segment>
+    </unit>
+    <unit id="exploration_already_sabotaged">
+      <segment id="description" state="initial">
+        <source>exploration_already_sabotaged.description</source>
+        <target>exploration_already_sabotaged.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

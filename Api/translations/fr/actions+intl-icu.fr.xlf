@@ -413,11 +413,11 @@ Merci de nous aider !</target>
     <unit id="sabotage_exploration">
       <segment id="name" state="translated">
         <source>sabotage_exploration.name</source>
-        <target>Saboter l'expédition!</target>
+        <target>Saboter l'expédition !</target>
       </segment>
       <segment id="description" state="translated">
         <source>sabotage_exploration.description</source>
-        <target>Il est temps d'ajouter un peu de chaos à ce voyage. // Le prochain secteur visité aura un **évènement négatif**.</target>
+        <target>Il est temps d'ajouter un peu de chaos à ce voyage.//Le prochain secteur visité aura un **évènement négatif**.</target>
       </segment>
     </unit>
     <unit id="take_shower">

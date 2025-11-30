@@ -265,6 +265,12 @@
         <target>sabotage_fail</target>
       </segment>
     </unit>
+    <unit id="sabotage_exploration_success">
+      <segment id="sabotage_exploration_success" state="initial">
+        <source>sabotage_exploration_success</source>
+        <target>sabotage_exploration_success</target>
+      </segment>
+    </unit>
     <unit id="extinguish_success">
       <segment id="extinguish_success" state="initial">
         <source>extinguish_success</source>

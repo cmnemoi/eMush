@@ -15,7 +15,8 @@
                     :point: Peut effectuer des **greffes**.//
                     :point: +2 :pa_garden: par jour (points d'action **Jardinage**).//
                     :point: Expédition : L'évènement **Récolte** donne un fruit de plus.//
-                    :point: Bonus pour développer certains **Projets NERON**.</target>
+                    :point: Bonus pour développer certains **Projets NERON**.//
+                    :point: Ouvre de nouvelles possibilités d'échanges commerciaux.</target>
       </segment>
     </unit>
     <unit id="firefighter">
@@ -538,11 +539,11 @@
     <unit id="tracker">
       <segment id="tracker.name" state="translated">
         <source>tracker.name</source>
-        <target>Traqueur</target>
+        <target>{character_gender, select, female {Traqueuse} other {Traqueur}}</target>
       </segment>
       <segment id="tracker.description" state="translated">
         <source>tracker.description</source>
-        <target>Le Traqueur voit les provenances et les directions de chaque mouvement de l'équipage. Il peut en outre imprimer un résultat d'enquête grâce à la tabulatrice durant la partie. Il s'agit d'une liste de personnes contenant au moins un infecté Mush.//:point: Accès complet aux **historiques de déplacement**.//:point: Permet d'**imprimer la liste secrète** sur la Tabulatrice.//:point: Expédition : Empêche l'évènement **Mort** lors de la recherche d'équipiers égarés.</target>
+        <target>{character_gender, select, female {La Traqueuse} other {Le Traqueur}} voit les provenances et les directions de chaque mouvement de l'équipage. {character_gender, select, female {Elle} other {Il}} peut en outre imprimer un résultat d'enquête grâce à la tabulatrice durant la partie. Il s'agit d'une liste de personnes contenant au moins un infecté Mush.//:point: Peut accéder à l'historique du registre pendant **16 cycles** *(au lieu de 8)*.//:point: Peut voir d'où viennent et repartent les équipiers dans le registre.//:point: Permet d'**imprimer LA liste secrète** à l'aide de la Tabulatrice.//:beta: Expédition : Empêche l'évènement **Mort** lors de la recherche d'équipiers égarés.</target>
       </segment>
     </unit>
     <unit id="bacterophiliac">
@@ -742,7 +743,7 @@
       </segment>
       <segment id="traitor.description" state="translated">
         <source>traitor.description</source>
-        <target>Vous avez développé un sens pour attirer les ennuis. Tiens un Mankarog... Et si on le chatouillait pour voir...//:point: Probabilités de **résultats négatifs dans les expéditions** auxquelles vous participez sont **multipliées par 2**.//:beta: Vous savez **quel secteur sera visité en prochain** en expédition.</target>
+        <target>Vous avez développé un sens pour attirer les ennuis. Tiens un Mankarog... Et si on le chatouillait pour voir...//:beta: Vous savez **quel secteur sera visité en prochain** en expédition.//:beta: Vous pouvez **saboter** un secteur par expédition.</target>
       </segment>
     </unit>
     <unit id="cold_blooded">
@@ -772,7 +773,7 @@
       </segment>
       <segment id="polyvalent.description" state="translated">
         <source>polyvalent.description</source>
-        <target>Vous avez des connaissances... Ça peut toujours servir.//:point: Vous êtes considéré comme **Botaniste**, **Diplomate** et **Biologiste** mais ne disposez pas de leurs actions et ressources.</target>
+        <target>Vous avez des connaissances... Ça peut toujours servir.//:point: Vous êtes considéré comme **Botaniste**, **Diplomate** et **Biologiste** mais ne disposez pas de leurs actions et ressources.//:point: Ouvre de nouvelles possibilités d'échanges commerciaux.</target>
       </segment>
     </unit>
     <unit id="strateguru">

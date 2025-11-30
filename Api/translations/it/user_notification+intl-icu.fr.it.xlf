@@ -39,5 +39,25 @@
         <target>later</target>
       </segment>
     </unit>
+    <unit id="daedalus_filled">
+      <segment id="key" state="initial">
+        <source>daedalus_filled.title</source>
+        <target>daedalus_filled.title</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>daedalus_filled.description</source>
+        <target>daedalus_filled.description</target>
+      </segment>
+    </unit>
+    <unit id="daedalus_finished">
+      <segment id="key" state="initial">
+        <source>daedalus_finished.title</source>
+        <target>daedalus_finished.title</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>daedalus_finished.description</source>
+        <target>daedalus_finished.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

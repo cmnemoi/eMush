@@ -16,9 +16,9 @@
         <source>achievement_unlocked.title</source>
         <target>Félicitations, vous avez remporté le titre **{achievement}** !</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>achievement_unlocked.description</source>
-        <target></target>
+        <target/>
       </segment>
     </unit>
     <unit id="ok">

@@ -278,13 +278,13 @@
     <unit id="disease_cured_drug">
       <segment state="translated">
         <source>disease_cured_drug</source>
-        <target>**{character}** se siente mejor. Ha logrado curar su propia enfermedad ({disease}).</target>
+        <target>**{target_character}** se siente mejor. Ha logrado curar su propia enfermedad ({disease}).</target>
       </segment>
     </unit>
     <unit id="disease_treated_drug">
       <segment state="translated">
         <source>disease_treated_drug</source>
-        <target>**{character}** se siente mejor, pero el tratamiento es insuficiente. Tendrá que empezar de nuevo.</target>
+        <target>**{target_character}** se siente mejor, pero el tratamiento es insuficiente. Tendrá que empezar de nuevo.</target>
       </segment>
     </unit>
     <unit id="disorder_treated_player">
@@ -571,6 +571,12 @@
       <segment id="all_explorators_stucked" state="translated">
         <source>all_explorators_stucked</source>
         <target>La exploración regresó antes de lo previsto: ¡Nadie tenía traje espacial!</target>
+      </segment>
+    </unit>
+    <unit id="exploration_event_preview">
+      <segment id="exploration_event_preview" state="translated">
+        <source>exploration_event_preview</source>
+        <target>Un análisis visual exhaustivo del paisaje indica que el próximo sector será {next_sector}.</target>
       </segment>
     </unit>
     <unit id="liquid_map_helped">
@@ -923,6 +929,12 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
       <segment id="traitor_worked" state="translated">
         <source>traitor_worked</source>
         <target>:mush: Tu acción traicionera ha provocado un accidente desafortunado.</target>
+      </segment>
+    </unit>
+    <unit id="traitor_prevented">
+      <segment id="traitor_prevented" state="translated">
+        <source>traitor_prevented</source>
+        <target>:mush: Tu sabotaje fue impedido por un miembro del equipo de exploración. Tienen ojos en la nuca…</target>
       </segment>
     </unit>
     <unit id="learned_skill">

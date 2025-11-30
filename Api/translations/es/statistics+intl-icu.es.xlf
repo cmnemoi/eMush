@@ -256,7 +256,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>back_to_root.description</source>
-        <target>Cantidad de viajes de vuelta al Sistema Solar realizados.</target>
+        <target>Cantidad de viajes de vuelta a Sol realizados.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>back_to_root_1.name</source>
@@ -1297,6 +1297,56 @@
       <segment id="x1" state="translated">
         <source>kivanc_contacted_1.name</source>
         <target>Cabecilla</target>
+      </segment>
+    </unit>
+    <unit id="team_all_rebels">
+      <segment id="name" state="translated">
+        <source>team_all_rebels.name</source>
+        <target>¡Revolución!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>team_all_rebels.description</source>
+        <target>Tu equipo ha descifrado todos los mensajes rebeldes durante un viaje.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>team_all_rebels_1.name</source>
+        <target>Insurrección</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>team_all_rebels_5.name</source>
+        <target>Revolución</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>team_all_rebels_10.name</source>
+        <target>Liberación</target>
+      </segment>
+    </unit>
+    <unit id="plasma_shield">
+      <segment id="name" state="translated">
+        <source>plasma_shield.name</source>
+        <target>Escudo plasma</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>plasma_shield.description</source>
+        <target>Cantidad de veces que el Escudo Plasma ha sido activado por la tripulación durante el viaje.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>plasma_shield_1.name</source>
+        <target>{gender, select, female {Protectora} other {Protector}}</target>
+      </segment>
+    </unit>
+    <unit id="grenadier">
+      <segment id="name" state="translated">
+        <source>grenadier.name</source>
+        <target>¡Granada!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>grenadier.description</source>
+        <target>Cantidad de granadas utilizadas en expedición por tu equipo.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>grenadier_1.name</source>
+        <target>{gender, select, female {Granadera} other {Granadero}}</target>
       </segment>
     </unit>
   </file>

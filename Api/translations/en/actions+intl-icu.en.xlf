@@ -407,11 +407,11 @@ Thanks for your help!</target>
     <unit id="sabotage_exploration">
       <segment id="name" state="translated">
         <source>sabotage_exploration.name</source>
-        <target>Sabotage the Expedition!</target>
+        <target>Sabotage the expedition!</target>
       </segment>
       <segment id="description" state="translated">
         <source>sabotage_exploration.description</source>
-        <target>All this trip is missing is a pinch of chaos. // The next visited sector will have a **negative outcome**.</target>
+        <target>All this trip is missing is a pinch of chaos.//The next visited sector will have a **negative outcome**.</target>
       </segment>
     </unit>
     <unit id="take_shower">

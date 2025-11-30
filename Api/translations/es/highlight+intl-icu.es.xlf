@@ -90,17 +90,13 @@
     <unit id="self_heal">
       <segment id="highlight" state="translated">
         <source>self_heal.highlight</source>
-        <target>Te has curado a {character_gender, select,
-                male {ti mismo}
-                female {ti misma}
-                other {ti misme}
-                }.</target>
+        <target>Te has curado.</target>
       </segment>
     </unit>
     <unit id="comfort">
       <segment id="highlight" state="translated">
         <source>comfort.highlight</source>
-        <target>Consuelas **{target_character}**.</target>
+        <target>Reconfortaste a **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="spread_fire">
@@ -112,7 +108,7 @@
     <unit id="remove_spore">
       <segment id="highlight" state="translated">
         <source>remove_spore.highlight</source>
-        <target>Retiraste una espora.</target>
+        <target>Te retiraste una espora.</target>
       </segment>
     </unit>
     <unit id="extinguish_manually">
@@ -164,11 +160,11 @@
     <unit id="shoot">
       <segment id="highlight" state="translated">
         <source>shoot.highlight</source>
-        <target>Abres fuego contra **{target_character}**.</target>
+        <target>Abriste fuego contra **{target_character}**.</target>
       </segment>
       <segment id="highlight_fail" state="translated">
         <source>shoot.highlight_fail</source>
-        <target>Intentas disparar a **{target_character}** pero fallas...</target>
+        <target>Intentaste disparar a **{target_character}**, pero fallaste...</target>
       </segment>
     </unit>
     <unit id="play_arcade">
@@ -224,19 +220,19 @@
     <unit id="return_to_sol">
       <segment id="highlight" state="translated">
         <source>return_to_sol.highlight</source>
-        <target>Diriges el Daedalus hacia Sol.</target>
+        <target>Dirigiste el Daedalus hacia Sol.</target>
       </segment>
     </unit>
     <unit id="trap_closet">
       <segment id="highlight" state="translated">
         <source>trap_closet.highlight</source>
-        <target>Has puesto una trampa en una estantería. Nunca hay como confiar en las estanterías.</target>
+        <target>Has puesto una trampa en una estantería. Nunca hay que confiar de las estanterías.</target>
       </segment>
     </unit>
     <unit id="chitchat">
       <segment id="highlight" state="translated">
         <source>chitchat.highlight</source>
-        <target>Charlas con {target_character}.</target>
+        <target>Charlaste con {target_character}.</target>
       </segment>
     </unit>
     <unit id="graft">
@@ -248,7 +244,7 @@
     <unit id="put_through_door">
       <segment id="highlight" state="translated">
         <source>put_through_door.highlight</source>
-        <target>Mostraste la puerta a **{target_character}**.</target>
+        <target>Expulsaste a **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="become_genius">
@@ -260,7 +256,7 @@
     <unit id="ceasefire">
       <segment id="highlight" state="translated">
         <source>ceasefire.highlight</source>
-        <target>Harto de este infierno, declaras un alto al fuego!</target>
+        <target>¡Harto de este infierno, declaraste un alto al fuego!</target>
       </segment>
     </unit>
     <unit id="exchange_body">
@@ -272,7 +268,7 @@
     <unit id="commander_order">
       <segment id="highlight" state="translated">
         <source>commander_order.highlight</source>
-        <target>Has dado una orden.</target>
+        <target>Diste una orden.</target>
       </segment>
     </unit>
     <unit id="print_ze_list">
@@ -308,7 +304,7 @@
     <unit id="anathema">
       <segment id="highlight" state="translated">
         <source>anathema.highlight</source>
-        <target>¡Has anatematizado a **{target_character}**!</target>
+        <target>¡Has castigado a **{target_character}**!</target>
       </segment>
     </unit>
     <unit id="mix_ration_spore">
@@ -320,13 +316,13 @@
     <unit id="slime_trap">
       <segment id="highlight" state="translated">
         <source>slime_trap.highlight</source>
-        <target>Has cubierto de slime a **{target_character}**.</target>
+        <target>Has cubierto de mugre a **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="slime_object">
       <segment id="highlight" state="translated">
         <source>slime_object.highlight</source>
-        <target>Has cubierto de slime {target_equipment_gender, select,
+        <target>Has cubierto de baba {target_equipment_gender, select,
                 male {al **{target_equipment}**}
                 female {a la **{target_equipment}**}
                 other {al **{target_equipment}**}
@@ -342,7 +338,7 @@
     <unit id="reinforce">
       <segment id="highlight" state="translated">
         <source>reinforce.highlight</source>
-        <target>Renforzaste {target_equipment_gender, select,
+        <target>Reforzaste {target_equipment_gender, select,
                 male {un **{target_equipment}**}
                 female {una **{target_equipment}**}
                 other {un **{target_equipment}**}
@@ -352,7 +348,7 @@
     <unit id="throw_grenade.highlight">
       <segment id="highlight" state="translated">
         <source>throw_grenade.highlight</source>
-        <target>Perdiste control y lanzaste una **Granada**.</target>
+        <target>Perdiste el control y lanzaste una **Granada**.</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_turbo">
@@ -388,7 +384,7 @@
     <unit id="convert_cat">
       <segment id="highlight" state="translated">
         <source>convert_cat.highlight</source>
-        <target>Enviaste a Schrödinger en un viaje. Destinación: **Mush**.</target>
+        <target>Enviaste a Schrödinger a un viaje. Destinación: **Mush**.</target>
       </segment>
     </unit>
     <unit id="torture">
@@ -412,7 +408,7 @@
     <unit id="gen_metal">
       <segment id="highlight" state="translated">
         <source>gen_metal.highlight</source>
-        <target>Buscaste por todo lado...</target>
+        <target>Buscaste por todos lados...</target>
       </segment>
     </unit>
     <unit id="door_sabotage">
@@ -424,7 +420,7 @@
     <unit id="give_nightmare">
       <segment id="highlight" state="translated">
         <source>give_nightmare.highlight</source>
-        <target>Contagiaste a **{target_character}**.</target>
+        <target>Le hiciste pasar un mal sueño a **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="neron_depress">
@@ -474,7 +470,7 @@
     <unit id="accept_trade">
       <segment id="highlight" state="translated">
         <source>accept_trade.highlight</source>
-        <target>Finalizaste los términos del acuerdo comercial.</target>
+        <target>Validaste un acuerdo comercial.</target>
       </segment>
     </unit>
     <unit id="go_berserk">
@@ -510,17 +506,13 @@
     <unit id="conversion.player_target.highlight_transfer">
       <segment state="translated">
         <source>conversion.player_target.highlight_transfer</source>
-        <target>¡Dejaste tu anfitrión **{character}** por este cuerpo!</target>
+        <target>¡Dejaste tu cuerpo anfitrión **{character}** por este cuerpo!</target>
       </segment>
     </unit>
     <unit id="equipment.destroyed_schrodinger.highlight">
       <segment state="translated">
         <source>equipment.destroyed_schrodinger.highlight</source>
-        <target>Asasinaste {target_equipment_gender, select,
-                male {un **{target_equipment}**}
-                female {una **{target_equipment}**}
-                other {un **{target_equipment}**}
-                }.!</target>
+        <target>¡Asesinaste a **{target_equipment}**.!</target>
       </segment>
     </unit>
     <unit id="project.finished_research">
@@ -532,7 +524,7 @@
     <unit id="death.player">
       <segment id="highlight" state="translated">
         <source>death.player.highlight</source>
-        <target>Asasinaste a **{target_character}** !</target>
+        <target>¡Asesinaste a **{target_character}**!</target>
       </segment>
     </unit>
   </file>

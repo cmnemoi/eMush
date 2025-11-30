@@ -393,6 +393,16 @@
         <target>sabotage.description</target>
       </segment>
     </unit>
+    <unit id="sabotage_exploration">
+      <segment id="name" state="initial">
+        <source>sabotage_exploration.name</source>
+        <target>sabotage_exploration.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>sabotage_exploration.description</source>
+        <target>sabotage_exploration.description</target>
+      </segment>
+    </unit>
     <unit id="take_shower">
       <segment id="name" state="initial">
         <source>take_shower.name</source>

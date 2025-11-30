@@ -183,6 +183,10 @@
 		"tabs": {
 			"statistics": "Statistiques",
 			"gains": "Gains ({count})"
+		},
+		"gender": {
+			"masculine": "Masculin",
+			"feminine": "Féminin"
 		}
 	},
 	"userProfile": {
@@ -1068,7 +1072,8 @@
 				"subscribeToNotifications": "S'abonner aux notifications",
 				"notifications": "Notifications",
 				"actionTabs": "Séparer les actions Mush et humaines",
-				"doubleTap": "Double clic pour les actions"
+				"doubleTap": "Double clic pour les actions",
+				"lessPopups": "Moins de popups en jeu"
 			}
 		},
 		"topBar": {
@@ -1120,5 +1125,9 @@
 			"name": "Actions admin",
 			"description": "Affichez vos actions admin."
 		}
+	},
+	"biography": {
+		"readCharacterBiography": "Lire la biographie de {characterName}",
+		"pageTitle": "Biographie détaillée :"
 	}
 }

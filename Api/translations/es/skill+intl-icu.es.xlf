@@ -11,8 +11,8 @@
       <segment id="botanist.description" state="translated">
         <source>botanist.description</source>
         <target>{character_gender, select,
-        female {La botánica sabe distinguir las propiedades de los vegetales. Es el más eficiente en el mantenimiento del jardín.}
-        other {El botánico sabe distinguir las propiedades de los vegetales. Es la más eficiente en el mantenimiento del jardín.}}//:point: Puedes leer las **propiedades de los frutos**.//
+        female {La botánica sabe distinguir las propiedades de los vegetales. Es la más eficiente en el mantenimiento del jardín.}
+        other {El botánico sabe distinguir las propiedades de los vegetales. Es el más eficiente en el mantenimiento del jardín.}}//:point: Puedes leer las **propiedades de los frutos**.//
 :point: Puedes leer las **propiedades de las plantas**.//
 :point: Puedes realizar **injertos**.//
 :point: +2 :pa_garden: por día (puntos de acción **Jardinería**).//
@@ -179,7 +179,7 @@
       <segment id="shrink.description" state="translated">
         <source>shrink.description</source>
         <target>Se encarga del bienestar psicológico del equipo. Mantiene la moral alta y cuida los trastornos mentales.//:point: En cada ciclo, **1 Punto de Ánimo (:pmo:) es regenerado** para cada personaje recostado en su sala.//
-:point: **Trata los transtornos psicológicos** de esos compañeros en cada ciclo.//
+:point: **Trata los trastornos psicológicos** de esos compañeros en cada ciclo.//
 :point: Da la acción **Reconfortar**, que mejora el ánimo.//
 :point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
@@ -212,7 +212,7 @@
         female {La pistolera}
         other {El pistolero}} domina el uso de las armas de fuego.//:point: +2 :pa_shoot: **Disparos gratis** al día.//:point: Expedición: +1 a la fuerza de tu equipo en caso de combate, si portas un arma de fuego.//
 :point: Bonus para desarrollar ciertos **Proyectos NERON**.//
-:point: Aumenta la probabilidad de impacto crítico y reduce la probabilidad de falla crítica al con armas de fuego.</target>
+:point: Aumenta la probabilidad de impacto crítico y reduce la probabilidad de falla crítica con armas de fuego.</target>
       </segment>
     </unit>
     <unit id="chef">
@@ -256,7 +256,7 @@
         <source>paranoid.description</source>
         <target>{character_gender, select,
         female {La paranoica}
-        other {El paranoico}} piensa que todos sus compañeros son potencialmente peligrosos, anda siempre vigilando sus espaldas con su cámara extra.//:point: Comienza la partida con 1 **Cámara** adicional.//:point: Las acciones **Instalar** y **Sacar** son **gratis** para ti.//:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
+        other {El paranoico}} piensa que todos sus compañeros son potencialmente peligrosos, anda siempre vigilando sus espaldas con su cámara extra.//:point: Comienza la partida con 1 **Cámara** adicional.//:point: **Instalar** y **Sacar** cámaras es **gratis** para ti.//:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="biologist">
@@ -344,7 +344,7 @@
         <source>diplomat.description</source>
         <target>{character_gender, select,
         female {Una buena diplomática sabre cómo establecer buenas relaciones con los extraterrestres.}
-        other {Un buen diplomático sabe cómo establecer buenas relacions con los extraterrestres.}}//:point: Expedición: Elimina las probabilidades de eventos de **Combate** en los encuentros extraterrestres.//
+        other {Un buen diplomático sabe cómo establecer buenas relaciones con los extraterrestres.}}//:point: Expedición: Elimina las probabilidades de eventos de **Combate** en los encuentros extraterrestres.//
 :point: **Único**: Puedes declarar un Cese al fuego. El cese al fuego dura **3** ciclos, contando el ciclo en que se declare.//:point: Mientras estés en el **Puente de mando**, abres nuevas oportunidades de intercambio con los mercaderes.</target>
       </segment>
     </unit>
@@ -412,7 +412,7 @@
       <segment id="solid.description" state="translated">
         <source>solid.description</source>
         <target>No sufres al transportar objetos pesados. Muy bueno también para los combates cuerpo a cuerpo.//:point: Tus ataques cuerpo a cuerpo causan **1 punto de daño adicional**.//
-:point: **No eres penalizado** al llevar objetos pesados.//:point: Puedes **expulsar** de la sala a un tripulante por 2 :pa:.//:point: :point: No se acumula con **Luchador**.</target>
+:point: **No eres penalizado** al llevar objetos pesados.//:point: Puedes **expulsar** de la sala a un tripulante por 2 :pa:.//:point: No se acumula con **Luchador**.</target>
       </segment>
     </unit>
     <unit id="genius">
@@ -476,7 +476,7 @@
       </segment>
       <segment id="splashproof.description" state="translated">
         <source>splashproof.description</source>
-        <target>La investigación sobre el Mush ha dado como resultado un nuevo mucus, ideal para marcar la diferencia.//:point: **Ducharte** no te hace perder **ningún** :hp:.</target>
+        <target>La investigación sobre el Mush ha dado como resultado un nuevo mucus, ideal para marcar la diferencia.//:point: **Ducharte** no te hace perder **ningún** :hp:.//:beta: **Lavarse** cuesta 1 :pa: menos (no se acumula con el Jabón). //// Este cambio en la habilidad está en prueba :beta: beta: agradecemos su feedback en el foro de Eternaltwin y Discord.</target>
       </segment>
     </unit>
     <unit id="infector">
@@ -589,7 +589,7 @@
       </segment>
       <segment id="trapper.description" state="translated">
         <source>trapper.description</source>
-        <target>¡Sorpresa!//:point: Por **1** :pa:, puedes poner una trampa en una **Estantería** colocando una **Espora**. Si alguien la encuentra, será **Infectado**. Sin embargo, si es un Mush(incluyéndote) o un Inmunizado, la espora se pierde.</target>
+        <target>¡Sorpresa!//:point: Por **1** :pa:, puedes poner una trampa en una **Estantería** colocando una **Espora**. Si alguien interactúa con un **objeto** u **equipo** en la sala, será **Infectado**. Sin embargo, si es un Mush (incluyéndote) o un Inmunizado, la espora se pierde.</target>
       </segment>
     </unit>
     <unit id="tracker">
@@ -599,10 +599,11 @@
       </segment>
       <segment id="tracker.description" state="translated">
         <source>tracker.description</source>
-        <target>{character_gender, select,
-        female {La rastreadora}
-        other {El rastreador}} ve la procedencia y la dirección de cada tripulante. Puede imprimir un reporte en el tabulador, es decir, una lista de personas que revela si al menos una está infectada con el Mush.//:point: Acceso completo al **registro de desplazamiento**.//
-:point: Permite **imprimir la lista secreta** en la Tabuladora.//:point: Expedición: Previene el evento **Muerte** al buscar compañeros perdidos.</target>
+        <target>{character_gender, select, female {La rastreadora} other {El rastreador}} ve los orígenes y direcciones de cada movimiento de la tripulación. Además, puede imprimir un resultado de investigación gracias a la tabuladora durante la partida. Se trata de una lista de personas que contiene al menos un infectado Mush.//
+:point: Puede acceder al historial del registro durante **16 ciclo**s *(en lugar de 8)*.//
+:point: Puede ver de dónde vienen y hacia dónde van los tripulantes en el registro.//
+:point: Permite **imprimir LA lista secreta** utilizando la Tabuladora.//
+:beta: Expedición: Evita el evento **Muerte** al buscar tripulantes perdidos.</target>
       </segment>
     </unit>
     <unit id="bacterophiliac">
@@ -622,7 +623,7 @@
       </segment>
       <segment id="pyromaniac.description" state="translated">
         <source>pyromaniac.description</source>
-        <target>El pirómano puede inyectar microesporas explosivas en un material inflamable para causar un incendio capaz de dañar la nave.//:point: Por **4** :pa: puedes provocar un Incendio en una sala.</target>
+        <target>El pirómano puede inyectar microesporas explosivas en un material inflamable para causar un incendio capaz de dañar la nave.//:point: Por **4** :pa: puedes provocar un Incendio en una sala que iniciará al principio del próximo ciclo.</target>
       </segment>
     </unit>
     <unit id="observant">
@@ -699,7 +700,7 @@
       </segment>
       <segment id="victimizer.description" state="translated">
         <source>victimizer.description</source>
-        <target>Te dijimos que tus actos pueden tener repercusiones inesperadas./:point: Por **1** :pa:, puedes **Excomulgar** a un miembro del equipo.//:point: Este gana el estado ***Paria***//:point: Sus acciones tienen un 20% menos de éxito.//:point: Sus acciones **furtivas** se vuelven **discretas**.//:point: El estado **Paria** permanece mientras {character_gender, select, female {la perseguidora} other {el perseguidor}} esté vivo, o hasta que el paria muera o resulte inactivo.//:point: Si el **Paria** muere, y era mush, ganas 8 :triumph:; si era humano, pierdes 8 :triumph:.</target>
+        <target>Te dijimos que tus actos pueden tener repercusiones inesperadas.//:point: Por **1** :pa:, puedes **Castigar** a un miembro del equipo.//:point: Este gana el estado ***Paria***//:point: Sus acciones tienen un 20% menos de éxito.//:point: Sus acciones **furtivas** se vuelven **discretas**.//:point: El estado **Paria** permanece mientras {character_gender, select, female {la perseguidora} other {el perseguidor}} esté vivo, o hasta que el paria muera o resulte inactivo.//:point: Si el **Paria** muere, y era mush, ganas 8 :triumph:; si era humano, pierdes 8 :triumph:.</target>
       </segment>
     </unit>
     <unit id="frugivore">
@@ -795,7 +796,7 @@
       </segment>
       <segment id="massive_mushification.description" state="translated">
         <source>massive_mushification.description</source>
-        <target>Ciertos peniceliums tienen una virulencia extrema. El efecto tiene corta duración pero es más eficaz.//:point: **Único**: Por 2 :pa: y 2 esporas, puedes quitarle 2 :pa: a cada miembro de la tripulación y provocarles un estado de **suciedad**.</target>
+        <target>Ciertos peniceliums tienen una virulencia extrema. El efecto tiene corta duración, pero es más eficaz.//:point: **Único**: Por 2 :pa: y 2 esporas, puedes quitarle 2 :pa: a cada miembro de la tripulación y provocarles el estado **Sucio**.</target>
       </segment>
     </unit>
     <unit id="bypass">
@@ -815,7 +816,7 @@
       </segment>
       <segment id="traitor.description" state="translated">
         <source>traitor.description</source>
-        <target>Has desarrollado una habilidad fabulosa para atraer problemas. *Mira, un mankarog... ¿y si le hacemos cosquillas por aquí?*...//:point: Expedición: **Duplicas** Las probabilidades de **eventos negativos**.</target>
+        <target>Has desarrollado una habilidad fabulosa para atraer problemas. *Mira, un mankarog... ¿y si le hacemos cosquillas por aquí?*...//:beta: Puedes saber qué sector se visitará a continuación en la expedición.//:beta: Puedes sabotear un sector por expedición.</target>
       </segment>
     </unit>
     <unit id="cold_blooded">
@@ -838,7 +839,7 @@
       <segment id="green_thumb.description" state="translated">
         <source>green_thumb.description</source>
         <target>Las plantas crecen naturalmente gracias a tu presencia, basta con dirigirles tu mirada cautivadora para que produzcan bellos frutos.//:point: Comienzas la partida con **2 hidromacetas** adicionales.//
-:point: Los **injertos** que realizas comienzan con un ciclo de maduración corto.</target>
+:point: Los **injertos** que realizas comienzan con 25% de su ciclo de maduración total.</target>
       </segment>
     </unit>
     <unit id="polyvalent">
@@ -928,7 +929,7 @@
         <source>torturer.description</source>
         <target>{character_gender, select,
         female {La}
-        other {El}} verdugo conoce todos los circuitos nerviosos sensibles para hacer oír su mensaje: ***CONFIESA.***//:point: Otorga la acción **Torturar**.</target>
+        other {El}} verdugo conoce todos los circuitos nerviosos sensibles para hacer oír su mensaje: ***CONFIESA.***//:point: Otorga la acción **Torturar**. Por 1 :pa:, la víctima pierde 1 :hp: y revela x acciones recientes que haya realizado. Donde x es el número de :hp: que le faltan a la víctima.</target>
       </segment>
     </unit>
     <unit id="ocd">
@@ -1044,7 +1045,7 @@
       </segment>
       <segment id="polymath.description" state="translated">
         <source>polymath.description</source>
-        <target>El conocimiento siempre está en movimiento, el estado ya no más.//:point: **+2** canales privados disponibles.//:point: **+1** :pa_comp: al día.//:point: **-10%** a todas tus acciones de azar.</target>
+        <target>El conocimiento es poder.//:point: **+2** canales privados disponibles.//:point: **+1** :pa_comp: al día.//:point: **-10%** a todas tus acciones de azar.</target>
       </segment>
     </unit>
     <unit id="nightmarish">
@@ -1064,7 +1065,7 @@
       </segment>
       <segment id="ninja.description" state="translated">
         <source>ninja.description</source>
-        <target>Tus desplazamientos son veloces y discretos.//:point: Tus ataques **cuerpo a cuerpo** se convierten en acciones **anónimas**.</target>
+        <target>Tus desplazamientos son veloces y discretos.//:point: Desbloquea la acción "Convertirte en un ninja".//:point: Cuando eres un ninja, tus acciones **Públicas** se convierten en anónimas. Tus acciones **Discretas** y **Furtivas**, sin embargo, revelarán tu identidad...</target>
       </segment>
     </unit>
     <unit id="neron_depression">

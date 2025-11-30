@@ -118,7 +118,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>mankarog.description</source>
-        <target>Cosa enorme que se come a los jugadores uno a uno.</target>
+        <target>Cosa enorme que se come a los exploradores uno a uno.</target>
       </segment>
     </unit>
     <unit id="hydrocarbon">
@@ -477,6 +477,12 @@
                 33 { Tau}
                 34 { Psi}
                 other {}}</target>
+      </segment>
+    </unit>
+    <unit id="next_sector">
+      <segment id="name" state="translated">
+        <source>next_sector</source>
+        <target>{isMush, select, true {:mush: Tu perversidad} other {:st_genius_idea: Tu intuición}} te dice que la expedición cubrirá esta sección en el próximo paso.</target>
       </segment>
     </unit>
   </file>

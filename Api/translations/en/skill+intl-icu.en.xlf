@@ -365,7 +365,7 @@
       </segment>
       <segment id="solid.description" state="translated">
         <source>solid.description</source>
-        <target>You'll incur no penalties for carrying heavy objects. Also useful for hand-to-hand combat.//:point: Your hand-to-hand attacks **deal 1 additional damage**.//:point: **No penalties** for carrying heavy objects.//:point: Grants the **Kick them out** action.</target>
+        <target>You'll incur no penalties for carrying heavy objects. Also, useful for hand-to-hand combat.//:point: Your hand-to-hand attacks **deal 1 additional damage**.//:point: **No penalties** for carrying heavy objects.//:point: Grants the **Kick them out** action.// :point: Doesn't accumulate with **Wrestler**.</target>
       </segment>
     </unit>
     <unit id="genius">
@@ -485,7 +485,7 @@
       </segment>
       <segment id="wrestler.description" state="translated">
         <source>wrestler.description</source>
-        <target>The wrestler's german suplex makes the vertebrae of your enemies tremble.//:point: Your hand-to-hand attacks **deal 2 additional damage** (doesn't apply during **Berzerk**).//:point: Grants the **Kick them out** action.</target>
+        <target>The wrestler's german suplex makes the vertebrae of your enemies tremble.//:point: Your hand-to-hand attacks **deal 2 additional damage** (doesn't apply during **Berzerk**).//:point: Grants the **Kick them out** action.//:point: Doesn't accumulate with **Solid**.</target>
       </segment>
     </unit>
     <unit id="sprinter">
@@ -535,7 +535,11 @@
       </segment>
       <segment id="tracker.description" state="translated">
         <source>tracker.description</source>
-        <target>The Tracker can see the comings and goings of every team member. Furthermore, they can print any research results during the game via the Tabulatrix. This provides a list of players of which at least one is Mush.//:point: Full access to **movement history**.//:point: Able to use the Tabulatrix to **print the secret list**.//:point: Expedition: Prevents the **Death** event when searching for lost crewmates.</target>
+        <target>The Tracker can see the comings and goings of every team member. Furthermore, they can print any research results during the game via the Tabulatrix. This provides a list of players of which at least one is Mush.//
+:point: Can access the registry’s history for **16 cycles** *(instead of 8)*.//
+:point: Can see where crew members come from and where they go in the registry.//
+:point: Allows printing **THE secret list** using the Tabulator.//
+:beta: Expedition: Prevents the **Death** event when searching for missing crew members.</target>
       </segment>
     </unit>
     <unit id="bacterophiliac">
@@ -735,7 +739,7 @@
       </segment>
       <segment id="traitor.description" state="translated">
         <source>traitor.description</source>
-        <target>You have developed an innate ability to attract misfortune. Look - a Mankarog... Let's see what happens when we tickle it...//:point: **Doubles** the probability of getting **negative results** during expeditions that you participate in.//:beta: You can tell **which sector will be visited next** in expedition.</target>
+        <target>You have developed an innate ability to attract misfortune. Look - a Mankarog... Let's see what happens when we tickle it...//:beta: You can tell **which sector will be visited next** in expedition.//:beta: You can **sabotage** one sector per expedition.</target>
       </segment>
     </unit>
     <unit id="cold_blooded">
@@ -825,7 +829,7 @@
       </segment>
       <segment id="torturer.description" state="translated">
         <source>torturer.description</source>
-        <target>The torturer knows all the pressure points and most sensitive areas with which they can convey their most important message... **You WILL talk.**//:point: Grants the **Torture** Action.</target>
+        <target>The torturer knows all the pressure points and most sensitive areas with which they can convey their most important message... **You WILL talk.**//:point: Grants the **Torture** Action. For 1 :pa:, the victim loses 1 :hp: and reveal x number of recent actions performed by them. Where x is the number of :hp: missing of the victim.</target>
       </segment>
     </unit>
     <unit id="ocd">

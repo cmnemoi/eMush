@@ -1032,11 +1032,11 @@
     <unit id="likes">
       <segment id="name" state="translated">
         <source>likes.name</source>
-        <target>Number of times you were appreciated during a match.</target>
+        <target>Everybody loves you!</target>
       </segment>
       <segment id="description" state="translated">
         <source>likes.description</source>
-        <target>Good asset</target>
+        <target>Number of times you were appreciated during a game.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>likes_1.name</source>
@@ -1297,6 +1297,56 @@
       <segment id="x1" state="translated">
         <source>kivanc_contacted_1.name</source>
         <target>Rebel chief</target>
+      </segment>
+    </unit>
+    <unit id="team_all_rebels">
+      <segment id="name" state="translated">
+        <source>team_all_rebels.name</source>
+        <target>Revolution!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>team_all_rebels.description</source>
+        <target>Your team decoded all rebel transmissions during a voyage.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>team_all_rebels_1.name</source>
+        <target>Commune</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>team_all_rebels_5.name</source>
+        <target>Revolution</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>team_all_rebels_10.name</source>
+        <target>Liberation</target>
+      </segment>
+    </unit>
+    <unit id="plasma_shield">
+      <segment id="name" state="translated">
+        <source>plasma_shield.name</source>
+        <target>Plasma shield</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>plasma_shield.description</source>
+        <target>Number of times that the Plasma shield has been used by your crew during a journey.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>plasma_shield_1.name</source>
+        <target>{gender, select, female {Protectress} other {Protector}}</target>
+      </segment>
+    </unit>
+    <unit id="grenadier">
+      <segment id="name" state="translated">
+        <source>grenadier.name</source>
+        <target>Grenade!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>grenadier.description</source>
+        <target>Number of grenades used by your team on expeditions.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>grenadier_1.name</source>
+        <target>Grenadier</target>
       </segment>
     </unit>
   </file>

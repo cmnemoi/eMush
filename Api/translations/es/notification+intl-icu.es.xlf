@@ -58,7 +58,7 @@
       </segment>
       <segment state="translated">
         <source>exploration_closed_by_u_turn.description</source>
-        <target>Puedes consultar el {exploration_link} para averigüar lo que pasó...</target>
+        <target>Puedes consultar el {exploration_link} para descubrir qué pasó...</target>
       </segment>
     </unit>
     <unit id="exploration_closed_everyone_dead">
@@ -104,7 +104,7 @@
     <unit id="exploration_closed_return_event_volcanic_activity">
       <segment state="translated">
         <source>exploration_closed_return_event_volcanic_activity.subTitle</source>
-        <target>Con un retumbar apagado, un volcán cercano comienza a arrojar humo negro y espeso. ¡Hay que regresar al Dédalo lo más rápido posible!</target>
+        <target>Con un retumbar apagado, un volcán cercano comienza a arrojar humo negro y espeso. ¡Hay que regresar al Daedalus lo más rápido posible!</target>
       </segment>
       <segment state="translated">
         <source>exploration_closed_return_event_volcanic_activity.description</source>
@@ -154,7 +154,7 @@
     <unit id="clumsiness">
       <segment state="translated">
         <source>clumsiness.description</source>
-        <target>Lo que sea que hiciste, lo hiciste muy mal. Terriblemente mal. Tan mal que acabaste lastimándote y no un poco. Que pena.</target>
+        <target>¡Paf! Te tropezaste y te has hecho daño al realizar esta acción...</target>
       </segment>
     </unit>
     <unit id="clumsiness_cat">

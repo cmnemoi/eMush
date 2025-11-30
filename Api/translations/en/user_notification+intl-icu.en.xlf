@@ -16,9 +16,9 @@
         <source>achievement_unlocked.title</source>
         <target>Congratulations, you have earned the **{achievement}** title!</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>achievement_unlocked.description</source>
-        <target>Congratulations, you have earned the **{achievement}** title!</target>
+        <target/>
       </segment>
     </unit>
     <unit id="ok">
@@ -37,6 +37,26 @@
       <segment state="translated">
         <source>later</source>
         <target>Later...</target>
+      </segment>
+    </unit>
+    <unit id="daedalus_filled">
+      <segment id="key" state="translated">
+        <source>daedalus_filled.title</source>
+        <target>Your game is starting!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>daedalus_filled.description</source>
+        <target>The Daedalus takes off. Suspicious noises included free of charge.</target>
+      </segment>
+    </unit>
+    <unit id="daedalus_finished">
+      <segment id="key" state="translated">
+        <source>daedalus_finished.title</source>
+        <target>End of the adventure!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>daedalus_finished.description</source>
+        <target>Your game with {character} is over. The end page is waiting for you in your profile.</target>
       </segment>
     </unit>
   </file>

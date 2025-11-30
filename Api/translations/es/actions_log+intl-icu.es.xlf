@@ -385,6 +385,12 @@ other {Que extraño, **{character}** ha hecho que salga humo del **{target_equip
         <target>Tu sabotaje falla... es más difícil de lo que pensabas.</target>
       </segment>
     </unit>
+    <unit id="sabotage_exploration_success">
+      <segment id="sabotage_exploration_success" state="translated">
+        <source>sabotage_exploration_success</source>
+        <target>:mush: Ya está hecho. El próximo sector tendrá un resultado… explosivo.</target>
+      </segment>
+    </unit>
     <unit id="extinguish_success">
       <segment id="extinguish_success" state="translated">
         <source>extinguish_success</source>

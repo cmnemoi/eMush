@@ -833,5 +833,29 @@ other {**Vuelve cuando estés limpio.**"}
         <target>Jugar con Pavlov es un momento especial. Es algo de dos...</target>
       </segment>
     </unit>
+    <unit id="run_home_lost">
+      <segment id="description" state="translated">
+        <source>run_home_lost.description</source>
+        <target>¿A dónde querrías huir? Has perdido de vista la nave…</target>
+      </segment>
+    </unit>
+    <unit id="sabotage_exploration_lost">
+      <segment id="description" state="translated">
+        <source>sabotage_exploration_lost.description</source>
+        <target>Tú estás aquí, la exploración está en otra parte. ¿Cómo podrías sabotearla?</target>
+      </segment>
+    </unit>
+    <unit id="sabotage_exploration_spent">
+      <segment id="description" state="translated">
+        <source>sabotage_exploration_spent.description</source>
+        <target>Ya has saboteado un sector en esta exploración.</target>
+      </segment>
+    </unit>
+    <unit id="exploration_already_sabotaged">
+      <segment id="description" state="translated">
+        <source>exploration_already_sabotaged.description</source>
+        <target>Las mentes colmena piensan igual. Uno de tus compañeros ya ha saboteado el próximo sector.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

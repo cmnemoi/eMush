@@ -1299,5 +1299,55 @@
         <target>kivanc_contacted_1.name</target>
       </segment>
     </unit>
+    <unit id="team_all_rebels">
+      <segment id="name" state="initial">
+        <source>team_all_rebels.name</source>
+        <target>team_all_rebels.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>team_all_rebels.description</source>
+        <target>team_all_rebels.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>team_all_rebels_1.name</source>
+        <target>team_all_rebels_1.name</target>
+      </segment>
+      <segment id="x5" state="initial">
+        <source>team_all_rebels_5.name</source>
+        <target>team_all_rebels_5.name</target>
+      </segment>
+      <segment id="x10" state="initial">
+        <source>team_all_rebels_10.name</source>
+        <target>team_all_rebels_10.name</target>
+      </segment>
+    </unit>
+    <unit id="plasma_shield">
+      <segment id="name" state="initial">
+        <source>plasma_shield.name</source>
+        <target>plasma_shield.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>plasma_shield.description</source>
+        <target>plasma_shield.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>plasma_shield_1.name</source>
+        <target>plasma_shield_1.name</target>
+      </segment>
+    </unit>
+    <unit id="grenadier">
+      <segment id="name" state="initial">
+        <source>grenadier.name</source>
+        <target>grenadier.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>grenadier.description</source>
+        <target>grenadier.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>grenadier_1.name</source>
+        <target>grenadier_1.name</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

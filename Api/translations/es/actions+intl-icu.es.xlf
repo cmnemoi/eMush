@@ -397,6 +397,16 @@ Disponible solo durante el alpha.
         <target>Rompe el equipo seleccionado.</target>
       </segment>
     </unit>
+    <unit id="sabotage_exploration">
+      <segment id="name" state="translated">
+        <source>sabotage_exploration.name</source>
+        <target>¡Sabotea la expedición!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>sabotage_exploration.description</source>
+        <target>A este viaje solo le falta una pizca de caos.//El próximo sector visitado tendrá un resultado negativo.</target>
+      </segment>
+    </unit>
     <unit id="take_shower">
       <segment id="name" state="translated">
         <source>take_shower.name</source>
@@ -1351,7 +1361,7 @@ Esta lista contiene actualmente **{numberOfNames}** nombres.</target>
       </segment>
       <segment id="description" state="translated">
         <source>anathema.description</source>
-        <target>Permite lanzar un conjuro que da el estado de Paria.//El Paria sufre una penalidad importante y si muere y es Mush, te hará ganar :triumph:. Si es humano, perderás :triumph:.
+        <target>Permite poner un castigo, que da el estado de Paria.//El Paria sufre una penalidad importante y si muere y es Mush, te hará ganar :triumph:. Si es humano, perderás :triumph:.
 Si el Mush eres tú, esta acción no afectará tú :triumph_mush:.</target>
       </segment>
       <segment id="confirmation" state="translated">

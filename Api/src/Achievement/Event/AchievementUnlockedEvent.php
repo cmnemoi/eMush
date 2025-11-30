@@ -36,6 +36,9 @@ final class AchievementUnlockedEvent extends AbstractGameEvent
 
     public function getTranslationParameters(): array
     {
-        return ['achievement' => $this->achievement->getName()->value];
+        return [
+            'achievement' => $this->achievement->getName()->value,
+            'gender' => 'other',
+        ];
     }
 }

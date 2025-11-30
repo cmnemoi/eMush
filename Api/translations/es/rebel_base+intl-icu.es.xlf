@@ -103,11 +103,11 @@
     <unit id="unknown">
       <segment id="name" state="translated">
         <source>unknown.name</source>
-        <target>???</target>
+        <target>¿¿??</target>
       </segment>
       <segment id="hoverName" state="translated">
         <source>unknown.hoverName</source>
-        <target>???</target>
+        <target>¿¿??</target>
       </segment>
     </unit>
     <unit id="lost">

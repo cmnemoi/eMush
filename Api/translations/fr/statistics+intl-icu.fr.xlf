@@ -18,7 +18,7 @@
     <unit id="coffee_taken">
       <segment id="name" state="translated">
         <source>coffee_taken.name</source>
-        <target>Squatteur de cafetière</target>
+        <target>{gender, select, female {Squatteuse} other {Squatteur}} de cafetière</target>
       </segment>
       <segment id="description" state="translated">
         <source>coffee_taken.description</source>
@@ -26,7 +26,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>coffee_taken_1.name</source>
-        <target>Pilier de comptoir</target>
+        <target>{gender, select, female {Pilière} other {Pilier}} de comptoir</target>
       </segment>
     </unit>
     <unit id="cooked_taken">
@@ -40,7 +40,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>cooked_taken_1.name</source>
-        <target>Morfal</target>
+        <target>{gender, select, female {Morfale} other {Morfal}}</target>
       </segment>
     </unit>
     <unit id="door_repaired">
@@ -54,13 +54,13 @@
       </segment>
       <segment id="x1" state="translated">
         <source>door_repaired_1.name</source>
-        <target>Serrurier</target>
+        <target>{gender, select, female {Serrurière} other {Serrurier}}</target>
       </segment>
     </unit>
     <unit id="explorer">
       <segment id="name" state="translated">
         <source>explorer.name</source>
-        <target>Explorateur</target>
+        <target>{gender, select, female {Exploratrice} other {Explorateur}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>explorer.description</source>
@@ -68,19 +68,19 @@
       </segment>
       <segment id="x1" state="translated">
         <source>explorer_1.name</source>
-        <target>Explorateur</target>
+        <target>{gender, select, female {Exploratrice} other {Explorateur}}</target>
       </segment>
       <segment id="x50" state="translated">
         <source>explorer_50.name</source>
-        <target>Grand explorateur</target>
+        <target>{gender, select, female {Grande exploratrice} other {Grand explorateur}}</target>
       </segment>
       <segment id="x200" state="translated">
         <source>explorer_200.name</source>
-        <target>Repousseur de frontière</target>
+        <target>{gender, select, female {Repousseuse} other {Repousseur}} de frontière</target>
       </segment>
       <segment id="x1000" state="translated">
         <source>explorer_1000.name</source>
-        <target>Christophe Colomb</target>
+        <target>{gender, select, female {Jeanne Barret} other {Christophe Colomb}}</target>
       </segment>
     </unit>
     <unit id="camera_installed">
@@ -108,7 +108,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>planet_scanned_1.name</source>
-        <target>Navigateur</target>
+        <target>{gender, select, female {Navigatrice} other {Navigateur}}</target>
       </segment>
     </unit>
     <unit id="signal_fire">
@@ -142,11 +142,11 @@
       </segment>
       <segment id="x1" state="translated">
         <source>give_mission_1.name</source>
-        <target>Troufion</target>
+        <target>{gender, select, female {Bidasse} other {Troufion}}</target>
       </segment>
       <segment id="x10" state="translated">
         <source>give_mission_10.name</source>
-        <target>Chef</target>
+        <target>{gender, select, female {Cheffe} other {Chef}}</target>
       </segment>
       <segment id="x50" state="translated">
         <source>give_mission_50.name</source>
@@ -154,17 +154,17 @@
       </segment>
       <segment id="x100" state="translated">
         <source>give_mission_100.name</source>
-        <target>Commandant</target>
+        <target>{gender, select, female {Commandante} other {Commandant}}</target>
       </segment>
       <segment id="x500" state="translated">
         <source>give_mission_500.name</source>
-        <target>Général</target>
+        <target>{gender, select, female {Générale} other {Général}}</target>
       </segment>
     </unit>
     <unit id="explo_feed">
       <segment id="name" state="translated">
         <source>explo_feed.name</source>
-        <target>Approvisionneur</target>
+        <target>{gender, select, female {Approvisionneuse} other {Approvisionneur}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>explo_feed.description</source>
@@ -172,23 +172,23 @@
       </segment>
       <segment id="x1" state="translated">
         <source>explo_feed_1.name</source>
-        <target>Cueilleur de baie</target>
+        <target>{gender, select, female {Cueilleuse} other {Cueilleur}} de baie</target>
       </segment>
       <segment id="x50" state="translated">
         <source>explo_feed_50.name</source>
-        <target>Chasseur</target>
+        <target>{gender, select, female {Chasseuse} other {Chasseur}}</target>
       </segment>
       <segment id="x200" state="translated">
         <source>explo_feed_200.name</source>
-        <target>Meneur de safari</target>
+        <target>{gender, select, female {Meneuse} other {Meneur}} de safari</target>
       </segment>
       <segment id="x500" state="translated">
         <source>explo_feed_500.name</source>
-        <target>Génocideur de monde</target>
+        <target>{gender, select, female {Génocideuse} other {Génocideur}} de monde</target>
       </segment>
       <segment id="x1000" state="translated">
         <source>explo_feed_1000.name</source>
-        <target>Grand destructeur de système solaire</target>
+        <target>{gender, select, female {Grande destructrice} other {Grand destructeur}} de système solaire</target>
       </segment>
     </unit>
     <unit id="signal_equip">
@@ -202,37 +202,37 @@
       </segment>
       <segment id="x1" state="translated">
         <source>signal_equip_1.name</source>
-        <target>Agent de surface</target>
+        <target>{gender, select, female {Agente} other {Agent}} de surface</target>
       </segment>
       <segment id="x20" state="translated">
         <source>signal_equip_20.name</source>
-        <target>Agent de maintenance</target>
+        <target>{gender, select, female {Agente} other {Agent}} de maintenance</target>
       </segment>
       <segment id="x50" state="translated">
         <source>signal_equip_50.name</source>
-        <target>Préposé aux équipements</target>
+        <target>{gender, select, female {Préposée} other {Préposé}} aux équipements</target>
       </segment>
       <segment id="x200" state="translated">
         <source>signal_equip_200.name</source>
-        <target>Équipementier</target>
+        <target>{gender, select, female {Équipementière} other {Équipementier}}</target>
       </segment>
       <segment id="x1000" state="translated">
         <source>signal_equip_1000.name</source>
-        <target>Inspecteur des travaux finis</target>
+        <target>{gender, select, female {Inspectrice} other {Inspecteur}} des travaux finis</target>
       </segment>
     </unit>
     <unit id="gagged">
       <segment id="name" state="translated">
         <source>gagged.name</source>
-        <target>Bailloné</target>
+        <target>{gender, select, female {Bâillonnée} other {Bâillonné}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>gagged.description</source>
-        <target>Nombre de fois où vous avez été bailloné.</target>
+        <target>Nombre de fois où vous avez été {gender, select, female {bâillonnée} other {bâillonné}}.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>gagged_1.name</source>
-        <target>Bailloné</target>
+        <target>{gender, select, female {Bâillonnée} other {Bâillonné}}</target>
       </segment>
     </unit>
     <unit id="succeeded_inspection">
@@ -246,7 +246,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>succeeded_inspection_1.name</source>
-        <target>Elijah Baley</target>
+        <target>{gender, select, female {Major Kusanagi} other {Elijah Baley}}</target>
       </segment>
     </unit>
     <unit id="back_to_root">
@@ -260,7 +260,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>back_to_root_1.name</source>
-        <target>Citoyen de Sol</target>
+        <target>{gender, select, female {Citoyenne} other {Citoyen}} de Sol</target>
       </segment>
     </unit>
     <unit id="new_plants">
@@ -296,7 +296,7 @@
       </segment>
       <segment id="x500" state="translated">
         <source>andie_500.name</source>
-        <target>On m'aurait menti(e) ?</target>
+        <target>On m'aurait {gender, select, female {mentie} other {menti}} ?</target>
       </segment>
       <segment id="x2000" state="translated">
         <source>andie_2000.name</source>
@@ -304,7 +304,7 @@
       </segment>
       <segment id="x10000" state="translated">
         <source>andie_10000.name</source>
-        <target>Promis à un brillant avenir !</target>
+        <target>{gender, select, female {Promise} other {Promis}} à un brillant avenir !</target>
       </segment>
     </unit>
     <unit id="jin_su">
@@ -318,7 +318,7 @@
       </segment>
       <segment id="x50" state="translated">
         <source>jin_su_50.name</source>
-        <target>Fayot de la FDS</target>
+        <target>{gender, select, female {Fayotte} other {Fayot}} de la FDS</target>
       </segment>
       <segment id="x200" state="translated">
         <source>jin_su_200.name</source>
@@ -326,7 +326,7 @@
       </segment>
       <segment id="x500" state="translated">
         <source>jin_su_500.name</source>
-        <target>Amirâl'eur</target>
+        <target>{gender, select, female {Amirâl'euse} other {Amirâl'eur}}</target>
       </segment>
       <segment id="x2000" state="translated">
         <source>jin_su_2000.name</source>
@@ -334,7 +334,7 @@
       </segment>
       <segment id="x10000" state="translated">
         <source>jin_su_10000.name</source>
-        <target>Commandant suprême en chef</target>
+        <target>{gender, select, female {Commandante} other {Commandant}} suprême en chef</target>
       </segment>
     </unit>
     <unit id="chun">
@@ -382,7 +382,7 @@
       </segment>
       <segment id="x200" state="translated">
         <source>kuan_ti_200.name</source>
-        <target>Blindé d'argent et d'acier</target>
+        <target>{gender, select, female {Blindée} other {Blindé}} d'argent et d'acier</target>
       </segment>
       <segment id="x500" state="translated">
         <source>kuan_ti_500.name</source>
@@ -434,7 +434,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>gioele.description</source>
-        <target>Être milliardaire, c'est le rêve de tout homme sur Terre... Mais dans l'espace, et avec un Mush à bord...</target>
+        <target>Être milliardaire, c'est le rêve de {gender, select, female {toute femme} other {tout homme}} sur Terre... Mais dans l'espace, et avec un Mush à bord...</target>
       </segment>
       <segment id="x50" state="translated">
         <source>gioele_50.name</source>
@@ -454,7 +454,7 @@
       </segment>
       <segment id="x10000" state="translated">
         <source>gioele_10000.name</source>
-        <target>L'homme qui valait 3 milliards et des brouettes</target>
+        <target>{gender, select, female {La femme} other {L'homme}} qui valait 3 milliards et des brouettes</target>
       </segment>
     </unit>
     <unit id="eleesha">
@@ -510,7 +510,7 @@
       </segment>
       <segment id="x2000" state="translated">
         <source>finola_2000.name</source>
-        <target>Plancké dans le mur</target>
+        <target>{gender, select, female {Planckée} other {Plancké}} dans le mur</target>
       </segment>
       <segment id="x10000" state="translated">
         <source>finola_10000.name</source>
@@ -544,7 +544,7 @@
       </segment>
       <segment id="x10000" state="translated">
         <source>terrence_10000.name</source>
-        <target>Maîtres des bots</target>
+        <target>{gender, select, female {Maîtresse} other {Maître}} des bots</target>
       </segment>
     </unit>
     <unit id="eden">
@@ -566,15 +566,15 @@
       </segment>
       <segment id="x10" state="translated">
         <source>eden_10.name</source>
-        <target>Pionnier d'Eden</target>
+        <target>{gender, select, female {Pionnière} other {Pionnier}} d'Eden</target>
       </segment>
       <segment id="x20" state="translated">
         <source>eden_20.name</source>
-        <target>Edenien</target>
+        <target>{gender, select, female {Edenienne} other {Edenien}}</target>
       </segment>
       <segment id="x50" state="translated">
         <source>eden_50.name</source>
-        <target>Fondateur de l'ordre d'Eden</target>
+        <target>{gender, select, female {Fondatrice} other {Fondateur}} de l'ordre d'Eden</target>
       </segment>
     </unit>
     <unit id="contributions">
@@ -630,11 +630,11 @@
       </segment>
       <segment id="x50" state="translated">
         <source>frieda_50.name</source>
-        <target>Navi-gâteux</target>
+        <target>{gender, select, female {Navi-gâteuse} other {Navi-gâteux}}</target>
       </segment>
       <segment id="x200" state="translated">
         <source>frieda_200.name</source>
-        <target>Après la nebuleuse, tournez à droite</target>
+        <target>Après la nébuleuse, tournez à droite</target>
       </segment>
       <segment id="x500" state="translated">
         <source>frieda_500.name</source>
@@ -664,7 +664,7 @@
       </segment>
       <segment id="x200" state="translated">
         <source>hua_200.name</source>
-        <target>Hé mec, Il est où mon vaisseau ?</target>
+        <target>Hé mec, il est où mon vaisseau ?</target>
       </segment>
       <segment id="x500" state="translated">
         <source>hua_500.name</source>
@@ -698,7 +698,7 @@
       </segment>
       <segment id="x500" state="translated">
         <source>ian_500.name</source>
-        <target>Fruti-magicien</target>
+        <target>{gender, select, female {Fruti-magicienne} other {Fruti-magicien}}</target>
       </segment>
       <segment id="x2000" state="translated">
         <source>ian_2000.name</source>
@@ -758,11 +758,11 @@
       </segment>
       <segment id="x500" state="translated">
         <source>stephen_500.name</source>
-        <target>Maître du hokuto de cuisine</target>
+        <target>{gender, select, female {Maîtresse} other {Maître}} du hokuto de cuisine</target>
       </segment>
       <segment id="x2000" state="translated">
         <source>stephen_2000.name</source>
-        <target>Descendant de Casey Ryback</target>
+        <target>{gender, select, female {Descendante} other {Descendant}} de Casey Ryback</target>
       </segment>
       <segment id="x10000" state="translated">
         <source>stephen_10000.name</source>
@@ -780,7 +780,7 @@
       </segment>
       <segment id="x50" state="translated">
         <source>derek_50.name</source>
-        <target>Puceau de l'espace</target>
+        <target>{gender, select, female {Pucelle} other {Puceau}} de l'espace</target>
       </segment>
       <segment id="x200" state="translated">
         <source>derek_200.name</source>
@@ -810,7 +810,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>daily_order_1.name</source>
-        <target>Annonceur</target>
+        <target>{gender, select, female {Annonceuse} other {Annonceur}}</target>
       </segment>
       <segment id="x10" state="translated">
         <source>daily_order_10.name</source>
@@ -818,7 +818,7 @@
       </segment>
       <segment id="x20" state="translated">
         <source>daily_order_20.name</source>
-        <target>Herault</target>
+        <target>{gender, select, female {Héraldesse} other {Héraut}}</target>
       </segment>
     </unit>
     <unit id="paola">
@@ -922,7 +922,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>game_without_sleep_1.name</source>
-        <target>Éveillé</target>
+        <target>{gender, select, female {Éveillée} other {Éveillé}}</target>
       </segment>
       <segment id="x20" state="translated">
         <source>game_without_sleep_20.name</source>
@@ -974,13 +974,13 @@
       </segment>
       <segment id="x1" state="translated">
         <source>eden_contaminated_1.name</source>
-        <target>Dévoreur des mondes</target>
+        <target>{gender, select, female {Dévoreuse} other {Dévoreur}} des mondes</target>
       </segment>
     </unit>
     <unit id="politician">
       <segment id="name" state="translated">
         <source>politician.name</source>
-        <target>Homme politique</target>
+        <target>{gender, select, female {Femme} other {Homme}} politique</target>
       </segment>
       <segment id="description" state="translated">
         <source>politician.description</source>
@@ -988,11 +988,11 @@
       </segment>
       <segment id="x1" state="translated">
         <source>politician_1.name</source>
-        <target>Conseiller municipal</target>
+        <target>{gender, select, female {Conseillère municipale} other {Conseiller municipal}}</target>
       </segment>
       <segment id="x10" state="translated">
         <source>politician_10.name</source>
-        <target>Maire</target>
+        <target>{gender, select, female {Mairesse} other {Maire}}</target>
       </segment>
       <segment id="x50" state="translated">
         <source>politician_50.name</source>
@@ -1018,7 +1018,7 @@
       </segment>
       <segment id="x50" state="translated">
         <source>hunter_down_50.name</source>
-        <target>Chasseur</target>
+        <target>{gender, select, female {Chasseuse} other {Chasseur}}</target>
       </segment>
       <segment id="x100" state="translated">
         <source>hunter_down_100.name</source>
@@ -1040,11 +1040,11 @@
       </segment>
       <segment id="x1" state="translated">
         <source>likes_1.name</source>
-        <target>Bon élement</target>
+        <target>Bon élément</target>
       </segment>
       <segment id="x20" state="translated">
         <source>likes_20.name</source>
-        <target>Jugé sympathique</target>
+        <target>{gender, select, female {Jugée} other {Jugé}} sympathique</target>
       </segment>
       <segment id="x50" state="translated">
         <source>likes_50.name</source>
@@ -1056,7 +1056,7 @@
       </segment>
       <segment id="x200" state="translated">
         <source>likes_200.name</source>
-        <target>Chouchou de l’équipage</target>
+        <target>Chouchou de l'équipage</target>
       </segment>
       <segment id="x500" state="translated">
         <source>likes_500.name</source>
@@ -1074,13 +1074,13 @@
       </segment>
       <segment id="x1" state="translated">
         <source>surgeon_1.name</source>
-        <target>Chirurgien</target>
+        <target>{gender, select, female {Chirurgienne} other {Chirurgien}}</target>
       </segment>
     </unit>
     <unit id="butcher">
       <segment id="name" state="translated">
         <source>butcher.name</source>
-        <target>Boucher</target>
+        <target>Boucheries</target>
       </segment>
       <segment id="description" state="translated">
         <source>butcher.description</source>
@@ -1088,7 +1088,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>butcher_1.name</source>
-        <target>Boucher</target>
+        <target>{gender, select, female {Bouchère} other {Boucher}}</target>
       </segment>
     </unit>
     <unit id="communication_expert">
@@ -1106,7 +1106,7 @@
       </segment>
       <segment id="x5" state="translated">
         <source>communication_expert_5.name</source>
-        <target>Chef des communications</target>
+        <target>{gender, select, female {Cheffe} other {Chef}} des communications</target>
       </segment>
     </unit>
     <unit id="day_5_reached">
@@ -1120,7 +1120,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>day_5_reached_1.name</source>
-        <target>Survivant</target>
+        <target>{gender, select, female {Survivante} other {Survivant}}</target>
       </segment>
     </unit>
     <unit id="day_10_reached">
@@ -1134,7 +1134,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>day_10_reached_1.name</source>
-        <target>Héros</target>
+        <target>{gender, select, female {Héroïne} other {Héros}}</target>
       </segment>
     </unit>
     <unit id="day_15_reached">
@@ -1148,7 +1148,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>day_15_reached_1.name</source>
-        <target>Ancien</target>
+        <target>{gender, select, female {Ancienne} other {Ancien}}</target>
       </segment>
     </unit>
     <unit id="day_20_reached">
@@ -1178,7 +1178,7 @@
     <unit id="mush_genome">
       <segment id="name" state="translated">
         <source>mush_genome.name</source>
-        <target>Décrypteur de l'énigme</target>
+        <target>{gender, select, female {Décrypteuse} other {Décrypteur}} de l'énigme</target>
       </segment>
       <segment id="description" state="translated">
         <source>mush_genome.description</source>
@@ -1186,7 +1186,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>mush_genome_1.name</source>
-        <target>Expert en Mush</target>
+        <target>{gender, select, female {Experte} other {Expert}} en Mush</target>
       </segment>
     </unit>
     <unit id="rebels">
@@ -1296,7 +1296,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>kivanc_contacted_1.name</source>
-        <target>Chef rebelle</target>
+        <target>{gender, select, female {Cheffe} other {Chef}} rebelle</target>
       </segment>
     </unit>
     <unit id="team_all_rebels">
@@ -1330,23 +1330,23 @@
         <source>plasma_shield.description</source>
         <target>Nombre de fois où le Bouclier plasma a été mis en service par votre équipage durant un voyage.</target>
       </segment>
-      <segment id="x1" state="translated">
+      <segment id="x1" state="final">
         <source>plasma_shield_1.name</source>
-        <target>Protecteur</target>
+        <target>{gender, select, female {Protectrice} other {Protecteur}}</target>
       </segment>
     </unit>
     <unit id="grenadier">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>grenadier.name</source>
-        <target>grenadier.name</target>
+        <target>Grenade !</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>grenadier.description</source>
-        <target>grenadier.description</target>
+        <target>Nombre de grenades utilisées en expédition par votre équipe.</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>grenadier_1.name</source>
-        <target>grenadier_1.name</target>
+        <target>Grenadier</target>
       </segment>
     </unit>
   </file>

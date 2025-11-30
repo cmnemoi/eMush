@@ -529,6 +529,12 @@
         <target>all_explorators_stucked</target>
       </segment>
     </unit>
+    <unit id="exploration_event_preview">
+      <segment id="exploration_event_preview" state="initial">
+        <source>exploration_event_preview</source>
+        <target>exploration_event_preview</target>
+      </segment>
+    </unit>
     <unit id="liquid_map_helped">
       <segment id="liquid_map_helped" state="initial">
         <source>liquid_map_helped</source>
@@ -781,6 +787,12 @@
       <segment id="traitor_worked" state="initial">
         <source>traitor_worked</source>
         <target>traitor_worked</target>
+      </segment>
+    </unit>
+    <unit id="traitor_prevented">
+      <segment id="traitor_prevented" state="initial">
+        <source>traitor_prevented</source>
+        <target>traitor_prevented</target>
       </segment>
     </unit>
     <unit id="learned_skill">

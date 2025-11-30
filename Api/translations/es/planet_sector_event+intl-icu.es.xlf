@@ -25,7 +25,7 @@
       </segment>
       <segment id="cold_description" state="translated">
         <source>nothing_to_report.cold_description</source>
-        <target>Aparte del frío que os congela las manos y los pies, no hay nada en esta zona... Brrrr....</target>
+        <target>Aparte del frío que os congela las manos y los pies, no hay nada en esta zona... Brrrr...</target>
       </segment>
       <segment id="swamp_description" state="translated">
         <source>nothing_to_report.swamp_description</source>
@@ -37,7 +37,7 @@
       </segment>
       <segment id="hot_description" state="translated">
         <source>nothing_to_report.hot_description</source>
-        <target>Nada que señalar en esta zona, salvo esos tres &amp;*#@µ% soles que están matando a nuestro equipo.</target>
+        <target>Nada que señalar en esta zona, salvo esos tres *#@µ% soles que están matando a nuestro equipo.</target>
       </segment>
       <segment id="volcanic_activity_description" state="translated">
         <source>nothing_to_report.volcanic_activity_description</source>
@@ -515,7 +515,7 @@
       </segment>
       <segment id="cristal_field_description" state="translated">
         <source>starmap.cristal_field_description</source>
-        <target>Este campo de cristalitas está activo. En el centro del atrio principal, un fragmento flotando en un líquido metálico un rayo metálico converge en rayos de colores que cubren todo el perímetro. Bueno, creéis que es hora de llevarlo.</target>
+        <target>Este campo de cristalitas está activo. En el centro del atrio principal, un fragmento flotando en un líquido metálico hace converger rayos de colores que cubren todo el perímetro. Bueno, creéis que es hora de llevarlo.</target>
       </segment>
     </unit>
     <unit id="mush_trap">
@@ -573,7 +573,7 @@
       </segment>
       <segment id="strong_wind_description" state="translated">
         <source>item_lost.strong_wind_description</source>
-        <target>¡El viente sopla tan fuerte que {character} deja caer {equipment_gender, select, female {una} other {un}} {equipment}! ¡Oh no!</target>
+        <target>¡El viento sopla tan fuerte que {character} deja caer {equipment_gender, select, female {una} other {un}} {equipment}! ¡Oh no!</target>
       </segment>
     </unit>
     <unit id="back">
@@ -617,7 +617,7 @@
       </segment>
       <segment id="ocean_description" state="translated">
         <source>player_lost.ocean_description</source>
-        <target>Pesadilla... {character} cayó en el agua. Esto complica las cosas...</target>
+        <target>Que desastre... {character} cayó en el agua. Esto complica las cosas...</target>
       </segment>
       <segment id="cold_description" state="translated">
         <source>player_lost.cold_description</source>

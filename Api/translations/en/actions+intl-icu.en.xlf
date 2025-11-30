@@ -966,7 +966,7 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>auto_eject.confirmation</source>
-        <target>Self-ejection is risky. What's more, your one-seater will be destroyed. Do you still want to do it?</target>
+        <target>Self-ejection is permanent: you will not be able to return to the Daedalus. Do you still wish to proceed?</target>
       </segment>
     </unit>
     <unit id="insert_fuel_chamber">

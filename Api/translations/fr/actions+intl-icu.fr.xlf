@@ -972,7 +972,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="confirmation" state="translated">
         <source>auto_eject.confirmation</source>
-        <target>L'auto-éjection comporte des risques. De plus, votre monoplace sera détruit. Voulez-vous quand même le faire ?</target>
+        <target>L'auto-éjection est définitive : vous ne pourrez plus revenir sur le Daedalus. Voulez-vous quand même le faire ?</target>
       </segment>
     </unit>
     <unit id="insert_fuel_chamber">

@@ -959,7 +959,7 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>auto_eject.confirmation</source>
-        <target>La auto-eyección tiene riesgos. Además, tu monoplaza será destruida. ¿Estás seguro de hacerlo?</target>
+        <target>La auto-eyección es permanente: no podrás volver al Daedalus. ¿Aún deseas continuar?</target>
       </segment>
     </unit>
     <unit id="insert_fuel_chamber">

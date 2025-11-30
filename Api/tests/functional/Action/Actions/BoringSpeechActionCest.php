@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\BoringSpeech;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -15,7 +15,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -26,9 +25,8 @@ final class BoringSpeechActionCest extends AbstractFunctionalTest
 {
     private ActionConfig $boringSpeechActionConfig;
     private BoringSpeech $boringSpeechAction;
-    private ChooseSkillUseCase $chooseSkillUseCase;
     private PlayerServiceInterface $playerService;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I)
     {
@@ -38,11 +36,9 @@ final class BoringSpeechActionCest extends AbstractFunctionalTest
 
         $this->boringSpeechAction = $I->grabService(BoringSpeech::class);
 
-        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
-
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
 
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
     }
 
     public function testBoringSpeech(FunctionalTester $I)
@@ -81,7 +77,7 @@ final class BoringSpeechActionCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveMovementPoints(10, $I);
     }
 
-    public function shouldGivePoliticianStatistic(FunctionalTester $I): void
+    public function shouldGivePoliticianPendingStatistic(FunctionalTester $I): void
     {
         $this->givenChunIsMotivator($I);
 
@@ -93,12 +89,16 @@ final class BoringSpeechActionCest extends AbstractFunctionalTest
 
         $I->assertEquals(
             expected: 1,
-            actual: $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::POLITICIAN, $this->chun->getUser()->getId())?->getCount(),
-            message: 'Politician statistic should be incremented'
+            actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                StatisticEnum::POLITICIAN,
+                $this->chun->getUser()->getId(),
+                $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
+            )?->getCount(),
+            message: 'Politician pendingstatistic should be incremented'
         );
     }
 
-    public function shouldNotGivePoliticianStatisticIfLessThan8Players(FunctionalTester $I): void
+    public function shouldNotGivePoliticianPendingStatisticIfLessThan8Players(FunctionalTester $I): void
     {
         $this->givenChunIsMotivator($I);
 
@@ -109,8 +109,12 @@ final class BoringSpeechActionCest extends AbstractFunctionalTest
         $this->whenChunGivesBoringSpeech();
 
         $I->assertNull(
-            $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::POLITICIAN, $this->chun->getUser()->getId())?->getId(),
-            message: 'Politician statistic should not be incremented'
+            $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                StatisticEnum::POLITICIAN,
+                $this->chun->getUser()->getId(),
+                $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
+            )?->getId(),
+            message: 'Politician pending statistic should not be incremented'
         );
     }
 

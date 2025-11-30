@@ -7,7 +7,7 @@ namespace Mush\Tests\functional\Action\Actions;
 use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Actions\DecodeRebelSignal;
 use Mush\Action\Entity\ActionConfig;
@@ -55,7 +55,7 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
     private RebelBaseRepositoryInterface $rebelBaseRepository;
     private StatusServiceInterface $statusService;
     private XylophRepositoryInterface $xylophRepository;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     private GameEquipment $commsCenter;
 
@@ -72,7 +72,7 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->givenCommsCenterInRoom();
     }
@@ -387,7 +387,7 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
         $this->whenPlayerDecodesRebelSignal(RebelBaseEnum::WOLF);
 
-        $this->thenCommunicationExpertStatisticShouldBe(1, $I);
+        $this->thenCommunicationExpertPendingStatisticShouldBe(1, $I);
         $I->assertTrue($this->daedalus->hasStatus(DaedalusStatusEnum::COMMUNICATIONS_EXPERT));
     }
 
@@ -403,15 +403,16 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->whenPlayerDecodesRebelSignal(RebelBaseEnum::WOLF);
 
         $I->assertEquals(
-            actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+            actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
                 name: StatisticEnum::REBELS,
                 userId: $this->player->getUser()->getId(),
+                closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
             )?->getCount(),
             expected: 1,
         );
     }
 
-    public function shouldIncrementTeamAllRebelsStatisticWhenAllRebelAreDecoded(FunctionalTester $I): void
+    public function shouldIncrementTeamAllRebelsPendingStatisticWhenAllRebelAreDecoded(FunctionalTester $I): void
     {
         $this->givenNeronVersion(1);
         $this->givenPlayerIsFocusedOnCommsCenter();
@@ -424,9 +425,10 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
         foreach ($this->players as $player) {
             $I->assertEquals(
-                actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
                     name: StatisticEnum::TEAM_ALL_REBELS,
                     userId: $player->getUser()->getId(),
+                    closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
                 )?->getCount(),
                 expected: 1,
             );
@@ -673,14 +675,15 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->xylophRepository->save($xylophEntry);
     }
 
-    private function thenCommunicationExpertStatisticShouldBe(int $expected, FunctionalTester $I): void
+    private function thenCommunicationExpertPendingStatisticShouldBe(int $expected, FunctionalTester $I): void
     {
         foreach ($this->players as $player) {
             $I->assertEquals(
                 expected: $expected,
-                actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
                     name: StatisticEnum::COMMUNICATION_EXPERT,
                     userId: $player->getUser()->getId(),
+                    closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
                 )?->getCount(),
                 message: "{$player->getName()} should have {$expected} communication expert statistic count",
             );

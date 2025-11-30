@@ -6,6 +6,7 @@ namespace Mush\Exploration\Event;
 
 use Mush\Exploration\Entity\Planet;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Player\Entity\Player;
 
 final class PlanetCreatedEvent extends AbstractGameEvent
 {
@@ -17,9 +18,9 @@ final class PlanetCreatedEvent extends AbstractGameEvent
         parent::__construct($tags, $time);
     }
 
-    public function getAuthorUserId(): int
+    public function getAuthor(): Player
     {
-        return $this->planet->getPlayer()->getUser()->getId();
+        return $this->planet->getPlayer();
     }
 
     public function getLanguage(): string

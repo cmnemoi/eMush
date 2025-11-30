@@ -7,7 +7,6 @@ namespace Mush\Tests\functional\Exploration\Service;
 use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
@@ -31,7 +30,6 @@ use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -41,11 +39,9 @@ use Mush\Tests\FunctionalTester;
 
 final class ExplorationServiceCest extends AbstractExplorationTester
 {
-    private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
-    private StatisticRepositoryInterface $statisticRepository;
 
     private GameEquipment $icarus;
     private Planet $planet;
@@ -54,11 +50,9 @@ final class ExplorationServiceCest extends AbstractExplorationTester
     {
         parent::_before($I);
 
-        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
         // grab icarus bay created by parent
         $icarusBay = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY);

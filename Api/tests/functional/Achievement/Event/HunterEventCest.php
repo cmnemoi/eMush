@@ -7,7 +7,7 @@ namespace Mush\Tests\functional\Achievement\Service;
 use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -27,7 +27,7 @@ final class HunterEventCest extends AbstractFunctionalTest
     private AlertServiceInterface $alertService;
     private CreateHunterService $createHunter;
     private EventServiceInterface $eventService;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
@@ -36,11 +36,11 @@ final class HunterEventCest extends AbstractFunctionalTest
         $this->alertService = $I->grabService(AlertServiceInterface::class);
         $this->createHunter = $I->grabService(CreateHunterService::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
     }
 
     #[DataProvider('hostileHuntersDataProvider')]
-    public function shouldIncrementHunterDownStatisticForHostileHunters(FunctionalTester $I, Example $example): void
+    public function shouldIncrementHunterDownPendingStatisticForHostileHunters(FunctionalTester $I, Example $example): void
     {
         $this->createHunter->execute($example[0], $this->daedalus->getId());
         $this->alertService->handleHunterArrival($this->daedalus);
@@ -57,13 +57,17 @@ final class HunterEventCest extends AbstractFunctionalTest
 
         $I->assertEquals(
             expected: 1,
-            actual: $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::HUNTER_DOWN, $this->chun->getUser()->getId())?->getCount(),
-            message: "HunterDown statistic should be incremented for {$example[0]}"
+            actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                StatisticEnum::HUNTER_DOWN,
+                $this->chun->getUser()->getId(),
+                $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+            )?->getCount(),
+            message: "HunterDown pending statistic should be incremented for {$example[0]}"
         );
     }
 
     #[DataProvider('nonHostileHuntersDataProvider')]
-    public function shouldNotIncrementHunterDownStatisticForNonHostileHunters(FunctionalTester $I, Example $example): void
+    public function shouldNotIncrementHunterDownPendingStatisticForNonHostileHunters(FunctionalTester $I, Example $example): void
     {
         $this->createHunter->execute($example[0], $this->daedalus->getId());
         $this->alertService->handleHunterArrival($this->daedalus);
@@ -79,8 +83,12 @@ final class HunterEventCest extends AbstractFunctionalTest
         );
 
         $I->assertNull(
-            $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::HUNTER_DOWN, $this->chun->getUser()->getId()),
-            message: "HunterDown statistic should not be incremented for {$example[0]}"
+            $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                StatisticEnum::HUNTER_DOWN,
+                $this->chun->getUser()->getId(),
+                $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+            ),
+            message: "HunterDown pending statistic should not be incremented for {$example[0]}"
         );
     }
 

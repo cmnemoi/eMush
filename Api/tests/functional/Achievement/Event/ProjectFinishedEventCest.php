@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Test\Functional\Achievement\Event;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -15,16 +15,16 @@ use Mush\Tests\FunctionalTester;
  */
 final class ProjectFinishedEventCest extends AbstractFunctionalTest
 {
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
     }
 
-    public function shouldGivePilgredIsBackStatisticToAlivePlayers(FunctionalTester $I): void
+    public function shouldGivePilgredIsBackPendingStatisticToAlivePlayers(FunctionalTester $I): void
     {
         // when PILGRED is finished
         $this->finishProject(
@@ -33,18 +33,20 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
             I: $I
         );
 
-        // then all alive players should have PILGRED_IS_BACK statistic
+        // then all alive players should have PILGRED_IS_BACK pending statistic
         foreach ($this->players as $player) {
             $I->assertEquals(
                 expected: [
                     'name' => StatisticEnum::PILGRED_IS_BACK,
                     'count' => 1,
-                    'isRare' => true,
                     'userId' => $player->getUser()->getId(),
+                    'closedDaedalusId' => $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
+                    'isRare' => true,
                 ],
-                actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
                     StatisticEnum::PILGRED_IS_BACK,
-                    $player->getUser()->getId()
+                    $player->getUser()->getId(),
+                    $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
                 )?->toArray(),
                 message: "{$player->getLogName()} should have PILGRED_IS_BACK statistic"
             );
@@ -64,9 +66,10 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         foreach ($this->players as $player) {
             $I->assertEquals(
                 expected: 1,
-                actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
                     StatisticEnum::PLASMA_SHIELD,
-                    $player->getUser()->getId()
+                    $player->getUser()->getId(),
+                    $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
                 )?->getCount(),
                 message: "{$player->getLogName()} should have PLASMA_SHIELD statistic"
             );

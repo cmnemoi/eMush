@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepository;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\Scan;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -42,7 +42,7 @@ final class ScanCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private Place $bridge;
     private GameEquipment $astroTerminal;
-    private StatisticRepository $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
@@ -50,7 +50,7 @@ final class ScanCest extends AbstractFunctionalTest
 
         $this->scanActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SCAN]);
         $this->scanAction = $I->grabService(Scan::class);
-        $this->statisticRepository = $I->grabService(StatisticRepository::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -320,16 +320,21 @@ final class ScanCest extends AbstractFunctionalTest
         $this->thenPlayerPlanetScanRatioShouldBe(0, $I);
     }
 
-    public function shouldIncrementUserStatisticOnSuccess(FunctionalTester $I): void
+    public function shouldIncrementUserPendingStatisticOnSuccess(FunctionalTester $I): void
     {
         $this->whenPlayerScans();
 
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::PLANET_SCANNED, $this->player->getUser()->getId());
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            StatisticEnum::PLANET_SCANNED,
+            $this->player->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
+        );
 
         $I->assertEquals(
             expected: [
                 'name' => StatisticEnum::PLANET_SCANNED,
                 'userId' => $this->player->getUser()->getId(),
+                'closedDaedalusId' => $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
                 'count' => 1,
                 'isRare' => false,
             ],

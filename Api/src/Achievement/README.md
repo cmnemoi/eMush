@@ -15,7 +15,7 @@ The achievement system works in two parts: **Statistics** track user actions (li
 - **Entity/AchievementConfig.php**: Defines achievement configurations and unlock thresholds
 
 #### Commands
-- **Command/IncrementUserStatisticCommandHandler.php**: Processes statistic increments and triggers events
+- **Command/UpdateUserStatisticCommandHandler.php**: Processes statistic increments and triggers events
 - **Command/UnlockStatisticAchievementCommandHandler.php**: Handles achievement unlocking logic
 
 #### Event System
@@ -31,7 +31,7 @@ The achievement system works in two parts: **Statistics** track user actions (li
 
 ### Flow Overview:
 1. **Game Event Occurs**: A player performs an action (e.g., scans a planet)
-2. **Event Listener Triggers**: Event listener dispatches `IncrementUserStatisticCommand`
+2. **Event Listener Triggers**: Event listener dispatches `UpdateUserStatisticCommand`
 3. **Statistic Updated**: The user's statistic count is incremented
 4. **Achievement Check**: `StatisticIncrementedEvent` is fired, triggering achievement verification
 5. **Achievement Unlocked**: If thresholds are met, achievements are unlocked for the user
@@ -108,9 +108,11 @@ public static function getAll(): array
     return [
         new StatisticConfigDto(
             name: StatisticEnum::PLANET_SCANNED,
+            strategy: StatisticStrategyEnum::INCREMENT,
         ),
         new StatisticConfigDto(
             name: StatisticEnum::YOUR_NEW_STATISTIC,
+            strategy: StatisticStrategyEnum::INCREMENT_OR_MAX,
             isRare: true, // optional, defaults to false
         ),
         // ...existing code...
@@ -151,7 +153,7 @@ Create an event listener or add to an existing one that listens to your event of
 ```php
 final readonly class YourEventListener implements EventSubscriberInterface
 {
-    public function __construct(private MessageBusInterface $commandBus) {}
+    public function __construct(private UpdatePlayerStatisticService $updatePlayerStatisticService) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -162,17 +164,12 @@ final readonly class YourEventListener implements EventSubscriberInterface
 
     public function onYourGameEvent(YourGameEvent $event): void
     {
-        // Your logic to determine which user performed the action
-        $userId = ...;
-        // Your logic to determine the language of the user
-        $language = ...; // exemple : $event->getDaedalus()->getLanguage()
+        // Your logic to determine which player performed the action
+        $player = ...; // example : $event->getPlayer();
         
-        $this->commandBus->dispatch(
-            new IncrementUserStatisticCommand(
-                userId: $userId,
-                statisticName: StatisticEnum::YOUR_NEW_STATISTIC,
-                language: $language,
-            )
+        $this->updateUserStatisticForPlayer->execute(
+            player: $player,
+            statisticName: StatisticEnum::YOUR_NEW_STATISTIC,
         );
     }
 }

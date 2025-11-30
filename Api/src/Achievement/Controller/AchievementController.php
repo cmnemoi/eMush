@@ -6,7 +6,7 @@ namespace Mush\Achievement\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
-use Mush\Achievement\Command\UpdateUserStatisticIfSuperiorCommand;
+use Mush\Achievement\Command\UpdateUserStatisticCommand;
 use Mush\Achievement\Query\GetUserAchievementsQuery;
 use Mush\Achievement\Query\GetUserStatisticsQuery;
 use OpenApi\Attributes as OA;
@@ -44,12 +44,12 @@ final class AchievementController extends AbstractController
 
     #[Post(path: '/statistics/update')]
     #[IsGranted('ROLE_SUPER_ADMIN')]
-    public function incrementUserAchievementEndpoint(#[MapRequestPayload] UpdateUserStatisticIfSuperiorCommand $command): JsonResponse
+    public function incrementUserAchievementEndpoint(#[MapRequestPayload] UpdateUserStatisticCommand $command): JsonResponse
     {
         $this->commandBus->dispatch($command);
 
         return $this->json(
-            data: ['message' => "Statistic {$command->statisticName->value} updated successfully for user {$command->userId} to {$command->newValue}"],
+            data: ['message' => "Statistic {$command->statisticName->value} updated successfully for user {$command->userId} to {$command->count}"],
             status: Response::HTTP_OK
         );
     }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\ReportFire;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -30,7 +30,7 @@ final class ReportFireCest extends AbstractFunctionalTest
     private ReportFire $reportFire;
 
     private StatusServiceInterface $statusService;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private NeronMessageServiceInterface $neronMessageService;
 
     private Status $fireStatus;
@@ -42,7 +42,7 @@ final class ReportFireCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::REPORT_FIRE]);
         $this->reportFire = $I->grabService(ReportFire::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->neronMessageService = $I->grabService(NeronMessageServiceInterface::class);
     }
 
@@ -124,13 +124,17 @@ final class ReportFireCest extends AbstractFunctionalTest
         $this->thenAlertElementShouldHaveSecondPlayerInfo($I);
     }
 
-    public function shouldIncrementStatistic(FunctionalTester $I): void
+    public function shouldIncrementPendingStatistic(FunctionalTester $I): void
     {
         $this->givenRoomHasFire();
 
         $this->whenPlayerReportsFire();
 
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::SIGNAL_FIRE, $this->player->getUser()->getId());
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            StatisticEnum::SIGNAL_FIRE,
+            $this->player->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        );
         $I->assertEquals(1, $statistic->getCount());
     }
 

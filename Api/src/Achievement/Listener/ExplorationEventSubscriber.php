@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Mush\Achievement\Listener;
 
-use Mush\Achievement\Command\IncrementUserStatisticCommand;
 use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Services\UpdatePlayerStatisticService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 final readonly class ExplorationEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private MessageBusInterface $commandBus) {}
+    public function __construct(private UpdatePlayerStatisticService $updatePlayerStatisticService) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -46,13 +45,10 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
         }
 
         foreach ($exploration->getNotLostActiveExplorators() as $explorator) {
-            $this->commandBus->dispatch(
-                new IncrementUserStatisticCommand(
-                    userId: $explorator->getUser()->getId(),
-                    statisticName: StatisticEnum::EXPLO_FEED,
-                    language: $daedalus->getLanguage(),
-                    increment: $broughtFood->count(),
-                )
+            $this->updatePlayerStatisticService->execute(
+                player: $explorator,
+                statisticName: StatisticEnum::EXPLO_FEED,
+                count: $broughtFood->count(),
             );
         }
     }
@@ -63,12 +59,9 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
         $language = $exploration->getDaedalus()->getLanguage();
 
         foreach ($exploration->getNotLostActiveExplorators() as $explorator) {
-            $this->commandBus->dispatch(
-                new IncrementUserStatisticCommand(
-                    userId: $explorator->getUser()->getId(),
-                    statisticName: StatisticEnum::EXPLORER,
-                    language: $language,
-                )
+            $this->updatePlayerStatisticService->execute(
+                player: $explorator,
+                statisticName: StatisticEnum::EXPLORER,
             );
         }
     }

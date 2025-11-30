@@ -208,8 +208,6 @@ final class PlayerService implements PlayerServiceInterface
             return $player;
         }
 
-        $player->getUser()->incrementCyclesCount($player);
-
         if ($player->hasZeroMoralPoint()) {
             $this->handleZeroMoralPointEffects($player, $date);
             // misleadingly "duplicate" verification necessary to handle self-sacrifice

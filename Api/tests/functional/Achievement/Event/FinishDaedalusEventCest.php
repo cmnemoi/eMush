@@ -7,15 +7,18 @@ namespace Mush\tests\functional\Daedalus\Event;
 use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\ExchangeBody;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -26,12 +29,14 @@ use Mush\Tests\FunctionalTester;
 final class FinishDaedalusEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private StatisticRepositoryInterface $statisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
     }
 
@@ -129,17 +134,24 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldResetUserCycleCountsAfterDaedalusEnd(FunctionalTester $I): void
+    public function shouldClearPendingStatisticsAfterDaedalusEnd(FunctionalTester $I): void
     {
-        $user = $this->chun->getUser();
-
         // given user1 has 2 cycles as chun
         $this->givenPlayerHasLivedCycles(2, $this->chun);
 
+        $this->thenChunHasXCyclesPendingStatistic(2, $I);
+
         $this->whenDaedalusEndsWithSuperNova();
 
-        // then user cycle counts should be reset
-        $I->assertEquals(0, $user->getCycleCounts()->getForCharacter(CharacterEnum::CHUN));
+        $this->thenChunHasNoPendingStatistics($I);
+    }
+
+    public function shouldNotIncrementDeprecatedCycleCount(FunctionalTester $I): void
+    {
+        // given user1 has 2 cycles as chun
+        $this->givenPlayerHasLivedCycles(2, $this->chun);
+
+        $I->assertEquals(0, $this->chun->getUser()->getCycleCounts()->getForCharacter(CharacterEnum::CHUN));
     }
 
     protected function characterDataProvider(): array
@@ -193,7 +205,10 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
     {
         $player ??= $this->player;
 
-        $player->getUser()->incrementCyclesCount($player, $cycles);
+        for ($i = 0; $i < $cycles; ++$i) {
+            $cycleEvent = new PlayerCycleEvent($player, [EventEnum::NEW_CYCLE], new \DateTime());
+            $this->eventService->callEvent($cycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        }
     }
 
     private function whenDaedalusEndsWithSuperNova(): void
@@ -222,5 +237,29 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
             userId: $this->player->getUser()->getId()
         );
         $I->assertEquals($increment, $statistic?->getCount());
+    }
+
+    private function thenChunHasXCyclesPendingStatistic(int $expectedValue, FunctionalTester $I): void
+    {
+        $chunCyclesPendingStatistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            name: StatisticEnum::CHUN,
+            userId: $this->chun->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        )?->getCount();
+        $I->assertEquals(
+            $expectedValue,
+            $chunCyclesPendingStatistic,
+            "Chun should have {$expectedValue} cycles pending statistics, got {$chunCyclesPendingStatistic}"
+        );
+    }
+
+    private function thenChunHasNoPendingStatistics(FunctionalTester $I): void
+    {
+        $chunCyclesPendingStatistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            name: StatisticEnum::CHUN,
+            userId: $this->chun->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        )?->getCount();
+        $I->assertNull($chunCyclesPendingStatistic, "Chun should have no cycles pending statistics, got {$chunCyclesPendingStatistic}");
     }
 }

@@ -274,18 +274,6 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $this->thenUserShouldBeInGame($I, $user);
     }
 
-    public function testHandleNewCycleIncrementsCycleCountForAlivePlayer(FunctionalTester $I): void
-    {
-        /** @var Player $player */
-        $player = $this->player;
-
-        $initialCycles = $player->getUser()->getCycleCounts()->getForCharacter($this->player->getName());
-
-        $this->whenNewCycleIsHandledForPlayer($player);
-
-        $I->assertEquals($initialCycles + 1, $player->getUser()->getCycleCounts()->getForCharacter($this->player->getName()));
-    }
-
     public function testHandleNewCycleDoesNotIncrementCycleCountForDeadPlayer(FunctionalTester $I): void
     {
         /** @var Player $player */
@@ -354,11 +342,6 @@ final class PlayerServiceCest extends AbstractFunctionalTest
     private function thenDaedalusShouldHaveMushPlayersCount(FunctionalTester $I, int $count): void
     {
         $I->assertCount($count, $this->daedalus->getPlayers()->getMushPlayer());
-    }
-
-    private function thenPlayerShouldHaveTitles(FunctionalTester $I, Player $player, array $expectedTitles): void
-    {
-        $I->assertEquals($expectedTitles, $player->getTitles());
     }
 
     private function thenPlayerShouldHaveNoTitles(FunctionalTester $I, Player $player): void

@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\Transplant;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -26,7 +26,7 @@ final class TransplantActionCest extends AbstractFunctionalTest
     private Transplant $transplantAction;
     private ActionConfig $actionConfig;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I)
     {
@@ -36,7 +36,7 @@ final class TransplantActionCest extends AbstractFunctionalTest
         ]);
         $this->transplantAction = $I->grabService(Transplant::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
     }
 
     public function testTransplant(FunctionalTester $I)
@@ -74,7 +74,7 @@ final class TransplantActionCest extends AbstractFunctionalTest
 
         $this->whenIanTransplantsAlienFruit($alienFruit, $ian);
 
-        $this->thenNewPlantsStatisticShouldBeIncrementedForPlayer($ian, $I);
+        $this->thenNewPlantsPendingStatisticShouldBeIncrementedForPlayer($ian, $I);
     }
 
     private function givenIanPlayerWithHydropot(FunctionalTester $I): Player
@@ -112,13 +112,18 @@ final class TransplantActionCest extends AbstractFunctionalTest
         $I->assertEquals(3, $ian->getTriumph());
     }
 
-    private function thenNewPlantsStatisticShouldBeIncrementedForPlayer(Player $player, FunctionalTester $I): void
+    private function thenNewPlantsPendingStatisticShouldBeIncrementedForPlayer(Player $player, FunctionalTester $I): void
     {
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::NEW_PLANTS, $player->getUser()->getId());
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            StatisticEnum::NEW_PLANTS,
+            $player->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        );
         $I->assertEquals(
             expected: [
                 'name' => StatisticEnum::NEW_PLANTS,
                 'userId' => $player->getUser()->getId(),
+                'closedDaedalusId' => $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
                 'count' => 1,
                 'isRare' => false,
             ],

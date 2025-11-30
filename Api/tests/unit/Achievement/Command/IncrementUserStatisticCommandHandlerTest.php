@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\Unit\Achievement\Service;
 
-use Mush\Achievement\Command\IncrementUserStatisticCommand;
-use Mush\Achievement\Command\IncrementUserStatisticCommandHandler;
+use Mush\Achievement\Command\UpdateUserStatisticCommand;
+use Mush\Achievement\Command\UpdateUserStatisticCommandHandler;
 use Mush\Achievement\ConfigData\StatisticConfigData;
 use Mush\Achievement\Entity\Statistic;
 use Mush\Achievement\Entity\StatisticConfig;
@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
 final class IncrementUserStatisticCommandHandlerTest extends TestCase
 {
     private StatisticRepositoryInterface $statisticRepository;
-    private IncrementUserStatisticCommandHandler $incrementUserStatistic;
+    private UpdateUserStatisticCommandHandler $incrementUserStatistic;
     private User $user;
     private User $user2;
     private StatisticEnum $statisticName;
@@ -33,7 +33,7 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
     protected function setUp(): void
     {
         $this->statisticRepository = new InMemoryStatisticRepository();
-        $this->incrementUserStatistic = new IncrementUserStatisticCommandHandler(
+        $this->incrementUserStatistic = new UpdateUserStatisticCommandHandler(
             eventService: self::createStub(EventServiceInterface::class),
             statisticConfigRepository: new InMemoryStatisticConfigRepository(),
             statisticRepository: $this->statisticRepository
@@ -123,7 +123,7 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
 
     private function whenIncrementingStatistic(): void
     {
-        $this->incrementUserStatistic->__invoke(new IncrementUserStatisticCommand(
+        $this->incrementUserStatistic->__invoke(new UpdateUserStatisticCommand(
             $this->user->getId(),
             $this->statisticName,
             LanguageEnum::FRENCH,
@@ -133,7 +133,7 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
     private function whenIncrementingDifferentStatistic(): void
     {
         // Using a different achievement name for testing multiple achievements
-        ($this->incrementUserStatistic)(new IncrementUserStatisticCommand(
+        ($this->incrementUserStatistic)(new UpdateUserStatisticCommand(
             $this->user->getId(),
             StatisticEnum::EXTINGUISH_FIRE,
             LanguageEnum::FRENCH,
@@ -142,7 +142,7 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
 
     private function whenIncrementingStatisticByAmount(int $amount): void
     {
-        ($this->incrementUserStatistic)(new IncrementUserStatisticCommand(
+        ($this->incrementUserStatistic)(new UpdateUserStatisticCommand(
             $this->user->getId(),
             $this->statisticName,
             LanguageEnum::FRENCH,
@@ -184,12 +184,12 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
 
     private function whenIncrementingStatisticForBothUsers(): void
     {
-        ($this->incrementUserStatistic)(new IncrementUserStatisticCommand(
+        ($this->incrementUserStatistic)(new UpdateUserStatisticCommand(
             $this->user->getId(),
             $this->statisticName,
             LanguageEnum::FRENCH,
         ));
-        ($this->incrementUserStatistic)(new IncrementUserStatisticCommand(
+        ($this->incrementUserStatistic)(new UpdateUserStatisticCommand(
             $this->user2->getId(),
             $this->statisticName,
             LanguageEnum::FRENCH,

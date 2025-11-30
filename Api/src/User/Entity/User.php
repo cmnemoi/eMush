@@ -62,6 +62,7 @@ class User implements UserInterface
     #[ORM\Column(type: 'json', nullable: false, options: ['default' => '{}'])]
     private array $hashedIps = [];
 
+    // deprecated
     #[ORM\Embedded(PendingStatistics::class, columnPrefix: false)]
     private PendingStatistics $pendingStatistics;
 
@@ -281,6 +282,7 @@ class User implements UserInterface
         return $this;
     }
 
+    // deprecated
     public function incrementCyclesCount(Player $player, int $increment = 1): self
     {
         $this->pendingStatistics->incrementCyclesCountForPlayer($player, $increment);
@@ -288,11 +290,13 @@ class User implements UserInterface
         return $this;
     }
 
+    // deprecated
     public function getCycleCounts(): CycleCounts
     {
         return $this->pendingStatistics->getCycleCounts();
     }
 
+    // deprecated
     public function resetCycleCounts(): self
     {
         $this->pendingStatistics->resetCycleCounts();

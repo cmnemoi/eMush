@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Action\Actions;
 
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\CommanderOrder;
 use Mush\Action\Actions\RejectMission;
 use Mush\Action\Entity\ActionConfig;
@@ -26,15 +25,12 @@ final class CommanderOrderCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private CommanderOrder $commanderOrder;
 
-    private StatisticRepositoryInterface $statisticRepository;
-
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::COMMANDER_ORDER]);
         $this->commanderOrder = $I->grabService(CommanderOrder::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
         $this->givenChunIsCommander();
     }

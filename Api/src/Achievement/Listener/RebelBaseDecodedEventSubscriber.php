@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Mush\Achievement\Listener;
 
-use Mush\Achievement\Command\IncrementUserStatisticCommand;
 use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Services\UpdatePlayerStatisticService;
 use Mush\Communications\Event\RebelBaseDecodedEvent;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 final readonly class RebelBaseDecodedEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private MessageBusInterface $commandBus,
+        private UpdatePlayerStatisticService $updatePlayerStatisticService,
         private RebelBaseRepositoryInterface $rebelBaseRepository
     ) {}
 
@@ -27,22 +26,16 @@ final readonly class RebelBaseDecodedEventSubscriber implements EventSubscriberI
 
     public function onRebelBaseDecoded(RebelBaseDecodedEvent $event): void
     {
-        $this->commandBus->dispatch(
-            new IncrementUserStatisticCommand(
-                userId: $event->getAuthorUserId(),
-                statisticName: StatisticEnum::REBELS,
-                language: $event->getLanguage(),
-            )
+        $this->updatePlayerStatisticService->execute(
+            player: $event->getAuthorOrThrow(),
+            statisticName: StatisticEnum::REBELS,
         );
 
         if ($this->rebelBaseRepository->areAllRebelBasesDecoded($event->daedalusId)) {
             foreach ($event->getDaedalus()->getAlivePlayers() as $player) {
-                $this->commandBus->dispatch(
-                    new IncrementUserStatisticCommand(
-                        userId: $player->getUser()->getId(),
-                        statisticName: StatisticEnum::TEAM_ALL_REBELS,
-                        language: $player->getLanguage(),
-                    )
+                $this->updatePlayerStatisticService->execute(
+                    player: $player,
+                    statisticName: StatisticEnum::TEAM_ALL_REBELS,
                 );
             }
         }

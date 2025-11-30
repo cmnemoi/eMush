@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Achievement\Listener;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -16,14 +16,14 @@ use Mush\Tests\FunctionalTester;
 final class GameWithoutSleepCest extends AbstractFunctionalTest
 {
     private PlayerServiceInterface $playerService;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
     }
 
     public function shouldIncrementStatisticWhenPlayerEndsWithoutSleepingAfterDay6(FunctionalTester $I): void
@@ -33,7 +33,7 @@ final class GameWithoutSleepCest extends AbstractFunctionalTest
 
         $this->whenPlayerEnds();
 
-        $this->thenStatisticShouldBeIncremented($I);
+        $this->thenPendingStatisticShouldBeIncremented($I);
     }
 
     public function shouldNotIncrementStatisticWhenPlayerDiesBeforeDay7(FunctionalTester $I): void
@@ -43,7 +43,7 @@ final class GameWithoutSleepCest extends AbstractFunctionalTest
 
         $this->whenPlayerEnds();
 
-        $this->thenStatisticShouldNotExist($I);
+        $this->thenPendingStatisticShouldNotExist($I);
     }
 
     public function shouldNotIncrementStatisticWhenPlayerSlept(FunctionalTester $I): void
@@ -53,7 +53,7 @@ final class GameWithoutSleepCest extends AbstractFunctionalTest
 
         $this->whenPlayerEnds();
 
-        $this->thenStatisticShouldNotExist($I);
+        $this->thenPendingStatisticShouldNotExist($I);
     }
 
     private function givenPlayerSurvivedToDay7(): void
@@ -88,22 +88,24 @@ final class GameWithoutSleepCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenStatisticShouldBeIncremented(FunctionalTester $I): void
+    private function thenPendingStatisticShouldBeIncremented(FunctionalTester $I): void
     {
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
             StatisticEnum::GAME_WITHOUT_SLEEP,
-            $this->player->getUser()->getId()
+            $this->player->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
         );
 
         $I->assertNotNull($statistic);
         $I->assertEquals(1, $statistic->getCount());
     }
 
-    private function thenStatisticShouldNotExist(FunctionalTester $I): void
+    private function thenPendingStatisticShouldNotExist(FunctionalTester $I): void
     {
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
             StatisticEnum::GAME_WITHOUT_SLEEP,
-            $this->player->getUser()->getId()
+            $this->player->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
         );
 
         $I->assertNull($statistic);

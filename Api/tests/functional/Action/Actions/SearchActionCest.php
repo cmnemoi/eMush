@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\Search;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -31,7 +31,7 @@ final class SearchActionCest extends AbstractFunctionalTest
 
     private AddSkillToPlayerService $addSkillToPlayer;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
@@ -43,7 +43,7 @@ final class SearchActionCest extends AbstractFunctionalTest
 
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
@@ -110,7 +110,7 @@ final class SearchActionCest extends AbstractFunctionalTest
         ], $I);
     }
 
-    public function shouldIncrementUserStatisticOnSuccess(FunctionalTester $I): void
+    public function shouldIncrementUserPendingStatisticOnSuccess(FunctionalTester $I): void
     {
         // Given a hidden item exists
         $this->givenHiddenEcholocator();
@@ -118,16 +118,18 @@ final class SearchActionCest extends AbstractFunctionalTest
         // When player searches successfully
         $this->whenPlayerSearches();
 
-        // Then the succeeded inspection statistic should be incremented
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(
+        // Then the succeeded inspection pending statistic should be incremented
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
             StatisticEnum::SUCCEEDED_INSPECTION,
-            $this->player->getUser()->getId()
+            $this->player->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
         );
 
         $I->assertEquals(
             expected: [
                 'name' => StatisticEnum::SUCCEEDED_INSPECTION,
                 'userId' => $this->player->getUser()->getId(),
+                'closedDaedalusId' => $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
                 'count' => 1,
                 'isRare' => false,
             ],
@@ -135,7 +137,7 @@ final class SearchActionCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNotIncrementUserStatisticOnFail(FunctionalTester $I): void
+    public function shouldNotIncrementUserPendingStatisticOnFail(FunctionalTester $I): void
     {
         // Given no hidden items exist
 
@@ -143,9 +145,10 @@ final class SearchActionCest extends AbstractFunctionalTest
         $this->whenPlayerSearches();
 
         // Then the succeeded inspection statistic should not be incremented
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
             StatisticEnum::SUCCEEDED_INSPECTION,
-            $this->player->getUser()->getId()
+            $this->player->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
         );
 
         $I->assertNull($statistic);

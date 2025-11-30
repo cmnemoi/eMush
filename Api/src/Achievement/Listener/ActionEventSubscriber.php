@@ -4,19 +4,18 @@ declare(strict_types=1);
 
 namespace Mush\Achievement\Listener;
 
-use Mush\Achievement\Command\IncrementUserStatisticCommand;
 use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Services\UpdatePlayerStatisticService;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\CommanderMissionAcceptedEvent;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Game\Enum\EventPriorityEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 final readonly class ActionEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private MessageBusInterface $commandBus) {}
+    public function __construct(private UpdatePlayerStatisticService $updatePlayerStatisticService) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -48,12 +47,9 @@ final readonly class ActionEventSubscriber implements EventSubscriberInterface
             default => StatisticEnum::NULL,
         };
 
-        $this->commandBus->dispatch(
-            new IncrementUserStatisticCommand(
-                userId: $author->getUser()->getId(),
-                statisticName: $statisticName,
-                language: $author->getLanguage(),
-            )
+        $this->updatePlayerStatisticService->execute(
+            player: $author,
+            statisticName: $statisticName,
         );
     }
 
@@ -69,23 +65,17 @@ final readonly class ActionEventSubscriber implements EventSubscriberInterface
             default => StatisticEnum::NULL,
         };
 
-        $this->commandBus->dispatch(
-            new IncrementUserStatisticCommand(
-                userId: $author->getUser()->getId(),
-                statisticName: $statisticName,
-                language: $author->getLanguage(),
-            )
+        $this->updatePlayerStatisticService->execute(
+            player: $author,
+            statisticName: $statisticName,
         );
     }
 
     public function onCommanderMissionAccepted(CommanderMissionAcceptedEvent $event): void
     {
-        $this->commandBus->dispatch(
-            new IncrementUserStatisticCommand(
-                userId: $event->getCommander()->getUser()->getId(),
-                statisticName: StatisticEnum::GIVE_MISSION,
-                language: $event->getCommander()->getLanguage(),
-            )
+        $this->updatePlayerStatisticService->execute(
+            player: $event->getCommander(),
+            statisticName: StatisticEnum::GIVE_MISSION,
         );
     }
 

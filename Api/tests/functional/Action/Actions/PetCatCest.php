@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepository;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\PetCat;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -33,7 +33,7 @@ final class PetCatCest extends AbstractFunctionalTest
     private PetCat $petCat;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-    private StatisticRepository $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private GameItem $schrodinger;
 
     public function _before(FunctionalTester $I): void
@@ -44,7 +44,7 @@ final class PetCatCest extends AbstractFunctionalTest
         $this->petCat = $I->grabService(PetCat::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepository::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->givenPlayerHasCatInInventory($I);
     }
@@ -146,16 +146,21 @@ final class PetCatCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldIncrementCatCuddledStatistic(FunctionalTester $I): void
+    public function shouldIncrementCatCuddledPendingStatistic(FunctionalTester $I): void
     {
         $this->whenPlayerPetsCat();
 
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::CAT_CUDDLED, $this->player->getUser()->getId());
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            StatisticEnum::CAT_CUDDLED,
+            $this->player->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        );
 
         $I->assertEquals(
             expected: [
                 'name' => StatisticEnum::CAT_CUDDLED,
                 'userId' => $this->player->getUser()->getId(),
+                'closedDaedalusId' => $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
                 'count' => 1,
                 'isRare' => false,
             ],

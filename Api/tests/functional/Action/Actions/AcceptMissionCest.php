@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\AcceptMission;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -27,7 +27,7 @@ final class AcceptMissionCest extends AbstractFunctionalTest
     private AcceptMission $acceptMission;
     private CommanderMission $mission;
     private AddSkillToPlayerService $addSkillToPlayer;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
@@ -37,7 +37,7 @@ final class AcceptMissionCest extends AbstractFunctionalTest
         $this->acceptMission = $I->grabService(AcceptMission::class);
 
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->givenChunSendsAMissionToKuanTi($I);
     }
@@ -110,11 +110,15 @@ final class AcceptMissionCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveActionPoints(6, $I);
     }
 
-    public function shouldIncrementStatistic(FunctionalTester $I): void
+    public function shouldIncrementPendingStatistic(FunctionalTester $I): void
     {
         $this->whenKuanTiAcceptsTheMission();
 
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::GIVE_MISSION, $this->chun->getUser()->getId());
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            StatisticEnum::GIVE_MISSION,
+            $this->chun->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        );
         $I->assertEquals(1, $statistic?->getCount());
     }
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\Extinguish;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -32,7 +32,7 @@ final class ExtinguishCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     private GameItem $extinguisher;
 
@@ -45,7 +45,7 @@ final class ExtinguishCest extends AbstractFunctionalTest
         $this->extinguish = $I->grabService(Extinguish::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->extinguisher = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ToolItemEnum::EXTINGUISHER,
@@ -68,7 +68,7 @@ final class ExtinguishCest extends AbstractFunctionalTest
         $this->thenExtinguishActionConfigRateShouldRemainUnchanged($I);
     }
 
-    public function shouldIncrementStatistic(FunctionalTester $I): void
+    public function shouldIncrementPendingStatistic(FunctionalTester $I): void
     {
         $this->givenFireInRoom();
 
@@ -76,7 +76,11 @@ final class ExtinguishCest extends AbstractFunctionalTest
 
         $this->whenPlayerExtinguishFire();
 
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EXTINGUISH_FIRE, $this->player->getUser()->getId());
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            StatisticEnum::EXTINGUISH_FIRE,
+            $this->player->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        );
         $I->assertEquals(1, $statistic?->getCount());
     }
 

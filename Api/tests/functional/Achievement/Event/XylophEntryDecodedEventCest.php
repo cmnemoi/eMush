@@ -7,7 +7,7 @@ namespace Mush\tests\functional\Achievement\Event;
 use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Communications\Entity\XylophConfig;
 use Mush\Communications\Entity\XylophEntry;
 use Mush\Communications\Enum\XylophEnum;
@@ -21,7 +21,7 @@ use Mush\Tests\FunctionalTester;
 final class XylophEntryDecodedEventCest extends AbstractFunctionalTest
 {
     private DecodeXylophDatabaseService $decodeXylophDatabase;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     private XylophEntry $xylophEntry;
 
@@ -30,7 +30,7 @@ final class XylophEntryDecodedEventCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->decodeXylophDatabase = $I->grabService(DecodeXylophDatabaseService::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
     }
 
     #[DataProvider('xylophEntryProvider')]
@@ -40,7 +40,7 @@ final class XylophEntryDecodedEventCest extends AbstractFunctionalTest
 
         $this->whenPlayerDecodesEntry();
 
-        $this->thenAlivePlayersShouldHaveStatistic($example['statistic'], $I);
+        $this->thenAlivePlayersShouldHavePendingStatistic($example['statistic'], $I);
     }
 
     protected function xylophEntryProvider(): array
@@ -71,19 +71,22 @@ final class XylophEntryDecodedEventCest extends AbstractFunctionalTest
         $this->decodeXylophDatabase->execute($this->xylophEntry, player: $this->player);
     }
 
-    private function thenAlivePlayersShouldHaveStatistic(StatisticEnum $statisticName, FunctionalTester $I): void
+    private function thenAlivePlayersShouldHavePendingStatistic(StatisticEnum $statisticName, FunctionalTester $I): void
     {
+        $closedDaedalusId = $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId();
         foreach ($this->players as $player) {
             $I->assertEquals(
                 expected: [
                     'name' => $statisticName,
                     'count' => 1,
                     'userId' => $player->getUser()->getId(),
+                    'closedDaedalusId' => $closedDaedalusId,
                     'isRare' => false,
                 ],
-                actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
                     $statisticName,
-                    $player->getUser()->getId()
+                    $player->getUser()->getId(),
+                    $closedDaedalusId
                 )?->toArray(),
                 message: "{$player->getLogName()} should have {$statisticName->value} statistic"
             );

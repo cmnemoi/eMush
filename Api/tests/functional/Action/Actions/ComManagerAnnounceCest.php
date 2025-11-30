@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\ComManagerAnnounce;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -21,7 +21,7 @@ final class ComManagerAnnounceCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
     private ComManagerAnnounce $comManagerAnnouncement;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
@@ -29,7 +29,7 @@ final class ComManagerAnnounceCest extends AbstractFunctionalTest
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::COM_MANAGER_ANNOUNCEMENT]);
         $this->comManagerAnnouncement = $I->grabService(ComManagerAnnounce::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->givenChunIsCommsManager();
     }
@@ -62,16 +62,21 @@ final class ComManagerAnnounceCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveAnnouncementReceivedNotification($I);
     }
 
-    public function shouldIncrementUserStatisticOnSuccess(FunctionalTester $I): void
+    public function shouldIncrementUserPendingStatisticOnSuccess(FunctionalTester $I): void
     {
         $this->whenChunMakesAGeneralAnnouncement();
 
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::DAILY_ORDER, $this->chun->getUser()->getId());
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            StatisticEnum::DAILY_ORDER,
+            $this->chun->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        );
 
         $I->assertEquals(
             expected: [
                 'name' => StatisticEnum::DAILY_ORDER,
                 'userId' => $this->chun->getUser()->getId(),
+                'closedDaedalusId' => $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
                 'count' => 1,
                 'isRare' => false,
             ],

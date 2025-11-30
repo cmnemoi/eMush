@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\Unit\Achievement\Command;
 
-use Mush\Achievement\Command\UpdateUserStatisticIfSuperiorCommand;
-use Mush\Achievement\Command\UpdateUserStatisticIfSuperiorCommandHandler;
+use Mush\Achievement\Command\UpdateUserStatisticCommand;
+use Mush\Achievement\Command\UpdateUserStatisticCommandHandler;
 use Mush\Achievement\ConfigData\StatisticConfigData;
 use Mush\Achievement\Entity\Statistic;
 use Mush\Achievement\Entity\StatisticConfig;
@@ -13,6 +13,7 @@ use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Tests\unit\Achievement\TestDoubles\InMemoryStatisticConfigRepository;
 use Mush\Tests\unit\Achievement\TestDoubles\InMemoryStatisticRepository;
 use Mush\User\Entity\User;
 use Mush\User\Factory\UserFactory;
@@ -24,7 +25,7 @@ use PHPUnit\Framework\TestCase;
 final class UpdateUserStatisticIfSuperiorCommandHandlerTest extends TestCase
 {
     private StatisticRepositoryInterface $statisticRepository;
-    private UpdateUserStatisticIfSuperiorCommandHandler $updateUserStatistic;
+    private UpdateUserStatisticCommandHandler $updateUserStatistic;
     private User $user;
     private User $user2;
     private StatisticEnum $statisticName;
@@ -32,13 +33,14 @@ final class UpdateUserStatisticIfSuperiorCommandHandlerTest extends TestCase
     protected function setUp(): void
     {
         $this->statisticRepository = new InMemoryStatisticRepository();
-        $this->updateUserStatistic = new UpdateUserStatisticIfSuperiorCommandHandler(
+        $this->updateUserStatistic = new UpdateUserStatisticCommandHandler(
             eventService: self::createStub(EventServiceInterface::class),
+            statisticConfigRepository: new InMemoryStatisticConfigRepository(),
             statisticRepository: $this->statisticRepository
         );
         $this->user = UserFactory::createUser();
         $this->user2 = UserFactory::createUser();
-        $this->statisticName = StatisticEnum::PLANET_SCANNED;
+        $this->statisticName = StatisticEnum::DAY_MAX;
     }
 
     public function testShouldCreateNewStatisticWhenNoneExists(): void
@@ -135,7 +137,7 @@ final class UpdateUserStatisticIfSuperiorCommandHandlerTest extends TestCase
 
     private function whenUpdatingStatisticToValue(int $value): void
     {
-        $this->updateUserStatistic->__invoke(new UpdateUserStatisticIfSuperiorCommand(
+        $this->updateUserStatistic->__invoke(new UpdateUserStatisticCommand(
             $this->user->getId(),
             $this->statisticName,
             LanguageEnum::FRENCH,
@@ -146,9 +148,9 @@ final class UpdateUserStatisticIfSuperiorCommandHandlerTest extends TestCase
     private function whenUpdatingDifferentStatisticToValue(int $value): void
     {
         // Using a different achievement name for testing multiple achievements
-        ($this->updateUserStatistic)(new UpdateUserStatisticIfSuperiorCommand(
+        ($this->updateUserStatistic)(new UpdateUserStatisticCommand(
             $this->user->getId(),
-            StatisticEnum::EXTINGUISH_FIRE,
+            StatisticEnum::CONTRIBUTIONS,
             LanguageEnum::FRENCH,
             $value
         ));
@@ -173,7 +175,7 @@ final class UpdateUserStatisticIfSuperiorCommandHandlerTest extends TestCase
     private function thenBothStatisticsShouldExist(): void
     {
         $firstStatistic = $this->statisticRepository->findByNameAndUserIdOrNull($this->statisticName, $this->user->getId())?->toArray();
-        $secondStatistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EXTINGUISH_FIRE, $this->user->getId())?->toArray();
+        $secondStatistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::CONTRIBUTIONS, $this->user->getId())?->toArray();
 
         self::assertNotNull($firstStatistic, 'First achievement should still exist');
         self::assertNotNull($secondStatistic, 'Second achievement should be created');
@@ -188,13 +190,13 @@ final class UpdateUserStatisticIfSuperiorCommandHandlerTest extends TestCase
 
     private function whenUpdatingStatisticForBothUsersToValue(int $value): void
     {
-        ($this->updateUserStatistic)(new UpdateUserStatisticIfSuperiorCommand(
+        ($this->updateUserStatistic)(new UpdateUserStatisticCommand(
             $this->user->getId(),
             $this->statisticName,
             LanguageEnum::FRENCH,
             $value
         ));
-        ($this->updateUserStatistic)(new UpdateUserStatisticIfSuperiorCommand(
+        ($this->updateUserStatistic)(new UpdateUserStatisticCommand(
             $this->user2->getId(),
             $this->statisticName,
             LanguageEnum::FRENCH,

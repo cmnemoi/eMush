@@ -163,7 +163,7 @@ final class AchievementControllerCest
             'userId' => $this->user->getId(),
             'statisticName' => StatisticEnum::PLANET_SCANNED->value,
             'language' => 'fr',
-            'newValue' => 2,
+            'count' => 2,
         ]);
 
         $I->seeResponseCodeIs(Response::HTTP_OK);

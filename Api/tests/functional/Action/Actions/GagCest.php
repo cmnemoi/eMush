@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\Gag;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -28,7 +28,7 @@ final class GagCest extends AbstractFunctionalTest
     private DeleteEquipmentServiceInterface $deleteEquipmentService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
@@ -38,7 +38,7 @@ final class GagCest extends AbstractFunctionalTest
         $this->deleteEquipmentService = $I->grabService(DeleteEquipmentServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->givenPlayerHasDuctTape();
     }
@@ -80,11 +80,15 @@ final class GagCest extends AbstractFunctionalTest
         $this->thenPlayer2ShouldBeGagged($I);
     }
 
-    public function shouldIncrementStatistic(FunctionalTester $I): void
+    public function shouldIncrementPendingStatistic(FunctionalTester $I): void
     {
         $this->whenPlayerGagsPlayer2();
 
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::GAGGED, $this->player2->getUser()->getId());
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            StatisticEnum::GAGGED,
+            $this->player2->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        );
         $I->assertEquals(1, $statistic?->getCount());
     }
 

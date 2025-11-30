@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Mush\Achievement\Listener;
 
-use Mush\Achievement\Command\IncrementUserStatisticCommand;
 use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Services\UpdatePlayerStatisticService;
 use Mush\Action\Event\ApplyEffectEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 final readonly class ApplyEffectEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private MessageBusInterface $commandBus) {}
+    public function __construct(private UpdatePlayerStatisticService $updatePlayerStatisticService) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -26,12 +25,9 @@ final readonly class ApplyEffectEventSubscriber implements EventSubscriberInterf
     {
         $player = $event->getAuthor();
 
-        $this->commandBus->dispatch(
-            new IncrementUserStatisticCommand(
-                userId: $player->getUser()->getId(),
-                statisticName: StatisticEnum::SIGNAL_EQUIP,
-                language: $player->getLanguage(),
-            )
+        $this->updatePlayerStatisticService->execute(
+            player: $player,
+            statisticName: StatisticEnum::SIGNAL_EQUIP,
         );
     }
 
@@ -39,12 +35,9 @@ final readonly class ApplyEffectEventSubscriber implements EventSubscriberInterf
     {
         $player = $event->getAuthor();
 
-        $this->commandBus->dispatch(
-            new IncrementUserStatisticCommand(
-                userId: $player->getUser()->getId(),
-                statisticName: StatisticEnum::SIGNAL_FIRE,
-                language: $player->getLanguage(),
-            )
+        $this->updatePlayerStatisticService->execute(
+            player: $player,
+            statisticName: StatisticEnum::SIGNAL_FIRE,
         );
     }
 }

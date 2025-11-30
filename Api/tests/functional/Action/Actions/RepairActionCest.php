@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\Examine;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\ActionConfig;
@@ -42,7 +42,7 @@ final class RepairActionCest extends AbstractFunctionalTest
     private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
@@ -57,7 +57,7 @@ final class RepairActionCest extends AbstractFunctionalTest
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->repairActionConfig->setSuccessRate(100);
     }
@@ -292,7 +292,7 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         $this->whenKuanTiRepairsTheDoor($door);
 
-        $this->thenKuanTiDoorRepairedStatisticShouldBe(1, $I);
+        $this->thenKuanTiDoorRepairedPendingStatisticShouldBe(1, $I);
     }
 
     public function shouldNotIncrementDoorRepairedStatisticWhenRepairingEquipment(FunctionalTester $I): void
@@ -301,7 +301,7 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         $this->whenKuanTiRepairsEquipment($mycoscan);
 
-        $this->thenKuanTiDoorRepairedStatisticShouldBe(0, $I);
+        $this->thenKuanTiDoorRepairedPendingStatisticShouldBe(0, $I);
     }
 
     private function givenABrokenDoorInKuanTiRoom(FunctionalTester $I): Door
@@ -350,11 +350,12 @@ final class RepairActionCest extends AbstractFunctionalTest
         $this->repairAction->execute();
     }
 
-    private function thenKuanTiDoorRepairedStatisticShouldBe(int $expected, FunctionalTester $I): void
+    private function thenKuanTiDoorRepairedPendingStatisticShouldBe(int $expected, FunctionalTester $I): void
     {
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
             StatisticEnum::DOOR_REPAIRED,
-            $this->kuanTi->getUser()->getId()
+            $this->kuanTi->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
         );
 
         $I->assertEquals($expected, $statistic?->getCount() ?? 0);

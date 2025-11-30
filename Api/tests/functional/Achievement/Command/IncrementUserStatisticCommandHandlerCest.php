@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Achievement\Service;
 
-use Mush\Achievement\Command\IncrementUserStatisticCommand;
-use Mush\Achievement\Command\IncrementUserStatisticCommandHandler;
+use Mush\Achievement\Command\UpdateUserStatisticCommand;
+use Mush\Achievement\Command\UpdateUserStatisticCommandHandler;
 use Mush\Achievement\Entity\Achievement;
 use Mush\Achievement\Enum\AchievementEnum;
 use Mush\Achievement\Enum\StatisticEnum;
@@ -21,14 +21,14 @@ use Mush\User\Factory\UserFactory;
  */
 final class IncrementUserStatisticCommandHandlerCest extends AbstractFunctionalTest
 {
-    private IncrementUserStatisticCommandHandler $incrementUserStatistic;
+    private UpdateUserStatisticCommandHandler $incrementUserStatistic;
     private AchievementRepositoryInterface $achievementRepository;
     private StatisticRepositoryInterface $statisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-        $this->incrementUserStatistic = $I->grabService(IncrementUserStatisticCommandHandler::class);
+        $this->incrementUserStatistic = $I->grabService(UpdateUserStatisticCommandHandler::class);
         $this->achievementRepository = $I->grabService(AchievementRepositoryInterface::class);
         $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
     }
@@ -41,7 +41,7 @@ final class IncrementUserStatisticCommandHandlerCest extends AbstractFunctionalT
 
         // When I increment statistic
         $this->incrementUserStatistic->__invoke(
-            new IncrementUserStatisticCommand(
+            new UpdateUserStatisticCommand(
                 $user->getId(),
                 StatisticEnum::PLANET_SCANNED,
                 LanguageEnum::FRENCH,

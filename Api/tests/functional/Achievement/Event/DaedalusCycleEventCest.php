@@ -7,6 +7,7 @@ namespace Mush\Tests\functional\Achievement\Event;
 use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Enum\EventEnum;
@@ -21,14 +22,18 @@ use Mush\Tests\FunctionalTester;
 final class DaedalusCycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private StatisticRepositoryInterface $statisticRepository;
+    private int $closedDaedalusId;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->closedDaedalusId = $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId();
     }
 
     #[DataProvider('dayReachedDataProvider')]
@@ -40,7 +45,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $this->givenExtraPlace($I);
         $this->givenDaedalusIsAtDayXCycle8($day - 1);
         $this->whenNewCycle();
-        $this->thenAllAlivePlayersHaveStatistic($statistic, $I);
+        $this->thenAllAlivePlayersHavePendingStatistic($statistic, $I);
     }
 
     #[DataProvider('dayReachedDataProvider')]
@@ -57,29 +62,11 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $this->givenExtraPlace($I);
         $this->givenDaedalusIsAtDayXCycle8(2);
         $this->whenNewCycle();
-        foreach ($this->players as $player) {
-            $I->assertEquals(
-                expected: 3,
-                actual: $this->statisticRepository->findByNameAndUserIdOrNull(
-                    StatisticEnum::DAY_MAX,
-                    $player->getUser()->getId()
-                )?->getCount(),
-                message: "{$player->getLogName()} should have day max statistic equal to 3"
-            );
-        }
+        $this->thenAlivePlayersHaveDayMaxPendingStatisticOfValue(3, $I);
 
         $this->givenDaedalusIsAtDayXCycle8(3);
         $this->whenNewCycle();
-        foreach ($this->players as $player) {
-            $I->assertEquals(
-                expected: 4,
-                actual: $this->statisticRepository->findByNameAndUserIdOrNull(
-                    StatisticEnum::DAY_MAX,
-                    $player->getUser()->getId()
-                )?->getCount(),
-                message: "{$player->getLogName()} should have day max statistic equal to 4"
-            );
-        }
+        $this->thenAlivePlayersHaveDayMaxPendingStatisticOfValue(4, $I);
     }
 
     public function dayReachedDataProvider(): array
@@ -135,16 +122,24 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenAllAlivePlayersHaveStatistic(StatisticEnum $statistic, FunctionalTester $I): void
+    private function thenAllAlivePlayersHavePendingStatistic(StatisticEnum $statistic, FunctionalTester $I): void
     {
         foreach ($this->players as $player) {
             $I->assertEquals(
                 expected: 1,
+                actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                    $statistic,
+                    $player->getUser()->getId(),
+                    $this->closedDaedalusId
+                )?->getCount(),
+                message: "{$player->getLogName()} should not have {$statistic->value} statistic"
+            );
+            $I->assertNull(
                 actual: $this->statisticRepository->findByNameAndUserIdOrNull(
                     $statistic,
                     $player->getUser()->getId()
                 )?->getCount(),
-                message: "{$player->getLogName()} should have {$statistic->value} statistic"
+                message: "{$player->getLogName()} should not have {$statistic->value} statistic"
             );
         }
     }
@@ -153,10 +148,40 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
     {
         foreach ($this->players as $player) {
             $I->assertNull(
+                actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                    $statistic,
+                    $player->getUser()->getId(),
+                    $this->closedDaedalusId
+                )?->getCount(),
+                message: "{$player->getLogName()} should not have {$statistic->value} statistic"
+            );
+            $I->assertNull(
                 $this->statisticRepository->findByNameAndUserIdOrNull(
                     $statistic,
                     $player->getUser()->getId()
                 )?->getId(),
+            );
+        }
+    }
+
+    private function thenAlivePlayersHaveDayMaxPendingStatisticOfValue(int $expectedValue, FunctionalTester $I): void
+    {
+        foreach ($this->players as $player) {
+            $I->assertEquals(
+                expected: $expectedValue,
+                actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                    StatisticEnum::DAY_MAX,
+                    $player->getUser()->getId(),
+                    $this->closedDaedalusId
+                )?->getCount(),
+                message: "{$player->getLogName()} should have day max pending statistic equal to {$expectedValue}"
+            );
+            $I->assertNull(
+                actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                    StatisticEnum::DAY_MAX,
+                    $player->getUser()->getId()
+                )?->getId(),
+                message: "{$player->getLogName()} should not have day max actual statistic."
             );
         }
     }

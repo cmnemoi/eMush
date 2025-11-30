@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Exploration\PlanetSectorEventHandler;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Planet;
@@ -21,7 +21,7 @@ final class ItemLostHandlerCest extends AbstractExplorationTester
 {
     private ItemLost $itemLostHandler;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     private Planet $planet;
 
@@ -31,7 +31,7 @@ final class ItemLostHandlerCest extends AbstractExplorationTester
 
         $this->itemLostHandler = $I->grabService(ItemLost::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->planet = $this->createPlanet([PlanetSectorEnum::OXYGEN, PlanetSectorEnum::INTELLIGENT], $I);
 
@@ -60,7 +60,7 @@ final class ItemLostHandlerCest extends AbstractExplorationTester
         $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::BURDENED), 'Chun should not have burdened status');
     }
 
-    public function shouldNotIncrementGrenadierStatisticOnGrenadeStolen(FunctionalTester $I): void
+    public function shouldNotIncrementGrenadierPendingStatisticOnGrenadeStolen(FunctionalTester $I): void
     {
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::GRENADE,
@@ -76,9 +76,10 @@ final class ItemLostHandlerCest extends AbstractExplorationTester
         $this->itemLostHandler->handle($event);
 
         $I->assertTrue($this->chun->doesNotHaveEquipment(ItemEnum::GRENADE), 'Chun should not have the grenade');
-        $I->assertNull($this->statisticRepository->findByNameAndUserIdOrNull(
+        $I->assertNull($this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
             name: StatisticEnum::GRENADIER,
             userId: $this->chun->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
         ), 'Chun should not receive grenadier statistic');
     }
 }

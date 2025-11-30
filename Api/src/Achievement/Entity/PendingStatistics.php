@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Achievement\ValueObject\CycleCounts;
 use Mush\Player\Entity\Player;
 
+// deprecated
 #[ORM\Embeddable]
 class PendingStatistics
 {

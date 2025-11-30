@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\ConsumeDrug;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -33,7 +33,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I)
     {
@@ -43,7 +43,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
     }
 
     public function shouldPreventTakingAnotherDrugForCurrentCycle(FunctionalTester $I): void
@@ -176,15 +176,16 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         $I->assertEquals(0, $this->chun->getPlayerInfo()->getStatistics()->getTimesEaten());
     }
 
-    public function shouldIncrementDrugsTakenStatisticWhenPlayerConsumePill(FunctionalTester $I): void
+    public function shouldIncrementDrugsTakenPendingStatisticWhenPlayerConsumePill(FunctionalTester $I): void
     {
         $this->givenPlayerHasFood(GameDrugEnum::BACTA);
 
         $this->whenPlayerConsumesFood(GameDrugEnum::BACTA);
 
-        $I->assertEquals(1, $this->statisticRepository->findByNameAndUserIdOrNull(
+        $I->assertEquals(1, $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
             name: StatisticEnum::DRUGS_TAKEN,
             userId: $this->player->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
         )?->getCount());
     }
 

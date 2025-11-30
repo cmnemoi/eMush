@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Achievement\Command;
 
-use Mush\Achievement\Command\UpdateUserStatisticIfSuperiorCommand;
-use Mush\Achievement\Command\UpdateUserStatisticIfSuperiorCommandHandler;
+use Mush\Achievement\Command\UpdateUserStatisticCommand;
+use Mush\Achievement\Command\UpdateUserStatisticCommandHandler;
 use Mush\Achievement\Entity\Achievement;
 use Mush\Achievement\Enum\AchievementEnum;
 use Mush\Achievement\Enum\StatisticEnum;
@@ -21,14 +21,14 @@ use Mush\User\Factory\UserFactory;
  */
 final class UpdateUserStatisticIfSuperiorCommandHandlerCest extends AbstractFunctionalTest
 {
-    private UpdateUserStatisticIfSuperiorCommandHandler $updateUserStatistic;
+    private UpdateUserStatisticCommandHandler $updateUserStatistic;
     private AchievementRepositoryInterface $achievementRepository;
     private StatisticRepositoryInterface $statisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-        $this->updateUserStatistic = $I->grabService(UpdateUserStatisticIfSuperiorCommandHandler::class);
+        $this->updateUserStatistic = $I->grabService(UpdateUserStatisticCommandHandler::class);
         $this->achievementRepository = $I->grabService(AchievementRepositoryInterface::class);
         $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
     }
@@ -41,22 +41,22 @@ final class UpdateUserStatisticIfSuperiorCommandHandlerCest extends AbstractFunc
 
         // When I update statistic to a value that unlocks achievement
         $this->updateUserStatistic->__invoke(
-            new UpdateUserStatisticIfSuperiorCommand(
+            new UpdateUserStatisticCommand(
                 $user->getId(),
-                StatisticEnum::PLANET_SCANNED,
+                StatisticEnum::DAY_MAX,
                 LanguageEnum::FRENCH,
-                5
+                3
             )
         );
 
         // Then there should be one achievement for this statistic
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::PLANET_SCANNED, $user->getId());
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::DAY_MAX, $user->getId());
         $I->assertEquals(
             expected: [
                 [
-                    'name' => AchievementEnum::PLANET_SCANNED_1,
+                    'name' => AchievementEnum::DAY_MAX_3,
                     'points' => 1,
-                    'unlockThreshold' => 1,
+                    'unlockThreshold' => 3,
                     'statId' => $statistic->getId(),
                 ],
             ],
@@ -72,32 +72,32 @@ final class UpdateUserStatisticIfSuperiorCommandHandlerCest extends AbstractFunc
 
         // First update to high value
         $this->updateUserStatistic->__invoke(
-            new UpdateUserStatisticIfSuperiorCommand(
+            new UpdateUserStatisticCommand(
                 $user->getId(),
-                StatisticEnum::PLANET_SCANNED,
+                StatisticEnum::DAY_MAX,
                 LanguageEnum::FRENCH,
-                5
+                3
             )
         );
 
         // When I update to lower value
         $this->updateUserStatistic->__invoke(
-            new UpdateUserStatisticIfSuperiorCommand(
+            new UpdateUserStatisticCommand(
                 $user->getId(),
-                StatisticEnum::PLANET_SCANNED,
+                StatisticEnum::DAY_MAX,
                 LanguageEnum::FRENCH,
                 2
             )
         );
 
         // Then achievements should remain the same (statistic not updated)
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::PLANET_SCANNED, $user->getId());
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::DAY_MAX, $user->getId());
         $I->assertEquals(
             expected: [
                 [
-                    'name' => AchievementEnum::PLANET_SCANNED_1,
+                    'name' => AchievementEnum::DAY_MAX_3,
                     'points' => 1,
-                    'unlockThreshold' => 1,
+                    'unlockThreshold' => 3,
                     'statId' => $statistic->getId(),
                 ],
             ],

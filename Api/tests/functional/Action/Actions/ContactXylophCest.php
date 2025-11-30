@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\ContactXyloph;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -54,7 +54,7 @@ final class ContactXylophCest extends AbstractFunctionalTest
     private RebelBaseRepositoryInterface $rebelBaseRepository;
     private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private XylophRepositoryInterface $xylophRepository;
 
     private GameEquipment $commsCenter;
@@ -73,7 +73,7 @@ final class ContactXylophCest extends AbstractFunctionalTest
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->roomLogService = $I->grabService(RoomLogServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
 
         // setup projects which do not need specific room to exist to avoid errors in tests
@@ -329,7 +329,7 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
         $this->whenPlayerContactsXyloph();
 
-        $this->thenCommunicationExpertStatisticShouldBe(1, $I);
+        $this->thenCommunicationExpertPendingStatisticShouldBe(1, $I);
         $I->assertTrue($this->daedalus->hasStatus(DaedalusStatusEnum::COMMUNICATIONS_EXPERT));
     }
 
@@ -546,13 +546,14 @@ final class ContactXylophCest extends AbstractFunctionalTest
         $this->xylophRepository->save($xylophEntry);
     }
 
-    private function thenCommunicationExpertStatisticShouldBe(int $expected, FunctionalTester $I): void
+    private function thenCommunicationExpertPendingStatisticShouldBe(int $expected, FunctionalTester $I): void
     {
         $I->assertEquals(
             expected: $expected,
-            actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+            actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
                 name: StatisticEnum::COMMUNICATION_EXPERT,
                 userId: $this->player->getUser()->getId(),
+                closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
             )?->getCount(),
         );
     }

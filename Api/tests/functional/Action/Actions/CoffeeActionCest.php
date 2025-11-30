@@ -3,7 +3,7 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepository;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\Coffee;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -33,7 +33,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-    private StatisticRepository $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private Place $laboratory;
     private Place $refectory;
     private GameEquipment $coffeeMachine;
@@ -48,7 +48,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepository::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->daedalus->getDaedalusConfig()->setCyclePerGameDay(8);
         $this->laboratory = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
@@ -184,7 +184,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $this->thenPlayerCanPullACoffee($I);
     }
 
-    public function shouldIncrementUserStatisticOnSuccess(FunctionalTester $I): void
+    public function shouldIncrementPendingStatisticOnSuccess(FunctionalTester $I): void
     {
         $this->givenPlayerIsIn($this->refectory);
 
@@ -196,12 +196,17 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         );
         $this->coffeeAction->execute();
 
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::COFFEE_TAKEN, $this->player->getUser()->getId());
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            StatisticEnum::COFFEE_TAKEN,
+            $this->player->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        );
 
         $I->assertEquals(
             expected: [
                 'name' => StatisticEnum::COFFEE_TAKEN,
                 'userId' => $this->player->getUser()->getId(),
+                'closedDaedalusId' => $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
                 'count' => 1,
                 'isRare' => false,
             ],

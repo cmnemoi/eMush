@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Achievement;
 
 use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -16,14 +18,18 @@ use Mush\Tests\FunctionalTester;
 
 final class ExplorationEventSubscriberCest extends AbstractExplorationTester
 {
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private StatisticRepositoryInterface $statisticRepository;
     private Exploration $exploration;
+    private ClosedDaedalus $closedDaedalus;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->closedDaedalus = $this->daedalus->getDaedalusInfo()->getClosedDaedalus();
     }
 
     public function shouldIncrementExploFeedStatisticWhenReturningWithFood(FunctionalTester $I): void
@@ -32,7 +38,7 @@ final class ExplorationEventSubscriberCest extends AbstractExplorationTester
 
         $this->whenExplorationIsClosed();
 
-        $this->thenBothPlayersHaveExploFeedStatisticWith(2, $I);
+        $this->thenBothPlayersHaveExploFeedPendingStatisticWith(2, $I);
     }
 
     public function shouldNotIncrementExploFeedStatisticWhenReturningWithoutFood(FunctionalTester $I): void
@@ -113,22 +119,30 @@ final class ExplorationEventSubscriberCest extends AbstractExplorationTester
         $this->explorationService->closeExploration($this->exploration, ['test']);
     }
 
-    private function thenBothPlayersHaveExploFeedStatisticWith(int $count, FunctionalTester $I): void
+    private function thenBothPlayersHaveExploFeedPendingStatisticWith(int $count, FunctionalTester $I): void
     {
+        $player1PendingStatistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(StatisticEnum::EXPLO_FEED, $this->player1->getUser()->getId(), $this->closedDaedalus->getId());
+        $player2PendingStatistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(StatisticEnum::EXPLO_FEED, $this->player2->getUser()->getId(), $this->closedDaedalus->getId());
         $player1Statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EXPLO_FEED, $this->player1->getUser()->getId());
         $player2Statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EXPLO_FEED, $this->player2->getUser()->getId());
 
-        $I->assertNotNull($player1Statistic);
-        $I->assertNotNull($player2Statistic);
-        $I->assertEquals($count, $player1Statistic->getCount());
-        $I->assertEquals($count, $player2Statistic->getCount());
+        $I->assertNotNull($player1PendingStatistic);
+        $I->assertNotNull($player2PendingStatistic);
+        $I->assertNull($player1Statistic);
+        $I->assertNull($player2Statistic);
+        $I->assertEquals($count, $player1PendingStatistic->getCount());
+        $I->assertEquals($count, $player2PendingStatistic->getCount());
     }
 
     private function thenBothPlayersHaveNoExploFeedStatistic(FunctionalTester $I): void
     {
+        $player1PendingStatistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(StatisticEnum::EXPLO_FEED, $this->player1->getUser()->getId(), $this->closedDaedalus->getId());
+        $player2PendingStatistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(StatisticEnum::EXPLO_FEED, $this->player2->getUser()->getId(), $this->closedDaedalus->getId());
         $player1Statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EXPLO_FEED, $this->player1->getUser()->getId());
         $player2Statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EXPLO_FEED, $this->player2->getUser()->getId());
 
+        $I->assertNull($player1PendingStatistic);
+        $I->assertNull($player2PendingStatistic);
         $I->assertNull($player1Statistic);
         $I->assertNull($player2Statistic);
     }

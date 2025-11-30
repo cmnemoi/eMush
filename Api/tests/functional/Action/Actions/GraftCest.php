@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\Graft;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\ActionResult;
@@ -39,7 +39,7 @@ final class GraftCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I)
     {
@@ -49,7 +49,7 @@ final class GraftCest extends AbstractFunctionalTest
         $this->graft = $I->grabService(Graft::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->givenChunHasABananaTree();
         $this->givenChunHasAnAnemole();
@@ -191,11 +191,11 @@ final class GraftCest extends AbstractFunctionalTest
         $this->thenAnemolePlantShouldHaveAge(2, $I);
     }
 
-    public function shouldIncrementStatisticWhenSuccessful(FunctionalTester $I): void
+    public function shouldIncrementPendingStatisticWhenSuccessful(FunctionalTester $I): void
     {
         $this->whenChunGraftsOnBananaTree();
 
-        $this->thenNewPlantsStatisticShouldBeIncrementedForPlayer($this->chun, $I);
+        $this->thenNewPlantsPendingStatisticShouldBeIncrementedForPlayer($this->chun, $I);
     }
 
     public function shouldTakeFruitFromPlayerInventory(FunctionalTester $I): void
@@ -445,18 +445,20 @@ final class GraftCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenNewPlantsStatisticShouldBeIncrementedForPlayer(Player $player, FunctionalTester $I): void
+    private function thenNewPlantsPendingStatisticShouldBeIncrementedForPlayer(Player $player, FunctionalTester $I): void
     {
         $I->assertEquals(
             expected: [
                 'name' => StatisticEnum::NEW_PLANTS,
                 'userId' => $player->getUser()->getId(),
+                'closedDaedalusId' => $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
                 'isRare' => false,
                 'count' => 1,
             ],
-            actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+            actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
                 name: StatisticEnum::NEW_PLANTS,
                 userId: $player->getUser()->getId(),
+                closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
             )->toArray()
         );
     }

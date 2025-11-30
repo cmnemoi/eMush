@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
-use Mush\Achievement\Repository\StatisticRepositoryInterface;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\ReportEquipment;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -36,7 +36,7 @@ final class ReportEquipmentCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-    private StatisticRepositoryInterface $statisticRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private NeronMessageService $neronMessageService;
 
     private GameEquipment $equipment;
@@ -50,7 +50,7 @@ final class ReportEquipmentCest extends AbstractFunctionalTest
         $this->reportEquipment = $I->grabService(ReportEquipment::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->neronMessageService = $I->grabService(NeronMessageService::class);
     }
 
@@ -151,13 +151,17 @@ final class ReportEquipmentCest extends AbstractFunctionalTest
         $this->thenNeronThreadUpdatedAtDateShouldBeNow($I);
     }
 
-    public function shouldIncrementStatistic(FunctionalTester $I): void
+    public function shouldIncrementPendingStatistic(FunctionalTester $I): void
     {
         $this->givenBrokenEquipmentInPlayerRoom();
 
         $this->whenPlayerReportsEquipment();
 
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::SIGNAL_EQUIP, $this->player->getUser()->getId());
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            StatisticEnum::SIGNAL_EQUIP,
+            $this->player->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        );
         $I->assertEquals(1, $statistic?->getCount());
     }
 

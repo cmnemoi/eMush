@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Mush\Achievement\Listener;
 
-use Mush\Achievement\Command\IncrementUserStatisticCommand;
-use Mush\Achievement\Command\UpdateUserStatisticIfSuperiorCommand;
+use Mush\Achievement\Command\UpdateUserStatisticCommand;
 use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Services\PublishPendingStatisticsService;
+use Mush\Achievement\Services\UpdatePlayerStatisticService;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\User\Entity\User;
 use Mush\User\Repository\UserRepositoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -22,6 +22,8 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private MessageBusInterface $commandBus,
+        private PublishPendingStatisticsService $publishPendingStatisticsService,
+        private UpdatePlayerStatisticService $updatePlayerStatisticService,
         private UserRepositoryInterface $userRepository,
     ) {}
 
@@ -29,7 +31,10 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
     {
         return [
             DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => ['onDaedalusNewCycle', EventPriorityEnum::LOWEST],
-            DaedalusEvent::FINISH_DAEDALUS => ['onDaedalusFinish', EventPriorityEnum::HIGHEST],
+            DaedalusEvent::FINISH_DAEDALUS => [
+                ['onDaedalusFinish', EventPriorityEnum::HIGHEST],
+                ['afterDaedalusFinish', EventPriorityEnum::LOWEST],
+            ],
         ];
     }
 
@@ -42,21 +47,15 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
 
         foreach ($daedalus->getAlivePlayers() as $player) {
-            $this->commandBus->dispatch(
-                new IncrementUserStatisticCommand(
-                    userId: $player->getUser()->getId(),
-                    statisticName: StatisticEnum::fromDaedalusDay($daedalus->getDay()),
-                    language: $daedalus->getLanguage(),
-                )
+            $this->updatePlayerStatisticService->execute(
+                player: $player,
+                statisticName: StatisticEnum::fromDaedalusDay($daedalus->getDay()),
             );
 
-            $this->commandBus->dispatch(
-                new UpdateUserStatisticIfSuperiorCommand(
-                    userId: $player->getUser()->getId(),
-                    statisticName: StatisticEnum::DAY_MAX,
-                    language: $daedalus->getLanguage(),
-                    newValue: $daedalus->getDay(),
-                )
+            $this->updatePlayerStatisticService->execute(
+                player: $player,
+                statisticName: StatisticEnum::DAY_MAX,
+                count: $daedalus->getDay()
             );
         }
     }
@@ -67,6 +66,12 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
         $this->incrementCharacterCyclesStatisticFromEvent($event);
     }
 
+    public function afterDaedalusFinish(DaedalusEvent $event): void
+    {
+        $closedDaedalusId = $event->getDaedalus()->getDaedalusInfo()->getClosedDaedalus()->getId();
+        $this->publishPendingStatisticsService->fromClosedDaedalus($closedDaedalusId);
+    }
+
     private function incrementEndCauseStatisticFromEvent(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
@@ -75,7 +80,7 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
         /** @var Player $player */
         foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
             $this->commandBus->dispatch(
-                new IncrementUserStatisticCommand(
+                new UpdateUserStatisticCommand(
                     userId: $player->getUser()->getId(),
                     statisticName: $this->getPlayerStatisticToIncrementFromEvent($player, $event),
                     language: $language,
@@ -84,6 +89,7 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
         }
     }
 
+    // deprecated
     private function incrementCharacterCyclesStatisticFromEvent(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
@@ -108,11 +114,11 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
             // Increment statistics for all characters the user played
             foreach ($user->getCycleCounts()->toArray() as $character => $cycleCount) {
                 $this->commandBus->dispatch(
-                    new IncrementUserStatisticCommand(
+                    new UpdateUserStatisticCommand(
                         userId: $userId,
                         statisticName: StatisticEnum::getCyclesStatFromCharacterName($character),
                         language: $language,
-                        increment: $cycleCount
+                        count: $cycleCount
                     )
                 );
             }

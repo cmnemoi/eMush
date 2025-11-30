@@ -233,7 +233,7 @@ class Drone extends GameItem
     public function toExamineLogParameters(Translate $translate): array
     {
         if (!$this->isUpgraded()) {
-            return [];
+            return ['drone_upgrades' => ''];
         }
 
         $upgrades = $this->getUpgrades()->map(function (Status $upgrade) use ($translate) {

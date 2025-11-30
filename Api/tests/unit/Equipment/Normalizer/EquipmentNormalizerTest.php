@@ -403,16 +403,17 @@ final class EquipmentNormalizerTest extends TestCase
         $drone = GameEquipmentFactory::createDroneForHolder($player);
         StatusFactory::createStatusByNameForHolder($upgrade, $drone);
 
+        // Mock __invoke for Drone::toExamineLogParameters which calls the service as a callable
         $this->translationService
-            ->shouldReceive('translate')
-            ->with('support_drone.description', [], 'items', LanguageEnum::FRENCH)
-            ->andReturn('Support drone description')
+            ->shouldReceive('__invoke')
+            ->with($upgrade . '.description', [], 'status', LanguageEnum::FRENCH)
+            ->andReturn($upgrade)
             ->once();
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with($upgrade . '.description', [], 'status', LanguageEnum::FRENCH)
-            ->andReturn($upgrade)
+            ->with('support_drone.description', ['drone_upgrades' => $upgrade], 'items', LanguageEnum::FRENCH)
+            ->andReturn("Support drone description//{$upgrade}")
             ->once();
 
         $this->translationService->shouldIgnoreMissing();
@@ -445,7 +446,7 @@ final class EquipmentNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('support_drone.description', [], 'items', LanguageEnum::FRENCH)
+            ->with('support_drone.description', ['drone_upgrades' => ''], 'items', LanguageEnum::FRENCH)
             ->andReturn('Support drone description')
             ->once();
 

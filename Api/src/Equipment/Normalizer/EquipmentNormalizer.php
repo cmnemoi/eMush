@@ -295,6 +295,13 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             $translationParameters['quantity'] = $equipment->getUsedCharge(ActionEnum::OPEN_CONTAINER->toString())?->getCharge();
         }
 
+        if ($equipment instanceof Drone) {
+            $translationParameters = array_merge(
+                $translationParameters,
+                $equipment->toExamineLogParameters($this->translationService)
+            );
+        }
+
         $description = $this->translationService->translate("{$key}.description", $translationParameters, $type, $language);
 
         if ($equipment->hasMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) {
@@ -307,22 +314,6 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
                 );
                 $description = "{$description}//{$ingredientTranslation}";
             }
-        }
-
-        if ($equipment instanceof Drone && $equipment->isUpgraded()) {
-            $upgrades = '';
-
-            foreach ($equipment->getUpgrades() as $upgrade) {
-                $upgrades = $upgrades
-                . '//'
-                . $this->translationService->translate(
-                    $upgrade->getName() . '.description',
-                    [],
-                    'status',
-                    $language,
-                );
-            }
-            $description = "{$description}{$upgrades}";
         }
 
         return $description;

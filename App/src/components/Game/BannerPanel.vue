@@ -10,14 +10,7 @@
             <div class="character-info">
                 <span class="character-name">
                     {{ player.character.name }}
-                    <Tippy tag="span">
-                        <router-link :to="`biography/${player.character.key}`">
-                            <img :src="getImgUrl('ui_icons/book.png')" alt="biography" />
-                        </router-link>
-                        <template #content>
-                            <p>{{ $t('biography.readCharacterBiography', { characterName: player.character.name }) }}</p>
-                        </template>
-                    </Tippy>
+                    <GoToCharacterBiographyButton :character="player.character"/>
                 </span>
                 <div class="titles">
                     <Tippy tag="ul" v-for="(key) in player.titles" :key="key">
@@ -147,11 +140,11 @@ import PlayerService from "@/services/player.service";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-
+import GoToCharacterBiographyButton from "@/components/Game/GoToCharacterBiographyButton.vue";
 
 export default defineComponent({
     name: "BannerPanel",
-    components: { Alerts, CountdownTimer, LearnSkillMenu, SkillSelectionMenu, TitleImage },
+    components: { Alerts, CountdownTimer, LearnSkillMenu, SkillSelectionMenu, TitleImage, GoToCharacterBiographyButton },
     props: {
         player: Player,
         daedalus: Daedalus

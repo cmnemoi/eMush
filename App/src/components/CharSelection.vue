@@ -30,6 +30,7 @@
                     <p class="level">{{ character.level }}</p>
                     <h2 class="name">
                         {{ character.name }}
+                        <GoToCharacterBiographyButton :character="character"/>
                     </h2>
                 </div>
                 <div class="portrait">
@@ -75,8 +76,15 @@
                 </Tippy>
             </div>
             <div class="description">
-                <p v-if="characterHovered">{{ hoveredCharacter?.abstract }}</p>
-                <p v-else-if="characterSelected">{{ selectedCharacter?.abstract }}</p>
+                <p v-if="characterHovered">
+                    {{ hoveredCharacter?.abstract }}
+                </p>
+                <p v-else-if="characterSelected">
+                    {{ selectedCharacter?.abstract }}
+                    <router-link class="link" :to="`biography/${selectedCharacter?.key}`">
+                        <p>{{ $t('biography.readCharacterBiography', { characterName: selectedCharacter?.name }) }}</p>
+                    </router-link>
+                </p>
             </div>
             <div class="gamestart" v-if="selectedCharacter">
                 <p class="choice">
@@ -99,6 +107,7 @@ import { gameLocales } from "@/i18n";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { formatText } from "@/utils/formatText";
 import { SkillIconRecord } from "@/enums/skill.enum";
+import GoToCharacterBiographyButton from "@/components/Game/GoToCharacterBiographyButton.vue";
 
 type SelectableCharacter = {
     key: string;
@@ -121,6 +130,7 @@ export default defineComponent ({
         };
     },
     components: {
+        GoToCharacterBiographyButton,
         Spinner
     },
     props: {
@@ -373,6 +383,12 @@ h1 {
     .description {
         padding: 1em;
         line-height: 1.4em;
+
+        .link {
+            color: $green;
+            text-decoration: none;
+            &:hover, &:focus, &:active { color: white; }
+        }
     }
 
     .gamestart {

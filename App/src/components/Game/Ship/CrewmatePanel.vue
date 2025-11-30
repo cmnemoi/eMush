@@ -8,6 +8,7 @@
                 <div>
                     <p class="name">
                         {{ getSelectedPlayer.character.name }}
+                        <GoToCharacterBiographyButton :character="getSelectedPlayer?.character"/>
                     </p>
                     <div class="crewmate-attributes">
                         <div class="titles">
@@ -79,6 +80,7 @@ import { formatText } from "@/utils/formatText";
 import { useDoubleTap } from "@/utils/useDoubleTap";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import GoToCharacterBiographyButton from "@/components/Game/GoToCharacterBiographyButton.vue";
 
 type ActionType = 'human' | 'mush' | 'admin'
 

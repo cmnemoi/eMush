@@ -1,3 +1,50 @@
+# [0.18.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.17.1...0.18.0) (2025-11-30)
+
+
+### Bug Fixes
+
+* Cannot join already filled Daedalus ([cef1143](https://gitlab.com/eternaltwin/mush/mush/commit/cef114370f358e2c85746982fa5ff93dea4c1171))
+* deleted drop_success log dupe of drop action log ([41bdac8](https://gitlab.com/eternaltwin/mush/mush/commit/41bdac819605bb09047819d152b5fec73f7b2cfd))
+* do not display fertile bonus as skill points ([fd97828](https://gitlab.com/eternaltwin/mush/mush/commit/fd97828c49e6a4003a4cb9ae50d13190d9301823))
+* Do not send Push notifications every time user does not have eMush open ([0541168](https://gitlab.com/eternaltwin/mush/mush/commit/0541168ad190c82f707e6f272132c933ce875054))
+* don't throw if trying to convert to mush a player with full private channels ([8dcde7d](https://gitlab.com/eternaltwin/mush/mush/commit/8dcde7d173e2e96fd9b2a53d9eab5f60e484e1dd))
+* Extinguish fire manually gives Fire extinguish stat ([3af7b00](https://gitlab.com/eternaltwin/mush/mush/commit/3af7b0006f9235ab85b34a681cd745c2d69f38e2))
+* Fertile do not give free spore anymore when skill is lost ([a77f6cb](https://gitlab.com/eternaltwin/mush/mush/commit/a77f6cb572bbf45ae54a615935c6501399a6f95b))
+* Fertile is not usable during the same day if you lost and takes it again ([34210c8](https://gitlab.com/eternaltwin/mush/mush/commit/34210c8ab8a6797a795db40bad5d7ad0d5111788))
+* Fix Adapt Epigenetics log ([5ce5bf0](https://gitlab.com/eternaltwin/mush/mush/commit/5ce5bf0a97b508ab65c0da51ec66f57a4671a2d8))
+* Fix Kivanç stat icon ([2186e81](https://gitlab.com/eternaltwin/mush/mush/commit/2186e81088036437862df505089f863ed320ab5d))
+* moved background image down 32px to account for presence of top bar ([29ae04e](https://gitlab.com/eternaltwin/mush/mush/commit/29ae04efe238fe6befb0b653413a7b3c4a6b90cf))
+* new Crowdin translations ([647860b](https://gitlab.com/eternaltwin/mush/mush/commit/647860b45ad9b7e160ebabc30906f3a3e1f7f1b4))
+* new Crowdin translations ([5ec4197](https://gitlab.com/eternaltwin/mush/mush/commit/5ec4197fa898129bbe58a95a92d907a1371a385e))
+* new Crowdin translations ([2a471f1](https://gitlab.com/eternaltwin/mush/mush/commit/2a471f1ab1dd7a4c7019e4b562b601551245d1d9))
+* new Crowdin translations ([ea1dd62](https://gitlab.com/eternaltwin/mush/mush/commit/ea1dd629cae082045cf017b2e9c6360cbb841b7c))
+* Remove drone upgrade placeholder when examinating drones if not upgraded ([1a1afbf](https://gitlab.com/eternaltwin/mush/mush/commit/1a1afbf99169a1703a0809b5a7b00a9491aeccb8))
+* You can unlock multiple acheivements for the same statistic ([eb8b8f7](https://gitlab.com/eternaltwin/mush/mush/commit/eb8b8f79f25e02e083a0ab8ee6c9d5a284824b6e))
+* You cannot Run Home from an expedition if you're lost ([47c72b0](https://gitlab.com/eternaltwin/mush/mush/commit/47c72b0b5c92b0b104692e7710d8d743421cddd6))
+
+
+### Features
+
+* **42nd Floor:** Burnt plants leave an hydropot ([c83e244](https://gitlab.com/eternaltwin/mush/mush/commit/c83e244e3cde15ea978ef10c9145d1036d4e19ad))
+* add biography page ([b7bb916](https://gitlab.com/eternaltwin/mush/mush/commit/b7bb9164e2b88f4bf0a87489c6dbbd66798b83bc))
+* can add the option to give random spores when a ship is full ([0ac99ac](https://gitlab.com/eternaltwin/mush/mush/commit/0ac99acc9fe00e97592d1c5d7252a5d8aac6c9fa))
+* **community suggestion:** Add an emoji to minimap reported fires for colorblind users ([ee82806](https://gitlab.com/eternaltwin/mush/mush/commit/ee82806a5d0181c4533a1777182caabc6a312da4))
+* **community suggestion:** Less ingame popups setting ([70faebf](https://gitlab.com/eternaltwin/mush/mush/commit/70faebfbae02f9fc937a3ac443023aaa754ac786))
+* **community suggestion:** New Push notifications when daedalus is filled and finished ([f623d24](https://gitlab.com/eternaltwin/mush/mush/commit/f623d24a6f71d9fea564296c84c51057a47f973e))
+* Evian is no longer in 42nd Floor ([d5abf53](https://gitlab.com/eternaltwin/mush/mush/commit/d5abf53f2e10e3734e1619a91faf014beb125eb3))
+* Instead of doubling negative event weights, Traitor can guarantee a negative event on one sector per exploration ([bbb5e23](https://gitlab.com/eternaltwin/mush/mush/commit/bbb5e23811f2c69584b33b032ad51a4833779015))
+* mush channel has pheromodem icon for humans + finish project admin endpoint ([a4551d5](https://gitlab.com/eternaltwin/mush/mush/commit/a4551d505889e616a92545d155f3ff7d337c2f55))
+* New banner style + add new links to banner and user menu ([49b3dbe](https://gitlab.com/eternaltwin/mush/mush/commit/49b3dbe27f0c8b04ea20eb2a347ef4bd50d51b8a))
+* nurse buffed to 2 daily Nurse Points ([2d64bb5](https://gitlab.com/eternaltwin/mush/mush/commit/2d64bb54b71b7738f407eaa9f8af0df03f40416f))
+* Observant no longer "notices" already revealed secret logs ([fe66e53](https://gitlab.com/eternaltwin/mush/mush/commit/fe66e5396150cb82880039e0fa10dd75f182955e))
+* Satiety works the same for mush as for humans ([4c82ac2](https://gitlab.com/eternaltwin/mush/mush/commit/4c82ac2be99893ec526d6e636d934d950ba3ee63))
+* **stat:** Grenadier ([40b0547](https://gitlab.com/eternaltwin/mush/mush/commit/40b0547430b6ce0d706b531d1ff67a86b2c22079))
+* **stat:** Plasma Shield ([bf4aff0](https://gitlab.com/eternaltwin/mush/mush/commit/bf4aff0000274f910bcfaa501f31cd05950a82ac))
+* **stat:** Revolution! ([e7e04e1](https://gitlab.com/eternaltwin/mush/mush/commit/e7e04e1c172af99fd9ffe06e8bd85a2b4f5afac2))
+* Stats are displayed in a Hordes-like grid ([1eb1a01](https://gitlab.com/eternaltwin/mush/mush/commit/1eb1a01f34907f8b6657594f7b4e942b8d599c2a))
+* Support female titles ([7f5d898](https://gitlab.com/eternaltwin/mush/mush/commit/7f5d89803c8735dbedcecf94ce84f862b33e88bc))
+* U-Turn and Traitor can see which sector is next in Expedition ([af415d3](https://gitlab.com/eternaltwin/mush/mush/commit/af415d34ab05cb7fa39b6ba63f9a1bf278523f8b))
+
 ## [0.17.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.17.0...0.17.1) (2025-11-16)
 
 

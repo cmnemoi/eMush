@@ -201,6 +201,7 @@ enum AchievementEnum: string
     case TEAM_ALL_REBELS_10 = 'team_all_rebels_10';
     case PLASMA_SHIELD_1 = 'plasma_shield_1';
     case GRENADIER_1 = 'grenadier_1';
+    case FROZEN_TAKEN_1 = 'frozen_taken_1';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

@@ -3,6 +3,8 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -26,6 +28,7 @@ final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
 {
     private Consume $consumeAction;
     private StatusServiceInterface $statusService;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private ActionConfig $action;
 
     public function _before(FunctionalTester $I)
@@ -39,6 +42,7 @@ final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
 
         $this->consumeAction = $I->grabService(Consume::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
     }
 
     public function testHitSuccess(FunctionalTester $I)
@@ -106,5 +110,12 @@ final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
         $costWithFrozen = $this->consumeAction->getActionPointCost();
 
         $I->assertEquals($costWithoutFrozen + 1, $costWithFrozen);
+
+        $this->consumeAction->execute();
+        $I->assertEquals(1, $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            name: StatisticEnum::FROZEN_TAKEN,
+            userId: $this->player1->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
+        )?->getCount());
     }
 }

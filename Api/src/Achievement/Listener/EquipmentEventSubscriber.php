@@ -6,10 +6,12 @@ namespace Mush\Achievement\Listener;
 
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Services\UpdatePlayerStatisticService;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\EventPriorityEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class EquipmentEventSubscriber implements EventSubscriberInterface
@@ -51,6 +53,13 @@ final readonly class EquipmentEventSubscriber implements EventSubscriberInterfac
                     statisticName: StatisticEnum::GRENADIER,
                 );
             }
+        }
+
+        if ($equipment->hasStatus(EquipmentStatusEnum::FROZEN) && $event->hasTag(ActionEnum::CONSUME->toString())) {
+            $this->updatePlayerStatisticService->execute(
+                player: $event->getAuthorOrThrow(),
+                statisticName: StatisticEnum::FROZEN_TAKEN,
+            );
         }
     }
 }

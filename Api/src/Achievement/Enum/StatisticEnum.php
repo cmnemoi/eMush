@@ -69,6 +69,7 @@ enum StatisticEnum: string
     case TEAM_ALL_REBELS = 'team_all_rebels';
     case PLASMA_SHIELD = 'plasma_shield';
     case GRENADIER = 'grenadier';
+    case FROZEN_TAKEN = 'frozen_taken';
     case NULL = '';
 
     public static function fromOrNull(string $value): self

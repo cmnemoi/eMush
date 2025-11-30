@@ -26,14 +26,14 @@ final readonly class UnlockStatisticAchievementCommandHandler
     {
         $statisticId = $command->statisticId;
 
-        if ($this->achievementRepository->existsForStatistic($statisticId)) {
-            return;
-        }
-
         $statistic = $this->statisticRepository->findOneById($statisticId);
         $achievementConfigsToUnlock = $this->achievementConfigRepository->findAllToUnlockForStatistic($statistic);
 
         foreach ($achievementConfigsToUnlock as $achievementConfig) {
+            if ($this->achievementRepository->existsForStatisticAndConfig($statisticId, $achievementConfig)) {
+                continue;
+            }
+
             $achievement = new Achievement($achievementConfig, $statistic->getId());
             $this->achievementRepository->save($achievement);
             $this->eventDispatcher->dispatch(new AchievementUnlockedEvent($achievement, $statistic->getUserId(), $command->language));

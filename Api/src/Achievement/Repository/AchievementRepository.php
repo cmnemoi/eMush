@@ -7,6 +7,7 @@ namespace Mush\Achievement\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Achievement\Entity\Achievement;
+use Mush\Achievement\Entity\AchievementConfig;
 use Mush\Achievement\Entity\Statistic;
 
 /**
@@ -19,9 +20,9 @@ final class AchievementRepository extends ServiceEntityRepository implements Ach
         parent::__construct($registry, Achievement::class);
     }
 
-    public function existsForStatistic(int $statisticId): bool
+    public function existsForStatisticAndConfig(int $statisticId, AchievementConfig $config): bool
     {
-        return $this->findOneBy(['statistic' => $statisticId]) !== null;
+        return $this->findOneBy(['statistic' => $statisticId, 'config' => $config]) !== null;
     }
 
     public function save(Achievement $achievement): void

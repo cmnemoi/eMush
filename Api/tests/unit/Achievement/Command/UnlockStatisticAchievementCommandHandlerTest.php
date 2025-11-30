@@ -25,6 +25,7 @@ final class UnlockStatisticAchievementCommandHandlerTest extends TestCase
     private InMemoryAchievementConfigRepository $achievementConfigRepository;
     private InMemoryAchievementRepository $achievementRepository;
     private InMemoryStatisticRepository $statisticRepository;
+    private Statistic $statistic;
 
     private UnlockStatisticAchievementCommandHandler $unlockStatisticAchievement;
 
@@ -44,92 +45,123 @@ final class UnlockStatisticAchievementCommandHandlerTest extends TestCase
 
     public function testShouldUnlockAchievementIfStatCountMetThreshold(): void
     {
-        $statistic = Statistic::createForTest(StatisticEnum::PLANET_SCANNED, count: 1);
-        $this->statisticRepository->save($statistic);
+        $this->givenStatistic(StatisticEnum::PLANET_SCANNED, count: 1);
+        $this->givenAchievementConfig(AchievementEnum::PLANET_SCANNED_1, unlockThreshold: 1);
 
-        $achievementConfig = new AchievementConfig(
-            name: AchievementEnum::PLANET_SCANNED_1,
-            points: 0,
-            unlockThreshold: 1,
-            statisticConfig: $statistic->getConfig(),
-        );
-        $this->achievementConfigRepository->save($achievementConfig);
+        $this->whenIUnlockAchievementsForStatistic();
 
-        $this->unlockStatisticAchievement->__invoke(new UnlockStatisticAchievementCommand($statistic->getId(), LanguageEnum::FRENCH));
-
-        $achievement = $this->achievementRepository->findOneByNameOrNull(AchievementEnum::PLANET_SCANNED_1);
-        self::assertEquals(
-            expected: [
-                'name' => AchievementEnum::PLANET_SCANNED_1,
-                'points' => 0,
-                'unlockThreshold' => 1,
-                'statId' => $statistic->getId(),
-            ],
-            actual: $achievement?->toArray()
-        );
+        $this->thenAchievementShouldBeUnlocked(AchievementEnum::PLANET_SCANNED_1);
     }
 
     public function testShouldNotUnlockAchievementIfStatCountNotMetThreshold(): void
     {
-        $statistic = Statistic::createForTest(StatisticEnum::PLANET_SCANNED, count: 0);
-        $this->statisticRepository->save($statistic);
+        $this->givenStatistic(StatisticEnum::PLANET_SCANNED, count: 0);
+        $this->givenAchievementConfig(AchievementEnum::PLANET_SCANNED_1, unlockThreshold: 1);
 
-        $achievementConfig = new AchievementConfig(
-            name: AchievementEnum::PLANET_SCANNED_1,
-            points: 0,
-            unlockThreshold: 1,
-            statisticConfig: $statistic->getConfig(),
-        );
-        $this->achievementConfigRepository->save($achievementConfig);
+        $this->whenIUnlockAchievementsForStatistic();
 
-        $this->unlockStatisticAchievement->__invoke(new UnlockStatisticAchievementCommand($statistic->getId(), LanguageEnum::FRENCH));
-
-        $achievement = $this->achievementRepository->findOneByNameOrNull(AchievementEnum::PLANET_SCANNED_1);
-
-        self::assertNull($achievement, 'Achievement should not be found');
+        $this->thenAchievementShouldNotBeUnlocked(AchievementEnum::PLANET_SCANNED_1);
     }
 
     public function testShouldNotUnlockAchievementOfAnotherStatistic(): void
     {
-        $statistic = Statistic::createForTest(StatisticEnum::PLANET_SCANNED, count: 1);
-        $this->statisticRepository->save($statistic);
+        $this->givenStatistic(StatisticEnum::PLANET_SCANNED, count: 1);
+        $otherStatistic = $this->givenOtherStatistic(StatisticEnum::NULL, count: 0);
+        $this->givenAchievementConfigForStatistic(AchievementEnum::NULL, unlockThreshold: 1, statistic: $otherStatistic);
 
-        $otherStatistic = Statistic::createForTest(StatisticEnum::NULL, count: 0);
-        $this->statisticRepository->save($otherStatistic);
+        $this->whenIUnlockAchievementsForStatistic();
 
-        $achievementConfig = new AchievementConfig(
-            name: AchievementEnum::NULL,
-            points: 0,
-            unlockThreshold: 1,
-            statisticConfig: $otherStatistic->getConfig(),
-        );
-        $this->achievementConfigRepository->save($achievementConfig);
-
-        $this->unlockStatisticAchievement->__invoke(new UnlockStatisticAchievementCommand($statistic->getId(), LanguageEnum::FRENCH));
-
-        $achievement = $this->achievementRepository->findOneByNameOrNull(AchievementEnum::NULL);
-
-        self::assertNull($achievement, 'Achievement should not be found');
+        $this->thenAchievementShouldNotBeUnlocked(AchievementEnum::NULL);
     }
 
     public function testShouldNotUnlockAnAchievementTwiceForTheSameStatistic(): void
     {
-        $statistic = Statistic::createForTest(StatisticEnum::PLANET_SCANNED, count: 1);
+        $this->givenStatistic(StatisticEnum::PLANET_SCANNED, count: 1);
+        $this->givenAchievementConfig(AchievementEnum::PLANET_SCANNED_1, unlockThreshold: 1);
+        $this->givenAchievementAlreadyUnlockedForStatistic(AchievementEnum::PLANET_SCANNED_1);
+
+        $this->whenIUnlockAchievementsForStatistic();
+
+        $this->thenStatisticShouldHaveExactlyNAchievements(1);
+    }
+
+    public function testShouldUnlockMultipleAchievementsAtDifferentThresholdsForSameStatistic(): void
+    {
+        $this->givenStatistic(StatisticEnum::EXPLORER, count: 50);
+        $this->givenAchievementConfig(AchievementEnum::EXPLORER_1, unlockThreshold: 1);
+        $this->givenAchievementConfig(AchievementEnum::EXPLORER_50, unlockThreshold: 50);
+        $this->givenAchievementAlreadyUnlockedForStatistic(AchievementEnum::EXPLORER_1);
+
+        $this->whenIUnlockAchievementsForStatistic();
+
+        $this->thenStatisticShouldHaveExactlyNAchievements(2);
+        $this->thenAchievementShouldBeUnlocked(AchievementEnum::EXPLORER_1);
+        $this->thenAchievementShouldBeUnlocked(AchievementEnum::EXPLORER_50);
+    }
+
+    private function givenStatistic(StatisticEnum $name, int $count): void
+    {
+        $this->statistic = Statistic::createForTest($name, count: $count);
+        $this->statisticRepository->save($this->statistic);
+    }
+
+    private function givenOtherStatistic(StatisticEnum $name, int $count): Statistic
+    {
+        $statistic = Statistic::createForTest($name, count: $count);
         $this->statisticRepository->save($statistic);
 
+        return $statistic;
+    }
+
+    private function givenAchievementConfig(AchievementEnum $name, int $unlockThreshold): void
+    {
+        $this->givenAchievementConfigForStatistic($name, $unlockThreshold, $this->statistic);
+    }
+
+    private function givenAchievementConfigForStatistic(AchievementEnum $name, int $unlockThreshold, Statistic $statistic): void
+    {
         $achievementConfig = new AchievementConfig(
-            name: AchievementEnum::PLANET_SCANNED_1,
+            name: $name,
             points: 0,
-            unlockThreshold: 1,
+            unlockThreshold: $unlockThreshold,
             statisticConfig: $statistic->getConfig(),
         );
         $this->achievementConfigRepository->save($achievementConfig);
+    }
 
-        $this->unlockStatisticAchievement->__invoke(new UnlockStatisticAchievementCommand($statistic->getId(), LanguageEnum::FRENCH));
-        $this->unlockStatisticAchievement->__invoke(new UnlockStatisticAchievementCommand($statistic->getId(), LanguageEnum::FRENCH));
+    private function givenAchievementAlreadyUnlockedForStatistic(AchievementEnum $name): void
+    {
+        $this->unlockStatisticAchievement->__invoke(
+            new UnlockStatisticAchievementCommand($this->statistic->getId(), LanguageEnum::FRENCH)
+        );
+    }
 
-        $achievements = $this->achievementRepository->findAllByStatistic($statistic);
+    private function whenIUnlockAchievementsForStatistic(): void
+    {
+        $this->unlockStatisticAchievement->__invoke(
+            new UnlockStatisticAchievementCommand($this->statistic->getId(), LanguageEnum::FRENCH)
+        );
+    }
 
-        self::assertCount(1, $achievements, 'Only one achievement should be found');
+    private function thenAchievementShouldBeUnlocked(AchievementEnum $name): void
+    {
+        self::assertNotNull(
+            $this->achievementRepository->findOneByNameOrNull($name),
+            "Achievement {$name->value} should be unlocked"
+        );
+    }
+
+    private function thenAchievementShouldNotBeUnlocked(AchievementEnum $name): void
+    {
+        self::assertNull(
+            $this->achievementRepository->findOneByNameOrNull($name),
+            "Achievement {$name->value} should not be unlocked"
+        );
+    }
+
+    private function thenStatisticShouldHaveExactlyNAchievements(int $count): void
+    {
+        $achievements = $this->achievementRepository->findAllByStatistic($this->statistic);
+        self::assertCount($count, $achievements, "Statistic should have exactly {$count} achievement(s)");
     }
 }

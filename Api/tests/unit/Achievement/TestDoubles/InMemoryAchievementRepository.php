@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\unit\Achievement\TestDoubles;
 
 use Mush\Achievement\Entity\Achievement;
+use Mush\Achievement\Entity\AchievementConfig;
 use Mush\Achievement\Entity\Statistic;
 use Mush\Achievement\Enum\AchievementEnum;
 use Mush\Achievement\Repository\AchievementRepositoryInterface;
@@ -14,10 +15,10 @@ final class InMemoryAchievementRepository implements AchievementRepositoryInterf
     /** @var array<string, Achievement> */
     private array $achievements = [];
 
-    public function existsForStatistic(int $statisticId): bool
+    public function existsForStatisticAndConfig(int $statisticId, AchievementConfig $config): bool
     {
         foreach ($this->achievements as $achievement) {
-            if ($achievement->getStatisticId() === $statisticId) {
+            if ($achievement->getStatisticId() === $statisticId && $achievement->getConfig() === $config) {
                 return true;
             }
         }
@@ -28,8 +29,10 @@ final class InMemoryAchievementRepository implements AchievementRepositoryInterf
     public function save(Achievement $achievement): void
     {
         foreach ($this->achievements as $key => $value) {
-            if ($value->getName() === $achievement->getName()) {
-                $this->achievements[$key] = $achievement;
+            if ($value->getName() === $achievement->getName() && $value->getStatisticId() === $achievement->getStatisticId()) {
+                $this->achievements[$key] = $this->copy($achievement);
+
+                return;
             }
         }
 

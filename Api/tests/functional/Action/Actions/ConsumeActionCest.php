@@ -113,14 +113,24 @@ final class ConsumeActionCest extends AbstractFunctionalTest
     public function testMushConsume(FunctionalTester $I)
     {
         $this->givenKuanTiIsMush();
+        $this->kuanTi
+            ->setActionPoint(5)
+            ->setHealthPoint(5)
+            ->setMoralPoint(5)
+            ->setMovementPoint(5)
+            ->setSatiety(-7);
 
-        $this->givenKuanTiHasKubinus();
+        $this->givenKuanTiHasANonStandardRation($I);
 
-        $this->whenKuanTiConsumesTheKubinus();
+        $this->whenKuanTiConsumesTheRation();
 
-        $I->assertEquals(4, $this->kuanTi->getSatiety(), 'Kuan Ti should have 4 satiety, not ' . $this->kuanTi->getSatiety());
-        $I->assertTrue($this->kuanTi->hasStatus(PlayerStatusEnum::FULL_STOMACH));
-        $I->assertFalse($this->kuanTi->hasEquipmentByName(GameFruitEnum::KUBINUS), 'Kuan Ti should not have the kubinus');
+        $I->assertEquals(5, $this->kuanTi->getActionPoint(), 'Mush Kuan Ti should have 5 action points, not ' . $this->kuanTi->getActionPoint());
+        $I->assertEquals(5, $this->kuanTi->getMovementPoint(), 'Mush Kuan Ti should have 5 movement points, not ' . $this->kuanTi->getMovementPoint());
+        $I->assertEquals(5, $this->kuanTi->getMoralPoint(), 'Mush Kuan Ti should have 5 moral points, not ' . $this->kuanTi->getMoralPoint());
+        $I->assertEquals(5, $this->kuanTi->getHealthPoint(), 'Mush Kuan Ti should have 5 health points, not ' . $this->kuanTi->getHealthPoint());
+        $I->assertEquals(1, $this->kuanTi->getSatiety(), 'Mush Kuan Ti should have 1 satiety, not ' . $this->kuanTi->getSatiety());
+        $I->assertFalse($this->kuanTi->hasEquipmentByName(GameRationEnum::STANDARD_RATION), 'Kuan Ti should not have the standard ration');
+        $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::STARVING), 'Kuan Ti should not have the starving status');
     }
 
     public function testMushConsumePrintsASpecificLog(FunctionalTester $I): void

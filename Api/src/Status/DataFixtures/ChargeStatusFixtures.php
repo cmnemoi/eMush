@@ -268,7 +268,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setStartCharge(0)
             ->setModifierConfigs([
                 $consumeModifier,
-                $consumeSatietyModifier,
                 $moraleModifier,
             ])
             ->buildName(GameConfigEnum::DEFAULT);

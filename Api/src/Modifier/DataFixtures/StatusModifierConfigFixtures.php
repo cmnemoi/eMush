@@ -207,7 +207,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
                 ActionEnum::CONSUME_DRUG->value => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setModifierName(ModifierNameEnum::MUSH_CONSUME);
+            ->setModifierName(ModifierNameEnum::MUSH_CONSUME_SATIETY_OLD_RULE);
         $manager->persist($mushConsumeSatietyModifier);
 
         $mushConsumeModifier = new EventModifierConfig('mushConsumeModifier');
@@ -223,7 +223,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
                 PlayerVariableEnum::ACTION_POINT => ModifierRequirementEnum::ANY_TAGS,
             ])
             ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierName(ModifierNameEnum::MUSH_CONSUME);
         $manager->persist($mushConsumeModifier);
 
         $mushMoraleModifier = new VariableEventModifierConfig('mushMoraleModifier');

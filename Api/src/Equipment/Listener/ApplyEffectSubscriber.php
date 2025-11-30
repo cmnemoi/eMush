@@ -61,10 +61,8 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
 
         if ($player->isHuman()) {
             $this->dispatchContaminatedFoodEffect($ration, $player, $consumeEvent->getTags());
-            $this->dispatchConsumableEffects($consumableEffect, $player, $ration);
-        } else {
-            $this->dispatchMushEffect($player);
         }
+        $this->dispatchConsumableEffects($consumableEffect, $player, $ration);
 
         // if no charges consume equipment
         $equipmentEvent = new InteractWithEquipmentEvent(
@@ -133,18 +131,6 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
             );
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
-    }
-
-    protected function dispatchMushEffect(Player $player): void
-    {
-        $playerModifierEvent = new PlayerVariableEvent(
-            $player,
-            PlayerVariableEnum::SATIETY,
-            4,
-            [ActionEnum::CONSUME->value],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
     private function dispatchContaminatedFoodEffect(GameEquipment $ration, Player $player, array $tags): void

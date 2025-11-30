@@ -40,7 +40,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         /** @var Drug $drugMechanic */
         $drugMechanic = $drug->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG);
 
-        if ($drugMechanic !== null && !$player->isMush()) {
+        if ($drugMechanic !== null) {
             $status = $this->statusService->createStatusFromName(
                 PlayerStatusEnum::DRUG_EATEN,
                 $player,

@@ -5,6 +5,7 @@ namespace Mush\Modifier\Enum;
 abstract class ModifierNameEnum
 {
     public const string MUSH_CONSUME = 'mush_consume';
+    public const string MUSH_CONSUME_SATIETY_OLD_RULE = 'mush_consume_satiety_old_rule';
     public const string ANTISOCIAL_MODIFIER = 'antisocial_modifier';
     public const string DISABLED_MOVE_MODIFIER = 'disabled_move_modifier';
     public const string APRON_MODIFIER = 'apron_modifier';

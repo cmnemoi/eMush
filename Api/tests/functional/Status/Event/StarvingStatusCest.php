@@ -39,6 +39,18 @@ final class StarvingStatusCest extends AbstractFunctionalTest
         $this->thenChunShouldBeDeadWithStarvationEndCause($I);
     }
 
+    public function shouldNotKillMushPlayer(FunctionalTester $I): void
+    {
+        $this->convertPlayerToMush($I, $this->chun);
+
+        $this->givenChunIsStarving($I);
+        $this->givenChunHasOneHealthPoint($I);
+
+        $this->whenANewCycleIsTriggered($I);
+
+        $this->thenChunShouldBeAlive($I);
+    }
+
     private function givenChunIsStarving(FunctionalTester $I): void
     {
         $this->chun->setSatiety(-30);
@@ -70,6 +82,14 @@ final class StarvingStatusCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: EndCauseEnum::STARVATION,
             actual: $this->chun->getPlayerInfo()->getClosedPlayer()->getEndCause(),
+        );
+    }
+
+    private function thenChunShouldBeAlive(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: 1,
+            actual: $this->chun->getHealthPoint(),
         );
     }
 }

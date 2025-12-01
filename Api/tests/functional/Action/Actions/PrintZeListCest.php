@@ -16,7 +16,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
@@ -213,17 +212,6 @@ final class PrintZeListCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldPrintNoMushInformationIfThereIsNoMushAlive(FunctionalTester $I): void
-    {
-        $this->givenChunIsATracker();
-
-        $this->givenAllMushAreDead();
-
-        $this->whenChunPrintsZeList();
-
-        $this->thenZeListShouldInformAboutNoMush($I);
-    }
-
     public function shouldNotPrintAlphaMushTwice(FunctionalTester $I): void
     {
         $this->givenChunIsATracker();
@@ -295,15 +283,6 @@ final class PrintZeListCest extends AbstractFunctionalTest
         $this->whenChunPrintsZeList();
     }
 
-    private function givenAllMushAreDead(): void
-    {
-        $this->playerService->killPlayer(
-            player: $this->kuanTi,
-            endReason: EndCauseEnum::QUARANTINE,
-            time: new \DateTime(),
-        );
-    }
-
     private function whenChunTriesToPrintZeList(): void
     {
         $this->printZeList->loadParameters(
@@ -358,15 +337,5 @@ final class PrintZeListCest extends AbstractFunctionalTest
     private function thenActionShouldNotBeExecutableWithMessage(string $cause, FunctionalTester $I): void
     {
         $I->assertEquals($cause, $this->printZeList->cannotExecuteReason());
-    }
-
-    private function thenZeListShouldInformAboutNoMush(FunctionalTester $I): void
-    {
-        $zeList = $this->chun->getEquipmentByName(ItemEnum::DOCUMENT);
-
-        $I->assertEquals(
-            expected: 'Il n\'y a plus de Mushs à bord... c\'est une certitude.',
-            actual: $zeList->getStatusByNameOrThrow(EquipmentStatusEnum::DOCUMENT_CONTENT)->getContent()
-        );
     }
 }

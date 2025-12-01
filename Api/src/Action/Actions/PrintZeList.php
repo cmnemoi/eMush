@@ -126,15 +126,6 @@ final class PrintZeList extends AbstractAction
 
     private function translatedList(): string
     {
-        if ($this->player->getDaedalus()->getAlivePlayers()->getMushPlayer()->isEmpty()) {
-            return $this->translationService->translate(
-                key: 'ze_list_no_mush',
-                parameters: [],
-                domain: 'event_log',
-                language: $this->player->getLanguage(),
-            );
-        }
-
         $selectedPlayers = $this->selectedPlayers();
 
         /** @var Player $lastPlayer */

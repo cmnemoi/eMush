@@ -940,10 +940,6 @@
         1 {{lastPlayer} is infected by the Mush. It's a certainty.}
         other {At the very least one of them were an agent of Mush when we fled Xyloph. I'd bet my life on it... {firstPlayers} and {lastPlayer}. But which one...}}</target>
       </segment>
-      <segment id="ze_list_no_mush" state="translated">
-        <source>ze_list_no_mush</source>
-        <target>There are no more Mush on board... it’s a certainty.</target>
-      </segment>
     </unit>
     <unit id="lost_research">
       <segment id="lost_research_headline" state="translated">

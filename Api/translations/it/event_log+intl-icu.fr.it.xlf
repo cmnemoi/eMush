@@ -750,10 +750,6 @@
         <source>ze_list</source>
         <target>ze_list</target>
       </segment>
-      <segment id="ze_list_no_mush" state="initial">
-        <source>ze_list_no_mush</source>
-        <target>ze_list_no_mush</target>
-      </segment>
     </unit>
     <unit id="lost_research">
       <segment id="lost_research_headline" state="initial">

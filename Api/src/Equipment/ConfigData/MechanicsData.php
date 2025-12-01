@@ -824,7 +824,7 @@ class MechanicsData
             'actionPoints' => [3 => 1],
             'movementPoints' => [0 => 0],
             'healthPoints' => [1 => 1],
-            'satiety' => 0.0,
+            'satiety' => 1.0,
             'extraEffects' => [],
             'isPerishable' => true,
             'actions' => [

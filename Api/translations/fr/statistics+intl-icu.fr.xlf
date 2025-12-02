@@ -1377,5 +1377,19 @@
         <target>frozen_taken_1.name</target>
       </segment>
     </unit>
+    <unit id="kind_person">
+      <segment id="name" state="initial">
+        <source>kind_person.name</source>
+        <target>kind_person.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>kind_person.description</source>
+        <target>kind_person.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>kind_person_1.name</source>
+        <target>kind_person_1.name</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

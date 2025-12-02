@@ -20,12 +20,33 @@ final readonly class ActionEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            ActionEvent::PRE_ACTION => [
+                ['onPreAction', EventPriorityEnum::HIGHEST],
+            ],
             ActionEvent::POST_ACTION => [
                 ['onPostSuccessfulAction', EventPriorityEnum::LOWEST],
                 ['onPostFailedAction', EventPriorityEnum::LOWEST],
             ],
             CommanderMissionAcceptedEvent::class => ['onCommanderMissionAccepted', EventPriorityEnum::LOWEST],
         ];
+    }
+
+    public function onPreAction(ActionEvent $event): void
+    {
+        // Should be about comfort action
+        if ($event->getActionName() !== ActionEnum::COMFORT) {
+            return;
+        }
+
+        // The target should be at most 1 morale point
+        if ($event->getPlayerActionTargetOrThrow()->getMoralPoint() > 1) {
+            return;
+        }
+
+        $this->updatePlayerStatisticService->execute(
+            player: $event->getAuthorOrThrow(),
+            statisticName: StatisticEnum::KIND_PERSON,
+        );
     }
 
     public function onPostSuccessfulAction(ActionEvent $event): void

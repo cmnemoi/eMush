@@ -63,6 +63,7 @@ export const enum StatisticEnum {
     PLASMA_SHIELD = "plasma_shield",
     GRENADIER = 'grenadier',
     FROZEN_TAKEN = 'frozen_taken',
+    KIND_PERSON = 'kind_person',
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -251,5 +252,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.FROZEN_TAKEN]: {
         'icon': getImgUrl('status/food_frozen.png')
+    },
+    [StatisticEnum.KIND_PERSON]: {
+        'icon': getImgUrl('achievements/shrink_bed.png')
     }
 };

@@ -77,6 +77,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::PLASMA_SHIELD, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::GRENADIER, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::FROZEN_TAKEN, StatisticStrategyEnum::INCREMENT),
+            new StatisticConfigDto(StatisticEnum::KIND_PERSON, StatisticStrategyEnum::INCREMENT),
         ];
     }
 

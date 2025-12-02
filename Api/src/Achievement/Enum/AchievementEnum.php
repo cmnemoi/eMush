@@ -202,6 +202,7 @@ enum AchievementEnum: string
     case PLASMA_SHIELD_1 = 'plasma_shield_1';
     case GRENADIER_1 = 'grenadier_1';
     case FROZEN_TAKEN_1 = 'frozen_taken_1';
+    case KIND_PERSON_1 = 'kind_person_1';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

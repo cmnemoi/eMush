@@ -862,6 +862,7 @@ abstract class AchievementConfigData
             new AchievementConfigDto(name: AchievementEnum::PLASMA_SHIELD_1, points: 1, threshold: 1),
             new AchievementConfigDto(name: AchievementEnum::GRENADIER_1, points: 1, threshold: 1),
             new AchievementConfigDto(name: AchievementEnum::FROZEN_TAKEN_1, points: 1, threshold: 1),
+            new AchievementConfigDto(name: AchievementEnum::KIND_PERSON_1, points: 0, threshold: 1),
         ];
     }
 

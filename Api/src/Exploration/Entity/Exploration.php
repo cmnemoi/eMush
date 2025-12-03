@@ -52,7 +52,7 @@ class Exploration
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isChangingCycle = false;
 
-    #[ORM\Column(type: 'boolean', nullable: false)]
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $isSabotaged = false;
 
     #[ORM\ManyToOne(targetEntity: PlanetSector::class)]

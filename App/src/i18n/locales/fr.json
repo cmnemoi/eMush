@@ -1079,7 +1079,8 @@
 		"topBar": {
 			"login": "Se connecter",
 			"notifications": "{count} notification | {count} notifications",
-			"register": "Créer un compte"
+			"register": "Créer un compte",
+			"searchUser": "Rechercher un utilisateur"
 		}
 	},
 	"fakeAdmin": {

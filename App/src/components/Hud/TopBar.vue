@@ -23,6 +23,12 @@
         </div>
 
         <div class="rightSection">
+            <UserSearchBar
+                v-if="isLogged"
+                class="topbar-search"
+                :placeholder="$t('hud.topBar.searchUser')"
+                @select="onUserSelected"
+            />
             <a v-if="!isLogged" class="connectLink">
                 <button class="badge register" @click="register">{{ $t('hud.topBar.register') }}</button>
                 <button class="badge connect" @click="login">{{ $t('hud.topBar.login') }}</button>
@@ -52,10 +58,12 @@ import { mapActions, mapGetters } from 'vuex';
 import { getEternaltwinGames } from '@/utils/getEternaltwinGames';
 import { Tippy } from 'vue-tippy';
 import LocaleChange from '../Utils/LocaleChange.vue';
+import { UserSearchBar } from '@/features/userSearch';
+import { UserSearchResult } from '@/features/userSearch/models';
 
 export default defineComponent({
     name: 'TopBar',
-    components: { LocaleChange, Tippy },
+    components: { LocaleChange, Tippy, UserSearchBar },
     data() {
         return {
             time: ''
@@ -77,7 +85,10 @@ export default defineComponent({
             login: 'auth/redirectToLogin',
             openUserMenu: 'popup/openUserMenu',
             register: 'auth/redirectToRegister'
-        })
+        }),
+        onUserSelected(user: UserSearchResult) {
+            this.$router.push({ name: 'UserPage', params: { userId: user.userId } });
+        }
     }
 });
 </script>
@@ -189,7 +200,7 @@ export default defineComponent({
         flex-direction: row;
         justify-content: flex-end;
         align-items: center;
-        border-left: 1px dotted $mediumGrey;
+        border-left: none;
         padding-left: 12px;
         min-width: 0;
 
@@ -197,6 +208,18 @@ export default defineComponent({
             padding-left: 6px;
             flex: 0 1 auto;
             max-width: 45%;
+        }
+
+        .topbar-search {
+            margin-right: 0;
+            margin-left: -12px;
+            padding-right: 12px;
+            border-right: 1px dotted $mediumGrey;
+            max-width: 180px;
+
+            @media (max-width: 768px) {
+                display: none;
+            }
         }
 
         .connectLink {

@@ -66,6 +66,32 @@ class UserControllerCest
         $I->seeResponseCodeIs(403);
     }
 
+    public function testSearchUsersEndpoint(ApiTester $I): void
+    {
+        $user = $I->loginUser('default');
+
+        $I->sendGetRequest('users/search?username=' . $user->getUsername());
+
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+    }
+
+    public function testSearchUsersEndpointRequiresUsernameParameter(ApiTester $I): void
+    {
+        $I->loginUser('default');
+
+        $I->sendGetRequest('users/search');
+
+        $I->seeResponseCodeIs(404);
+    }
+
+    public function testSearchUsersEndpointWhenNotAuthenticated(ApiTester $I): void
+    {
+        $I->sendGetRequest('users/search?username=test');
+
+        $I->seeResponseCodeIs(403);
+    }
+
     private function createUser(string $userId): User
     {
         $user = new User();

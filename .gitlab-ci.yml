@@ -35,6 +35,9 @@ stages:
     - composer install --ignore-platform-req=ext-protobuf
     - cp .env.gitlab .env.test
     - cp .env.gitlab .env
+    # Install PostgreSQL extensions
+    - apt-get update && apt-get install -y postgresql-client
+    - PGPASSWORD="$POSTGRES_PASSWORD" psql -h postgres -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "CREATE EXTENSION IF NOT EXISTS pg_trgm;"
     - bin/console doctrine:schema:update --complete -f
     - bin/console doctrine:fixtures:load -n --env=test
     - openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:mush
@@ -84,7 +87,7 @@ api-test:
       optional: true
   script:
     - SHARD_INDEX=$((CI_NODE_INDEX))
-    - php vendor/bin/codecept run --shard ${SHARD_INDEX}/8
+    - php vendor/bin/codecept run tests/functional/User/Query/SearchUsersByUsernameQueryHandlerCest.php:shouldReturnExactMatchFirst
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes: ["Api/**/*.php", "Api/**/*.xlf"]

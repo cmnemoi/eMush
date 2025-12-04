@@ -4,3 +4,7 @@ services:
     WebPush\WebPushService:
         class: Mush\Tests\unit\TestDoubles\Service\FakeWebPushService
         public: true
+    Mush\User\Query\SearchUsersByUsernameQueryHandler:
+        arguments:
+            $connection: '@Doctrine\DBAL\Connection'
+        public: true

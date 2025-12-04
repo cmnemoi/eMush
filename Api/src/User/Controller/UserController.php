@@ -9,12 +9,16 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Patch;
 use FOS\RestBundle\View\View;
 use Mush\User\Entity\User;
+use Mush\User\Query\SearchUsersByUsernameQuery;
+use Mush\User\Query\SearchUsersByUsernameQueryHandler;
 use Mush\User\Service\UserServiceInterface;
 use Mush\User\Voter\UserVoter;
 use Nelmio\ApiDocBundle\Annotation\Security as SecurityAnnotation;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Class UserController.
@@ -22,12 +26,10 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route(path: '/users')]
 final class UserController extends AbstractFOSRestController
 {
-    private UserServiceInterface $userService;
-
-    public function __construct(UserServiceInterface $userService)
-    {
-        $this->userService = $userService;
-    }
+    public function __construct(
+        private readonly UserServiceInterface $userService,
+        private readonly SearchUsersByUsernameQueryHandler $queryHandler,
+    ) {}
 
     /**
      * Get current user information.
@@ -40,6 +42,22 @@ final class UserController extends AbstractFOSRestController
         $this->denyAccessUnlessGranted(UserVoter::IS_CONNECTED, message: 'You must be connected to get user info.');
 
         return $this->view($this->getUserOrThrow(), Response::HTTP_OK);
+    }
+
+    /**
+     * Search users by username.
+     */
+    #[OA\Tag(name: 'User')]
+    #[OA\Parameter(name: 'username', in: 'query', required: true, description: 'Username to search for')]
+    #[OA\Parameter(name: 'limit', in: 'query', required: false, description: 'Maximum number of results')]
+    #[SecurityAnnotation(name: 'Bearer')]
+    #[IsGranted(UserVoter::IS_CONNECTED, message: 'You must be connected to search users.')]
+    #[Get(path: '/search')]
+    public function searchUsersEndpoint(#[MapQueryString] SearchUsersByUsernameQuery $searchUsersByUsername): View
+    {
+        $results = $this->queryHandler->execute($searchUsersByUsername);
+
+        return $this->view($results, Response::HTTP_OK);
     }
 
     /**

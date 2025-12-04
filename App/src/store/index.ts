@@ -26,6 +26,8 @@ import { createAchievementsModule } from "@/features/achievements/store";
 import { achievementsGateway } from "@/features/achievements/gateway";
 import { createCharacterBiographyModule } from "@/features/biography/store";
 import { BiographyService } from "@/services/biography.service";
+import { createUserSearchModule } from "@/features/userSearch/store";
+import { gateway as userSearchGateway } from "@/features/userSearch/gateway";
 
 export default createStore({
     modules: {
@@ -63,6 +65,7 @@ export default createStore({
         ),
         biography: createCharacterBiographyModule(
             BiographyService.loadCharacterBiography
-        )
+        ),
+        userSearch: createUserSearchModule(userSearchGateway.searchUsers)
     }
 });

@@ -23,6 +23,7 @@ export enum EmoteCharacterEnum {
     NERON = 'neron',
     FEMALE_ADMIN = "female_admin",
     MALE_ADMIN = "male_admin",
+    CAT = "cat",
 }
 
 export const EmoteCharacterAliases: { [index: string]: string } = {
@@ -56,5 +57,6 @@ export const EmoteCharacterIcons: {[index: string]: {img: string; max_height: st
     [EmoteCharacterEnum.TERRENCE]: { img: getImgUrl('char/head/terrence.png'), max_height: "1.2em" },
     [EmoteCharacterEnum.NERON]: { img: getImgUrl('ui_icons/action_points/pa_core.png'), max_height: "1.2em" },
     [EmoteCharacterEnum.FEMALE_ADMIN]: { img: getImgUrl('char/head/lambda_f.png'), max_height: "1.2em" },
-    [EmoteCharacterEnum.MALE_ADMIN]: { img: getImgUrl('char/head/lambda_m.png'), max_height: "1.2em" }
+    [EmoteCharacterEnum.MALE_ADMIN]: { img: getImgUrl('char/head/lambda_m.png'), max_height: "1.2em" },
+    [EmoteCharacterEnum.CAT]: { img: getImgUrl('char/body/cat.png'), max_height: "1.2em" }
 };

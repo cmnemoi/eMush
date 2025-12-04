@@ -14,6 +14,7 @@ export enum EmoteResourcesEnum {
     AP_HEAL = 'ap_heal',
     AP_PILGRED = 'ap_pilgred',
     AP_SHOOT = 'ap_shoot',
+    SPORE = 'spore',
     ARMOR = 'shield',
     SHIELD = 'plasma',
     SHIELD_OFF = 'plasma_disabled',
@@ -22,6 +23,7 @@ export enum EmoteResourcesEnum {
     FUEL = 'fuel',
     TRIUMPH = 'triumph',
     TRIUMP_MUSH = 'triumph_mush',
+    XP = 'xp'
 }
 
 export const EmoteResourcesAliases: { [index: string]: string } = {
@@ -62,6 +64,7 @@ export const EmoteResourcesAliases: { [index: string]: string } = {
     ['pm']: EmoteResourcesEnum.MP,
     ['morale']: EmoteResourcesEnum.MORAL,
     ['pmo']: EmoteResourcesEnum.MORAL,
+    ['spores']: EmoteResourcesEnum.SPORE,
     ['plasma_off']: EmoteResourcesEnum.SHIELD_OFF,
     ['triomphe']: EmoteResourcesEnum.TRIUMPH,
     ['glory']: EmoteResourcesEnum.TRIUMPH,
@@ -82,6 +85,7 @@ export const EmoteResourcesIcons: {[index: string]: {img: string; max_height: st
     [EmoteResourcesEnum.AP_HEAL]: { img: getImgUrl('ui_icons/action_points/pa_heal.png'), max_height: "1.2em" },
     [EmoteResourcesEnum.AP_PILGRED]: { img: getImgUrl('ui_icons/action_points/pa_pilgred.png'), max_height: "1.2em" },
     [EmoteResourcesEnum.AP_SHOOT]: { img: getImgUrl('ui_icons/action_points/pa_shoot.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.SPORE]: { img: getImgUrl('status/spore.png'), max_height: "1.2em" },
     [EmoteResourcesEnum.ARMOR]: { img: getImgUrl('shield.png'), max_height: "1.2em" },
     [EmoteResourcesEnum.SHIELD]: { img: getImgUrl('plasma.png'), max_height: "1.2em" },
     [EmoteResourcesEnum.SHIELD_OFF]: { img: getImgUrl('plasma_off.png'), max_height: "1.2em" },
@@ -89,5 +93,6 @@ export const EmoteResourcesIcons: {[index: string]: {img: string; max_height: st
     [EmoteResourcesEnum.OXYGEN_ALERT]: { img: getImgUrl('alerts/o2alert.png'), max_height: "1.2em" },
     [EmoteResourcesEnum.FUEL]: { img: getImgUrl('ui_icons/fuel.png'), max_height: "1.2em" },
     [EmoteResourcesEnum.TRIUMPH]: { img: getImgUrl('ui_icons/player_variables/triumph.png'), max_height: "1.2em" },
-    [EmoteResourcesEnum.TRIUMP_MUSH]: { img: getImgUrl('ui_icons/player_variables/triumph_mush.png'), max_height: "1.2em" }
+    [EmoteResourcesEnum.TRIUMP_MUSH]: { img: getImgUrl('ui_icons/player_variables/triumph_mush.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.XP]: { img: getImgUrl('xp.png'), max_height: "1.2em" }
 };

@@ -59,7 +59,7 @@ export default defineComponent ({
             case ChannelType.PUBLIC:
                 return getImgUrl('comms/wall.png');
             case ChannelType.ROOM_LOG:
-                return getImgUrl('comms/local_2.png');
+                return getImgUrl('comms/local.png');
             case ChannelType.TIPS:
                 return getImgUrl('comms/tip.png');
             case "new":

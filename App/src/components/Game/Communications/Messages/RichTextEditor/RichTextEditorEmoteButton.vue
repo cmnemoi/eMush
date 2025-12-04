@@ -1,12 +1,13 @@
 <template>
-    <Tippy
+    <div
         tag="div"
         class="tab"
         :class="selected ? 'checked' : ''"
+        :title="$t(config.tooltip)"
         @click="$emit('select')"
     >
         <img :src="config.icon">
-    </Tippy>
+    </div>
 </template>
 
 <script lang="ts">

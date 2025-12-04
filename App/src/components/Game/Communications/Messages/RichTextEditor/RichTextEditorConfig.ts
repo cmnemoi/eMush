@@ -68,60 +68,70 @@ export interface RichTextEditorEmoteButtonConfig {
 export const richTextEditorEmoteButtons: RichTextEditorEmoteButtonConfig[] = [
     {
         icon: EmoteCharacterIcons[EmoteCharacterEnum.ELEESHA].img,
+        tooltip: 'game.communications.emoteCharactersTab',
         emoteEnum: EmoteCharacterEnum,
         aliasesEnum: EmoteCharacterAliases,
         iconEnum: EmoteCharacterIcons
     },
     {
         icon: EmoteResourcesIcons[EmoteResourcesEnum.AP].img,
+        tooltip: 'game.communications.emoteResourcesTab',
         emoteEnum: EmoteResourcesEnum,
         aliasesEnum: EmoteResourcesAliases,
         iconEnum: EmoteResourcesIcons
     },
     {
         icon: EmoteIconIcons[EmoteIconEnum.BROKEN].img,
+        tooltip: 'game.communications.emoteIconsTab',
         emoteEnum: EmoteIconEnum,
         aliasesEnum: EmoteIconAliases,
         iconEnum: EmoteIconIcons
     },
     {
         icon: EmoteStatusIcons[EmoteStatusEnum.STINKY].img,
+        tooltip: 'game.communications.emoteStatusesTab',
         emoteEnum: EmoteStatusEnum,
         aliasesEnum: EmoteStatusAliases,
         iconEnum: EmoteStatusIcons
     },
     {
         icon: EmoteHumanSkillIcons[EmoteHumanSkillEnum.GENIUS].img,
+        tooltip: 'game.communications.emoteHumanSkillsTab',
         emoteEnum: EmoteHumanSkillEnum,
         aliasesEnum: EmoteHumanSkillAliases,
         iconEnum: EmoteHumanSkillIcons
     },
     {
         icon: EmoteMushSkillIcons[EmoteMushSkillEnum.ANONYMOUS].img,
+        tooltip: 'game.communications.emoteMushSkillsTab',
         emoteEnum: EmoteMushSkillEnum,
         aliasesEnum: EmoteMushSkillAliases,
         iconEnum: EmoteMushSkillIcons
     },
     {
         icon: EmoteAstroIcons[EmoteAstroEnum.CRISTALITE].img,
+        tooltip: 'game.communications.emoteAstroTab',
         emoteEnum: EmoteAstroEnum,
         aliasesEnum: EmoteAstroAliases,
         iconEnum: EmoteAstroIcons
     },
     {
         icon: EmoteTwinoidIcons[EmoteTwinoidEnum.SMILE].img,
+        tooltip: 'game.communications.emoteTwinoidTab',
         emoteEnum: EmoteTwinoidEnum,
         aliasesEnum: EmoteTwinoidAliases,
         iconEnum: EmoteTwinoidIcons
     },
     {
         icon: EmoteMuxxuIcons[EmoteMuxxuEnum.SMILE].img,
+        tooltip: 'game.communications.emoteMuxxuTab',
         emoteEnum: EmoteMuxxuEnum,
         aliasesEnum: EmoteMuxxuAliases,
         iconEnum: EmoteMuxxuIcons
     },
     {
         icon: EmoteEternalTwinIcons[EmoteEternalTwinEnum.ETERNALTWIN].img,
+        tooltip: 'game.communications.emoteEternalTwinTab',
         emoteEnum: EmoteEternalTwinEnum,
         aliasesEnum: EmoteEternalTwinAliases,
         iconEnum: EmoteEternalTwinIcons

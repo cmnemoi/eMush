@@ -106,8 +106,6 @@ export const EmoteStatusAliases: { [index: string]: string } = {
     ['plant_dry']: EmoteStatusEnum.PLANT_DRY,
     ['plant_thirsty']: EmoteStatusEnum.PLANT_THIRSTY,
     ['plant_young']: EmoteStatusEnum.PLANT_YOUNGLING,
-    ['spore']: EmoteStatusEnum.SPORE,
-    ['spores']: EmoteStatusEnum.SPORE,
     ['hungry']: EmoteStatusEnum.STARVING,
     ['starving']: EmoteStatusEnum.STARVING,
     ['starving_warning']: EmoteStatusEnum.STARVING,

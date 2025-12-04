@@ -171,7 +171,7 @@ export default defineComponent ({
     &.personnal .timestamp::before {
         width: 16px;
         height: 16px;
-        background: url('/src/assets/images/comms/personnal.png') center no-repeat;
+        background: url('/src/assets/images/comms/personal.png') center no-repeat;
     }
 
     &.covert .timestamp::before {

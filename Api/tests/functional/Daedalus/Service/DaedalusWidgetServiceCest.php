@@ -187,6 +187,7 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
             expected: [
                 [
                     'initials' => 'CZ',
+                    'icon' => 'chun',
                     'color' => '#DDD3CA',
                 ],
             ],
@@ -196,6 +197,7 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
             expected: [
                 [
                     'initials' => 'KTL',
+                    'icon' => 'kuan_ti',
                     'color' => '#F39B01',
                 ],
             ],

@@ -21,7 +21,7 @@
                         width="12"
                         height="12"
                         @mouseenter="displayName($t('room.rearBravoTurret')); updateRoomDisplay('rear_bravo_turret')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('rear_bravo_turret')}"
                     />
                     <path
@@ -29,7 +29,7 @@
                         serif:id="Engine Room"
                         d="M183,28.005l-2,1.241l0,5.553l2,1.242l0,7.941l-2,1.241l0,5.554l2,1.241l0,7.941l-2,1.242l0,5.553l2,1.241l0,5.005l-34,0l0,-50l34,0l0,5.005Z"
                         @mouseenter="displayName($t('room.engineRoom')); updateRoomDisplay('engine_room')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('engine_room')}"
                     />
                     <rect
@@ -40,7 +40,7 @@
                         width="12"
                         height="12"
                         @mouseenter="displayName($t('room.rearAlphaTurret')); updateRoomDisplay('rear_alpha_turret')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('rear_alpha_turret')}"
                     />
                     <rect
@@ -51,7 +51,7 @@
                         width="34"
                         height="22"
                         @mouseenter="displayName($t('room.icarusBay')); updateRoomDisplay('icarus_bay')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('icarus_bay')}"
                     />
                     <rect
@@ -62,7 +62,7 @@
                         width="24"
                         height="12"
                         @mouseenter="displayName($t('room.rearBravoStorage')); updateRoomDisplay('rear_bravo_storage')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('rear_bravo_storage')}"
                     />
                     <rect
@@ -73,7 +73,7 @@
                         width="24"
                         height="12"
                         @mouseenter="displayName($t('room.rearAlphaStorage')); updateRoomDisplay('rear_alpha_storage')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('rear_alpha_storage')}"
                     />
                     <rect
@@ -84,7 +84,7 @@
                         width="6"
                         height="60"
                         @mouseenter="displayName($t('room.rearCorridor')); updateRoomDisplay('rear_corridor')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('rear_corridor')}"
                     />
                     <rect
@@ -95,7 +95,7 @@
                         width="42"
                         height="22"
                         @mouseenter="displayName($t('room.alphaBay2')); updateRoomDisplay('alpha_bay_2')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('alpha_bay_2')}"
                     />
                     <path
@@ -103,7 +103,7 @@
                         serif:id="Bravo Dorm"
                         d="M119,73l-20,0l0,-14l6,0l0,-4l14,0l0,18Z"
                         @mouseenter="displayName($t('room.bravoDorm')); updateRoomDisplay('bravo_dorm')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('bravo_dorm')}"
                     />
                     <rect
@@ -113,7 +113,7 @@
                         width="14"
                         height="14"
                         @mouseenter="displayName($t('room.nexus')); updateRoomDisplay('nexus')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('nexus')}"
                     />
                     <path
@@ -121,7 +121,7 @@
                         serif:id="Alpha Dorm"
                         d="M119,23l-20,0l0,14l6,0l0,4l14,0l0,-18Z"
                         @mouseenter="displayName($t('room.alphaDorm')); updateRoomDisplay('alpha_dorm')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('alpha_dorm')}"
                     />
                     <rect
@@ -132,7 +132,7 @@
                         width="16"
                         height="14"
                         @mouseenter="displayName($t('room.centerBravoStorage')); updateRoomDisplay('center_bravo_storage')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('center_bravo_storage')}"
                     />
                     <rect
@@ -142,7 +142,7 @@
                         width="22"
                         height="22"
                         @mouseenter="displayName($t('room.refectory')); updateRoomDisplay('refectory')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('refectory')}"
                     />
                     <rect
@@ -153,7 +153,7 @@
                         width="16"
                         height="14"
                         @mouseenter="displayName($t('room.centerAlphaStorage')); updateRoomDisplay('center_alpha_storage')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('center_alpha_storage')}"
                     />
                     <rect
@@ -164,7 +164,7 @@
                         width="44"
                         height="22"
                         @mouseenter="displayName($t('room.bravoBay')); updateRoomDisplay('bravo_bay')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('bravo_bay')}"
                     />
                     <rect
@@ -175,7 +175,7 @@
                         width="6"
                         height="50"
                         @mouseenter="displayName($t('room.centralCorridor')); updateRoomDisplay('central_corridor')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('central_corridor')}"
                     />
                     <rect
@@ -186,7 +186,7 @@
                         width="42"
                         height="22"
                         @mouseenter="displayName($t('room.alphaBay')); updateRoomDisplay('alpha_bay')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('alpha_bay')}"
                     />
                     <rect
@@ -197,7 +197,7 @@
                         width="12"
                         height="12"
                         @mouseenter="displayName($t('room.centreBravoTurret')); updateRoomDisplay('centre_bravo_turret')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('centre_bravo_turret')}"
                     />
                     <rect
@@ -207,7 +207,7 @@
                         width="22"
                         height="22"
                         @mouseenter="displayName($t('room.medlab')); updateRoomDisplay('medlab')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('medlab')}"
                     />
                     <rect
@@ -218,7 +218,7 @@
                         width="22"
                         height="22"
                         @mouseenter="displayName($t('room.frontStorage')); updateRoomDisplay('front_storage')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('front_storage')}"
                     />
                     <rect
@@ -229,7 +229,7 @@
                         width="12"
                         height="12"
                         @mouseenter="displayName($t('room.centreAlphaTurret')); updateRoomDisplay('centre_alpha_turret')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('centre_alpha_turret')}"
                     />
                     <rect
@@ -239,7 +239,7 @@
                         width="22"
                         height="22"
                         @mouseenter="displayName($t('room.laboratory')); updateRoomDisplay('laboratory')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('laboratory')}"
                     />
                     <rect
@@ -250,7 +250,7 @@
                         width="22"
                         height="22"
                         @mouseenter="displayName($t('room.hydroponicGarden')); updateRoomDisplay('hydroponic_garden')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('hydroponic_garden')}"
                     />
                     <path
@@ -258,7 +258,7 @@
                         serif:id="Front Corridor"
                         d="M33,71l-6,0l0,-46l6,0l0,20l44,0l0,6l-44,0l0,20Z"
                         @mouseenter="displayName($t('room.frontCorridor')); updateRoomDisplay('front_corridor')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('front_corridor')}"
                     />
                     <rect
@@ -269,14 +269,14 @@
                         width="12"
                         height="12"
                         @mouseenter="displayName($t('room.frontBravoTurret')); updateRoomDisplay('front_bravo_turret')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('front_bravo_turret')}"
                     />
                     <path
                         id="Bridge"
                         d="M6,42.121l0,-7.121l21,0l0,26l-21,0l0,-7.121l-5,-3.102l0,-5.554l5,-3.102Z"
                         @mouseenter="displayName($t('room.bridge')); updateRoomDisplay('bridge')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('bridge')}"
                     />
                     <rect
@@ -287,7 +287,7 @@
                         width="12"
                         height="12"
                         @mouseenter="displayName($t('room.frontAlphaTurret')); updateRoomDisplay('front_alpha_turret')"
-                        @mouseleave="displayName(''); resetPlayerInitials()"
+                        @mouseleave="displayName('');"
                         :class="{fire: isFire('front_alpha_turret')}"
                     />
                 </g>
@@ -883,9 +883,7 @@
                 />
             </ul>
         </div>
-        <h3 class="room">
-            {{ roomName }} {{ playersInRoom }}
-        </h3>
+        <h3 class="room" v-html="roomName"/>
     </div>
 </template>
 
@@ -896,6 +894,7 @@ import { DoorsEnum } from '@/enums/doors.enum';
 import { RoomsEnum } from '@/enums/room.enum';
 import { computed, onMounted, ref, watch } from "vue";
 import { useStore } from "vuex";
+import { formatText } from "@/utils/formatText";
 
 interface PlayersPoints {
     left: number;
@@ -953,22 +952,18 @@ const updateRoomDisplay = (room: string): void => {
     }
 
     const count = roomData.players_count;
-    const initials = roomData.actopi.length > 0 ? roomData.actopi.map((player: ActopiPlayer) => player.initials).join(' ') : '';
+    const portraits = roomData.actopi.length > 0 ? roomData.actopi.map((player: ActopiPlayer) => `:${player.icon}:`).join(' ') : '';
     let display = roomName.value;
-    if (initials) {
-        display += ` ${initials}`;
+    if (portraits) {
+        display += `${portraits}`;
     }
     if (count > 0) {
         display += ` (${count})`;
     }
     if (roomData.fire) {
-        display += ' 🔥';
+        display += ':fire:';
     }
-    roomName.value = display;
-};
-
-const resetPlayerInitials = (): void => {
-    playersInRoom.value = '';
+    roomName.value = formatText(display);
 };
 
 const isFire = (room: string): boolean => {
@@ -1085,10 +1080,6 @@ watch(minimap, () => {
     &:hover, &:focus, &:focus-within, &:active {
         transform: scale(1);
         transition: transform 0.4s 0.2s;
-
-        .room {
-            display: initial;
-        }
     }
 }
 
@@ -1198,7 +1189,10 @@ svg {
 }
 
 .room {
-    display: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
     position: absolute;
     bottom: 0;
     z-index: 5;
@@ -1206,8 +1200,11 @@ svg {
     font-family: $font-pixel-square;
     font-size: 10px;
     font-weight: 700;
-}
 
+    :deep(img) {
+        filter: drop-shadow(0 0 0.5px #fff) drop-shadow(0 0 0.5px #fff);
+    }
+}
 
 @keyframes self-position-color {
     0% { background: #ff0; }

@@ -117,6 +117,7 @@ final class DaedalusWidgetService implements DaedalusWidgetServiceInterface
                     domain: 'characters',
                     language: $player->getLanguage(),
                 ),
+                'icon' => $player->getName(),
                 'color' => $player->getWhosWhoColor(),
             ];
         }

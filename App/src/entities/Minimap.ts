@@ -2,6 +2,7 @@ export type HexColor = `#${string}`;
 
 export type ActopiPlayer = {
     initials: string;
+    icon: string;
     color: HexColor;
 };
 export class Minimap {

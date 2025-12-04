@@ -87,7 +87,7 @@ api-test:
       optional: true
   script:
     - SHARD_INDEX=$((CI_NODE_INDEX))
-    - php vendor/bin/codecept run tests/functional/User/Query/SearchUsersByUsernameQueryHandlerCest.php:shouldReturnExactMatchFirst
+    - php vendor/bin/codecept run --shard ${SHARD_INDEX}/8
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes: ["Api/**/*.php", "Api/**/*.xlf"]

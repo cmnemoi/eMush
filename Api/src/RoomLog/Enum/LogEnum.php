@@ -103,6 +103,7 @@ abstract class LogEnum
     public const string TRADE_ASSETS_CREATED = 'trade_assets_created';
     public const string FOOD_DESTROYED_BY_NERON = 'food_destroyed_by_neron';
     public const string EXPLORATION_EVENT_PREVIEW = 'exploration_event_preview';
+    public const string FOUND_PROTECTIONS = 'found_protections';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

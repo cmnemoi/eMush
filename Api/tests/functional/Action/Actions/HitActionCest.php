@@ -12,14 +12,18 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\WeaponEventEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -294,6 +298,46 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->whenChunHitsKuanTi();
 
         $this->thenKuanTiShouldHaveExactlyHealthPoint(7, $I);
+    }
+
+    public function shouldPrintSpecialLogWhenDamageIsAbsorbedByArmor(FunctionalTester $I): void
+    {
+        $this->givenHitDamageIs([1, 1]);
+
+        $this->givenHitActionHasSuccessRate(100);
+
+        $this->givenKuanTiHasPlasteniteArmor();
+
+        $this->whenChunHitsKuanTi();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            '**Chun** tente de frapper **Kuan Ti** mais ne trouve que ses protections.',
+            new RoomLogDto(
+                player: $this->chun,
+                log: LogEnum::FOUND_PROTECTIONS,
+                visibility: VisibilityEnum::PUBLIC,
+            ),
+            $I
+        );
+    }
+
+    public function shouldNotPrintProtectionLogWhenPlayerHasArmorButGetsDamage(FunctionalTester $I): void
+    {
+        $this->givenHitDamageIs([2, 2]);
+
+        $this->givenHitActionHasSuccessRate(100);
+
+        $this->givenKuanTiHasPlasteniteArmor();
+
+        $this->whenChunHitsKuanTi();
+
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => LogEnum::FOUND_PROTECTIONS,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
     }
 
     private function givenChunHasInactiveStatus(): void

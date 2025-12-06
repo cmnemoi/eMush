@@ -138,4 +138,10 @@ abstract class EquipmentMechanic
     {
         return $this->getActions()->filter(static fn (ActionConfig $actionConfig) => $actionConfig->getActionName() === $actionName)->count() > 0;
     }
+
+    public function getLogName(): string
+    {
+        // remove weapon_ prefix and _default suffix
+        return str_replace(['weapon_', '_default'], '', $this->getName());
+    }
 }

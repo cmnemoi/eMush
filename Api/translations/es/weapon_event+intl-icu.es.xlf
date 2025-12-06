@@ -570,5 +570,11 @@ other {"invalid version number"}</target>
         <target>Por algún milagro, o quizás fue una feliz coincidencia... **{target_character}** esquiva el cohete de **{character}**, que se estrella contra el escenario...</target>
       </segment>
     </unit>
+    <unit id="found_protections">
+      <segment id="found_protections" state="translated">
+        <source>found_protections</source>
+        <target>**{character}** intentó {weapon, select, bare_hands {golpear} knife {apuñalar a **{target_character}** con un arma blanca} other {disparar a}} **{target_character}**, pero la ropa protectora de {target_character, select, female {ella} other {él}} hizo su trabajo.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

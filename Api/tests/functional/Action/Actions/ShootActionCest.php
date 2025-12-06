@@ -17,6 +17,8 @@ use Mush\Equipment\Enum\WeaponEventEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -420,6 +422,42 @@ final class ShootActionCest extends AbstractFunctionalTest
         $this->whenChunShootsAtKuanTi();
 
         $this->thenKuanTiShouldHaveHealthPoints(10, $I);
+    }
+
+    public function shouldPrintSpecialLogWhenDamageIsAbsorbedByArmor(FunctionalTester $I): void
+    {
+        $this->givenBlasterHas100ChanceToDispatchEvent(WeaponEventEnum::BLASTER_SUCCESSFUL_SHOT->toString());
+        $this->givenBlasterDamageSpreadIs([1, 1]);
+        $this->givenKuanTiHasPlasteniteArmor();
+
+        $this->whenChunShootsAtKuanTi();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: '**Chun** tente de faire feu sur **Kuan Ti** mais ne trouve que ses protections.',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: LogEnum::FOUND_PROTECTIONS,
+                visibility: VisibilityEnum::PUBLIC,
+            ),
+            I: $I,
+        );
+    }
+
+    public function shouldNotPrintProtectionLogWhenPlayerHasArmorButGetsDamage(FunctionalTester $I): void
+    {
+        $this->givenBlasterHas100ChanceToDispatchEvent(WeaponEventEnum::BLASTER_SUCCESSFUL_SHOT->toString());
+        $this->givenBlasterDamageSpreadIs([2, 2]);
+        $this->givenKuanTiHasPlasteniteArmor();
+
+        $this->whenChunShootsAtKuanTi();
+
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => LogEnum::FOUND_PROTECTIONS,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
     }
 
     private function givenChunHasABlaster(): void

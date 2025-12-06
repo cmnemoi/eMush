@@ -490,6 +490,7 @@
         <target>L'œil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_character}**...</target>
       </segment>
     </unit>
+
     <unit id="bare_hands_successful_hit">
       <segment id="bare_hands_successful_hit" state="translated">
         <source>bare_hands_successful_hit</source>
@@ -606,6 +607,12 @@
       <segment id="rocket_launcher_miss_10_items" state="translated">
         <source>rocket_launcher_miss_10_items</source>
         <target>Par on ne sait pas quel miracle, ou était-ce un heureux hasard... **{target_character}** esquive la roquette de **{character}** qui vient s'écraser dans le décor...</target>
+      </segment>
+    </unit>
+    <unit id="found_protections">
+      <segment id="found_protections" state="translated">
+        <source>found_protections</source>
+        <target>**{character}** tente {weapon, select, bare_hands {de frapper} knife {une attaque avec son arme blanche sur} other {de faire feu sur}} **{target_character}** mais ne trouve que ses protections.</target>
       </segment>
     </unit>
   </file>

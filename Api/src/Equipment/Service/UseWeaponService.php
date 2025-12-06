@@ -17,19 +17,23 @@ use Mush\Equipment\Repository\WeaponEventConfigRepositoryInterface;
 use Mush\Equipment\ValueObject\DamageSpread;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
 use Mush\Game\Service\Random\ProbaCollectionRandomElementServiceInterface as ProbaCollectionRandomElementInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Service\RemoveHealthFromPlayerServiceInterface;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 
 final readonly class UseWeaponService
 {
     public function __construct(
+        private EventServiceInterface $eventService,
         private GetRandomIntegerServiceInterface $getRandomInteger,
         private ProbaCollectionRandomElementInterface $probaCollectionRandomElement,
-        private RemoveHealthFromPlayerServiceInterface $removeHealthFromPlayer,
         private RoomLogServiceInterface $roomLogService,
         private WeaponEffectHandlerService $weaponEffectHandlerService,
         private WeaponEventConfigRepositoryInterface $weaponEventConfigRepository,
@@ -45,12 +49,13 @@ final readonly class UseWeaponService
 
         $result->addDetail('eventName', $weaponEvent->getEventName());
 
-        $this->createEventLog($result, $weaponEvent, $tags);
         $damageSpread = $this->dispatchWeaponEventEffects($weaponEvent, $result, $weaponMechanic, $tags);
 
+        $damage = null;
         if ($this->shouldRemoveHealthToTarget($result, $target)) {
-            $this->removeHealthToTarget($result, $weaponEvent, $damageSpread, $target, $tags);
+            $damage = $this->removeHealthToTarget($result, $weaponEvent, $damageSpread, $target, $tags);
         }
+        $this->createEventLog($result, $weaponEvent, $tags, $damage);
     }
 
     public function executeWithoutTarget(ActionResult $result, array $tags): void
@@ -69,28 +74,36 @@ final readonly class UseWeaponService
         return $result->isASuccess() ? $this->getRandomSuccessfulWeaponEventConfig($result, $weaponMechanic) : $this->getRandomFailedWeaponEventConfig($result, $weaponMechanic);
     }
 
-    private function removeHealthToTarget(ActionResult $result, WeaponEventConfig $weaponEventConfig, DamageSpread $damageSpread, Player $target, array $tags): void
+    private function removeHealthToTarget(ActionResult $result, WeaponEventConfig $weaponEventConfig, DamageSpread $damageSpread, Player $target, array $tags): int
     {
         $damage = $this->getRandomInteger->execute($damageSpread->min, $damageSpread->max);
         $result->addDetail('baseDamage', $damage);
         // Add weapon event type to tags to handle critical events effects
         $tags[] = $weaponEventConfig->getType()->toString();
 
-        $this->removeHealthFromPlayer->execute(
-            author: $result->getPlayer(),
-            quantity: $damage,
+        $playerVariableEvent = new PlayerVariableEvent(
             player: $target,
+            variableName: PlayerVariableEnum::HEALTH_POINT,
+            quantity: -$damage,
             tags: $tags,
-            visibility: VisibilityEnum::PRIVATE,
+            time: new \DateTime(),
         );
+        $playerVariableEvent->setVisibility(VisibilityEnum::PRIVATE);
+        $playerVariableEvent->setAuthor($result->getPlayer());
+
+        /** @var PlayerVariableEvent $event */
+        $event = $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE)->getInitialEvent();
+
+        return $event->getRoundedQuantity();
     }
 
-    private function createEventLog(ActionResult $result, WeaponEventConfig $weaponEventConfig, array $tags): void
+    private function createEventLog(ActionResult $result, WeaponEventConfig $weaponEventConfig, array $tags, ?int $damage = null): void
     {
         $attacker = $result->getPlayer();
+        $shouldPrintProtectionsLog = $damage !== null && $damage === 0;
 
         $this->roomLogService->createLog(
-            logKey: $weaponEventConfig->getName(),
+            logKey: $shouldPrintProtectionsLog ? LogEnum::FOUND_PROTECTIONS : $weaponEventConfig->getName(),
             place: $attacker->getPlace(),
             visibility: VisibilityEnum::PUBLIC,
             type: 'weapon_event',
@@ -200,6 +213,7 @@ final readonly class UseWeaponService
 
         $parameters = [
             $attacker->getLogKey() => $attacker->getAnonymousKeyOrLogName(),
+            'weapon' => $this->getWeaponMechanic($result)->getLogName(),
         ];
         if ($target !== null) {
             $parameters['target_' . $target->getLogKey()] = $target->getLogName();

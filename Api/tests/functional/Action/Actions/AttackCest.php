@@ -13,11 +13,15 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\WeaponEventEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -59,7 +63,7 @@ final class AttackCest extends AbstractFunctionalTest
     {
         $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->toString());
 
-        $this->givenKnifeInflictsOneDamage();
+        $this->givenKnifeDamageSpreadIs([1, 1]);
 
         $this->givenKuanTiHasPlasteniteArmor();
 
@@ -171,6 +175,42 @@ final class AttackCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveKnifeDodgedStatAt(1, $I);
     }
 
+    public function shouldPrintSpecialLogWhenDamageIsAbsorbedByArmor(FunctionalTester $I): void
+    {
+        $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->toString());
+        $this->givenKnifeDamageSpreadIs([1, 1]);
+        $this->givenKuanTiHasPlasteniteArmor();
+
+        $this->whenChunAttacksKuanTi();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: '**Chun** tente une attaque avec son arme blanche sur **Kuan Ti** mais ne trouve que ses protections.',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: LogEnum::FOUND_PROTECTIONS,
+                visibility: VisibilityEnum::PUBLIC,
+            ),
+            I: $I,
+        );
+    }
+
+    public function shouldNotPrintProtectionLogWhenPlayerHasArmorButGetsDamage(FunctionalTester $I): void
+    {
+        $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->toString());
+        $this->givenKnifeDamageSpreadIs([2, 2]);
+        $this->givenKuanTiHasPlasteniteArmor();
+
+        $this->whenChunAttacksKuanTi();
+
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => LogEnum::FOUND_PROTECTIONS,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+    }
+
     private function givenKnifeHas100ChanceToDispatchEvent(string $event): void
     {
         $this->knife->getWeaponMechanicOrThrow()->setSuccessfulEventKeys([
@@ -196,9 +236,9 @@ final class AttackCest extends AbstractFunctionalTest
         $this->kuanTi->setHealthPoint($healthPoints);
     }
 
-    private function givenKnifeInflictsOneDamage(): void
+    private function givenKnifeDamageSpreadIs(array $damageSpread): void
     {
-        $this->knife->getWeaponMechanicOrThrow()->setDamageSpread([1, 1]);
+        $this->knife->getWeaponMechanicOrThrow()->setDamageSpread($damageSpread);
     }
 
     private function givenKuanTiHasPlasteniteArmor(): void

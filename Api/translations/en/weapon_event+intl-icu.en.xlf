@@ -594,5 +594,11 @@
         <target>By some miracle, or was it serendipity... **{target_character}** dodges **{character}**'s rocket which crashes into the background...</target>
       </segment>
     </unit>
+    <unit id="found_protections">
+      <segment id="found_protections" state="translated">
+        <source>found_protections</source>
+        <target>**{character}** attempted to {weapon, select, bare_hands {hit} knife {stab **{target_character}** with a bladed weapon} other {shoot at}} **{target_character}**, but {target_character, select, female {her} other {his}} protective clothing did its job.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

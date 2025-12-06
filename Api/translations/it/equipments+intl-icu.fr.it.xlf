@@ -131,32 +131,6 @@
         <target>bed.examine</target>
       </segment>
     </unit>
-    <unit id="medlab_bed">
-      <segment id="name" state="initial">
-        <source>medlab_bed.name</source>
-        <target>medlab_bed.name</target>
-      </segment>
-      <segment id="short_name" state="initial">
-        <source>medlab_bed.short_name</source>
-        <target>medlab_bed.short_name</target>
-      </segment>
-      <segment id="plural_name" state="initial">
-        <source>medlab_bed.plural_name</source>
-        <target>medlab_bed.plural_name</target>
-      </segment>
-      <segment id="genre" state="initial">
-        <source>medlab_bed.gender</source>
-        <target>medlab_bed.gender</target>
-      </segment>
-      <segment id="first_letter" state="initial">
-        <source>medlab_bed.first_letter</source>
-        <target>medlab_bed.first_letter</target>
-      </segment>
-      <segment id="examine" state="initial">
-        <source>medlab_bed.examine</source>
-        <target>medlab_bed.examine</target>
-      </segment>
-    </unit>
     <unit id="bios_terminal">
       <segment id="name" state="initial">
         <source>bios_terminal.name</source>

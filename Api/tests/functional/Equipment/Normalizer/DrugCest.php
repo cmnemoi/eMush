@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Equipment\Normalizer;
 
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
@@ -34,7 +35,7 @@ final class DrugCest extends AbstractFunctionalTest
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
         $this->drug = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: 'plus_one_ap_drug',
+            equipmentName: GameDrugEnum::TWINOID,
             equipmentHolder: $this->chun,
             reasons: [],
             time: new \DateTime(),

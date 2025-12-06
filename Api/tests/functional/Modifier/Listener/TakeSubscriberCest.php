@@ -79,7 +79,7 @@ class TakeSubscriberCest
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'soapShowerActionModifier',
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
         ]);
 
         $gear = new Gear();
@@ -152,9 +152,9 @@ class TakeSubscriberCest
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'soapShowerActionModifier',
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
         ]);
-        $modifierConfig->setModifierName('soapShowerActionModifier');
+        $modifierConfig->setModifierName('modifier_for_player_-1actionPoint_on_shower');
 
         $gear = new Gear();
         $gear
@@ -180,7 +180,7 @@ class TakeSubscriberCest
         $statusConfig
             ->setStatusName(EquipmentStatusEnum::HAZARDOUS)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setDischargeStrategies(['soapShowerActionModifier'])
+            ->setDischargeStrategies(['modifier_for_player_-1actionPoint_on_shower'])
             ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($statusConfig);
@@ -238,7 +238,7 @@ class TakeSubscriberCest
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'soapShowerActionModifier',
+            'name' => 'modifier_for_player_-1actionPoint_on_shower',
         ]);
 
         $gear = new Gear();

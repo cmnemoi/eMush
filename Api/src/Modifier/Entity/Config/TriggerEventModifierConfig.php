@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\Dto\TriggerEventModifierConfigDto;
 use Mush\Modifier\Entity\Collection\ModifierActivationRequirementCollection;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
@@ -46,21 +47,24 @@ class TriggerEventModifierConfig extends EventModifierConfig
         $this->addNoneTagName();
     }
 
-    public static function fromConfigData(array $configData): self
+    public static function fromDtoChild(TriggerEventModifierConfigDto $triggerEventModifierConfigDto): self
     {
-        $modifierConfig = new self($configData['name']);
-        $modifierConfig
-            ->setVisibility($configData['visibility'])
-            ->setTargetFilters($configData['targetFilters'])
-            ->setTargetEvent($configData['targetEvent'])
-            ->setPriority($configData['priority'])
-            ->setApplyWhenTargeted($configData['applyOnTarget'])
-            ->setTagConstraints($configData['tagConstraints'])
-            ->setModifierName($configData['modifierName'])
-            ->setModifierStrategy($configData['strategy'])
-            ->setModifierRange($configData['modifierRange']);
+        /** @var TriggerEventModifierConfig $config */
+        $config = new self($triggerEventModifierConfigDto->key)
+            ->setModifierName($triggerEventModifierConfigDto->name)
+            ->setModifierStrategy($triggerEventModifierConfigDto->strategy)
+            ->setModifierRange($triggerEventModifierConfigDto->modifierRange);
 
-        return $modifierConfig;
+        $config->setTargetEvent($triggerEventModifierConfigDto->targetEvent)
+            ->setPriority($triggerEventModifierConfigDto->priority)
+            ->setTagConstraints($triggerEventModifierConfigDto->tagConstraints)
+            ->setApplyWhenTargeted($triggerEventModifierConfigDto->applyWhenTargeted);
+
+        $config->setVisibility($triggerEventModifierConfigDto->visibility)
+            ->setTargetFilters($triggerEventModifierConfigDto->targetFilters)
+            ->setEventTargetRequirements($triggerEventModifierConfigDto->eventActivationRequirements);
+
+        return $config;
     }
 
     public function buildName(string $configName): self

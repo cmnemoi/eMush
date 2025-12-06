@@ -3,35 +3,22 @@
 namespace Mush\Modifier\ConfigData;
 
 use Mush\Game\Entity\AbstractEventConfig;
+use Mush\Modifier\Dto\TriggerEventModifierConfigDto;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 
 class TriggerEventModifierConfigDataLoader extends EventModifierConfigDataLoader
 {
     public function loadConfigsData(): void
     {
-        foreach (ModifierConfigData::$dataArray as $modifierConfigData) {
-            if ($modifierConfigData['type'] !== 'trigger_event_modifier') {
+        foreach (ModifierConfigData::getAll() as $triggerEventConfigDataDto) {
+            if (!$triggerEventConfigDataDto instanceof TriggerEventModifierConfigDto) {
                 continue;
             }
-            $configName = $modifierConfigData['name'];
 
-            $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $configName]);
-
-            if ($modifierConfig === null) {
-                $modifierConfig = new TriggerEventModifierConfig($configName);
-            } elseif (!$modifierConfig instanceof TriggerEventModifierConfig) {
-                $this->entityManager->remove($modifierConfig);
-                $this->entityManager->flush();
-                $modifierConfig = new TriggerEventModifierConfig($configName);
-            }
-
-            $modifierConfig = $this->setEventConfig($modifierConfig, $modifierConfigData['triggeredEvent']);
-            $this->loadEventModifierData($modifierConfig, $modifierConfigData);
-            $modifierConfig->setModifierActivationRequirements($this->getModifierConfigActivationRequirements($modifierConfigData, 'modifierActivationRequirements'));
-            $modifierConfig->setEventTargetRequirements($this->getModifierConfigActivationRequirements($modifierConfigData, 'eventActivationRequirements'));
-            $modifierConfig->setTargetFilters($modifierConfigData['targetFilters']);
-
-            $this->entityManager->persist($modifierConfig);
+            $config = TriggerEventModifierConfig::fromDtoChild($triggerEventConfigDataDto);
+            $this->getModifierConfigActivationRequirements($config, $triggerEventConfigDataDto->modifierActivationRequirements);
+            $this->setEventConfig($config, $triggerEventConfigDataDto->triggeredEvent);
+            $this->entityManager->persist($config);
         }
         $this->entityManager->flush();
     }

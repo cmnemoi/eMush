@@ -7,12 +7,16 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
+use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
+use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
+use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -34,6 +38,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
     private DiseaseCauseServiceInterface $diseaseCauseService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
+    private ConsumableDiseaseServiceInterface $consumableDiseaseService;
 
     public function _before(FunctionalTester $I)
     {
@@ -41,6 +46,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
         $this->diseaseCauseService = $I->grabService(DiseaseCauseServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
+        $this->consumableDiseaseService = $I->grabService(ConsumableDiseaseServiceInterface::class);
     }
 
     public function testAddADiseaseFromCause(FunctionalTester $I)
@@ -124,8 +130,15 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
         );
 
         // given I have a fruit healing the flu
+        $consumableDiseaseAttribute = new ConsumableDiseaseAttribute()
+            ->setDisease(DiseaseEnum::FLU)
+            ->setType(MedicalConditionTypeEnum::CURE);
+
+        $consumableDiseaseConfig = $this->consumableDiseaseService->findConsumableDiseases(GameFruitEnum::KUBINUS, $this->daedalus);
+        $consumableDiseaseConfig->setDiseasesAttribute(new ArrayCollection([$consumableDiseaseAttribute]));
+
         $fluHealerFruit = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: 'flu_healer_test',
+            equipmentName: GameFruitEnum::KUBINUS,
             equipmentHolder: $this->player,
             reasons: [],
             time: new \DateTime(),

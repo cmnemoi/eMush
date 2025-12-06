@@ -259,8 +259,8 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
             actual: $this->player->getMoralPoint()
         );
 
-        // then I don't see the antisocial modifier room log
-        $I->dontSeeInRepository(
+        // BUT I DO see the antisocial modifier room log
+        $I->seeInRepository(
             entity: RoomLog::class,
             params: [
                 'place' => $this->player->getPlace()->getName(),

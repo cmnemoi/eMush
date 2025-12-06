@@ -3,6 +3,8 @@
 namespace Mush\Modifier\Factory;
 
 use Mush\Modifier\ConfigData\ModifierConfigData;
+use Mush\Modifier\Dto\TriggerEventModifierConfigDto;
+use Mush\Modifier\Dto\VariableEventModifierConfigDto;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -13,12 +15,12 @@ final class GameModifierFactory
 {
     public static function createByNameForHolder(string $name, ModifierHolderInterface $holder): GameModifier
     {
-        $modifierConfigData = ModifierConfigData::getByName($name);
+        $modifierConfigDataDto = ModifierConfigData::getByName($name);
 
-        $modifierConfig = match ($modifierConfigData['type']) {
-            'variable_event_modifier' => VariableEventModifierConfig::fromConfigData($modifierConfigData),
-            'trigger_event_modifier' => TriggerEventModifierConfig::fromConfigData($modifierConfigData),
-            default => throw new \LogicException("Unsupported modifier type {$modifierConfigData['type']}"),
+        $modifierConfig = match (true) {
+            $modifierConfigDataDto instanceof VariableEventModifierConfigDto => VariableEventModifierConfig::fromDtoChild($modifierConfigDataDto),
+            $modifierConfigDataDto instanceof TriggerEventModifierConfigDto => TriggerEventModifierConfig::fromDtoChild($modifierConfigDataDto),
+            default => throw new \LogicException('Unsupported modifier type ' . $modifierConfigDataDto::class),
         };
         self::setupModifierConfigId($modifierConfig);
 

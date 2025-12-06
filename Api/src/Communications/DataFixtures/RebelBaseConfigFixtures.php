@@ -12,7 +12,7 @@ use Mush\Communications\Dto\RebelBaseConfigDto;
 use Mush\Communications\Entity\RebelBaseConfig;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Modifier\DataFixtures\RebelBaseModifierConfigFixtures;
+use Mush\Modifier\DataFixtures\ModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -47,7 +47,7 @@ final class RebelBaseConfigFixtures extends Fixture implements DependentFixtureI
     {
         return [
             GameConfigFixtures::class,
-            RebelBaseModifierConfigFixtures::class,
+            ModifierConfigFixtures::class,
             StatusFixtures::class,
         ];
     }
@@ -74,7 +74,7 @@ final class RebelBaseConfigFixtures extends Fixture implements DependentFixtureI
             return null;
         }
 
-        $statusConfig = $this->getReference($name . '_status');
+        $statusConfig = $this->getReference($name . '_default');
         if (!$statusConfig instanceof StatusConfig) {
             throw new \Exception("Status config {$name} is not an instance of StatusConfig");
         }

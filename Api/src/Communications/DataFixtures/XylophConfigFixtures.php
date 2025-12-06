@@ -12,7 +12,7 @@ use Mush\Communications\Dto\XylophConfigDto;
 use Mush\Communications\Entity\XylophConfig;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Modifier\DataFixtures\XylophModifierConfigFixtures;
+use Mush\Modifier\DataFixtures\ModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 
 final class XylophConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -45,7 +45,7 @@ final class XylophConfigFixtures extends Fixture implements DependentFixtureInte
     {
         return [
             GameConfigFixtures::class,
-            XylophModifierConfigFixtures::class,
+            ModifierConfigFixtures::class,
         ];
     }
 

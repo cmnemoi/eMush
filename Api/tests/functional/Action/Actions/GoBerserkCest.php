@@ -11,15 +11,12 @@ use Mush\Action\Actions\Hit;
 use Mush\Action\Actions\KillPlayer;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\Mechanics\Weapon;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -47,7 +44,6 @@ final class GoBerserkCest extends AbstractFunctionalTest
 
     private ActionConfig $kickOffActionConfig;
     private Hit $kickOff;
-    private Weapon $bareHandMechanic;
 
     private Player $ian;
 
@@ -66,7 +62,6 @@ final class GoBerserkCest extends AbstractFunctionalTest
         $this->kickOffActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::HIT]);
         $this->kickOffActionConfig->setSuccessRate(100);
         $this->kickOff = $I->grabService(Hit::class);
-        $this->bareHandMechanic = $I->grabEntityFromRepository(Weapon::class, ['name' => EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::BARE_HANDS . '_' . GameConfigEnum::DEFAULT]);
 
         $this->givenKuanTiIsMush();
         $this->givenLaboratoryIsLinkedToFrontCorridor($I);
@@ -221,13 +216,11 @@ final class GoBerserkCest extends AbstractFunctionalTest
 
         $initialHealthPoint = $this->chun->getVariableValueByName(PlayerVariableEnum::HEALTH_POINT);
 
-        $this->givenHitDamagesFor(1);
+        $baseDamage = $this->whenKuanTiHitsChun()->getDetails()['baseDamage'];
 
-        $this->whenKuanTiHitsChun();
+        $this->thenChunShouldHaveHealthPointsOfAmount($initialHealthPoint - ($baseDamage + 1), $I);
 
-        $this->thenChunShouldHaveHealthPointsOfAmount($initialHealthPoint - 2, $I);
-
-        $this->thenKuanTiShouldHaveMutateDamageStatisticAt(2, $I);
+        $this->thenKuanTiShouldHaveMutateDamageStatisticAt($baseDamage + 1, $I);
     }
 
     public function shouldIncreaseDamageByOnePointRegardlessOfHumanSkills(FunctionalTester $I): void
@@ -240,13 +233,11 @@ final class GoBerserkCest extends AbstractFunctionalTest
 
         $initialHealthPoint = $this->chun->getVariableValueByName(PlayerVariableEnum::HEALTH_POINT);
 
-        $this->givenHitDamagesFor(1);
+        $baseDamage = $this->whenKuanTiHitsChun()->getDetails()['baseDamage'];
 
-        $this->whenKuanTiHitsChun();
+        $this->thenChunShouldHaveHealthPointsOfAmount($initialHealthPoint - ($baseDamage + 1), $I);
 
-        $this->thenChunShouldHaveHealthPointsOfAmount($initialHealthPoint - 2, $I);
-
-        $this->thenKuanTiShouldHaveMutateDamageStatisticAt(2, $I);
+        $this->thenKuanTiShouldHaveMutateDamageStatisticAt($baseDamage + 1, $I);
     }
 
     public function shouldNotPreventThemselvesFromDoingAdminAction(FunctionalTester $I): void
@@ -330,11 +321,6 @@ final class GoBerserkCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime()
         );
-    }
-
-    private function givenHitDamagesFor(int $damage): void
-    {
-        $this->bareHandMechanic->setDamageSpread([$damage, $damage]);
     }
 
     private function whenKuanTiTriesToMutate(): void
@@ -424,7 +410,7 @@ final class GoBerserkCest extends AbstractFunctionalTest
         return $quarantine;
     }
 
-    private function whenKuanTiHitsChun(): void
+    private function whenKuanTiHitsChun(): ActionResult
     {
         $this->kickOff->loadParameters(
             actionConfig: $this->kickOffActionConfig,
@@ -432,7 +418,8 @@ final class GoBerserkCest extends AbstractFunctionalTest
             player: $this->kuanTi,
             target: $this->chun
         );
-        $this->kickOff->execute();
+
+        return $this->kickOff->execute();
     }
 
     private function thenActionShouldNotBeVisible(FunctionalTester $I): void

@@ -12,11 +12,13 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Planet;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Entity\Project;
@@ -77,6 +79,14 @@ final class ScanCest extends AbstractFunctionalTest
             time: new \DateTime(),
             target: $this->astroTerminal
         );
+
+        // given Magellan Map can only reveal ONE sector
+        /** @var VariableEventModifierConfig $magelanModifier */
+        $magellanModifier = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'modifier_for_place_+1sector_revealed_on_action_scan_planet']);
+
+        /** @var Gear $magelan */
+        $magellan = $I->grabEntityFromRepository(Gear::class, ['name' => 'gear_magellan_liquid_map_default']);
+        $magellan->setModifierConfigs([$magellanModifier]);
     }
 
     public function testScanNotVisibleIfPlayerNotFocusedOnAstroTerminal(FunctionalTester $I): void

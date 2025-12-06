@@ -130,27 +130,6 @@ class ConsumableDiseaseConfigFixtures extends Fixture implements DependentFixtur
             $gameConfig->addConsumableDiseaseConfig($drugDiseaseConfig);
         }
 
-        // special drug for tests
-        $drugDiseaseConfig = new ConsumableDiseaseConfig();
-        $drugDiseaseConfig
-            ->setCauseName('prozac_test')
-            ->setCuresName([DisorderEnum::DEPRESSION => 1])
-            ->setCuresChances([100 => 1])
-            ->setEffectNumber([1 => 1])
-            ->appendConfigKeyToName(GameConfigEnum::TEST);
-        $manager->persist($drugDiseaseConfig);
-        $gameConfig->addConsumableDiseaseConfig($drugDiseaseConfig);
-
-        $fluHealerDiseaseConfig = new ConsumableDiseaseConfig();
-        $fluHealerDiseaseConfig
-            ->setCauseName('flu_healer_test')
-            ->setCuresName([DiseaseEnum::FLU => 1])
-            ->setCuresChances([100 => 1])
-            ->setEffectNumber([1 => 1])
-            ->appendConfigKeyToName(GameConfigEnum::TEST);
-        $manager->persist($fluHealerDiseaseConfig);
-        $gameConfig->addConsumableDiseaseConfig($fluHealerDiseaseConfig);
-
         $manager->persist($gameConfig);
         $manager->flush();
     }

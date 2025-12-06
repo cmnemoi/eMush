@@ -92,7 +92,7 @@ class HideSubscriberCest
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hideActionEntity);
 
-        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'soapShowerActionModifier']);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'modifier_for_player_-1actionPoint_on_shower']);
 
         $gear = new Gear();
         $gear
@@ -181,7 +181,7 @@ class HideSubscriberCest
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hideActionEntity);
 
-        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'soapShowerActionModifier']);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'modifier_for_player_-1actionPoint_on_shower']);
 
         $gear = new Gear();
         $gear
@@ -272,7 +272,7 @@ class HideSubscriberCest
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($hideActionEntity);
 
-        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'soapShowerActionModifier']);
+        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => 'modifier_for_player_-1actionPoint_on_shower']);
         $modifier = new GameModifier($room, $modifierConfig);
         $I->haveInRepository($modifier);
 

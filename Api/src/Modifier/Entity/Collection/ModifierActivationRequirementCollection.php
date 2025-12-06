@@ -16,4 +16,9 @@ final class ModifierActivationRequirementCollection extends ArrayCollection
     {
         return $this->filter(static fn (ModifierActivationRequirement $requirement) => $requirement->getActivationRequirementName() === $type)->first() ?: null;
     }
+
+    public function getOneByNameOrNull(string $name): ?ModifierActivationRequirement
+    {
+        return $this->filter(static fn (ModifierActivationRequirement $requirement) => $requirement->getName() === $name)->first() ?: null;
+    }
 }

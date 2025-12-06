@@ -43,6 +43,8 @@ final readonly class UseWeaponService
         $weaponEvent = $this->getRandomWeaponEventConfig($result, $weaponMechanic);
         $target = $result->getTargetAsPlayerOrThrow();
 
+        $result->addDetail('eventName', $weaponEvent->getEventName());
+
         $this->createEventLog($result, $weaponEvent, $tags);
         $damageSpread = $this->dispatchWeaponEventEffects($weaponEvent, $result, $weaponMechanic, $tags);
 
@@ -56,6 +58,8 @@ final readonly class UseWeaponService
         $weaponMechanic = $this->getWeaponMechanic($result);
         $weaponEvent = $this->getRandomWeaponEventConfig($result, $weaponMechanic);
 
+        $result->addDetail('eventName', $weaponEvent->getEventName());
+
         $this->createEventLog($result, $weaponEvent, $tags);
         $this->dispatchWeaponEventEffects($weaponEvent, $result, $weaponMechanic, $tags);
     }
@@ -68,7 +72,7 @@ final readonly class UseWeaponService
     private function removeHealthToTarget(ActionResult $result, WeaponEventConfig $weaponEventConfig, DamageSpread $damageSpread, Player $target, array $tags): void
     {
         $damage = $this->getRandomInteger->execute($damageSpread->min, $damageSpread->max);
-
+        $result->addDetail('baseDamage', $damage);
         // Add weapon event type to tags to handle critical events effects
         $tags[] = $weaponEventConfig->getType()->toString();
 

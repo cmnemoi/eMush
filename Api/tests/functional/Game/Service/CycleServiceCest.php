@@ -11,6 +11,7 @@ use Mush\Communications\Repository\RebelBaseRepository;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -35,11 +36,19 @@ final class CycleServiceCest extends AbstractExplorationTester
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // setup
-        $this->statusService->createStatusFromName(
+        $status = $this->statusService->createStatusFromName(
             statusName: 'rebel_base_contact_duration',
             holder: $this->daedalus,
             tags: [],
             time: new \DateTime(),
+        );
+
+        $this->statusService->updateCharge(
+            chargeStatus: $status,
+            delta: 8,
+            tags: [],
+            time: new \DateTime(),
+            mode: VariableEventInterface::SET_VALUE,
         );
         $this->daedalus->getDaedalusInfo()->setGameStatus('in_game');
     }

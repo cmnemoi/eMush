@@ -31,7 +31,6 @@ class EquipmentEnum
     public const string JUKEBOX = 'jukebox';
     public const string RESEARCH_LABORATORY = 'research_laboratory';
     public const string BED = 'bed';
-    public const string MEDLAB_BED = 'medlab_bed';
     public const string SWEDISH_SOFA = 'swedish_sofa';
     public const string COFFEE_MACHINE = 'coffee_machine';
     public const string CRYO_MODULE = 'cryo_module';

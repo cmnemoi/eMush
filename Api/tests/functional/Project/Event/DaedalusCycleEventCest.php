@@ -12,6 +12,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Proxies\__CG__\Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 
 /**
  * @internal
@@ -59,6 +60,11 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
             author: $this->player,
             I: $I
         );
+        $oxymore = $this->daedalus->getProjectByName(ProjectName::OXY_MORE);
+
+        /** @var VariableEventModifierConfig $config */
+        $config = $oxymore->getConfig()->getModifierConfigs()->first();
+        $config->setModifierActivationRequirements([]);
     }
 
     private function whenCycleChanges(): void

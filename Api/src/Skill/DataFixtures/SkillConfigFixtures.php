@@ -10,16 +10,16 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Equipment\DataFixtures\ItemConfigFixtures;
 use Mush\Equipment\DataFixtures\SpawnEquipmentConfigFixtures;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Game\DataFixtures\GameConfigFixtures;
-use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
-use Mush\Modifier\DataFixtures\SkillModifierConfigFixtures;
+use Mush\Modifier\DataFixtures\ModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Skill\ConfigData\SkillConfigData;
 use Mush\Skill\Dto\SkillConfigDto;
 use Mush\Skill\Entity\SkillConfig;
-use Mush\Status\DataFixtures\SkillPointsFixtures;
+use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 /** @codeCoverageIgnore */
@@ -55,9 +55,9 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
         return [
             ActionsFixtures::class,
             GameConfigFixtures::class,
-            SkillModifierConfigFixtures::class,
-            GearModifierConfigFixtures::class,
-            SkillPointsFixtures::class,
+            ModifierConfigFixtures::class,
+            ItemConfigFixtures::class,
+            StatusFixtures::class,
             SpawnEquipmentConfigFixtures::class,
         ];
     }

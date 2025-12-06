@@ -8,6 +8,7 @@ use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use Mush\Action\Actions\ThrowGrenade;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Disease\Entity\PlayerDisease;
@@ -113,13 +114,13 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
 
     public function shouldCreateAPublicLog(FunctionalTester $I): void
     {
-        $this->whenGrenadeThrownBy($this->chun);
+        $result = $this->whenGrenadeThrownBy($this->chun);
 
         $I->seeInRepository(
             entity: RoomLog::class,
             params: [
                 'place' => $this->chun->getPlace()->getName(),
-                'log' => WeaponEventEnum::GRENADE_SUCCESSFUL_THROW_SPLASH_DAMAGE_ALL,
+                'log' => $result->getDetails()['eventName'],
                 'visibility' => VisibilityEnum::PUBLIC,
             ]
         );
@@ -331,7 +332,7 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         $this->chun->changePlace($place);
     }
 
-    private function whenGrenadeThrownBy(Player $player): void
+    private function whenGrenadeThrownBy(Player $player): ActionResult
     {
         $this->throwGrenade->loadParameters(
             actionConfig: $this->actionConfig,
@@ -339,7 +340,8 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
             player: $player,
             target: $this->grenade,
         );
-        $this->throwGrenade->execute();
+
+        return $this->throwGrenade->execute();
     }
 
     private function whenKuanTiTriesToThrowGrenade(): void

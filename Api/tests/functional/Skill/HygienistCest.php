@@ -9,6 +9,10 @@ use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Skill\Enum\SkillEnum;
@@ -33,6 +37,16 @@ final class HygienistCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        /** @var VariableEventModifierConfig $hygienistModifier1 */
+        $hygienistModifier1 = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => ModifierNameEnum::PLAYER_50_PERCENT_CHANCE_TO_PREVENT_DISEASE]);
+        $hygienistModifier1->setDelta(100);
+
+        // keep only the requirement to not be mush, remove the one about triggering 50% of the time
+        /** @var EventModifierConfig $hygienistModifier2 */
+        $hygienistModifier2 = $I->grabEntityFromRepository(EventModifierConfig::class, ['name' => ModifierNameEnum::PREVENT_MUSH_INFECTIONS_RANDOM_50]);
+        $hygienistModifier2Requirements = $hygienistModifier2->getModifierActivationRequirements();
+        $hygienistModifier2->setModifierActivationRequirements([$hygienistModifier2Requirements->getOneByNameOrNull(ModifierRequirementEnum::PLAYER_IS_NOT_MUSH)]);
 
         $this->addSkillToPlayer(SkillEnum::HYGIENIST, $I);
     }

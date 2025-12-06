@@ -116,8 +116,11 @@ final class GenerateFunFactsCest extends AbstractFunctionalTest
     private function givenChunHitsKuanTi(FunctionalTester $I): void
     {
         $hit = $I->grabService(Hit::class);
-        $hitConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::HIT]);
 
+        /** @var ActionConfig $hitConfig */
+        $hitConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::HIT]);
+        // to avoid broken nose
+        $hitConfig->setSuccessRate(0);
         $hit->loadParameters(
             actionConfig: $hitConfig,
             actionProvider: $this->chun,

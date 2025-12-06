@@ -52,7 +52,7 @@ final class ActionCostModificationCapCest extends AbstractFunctionalTest
         $soapModifierConfig = current(
             $I->grabEntitiesFromRepository(
                 VariableEventModifierConfig::class,
-                ['name' => 'soapShowerActionModifier']
+                ['name' => 'modifier_for_player_-1actionPoint_on_shower']
             )
         );
         $soapModifierConfigImproved = clone $soapModifierConfig;

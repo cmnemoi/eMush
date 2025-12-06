@@ -2,6 +2,9 @@
 
 namespace Mush\Modifier\ConfigData;
 
+use Mush\Modifier\Dto\EventModifierConfigDto;
+use Mush\Modifier\Dto\TriggerEventModifierConfigDto;
+use Mush\Modifier\Dto\VariableEventModifierConfigDto;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 
 class EventModifierConfigDataLoader extends ModifierConfigDataLoader
@@ -11,28 +14,16 @@ class EventModifierConfigDataLoader extends ModifierConfigDataLoader
      */
     public function loadConfigsData(): void
     {
-        foreach (ModifierConfigData::$dataArray as $modifierConfigData) {
-            if ($modifierConfigData['type'] !== 'event_modifier') {
+        foreach (ModifierConfigData::getAll() as $modifierConfigDataDto) {
+            if (!$modifierConfigDataDto instanceof EventModifierConfigDto
+                || $modifierConfigDataDto instanceof TriggerEventModifierConfigDto
+                || $modifierConfigDataDto instanceof VariableEventModifierConfigDto) {
                 continue;
             }
 
-            $configName = $modifierConfigData['name'];
-            $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $configName]);
-
-            if ($modifierConfig === null) {
-                $modifierConfig = new EventModifierConfig($configName);
-            } elseif (!$modifierConfig instanceof EventModifierConfig) {
-                $this->entityManager->remove($modifierConfig);
-                $this->entityManager->flush();
-                $modifierConfig = new EventModifierConfig($configName);
-            }
-
-            $modifierConfig->setModifierStrategy($modifierConfigData['strategy']);
-
-            $this->loadEventModifierData($modifierConfig, $modifierConfigData);
-            $modifierConfig->setModifierActivationRequirements($this->getModifierConfigActivationRequirements($modifierConfigData, 'modifierActivationRequirements'));
-
-            $this->entityManager->persist($modifierConfig);
+            $config = EventModifierConfig::fromDto($modifierConfigDataDto);
+            $this->getModifierConfigActivationRequirements($config, $modifierConfigDataDto->modifierActivationRequirements);
+            $this->entityManager->persist($config);
         }
         $this->entityManager->flush();
     }

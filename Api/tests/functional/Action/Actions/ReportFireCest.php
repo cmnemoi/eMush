@@ -163,7 +163,7 @@ final class ReportFireCest extends AbstractFunctionalTest
     {
         $this->reportFire->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $this->fireStatus,
+            actionProvider: $this->player,
             player: $this->player,
         );
         $this->reportFire->execute();
@@ -190,7 +190,7 @@ final class ReportFireCest extends AbstractFunctionalTest
     {
         $this->reportFire->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $this->fireStatus,
+            actionProvider: $this->player,
             player: $this->player,
         );
     }
@@ -205,7 +205,7 @@ final class ReportFireCest extends AbstractFunctionalTest
     {
         $this->reportFire->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $this->fireStatus,
+            actionProvider: $this->player2,
             player: $this->player2,
         );
         $this->reportFire->execute();

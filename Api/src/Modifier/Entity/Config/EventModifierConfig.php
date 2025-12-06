@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\Event\AbstractGameEvent;
+use Mush\Modifier\Dto\EventModifierConfigDto;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 
@@ -37,20 +38,20 @@ class EventModifierConfig extends AbstractModifierConfig
     #[ORM\Column(type: 'array', nullable: false)]
     protected array $tagConstraints = [];
 
-    public static function fromConfigData(array $configData): self
+    public static function fromDto(EventModifierConfigDto $eventModifierConfigDto): self
     {
-        $eventModifierConfig = new self('');
-        $eventModifierConfig
-            ->setTargetEvent($configData['targetEvent'])
-            ->setPriority($configData['priority'])
-            ->setApplyWhenTargeted($configData['applyOnTarget'])
-            ->setTagConstraints($configData['tagConstraints'])
-            ->setName($configData['name'])
-            ->setModifierName($configData['modifierName'])
-            ->setModifierRange($configData['modifierRange'])
-            ->setModifierStrategy($configData['strategy']);
+        /** @var EventModifierConfig $config */
+        $config = new self($eventModifierConfigDto->key)
+            ->setModifierName($eventModifierConfigDto->name)
+            ->setModifierStrategy($eventModifierConfigDto->strategy)
+            ->setModifierRange($eventModifierConfigDto->modifierRange);
 
-        return $eventModifierConfig;
+        $config->setTargetEvent($eventModifierConfigDto->targetEvent)
+            ->setPriority($eventModifierConfigDto->priority)
+            ->setTagConstraints($eventModifierConfigDto->tagConstraints)
+            ->setApplyWhenTargeted($eventModifierConfigDto->applyWhenTargeted);
+
+        return $config;
     }
 
     public static function createNull(): self

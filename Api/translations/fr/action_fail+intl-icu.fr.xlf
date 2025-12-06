@@ -855,7 +855,7 @@
     <unit id="sabotage_exploration_lost">
       <segment id="description" state="translated">
         <source>sabotage_exploration_lost.description</source>
-        <target>Vous êtes ici, et l'exploration est ailleurs. Comment comptez-vous la saboter ?</target>
+        <target>Vous êtes ici, et l'exploration est ailleurs. Comment comptez-vous la saboter?</target>
       </segment>
     </unit>
     <unit id="sabotage_exploration_spent">

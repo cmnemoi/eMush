@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\Dto\VariableEventModifierConfigDto;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
@@ -48,22 +49,24 @@ class VariableEventModifierConfig extends EventModifierConfig
         }
     }
 
-    public static function fromConfigData(array $configData): self
+    public static function fromDtoChild(VariableEventModifierConfigDto $triggerEventModifierConfigDto): self
     {
-        $modifier = new self($configData['name']);
+        /** @var VariableEventModifierConfig $config */
+        $config = new self($triggerEventModifierConfigDto->key)
+            ->setModifierName($triggerEventModifierConfigDto->name)
+            ->setModifierStrategy($triggerEventModifierConfigDto->strategy)
+            ->setModifierRange($triggerEventModifierConfigDto->modifierRange);
 
-        $modifier
-            ->setDelta($configData['delta'])
-            ->setTargetVariable($configData['targetVariable'])
-            ->setMode($configData['mode'])
-            ->setPriority($configData['priority'])
-            ->setTargetEvent($configData['targetEvent'])
-            ->setApplyWhenTargeted($configData['applyOnTarget'])
-            ->setTagConstraints($configData['tagConstraints'])
-            ->setModifierRange($configData['modifierRange'])
-            ->setModifierName($configData['modifierName']);
+        $config->setTargetEvent($triggerEventModifierConfigDto->targetEvent)
+            ->setPriority($triggerEventModifierConfigDto->priority)
+            ->setTagConstraints($triggerEventModifierConfigDto->tagConstraints)
+            ->setApplyWhenTargeted($triggerEventModifierConfigDto->applyWhenTargeted);
 
-        return $modifier;
+        $config->setDelta($triggerEventModifierConfigDto->delta)
+            ->setMode($triggerEventModifierConfigDto->mode)
+            ->setTargetVariable($triggerEventModifierConfigDto->targetVariable);
+
+        return $config;
     }
 
     public function buildName(): static

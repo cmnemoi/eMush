@@ -7,6 +7,8 @@ use Mush\Alert\Enum\AlertEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
@@ -24,6 +26,10 @@ final class HunterPoolEventCest extends AbstractFunctionalTest
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+
+        /** @var VariableEventModifierConfig $hygienistModifier */
+        $hygienistModifier = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => ModifierNameEnum::PLAYER_MINUS_33_PERCENTAGE_HUNTERS]);
+        $hygienistModifier->setModifierActivationRequirements([]);
     }
 
     public function testUnpoolHuntersEvent(FunctionalTester $I): void

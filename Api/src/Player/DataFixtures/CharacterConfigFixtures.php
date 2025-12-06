@@ -11,11 +11,10 @@ use Mush\Action\DataFixtures\MushActionFixtures;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
-use Mush\Disease\DataFixtures\DisorderConfigFixtures;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DisorderEnum;
-use Mush\Equipment\DataFixtures\PersonalEquipmentConfigFixtures;
 use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -23,7 +22,6 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Skill\DataFixtures\SkillConfigFixtures;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -33,13 +31,13 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
     public function load(ObjectManager $manager): void
     {
         /** @var ItemConfig $talkieConfig */
-        $talkieConfig = $this->getReference(PersonalEquipmentConfigFixtures::WALKIE_TALKIE);
+        $talkieConfig = $this->getReference(ItemEnum::WALKIE_TALKIE . '_default');
 
         /** @var ItemConfig $trackerConfig */
-        $trackerConfig = $this->getReference(PersonalEquipmentConfigFixtures::TRACKER);
+        $trackerConfig = $this->getReference(ItemEnum::TRACKER . '_default');
 
         /** @var ItemConfig $iTrackieConfig */
-        $iTrackieConfig = $this->getReference(PersonalEquipmentConfigFixtures::ITRACKIE);
+        $iTrackieConfig = $this->getReference(ItemEnum::ITRACKIE . '_default');
 
         /** @var ArrayCollection $iTrackieCollection */
         $iTrackieCollection = new ArrayCollection([$iTrackieConfig]);
@@ -269,7 +267,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($chao);
 
         /** @var StatusConfig $immunizedStatus */
-        $immunizedStatus = $this->getReference(StatusFixtures::IMMUNIZED_STATUS);
+        $immunizedStatus = $this->getReference(PlayerStatusEnum::IMMUNIZED . '_default');
 
         $chun = $this->buildDefaultCharacterConfig();
         $chun
@@ -287,7 +285,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($chun);
 
         /** @var StatusConfig $firstTimeStatus */
-        $firstTimeStatus = $this->getReference(ChargeStatusFixtures::FIRST_TIME);
+        $firstTimeStatus = $this->getReference(PlayerStatusEnum::FIRST_TIME . '_default');
 
         $derek = $this->buildDefaultCharacterConfig();
         $derek
@@ -305,7 +303,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($derek);
 
         /** @var DiseaseConfig $chronicVertigo */
-        $chronicVertigo = $this->getReference(DisorderEnum::CHRONIC_VERTIGO);
+        $chronicVertigo = $this->getReference(DisorderEnum::CHRONIC_VERTIGO . '_default');
 
         $eleesha = $this->buildDefaultCharacterConfig();
         $eleesha
@@ -324,7 +322,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($eleesha);
 
         /** @var StatusConfig $ocdStatus */
-        $ocdStatus = $this->getReference(StatusFixtures::GERMAPHOBE_STATUS);
+        $ocdStatus = $this->getReference('germaphobe_default');
         $finola = $this->buildDefaultCharacterConfig();
         $finola
             ->setName(CharacterEnum::FINOLA)
@@ -385,7 +383,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($hua);
 
         /** @var StatusConfig $pacifistStatus */
-        $pacifistStatus = $this->getReference(StatusFixtures::PACIFIST_STATUS);
+        $pacifistStatus = $this->getReference(PlayerStatusEnum::PACIFIST . '_default');
 
         $ian = $this->buildDefaultCharacterConfig();
         $ian
@@ -464,10 +462,10 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($paola);
 
         /** @var StatusConfig $antisocialStatus */
-        $antisocialStatus = $this->getReference(StatusFixtures::ANTISOCIAL_STATUS);
+        $antisocialStatus = $this->getReference(PlayerStatusEnum::ANTISOCIAL . '_default');
 
         /** @var StatusConfig $catOwnerStatus */
-        $catOwnerStatus = $this->getReference(PlayerStatusEnum::CAT_OWNER);
+        $catOwnerStatus = $this->getReference(PlayerStatusEnum::CAT_OWNER . '_default');
         $raluca = $this->buildDefaultCharacterConfig();
         $raluca
             ->setName(CharacterEnum::RALUCA)
@@ -514,7 +512,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($stephen);
 
         /** @var StatusConfig $disabledStatus */
-        $disabledStatus = $this->getReference(StatusFixtures::DISABLED_STATUS);
+        $disabledStatus = $this->getReference(PlayerStatusEnum::DISABLED . '_default');
 
         $terrence = $this->buildDefaultCharacterConfig();
         $terrence
@@ -553,8 +551,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             ActionsFixtures::class,
             MushActionFixtures::class,
             StatusFixtures::class,
-            PersonalEquipmentConfigFixtures::class,
-            DisorderConfigFixtures::class,
             SkillConfigFixtures::class,
         ];
     }
@@ -638,6 +634,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $whisperAction */
         $whisperAction = $this->getReference(ActionEnum::WHISPER->value);
 
+        /** @var ActionConfig $reportFireAction */
+        $reportFireAction = $this->getReference(ActionEnum::REPORT_FIRE->value);
+
         /** @var ArrayCollection<array-key, ActionConfig> $defaultActions */
         $defaultActions = new ArrayCollection([
             $hitAction,
@@ -664,6 +663,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $rejectMissionAction,
             $comManagerAnnouncementAction,
             $whisperAction,
+            $reportFireAction,
         ]);
 
         $characterConfig = new CharacterConfig();

@@ -21,6 +21,7 @@ use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Enum\HunterStatusEnum;
 
 class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -33,7 +34,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
         $difficultyConfig = $this->getReference(DifficultyConfigFixtures::DEFAULT_DIFFICULTY_CONFIG);
 
         /** @var StatusConfig $asteroidCharge */
-        $asteroidCharge = $this->getReference(ChargeStatusFixtures::ASTEROID_TRUCE_CYCLES);
+        $asteroidCharge = $this->getReference(HunterStatusEnum::ASTEROID_TRUCE_CYCLES . '_default');
         $asteroidDamageRange = $this->buildUniformDamageRange(0, 0);
         $asteroid = new HunterConfig();
         $asteroid

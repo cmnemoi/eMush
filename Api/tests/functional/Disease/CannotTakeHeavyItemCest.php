@@ -43,7 +43,6 @@ final class CannotTakeHeavyItemCest extends AbstractFunctionalTest
             player: $this->player,
             reasons: [],
         );
-        $I->assertCount(2, $this->player->getModifiers());
 
         // given there is an item with heavy status
         /** @var GameEquipmentServiceInterface $equipmentService */

@@ -3,40 +3,23 @@
 namespace Mush\Modifier\ConfigData;
 
 use Mush\Game\Entity\AbstractEventConfig;
+use Mush\Modifier\Dto\DirectModifierConfigDto;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 
 class DirectModifierConfigDataLoader extends ModifierConfigDataLoader
 {
     public function loadConfigsData(): void
     {
-        foreach (ModifierConfigData::$dataArray as $modifierConfigData) {
-            if ($modifierConfigData['type'] !== 'direct_modifier') {
+        foreach (ModifierConfigData::getAll() as $modifierConfigDataDto) {
+            if (!$modifierConfigDataDto instanceof DirectModifierConfigDto) {
                 continue;
             }
 
-            $configName = $modifierConfigData['name'];
-            $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $configName]);
-
-            if ($modifierConfig === null) {
-                $modifierConfig = new DirectModifierConfig($configName);
-            } elseif (!$modifierConfig instanceof DirectModifierConfig) {
-                $this->entityManager->remove($modifierConfig);
-                $this->entityManager->flush();
-                $modifierConfig = new DirectModifierConfig($configName);
-            }
-
-            $modifierConfig
-                ->setRevertOnRemove($modifierConfigData['revertOnRemove'])
-                ->setModifierName($modifierConfigData['modifierName'])
-                ->setModifierRange($modifierConfigData['modifierRange'])
-                ->setModifierStrategy($modifierConfigData['strategy']);
-
-            $modifierConfig = $this->setEventConfig($modifierConfig, $modifierConfigData['triggeredEvent']);
-            $modifierConfig->setModifierActivationRequirements($this->getModifierConfigActivationRequirements($modifierConfigData, 'modifierActivationRequirements'));
-            $modifierConfig->setEventActivationRequirements($this->getModifierConfigActivationRequirements($modifierConfigData, 'eventActivationRequirements'));
-            $modifierConfig->setTargetFilters($modifierConfigData['targetFilters']);
-
-            $this->entityManager->persist($modifierConfig);
+            $config = DirectModifierConfig::fromDto($modifierConfigDataDto);
+            $this->setEventConfig($config, $modifierConfigDataDto->triggeredEvent);
+            $this->getModifierConfigActivationRequirements($config, $modifierConfigDataDto->modifierActivationRequirements);
+            $this->getEventConfigActivationRequirements($config, $modifierConfigDataDto->eventActivationRequirements);
+            $this->entityManager->persist($config);
         }
         $this->entityManager->flush();
     }
@@ -53,5 +36,20 @@ class DirectModifierConfigDataLoader extends ModifierConfigDataLoader
         $modifierConfig->setTriggeredEvent($eventConfig);
 
         return $modifierConfig;
+    }
+
+    protected function getEventConfigActivationRequirements(DirectModifierConfig $modifierConfigData, array $modifierActivationRequirementsAsString): void
+    {
+        $modifierActivationRequirements = [];
+        foreach ($modifierActivationRequirementsAsString as $activationRequirementName) {
+            $modifierActivationRequirement = $this->modifierActivationRequirementRepository->findOneBy(['name' => $activationRequirementName]);
+
+            if ($modifierActivationRequirement === null) {
+                throw new \Exception('Modifier activation requirement not found: ' . $activationRequirementName);
+            }
+            $modifierActivationRequirements[] = $modifierActivationRequirement;
+        }
+
+        $modifierConfigData->setEventActivationRequirements($modifierActivationRequirements);
     }
 }

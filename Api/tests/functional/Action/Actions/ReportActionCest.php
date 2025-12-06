@@ -105,7 +105,7 @@ final class ReportActionCest extends AbstractFunctionalTest
         // when player report the fire
         $this->reportFireAction->loadParameters(
             actionConfig: $this->reportFireConfig,
-            actionProvider: $status,
+            actionProvider: $this->player,
             player: $this->player,
         );
         $this->reportFireAction->execute();

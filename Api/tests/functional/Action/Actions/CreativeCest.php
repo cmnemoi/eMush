@@ -8,6 +8,8 @@ use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
@@ -30,6 +32,10 @@ final class CreativeCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::HIT]);
         $this->hit = $I->grabService(Hit::class);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
+
+        /** @var TriggerEventModifierConfig $creativeModifier */
+        $creativeModifier = $I->grabEntityFromRepository(TriggerEventModifierConfig::class, ['name' => ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINT_ON_POST_ACTION_IF_FAILED]);
+        $creativeModifier->setModifierActivationRequirements([]);
 
         $this->givenChunIsCreative($I);
     }

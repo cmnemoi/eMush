@@ -2,97 +2,95 @@
 
 namespace Mush\Tests\functional\Daedalus\Event;
 
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\EventEnum;
+use Mush\Equipment\Service\DamageEquipmentServiceInterface;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
-use Mush\Modifier\Entity\GameModifier;
-use Mush\Place\Entity\Place;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class DaedalusVariableEventCest
+/**
+ * @internal
+ */
+final class DaedalusVariableEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private DamageEquipmentServiceInterface $damageEquipmentService;
+    private GameEquipment $tank1;
+    private GameEquipment $tank2;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->damageEquipmentService = $I->grabService(DamageEquipmentServiceInterface::class);
+
+        $this->tank1 = $this->gameEquipmentService->createGameEquipmentFromName(EquipmentEnum::OXYGEN_TANK, $this->player->getPlace(), ['test'], new \DateTime());
+        $this->tank2 = $this->gameEquipmentService->createGameEquipmentFromName(EquipmentEnum::OXYGEN_TANK, $this->player->getPlace(), ['test'], new \DateTime());
     }
 
-    public function testChangeOxygenWithTanks(FunctionalTester $I)
+    public function shouldLoseOneOxygenWithFunctionalTanks(FunctionalTester $I)
     {
-        /** @var DaedalusConfig $daedalusConfig */
-        $daedalusConfig = $I->have(DaedalusConfig::class);
-
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['daedalusConfig' => $daedalusConfig]);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $daedalus->setDaedalusVariables($daedalusConfig);
-        $daedalus->setOxygen(32);
-
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        $this->daedalus->setOxygen(32);
 
         $event = new DaedalusVariableEvent(
-            $daedalus,
+            $this->daedalus,
             DaedalusVariableEnum::OXYGEN,
-            -2,
-            [EventEnum::NEW_CYCLE],
+            -3,
+            ['base_daedalus_cycle_change'],
             new \DateTime()
         );
+
         $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
 
-        $I->assertEquals(30, $daedalus->getOxygen());
+        $I->assertEquals(31, $this->daedalus->getOxygen());
+    }
 
-        $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'oxygenLossReduction_oxygenTank',
-        ]);
-
-        $tankConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::OXYGEN_TANK]);
-
-        $tankEquipment = $tankConfig->createGameEquipment($room);
-        $I->haveInRepository($tankEquipment);
-
-        $modifier = new GameModifier($daedalus, $modifierConfig);
-        $modifier->setModifierProvider($tankEquipment);
-        $I->haveInRepository($modifier);
+    public function shouldLoseThreeOxygenWithFunctionalTanksIfNotNewCycle(FunctionalTester $I)
+    {
+        $this->daedalus->setOxygen(32);
 
         $event = new DaedalusVariableEvent(
-            $daedalus,
+            $this->daedalus,
             DaedalusVariableEnum::OXYGEN,
-            -2,
-            ['other_reason'],
+            -3,
+            ['test'],
             new \DateTime()
         );
+
         $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
 
-        $I->assertEquals(28, $daedalus->getOxygen());
+        $I->assertEquals(29, $this->daedalus->getOxygen());
+    }
+
+    public function shouldLoseThreeOxygenWithBrokenTanks(FunctionalTester $I)
+    {
+        $this->daedalus->setOxygen(32);
+
+        $this->givenTheTanksAreBroken();
 
         $event = new DaedalusVariableEvent(
-            $daedalus,
+            $this->daedalus,
             DaedalusVariableEnum::OXYGEN,
-            -2,
-            [EventEnum::NEW_CYCLE],
+            -3,
+            ['base_daedalus_cycle_change'],
             new \DateTime()
         );
+
         $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
 
-        $I->assertEquals(27, $daedalus->getOxygen());
+        $I->assertEquals(29, $this->daedalus->getOxygen());
+    }
+
+    private function givenTheTanksAreBroken()
+    {
+        $this->damageEquipmentService->execute($this->tank1);
+        $this->damageEquipmentService->execute($this->tank2);
     }
 }

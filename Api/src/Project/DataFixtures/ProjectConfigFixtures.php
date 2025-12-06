@@ -11,7 +11,7 @@ use Mush\Equipment\DataFixtures\ReplaceEquipmentConfigFixtures;
 use Mush\Equipment\DataFixtures\SpawnEquipmentConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Modifier\DataFixtures\ProjectModifierConfigFixtures;
+use Mush\Modifier\DataFixtures\ModifierConfigFixtures;
 use Mush\Project\ConfigData\ProjectConfigData;
 use Mush\Project\Entity\ProjectConfig;
 
@@ -41,7 +41,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
     public function getDependencies(): array
     {
         return [
-            ProjectModifierConfigFixtures::class,
+            ModifierConfigFixtures::class,
             SpawnEquipmentConfigFixtures::class,
             ReplaceEquipmentConfigFixtures::class,
             ProjectRequirementsFixtures::class,

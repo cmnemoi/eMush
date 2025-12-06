@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\ConsumeDrug;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DisorderEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
+use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Entity\Mechanics\Drug;
 use Mush\Equipment\Enum\GameDrugEnum;
@@ -34,6 +38,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
+    private ConsumableDiseaseServiceInterface $consumableDiseaseService;
 
     public function _before(FunctionalTester $I)
     {
@@ -44,6 +49,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
+        $this->consumableDiseaseService = $I->grabService(ConsumableDiseaseServiceInterface::class);
     }
 
     public function shouldPreventTakingAnotherDrugForCurrentCycle(FunctionalTester $I): void
@@ -97,8 +103,16 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         );
 
         // given player has a special drug which heals depression
+
+        $consumableDiseaseAttribute = new ConsumableDiseaseAttribute()
+            ->setDisease(DisorderEnum::DEPRESSION)
+            ->setType(MedicalConditionTypeEnum::CURE);
+
+        $consumableDiseaseConfig = $this->consumableDiseaseService->findConsumableDiseases(GameDrugEnum::TWINOID, $this->daedalus);
+        $consumableDiseaseConfig->setDiseasesAttribute(new ArrayCollection([$consumableDiseaseAttribute]));
+
         $drug = $this->gameEquipmentService->createGameEquipmentFromName(
-            'prozac_test',
+            GameDrugEnum::TWINOID,
             $this->player,
             [],
             new \DateTime(),

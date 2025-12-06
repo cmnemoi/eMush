@@ -216,9 +216,6 @@ final class DoTheThingCest extends AbstractFunctionalTest
     {
         $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
 
-        $this->givenPlayerIsIn($this->chun, RoomEnum::MEDLAB, $I);
-        $this->givenPlayerIsIn($this->kuanTi, RoomEnum::MEDLAB, $I);
-
         $this->givenBrokenSofaInRoom($this->chun->getPlace());
 
         $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);

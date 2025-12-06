@@ -743,7 +743,7 @@ class ActionsFixtures extends Fixture
 
         $shootHunterPatrolShip = new ActionConfig();
         $shootHunterPatrolShip
-            ->setName(ActionEnum::SHOOT_HUNTER->value . '_patrolship')
+            ->setName(ActionEnum::SHOOT_HUNTER_PATROL_SHIP->toString())
             ->setActionName(ActionEnum::SHOOT_HUNTER_PATROL_SHIP)
             ->setRange(ActionRangeEnum::ROOM)
             ->setDisplayHolder(ActionHolderEnum::HUNTER)
@@ -1215,7 +1215,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::TRY_KUBE, $tryKubeAction);
         $this->addReference(self::OPEN_SPACE_CAPSULE, $openSpaceCapsuleAction);
         $this->addReference(self::INJECT_SERUM, $injectSerumAction);
-        $this->addReference(self::BANDAGE_DEFAULT, $bandageAction);
+        $this->addReference(ActionEnum::USE_BANDAGE->value, $bandageAction);
         $this->addReference(self::COOK_EXPRESS, $expressCookAction);
         $this->addReference(self::COOK_DEFAULT, $cookAction);
         $this->addReference(self::HEAL, $healAction);
@@ -1227,7 +1227,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::HYPERFREEZE_DEFAULT, $hyperfreezeAction);
         $this->addReference(self::GAG_DEFAULT, $gagAction);
         $this->addReference(self::UNGAG_DEFAULT, $ungagAction);
-        $this->addReference(self::SHOWER_DEFAULT, $showerAction);
+        $this->addReference(ActionEnum::TAKE_SHOWER->toString(), $showerAction);
         $this->addReference(self::WASH_IN_SINK, $sinkAction);
         $this->addReference(self::FUEL_INJECT, $fuelInjectAction);
         $this->addReference(self::FUEL_RETRIEVE, $retrieveFuelAction);
@@ -1236,7 +1236,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::STRENGTHEN_HULL, $strengthenHullAction);
         $this->addReference(self::LIE_DOWN, $lieDownActon);
         $this->addReference(self::GET_UP, $getUpAction);
-        $this->addReference(self::COFFEE_DEFAULT, $coffeeAction);
+        $this->addReference(ActionEnum::COFFEE->value, $coffeeAction);
         $this->addReference(self::DISPENSE_DRUG, $dispenseAction);
         $this->addReference(self::TRANSPLANT, $transplantAction);
         $this->addReference(self::TREAT_PLANT, $treatPlantAction);

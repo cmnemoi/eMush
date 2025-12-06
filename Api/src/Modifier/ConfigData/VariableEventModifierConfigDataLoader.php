@@ -2,36 +2,21 @@
 
 namespace Mush\Modifier\ConfigData;
 
+use Mush\Modifier\Dto\VariableEventModifierConfigDto;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 
 class VariableEventModifierConfigDataLoader extends EventModifierConfigDataLoader
 {
     public function loadConfigsData(): void
     {
-        foreach (ModifierConfigData::$dataArray as $modifierConfigData) {
-            if ($modifierConfigData['type'] !== 'variable_event_modifier') {
+        foreach (ModifierConfigData::getAll() as $triggerEventConfigDataDto) {
+            if (!$triggerEventConfigDataDto instanceof VariableEventModifierConfigDto) {
                 continue;
             }
 
-            $configName = $modifierConfigData['name'];
-            $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $configName]);
-
-            if ($modifierConfig === null) {
-                $modifierConfig = new VariableEventModifierConfig($configName);
-            } elseif (!$modifierConfig instanceof VariableEventModifierConfig) {
-                $this->entityManager->remove($modifierConfig);
-                $this->entityManager->flush();
-                $modifierConfig = new VariableEventModifierConfig($configName);
-            }
-
-            $modifierConfig
-                ->setMode($modifierConfigData['mode'])
-                ->setDelta($modifierConfigData['delta'])
-                ->setTargetVariable($modifierConfigData['targetVariable']);
-            $this->loadEventModifierData($modifierConfig, $modifierConfigData);
-            $modifierConfig->setModifierActivationRequirements($this->getModifierConfigActivationRequirements($modifierConfigData, 'modifierActivationRequirements'));
-
-            $this->entityManager->persist($modifierConfig);
+            $config = VariableEventModifierConfig::fromDtoChild($triggerEventConfigDataDto);
+            $this->getModifierConfigActivationRequirements($config, $triggerEventConfigDataDto->modifierActivationRequirements);
+            $this->entityManager->persist($config);
         }
         $this->entityManager->flush();
     }

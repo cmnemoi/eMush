@@ -429,6 +429,9 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldPreventAllIncidentsIfBricBrocProjectIsActivated(FunctionalTester $I): void
     {
+        // making sure the ship can have incidents to begin with.
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
+
         // given Bric Broc project is finished
         $this->finishProject(
             $this->daedalus->getProjectByName(ProjectName::BRIC_BROC),

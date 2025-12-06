@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\AbstractEventConfig;
+use Mush\Modifier\Dto\DirectModifierConfigDto;
 use Mush\Modifier\Entity\Collection\ModifierActivationRequirementCollection;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 
@@ -40,15 +41,18 @@ class DirectModifierConfig extends AbstractModifierConfig
         parent::__construct($name);
     }
 
-    public static function fromConfigData(array $configData): self
+    public static function fromDto(DirectModifierConfigDto $directModifierConfigDto): self
     {
-        $directModifierConfig = new self($configData['name']);
-        $directModifierConfig
-            ->setRevertOnRemove($configData['revertOnRemove'])
-            ->setModifierRange($configData['modifierRange'])
-            ->setModifierStrategy($configData['strategy']);
+        /** @var DirectModifierConfig $config */
+        $config = new self($directModifierConfigDto->key)
+            ->setModifierName($directModifierConfigDto->name)
+            ->setModifierStrategy($directModifierConfigDto->strategy)
+            ->setModifierRange($directModifierConfigDto->modifierRange);
 
-        return $directModifierConfig;
+        $config->setRevertOnRemove($directModifierConfigDto->revertOnRemove)
+            ->setTargetFilters($directModifierConfigDto->targetFilters);
+
+        return $config;
     }
 
     public function getTriggeredEvent(): AbstractEventConfig

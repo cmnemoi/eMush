@@ -12,10 +12,10 @@ use Mush\Equipment\DataFixtures\BlueprintConfigFixtures;
 use Mush\Equipment\DataFixtures\BookConfigFixtures;
 use Mush\Equipment\DataFixtures\DrugConfigFixtures;
 use Mush\Equipment\DataFixtures\EquipmentConfigFixtures;
-use Mush\Equipment\DataFixtures\ExplorationConfigFixtures;
-use Mush\Equipment\DataFixtures\FruitPlantConfigFixtures;
+use Mush\Equipment\DataFixtures\FruitConfigFixtures;
 use Mush\Equipment\DataFixtures\GearConfigFixtures;
 use Mush\Equipment\DataFixtures\ItemConfigFixtures;
+use Mush\Equipment\DataFixtures\PlantConfigFixtures;
 use Mush\Equipment\DataFixtures\RationConfigFixtures;
 use Mush\Equipment\DataFixtures\ToolConfigFixtures;
 use Mush\Equipment\DataFixtures\WeaponConfigFixtures;
@@ -170,7 +170,7 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setEquipments([
                 EquipmentEnum::SURGERY_PLOT,
                 EquipmentEnum::NARCOTIC_DISTILLER,
-                EquipmentEnum::MEDLAB_BED,
+                EquipmentEnum::BED,
             ])
             ->setItems([
                 ToolItemEnum::BANDAGE,
@@ -666,10 +666,10 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ItemConfigFixtures::class,
             RationConfigFixtures::class,
             DrugConfigFixtures::class,
-            FruitPlantConfigFixtures::class,
+            FruitConfigFixtures::class,
+            PlantConfigFixtures::class,
             BookConfigFixtures::class,
             BlueprintConfigFixtures::class,
-            ExplorationConfigFixtures::class,
             ToolConfigFixtures::class,
             GearConfigFixtures::class,
             WeaponConfigFixtures::class,

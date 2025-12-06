@@ -5,6 +5,7 @@ namespace Mush\Modifier\ConfigData;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Game\Repository\EventConfigRepository;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Repository\ModifierActivationRequirementRepository;
 use Mush\Modifier\Repository\ModifierConfigRepository;
 
@@ -26,10 +27,10 @@ abstract class ModifierConfigDataLoader extends ConfigDataLoader
         $this->eventConfigRepository = $eventConfigRepository;
     }
 
-    protected function getModifierConfigActivationRequirements(array $modifierConfigData, string $parameterName): array
+    protected function getModifierConfigActivationRequirements(AbstractModifierConfig $modifierConfigData, array $modifierActivationRequirementsAsString): void
     {
         $modifierActivationRequirements = [];
-        foreach ($modifierConfigData[$parameterName] as $activationRequirementName) {
+        foreach ($modifierActivationRequirementsAsString as $activationRequirementName) {
             $modifierActivationRequirement = $this->modifierActivationRequirementRepository->findOneBy(['name' => $activationRequirementName]);
 
             if ($modifierActivationRequirement === null) {
@@ -38,6 +39,21 @@ abstract class ModifierConfigDataLoader extends ConfigDataLoader
             $modifierActivationRequirements[] = $modifierActivationRequirement;
         }
 
-        return $modifierActivationRequirements;
+        $modifierConfigData->setModifierActivationRequirements($modifierActivationRequirements);
+    }
+
+    protected function getModifierConfigActivationRequirementsBis(AbstractModifierConfig $modifierConfigData, array $modifierActivationRequirementsAsString): void
+    {
+        $modifierActivationRequirements = [];
+        foreach ($modifierActivationRequirementsAsString as $activationRequirementName) {
+            $modifierActivationRequirement = $this->modifierActivationRequirementRepository->findOneBy(['name' => $activationRequirementName]);
+
+            if ($modifierActivationRequirement === null) {
+                throw new \Exception('Modifier activation requirement not found: ' . $activationRequirementName);
+            }
+            $modifierActivationRequirements[] = $modifierActivationRequirement;
+        }
+
+        $modifierConfigData->setModifierActivationRequirements($modifierActivationRequirements);
     }
 }

@@ -863,6 +863,10 @@ abstract class AchievementConfigData
             new AchievementConfigDto(name: AchievementEnum::GRENADIER_1, points: 1, threshold: 1),
             new AchievementConfigDto(name: AchievementEnum::FROZEN_TAKEN_1, points: 1, threshold: 1),
             new AchievementConfigDto(name: AchievementEnum::KIND_PERSON_1, points: 0, threshold: 1),
+            new AchievementConfigDto(name: AchievementEnum::DISEASE_CONTRACTED_1, points: 1, threshold: 1),
+            new AchievementConfigDto(name: AchievementEnum::DISEASE_CONTRACTED_10, points: 0, threshold: 10),
+            new AchievementConfigDto(name: AchievementEnum::DISEASE_CONTRACTED_20, points: 0, threshold: 20),
+            new AchievementConfigDto(name: AchievementEnum::DISEASE_CONTRACTED_50, points: 0, threshold: 50),
         ];
     }
 

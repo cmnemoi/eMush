@@ -203,6 +203,10 @@ enum AchievementEnum: string
     case GRENADIER_1 = 'grenadier_1';
     case FROZEN_TAKEN_1 = 'frozen_taken_1';
     case KIND_PERSON_1 = 'kind_person_1';
+    case DISEASE_CONTRACTED_1 = 'disease_contracted_1';
+    case DISEASE_CONTRACTED_10 = 'disease_contracted_10';
+    case DISEASE_CONTRACTED_20 = 'disease_contracted_20';
+    case DISEASE_CONTRACTED_50 = 'disease_contracted_50';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

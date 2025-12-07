@@ -1391,5 +1391,31 @@
         <target>kind_person_1.name</target>
       </segment>
     </unit>
+    <unit id="disease_contracted">
+      <segment id="name" state="initial">
+        <source>disease_contracted.name</source>
+        <target>disease_contracted.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>disease_contracted.description</source>
+        <target>disease_contracted.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>disease_contracted_1.name</source>
+        <target>disease_contracted_1.name</target>
+      </segment>
+      <segment id="x10" state="initial">
+        <source>disease_contracted_10.name</source>
+        <target>disease_contracted_10.name</target>
+      </segment>
+      <segment id="x20" state="initial">
+        <source>disease_contracted_20.name</source>
+        <target>disease_contracted_20.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>disease_contracted_50.name</source>
+        <target>disease_contracted_50.name</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -91,13 +91,13 @@ final class StatusServiceCest extends AbstractFunctionalTest
     public function testBrokenSofaRemovesLaidDownStatus(FunctionalTester $I): void
     {
         // given there is a sofa in lab
-        $laboratory = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
-        $sofaConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::SWEDISH_SOFA]);
-        $sofa = new GameEquipment($laboratory);
-        $sofa
-            ->setName(EquipmentEnum::SWEDISH_SOFA)
-            ->setEquipment($sofaConfig);
-        $I->haveInRepository($sofa);
+        $sofa = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::SWEDISH_SOFA,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: ['test'],
+            time: new \DateTime(),
+            visibility: VisibilityEnum::HIDDEN
+        );
 
         // given player is laid down on sofa
         $this->statusService->createStatusFromName(
@@ -121,10 +121,60 @@ final class StatusServiceCest extends AbstractFunctionalTest
 
         // then I see a public log about it
         $I->seeInRepository(RoomLog::class, [
-            'place' => $laboratory->getName(),
+            'place' => RoomEnum::LABORATORY,
             'log' => StatusEventLogEnum::GET_UP_BED_BROKEN,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+    }
+
+    public function testTwoSofasBreakOneDoesntMakeBothPlayersGetUp(FunctionalTester $I): void
+    {
+        // given there is a sofa in lab
+        $sofa1 = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::SWEDISH_SOFA,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: ['test'],
+            time: new \DateTime(),
+            visibility: VisibilityEnum::HIDDEN
+        );
+
+        // given player is laid down on sofa
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->player1,
+            tags: [],
+            time: new \DateTime(),
+            target: $sofa1
+        );
+
+        // given there is a second sofa in lab
+        $sofa2 = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::SWEDISH_SOFA,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: ['test'],
+            time: new \DateTime(),
+            visibility: VisibilityEnum::HIDDEN
+        );
+
+        // given player is laid down on sofa
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->player2,
+            tags: [],
+            time: new \DateTime(),
+            target: $sofa2
+        );
+
+        // when sofa is broken
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $sofa1,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // then player 2 is still lying down on sofa
+        $I->assertTrue($this->player2->hasStatus(PlayerStatusEnum::LYING_DOWN));
     }
 
     public function testBrokenEquipmentByNewCycleAreAnnouncedInDistinctThreads(FunctionalTester $I): void

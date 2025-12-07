@@ -50,7 +50,6 @@ abstract class StatusEventLogEnum
         ],
         StatusEvent::STATUS_REMOVED => [
             EquipmentStatusEnum::PLANT_YOUNG => PlantLogEnum::PLANT_MATURITY,
-            PlayerStatusEnum::LYING_DOWN => self::GET_UP_BED_BROKEN,
             PlayerStatusEnum::INACTIVE => self::PLAYER_WAKE_UP,
             PlayerStatusEnum::HIGHLY_INACTIVE => self::PLAYER_WAKE_UP,
             PlaceStatusEnum::CEASEFIRE->value => self::CEASEFIRE_END,

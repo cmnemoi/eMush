@@ -13,6 +13,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -138,16 +139,19 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         if ($statusHolder instanceof GameEquipment
             && $statusHolder->getEquipment()->hasAction(ActionEnum::LIE_DOWN)
         ) {
-            foreach ($statusHolder->getPlace()->getPlayers()->getPlayerAlive() as $player) {
-                if ($player->getStatusByName(PlayerStatusEnum::LYING_DOWN)?->getTarget()?->getName() === $statusHolder->getName()) {
-                    $this->statusService->removeStatus(
-                        PlayerStatusEnum::LYING_DOWN,
-                        $player,
-                        $tags,
-                        $time,
-                        VisibilityEnum::PUBLIC,
-                    );
-                }
+            $tags[] = StatusEventLogEnum::GET_UP_BED_BROKEN;
+
+            $status = $statusHolder->getTargetingStatusByName(PlayerStatusEnum::LYING_DOWN);
+
+            if ($status !== null) {
+                $player = $status->getPlayerOwnerOrThrow();
+                $this->statusService->removeStatus(
+                    PlayerStatusEnum::LYING_DOWN,
+                    $player,
+                    $tags,
+                    $time,
+                    VisibilityEnum::PUBLIC,
+                );
             }
         }
     }

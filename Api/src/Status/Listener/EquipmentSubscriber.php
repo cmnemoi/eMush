@@ -2,6 +2,7 @@
 
 namespace Mush\Status\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -13,6 +14,7 @@ use Mush\Equipment\Service\DamageEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -166,20 +168,23 @@ final class EquipmentSubscriber implements EventSubscriberInterface
         array $tags,
         \DateTime $time
     ): void {
-        if (!$equipment->isSofa()) {
+        if (!$equipment->getEquipment()->hasAction(ActionEnum::LIE_DOWN)) {
             return;
         }
 
-        foreach ($equipment->getPlace()->getAlivePlayers() as $player) {
-            if ($player->getStatusByName(PlayerStatusEnum::LYING_DOWN)?->getTarget()?->getName() === $equipment->getName()) {
-                $this->statusService->removeStatus(
-                    PlayerStatusEnum::LYING_DOWN,
-                    $player,
-                    $tags,
-                    $time,
-                    VisibilityEnum::PUBLIC,
-                );
-            }
+        $tags[] = StatusEventLogEnum::GET_UP_BED_BROKEN;
+
+        $status = $equipment->getTargetingStatusByName(PlayerStatusEnum::LYING_DOWN);
+
+        if ($status !== null) {
+            $player = $status->getPlayerOwnerOrThrow();
+            $this->statusService->removeStatus(
+                PlayerStatusEnum::LYING_DOWN,
+                $player,
+                $tags,
+                $time,
+                VisibilityEnum::PUBLIC,
+            );
         }
     }
 

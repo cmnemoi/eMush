@@ -75,6 +75,7 @@ class StatusSubscriber implements EventSubscriberInterface
         match ($statusName) {
             PlaceStatusEnum::DELOGGED->toString() => $this->handleDeloggedPlace(event: $event),
             PlayerStatusEnum::MUSH => $this->handleMushStatusRemoved(event: $event),
+            PlayerStatusEnum::LYING_DOWN => $this->handleLyingDownStatusRemoved($event),
             default => null,
         };
 
@@ -206,5 +207,22 @@ class StatusSubscriber implements EventSubscriberInterface
             [],
             $event->getTime()
         );
+    }
+
+    private function handleLyingDownStatusRemoved(StatusEvent $event)
+    {
+        if ($event->hasTag(StatusEventLogEnum::GET_UP_BED_BROKEN)) {
+            $player = $event->getPlayerStatusHolder();
+            $logParameters = $event->getLogParameters();
+            $this->roomLogService->createLog(
+                StatusEventLogEnum::GET_UP_BED_BROKEN,
+                $player->getPlace(),
+                VisibilityEnum::PUBLIC,
+                'event_log',
+                $player,
+                $logParameters,
+                $event->getTime()
+            );
+        }
     }
 }

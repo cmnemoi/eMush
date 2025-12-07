@@ -302,6 +302,8 @@ final class HitActionCest extends AbstractFunctionalTest
 
     public function shouldPrintSpecialLogWhenDamageIsAbsorbedByArmor(FunctionalTester $I): void
     {
+        $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
+
         $this->givenHitDamageIs([1, 1]);
 
         $this->givenHitActionHasSuccessRate(100);

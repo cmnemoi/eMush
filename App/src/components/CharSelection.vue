@@ -9,9 +9,9 @@
                         v-for="(lang, i) in languages"
                         :key="`Lang${i}`"
                         :value="lang.caption"
-                        @click="resetValues(); loadAvailableCharacters(i);"
+                        @click="selectLanguage(i); resetValues(); loadAvailableCharacters(i);"
                         :src="lang.icon"
-                        class="flag"
+                        :class="{ flag: true, selected: selectedLanguage === i}"
                     />
                 </ol>
             </div>
@@ -147,7 +147,8 @@ export default defineComponent ({
             characterSelected: false,
             selectedCharacter: null,
             error: null as any,
-            languages: gameLocales
+            languages: gameLocales,
+            selectedLanguage: ''
         };
     },
     computed: {
@@ -183,6 +184,9 @@ export default defineComponent ({
         },
         getImgUrl,
         formatText,
+        selectLanguage: function(language: string) {
+            this.selectedLanguage = language;
+        },
         resetValues: function() {
             this.characterHovered = false;
             this.hoveredCharacter = null;
@@ -211,6 +215,10 @@ export default defineComponent ({
 
 <style lang="scss" scoped>
 @use "sass:color";
+
+.selected {
+	box-shadow: $orange 0px 0px 8px;
+}
 
 .box-container {
     justify-content: stretch;

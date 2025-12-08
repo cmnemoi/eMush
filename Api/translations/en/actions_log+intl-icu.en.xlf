@@ -1103,6 +1103,12 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>***For Moderation Only*** : **{character}** exchanges body with **{target_character}**.</target>
       </segment>
     </unit>
+    <unit id="cure_success">
+      <segment id="cure_success" state="translated">
+        <source>cure_success</source>
+        <target>***For Moderation Only*** : **{character}** vaccinates **{target_character}**.</target>
+      </segment>
+    </unit>
     <unit id="adapt_epigenetics_success">
       <segment id="adapt_epigenetics_success" state="translated">
         <source>adapt_epigenetics_success</source>

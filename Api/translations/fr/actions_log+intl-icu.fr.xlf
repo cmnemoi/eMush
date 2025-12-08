@@ -1348,6 +1348,12 @@
         <target>***Pour la Modération Seulement*** : **{character}** se transfère dans **{target_character}**.</target>
       </segment>
     </unit>
+    <unit id="cure_success">
+      <segment id="cure_success" state="translated">
+        <source>cure_success</source>
+        <target>***Pour la Modération Seulement*** : **{character}** vaccine **{target_character}**.</target>
+      </segment>
+    </unit>
     <unit id="adapt_epigenetics_success">
       <segment id="adapt_epigenetics_success" state="translated">
         <source>adapt_epigenetics_success</source>

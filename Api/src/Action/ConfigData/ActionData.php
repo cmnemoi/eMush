@@ -373,7 +373,7 @@ class ActionData
             'types' => [],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
-            'visibilities' => ['success' => 'public', 'fail' => 'private'],
+            'visibilities' => ['success' => VisibilityEnum::HIDDEN, 'fail' => VisibilityEnum::HIDDEN],
             'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

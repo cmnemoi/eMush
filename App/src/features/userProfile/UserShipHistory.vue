@@ -40,8 +40,7 @@ const fields = ref([
     {
         key: 'characterName',
         name: 'userProfile.shipHistory.character',
-        sortable: false,
-        image: 'characterBody'
+        sortable: false
     },
     {
         key: 'daysSurvived',

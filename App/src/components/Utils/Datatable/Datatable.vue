@@ -19,8 +19,9 @@
                 <tr v-for="row in rowData" :key='row.id' @click="onRowClick(row)">
                     <td v-for="field in headers" :key='field.key'>
                         <slot v-if="field.slot" :name="`row-${field.key}`" v-bind="row" />
-                        <span v-else-if="field.image !== 'characterBody'" v-html="formatText($t(String(field.subkey ? row[field.key][field.subkey] : row[field.key])))">
-
+                        <span v-else-if="field.image">
+                            <img :src="row[field.image]" alt="Character Image" style="max-width: 16px;"/>
+                            {{ $t(String(field.subkey ? row[field.key][field.subkey] : row[field.key])) }}
                         </span>
                         <span v-else v-html="formatText($t(String(field.subkey ? row[field.key][field.subkey] : row[field.key])))">
 

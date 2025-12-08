@@ -58,7 +58,7 @@ final class ModerationSanctionRepository extends ServiceEntityRepository impleme
             ->select('moderation_sanction')
             ->where('moderation_sanction.user = :userId')
             ->andWhere('moderation_sanction.moderationAction = :moderationAction')
-            ->andWhere('moderation_sanction.startDate >= :now')
+            ->andWhere('moderation_sanction.endDate >= :now')
             ->setParameter('userId', $user->getId())
             ->setParameter('moderationAction', ModerationSanctionEnum::WARNING)
             ->setParameter('now', new \DateTime());

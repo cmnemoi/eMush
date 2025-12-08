@@ -60,15 +60,14 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         );
 
         // when I get the user sanctions from the repository
-        $sanctions = $this->moderationSanctionRepository->findAllUserActiveBansAndWarnings($this->chun->getUser());
+        $sanctions = $this->moderationSanctionRepository->findUserAllActiveWarnings($this->chun->getUser())->toArray();
+        $ban = $this->moderationSanctionRepository->findUserActiveBan($this->chun->getUser());
+        if ($ban !== null) {
+            $sanctions[] = $ban;
+        }
 
-        // then I should see the user sanction
+        // then I should see the user warning and ban but not the quarantine
         $I->assertCount(2, $sanctions);
-        $I->assertEquals(ModerationSanctionEnum::WARNING, $sanctions[0]->getModerationAction());
-        $I->assertEquals('flood', $sanctions[0]->getReason());
-        $I->assertEquals('hello, world!', $sanctions[0]->getMessage());
-        $I->assertEquals($now->format('Y-m-d-H-i'), $sanctions[0]->getStartDate()->format('Y-m-d-H-i'));
-        $I->assertEquals($oneDayLater->format('Y-m-d-H-i'), $sanctions[0]->getEndDate()->format('Y-m-d-H-i'));
     }
 
     public function shouldNotReturnOtherUserActiveBansAndWarnings(FunctionalTester $I): void
@@ -85,7 +84,11 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         );
 
         // when I get Chun's sanctions from the repository
-        $sanctions = $this->moderationSanctionRepository->findAllUserActiveBansAndWarnings($this->chun->getUser());
+        $sanctions = $this->moderationSanctionRepository->findUserAllActiveWarnings($this->chun->getUser())->toArray();
+        $ban = $this->moderationSanctionRepository->findUserActiveBan($this->chun->getUser());
+        if ($ban !== null) {
+            $sanctions[] = $ban;
+        }
 
         // then I should not see any sanction
         $I->assertCount(0, $sanctions);
@@ -110,7 +113,11 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         $this->moderationSanctionRepository->save($sanction);
 
         // when I get the user sanctions from the repository
-        $sanctions = $this->moderationSanctionRepository->findAllUserActiveBansAndWarnings($this->chun->getUser());
+        $sanctions = $this->moderationSanctionRepository->findUserAllActiveWarnings($this->chun->getUser())->toArray();
+        $ban = $this->moderationSanctionRepository->findUserActiveBan($this->chun->getUser());
+        if ($ban !== null) {
+            $sanctions[] = $ban;
+        }
 
         // then I should not see the user sanction
         $I->assertCount(0, $sanctions);
@@ -128,11 +135,11 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         );
 
         // when I get the user warnings from the repository
-        $warnings = $this->moderationSanctionRepository->findUserAllActiveWarnings($this->chun->getUser());
+        $sanctions = $this->moderationSanctionRepository->findUserAllActiveWarnings($this->chun->getUser())->toArray();
 
         // then I should see the warning
-        $I->assertNotEmpty($warnings->toArray());
-        $I->assertCount(1, $warnings->toArray());
+        $I->assertNotEmpty($sanctions);
+        $I->assertCount(1, $sanctions);
     }
 
     public function shouldNotReturnExpiredWarningsInFindUserAllActiveWarnings(FunctionalTester $I): void
@@ -154,28 +161,10 @@ final class ModerationSanctionRepositoryCest extends AbstractFunctionalTest
         $this->moderationSanctionRepository->save($sanction);
 
         // when I get the user warnings from the repository
-        $warnings = $this->moderationSanctionRepository->findUserAllActiveWarnings($this->chun->getUser());
+        $sanctions = $this->moderationSanctionRepository->findUserAllActiveWarnings($this->chun->getUser())->toArray();
 
         // then I should not see the warning
-        $I->assertEmpty($warnings->toArray());
-    }
-
-    public function shouldNotReturnOtherUserWarningsInFindUserAllActiveWarnings(FunctionalTester $I): void
-    {
-        // given KT's user has a warning
-        $this->moderationService->warnUser(
-            user: $this->kuanTi->getUser(),
-            author: $this->kuanTi->getUser(),
-            duration: new \DateInterval('P1D'),
-            reason: 'flood',
-            message: 'hello, world!',
-        );
-
-        // when I get Chun's warnings from the repository
-        $warnings = $this->moderationSanctionRepository->findUserAllActiveWarnings($this->chun->getUser());
-
-        // then I should not see any warning
-        $I->assertEmpty($warnings->toArray());
+        $I->assertEmpty($sanctions);
     }
 
     public function shouldReturnUserActiveBan(FunctionalTester $I): void

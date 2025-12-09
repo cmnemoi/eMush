@@ -154,6 +154,14 @@
             </div>
             <span v-else>{{ $t('moderation.nothingToDisplay') }}</span>
         </div>
+        <label>
+            <input
+                type="checkbox"
+                id="checkbox"
+                v-model="ignoreNoise"
+                @change="loadLogs(player)"/>
+            {{ $t('moderation.ignoreNoise') }}
+        </label>
         <div class="flex-row">
             <label>{{ $t('moderation.filters.startDate') }} :
                 <input
@@ -364,7 +372,8 @@ interface ModerationViewPlayerData {
     moderationDialogVisible: boolean,
     currentAction: { key: string, value: string },
     showDetailPopup: boolean,
-    selectedSanction: any
+    selectedSanction: any,
+    ignoreNoise : boolean,
 }
 
 export default defineComponent({
@@ -442,7 +451,8 @@ export default defineComponent({
                 }
             ],
             showDetailPopup: false,
-            selectedSanction: {}
+            selectedSanction: {},
+            ignoreNoise : true
         };
     },
     emits: ['close'],
@@ -506,7 +516,7 @@ export default defineComponent({
             if (this.filters.logs.cycle === null) {
                 this.filters.logs.cycle = player.daedalusCycle;
             }
-            await ModerationService.getLogs(this.filters.logs.day, this.filters.logs.cycle, player.id, this.filters.logs.content, this.filters.logs.room)
+            await ModerationService.getLogs(this.filters.logs.day, this.filters.logs.cycle, player.id, this.filters.logs.content, this.filters.logs.room, undefined, this.ignoreNoise)
                 .then((response) => {
                     this.playerLogs = response.data;
                 })

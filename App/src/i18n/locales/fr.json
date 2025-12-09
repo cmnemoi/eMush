@@ -981,6 +981,7 @@
 		"logs": "Logs",
 		"mushChannel": "Canal Mush",
 		"nothingToDisplay": "Rien à afficher.",
+		"ignoreNoise": "Supprimer le bruit",
 		"privateChannel": "Canal privé",
 		"unban": "Débannir",
 		"unbanDescription": "Débannir cet utilisateur afin qu'il puisse rejoindre de nouveau un vaisseau.",

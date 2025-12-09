@@ -12,6 +12,7 @@ export class RoomLog {
     public cycle: integer|null;
     public isUnread!: boolean;
     public tableLog: RoomLogTable[];
+    public canBeHidden: boolean;
 
     constructor() {
         this.message = null;
@@ -21,6 +22,7 @@ export class RoomLog {
         this.day = null;
         this.cycle = null;
         this.tableLog = [];
+        this.canBeHidden = false;
     }
     load(object: any): RoomLog {
         if (typeof object !== "undefined") {
@@ -33,6 +35,7 @@ export class RoomLog {
             this.cycle = object.cycle;
             this.isUnread = object.isUnread;
             this.tableLog = object.tableLog;
+            this.canBeHidden = object.canBeHidden;
         }
         return this;
     }

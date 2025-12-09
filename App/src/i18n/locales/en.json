@@ -981,6 +981,7 @@
 		"logs": "Logs",
 		"mushChannel": "Mush channel",
 		"nothingToDisplay": "Nothing to display.",
+		"ignoreNoise": "Remove the noise",
 		"privateChannel": "Private channel",
 		"unban": "Unban",
 		"unbanDescription": "Unban this user so that they can rejoin a ship again.",

@@ -6,6 +6,8 @@ namespace Mush\MetaGame\Normalizer;
 
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final readonly class ModerationRoomLogNormalizer implements NormalizerInterface
@@ -52,6 +54,26 @@ final readonly class ModerationRoomLogNormalizer implements NormalizerInterface
             )} ({$roomLog->getPlace()})",
             'day' => $roomLog->getDay(),
             'cycle' => $roomLog->getCycle(),
+            'canBeHidden' => $this->canBeHidden($roomLog),
         ];
+    }
+
+    private function canBeHidden(RoomLog $roomLog): bool
+    {
+        return match (true) {
+            $roomLog->getType() === 'triumph' => true,
+            \in_array($roomLog->getLog(), PlayerModifierLogEnum::PLAYER_VARIABLE_LOGS['gain'], true) => true,
+            \in_array($roomLog->getLog(), PlayerModifierLogEnum::PLAYER_VARIABLE_LOGS['loss'], true) => true,
+            \in_array($roomLog->getLog(), StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'], true) => true,
+            $roomLog->getLog() === 'daily_morale_loss' => true,
+            $roomLog->getLog() === 'logistic_log' => true,
+            $roomLog->getLog() === 'antisocial_morale_loss' => true,
+            $roomLog->getLog() === 'disease_cured' => true,
+            $roomLog->getLog() === 'disorder_appear' => true,
+            $roomLog->getLog() === 'trauma_disease' => true,
+            $roomLog->getLog() === 'disease_appear' => true,
+            $roomLog->getLog() === 'injury_appear' => true,
+            default => false
+        };
     }
 }

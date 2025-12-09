@@ -153,7 +153,8 @@ const ModerationService = {
         playerId: number | null,
         content?: string,
         place?: string,
-        daedalusId?: string
+        daedalusId?: string,
+        ignoreNoise : boolean = false
     ): Promise<any> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const queryParameters = `pagination=false`
@@ -169,7 +170,10 @@ const ModerationService = {
         const roomLogs: RoomLog[] = [];
         response.data['hydra:member'].forEach((logData: any) => {
             const roomLog = (new RoomLog()).load(logData);
-            roomLogs.push(roomLog);
+            if(ignoreNoise == false || roomLog.canBeHidden == false)
+            {
+                roomLogs.push(roomLog);
+            }
         });
 
         const days = new Set(roomLogs.map((log) => log.day));

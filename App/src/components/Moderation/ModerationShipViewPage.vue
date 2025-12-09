@@ -79,6 +79,15 @@
         </div>
         <span v-else>{{ $t('moderation.nothingToDisplay') }}</span>
     </div>
+
+    <label>
+        <input
+            type="checkbox"
+            id="checkbox"
+            v-model="ignoreNoise"
+            @change="loadLogs()"/>
+        {{ $t('moderation.ignoreNoise') }}
+    </label>
 </template>
 
 <script lang="ts">
@@ -122,6 +131,7 @@ interface ModerationShipView {
         }
     },
     logs: any,
+    ignoreNoise : boolean,
     fields : any,
     pagination: {
         currentPage: number,
@@ -178,6 +188,7 @@ export default defineComponent({
                 }
             },
             logs: null,
+            ignoreNoise: true,
             fields: [
                 {
                     key: 'id',
@@ -261,7 +272,8 @@ export default defineComponent({
                 null,
                 this.filters.logs.content,
                 this.filters.logs.room,
-                this.$route.params.daedalusId as string
+                this.$route.params.daedalusId as string,
+                this.ignoreNoise
             )
                 .then((response) => {
                     this.logs = response.data;

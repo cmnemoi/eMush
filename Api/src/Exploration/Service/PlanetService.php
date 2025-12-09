@@ -187,12 +187,12 @@ final class PlanetService implements PlanetServiceInterface
         return $planetName;
     }
 
-    private function getPlanetSize(Daedalus $dadalus): int
+    private function getPlanetSize(Daedalus $daedalus): int
     {
-        if ($dadalus->isInHardMode()) {
+        if ($daedalus->isInHardMode()) {
             return 4 + $this->randomService->random(0, 6) * 2;
         }
-        if ($dadalus->isInVeryHardMode()) {
+        if ($daedalus->isInVeryHardMode()) {
             return 6 + $this->randomService->random(0, 7) * 2;
         }
 

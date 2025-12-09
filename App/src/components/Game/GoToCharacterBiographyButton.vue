@@ -19,6 +19,6 @@ defineProps<{character: Character}>();
 
 <style lang="scss" scoped>
 .book {
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 </style>

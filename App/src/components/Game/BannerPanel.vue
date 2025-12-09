@@ -313,7 +313,7 @@ span.tippy-tooltip {
         }
 
         img {
-            padding: 2px 0 0 4px;
+            padding: 0 0 2px 0;
         }
 
         li {

@@ -138,6 +138,7 @@ export default defineComponent ({
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+        align-items: center;
         display: flex;
 
         .room-name {

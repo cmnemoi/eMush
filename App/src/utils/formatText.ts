@@ -88,16 +88,17 @@ export function formatText(text: string|null): string {
     ];
     const knowHostsRegex = "(?:(?:" + knownHosts.map(regexEscape).join(")|(?:") + "))";
     const markdownLinkRegex = new RegExp(
-        String.raw`\[([^\]]+)\]\((https?:\/\/${knowHostsRegex}[^\n\s)\]'"]*)\)|(https?:\/\/${knowHostsRegex}[^;:<>!?.\s\n)\]\['"]*)`,
+        String.raw`\[([^\]]+)\]\((https?:\/\/${knowHostsRegex}[^;:<>!?.\s\n)\]"]*)\)|(https?:\/\/${knowHostsRegex}[^;:<>!?.\s\n)\]\['"]*)`,
         "gim"
     );
 
+
+    formattedText = formattedText.replace(/(?<!http:|https:)\/\//g, '<br>');
     formattedText = formattedText.replaceAll(markdownLinkRegex, markdownLinkSubstitution);
     formattedText = formattedText.replace(/:([a-zA-Z0-9_]+):/g, emoteSubstitution);
     formattedText = formattedText.replaceAll(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     formattedText = formattedText.replaceAll(/\*(.*?)\*/g, '<em>$1</em>');
     formattedText = formattedText.replaceAll(/~~(.*?)~~/g, '<s>$1</s>');
-    formattedText = formattedText.replace(/(?<!http:|https:)\/\//g, '<br>');
 
     return formattedText;
 }

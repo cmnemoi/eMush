@@ -92,6 +92,13 @@ describe('formatText', () => {
 
             expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules' target='_blank' rel='noopener noreferrer'>https://emush.eternaltwin.org/rules</a>");
         });
+        it('should handle line breaks after a link', () => {
+            const text = "https://emush.eternaltwin.org/rules//hello";
+
+            const result = formatText(text);
+
+            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules' target='_blank' rel='noopener noreferrer'>https://emush.eternaltwin.org/rules</a><br>hello");
+        });
         it('should not replace https://unknown.host.org by a link', () => {
             const text = "https://unknown.host.org";
 

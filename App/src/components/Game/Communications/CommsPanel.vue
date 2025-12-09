@@ -265,7 +265,7 @@ export default defineComponent ({
 .cycle-time {
     flex-direction: row;
     align-items: center;
-    margin: 0 12px;
+    margin: 0 10px;
     min-height: 25px;
     float: right;
     font-size: 0.8em;

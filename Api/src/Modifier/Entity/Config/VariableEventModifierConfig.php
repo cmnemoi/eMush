@@ -49,11 +49,13 @@ class VariableEventModifierConfig extends EventModifierConfig
         }
     }
 
-    public static function fromDtoChild(VariableEventModifierConfigDto $triggerEventModifierConfigDto): self
+    public static function fromDtoChild(VariableEventModifierConfigDto $triggerEventModifierConfigDto, ?self $config = null): self
     {
-        /** @var VariableEventModifierConfig $config */
-        $config = new self($triggerEventModifierConfigDto->key)
-            ->setModifierName($triggerEventModifierConfigDto->name)
+        if ($config === null) {
+            $config = new self($triggerEventModifierConfigDto->key);
+        }
+
+        $config->setModifierName($triggerEventModifierConfigDto->name)
             ->setModifierStrategy($triggerEventModifierConfigDto->strategy)
             ->setModifierRange($triggerEventModifierConfigDto->modifierRange);
 

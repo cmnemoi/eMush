@@ -439,7 +439,7 @@ final class GraftCest extends AbstractFunctionalTest
     private function thenAnemolePlantShouldHaveAge25(FunctionalTester $I): void
     {
         $anemolePlant = $this->chun->getPlace()->getEquipmentByName($this->anemole->getPlantNameOrThrow());
-        $expectedAge = (int) $anemolePlant->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG)->getMaturationTimeOrThrow() * 0.25;
+        $expectedAge = (int) floor($anemolePlant->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG)->getMaturationTimeOrThrow() * 0.25);
         $I->assertEquals(
             expected: $expectedAge,
             actual: $anemolePlant->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG)->getCharge(),

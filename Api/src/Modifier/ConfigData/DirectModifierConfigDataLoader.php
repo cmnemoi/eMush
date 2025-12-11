@@ -15,7 +15,16 @@ class DirectModifierConfigDataLoader extends ModifierConfigDataLoader
                 continue;
             }
 
-            $config = DirectModifierConfig::fromDto($modifierConfigDataDto);
+            /**
+             * @var ?DirectModifierConfig $configOrigin
+             */
+            $configOrigin = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigDataDto->key]);
+            if ($configOrigin === null) {
+                $config = DirectModifierConfig::fromDto($modifierConfigDataDto);
+            } else {
+                $config = DirectModifierConfig::fromDto($modifierConfigDataDto, $configOrigin);
+            }
+
             $this->setEventConfig($config, $modifierConfigDataDto->triggeredEvent);
             $this->getModifierConfigActivationRequirements($config, $modifierConfigDataDto->modifierActivationRequirements);
             $this->getEventConfigActivationRequirements($config, $modifierConfigDataDto->eventActivationRequirements);

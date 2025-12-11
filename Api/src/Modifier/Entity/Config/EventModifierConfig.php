@@ -38,11 +38,13 @@ class EventModifierConfig extends AbstractModifierConfig
     #[ORM\Column(type: 'array', nullable: false)]
     protected array $tagConstraints = [];
 
-    public static function fromDto(EventModifierConfigDto $eventModifierConfigDto): self
+    public static function fromDto(EventModifierConfigDto $eventModifierConfigDto, ?self $config = null): self
     {
-        /** @var EventModifierConfig $config */
-        $config = new self($eventModifierConfigDto->key)
-            ->setModifierName($eventModifierConfigDto->name)
+        if ($config === null) {
+            $config = new self($eventModifierConfigDto->key);
+        }
+
+        $config->setModifierName($eventModifierConfigDto->name)
             ->setModifierStrategy($eventModifierConfigDto->strategy)
             ->setModifierRange($eventModifierConfigDto->modifierRange);
 

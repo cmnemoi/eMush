@@ -21,7 +21,16 @@ class EventModifierConfigDataLoader extends ModifierConfigDataLoader
                 continue;
             }
 
-            $config = EventModifierConfig::fromDto($modifierConfigDataDto);
+            /**
+             * @var ?EventModifierConfig $configOrigin
+             */
+            $configOrigin = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigDataDto->key]);
+            if ($configOrigin === null) {
+                $config = EventModifierConfig::fromDto($modifierConfigDataDto);
+            } else {
+                $config = EventModifierConfig::fromDto($modifierConfigDataDto, $configOrigin);
+            }
+
             $this->getModifierConfigActivationRequirements($config, $modifierConfigDataDto->modifierActivationRequirements);
             $this->entityManager->persist($config);
         }

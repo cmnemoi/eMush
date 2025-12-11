@@ -47,11 +47,13 @@ class TriggerEventModifierConfig extends EventModifierConfig
         $this->addNoneTagName();
     }
 
-    public static function fromDtoChild(TriggerEventModifierConfigDto $triggerEventModifierConfigDto): self
+    public static function fromDtoChild(TriggerEventModifierConfigDto $triggerEventModifierConfigDto, ?self $config = null): self
     {
-        /** @var TriggerEventModifierConfig $config */
-        $config = new self($triggerEventModifierConfigDto->key)
-            ->setModifierName($triggerEventModifierConfigDto->name)
+        if ($config === null) {
+            $config = new self($triggerEventModifierConfigDto->key);
+        }
+
+        $config->setModifierName($triggerEventModifierConfigDto->name)
             ->setModifierStrategy($triggerEventModifierConfigDto->strategy)
             ->setModifierRange($triggerEventModifierConfigDto->modifierRange);
 

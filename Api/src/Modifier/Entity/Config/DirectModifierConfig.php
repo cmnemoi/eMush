@@ -41,11 +41,11 @@ class DirectModifierConfig extends AbstractModifierConfig
         parent::__construct($name);
     }
 
-    public static function fromDto(DirectModifierConfigDto $directModifierConfigDto): self
+    public static function fromDto(DirectModifierConfigDto $directModifierConfigDto, ?self $config = null): self
     {
-        /** @var DirectModifierConfig $config */
-        $config = new self($directModifierConfigDto->key)
-            ->setModifierName($directModifierConfigDto->name)
+        $config ?? $config = new self($directModifierConfigDto->key);
+
+        $config->setModifierName($directModifierConfigDto->name)
             ->setModifierStrategy($directModifierConfigDto->strategy)
             ->setModifierRange($directModifierConfigDto->modifierRange);
 

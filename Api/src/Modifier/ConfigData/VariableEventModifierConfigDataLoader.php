@@ -14,7 +14,16 @@ class VariableEventModifierConfigDataLoader extends EventModifierConfigDataLoade
                 continue;
             }
 
-            $config = VariableEventModifierConfig::fromDtoChild($triggerEventConfigDataDto);
+            /**
+             * @var ?VariableEventModifierConfig $configOrigin
+             */
+            $configOrigin = $this->modifierConfigRepository->findOneBy(['name' => $triggerEventConfigDataDto->key]);
+            if ($configOrigin === null) {
+                $config = VariableEventModifierConfig::fromDto($triggerEventConfigDataDto);
+            } else {
+                $config = VariableEventModifierConfig::fromDto($triggerEventConfigDataDto, $configOrigin);
+            }
+
             $this->getModifierConfigActivationRequirements($config, $triggerEventConfigDataDto->modifierActivationRequirements);
             $this->entityManager->persist($config);
         }

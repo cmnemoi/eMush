@@ -131,6 +131,7 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
 
         if ($parent !== null) {
             $parent->addChild($this);
+            $this->setChannel($parent->getChannel());
         }
 
         return $this;

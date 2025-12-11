@@ -63,7 +63,10 @@ export class Channel {
         return 20;
     }
 
+    static lastReferenceId: number = 0;
+
     public id!: number;
+    public referenceId!: number;
     public createdAt!: Date;
     public scope!: ChannelType;
     public participants: Array<ChannelParticipant>;
@@ -99,6 +102,10 @@ export class Channel {
             this.tips = object.tips;
             this.flashing = object.flashing;
         }
+
+        Channel.lastReferenceId += 1;
+        this.referenceId = Channel.lastReferenceId;
+
         return this;
     }
     jsonEncode() : string {

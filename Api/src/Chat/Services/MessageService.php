@@ -149,9 +149,9 @@ final class MessageService implements MessageServiceInterface
         return $this->messageRepository->findById($messageId);
     }
 
-    public function getNumberOfNewMessagesForPlayer(Player $player, Channel $channel): int
+    public function getNumberOfNewMessagesForPlayer(Player $player, Channel $channel, bool $favorite = false): int
     {
-        $messages = $channel->isFavorites() ? $player->getFavoriteMessages() : $this->getChannelMessages($player, $channel, timeLimit: new \DateInterval('PT48H'));
+        $messages = $favorite ? $player->getFavoriteMessages() : $this->getChannelMessages($player, $channel, timeLimit: new \DateInterval('PT48H'));
 
         $nbNewMessages = 0;
         foreach ($messages as $message) {

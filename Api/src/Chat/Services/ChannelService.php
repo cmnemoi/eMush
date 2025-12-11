@@ -256,16 +256,6 @@ final class ChannelService implements ChannelServiceInterface
         );
     }
 
-    public function getPlayerFavoritesChannel(Player $player): Channel
-    {
-        $channel = $this->channelRepository->findFavoritesChannelByPlayer($player);
-        if (!$channel) {
-            $channel = $this->createPlayerFavoritesChannel($player);
-        }
-
-        return $channel;
-    }
-
     public function addPlayer(PlayerInfo $playerInfo, Channel $channel): void
     {
         try {
@@ -328,7 +318,6 @@ final class ChannelService implements ChannelServiceInterface
         }
 
         $this->readMessages($channel->getPlayerUnreadMessages($player), $player);
-        $this->readMessages($channel->getMessagesWithChildren()->filter(static fn (Message $message) => $message->isUnreadBy($player)), $player);
     }
 
     public function markTipsChannelAsReadForPlayer(Channel $tipsChannel, Player $player): void
@@ -388,20 +377,6 @@ final class ChannelService implements ChannelServiceInterface
         }
     }
 
-    private function createPlayerFavoritesChannel(Player $player): Channel
-    {
-        $channel = new Channel();
-        $channel
-            ->setDaedalus($player->getDaedalus()->getDaedalusInfo())
-            ->setScope(ChannelScopeEnum::FAVORITES);
-
-        $this->channelRepository->save($channel);
-
-        $this->addPlayer($player->getPlayerInfo(), $channel);
-
-        return $channel;
-    }
-
     private function canPlayerSeePrivateChannel(Player $player, Channel $channel): bool
     {
         $playerIsAloneInTheirChannel = $channel->getParticipants()->count() === 1
@@ -450,15 +425,15 @@ final class ChannelService implements ChannelServiceInterface
         return true;
     }
 
-    private function readMessage(Message $message, Player $player): void
+    private function readMessage(Message $message, Player $player): Message
     {
         if ($message->isReadBy($player)) {
-            return;
+            return $message;
         }
 
         $message = $message->addReader($player);
-        $message = $message->cancelTimestampable();
-        $this->messageRepository->save($message);
+
+        return $message->cancelTimestampable();
     }
 
     private function getPiratePlayer(Player $player): ?Player

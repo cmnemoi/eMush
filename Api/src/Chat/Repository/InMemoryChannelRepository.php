@@ -42,20 +42,6 @@ final class InMemoryChannelRepository implements ChannelRepositoryInterface
         throw new \RuntimeException('Mush channel not found for daedalus');
     }
 
-    public function findFavoritesChannelByPlayer(Player $player): ?Channel
-    {
-        foreach ($this->channels as $channel) {
-            if (
-                $channel->getScope() === ChannelScopeEnum::FAVORITES
-                && $channel->getParticipants()->contains($player->getPlayerInfo())
-            ) {
-                return $channel;
-            }
-        }
-
-        return null;
-    }
-
     public function getNumberOfPlayerPrivateChannels(Player $player): int
     {
         $count = 0;

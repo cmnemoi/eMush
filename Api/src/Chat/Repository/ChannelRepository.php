@@ -80,19 +80,6 @@ final class ChannelRepository extends ServiceEntityRepository implements Channel
         return $result[0];
     }
 
-    public function findFavoritesChannelByPlayer(Player $player): ?Channel
-    {
-        $queryBuilder = $this->createQueryBuilder('channel');
-        $queryBuilder
-            ->leftJoin('channel.participants', 'channelPlayer')
-            ->where($queryBuilder->expr()->eq('channelPlayer.participant', ':playerInfo'))
-            ->andWhere($queryBuilder->expr()->eq('channel.scope', ':scope'))
-            ->setParameter('playerInfo', $player->getPlayerInfo()->getId())
-            ->setParameter('scope', ChannelScopeEnum::FAVORITES);
-
-        return $queryBuilder->getQuery()->getOneOrNullResult();
-    }
-
     public function getNumberOfPlayerPrivateChannels(Player $player): int
     {
         $queryBuilder = $this->createQueryBuilder('channel');

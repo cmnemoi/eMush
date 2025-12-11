@@ -23,10 +23,10 @@ const state =  {
 
 const getters: GetterTree<any, any> = {
     loading(state) {
-        return state.loadingByChannelId[state.currentChannel.id] || false;
+        return state.loadingByChannelId[state.currentChannel.referenceId] || false;
     },
     messages(state) {
-        return state.messagesByChannelId[state.currentChannel.id] || [];
+        return state.messagesByChannelId[state.currentChannel.referenceId] || [];
     },
     roomChannel(state) {
         return state.channels.find((channel: Channel) => channel.scope === ChannelType.ROOM_LOG);
@@ -44,7 +44,7 @@ const getters: GetterTree<any, any> = {
         return state.channels;
     },
     typedMessage(state) {
-        return state.typedMessage[state.currentChannel.id] || "";
+        return state.typedMessage[state.currentChannel.referenceId] || "";
     },
     readMessageMutex(state) {
         return state.readMessageMutex;
@@ -178,7 +178,9 @@ const actions: ActionTree<any, any> = {
     async sendMessage({ commit }, { channel, text, player, parent }) {
         commit('setLoadingForChannel', { channel, newStatus: true });
         try {
-            const messages = await CommunicationService.sendMessage(channel, text, player, parent);
+            await CommunicationService.sendMessage(channel, text, player, parent);
+            const messages = await CommunicationService.loadMessages(channel);
+
             commit('setChannelMessages', { channel, messages });
             commit('setLoadingForChannel', { channel, newStatus: false });
             return true;
@@ -194,7 +196,6 @@ const actions: ActionTree<any, any> = {
         try {
             await CommunicationService.leaveChannel(channel);
             commit('removeChannel', channel);
-            commit('setCurrentChannel', getters.roomChannel);
             await dispatch('loadAlivePlayerChannels');
             commit('setLoadingOfChannels', false);
         } catch (e) {
@@ -310,7 +311,7 @@ const mutations: MutationTree<any> = {
 
     setLoadingForChannel(state: any, { channel, newStatus }): void {
         if (!channel) return;
-        state.loadingByChannelId[channel.id] = newStatus;
+        state.loadingByChannelId[channel.referenceId] = newStatus;
     },
 
     setCurrentChannel(state: any, channel: Channel | null): void {
@@ -325,10 +326,10 @@ const mutations: MutationTree<any> = {
     },
 
     removeChannel(state: any, channel: Channel): void {
-        state.channels = state.channels.filter(({ id }: {id: number}) => id !== channel.id);
-        delete state.loadingByChannelId[channel.id];
-        delete state.messagesByChannelId[channel.id];
-        delete state.typedMessage[channel.id];
+        state.channels = state.channels.filter(({ referenceId }: {referenceId: number}) => referenceId !== channel.referenceId);
+        delete state.loadingByChannelId[channel.referenceId];
+        delete state.messagesByChannelId[channel.referenceId];
+        delete state.typedMessage[channel.referenceId];
     },
 
     invitablePlayerMenu(state: any, { isOpen, channel }): void {
@@ -342,13 +343,13 @@ const mutations: MutationTree<any> = {
 
     setChannelMessages(state: any, { channel, messages }): void {
         if (!channel) return;
-        state.messagesByChannelId[channel.id] = messages;
+        state.messagesByChannelId[channel.referenceId] = messages;
     },
 
     setTypedMessage(state: any, message: string): void {
         state.typedMessage = {
             ...state.typedMessage,
-            [state.currentChannel.id]: message
+            [state.currentChannel.referenceId]: message
         };
     },
 
@@ -370,7 +371,7 @@ const mutations: MutationTree<any> = {
     },
 
     setCurrentChannelNumberOfNewMessages(state: any, { channel, numberOfNewMessages }): void {
-        if (channel.id === state.currentChannel.id) {
+        if (channel.referenceId === state.currentChannel.referenceId) {
             state.currentChannel.numberOfNewMessages = Math.max(0, numberOfNewMessages);
         }
     },

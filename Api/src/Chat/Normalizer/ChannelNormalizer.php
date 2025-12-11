@@ -4,6 +4,7 @@ namespace Mush\Chat\Normalizer;
 
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\ChannelPlayer;
+use Mush\Chat\Enum\ChannelScopeEnum;
 use Mush\Chat\Services\MessageServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
@@ -46,6 +47,8 @@ class ChannelNormalizer implements NormalizerInterface
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
 
+        $isFavoriteChannel = \array_key_exists('favorite', $context) ? $context['favorite'] : false;
+
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
         if (\array_key_exists('piratedPlayer', $context)) {
@@ -74,16 +77,18 @@ class ChannelNormalizer implements NormalizerInterface
             ];
         }
 
+        $scope = $isFavoriteChannel ? ChannelScopeEnum::FAVORITES : $channel->getScope();
+
         return [
             'id' => $channel->getId(),
-            'scope' => $channel->getScope(),
-            'name' => $this->translationService->translate($channel->getScope() . '.name', [], 'chat', $language),
-            'description' => $this->translationService->translate($channel->getScope() . '.description', [], 'chat', $language),
+            'scope' => $scope,
+            'name' => $this->translationService->translate($scope . '.name', [], 'chat', $language),
+            'description' => $this->translationService->translate($scope . '.description', [], 'chat', $language),
             'participants' => $participants,
             'createdAt' => $channel->getCreatedAt()?->format(\DateTimeInterface::ATOM),
             'newMessageAllowed' => $this->messageService->canPlayerPostMessage($currentPlayer, $channel),
             'piratedPlayer' => $piratedPlayerId,
-            'numberOfNewMessages' => $this->messageService->getNumberOfNewMessagesForPlayer($currentPlayer, $channel),
+            'numberOfNewMessages' => $this->messageService->getNumberOfNewMessagesForPlayer($currentPlayer, $channel, $isFavoriteChannel),
             'flashing' => $channel->shouldFlashForPlayer($currentPlayer),
         ];
     }

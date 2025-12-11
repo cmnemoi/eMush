@@ -29,7 +29,7 @@ interface MessageServiceInterface
 
     public function canPlayerPostMessage(Player $player, Channel $channel): bool;
 
-    public function getNumberOfNewMessagesForPlayer(Player $player, Channel $channel): int;
+    public function getNumberOfNewMessagesForPlayer(Player $player, Channel $channel, bool $favorite = false): int;
 
     public function markMessageAsReadForPlayer(Message $message, Player $player): void;
 

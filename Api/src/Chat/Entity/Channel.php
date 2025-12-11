@@ -113,19 +113,9 @@ class Channel
         return ChannelScopeEnum::PUBLIC === $this->getScope();
     }
 
-    public function isFavorites(): bool
-    {
-        return ChannelScopeEnum::FAVORITES === $this->getScope();
-    }
-
     public function isScope(string $scope): bool
     {
         return $scope === $this->getScope();
-    }
-
-    public function isPublicOrFavorites(): bool
-    {
-        return $this->isPublic() || $this->isFavorites();
     }
 
     public function isMushChannel(): bool

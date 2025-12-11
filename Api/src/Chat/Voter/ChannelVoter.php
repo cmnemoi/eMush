@@ -51,7 +51,7 @@ final class ChannelVoter extends Voter
             return false;
         }
 
-        if ($channel->isPublicOrFavorites() && $cannotPostInPublicChannel) {
+        if ($channel->isPublic() && $cannotPostInPublicChannel) {
             return false;
         }
 
@@ -106,7 +106,7 @@ final class ChannelVoter extends Voter
         // check for pirated channels
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
 
-        return $channel->isPublicOrFavorites() || $channel->isPlayerParticipant($playerInfo)
+        return $channel->isPublic() || $channel->isPlayerParticipant($playerInfo)
             || ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()));
     }
 

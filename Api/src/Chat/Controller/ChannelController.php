@@ -433,7 +433,7 @@ class ChannelController extends AbstractGameController
         }
 
         $parentMessage = $messageCreate->getParent();
-        if (!$channel->isFavorites() && $parentMessage && $parentMessage->getChannel() !== $channel) {
+        if ($parentMessage && $parentMessage->getChannel() !== $channel) {
             return $this->view(['error' => 'invalid parent message'], 422);
         }
 
@@ -447,11 +447,7 @@ class ChannelController extends AbstractGameController
 
         $this->messageService->createPlayerMessage($userPlayer, $messageCreate);
 
-        if ($channel->isFavorites()) {
-            $messages = $this->messageService->getPlayerFavoritesChannelMessages($userPlayer);
-        } else {
-            $messages = $this->messageService->getChannelMessages($userPlayer, $channel, $messageCreate->getTimeLimit());
-        }
+        $messages = $this->messageService->getChannelMessages($userPlayer, $channel, $messageCreate->getTimeLimit());
 
         $context = new Context();
         $context->setAttribute('currentPlayer', $userPlayer);
@@ -641,10 +637,11 @@ class ChannelController extends AbstractGameController
             return $this->view(null, Response::HTTP_NO_CONTENT);
         }
 
-        $favoritesChannel = $this->channelService->getPlayerFavoritesChannel($player);
+        $favoritesChannel = $this->channelService->getPublicChannel($player->getDaedalusInfo());
 
         $context = new Context();
         $context->setAttribute('currentPlayer', $player);
+        $context->setAttribute('favorite', true);
 
         $view = $this->view($favoritesChannel, Response::HTTP_OK);
         $view->setContext($context);

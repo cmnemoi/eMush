@@ -15,8 +15,6 @@ interface ChannelRepositoryInterface
 
     public function findMushChannelByDaedalus(Daedalus $daedalus): Channel;
 
-    public function findFavoritesChannelByPlayer(Player $player): ?Channel;
-
     public function getNumberOfPlayerPrivateChannels(Player $player): int;
 
     public function save(Channel $channel): void;

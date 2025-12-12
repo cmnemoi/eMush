@@ -19,9 +19,9 @@ class VariableEventModifierConfigDataLoader extends EventModifierConfigDataLoade
              */
             $configOrigin = $this->modifierConfigRepository->findOneBy(['name' => $triggerEventConfigDataDto->key]);
             if ($configOrigin === null) {
-                $config = VariableEventModifierConfig::fromDto($triggerEventConfigDataDto);
+                $config = VariableEventModifierConfig::fromDtoChild($triggerEventConfigDataDto);
             } else {
-                $config = VariableEventModifierConfig::fromDto($triggerEventConfigDataDto, $configOrigin);
+                $config = VariableEventModifierConfig::fromDtoChild($triggerEventConfigDataDto, $configOrigin);
             }
 
             $this->getModifierConfigActivationRequirements($config, $triggerEventConfigDataDto->modifierActivationRequirements);

@@ -772,7 +772,7 @@ class GameConfigData
                     TradeEnum::HUMAN_VS_TREE,
                 ],
                 'specialOptions' => [
-                    // GameConfigEnum::OPTION_RANDOM_SPORE,
+                    GameConfigEnum::OPTION_RANDOM_SPORE,
                 ],
             ],
         ];

@@ -24,8 +24,6 @@ class WeaponConfigFixtures extends BlueprintConfigFixtures implements DependentF
             $this->setMechanicsActions($weapon, $weaponData, $manager);
 
             $manager->persist($weapon);
-
-            $this->addReference($weapon->getName(), $weapon);
         }
         $manager->flush();
     }

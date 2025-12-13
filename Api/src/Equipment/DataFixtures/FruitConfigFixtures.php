@@ -28,8 +28,6 @@ class FruitConfigFixtures extends RationConfigFixtures implements DependentFixtu
             $this->setMechanicsActions($fruit, $fruitData, $manager);
 
             $manager->persist($fruit);
-
-            $this->addReference($fruit->getName(), $fruit);
         }
         $manager->flush();
     }

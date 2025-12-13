@@ -151,7 +151,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_astrophysicist_mechanic_default',
+                'apprentron_astrophysicist_default',
             ],
             'initStatuses' => [],
         ],
@@ -170,7 +170,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_biologist_mechanic_default',
+                'apprentron_biologist_default',
             ],
             'initStatuses' => [],
         ],
@@ -189,7 +189,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_botanist_mechanic_default',
+                'apprentron_botanist_default',
             ],
             'initStatuses' => [],
         ],
@@ -208,7 +208,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_diplomat_mechanic_default',
+                'apprentron_diplomat_default',
             ],
             'initStatuses' => [],
         ],
@@ -227,7 +227,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_firefighter_mechanic_default',
+                'apprentron_firefighter_default',
             ],
             'initStatuses' => [],
         ],
@@ -246,7 +246,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_chef_mechanic_default',
+                'apprentron_chef_default',
             ],
             'initStatuses' => [],
         ],
@@ -265,7 +265,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_it_expert_mechanic_default',
+                'apprentron_it_expert_default',
             ],
             'initStatuses' => [],
         ],
@@ -284,7 +284,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_logistics_expert_mechanic_default',
+                'apprentron_logistics_expert_default',
             ],
             'initStatuses' => [],
         ],
@@ -303,7 +303,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_medic_mechanic_default',
+                'apprentron_medic_default',
             ],
             'initStatuses' => [],
         ],
@@ -322,7 +322,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_pilot_mechanic_default',
+                'apprentron_pilot_default',
             ],
             'initStatuses' => [],
         ],
@@ -341,7 +341,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_radio_expert_mechanic_default',
+                'apprentron_radio_expert_default',
             ],
             'initStatuses' => [],
         ],
@@ -360,7 +360,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_robotics_expert_mechanic_default',
+                'apprentron_robotics_expert_default',
             ],
             'initStatuses' => [],
         ],
@@ -379,7 +379,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_shooter_mechanic_default',
+                'apprentron_shooter_default',
             ],
             'initStatuses' => [],
         ],
@@ -398,7 +398,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_shrink_mechanic_default',
+                'apprentron_shrink_default',
             ],
             'initStatuses' => [],
         ],
@@ -417,7 +417,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_sprinter_mechanic_default',
+                'apprentron_sprinter_default',
             ],
             'initStatuses' => [],
         ],
@@ -436,7 +436,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_technician_mechanic_default',
+                'apprentron_technician_default',
             ],
             'initStatuses' => [],
         ],
@@ -455,7 +455,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'document_mechanic_default',
+                'document_default',
             ],
             'initStatuses' => [],
         ],
@@ -474,7 +474,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'commanders_manual_mechanic_default',
+                'commanders_manual_default',
             ],
             'initStatuses' => [],
         ],
@@ -493,7 +493,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'mush_research_review_mechanic_default',
+                'mush_research_review_default',
             ],
             'initStatuses' => [],
         ],
@@ -512,7 +512,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'post_it_mechanic_default',
+                'post_it_default',
             ],
             'initStatuses' => [],
         ],
@@ -3450,7 +3450,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'echolocator_blueprint_mechanic_default',
+                'echolocator_blueprint_default',
             ],
             'initStatuses' => [],
         ],
@@ -3469,7 +3469,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'white_flag_blueprint_mechanic_default',
+                'white_flag_blueprint_default',
             ],
             'initStatuses' => [],
         ],
@@ -3488,7 +3488,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'thermosensor_blueprint_mechanic_default',
+                'thermosensor_blueprint_default',
             ],
             'initStatuses' => [],
         ],
@@ -3507,7 +3507,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'babel_module_blueprint_mechanic_default',
+                'babel_module_blueprint_default',
             ],
             'initStatuses' => [],
         ],
@@ -3526,7 +3526,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'grenade_blueprint_mechanic_default',
+                'grenade_blueprint_default',
             ],
             'initStatuses' => [],
         ],
@@ -3545,7 +3545,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'old_faithful_blueprint_mechanic_default',
+                'old_faithful_blueprint_default',
             ],
             'initStatuses' => [],
         ],
@@ -3564,7 +3564,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'lizaro_jungle_blueprint_mechanic_default',
+                'lizaro_jungle_blueprint_default',
             ],
             'initStatuses' => [],
         ],
@@ -3583,7 +3583,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'rocket_launcher_blueprint_mechanic_default',
+                'rocket_launcher_blueprint_default',
             ],
             'initStatuses' => [],
         ],
@@ -3602,7 +3602,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'extinguisher_blueprint_mechanic_default',
+                'extinguisher_blueprint_default',
             ],
             'initStatuses' => [],
         ],
@@ -3621,7 +3621,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'oscilloscope_blueprint_mechanic_default',
+                'oscilloscope_blueprint_default',
             ],
             'initStatuses' => [],
         ],
@@ -3640,7 +3640,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'sniper_helmet_blueprint_mechanic_default',
+                'sniper_helmet_blueprint_default',
             ],
             'initStatuses' => [],
         ],
@@ -3659,7 +3659,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'swedish_sofa_blueprint_mechanic_default',
+                'swedish_sofa_blueprint_default',
             ],
             'initStatuses' => [],
         ],
@@ -3678,7 +3678,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'jukebox_blueprint_mechanic_default',
+                'jukebox_blueprint_default',
             ],
             'initStatuses' => [],
         ],
@@ -3697,7 +3697,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'support_drone_blueprint_mechanic_default',
+                'support_drone_blueprint_default',
             ],
             'initStatuses' => [],
         ],
@@ -3807,7 +3807,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_optimist_mechanic_default',
+                'apprentron_optimist_default',
             ],
             'initStatuses' => [],
         ],
@@ -3826,7 +3826,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_apprentice_mechanic_default',
+                'apprentron_apprentice_default',
             ],
             'initStatuses' => [],
         ],
@@ -3845,7 +3845,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_sneak_mechanic_default',
+                'apprentron_sneak_default',
             ],
             'initStatuses' => [],
         ],
@@ -3864,7 +3864,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_politician_mechanic_default',
+                'apprentron_politician_default',
             ],
             'initStatuses' => [],
         ],
@@ -3883,7 +3883,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_creative_mechanic_default',
+                'apprentron_creative_default',
             ],
             'initStatuses' => [],
         ],
@@ -3902,7 +3902,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_determined_mechanic_default',
+                'apprentron_determined_default',
             ],
             'initStatuses' => [],
         ],
@@ -3921,7 +3921,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_ocd_mechanic_default',
+                'apprentron_ocd_default',
             ],
             'initStatuses' => [],
         ],
@@ -3940,7 +3940,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_motivator_mechanic_default',
+                'apprentron_motivator_default',
             ],
             'initStatuses' => [],
         ],
@@ -3959,7 +3959,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_caffeine_junkie_mechanic_default',
+                'apprentron_caffeine_junkie_default',
             ],
             'initStatuses' => [],
         ],
@@ -3978,7 +3978,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_genius_mechanic_default',
+                'apprentron_genius_default',
             ],
             'initStatuses' => [],
         ],
@@ -3997,7 +3997,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_opportunist_mechanic_default',
+                'apprentron_opportunist_default',
             ],
             'initStatuses' => [],
         ],
@@ -4016,7 +4016,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_rebel_mechanic_default',
+                'apprentron_rebel_default',
             ],
             'initStatuses' => [],
         ],
@@ -4035,7 +4035,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'apprentron_self_sacrifice_mechanic_default',
+                'apprentron_self_sacrifice_default',
             ],
             'initStatuses' => [],
         ],

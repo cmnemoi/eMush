@@ -30,8 +30,6 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             $this->setMechanicsActions($blueprint, $blueprintData, $manager);
 
             $manager->persist($blueprint);
-
-            $this->addReference($blueprint->getName(), $blueprint);
         }
         $manager->flush();
     }

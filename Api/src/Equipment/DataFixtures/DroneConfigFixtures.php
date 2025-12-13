@@ -36,8 +36,6 @@ class DroneConfigFixtures extends EquipmentConfigFixtures implements DependentFi
 
             $manager->persist($droneConfig);
 
-            $this->addReference($droneConfig->getName(), $droneConfig);
-
             $gameConfig->addEquipmentConfig($droneConfig);
         }
         $manager->persist($gameConfig);

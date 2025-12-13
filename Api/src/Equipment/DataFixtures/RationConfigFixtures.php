@@ -23,8 +23,6 @@ class RationConfigFixtures extends BlueprintConfigFixtures implements DependentF
             $this->setMechanicsActions($ration, $rationData, $manager);
 
             $manager->persist($ration);
-
-            $this->addReference($ration->getName(), $ration);
         }
         $manager->flush();
     }

@@ -27,8 +27,6 @@ class DocumentConfigFixtures extends BlueprintConfigFixtures implements Dependen
             $this->setMechanicsActions($document, $documentData, $manager);
 
             $manager->persist($document);
-
-            $this->addReference($document->getName(), $document);
         }
         $manager->flush();
     }

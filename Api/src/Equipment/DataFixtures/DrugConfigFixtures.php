@@ -23,8 +23,6 @@ class DrugConfigFixtures extends RationConfigFixtures implements DependentFixtur
             $this->setMechanicsActions($drug, $drugData, $manager);
 
             $manager->persist($drug);
-
-            $this->addReference($drug->getName(), $drug);
         }
         $manager->flush();
     }

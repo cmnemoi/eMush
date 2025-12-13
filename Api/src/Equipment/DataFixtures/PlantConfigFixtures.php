@@ -28,8 +28,6 @@ class PlantConfigFixtures extends BlueprintConfigFixtures implements DependentFi
             $this->setMechanicsActions($plant, $plantData, $manager);
 
             $manager->persist($plant);
-
-            $this->addReference($plant->getName(), $plant);
         }
         $manager->flush();
     }

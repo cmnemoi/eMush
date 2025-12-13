@@ -29,8 +29,6 @@ class GearConfigFixtures extends BlueprintConfigFixtures implements DependentFix
             $this->setMechanicsActions($gear, $gearData, $manager);
 
             $manager->persist($gear);
-
-            $this->addReference($gear->getName(), $gear);
         }
         $manager->flush();
     }

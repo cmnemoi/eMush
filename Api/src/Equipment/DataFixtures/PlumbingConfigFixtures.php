@@ -24,8 +24,6 @@ class PlumbingConfigFixtures extends BlueprintConfigFixtures implements Dependen
             $this->setMechanicsActions($waterSupply, $plumbingData, $manager);
 
             $manager->persist($waterSupply);
-
-            $this->addReference($waterSupply->getName(), $waterSupply);
         }
         $manager->flush();
     }

@@ -24,8 +24,6 @@ class ContainerConfigFixtures extends BlueprintConfigFixtures implements Depende
             $container->setContents($containerData['containerContents']);
 
             $manager->persist($container);
-
-            $this->addReference($container->getName(), $container);
         }
         $manager->flush();
     }

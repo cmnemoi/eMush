@@ -20,7 +20,7 @@ class MechanicsData
 
     public static array $dataArray = [
         [
-            'name' => 'document_mechanic_default',
+            'name' => 'document_default',
             'type' => 'document',
             'content' => '',
             'isTranslated' => true,
@@ -32,7 +32,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'commanders_manual_mechanic_default',
+            'name' => 'commanders_manual_default',
             'type' => 'document',
             'content' => 'commanders_manual',
             'isTranslated' => true,
@@ -43,7 +43,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'mush_research_review_mechanic_default',
+            'name' => 'mush_research_review_default',
             'type' => 'document',
             'content' => 'mush_research_review',
             'isTranslated' => true,
@@ -54,7 +54,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'post_it_mechanic_default',
+            'name' => 'post_it_default',
             'type' => 'document',
             'content' => '',
             'isTranslated' => false,
@@ -66,7 +66,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_astrophysicist_mechanic_default',
+            'name' => 'apprentron_astrophysicist_default',
             'type' => 'book',
             'skill' => SkillEnum::ASTROPHYSICIST,
             'actions' => [
@@ -75,7 +75,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_biologist_mechanic_default',
+            'name' => 'apprentron_biologist_default',
             'type' => 'book',
             'skill' => SkillEnum::BIOLOGIST,
             'actions' => [
@@ -84,7 +84,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_botanist_mechanic_default',
+            'name' => 'apprentron_botanist_default',
             'type' => 'book',
             'skill' => SkillEnum::BOTANIST,
             'actions' => [
@@ -93,7 +93,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_diplomat_mechanic_default',
+            'name' => 'apprentron_diplomat_default',
             'type' => 'book',
             'skill' => SkillEnum::DIPLOMAT,
             'actions' => [
@@ -102,7 +102,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_firefighter_mechanic_default',
+            'name' => 'apprentron_firefighter_default',
             'type' => 'book',
             'skill' => SkillEnum::FIREFIGHTER,
             'actions' => [
@@ -111,7 +111,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_chef_mechanic_default',
+            'name' => 'apprentron_chef_default',
             'type' => 'book',
             'skill' => SkillEnum::CHEF,
             'actions' => [
@@ -120,7 +120,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_it_expert_mechanic_default',
+            'name' => 'apprentron_it_expert_default',
             'type' => 'book',
             'skill' => SkillEnum::IT_EXPERT,
             'actions' => [
@@ -129,7 +129,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_logistics_expert_mechanic_default',
+            'name' => 'apprentron_logistics_expert_default',
             'type' => 'book',
             'skill' => SkillEnum::LOGISTICS_EXPERT,
             'actions' => [
@@ -138,7 +138,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_medic_mechanic_default',
+            'name' => 'apprentron_medic_default',
             'type' => 'book',
             'skill' => SkillEnum::MEDIC,
             'actions' => [
@@ -147,7 +147,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_pilot_mechanic_default',
+            'name' => 'apprentron_pilot_default',
             'type' => 'book',
             'skill' => SkillEnum::PILOT,
             'actions' => [
@@ -156,7 +156,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_radio_expert_mechanic_default',
+            'name' => 'apprentron_radio_expert_default',
             'type' => 'book',
             'skill' => SkillEnum::RADIO_EXPERT,
             'actions' => [
@@ -165,7 +165,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_robotics_expert_mechanic_default',
+            'name' => 'apprentron_robotics_expert_default',
             'type' => 'book',
             'skill' => SkillEnum::ROBOTICS_EXPERT,
             'actions' => [
@@ -174,7 +174,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_shooter_mechanic_default',
+            'name' => 'apprentron_shooter_default',
             'type' => 'book',
             'skill' => SkillEnum::SHOOTER,
             'actions' => [
@@ -183,7 +183,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_shrink_mechanic_default',
+            'name' => 'apprentron_shrink_default',
             'type' => 'book',
             'skill' => SkillEnum::SHRINK,
             'actions' => [
@@ -192,7 +192,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_sprinter_mechanic_default',
+            'name' => 'apprentron_sprinter_default',
             'type' => 'book',
             'skill' => SkillEnum::SPRINTER,
             'actions' => [
@@ -201,7 +201,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_technician_mechanic_default',
+            'name' => 'apprentron_technician_default',
             'type' => 'book',
             'skill' => SkillEnum::TECHNICIAN,
             'actions' => [
@@ -1392,7 +1392,7 @@ class MechanicsData
             ],
         ],
         [
-            'name' => 'echolocator_blueprint_mechanic_default',
+            'name' => 'echolocator_blueprint_default',
             'type' => 'blueprint',
             'craftedEquipmentName' => 'echolocator',
             'ingredients' => ['plastic_scraps' => 1, 'metal_scraps' => 1],
@@ -1402,7 +1402,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'white_flag_blueprint_mechanic_default',
+            'name' => 'white_flag_blueprint_default',
             'type' => 'blueprint',
             'craftedEquipmentName' => 'white_flag',
             'ingredients' => ['soap' => 1, 'old_t_shirt' => 1],
@@ -1412,7 +1412,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'thermosensor_blueprint_mechanic_default',
+            'name' => 'thermosensor_blueprint_default',
             'type' => 'blueprint',
             'craftedEquipmentName' => 'thermosensor',
             'ingredients' => ['plastic_scraps' => 1, 'metal_scraps' => 1],
@@ -1422,7 +1422,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'babel_module_blueprint_mechanic_default',
+            'name' => 'babel_module_blueprint_default',
             'type' => 'blueprint',
             'craftedEquipmentName' => 'babel_module',
             'ingredients' => ['plastic_scraps' => 1, 'metal_scraps' => 1],
@@ -1432,7 +1432,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'grenade_blueprint_mechanic_default',
+            'name' => 'grenade_blueprint_default',
             'type' => 'blueprint',
             'craftedEquipmentName' => 'grenade',
             'ingredients' => ['oxygen_capsule' => 1, 'fuel_capsule' => 1],
@@ -1442,7 +1442,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'old_faithful_blueprint_mechanic_default',
+            'name' => 'old_faithful_blueprint_default',
             'type' => 'blueprint',
             'craftedEquipmentName' => 'old_faithful',
             'ingredients' => ['metal_scraps' => 4],
@@ -1452,7 +1452,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'lizaro_jungle_blueprint_mechanic_default',
+            'name' => 'lizaro_jungle_blueprint_default',
             'type' => 'blueprint',
             'craftedEquipmentName' => 'lizaro_jungle',
             'ingredients' => ['plastic_scraps' => 1, 'metal_scraps' => 2],
@@ -1462,7 +1462,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'rocket_launcher_blueprint_mechanic_default',
+            'name' => 'rocket_launcher_blueprint_default',
             'type' => 'blueprint',
             'craftedEquipmentName' => 'rocket_launcher',
             'ingredients' => ['plastic_scraps' => 1, 'metal_scraps' => 1, 'thick_tube' => 1],
@@ -1472,7 +1472,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'extinguisher_blueprint_mechanic_default',
+            'name' => 'extinguisher_blueprint_default',
             'type' => 'blueprint',
             'craftedEquipmentName' => 'extinguisher',
             'ingredients' => ['oxygen_capsule' => 1, 'metal_scraps' => 1],
@@ -1482,7 +1482,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'oscilloscope_blueprint_mechanic_default',
+            'name' => 'oscilloscope_blueprint_default',
             'type' => 'blueprint',
             'craftedEquipmentName' => 'oscilloscope',
             'ingredients' => ['plastic_scraps' => 1, 'metal_scraps' => 1],
@@ -1492,7 +1492,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'sniper_helmet_blueprint_mechanic_default',
+            'name' => 'sniper_helmet_blueprint_default',
             'type' => 'blueprint',
             'craftedEquipmentName' => 'sniper_helmet',
             'ingredients' => ['plastic_scraps' => 1, 'metal_scraps' => 1],
@@ -1502,7 +1502,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'swedish_sofa_blueprint_mechanic_default',
+            'name' => 'swedish_sofa_blueprint_default',
             'type' => 'blueprint',
             'craftedEquipmentName' => 'swedish_sofa',
             'ingredients' => [ItemEnum::THICK_TUBE => 1, 'metal_scraps' => 1],
@@ -1512,7 +1512,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'jukebox_blueprint_mechanic_default',
+            'name' => 'jukebox_blueprint_default',
             'type' => EquipmentMechanicEnum::BLUEPRINT,
             'craftedEquipmentName' => EquipmentEnum::JUKEBOX,
             'ingredients' => [ItemEnum::METAL_SCRAPS => 1, ItemEnum::PLASTIC_SCRAPS => 1],
@@ -1522,7 +1522,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'support_drone_blueprint_mechanic_default',
+            'name' => 'support_drone_blueprint_default',
             'type' => EquipmentMechanicEnum::BLUEPRINT,
             'craftedEquipmentName' => ItemEnum::SUPPORT_DRONE,
             'ingredients' => [ItemEnum::METAL_SCRAPS => 4, ItemEnum::PLASTIC_SCRAPS => 1],
@@ -1893,7 +1893,7 @@ class MechanicsData
             'containerContents' => ContainerContentEnum::LUNCHBOX_CONTENT,
         ],
         [
-            'name' => 'apprentron_optimist_mechanic_default',
+            'name' => 'apprentron_optimist_default',
             'type' => 'book',
             'skill' => SkillEnum::OPTIMIST,
             'actions' => [
@@ -1902,7 +1902,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_apprentice_mechanic_default',
+            'name' => 'apprentron_apprentice_default',
             'type' => 'book',
             'skill' => SkillEnum::APPRENTICE,
             'actions' => [
@@ -1911,7 +1911,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_sneak_mechanic_default',
+            'name' => 'apprentron_sneak_default',
             'type' => 'book',
             'skill' => SkillEnum::SNEAK,
             'actions' => [
@@ -1920,7 +1920,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_politician_mechanic_default',
+            'name' => 'apprentron_politician_default',
             'type' => 'book',
             'skill' => SkillEnum::POLITICIAN,
             'actions' => [
@@ -1929,7 +1929,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_creative_mechanic_default',
+            'name' => 'apprentron_creative_default',
             'type' => 'book',
             'skill' => SkillEnum::CREATIVE,
             'actions' => [
@@ -1938,7 +1938,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_determined_mechanic_default',
+            'name' => 'apprentron_determined_default',
             'type' => 'book',
             'skill' => SkillEnum::DETERMINED,
             'actions' => [
@@ -1947,7 +1947,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_ocd_mechanic_default',
+            'name' => 'apprentron_ocd_default',
             'type' => 'book',
             'skill' => SkillEnum::OCD,
             'actions' => [
@@ -1956,7 +1956,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_motivator_mechanic_default',
+            'name' => 'apprentron_motivator_default',
             'type' => 'book',
             'skill' => SkillEnum::MOTIVATOR,
             'actions' => [
@@ -1965,7 +1965,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_caffeine_junkie_mechanic_default',
+            'name' => 'apprentron_caffeine_junkie_default',
             'type' => 'book',
             'skill' => SkillEnum::CAFFEINE_JUNKIE,
             'actions' => [
@@ -1974,7 +1974,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_genius_mechanic_default',
+            'name' => 'apprentron_genius_default',
             'type' => 'book',
             'skill' => SkillEnum::GENIUS,
             'actions' => [
@@ -1983,7 +1983,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_opportunist_mechanic_default',
+            'name' => 'apprentron_opportunist_default',
             'type' => 'book',
             'skill' => SkillEnum::OPPORTUNIST,
             'actions' => [
@@ -1992,7 +1992,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_rebel_mechanic_default',
+            'name' => 'apprentron_rebel_default',
             'type' => 'book',
             'skill' => SkillEnum::REBEL,
             'actions' => [
@@ -2001,7 +2001,7 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'apprentron_self_sacrifice_mechanic_default',
+            'name' => 'apprentron_self_sacrifice_default',
             'type' => 'book',
             'skill' => SkillEnum::SELF_SACRIFICE,
             'actions' => [

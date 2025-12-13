@@ -24,8 +24,6 @@ class ToolConfigFixtures extends BlueprintConfigFixtures implements DependentFix
             $this->setMechanicsActions($tool, $toolData, $manager);
 
             $manager->persist($tool);
-
-            $this->addReference($tool->getName(), $tool);
         }
         $manager->flush();
     }

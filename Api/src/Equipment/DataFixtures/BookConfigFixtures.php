@@ -25,8 +25,6 @@ class BookConfigFixtures extends BlueprintConfigFixtures implements DependentFix
             $this->setMechanicsActions($book, $bookData, $manager);
 
             $manager->persist($book);
-
-            $this->addReference($book->getName(), $book);
         }
         $manager->flush();
     }

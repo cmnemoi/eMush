@@ -8,10 +8,10 @@
       </segment>
     </unit>
     <unit id="insufficient_action_point">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>insufficient_action_point.description</source>
         <target>Vous n'avez pas assez de :pa: (Point d'Action) pour réaliser cette action.
-                        **Mangez** ou **attendez quelques cycles**.</target>
+**Mangez** ou **attendez quelques cycles**.</target>
       </segment>
     </unit>
     <unit id="insufficient_action_point_mush">
@@ -429,7 +429,7 @@
       </segment>
     </unit>
     <unit id="not_enough_map_fragments">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>not_enough_map_fragments.description</source>
         <target>Ces morceaux de carte stellaire sont intéressants, peut-être qu'avec un peu plus d'exemplaires, vous pourriez en apprendre plus sur leur origine.</target>
       </segment>
@@ -733,31 +733,31 @@
       </segment>
     </unit>
     <unit id="eden_not_computed">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>eden_not_computed.description</source>
         <target>Les coordonnées d'Eden n'ont pas été calculées.</target>
       </segment>
     </unit>
     <unit id="link_with_sol_not_established">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>link_with_sol_not_established.description</source>
         <target>Le contact avec Sol doit être établi pour réaliser cette action.</target>
       </segment>
     </unit>
     <unit id="max_neron_version_reached">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>max_neron_version_reached.description</source>
         <target>NERON a atteint son numéro de version maximal.</target>
       </segment>
     </unit>
     <unit id="room_on_fire">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>room_on_fire.description</source>
         <target>Cela ne sert à rien d'ajouter de l'huile sur le feu.</target>
       </segment>
     </unit>
     <unit id="room_selected_for_fire">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>room_selected_for_fire.description</source>
         <target>Inutile de piéger cette salle une seconde fois.</target>
       </segment>
@@ -849,7 +849,7 @@
     <unit id="run_home_lost">
       <segment id="description" state="translated">
         <source>run_home_lost.description</source>
-        <target>Difficile de prendre ces jambes à son cou avant de retrouver la trace des autres...</target>
+        <target>Difficile de prendre ses jambes à son cou avant de retrouver la trace des autres...</target>
       </segment>
     </unit>
     <unit id="sabotage_exploration_lost">

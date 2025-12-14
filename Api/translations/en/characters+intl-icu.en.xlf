@@ -217,7 +217,7 @@
 - 3146: After several missions of limited scope, Derek was ***moved to Xyloph-17 to supervise the Magellan Project***, reporting all the details and actions of the scientists orbiting Jupiter. He met ***Wang Chao***, but didn't become friends with him, preferring the company of travelers on Xyloph-17. Derek and his increasingly problematic relationships with the station's female personnel have earned him a trip back to the field.
 - 3151: Derek was charged with many small missions, and always managed to get good results. His colleagues often complained about his dreadful decision-making, but also kept acknowledging that the guy has an unending lucky streak. With a small squad, he successfully rescued Wang Chao who had been sent to ***Encelade***. In the upper echelons of the SDF, he was seen by some as a rising star, but by others as a taker of unnecessary risks. Unfortunately, the latter were more common and more senior, which meant that he swiftly ***became the training sergeant in an SDF-affiliated school***.
 - 3151: Faced with the catastrophic results produced by the students under Hogan's tutelage, his superiors sent him back into the field.
-- 3153: ***Commander Jin-Su*** takes Derek under his wing, and soon entrusts him with an unofficial extraction mission. Unfortunately he turns out to be unable to disarm ***the scientist Finola Keagan***'s home security system. In her wisdom, she had left her toybox open, exposing Derek to weaponry the likes of which he had never imagined, causing the sergeant to lose his memory and some potency. *His companion in this mission, Wang Chao, is killed by a squad of vigilante quadrupeds. He experiences a mighty pain in the butt before he eventually succumbs to his injuries.*
+- 3153: ***Commander Jin-Su*** takes Derek under his wing, and soon entrusts him with an unofficial extraction mission. Unfortunately he turns out to be unable to disarm ***the scientist Finola Keegan***'s home security system. In her wisdom, she had left her toybox open, exposing Derek to weaponry the likes of which he had never imagined, causing the sergeant to lose his memory and some potency. *His companion in this mission, Wang Chao, is killed by a squad of vigilante quadrupeds. He experiences a mighty pain in the butt before he eventually succumbs to his injuries.*
 - 3154: *Derek manages to get on board the Daedalus alongside the other 15 crew members*. He shall never again be manipulated by the SDF!</target>
       </segment>
       <segment id="tips" state="translated">
@@ -971,7 +971,7 @@
         <source>janice.age</source>
         <target>***Age :*** 26</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>janice.description</source>
         <target>A Digital Psychologist and one-woman enigma machine.</target>
       </segment>

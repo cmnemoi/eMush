@@ -76,6 +76,30 @@ abstract class CharacterEnum
         ];
     }
 
+    public static function getAllBiographies(): array
+    {
+        return [
+            self::ANDIE,
+            self::CHAO,
+            self::CHUN,
+            self::DEREK,
+            self::ELEESHA,
+            self::FINOLA,
+            self::FRIEDA,
+            self::GIOELE,
+            self::HUA,
+            self::IAN,
+            self::JANICE,
+            self::JIN_SU,
+            self::KUAN_TI,
+            self::PAOLA,
+            self::RALUCA,
+            self::ROLAND,
+            self::STEPHEN,
+            self::TERRENCE,
+        ];
+    }
+
     public static function isMale(string $character): bool
     {
         return \in_array($character, [

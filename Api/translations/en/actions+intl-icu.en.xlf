@@ -16,7 +16,7 @@
         <source>coffee.name</source>
         <target>Coffee!</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>coffee.description</source>
         <target>A good coffee and you are good to go.</target>
       </segment>
@@ -167,7 +167,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>get_up.description</source>
-        <target>Leave this cosy little nest and face the cruel world!</target>
+        <target>Leave this cozy little nest and face the cruel world!</target>
       </segment>
     </unit>
     <unit id="hide">
@@ -1784,7 +1784,7 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
       <segment id="description" state="translated">
         <source>whisper.description</source>
-        <target>Start a private converation with a teammate.</target>
+        <target>Start a private conversation with a teammate.</target>
       </segment>
     </unit>
     <unit id="adapt_epigenetics">

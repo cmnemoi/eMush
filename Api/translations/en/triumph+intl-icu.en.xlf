@@ -630,7 +630,7 @@
       </segment>
     </unit>
     <unit id="pregnant_in_eden">
-      <segment id="pregnant_in_eden.name" state="final">
+      <segment id="pregnant_in_eden.name" state="translated">
         <source>pregnant_in_eden.name</source>
         <target>The Passing of the Torch</target>
       </segment>

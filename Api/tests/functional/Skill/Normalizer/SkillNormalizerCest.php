@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Skill\Normalizer;
 
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Normalizer\SkillNormalizer;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -24,6 +25,9 @@ final class SkillNormalizerCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->skillNormalizer = $I->grabService(SkillNormalizer::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        // needed so that the character is gendered male
+        $this->player->getCharacterConfig()->setCharacterName(CharacterEnum::SOMEONE);
     }
 
     public function shouldNormalizeHumanSkill(FunctionalTester $I): void

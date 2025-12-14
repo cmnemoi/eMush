@@ -136,7 +136,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>extract_spore.description</source>
-        <target>Extírpate una espora para poder infectar a un compañero (no debe haber nadie más en la sala).//La tripulación **Mush** aun puede crear **{quantity_remaining} esporas** hoy.</target>
+        <target>Extírpate una espora para poder infectar a un compañero (pero ten cuidado con las cámaras).//La tripulación **Mush** aún puede crear **{quantity_remaining} esporas** hoy.</target>
       </segment>
     </unit>
     <unit id="flirt">
@@ -270,7 +270,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>rejuvenate.description</source>
-        <target>Te permite recuperar todos tus :pa:, :pm:, :hp: and :pmo:. 
+        <target>Te permite recuperar todos tus :pa:, :pm:, :hp: y :pmo:. 
 //
 Disponible solo durante el alpha. 
 //
@@ -404,7 +404,7 @@ Disponible solo durante el alpha.
       </segment>
       <segment id="description" state="translated">
         <source>sabotage_exploration.description</source>
-        <target>A este viaje solo le falta una pizca de caos.//El próximo sector visitado tendrá un resultado negativo.</target>
+        <target>A este viaje solo le falta una pizca de caos.//El próximo sector visitado tendrá un **resultado negativo**.</target>
       </segment>
     </unit>
     <unit id="take_shower">
@@ -535,7 +535,7 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
       </segment>
       <segment id="mush.description" state="translated">
         <source>mush.install_camera.description</source>
-        <target>Esta acción te permite instalar un equipo para poder utilizarlo.//No existe riesgo de ensuciarse.</target>
+        <target>Esta acción te permite instalar un equipo para hacerlo útil.//No existe riesgo de ensuciarse.</target>
       </segment>
     </unit>
     <unit id="remove_camera">
@@ -545,7 +545,7 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
       </segment>
       <segment id="mush.name" state="translated">
         <source>mush.remove_camera.name</source>
-        <target>Permite sacar un objeto para impedir que funcione o para desplazarlo.</target>
+        <target>Permite sacar un objeto de forma discreta para impedir que funcione o para desplazarlo.</target>
       </segment>
       <segment id="description" state="translated">
         <source>remove_camera.description</source>
@@ -1670,7 +1670,7 @@ Todos tus camaradas serán *notificados* y el anuncio permanecerá en la pestañ
       </segment>
       <segment id="description" state="translated">
         <source>establish_link_with_sol.description</source>
-        <target>Esta acción tratará de *establecer contacto* con el Sistema Solar.</target>
+        <target>Esta acción tratará de *establecer contacto* con el sistema solar Sol.</target>
       </segment>
     </unit>
     <unit id="upgrade_neron">
@@ -1708,11 +1708,11 @@ Todos tus camaradas serán *notificados* y el anuncio permanecerá en la pestañ
     <unit id="trigger_all_rebel_contacts">
       <segment id="name" state="translated">
         <source>trigger_all_rebel_contacts.name</source>
-        <target>Provocar todas las bases rebeldes</target>
+        <target>Activar todas las bases rebeldes</target>
       </segment>
       <segment id="description" state="translated">
         <source>trigger_all_rebel_contacts.description</source>
-        <target>Provoca todas las bases rebeldes para que intenten contactarse con el Daedalus.</target>
+        <target>Activa todas las bases rebeldes para que intenten contactarse con el Daedalus.</target>
       </segment>
     </unit>
     <unit id="play_with_dog">

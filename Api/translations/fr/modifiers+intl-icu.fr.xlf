@@ -194,7 +194,7 @@
       </segment>
     </unit>
     <unit id="coprolalia_messages_on_new_message">
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>coprolalia_messages_on_new_message.description</source>
         <target>Vos messages sont parfois modifiés.</target>
       </segment>

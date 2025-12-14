@@ -14,7 +14,7 @@
       </segment>
     </unit>
     <unit id="eat_spore">
-      <segment id="highlight" state="final">
+      <segment id="highlight" state="translated">
         <source>eat_spore.highlight</source>
         <target>Yum! A spore! Nom nom nom! Let's do this!</target>
       </segment>
@@ -50,7 +50,7 @@
       </segment>
     </unit>
     <unit id="sabotage">
-      <segment id="highlight" state="final">
+      <segment id="highlight" state="translated">
         <source>sabotage.highlight</source>
         <target>You have sabotaged {target_equipment_first_letter, select, vowel {an} other {a}} **{target_equipment}**.</target>
       </segment>

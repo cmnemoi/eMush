@@ -132,7 +132,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
         <source>block_of_post_it.name</source>
         <target>Bloc de notas</target>
       </segment>
-      <segment id="tips" state="final">
+      <segment id="tips" state="translated">
         <source>block_of_post_it.tips</source>
         <target/>
       </segment>
@@ -355,7 +355,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
     </unit>
     <unit id="neron_core">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>neron_core.name</source>
         <target>Núcleo de NERON V{neronVersion}</target>
       </segment>

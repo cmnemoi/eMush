@@ -1349,5 +1349,19 @@
         <target>{gender, select, female {Granadera} other {Granadero}}</target>
       </segment>
     </unit>
+    <unit id="frozen_taken">
+      <segment id="name" state="initial">
+        <source>frozen_taken.name</source>
+        <target>frozen_taken.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>frozen_taken.description</source>
+        <target>frozen_taken.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>frozen_taken_1.name</source>
+        <target>frozen_taken_1.name</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

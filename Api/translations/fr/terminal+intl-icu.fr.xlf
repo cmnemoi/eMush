@@ -50,7 +50,7 @@
         <source>command_terminal.advance_daedalus_status_emergency_reactor_broken</source>
         <target>Le *Réacteur d'urgence* est en carafe ! Le voyage infra-luminique est impossible.</target>
       </segment>
-      <segment id="orientation" state="final">
+      <segment id="orientation" state="translated">
         <source>command_terminal.orientation</source>
         <target>{orientation, select,
                   north {Ouest :left::left::left: **Nord** :right::right::right: Est}
@@ -118,7 +118,7 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
         <source>block_of_post_it.name</source>
         <target>Bloc de pense-bêtes</target>
       </segment>
-      <segment id="tips" state="final">
+      <segment id="tips" state="translated">
         <source>block_of_post_it.tips</source>
         <target/>
       </segment>
@@ -192,7 +192,7 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
         <source>bios_terminal.cpu_priority_none</source>
         <target>Aucune</target>
       </segment>
-      <segment id="crew_lock.name" state="final">
+      <segment id="crew_lock.name" state="translated">
         <source>bios_terminal.crew_lock_name</source>
         <target>Verrou équipage</target>
       </segment>
@@ -212,7 +212,7 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
         <source>bios_terminal.crew_lock_research</source>
         <target>Recherche</target>
       </segment>
-      <segment id="food_destruction_option.name" state="final">
+      <segment id="food_destruction_option.name" state="translated">
         <source>bios_terminal.food_destruction_option_name</source>
         <target>Destruction des Denrées</target>
       </segment>
@@ -244,11 +244,11 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
         <source>bios_terminal.plasma_shield_description</source>
         <target>Active le bouclier plasma.</target>
       </segment>
-      <segment id="plasma_shield.toggle_activate" state="final">
+      <segment id="plasma_shield.toggle_activate" state="translated">
         <source>bios_terminal.plasma_shield_toggle_activate</source>
         <target>Activer</target>
       </segment>
-      <segment id="plasma_shield.toggle_deactivate" state="final">
+      <segment id="plasma_shield.toggle_deactivate" state="translated">
         <source>bios_terminal.plasma_shield_toggle_deactivate</source>
         <target>Désactiver</target>
       </segment>
@@ -256,7 +256,7 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
         <source>bios_terminal.magnetic_net_name</source>
         <target>Filet magnétique</target>
       </segment>
-      <segment id="magnetic_net.description" state="final">
+      <segment id="magnetic_net.description" state="translated">
         <source>bios_terminal.magnetic_net_description</source>
         <target>Active le filet magnétique qui permet d'abandonner les Patrouilleurs à leur triste sort. Ou pas...</target>
       </segment>
@@ -268,7 +268,7 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
         <source>bios_terminal.magnetic_net_toggle_inactive</source>
         <target>Inactif</target>
       </segment>
-      <segment id="neron_inhibition.name" state="final">
+      <segment id="neron_inhibition.name" state="translated">
         <source>bios_terminal.neron_inhibition_name</source>
         <target>Entrave DMZ-CorePeace</target>
       </segment>
@@ -284,7 +284,7 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
         <source>bios_terminal.neron_inhibition_toggle_inactive</source>
         <target>Non</target>
       </segment>
-      <segment id="death_announcements_name" state="final">
+      <segment id="death_announcements_name" state="translated">
         <source>bios_terminal.death_announcements_name</source>
         <target>Signaler les décès</target>
       </segment>
@@ -340,7 +340,7 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
       </segment>
     </unit>
     <unit id="neron_core">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>neron_core.name</source>
         <target>Cœur de NERON V{neronVersion}</target>
       </segment>
@@ -384,27 +384,27 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
       </segment>
     </unit>
     <unit id="calculator">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>calculator.name</source>
         <target>Calculateur</target>
       </segment>
-      <segment id="tips" state="final">
+      <segment id="tips" state="translated">
         <source>calculator.tips</source>
         <target>Ce module permet d'effectuer des calculs savants et/ou sans intérêt. Mais parfois la science réserve de bien belles surprises...</target>
       </segment>
-      <segment id="to_a_new_eden_title" state="final">
+      <segment id="to_a_new_eden_title" state="translated">
         <source>calculator.to_a_new_eden_title</source>
         <target>Vers un nouvel Eden</target>
       </segment>
-      <segment id="to_a_new_eden_description" state="final">
+      <segment id="to_a_new_eden_description" state="translated">
         <source>calculator.to_a_new_eden_description</source>
         <target>Le cristalite contient des coordonnées polaires qui se rapportent au centre du nuage de Magellan... Mais elles pointent hors de celui-ci, il va nous falloir une sacrée propulsion...</target>
       </segment>
-      <segment id="nothing_to_compute" state="final">
+      <segment id="nothing_to_compute" state="translated">
         <source>calculator.nothing_to_compute</source>
         <target>Rien à calculer pour le moment. // En attente de matériel dans l'étagère...</target>
       </segment>
-      <segment id="eden_computed" state="final">
+      <segment id="eden_computed" state="translated">
         <source>calculator.eden_computed</source>
         <target>Le calcul des coordonnées d'Eden a été achevé avec succès. Les coordonnées ont été transférées vers NERON : consultez votre ***Commandant*** pour plus d'informations.</target>
       </segment>

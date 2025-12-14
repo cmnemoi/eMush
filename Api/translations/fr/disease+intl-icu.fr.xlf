@@ -416,7 +416,7 @@
         <source>broken_ribs.name</source>
         <target>Côtes pétées</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>broken_ribs.description</source>
         <target>Vos côtes sont cassées, occasionnant une douleur en posture debout.</target>
       </segment>

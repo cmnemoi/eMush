@@ -207,7 +207,7 @@ Le Cœur de NERON permet de modifier ses programmes pour l'améliorer.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>coffee_machine.examine</source>
-        <target>Cette fantastique machine a café produit un pur Arabica à une vitesse proche de la lumière. Malheureusement elle consomme autant d'énergie qu'une centrale nucléaire, et en l'absence du réacteur PILGRED il vous faudra vous contenter d'un café toutes les 24 heures. La machine a café est la meilleur ami de l'Homme. Après le chat.</target>
+        <target>Cette fantastique machine à café produit un pur Arabica à une vitesse proche de la lumière. Malheureusement, elle consomme autant d'énergie qu'une centrale nucléaire et, en l'absence du réacteur PILGRED, il vous faudra vous contenter d'un café toutes les 24 heures. La machine à café est la meilleur amie de l'Homme. Après le chat.</target>
       </segment>
     </unit>
     <unit id="combustion_chamber">
@@ -603,7 +603,7 @@ Permet de faire tourner cette bonne vieille carne vers la droite.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>narcotic_distiller.examine</source>
-        <target>Le distilleur permet de fabriquer des médicaments. Hélas son comportement erratique le rend peu fiable. Distributeur de bonheur agrée par le professeur Albus Haxley.</target>
+        <target>Le distilleur permet de fabriquer des médicaments. Hélas son comportement erratique le rend peu fiable. Distributeur de bonheur agréé par le professeur Albus Haxley.</target>
       </segment>
     </unit>
     <unit id="neron_core">

@@ -63,7 +63,7 @@ other {**{character}** ha devorado su ración. ¡Vaya apetito!}
       </segment>
     </unit>
     <unit id="disassemble_success">
-      <segment id="disassemble_success" state="final">
+      <segment id="disassemble_success" state="translated">
         <source>disassemble_success</source>
         <target>{target_equipment_gender, select,
 male {**{character}** ha desarmado un **{target_equipment}**}
@@ -94,7 +94,7 @@ other {invalid gender input}}.</target>
       </segment>
     </unit>
     <unit id="drop">
-      <segment id="drop" state="final">
+      <segment id="drop" state="translated">
         <source>drop</source>
         <target>{target_equipment, select,
      Schrödinger {**{character} ha soltado al **{target_equipment}**}
@@ -132,7 +132,7 @@ other {invalid gender input}
       </segment>
     </unit>
     <unit id="hide_success">
-      <segment id="hide_success" state="final">
+      <segment id="hide_success" state="translated">
         <source>hide_success</source>
         <target>{target_equipment_gender, select,
 male {**{character}** ha escondido un **{target_equipment}**.}
@@ -244,7 +244,7 @@ other {invalid gender input}
       </segment>
     </unit>
     <unit id="repair_success">
-      <segment id="repair_success" state="final">
+      <segment id="repair_success" state="translated">
         <source>repair_success</source>
         <target>{version, select,
   1 {{target_equipment_gender, select, female {La} other {El}} **{target_equipment}** funciona de nuevo. Gracias, **{character}**.}
@@ -440,7 +440,7 @@ other {Que extraño, **{character}** ha hecho que salga humo del **{target_equip
       </segment>
     </unit>
     <unit id="spread_fire_success">
-      <segment id="spread_fire_success" state="final">
+      <segment id="spread_fire_success" state="translated">
         <source>spread_fire_success</source>
         <target>:mush: Vaya... hace mucho calor aquí... **{character}** ha iniciado un incendio...</target>
       </segment>
@@ -867,7 +867,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="collect_scrap_fail">
       <segment id="collect_scrap_fail" state="translated">
         <source>collect_scrap_fail</source>
-        <target>**{character}** intenta un atrevido rizo para recolectar algunas piezas en el espacio, pero no consigue nada...</target>
+        <target>**{character}** intenta un giro audaz para recolectar algunas piezas en el espacio, pero no consigue nada...</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_turbo_success">
@@ -965,7 +965,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="door_sabotage_success">
       <segment id="door_sabotage_success" state="translated">
         <source>door_sabotage_success</source>
-        <target>:mush: Es extraño, hay humo saliendo de una **Puerta** por la que **{character}** está merodeando...</target>
+        <target>:mush: Que extraño, hay humo saliendo de una **Puerta** por la que **{character}** está merodeando...</target>
       </segment>
     </unit>
     <unit id="give_nightmare_success">
@@ -1001,7 +1001,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="open_anniversary_gift">
       <segment id="open_anniversary_gift" state="translated">
         <source>open_anniversary_gift</source>
-        <target>**{character}** se lanza impacientemente en su regalo y lo desenvuelve impacientemente... Oh, ¡{quantity, select,
+        <target>**{character}** se lanza impacientemente en su regalo y lo desenvuelve rápidamente... Oh, ¡{quantity, select,
   1 {{equipment_gender, select, female {Una} other {Un}} **{equipment}**}
   other {{quantity} **{equipment_plural_name}**}
   }! Esperemos que esto sea lo que {character_gender, select, female {ella} other {él}} quería...</target>
@@ -1041,6 +1041,12 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
       <segment id="exchange_body_success" state="translated">
         <source>exchange_body_success</source>
         <target>***Solo para la moderación***: **{character}** se transfiere a **{target_character}**.</target>
+      </segment>
+    </unit>
+    <unit id="cure_success">
+      <segment id="cure_success" state="initial">
+        <source>cure_success</source>
+        <target>cure_success</target>
       </segment>
     </unit>
     <unit id="adapt_epigenetics_success">

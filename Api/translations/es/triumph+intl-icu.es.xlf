@@ -332,7 +332,7 @@
         <source>eden_one_man.name</source>
         <target>Uno para todos</target>
       </segment>
-      <segment id="eden_one_man.log" state="final">
+      <segment id="eden_one_man.log" state="translated">
         <source>eden_one_man.log</source>
         <target>Has ganado {quantity} :triumph: porque {quantity} {quantity, select, 1 {tripulante ha} other {tripulantes han}} llegado al Edén.</target>
       </segment>
@@ -693,7 +693,7 @@ Después de ganar más de {regressiveFactor}, esto será menos frecuente.</targe
     <unit id="cm_alien_down">
       <segment id="cm_alien_down.name" state="translated">
         <source>cm_alien_down.name</source>
-        <target>Carnicería fina</target>
+        <target>¡¡¡Contacto!!!</target>
       </segment>
       <segment id="cm_alien_down.log" state="translated">
         <source>cm_alien_down.log</source>
@@ -707,7 +707,7 @@ Después de ganar más de {regressiveFactor}, esto será menos frecuente.</targe
       </segment>
       <segment id="cm_all_mush_humanicide.log" state="translated">
         <source>cm_all_mush_humanicide.log</source>
-        <target>Matador</target>
+        <target>El darle un golpe mortal a un humano te hace ganar {quantity} :triumph_mush:</target>
       </segment>
     </unit>
     <unit id="cm_all_new_mush">
@@ -847,7 +847,7 @@ Después de ganar más de {regressiveFactor}, esto será menos frecuente.</targe
       </segment>
       <segment id="lover.personal_description" state="translated">
         <source>lover.personal_description</source>
-        <target>Derek gana {quantity} :triumph: por cada acto amor recíproco.</target>
+        <target>Derek gana {quantity} :triumph: por cada acto de amor recíproco.</target>
       </segment>
     </unit>
     <unit id="andie_fate">

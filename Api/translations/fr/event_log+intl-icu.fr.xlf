@@ -1037,7 +1037,7 @@
       </segment>
     </unit>
     <unit id="confident_actions">
-      <segment id="confident_actions" state="final">
+      <segment id="confident_actions" state="translated">
         <source>confident_actions</source>
         <target>{quantity, select,
           0 {{character_gender, select, 
@@ -1124,7 +1124,7 @@
     <unit id="traitor_prevented">
       <segment id="traitor_prevented" state="translated">
         <source>traitor_prevented</source>
-        <target>:mush: Votre sabotage a été empêché par un membre de l'équipe d'exploration. Ils sont vraiment trop viligants...</target>
+        <target>:mush: Votre sabotage a été empêché par un membre de l'équipe d'exploration. Ils sont vraiment trop vigilants...</target>
       </segment>
     </unit>
     <unit id="learned_skill">
@@ -1298,7 +1298,7 @@
       </segment>
     </unit>
     <unit id="gen_metal_success">
-      <segment id="gen_metal_success" state="final">
+      <segment id="gen_metal_success" state="translated">
         <source>gen_metal_success</source>
         <target>**{character}** ressort de son tas de débris l'air ravi, {character_gender, select, female {elle} other {il}} a fait une trouvaille ! Et hop, {target_equipment_gender, select, female {une **{target_equipment}**} other {un **{target_equipment}**}} !</target>
       </segment>

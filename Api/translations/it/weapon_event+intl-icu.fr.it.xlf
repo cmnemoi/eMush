@@ -505,5 +505,11 @@
         <target>rocket_launcher_miss_10_items</target>
       </segment>
     </unit>
+    <unit id="found_protections">
+      <segment id="found_protections" state="initial">
+        <source>found_protections</source>
+        <target>found_protections</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

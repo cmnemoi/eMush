@@ -685,16 +685,16 @@
 			"charactersButtonTitle": "👤",
 			"charactersButtonDescription": "Personnages",
 			"buttonValidateAdvEditor": "Valider et envoyer le message",
-            "emoteCharactersTab": "Personnages",
-            "emoteResourcesTab": "Ressources",
-            "emoteIconsTab": "Icônes",
-            "emoteStatusesTab": "Statuts",
-            "emoteHumanSkillsTab": "Compétences Humaines",
-            "emoteMushSkillsTab": "Compétences Mush",
-            "emoteAstroTab": "Secteurs",
-            "emoteTwinoidTab": "Twinoid",
-            "emoteMuxxuTab": "Muxxu",
-            "emoteEternalTwinTab": "EternalTwin",
+			"emoteCharactersTab": "Personnages",
+			"emoteResourcesTab": "Ressources",
+			"emoteIconsTab": "Icônes",
+			"emoteStatusesTab": "Statuts",
+			"emoteHumanSkillsTab": "Compétences Humaines",
+			"emoteMushSkillsTab": "Compétences Mush",
+			"emoteAstroTab": "Secteurs",
+			"emoteTwinoidTab": "Twinoid",
+			"emoteMuxxuTab": "Muxxu",
+			"emoteEternalTwinTab": "EternalTwin",
 			"bookmark": "Favori",
 			"bookmarkDescription": "Mettre ce fil de discussion en favori.",
 			"invite": "Inviter",
@@ -1089,7 +1089,8 @@
 		"topBar": {
 			"login": "Se connecter",
 			"notifications": "{count} notification | {count} notifications",
-			"register": "Créer un compte"
+			"register": "Créer un compte",
+			"searchUser": "Rechercher un utilisateur"
 		}
 	},
 	"fakeAdmin": {

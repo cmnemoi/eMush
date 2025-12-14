@@ -1952,7 +1952,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $this->whenExplorationEventIsDispatched($exploration);
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: ':mush: Votre sabotage a été empêché par un membre de l\'équipe d\'exploration. Ils sont vraiment trop viligants...',
+            expectedRoomLog: ':mush: Votre sabotage a été empêché par un membre de l\'équipe d\'exploration. Ils sont vraiment trop vigilants...',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->chun,
                 log: LogEnum::TRAITOR_PREVENTED,

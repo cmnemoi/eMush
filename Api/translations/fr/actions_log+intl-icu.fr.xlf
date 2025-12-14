@@ -104,7 +104,7 @@
       </segment>
     </unit>
     <unit id="disassemble_success">
-      <segment id="disassemble_success" state="final">
+      <segment id="disassemble_success" state="translated">
         <source>disassemble_success</source>
         <target>{target_equipment_gender, select,
                         male {**{character}** a désassemblé un **{target_equipment}**.}
@@ -132,7 +132,7 @@
       </segment>
     </unit>
     <unit id="drop">
-      <segment id="drop" state="final">
+      <segment id="drop" state="translated">
         <source>drop</source>
         <target>{target_equipment_gender, select,
                         male {**{character}** a lâché un **{target_equipment}**.}
@@ -171,7 +171,7 @@
       </segment>
     </unit>
     <unit id="hide_success">
-      <segment id="hide_success" state="final">
+      <segment id="hide_success" state="translated">
         <source>hide_success</source>
         <target>{target_equipment_gender, select,
                         male {**{character}** a dissimulé un **{target_equipment}**.}
@@ -386,7 +386,7 @@
       </segment>
     </unit>
     <unit id="repair_success">
-      <segment id="repair_success" state="final">
+      <segment id="repair_success" state="translated">
         <source>repair_success</source>
         <target>{version, select,
                     1 {{target_equipment_first_letter, select,
@@ -666,9 +666,9 @@
       </segment>
     </unit>
     <unit id="spread_fire_success">
-      <segment id="spread_fire_success" state="final">
+      <segment id="spread_fire_success" state="translated">
         <source>spread_fire_success</source>
-        <target>:mush: Tiens... ça se réchauffe par ici... **{character}** a mis le feu...</target>
+        <target>Mais que fait  **{character}** avec l'installation électrique... ? Cela ne sent vraiment pas bon...:fires:</target>
       </segment>
     </unit>
     <unit id="install_camera">

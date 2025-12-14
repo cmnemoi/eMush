@@ -16,7 +16,9 @@
     <unit id="blaster_failed_shot">
       <segment id="blaster_failed_shot" state="translated">
         <source>blaster_failed_shot</source>
-        <target>**{character}** ha disparado sobre **{target_character}**, pero no fue capaz de apuntar bien...</target>
+        <target>{version, select,
+1 {**{character}** dispara, pero solo logra darle a la pared... ¡Qué talento!}
+other {**{character}** ha disparado sobre **{target_character}**, pero no fue capaz de apuntar bien...</target>
       </segment>
     </unit>
     <unit id="blaster_target_headshot">
@@ -82,14 +84,14 @@
     <unit id="blaster_shooter_minus_1_ap">
       <segment id="blaster_shooter_minus_1_ap" state="translated">
         <source>blaster_shooter_minus_1_ap</source>
-        <target>Click... Click... el arma de **{character}** se atasca.</target>
+        <target>Clic... Clic... el arma de **{character}** se atasca.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_successful_shot">
       <segment id="natamy_rifle_successful_shot" state="translated">
         <source>natamy_rifle_successful_shot</source>
         <target>{version, select,
-            1 {**{character}** dispara a **{target_character}** !}
+            1 {¡**{character}** dispara a **{target_character}**!}
             2 {**{character}** abre fuego sobre **{target_character}**.}
             3 {**{character}** acribilla con balas a **{target_character}**.}
             4 {**{character}** mete una bala en **{target_character}**...}
@@ -137,7 +139,7 @@
     <unit id="natamy_rifle_break_weapon">
       <segment id="natamy_rifle_break_weapon" state="translated">
         <source>natamy_rifle_break_weapon</source>
-        <target>Click click click... El arma de **{character}** se atasca. **{target_character}** debería agradecerle.</target>
+        <target>Clic clic clic... El arma de **{character}** se atasca. **{target_character}** debería agradecerle.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_burnt_hand">
@@ -218,7 +220,11 @@
     <unit id="knife_instagib_bled">
       <segment id="knife_instagib_bled" state="translated">
         <source>knife_instagib_bled</source>
-        <target>**{character}** clava su cuchillo en una articulación de **{target_character}** para dejarle sin esperanzas...</target>
+        <target>{version, select,  
+            1 {Las últimas palabras de **{target_character}** fueron "Abajo nos encontraremos, **{character}**" quien muere por una puñalada en el corazón.}  
+            2 {Con una mirada maliciosa, **{character}** se acerca sigilosamente detrás de **{target_character}** y le corta su arteria carótida.}  
+            other {Con una mirada maliciosa, **{character}** se acerca sigilosamente detrás de **{target_character}** y le corta su arteria carótida.}  
+}</target>
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_punctured_lung">
@@ -230,7 +236,11 @@
     <unit id="knife_failed_hit">
       <segment id="knife_failed_hit" state="translated">
         <source>knife_failed_hit</source>
-        <target>**{character}** saca su cuchillo y ataca a **{target_character}** pero falla.</target>
+        <target>{version, select,  
+                  1 {A pesar de las apariencias, **{target_character}** esquiva con facilidad el cuchillo de **{character}**.}  
+                  2 {**{character}** saca su cuchillo y ataca a **{target_character}**, pero falla}  
+                  3 {**{character}** corta un mechón de pelo de **{target_character}**, pero nada más...}  
+                  other {**{character}** saca su cuchillo y ataca a **{target_character}**, pero falla}}</target>
       </segment>
     </unit>
     <unit id="knife_break_weapon">
@@ -278,7 +288,12 @@
     <unit id="old_faithful_successful_shot">
       <segment id="old_faithful_successful_shot" state="translated">
         <source>old_faithful_successful_shot</source>
-        <target>¡**{character}* acaba de dispararle a **{target_character}**!</target>
+        <target>version, select,
+            1 {¡**{character}** dispara a **{target_character}**!}
+            2 {**{character}** abre fuego sobre **{target_character}**.}
+            3 {**{character}** acribilla con balas a **{target_character}**.}
+            4 {**{character}** mete una bala en **{target_character}**...}
+            other {**{character}** dispara una ráfaga a **{target_character}**.}}</target>
       </segment>
     </unit>
     <unit id="old_faithful_headshot">
@@ -322,7 +337,7 @@
     <unit id="old_faithful_break_weapon">
       <segment id="old_faithful_break_weapon" state="translated">
         <source>old_faithful_break_weapon</source>
-        <target>Click... Click... el arma de **{character}** se atasca. **{target_character}** debería agradecerle.</target>
+        <target>Clic... Clic... el arma de **{character}** se atasca. **{target_character}** debería agradecerle.</target>
       </segment>
     </unit>
     <unit id="old_faithful_shooter_burnt_hand">
@@ -369,12 +384,11 @@
       <segment id="lizaro_jungle_successful_shot" state="translated">
         <source>lizaro_jungle_successful_shot</source>
         <target>{version, select,
-    1 {**{character}** desenfunda y dispara sobre **{target_character}**.}
-    2 {Sin más ni más, **{character}** saca su arma y dispara sobre **{target_character}**, una, dos, tres veces...}
-    3 {**{character}** hace una secuencia de movimientos de puño y dispara sobre **{target_character}**... quien cae {target_character_gender, select, female {abatida} other {abatido}} en pocos segundos.}
-    4 {**{character}** gira súbitamente y dispara sobre **{target_character}**.}
-    other {**{target_character}** recibe un tiro certero de **{character}**.}
-}</target>
+            1 {¡**{character}** dispara a **{target_character}**!}
+            2 {**{character}** abre fuego sobre **{target_character}**.}
+            3 {**{character}** acribilla con balas a **{target_character}**.}
+            4 {**{character}** mete una bala en **{target_character}**...}
+            other {**{character}** dispara una ráfaga a **{target_character}**.}}</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_headshot">
@@ -418,7 +432,7 @@
     <unit id="lizaro_jungle_break_weapon">
       <segment id="lizaro_jungle_break_weapon" state="translated">
         <source>lizaro_jungle_break_weapon</source>
-        <target>Click click click... El arma de **{character}** se atasca. **{target_character}** debería agradecerle.</target>
+        <target>Clic clic clic... El arma de **{character}** se atasca. **{target_character}** debería agradecerle.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_shooter_burnt_hand">
@@ -487,7 +501,11 @@
     <unit id="bare_hands_failed_hit">
       <segment id="bare_hands_failed_hit" state="translated">
         <source>bare_hands_failed_hit</source>
-        <target>**{character}** falla su ataque a **{target_character}**.</target>
+        <target>{version, select,
+          1 {**{character}* ataca a **{target_character}**, pero le esquiva hábilmente.}
+          2 {**{character}** falla su ataque a **{target_character}**.}
+          other {**{character}** ataca a **{target_character}**, pero falla miserablemente.}
+        }</target>
       </segment>
     </unit>
     <unit id="bare_hands_fumble">

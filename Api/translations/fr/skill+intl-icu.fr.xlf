@@ -8,8 +8,7 @@
       </segment>
       <segment id="botanist.description" state="translated">
         <source>botanist.description</source>
-        <target>Le Botaniste peut distinguer les caractéristiques des fruits et des plantes. Il est également
-                    redoutablement efficace dans la maintenance du Jardin.//:point: Peut lire les **propriétés des
+        <target>{character_gender, select, female {La} other {Le}} Botaniste peut distinguer les caractéristiques des fruits et des plantes. {character_gender, select, female {Elle} other {Il}} est également redoutablement efficace dans la maintenance du Jardin.//:point: Peut lire les **propriétés des
                     fruits**.//
                     :point: Peut lire les **propriétés des plantes**.//
                     :point: Peut effectuer des **greffes**.//
@@ -22,7 +21,7 @@
     <unit id="firefighter">
       <segment id="firefighter.name" state="translated">
         <source>firefighter.name</source>
-        <target>Pompier</target>
+        <target>{character_gender, select, female {Pompière} other {Pompier}}</target>
       </segment>
       <segment id="firefighter.description" state="translated">
         <source>firefighter.description</source>
@@ -51,7 +50,7 @@
     <unit id="radio_expert">
       <segment id="radio_expert.name" state="translated">
         <source>radio_expert.name</source>
-        <target>Expert radio</target>
+        <target>{character_gender, select, female {Experte Radio} other {Expert Radio}}</target>
       </segment>
       <segment id="radio_expert.description" state="translated">
         <source>radio_expert.description</source>
@@ -77,7 +76,7 @@
     <unit id="physicist">
       <segment id="physicist.name" state="translated">
         <source>physicist.name</source>
-        <target>Physicien</target>
+        <target>{character_gender, select, female {Physicienne} other {Physicien}}</target>
       </segment>
       <segment id="physicist.description" state="translated">
         <source>physicist.description</source>
@@ -87,7 +86,9 @@
     <unit id="technician">
       <segment id="technician.name" state="translated">
         <source>technician.name</source>
-        <target>Technicien</target>
+        <target>{character_gender, select,
+        female {Technicienne}
+        other {Technicien}}</target>
       </segment>
       <segment id="technician.description" state="translated">
         <source>technician.description</source>
@@ -103,7 +104,7 @@
     <unit id="astrophysicist">
       <segment id="astrophysicist.name" state="translated">
         <source>astrophysicist.name</source>
-        <target>Astrophysicien</target>
+        <target>{character_gender, select, female {Astrophysicienne} other {Astrophysicien}}</target>
       </segment>
       <segment id="astrophysicist.description" state="translated">
         <source>astrophysicist.description</source>
@@ -116,7 +117,7 @@
     <unit id="computer">
       <segment id="it_expert.name" state="translated">
         <source>it_expert.name</source>
-        <target>Informaticien</target>
+        <target>{character_gender, select, female {Informaticienne} other {Informaticien}}</target>
       </segment>
       <segment id="it_expert.description" state="translated">
         <source>it_expert.description</source>
@@ -129,7 +130,7 @@
     <unit id="conceptor">
       <segment id="conceptor.name" state="translated">
         <source>conceptor.name</source>
-        <target>Concepteur</target>
+        <target>{character_gender, select, female {Conceptrice} other {Concepteur}}</target>
       </segment>
       <segment id="conceptor.description" state="translated">
         <source>conceptor.description</source>
@@ -141,7 +142,7 @@
     <unit id="creative">
       <segment id="creative.name" state="translated">
         <source>creative.name</source>
-        <target>Créatif</target>
+        <target>{character_gender, select, female {Créative} other {Créatif}}</target>
       </segment>
       <segment id="creative.description" state="translated">
         <source>creative.description</source>
@@ -179,7 +180,9 @@
     <unit id="shooter">
       <segment id="name" state="translated">
         <source>shooter.name</source>
-        <target>Tireur</target>
+        <target>{character_gender, select,
+        female {Tireuse}
+        other {Tireur}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>shooter.description</source>
@@ -207,7 +210,7 @@
     <unit id="nurse">
       <segment id="nurse.name" state="translated">
         <source>nurse.name</source>
-        <target>Infirmier</target>
+        <target>{character_gender, select, female {Infirmière} other {Infirmier}}</target>
       </segment>
       <segment id="nurse.description" state="translated">
         <source>nurse.description</source>
@@ -268,7 +271,7 @@
     <unit id="motivator">
       <segment id="motivator.name" state="translated">
         <source>motivator.name</source>
-        <target>Motivateur</target>
+        <target>{character_gender, select, female {Motivatrice} other {Motivateur}}</target>
       </segment>
       <segment id="motivator.description" state="translated">
         <source>motivator.description</source>
@@ -279,7 +282,7 @@
     <unit id="confident">
       <segment id="confident.name" state="translated">
         <source>confident.name</source>
-        <target>Confident</target>
+        <target>{character_gender, select, female {Confidente} other {Confident}}</target>
       </segment>
       <segment id="confident.description" state="translated">
         <source>confident.description</source>
@@ -323,7 +326,7 @@
     <unit id="determined">
       <segment id="determined.name" state="translated">
         <source>determined.name</source>
-        <target>Persévérant</target>
+        <target>{character_gender, select, female {Persévérante} other {Persévérant}}</target>
       </segment>
       <segment id="determined.description" state="translated">
         <source>determined.description</source>
@@ -343,7 +346,7 @@
     <unit id="gunner">
       <segment id="gunner.name" state="translated">
         <source>gunner.name</source>
-        <target>Canonnier</target>
+        <target>{character_gender, select, female {Canonnière} other {Canonnier}}</target>
       </segment>
       <segment id="gunner.description" state="translated">
         <source>gunner.description</source>
@@ -393,9 +396,9 @@
     <unit id="neron_only_friend">
       <segment id="neron_only_friend.name" state="translated">
         <source>neron_only_friend.name</source>
-        <target>{character_gender, select,
-        female {Seule amie de NERON}
-        other {Seul ami de NERON}}</target>
+        <target>{character, select,
+        Janice {Seule amie de NERON}
+        other {{character_gender, select, female {Deuxième amie de NERON} other {Deuxième ami de NERON}}}}</target>
       </segment>
       <segment id="neron_only_friend.description" state="translated">
         <source>neron_only_friend.description</source>
@@ -443,9 +446,9 @@
       </segment>
     </unit>
     <unit id="sneak">
-      <segment id="sneak.name" state="final">
+      <segment id="sneak.name" state="translated">
         <source>sneak.name</source>
-        <target>Fuyant</target>
+        <target>{character_gender, select, female {Fuyante} other {Fuyant}}</target>
       </segment>
       <segment id="sneak.description" state="translated">
         <source>sneak.description</source>
@@ -485,7 +488,7 @@
     <unit id="wrestler">
       <segment id="wrestler.name" state="translated">
         <source>wrestler.name</source>
-        <target>Lutteur</target>
+        <target>{character_gender, select, female {Lutteuse} other {Lutteur}}</target>
       </segment>
       <segment id="wrestler.description" state="translated">
         <source>wrestler.description</source>
@@ -495,7 +498,7 @@
     <unit id="sprinter">
       <segment id="sprinter.name" state="translated">
         <source>sprinter.name</source>
-        <target>Sprinter</target>
+        <target>{character_gender, select, female {Sprinteuse} other {Sprinter}}</target>
       </segment>
       <segment id="sprinter.description" state="translated">
         <source>sprinter.description</source>
@@ -569,7 +572,7 @@
     <unit id="observant">
       <segment id="observant.name" state="translated">
         <source>observant.name</source>
-        <target>Observateur</target>
+        <target>{character_gender, select, female {Observatrice} other {Observateur}}</target>
       </segment>
       <segment id="observant.description" state="translated">
         <source>observant.description</source>
@@ -579,7 +582,7 @@
     <unit id="detached_crewmember">
       <segment id="detached_crewmember.name" state="translated">
         <source>detached_crewmember.name</source>
-        <target>Détaché</target>
+        <target>{character_gender, select, female {Détachée} other {Détaché}}</target>
       </segment>
       <segment id="detached_crewmember.description" state="translated">
         <source>detached_crewmember.description</source>
@@ -589,7 +592,7 @@
     <unit id="expert">
       <segment id="expert.name" state="translated">
         <source>expert.name</source>
-        <target>Expert</target>
+        <target>{character_gender, select, female {Experte} other {Expert}}</target>
       </segment>
       <segment id="expert.description" state="translated">
         <source>expert.description</source>
@@ -619,7 +622,7 @@
     <unit id="politician">
       <segment id="politician.name" state="translated">
         <source>politician.name</source>
-        <target>Politicien</target>
+        <target>{character_gender, select, female {Politicienne} other {Politicien}}</target>
       </segment>
       <segment id="politician.description" state="translated">
         <source>politician.description</source>
@@ -629,7 +632,7 @@
     <unit id="victimizer">
       <segment id="victimizer.name" state="translated">
         <source>victimizer.name</source>
-        <target>Persécuteur</target>
+        <target>{character_gender, select, female {Persécutrice} other {Persécuteur}}</target>
       </segment>
       <segment id="victimizer.description" state="translated">
         <source>victimizer.description</source>
@@ -769,7 +772,7 @@
     <unit id="polyvalent">
       <segment id="polyvalent.name" state="translated">
         <source>polyvalent.name</source>
-        <target>Polyvalent</target>
+        <target>{character_gender, select, female {Polyvalente} other {Polyvalent}}</target>
       </segment>
       <segment id="polyvalent.description" state="translated">
         <source>polyvalent.description</source>
@@ -839,7 +842,7 @@
     <unit id="ocd">
       <segment id="ocd.name" state="translated">
         <source>ocd.name</source>
-        <target>Méticuleuse</target>
+        <target>{character_gender, select, female {Méticuleuse} other {Méticuleux}}</target>
       </segment>
       <segment id="ocd.description" state="translated">
         <source>ocd.description</source>
@@ -899,7 +902,7 @@
     <unit id="intimidating">
       <segment id="intimidating.name" state="translated">
         <source>intimidating.name</source>
-        <target>Intimidant</target>
+        <target>{character_gender, select, female {Intimidante} other {Intimidant}}</target>
       </segment>
       <segment id="intimidating.description" state="translated">
         <source>intimidating.description</source>

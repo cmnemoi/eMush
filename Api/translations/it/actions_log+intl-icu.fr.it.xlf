@@ -889,6 +889,12 @@
         <target>exchange_body_success</target>
       </segment>
     </unit>
+    <unit id="cure_success">
+      <segment id="cure_success" state="initial">
+        <source>cure_success</source>
+        <target>cure_success</target>
+      </segment>
+    </unit>
     <unit id="adapt_epigenetics_success">
       <segment id="adapt_epigenetics_success" state="initial">
         <source>adapt_epigenetics_success</source>

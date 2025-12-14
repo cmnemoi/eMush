@@ -976,7 +976,7 @@ Neutraliza 1 punto de daños en combate.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>plastenite_armor.examine</source>
-        <target>Aconsejada para ir de expedición.
+        <target>Recomendada para las expediciones.
 //
 Neutraliza 1 punto de daños en combate.
 //

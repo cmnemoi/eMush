@@ -936,7 +936,7 @@
     <unit id="mush_cycles">
       <segment id="name" state="translated">
         <source>mush_cycles.name</source>
-        <target>Nombre de cycles passés à phongiférer dans son coin</target>
+        <target>Nombre de cycles passés à fongiférer dans son coin</target>
       </segment>
       <segment id="description" state="translated">
         <source>mush_cycles.description</source>
@@ -1330,7 +1330,7 @@
         <source>plasma_shield.description</source>
         <target>Nombre de fois où le Bouclier plasma a été mis en service par votre équipage durant un voyage.</target>
       </segment>
-      <segment id="x1" state="final">
+      <segment id="x1" state="translated">
         <source>plasma_shield_1.name</source>
         <target>{gender, select, female {Protectrice} other {Protecteur}}</target>
       </segment>
@@ -1347,20 +1347,6 @@
       <segment id="x1" state="translated">
         <source>grenadier_1.name</source>
         <target>Grenadier</target>
-      </segment>
-    </unit>
-    <unit id="grenadier">
-      <segment id="name" state="initial">
-        <source>grenadier.name</source>
-        <target>grenadier.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>grenadier.description</source>
-        <target>grenadier.description</target>
-      </segment>
-      <segment id="x1" state="initial">
-        <source>grenadier_1.name</source>
-        <target>grenadier_1.name</target>
       </segment>
     </unit>
     <unit id="frozen_taken">

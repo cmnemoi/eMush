@@ -130,7 +130,7 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>block_of_post_it.name</source>
         <target>Block of post-it notes</target>
       </segment>
-      <segment id="tips" state="final">
+      <segment id="tips" state="translated">
         <source>block_of_post_it.tips</source>
         <target/>
       </segment>
@@ -227,7 +227,7 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.crew_lock_research</source>
         <target>Research</target>
       </segment>
-      <segment id="food_destruction_option.name" state="final">
+      <segment id="food_destruction_option.name" state="translated">
         <source>bios_terminal.food_destruction_option_name</source>
         <target>Foodstuff Destruction</target>
       </segment>
@@ -355,7 +355,7 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
       </segment>
     </unit>
     <unit id="neron_core">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>neron_core.name</source>
         <target>NERON's Core V{neronVersion}</target>
       </segment>

@@ -879,32 +879,32 @@ Le casque de visée est une aide précieuse par temps de brouillard, dans le noi
       </segment>
     </unit>
     <unit id="ncc_lenses">
-      <segment id="name" state="final">
+      <segment id="name" state="translated">
         <source>ncc_lenses.name</source>
         <target>Lentille NCC</target>
       </segment>
-      <segment id="short_name" state="final">
+      <segment id="short_name" state="translated">
         <source>ncc_lenses.short_name</source>
         <target>Lentille NCC</target>
       </segment>
-      <segment id="plural_name" state="final">
+      <segment id="plural_name" state="translated">
         <source>ncc_lenses.plural_name</source>
         <target>Lentilles NCC</target>
       </segment>
-      <segment id="genre" state="final">
+      <segment id="genre" state="translated">
         <source>ncc_lenses.gender</source>
         <target>female</target>
       </segment>
-      <segment id="first_letter" state="final">
+      <segment id="first_letter" state="translated">
         <source>ncc_lenses.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>ncc_lenses.description</source>
         <target>Les lentilles NCC améliorent votre vision
 +10% à vos actions de Tir.</target>
       </segment>
-      <segment id="examine" state="final">
+      <segment id="examine" state="translated">
         <source>ncc_lenses.examine</source>
         <target>Les lentilles NCC améliorent votre vision.//+10% à vos actions de Tir.//
 Ces lentilles ultra-sophistiquées élaborées à partir d'une technologie féline feront de vous un bien meilleur prédateur.</target>
@@ -1326,7 +1326,7 @@ Paradoxalement, les expéditions interplanétaires peuvent parfois s'avérer ext
       <segment id="examine" state="translated">
         <source>white_flag.examine</source>
         <target>Le drapeau blanc est un symbole universel de paix... ou presque.//Expédition : Annule les chances de combat dans un secteur "Vie Intelligente".//
-Le drapeau blanc a été institué symbole international des peuples en demande de pourparlers en 2030 par l'ONU, de fait sa signification est très répandu et c'est donc un bon moyen de dire "nous venons en paix". Suite à quelques soucis anecdotiques, rapports à des vrais faux drapeaux blancs qui auraient provoqué des meurtres de dignitaires, sa portée reste toutefois limitée et la seule bonne foi d'un corps expéditionnaire ne suffira pas forcément à leur acquérir des facilités diplomatiques.</target>
+Le drapeau blanc a été institué symbole international des peuples en demande de pourparlers en 2030 par l'ONU, de fait sa signification est très répandue et c'est donc un bon moyen de dire "nous venons en paix". Suite à quelques soucis anecdotiques, rapports à des vrais faux drapeaux blancs qui auraient provoqué des meurtres de dignitaires, sa portée reste toutefois limitée et la seule bonne foi d'un corps expéditionnaire ne suffira pas forcément à leur acquérir des facilités diplomatiques.</target>
       </segment>
     </unit>
     <unit id="alien_holographic_tv">

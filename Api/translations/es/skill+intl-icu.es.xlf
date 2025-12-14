@@ -600,7 +600,7 @@
       <segment id="tracker.description" state="translated">
         <source>tracker.description</source>
         <target>{character_gender, select, female {La rastreadora} other {El rastreador}} ve los orígenes y direcciones de cada movimiento de la tripulación. Además, puede imprimir un resultado de investigación gracias a la tabuladora durante la partida. Se trata de una lista de personas que contiene al menos un infectado Mush.//
-:point: Puede acceder al historial del registro durante **16 ciclo**s *(en lugar de 8)*.//
+:point: Puede acceder al historial del registro durante **16 ciclos** *(en lugar de 8)*.//
 :point: Puede ver de dónde vienen y hacia dónde van los tripulantes en el registro.//
 :point: Permite **imprimir LA lista secreta** utilizando la Tabuladora.//
 :beta: Expedición: Evita el evento **Muerte** al buscar tripulantes perdidos.</target>
@@ -623,7 +623,7 @@
       </segment>
       <segment id="pyromaniac.description" state="translated">
         <source>pyromaniac.description</source>
-        <target>El pirómano puede inyectar microesporas explosivas en un material inflamable para causar un incendio capaz de dañar la nave.//:point: Por **4** :pa: puedes provocar un Incendio en una sala que iniciará al principio del próximo ciclo.</target>
+        <target>El pirómano puede inyectar microesporas explosivas en un material inflamable para causar un incendio capaz de dañar la nave.//:point: Por **4** :pa: puedes provocar un **Incendio** en una sala que iniciará al principio del próximo ciclo.</target>
       </segment>
     </unit>
     <unit id="observant">

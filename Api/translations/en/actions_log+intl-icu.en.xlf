@@ -94,7 +94,7 @@
       </segment>
     </unit>
     <unit id="drop">
-      <segment id="drop" state="final">
+      <segment id="drop" state="translated">
         <source>drop</source>
         <target>{target_equipment, select,
                         Schrödinger {**{character}** has dropped **{target_equipment}**.}
@@ -193,7 +193,7 @@
       </segment>
     </unit>
     <unit id="repair_fail">
-      <segment id="repair_fail" state="final">
+      <segment id="repair_fail" state="translated">
         <source>repair_fail</source>
         <target>{versionPart1, select,
     1 {}
@@ -429,7 +429,7 @@
       </segment>
     </unit>
     <unit id="spread_fire_success">
-      <segment id="spread_fire_success" state="final">
+      <segment id="spread_fire_success" state="translated">
         <source>spread_fire_success</source>
         <target>:mush: Well... it's getting hot in here... **{character}** has set fire to the room...</target>
       </segment>
@@ -895,7 +895,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="slime_object_success">
       <segment id="slime_object_success" state="translated">
         <source>slime_object_success</source>
-        <target>mush: **{character}** ejected some wretched slime onto {target_equipment_first_letter, select, vowel {an} other {a}} **{target_equipment}**. It'll break down in {quantity, select, 1 {1 cycle} other {{quantity} cycles}}...</target>
+        <target>:mush: **{character}** ejected some wretched slime onto {target_equipment_first_letter, select, vowel {an} other {a}} **{target_equipment}**. It'll break down in {quantity, select, 1 {1 cycle} other {{quantity} cycles}}...</target>
       </segment>
     </unit>
     <unit id="mass_ggedon_success">

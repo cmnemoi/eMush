@@ -16,7 +16,7 @@
         <source>achievement_unlocked.title</source>
         <target>¡Felicidades, has obtenido el título {achievement}!</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>achievement_unlocked.description</source>
         <target/>
       </segment>
@@ -42,7 +42,7 @@
     <unit id="daedalus_filled">
       <segment id="key" state="translated">
         <source>daedalus_filled.title</source>
-        <target>¡Tu juego está a punto de comenzar!</target>
+        <target>¡Tu partida está a punto de comenzar!</target>
       </segment>
       <segment id="description" state="translated">
         <source>daedalus_filled.description</source>

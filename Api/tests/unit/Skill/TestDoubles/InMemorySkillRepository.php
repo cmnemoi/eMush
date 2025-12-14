@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\unit\Skill\TestDoubles;
 
 use Mush\Skill\Entity\Skill;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Repository\SkillRepositoryInterface;
 
 final class InMemorySkillRepository implements SkillRepositoryInterface
@@ -27,5 +28,20 @@ final class InMemorySkillRepository implements SkillRepositoryInterface
     public function clear(): void
     {
         $this->skills = [];
+    }
+
+    public function countSkill(SkillEnum $skillName): int
+    {
+        return 0;
+    }
+
+    public function countAllSkill(): int
+    {
+        return 0;
+    }
+
+    public function countSkillByCharacter(string $characterName): array
+    {
+        return [];
     }
 }

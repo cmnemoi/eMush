@@ -2,6 +2,9 @@ import AdminActionsPage from "@/components/Admin/Actions/AdminActionsPage.vue";
 import AdminConfigPage from "@/components/Admin/AdminConfigPage.vue";
 import AdminHomePage from "@/components/Admin/AdminHomePage.vue";
 import AdminPage from "@/components/Admin/AdminPage.vue";
+import StatsHomePage from "@/components/Stats/StatsHomePage.vue";
+import StatsPage from "@/components/Stats/StatsPage.vue";
+import StatsPlayersPage from "@/components/Stats/StatsPlayersPage.vue";
 import DaedalusDetailPage from "@/components/Admin/Daedalus/DaedalusDetailPage.vue";
 import DaedalusListPage from "@/components/Admin/Daedalus/DaedalusListPage.vue";
 import NeronAnnouncementPage from "@/components/Admin/Daedalus/NeronAnnouncementPage.vue";
@@ -35,6 +38,7 @@ import CharacterBiographyView from "@/features/biography/CharacterBiographyView.
 import { adminConfigRoutes } from "@/router/adminConfigPages";
 import store from "@/store";
 import { createRouter, createWebHistory } from "vue-router";
+import StatsExplorationsPage from "@/components/Stats/StatsExplorationsPage.vue";
 
 interface RouteMeta {
     authorize?: UserRole[];
@@ -198,6 +202,30 @@ const routes: RouteRecord[] = [
                 name: "AdminActionsPage",
                 path: 'actions',
                 component: AdminActionsPage
+            }
+        ]
+    },
+    {
+        path: "/stats",
+        name: "Stats",
+        component: StatsPage,
+        redirect: { name: 'StatsHomePage' },
+        meta: { authorize: [UserRole.ADMIN]  },
+        children: [
+            {
+                name: "StatsHomePage",
+                path: 'home',
+                component: StatsHomePage
+            },
+            {
+                name: "StatsPlayersPage",
+                path: 'players',
+                component: StatsPlayersPage
+            },
+            {
+                name: "StatsExplorationsPage",
+                path: 'explorations',
+                component: StatsExplorationsPage
             }
         ]
     },

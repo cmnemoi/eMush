@@ -7,6 +7,7 @@ namespace Mush\Skill\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Skill\Entity\Skill;
+use Mush\Skill\Enum\SkillEnum;
 
 /**
  * @template-extends ServiceEntityRepository<Skill>
@@ -25,5 +26,40 @@ final class SkillRepository extends ServiceEntityRepository implements SkillRepo
 
         $this->_em->remove($skill);
         $this->_em->flush();
+    }
+
+    public function countSkill(SkillEnum $skillName): int
+    {
+        $queryBuilder = $this->createQueryBuilder('skill');
+
+        $queryBuilder->select('skill')
+            ->innerJoin('skill.skillConfig', 'skillConfig')
+            ->where('skillConfig.name = :skillName')
+            ->setParameter('skillName', $skillName);
+
+        return \count($queryBuilder->getQuery()->getArrayResult());
+    }
+
+    public function countAllSkill(): int
+    {
+        $queryBuilder = $this->createQueryBuilder('skill');
+
+        $queryBuilder->select('skill');
+
+        return \count($queryBuilder->getQuery()->getArrayResult());
+    }
+
+    public function countSkillByCharacter(string $characterName): array
+    {
+        $queryBuilder = $this->createQueryBuilder('skill');
+
+        $queryBuilder->select('skill')
+            ->innerJoin('skill.player', 'player')
+            ->innerJoin('player.playerInfo', 'playerInfo')
+            ->innerJoin('playerInfo.characterConfig', 'characterConfig')
+            ->where('characterConfig.name = :characterName')
+            ->setParameter('characterName', $characterName);
+
+        return $queryBuilder->getQuery()->getResult();
     }
 }

@@ -2,15 +2,10 @@
 
 namespace Mush\Tests\unit\Daedalus\Validator;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Daedalus\Validator\FullDaedalus;
 use Mush\Daedalus\Validator\FullDaedalusValidator;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Player;
+use Mush\Player\Factory\PlayerFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -41,17 +36,9 @@ final class FullDaedalusTest extends TestCase
     public function testValid()
     {
         $constraint = new FullDaedalus();
-        $daedalus = new Daedalus();
+        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus->getDaedalusConfig()->setPlayerCount(1);
         $this->initValidator();
-
-        $daedalus
-            ->setPlayers(new ArrayCollection([
-                new Player(),
-            ]));
-
-        $gameConfig = new GameConfig();
-        $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig(), new CharacterConfig()]));
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
         $this->validator->validate($daedalus, $constraint);
 
@@ -61,18 +48,11 @@ final class FullDaedalusTest extends TestCase
     public function testNotValid()
     {
         $constraint = new FullDaedalus();
-        $daedalus = new Daedalus();
+        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus->getDaedalusConfig()->setPlayerCount(1);
         $this->initValidator('This daedalus is full');
 
-        $daedalus
-            ->setPlayers(new ArrayCollection([
-                new Player(),
-            ]));
-
-        $gameConfig = new GameConfig();
-        $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig()]));
-
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
 
         $this->validator->validate($daedalus, $constraint);
 

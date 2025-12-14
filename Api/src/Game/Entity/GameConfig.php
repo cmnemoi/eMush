@@ -495,7 +495,7 @@ class GameConfig
 
     public function getMaxPlayer(): int
     {
-        return $this->charactersConfig->count();
+        return $this->daedalusConfig->getPlayerCount();
     }
 
     public function getRebelBaseConfigs(): Collection

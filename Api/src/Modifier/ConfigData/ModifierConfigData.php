@@ -695,7 +695,7 @@ abstract class ModifierConfigData
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_x1.33percentage_on_action_shoot',
                 name: null,
-                strategy: '',
+                strategy: ModifierStrategyEnum::VARIABLE_MODIFIER,
                 modifierRange: 'player',
                 modifierActivationRequirements: [],
                 targetEvent: ActionVariableEvent::ROLL_ACTION_PERCENTAGE,

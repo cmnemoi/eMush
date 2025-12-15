@@ -8,8 +8,8 @@
         class="status"
         :on-show="() => !onItem"
     >
-        <img :src="statusIcon(status)"/>
-        <span v-if="hasCharge(status) && !isEmptyElectricCharge(status) && !onItem" class="charge">{{ status.charge }}</span>
+        <span v-if="hasCharge(status) && !isEmptyElectricCharge(status) && !onItem" class="charge">{{ status.charge }} <img :src="statusIcon(status)"/></span>
+        <span v-else><img :src="statusIcon(status)"/></span> <!--if statusIcon isn't part of the previous span, the space character between the charge and the icon gets collapsed, and none of the non-collapsible whitespace characters are the exact same width. Hence this v-else, even if minorly redundant.-->
         <template #content>
             <h1 v-html="formatContent(status.name)" />
             <p v-html="formatContent(status.description)" />

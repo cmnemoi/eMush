@@ -773,7 +773,7 @@ abstract class StatusConfigData
         [
             'name' => 'electric_charges_patrol_ship_default',
             'statusName' => 'electric_charges',
-            'visibility' => 'public',
+            'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'charge_status_config',
             'chargeVisibility' => 'public',
             'chargeStrategy' => ChargeStrategyTypeEnum::PATROL_SHIP_CHARGE_INCREMENT,
@@ -990,9 +990,9 @@ abstract class StatusConfigData
         [
             'name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_default',
             'statusName' => EquipmentStatusEnum::PATROL_SHIP_ARMOR,
-            'visibility' => VisibilityEnum::PUBLIC,
+            'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'charge_status_config',
-            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeVisibility' => VisibilityEnum::PUBLIC,
             'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
             'maxCharge' => 10,
             'startCharge' => 10,
@@ -1004,9 +1004,9 @@ abstract class StatusConfigData
         [
             'name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default',
             'statusName' => EquipmentStatusEnum::PATROL_SHIP_ARMOR,
-            'visibility' => VisibilityEnum::PUBLIC,
+            'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'charge_status_config',
-            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeVisibility' => VisibilityEnum::PUBLIC,
             'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
             'maxCharge' => 12,
             'startCharge' => 12,

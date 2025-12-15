@@ -3,13 +3,21 @@
         tag="span"
         v-for="status in filterStatuses(statuses)"
         :key="status.id"
-        @mouseenter="hideParentTooltip"
-        @mouseleave="showParentTooltip"
         class="status"
         :on-show="() => !onItem"
     >
-        <span v-if="hasCharge(status) && !isEmptyElectricCharge(status) && !onItem" class="charge">{{ status.charge }} <img :src="statusIcon(status)"/></span>
-        <span v-else><img :src="statusIcon(status)"/></span> <!--if statusIcon isn't part of the previous span, the space character between the charge and the icon gets collapsed, and none of the non-collapsible whitespace characters are the exact same width. Hence this v-else, even if minorly redundant.-->
+        <div v-if="hasCharge(status) && !isEmptyElectricCharge(status) && !onItem" class="charge">
+            {{ status.charge }}
+            <img :src="statusIcon(status)"/>
+        </div>
+        <div v-else>
+            <!--
+                If statusIcon isn't part of the previous div, the space character between the charge and the icon gets
+                collapsed, and none of the non-collapsible whitespace characters are the exact same width. Hence this
+                v-else, even if minorly redundant.
+            -->
+            <img :src="statusIcon(status)"/>
+        </div>
         <template #content>
             <h1 v-html="formatContent(status.name)" />
             <p v-html="formatContent(status.description)" />
@@ -88,14 +96,6 @@ export default defineComponent ({
         },
         isEmptyElectricCharge(status: Status): boolean {
             return status.key === StatusItemNameEnum.ELECTRIC_CHARGE && status.charge === 0;
-        },
-        hideParentTooltip(event: MouseEvent) {
-            const delay = event?.relatedTarget?.parentElement?._tippy?.props.delay[0];
-            // The parent tooltip as to be spawned before we can hide it, so we wait for its delay + 1ms
-            setTimeout(() => event?.relatedTarget?.parentElement?._tippy?.hide(), delay + 1);
-        },
-        showParentTooltip(event: MouseEvent) {
-            event?.relatedTarget?.parentElement?._tippy?.show();
         }
     }
 });
@@ -110,6 +110,8 @@ export default defineComponent ({
 }
 
 .charge {
+    flex-direction: row;
+    gap: 2px;
     text-shadow: 0 0 4px black;
     padding-bottom: 1px;
 }

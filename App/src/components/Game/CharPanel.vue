@@ -58,11 +58,13 @@
                     @select="toggleItemSelection"
                 />
             </div>
-            <div v-if="! loading && selectedItem" class="item">
-                <span class="item-name">
+            <div v-if="!loading && selectedItem" class="item-info">
+                <p class="item-name">
                     {{ selectedItem.name }}
+                </p>
+                <div class="item-statuses">
                     <Statuses :statuses="selectedItem.statuses" type="item" />
-                </span>
+                </div>
             </div>
             <ActionTabs
                 v-if="actionTabs"
@@ -70,7 +72,7 @@
                 :target-actions-mush="targetActionsMush"
                 :target-actions-admin="targetActionsAdmin"
             />
-            <div v-if="! loading && target" class="interactions">
+            <div v-if="!loading && target" class="interactions">
                 <div v-if="selectedItem">
                     <ActionButton
                         v-for="(action, key) in targetActions"
@@ -501,7 +503,7 @@ onBeforeMount(() => {
 
 div.inventory {
     overflow: visible;
-    margin: 0 -1px 5px -1px;
+    margin: 0 -1px;
 
     @media screen and (max-width: $breakpoint-desktop-l) {
         width: 110px;
@@ -511,15 +513,26 @@ div.inventory {
     @media screen and (max-width: $breakpoint-desktop-m) { width: 82px; }
 }
 
-.item {
-    margin: 12px 0 4px 0;
-    letter-spacing: 0.03em;
-    font-variant: small-caps;
-    text-align: center;
+.item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 8px;
 
-    :deep(.status) {
-        vertical-align: middle;
-        margin-left: 2px;
+    .item-name {
+        margin: 0;
+        letter-spacing: 0.03em;
+        font-variant: small-caps;
+        text-align: center;
+    }
+
+    .item-statuses {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
     }
 }
 

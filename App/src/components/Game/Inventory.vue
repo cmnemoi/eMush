@@ -5,11 +5,14 @@
             :key="`${item.id}-${item.description}`"
             tabindex="0"
             class="slot"
-            :class="isItemSelected(item) ? 'highlight' : ''"
+            :class="[isItemSelected(item) ? 'highlight' : '', isHidden(item) ? 'hidden' : '']"
             @mousedown.stop="$emit('select', item)"
         >
             <Tippy tag="div">
-                <img :src="itemImage(item)" :alt="item.name">
+                <img :src="itemImage(item)" :alt="item.name"/>
+                <div v-if="!hideStatusesOnItem" class="statuses">
+                    <Statuses :statuses="item.statuses" type="item" on-item/>
+                </div>
                 <span class="qty">{{ item.number }}</span>
                 <template #content>
                     <h1>{{ item.name }}</h1>
@@ -39,10 +42,14 @@ import { formatText } from "@/utils/formatText";
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { Tippy } from "vue-tippy";
+import Statuses from "@/components/Utils/Statuses.vue";
+import { StatusItemNameEnum } from "@/enums/status.item.enum";
+import { mapGetters } from "vuex";
 
 export default defineComponent ({
     name: "Inventory",
     components: {
+        Statuses,
         Tippy
     },
     props: {
@@ -64,6 +71,7 @@ export default defineComponent ({
         'select'
     ],
     computed: {
+        ...mapGetters('settings', ['hideStatusesOnItem']),
         emptySlots: function (): number {
             const emptySlots = (this.minSlot - this.items.length);
             return emptySlots < 0 ? 0 : emptySlots;
@@ -83,6 +91,9 @@ export default defineComponent ({
         ScrollIcons(event: any) {
             event.preventDefault();
             event.currentTarget.scrollLeft += event.deltaY * 0.28;
+        },
+        isHidden(item: Item): boolean {
+            return item.statuses.some(status => status.key === StatusItemNameEnum.HIDDEN) && !this.hideStatusesOnItem;
         }
     }
 });
@@ -108,12 +119,30 @@ export default defineComponent ({
     .highlight::before {
         content: "";
         position: absolute;
+        top: -1px;
+        left: -1px;
         pointer-events: none;
         z-index: 5;
         width: 54px;
         height: 54px;
-        border: 1px solid rgb(153, 255, 153);
-        box-shadow: 0 0 0 2px inset rgb(153, 255, 153), 0 0 8px 2px inset rgb(17, 56, 128);
+        border: 2px solid rgb(153, 255, 153);
+        border-radius: 3px;
+    }
+
+    .hidden {
+        position: relative;
+    }
+    .hidden::before {
+        content: "";
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        pointer-events: none;
+        z-index: 5;
+        width: 55px;
+        height: 55px;
+        border-radius: 3px;
+        box-shadow: inset 0 0 15px 3px rgba(0, 0, 0, 0.95);
     }
 }
 

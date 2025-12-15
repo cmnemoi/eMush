@@ -11,7 +11,7 @@
             <div class="name-container">
                 <p v-if="getSelectedItem" class="item-name">
                     {{ getSelectedItem.name }}
-                    <Statuses :statuses="getSelectedItem.statuses" type="item" />
+                    <Statuses :statuses="getSelectedItem.statuses" type="item"/>
                 </p>
             </div>
             <ActionPanel v-if="getSelectedItem !== null"/>
@@ -75,21 +75,17 @@ export default defineComponent ({
     .name-container {
         background: #09092d;
         height: 32px;
+        justify-content: center;
 
         .item-name {
+            display: flex;
             text-align: center;
             font-variant: small-caps;
-            margin: 0;
-            padding: 8px 0;
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;
-            display: flex;
-
-            :deep(.status) {
-                vertical-align: middle;
-                margin-left: 2px;
-            }
+            align-items: center;
+            gap: 7px;
         }
     }
 }

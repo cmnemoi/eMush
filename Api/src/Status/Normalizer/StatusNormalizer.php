@@ -34,30 +34,17 @@ class StatusNormalizer implements NormalizerInterface
         $language = $currentPlayer->getDaedalus()->getLanguage();
 
         $statusNotVisible = $this->isVisible($status->getVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget()) === false;
+        $parameters = [];
 
         if ($statusNotVisible) {
             return [];
         }
 
+        $parameters[$status->getVisibleOwner()->getLogKey()] = $status->getVisibleOwner()->getLogName();
+
         $normalizedStatus = [
             'id' => $status->getId(),
             'key' => $statusName,
-            'name' => $this->translationService->translate(
-                key: "{$statusName}.name",
-                parameters: [
-                    $status->getVisibleOwner()->getLogKey() => $status->getVisibleOwner()->getLogName(),
-                ],
-                domain: 'status',
-                language: $language
-            ),
-            'description' => $this->translationService->translate(
-                key: "{$statusName}.description",
-                parameters: [
-                    $status->getVisibleOwner()->getLogKey() => $status->getVisibleOwner()->getLogName(),
-                ],
-                domain: 'status',
-                language: $language
-            ),
             'isPrivate' => $status->getVisibility() === VisibilityEnum::PRIVATE,
         ];
 
@@ -65,12 +52,28 @@ class StatusNormalizer implements NormalizerInterface
             $status instanceof ChargeStatus
             && $this->isVisible($status->getChargeVisibility(), $currentPlayer, $status->getOwner(), $status->getTarget())
         ) {
+            $parameters['charge'] = $status->getCharge();
             $normalizedStatus['charge'] = $status->getCharge();
         }
 
         if (($target = $status->getTarget()) !== null) {
             $normalizedStatus['target'] = ['key' => $target->getName(), 'id' => $target->getId()];
+            $parameters['target'] = $target->getName();
         }
+
+        $normalizedStatus['name'] = $this->translationService->translate(
+            key: "{$statusName}.name",
+            parameters: $parameters,
+            domain: 'status',
+            language: $language
+        );
+
+        $normalizedStatus['description'] = $this->translationService->translate(
+            key: "{$statusName}.description",
+            parameters: $parameters,
+            domain: 'status',
+            language: $language
+        );
 
         return $normalizedStatus;
     }

@@ -1,12 +1,15 @@
 <template>
     <Tippy
         tag="span"
-        v-for="status in statuses"
+        v-for="status in filterStatuses(statuses)"
         :key="status.id"
+        @mouseenter="hideParentTooltip"
+        @mouseleave="showParentTooltip"
         class="status"
+        :on-show="() => !onItem"
     >
-        <img :src="statusIcon(status)">
-        <span v-if="status.charge !== null" class="charge">{{ status.charge }}</span>
+        <img :src="statusIcon(status)"/>
+        <span v-if="hasCharge(status) && !isEmptyElectricCharge(status) && !onItem" class="charge">{{ status.charge }}</span>
         <template #content>
             <h1 v-html="formatContent(status.name)" />
             <p v-html="formatContent(status.description)" />
@@ -16,24 +19,28 @@
 
 <script lang="ts">
 import { statusPlayerEnum } from "@/enums/status.player.enum";
-import { statusItemEnum } from "@/enums/status.item.enum";
+import { statusItemEnum, StatusItemNameEnum, StatusItemPriorityEnum } from "@/enums/status.item.enum";
 import { statusRoomEnum } from "@/enums/status.room.enum";
 import { defineComponent } from "vue";
 import { Status } from "@/entities/Status";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { Tippy } from "vue-tippy";
+import { mixin } from "@/mixin/mixin";
 
 export default defineComponent ({
-    components: {
-        Tippy
-    },
+    components: { Tippy },
+    mixins: [mixin],
     props: {
         statuses: Array<Status>,
-        type: String
+        type: String,
+        onItem: {
+            type: Boolean,
+            default: false
+        }
     },
     computed: {
         statusIcon() {
-            return (status: Status): string|null => {
+            return (status: Status): string | null => {
                 switch (this.type) {
                 case "player":
                     return statusPlayerEnum[status.key]?.icon || null;
@@ -49,6 +56,9 @@ export default defineComponent ({
                     return null;
                 case "item":
                 case "equipment":
+                    if (this.isEmptyElectricCharge(status)) {
+                        return getImgUrl('status/nocharge.png');
+                    }
                     return statusItemEnum[status.key]?.icon || null;
                 case "room":
                     return statusRoomEnum[status.key]?.icon || null;
@@ -57,15 +67,50 @@ export default defineComponent ({
                 }
             };
         }
+    },
+    methods: {
+        filterStatuses(statuses: Status[]): Status[] {
+            if (!this.onItem) {
+                return statuses;
+            }
+            const toRemove = new Set([
+                StatusItemNameEnum.ALIEN_ARTEFACT,
+                StatusItemNameEnum.ELECTRIC_CHARGE,
+                StatusItemNameEnum.HEAVY,
+                StatusItemNameEnum.HIDDEN
+            ]);
+            const filterFunction = (status: Status) => !toRemove.has(status.key as StatusItemNameEnum) || this.isEmptyElectricCharge(status);
+            const sortFunction = (a: Status, b: Status) => StatusItemPriorityEnum[a.key] - StatusItemPriorityEnum[b.key];
+            return statuses.filter(filterFunction).sort(sortFunction).slice(0, 3);
+        },
+        hasCharge(status: Status): boolean {
+            return status.charge !== null && status.charge !== undefined;
+        },
+        isEmptyElectricCharge(status: Status): boolean {
+            return status.key === StatusItemNameEnum.ELECTRIC_CHARGE && status.charge === 0;
+        },
+        hideParentTooltip(event: MouseEvent) {
+            const delay = event?.relatedTarget?.parentElement?._tippy?.props.delay[0];
+            // The parent tooltip as to be spawned before we can hide it, so we wait for its delay + 1ms
+            setTimeout(() => event?.relatedTarget?.parentElement?._tippy?.hide(), delay + 1);
+        },
+        showParentTooltip(event: MouseEvent) {
+            event?.relatedTarget?.parentElement?._tippy?.show();
+        }
     }
 });
 </script>
 
 <style lang="scss" scoped>
-
-.charge {
-    margin-left: 1px;
-    text-shadow: 0 0 4px black;
+.status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
 }
 
+.charge {
+    text-shadow: 0 0 4px black;
+    padding-bottom: 1px;
+}
 </style>

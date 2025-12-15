@@ -1084,6 +1084,7 @@
 				"notifications": "Notificaciones",
 				"actionTabs": "Separar las acciones de Mush y de humanos",
 				"doubleTap": "Doble clic para las acciones",
+        "hideStatusesOnItem": "Ocultar los iconos de estado en las imágenes de los objetos",
 				"lessPopups": "Menos ventanas emergentes en el juego"
 			}
 		},

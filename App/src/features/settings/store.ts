@@ -41,6 +41,12 @@ export function createSettingsModule(
                     value: localStorageService.getItemAsBoolean('doubleTap'),
                     action: 'settings/toggleDoubleTapVisibility'
                 },
+                hideStatusesOnItem: {
+                    name: 'hideStatusesOnItem',
+                    icon: 'M21.12,10.71,12.71,2.29A1,1,0,0,0,12,2H3A1,1,0,0,0,2,3v9a1,1,0,0,0,.29.71l8.42,8.41a3,3,0,0,0,4.24,0L21.12,15a3,3,0,0,0,0-4.24Zm-1.41,2.82h0l-6.18,6.17a1,1,0,0,1-1.41,0L4,11.59V4h7.59l8.12,8.12a1,1,0,0,1,.29.71A1,1,0,0,1,19.71,13.53Z M9 7.498c.829 0 1.5.672 1.5 1.502s-.671 1.498-1.5 1.498-1.5-.668-1.5-1.498.671-1.502 1.5-1.502m0-1c-1.379 0-2.5 1.122-2.5 2.502 0 1.377 1.121 2.498 2.5 2.498s2.5-1.121 2.5-2.498c0-1.38-1.121-2.502-2.5-2.502z',
+                    value: localStorageService.getItemAsBoolean('hideStatusesOnItem'),
+                    action: 'settings/toggleHideStatusesOnItemVisibility'
+                },
                 lessPopups: {
                     name: 'lessPopups',
                     icon: 'M16 2H7.979C6.88 2 6 2.88 6 3.98V12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m0 10H8V4h8zM4 10H2v6c0 1.1.9 2 2 2h6v-2H4z',
@@ -58,6 +64,10 @@ export function createSettingsModule(
                 state.settings.doubleTap.value = isVisible;
                 state.settings = { ...state.settings };
             },
+            setHideStatusesOnItemVisibility(state: SettingsState, isVisible: boolean) {
+                state.settings.hideStatusesOnItem.value = isVisible;
+                state.settings = { ...state.settings };
+            },
             setlessPopupsVisibility(state: SettingsState, isVisible: boolean) {
                 state.settings.lessPopups.value = isVisible;
                 state.settings = { ...state.settings };
@@ -67,6 +77,7 @@ export function createSettingsModule(
             settings: (state: SettingsState): Settings[] => toArray(state.settings),
             actionTabs: (state: SettingsState): boolean => state.settings.actionTabs.value,
             doubleTap: (state: SettingsState): boolean => state.settings.doubleTap.value,
+            hideStatusesOnItem: (state): boolean => state.settings.hideStatusesOnItem.value,
             lessPopups: (state: SettingsState): boolean => state.settings.lessPopups.value
         },
         actions: {
@@ -77,6 +88,10 @@ export function createSettingsModule(
             toggleDoubleTapVisibility({ commit, state }): void {
                 commit('setDoubleTapVisibility', !state.settings.doubleTap.value);
                 localStorageService.setItemAsBoolean('doubleTap', state.settings.doubleTap.value);
+            },
+            toggleHideStatusesOnItemVisibility({ commit, state }): void {
+                commit('setHideStatusesOnItemVisibility', !state.settings.hideStatusesOnItem.value);
+                localStorageService.setItemAsBoolean('hideStatusesOnItem', state.settings.hideStatusesOnItem.value);
             },
             togglelessPopups({ commit, state }): void {
                 commit('setlessPopupsVisibility', !state.settings.lessPopups.value);

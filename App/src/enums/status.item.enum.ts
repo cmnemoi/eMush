@@ -1,6 +1,7 @@
 import { getImgUrl } from "@/utils/getImgUrl";
 
 export enum StatusItemNameEnum {
+    ALIEN_ARTEFACT = "alien_artefact",
     HEAVY = "heavy",
     HIDDEN = "hidden",
     PLANT_YOUNG = "plant_young",
@@ -19,6 +20,9 @@ export enum StatusItemNameEnum {
 }
 
 export const statusItemEnum: {[index: string]: any} = {
+    [StatusItemNameEnum.ALIEN_ARTEFACT]: {
+        'icon': getImgUrl('status/artefact.png')
+    },
     [StatusItemNameEnum.HEAVY]: {
         'icon': getImgUrl('status/heavy.png')
     },
@@ -59,9 +63,24 @@ export const statusItemEnum: {[index: string]: any} = {
         'icon': getImgUrl('status/food_decaying.png')
     },
     [StatusItemNameEnum.CONTAMINATED]: {
-        'icon': getImgUrl('status/mush.png')
+        'icon': getImgUrl('status/spore.png')
     },
     [StatusItemNameEnum.CAT_INFECTED]: {
         'icon': getImgUrl('status/mush.png')
     }
+};
+export const StatusItemPriorityEnum: {[index: string]: number} = {
+    [StatusItemNameEnum.CAT_INFECTED]: 1,
+    [StatusItemNameEnum.CONTAMINATED]: 2,
+    [StatusItemNameEnum.HIDDEN]: 3,
+    [StatusItemNameEnum.BROKEN]: 4,
+    [StatusItemNameEnum.HEAVY]: 5,
+    [StatusItemNameEnum.PLANT_YOUNG]: 6,
+    [StatusItemNameEnum.PLANT_DISEASED]: 7,
+    [StatusItemNameEnum.PLANT_DRY]: 8,
+    [StatusItemNameEnum.PLANT_THIRSTY]: 9,
+    [StatusItemNameEnum.DECOMPOSING]: 10,
+    [StatusItemNameEnum.FROZEN]: 11,
+    [StatusItemNameEnum.ELECTRIC_CHARGE]: 12,
+    [StatusItemNameEnum.ALIEN_ARTEFACT]: 13
 };

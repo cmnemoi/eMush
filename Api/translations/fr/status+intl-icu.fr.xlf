@@ -14,11 +14,14 @@
     <unit id="electric_charges">
       <segment id="name" state="translated">
         <source>electric_charges.name</source>
-        <target>Charge</target>
+        <target>Charge ({charge})</target>
       </segment>
       <segment id="description" state="translated">
         <source>electric_charges.description</source>
-        <target>Les charges sont le nombre d'utilisations que vous pouvez faire de cet objet. Les objets chargés regagnent une charge par cycle.</target>
+        <target>{charge, select, 
+        0 {Cet objet est complètement déchargé. Attendez un cycle pour pouvoir le réutiliser.} 
+        other {Les charges sont le nombre d'utilisations que vous pouvez faire de cet objet. Les objets chargés regagnent une charge par cycle.}
+        }</target>
       </segment>
     </unit>
     <unit id="heavy">

@@ -1085,6 +1085,7 @@
 				"notifications": "Notifications",
 				"actionTabs": "Separate Mush and human actions",
 				"doubleTap": "Double tap for actions",
+        "hideStatusesOnItem": "Hide status icons on item images",
 				"lessPopups": "Less ingame popups"
 			}
 		},

@@ -6,7 +6,7 @@
         @click="$emit(actionType)"
     >
         <img :src="action(actionType).icon">
-        {{ $t(action(actionType).wording) }}
+        <span>{{ $t(action(actionType).wording) }}</span>
         <template #content>
             <h1>{{ $t(action(actionType).wording) }}</h1>
             <p>{{ $t(action(actionType).description) }}</p>
@@ -63,7 +63,6 @@ export default defineComponent ({
 button {
     cursor: pointer;
     height: 100%;
-    margin-left: 3px;
 
     @include button-style(0.83em, 400, initial);
 

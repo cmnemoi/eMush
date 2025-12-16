@@ -69,15 +69,12 @@ export default defineComponent ({
 <style lang="scss" scoped>
 
 #private-discussion-tab {
-    .unit {
-        padding: 5px 0;
-    }
 
     .participants {
         flex-direction: row;
-        margin: 8px 0;
-
-        li { width: 28px; }
+        align-items: center;
+        margin: 8px 0 0;
+        gap: 7px;
     }
 
     .actions {

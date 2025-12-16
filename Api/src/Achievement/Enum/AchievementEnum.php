@@ -207,6 +207,7 @@ enum AchievementEnum: string
     case DISEASE_CONTRACTED_10 = 'disease_contracted_10';
     case DISEASE_CONTRACTED_20 = 'disease_contracted_20';
     case DISEASE_CONTRACTED_50 = 'disease_contracted_50';
+    case MANKAROG_DOWN_1 = 'mankarog_down_1';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

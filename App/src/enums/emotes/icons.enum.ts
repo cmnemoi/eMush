@@ -148,7 +148,7 @@ export const EmoteIconIcons: {[index: string]: {img: string; max_height: string;
     [EmoteIconEnum.CAT]: { img: getImgUrl('char/body/cat.png'), max_height: "1.2em" },
     [EmoteIconEnum.CAT2]: { img: getImgUrl('achievements/cat.png'), max_height: "1.2em" },
     [EmoteIconEnum.DOG]: { img: getImgUrl('ui_icons/dog.png'), max_height: "1.2em" },
-    [EmoteIconEnum.MANKAROG]: { img: getImgUrl('emotes/mankarog.png'), max_height: "1.2em" },
+    [EmoteIconEnum.MANKAROG]: { img: getImgUrl('achievements/mankarog.png'), max_height: "1.2em" },
     [EmoteIconEnum.COFFEE]: { img: getImgUrl('ui_icons/coffee.png'), max_height: "1.2em" },
     [EmoteIconEnum.COFFEE_PLUS]: { img: getImgUrl('achievements/coffeeplus.png'), max_height: "1.2em" },
     [EmoteIconEnum.EXPLO_FEED]: { img: getImgUrl('achievements/explo_feed.png'), max_height: "1.2em" },

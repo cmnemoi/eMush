@@ -65,6 +65,7 @@ export const enum StatisticEnum {
     FROZEN_TAKEN = 'frozen_taken',
     KIND_PERSON = 'kind_person',
     DISEASE_CONTRACTED = 'disease_contracted',
+    MANKAROG_DOWN = 'mankarog_down',
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -259,5 +260,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.DISEASE_CONTRACTED]: {
         'icon': getImgUrl('status/disease.png')
+    },
+    [StatisticEnum.MANKAROG_DOWN]: {
+        'icon': getImgUrl('achievements/mankarog.png')
     }
 };

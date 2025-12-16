@@ -1403,5 +1403,19 @@
         <target>disease_contracted_50.name</target>
       </segment>
     </unit>
+    <unit id="mankarog_down">
+      <segment id="name" state="initial">
+        <source>mankarog_down.name</source>
+        <target>Mankarogs Abattus</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mankarog_down.description</source>
+        <target>Mankarogs tués par votre équipe en expédition</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>mankarog_down_1.name</source>
+        <target>Davy Crockett De L'Infini</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

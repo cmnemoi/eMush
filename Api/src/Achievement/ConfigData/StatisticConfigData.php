@@ -79,6 +79,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::FROZEN_TAKEN, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::KIND_PERSON, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::DISEASE_CONTRACTED, StatisticStrategyEnum::INCREMENT),
+            new StatisticConfigDto(StatisticEnum::MANKAROG_DOWN, StatisticStrategyEnum::INCREMENT, isRare: true),
         ];
     }
 

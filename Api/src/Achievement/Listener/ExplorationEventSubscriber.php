@@ -56,7 +56,6 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
     private function incrementExplorerStatisticFromEvent(ExplorationEvent $event): void
     {
         $exploration = $event->getExploration();
-        $language = $exploration->getDaedalus()->getLanguage();
 
         foreach ($exploration->getNotLostActiveExplorators() as $explorator) {
             $this->updatePlayerStatisticService->execute(

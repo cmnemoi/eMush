@@ -867,6 +867,7 @@ abstract class AchievementConfigData
             new AchievementConfigDto(name: AchievementEnum::DISEASE_CONTRACTED_10, points: 0, threshold: 10),
             new AchievementConfigDto(name: AchievementEnum::DISEASE_CONTRACTED_20, points: 0, threshold: 20),
             new AchievementConfigDto(name: AchievementEnum::DISEASE_CONTRACTED_50, points: 0, threshold: 50),
+            new AchievementConfigDto(name: AchievementEnum::MANKAROG_DOWN_1, points: 0, threshold: 1),
         ];
     }
 

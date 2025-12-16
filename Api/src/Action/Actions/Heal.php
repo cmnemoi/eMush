@@ -23,8 +23,8 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 /**
  * Implement heal action using medikit or the ship medlab
  * For 2 ActionConfig Points, the player gives back 3 health points to another player.
- *  - +1 health point if the Ultra-healing pommade research is active (@TODO)
- *  - +2 health point if the player has the Medic skill (@TODO).
+ *  - +1 health point if the Ultra-healing pommade research is active
+ *  - +2 health point if the player has the Medic skill.
  *
  * Also weakens / heals diseases
  *

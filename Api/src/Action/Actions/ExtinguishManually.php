@@ -53,7 +53,6 @@ class ExtinguishManually extends AttemptAction
             'target' => HasStatus::PLAYER_ROOM,
             'groups' => ['visibility'],
         ]));
-        // @TODO validator on Firefighter skill
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

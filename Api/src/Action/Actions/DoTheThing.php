@@ -153,8 +153,6 @@ class DoTheThing extends AbstractAction
         $target = $this->target;
         $player = $this->player;
 
-        /** @TODO add confirmation pop up */
-
         // give two moral points, or max morale if it is their first time
         $moralePoints = $this->getOutputQuantity();
         $this->addMoralPoints($player, $moralePoints);

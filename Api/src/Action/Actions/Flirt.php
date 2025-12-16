@@ -74,8 +74,6 @@ class Flirt extends AbstractAction
         /** @var Player $target */
         $target = $this->target;
 
-        // @TODO add pop up to confirm flirt
-
         $this->player->addFlirt($target);
 
         $this->playerService->persist($this->player);

@@ -21,7 +21,6 @@ class HasStatusValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, HasStatus::class);
         }
 
-        // @TODO remove this when rejuvenate is removed for testers
         if ($constraint->bypassIfUserIsAdmin && $value->getPlayer()->getUser()->isAdmin()) {
             return;
         }

@@ -567,7 +567,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $killPlayerAction */
         $killPlayerAction = $this->getReference(ActionsFixtures::KILL_PLAYER);
 
-        // @TODO: remove when the game is ready
         /** @var ActionConfig $rejuvenateAlphaAction */
         $rejuvenateAlphaAction = $this->getReference(ActionsFixtures::REJUVENATE_ALPHA);
 
@@ -608,7 +607,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $infectAction = $this->getReference(MushActionFixtures::INFECT_PLAYER);
 
         // Skills actions
-        // @TODO: after skill implementation, action will be given by skills
 
         /** @var ActionConfig $surgeryAction */
         $surgeryAction = $this->getReference(ActionsFixtures::SURGERY);

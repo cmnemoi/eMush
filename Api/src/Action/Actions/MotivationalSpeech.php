@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * Class implementing the "Motivational Speech" action.
- * This action is granted by the Leader skill. (@TODO).
+ * This action is granted by the Leader skill.
  *
  * For 2 PA, "Motivational Speech" gives 2 Morale Points
  * to all the players in the room.

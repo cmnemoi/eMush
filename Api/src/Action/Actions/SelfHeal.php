@@ -20,8 +20,8 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 /**
  * implement self-heal action.
  * For 3 ActionConfig Points, this action gives back 3 health points to the player which uses it.
- *  - +1 health point if the Ultra-healing pommade research is active (@TODO)
- *  - +2 health point if the player has the Medic skill (@TODO).
+ *  - +1 health point if the Ultra-healing pommade research is active
+ *  - +2 health point if the player has the Medic skill.
  *
  * Also weakens / heals diseases
  *

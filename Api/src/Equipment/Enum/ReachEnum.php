@@ -11,7 +11,7 @@ class ReachEnum
     public const SHELVE_NOT_HIDDEN = 'shelve_not_hidden';
     public const DAEDALUS = 'daedalus';
 
-    // @TODO not implemented because no use as of now
+    // not implemented because no use as of now
     // public const SHELVE_ONLY = 'shelve_only';
     // public const SHELVE_ONLY_NOT_HIDDEN = 'shelve_only_only_not_hidden';
 }

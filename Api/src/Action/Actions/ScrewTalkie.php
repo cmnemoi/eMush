@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class implementing the "pirate radio" action.
- * This action is granted by the Radio Pirate skill. (@TODO).
+ * This action is granted by the Radio Pirate skill.
  *
  * For 3 PA, "Pirate Radio" break the talkie or i-trackie of the targeted player.
  * additionally, pirate player have access to the channels of the pirated player

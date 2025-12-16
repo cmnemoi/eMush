@@ -61,12 +61,6 @@ final class ShrinkHandler
 
     private function calculateMoraleBonus(Player $shrink): int
     {
-        // @TODO: Feature toggle for retro-compatibility with old shrink modifier
-        // can be removed safely after all Daedaluses created before 2025-04-13 6PM UTC+1 are finished
-        if (!$shrink->hasModifierByModifierName(ModifierNameEnum::SHRINK_MODIFIER)) {
-            return 1;
-        }
-
         return (int) $shrink
             ->getModifiers()
             ->getModifierByModifierNameOrThrow(ModifierNameEnum::SHRINK_MODIFIER)

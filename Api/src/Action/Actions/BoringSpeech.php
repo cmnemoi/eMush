@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class implementing the "Boring Speech" action.
- * This action is granted by the Motivator skill. (@TODO).
+ * This action is granted by the Motivator skill.
  *
  * For 2 PA, "Boring Speech" gives 3 Movement Points
  * to all the players in the room, minus the speaker.
@@ -45,7 +45,6 @@ class BoringSpeech extends AbstractSpeech
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        // @TODO Validator on Motivator skill
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::DID_BORING_SPEECH,
             'contain' => false,

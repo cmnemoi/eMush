@@ -139,7 +139,9 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::FERTILE,
-                skillPointsConfig: SkillPointsEnum::SPORE_POINTS,
+                modifierConfigs: [
+                    ModifierNameEnum::FERTILE_MODIFIER,
+                ],
             ),
             new SkillConfigDto(
                 name: SkillEnum::FIREFIGHTER,

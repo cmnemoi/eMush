@@ -473,7 +473,6 @@ class GameConfigData
                     PlayerStatusEnum::HAS_LEARNED_SKILL . '_default',
                     PlayerStatusEnum::GENIUS_IDEA . '_default',
                     PlayerStatusEnum::HAS_USED_GENIUS . '_default',
-                    SkillPointsEnum::SPORE_POINTS->value,
                     PlaceStatusEnum::CEASEFIRE->value . '_default',
                     PlayerStatusEnum::HAS_CEASEFIRED . '_default',
                     PlayerStatusEnum::PREVIOUS_ROOM . '_default',

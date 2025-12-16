@@ -25,7 +25,6 @@ use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -275,13 +274,24 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->thenTargetPlayerShouldHaveHighlightTransferTargetHighlight($I);
     }
 
-    public function shouldNotHaveSporePointsAfterTransfer(FunctionalTester $I): void
+    public function victimShouldNotHaveMushSkillStatusesAfterTransfer(FunctionalTester $I): void
     {
-        $this->givenSourcePlayerHasFertile($I);
+        $this->givenSourcePlayerHasEpigenetics($I);
+        $this->givenSourcePlayerHasUsedEpigenetics();
 
         $this->whenSourceExchangesBodyWithTarget();
 
-        $this->thenSourcePlayerShouldNotHaveSporePoints($I);
+        $this->thenSourcePlayerShouldNotHaveUsedStatuses($I);
+    }
+
+    public function mushPlayerShouldHaveMushSkillStatusesAfterTransfer(FunctionalTester $I): void
+    {
+        $this->givenSourcePlayerHasEpigenetics($I);
+        $this->givenSourcePlayerHasUsedEpigenetics();
+
+        $this->whenSourceExchangesBodyWithTarget();
+
+        $this->thenTargetPlayerShouldHaveUsedStatuses($I);
     }
 
     private function givenTargetPlayerHasShooterSkill(FunctionalTester $I): void
@@ -393,9 +403,19 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->source->deleteNotificationByMessage(PlayerNotificationEnum::WELCOME_MUSH->toString());
     }
 
-    private function givenSourcePlayerHasFertile(FunctionalTester $I): void
+    private function givenSourcePlayerHasEpigenetics(FunctionalTester $I): void
     {
-        $this->addSkillToPlayer(SkillEnum::FERTILE, $I, $this->source);
+        $this->addSkillToPlayer(SkillEnum::EPIGENETICS, $I, $this->source);
+    }
+
+    private function givenSourcePlayerHasUsedEpigenetics(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::HAS_ADAPTED_EPIGENETICS,
+            holder: $this->source,
+            tags: [],
+            time: new \DateTime(),
+        );
     }
 
     private function whenSourceTriesToExchangeBodyWithTarget(): void
@@ -574,8 +594,13 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenSourcePlayerShouldNotHaveSporePoints(FunctionalTester $I): void
+    private function thenSourcePlayerShouldNotHaveUsedStatuses(FunctionalTester $I): void
     {
-        $I->assertFalse($this->source->hasStatus(SkillPointsEnum::SPORE_POINTS->toString()));
+        $I->assertFalse($this->source->hasStatus(PlayerStatusEnum::HAS_ADAPTED_EPIGENETICS));
+    }
+
+    private function thenTargetPlayerShouldHaveUsedStatuses(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->target->hasStatus(PlayerStatusEnum::HAS_ADAPTED_EPIGENETICS));
     }
 }

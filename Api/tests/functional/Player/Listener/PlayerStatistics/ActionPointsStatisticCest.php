@@ -82,18 +82,6 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 2, $I);
     }
 
-    public function shouldUpdateModifiedToIncreaseCostMushActionButWithSkillPoint(FunctionalTester $I): void
-    {
-        $this->givenKuanTiIsMush($I);
-        $this->addSkillToPlayer(SkillEnum::FERTILE, $I, $this->kuanTi); // given spore skill point
-        $this->givenCompleteProject(ProjectName::CONSTIPASPORE_SERUM, $I);
-
-        $this->whenKuanTiExtractsASpore($I);
-
-        $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 2, $I);
-        $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 0, $I);
-    }
-
     public function shouldWasteActionPointSpentForMovement(FunctionalTester $I): void
     {
         $this->givenKuanTiHasNoMovementPoints();

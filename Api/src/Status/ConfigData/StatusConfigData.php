@@ -1354,22 +1354,6 @@ abstract class StatusConfigData
             'actionConfigs' => [],
         ],
         [
-            'name' => SkillPointsEnum::SPORE_POINTS->value,
-            'statusName' => SkillPointsEnum::SPORE_POINTS->value,
-            'visibility' => VisibilityEnum::HIDDEN,
-            'type' => 'charge_status_config',
-            'chargeVisibility' => VisibilityEnum::HIDDEN,
-            'chargeStrategy' => ChargeStrategyTypeEnum::DAILY_INCREMENT,
-            'maxCharge' => 1,
-            'startCharge' => 1,
-            'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_SPORE],
-            'autoRemove' => false,
-            'modifierConfigs' => [
-                ModifierNameEnum::SKILL_POINT_SPORE,
-            ],
-            'actionConfigs' => [],
-        ],
-        [
             'name' => PlaceStatusEnum::CEASEFIRE->value . '_default',
             'statusName' => PlaceStatusEnum::CEASEFIRE->value,
             'visibility' => 'hidden',

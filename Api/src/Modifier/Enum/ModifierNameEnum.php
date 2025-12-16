@@ -46,7 +46,6 @@ abstract class ModifierNameEnum
     public const string SKILL_POINT_IT_EXPERT = 'modifier_skill_point_it_expert';
     public const string SKILL_POINT_BOTANIST = 'skill_point_botanist';
     public const string SKILL_POINT_PILGRED = 'skill_point_pilgred';
-    public const string SKILL_POINT_SPORE = 'skill_point_spore';
     public const string CEASEFIRE = 'ceasefire_modifier';
     public const string MUTE_PREVENT_ACTIONS = 'mute_prevent_actions';
     public const string PREVENT_SHOOT = 'prevent_shoot';
@@ -164,4 +163,5 @@ abstract class ModifierNameEnum
     public const string PLAYER_PLUS_1_MORALE_POINT_TO_OTHER_LAID_DOWN_PLAYERS_IN_ROOM = 'player_+1_morale_point_to_other_laid_down_players';
     public const string PARANOID_MODIFIER_FREE_CAMERA_ACTIONS = 'paranoid_modifier_free_camera_actions';
     public const string SPLASHPROOF_MODIFIER_MINUS_1_ACTION_POINT_ON_SHOWER_NO_STACK_SOAP = 'splashproof_modifier_minus_1_action_point_on_shower_no_stack_soap';
+    public const string FERTILE_MODIFIER = 'fertile_modifier';
 }

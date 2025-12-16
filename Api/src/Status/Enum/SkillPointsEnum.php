@@ -17,7 +17,6 @@ enum SkillPointsEnum: string
     case IT_EXPERT_POINTS = 'it_expert_points';
     case PILGRED_POINTS = 'pilgred_points';
     case SHOOTER_POINTS = 'shooter_points';
-    case SPORE_POINTS = 'spore_points';
     case TECHNICIAN_POINTS = 'technician_points';
     case POLYMATH_IT_POINTS = 'polymath_it_points';
     case NULL = '';
@@ -28,7 +27,6 @@ enum SkillPointsEnum: string
             SkillEnum::BOTANIST => self::BOTANIST_POINTS,
             SkillEnum::CHEF => self::CHEF_POINTS,
             SkillEnum::CONCEPTOR => self::CONCEPTOR_POINTS,
-            SkillEnum::FERTILE => self::SPORE_POINTS,
             SkillEnum::NURSE => self::NURSE_POINTS,
             SkillEnum::IT_EXPERT => self::IT_EXPERT_POINTS,
             SkillEnum::PHYSICIST => self::PILGRED_POINTS,

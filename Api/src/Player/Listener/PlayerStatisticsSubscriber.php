@@ -247,7 +247,6 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
             ModifierNameEnum::SKILL_POINT_IT_EXPERT,
             ModifierNameEnum::SKILL_POINT_NURSE,
             ModifierNameEnum::SKILL_POINT_PILGRED,
-            ModifierNameEnum::SKILL_POINT_SPORE,
         ]);
     }
 

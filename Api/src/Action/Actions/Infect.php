@@ -20,7 +20,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -108,8 +107,7 @@ class Infect extends AbstractAction
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
-        /** @var ChargeStatus $mushStatus */
-        $mushStatus = $this->player->getStatusByName(PlayerStatusEnum::MUSH);
+        $mushStatus = $this->player->getChargeStatusByNameOrThrow(PlayerStatusEnum::MUSH);
         $this->statusService->updateCharge(
             $mushStatus,
             1,

@@ -88,4 +88,12 @@ abstract class PlayerStatusEnum
     public const string IS_ANONYMOUS = 'is_anonymous';
     public const string HAS_USED_FERTILE_TODAY = 'has_used_fertile_today';
     public const string HAS_USED_TRAITOR_THIS_EXPEDITION = 'has_used_traitor_this_expedition';
+    public const array MUSH_SKILL_STATUSES_SWAPPED_BY_TRANSFER = [
+        self::HAS_ADAPTED_EPIGENETICS,
+        self::HAS_USED_MASS_GGEDON,
+        self::IS_ANONYMOUS,
+        // self::HAS_USED_FERTILE_TODAY,
+        // self::HAS_SABOTAGED_DOOR,
+        // self::HAS_USED_DELOG,
+    ];
 }

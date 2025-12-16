@@ -1468,8 +1468,8 @@ abstract class ModifierConfigData
                 mode: VariableModifierModeEnum::MIN,
             ),
             new VariableEventModifierConfigDto(
-                key: ModifierNameEnum::SKILL_POINT_SPORE,
-                name: ModifierNameEnum::SKILL_POINT_SPORE,
+                key: ModifierNameEnum::FERTILE_MODIFIER,
+                name: ModifierNameEnum::FERTILE_MODIFIER,
                 strategy: ModifierStrategyEnum::VARIABLE_MODIFIER,
                 modifierRange: ModifierHolderClassEnum::PLAYER,
                 modifierActivationRequirements: [

@@ -90,9 +90,12 @@ final class ExchangeBody extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $this->exchangePlayerUsers();
+
         $this->makeTargetMush();
+        $this->transferMushStatuses();
         $this->transferMushSkills();
         $this->makePlayerHuman();
+
         $this->createHasExchangedBodyStatus();
         $this->createTargetNotification();
         $this->createPlayerNotification();
@@ -117,6 +120,25 @@ final class ExchangeBody extends AbstractAction
 
         $this->playerRepository->save($player);
         $this->playerRepository->save($target);
+    }
+
+    private function transferMushStatuses(): void
+    {
+        $statusesFromPlayer = $this->player->getStatusesByName(PlayerStatusEnum::MUSH_SKILL_STATUSES_SWAPPED_BY_TRANSFER);
+        $statusesFromTarget = $this->target()->getStatusesByName(PlayerStatusEnum::MUSH_SKILL_STATUSES_SWAPPED_BY_TRANSFER);
+
+        foreach ($statusesFromPlayer as $status) {
+            $this->statusService->removeStatus($status->getName(), $this->player, $this->getTags(), new \DateTime());
+        }
+        foreach ($statusesFromTarget as $status) {
+            $this->statusService->removeStatus($status->getName(), $this->target(), $this->getTags(), new \DateTime());
+        }
+        foreach ($statusesFromPlayer as $status) {
+            $this->statusService->createStatusFromName($status->getName(), $this->target(), $this->getTags(), new \DateTime());
+        }
+        foreach ($statusesFromTarget as $status) {
+            $this->statusService->createStatusFromName($status->getName(), $this->player, $this->getTags(), new \DateTime());
+        }
     }
 
     private function transferMushSkills(): void

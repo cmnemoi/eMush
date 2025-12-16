@@ -76,7 +76,6 @@ abstract class StatusEventLogEnum
                 SkillPointsEnum::TECHNICIAN_POINTS->value => self::GAIN_TECHNICIAN_POINT,
                 SkillPointsEnum::POLYMATH_IT_POINTS->value => self::GAIN_IT_EXPERT_POINT,
                 SkillPointsEnum::CHEF_POINTS->value => self::GAIN_CHEF_POINT,
-                SkillPointsEnum::SPORE_POINTS->value => '',
             ],
             self::VISIBILITY => [
                 SkillPointsEnum::BOTANIST_POINTS->value => VisibilityEnum::PRIVATE,
@@ -88,7 +87,6 @@ abstract class StatusEventLogEnum
                 SkillPointsEnum::TECHNICIAN_POINTS->value => VisibilityEnum::PRIVATE,
                 SkillPointsEnum::POLYMATH_IT_POINTS->value => VisibilityEnum::PRIVATE,
                 SkillPointsEnum::CHEF_POINTS->value => VisibilityEnum::PRIVATE,
-                SkillPointsEnum::SPORE_POINTS->value => VisibilityEnum::HIDDEN,
             ],
         ],
         self::LOSS => [

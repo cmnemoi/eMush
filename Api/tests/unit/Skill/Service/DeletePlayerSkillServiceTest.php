@@ -143,7 +143,6 @@ final class DeletePlayerSkillServiceTest extends TestCase
                     SkillPointsEnum::POLYMATH_IT_POINTS => SkillEnum::POLYMATH,
                     SkillPointsEnum::SHOOTER_POINTS => SkillEnum::SHOOTER,
                     SkillPointsEnum::TECHNICIAN_POINTS => SkillEnum::TECHNICIAN,
-                    SkillPointsEnum::SPORE_POINTS => SkillEnum::FERTILE,
                     default => throw new \LogicException("Skill points {$skillPoints->toString()} not found"),
                 },
                 $skillPoints,

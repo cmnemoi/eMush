@@ -194,7 +194,6 @@ final class SkillPointsCest extends AbstractFunctionalTest
             SkillPointsEnum::TECHNICIAN_POINTS => 1,
             SkillPointsEnum::NURSE_POINTS => 2,
             SkillPointsEnum::POLYMATH_IT_POINTS => 1,
-            SkillPointsEnum::SPORE_POINTS => 1,
             default => throw new \LogicException("Please define the increment for {$skillPoints}"),
         };
     }

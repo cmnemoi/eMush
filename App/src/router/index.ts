@@ -39,6 +39,7 @@ import { adminConfigRoutes } from "@/router/adminConfigPages";
 import store from "@/store";
 import { createRouter, createWebHistory } from "vue-router";
 import StatsExplorationsPage from "@/components/Stats/StatsExplorationsPage.vue";
+import StatsMushPage from "@/components/Stats/StatsMushPage.vue";
 
 interface RouteMeta {
     authorize?: UserRole[];
@@ -226,6 +227,11 @@ const routes: RouteRecord[] = [
                 name: "StatsExplorationsPage",
                 path: 'explorations',
                 component: StatsExplorationsPage
+            },
+            {
+                name: "StatsMushPage",
+                path: 'mush',
+                component: StatsMushPage
             }
         ]
     },

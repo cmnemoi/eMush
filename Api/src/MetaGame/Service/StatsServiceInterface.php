@@ -21,4 +21,6 @@ interface StatsServiceInterface
     public function getCharacterList(): array;
 
     public function getExploFightData(int $daedalusId): string;
+
+    public function getMushData(): string;
 }

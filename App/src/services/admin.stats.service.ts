@@ -19,6 +19,9 @@ const AdminActionsService = {
     getExploFightData: async(daedalusId : number): Promise<string> => {
         return (await ApiService.post(STATS_ENDPOINT + '/explorations/fights', { 'daedalusId' : daedalusId })).data;
     },
+    getMushtData: async(): Promise<string> => {
+        return (await ApiService.post(STATS_ENDPOINT + '/mush')).data;
+    },
 
     getPlayerSkillList: async(): Promise<Array<string>> => {
         return (await ApiService.post(STATS_ENDPOINT + '/skills/list')).data;

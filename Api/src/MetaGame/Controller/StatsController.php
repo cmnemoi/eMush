@@ -86,4 +86,14 @@ final class StatsController extends AbstractFOSRestController
 
         return $this->view($result, Response::HTTP_OK);
     }
+
+    #[IsGranted('ROLE_ADMIN')]
+    #[Post(path: '/mush')]
+    #[NelmioSecurity(name: 'Bearer')]
+    public function getMushtData(Request $request): View
+    {
+        $result = $this->statsService->getMushData();
+
+        return $this->view($result, Response::HTTP_OK);
+    }
 }

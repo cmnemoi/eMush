@@ -287,5 +287,5 @@
     "minimum-stability": "dev",
     "prefer-stable": true
   },
-  "version": "0.18.0"
+  "version": "0.19.0"
 }

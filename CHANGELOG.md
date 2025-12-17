@@ -1,3 +1,51 @@
+# [0.19.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.18.0...0.19.0) (2025-12-17)
+
+
+### Bug Fixes
+
+* 'formatText()' now correcly handle line breaks after a link ([0b126ff](https://gitlab.com/eternaltwin/mush/mush/commit/0b126ff245e8f71a8dfa7ed464cccaaaf8b71e20))
+* Add a special log when attacking a player with armor ([269fe7b](https://gitlab.com/eternaltwin/mush/mush/commit/269fe7b41c165c6bbe1b80c615e6e3009231c051))
+* broken/destroyed sofa awakens only its player + moderation UI doesn't have broken sofa log on every get up action ([b488caf](https://gitlab.com/eternaltwin/mush/mush/commit/b488caf6e15d760889ca7e4698bee94aa84d8459))
+* **comms:** Vertically center and fix spacing of participant row in private tab ([6eb4959](https://gitlab.com/eternaltwin/mush/mush/commit/6eb49590c302bd55897614ff421c94ddfe32aacc))
+* cure action shows up in moderation logs ([5c2ca1e](https://gitlab.com/eternaltwin/mush/mush/commit/5c2ca1e41f4c14aa9d769ff7d66900cb4ea6e5e1))
+* Cycle time is not displaced top anymore with some day and cycle values ([5c68da0](https://gitlab.com/eternaltwin/mush/mush/commit/5c68da028e7eb121c94e27214c9e06e2e6f9bee7))
+* fertile is now modifier/status based instead of status/skillpoint messy hybrid, Transfer no longer resets Epigenetics & Massive Mushification ONLY ([f8e5bc2](https://gitlab.com/eternaltwin/mush/mush/commit/f8e5bc27c751d531fc2824d2e54c506c9b4b622a))
+* Fix a database migration ([0d2d6f1](https://gitlab.com/eternaltwin/mush/mush/commit/0d2d6f1b2da5d582a35813617cceef28e3d69b90))
+* lens modifier ([9d7996f](https://gitlab.com/eternaltwin/mush/mush/commit/9d7996f203c27d35a58634a340cb801ebc027755))
+* modifier load data ([7b7d419](https://gitlab.com/eternaltwin/mush/mush/commit/7b7d41975fb28ccd8edae70f6f6fe04ca50a8583))
+* modifier loading ([725dde7](https://gitlab.com/eternaltwin/mush/mush/commit/725dde760d8df330225a8bb77278378ad1eba46f))
+* multiple exploration bugs ([f91170c](https://gitlab.com/eternaltwin/mush/mush/commit/f91170c06de3618d9dfe20d232e55fb8fc3dfd69))
+* new Crowdin translations ([93ddede](https://gitlab.com/eternaltwin/mush/mush/commit/93ddedefa0284eb4231afb17ad9457378e9b0a03))
+* revert change to mechanic data and equipment data (names only, not actual value changed) to avoid breacking all ships for little reason ([8adb081](https://gitlab.com/eternaltwin/mush/mush/commit/8adb081f398516a982b262ee587db3b468583148))
+* Statuses on items images do not block tooltips anymore ([15ba015](https://gitlab.com/eternaltwin/mush/mush/commit/15ba015536afdf0c7866eacd1e09a9cfd27a1576))
+* unread message will be read now. Removed the favorite channel from the back ([c168d73](https://gitlab.com/eternaltwin/mush/mush/commit/c168d738918d863e1567b6a2545cca446532e752))
+* Vertically aligned Daedalus banner's elements ([bb2df0e](https://gitlab.com/eternaltwin/mush/mush/commit/bb2df0e0ef85a0c619d7acbd587e70d4b034759d))
+* warning not seen by players ([4cf7f22](https://gitlab.com/eternaltwin/mush/mush/commit/4cf7f222c3a4c4ebcc627b5b2a10cda379c0ab3e))
+
+
+### Features
+
+* activate starting spores ([056c452](https://gitlab.com/eternaltwin/mush/mush/commit/056c452c16b128cfae71801def77f1d31d18ab88))
+* Add a search bar to stalk your friends ([0ff0a50](https://gitlab.com/eternaltwin/mush/mush/commit/0ff0a502070e5accc1764d18c7696f6c51692403))
+* Add an endpoint to fetch filling daedaluses ([8c2fe84](https://gitlab.com/eternaltwin/mush/mush/commit/8c2fe84e5d0f92a0418f021dd8a081c5f0d30562))
+* Add tooltips to emote tabs and add more emotes ([9958e5a](https://gitlab.com/eternaltwin/mush/mush/commit/9958e5a296e8da1d650d363352a2cf09684d594e))
+* added a glow on selected ship language in character selection ([9f7773b](https://gitlab.com/eternaltwin/mush/mush/commit/9f7773bf127941cc3b6f94f35408d2e61896692b))
+* Adding pending statistic that will hold statistics until the game ends ([7f86829](https://gitlab.com/eternaltwin/mush/mush/commit/7f86829fcd8abfec94a9df6f6c241a89ee0d9814))
+* clean noise from logs for moderators ([e3256f3](https://gitlab.com/eternaltwin/mush/mush/commit/e3256f3aeb9e3ad3294ab45f95c5e85c5e07fe3d))
+* **community suggestion:** Add a link to bio in crewmate panel and character selection ([98215b9](https://gitlab.com/eternaltwin/mush/mush/commit/98215b9ccf645917d9da272a1e048e79c5c4d774))
+* Display item's status on their icon and resize and center some icon ([1170ac9](https://gitlab.com/eternaltwin/mush/mush/commit/1170ac92622c214203814533c9822e2a558f07b7))
+* equipments have their names and statuses shown when selected, just like items ([7abec7c](https://gitlab.com/eternaltwin/mush/mush/commit/7abec7c7bec8086a2886abfa55034473cb5aee4a))
+* Jumpkins are 1 satiety ([5137b44](https://gitlab.com/eternaltwin/mush/mush/commit/5137b44ef5976cc785d0b411c050bd2a9b25874d))
+* new statistics page ([3ca82eb](https://gitlab.com/eternaltwin/mush/mush/commit/3ca82eb3ddd3c1b05ca63e5580730b07f7155a30))
+* show character image in player list ([2c3c870](https://gitlab.com/eternaltwin/mush/mush/commit/2c3c8704a8fce95ac4f49fc9dac36d550e8d6ee3))
+* **stat:** Disease Contracted ([7a6164c](https://gitlab.com/eternaltwin/mush/mush/commit/7a6164ca80cd5665d755f8d949e8e3415c99e92f))
+* **statistic:** mankarogs defeated ([49a693b](https://gitlab.com/eternaltwin/mush/mush/commit/49a693baf62e3e07f2cc78b96a52eac55f85e181))
+* **stat:** Psychological Support ([ea9da9a](https://gitlab.com/eternaltwin/mush/mush/commit/ea9da9a6d47059ca196d06a10d51799da500bd46))
+* stats mush ([6c73098](https://gitlab.com/eternaltwin/mush/mush/commit/6c73098b2aab4d32cf494d9e8d9764b8d85317de))
+* **stat:** Yeti ([e192d36](https://gitlab.com/eternaltwin/mush/mush/commit/e192d36a25ef6a6bce6d57e635f8e1e8f52cc82d))
+* Use portraits instead of initials in minimap with ACTOPI ([bab28ef](https://gitlab.com/eternaltwin/mush/mush/commit/bab28ef15d64931135a6f71f307c0485368c8f12))
+* Ze List no longer gives info about number of mush alive, printable even with 0 mushes ([95deda0](https://gitlab.com/eternaltwin/mush/mush/commit/95deda0b6dd1f626fb9cc6a810d3198836228e45))
+
 # [0.18.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.17.1...0.18.0) (2025-11-30)
 
 

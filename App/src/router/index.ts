@@ -211,7 +211,7 @@ const routes: RouteRecord[] = [
         name: "Stats",
         component: StatsPage,
         redirect: { name: 'StatsHomePage' },
-        meta: { authorize: [UserRole.ADMIN]  },
+        meta: { authorize: [UserRole.MODERATOR]  },
         children: [
             {
                 name: "StatsHomePage",

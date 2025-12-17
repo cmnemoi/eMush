@@ -58,6 +58,7 @@ final class SkillRepository extends ServiceEntityRepository implements SkillRepo
             ->innerJoin('player.playerInfo', 'playerInfo')
             ->innerJoin('playerInfo.characterConfig', 'characterConfig')
             ->where('characterConfig.name = :characterName')
+            ->andwhere("playerInfo.gameStatus = 'finished' OR playerInfo.gameStatus = 'closed'")
             ->setParameter('characterName', $characterName);
 
         return $queryBuilder->getQuery()->getResult();

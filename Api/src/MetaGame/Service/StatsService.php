@@ -117,14 +117,16 @@ final class StatsService implements StatsServiceInterface
         // we get every mush from this logs as it happen when you are first converted
         $queryBuilder = $this->entityManager->getRepository(RoomLog::class)->createQueryBuilder('room_log')
             ->select('room_log')
-            ->where("room_log.log = 'mush_initial_bonus.log'");
+            ->where("room_log.log = 'mush_initial_bonus.log'")
+            ->where('room_log.playerInfo IS NOT NULL');
 
         $mushConversionLog = $queryBuilder->getQuery()->getResult();
 
         // we get every vaccinated log
         $queryBuilder = $this->entityManager->getRepository(RoomLog::class)->createQueryBuilder('room_log')
             ->select('room_log')
-            ->where("room_log.log = 'player_vaccinated'");
+            ->where("room_log.log = 'player_vaccinated'")
+            ->where('room_log.playerInfo IS NOT NULL');
 
         $mushVaccinationLog = $queryBuilder->getQuery()->getResult();
 

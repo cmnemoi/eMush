@@ -8,7 +8,9 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\View\View;
 use Mush\MetaGame\Service\StatsServiceInterface;
+use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Attribute\Security as NelmioSecurity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,9 +26,10 @@ final class StatsController extends AbstractFOSRestController
 {
     public function __construct(
         private readonly StatsServiceInterface $statsService,
+        private readonly PlayerRepositoryInterface $playerRepository,
     ) {}
 
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_MODERATOR')]
     #[Post(path: '/skills')]
     #[NelmioSecurity(name: 'Bearer')]
     public function getSkillCount(Request $request): View
@@ -37,7 +40,7 @@ final class StatsController extends AbstractFOSRestController
         return $this->view($result, Response::HTTP_OK);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_MODERATOR')]
     #[Post(path: '/skills/list')]
     #[NelmioSecurity(name: 'Bearer')]
     public function getSkillList(): View
@@ -47,7 +50,7 @@ final class StatsController extends AbstractFOSRestController
         return $this->view($result, Response::HTTP_OK);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_MODERATOR')]
     #[Post(path: '/characters/list')]
     #[NelmioSecurity(name: 'Bearer')]
     public function getCharacterList(): View
@@ -57,7 +60,7 @@ final class StatsController extends AbstractFOSRestController
         return $this->view($result, Response::HTTP_OK);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_MODERATOR')]
     #[Post(path: '/skills/all')]
     #[NelmioSecurity(name: 'Bearer')]
     public function getAllSkillCount(): View
@@ -67,7 +70,7 @@ final class StatsController extends AbstractFOSRestController
         return $this->view($result, Response::HTTP_OK);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_MODERATOR')]
     #[Post(path: '/skills/characters')]
     #[NelmioSecurity(name: 'Bearer')]
     public function getSkillByCharacter(Request $request): View
@@ -77,7 +80,7 @@ final class StatsController extends AbstractFOSRestController
         return $this->view($result, Response::HTTP_OK);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_MODERATOR')]
     #[Post(path: '/explorations/fights')]
     #[NelmioSecurity(name: 'Bearer')]
     public function getExploFightData(Request $request): View
@@ -87,12 +90,18 @@ final class StatsController extends AbstractFOSRestController
         return $this->view($result, Response::HTTP_OK);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_MODERATOR')]
     #[Post(path: '/mush')]
     #[NelmioSecurity(name: 'Bearer')]
     public function getMushtData(Request $request): View
     {
-        $result = $this->statsService->getMushData();
+        /** @var User $user */
+        $user = $this->getUser();
+        if ($user->isInGame()) {
+            $result = "Can't request this data if in game.";
+        } else {
+            $result = $this->statsService->getMushData();
+        }
 
         return $this->view($result, Response::HTTP_OK);
     }

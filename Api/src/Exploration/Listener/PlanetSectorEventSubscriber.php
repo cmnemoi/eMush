@@ -6,6 +6,7 @@ namespace Mush\Exploration\Listener;
 
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Service\PlanetSectorEventHandlerServiceInterface;
+use Mush\Game\Enum\EventPriorityEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class PlanetSectorEventSubscriber implements EventSubscriberInterface
@@ -21,11 +22,14 @@ final class PlanetSectorEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            PlanetSectorEvent::PLANET_SECTOR_EVENT => 'onPlanetSectorEvent',
+            PlanetSectorEvent::PLANET_SECTOR_EVENT => [
+                ['handlePlanetSectorEvent', EventPriorityEnum::HIGHEST],
+                ['resetSabotage', EventPriorityEnum::LOWEST],
+            ],
         ];
     }
 
-    public function onPlanetSectorEvent(PlanetSectorEvent $event): void
+    public function handlePlanetSectorEvent(PlanetSectorEvent $event): void
     {
         $planetSectorEventHandler = $this->planetSectorEventHandlerService->getPlanetSectorEventHandler($event->getName());
 
@@ -34,7 +38,10 @@ final class PlanetSectorEventSubscriber implements EventSubscriberInterface
         }
 
         $planetSectorEventHandler->handle($event);
+    }
 
+    public function resetSabotage(PlanetSectorEvent $event): void
+    {
         if ($event->getExploration()->isSabotaged()) {
             $event->getExploration()->setIsSabotaged(false);
         }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\RoomLog\Listener;
 
+use Mush\Exploration\Enum\PlanetSectorEventTagEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -26,7 +27,7 @@ final class PlanetSectorEventSubscriber implements EventSubscriberInterface
     {
         $exploration = $event->getExploration();
 
-        if (!$exploration->isSabotaged()) {
+        if (!$exploration->isSabotaged() || $event->hasTag(PlanetSectorEventTagEnum::PREVENTED)) {
             return;
         }
 

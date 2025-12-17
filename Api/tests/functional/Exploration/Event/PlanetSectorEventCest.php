@@ -43,7 +43,6 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
-use Mush\Tests\RoomLogDto;
 use Mush\Triumph\Enum\TriumphEnum;
 
 final class PlanetSectorEventCest extends AbstractExplorationTester
@@ -1905,20 +1904,27 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         $this->whenExplorationEventIsDispatched($exploration);
 
-        $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: ':mush: Votre action de traîtrise a favorisé un incident fâcheux.',
-            actualRoomLogDto: new RoomLogDto(
-                player: $this->chun,
-                log: LogEnum::TRAITOR_WORKED,
-                visibility: VisibilityEnum::PRIVATE,
-            ),
-            I: $I
+        $I->cantSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => LogEnum::TRAITOR_PREVENTED,
+                'playerInfo' => $this->chun->getPlayerInfo(),
+            ]
+        );
+
+        $I->canSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => LogEnum::TRAITOR_WORKED,
+                'playerInfo' => $this->chun->getPlayerInfo(),
+            ]
         );
 
         $I->cantSeeInRepository(
             entity: RoomLog::class,
             params: [
-                'visibility' => VisibilityEnum::PRIVATE,
                 'log' => LogEnum::TRAITOR_WORKED,
                 'playerInfo' => $this->kuanTi->getPlayerInfo(),
             ]
@@ -1951,20 +1957,27 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         $this->whenExplorationEventIsDispatched($exploration);
 
-        $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: ':mush: Votre sabotage a été empêché par un membre de l\'équipe d\'exploration. Ils sont vraiment trop vigilants...',
-            actualRoomLogDto: new RoomLogDto(
-                player: $this->chun,
-                log: LogEnum::TRAITOR_PREVENTED,
-                visibility: VisibilityEnum::PRIVATE,
-            ),
-            I: $I
+        $I->cantSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => LogEnum::TRAITOR_WORKED,
+                'playerInfo' => $this->chun->getPlayerInfo(),
+            ]
+        );
+
+        $I->canSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => LogEnum::TRAITOR_PREVENTED,
+                'playerInfo' => $this->chun->getPlayerInfo(),
+            ]
         );
 
         $I->cantSeeInRepository(
             entity: RoomLog::class,
             params: [
-                'visibility' => VisibilityEnum::PRIVATE,
                 'log' => LogEnum::TRAITOR_PREVENTED,
                 'playerInfo' => $this->kuanTi->getPlayerInfo(),
             ]

@@ -7,6 +7,7 @@ namespace Mush\Exploration\PlanetSectorEventHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
+use Mush\Exploration\Enum\PlanetSectorEventTagEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Service\EventServiceInterface;
@@ -67,6 +68,9 @@ final class KillLost extends AbstractPlanetSectorEventHandler
 
         $this->dispatchPlanetSectorEvent($eventConfigToDispatch, $event);
 
+        // this is set *after* dispatching the new event, so it isn't passed down to it
+        $event->addTag(PlanetSectorEventTagEnum::PREVENTED);
+
         return new ExplorationLog($exploration->getClosedExploration());
     }
 
@@ -74,6 +78,10 @@ final class KillLost extends AbstractPlanetSectorEventHandler
     {
         $sectorEvents = clone $event->getPlanetSector()->getExplorationEvents();
         $sectorEvents->remove($event->getKey());
+
+        if ($event->getExploration()->hasAFunctionalCompass()) {
+            $sectorEvents->remove(PlanetSectorEvent::AGAIN);
+        }
 
         return $sectorEvents;
     }

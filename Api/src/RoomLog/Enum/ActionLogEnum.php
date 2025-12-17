@@ -179,6 +179,7 @@ abstract class ActionLogEnum
     public const string MUTATE_SUCCESS = 'mutate_success';
     public const string PRINT_ZE_LIST = 'print_ze_list';
     public const string ADAPT_EPIGENETICS = 'adapt_epigenetics_success';
+    public const string SABOTAGE_EXPLORATION_SUCCESS = 'sabotage_exploration_success';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -623,6 +624,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::ADAPT_EPIGENETICS->value => [
             ActionOutputEnum::SUCCESS => self::ADAPT_EPIGENETICS,
+        ],
+        ActionEnum::SABOTAGE_EXPLORATION->value => [
+            ActionOutputEnum::SUCCESS => self::SABOTAGE_EXPLORATION_SUCCESS,
         ],
     ];
 

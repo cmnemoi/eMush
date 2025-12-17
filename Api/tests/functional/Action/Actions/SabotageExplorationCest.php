@@ -10,6 +10,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Enum\PlanetSectorEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\RoomLog\Entity\RoomLog;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusService;
@@ -42,6 +44,22 @@ final class SabotageExplorationCest extends AbstractExplorationTester
         $this->whenKuanTiExecutesSabotageExplorationAction();
 
         $this->thenExplorationShouldBeSabotaged($I);
+    }
+
+    public function shouldCreatePrivateLog(FunctionalTester $I): void
+    {
+        $this->givenPlayersAreInAnExpedition($I);
+
+        $this->whenKuanTiExecutesSabotageExplorationAction();
+
+        $I->canSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => 'sabotage_exploration_success',
+                'playerInfo' => $this->kuanTi->getPlayerInfo(),
+            ]
+        );
     }
 
     public function shouldNotBeVisibleIfPlayerIsNotExploring(FunctionalTester $I): void

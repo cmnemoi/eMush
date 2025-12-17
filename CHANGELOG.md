@@ -1,3 +1,11 @@
+## [0.19.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.19.0...0.19.1) (2025-12-17)
+
+
+### Bug Fixes
+
+* moderator cant see stats ([8d53171](https://gitlab.com/eternaltwin/mush/mush/commit/8d5317179bf73bac66cf1f1a90e9ae93da140a1f))
+* wrong unread messages amount ([b9f9bfb](https://gitlab.com/eternaltwin/mush/mush/commit/b9f9bfbf3d2a6e0678d3b6d8a676f9de1cfb6238))
+
 # [0.19.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.18.0...0.19.0) (2025-12-17)
 
 

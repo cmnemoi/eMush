@@ -168,7 +168,7 @@ export default defineComponent ({
             await exportChannelToPDF(chatbox);
         },
         numberOfNewMessages(channel: Channel): number {
-            return channel.id === this.currentChannel.id ? this.currentChannelNumberOfNewMessages : channel.numberOfNewMessages;
+            return channel.referenceId === this.currentChannel.referenceId ? this.currentChannelNumberOfNewMessages : channel.numberOfNewMessages;
         },
         async readTipsChannel(channel: Channel): Promise<void> {
             if (!channel.isTipsChannel()) {

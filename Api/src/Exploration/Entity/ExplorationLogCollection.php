@@ -25,4 +25,9 @@ final class ExplorationLogCollection extends ArrayCollection
         // @var \Doctrine\Common\Collections\Collection<array-key, self>&\Doctrine\Common\Collections\Selectable<array-key, self> $result
         return $this->matching($criteria);
     }
+
+    public function getEventNames(): array
+    {
+        return array_map(static fn (ExplorationLog $log) => $log->getEventName(), $this->toArray());
+    }
 }

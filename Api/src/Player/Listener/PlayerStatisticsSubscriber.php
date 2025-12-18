@@ -9,7 +9,7 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Chat\Event\MessageEvent;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
-use Mush\Equipment\Enum\ItemEnum;
+use Mush\Exploration\Enum\PlanetSectorEventTagEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Hunter\Event\HunterEvent;
@@ -21,7 +21,6 @@ use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\PlayerRepositoryInterface;
-use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -152,7 +151,7 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
 
     public function onPlanetSectorEvent(PlanetSectorEvent $event): void
     {
-        if ($event->hasAnyTag([SkillEnum::DIPLOMAT->toString(), ItemEnum::WHITE_FLAG, SkillEnum::TRACKER->toString()])) {
+        if ($event->hasTag(PlanetSectorEventTagEnum::PREVENTED)) {
             return;
         }
 

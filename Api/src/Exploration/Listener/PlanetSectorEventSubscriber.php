@@ -23,7 +23,7 @@ final class PlanetSectorEventSubscriber implements EventSubscriberInterface
     {
         return [
             PlanetSectorEvent::PLANET_SECTOR_EVENT => [
-                ['handlePlanetSectorEvent', EventPriorityEnum::HIGHEST],
+                ['handlePlanetSectorEvent', EventPriorityEnum::NORMAL],
                 ['resetSabotage', EventPriorityEnum::LOWEST],
             ],
         ];

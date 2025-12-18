@@ -19,7 +19,7 @@ final class PlanetSectorEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            PlanetSectorEvent::PLANET_SECTOR_EVENT => ['onPlanetSectorEvent', EventPriorityEnum::HIGH],
+            PlanetSectorEvent::PLANET_SECTOR_EVENT => ['onPlanetSectorEvent', EventPriorityEnum::LOW],
         ];
     }
 

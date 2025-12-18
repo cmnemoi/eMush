@@ -32,7 +32,7 @@ class ContainerContentEnum
 
     public const array ANNIVERSARY_GIFT_CONTENT = [
         [
-            'item' => GearItemEnum::PLASTENITE_ARMOR,
+            'item' => GearItemEnum::PLASTENITE_ARMOR, // @TODO: Lucky Lizaro
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -40,20 +40,20 @@ class ContainerContentEnum
         ],
         [
             'item' => GameRationEnum::ORGANIC_WASTE,
-            'quantity' => 4,
+            'quantity' => 2,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::CHAO,
         ],
         [
-            'item' => ItemEnum::KNIFE,
+            'item' => ItemEnum::KNIFE, // @TODO: Gunner Mage book
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::CHAO,
         ],
         [
-            'item' => ItemEnum::BLASTER,
+            'item' => ToolItemEnum::MAD_KUBE, // gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -67,7 +67,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::CHUN,
         ],
         [
-            'item' => ItemEnum::MUSH_SAMPLE,
+            'item' => 'apprentron_optimist',
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -81,28 +81,21 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::CHUN,
         ],
         [
-            'item' => 'apprentron_optimist',
+            'item' => ItemEnum::MUSH_SAMPLE, // gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::CHUN,
         ],
         [
-            'item' => ToolItemEnum::HACKER_KIT,
+            'item' => ToolItemEnum::HACKER_KIT, // @TODO: iTrackie2
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::ELEESHA,
         ],
         [
-            'item' => ToolItemEnum::DUCT_TAPE,
-            'quantity' => 1,
-            'weight' => 5,
-            'filterType' => self::FILTER_BY_CHARACTER,
-            'filterValue' => CharacterEnum::ELEESHA,
-        ],
-        [
-            'item' => GearItemEnum::PROTECTIVE_GLOVES,
+            'item' => GearItemEnum::PROTECTIVE_GLOVES, // @TODO: find replacement
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -116,7 +109,14 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::ELEESHA,
         ],
         [
-            'item' => ToolItemEnum::MEDIKIT,
+            'item' => ToolItemEnum::DUCT_TAPE, // gag
+            'quantity' => 1,
+            'weight' => 5,
+            'filterType' => self::FILTER_BY_CHARACTER,
+            'filterValue' => CharacterEnum::ELEESHA,
+        ],
+        [
+            'item' => ToolItemEnum::MEDIKIT, // @TODO: find replacement
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -137,35 +137,35 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::FINOLA,
         ],
         [
-            'item' => ItemEnum::WATER_STICK,
+            'item' => ItemEnum::WATER_STICK, // gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::FINOLA,
         ],
         [
-            'item' => GearItemEnum::MAGELLAN_LIQUID_MAP,
+            'item' => GearItemEnum::MAGELLAN_LIQUID_MAP, // @TODO: "Antique Perfume...?" item
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::FRIEDA,
         ],
         [
-            'item' => ToolItemEnum::JAR_OF_ALIEN_OIL,
+            'item' => GearItemEnum::MAGELLAN_LIQUID_MAP,
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::FRIEDA,
         ],
         [
-            'item' => ItemEnum::QUADRIMETRIC_COMPASS,
+            'item' => ItemEnum::QUADRIMETRIC_COMPASS, // @TODO: Lethargy mage book
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::FRIEDA,
         ],
         [
-            'item' => ToolItemEnum::SUPERFREEZER,
+            'item' => ToolItemEnum::SUPERFREEZER, // gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -193,7 +193,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::GIOELE,
         ],
         [
-            'item' => ItemEnum::FUEL_CAPSULE,
+            'item' => ItemEnum::FUEL_CAPSULE, // @TODO: Lump of Coal
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -214,14 +214,14 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::HUA,
         ],
         [
-            'item' => ItemEnum::HYDROPOT,
+            'item' => ItemEnum::QUADRIMETRIC_COMPASS,
             'quantity' => 2,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::HUA,
         ],
         [
-            'item' => ItemEnum::QUADRIMETRIC_COMPASS,
+            'item' => ItemEnum::QUADRIMETRIC_COMPASS, // @TODO: Quadricursed Ssapmoc, gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -235,20 +235,6 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::IAN,
         ],
         [
-            'item' => ItemEnum::WHITE_FLAG,
-            'quantity' => 1,
-            'weight' => 5,
-            'filterType' => self::FILTER_BY_CHARACTER,
-            'filterValue' => CharacterEnum::IAN,
-        ],
-        [
-            'item' => ToolItemEnum::EXTINGUISHER,
-            'quantity' => 1,
-            'weight' => 5,
-            'filterType' => self::FILTER_BY_CHARACTER,
-            'filterValue' => CharacterEnum::IAN,
-        ],
-        [
             'item' => ItemEnum::HYDROPOT,
             'quantity' => 2,
             'weight' => 5,
@@ -256,7 +242,21 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::IAN,
         ],
         [
-            'item' => EquipmentEnum::SWEDISH_SOFA,
+            'item' => ToolItemEnum::EXTINGUISHER, // @TODO: Alien Fruit Basket
+            'quantity' => 1,
+            'weight' => 5,
+            'filterType' => self::FILTER_BY_CHARACTER,
+            'filterValue' => CharacterEnum::IAN,
+        ],
+        [
+            'item' => ItemEnum::WHITE_FLAG, // gag
+            'quantity' => 1,
+            'weight' => 5,
+            'filterType' => self::FILTER_BY_CHARACTER,
+            'filterValue' => CharacterEnum::IAN,
+        ],
+        [
+            'item' => EquipmentEnum::SWEDISH_SOFA, // @TODO: Sofa Kit
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -277,7 +277,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::JANICE,
         ],
         [
-            'item' => ToolItemEnum::ALIEN_HOLOGRAPHIC_TV,
+            'item' => ToolItemEnum::ALIEN_HOLOGRAPHIC_TV, // gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -292,7 +292,7 @@ class ContainerContentEnum
         ],
         [
             'item' => GameRationEnum::SPACE_POTATO,
-            'quantity' => 3,
+            'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::JIN_SU,
@@ -305,49 +305,49 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::JIN_SU,
         ],
         [
-            'item' => 'apprentron_politician',
+            'item' => 'apprentron_politician', // gag... give to stephen instead? need a replacement if so
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::JIN_SU,
         ],
         [
-            'item' => 'apprentron_it_expert',
+            'item' => 'apprentron_it_expert', // make this standard gift? find replacement?
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::KUAN_TI,
         ],
         [
-            'item' => GearItemEnum::ADJUSTABLE_WRENCH,
+            'item' => GearItemEnum::ADJUSTABLE_WRENCH, // @TODO: find replacement
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::KUAN_TI,
         ],
         [
-            'item' => GearItemEnum::ALIEN_BOTTLE_OPENER,
+            'item' => GearItemEnum::ALIEN_BOTTLE_OPENER, // @TODO: find replacement
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::KUAN_TI,
         ],
         [
-            'item' => GearItemEnum::SPACESUIT,
+            'item' => GearItemEnum::SPACESUIT, // gag
             'quantity' => 10,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::KUAN_TI,
         ],
         [
-            'item' => 'apprentron_creative',
+            'item' => 'apprentron_creative', // @TODO: Strawman
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::PAOLA,
         ],
         [
-            'item' => EquipmentEnum::JUKEBOX,
+            'item' => EquipmentEnum::JUKEBOX, // @TODO: Jukebox Kit
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -361,7 +361,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::PAOLA,
         ],
         [
-            'item' => 'apprentron_determined',
+            'item' => 'apprentron_determined', // @TODO: Find replacement, gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -375,13 +375,6 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::RALUCA,
         ],
         [
-            'item' => ItemEnum::SCHRODINGER,
-            'quantity' => 1,
-            'weight' => 5,
-            'filterType' => self::FILTER_BY_CHARACTER,
-            'filterValue' => CharacterEnum::RALUCA,
-        ],
-        [
             'item' => GearItemEnum::OSCILLOSCOPE,
             'quantity' => 1,
             'weight' => 5,
@@ -390,7 +383,14 @@ class ContainerContentEnum
         ],
         [
             'item' => GameRationEnum::SUPERVITAMIN_BAR,
-            'quantity' => 2,
+            'quantity' => 1,
+            'weight' => 5,
+            'filterType' => self::FILTER_BY_CHARACTER,
+            'filterValue' => CharacterEnum::RALUCA,
+        ],
+        [
+            'item' => ItemEnum::SCHRODINGER, // gag
+            'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::RALUCA,
@@ -410,21 +410,21 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::ROLAND,
         ],
         [
-            'item' => 'apprentron_motivator',
+            'item' => ToolItemEnum::EXTINGUISHER, // @TODO: find replacement
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::ROLAND,
         ],
         [
-            'item' => ToolItemEnum::EXTINGUISHER,
+            'item' => 'apprentron_motivator', // gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::ROLAND,
         ],
         [
-            'item' => GearItemEnum::STAINPROOF_APRON,
+            'item' => GearItemEnum::STAINPROOF_APRON, // @TODO: Chef's Knife
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -438,14 +438,14 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::STEPHEN,
         ],
         [
-            'item' => GameRationEnum::STANDARD_RATION,
-            'quantity' => 4,
+            'item' => GameRationEnum::LOMBRICK_BAR, // @TODO: check Lombrick Bar is setup and coded
+            'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::STEPHEN,
         ],
         [
-            'item' => ToolItemEnum::MAD_KUBE,
+            'item' => ToolItemEnum::MICROWAVE, // gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -455,13 +455,6 @@ class ContainerContentEnum
             'item' => 'apprentron_sprinter',
             'quantity' => 1,
             'weight' => 1,
-            'filterType' => self::FILTER_BY_CHARACTER,
-            'filterValue' => CharacterEnum::TERRENCE,
-        ],
-        [
-            'item' => GearItemEnum::ANTIGRAV_SCOOTER,
-            'quantity' => 1,
-            'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::TERRENCE,
         ],
@@ -480,56 +473,63 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::TERRENCE,
         ],
         [
-            'item' => 'apprentron_genius',
+            'item' => GearItemEnum::ANTIGRAV_SCOOTER, // gag
+            'quantity' => 1,
+            'weight' => 5,
+            'filterType' => self::FILTER_BY_CHARACTER,
+            'filterValue' => CharacterEnum::TERRENCE,
+        ],
+        [
+            'item' => 'apprentron_genius', // @TODO: Forgotten school notes
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::ANDIE,
         ],
         [
-            'item' => 'apprentron_opportunist',
+            'item' => 'apprentron_opportunist', // @TODO: find replacement
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::ANDIE,
         ],
         [
-            'item' => 'apprentron_rebel',
+            'item' => 'apprentron_self_sacrifice', // @TODO: NERON's only friend mage book
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::ANDIE,
         ],
         [
-            'item' => 'apprentron_self_sacrifice',
+            'item' => 'apprentron_rebel', // gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::ANDIE,
         ],
         [
-            'item' => 'apprentron_pilot',
+            'item' => 'apprentron_pilot', // gag
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::DEREK,
         ],
         [
-            'item' => ItemEnum::THICK_TUBE,
+            'item' => ItemEnum::THICK_TUBE, // gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::DEREK,
         ],
         [
-            'item' => ToolItemEnum::JAR_OF_ALIEN_OIL,
+            'item' => ToolItemEnum::JAR_OF_ALIEN_OIL, // gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::DEREK,
         ],
         [
-            'item' => GameRationEnum::ANABOLIC,
+            'item' => GameRationEnum::ANABOLIC, // gag
             'quantity' => 3,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,

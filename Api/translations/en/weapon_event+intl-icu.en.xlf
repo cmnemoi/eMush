@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="en">
   <file id="weapon_event.ext">
     <unit id="blaster_successful_shot">
       <segment id="blaster_successful_shot" state="translated">
@@ -190,7 +190,12 @@
                 female {she} 
                 male {he}
                 other {they}} just thrust into {target_character_gender, select, female {her} other {him}}.}
-            3 {Despite a nice dodge, **{character}** cuts **{target_character}**, who spills some of her blood.}
+            3 {Despite a nice dodge, **{character}** cuts **{target_character}**, who spills some of 
+                  {target_character_gender, select, 
+                    male {his}
+                    female {her}
+                    other {their}} 
+                  blood.}
             4 {Dueling with blades rarely ends well, **{character}** makes a drastic cut in **{target_character}**'s health.}
             other {Blade duels rarely end well, **{character}** takes a drastic cut in **{target_character}**'s health capital.}}</target>
       </segment>

@@ -981,7 +981,6 @@
 		"logs": "Logs",
 		"mushChannel": "Canal Mush",
 		"nothingToDisplay": "Rien à afficher.",
-		"ignoreNoise": "Supprimer le bruit",
 		"privateChannel": "Canal privé",
 		"unban": "Débannir",
 		"unbanDescription": "Débannir cet utilisateur afin qu'il puisse rejoindre de nouveau un vaisseau.",
@@ -1067,7 +1066,6 @@
 			"logout": "Déconnexion",
 			"admin": "Admin",
 			"moderation": "Modération",
-			"statistics": "Statistiques",
 			"discord": "Discord",
 			"forum": "Forum",
 			"wiki": "Wiki",
@@ -1085,7 +1083,6 @@
 				"notifications": "Notifications",
 				"actionTabs": "Séparer les actions Mush et humaines",
 				"doubleTap": "Double clic pour les actions",
-        "hideStatusesOnItem": "Cacher les statuts sur les images d'objets",
 				"lessPopups": "Moins de popups en jeu"
 			}
 		},

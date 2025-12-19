@@ -1,84 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="it">
   <file id="disease_message.ext">
     <unit id="coprolalia">
-      <segment id="pre" state="initial">
+      <segment id="pre" state="translated">
         <source>pre_coprolalia</source>
         <target>pre_coprolalia</target>
       </segment>
-      <segment id="post" state="initial">
+      <segment id="post" state="translated">
         <source>post_coprolalia</source>
         <target>post_coprolalia</target>
       </segment>
-      <segment id="replace" state="initial">
+      <segment id="replace" state="translated">
         <source>replace_coprolalia</source>
         <target>replace_coprolalia</target>
       </segment>
-      <segment id="word" state="initial">
+      <segment id="word" state="translated">
         <source>word_coprolalia</source>
         <target>word_coprolalia</target>
       </segment>
-      <segment id="word_plural" state="initial">
+      <segment id="word_plural" state="translated">
         <source>word_plural_coprolalia</source>
         <target>word_plural_coprolalia</target>
       </segment>
-      <segment id="animal" state="initial">
+      <segment id="animal" state="translated">
         <source>animal_coprolalia</source>
         <target>animal_coprolalia</target>
       </segment>
-      <segment id="animal_plural" state="initial">
+      <segment id="animal_plural" state="translated">
         <source>animal_plural_coprolalia</source>
         <target>animal_plural_coprolalia</target>
       </segment>
-      <segment id="balls" state="initial">
+      <segment id="balls" state="translated">
         <source>balls_coprolalia</source>
         <target>balls_coprolalia</target>
       </segment>
-      <segment id="adjective_male_single" state="initial">
+      <segment id="adjective_male_single" state="translated">
         <source>adjective_male_single_coprolalia</source>
         <target>adjective_male_single_coprolalia</target>
       </segment>
-      <segment id="adjective_male_plural" state="initial">
+      <segment id="adjective_male_plural" state="translated">
         <source>adjective_male_plural_coprolalia</source>
         <target>adjective_male_plural_coprolalia</target>
       </segment>
-      <segment id="adjective_coprolalia" state="initial">
+      <segment id="adjective_coprolalia" state="translated">
         <source>adjective_coprolalia</source>
         <target>adjective_coprolalia</target>
       </segment>
-      <segment id="adjective_female_single" state="initial">
+      <segment id="adjective_female_single" state="translated">
         <source>adjective_female_single_coprolalia</source>
         <target>adjective_female_single_coprolalia</target>
       </segment>
-      <segment id="adjective_female_plural" state="initial">
+      <segment id="adjective_female_plural" state="translated">
         <source>adjective_female_plural_coprolalia</source>
         <target>adjective_female_plural_coprolalia</target>
       </segment>
-      <segment id="preposition" state="initial">
+      <segment id="preposition" state="translated">
         <source>preposition_coprolalia</source>
         <target>preposition_coprolalia</target>
       </segment>
-      <segment id="prefix" state="initial">
+      <segment id="prefix" state="translated">
         <source>prefix_coprolalia</source>
         <target>prefix_coprolalia</target>
       </segment>
     </unit>
     <unit id="paranoia">
-      <segment id="replace" state="initial">
+      <segment id="replace" state="translated">
         <source>replace_paranoia</source>
         <target>replace_paranoia</target>
       </segment>
-      <segment id="accuse" state="initial">
+      <segment id="accuse" state="translated">
         <source>accuse_paranoia</source>
         <target>accuse_paranoia</target>
       </segment>
-      <segment id="pre" state="initial">
+      <segment id="pre" state="translated">
         <source>pre_paranoia</source>
         <target>pre_paranoia</target>
       </segment>
     </unit>
     <unit id="deaf">
-      <segment id="deaf" state="initial">
+      <segment id="deaf" state="translated">
         <source>deaf</source>
         <target>deaf</target>
       </segment>

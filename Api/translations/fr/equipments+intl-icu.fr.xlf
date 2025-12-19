@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="fr">
   <file id="equipments.ext">
     <unit id="antenna">
       <segment id="name" state="translated">
@@ -583,15 +583,15 @@ Permet de faire tourner cette bonne vieille carne vers la droite.</target>
     <unit id="narcotic_distiller">
       <segment id="name" state="translated">
         <source>narcotic_distiller.name</source>
-        <target>Distilateur de Stupéfiants</target>
+        <target>Distillateur de Stupéfiants</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>narcotic_distiller.short_name</source>
-        <target>Distilateur de Stupéfiants</target>
+        <target>Distillateur de Stupéfiants</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>narcotic_distiller.plural_name</source>
-        <target>Distilateurs de Stupéfiants</target>
+        <target>Distillateurs de Stupéfiants</target>
       </segment>
       <segment id="genre" state="translated">
         <source>narcotic_distiller.gender</source>
@@ -603,7 +603,7 @@ Permet de faire tourner cette bonne vieille carne vers la droite.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>narcotic_distiller.examine</source>
-        <target>Le distilleur permet de fabriquer des médicaments. Hélas son comportement erratique le rend peu fiable. Distributeur de bonheur agréé par le professeur Albus Haxley.</target>
+        <target>Le distillateur permet de fabriquer des médicaments. Hélas son comportement erratique le rend peu fiable. Distributeur de bonheur agréé par le professeur Albus Haxley.</target>
       </segment>
     </unit>
     <unit id="neron_core">

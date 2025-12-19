@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="es">
   <file id="event_log.ext">
     <unit id="build_success">
       <segment id="build_success" state="translated">
@@ -472,8 +472,8 @@
       <segment id="infect_mush_raid" state="translated">
         <source>infect_mush_raid</source>
         <target>{is_player_mush, select,
-  true {Aprovechando la confusión del ataque en el campo de cristalitas, **{character}** ha recogido **1** espora.}
-  other {**{character}** se ha contaminado por una Trampa Mush en la exploración. Su nivel de infección es ahora de **{quantity}**.}
+  true {Aprovechando la confusión del ataque en el campo de cristalitas, **{target_character}** ha recogido **1** espora.}
+  other {**{target_character}** se ha contaminado por una Trampa Mush en la exploración. Su nivel de infección es ahora de **{quantity}**.}
 }</target>
       </segment>
     </unit>

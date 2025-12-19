@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="fr">
   <file id="skill.ext">
     <unit id="botanist">
       <segment id="botanist.name" state="translated">
@@ -576,7 +576,7 @@
       </segment>
       <segment id="observant.description" state="translated">
         <source>observant.description</source>
-        <target>Vos capacités d'observation sont hors pair. Rien ne vous échappe, ni les tours de passe-passe, ni les cachettes faciles. //:point: L'action **Fouiller** vous coûte un :pa: de moins.//:point: Vous avez **25% de chances de révéler les actions furtives** réalisées en votre présence.</target>
+        <target>Vos capacités d'observation sont hors pair. Rien ne vous échappe, ni les tours de passe-passe, ni les cachettes faciles. //:point: L'action **Fouiller** vous coûte un :pa: de moins.//:point: Vous avez **25% de chances de révéler les actions :ic_covert: furtives** réalisées en votre présence.</target>
       </segment>
     </unit>
     <unit id="detached_crewmember">
@@ -636,7 +636,7 @@
       </segment>
       <segment id="victimizer.description" state="translated">
         <source>victimizer.description</source>
-        <target>Certaines remarques bien senties peuvent avoir des répercussions inattendues.//:point: Pour **1** :pa:, permet de jeter l'anathème sur un coéquipier.//:point: Ce coéquipier gagne le statut Paria. Le Paria perd 20% de réussite à ses actions.//:point: Ses actions furtives deviennent discrètes.//:point: Le status Paria dure tant que le persécuteur est en vie, ou que le paria meurt ou devienne inactif.</target>
+        <target>Certaines remarques bien senties peuvent avoir des répercussions inattendues.//:point: Pour **1** :pa:, permet de jeter l'anathème sur un coéquipier.//:point: Ce coéquipier gagne le statut Paria. Le Paria perd 20% de réussite à ses actions.//:point: Ses actions :ic_covert: furtives deviennent :ic_discrete: discrètes.//:point: Le status Paria dure tant que le persécuteur est en vie, ou que le paria meurt ou devienne inactif.</target>
       </segment>
     </unit>
     <unit id="frugivore">
@@ -746,7 +746,7 @@
       </segment>
       <segment id="traitor.description" state="translated">
         <source>traitor.description</source>
-        <target>Vous avez développé un sens pour attirer les ennuis. Tiens un Mankarog... Et si on le chatouillait pour voir...//:beta: Vous savez **quel secteur sera visité en prochain** en expédition.//:beta: Vous pouvez **saboter** un secteur par expédition.</target>
+        <target>Vous avez développé un sens pour attirer les ennuis. Tiens un Mankarog... Et si on le chatouillait pour voir...//:beta: Vous savez **quel secteur sera visité en prochain** en expédition.//:beta: Vous pouvez **saboter** un secteur par expédition pour garantir un évènement néfaste.</target>
       </segment>
     </unit>
     <unit id="cold_blooded">

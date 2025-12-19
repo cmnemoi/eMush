@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="it">
   <file id="characters.ext">
     <unit id="Neron">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>neron.name</source>
         <target>neron.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>neron.fullname</source>
         <target>neron.fullname</target>
       </segment>
     </unit>
     <unit id="Andie">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>andie.name</source>
         <target>andie.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>andie.fullname</source>
         <target>andie.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>andie.initials</source>
         <target>andie.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>andie.age</source>
         <target>andie.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>andie.description</source>
         <target>andie.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>andie.employment</source>
         <target>andie.employment</target>
       </segment>
@@ -52,33 +52,33 @@
         <source>andie.tips</source>
         <target>andie.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>andie.tutorial</source>
         <target>andie.tutorial</target>
       </segment>
     </unit>
     <unit id="Chao">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>chao.name</source>
         <target>chao.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>chao.fullname</source>
         <target>chao.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>chao.initials</source>
         <target>chao.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>chao.age</source>
         <target>chao.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>chao.description</source>
         <target>chao.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>chao.employment</source>
         <target>chao.employment</target>
       </segment>
@@ -98,33 +98,33 @@
         <source>chao.tips</source>
         <target>chao.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>chao.tutorial</source>
         <target>chao.tutorial</target>
       </segment>
     </unit>
     <unit id="Chun">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>chun.name</source>
         <target>chun.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>chun.fullname</source>
         <target>chun.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>chun.initials</source>
         <target>chun.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>chun.age</source>
         <target>chun.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>chun.description</source>
         <target>chun.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>chun.employment</source>
         <target>chun.employment</target>
       </segment>
@@ -144,33 +144,33 @@
         <source>chun.tips</source>
         <target>chun.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>chun.tutorial</source>
         <target>chun.tutorial</target>
       </segment>
     </unit>
     <unit id="Derek">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>derek.name</source>
         <target>derek.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>derek.fullname</source>
         <target>derek.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>derek.initials</source>
         <target>derek.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>derek.age</source>
         <target>derek.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>derek.description</source>
         <target>derek.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>derek.employment</source>
         <target>derek.employment</target>
       </segment>
@@ -190,33 +190,33 @@
         <source>derek.tips</source>
         <target>derek.tutorial</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>derek.tutorial</source>
         <target>derek.tutorial</target>
       </segment>
     </unit>
     <unit id="Eleesha">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>eleesha.name</source>
         <target>eleesha.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>eleesha.fullname</source>
         <target>eleesha.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>eleesha.initials</source>
         <target>eleesha.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>eleesha.age</source>
         <target>eleesha.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>eleesha.description</source>
         <target>eleesha.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>eleesha.employment</source>
         <target>eleesha.employment</target>
       </segment>
@@ -236,33 +236,33 @@
         <source>eleesha.tips</source>
         <target>eleesha.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>eleesha.tutorial</source>
         <target>eleesha.tutorial</target>
       </segment>
     </unit>
     <unit id="Finola">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>finola.name</source>
         <target>finola.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>finola.fullname</source>
         <target>finola.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>finola.initials</source>
         <target>finola.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>finola.age</source>
         <target>finola.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>finola.description</source>
         <target>finola.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>finola.employment</source>
         <target>finola.employment</target>
       </segment>
@@ -282,33 +282,33 @@
         <source>finola.tips</source>
         <target>finola.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>finola.tutorial</source>
         <target>finola.tutorial</target>
       </segment>
     </unit>
     <unit id="Frieda">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>frieda.name</source>
         <target>frieda.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>frieda.fullname</source>
         <target>frieda.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>frieda.initials</source>
         <target>frieda.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>frieda.age</source>
         <target>frieda.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>frieda.description</source>
         <target>frieda.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>frieda.employment</source>
         <target>frieda.employment</target>
       </segment>
@@ -328,33 +328,33 @@
         <source>frieda.tips</source>
         <target>frieda.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>frieda.tutorial</source>
         <target>frieda.tutorial</target>
       </segment>
     </unit>
     <unit id="Gioele">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>gioele.name</source>
         <target>gioele.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>gioele.fullname</source>
         <target>gioele.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>gioele.initials</source>
         <target>gioele.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>gioele.age</source>
         <target>gioele.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>gioele.description</source>
         <target>gioele.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>gioele.employment</source>
         <target>gioele.employment</target>
       </segment>
@@ -374,33 +374,33 @@
         <source>gioele.tips</source>
         <target>gioele.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>gioele.tutorial</source>
         <target>gioele.tutorial</target>
       </segment>
     </unit>
     <unit id="Hua">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>hua.name</source>
         <target>hua.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>hua.fullname</source>
         <target>hua.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>hua.initials</source>
         <target>hua.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>hua.age</source>
         <target>hua.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hua.description</source>
         <target>hua.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>hua.employment</source>
         <target>hua.employment</target>
       </segment>
@@ -420,33 +420,33 @@
         <source>hua.tips</source>
         <target>hua.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>hua.tutorial</source>
         <target>hua.tutorial</target>
       </segment>
     </unit>
     <unit id="Ian">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>ian.name</source>
         <target>ian.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>ian.fullname</source>
         <target>ian.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>ian.initials</source>
         <target>ian.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>ian.age</source>
         <target>ian.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>ian.description</source>
         <target>ian.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>ian.employment</source>
         <target>ian.employment</target>
       </segment>
@@ -466,33 +466,33 @@
         <source>ian.tips</source>
         <target>ian.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>ian.tutorial</source>
         <target>ian.tutorial</target>
       </segment>
     </unit>
     <unit id="jin_su">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>jin_su.name</source>
         <target>jin_su.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>jin_su.fullname</source>
         <target>jin_su.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>jin_su.initials</source>
         <target>jin_su.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>jin_su.age</source>
         <target>jin_su.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>jin_su.description</source>
         <target>jin_su.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>jin_su.employment</source>
         <target>jin_su.employment</target>
       </segment>
@@ -512,33 +512,33 @@
         <source>jin_su.tips</source>
         <target>jin_su.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>jin_su.tutorial</source>
         <target>jin_su.tutorial</target>
       </segment>
     </unit>
     <unit id="kuan_ti">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>kuan_ti.name</source>
         <target>kuan_ti.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>kuan_ti.fullname</source>
         <target>kuan_ti.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>kuan_ti.initials</source>
         <target>kuan_ti.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>kuan_ti.age</source>
         <target>kuan_ti.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>kuan_ti.description</source>
         <target>kuan_ti.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>kuan_ti.employment</source>
         <target>kuan_ti.employment</target>
       </segment>
@@ -558,33 +558,33 @@
         <source>kuan_ti.tips</source>
         <target>kuan_ti.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>kuan_ti.tutorial</source>
         <target>kuan_ti.tutorial</target>
       </segment>
     </unit>
     <unit id="Paola">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>paola.name</source>
         <target>paola.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>paola.fullname</source>
         <target>paola.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>paola.initials</source>
         <target>paola.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>paola.age</source>
         <target>paola.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>paola.description</source>
         <target>paola.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>paola.employment</source>
         <target>paola.employment</target>
       </segment>
@@ -604,33 +604,33 @@
         <source>paola.tips</source>
         <target>paola.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>paola.tutorial</source>
         <target>paola.tutorial</target>
       </segment>
     </unit>
     <unit id="Raluca">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>raluca.name</source>
         <target>raluca.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>raluca.fullname</source>
         <target>raluca.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>raluca.initials</source>
         <target>raluca.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>raluca.age</source>
         <target>raluca.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>raluca.description</source>
         <target>raluca.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>raluca.employment</source>
         <target>raluca.employment</target>
       </segment>
@@ -650,33 +650,33 @@
         <source>raluca.tips</source>
         <target>raluca.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>raluca.tutorial</source>
         <target>raluca.tutorial</target>
       </segment>
     </unit>
     <unit id="Roland">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>roland.name</source>
         <target>roland.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>roland.fullname</source>
         <target>roland.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>roland.initials</source>
         <target>roland.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>roland.age</source>
         <target>roland.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>roland.description</source>
         <target>roland.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>roland.employment</source>
         <target>roland.employment</target>
       </segment>
@@ -696,33 +696,33 @@
         <source>roland.tips</source>
         <target>roland.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>roland.tutorial</source>
         <target>roland.tutorial</target>
       </segment>
     </unit>
     <unit id="Stephen">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>stephen.name</source>
         <target>stephen.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>stephen.fullname</source>
         <target>stephen.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>stephen.initials</source>
         <target>stephen.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>stephen.age</source>
         <target>stephen.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>stephen.description</source>
         <target>stephen.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>stephen.employment</source>
         <target>stephen.employment</target>
       </segment>
@@ -742,33 +742,33 @@
         <source>stephen.tips</source>
         <target>stephen.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>stephen.tutorial</source>
         <target>stephen.tutorial</target>
       </segment>
     </unit>
     <unit id="Terrence">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>terrence.name</source>
         <target>terrence.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>terrence.fullname</source>
         <target>terrence.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>terrence.initials</source>
         <target>terrence.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>terrence.age</source>
         <target>terrence.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>terrence.description</source>
         <target>terrence.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>terrence.employment</source>
         <target>terrence.employment</target>
       </segment>
@@ -788,33 +788,33 @@
         <source>terrence.tips</source>
         <target>terrence.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>terrence.tutorial</source>
         <target>terrence.tutorial</target>
       </segment>
     </unit>
     <unit id="janice">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>janice.name</source>
         <target>janice.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>janice.fullname</source>
         <target>janice.fullname</target>
       </segment>
-      <segment id="initials" state="initial">
+      <segment id="initials" state="translated">
         <source>janice.initials</source>
         <target>janice.initials</target>
       </segment>
-      <segment id="age" state="initial">
+      <segment id="age" state="translated">
         <source>janice.age</source>
         <target>janice.age</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>janice.description</source>
         <target>janice.description</target>
       </segment>
-      <segment id="employment" state="initial">
+      <segment id="employment" state="translated">
         <source>janice.employment</source>
         <target>janice.employment</target>
       </segment>
@@ -834,23 +834,23 @@
         <source>janice.tips</source>
         <target>janice.tutorial</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>janice.tutorial</source>
         <target>janice.tutorial</target>
       </segment>
     </unit>
     <unit id="Someone">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>someone.name</source>
         <target>someone.name</target>
       </segment>
-      <segment id="fullname" state="initial">
+      <segment id="fullname" state="translated">
         <source>someone.fullname</source>
         <target>someone.fullname</target>
       </segment>
     </unit>
     <unit id="mush">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mush.name</source>
         <target>mush.name</target>
       </segment>

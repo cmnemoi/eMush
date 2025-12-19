@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="fr">
   <file id="actions_log.ext">
     <unit id="check_spore_level">
       <segment id="check_spore_level" state="translated">
@@ -668,7 +668,7 @@
     <unit id="spread_fire_success">
       <segment id="spread_fire_success" state="translated">
         <source>spread_fire_success</source>
-        <target>Mais que fait  **{character}** avec l'installation électrique... ? Cela ne sent vraiment pas bon...:fires:</target>
+        <target>Mais que fait  **{character}** avec l'installation électrique... ? Cela ne sent vraiment pas bon... :fires:</target>
       </segment>
     </unit>
     <unit id="install_camera">

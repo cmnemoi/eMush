@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="es">
   <file id="skill.ext">
     <unit id="botanist">
       <segment id="botanist.name" state="translated">
@@ -633,7 +633,7 @@
       </segment>
       <segment id="observant.description" state="translated">
         <source>observant.description</source>
-        <target>Tienes un talento para detectar lo que otros ignoran. Nada se te escapa, ni los juegos de manos, ni los escondites.//:point: La acción **Hurgar** te cuesta 1 :pa: menos.//:point: Tienes un **25% de probabilidades de revelar las acciones furtivas** realizadas en tu presencia.</target>
+        <target>Tienes un talento para detectar lo que otros ignoran. Nada se te escapa, ni los juegos de manos, ni los escondites.//:point: La acción **Hurgar** te cuesta 1 :pa: menos.//:point: Tienes un **25% de probabilidades de revelar las acciones :ic_covert: furtivas** realizadas en tu presencia.</target>
       </segment>
     </unit>
     <unit id="detached_crewmember">
@@ -700,7 +700,7 @@
       </segment>
       <segment id="victimizer.description" state="translated">
         <source>victimizer.description</source>
-        <target>Te dijimos que tus actos pueden tener repercusiones inesperadas.//:point: Por **1** :pa:, puedes **Castigar** a un miembro del equipo.//:point: Este gana el estado ***Paria***//:point: Sus acciones tienen un 20% menos de éxito.//:point: Sus acciones **furtivas** se vuelven **discretas**.//:point: El estado **Paria** permanece mientras {character_gender, select, female {la perseguidora} other {el perseguidor}} esté vivo, o hasta que el paria muera o resulte inactivo.//:point: Si el **Paria** muere, y era mush, ganas 8 :triumph:; si era humano, pierdes 8 :triumph:.</target>
+        <target>Te dijimos que tus actos pueden tener repercusiones inesperadas.//:point: Por **1** :pa:, puedes **Castigar** a un miembro del equipo.//:point: Este gana el estado ***Paria***//:point: Sus acciones tienen un 20% menos de éxito.//:point: Sus acciones :ic_covert: **furtivas** se vuelven :ic_discrete: **discretas**.//:point: El estado **Paria** permanece mientras {character_gender, select, female {la perseguidora} other {el perseguidor}} esté vivo, o hasta que el paria muera o resulte inactivo.//:point: Si el **Paria** muere, y era mush, ganas 8 :triumph:; si era humano, pierdes 8 :triumph:.</target>
       </segment>
     </unit>
     <unit id="frugivore">

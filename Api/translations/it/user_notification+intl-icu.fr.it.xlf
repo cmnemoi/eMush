@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="it">
   <file id="user_notification.ext">
     <unit id="inactivity">
-      <segment id="key" state="initial">
+      <segment id="key" state="translated">
         <source>inactivity.title</source>
         <target>inactivity.title</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>inactivity.description</source>
         <target>inactivity.description</target>
       </segment>
     </unit>
     <unit id="achievement_unlocked">
-      <segment id="key" state="initial">
+      <segment id="key" state="translated">
         <source>achievement_unlocked.title</source>
         <target>achievement_unlocked.title</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>achievement_unlocked.description</source>
         <target>achievement_unlocked.description</target>
       </segment>
     </unit>
     <unit id="ok">
-      <segment state="initial">
+      <segment state="translated">
         <source>ok</source>
         <target>ok</target>
       </segment>
     </unit>
     <unit id="go">
-      <segment state="initial">
+      <segment state="translated">
         <source>go</source>
         <target>go</target>
       </segment>
     </unit>
     <unit id="later">
-      <segment state="initial">
+      <segment state="translated">
         <source>later</source>
         <target>later</target>
       </segment>
     </unit>
     <unit id="daedalus_filled">
-      <segment id="key" state="initial">
+      <segment id="key" state="translated">
         <source>daedalus_filled.title</source>
         <target>daedalus_filled.title</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>daedalus_filled.description</source>
         <target>daedalus_filled.description</target>
       </segment>
     </unit>
     <unit id="daedalus_finished">
-      <segment id="key" state="initial">
+      <segment id="key" state="translated">
         <source>daedalus_finished.title</source>
         <target>daedalus_finished.title</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>daedalus_finished.description</source>
         <target>daedalus_finished.description</target>
       </segment>

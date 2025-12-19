@@ -1,282 +1,282 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="it">
   <file id="planet.ext">
     <unit id="landing">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>landing.name</source>
         <target>landing.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>landing.description</source>
         <target>landing.description</target>
       </segment>
     </unit>
     <unit id="forest">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>forest.name</source>
         <target>forest.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>forest.description</source>
         <target>forest.description</target>
       </segment>
     </unit>
     <unit id="mountain">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mountain.name</source>
         <target>mountain.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mountain.description</source>
         <target>mountain.description</target>
       </segment>
     </unit>
     <unit id="swamp">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>swamp.name</source>
         <target>swamp.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>swamp.description</source>
         <target>swamp.description</target>
       </segment>
     </unit>
     <unit id="desert">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>desert.name</source>
         <target>desert.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>desert.description</source>
         <target>desert.description</target>
       </segment>
     </unit>
     <unit id="ocean">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>ocean.name</source>
         <target>ocean.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>ocean.description</source>
         <target>ocean.description</target>
       </segment>
     </unit>
     <unit id="cave">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>cave.name</source>
         <target>cave.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cave.description</source>
         <target>cave.description</target>
       </segment>
     </unit>
     <unit id="ruminant">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>ruminant.name</source>
         <target>ruminant.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>ruminant.description</source>
         <target>ruminant.description</target>
       </segment>
     </unit>
     <unit id="predator">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>predator.name</source>
         <target>predator.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>predator.description</source>
         <target>predator.description</target>
       </segment>
     </unit>
     <unit id="intelligent">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>intelligent.name</source>
         <target>intelligent.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>intelligent.description</source>
         <target>intelligent.description</target>
       </segment>
     </unit>
     <unit id="insect">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>insect.name</source>
         <target>insect.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>insect.description</source>
         <target>insect.description</target>
       </segment>
     </unit>
     <unit id="mankarog">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mankarog.name</source>
         <target>mankarog.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mankarog.description</source>
         <target>mankarog.description</target>
       </segment>
     </unit>
     <unit id="hydrocarbon">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>hydrocarbon.name</source>
         <target>hydrocarbon.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hydrocarbon.description</source>
         <target>hydrocarbon.description</target>
       </segment>
     </unit>
     <unit id="oxygen">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>oxygen.name</source>
         <target>oxygen.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>oxygen.description</source>
         <target>oxygen.description</target>
       </segment>
     </unit>
     <unit id="cold">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>cold.name</source>
         <target>cold.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cold.description</source>
         <target>cold.description</target>
       </segment>
     </unit>
     <unit id="hot">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>hot.name</source>
         <target>hot.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hot.description</source>
         <target>hot.description</target>
       </segment>
     </unit>
     <unit id="strong_wind">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>strong_wind.name</source>
         <target>strong_wind.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>strong_wind.description</source>
         <target>strong_wind.description</target>
       </segment>
     </unit>
     <unit id="seismic_activity">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>seismic_activity.name</source>
         <target>seismic_activity.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>seismic_activity.description</source>
         <target>seismic_activity.description</target>
       </segment>
     </unit>
     <unit id="volcanic_activity">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>volcanic_activity.name</source>
         <target>volcanic_activity.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>volcanic_activity.description</source>
         <target>volcanic_activity.description</target>
       </segment>
     </unit>
     <unit id="ruins">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>ruins.name</source>
         <target>ruins.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>ruins.description</source>
         <target>ruins.description</target>
       </segment>
     </unit>
     <unit id="wreck">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>wreck.name</source>
         <target>wreck.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>wreck.description</source>
         <target>wreck.description</target>
       </segment>
     </unit>
     <unit id="fruit_trees">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>fruit_trees.name</source>
         <target>fruit_trees.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>fruit_trees.description</source>
         <target>fruit_trees.description</target>
       </segment>
     </unit>
     <unit id="lost">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>lost.name</source>
         <target>lost.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>lost.description</source>
         <target>lost.description</target>
       </segment>
     </unit>
     <unit id="cristal_field">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>cristal_field.name</source>
         <target>cristal_field.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cristal_field.description</source>
         <target>cristal_field.description</target>
       </segment>
     </unit>
     <unit id="unknown">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>unknown.name</source>
         <target>unknown.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>unknown.description</source>
         <target>unknown.description</target>
       </segment>
     </unit>
     <unit id="orientation">
-      <segment id="north" state="initial">
+      <segment id="north" state="translated">
         <source>north</source>
         <target>north</target>
       </segment>
-      <segment id="south" state="initial">
+      <segment id="south" state="translated">
         <source>south</source>
         <target>south</target>
       </segment>
-      <segment id="east" state="initial">
+      <segment id="east" state="translated">
         <source>east</source>
         <target>east</target>
       </segment>
-      <segment id="west" state="initial">
+      <segment id="west" state="translated">
         <source>west</source>
         <target>west</target>
       </segment>
     </unit>
     <unit id="planet_name">
-      <segment id="planet_name" state="initial">
+      <segment id="planet_name" state="translated">
         <source>planet_name</source>
         <target>planet_name</target>
       </segment>
     </unit>
     <unit id="next_sector">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>next_sector</source>
         <target>next_sector</target>
       </segment>

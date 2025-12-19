@@ -981,7 +981,6 @@
 		"logs": "Logs",
 		"mushChannel": "Mush channel",
 		"nothingToDisplay": "Nothing to display.",
-		"ignoreNoise": "Remove the noise",
 		"privateChannel": "Private channel",
 		"unban": "Unban",
 		"unbanDescription": "Unban this user so that they can rejoin a ship again.",
@@ -1067,7 +1066,6 @@
 			"logout": "Logout",
 			"admin": "Admin",
 			"moderation": "Moderation",
-			"statistics": "Statistics",
 			"discord": "Discord",
 			"forum": "Forum",
 			"wiki": "Wiki",
@@ -1085,7 +1083,6 @@
 				"notifications": "Notifications",
 				"actionTabs": "Separate Mush and human actions",
 				"doubleTap": "Double tap for actions",
-        "hideStatusesOnItem": "Hide status icons on item images",
 				"lessPopups": "Less ingame popups"
 			}
 		},

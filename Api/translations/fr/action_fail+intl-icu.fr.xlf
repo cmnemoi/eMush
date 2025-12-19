@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="fr">
   <file id="actions_fail.ext">
     <unit id="build_lack_ressources">
       <segment id="description" state="translated">
@@ -855,7 +855,7 @@
     <unit id="sabotage_exploration_lost">
       <segment id="description" state="translated">
         <source>sabotage_exploration_lost.description</source>
-        <target>Vous êtes ici, et l'exploration est ailleurs. Comment comptez-vous la saboter?</target>
+        <target>Vous êtes ici, et l'exploration est ailleurs. Comment comptez-vous la saboter ?</target>
       </segment>
     </unit>
     <unit id="sabotage_exploration_spent">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="es">
   <file id="weapon_event.ext">
     <unit id="blaster_successful_shot">
       <segment id="blaster_successful_shot" state="translated">
@@ -18,7 +18,7 @@
         <source>blaster_failed_shot</source>
         <target>{version, select,
 1 {**{character}** dispara, pero solo logra darle a la pared... ¡Qué talento!}
-other {**{character}** ha disparado sobre **{target_character}**, pero no fue capaz de apuntar bien...</target>
+other {**{character}** ha disparado sobre **{target_character}**, pero no fue capaz de apuntar bien...}}</target>
       </segment>
     </unit>
     <unit id="blaster_target_headshot">
@@ -238,9 +238,9 @@ other {**{character}** ha disparado sobre **{target_character}**, pero no fue ca
         <source>knife_failed_hit</source>
         <target>{version, select,  
                   1 {A pesar de las apariencias, **{target_character}** esquiva con facilidad el cuchillo de **{character}**.}  
-                  2 {**{character}** saca su cuchillo y ataca a **{target_character}**, pero falla}  
+                  2 {**{character}** saca su cuchillo y ataca a **{target_character}**, pero falla.}  
                   3 {**{character}** corta un mechón de pelo de **{target_character}**, pero nada más...}  
-                  other {**{character}** saca su cuchillo y ataca a **{target_character}**, pero falla}}</target>
+                  other {**{character}** saca su cuchillo y ataca a **{target_character}**, pero falla.}}</target>
       </segment>
     </unit>
     <unit id="knife_break_weapon">
@@ -349,7 +349,7 @@ other {**{character}** ha disparado sobre **{target_character}**, pero no fue ca
     <unit id="old_faithful_shooter_broken_shoulder">
       <segment id="old_faithful_shooter_broken_shoulder" state="translated">
         <source>old_faithful_shooter_broken_shoulder</source>
-        <target>**{character}** debió haber anticipado el retroceso del arma, fallando el tiro sobre **{target_character}** y lastimando su propio hombro. Bravo.</target>
+        <target>**{character}** debió haber anticipado el retroceso del arma, falla su tiro sobre **{target_character}** y lastima su propio hombro. Bravo.</target>
       </segment>
     </unit>
     <unit id="old_faithful_failed_shot">
@@ -517,13 +517,13 @@ other {**{character}** ha disparado sobre **{target_character}**, pero no fue ca
     <unit id="grenade_successful_throw_splash_damage_all">
       <segment id="grenade_successful_throw_splash_damage_all" state="translated">
         <source>grenade_successful_throw_splash_damage_all</source>
-        <target>:grenade: Ploc...ploc...ploc...pschhhhh...**{personaje}** se pone a cubierto mientras los demás miran hacia abajo. ¡La explosión los manda a volar!</target>
+        <target>:grenade: Ploc...ploc...ploc...pschhhhh...**{character}** se pone a cubierto mientras los demás miran hacia abajo. ¡La explosión manda a volar a todos!</target>
       </segment>
     </unit>
     <unit id="grenade_critical_throw_splash_damage_all_break_items_splash_wounds">
       <segment id="grenade_critical_throw_splash_damage_all_break_items_splash_wounds" state="translated">
         <source>grenade_critical_throw_splash_damage_all_break_items_splash_wounds</source>
-        <target>:grenade: Ploc...ploc...ploc...pschhhhh...**{personaje}** se pone a cubierto mientras los demás miran hacia abajo. ¡La explosión los manda a volar!</target>
+        <target>:grenade: Ploc...ploc...ploc...pschhhhh...**{character}** se pone a cubierto mientras los demás miran hacia abajo. Oh, miren, una gra...</target>
       </segment>
     </unit>
     <unit id="grenade_failure_placeholder">
@@ -561,13 +561,17 @@ other {"invalid version number"}</target>
     <unit id="rocket_launcher_critical_3_random_wounds_2_items">
       <segment id="rocket_launcher_critical_3_random_wounds_2_items" state="translated">
         <source>rocket_launcher_critical_3_random_wounds_2_items</source>
-        <target>**{character}** dispara. Una estrella se desvanece, un cohete muere, **{target_character}** se pierde en una nube de humo y la muerte se acerca.</target>
+        <target>version, select,
+                        1 {**{character}** dispara. Dada la magnitud de la explosión que acaba de ocurrir cerca de **{target_character}**, podríamos deducir que no se levantará pronto...}
+                        2 {**{character}** dispara. Una estrella se desvanece, un cohete cae, **{target_character}** se pierde en una nube de humo y la muerte se acerca.}
+                        other {"invalid version number"}
+                    }</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_fumble_6_items">
       <segment id="rocket_launcher_fumble_6_items" state="translated">
         <source>rocket_launcher_fumble_6_items</source>
-        <target>Una migraña sorpresa toma a **{character}** por sorpresa, haciendo que su disparo falle sin elegancia. **{target_character}** puede estar agradecido por eso.</target>
+        <target>Una migraña toma por sorpresa a **{character}**, haciendo que su disparo falle sin elegancia. **{target_character}** puede sentirse {target_character, select, female {agradecida} other {agradecido}} por eso.</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_fumble_6_items_backfire_rocketted">

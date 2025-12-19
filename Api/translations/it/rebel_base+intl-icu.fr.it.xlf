@@ -1,128 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="it">
   <file id="rebel_base.ext">
     <unit id="wolf">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>wolf.name</source>
         <target>wolf.name</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>wolf.hoverName</source>
         <target>wolf.hoverName</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>wolf.description</source>
         <target>wolf.description</target>
       </segment>
     </unit>
     <unit id="sirius">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>sirius.name</source>
         <target>sirius.name</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>sirius.hoverName</source>
         <target>sirius.hoverName</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>sirius.description</source>
         <target>sirius.description</target>
       </segment>
     </unit>
     <unit id="centauri">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>centauri.name</source>
         <target>centauri.name</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>centauri.hoverName</source>
         <target>centauri.hoverName</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>centauri.description</source>
         <target>centauri.description</target>
       </segment>
     </unit>
     <unit id="kaladaan">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>kaladaan.name</source>
         <target>kaladaan.name</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>kaladaan.hoverName</source>
         <target>kaladaan.hoverName</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>kaladaan.description</source>
         <target>kaladaan.description</target>
       </segment>
     </unit>
     <unit id="luyten_ceti">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>luyten_ceti.name</source>
         <target>luyten_ceti.name</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>luyten_ceti.hoverName</source>
         <target>luyten_ceti.hoverName</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>luyten_ceti.description</source>
         <target>luyten_ceti.description</target>
       </segment>
     </unit>
     <unit id="cygni">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>cygni.name</source>
         <target>cygni.name</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>cygni.hoverName</source>
         <target>cygni.hoverName</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cygni.description</source>
         <target>cygni.description</target>
       </segment>
     </unit>
     <unit id="eridiani">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>eridiani.name</source>
         <target>eridiani.name</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>eridiani.hoverName</source>
         <target>eridiani.hoverName</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>eridiani.description</source>
         <target>eridiani.description</target>
       </segment>
     </unit>
     <unit id="unknown">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>unknown.name</source>
         <target>unknown.name</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>unknown.hoverName</source>
         <target>unknown.hoverName</target>
       </segment>
     </unit>
     <unit id="lost">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>lost.description</source>
         <target>lost.description</target>
       </segment>
     </unit>
     <unit id="not_contacting">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>not_contacting.description</source>
         <target>not_contacting.description</target>
       </segment>
     </unit>
     <unit id="contacting">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>contacting.description</source>
         <target>contacting.description</target>
       </segment>

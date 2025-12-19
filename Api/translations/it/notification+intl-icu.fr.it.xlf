@@ -1,190 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="it">
   <file id="player.ext">
     <unit id="exchange_body_mush">
-      <segment state="initial">
+      <segment state="translated">
         <source>exchange_body_mush.title</source>
         <target>exchange_body_mush.title</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exchange_body_mush.description</source>
         <target>exchange_body_mush.description</target>
       </segment>
     </unit>
     <unit id="exchange_body_human">
-      <segment state="initial">
+      <segment state="translated">
         <source>exchange_body_human.title</source>
         <target>exchange_body_human.title</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exchange_body_human.description</source>
         <target>exchange_body_human.description</target>
       </segment>
     </unit>
     <unit id="mission_sent">
-      <segment state="initial">
+      <segment state="translated">
         <source>mission_sent.description</source>
         <target>mission_sent.description</target>
       </segment>
     </unit>
     <unit id="mission_received">
-      <segment state="initial">
+      <segment state="translated">
         <source>mission_received.description</source>
         <target>mission_received.description</target>
       </segment>
     </unit>
     <unit id="mission_accepted">
-      <segment state="initial">
+      <segment state="translated">
         <source>mission_accepted.description</source>
         <target>mission_accepted.description</target>
       </segment>
     </unit>
     <unit id="mission_rejected">
-      <segment state="initial">
+      <segment state="translated">
         <source>mission_rejected.description</source>
         <target>mission_rejected.description</target>
       </segment>
     </unit>
     <unit id="dropped_critical_item">
-      <segment state="initial">
+      <segment state="translated">
         <source>dropped_critical_item.description</source>
         <target>dropped_critical_item.description</target>
       </segment>
     </unit>
     <unit id="exploration_closed_by_u_turn">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_by_u_turn.subTitle</source>
         <target>exploration_closed_by_u_turn.subTitle</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_by_u_turn.description</source>
         <target>exploration_closed_by_u_turn.description</target>
       </segment>
     </unit>
     <unit id="exploration_closed_everyone_dead">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_everyone_dead.subTitle</source>
         <target>exploration_closed_everyone_dead.subTitle</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_everyone_dead.description</source>
         <target>exploration_closed_everyone_dead.description</target>
       </segment>
     </unit>
     <unit id="exploration_closed_no_spacesuit">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_no_spacesuit.subTitle</source>
         <target>exploration_closed_no_spacesuit.subTitle</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_no_spacesuit.description</source>
         <target>exploration_closed_no_spacesuit.description</target>
       </segment>
     </unit>
     <unit id="exploration_closed_return_event_mankarog">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_return_event_mankarog.subTitle</source>
         <target>exploration_closed_return_event_mankarog.subTitle</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_return_event_mankarog.description</source>
         <target>exploration_closed_return_event_mankarog.description</target>
       </segment>
     </unit>
     <unit id="exploration_closed_return_event_seismic_activity">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_return_event_seismic_activity.subTitle</source>
         <target>exploration_closed_return_event_seismic_activity.subTitle</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_return_event_seismic_activity.description</source>
         <target>exploration_closed_return_event_seismic_activity.description</target>
       </segment>
     </unit>
     <unit id="exploration_closed_return_event_volcanic_activity">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_return_event_volcanic_activity.subTitle</source>
         <target>exploration_closed_return_event_volcanic_activity.subTitle</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_return_event_volcanic_activity.description</source>
         <target>exploration_closed_return_event_volcanic_activity.description</target>
       </segment>
     </unit>
     <unit id="exploration_closed">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed.subTitle</source>
         <target>exploration_closed.subTitle</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed.description</source>
         <target>exploration_closed.description</target>
       </segment>
     </unit>
     <unit id="exploration_started_no_spacesuit">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_started_no_spacesuit.subTitle</source>
         <target>exploration_started_no_spacesuit.subTitle</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_started_no_spacesuit.description</source>
         <target>exploration_started_no_spacesuit.description</target>
       </segment>
     </unit>
     <unit id="announcement_received">
-      <segment state="initial">
+      <segment state="translated">
         <source>announcement_received.title</source>
         <target>announcement_received.title</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>announcement_received.description</source>
         <target>announcement_received.description</target>
       </segment>
     </unit>
     <unit id="announcement_created">
-      <segment state="initial">
+      <segment state="translated">
         <source>announcement_created.title</source>
         <target>announcement_created.title</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>announcement_created.description</source>
         <target>announcement_created.description</target>
       </segment>
     </unit>
     <unit id="clumsiness">
-      <segment state="initial">
+      <segment state="translated">
         <source>clumsiness.description</source>
         <target>clumsiness.description</target>
       </segment>
     </unit>
     <unit id="clumsiness_cat">
-      <segment state="initial">
+      <segment state="translated">
         <source>clumsiness_cat.description</source>
         <target>clumsiness_cat.description</target>
       </segment>
     </unit>
     <unit id="soiled">
-      <segment state="initial">
+      <segment state="translated">
         <source>soiled.description</source>
         <target>soiled.description</target>
       </segment>
     </unit>
     <unit id="welcome_mush">
-      <segment state="initial">
+      <segment state="translated">
         <source>welcome_mush.title</source>
         <target>welcome_mush.title</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>welcome_mush.description</source>
         <target>welcome_mush.description</target>
       </segment>
     </unit>
     <unit id="welcome_on_board">
-      <segment state="initial">
+      <segment state="translated">
         <source>welcome_on_board.title</source>
         <target>welcome_on_board.title</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>welcome_on_board.description</source>
         <target>welcome_on_board.description</target>
       </segment>

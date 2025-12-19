@@ -1,148 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="it">
   <file id="misc.ext">
     <unit id="delayed_disease_info">
-      <segment id="satiety_point" state="initial">
+      <segment id="satiety_point" state="translated">
         <source>satiety_point</source>
         <target>satiety_point</target>
       </segment>
-      <segment id="action_point" state="initial">
+      <segment id="action_point" state="translated">
         <source>action_point</source>
         <target>action_point</target>
       </segment>
-      <segment id="movement_point" state="initial">
+      <segment id="movement_point" state="translated">
         <source>movement_point</source>
         <target>movement_point</target>
       </segment>
-      <segment id="health_point" state="initial">
+      <segment id="health_point" state="translated">
         <source>health_point</source>
         <target>health_point</target>
       </segment>
-      <segment id="moral_point" state="initial">
+      <segment id="moral_point" state="translated">
         <source>moral_point</source>
         <target>moral_point</target>
       </segment>
-      <segment id="ration_data" state="initial">
+      <segment id="ration_data" state="translated">
         <source>ration_data</source>
         <target>ration_data</target>
       </segment>
-      <segment id="delayed_disease_info_with_range" state="initial">
+      <segment id="delayed_disease_info_with_range" state="translated">
         <source>delayed_disease_info_with_range</source>
         <target>delayed_disease_info_with_range</target>
       </segment>
-      <segment id="delayed_disease_info" state="initial">
+      <segment id="delayed_disease_info" state="translated">
         <source>delayed_disease_info</source>
         <target>delayed_disease_info</target>
       </segment>
-      <segment id="disease_info" state="initial">
+      <segment id="disease_info" state="translated">
         <source>disease_info</source>
         <target>disease_info</target>
       </segment>
-      <segment id="delayed_cure_info_with_range" state="initial">
+      <segment id="delayed_cure_info_with_range" state="translated">
         <source>delayed_cure_info_with_range</source>
         <target>delayed_cure_info_with_range</target>
       </segment>
-      <segment id="delayed_cure_info" state="initial">
+      <segment id="delayed_cure_info" state="translated">
         <source>delayed_cure_info</source>
         <target>delayed_cure_info</target>
       </segment>
-      <segment id="cure_info" state="initial">
+      <segment id="cure_info" state="translated">
         <source>cure_info</source>
         <target>cure_info</target>
       </segment>
     </unit>
     <unit id="orientation">
-      <segment id="north" state="initial">
+      <segment id="north" state="translated">
         <source>north</source>
         <target>north</target>
       </segment>
-      <segment id="south" state="initial">
+      <segment id="south" state="translated">
         <source>south</source>
         <target>south</target>
       </segment>
-      <segment id="east" state="initial">
+      <segment id="east" state="translated">
         <source>east</source>
         <target>east</target>
       </segment>
-      <segment id="west" state="initial">
+      <segment id="west" state="translated">
         <source>west</source>
         <target>west</target>
       </segment>
     </unit>
     <unit id="here">
-      <segment id="here" state="initial">
+      <segment id="here" state="translated">
         <source>here</source>
         <target>here</target>
       </segment>
     </unit>
     <unit id="estimated_duration">
-      <segment id="estimated_duration" state="initial">
+      <segment id="estimated_duration" state="translated">
         <source>estimated_duration</source>
         <target>estimated_duration</target>
       </segment>
     </unit>
     <unit id="exploration_pop_up">
-      <segment id="planet" state="initial">
+      <segment id="planet" state="translated">
         <source>exploration_pop_up.title</source>
         <target>exploration_pop_up.title</target>
       </segment>
-      <segment id="planet" state="initial">
+      <segment id="planet" state="translated">
         <source>exploration_pop_up.planet</source>
         <target>exploration_pop_up.planet</target>
       </segment>
-      <segment id="explorators" state="initial">
+      <segment id="explorators" state="translated">
         <source>exploration_pop_up.explorators</source>
         <target>exploration_pop_up.explorators</target>
       </segment>
-      <segment id="estimated_duration" state="initial">
+      <segment id="estimated_duration" state="translated">
         <source>exploration_pop_up.estimated_duration</source>
         <target>exploration_pop_up.estimated_duration</target>
       </segment>
     </unit>
     <unit id="plant_effects">
-      <segment id="plant_data" state="initial">
+      <segment id="plant_data" state="translated">
         <source>plant_data</source>
         <target>plant_data</target>
       </segment>
-      <segment id="fruit_productivity" state="initial">
+      <segment id="fruit_productivity" state="translated">
         <source>fruit_productivity</source>
         <target>fruit_productivity</target>
       </segment>
-      <segment id="o2_productivity" state="initial">
+      <segment id="o2_productivity" state="translated">
         <source>o2_productivity</source>
         <target>o2_productivity</target>
       </segment>
-      <segment id="maturity_info" state="initial">
+      <segment id="maturity_info" state="translated">
         <source>maturity_info</source>
         <target>maturity_info</target>
       </segment>
     </unit>
     <unit id="exploration_archive">
-      <segment id="exploration_archive" state="initial">
+      <segment id="exploration_archive" state="translated">
         <source>exploration_archive</source>
         <target>exploration_archive</target>
       </segment>
     </unit>
     <unit id="project_grants_triumph">
-      <segment id="project_grants_triumph" state="initial">
+      <segment id="project_grants_triumph" state="translated">
         <source>project_grants_triumph</source>
         <target>project_grants_triumph</target>
       </segment>
     </unit>
     <unit id="cryo_module">
-      <segment id="awake" state="initial">
+      <segment id="awake" state="translated">
         <source>awake</source>
         <target>awake</target>
       </segment>
-      <segment id="cryogenized" state="initial">
+      <segment id="cryogenized" state="translated">
         <source>cryogenized</source>
         <target>cryogenized</target>
       </segment>
-      <segment id="dead" state="initial">
+      <segment id="dead" state="translated">
         <source>dead</source>
         <target>dead</target>
       </segment>
-      <segment id="inactive" state="initial">
+      <segment id="inactive" state="translated">
         <source>inactive</source>
         <target>inactive</target>
       </segment>

@@ -81,7 +81,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'skillPointCosts' => [],
                 'successRate' => 100,
                 'name' => 'Piéger pièce',
-                'description' => 'Permet de piéger la pièce, toutes les interactions avec les objets et équipements de la pièce déclencheront le piège.//Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.',
+                'description' => 'Permet de piéger la pièce, toutes les interactions avec les objets et équipements de la pièce déclencheront le piège.//Cette action est :ic_discrete: **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.',
                 'canExecute' => true,
                 'isMushAction' => true,
                 'confirmation' => null,
@@ -126,7 +126,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'successRate' => 100,
                 'name' => 'Extirper une spore',
                 'description' => "Extirpez-vous une spore pour ensuite contaminer un coéquipier (mais avant ça, repérez les caméras).//
-        L'ensemble des **Mush** peuvent encore produire **4 spores** aujourd'hui.//Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.",
+        L'ensemble des **Mush** peuvent encore produire **4 spores** aujourd'hui.//Cette action est :ic_discrete: **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.",
                 'canExecute' => true,
                 'isMushAction' => true,
                 'confirmation' => null,

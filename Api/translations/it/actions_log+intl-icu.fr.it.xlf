@@ -1,902 +1,902 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="it">
   <file id="actions_log.ext">
     <unit id="check_spore_level">
-      <segment id="check_spore_level" state="initial">
+      <segment id="check_spore_level" state="translated">
         <source>check_spore_level</source>
         <target>check_spore_level</target>
       </segment>
     </unit>
     <unit id="coffee_success">
-      <segment id="coffee_success" state="initial">
+      <segment id="coffee_success" state="translated">
         <source>coffee_success</source>
         <target>coffee_success</target>
       </segment>
     </unit>
     <unit id="dispense_success">
-      <segment id="dispense_success" state="initial">
+      <segment id="dispense_success" state="translated">
         <source>dispense_success</source>
         <target>dispense_success</target>
       </segment>
     </unit>
     <unit id="phagocyte_success">
-      <segment id="phagocyte_success" state="initial">
+      <segment id="phagocyte_success" state="translated">
         <source>phagocyte_success</source>
         <target>phagocyte_success</target>
       </segment>
     </unit>
     <unit id="consume_success">
-      <segment id="consume_success" state="initial">
+      <segment id="consume_success" state="translated">
         <source>consume_success</source>
         <target>consume_success</target>
       </segment>
     </unit>
     <unit id="consume_drug">
-      <segment id="consume_drug" state="initial">
+      <segment id="consume_drug" state="translated">
         <source>consume_drug</source>
         <target>consume_drug</target>
       </segment>
     </unit>
     <unit id="consume_mush">
-      <segment id="consume_mush" state="initial">
+      <segment id="consume_mush" state="translated">
         <source>consume_mush</source>
         <target>consume_mush</target>
       </segment>
     </unit>
     <unit id="cook_success">
-      <segment id="cook_success" state="initial">
+      <segment id="cook_success" state="translated">
         <source>cook_success</source>
         <target>cook_success</target>
       </segment>
     </unit>
     <unit id="disassemble_fail">
-      <segment id="disassemble_fail" state="initial">
+      <segment id="disassemble_fail" state="translated">
         <source>disassemble_fail</source>
         <target>disassemble_fail</target>
       </segment>
     </unit>
     <unit id="disassemble_success">
-      <segment id="disassemble_success" state="initial">
+      <segment id="disassemble_success" state="translated">
         <source>disassemble_success</source>
         <target>disassemble_success</target>
       </segment>
     </unit>
     <unit id="do_the_thing_success">
-      <segment id="do_the_thing_success" state="initial">
+      <segment id="do_the_thing_success" state="translated">
         <source>do_the_thing_success</source>
         <target>do_the_thing_success</target>
       </segment>
     </unit>
     <unit id="do_the_thing_breaks_sofa">
-      <segment id="do_the_thing_breaks_sofa" state="initial">
+      <segment id="do_the_thing_breaks_sofa" state="translated">
         <source>do_the_thing_breaks_sofa</source>
         <target>do_the_thing_breaks_sofa</target>
       </segment>
     </unit>
     <unit id="drop">
-      <segment id="drop" state="initial">
+      <segment id="drop" state="translated">
         <source>drop</source>
         <target>drop</target>
       </segment>
     </unit>
     <unit id="express_cook_success">
-      <segment id="express_cook_success" state="initial">
+      <segment id="express_cook_success" state="translated">
         <source>express_cook_success</source>
         <target>express_cook_success</target>
       </segment>
     </unit>
     <unit id="extract_spore_success">
-      <segment id="extract_spore_success" state="initial">
+      <segment id="extract_spore_success" state="translated">
         <source>extract_spore_success</source>
         <target>extract_spore_success</target>
       </segment>
     </unit>
     <unit id="flirt_success">
-      <segment id="flirt_success" state="initial">
+      <segment id="flirt_success" state="translated">
         <source>flirt_success</source>
         <target>flirt_success</target>
       </segment>
     </unit>
     <unit id="get_up">
-      <segment id="get_up" state="initial">
+      <segment id="get_up" state="translated">
         <source>get_up</source>
         <target>get_up</target>
       </segment>
     </unit>
     <unit id="hide_success">
-      <segment id="hide_success" state="initial">
+      <segment id="hide_success" state="translated">
         <source>hide_success</source>
         <target>hide_success</target>
       </segment>
     </unit>
     <unit id="hyperfreeze_success">
-      <segment id="hyperfreeze_success" state="initial">
+      <segment id="hyperfreeze_success" state="translated">
         <source>hyperfreeze_success</source>
         <target>hyperfreeze_success</target>
       </segment>
     </unit>
     <unit id="infect_success">
-      <segment id="infect_success" state="initial">
+      <segment id="infect_success" state="translated">
         <source>infect_success</source>
         <target>infect_success</target>
       </segment>
     </unit>
     <unit id="lie_down">
-      <segment id="lie_down" state="initial">
+      <segment id="lie_down" state="translated">
         <source>lie_down</source>
         <target>lie_down</target>
       </segment>
     </unit>
     <unit id="enter_room">
-      <segment id="enter_room" state="initial">
+      <segment id="enter_room" state="translated">
         <source>enter_room</source>
         <target>enter_room</target>
       </segment>
     </unit>
     <unit id="exit_room">
-      <segment id="exit_room" state="initial">
+      <segment id="exit_room" state="translated">
         <source>exit_room</source>
         <target>exit_room</target>
       </segment>
     </unit>
     <unit id="read_book">
-      <segment id="read_book" state="initial">
+      <segment id="read_book" state="translated">
         <source>read_book</source>
         <target>read_book</target>
       </segment>
     </unit>
     <unit id="read_document">
-      <segment id="read_document" state="initial">
+      <segment id="read_document" state="translated">
         <source>read_document</source>
         <target>read_document</target>
       </segment>
     </unit>
     <unit id="read_content">
-      <segment id="read_content" state="initial">
+      <segment id="read_content" state="translated">
         <source>read_content</source>
         <target>read_content</target>
       </segment>
     </unit>
     <unit id="repair_fail">
-      <segment id="repair_fail" state="initial">
+      <segment id="repair_fail" state="translated">
         <source>repair_fail</source>
         <target>repair_fail</target>
       </segment>
     </unit>
     <unit id="repair_success">
-      <segment id="repair_success" state="initial">
+      <segment id="repair_success" state="translated">
         <source>repair_success</source>
         <target>repair_success</target>
       </segment>
     </unit>
     <unit id="search_success">
-      <segment id="search_success" state="initial">
+      <segment id="search_success" state="translated">
         <source>search_success</source>
         <target>search_success</target>
       </segment>
     </unit>
     <unit id="search_fail">
-      <segment id="search_fail" state="initial">
+      <segment id="search_fail" state="translated">
         <source>search_fail</source>
         <target>search_fail</target>
       </segment>
     </unit>
     <unit id="shower_human">
-      <segment id="shower_human" state="initial">
+      <segment id="shower_human" state="translated">
         <source>shower_human</source>
         <target>shower_human</target>
       </segment>
     </unit>
     <unit id="shower_mush">
-      <segment id="shower_mush" state="initial">
+      <segment id="shower_mush" state="translated">
         <source>shower_mush</source>
         <target>shower_mush</target>
       </segment>
     </unit>
     <unit id="wash_in_sink_human">
-      <segment id="wash_in_sink_human" state="initial">
+      <segment id="wash_in_sink_human" state="translated">
         <source>wash_in_sink_human</source>
         <target>wash_in_sink_human</target>
       </segment>
     </unit>
     <unit id="wash_in_sink_mush">
-      <segment id="wash_in_sink_mush" state="initial">
+      <segment id="wash_in_sink_mush" state="translated">
         <source>wash_in_sink_mush</source>
         <target>wash_in_sink_mush</target>
       </segment>
     </unit>
     <unit id="shred_success">
-      <segment id="shred_success" state="initial">
+      <segment id="shred_success" state="translated">
         <source>shred_success</source>
         <target>shred_success</target>
       </segment>
     </unit>
     <unit id="take">
-      <segment id="take" state="initial">
+      <segment id="take" state="translated">
         <source>take</source>
         <target>take</target>
       </segment>
     </unit>
     <unit id="treat_plant_success">
-      <segment id="treat_plant_success" state="initial">
+      <segment id="treat_plant_success" state="translated">
         <source>treat_plant_success</source>
         <target>treat_plant_success</target>
       </segment>
     </unit>
     <unit id="water_plant_success">
-      <segment id="water_plant_success" state="initial">
+      <segment id="water_plant_success" state="translated">
         <source>water_plant_success</source>
         <target>water_plant_success</target>
       </segment>
     </unit>
     <unit id="insert_oxygen">
-      <segment id="insert_oxygen" state="initial">
+      <segment id="insert_oxygen" state="translated">
         <source>insert_oxygen</source>
         <target>insert_oxygen</target>
       </segment>
     </unit>
     <unit id="retrieve_oxygen">
-      <segment id="retrieve_oxygen" state="initial">
+      <segment id="retrieve_oxygen" state="translated">
         <source>retrieve_oxygen</source>
         <target>retrieve_oxygen</target>
       </segment>
     </unit>
     <unit id="retrieve_fuel">
-      <segment id="retrieve_fuel" state="initial">
+      <segment id="retrieve_fuel" state="translated">
         <source>retrieve_fuel</source>
         <target>retrieve_fuel</target>
       </segment>
     </unit>
     <unit id="insert_fuel">
-      <segment id="insert_fuel" state="initial">
+      <segment id="insert_fuel" state="translated">
         <source>insert_fuel</source>
         <target>insert_fuel</target>
       </segment>
     </unit>
     <unit id="sabotage_success">
-      <segment id="sabotage_success" state="initial">
+      <segment id="sabotage_success" state="translated">
         <source>sabotage_success</source>
         <target>sabotage_success</target>
       </segment>
     </unit>
     <unit id="sabotage_fail">
-      <segment id="sabotage_fail" state="initial">
+      <segment id="sabotage_fail" state="translated">
         <source>sabotage_fail</source>
         <target>sabotage_fail</target>
       </segment>
     </unit>
     <unit id="sabotage_exploration_success">
-      <segment id="sabotage_exploration_success" state="initial">
+      <segment id="sabotage_exploration_success" state="translated">
         <source>sabotage_exploration_success</source>
         <target>sabotage_exploration_success</target>
       </segment>
     </unit>
     <unit id="extinguish_success">
-      <segment id="extinguish_success" state="initial">
+      <segment id="extinguish_success" state="translated">
         <source>extinguish_success</source>
         <target>extinguish_success</target>
       </segment>
     </unit>
     <unit id="extinguish_fail">
-      <segment id="extinguish_fail" state="initial">
+      <segment id="extinguish_fail" state="translated">
         <source>extinguish_fail</source>
         <target>extinguish_fail</target>
       </segment>
     </unit>
     <unit id="comfort_success">
-      <segment id="comfort_success" state="initial">
+      <segment id="comfort_success" state="translated">
         <source>comfort_success</source>
         <target>comfort_success</target>
       </segment>
     </unit>
     <unit id="heal_success">
-      <segment id="heal_success" state="initial">
+      <segment id="heal_success" state="translated">
         <source>heal_success</source>
         <target>heal_success</target>
       </segment>
     </unit>
     <unit id="self_heal">
-      <segment id="self_heal" state="initial">
+      <segment id="self_heal" state="translated">
         <source>self_heal</source>
         <target>self_heal</target>
       </segment>
     </unit>
     <unit id="ultraheal_success">
-      <segment id="ultraheal_success" state="initial">
+      <segment id="ultraheal_success" state="translated">
         <source>ultraheal_success</source>
         <target>ultraheal_success</target>
       </segment>
     </unit>
     <unit id="strengthen_success">
-      <segment id="strengthen_success" state="initial">
+      <segment id="strengthen_success" state="translated">
         <source>strengthen_success</source>
         <target>strengthen_success</target>
       </segment>
     </unit>
     <unit id="default_fail">
-      <segment id="default_fail" state="initial">
+      <segment id="default_fail" state="translated">
         <source>default_fail</source>
         <target>default_fail</target>
       </segment>
     </unit>
     <unit id="spread_fire_success">
-      <segment id="spread_fire_success" state="initial">
+      <segment id="spread_fire_success" state="translated">
         <source>spread_fire_success</source>
         <target>spread_fire_success</target>
       </segment>
     </unit>
     <unit id="install_camera">
-      <segment id="install_camera" state="initial">
+      <segment id="install_camera" state="translated">
         <source>install_camera</source>
         <target>install_camera</target>
       </segment>
     </unit>
     <unit id="remove_camera">
-      <segment id="remove_camera" state="initial">
+      <segment id="remove_camera" state="translated">
         <source>remove_camera</source>
         <target>remove_camera</target>
       </segment>
     </unit>
     <unit id="try_kube">
-      <segment id="try_kube" state="initial">
+      <segment id="try_kube" state="translated">
         <source>try_kube</source>
         <target>try_kube</target>
       </segment>
     </unit>
     <unit id="remove_spore_success">
-      <segment id="remove_spore_fail" state="initial">
+      <segment id="remove_spore_fail" state="translated">
         <source>remove_spore_success</source>
         <target>remove_spore_success</target>
       </segment>
     </unit>
     <unit id="remove_spore_fail">
-      <segment id="remove_spore_fail" state="initial">
+      <segment id="remove_spore_fail" state="translated">
         <source>remove_spore_fail</source>
         <target>remove_spore_fail</target>
       </segment>
     </unit>
     <unit id="public_broadcast">
-      <segment id="public_broadcast" state="initial">
+      <segment id="public_broadcast" state="translated">
         <source>public_broadcast</source>
         <target>public_broadcast</target>
       </segment>
     </unit>
     <unit id="motivational_speech">
-      <segment id="motivational_speech" state="initial">
+      <segment id="motivational_speech" state="translated">
         <source>motivational_speech</source>
         <target>motivational_speech</target>
       </segment>
     </unit>
     <unit id="boring_speech">
-      <segment id="boring_speech" state="initial">
+      <segment id="boring_speech" state="translated">
         <source>boring_speech</source>
         <target>boring_speech</target>
       </segment>
     </unit>
     <unit id="make_sick">
-      <segment id="make_sick" state="initial">
+      <segment id="make_sick" state="translated">
         <source>make_sick</source>
         <target>make_sick</target>
       </segment>
     </unit>
     <unit id="fake_disease">
-      <segment id="fake_disease" state="initial">
+      <segment id="fake_disease" state="translated">
         <source>fake_disease</source>
         <target>fake_disease</target>
       </segment>
     </unit>
     <unit id="fail_surgery">
-      <segment id="fail_surgery" state="initial">
+      <segment id="fail_surgery" state="translated">
         <source>fail_surgery</source>
         <target>fail_surgery</target>
       </segment>
     </unit>
     <unit id="fail_self_surgery">
-      <segment id="fail_self_surgery" state="initial">
+      <segment id="fail_self_surgery" state="translated">
         <source>fail_self_surgery</source>
         <target>fail_self_surgery</target>
       </segment>
     </unit>
     <unit id="gag_success">
-      <segment id="gag_success" state="initial">
+      <segment id="gag_success" state="translated">
         <source>gag_success</source>
         <target>gag_success</target>
       </segment>
     </unit>
     <unit id="ungag_success">
-      <segment id="ungag_success" state="initial">
+      <segment id="ungag_success" state="translated">
         <source>ungag_success</source>
         <target>ungag_success</target>
       </segment>
     </unit>
     <unit id="screw_talkie_success">
-      <segment id="screw_talkie_success" state="initial">
+      <segment id="screw_talkie_success" state="translated">
         <source>screw_talkie_success</source>
         <target>screw_talkie_success</target>
       </segment>
     </unit>
     <unit id="update_talkie_success">
-      <segment id="update_talkie_success" state="initial">
+      <segment id="update_talkie_success" state="translated">
         <source>update_talkie_success</source>
         <target>update_talkie_success</target>
       </segment>
     </unit>
     <unit id="suicide_success">
-      <segment id="suicide_success" state="initial">
+      <segment id="suicide_success" state="translated">
         <source>suicide_success</source>
         <target>suicide_success</target>
       </segment>
     </unit>
     <unit id="shoot_one_shot">
-      <segment state="initial">
+      <segment state="translated">
         <source>shoot_one_shot</source>
         <target>shoot_one_shot</target>
       </segment>
     </unit>
     <unit id="play_arcade_fail">
-      <segment id="play_arcade_fail" state="initial">
+      <segment id="play_arcade_fail" state="translated">
         <source>play_arcade_fail</source>
         <target>play_arcade_fail</target>
       </segment>
     </unit>
     <unit id="play_arcade_success">
-      <segment id="play_arcade_success" state="initial">
+      <segment id="play_arcade_success" state="translated">
         <source>play_arcade_success</source>
         <target>play_arcade_success</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_success">
-      <segment id="shoot_hunter_success" state="initial">
+      <segment id="shoot_hunter_success" state="translated">
         <source>shoot_hunter_success</source>
         <target>shoot_hunter_success</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_fail">
-      <segment id="shoot_hunter_fail" state="initial">
+      <segment id="shoot_hunter_fail" state="translated">
         <source>shoot_hunter_fail</source>
         <target>shoot_hunter_fail</target>
       </segment>
     </unit>
     <unit id="takeoff_no_pilot">
-      <segment id="takeoff_no_pilot" state="initial">
+      <segment id="takeoff_no_pilot" state="translated">
         <source>takeoff_no_pilot</source>
         <target>takeoff_no_pilot</target>
       </segment>
     </unit>
     <unit id="land_no_pilot">
-      <segment id="land_no_pilot" state="initial">
+      <segment id="land_no_pilot" state="translated">
         <source>land_no_pilot</source>
         <target>land_no_pilot</target>
       </segment>
     </unit>
     <unit id="access_terminal_success">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>access_terminal_success</source>
         <target>access_terminal_success</target>
       </segment>
     </unit>
     <unit id="bypass_terminal_success">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>bypass_terminal_success</source>
         <target>bypass_terminal_success</target>
       </segment>
     </unit>
     <unit id="takeoff_success">
-      <segment id="takeoff_success" state="initial">
+      <segment id="takeoff_success" state="translated">
         <source>takeoff_success</source>
         <target>takeoff_success</target>
       </segment>
     </unit>
     <unit id="land_success">
-      <segment id="land_success" state="initial">
+      <segment id="land_success" state="translated">
         <source>land_success</source>
         <target>land_success</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_patrol_ship_success">
-      <segment id="shoot_hunter_patrol_ship_success" state="initial">
+      <segment id="shoot_hunter_patrol_ship_success" state="translated">
         <source>shoot_hunter_patrol_ship_success</source>
         <target>shoot_hunter_patrol_ship_success</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_patrol_ship_fail">
-      <segment id="shoot_hunter_patrol_ship_fail" state="initial">
+      <segment id="shoot_hunter_patrol_ship_fail" state="translated">
         <source>shoot_hunter_patrol_ship_fail</source>
         <target>shoot_hunter_patrol_ship_fail</target>
       </segment>
     </unit>
     <unit id="renovate_success">
-      <segment id="renovate_success" state="initial">
+      <segment id="renovate_success" state="translated">
         <source>renovate_success</source>
         <target>renovate_success</target>
       </segment>
     </unit>
     <unit id="renovate_fail">
-      <segment id="renovate_fail" state="initial">
+      <segment id="renovate_fail" state="translated">
         <source>renovate_fail</source>
         <target>renovate_fail</target>
       </segment>
     </unit>
     <unit id="auto_eject_success">
-      <segment id="auto_eject_success" state="initial">
+      <segment id="auto_eject_success" state="translated">
         <source>auto_eject_success</source>
         <target>auto_eject_success</target>
       </segment>
     </unit>
     <unit id="insert_fuel_chamber_success">
-      <segment id="insert_fuel_chamber_success" state="initial">
+      <segment id="insert_fuel_chamber_success" state="translated">
         <source>insert_fuel_chamber_success</source>
         <target>insert_fuel_chamber_success</target>
       </segment>
     </unit>
     <unit id="retrieve_fuel_chamber_success">
-      <segment id="retrieve_fuel_chamber_success" state="initial">
+      <segment id="retrieve_fuel_chamber_success" state="translated">
         <source>retrieve_fuel_chamber_success</source>
         <target>retrieve_fuel_chamber_success</target>
       </segment>
     </unit>
     <unit id="check_fuel_chamber_level_success">
-      <segment id="check_fuel_chamber_level_success" state="initial">
+      <segment id="check_fuel_chamber_level_success" state="translated">
         <source>check_fuel_chamber_level_success</source>
         <target>check_fuel_chamber_level_success</target>
       </segment>
     </unit>
     <unit id="hack_success">
-      <segment id="hack_success" state="initial">
+      <segment id="hack_success" state="translated">
         <source>hack_success</source>
         <target>hack_success</target>
       </segment>
     </unit>
     <unit id="hack_fail">
-      <segment id="hack_fail" state="initial">
+      <segment id="hack_fail" state="translated">
         <source>hack_fail</source>
         <target>hack_fail</target>
       </segment>
     </unit>
     <unit id="advance_daedalus_success">
-      <segment id="advance_daedalus_success" state="initial">
+      <segment id="advance_daedalus_success" state="translated">
         <source>advance_daedalus_success</source>
         <target>advance_daedalus_success</target>
       </segment>
     </unit>
     <unit id="advance_daedalus_fail">
-      <segment id="advance_daedalus_fail" state="initial">
+      <segment id="advance_daedalus_fail" state="translated">
         <source>advance_daedalus_fail</source>
         <target>advance_daedalus_fail</target>
       </segment>
     </unit>
     <unit id="advance_daedalus_no_fuel">
-      <segment id="advance_daedalus_no_fuel" state="initial">
+      <segment id="advance_daedalus_no_fuel" state="translated">
         <source>advance_daedalus_no_fuel</source>
         <target>advance_daedalus_no_fuel</target>
       </segment>
     </unit>
     <unit id="advance_daedalus_arack_prevents_travel">
-      <segment id="advance_daedalus_arack_prevents_travel" state="initial">
+      <segment id="advance_daedalus_arack_prevents_travel" state="translated">
         <source>advance_daedalus_arack_prevents_travel</source>
         <target>advance_daedalus_arack_prevents_travel</target>
       </segment>
     </unit>
     <unit id="scan_success">
-      <segment id="scan_success" state="initial">
+      <segment id="scan_success" state="translated">
         <source>scan_success</source>
         <target>scan_success</target>
       </segment>
     </unit>
     <unit id="scan_fail">
-      <segment id="scan_fail" state="initial">
+      <segment id="scan_fail" state="translated">
         <source>scan_fail</source>
         <target>scan_fail</target>
       </segment>
     </unit>
     <unit id="analyze_planet_success">
-      <segment id="analyze_planet_success" state="initial">
+      <segment id="analyze_planet_success" state="translated">
         <source>analyze_planet_success</source>
         <target>analyze_planet_success</target>
       </segment>
     </unit>
     <unit id="delete_planet_success">
-      <segment id="delete_planet_success" state="initial">
+      <segment id="delete_planet_success" state="translated">
         <source>delete_planet_success</source>
         <target>delete_planet_success</target>
       </segment>
     </unit>
     <unit id="takeoff_to_planet_success">
-      <segment id="takeoff_to_planet_success" state="initial">
+      <segment id="takeoff_to_planet_success" state="translated">
         <source>takeoff_to_planet_success</source>
         <target>takeoff_to_planet_success</target>
       </segment>
     </unit>
     <unit id="takeoff_to_planet_patrol_ship_success">
-      <segment id="takeoff_to_planet_patrol_ship_success" state="initial">
+      <segment id="takeoff_to_planet_patrol_ship_success" state="translated">
         <source>takeoff_to_planet_patrol_ship_success</source>
         <target>takeoff_to_planet_patrol_ship_success</target>
       </segment>
     </unit>
     <unit id="change_neron_cpu_priority_success">
-      <segment id="change_neron_cpu_priority_success" state="initial">
+      <segment id="change_neron_cpu_priority_success" state="translated">
         <source>change_neron_cpu_priority_success</source>
         <target>change_neron_cpu_priority_success</target>
       </segment>
     </unit>
     <unit id="repair_pilgred_success">
-      <segment id="repair_pilgred_success" state="initial">
+      <segment id="repair_pilgred_success" state="translated">
         <source>repair_pilgred_success</source>
         <target>repair_pilgred_success</target>
       </segment>
     </unit>
     <unit id="participate_success">
-      <segment id="participate_success" state="initial">
+      <segment id="participate_success" state="translated">
         <source>participate_success</source>
         <target>participate_success</target>
       </segment>
     </unit>
     <unit id="trap_closet_success">
-      <segment id="trap_closet_success" state="initial">
+      <segment id="trap_closet_success" state="translated">
         <source>trap_closet_success</source>
         <target>trap_closet_success</target>
       </segment>
     </unit>
     <unit id="chitchat_success">
-      <segment id="chitchat_success" state="initial">
+      <segment id="chitchat_success" state="translated">
         <source>chitchat_success</source>
         <target>chitchat_success</target>
       </segment>
     </unit>
     <unit id="graft_success">
-      <segment id="graft_success" state="initial">
+      <segment id="graft_success" state="translated">
         <source>graft_success</source>
         <target>graft_success</target>
       </segment>
     </unit>
     <unit id="graft_fail">
-      <segment id="graft_fail" state="initial">
+      <segment id="graft_fail" state="translated">
         <source>graft_fail</source>
         <target>graft_fail</target>
       </segment>
     </unit>
     <unit id="ceasefire_success">
-      <segment id="ceasefire_success" state="initial">
+      <segment id="ceasefire_success" state="translated">
         <source>ceasefire_success</source>
         <target>ceasefire_success</target>
       </segment>
     </unit>
     <unit id="put_through_door_success">
-      <segment id="put_through_door_success" state="initial">
+      <segment id="put_through_door_success" state="translated">
         <source>put_through_door_success</source>
         <target>put_through_door_success</target>
       </segment>
     </unit>
     <unit id="guard_success">
-      <segment id="guard_success" state="initial">
+      <segment id="guard_success" state="translated">
         <source>guard_success</source>
         <target>guard_success</target>
       </segment>
     </unit>
     <unit id="throw_grenade_success">
-      <segment id="throw_grenade_success" state="initial">
+      <segment id="throw_grenade_success" state="translated">
         <source>throw_grenade_success</source>
         <target>throw_grenade_success</target>
       </segment>
     </unit>
     <unit id="putsch_success">
-      <segment id="putsch_success" state="initial">
+      <segment id="putsch_success" state="translated">
         <source>putsch_success</source>
         <target>putsch_success</target>
       </segment>
     </unit>
     <unit id="depress_success">
-      <segment id="depress_success" state="initial">
+      <segment id="depress_success" state="translated">
         <source>depress_success</source>
         <target>depress_success</target>
       </segment>
     </unit>
     <unit id="slime_trap_success">
-      <segment id="slime_trap_success" state="initial">
+      <segment id="slime_trap_success" state="translated">
         <source>slime_trap_success</source>
         <target>slime_trap_success</target>
       </segment>
     </unit>
     <unit id="slime_object_success">
-      <segment id="slime_object_success" state="initial">
+      <segment id="slime_object_success" state="translated">
         <source>slime_object_success</source>
         <target>slime_object_success</target>
       </segment>
     </unit>
     <unit id="mass_ggedon_success">
-      <segment id="mass_ggedon_success" state="initial">
+      <segment id="mass_ggedon_success" state="translated">
         <source>mass_ggedon_success</source>
         <target>mass_ggedon_success</target>
       </segment>
     </unit>
     <unit id="reinforce_success">
-      <segment id="reinforce_success" state="initial">
+      <segment id="reinforce_success" state="translated">
         <source>reinforce_success</source>
         <target>reinforce_success</target>
       </segment>
     </unit>
     <unit id="reinforce_fail">
-      <segment id="reinforce_fail" state="initial">
+      <segment id="reinforce_fail" state="translated">
         <source>reinforce_fail</source>
         <target>reinforce_fail</target>
       </segment>
     </unit>
     <unit id="collect_scrap_fail">
-      <segment id="collect_scrap_fail" state="initial">
+      <segment id="collect_scrap_fail" state="translated">
         <source>collect_scrap_fail</source>
         <target>collect_scrap_fail</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_turbo_success">
-      <segment id="upgrade_drone_to_turbo_success" state="initial">
+      <segment id="upgrade_drone_to_turbo_success" state="translated">
         <source>upgrade_drone_to_turbo_success</source>
         <target>upgrade_drone_to_turbo_success</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_firefighter_success">
-      <segment id="upgrade_drone_to_firefighter_success" state="initial">
+      <segment id="upgrade_drone_to_firefighter_success" state="translated">
         <source>upgrade_drone_to_firefighter_success</source>
         <target>upgrade_drone_to_firefighter_success</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_pilot_success">
-      <segment id="upgrade_drone_to_pilot_success" state="initial">
+      <segment id="upgrade_drone_to_pilot_success" state="translated">
         <source>upgrade_drone_to_pilot_success</source>
         <target>upgrade_drone_to_pilot_success</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_sensor_success">
-      <segment id="upgrade_drone_to_sensor_success" state="initial">
+      <segment id="upgrade_drone_to_sensor_success" state="translated">
         <source>upgrade_drone_to_sensor_success</source>
         <target>upgrade_drone_to_sensor_success</target>
       </segment>
     </unit>
     <unit id="take_cat">
-      <segment id="take_cat" state="initial">
+      <segment id="take_cat" state="translated">
         <source>take_cat</source>
         <target>take_cat</target>
       </segment>
     </unit>
     <unit id="pet_cat">
-      <segment id="pet_cat" state="initial">
+      <segment id="pet_cat" state="translated">
         <source>pet_cat</source>
         <target>pet_cat</target>
       </segment>
     </unit>
     <unit id="cure_cat_success">
-      <segment id="cure_cat_success" state="initial">
+      <segment id="cure_cat_success" state="translated">
         <source>cure_cat_success</source>
         <target>cure_cat_success</target>
       </segment>
     </unit>
     <unit id="cure_cat_fail">
-      <segment id="cure_cat_fail" state="initial">
+      <segment id="cure_cat_fail" state="translated">
         <source>cure_cat_fail</source>
         <target>cure_cat_fail</target>
       </segment>
     </unit>
     <unit id="shoot_cat_success">
-      <segment id="shoot_cat_success" state="initial">
+      <segment id="shoot_cat_success" state="translated">
         <source>shoot_cat_success</source>
         <target>shoot_cat_success</target>
       </segment>
     </unit>
     <unit id="shoot_cat_critical_success">
-      <segment id="shoot_cat_critical_success" state="initial">
+      <segment id="shoot_cat_critical_success" state="translated">
         <source>shoot_cat_critical_success</source>
         <target>shoot_cat_critical_success</target>
       </segment>
     </unit>
     <unit id="shoot_cat_fail">
-      <segment id="shoot_cat_fail" state="initial">
+      <segment id="shoot_cat_fail" state="translated">
         <source>shoot_cat_fail</source>
         <target>shoot_cat_fail</target>
       </segment>
     </unit>
     <unit id="shoot_cat_critical_fail">
-      <segment id="shoot_cat_critical_fail" state="initial">
+      <segment id="shoot_cat_critical_fail" state="translated">
         <source>shoot_cat_critical_fail</source>
         <target>shoot_cat_critical_fail</target>
       </segment>
     </unit>
     <unit id="daunt_success">
-      <segment id="daunt_success" state="initial">
+      <segment id="daunt_success" state="translated">
         <source>daunt_success</source>
         <target>daunt_success</target>
       </segment>
     </unit>
     <unit id="gen_metal_fail">
-      <segment id="gen_metal_fail" state="initial">
+      <segment id="gen_metal_fail" state="translated">
         <source>gen_metal_fail</source>
         <target>gen_metal_fail</target>
       </segment>
     </unit>
     <unit id="door_sabotage_success">
-      <segment id="door_sabotage_success" state="initial">
+      <segment id="door_sabotage_success" state="translated">
         <source>door_sabotage_success</source>
         <target>door_sabotage_success</target>
       </segment>
     </unit>
     <unit id="give_nightmare_success">
-      <segment id="give_nightmare_success" state="initial">
+      <segment id="give_nightmare_success" state="translated">
         <source>give_nightmare_success</source>
         <target>give_nightmare_success</target>
       </segment>
     </unit>
     <unit id="neron_depress_success">
-      <segment id="neron_depress_success" state="initial">
+      <segment id="neron_depress_success" state="translated">
         <source>neron_depress_success</source>
         <target>neron_depress_success</target>
       </segment>
     </unit>
     <unit id="compute_eden_success">
-      <segment id="compute_eden_success" state="initial">
+      <segment id="compute_eden_success" state="translated">
         <source>compute_eden_success</source>
         <target>compute_eden_success</target>
       </segment>
     </unit>
     <unit id="compute_eden_fail">
-      <segment id="compute_eden_fail" state="initial">
+      <segment id="compute_eden_fail" state="translated">
         <source>compute_eden_fail</source>
         <target>compute_eden_fail</target>
       </segment>
     </unit>
     <unit id="open_coffee_thermos">
-      <segment id="open_coffee_thermos" state="initial">
+      <segment id="open_coffee_thermos" state="translated">
         <source>open_coffee_thermos</source>
         <target>open_coffee_thermos</target>
       </segment>
     </unit>
     <unit id="open_anniversary_gift">
-      <segment id="open_anniversary_gift" state="initial">
+      <segment id="open_anniversary_gift" state="translated">
         <source>open_anniversary_gift</source>
         <target>open_anniversary_gift</target>
       </segment>
     </unit>
     <unit id="establish_link_with_sol_fail">
-      <segment id="establish_link_with_sol_fail" state="initial">
+      <segment id="establish_link_with_sol_fail" state="translated">
         <source>establish_link_with_sol_fail</source>
         <target>establish_link_with_sol_fail</target>
       </segment>
     </unit>
     <unit id="establish_link_with_sol_success">
-      <segment id="establish_link_with_sol_success" state="initial">
+      <segment id="establish_link_with_sol_success" state="translated">
         <source>establish_link_with_sol_success</source>
         <target>establish_link_with_sol_success</target>
       </segment>
     </unit>
     <unit id="upgrade_neron_success">
-      <segment id="upgrade_neron_success" state="initial">
+      <segment id="upgrade_neron_success" state="translated">
         <source>upgrade_neron_success</source>
         <target>upgrade_neron_success</target>
       </segment>
     </unit>
     <unit id="play_with_dog">
-      <segment id="play_with_dog" state="initial">
+      <segment id="play_with_dog" state="translated">
         <source>play_with_dog</source>
         <target>play_with_dog</target>
       </segment>
     </unit>
     <unit id="mutate_success">
-      <segment id="mutate_success" state="initial">
+      <segment id="mutate_success" state="translated">
         <source>mutate_success</source>
         <target>mutate_success</target>
       </segment>
     </unit>
     <unit id="exchange_body_success">
-      <segment id="exchange_body_success" state="initial">
+      <segment id="exchange_body_success" state="translated">
         <source>exchange_body_success</source>
         <target>exchange_body_success</target>
       </segment>
     </unit>
     <unit id="cure_success">
-      <segment id="cure_success" state="initial">
+      <segment id="cure_success" state="translated">
         <source>cure_success</source>
         <target>cure_success</target>
       </segment>
     </unit>
     <unit id="adapt_epigenetics_success">
-      <segment id="adapt_epigenetics_success" state="initial">
+      <segment id="adapt_epigenetics_success" state="translated">
         <source>adapt_epigenetics_success</source>
         <target>adapt_epigenetics_success</target>
       </segment>

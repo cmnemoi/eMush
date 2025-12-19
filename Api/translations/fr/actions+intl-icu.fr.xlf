@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="fr">
   <file id="actions.ext">
     <unit id="build">
       <segment id="build" state="translated">
@@ -413,11 +413,11 @@ Merci de nous aider !</target>
     <unit id="sabotage_exploration">
       <segment id="name" state="translated">
         <source>sabotage_exploration.name</source>
-        <target>Saboter l'expédition!</target>
+        <target>Saboter l'expédition !</target>
       </segment>
       <segment id="description" state="translated">
         <source>sabotage_exploration.description</source>
-        <target>Il est temps d'ajouter un peu de chaos à ce voyage. // Le prochain secteur visité aura un **évènement négatif**.</target>
+        <target>Il est temps d'ajouter un peu de chaos à ce voyage.//Le prochain secteur visité aura un **évènement négatif**.</target>
       </segment>
     </unit>
     <unit id="take_shower">
@@ -816,7 +816,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>covert.description</source>
-        <target>Cette action est **Furtive**. Elle sera révélée par les Caméras.</target>
+        <target>Cette action est :ic_covert: **Furtive**. Elle sera révélée par les Caméras.</target>
       </segment>
     </unit>
     <unit id="secret">
@@ -826,7 +826,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>secret.description</source>
-        <target>Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.</target>
+        <target>Cette action est :ic_discrete: **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.</target>
       </segment>
     </unit>
     <unit id="play_arcade">

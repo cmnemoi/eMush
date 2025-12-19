@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="es">
   <file id="statistics.ext">
     <unit id="cat_cuddled">
       <segment id="name" state="translated">
@@ -1350,17 +1350,71 @@
       </segment>
     </unit>
     <unit id="frozen_taken">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>frozen_taken.name</source>
         <target>frozen_taken.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>frozen_taken.description</source>
         <target>frozen_taken.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>frozen_taken_1.name</source>
         <target>frozen_taken_1.name</target>
+      </segment>
+    </unit>
+    <unit id="kind_person">
+      <segment id="name" state="initial">
+        <source>kind_person.name</source>
+        <target>kind_person.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>kind_person.description</source>
+        <target>kind_person.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>kind_person_1.name</source>
+        <target>kind_person_1.name</target>
+      </segment>
+    </unit>
+    <unit id="disease_contracted">
+      <segment id="name" state="initial">
+        <source>disease_contracted.name</source>
+        <target>disease_contracted.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>disease_contracted.description</source>
+        <target>disease_contracted.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>disease_contracted_1.name</source>
+        <target>disease_contracted_1.name</target>
+      </segment>
+      <segment id="x10" state="initial">
+        <source>disease_contracted_10.name</source>
+        <target>disease_contracted_10.name</target>
+      </segment>
+      <segment id="x20" state="initial">
+        <source>disease_contracted_20.name</source>
+        <target>disease_contracted_20.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>disease_contracted_50.name</source>
+        <target>disease_contracted_50.name</target>
+      </segment>
+    </unit>
+    <unit id="mankarog_down">
+      <segment id="name" state="initial">
+        <source>mankarog_down.name</source>
+        <target>mankarog_down.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mankarog_down.description</source>
+        <target>mankarog_down.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>mankarog_down_1.name</source>
+        <target>mankarog_down_1.name</target>
       </segment>
     </unit>
   </file>

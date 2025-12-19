@@ -1,590 +1,590 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="it">
   <file id="status.ext">
     <unit id="alien_artefact">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>alien_artefact.name</source>
         <target>alien_artefact.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>alien_artefact.description</source>
         <target>alien_artefact.description</target>
       </segment>
     </unit>
     <unit id="electric_charges">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>electric_charges.name</source>
         <target>electric_charges.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>electric_charges.description</source>
         <target>electric_charges.description</target>
       </segment>
     </unit>
     <unit id="heavy">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>heavy.name</source>
         <target>heavy.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>heavy.description</source>
         <target>heavy.description</target>
       </segment>
     </unit>
     <unit id="module_access">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>module_access.name</source>
         <target>module_access.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>module_access.description</source>
         <target>module_access.description</target>
       </segment>
     </unit>
     <unit id="hidden">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>hidden.name</source>
         <target>hidden.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hidden.description</source>
         <target>hidden.description</target>
       </segment>
     </unit>
     <unit id="broken">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>broken.name</source>
         <target>broken.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>broken.description</source>
         <target>broken.description</target>
       </segment>
     </unit>
     <unit id="unstable">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>unstable.name</source>
         <target>unstable.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>unstable.description</source>
         <target>unstable.description</target>
       </segment>
     </unit>
     <unit id="hazardous">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>hazardous.name</source>
         <target>hazardous.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hazardous.description</source>
         <target>hazardous.description</target>
       </segment>
     </unit>
     <unit id="decomposing">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>decomposing.name</source>
         <target>decomposing.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>decomposing.description</source>
         <target>decomposing.description</target>
       </segment>
     </unit>
     <unit id="frozen">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>frozen.name</source>
         <target>frozen.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>frozen.description</source>
         <target>frozen.description</target>
       </segment>
     </unit>
     <unit id="contaminated">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>contaminated.name</source>
         <target>contaminated.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>contaminated.description</source>
         <target>contaminated.description</target>
       </segment>
     </unit>
     <unit id="plant_young">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>plant_young.name</source>
         <target>plant_young.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>plant_young.description</source>
         <target>plant_young.description</target>
       </segment>
     </unit>
     <unit id="plant_thirsty">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>plant_thirsty.name</source>
         <target>plant_thirsty.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>plant_thirsty.description</source>
         <target>plant_thirsty.description</target>
       </segment>
     </unit>
     <unit id="plant_dry">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>plant_dry.name</source>
         <target>plant_dry.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>plant_dry.description</source>
         <target>plant_dry.description</target>
       </segment>
     </unit>
     <unit id="plant_diseased">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>plant_diseased.name</source>
         <target>plant_diseased.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>plant_diseased.description</source>
         <target>plant_diseased.description</target>
       </segment>
     </unit>
     <unit id="commander">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>commander.name</source>
         <target>commander.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>commander.description</source>
         <target>commander.description</target>
       </segment>
     </unit>
     <unit id="communications_officer">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>communications_officer.name</source>
         <target>communications_officer.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>communications_officer.description</source>
         <target>communications_officer.description</target>
       </segment>
     </unit>
     <unit id="neron_administrator">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>neron_administrator.name</source>
         <target>neron_administrator.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>neron_administrator.description</source>
         <target>neron_administrator.description</target>
       </segment>
     </unit>
     <unit id="antisocial">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>antisocial.name</source>
         <target>antisocial.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>antisocial.description</source>
         <target>antisocial.description</target>
       </segment>
     </unit>
     <unit id="berzerk">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>berzerk.name</source>
         <target>berzerk.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>berzerk.description</source>
         <target>berzerk.description</target>
       </segment>
     </unit>
     <unit id="brainsync">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>brainsync.name</source>
         <target>brainsync.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>brainsync.description</source>
         <target>brainsync.description</target>
       </segment>
     </unit>
     <unit id="burdened">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>burdened.name</source>
         <target>burdened.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>burdened.description</source>
         <target>burdened.description</target>
       </segment>
     </unit>
     <unit id="demoralized">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>demoralized.name</source>
         <target>demoralized.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>demoralized.description</source>
         <target>demoralized.description</target>
       </segment>
     </unit>
     <unit id="dirty">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>dirty.name</source>
         <target>dirty.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>dirty.description</source>
         <target>dirty.description</target>
       </segment>
     </unit>
     <unit id="disabled">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>disabled.name</source>
         <target>disabled.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>disabled.description</source>
         <target>disabled.description</target>
       </segment>
     </unit>
     <unit id="eureka_moment">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>eureka_moment.name</source>
         <target>eureka_moment.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>eureka_moment.description</source>
         <target>eureka_moment.description</target>
       </segment>
     </unit>
     <unit id="first_time">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>first_time.name</source>
         <target>first_time.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>first_time.description</source>
         <target>first_time.description</target>
       </segment>
     </unit>
     <unit id="focused">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>focused.name</source>
         <target>focused.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>focused.description</source>
         <target>focused.description</target>
       </segment>
     </unit>
     <unit id="full_stomach">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>full_stomach.name</source>
         <target>full_stomach.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>full_stomach.description</source>
         <target>full_stomach.description</target>
       </segment>
     </unit>
     <unit id="gagged">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>gagged.name</source>
         <target>gagged.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>gagged.description</source>
         <target>gagged.description</target>
       </segment>
     </unit>
     <unit id="germaphobe">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>germaphobe.name</source>
         <target>germaphobe.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>germaphobe.description</source>
         <target>germaphobe.description</target>
       </segment>
     </unit>
     <unit id="guardian">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>guardian.name</source>
         <target>guardian.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>guardian.description</source>
         <target>guardian.description</target>
       </segment>
     </unit>
     <unit id="highly_inactive">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>highly_inactive.name</source>
         <target>highly_inactive.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>highly_inactive.description</source>
         <target>highly_inactive.description</target>
       </segment>
     </unit>
     <unit id="hyperactive">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>hyperactive.name</source>
         <target>hyperactive.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hyperactive.description</source>
         <target>hyperactive.description</target>
       </segment>
     </unit>
     <unit id="immunized">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>immunized.name</source>
         <target>immunized.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>immunized.description</source>
         <target>immunized.description</target>
       </segment>
     </unit>
     <unit id="inactive">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>inactive.name</source>
         <target>inactive.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>inactive.description</source>
         <target>inactive.description</target>
       </segment>
     </unit>
     <unit id="lost">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>lost.name</source>
         <target>lost.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>lost.description</source>
         <target>lost.description</target>
       </segment>
     </unit>
     <unit id="lying_down">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>lying_down.name</source>
         <target>lying_down.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>lying_down.description</source>
         <target>lying_down.description</target>
       </segment>
     </unit>
     <unit id="multi_teamster">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>multi_teamster.name</source>
         <target>multi_teamster.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>multi_teamster.description</source>
         <target>multi_teamster.description</target>
       </segment>
     </unit>
     <unit id="mush">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mush.name</source>
         <target>mush.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mush.description</source>
         <target>mush.description</target>
       </segment>
     </unit>
     <unit id="pariah">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pariah.name</source>
         <target>pariah.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>pariah.description</source>
         <target>pariah.description</target>
       </segment>
     </unit>
     <unit id="pacifist">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pacifist.name</source>
         <target>pacifist.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>pacifist.description</source>
         <target>pacifist.description</target>
       </segment>
     </unit>
     <unit id="pregnant">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pregnant.name</source>
         <target>pregnant.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>pregnant.description</source>
         <target>pregnant.description</target>
       </segment>
     </unit>
     <unit id="spores">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>spores.name</source>
         <target>spores.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>spores.description</source>
         <target>spores.description</target>
       </segment>
     </unit>
     <unit id="starving">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>starving.name</source>
         <target>starving.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>starving.description</source>
         <target>starving.description</target>
       </segment>
     </unit>
     <unit id="starving_warning">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>starving_warning.name</source>
         <target>starving_warning.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>starving_warning.description</source>
         <target>starving_warning.description</target>
       </segment>
     </unit>
     <unit id="stuck_in_the_ship">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>stuck_in_the_ship.name</source>
         <target>stuck_in_the_ship.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>stuck_in_the_ship.description</source>
         <target>stuck_in_the_ship.description</target>
       </segment>
     </unit>
     <unit id="suicidal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>suicidal.name</source>
         <target>suicidal.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>suicidal.description</source>
         <target>suicidal.description</target>
       </segment>
     </unit>
     <unit id="updating">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>updating.name</source>
         <target>updating.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>updating.description</source>
         <target>updating.description</target>
       </segment>
     </unit>
     <unit id="fire.name">
-      <segment state="initial">
+      <segment state="translated">
         <source>fire.name</source>
         <target>fire.name</target>
       </segment>
     </unit>
     <unit id="fire.description">
-      <segment state="initial">
+      <segment state="translated">
         <source>fire.description</source>
         <target>fire.description</target>
       </segment>
     </unit>
     <unit id="mush_trapped.name">
-      <segment state="initial">
+      <segment state="translated">
         <source>mush_trapped.name</source>
         <target>mush_trapped.name</target>
       </segment>
     </unit>
     <unit id="mush_trapped.description">
-      <segment state="initial">
+      <segment state="translated">
         <source>mush_trapped.description</source>
         <target>mush_trapped.description</target>
       </segment>
     </unit>
     <unit id="genius_idea">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>genius_idea.name</source>
         <target>genius_idea.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>genius_idea.description</source>
         <target>genius_idea.description</target>
       </segment>
     </unit>
     <unit id="cat_infected">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>cat_infected.name</source>
         <target>cat_infected.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cat_infected.description</source>
         <target>cat_infected.description</target>
       </segment>
     </unit>
     <unit id="antique_perfume_immunized">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>antique_perfume_immunized.name</source>
         <target>antique_perfume_immunized.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>antique_perfume_immunized.description</source>
         <target>antique_perfume_immunized.description</target>
       </segment>
     </unit>
     <unit id="beginner">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>beginner.name</source>
         <target>beginner.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>beginner.description</source>
         <target>beginner.description</target>
       </segment>
     </unit>
     <unit id="turbo_drone_upgrade">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>turbo_drone_upgrade.description</source>
         <target>turbo_drone_upgrade.description</target>
       </segment>
     </unit>
     <unit id="pilot_drone_upgrade">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>pilot_drone_upgrade.description</source>
         <target>pilot_drone_upgrade.description</target>
       </segment>
     </unit>
     <unit id="sensor_drone_upgrade">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>sensor_drone_upgrade.description</source>
         <target>sensor_drone_upgrade.description</target>
       </segment>
     </unit>
     <unit id="firefighter_drone_upgrade">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>firefighter_drone_upgrade.description</source>
         <target>firefighter_drone_upgrade.description</target>
       </segment>
     </unit>
     <unit id="is_anonymous">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>is_anonymous.name</source>
         <target>is_anonymous.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>is_anonymous.description</source>
         <target>is_anonymous.description</target>
       </segment>

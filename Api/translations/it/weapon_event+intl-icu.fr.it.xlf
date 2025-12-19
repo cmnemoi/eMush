@@ -1,512 +1,512 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="it">
   <file id="weapon_event.ext">
     <unit id="blaster_successful_shot">
-      <segment id="blaster_successful_shot" state="initial">
+      <segment id="blaster_successful_shot" state="translated">
         <source>blaster_successful_shot</source>
         <target>blaster_successful_shot</target>
       </segment>
     </unit>
     <unit id="blaster_failed_shot">
-      <segment id="blaster_failed_shot" state="initial">
+      <segment id="blaster_failed_shot" state="translated">
         <source>blaster_failed_shot</source>
         <target>blaster_failed_shot</target>
       </segment>
     </unit>
     <unit id="blaster_target_headshot">
-      <segment id="blaster_target_headshot" state="initial">
+      <segment id="blaster_target_headshot" state="translated">
         <source>blaster_target_headshot</source>
         <target>blaster_target_headshot</target>
       </segment>
     </unit>
     <unit id="blaster_target_random_injury">
-      <segment id="blaster_target_random_injury" state="initial">
+      <segment id="blaster_target_random_injury" state="translated">
         <source>blaster_target_random_injury</source>
         <target>blaster_target_random_injury</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target">
-      <segment id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target" state="initial">
+      <segment id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target" state="translated">
         <source>blaster_shooter_plus_2_max_damage_20_random_injury_to_target</source>
         <target>blaster_shooter_plus_2_max_damage_20_random_injury_to_target</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_1_damage_target_damaged_ears">
-      <segment id="blaster_shooter_plus_1_damage_target_damaged_ears" state="initial">
+      <segment id="blaster_shooter_plus_1_damage_target_damaged_ears" state="translated">
         <source>blaster_shooter_plus_1_damage_target_damaged_ears</source>
         <target>blaster_shooter_plus_1_damage_target_damaged_ears</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma">
-      <segment id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma" state="initial">
+      <segment id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma" state="translated">
         <source>blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma</source>
         <target>blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_1_damage_target_remove_2_ap">
-      <segment id="blaster_shooter_plus_1_damage_target_remove_2_ap" state="initial">
+      <segment id="blaster_shooter_plus_1_damage_target_remove_2_ap" state="translated">
         <source>blaster_shooter_plus_1_damage_target_remove_2_ap</source>
         <target>blaster_shooter_plus_1_damage_target_remove_2_ap</target>
       </segment>
     </unit>
     <unit id="blaster_break_weapon">
-      <segment id="blaster_break_weapon" state="initial">
+      <segment id="blaster_break_weapon" state="translated">
         <source>blaster_break_weapon</source>
         <target>blaster_break_weapon</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_drop_weapon">
-      <segment id="blaster_shooter_drop_weapon" state="initial">
+      <segment id="blaster_shooter_drop_weapon" state="translated">
         <source>blaster_shooter_drop_weapon</source>
         <target>blaster_shooter_drop_weapon</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury">
-      <segment id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury" state="initial">
+      <segment id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury" state="translated">
         <source>blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury</source>
         <target>blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_minus_1_ap_break_weapon">
-      <segment id="blaster_shooter_minus_1_ap_break_weapon" state="initial">
+      <segment id="blaster_shooter_minus_1_ap_break_weapon" state="translated">
         <source>blaster_shooter_minus_1_ap_break_weapon</source>
         <target>blaster_shooter_minus_1_ap_break_weapon</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_minus_1_ap">
-      <segment id="blaster_shooter_minus_1_ap" state="initial">
+      <segment id="blaster_shooter_minus_1_ap" state="translated">
         <source>blaster_shooter_minus_1_ap</source>
         <target>blaster_shooter_minus_1_ap</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_successful_shot">
-      <segment id="natamy_rifle_successful_shot" state="initial">
+      <segment id="natamy_rifle_successful_shot" state="translated">
         <source>natamy_rifle_successful_shot</source>
         <target>natamy_rifle_successful_shot</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_headshot">
-      <segment id="natamy_rifle_headshot" state="initial">
+      <segment id="natamy_rifle_headshot" state="translated">
         <source>natamy_rifle_headshot</source>
         <target>natamy_rifle_headshot</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury">
-      <segment id="natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="initial">
+      <segment id="natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="translated">
         <source>natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</source>
         <target>natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_target_minus_1ap">
-      <segment id="natamy_rifle_target_minus_1ap" state="initial">
+      <segment id="natamy_rifle_target_minus_1ap" state="translated">
         <source>natamy_rifle_target_minus_1ap</source>
         <target>natamy_rifle_target_minus_1ap</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_headshot_2">
-      <segment id="natamy_rifle_headshot_2" state="initial">
+      <segment id="natamy_rifle_headshot_2" state="translated">
         <source>natamy_rifle_headshot_2</source>
         <target>natamy_rifle_headshot_2</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_target_mashed_foot">
-      <segment id="natamy_rifle_target_mashed_foot" state="initial">
+      <segment id="natamy_rifle_target_mashed_foot" state="translated">
         <source>natamy_rifle_target_mashed_foot</source>
         <target>natamy_rifle_target_mashed_foot</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents">
-      <segment id="natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="initial">
+      <segment id="natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="translated">
         <source>natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</source>
         <target>natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_break_weapon">
-      <segment id="natamy_rifle_break_weapon" state="initial">
+      <segment id="natamy_rifle_break_weapon" state="translated">
         <source>natamy_rifle_break_weapon</source>
         <target>natamy_rifle_break_weapon</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_burnt_hand">
-      <segment id="natamy_rifle_shooter_burnt_hand" state="initial">
+      <segment id="natamy_rifle_shooter_burnt_hand" state="translated">
         <source>natamy_rifle_shooter_burnt_hand</source>
         <target>natamy_rifle_shooter_burnt_hand</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_broken_shoulder">
-      <segment id="natamy_rifle_shooter_broken_shoulder" state="initial">
+      <segment id="natamy_rifle_shooter_broken_shoulder" state="translated">
         <source>natamy_rifle_shooter_broken_shoulder</source>
         <target>natamy_rifle_shooter_broken_shoulder</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_failed_shot">
-      <segment id="natamy_rifle_failed_shot" state="initial">
+      <segment id="natamy_rifle_failed_shot" state="translated">
         <source>natamy_rifle_failed_shot</source>
         <target>natamy_rifle_failed_shot</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_mashed_foot">
-      <segment id="natamy_rifle_shooter_mashed_foot" state="initial">
+      <segment id="natamy_rifle_shooter_mashed_foot" state="translated">
         <source>natamy_rifle_shooter_mashed_foot</source>
         <target>natamy_rifle_shooter_mashed_foot</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_drop_weapon">
-      <segment id="natamy_rifle_drop_weapon" state="initial">
+      <segment id="natamy_rifle_drop_weapon" state="translated">
         <source>natamy_rifle_drop_weapon</source>
         <target>natamy_rifle_drop_weapon</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_plus_2_damage">
-      <segment id="natamy_rifle_shooter_plus_2_damage" state="initial">
+      <segment id="natamy_rifle_shooter_plus_2_damage" state="translated">
         <source>natamy_rifle_shooter_plus_2_damage</source>
         <target>natamy_rifle_shooter_plus_2_damage</target>
       </segment>
     </unit>
     <unit id="knife_successful_hit_10_minor_haemorrhage">
-      <segment id="knife_successful_hit_10_minor_haemorrhage" state="initial">
+      <segment id="knife_successful_hit_10_minor_haemorrhage" state="translated">
         <source>knife_successful_hit_10_minor_haemorrhage</source>
         <target>knife_successful_hit_10_minor_haemorrhage</target>
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_random_injury">
-      <segment id="knife_plus_2_damage_random_injury" state="initial">
+      <segment id="knife_plus_2_damage_random_injury" state="translated">
         <source>knife_plus_2_damage_random_injury</source>
         <target>knife_plus_2_damage_random_injury</target>
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_50_critical_haemorrhage">
-      <segment id="knife_plus_2_damage_50_critical_haemorrhage" state="initial">
+      <segment id="knife_plus_2_damage_50_critical_haemorrhage" state="translated">
         <source>knife_plus_2_damage_50_critical_haemorrhage</source>
         <target>knife_plus_2_damage_50_critical_haemorrhage</target>
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_50_critical_haemorrhage_random_injury">
-      <segment id="knife_plus_2_damage_50_critical_haemorrhage_random_injury" state="initial">
+      <segment id="knife_plus_2_damage_50_critical_haemorrhage_random_injury" state="translated">
         <source>knife_plus_2_damage_50_critical_haemorrhage_random_injury</source>
         <target>knife_plus_2_damage_50_critical_haemorrhage_random_injury</target>
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint">
-      <segment id="knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint" state="initial">
+      <segment id="knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint" state="translated">
         <source>knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint</source>
         <target>knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint</target>
       </segment>
     </unit>
     <unit id="knife_instagib_bled">
-      <segment id="knife_instagib_bled" state="initial">
+      <segment id="knife_instagib_bled" state="translated">
         <source>knife_instagib_bled</source>
         <target>knife_instagib_bled</target>
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_punctured_lung">
-      <segment id="knife_plus_2_damage_punctured_lung" state="initial">
+      <segment id="knife_plus_2_damage_punctured_lung" state="translated">
         <source>knife_plus_2_damage_punctured_lung</source>
         <target>knife_plus_2_damage_punctured_lung</target>
       </segment>
     </unit>
     <unit id="knife_failed_hit">
-      <segment id="knife_failed_hit" state="initial">
+      <segment id="knife_failed_hit" state="translated">
         <source>knife_failed_hit</source>
         <target>knife_failed_hit</target>
       </segment>
     </unit>
     <unit id="knife_break_weapon">
-      <segment id="knife_break_weapon" state="initial">
+      <segment id="knife_break_weapon" state="translated">
         <source>knife_break_weapon</source>
         <target>knife_break_weapon</target>
       </segment>
     </unit>
     <unit id="knife_break_weapon_shooter_torn_tongue">
-      <segment id="knife_break_weapon_shooter_torn_tongue" state="initial">
+      <segment id="knife_break_weapon_shooter_torn_tongue" state="translated">
         <source>knife_break_weapon_shooter_torn_tongue</source>
         <target>knife_break_weapon_shooter_torn_tongue</target>
       </segment>
     </unit>
     <unit id="knife_shooter_bruised_shoulder">
-      <segment id="knife_shooter_bruised_shoulder" state="initial">
+      <segment id="knife_shooter_bruised_shoulder" state="translated">
         <source>knife_shooter_bruised_shoulder</source>
         <target>knife_shooter_bruised_shoulder</target>
       </segment>
     </unit>
     <unit id="knife_shooter_drop_weapon">
-      <segment id="knife_shooter_drop_weapon" state="initial">
+      <segment id="knife_shooter_drop_weapon" state="translated">
         <source>knife_shooter_drop_weapon</source>
         <target>knife_shooter_drop_weapon</target>
       </segment>
     </unit>
     <unit id="knife_shooter_minus_2_ap">
-      <segment id="knife_shooter_minus_2_ap" state="initial">
+      <segment id="knife_shooter_minus_2_ap" state="translated">
         <source>knife_shooter_minus_2_ap</source>
         <target>knife_shooter_minus_2_ap</target>
       </segment>
     </unit>
     <unit id="old_faithful_successful_shot">
-      <segment id="old_faithful_successful_shot" state="initial">
+      <segment id="old_faithful_successful_shot" state="translated">
         <source>old_faithful_successful_shot</source>
         <target>old_faithful_successful_shot</target>
       </segment>
     </unit>
     <unit id="old_faithful_headshot">
-      <segment id="old_faithful_headshot" state="initial">
+      <segment id="old_faithful_headshot" state="translated">
         <source>old_faithful_headshot</source>
         <target>old_faithful_headshot</target>
       </segment>
     </unit>
     <unit id="old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury">
-      <segment id="old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="initial">
+      <segment id="old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="translated">
         <source>old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</source>
         <target>old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</target>
       </segment>
     </unit>
     <unit id="old_faithful_target_minus_1ap">
-      <segment id="old_faithful_target_minus_1ap" state="initial">
+      <segment id="old_faithful_target_minus_1ap" state="translated">
         <source>old_faithful_target_minus_1ap</source>
         <target>old_faithful_target_minus_1ap</target>
       </segment>
     </unit>
     <unit id="old_faithful_headshot_2">
-      <segment id="old_faithful_headshot_2" state="initial">
+      <segment id="old_faithful_headshot_2" state="translated">
         <source>old_faithful_headshot_2</source>
         <target>old_faithful_headshot_2</target>
       </segment>
     </unit>
     <unit id="old_faithful_target_mashed_foot">
-      <segment id="old_faithful_target_mashed_foot" state="initial">
+      <segment id="old_faithful_target_mashed_foot" state="translated">
         <source>old_faithful_target_mashed_foot</source>
         <target>old_faithful_target_mashed_foot</target>
       </segment>
     </unit>
     <unit id="old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents">
-      <segment id="old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="initial">
+      <segment id="old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="translated">
         <source>old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</source>
         <target>old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</target>
       </segment>
     </unit>
     <unit id="old_faithful_break_weapon">
-      <segment id="old_faithful_break_weapon" state="initial">
+      <segment id="old_faithful_break_weapon" state="translated">
         <source>old_faithful_break_weapon</source>
         <target>old_faithful_break_weapon</target>
       </segment>
     </unit>
     <unit id="old_faithful_shooter_burnt_hand">
-      <segment id="old_faithful_shooter_burnt_hand" state="initial">
+      <segment id="old_faithful_shooter_burnt_hand" state="translated">
         <source>old_faithful_shooter_burnt_hand</source>
         <target>old_faithful_shooter_burnt_hand</target>
       </segment>
     </unit>
     <unit id="old_faithful_shooter_broken_shoulder">
-      <segment id="old_faithful_shooter_broken_shoulder" state="initial">
+      <segment id="old_faithful_shooter_broken_shoulder" state="translated">
         <source>old_faithful_shooter_broken_shoulder</source>
         <target>old_faithful_shooter_broken_shoulder</target>
       </segment>
     </unit>
     <unit id="old_faithful_failed_shot">
-      <segment id="old_faithful_failed_shot" state="initial">
+      <segment id="old_faithful_failed_shot" state="translated">
         <source>old_faithful_failed_shot</source>
         <target>old_faithful_failed_shot</target>
       </segment>
     </unit>
     <unit id="old_faithful_shooter_mashed_foot">
-      <segment id="old_faithful_shooter_mashed_foot" state="initial">
+      <segment id="old_faithful_shooter_mashed_foot" state="translated">
         <source>old_faithful_shooter_mashed_foot</source>
         <target>old_faithful_shooter_mashed_foot</target>
       </segment>
     </unit>
     <unit id="old_faithful_drop_weapon">
-      <segment id="old_faithful_drop_weapon" state="initial">
+      <segment id="old_faithful_drop_weapon" state="translated">
         <source>old_faithful_drop_weapon</source>
         <target>old_faithful_drop_weapon</target>
       </segment>
     </unit>
     <unit id="old_faithful_shooter_plus_2_damage">
-      <segment id="old_faithful_shooter_plus_2_damage" state="initial">
+      <segment id="old_faithful_shooter_plus_2_damage" state="translated">
         <source>old_faithful_shooter_plus_2_damage</source>
         <target>old_faithful_shooter_plus_2_damage</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_successful_shot">
-      <segment id="lizaro_jungle_successful_shot" state="initial">
+      <segment id="lizaro_jungle_successful_shot" state="translated">
         <source>lizaro_jungle_successful_shot</source>
         <target>lizaro_jungle_successful_shot</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_headshot">
-      <segment id="lizaro_jungle_headshot" state="initial">
+      <segment id="lizaro_jungle_headshot" state="translated">
         <source>lizaro_jungle_headshot</source>
         <target>lizaro_jungle_headshot</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury">
-      <segment id="lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="initial">
+      <segment id="lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="translated">
         <source>lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</source>
         <target>lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_target_minus_1ap">
-      <segment id="lizaro_jungle_target_minus_1ap" state="initial">
+      <segment id="lizaro_jungle_target_minus_1ap" state="translated">
         <source>lizaro_jungle_target_minus_1ap</source>
         <target>lizaro_jungle_target_minus_1ap</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_headshot_2">
-      <segment id="lizaro_jungle_headshot_2" state="initial">
+      <segment id="lizaro_jungle_headshot_2" state="translated">
         <source>lizaro_jungle_headshot_2</source>
         <target>lizaro_jungle_headshot_2</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_target_mashed_foot">
-      <segment id="lizaro_jungle_target_mashed_foot" state="initial">
+      <segment id="lizaro_jungle_target_mashed_foot" state="translated">
         <source>lizaro_jungle_target_mashed_foot</source>
         <target>lizaro_jungle_target_mashed_foot</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents">
-      <segment id="lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="initial">
+      <segment id="lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="translated">
         <source>lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</source>
         <target>lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_break_weapon">
-      <segment id="lizaro_jungle_break_weapon" state="initial">
+      <segment id="lizaro_jungle_break_weapon" state="translated">
         <source>lizaro_jungle_break_weapon</source>
         <target>lizaro_jungle_break_weapon</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_shooter_burnt_hand">
-      <segment id="lizaro_jungle_shooter_burnt_hand" state="initial">
+      <segment id="lizaro_jungle_shooter_burnt_hand" state="translated">
         <source>lizaro_jungle_shooter_burnt_hand</source>
         <target>lizaro_jungle_shooter_burnt_hand</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_shooter_broken_shoulder">
-      <segment id="lizaro_jungle_shooter_broken_shoulder" state="initial">
+      <segment id="lizaro_jungle_shooter_broken_shoulder" state="translated">
         <source>lizaro_jungle_shooter_broken_shoulder</source>
         <target>lizaro_jungle_shooter_broken_shoulder</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_failed_shot">
-      <segment id="lizaro_jungle_failed_shot" state="initial">
+      <segment id="lizaro_jungle_failed_shot" state="translated">
         <source>lizaro_jungle_failed_shot</source>
         <target>lizaro_jungle_failed_shot</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_shooter_mashed_foot">
-      <segment id="lizaro_jungle_shooter_mashed_foot" state="initial">
+      <segment id="lizaro_jungle_shooter_mashed_foot" state="translated">
         <source>lizaro_jungle_shooter_mashed_foot</source>
         <target>lizaro_jungle_shooter_mashed_foot</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_drop_weapon">
-      <segment id="lizaro_jungle_drop_weapon" state="initial">
+      <segment id="lizaro_jungle_drop_weapon" state="translated">
         <source>lizaro_jungle_drop_weapon</source>
         <target>lizaro_jungle_drop_weapon</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_shooter_plus_2_damage">
-      <segment id="lizaro_jungle_shooter_plus_2_damage" state="initial">
+      <segment id="lizaro_jungle_shooter_plus_2_damage" state="translated">
         <source>lizaro_jungle_shooter_plus_2_damage</source>
         <target>lizaro_jungle_shooter_plus_2_damage</target>
       </segment>
     </unit>
     <unit id="bare_hands_successful_hit">
-      <segment id="bare_hands_successful_hit" state="initial">
+      <segment id="bare_hands_successful_hit" state="translated">
         <source>bare_hands_successful_hit</source>
         <target>bare_hands_successful_hit</target>
       </segment>
     </unit>
     <unit id="bare_hands_target_burst_nose_10_percent">
-      <segment id="bare_hands_target_burst_nose_10_percent" state="initial">
+      <segment id="bare_hands_target_burst_nose_10_percent" state="translated">
         <source>bare_hands_target_burst_nose_10_percent</source>
         <target>bare_hands_target_burst_nose_10_percent</target>
       </segment>
     </unit>
     <unit id="bare_hands_plus_1_damage">
-      <segment id="bare_hands_plus_1_damage" state="initial">
+      <segment id="bare_hands_plus_1_damage" state="translated">
         <source>bare_hands_plus_1_damage</source>
         <target>bare_hands_plus_1_damage</target>
       </segment>
     </unit>
     <unit id="bare_hands_failed_hit">
-      <segment id="bare_hands_failed_hit" state="initial">
+      <segment id="bare_hands_failed_hit" state="translated">
         <source>bare_hands_failed_hit</source>
         <target>bare_hands_failed_hit</target>
       </segment>
     </unit>
     <unit id="bare_hands_fumble">
-      <segment id="bare_hands_fumble" state="initial">
+      <segment id="bare_hands_fumble" state="translated">
         <source>bare_hands_fumble</source>
         <target>bare_hands_fumble</target>
       </segment>
     </unit>
     <unit id="grenade_successful_throw_splash_damage_all">
-      <segment id="grenade_successful_throw_splash_damage_all" state="initial">
+      <segment id="grenade_successful_throw_splash_damage_all" state="translated">
         <source>grenade_successful_throw_splash_damage_all</source>
         <target>grenade_successful_throw_splash_damage_all</target>
       </segment>
     </unit>
     <unit id="grenade_critical_throw_splash_damage_all_break_items_splash_wounds">
-      <segment id="grenade_critical_throw_splash_damage_all_break_items_splash_wounds" state="initial">
+      <segment id="grenade_critical_throw_splash_damage_all_break_items_splash_wounds" state="translated">
         <source>grenade_critical_throw_splash_damage_all_break_items_splash_wounds</source>
         <target>grenade_critical_throw_splash_damage_all_break_items_splash_wounds</target>
       </segment>
     </unit>
     <unit id="grenade_failure_placeholder">
-      <segment id="grenade_failure_placeholder" state="initial">
+      <segment id="grenade_failure_placeholder" state="translated">
         <source>grenade_failure_placeholder</source>
         <target>grenade_failure_placeholder</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash">
-      <segment id="rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash" state="initial">
+      <segment id="rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash" state="translated">
         <source>rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash</source>
         <target>rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_rocketted">
-      <segment id="rocket_launcher_rocketted" state="initial">
+      <segment id="rocket_launcher_rocketted" state="translated">
         <source>rocket_launcher_rocketted</source>
         <target>rocket_launcher_rocketted</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items">
-      <segment id="rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items" state="initial">
+      <segment id="rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items" state="translated">
         <source>rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items</source>
         <target>rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_critical_3_random_wounds_2_items">
-      <segment id="rocket_launcher_critical_3_random_wounds_2_items" state="initial">
+      <segment id="rocket_launcher_critical_3_random_wounds_2_items" state="translated">
         <source>rocket_launcher_critical_3_random_wounds_2_items</source>
         <target>rocket_launcher_critical_3_random_wounds_2_items</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_fumble_6_items">
-      <segment id="rocket_launcher_fumble_6_items" state="initial">
+      <segment id="rocket_launcher_fumble_6_items" state="translated">
         <source>rocket_launcher_fumble_6_items</source>
         <target>rocket_launcher_fumble_6_items</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_fumble_6_items_backfire_rocketted">
-      <segment id="rocket_launcher_fumble_6_items_backfire_rocketted" state="initial">
+      <segment id="rocket_launcher_fumble_6_items_backfire_rocketted" state="translated">
         <source>rocket_launcher_fumble_6_items_backfire_rocketted</source>
         <target>rocket_launcher_fumble_6_items_backfire_rocketted</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_fumble_8_splash_50_percent_4_items">
-      <segment id="rocket_launcher_fumble_8_splash_50_percent_4_items" state="initial">
+      <segment id="rocket_launcher_fumble_8_splash_50_percent_4_items" state="translated">
         <source>rocket_launcher_fumble_8_splash_50_percent_4_items</source>
         <target>rocket_launcher_fumble_8_splash_50_percent_4_items</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_miss_10_items">
-      <segment id="rocket_launcher_miss_10_items" state="initial">
+      <segment id="rocket_launcher_miss_10_items" state="translated">
         <source>rocket_launcher_miss_10_items</source>
         <target>rocket_launcher_miss_10_items</target>
       </segment>
     </unit>
     <unit id="found_protections">
-      <segment id="found_protections" state="initial">
+      <segment id="found_protections" state="translated">
         <source>found_protections</source>
         <target>found_protections</target>
       </segment>

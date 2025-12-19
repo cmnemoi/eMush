@@ -1,148 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="it">
   <file id="player.ext">
     <unit id="healthPoint">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>healthPoint.name</source>
         <target>healthPoint.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>healthPoint.description</source>
         <target>healthPoint.description</target>
       </segment>
     </unit>
     <unit id="moralPoint">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>moralPoint.name</source>
         <target>moralPoint.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>moralPoint.description</source>
         <target>moralPoint.description</target>
       </segment>
     </unit>
     <unit id="actionPoint">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>actionPoint.name</source>
         <target>actionPoint.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>actionPoint.description</source>
         <target>actionPoint.description</target>
       </segment>
     </unit>
     <unit id="triumph">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>triumph.name</source>
         <target>triumph.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>triumph.description</source>
         <target>triumph.description</target>
       </segment>
     </unit>
     <unit id="titles">
-      <segment id="commander.name" state="initial">
+      <segment id="commander.name" state="translated">
         <source>commander.name</source>
         <target>commander.name</target>
       </segment>
-      <segment id="commander.desc" state="initial">
+      <segment id="commander.desc" state="translated">
         <source>commander.desc</source>
         <target>commander.desc</target>
       </segment>
-      <segment id="neron_manager.name" state="initial">
+      <segment id="neron_manager.name" state="translated">
         <source>neron_manager.name</source>
         <target>neron_manager.name</target>
       </segment>
-      <segment id="neron_manager.desc" state="initial">
+      <segment id="neron_manager.desc" state="translated">
         <source>neron_manager.desc</source>
         <target>neron_manager.desc</target>
       </segment>
-      <segment id="com_manager.name" state="initial">
+      <segment id="com_manager.name" state="translated">
         <source>com_manager.name</source>
         <target>com_manager.name</target>
       </segment>
-      <segment id="com_manager.desc" state="initial">
+      <segment id="com_manager.desc" state="translated">
         <source>com_manager.desc</source>
         <target>com_manager.desc</target>
       </segment>
     </unit>
     <unit id="shoot">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>shoot.name</source>
         <target>shoot.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>shoot.description</source>
         <target>shoot.description</target>
       </segment>
     </unit>
     <unit id="cook">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>cook.name</source>
         <target>cook.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cook.description</source>
         <target>cook.description</target>
       </segment>
     </unit>
     <unit id="core">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>core.name</source>
         <target>core.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>core.description</source>
         <target>core.description</target>
       </segment>
     </unit>
     <unit id="engineer">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>engineer.name</source>
         <target>engineer.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>engineer.description</source>
         <target>engineer.description</target>
       </segment>
     </unit>
     <unit id="garden">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>garden.name</source>
         <target>garden.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>garden.description</source>
         <target>garden.description</target>
       </segment>
     </unit>
     <unit id="pilgred">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pilgred.name</source>
         <target>pilgred.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>pilgred.description</source>
         <target>pilgred.description</target>
       </segment>
     </unit>
     <unit id="computer">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>computer.name</source>
         <target>computer.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>computer.description</source>
         <target>computer.description</target>
       </segment>
     </unit>
     <unit id="heal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>heal.name</source>
         <target>heal.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>heal.description</source>
         <target>heal.description</target>
       </segment>

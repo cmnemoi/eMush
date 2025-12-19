@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="es">
   <file id="terminal.ext">
     <unit id="command_terminal">
       <segment id="name" state="translated">
@@ -431,8 +431,8 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="tips" state="translated">
         <source>communication_center.tips</source>
-        <target>Toda comunicación empieza estableciendo contacto.//
-Esta acción puede ser realizada por cualquier tripulante. Establecer contacto sube el ánimo de todo el equipo y desbloquea nuevas acciones para el Responsable de Comunicaciones.//
+        <target>Toda comunicación empieza **estableciendo contacto**.//
+Esta acción puede ser realizada por cualquier tripulante. Establecer contacto sube el ánimo de todo el equipo **la primera vez** y desbloquea nuevas acciones para el Oficial de Comunicaciones.//
 Si el contacto falla, por lo menos **mejorará la calidad de señal** y aumentará las probabilidades de éxito del próximo intento.</target>
       </segment>
       <segment id="contact" state="translated">

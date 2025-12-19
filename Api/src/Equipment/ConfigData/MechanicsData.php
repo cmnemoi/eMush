@@ -2009,6 +2009,42 @@ class MechanicsData
             ],
             'modifierConfigs' => [],
         ],
+        [
+            'name' => 'apprentron_gunner_default',
+            'type' => 'book',
+            'skill' => SkillEnum::GUNNER,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_lethargy_default',
+            'type' => 'book',
+            'skill' => SkillEnum::LETHARGY,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_neron_only_friend_default',
+            'type' => 'book',
+            'skill' => SkillEnum::NERON_ONLY_FRIEND,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'apprentron_hygienist_default',
+            'type' => 'book',
+            'skill' => SkillEnum::HYGIENIST,
+            'actions' => [
+                'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

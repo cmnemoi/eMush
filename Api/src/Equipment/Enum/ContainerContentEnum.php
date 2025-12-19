@@ -46,7 +46,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::CHAO,
         ],
         [
-            'item' => ItemEnum::KNIFE, // @TODO: Gunner Mage book
+            'item' => 'apprentron_gunner',
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -158,7 +158,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::FRIEDA,
         ],
         [
-            'item' => ItemEnum::QUADRIMETRIC_COMPASS, // @TODO: Lethargy mage book
+            'item' => 'apprentron_lethargy',
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -487,14 +487,14 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::ANDIE,
         ],
         [
-            'item' => 'apprentron_opportunist', // @TODO: find replacement
+            'item' => 'apprentron_hygienist',
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::ANDIE,
         ],
         [
-            'item' => 'apprentron_self_sacrifice', // @TODO: NERON's only friend mage book
+            'item' => 'apprentron_neron_only_friend',
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,

@@ -130,6 +130,7 @@ final class ReadBook extends AbstractAction
             parameters: [
                 LogParameterKeyEnum::SKILL => $learnedSkill->toString(),
                 'character_gender' => 'other',
+                'character' => 'other',
             ],
         );
     }

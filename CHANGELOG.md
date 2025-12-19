@@ -1,4 +1,4 @@
-# [0.20.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.19.1...0.20.0) (2025-12-19)
+# [0.19.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.19.1...0.19.2) (2025-12-19)
 
 
 ### Bug Fixes

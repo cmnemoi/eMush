@@ -106,9 +106,9 @@ enum SkillEnum: string
         return $this->value;
     }
 
-    public function isMushSkill(): bool
+    public static function getMushSkills(): ArrayCollection
     {
-        return (new ArrayCollection([
+        return new ArrayCollection([
             self::ANONYMUSH,
             self::BACTEROPHILIAC,
             self::BYPASS,
@@ -136,7 +136,12 @@ enum SkillEnum: string
             self::TRANSFER,
             self::TRAPPER,
             self::EPIGENETICS,
-        ]))->contains($this);
+        ]);
+    }
+
+    public function isMushSkill(): bool
+    {
+        return $this->getMushSkills()->contains($this);
     }
 
     public function isHumanSkill(): bool

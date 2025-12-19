@@ -11,6 +11,7 @@ use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -68,6 +69,14 @@ final class OpenContainerCest extends AbstractFunctionalTest
         $this->thenAnyOfChunGiftShouldBeInInventory($I);
     }
 
+    public function anniversaryGiftShouldGiveMushPlayerRandomMushSkill(FunctionalTester $I): void
+    {
+        $this->givenAnniversaryGiftInChunInventory();
+        $this->givenChunIsMush();
+        $this->whenChunOpensGift();
+        $this->thenChunShouldHaveAMushPerkAndExtraSlot($I);
+    }
+
     public function lunchboxShouldGiveRations(FunctionalTester $I): void
     {
         $this->givenLunchboxInShelf();
@@ -97,6 +106,16 @@ final class OpenContainerCest extends AbstractFunctionalTest
             equipmentHolder: $this->chun,
             reasons: [],
             time: new \DateTime()
+        );
+    }
+
+    private function givenChunIsMush(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
         );
     }
 
@@ -155,6 +174,12 @@ final class OpenContainerCest extends AbstractFunctionalTest
             condition: array_intersect(['apprentron_medic', ItemEnum::MUSH_SAMPLE, ItemEnum::MYCO_ALARM, 'apprentron_optimist'], $chunEquipment->toArray()) !== [],
             message: "Chun should have a piece of equipment between Medic mage book, Mush sample, Mycoalarm or Optimist magebook, but she has: {implode(', ', {$chunEquipment})}"
         );
+    }
+
+    private function thenChunShouldHaveAMushPerkAndExtraSlot(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->chun->getMushSkillSlots() === $this->daedalus->getDaedalusConfig()->getMushSkillSlots() + 1);
+        $I->assertTrue($this->chun->getMushSkills()->count() === 1);
     }
 
     private function givenLunchboxInShelf(): void

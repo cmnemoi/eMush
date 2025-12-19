@@ -1284,6 +1284,13 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK) ? $skillSlots + 1 : $skillSlots;
     }
 
+    public function getMushSkillSlots(): int
+    {
+        $skillSlots = $this->daedalus->getDaedalusConfig()->getMushSkillSlots();
+
+        return $this->hasStatus(PlayerStatusEnum::HAS_EXTRA_MUSH_SLOT_ANNIVERSARY) ? $skillSlots + 1 : $skillSlots;
+    }
+
     public function hasFilledTheirHumanSkillSlots(): bool
     {
         return $this->getHumanSkills()->count() === $this->getHumanSkillSlots();
@@ -1291,7 +1298,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function hasFilledTheirMushSkillSlots(): bool
     {
-        return $this->getMushSkills()->count() === $this->daedalus->getDaedalusConfig()->getMushSkillSlots();
+        return $this->getMushSkills()->count() === $this->getMushSkillSlots();
     }
 
     public function addReceivedMission(CommanderMission $mission): static

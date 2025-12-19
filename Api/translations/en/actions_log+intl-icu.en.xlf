@@ -1067,6 +1067,12 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         } wanted...</target>
       </segment>
     </unit>
+    <unit id="anniversary_gift_mush_skill">
+      <segment id="anniversary_gift_mush_skill" state="translated">
+        <source>anniversary_gift_mush_skill</source>
+        <target>What's this? Underneath this useless trinket, you smell the faint sign of a pheromonal message... "Do us proud, Agent." You find a Mage Spore... and it contains **{skill}**!</target>
+      </segment>
+    </unit>
     <unit id="establish_link_with_sol_fail">
       <segment id="establish_link_with_sol_fail" state="translated">
         <source>establish_link_with_sol_fail</source>

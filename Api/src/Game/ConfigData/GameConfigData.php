@@ -539,6 +539,7 @@ class GameConfigData
                     DaedalusStatusEnum::COMMUNICATIONS_EXPERT . '_default',
                     PlayerStatusEnum::HAS_USED_FERTILE_TODAY . '_default',
                     PlayerStatusEnum::HAS_USED_TRAITOR_THIS_EXPEDITION . '_default',
+                    PlayerStatusEnum::HAS_EXTRA_MUSH_SLOT_ANNIVERSARY . '_default',
                 ],
                 'triumphConfigs' => array_map(static fn (TriumphConfigDto $triumphConfig) => $triumphConfig->name->toConfigKey('default'), TriumphConfigData::getAll()),
                 'hunterConfigs' => [

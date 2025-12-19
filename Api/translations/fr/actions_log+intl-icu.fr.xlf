@@ -1312,6 +1312,12 @@
         } voulait...</target>
       </segment>
     </unit>
+    <unit id="anniversary_gift_mush_skill">
+      <segment id="anniversary_gift_mush_skill" state="translated">
+        <source>anniversary_gift_mush_skill</source>
+        <target>Tiens tiens? Ça sent comme un message phéromonal sous ce truc... "Rends-nous fier, Agent." Vous trouvez un Apprenspore... et il contient **{skill}**!</target>
+      </segment>
+    </unit>
     <unit id="establish_link_with_sol_fail">
       <segment id="establish_link_with_sol_fail" state="translated">
         <source>establish_link_with_sol_fail</source>

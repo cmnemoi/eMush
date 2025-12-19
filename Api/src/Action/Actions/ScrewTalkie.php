@@ -62,7 +62,7 @@ class ScrewTalkie extends AbstractAction
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::INVENTORY,
-            'equipments' => [ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE],
+            'equipments' => [ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE, ItemEnum::ITRACKIE_2],
             'contains' => true,
             'all' => false,
             'target' => HasEquipment::PARAMETER,
@@ -71,7 +71,7 @@ class ScrewTalkie extends AbstractAction
         ]));
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::INVENTORY,
-            'equipments' => [ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE],
+            'equipments' => [ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE, ItemEnum::ITRACKIE_2],
             'contains' => true,
             'all' => false,
             'target' => HasEquipment::PLAYER,
@@ -99,7 +99,7 @@ class ScrewTalkie extends AbstractAction
         /** @var GameItem $talkie */
         $talkie = $target->getEquipments()->filter(
             static fn (GameItem $item) => $item->getName() === ItemEnum::WALKIE_TALKIE
-            || $item->getName() === ItemEnum::ITRACKIE
+            || $item->getName() === ItemEnum::ITRACKIE || $item->getName() === ItemEnum::ITRACKIE_2
         )->first();
 
         if (!$talkie->isBroken()) {

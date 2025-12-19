@@ -34,6 +34,7 @@ class ItemEnum
     public const string TRACKER = 'tracker';
     public const string WALKIE_TALKIE = 'walkie_talkie';
     public const string ITRACKIE = 'itrackie';
+    public const string ITRACKIE_2 = 'itrackie_2';
     public const string OXYGEN_CAPSULE = 'oxygen_capsule';
     public const string FUEL_CAPSULE = 'fuel_capsule';
     public const string APPRENTRON = 'apprentron';

@@ -3728,5 +3728,38 @@ An awesome jukebox from back in the day. Even better, it comes preloaded with th
         <target>Pavlov is the happiest dog you've ever met. He is extremely playful, energetic and loud, with a tendancy to wander as he pleases. This is @#p↻▦∆ĝ's dog.</target>
       </segment>
     </unit>
+    <unit id="itrackie_2">
+      <segment id="name" state="translated">
+        <source>itrackie_2.name</source>
+        <target>Itrackie®© 2™</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>itrackie_2.short_name</source>
+        <target>Itrackie 2</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>itrackie_2.plural_name</source>
+        <target>iTrackies®© 2s™</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>itrackie_2.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>itrackie_2.first_letter</source>
+        <target>vowel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>itrackie_2.description</source>
+        <target>Pfft, that old dinosaur? It's so old! It's so quaint! It's so passé! It's so *last year*! With a subtle gold(-like) plating and no pesky headphone jack, this is an upgrade that will make you ask, "How did I ever go without?"!
+        //:point: Allows you to communicate remotely with other crew members.//:point: Allows you to access the upgraded mini-map of the Daedalus. **Free ACTOPI included with every purchase!**</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>itrackie_2.examine</source>
+        <target>You think you may be experiencing buyer's remorce. And you got this for free.//
+        //Allows you to communicate remotely with other crew members.
+        //Allows you to access the upgraded mini-map of the Daedalus. **Free ACTOPI included with every purchase!**</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

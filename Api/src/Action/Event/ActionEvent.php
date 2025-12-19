@@ -236,9 +236,9 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
     }
 
     /** @param array<ActionEnum> $actions */
-    public function isNotAboutAnyAction(array $actions): bool
+    public function isIn(array $actions): bool
     {
-        return \in_array($this->getActionName(), $actions, true) === false;
+        return \in_array($this->getActionName(), $actions, true);
     }
 
     public function getDaedalusId(): int

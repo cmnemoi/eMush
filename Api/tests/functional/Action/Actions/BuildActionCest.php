@@ -12,11 +12,11 @@ use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -51,10 +51,8 @@ final class BuildActionCest extends AbstractFunctionalTest
 
     public function testCanReach(FunctionalTester $I)
     {
-        $room1 = new Place();
-        $room2 = new Place();
-
-        $player = $this->createPlayer(new Daedalus(), $room1);
+        $room1 = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
+        $room2 = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
 
         $buildActionEntity = new ActionConfig();
         $buildActionEntity
@@ -62,13 +60,13 @@ final class BuildActionCest extends AbstractFunctionalTest
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
 
-        $gameEquipment = $this->createEquipment('blueprint', $room2);
+        $gameEquipment = $this->createEquipment('babel_module_blueprint', $room2);
 
         $gameEquipment->getEquipment()->setMechanics(new ArrayCollection([
             $this->createBlueprint(['metal_scraps' => 1], $buildActionEntity),
         ]));
 
-        $this->buildAction->loadParameters($buildActionEntity, $gameEquipment, $player, $gameEquipment);
+        $this->buildAction->loadParameters($buildActionEntity, $gameEquipment, $this->player, $gameEquipment);
 
         $I->assertFalse($this->buildAction->isVisible());
 
@@ -79,11 +77,10 @@ final class BuildActionCest extends AbstractFunctionalTest
 
     public function testIsBlueprint(FunctionalTester $I)
     {
-        $room = new Place();
+        $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
-        $player = $this->createPlayer(new Daedalus(), $room);
-
-        $gameEquipment = $this->createEquipment('blueprint', $room);
+        // take something that's not a blueprint
+        $gameEquipment = $this->createEquipment(ToolItemEnum::MAD_KUBE, $room);
 
         $buildActionEntity = new ActionConfig();
         $buildActionEntity
@@ -91,10 +88,11 @@ final class BuildActionCest extends AbstractFunctionalTest
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setRange(ActionRangeEnum::SELF);
 
-        $this->buildAction->loadParameters($buildActionEntity, $gameEquipment, $player, $gameEquipment);
+        $this->buildAction->loadParameters($buildActionEntity, $gameEquipment, $this->player, $gameEquipment);
 
         $I->assertFalse($this->buildAction->isVisible());
 
+        // make it a blueprint
         $gameEquipment->getEquipment()->setMechanics(new ArrayCollection([
             $this->createBlueprint(['metal_scraps' => 1], $buildActionEntity),
         ]));
@@ -247,18 +245,6 @@ final class BuildActionCest extends AbstractFunctionalTest
         $player->setPlayerInfo($playerInfo);
 
         return $player;
-    }
-
-    private function createEquipment(string $name, Place $place): GameEquipment
-    {
-        $gameEquipment = new GameEquipment($place);
-        $equipment = new EquipmentConfig();
-        $equipment->setEquipmentName($name);
-        $gameEquipment
-            ->setEquipment($equipment)
-            ->setName($name);
-
-        return $gameEquipment;
     }
 
     private function createBlueprint(array $ingredients, ActionConfig $buildAction, ?EquipmentConfig $product = null): Blueprint

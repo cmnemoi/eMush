@@ -89,9 +89,11 @@ const ANNIVERSARY_GIFT = "anniversary_gift";
 const COFFEE_THERMOS = "coffee_thermos";
 const LUNCHBOX = "lunchbox";
 
+//means of communication
 const ITRACKIE = "itrackie";
 const TRACKER = "tracker";
 const WALKIE_TALKIE = "walkie_talkie";
+const ITRACKIE_2 = 'itrackie_2';
 
 // artefacts
 const ALIEN_BOTTLE_OPENER = 'alien_bottle_opener';
@@ -407,6 +409,9 @@ export const itemEnum: {[index: string]: any} = {
     },
     [ITRACKIE]: {
         'image': getImgUrl('items/super_talkie.jpg')
+    },
+    [ITRACKIE_2]: {
+        'image': getImgUrl('items/hyper_talkie.png')
     },
     [ORGANIC_WASTE]: {
         'image': getImgUrl('items/organic_waste.jpg')

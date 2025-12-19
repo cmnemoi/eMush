@@ -3825,5 +3825,35 @@ La rockola de esos años maravillosos. ¡Y tiene las canciones favoritas de la t
         <target>Pavlov es el perro más feliz que jamás conociste. Le encanta jugar, siempre tiene energía, y nunca deja de ladrar; suele pasear por toda la nave. Es el perro de @#p↻▦∆ĝ.</target>
       </segment>
     </unit>
+    <unit id="itrackie_2">
+      <segment id="name" state="initial">
+        <source>itrackie_2.name</source>
+        <target>Itrackie®© 2™</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>itrackie_2.short_name</source>
+        <target>Itrackie 2</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>itrackie_2.plural_name</source>
+        <target>iTrackies®© 2s™</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>itrackie_2.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>itrackie_2.first_letter</source>
+        <target>vowel</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>itrackie_2.description</source>
+        <target></target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>itrackie_2.examine</source>
+        <target></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

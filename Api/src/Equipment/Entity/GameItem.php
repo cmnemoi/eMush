@@ -125,11 +125,6 @@ class GameItem extends GameEquipment
         throw new \LogicException('Cannot determine if item is critical if it is not held by a player');
     }
 
-    public function isATalkie(): bool
-    {
-        return \in_array($this->getName(), [ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE], true);
-    }
-
     public function isSchrodinger(): bool
     {
         return $this->getName() === ItemEnum::SCHRODINGER;

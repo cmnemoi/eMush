@@ -1318,16 +1318,20 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function hasMeansOfCommunication(): bool
     {
-        return $this->hasOperationalEquipmentByName(ItemEnum::WALKIE_TALKIE)
-            || $this->hasOperationalEquipmentByName(ItemEnum::ITRACKIE)
+        return $this->hasATalkie()
             || $this->hasStatus(PlayerStatusEnum::BRAINSYNC)
             || $this->getPlace()->getName() === RoomEnum::BRIDGE
             || $this->hasTitle(TitleEnum::COM_MANAGER);
     }
 
+    public function hasATracker(): bool
+    {
+        return $this->hasAnyOperationalEquipment([ItemEnum::TRACKER, ItemEnum::ITRACKIE, ItemEnum::ITRACKIE_2]);
+    }
+
     public function hasATalkie(): bool
     {
-        return $this->hasAnyOperationalEquipment([ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE]);
+        return $this->hasAnyOperationalEquipment([ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE, ItemEnum::ITRACKIE_2]);
     }
 
     public function getOldPlaceOrThrow(): Place
@@ -1450,7 +1454,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     private function hasPheromodemConnectedTracker(): bool
     {
-        $hasTracker = $this->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) || $this->hasOperationalEquipmentByName(ItemEnum::TRACKER);
+        $hasTracker = $this->hasATracker();
         $pheromodemIsFinished = $this->daedalus->getProjectByName(ProjectName::PHEROMODEM)->isFinished();
 
         return $hasTracker && $pheromodemIsFinished;

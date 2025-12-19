@@ -13,6 +13,9 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Entity\TitlePriority;
 use Mush\Daedalus\ValueObject\GameDate;
+use Mush\Equipment\Entity\EquipmentHolderInterface;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -35,6 +38,9 @@ use Mush\Project\Event\ProjectEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
+use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use Symfony\Component\Uid\Uuid;
 
@@ -51,10 +57,14 @@ class AbstractFunctionalTest
     protected Channel $mushChannel;
 
     protected CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus;
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         $this->createLinkWithSolForDaedalus = $I->grabService(CreateLinkWithSolForDaedalusService::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->daedalus = $this->createDaedalus($I);
         $this->players = $this->createPlayers($I, $this->daedalus);
@@ -302,14 +312,6 @@ class AbstractFunctionalTest
         }
     }
 
-    protected function addSkillToPlayer(SkillEnum $skill, FunctionalTester $I, ?Player $player = null): void
-    {
-        $player ??= $this->player;
-
-        $addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
-        $addSkillToPlayer->execute($skill, $player);
-    }
-
     protected function createAllProjects(FunctionalTester $I): void
     {
         foreach (ProjectConfigData::getAll() as $projectConfigData) {
@@ -319,6 +321,34 @@ class AbstractFunctionalTest
 
             $this->daedalus->addProject($project);
         }
+    }
+
+    protected function addSkillToPlayer(SkillEnum $skill, FunctionalTester $I, ?Player $player = null): void
+    {
+        $player ??= $this->player;
+
+        $addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
+        $addSkillToPlayer->execute($skill, $player);
+    }
+
+    protected function createEquipment(string $equipmentName, EquipmentHolderInterface $holder): GameEquipment
+    {
+        return $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: $equipmentName,
+            equipmentHolder: $holder,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    protected function breakEquipment(StatusHolderInterface $equipment): void
+    {
+        $this->statusService->createStatusFromName(
+            EquipmentStatusEnum::BROKEN,
+            $equipment,
+            ['test'],
+            new \DateTime()
+        );
     }
 
     private function createTitlePriorities(Daedalus $daedalus, FunctionalTester $I): void

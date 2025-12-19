@@ -494,6 +494,11 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return $container instanceof Container ? $container : throw new \RuntimeException("Equipment {$this->name} does not have a container mechanic.");
     }
 
+    public function getSpaceShipOrThrow(): SpaceShip
+    {
+        return $this instanceof SpaceShip ? $this : throw new \RuntimeException("Equipment {$this->name} is not a Spaceship.");
+    }
+
     public function hasMechanicByName(string $mechanicName): bool
     {
         foreach ($this->getEquipment()->getMechanics() as $mechanic) {

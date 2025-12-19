@@ -79,7 +79,7 @@ export default defineComponent ({
     },
     methods: {
         itemImage: function(item: Item): string {
-            return itemEnum[item.key] ? itemEnum[item.key].image : getImgUrl('items/todo.png');
+            return itemEnum[item.key] ? itemEnum[item.key].image : getImgUrl('items/todo.jpg');
         },
         formatDescription(value: string): string {
             if (! value) return '';

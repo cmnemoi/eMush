@@ -31,6 +31,8 @@ final class DaedalusWidgetService implements DaedalusWidgetServiceInterface
 
         $minimap = [];
 
+        $hasActopi = $daedalus->hasFinishedProject(ProjectName::WHOS_WHO) || $player->hasOperationalEquipmentByName(ItemEnum::ITRACKIE_2);
+
         if (!$this->hasPlayerAccessToMinimap($player)) {
             return $minimap;
         }
@@ -52,7 +54,7 @@ final class DaedalusWidgetService implements DaedalusWidgetServiceInterface
 
             $minimap[$roomName] = [
                 'players_count' => $room->getPlayers()->getPlayerAlive()->count(),
-                'actopi' => $daedalus->hasFinishedProject(ProjectName::WHOS_WHO) ? $this->getNormalizedRoomPlayers($room) : [],
+                'actopi' => $hasActopi ? $this->getNormalizedRoomPlayers($room) : [],
                 'fire' => $this->isFireDisplayed($room),
                 'broken_count' => \count($brokenEquipmentsList) + \count($brokenDoorsList),
                 'broken_doors' => $brokenDoorsList,
@@ -127,7 +129,7 @@ final class DaedalusWidgetService implements DaedalusWidgetServiceInterface
 
     private function hasPlayerAccessToMinimap(Player $player): bool
     {
-        $playerHasATracker = $player->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) || $player->hasOperationalEquipmentByName(ItemEnum::TRACKER);
+        $playerHasATracker = $player->hasATracker();
         $playerIsInARoom = $player->getPlace()->getType() === PlaceTypeEnum::ROOM;
 
         return $playerHasATracker && $playerIsInARoom;

@@ -7,10 +7,7 @@ namespace Mush\Tests\functional\Daedalus\Service;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Daedalus\Service\DaedalusWidgetService;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -18,7 +15,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Enum\ProjectName;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -43,35 +39,21 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        /** @var ItemConfig $iTrackieConfig */
-        $iTrackieConfig = $I->have(EquipmentConfig::class, ['name' => ItemEnum::ITRACKIE, 'gameConfig' => $this->daedalus->getGameConfig()]);
-        $iTrackie = new GameItem($this->player1);
-        $iTrackie
-            ->setName(ItemEnum::ITRACKIE)
-            ->setEquipment($iTrackieConfig);
-        $I->haveInRepository($iTrackie);
+        $this->createEquipment(ItemEnum::ITRACKIE, $this->chun);
     }
 
     public function testGetMinimap(FunctionalTester $I): void
     {
-        $gravitySimulatorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => EquipmentEnum::GRAVITY_SIMULATOR . '_default']);
-        $gravitySimulator = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
-        $gravitySimulator
-            ->setName(EquipmentEnum::GRAVITY_SIMULATOR)
-            ->setEquipment($gravitySimulatorConfig);
-        $I->haveInRepository($gravitySimulator);
+        $gravitySimulator = $this->createEquipment(
+            EquipmentEnum::GRAVITY_SIMULATOR,
+            $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)
+        );
 
         $minimap = $this->daedalusService->getMinimap($this->daedalus, $this->player1);
 
         $I->assertEmpty($minimap[RoomEnum::LABORATORY]['broken_equipments']);
 
-        // break simulator
-        $this->statusService->createStatusFromName(
-            EquipmentStatusEnum::BROKEN,
-            $gravitySimulator,
-            ['test'],
-            new \DateTime()
-        );
+        $this->breakEquipment($gravitySimulator);
 
         $minimap = $this->daedalusService->getMinimap($this->daedalus, $this->player1);
         $I->assertEmpty($minimap[RoomEnum::LABORATORY]['broken_equipments']);
@@ -92,15 +74,17 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
 
     public function shouldReturnFireWithFireSensor(FunctionalTester $I): void
     {
-        // given fre sensor project is completed
-        $fireDetector = $this->daedalus->getProjectByName(ProjectName::FIRE_SENSOR);
-        $fireDetector->makeProgressAndUpdateParticipationDate(100);
+        // given fire sensor project is completed
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::FIRE_SENSOR),
+            author: $this->chun,
+            I: $I,
+        );
 
-        // given there is a broken piece of equipment in the laboratory
-        $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
+        // given there is a fire in the laboratory
         $this->statusService->createStatusFromName(
             StatusEnum::FIRE,
-            holder: $room,
+            holder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
             tags: [],
             time: new \DateTime(),
         );
@@ -115,23 +99,18 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
     public function shouldReturnBrokenEquipmentWithEquipmentSensor(FunctionalTester $I): void
     {
         // given equipment sensor project is completed
-        $equipmentDetector = $this->daedalus->getProjectByName(ProjectName::EQUIPMENT_SENSOR);
-        $equipmentDetector->makeProgressAndUpdateParticipationDate(100);
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::EQUIPMENT_SENSOR),
+            author: $this->chun,
+            I: $I,
+        );
 
-        // given there is a broken piece of equipment in the laboratory
-        $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
-        $gravitySimulator = $this->gameEquipmentService->createGameEquipmentFromName(
+        // given a broken gravity simulator in the lab
+        $gravitySimulator = $this->createEquipment(
             EquipmentEnum::GRAVITY_SIMULATOR,
-            equipmentHolder: $room,
-            reasons: [],
-            time: new \DateTime(),
+            $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)
         );
-        $this->statusService->createStatusFromName(
-            EquipmentStatusEnum::BROKEN,
-            holder: $gravitySimulator,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->breakEquipment($gravitySimulator);
 
         // when I get the minimap
         $minimap = $this->daedalusService->getMinimap($this->daedalus, $this->chun);
@@ -143,17 +122,15 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
     public function shouldReturnBrokenDoorsWithEquipmentSensor(FunctionalTester $I): void
     {
         // given door sensor project is completed
-        $doorDetector = $this->daedalus->getProjectByName(ProjectName::DOOR_SENSOR);
-        $doorDetector->makeProgressAndUpdateParticipationDate(100);
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::DOOR_SENSOR),
+            author: $this->chun,
+            I: $I,
+        );
 
         // given there is a broken door
         $door = $this->createDoorFromLaboratoryToFrontCorridor($I);
-        $this->statusService->createStatusFromName(
-            EquipmentStatusEnum::BROKEN,
-            holder: $door,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->breakEquipment($door);
 
         // when I get the minimap
         $minimap = $this->daedalusService->getMinimap($this->daedalus, $this->chun);
@@ -205,6 +182,45 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldReturnPlayerPositionWithiTrackie2(FunctionalTester $I): void
+    {
+        // given Chun has an iTrackie 2
+        $this->createEquipment(ItemEnum::ITRACKIE_2, $this->chun);
+
+        // given Chun is in the laboratory
+        $I->assertEquals(expected: RoomEnum::LABORATORY, actual: $this->chun->getPlace()->getName());
+
+        // given KT is in the medlab
+        $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
+        $this->kuanTi->changePlace($medlab);
+        $I->assertEquals(expected: RoomEnum::MEDLAB, actual: $this->kuanTi->getPlace()->getName());
+
+        // when I get the minimap
+        $minimap = $this->daedalusService->getMinimap($this->daedalus, $this->chun);
+
+        // then I should see Chun in laboratory and KT in medlab
+        $I->assertEquals(
+            expected: [
+                [
+                    'initials' => 'CZ',
+                    'icon' => 'chun',
+                    'color' => '#DDD3CA',
+                ],
+            ],
+            actual: $minimap[RoomEnum::LABORATORY]['actopi']
+        );
+        $I->assertEquals(
+            expected: [
+                [
+                    'initials' => 'KTL',
+                    'icon' => 'kuan_ti',
+                    'color' => '#F39B01',
+                ],
+            ],
+            actual: $minimap[RoomEnum::MEDLAB]['actopi']
+        );
+    }
+
     public function shouldReturnPatrolShipNameWithEquipmentSensor(FunctionalTester $I): void
     {
         // given equipment sensor project is completed
@@ -212,21 +228,14 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
         $equipmentDetector->finish();
 
         // given there is a patrol ship
-        $patrolShip = $this->gameEquipmentService->createGameEquipment(
-            equipmentConfig: $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => EquipmentEnum::PATROL_SHIP . '_default']),
-            holder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
-            reasons: [],
-            time: new \DateTime(),
-            patrolShipName: EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE,
+        $patrolShip = $this->createEquipment(
+            EquipmentEnum::PATROL_SHIP,
+            $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)
         );
+        $patrolShip->getSpaceShipOrThrow()->setPatrolShipName(EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE);
 
         // given the patrol ship is broken
-        $this->statusService->createStatusFromName(
-            EquipmentStatusEnum::BROKEN,
-            holder: $patrolShip,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->breakEquipment($patrolShip);
 
         // when I get the minimap
         $minimap = $this->daedalusService->getMinimap($this->daedalus, $this->chun);

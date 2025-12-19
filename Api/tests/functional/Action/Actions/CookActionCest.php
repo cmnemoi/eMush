@@ -9,14 +9,13 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -57,11 +56,8 @@ final class CookActionCest extends AbstractFunctionalTest
 
     public function testCanReach(FunctionalTester $I)
     {
-        $room1 = new Place();
-        $room2 = new Place();
-
-        $player = $this->createPlayer(new Daedalus(), $room1);
-        $toolEquipment = $this->createEquipment('tool', $room1);
+        $room1 = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
+        $room2 = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
 
         $gameEquipment = $this->createEquipment(GameRationEnum::STANDARD_RATION, $room2);
 
@@ -71,16 +67,12 @@ final class CookActionCest extends AbstractFunctionalTest
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
 
-        $tool = new Tool();
-        $tool->setActions(new ArrayCollection([$cookActionEntity]));
-        $toolEquipment->getEquipment()->setMechanics(new ArrayCollection([$tool]));
-
         $gameEquipment->getEquipment()->setActionConfigs(new ArrayCollection([$cookActionEntity]));
 
         $this->cookAction->loadParameters(
             actionConfig: $cookActionEntity,
             actionProvider: $gameEquipment,
-            player: $player,
+            player: $this->player,
             target: $gameEquipment
         );
 
@@ -93,63 +85,36 @@ final class CookActionCest extends AbstractFunctionalTest
 
     public function testUsedTool(FunctionalTester $I)
     {
-        $room = new Place();
+        $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
-        $player = $this->createPlayer(new Daedalus(), $room);
-
-        $toolEquipment = $this->createEquipment('tool', $room);
+        $kitchen = $this->createEquipment(EquipmentEnum::KITCHEN, $room);
 
         $gameEquipment = $this->createEquipment(GameRationEnum::STANDARD_RATION, $room);
 
-        $cookActionEntity = new ActionConfig();
-        $cookActionEntity
-            ->setActionName(ActionEnum::COOK)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setRange(ActionRangeEnum::ROOM);
-
         $this->cookAction->loadParameters(
-            actionConfig: $cookActionEntity,
-            actionProvider: $toolEquipment,
-            player: $player,
+            actionConfig: $kitchen->getActionConfigByNameOrThrow(ActionEnum::COOK),
+            actionProvider: $kitchen,
+            player: $this->player,
             target: $gameEquipment
         );
-
-        $I->assertFalse($this->cookAction->isVisible());
-
-        $tool = new Tool();
-        $tool->setActions(new ArrayCollection([$cookActionEntity]));
-        $toolEquipment->getEquipment()->setMechanics(new ArrayCollection([$tool]));
 
         $I->assertTrue($this->cookAction->isVisible());
     }
 
     public function testCookable(FunctionalTester $I)
     {
-        $room = new Place();
+        $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
-        $player = $this->createPlayer(new Daedalus(), $room);
-
-        $toolEquipment = $this->createEquipment('tool', $room);
+        $kitchen = $this->createEquipment(EquipmentEnum::KITCHEN, $room);
 
         $gameEquipment = $this->createEquipment(GameRationEnum::STANDARD_RATION, $room);
 
-        $cookActionEntity = new ActionConfig();
-        $cookActionEntity
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionName(ActionEnum::COOK);
-
-        $tool = new Tool();
-        $tool->setActions(new ArrayCollection([$cookActionEntity]));
-        $toolEquipment->getEquipment()->setMechanics(new ArrayCollection([$tool]));
-
         $this->cookAction->loadParameters(
-            actionConfig: $cookActionEntity,
-            actionProvider: $toolEquipment,
-            player: $player,
+            actionConfig: $kitchen->getActionConfigByNameOrThrow(ActionEnum::COOK),
+            actionProvider: $kitchen,
+            player: $this->player,
             target: $gameEquipment
         );
-
         $I->assertTrue($this->cookAction->isVisible());
 
         $gameEquipment->getEquipment()->setEquipmentName(GameRationEnum::COFFEE);
@@ -159,7 +124,7 @@ final class CookActionCest extends AbstractFunctionalTest
 
     public function shouldCostZeroActionPointsForAChef(FunctionalTester $I): void
     {
-        $this->givenPlayerIsAChef($I);
+        $this->givenPlayerIsAChef();
 
         $this->whenPlayerWantsToCook();
 
@@ -273,18 +238,5 @@ final class CookActionCest extends AbstractFunctionalTest
         $player->setPlayerInfo($playerInfo);
 
         return $player;
-    }
-
-    private function createEquipment(string $name, Place $place): GameEquipment
-    {
-        $gameEquipment = new GameEquipment($place);
-        $equipment = new EquipmentConfig();
-        $equipment->setEquipmentName($name);
-        $gameEquipment
-            ->setEquipment($equipment)
-            ->setHolder($place)
-            ->setName($name);
-
-        return $gameEquipment;
     }
 }

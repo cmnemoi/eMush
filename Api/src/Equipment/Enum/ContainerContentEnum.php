@@ -88,7 +88,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::CHUN,
         ],
         [
-            'item' => ToolItemEnum::HACKER_KIT, // @TODO: iTrackie2
+            'item' => ItemEnum::ITRACKIE_2,
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,

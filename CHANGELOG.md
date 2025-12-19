@@ -1,3 +1,17 @@
+# [0.20.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.19.1...0.20.0) (2025-12-19)
+
+
+### Bug Fixes
+
+* flaking cest ([f3b8182](https://gitlab.com/eternaltwin/mush/mush/commit/f3b81826f085d457135b0496d53519fe18223049))
+* new Crowdin translations ([3288b5c](https://gitlab.com/eternaltwin/mush/mush/commit/3288b5cc5c0073ca5474f1efd665d1b48fc57051))
+* **ranking:** Ranking sorted by triumph is now displayed properly ([61fcc15](https://gitlab.com/eternaltwin/mush/mush/commit/61fcc15b99cc33bf99657c23c1e692d1ba73e13d))
+
+
+### Features
+
+* reorganized giftbox contents, added todos for missing items ([53b1282](https://gitlab.com/eternaltwin/mush/mush/commit/53b1282e71eaa517f98997c90ce9f277d4ec651b))
+
 ## [0.19.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.19.0...0.19.1) (2025-12-17)
 
 

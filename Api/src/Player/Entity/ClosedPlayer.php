@@ -31,7 +31,7 @@ class ClosedPlayer implements SanctionEvidenceInterface
     #[ORM\ManyToOne(targetEntity: ClosedDaedalus::class, inversedBy: 'players')]
     private ClosedDaedalus $closedDaedalus;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(type: 'string', length: 512, nullable: true)]
     private ?string $message = null;
 
     #[ORM\Column(type: 'string', nullable: false)]

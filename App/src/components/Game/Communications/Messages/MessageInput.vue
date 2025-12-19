@@ -4,7 +4,7 @@
             <textarea
                 v-model="text"
                 ref="input"
-                class="messageInput-area"
+                class="input-area"
                 :placeholder="$t('game.communications.myMessageHere')"
                 @keydown.enter.exact.prevent="sendNewMessage()"
                 @keydown.enter.ctrl.exact.prevent="breakLine"
@@ -12,6 +12,9 @@
                 @keyup="resize()"
                 @focusout ="updateTypedMessage(text)"
             />
+            <div class="character-count" :class="{ 'over-limit': text?.length > maxLength}">
+                {{ text?.length }} / {{ maxLength}}
+            </div>
             <div class="buttons-container">
                 <Tippy tag="button" class="format-button" @click.prevent="openRichEditor">
                     <img :src="getImgUrl('comms/buttonFormat.png')" alt="format">
@@ -22,7 +25,7 @@
                 </Tippy>
                 <button
                     class="submit-button"
-                    :disabled="text <= 0"
+                    :disabled="text === undefined || text.length == 0 || text.length > maxLength"
                     @click="sendNewMessage()">
                     <img :src="getImgUrl('comms/submit.gif')" alt="submit">
                 </button>
@@ -67,7 +70,8 @@ export default defineComponent ({
     data(): any {
         return {
             text: this.typedMessage,
-            showRichEditor: false
+            showRichEditor: false,
+            maxLength: 4096
         };
     },
     computed: {
@@ -80,6 +84,9 @@ export default defineComponent ({
         getImgUrl,
         sendNewMessage(messageToSend?: string): void {
             const textToSend = messageToSend !== undefined ? messageToSend : this.text;
+            if (textToSend.length > maxLength) {
+                return;
+            }
             this.showRichEditor = false;
 
             if (textToSend.length > 0) {
@@ -157,61 +164,81 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
-    .chat-input {
+.chat-input {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    padding: 7px 7px 4px 7px;
+    overflow: hidden;
+}
+.form-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 5px;
+    margin-top:2px;
+    width: 100%;
+}
+.input-area {
+    flex: 1;
+    resize: vertical;
+    overflow-y: scroll;
+    min-height: 58px;
+    max-height: 348px;
+    padding: 3px 5px;
+    font-style: italic;
+    opacity: 0.75;
+    border: 1px solid #aad4e5;
+    border-radius: 3px;
+    @extend %game-scrollbar;
+
+    &:active,
+    &:focus {
+        font-style: initial;
+        opacity: 1;
+    }
+}
+.character-count {
+    position: absolute;
+    bottom: 3px;
+    right: 38px;
+    font-size: 11px;
+    font-style: italic;
+    font-weight: bold;
+    color: transparent; // Only display when over the limit
+    opacity: 0.65;
+    padding: 2px 5px;
+    border-radius: 3px;
+    pointer-events: none;
+
+    &.over-limit {
+        color: #d32f2f;
+    }
+}
+.input-area:focus ~ .character-count{
+    opacity: 1;
+}
+
+.format-button, .submit-button {
+    cursor: pointer;
+    @include button-style();
+
+    & {
+        width: 24px;
+        height: 24px;
         display: flex;
-        position: relative;
-        flex-direction: row;
-        padding: 7px 7px 4px 7px;
-        overflow: hidden;
+        align-items: center;
+        justify-content: center;
     }
-    .form-container {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-end;
-        gap: 5px;
-        margin-top:2px;
-        width: 100%;
+
+    &:first-child {
+        margin-bottom: 8px; /* Espace entre les deux boutons */
     }
-    .messageInput-area {
-        flex: 1; /* Le textarea prend tout l'espace disponible */
-        resize: vertical;
-        overflow-y: scroll;
-        min-height: 58px;
-        max-height: 348px;
-        padding: 3px 5px;
-        font-style: italic;
-        opacity: 0.75;
-        box-shadow: 0 1px 0 white;
-        border: 1px solid #aad4e5;
-        border-radius: 3px;
-        @extend %game-scrollbar;
 
-        &:active,
-        &:focus {
-            font-style: initial;
-            opacity: 1;
-        }
+    img {
+        width: 24px;
+        max-height: 24px;
     }
-    .format-button, .submit-button {
-        cursor: pointer;
-        @include button-style();
-
-        & {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        &:first-child {
-            margin-bottom: 4px; /* Espace entre les deux boutons */
-        }
-
-        img {
-            width: 24px;
-            max-height: 24px;
-        }
-    }
+}
 
 </style>

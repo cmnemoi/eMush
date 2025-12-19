@@ -29,11 +29,12 @@ class CreateMessage
 
     private int $playerId;
 
-    /**
-     * @Assert\NotNull
-     *
-     * @Assert\Type(type="string")
-     */
+    #[Assert\NotNull]
+    #[Assert\Type(type: 'string')]
+    #[Assert\Length(
+        max: 4096,
+        maxMessage: 'The message cannot be longer than {{ limit }} characters'
+    )]
     private string $message;
 
     public function getParent(): ?Message

@@ -9,7 +9,7 @@ class PlayerEndRequest
     /**
      * @Assert\Type("string")
      *
-     * @Assert\Length(max = 300)
+     * @Assert\Length(max = 512)
      */
     private ?string $message = null;
 

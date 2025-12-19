@@ -24,10 +24,9 @@
                         <textarea
                             id="epitaph"
                             v-model="epitaph"
-                            maxlength="300"
                             :placeholder="$t('deathpage.epitaphPlaceholder')"
                         />
-                        <p :class="{ limit: !(maxChar - epitaph.length) }" class="char-count">
+                        <p :class="{ limit: epitaph.length > maxChar }" class="char-count">
                             {{ (maxChar - epitaph.length) }} char.
                         </p>
                     </div>
@@ -62,7 +61,12 @@
                 </tbody>
             </table>
             <p><em>{{ $t('deathpage.notyet') }}</em></p>
-            <a href="#" class="validate" @click="endGame">{{ $t('deathpage.endgame') }}</a>
+            <button
+                class="validate"
+                :disabled="epitaph.length > maxChar"
+                @click="endGame">
+                {{ $t('deathpage.endgame') }}
+            </button>
         </div>
         <div class="purgatory-comms-panel-container">
             <CommsPanel :calendar="player.daedalus.calendar" />
@@ -106,7 +110,7 @@ export default defineComponent ({
     data: function (): PurgatoryState {
         return {
             deadPlayerInfo: null,
-            maxChar: 250,
+            maxChar: 512,
             epitaph: '',
             likedPlayers: []
         };
@@ -125,6 +129,9 @@ export default defineComponent ({
             return characterEnum[characterKey].body;
         },
         endGame: function(): void {
+            if (this.epitaph.length > this.maxChar) {
+                return;
+            }
             PlayerService.sendEndGameRequest(this.player, this.epitaph, this.likedPlayers);
         },
         formatDeathDate: function(deathDay: number|null, deathCycle: number|null): string {
@@ -304,7 +311,6 @@ h1 {
         font-weight: bold;
         letter-spacing: .05em;
         text-shadow: 0 0 4px #092f6d;
-        /* border: 1px solid #5f67bf; */
         border-radius: 4px;
         background-color: #5f67bf;
 
@@ -367,7 +373,7 @@ h1 {
 }
 
 .validate {
-    @include button-style;
+    @include button-style();
 
     & {
         margin: .5em auto;

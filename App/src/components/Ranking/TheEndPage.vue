@@ -723,42 +723,38 @@ h2 {
     margin: 0 0.5rem 2rem;
     align-self: stretch;
     min-height: 300px;
-
     & > div { padding: 1rem 1rem 1rem 15rem }
 
-    &::after { //background with fadeout
+    &::after {
         border: 16px solid transparent;
         border-image: url("/src/assets/images/nova/star-border.png") 16 round;
         background: #283378;
         background-clip: padding-box;
-        // background: linear-gradient(0deg, rgba(77,108,210,1) 30%, rgba(39,49,117,1) 100%);
-        // box-shadow: inset 0 0 10px #90ADBE;
-        // @include corner-bezel(16px);
         mask-image: linear-gradient(0deg, transparent 5%, rgba(0,0,0,.5) 40%, black 100%);
     }
 
     .epitaph {
-    position: relative;
-    margin: 1rem 1.2rem 1rem 0;
-    padding: 1em 0.8em;
-    border: 1px solid #5f67bf;
-    background-color: #2d377a;
-    overflow-wrap: break-word;
-    font-style: italic;
-    font-size: 1.3em;
-    box-shadow: 0px 8px 6px -6px rgba(23, 68, 142, .6);
-
-        &::before { //diamond pointer
-        content:"";
-        position: absolute;
-        top: 6px;
-        left: -7px;
-        width: 14px;
-        height: 14px;
+        position: relative;
+        margin: 1rem 1.2rem 1rem 0;
+        padding: 1em 0.8em;
         border: 1px solid #5f67bf;
         background-color: #2d377a;
-        transform: rotate(-45deg);
-        clip-path: polygon(0 0, 100% 0, 0 100%);
+        overflow-wrap: break-word;
+        font-style: italic;
+        font-size: 1.3em;
+        box-shadow: 0px 8px 6px -6px rgba(23, 68, 142, .6);
+
+        &::before { //diamond pointer
+            content:"";
+            position: absolute;
+            top: 6px;
+            left: -7px;
+            width: 14px;
+            height: 14px;
+            border: 1px solid #5f67bf;
+            background-color: #2d377a;
+            transform: rotate(-45deg);
+            clip-path: polygon(0 0, 100% 0, 0 100%);
         }
 
         :deep(em) {
@@ -804,13 +800,11 @@ h2 {
     min-height: 320px;
     margin: 0 1rem 3rem;
 
-    &::after { //background with fadeout
+    &::after {
         border: 16px solid transparent;
         border-image: url("/src/assets/images/nova/guest-border.png") 16 round;
         background: #1d2d72;
         background-clip: padding-box;
-        // @include corner-bezel(16px, 0);
-        mask-image: linear-gradient(0deg, transparent 5%, rgba(0,0,0,.5) 65%, black 100%);
     }
 
     .avatar { top: 1.6em; }
@@ -836,6 +830,10 @@ h2 {
     }
 }
 
+.guest-card::after {
+    mask-image: linear-gradient(0deg, transparent 5%, rgba(0,0,0,.5) 65%, black 100%);
+}
+
 .extra-card {
     width: 223px;
     min-height: 130px;
@@ -846,10 +844,10 @@ h2 {
     }
 
     &::after {
-        max-height: 130px;
         border: 1px solid #387fff;
         background: #2e408f;
         @include corner-bezel(16px, 0);
+        mask-image: linear-gradient(0deg, transparent 30%, rgba(0,0,0,.5) 80%, black 100%);
     }
 }
 
@@ -937,10 +935,10 @@ a.back {
 @media only screen and (max-width: 560px) {
     // ARBITRARY, NEEDED
 
-        .star-card .triumph .score {
-            width: 100%;
-            margin: 0 auto 0.8em;
-        }
+    .star-card .triumph .score {
+        width: 100%;
+        margin: 0 auto 0.8em;
+    }
 }
 
 @media only screen and (max-width: $breakpoint-mobile-l) {

@@ -1,29 +1,31 @@
 <template>
-    <div id="comms-panel">
-        <Tippy tag="div" class="cycle-time">
-            <img :src="getImgUrl('comms/calendar.png')">
-            <span>{{ calendar?.dayName }} {{ calendar?.day }} - <br />{{ calendar?.cycleName }} {{ calendar?.cycle }}</span>
-            <span class="mobile">{{ calendar?.day }}-{{ calendar?.cycle }}</span>
-            <template #content>
-                <h1 v-html="formatContent(calendar.name)" />
-                <p v-html="formatContent(calendar.description)" />
-            </template>
-        </Tippy>
-        <ul class="tabs">
-            <Tab
-                v-for="(channel, id) in channels"
-                :class="channel.scope"
-                :key="id"
-                :type="channel.scope"
-                :is-pirated="isChannelPirated(channel)"
-                :name="channel.name"
-                :description="channel.description"
-                :selected="isChannelSelected(channel)"
-                :number-of-new-messages="numberOfNewMessages(channel)"
-                :flashing="channel.flashing"
-                @select="changeChannel({ channel }); readTipsChannel(channel)"
-            />
-        </ul>
+    <div class="comms-panel">
+        <div class="comms-panel-banner">
+            <div class="tabs">
+                <Tab
+                    v-for="(channel, id) in channels"
+                    :class="channel.scope"
+                    :key="id"
+                    :type="channel.scope"
+                    :is-pirated="isChannelPirated(channel)"
+                    :name="channel.name"
+                    :description="channel.description"
+                    :selected="isChannelSelected(channel)"
+                    :number-of-new-messages="numberOfNewMessages(channel)"
+                    :flashing="channel.flashing"
+                    @select="changeChannel({ channel }); readTipsChannel(channel)"
+                />
+            </div>
+            <Tippy tag="div" class="cycle-time" :class="{ 'shrink': channels.length > 11}">
+                <img :src="getImgUrl('comms/calendar.png')">
+                <span class="normal">{{ calendar?.dayName }} {{ calendar?.day }} - {{ calendar?.cycleName }} {{ calendar?.cycle }}</span>
+                <span class="shrink">{{ calendar?.day }}-{{ calendar?.cycle }}</span>
+                <template #content>
+                    <h1 v-html="formatContent(calendar.name)" />
+                    <p v-html="formatContent(calendar.description)" />
+                </template>
+            </Tippy>
+        </div>
         <component :is="currentTabComponent" :channel="currentChannel" :calendar="calendar" />
         <button class="action-button" @click="loadMoreMessages()" v-if="canLoadMoreMessages()">
             {{ $t('game.communications.loadMoreMessages') }}
@@ -184,7 +186,7 @@ export default defineComponent ({
 
 <style lang="scss"> //Not scoped to apply to children components
 
-#comms-panel {
+.comms-panel {
     .chatbox-container {
         .unit {
             padding: 5px 0;
@@ -229,57 +231,55 @@ export default defineComponent ({
 </style>
 
 <style lang="scss" scoped>
-
-#comms-panel {
+.comms-panel {
     position: relative;
     display: block;
     width: 100%;
     min-height: 460px;
-
-    .tabs {
-        float: left;
-        max-width: 70%;
-
-        .new-tab {
-            opacity: 0.3;
-
-            &::after {
-                background: none;
-            }
-
-            &.active,
-            &:hover,
-            &:focus {
-                opacity: 1;
-            }
-        }
-    }
 
     @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) {
         margin-top: 3px;
     }
 }
 
-/* TIMER STYLING */
-
-.cycle-time {
+.comms-panel-banner {
+    display: flex;
     flex-direction: row;
-    align-items: center;
-    margin: 0 10px;
-    min-height: 25px;
-    float: right;
-    font-size: 0.8em;
-    font-variant: small-caps;
+    justify-content: space-between;
+    max-width: 100%;
+    min-width: 0;
+    gap: 5px;
 
-    img { margin-right: 3px; }
+    .tabs {
+        min-width: 0;
+        flex-direction: row;
+        gap: 3px;
+    }
 
-    span.mobile, br { display: none; }
+    .cycle-time {
+        flex-direction: row;
+        align-items: center;
+        margin-right: 10px;
+        min-height: 25px;
+        float: right;
+        font-size: 0.8em;
+        font-variant: small-caps;
+        white-space: nowrap;
 
-    @media screen and (max-width: $breakpoint-desktop-l) { br { display: initial; } }
+        img { margin-right: 3px; }
 
-    @media screen and (max-width: $breakpoint-desktop-m) {
-        span:not(.mobile) { display: none; }
-        span.mobile {display: initial; }
+        span.normal { display: initial; }
+        span.shrink { display: none; }
+
+        &.shrink {
+            span.normal { display: none; }
+            span.shrink { display: initial; }
+        }
+
+        @media screen and (max-width: $breakpoint-desktop-l) {
+            span.normal { display: none; }
+            span.shrink { display: initial; }
+        }
     }
 }
 

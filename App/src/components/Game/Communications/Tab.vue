@@ -86,7 +86,6 @@ export default defineComponent ({
     cursor: pointer;
     width: 31px;
     min-height: 25px;
-    margin-right: 4px;
     * { z-index: 2; }
 
     &::after { // Background of the tab icons

@@ -128,13 +128,14 @@ export default defineComponent ({
 
     .comms-panel-container {
         grid-area: comms-panel;
+        min-width: 0;
     }
 
     .projects-panel-container {
         grid-area: projects-panel;
     }
 
-    grid-template-columns: 1fr minmax(360px, 424px) 2fr;
+    grid-template-columns: 1fr 2fr 2fr;
     grid-template-rows: auto 1fr;
     grid-template-areas:
       "char-panel       central-panel       comms-panel"

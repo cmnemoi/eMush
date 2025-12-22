@@ -16,6 +16,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
@@ -212,6 +213,30 @@ final class PrintZeListCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldNotBeExecutableWhenNoAlphas(FunctionalTester $I): void
+    {
+        // Given no Alpha Mush
+        $this->daedalus->removePlayer($this->kuanTi);
+
+        $this->whenChunTriesToPrintZeList();
+
+        $this->thenActionShouldNotBeExecutableWithMessage(
+            ActionImpossibleCauseEnum::LIST_NO_MUSH,
+            $I
+        );
+    }
+
+    public function shouldBeExecutableEvenWithDeadMush(FunctionalTester $I): void
+    {
+        $this->givenAllMushDie();
+
+        $this->givenChunIsATracker();
+
+        $this->whenChunPrintsZeList();
+
+        $this->thenDocumentShouldBeCreated($I);
+    }
+
     public function shouldNotPrintAlphaMushTwice(FunctionalTester $I): void
     {
         $this->givenChunIsATracker();
@@ -281,6 +306,13 @@ final class PrintZeListCest extends AbstractFunctionalTest
     private function givenChunPrintsZeList(): void
     {
         $this->whenChunPrintsZeList();
+    }
+
+    private function givenAllMushDie(): void
+    {
+        foreach ($this->daedalus->getAlivePlayers()->getMushPlayer() as $mushPlayer) {
+            $this->playerService->killPlayer($mushPlayer, EndCauseEnum::INJURY);
+        }
     }
 
     private function whenChunTriesToPrintZeList(): void

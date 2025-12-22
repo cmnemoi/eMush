@@ -12,7 +12,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasSkill;
 use Mush\Action\Validator\HasStatus;
-use Mush\Action\Validator\PreMush;
+use Mush\Action\Validator\NoMushHasSpawned;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
@@ -65,9 +65,10 @@ final class PrintZeList extends AbstractAction
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::LIST_ALREADY_PRINTED,
             ]),
-            new PreMush([
+            new NoMushHasSpawned([
                 'groups' => [ClassConstraint::EXECUTE],
-                'message' => ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED]),
+                'message' => ActionImpossibleCauseEnum::LIST_NO_MUSH,
+            ]),
         ]);
     }
 

@@ -209,13 +209,14 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // given Kuan Ti is Mush
+        // given Kuan Ti is Alpha Mush
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::MUSH,
             holder: $this->kuanTi,
             tags: [],
             time: new \DateTime(),
         );
+        $this->kuanTi->flagAsAlphaMush();
 
         // given Daedalus has been created 10 days ago
         $this->daedalus->setCreatedAt(new \DateTime('-10 days'));

@@ -88,14 +88,14 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::CHUN,
         ],
         [
-            'item' => ItemEnum::ITRACKIE_2,
+            'item' => 'apprentron_sprinter',
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::ELEESHA,
         ],
         [
-            'item' => GearItemEnum::PROTECTIVE_GLOVES, // @TODO: find replacement
+            'item' => ItemEnum::ITRACKIE_2,
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -193,7 +193,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::GIOELE,
         ],
         [
-            'item' => ItemEnum::FUEL_CAPSULE, // @TODO: Lump of Coal
+            'item' => ItemEnum::LUMP_OF_COAL,
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,

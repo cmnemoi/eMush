@@ -3438,8 +3438,8 @@ class EquipmentConfigData
             'initStatuses' => [],
         ],
         [
-            'name' => 'fuel_capsule_default',
-            'equipmentName' => 'fuel_capsule',
+            'name' => ItemEnum::FUEL_CAPSULE . '_default',
+            'equipmentName' => ItemEnum::FUEL_CAPSULE,
             'breakableType' => BreakableTypeEnum::DESTROY_ON_BREAK,
             'dismountedProducts' => [],
             'isPersonal' => false,
@@ -4166,6 +4166,23 @@ class EquipmentConfigData
             'initStatuses' => [
                 'electric_charges_lunchbox_default',
             ],
+        ],
+        [
+            'name' => ItemEnum::LUMP_OF_COAL . '_default',
+            'equipmentName' => ItemEnum::LUMP_OF_COAL,
+            'breakableType' => BreakableTypeEnum::DESTROY_ON_BREAK,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => true,
+            'actions' => [
+                'take',
+                'drop',
+                'examine',
+                'insert_fuel_chamber',
+            ],
+            'mechanics' => [],
+            'initStatuses' => [],
         ],
     ];
 

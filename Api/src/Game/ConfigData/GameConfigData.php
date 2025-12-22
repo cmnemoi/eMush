@@ -382,6 +382,7 @@ class GameConfigData
                     'apprentron_hygienist_default',
                     ItemEnum::PAVLOV . '_default',
                     'lunchbox_default',
+                    ItemEnum::LUMP_OF_COAL . '_default',
                 ],
                 'statusConfigs' => [
                     'alien_artefact_default',

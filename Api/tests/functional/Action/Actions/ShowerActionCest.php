@@ -442,6 +442,23 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveSpores(1, $I);
     }
 
+    public function shouldRemoveHumanSporeWhenAntiquePerfumeImmunized(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasAntiquePerfumeSkill($I);
+
+        $this->givenPlayerHasSpores(2);
+
+        $this->givenPlayerHasSuperSoap();
+
+        $this->whenPlayerTakesShower();
+
+        $this->thenPlayerShouldHaveSpores(1, $I);
+
+        $this->whenPlayerTakesShower();
+
+        $this->thenPlayerShouldHaveSpores(0, $I);
+    }
+
     public function shouldNotRemoveMushSporeWithSuperSoap(FunctionalTester $I): void
     {
         $this->givenPlayerHasSpores(2);

@@ -887,7 +887,9 @@ abstract class ModifierConfigData
                 targetEvent: VariableEventInterface::CHANGE_VARIABLE,
                 priority: ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
                 applyWhenTargeted: true,
-                tagConstraints: [],
+                tagConstraints: [
+                    VariableEventInterface::GAIN => ModifierRequirementEnum::ALL_TAGS,
+                ],
                 delta: 0,
                 targetVariable: PlayerVariableEnum::SPORE,
                 mode: VariableModifierModeEnum::SET_VALUE,

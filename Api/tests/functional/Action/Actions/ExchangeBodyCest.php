@@ -146,8 +146,28 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->thenSourcePlayerSporesAreRemoved($I);
     }
 
+    public function shouldRemoveSourceAntiquePerfumeImmunizedPlayerSpores(FunctionalTester $I): void
+    {
+        $this->givenSourcePlayerIsAntiquePerfumeImmunized();
+
+        $this->givenSourcePlayerHasSpores(1);
+
+        $this->whenSourceExchangesBodyWithTarget();
+
+        $this->thenSourcePlayerSporesAreRemoved($I);
+    }
+
     public function shouldRemoveTargetPlayerSpores(FunctionalTester $I): void
     {
+        $this->whenSourceExchangesBodyWithTarget();
+
+        $this->thenTargetPlayerSporesAreRemoved($I);
+    }
+
+    public function shouldRemoveTargetAntiquePerfumeImmunizedPlayerSpores(FunctionalTester $I): void
+    {
+        $this->givenTargetPlayerIsAntiquePerfumeImmunized();
+
         $this->whenSourceExchangesBodyWithTarget();
 
         $this->thenTargetPlayerSporesAreRemoved($I);
@@ -413,6 +433,26 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::HAS_ADAPTED_EPIGENETICS,
             holder: $this->source,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenSourcePlayerIsAntiquePerfumeImmunized(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED,
+            holder: $this->source,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenTargetPlayerIsAntiquePerfumeImmunized(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED,
+            holder: $this->target,
             tags: [],
             time: new \DateTime(),
         );

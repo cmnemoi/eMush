@@ -278,17 +278,7 @@ class RandomService implements RandomServiceInterface
         return $this->getSingleRandomElementFromProbaCollection($xylophProbaCollection);
     }
 
-    private function getPlanetSectorsToRevealProbaCollection(Planet $planet): ProbaCollection
-    {
-        $probaCollection = new ProbaCollection();
-        foreach ($planet->getUnrevealedSectors() as $sector) {
-            $probaCollection->setElementProbability($sector->getId(), $sector->getWeightAtPlanetAnalysis());
-        }
-
-        return $probaCollection;
-    }
-
-    private function getPlanetSectorsToVisitProbaCollection(Planet $planet): ProbaCollection
+    public function getPlanetSectorsToVisitProbaCollection(Planet $planet): ProbaCollection
     {
         $probaCollection = new ProbaCollection();
         foreach ($planet->getUnvisitedSectors() as $sector) {
@@ -299,8 +289,21 @@ class RandomService implements RandomServiceInterface
             if (PlanetSectorEnum::getLifeForms()->contains($sector->getName()) && $planet->getExploration()?->hasAFunctionalThermosensor()) {
                 $chanceToVisitSector *= 5;
             }
+            if (PlanetSectorEnum::getEvilCompassSectors()->contains($sector->getName()) && $planet->getExploration()?->hasACursedCompass()) {
+                $chanceToVisitSector *= 5;
+            }
 
             $probaCollection->setElementProbability($sector->getId(), $chanceToVisitSector);
+        }
+
+        return $probaCollection;
+    }
+
+    private function getPlanetSectorsToRevealProbaCollection(Planet $planet): ProbaCollection
+    {
+        $probaCollection = new ProbaCollection();
+        foreach ($planet->getUnrevealedSectors() as $sector) {
+            $probaCollection->setElementProbability($sector->getId(), $sector->getWeightAtPlanetAnalysis());
         }
 
         return $probaCollection;

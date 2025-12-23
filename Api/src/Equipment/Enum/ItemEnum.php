@@ -52,6 +52,7 @@ class ItemEnum
     public const string STANDARD_RATION = 'standard_ration';
     public const string LUNCHBOX = 'lunchbox';
     public const string LUMP_OF_COAL = 'lump_of_coal';
+    public const string EVIL_COMPASS = 'evil_compass';
 
     public static function getArtefacts(): ArrayCollection
     {

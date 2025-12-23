@@ -383,6 +383,7 @@ class GameConfigData
                     ItemEnum::PAVLOV . '_default',
                     'lunchbox_default',
                     ItemEnum::LUMP_OF_COAL . '_default',
+                    ItemEnum::EVIL_COMPASS . '_default',
                 ],
                 'statusConfigs' => [
                     'alien_artefact_default',

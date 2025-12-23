@@ -314,6 +314,11 @@ class Exploration
         return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasOperationalEquipmentByName(ItemEnum::THERMOSENSOR))->count() > 0;
     }
 
+    public function hasACursedCompass(): bool
+    {
+        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasEquipmentByName(ItemEnum::EVIL_COMPASS))->count() > 0;
+    }
+
     public function getNumberOfActiveSurvivalists(): int
     {
         return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::SURVIVALIST))->count();

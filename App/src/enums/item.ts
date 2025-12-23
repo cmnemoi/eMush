@@ -84,6 +84,7 @@ const OLD_T_SHIRT = "old_t_shirt";
 const BABEL_MODULE = "babel_module";
 const WHITE_FLAG = "white_flag";
 const LUMP_OF_COAL = "lump_of_coal";
+const EVIL_COMPASS = "evil_compass";
 
 //containers
 const ANNIVERSARY_GIFT = "anniversary_gift";
@@ -521,5 +522,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [LUMP_OF_COAL]:{
         'image': getImgUrl('items/coal.png')
+    },
+    [EVIL_COMPASS]:{
+        'image': getImgUrl('items/evil_compass.png')
     }
 };

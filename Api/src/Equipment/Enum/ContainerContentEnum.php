@@ -215,13 +215,13 @@ class ContainerContentEnum
         ],
         [
             'item' => ItemEnum::QUADRIMETRIC_COMPASS,
-            'quantity' => 2,
+            'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::HUA,
         ],
         [
-            'item' => ItemEnum::QUADRIMETRIC_COMPASS, // @TODO: Quadricursed Ssapmoc, gag
+            'item' => ItemEnum::EVIL_COMPASS, // gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,

@@ -3769,5 +3769,33 @@ La caméra ne détecte pas son propre sabotage.</target>
 Permet de charger du carburant dans le module de combustion.</target>
       </segment>
     </unit>
+    <unit id="evil_compass">
+      <segment id="name" state="translated">
+        <source>evil_compass.name</source>
+        <target>Elossoub Quadrimaudite</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>evil_compass.short_name</source>
+        <target>Boussole Quadrimétrique</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>evil_compass.gender</source>
+        <target>female</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>evil_compass.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>evil_compass.description</source>
+        <target>L'Elossoub est un artéfact sacré du culte de La-Erenjay. Comment est-il arrivé ici? 
+        //:ic_explorer: Expédition : Chance de parcourir une des sections restantes "Mankarog", "Volcan", "Activité Sismique" x5.//:point: De loin, on pourrait la prendre pour une boussole normale...</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>evil_compass.examine</source>
+        <target>L'Elossoub a été maudite non moins de quatre fois par les Frau Mages de La-Erenjay. Il est dit qu'en sa présence, les miroirs se brisent, les chats se retrouvent couverts de suie, et les trèfles poussent deux feuilles supplémentaires.
+        //:ic_explorer: Expédition : Chance de parcourir une des sections restantes "Mankarog", "Volcan", "Activité Sismique" x5.//:point: Se camoufle en **Boussole Quadrimétrique** dans le registre des pièces.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

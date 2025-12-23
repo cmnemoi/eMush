@@ -4184,6 +4184,25 @@ class EquipmentConfigData
             'mechanics' => [],
             'initStatuses' => [],
         ],
+        [
+            'name' => ItemEnum::EVIL_COMPASS . '_default',
+            'equipmentName' => ItemEnum::EVIL_COMPASS,
+            'breakableType' => BreakableTypeEnum::NONE,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => true,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => [],
+            'initStatuses' => [
+                'alien_artefact_default',
+            ],
+        ],
     ];
 
     public static function getByEquipmentName(string $name): array

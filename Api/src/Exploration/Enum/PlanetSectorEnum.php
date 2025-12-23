@@ -74,4 +74,13 @@ final class PlanetSectorEnum
             self::RUMINANT,
         ]);
     }
+
+    public static function getEvilCompassSectors(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::MANKAROG,
+            self::VOLCANIC_ACTIVITY,
+            self::SEISMIC_ACTIVITY,
+        ]);
+    }
 }

@@ -16,6 +16,7 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
@@ -206,10 +207,11 @@ final class ExplorationService implements ExplorationServiceInterface
         return $exploration;
     }
 
-    private function drawPlanetSectorEvent(PlanetSector $sector, Exploration $exploration): string
+    public function getPlanetSectorEventProbaCollection(PlanetSector $sector, Exploration $exploration): ProbaCollection
     {
-        $daedalus = $exploration->getDaedalus();
         $sectorEvents = clone $sector->getExplorationEvents();
+        $daedalus = $exploration->getDaedalus();
+
         if ($exploration->hasAFunctionalCompass()) {
             $sectorEvents->remove(PlanetSectorEvent::AGAIN);
         }
@@ -229,6 +231,13 @@ final class ExplorationService implements ExplorationServiceInterface
                 }
             }
         }
+
+        return $sectorEvents;
+    }
+
+    private function drawPlanetSectorEvent(PlanetSector $sector, Exploration $exploration): string
+    {
+        $sectorEvents = $this->getPlanetSectorEventProbaCollection($sector, $exploration);
 
         return (string) $this->randomService->getSingleRandomElementFromProbaCollection($sectorEvents);
     }

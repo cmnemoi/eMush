@@ -853,6 +853,12 @@
         <target>open_anniversary_gift</target>
       </segment>
     </unit>
+    <unit id="anniversary_gift_mush_skill">
+      <segment id="anniversary_gift_mush_skill" state="initial">
+        <source>anniversary_gift_mush_skill</source>
+        <target>anniversary_gift_mush_skill</target>
+      </segment>
+    </unit>
     <unit id="establish_link_with_sol_fail">
       <segment id="establish_link_with_sol_fail" state="translated">
         <source>establish_link_with_sol_fail</source>

@@ -1007,6 +1007,12 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
   }! Esperemos que esto sea lo que {character_gender, select, female {ella} other {él}} quería...</target>
       </segment>
     </unit>
+    <unit id="anniversary_gift_mush_skill">
+      <segment id="anniversary_gift_mush_skill" state="initial">
+        <source>anniversary_gift_mush_skill</source>
+        <target>anniversary_gift_mush_skill</target>
+      </segment>
+    </unit>
     <unit id="establish_link_with_sol_fail">
       <segment id="establish_link_with_sol_fail" state="translated">
         <source>establish_link_with_sol_fail</source>
@@ -1044,7 +1050,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
       </segment>
     </unit>
     <unit id="cure_success">
-      <segment id="cure_success" state="initial">
+      <segment id="cure_success" state="translated">
         <source>cure_success</source>
         <target>cure_success</target>
       </segment>

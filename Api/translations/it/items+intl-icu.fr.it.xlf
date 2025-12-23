@@ -3477,5 +3477,143 @@
         <target>pavlov.examine</target>
       </segment>
     </unit>
+    <unit id="itrackie_2">
+      <segment id="name" state="initial">
+        <source>itrackie_2.name</source>
+        <target>itrackie_2.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>itrackie_2.short_name</source>
+        <target>itrackie_2.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>itrackie_2.plural_name</source>
+        <target>itrackie_2.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>itrackie_2.gender</source>
+        <target>itrackie_2.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>itrackie_2.first_letter</source>
+        <target>itrackie_2.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>itrackie_2.description</source>
+        <target>itrackie_2.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>itrackie_2.examine</source>
+        <target>itrackie_2.examine</target>
+      </segment>
+    </unit>
+    <unit id="lump_of_coal">
+      <segment id="name" state="initial">
+        <source>lump_of_coal.name</source>
+        <target>lump_of_coal.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>lump_of_coal.short_name</source>
+        <target>lump_of_coal.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>lump_of_coal.plural_name</source>
+        <target>lump_of_coal.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>lump_of_coal.gender</source>
+        <target>lump_of_coal.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>lump_of_coal.first_letter</source>
+        <target>lump_of_coal.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>lump_of_coal.description</source>
+        <target>lump_of_coal.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>lump_of_coal.examine</source>
+        <target>lump_of_coal.examine</target>
+      </segment>
+    </unit>
+    <unit id="evil_compass">
+      <segment id="name" state="initial">
+        <source>evil_compass.name</source>
+        <target>evil_compass.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>evil_compass.short_name</source>
+        <target>evil_compass.short_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>evil_compass.gender</source>
+        <target>evil_compass.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>evil_compass.first_letter</source>
+        <target>evil_compass.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>evil_compass.description</source>
+        <target>evil_compass.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>evil_compass.examine</source>
+        <target>evil_compass.examine</target>
+      </segment>
+    </unit>
+    <unit id="swedish_sofa_kit">
+      <segment id="name" state="initial">
+        <source>swedish_sofa_kit.name</source>
+        <target>swedish_sofa_kit.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>swedish_sofa_kit.short_name</source>
+        <target>swedish_sofa_kit.short_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>swedish_sofa_kit.gender</source>
+        <target>swedish_sofa_kit.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>swedish_sofa_kit.first_letter</source>
+        <target>swedish_sofa_kit.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>swedish_sofa_kit.description</source>
+        <target>swedish_sofa_kit.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>swedish_sofa_kit.examine</source>
+        <target>swedish_sofa_kit.examine</target>
+      </segment>
+    </unit>
+    <unit id="jukebox_kit">
+      <segment id="name" state="initial">
+        <source>jukebox_kit.name</source>
+        <target>jukebox_kit.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>jukebox_kit.short_name</source>
+        <target>jukebox_kit.short_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>jukebox_kit.gender</source>
+        <target>jukebox_kit.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>jukebox_kit.first_letter</source>
+        <target>jukebox_kit.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>jukebox_kit.description</source>
+        <target>jukebox_kit.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>jukebox_kit.examine</source>
+        <target>jukebox_kit.examine</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

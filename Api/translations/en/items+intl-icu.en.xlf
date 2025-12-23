@@ -3751,12 +3751,12 @@ An awesome jukebox from back in the day. Even better, it comes preloaded with th
       </segment>
       <segment id="description" state="translated">
         <source>itrackie_2.description</source>
-        <target>Pfft, that old dinosaur? It's so old! It's so quaint! It's so passé! It's so *last year*! With a subtle gold(-like) plating and no pesky headphone jack, this is an upgrade that will make you ask, "How did I ever go without?"!
+        <target>Pfft, that dusty dinosaur? It's so old! It's so quaint! It's so passé! It's so *last year*! With a subtle gold(-like) plating and no pesky headphone jack, this is an upgrade that will make you ask, "How did I ever go without?"!
         //:point: Allows you to communicate remotely with other crew members.//:point: Allows you to access the upgraded mini-map of the Daedalus. **Free ACTOPI included with every purchase!**</target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie_2.examine</source>
-        <target>You think you may be experiencing buyer's remorce. And you got this for free.//
+        <target>You think you may be experiencing buyer's remorse. And you got this for free.//
         //Allows you to communicate remotely with other crew members.
         //Allows you to access the upgraded mini-map of the Daedalus. **Free ACTOPI included with every purchase!**</target>
       </segment>
@@ -3790,7 +3790,7 @@ An awesome jukebox from back in the day. Even better, it comes preloaded with th
       <segment id="examine" state="translated">
         <source>lump_of_coal.examine</source>
         <target>And I! ...got a rock... //
-Gives as much fuel as a capsule.//
+Gives 1 unit of Fuel.//
 Can be inserted in the combustion chamber.</target>
       </segment>
     </unit>

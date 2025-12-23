@@ -1058,7 +1058,7 @@
 	},
 	"hud": {
 		"userMenu": {
-			"account": "Mi cuenta",
+			"account": "Mi Cuenta",
 			"rankings": "Clasificación",
 			"news": "Noticias",
 			"rules": "Reglas",
@@ -1069,6 +1069,7 @@
 			"discord": "Discord",
 			"forum": "Foro",
 			"wiki": "Wiki",
+			"statistics": "Statistiques",
 			"notifications": {
 				"title": "Notificaciones",
 				"empty": "¡Nada que ver aquí!",
@@ -1083,6 +1084,7 @@
 				"notifications": "Notificaciones",
 				"actionTabs": "Separar las acciones de Mush y de humanos",
 				"doubleTap": "Doble clic para las acciones",
+				"hideStatusesOnItem": "Cacher les statuts sur les images d'objets",
 				"lessPopups": "Menos ventanas emergentes en el juego"
 			}
 		},

@@ -3,23 +3,24 @@
 namespace Mush\Equipment\ConfigData;
 
 use Mush\Equipment\Entity\Mechanics\Blueprint;
+use Mush\Equipment\Entity\Mechanics\Kit;
 
 class BlueprintDataLoader extends MechanicsDataLoader
 {
     public function loadConfigsData(): void
     {
         foreach (MechanicsData::$dataArray as $blueprintData) {
-            if ($blueprintData['type'] !== 'blueprint') {
+            if ($blueprintData['type'] !== 'blueprint' && $blueprintData['type'] !== 'kit') {
                 continue;
             }
 
             $blueprint = $this->mechanicsRepository->findOneBy(['name' => $blueprintData['name']]);
 
             if ($blueprint === null) {
-                $blueprint = new Blueprint();
+                $blueprintData['type'] === 'kit' ? $blueprint = new Kit() : $blueprint = new Blueprint();
             } elseif (!$blueprint instanceof Blueprint) {
                 $this->entityManager->remove($blueprint);
-                $blueprint = new Blueprint();
+                $blueprintData['type'] === 'kit' ? $blueprint = new Kit() : $blueprint = new Blueprint();
             }
 
             $blueprint

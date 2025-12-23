@@ -11,17 +11,18 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Equipment\ConfigData\MechanicsData;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
+use Mush\Equipment\Entity\Mechanics\Kit;
 
 class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
         foreach (MechanicsData::$dataArray as $blueprintData) {
-            if ($blueprintData['type'] !== 'blueprint') {
+            if ($blueprintData['type'] !== 'blueprint' && $blueprintData['type'] !== 'kit') {
                 continue;
             }
 
-            $blueprint = new Blueprint();
+            $blueprintData['type'] === 'kit' ? $blueprint = new Kit() : $blueprint = new Blueprint();
 
             $blueprint
                 ->setName($blueprintData['name'])

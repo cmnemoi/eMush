@@ -12,6 +12,7 @@ abstract class EquipmentMechanicEnum
     public const string EXPLORATION = 'exploration';
     public const string FRUIT = 'fruit';
     public const string GEAR = 'gear';
+    public const string KIT = 'kit';
     public const string PATROL_SHIP = 'patrol_ship';
     public const string PLANT = 'plant';
     public const string PLUMBING = 'plumbing';

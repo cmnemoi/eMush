@@ -183,7 +183,7 @@ final class BuildActionCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldBuildSofaInRoom(FunctionalTester $I): void
+    public function blueprintShouldBuildSofaInRoom(FunctionalTester $I): void
     {
         // given I have a swedish_sofa blueprint in room
         $sofaBlueprint = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -209,6 +209,37 @@ final class BuildActionCest extends AbstractFunctionalTest
 
         // when I build the blueprint
         $this->buildAction->loadParameters($this->buildConfig, $sofaBlueprint, $this->player, $sofaBlueprint);
+        $this->buildAction->execute();
+
+        // then I have the swedish sofa in the room
+        $this->player->getEquipmentByName(EquipmentEnum::SWEDISH_SOFA);
+
+        // then I see a private room log
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getLogName(),
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'log' => ActionLogEnum::BUILD_SUCCESS,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]
+        );
+    }
+
+    public function kitShouldBuildSofaInRoom(FunctionalTester $I): void
+    {
+        // given I have a swedish_sofa kit in room
+        $sofaKit = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::SWEDISH_SOFA . '_kit',
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // no ingredients necessary!
+
+        // when I build the blueprint
+        $this->buildAction->loadParameters($this->buildConfig, $sofaKit, $this->player, $sofaKit);
         $this->buildAction->execute();
 
         // then I have the swedish sofa in the room

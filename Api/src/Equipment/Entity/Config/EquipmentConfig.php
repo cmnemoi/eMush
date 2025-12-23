@@ -108,7 +108,7 @@ class EquipmentConfig
 
     public function getEquipmentShortName(): string
     {
-        if ($this->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) {
+        if ($this->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT) && !$this->getMechanicByName(EquipmentMechanicEnum::KIT)) {
             return ItemEnum::BLUEPRINT;
         }
         if ($this->getMechanicByName(EquipmentMechanicEnum::BOOK)) {

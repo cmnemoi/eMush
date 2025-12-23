@@ -309,7 +309,8 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
                 }
                 $blueprint = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
                 if ($blueprint instanceof Blueprint) {
-                    $name .= $blueprint->getCraftedEquipmentName();
+                    // blueprints can create the same item but have different recipes
+                    $name .= $blueprint->getCraftedEquipmentName() . $blueprint->getIngredientsNames();
                 }
 
                 if (!isset($itemsGroup[$name])) {

@@ -8,7 +8,7 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 #[ORM\Entity]
 class Blueprint extends Tool
 {
-    #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[ORM\Column(type: 'string', unique: false, nullable: false)]
     private string $craftedEquipmentName;
 
     /**
@@ -35,6 +35,11 @@ class Blueprint extends Tool
         $this->craftedEquipmentName = $craftedEquipmentName;
 
         return $this;
+    }
+
+    public function getIngredientsNames(): string
+    {
+        return implode('+', array_keys($this->ingredients));
     }
 
     public function getIngredients(): array

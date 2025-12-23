@@ -256,7 +256,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::IAN,
         ],
         [
-            'item' => EquipmentEnum::SWEDISH_SOFA, // @TODO: Sofa Kit
+            'item' => EquipmentEnum::SWEDISH_SOFA . '_kit',
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -347,7 +347,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::PAOLA,
         ],
         [
-            'item' => EquipmentEnum::JUKEBOX, // @TODO: Jukebox Kit
+            'item' => EquipmentEnum::JUKEBOX . '_kit',
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -361,7 +361,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::PAOLA,
         ],
         [
-            'item' => 'apprentron_determined', // @TODO: Find replacement, gag
+            'item' => EquipmentEnum::SWEDISH_SOFA . '_weird_blueprint', // gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,

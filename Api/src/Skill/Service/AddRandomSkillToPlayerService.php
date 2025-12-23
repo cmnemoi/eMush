@@ -35,6 +35,8 @@ class AddRandomSkillToPlayerService
         $filteredPerks = new ArrayCollection([
             SkillEnum::ANONYMUSH, // maybe fun the first time it happens, but would broadcast to the human team that you got a dead slot
             SkillEnum::BACTEROPHILIAC, // too weak
+            SkillEnum::DOORMAN, // too weak
+            SkillEnum::NIGHTMARISH, // #weakgang
             SkillEnum::HARD_BOILED, // don't want people to be accidentally outed when punched
             SkillEnum::RADIO_PIRACY, // too buggy, sorry sweet prince
         ]);

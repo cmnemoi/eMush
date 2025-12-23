@@ -3822,5 +3822,57 @@ Can be inserted in the combustion chamber.</target>
         //:ic_explorer: Expedition: 5x Chance of finding a remaining "Mankarog", "Volcanoes", or "Seismic Activity" sector. //:point: Hides itself as a regular **Quadrimetric Compass** in room logs.</target>
       </segment>
     </unit>
+    <unit id="swedish_sofa_kit">
+      <segment id="name" state="translated">
+        <source>swedish_sofa_kit.name</source>
+        <target>Sofa Kit</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>swedish_sofa_kit.short_name</source>
+        <target>Kit</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>swedish_sofa_kit.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>swedish_sofa_kit.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>swedish_sofa_kit.description</source>
+        <target>A full kit, still sealed and untouched after all these years. Guaranteed to have all the required pieces! // :point: Can be built to make a Sofa.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>swedish_sofa_kit.examine</source>
+        <target>This kit contains all the required pieces for a swedish sofa, including a strange tube the notice **insists** is essential.// Can be built to make a Sofa. Consider where to build it carefully.</target>
+      </segment>
+    </unit>
+    <unit id="jukebox_kit">
+      <segment id="name" state="translated">
+        <source>jukebox_kit.name</source>
+        <target>Jukebox Kit</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>jukebox_kit.short_name</source>
+        <target>Kit</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>jukebox_kit.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>jukebox_kit.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>jukebox_kit.description</source>
+        <target>A full kit, still sealed and untouched after all these years. Guaranteed to have all the required pieces! // :point: Can be built to make a Jukebox.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>jukebox_kit.examine</source>
+        <target>Comes with sixteen 600.000RPM studio quality magnetovinyls, more or less equivalent to a 46GHz/256 bit file. You'd need bionic ears to perceive this level of detail, but when has that ever slowed technological advances? // Can be built to make a Jukebox. Consider where to build it carefully.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

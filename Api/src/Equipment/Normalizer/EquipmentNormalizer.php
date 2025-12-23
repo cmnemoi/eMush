@@ -105,10 +105,13 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
     private function getNameKey(GameEquipment $equipment): string
     {
-        if ($equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT) instanceof Blueprint) {
+        if ($equipment->hasMechanicByName(EquipmentMechanicEnum::KIT)) {
+            return $equipment->getName();
+        }
+        if ($equipment->hasMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) {
             return ItemEnum::BLUEPRINT;
         }
-        if ($equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK) instanceof Book) {
+        if ($equipment->hasMechanicByName(EquipmentMechanicEnum::BOOK)) {
             return ItemEnum::APPRENTRON;
         }
         if ($equipment instanceof SpaceShip) {
@@ -305,7 +308,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
         $description = $this->translationService->translate("{$key}.description", $translationParameters, $type, $language);
 
-        if ($equipment->hasMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) {
+        if ($equipment->hasMechanicByName(EquipmentMechanicEnum::BLUEPRINT) && !$equipment->hasMechanicByName(EquipmentMechanicEnum::KIT)) {
             foreach ($equipment->getBlueprintMechanicOrThrow()->getIngredients() as $name => $number) {
                 $ingredientTranslation = $this->translationService->translate(
                     'blueprint_ingredient.description',
@@ -315,6 +318,16 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
                 );
                 $description = "{$description}//{$ingredientTranslation}";
             }
+        }
+
+        if ($equipment->hasStatus(EquipmentStatusEnum::HEAVY)) {
+            $heavyTranslation = $this->translationService->translate(
+                'heavy.description',
+                [],
+                'status',
+                $language
+            );
+            $description = "{$description}//:heavy: {$heavyTranslation}";
         }
 
         return $description;

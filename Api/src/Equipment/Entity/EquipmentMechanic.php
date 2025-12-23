@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\Mechanics\Entity;
 use Mush\Equipment\Entity\Mechanics\Exploration;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Equipment\Entity\Mechanics\Kit;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\Mechanics\Plumbing;
 use Mush\Equipment\Entity\Mechanics\Ration;
@@ -35,6 +36,7 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
     'exploration' => Exploration::class,
     'fruit' => Fruit::class,
     'gear' => Gear::class,
+    'kit' => Kit::class,
     'plant' => Plant::class,
     'plumbing' => Plumbing::class,
     'ration' => Ration::class,

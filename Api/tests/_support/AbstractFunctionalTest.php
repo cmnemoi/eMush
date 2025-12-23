@@ -351,6 +351,16 @@ class AbstractFunctionalTest
         );
     }
 
+    protected function createStatusOn(string $status, StatusHolderInterface $statusHolder): void
+    {
+        $this->statusService->createStatusFromName(
+            $status,
+            $statusHolder,
+            ['test'],
+            new \DateTime()
+        );
+    }
+
     private function createTitlePriorities(Daedalus $daedalus, FunctionalTester $I): void
     {
         foreach ($daedalus->getGameConfig()->getTitleConfigs() as $titleConfig) {

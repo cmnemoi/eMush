@@ -40,6 +40,7 @@ class ItemEnum
     public const string APPRENTRON = 'apprentron';
     public const string BLUEPRINT = 'blueprint';
     public const string DOCUMENT = 'document';
+    public const string KIT = 'kit';
     public const string COMMANDERS_MANUAL = 'commanders_manual';
     public const string MUSH_RESEARCH_REVIEW = 'mush_research_review';
     public const string POST_IT = 'post_it';

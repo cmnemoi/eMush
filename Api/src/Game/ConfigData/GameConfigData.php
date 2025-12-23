@@ -384,6 +384,9 @@ class GameConfigData
                     'lunchbox_default',
                     ItemEnum::LUMP_OF_COAL . '_default',
                     ItemEnum::EVIL_COMPASS . '_default',
+                    EquipmentEnum::SWEDISH_SOFA . '_kit_default',
+                    EquipmentEnum::JUKEBOX . '_kit_default',
+                    EquipmentEnum::SWEDISH_SOFA . '_weird_blueprint_default',
                 ],
                 'statusConfigs' => [
                     'alien_artefact_default',

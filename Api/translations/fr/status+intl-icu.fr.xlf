@@ -31,7 +31,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>heavy.description</source>
-        <target>Cet objet est particulièrement lourd. Se déplacer avec vous coûtera 2 :pm: de plus.</target>
+        <target>Cet objet est particulièrement lourd. **Se déplacer avec vous coûtera 2 :pm: de plus.**</target>
       </segment>
     </unit>
     <unit id="module_access">

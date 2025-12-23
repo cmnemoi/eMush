@@ -6,7 +6,12 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ContainerContentEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\GameDrugEnum;
+use Mush\Equipment\Enum\GameFruitEnum;
+use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Enum\WeaponEventEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Skill\Enum\SkillEnum;
@@ -2042,6 +2047,36 @@ class MechanicsData
             'skill' => SkillEnum::HYGIENIST,
             'actions' => [
                 'read_book',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => EquipmentEnum::SWEDISH_SOFA . '_kit_default',
+            'type' => 'kit',
+            'craftedEquipmentName' => EquipmentEnum::SWEDISH_SOFA,
+            'ingredients' => [],
+            'actions' => [
+                'build',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => EquipmentEnum::JUKEBOX . '_kit_default',
+            'type' => 'kit',
+            'craftedEquipmentName' => EquipmentEnum::JUKEBOX,
+            'ingredients' => [],
+            'actions' => [
+                'build',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => EquipmentEnum::SWEDISH_SOFA . '_weird_blueprint_default',
+            'type' => 'blueprint',
+            'craftedEquipmentName' => EquipmentEnum::SWEDISH_SOFA,
+            'ingredients' => [ItemEnum::PLASTIC_SCRAPS => 8, GameFruitEnum::KUBINUS => 1, GameDrugEnum::TWINOID => 1, ItemEnum::POST_IT => 20, ToolItemEnum::DUCT_TAPE => 1, GameRationEnum::ALIEN_STEAK => 5, GameRationEnum::STANDARD_RATION => 1, GameRationEnum::COOKED_RATION => 1, GearItemEnum::PRINTED_CIRCUIT_JELLY => 1],
+            'actions' => [
+                'build',
             ],
             'modifierConfigs' => [],
         ],

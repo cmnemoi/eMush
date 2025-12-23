@@ -4203,6 +4203,67 @@ class EquipmentConfigData
                 'alien_artefact_default',
             ],
         ],
+        [
+            'name' => EquipmentEnum::SWEDISH_SOFA . '_kit_default',
+            'equipmentName' => EquipmentEnum::SWEDISH_SOFA . '_kit',
+            'breakableType' => BreakableTypeEnum::NONE,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => false,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => [
+                EquipmentEnum::SWEDISH_SOFA . '_kit_default',
+            ],
+            'initStatuses' => [
+                'heavy_default',
+            ],
+        ],
+        [
+            'name' => EquipmentEnum::JUKEBOX . '_kit_default',
+            'equipmentName' => EquipmentEnum::JUKEBOX . '_kit',
+            'breakableType' => BreakableTypeEnum::NONE,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => false,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => [
+                EquipmentEnum::JUKEBOX . '_kit_default',
+            ],
+            'initStatuses' => [
+                'heavy_default',
+            ],
+        ],
+        [
+            'name' => EquipmentEnum::SWEDISH_SOFA . '_weird_blueprint_default',
+            'equipmentName' => EquipmentEnum::SWEDISH_SOFA . '_weird_blueprint',
+            'breakableType' => BreakableTypeEnum::DESTROY_ON_BREAK,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => true,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => [
+                EquipmentEnum::SWEDISH_SOFA . '_weird_blueprint_default',
+            ],
+            'initStatuses' => [],
+        ],
     ];
 
     public static function getByEquipmentName(string $name): array

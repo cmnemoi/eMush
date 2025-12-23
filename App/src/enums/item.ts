@@ -147,6 +147,9 @@ const SUPER_SOAPER = "super_soaper";
 
 const SWEDISH_SOFA = "swedish_sofa";
 
+const SWEDISH_SOFA_KIT = "swedish_sofa_kit";
+const JUKEBOX_KIT = "jukebox_kit";
+
 export const itemEnum: {[index: string]: any} = {
     [ALIEN_BOTTLE_OPENER]: {
         'image': getImgUrl('items/alien_can_opener.jpg')
@@ -525,5 +528,11 @@ export const itemEnum: {[index: string]: any} = {
     },
     [EVIL_COMPASS]:{
         'image': getImgUrl('items/evil_compass.png')
+    },
+    [SWEDISH_SOFA_KIT]:{
+        'image': getImgUrl('items/sofa_kit.png')
+    },
+    [JUKEBOX_KIT]:{
+        'image': getImgUrl('items/jukebox_kit.png')
     }
 };

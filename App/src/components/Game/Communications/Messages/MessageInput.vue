@@ -12,7 +12,7 @@
                 @keyup="resize()"
                 @focusout ="updateTypedMessage(text)"
             />
-            <div class="character-count" :class="{ 'over-limit': text?.length > maxLength}">
+            <div class="character-count" :class="{ 'getting-close': text?.length > maxLength/2, 'over-limit': text?.length > maxLength}">
                 {{ text?.length }} / {{ maxLength}}
             </div>
             <div class="buttons-container">
@@ -84,7 +84,7 @@ export default defineComponent ({
         getImgUrl,
         sendNewMessage(messageToSend?: string): void {
             const textToSend = messageToSend !== undefined ? messageToSend : this.text;
-            if (textToSend.length > maxLength) {
+            if (textToSend.length > this.maxLength) {
                 return;
             }
             this.showRichEditor = false;
@@ -210,6 +210,10 @@ export default defineComponent ({
     padding: 2px 5px;
     border-radius: 3px;
     pointer-events: none;
+
+    &.getting-close {
+        color: rgba(128, 128, 128, 0.75);
+    }
 
     &.over-limit {
         color: #d32f2f;

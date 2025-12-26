@@ -336,10 +336,10 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
     private function getFrugivoreBonus(GameEquipment $food, Player $player): int
     {
         if ($player->hasModifierByModifierName(ModifierNameEnum::FRUGIVORE_MODIFIER_FOR_ALIEN_FRUITS) && $food->isAnAlienFruit()) {
-            return (int) $player->getModifiers()->getModifierByModifierNameOrThrow(ModifierNameEnum::FRUGIVORE_MODIFIER_FOR_ALIEN_FRUITS)->getVariableModifierConfigOrThrow()->getDelta();
+            return (int) $player->getModifiers()->getByModifierNameOrThrow(ModifierNameEnum::FRUGIVORE_MODIFIER_FOR_ALIEN_FRUITS)->getVariableModifierConfigOrThrow()->getDelta();
         }
         if ($player->hasModifierByModifierName(ModifierNameEnum::FRUGIVORE_MODIFIER_FOR_BANANA) && $food->isABanana()) {
-            return (int) $player->getModifiers()->getModifierByModifierNameOrThrow(ModifierNameEnum::FRUGIVORE_MODIFIER_FOR_BANANA)->getVariableModifierConfigOrThrow()->getDelta();
+            return (int) $player->getModifiers()->getByModifierNameOrThrow(ModifierNameEnum::FRUGIVORE_MODIFIER_FOR_BANANA)->getVariableModifierConfigOrThrow()->getDelta();
         }
 
         return 0;
@@ -353,7 +353,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             return 0;
         }
 
-        $siriusModifierConfig = $daedalus->getModifiers()->getModifierByModifierNameOrThrow(ModifierNameEnum::SIRIUS_REBEL_BASE_MODIFIER)->getVariableModifierConfigOrThrow();
+        $siriusModifierConfig = $daedalus->getModifiers()->getByModifierNameOrThrow(ModifierNameEnum::SIRIUS_REBEL_BASE_MODIFIER)->getVariableModifierConfigOrThrow();
         if (!\in_array($food->getName(), array_keys($siriusModifierConfig->getTagConstraints()), true)) {
             return 0;
         }
@@ -368,7 +368,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             return 0;
         }
 
-        $guarannaModifierConfig = $daedalus->getModifiers()->getModifierByModifierNameOrThrow(ModifierNameEnum::GUARANA_CAPPUCCINO_MODIFIER)->getVariableModifierConfigOrThrow();
+        $guarannaModifierConfig = $daedalus->getModifiers()->getByModifierNameOrThrow(ModifierNameEnum::GUARANA_CAPPUCCINO_MODIFIER)->getVariableModifierConfigOrThrow();
         if (!\in_array($food->getName(), array_keys($guarannaModifierConfig->getTagConstraints()), true)) {
             return 0;
         }

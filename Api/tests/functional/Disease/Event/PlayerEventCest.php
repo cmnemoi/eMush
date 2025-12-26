@@ -6,6 +6,7 @@ namespace Mush\Tests\functional\Disease\Event;
 
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DisorderEnum;
+use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -229,6 +230,49 @@ final class PlayerEventCest extends AbstractFunctionalTest
         $I->assertTrue($this->chun->hasStatus(PlayerStatusEnum::DIRTY));
     }
 
+    public function testBitingSymptom(FunctionalTester $I): void
+    {
+        // given Chun has space rabies, so she has the biting symptom
+        $spaceRabies = $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DiseaseEnum::SPACE_RABIES,
+            player: $this->chun,
+            reasons: [],
+        );
+
+        // given the biting symptom does not have random_16
+        $this->player->getModifiers()
+            ->getByModifierNameOrThrow(SymptomEnum::BITING)->getEventModifierConfigOrThrow()
+            ->setModifierActivationRequirements(modifierActivationRequirements: []);
+
+        $this->kuanTi->setHealthPoint(10);
+
+        // when cycle change occurs for both players
+        $playerEvent = new PlayerCycleEvent(
+            player: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($playerEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        $playerEvent = new PlayerCycleEvent(
+            player: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($playerEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+
+        $I->assertEquals(9, $this->kuanTi->getHealthPoint());
+
+        $I->seeInRepository(
+            RoomLog::class,
+            [
+                'place' => $this->player->getPlace()->getLogName(),
+                'playerInfo' => $this->player->getPlayerInfo()->getId(),
+                'log' => SymptomEnum::BITING,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+    }
+
     public function shouldNotTriggerBitingSymptomIfTargetDiesAtCycleChange(FunctionalTester $I): void
     {
         // given Chun has space rabies, so she has the biting symptom
@@ -238,7 +282,12 @@ final class PlayerEventCest extends AbstractFunctionalTest
             reasons: [],
         );
 
-        // given KT has 0 morale points so she will die at cycle change
+        // given the biting symptom does not have random_16
+        $this->player->getModifiers()
+            ->getByModifierNameOrThrow(SymptomEnum::BITING)->getEventModifierConfigOrThrow()
+            ->setModifierActivationRequirements(modifierActivationRequirements: []);
+
+        // given KT has 0 morale points so he will die at cycle change
         $this->kuanTi->setMoralPoint(0);
 
         // when cycle change occurs for both players

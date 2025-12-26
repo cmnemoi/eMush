@@ -16,6 +16,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -369,7 +370,15 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
 
         /** @var Status $status */
         foreach ($relevantStatuses as $status) {
-            $statusNames[] = ($status instanceof ContentStatus) ? $status->getContent() : $status->getName();
+            if ($status instanceof ContentStatus) {
+                $statusName = $status->getContent();
+            } elseif ($status instanceof ChargeStatus) {
+                $statusName = $status->getName() . '_' . $status->getCharge();
+            } else {
+                $statusName = $status->getName();
+            }
+
+            $statusNames[] = $statusName;
         }
 
         // Sort status names to ensure consistent ordering

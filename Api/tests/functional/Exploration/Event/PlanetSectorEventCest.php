@@ -1839,6 +1839,26 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $this->thenIShouldSeeFiveAlienSteaksOnPlanet($I);
     }
 
+    public function provisionShouldGiveOneExtraAlienSteakWithAChefsKnife(FunctionalTester $I): void
+    {
+        $this->createEquipment(ItemEnum::CHEFS_KNIFE, $this->chun);
+
+        $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
+            sectorName: PlanetSectorEnum::RUMINANT,
+            players: [$this->chun],
+            I: $I
+        );
+
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::PROVISION_4,
+            sector: PlanetSectorEnum::RUMINANT,
+        );
+
+        $this->whenExplorationEventIsDispatched($exploration);
+
+        $this->thenIShouldSeeFiveAlienSteaksOnPlanet($I);
+    }
+
     public function killRandomShouldNotKillSurvivalistPlayerIfThereIsSomeoneElseToKill(FunctionalTester $I): void
     {
         $this->givenChunIsASurvivalist($I);

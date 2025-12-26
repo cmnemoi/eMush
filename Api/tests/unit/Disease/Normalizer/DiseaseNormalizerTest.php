@@ -8,7 +8,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
-use Mush\Disease\Enum\SymptomActivationRequirementEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\Normalizer\DiseaseNormalizer;
 use Mush\Game\Entity\GameConfig;
@@ -19,6 +18,7 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
+use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use PHPUnit\Framework\TestCase;
@@ -157,7 +157,7 @@ final class DiseaseNormalizerTest extends TestCase
 
         $player->setDaedalus($daedalus);
 
-        $symptomActivationRequirement = new ModifierActivationRequirement(SymptomActivationRequirementEnum::RANDOM);
+        $symptomActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::RANDOM);
         $symptomActivationRequirement->setValue(15);
 
         $symptomConfig = new EventModifierConfig(SymptomEnum::BITING);

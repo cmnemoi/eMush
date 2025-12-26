@@ -81,7 +81,7 @@ final readonly class StatusEventSubscriber implements EventSubscriberInterface
 
         $droppableItems = $event
             ->getPlayerStatusHolder()
-            ->getEquipmentsExceptPersonal()
+            ->getEquipments()
             ->filter(static fn (GameEquipment $gameEquipment) => $isCritical($gameEquipment) || $isPlant($gameEquipment) || $isHydropot($gameEquipment));
 
         foreach ($droppableItems as $item) {

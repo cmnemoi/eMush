@@ -172,7 +172,7 @@ final class Graft extends AbstractAction
     {
         return $this->player
             ->getModifiers()
-            ->getModifierByModifierNameOrThrow(ModifierNameEnum::GREEN_THUMB_MODIFIER)
+            ->getByModifierNameOrThrow(ModifierNameEnum::GREEN_THUMB_MODIFIER)
             ->getVariableModifierConfigOrThrow()
             ->getDelta();
     }

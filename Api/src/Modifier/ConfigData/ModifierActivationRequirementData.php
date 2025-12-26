@@ -162,6 +162,12 @@ class ModifierActivationRequirementData
             'activationRequirement' => PlayerStatusEnum::HAS_USED_FERTILE_TODAY,
             'value' => ModifierRequirementEnum::ABSENT_STATUS,
         ],
+        [
+            'name' => ModifierRequirementEnum::PLAYER_ANY_WEAPON,
+            'activationRequirementName' => ModifierRequirementEnum::PLAYER_ANY_WEAPON,
+            'activationRequirement' => '',
+            'value' => 100,
+        ],
     ];
 
     public static function getByName(string $name): array

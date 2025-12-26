@@ -417,7 +417,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>provision.description</source>
-        <target>Ganas {quantity, plural, one {# {equipment}} other {# {equipment_plural_name}}}.{fight_prevented_by_item}{bonus_loot_thanks_to_skill}{fight_prevented_by_skill}</target>
+        <target>Ganas {quantity, plural, one {# {equipment}} other {# {equipment_plural_name}}}.{fight_prevented_by_item}{bonus_loot_thanks_to_skill}{bonus_loot_thanks_to_items}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="ruminant_description" state="translated">
         <source>provision.ruminant_description</source>

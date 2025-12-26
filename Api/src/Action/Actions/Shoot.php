@@ -7,6 +7,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
@@ -50,6 +51,31 @@ final class Shoot extends AttemptAction
     public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target instanceof Player;
+    }
+
+    public function getSuccessRate(): int
+    {
+        $actionConfig = clone $this->actionConfig;
+        $baseAccuracy = $this->getGameEquipmentActionProvider()->getWeaponMechanicOrThrow()->getBaseAccuracy();
+        $actionConfig->setSuccessRate($baseAccuracy);
+
+        return $this->actionService->getActionModifiedActionVariable(
+            player: $this->player,
+            actionConfig: $actionConfig,
+            actionProvider: $this->actionProvider,
+            actionTarget: $this->target,
+            variableName: ActionVariableEnum::PERCENTAGE_SUCCESS,
+            tags: $this->getTags()
+        );
+    }
+
+    public function getTags(): array
+    {
+        $tags = parent::getTags();
+
+        $tags[] = $this->itemActionProvider()->getName();
+
+        return $tags;
     }
 
     protected function applyEffect(ActionResult $result): void

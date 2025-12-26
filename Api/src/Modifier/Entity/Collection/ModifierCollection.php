@@ -72,19 +72,12 @@ class ModifierCollection extends ArrayCollection
         ));
     }
 
-    public function getModifierByModifierNameOrThrow(string $modifierName): GameModifier
-    {
-        $modifier = $this->filter(static fn (GameModifier $modifier) => $modifier->getModifierNameOrNull() === $modifierName)->first() ?: null;
-
-        if ($modifier === null) {
-            throw new \RuntimeException("Modifier with name {$modifierName} not found.");
-        }
-
-        return $modifier;
-    }
-
     public function getByModifierNameOrThrow(string $modifierName): GameModifier
     {
+        /*warning: modifiers' modifierName-s aren't unique.
+        This causes problems for, for example, vomiting_consume and vomiting_move_random_40 which share the same modifierName for log key purposes.
+        This function is only ever called in game for modifiers with a unique modifierName, but... something to keep in mind for cests...
+        (in the above example, you can test vomiting_move_random_40 using slight_nausea, which has the latter without the former!)*/
         $modifier = $this->filter(static fn (GameModifier $modifier) => $modifier->getModifierNameOrNull() === $modifierName)->first() ?: null;
 
         if ($modifier === null) {

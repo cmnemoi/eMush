@@ -2288,7 +2288,7 @@ Since time immemorial, the solo shooter and his weapon have been a cornerstone o
       </segment>
       <segment id="plural_name" state="translated">
         <source>knife.plural_name</source>
-        <target>Knifes</target>
+        <target>Knives</target>
       </segment>
       <segment id="genre" state="translated">
         <source>knife.gender</source>
@@ -3906,6 +3906,43 @@ Contains {quantity, plural,
         one {1 **Alien Fruite**}
         other {# **Alien Fruits**}
 }.</target>
+      </segment>
+    </unit>
+    <unit id="chefs_knife">
+      <segment id="name" state="translated">
+        <source>chefs_knife.name</source>
+        <target>Chef's Knife</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>chefs_knife.short_name</source>
+        <target>Knife</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>chefs_knife.plural_name</source>
+        <target>Knives</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>chefs_knife.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>chefs_knife.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>chefs_knife.description</source>
+        <target>A finely sharpened multi-use blade. Cooking, mugging, butchering, shaving, it does it all, and best of all: it's yours.
+//:point: +10% base aim over a standard knife.
+//:point: Expedition: + 1 added to the strength of your team during combats.
+//:point: Expedition: The **Provision** event yields an additional steak.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>chefs_knife.examine</source>
+        <target>There are many like it, but there are few like you.
+//+10% base aim over a standard knife.
+//Expedition: + 1 added to the strength of your team during combats.
+//Expedition: The **Provision** event yields an additional steak.
+//No one but you may wield it.</target>
       </segment>
     </unit>
   </file>

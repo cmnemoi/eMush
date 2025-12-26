@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Disease\Entity\PlayerDisease;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -45,7 +46,7 @@ final class AttackCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenChunHasAKnife();
-        $this->actionConfig->setSuccessRate(100);
+        $this->knife->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
     }
 
     public function shouldRemoveHealthToTargetOnSuccess(FunctionalTester $I): void
@@ -168,7 +169,7 @@ final class AttackCest extends AbstractFunctionalTest
 
     public function shouldNotIncreaseKnifeDodgedOnFailure(FunctionalTester $I): void
     {
-        $this->actionConfig->setSuccessRate(0);
+        $this->knife->getWeaponMechanicOrThrow()->setBaseAccuracy(0);
 
         $this->whenChunAttacksKuanTi();
 
@@ -211,6 +212,16 @@ final class AttackCest extends AbstractFunctionalTest
         );
     }
 
+    public function chefsKnifeShouldHaveHigherAccuracy(FunctionalTester $I)
+    {
+        $chefsKnife = $this->givenChunHasAChefsKnife();
+        $chefsKnife->getWeaponMechanicOrThrow()->setBaseAccuracy(60);
+
+        $this->whenChunTakesAimAtKuanTiWithChefsKnife($chefsKnife);
+
+        $I->assertEquals(70, $this->attack->getSuccessRate());
+    }
+
     private function givenKnifeHas100ChanceToDispatchEvent(string $event): void
     {
         $this->knife->getWeaponMechanicOrThrow()->setSuccessfulEventKeys([
@@ -223,12 +234,12 @@ final class AttackCest extends AbstractFunctionalTest
 
     private function givenChunHasAKnife(): void
     {
-        $this->knife = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::KNIFE,
-            equipmentHolder: $this->chun,
-            reasons: [],
-            time: new \DateTime(),
-        );
+        $this->knife = $this->createEquipment(ItemEnum::KNIFE, $this->chun);
+    }
+
+    private function givenChunHasAChefsKnife(): GameEquipment
+    {
+        return $this->createEquipment(ItemEnum::CHEFS_KNIFE, $this->chun);
     }
 
     private function givenKuanTiHasHealthPoints(int $healthPoints): void
@@ -258,6 +269,16 @@ final class AttackCest extends AbstractFunctionalTest
             holder: $this->knife,
             tags: [],
             time: new \DateTime(),
+        );
+    }
+
+    private function whenChunTakesAimAtKuanTiWithChefsKnife(GameEquipment $chefsKnife): void
+    {
+        $this->attack->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $chefsKnife,
+            player: $this->chun,
+            target: $this->kuanTi,
         );
     }
 

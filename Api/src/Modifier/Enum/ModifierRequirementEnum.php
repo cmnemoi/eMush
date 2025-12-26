@@ -21,6 +21,8 @@ namespace Mush\Modifier\Enum;
  *
  * PLAYER_EQUIPMENT: the activationRequirement is applied on the player equipment
  *
+ * PLAYER_ANY_WEAPON: the activationRequireemtn checks if the player is holding any weaponry
+ *
  * STATUS: the activationRequirement is applied on the status of the modifier holder
  *
  * HOLDER_NAME: the activation requirement is applied on the name of the holder (used mostly for equipments)
@@ -47,6 +49,7 @@ abstract class ModifierRequirementEnum
     public const string CYCLE = 'cycle';
     public const string EVEN = 'even';
     public const string PLAYER_EQUIPMENT = 'player_equipment';
+    public const string PLAYER_ANY_WEAPON = 'player_any_weapon';
     public const string HOLDER_HAS_STATUS = 'status';
     public const string HOLDER_HAS_SKILL = 'skill';
     public const string PLAYER_IS_NOT_MUSH = 'player_is_not_mush';

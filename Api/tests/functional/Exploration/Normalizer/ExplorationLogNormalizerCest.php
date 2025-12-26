@@ -1021,6 +1021,52 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
     }
 
+    public function testNormalizeProvisionEventWithOneSurvivalistOneChefsKnife(FunctionalTester $I): void
+    {
+        // given ruminant sector has only provision event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::RUMINANT,
+            events: [PlanetSectorEvent::PROVISION_4 => 1]
+        );
+
+        // given Chun and KT have a spacesuit
+        $this->createEquipment(GearItemEnum::SPACESUIT, $this->chun);
+        $this->createEquipment(GearItemEnum::SPACESUIT, $this->kuanTi);
+        // given Chun has a Chef's Knife
+        $this->createEquipment(ItemEnum::CHEFS_KNIFE, $this->chun);
+
+        // given Chun is a survivalist
+        $this->givenPlayerHasSkill($this->chun, SkillEnum::SURVIVALIST, $I);
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::RUMINANT], $I),
+            explorators: new ArrayCollection([$this->chun, $this->kuanTi]),
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        $this->givenExpeditionMovedForwardThisManySteps(1);
+
+        // when provision event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::PROVISION
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+        $I->assertEquals(
+            expected: [
+                'id' => $explorationLog->getId(),
+                'planetSectorKey' => PlanetSectorEnum::RUMINANT,
+                'planetSectorName' => 'Ruminants',
+                'eventName' => 'Provision',
+                'eventDescription' => 'Vous chassez avec succès un Chab Chab... Vous récupérez de la viande alien.',
+                'eventOutcome' => 'Vous gagnez 6 Steaks aliens.////+ 1 obtenu car l\'expédition dispose de la compétence : Survie////+ 1 obtenu car l\'expédition dispose de l\'équipement adéquat!',
+            ],
+            actual: $normalizedExplorationLog,
+        );
+    }
+
     public function testNormalizeStarmapEvent(FunctionalTester $I): void
     {
         // given cristal field sector has only provision event

@@ -1402,5 +1402,11 @@
         <target>{equipment_gender, select, female {Une} other {Un}} **{equipment}** a été {equipment_gender, select, female {détruite} other {détruit}} par N.E.R.O.N. en accord avec sa programmation.</target>
       </segment>
     </unit>
+    <unit id="psychotic_attacks">
+      <segment id="psychotic_attacks" state="translated">
+        <source>psychotic_attacks</source>
+        <target>**Modération Uniquement:** Le symptôme **Accès Psychotique** force **{character}** à attaquer.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -49,7 +49,7 @@ final class ApplyEffectEventSubscriber implements EventSubscriberInterface
 
         return $author
             ->getModifiers()
-            ->getModifierByModifierNameOrThrow(ModifierNameEnum::MYCOLOGIST_MODIFIER)
+            ->getByModifierNameOrThrow(ModifierNameEnum::MYCOLOGIST_MODIFIER)
             ->getTriggerModifierConfigOrThrow()
             ->getTriggeredVariableEventConfigOrThrow()
             ->getQuantity();

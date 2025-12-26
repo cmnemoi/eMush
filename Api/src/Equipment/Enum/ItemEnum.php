@@ -56,6 +56,8 @@ class ItemEnum
     public const string EVIL_COMPASS = 'evil_compass';
     public const string FRUIT_BASKET = 'fruit_basket';
     public const string STRAWMAN = 'strawman';
+    public const string CHEFS_KNIFE = 'chefs_knife';
+    public const string LUCKY_LIZARO = 'lucky_lizaro';
 
     public static function getArtefacts(): ArrayCollection
     {
@@ -82,6 +84,16 @@ class ItemEnum
             self::ROCKET_LAUNCHER,
             self::LIZARO_JUNGLE,
             self::OLD_FAITHFUL,
+            self::CHEFS_KNIFE,
+            self::LUCKY_LIZARO,
+        ]);
+    }
+
+    public static function getBlades(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::KNIFE,
+            self::CHEFS_KNIFE,
         ]);
     }
 
@@ -93,6 +105,7 @@ class ItemEnum
             self::ROCKET_LAUNCHER,
             self::LIZARO_JUNGLE,
             self::OLD_FAITHFUL,
+            self::LUCKY_LIZARO,
         ]);
     }
 }

@@ -95,10 +95,6 @@ class GameConfigData
                     'sex_default',
                     'trauma_default',
                     'contact_default',
-                    'critical_fail_knife_default',
-                    'critical_success_knife_default',
-                    'critical_fail_blaster_default',
-                    'critical_success_blaster_default',
                     'exploration_default',
                     'alien_fight_default',
                     DiseaseCauseEnum::RANDOM_INJURY . '_default',
@@ -390,6 +386,7 @@ class GameConfigData
                     EquipmentEnum::SWEDISH_SOFA . '_weird_blueprint_default',
                     ItemEnum::FRUIT_BASKET . '_default',
                     'strawman_default',
+                    ItemEnum::CHEFS_KNIFE . '_default',
                 ],
                 'statusConfigs' => [
                     'alien_artefact_default',

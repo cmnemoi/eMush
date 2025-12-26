@@ -47,7 +47,7 @@ final class Hit extends AttemptAction
         $metadata->addConstraint(
             new HasEquipment([
                 'reach' => ReachEnum::INVENTORY,
-                'equipments' => [ItemEnum::KNIFE],
+                'equipments' => ItemEnum::getBlades()->toArray(),
                 'all' => false,
                 'contains' => false,
                 'groups' => [ClassConstraint::VISIBILITY],

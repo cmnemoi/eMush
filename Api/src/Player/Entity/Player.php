@@ -352,11 +352,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->items;
     }
 
-    public function getEquipmentsExceptPersonal(): Collection
-    {
-        return $this->items->filter(static fn (GameItem $gameItem) => !$gameItem->isPersonal());
-    }
-
     public function setEquipments(ArrayCollection $equipments): static
     {
         $this->items = $equipments;
@@ -488,6 +483,22 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         $disease = $this->getMedicalConditionByName($diseaseName);
 
         return $disease ?? throw new \RuntimeException('The player does not have the disease ' . $diseaseName);
+    }
+
+    public function hasMedicalConditionByName(string $diseaseName): bool
+    {
+        return $this->getMedicalConditionByName($diseaseName) instanceof PlayerDisease ? true : false;
+    }
+
+    public function hasAnyMedicalConditionByName(array $diseaseNames): bool
+    {
+        foreach ($diseaseNames as $name) {
+            if ($this->hasMedicalConditionByName($name)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function getActiveDisorders(): PlayerDiseaseCollection
@@ -1575,7 +1586,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     {
         return (int) $this
             ->getModifiers()
-            ->getModifierByModifierNameOrThrow(ModifierNameEnum::HYGIENIST_DISEASE_MODIFIER)
+            ->getByModifierNameOrThrow(ModifierNameEnum::HYGIENIST_DISEASE_MODIFIER)
             ->getVariableModifierConfigOrThrow()
             ->getDelta();
     }

@@ -63,7 +63,7 @@ final class ShrinkHandler
     {
         return (int) $shrink
             ->getModifiers()
-            ->getModifierByModifierNameOrThrow(ModifierNameEnum::SHRINK_MODIFIER)
+            ->getByModifierNameOrThrow(ModifierNameEnum::SHRINK_MODIFIER)
             ->getVariableModifierConfigOrThrow()
             ->getDelta();
     }

@@ -389,6 +389,7 @@ class DiseaseCausesConfigFixtures extends Fixture implements DependentFixtureInt
             ->addDiseaseCauseConfig($diseaseCausesBacterialContact)
             ->addDiseaseCauseConfig($diseaseCausesFakeDisease)
             ->addDiseaseCauseConfig($diseaseCauseFailedSurgery)
+            ->addDiseaseCauseConfig($diseaseCauseCatAllergy)
             ->addDiseaseCauseConfig($diseaseCauseInfection)
             ->addDiseaseCauseConfig($diseaseCauseSex)
             ->addDiseaseCauseConfig($diseaseCauseTrauma)

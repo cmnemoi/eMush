@@ -742,7 +742,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
     <unit id="attack">
       <segment id="name" state="translated">
         <source>attack.name</source>
-        <target>Attaquer : Couteau</target>
+        <target>Attaquer : {equipment}</target>
       </segment>
       <segment id="description" state="translated">
         <source>attack.description</source>

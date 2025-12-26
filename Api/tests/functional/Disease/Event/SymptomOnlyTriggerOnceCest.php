@@ -8,11 +8,11 @@ use Mush\Action\Actions\Consume;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Enum\DiseaseEnum;
+use Mush\Disease\Enum\SymptomEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Enum\SymptomLogEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -67,7 +67,7 @@ final class SymptomOnlyTriggerOnceCest extends AbstractFunctionalTest
             params: [
                 'playerInfo' => $this->player->getPlayerInfo(),
                 'place' => $this->player->getPlace()->getLogName(),
-                'log' => SymptomLogEnum::VOMITING,
+                'log' => SymptomEnum::VOMITING,
             ]
         );
 

@@ -729,7 +729,7 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
     <unit id="attack">
       <segment id="name" state="translated">
         <source>attack.name</source>
-        <target>Atacar: Cuchillo</target>
+        <target>Atacar: {equipment}</target>
       </segment>
       <segment id="description" state="translated">
         <source>attack.description</source>

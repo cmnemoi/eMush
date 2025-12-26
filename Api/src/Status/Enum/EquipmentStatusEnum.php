@@ -39,6 +39,7 @@ class EquipmentStatusEnum
     public static function splitItemPileStatus(): array
     {
         return [
+            self::ELECTRIC_CHARGES,
             self::HIDDEN,
             self::BROKEN,
             self::DECOMPOSING,

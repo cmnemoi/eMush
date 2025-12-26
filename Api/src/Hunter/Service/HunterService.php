@@ -262,7 +262,7 @@ final class HunterService implements HunterServiceInterface
 
         return (int) $strateguruPlayer
             ->getModifiers()
-            ->getModifierByModifierNameOrThrow(ModifierNameEnum::STRATEGURU_MODIFIER)
+            ->getByModifierNameOrThrow(ModifierNameEnum::STRATEGURU_MODIFIER)
             ->getVariableModifierConfigOrThrow()
             ->getModifierActivationRequirements()
             ->getOneByTypeOrNull(ModifierRequirementEnum::RANDOM)
@@ -275,7 +275,7 @@ final class HunterService implements HunterServiceInterface
 
         return $strateguruPlayer
             ->getModifiers()
-            ->getModifierByModifierNameOrThrow(ModifierNameEnum::STRATEGURU_MODIFIER)
+            ->getByModifierNameOrThrow(ModifierNameEnum::STRATEGURU_MODIFIER)
             ->getVariableModifierConfigOrThrow()
             ->getDelta();
     }

@@ -3,9 +3,7 @@
 namespace Mush\Disease\SymptomHandler;
 
 use Mush\Action\Actions\Move;
-use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Entity\Door;
@@ -48,16 +46,15 @@ class FearCats extends AbstractSymptomHandler
         })->toArray();
 
         if (\count($availableDoors) === 0) {
+            // how did you enter a room with no working doors? return as fallback, but assume this can't happen
+            // I guess this could matter if for some weird reason we add doors that can randomly break after being moved through
             return;
         }
 
         /** @var Door $randomDoor */
         $randomDoor = $this->randomService->getRandomElement($availableDoors);
 
-        /** @var ActionConfig $moveActionEntity */
-        $moveActionEntity = $randomDoor->getActions($player, ActionHolderEnum::EQUIPMENT)->filter(static function (ActionConfig $action) {
-            return $action->getActionName() === ActionEnum::MOVE;
-        })->first();
+        $moveActionEntity = $randomDoor->getActionConfigByNameOrThrow(ActionEnum::MOVE);
 
         $moveEventAction = new ActionEvent(
             actionConfig: $moveActionEntity,

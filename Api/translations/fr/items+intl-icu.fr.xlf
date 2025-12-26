@@ -3913,5 +3913,41 @@ Contient {quantity, plural,
         <target>Pour peu d'avoir une mauvaise vue ou d'être peu familier avec l'anatomie humaine, il est identique au vrai. Et lui, il ne flirte pas avec tout le monde au moins.//Le Derek de paille sera offert en priorité aux marchands à la place d'un membre de l'équipage s'il se trouve dans un stockage. //Et avec un peu de baratin, on pourrait le faire remplacer n'importe qui...</target>
       </segment>
     </unit>
+    <unit id="chefs_knife">
+      <segment id="name" state="translated">
+        <source>chefs_knife.name</source>
+        <target>Couteau de Chef</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>chefs_knife.short_name</source>
+        <target>Couteau</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>chefs_knife.plural_name</source>
+        <target>Couteaux</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>chefs_knife.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>chefs_knife.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>chefs_knife.description</source>
+        <target>Bien aiguisé et multi-usage. Cuisine, menaces, découpage, rasage, il peut tout faire, et encore mieux: il est rien qu'à vous.
+//:point: +10% précision comparé à un couteau standard.
+//:point: Expédition : + 1 à la force de votre équipe en cas de combat.
+//:point: Expédition : L'évènement **Provision** donne un steak de plus.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>chefs_knife.examine</source>
+        <target>Des couteaux comme ça y'en a beaucoup, des gens comme vous... moins.
+//:point: +10% précision comparé à un couteau standard.
+//:point: Expédition : + 1 à la force de votre équipe en cas de combat.
+//:point: Expédition : L'évènement **Provision** donne un steak de plus.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -1271,7 +1271,7 @@ class MechanicsData
             'baseDamageRange' => [],
             'expeditionBonus' => 1,
             'actions' => [
-                'shoot_99_percent',
+                ActionEnum::SHOOT,
                 ActionEnum::SHOOT_CAT,
             ],
             'modifierConfigs' => [],
@@ -2087,6 +2087,14 @@ class MechanicsData
                 'open_container_cost_0',
             ],
             'containerContents' => ContainerContentEnum::FRUIT_BASKET_CONTENT,
+        ],
+        [
+            'name' => 'weapon_modifier_chef_knife_default',
+            'type' => 'gear',
+            'actions' => [],
+            'modifierConfigs' => [
+                'modifier_+10aim_on_action_attack_on_chef_knife',
+            ],
         ],
     ];
 

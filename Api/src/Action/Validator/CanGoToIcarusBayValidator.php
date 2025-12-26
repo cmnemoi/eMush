@@ -37,7 +37,12 @@ final class CanGoToIcarusBayValidator extends ConstraintValidator
         $door = $value->getTarget();
         $daedalus = $door->getDaedalus();
         $player = $value->getPlayer();
-        $icarusBay = $player->getDaedalus()->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY);
+        $icarusBay = $player->getDaedalus()->getPlaceByName(RoomEnum::ICARUS_BAY);
+
+        if ($icarusBay === null) {
+            // no need to check if the player is heading to the icarus bay if the icarus bay doesn't exist
+            return;
+        }
 
         $icarusBayIsFull = $icarusBay->getNumberOfPlayersAlive() >= $this->getMaxNumberOfPlayersAllowedInIcarusBay($daedalus);
         $playerWantsToGoToIcarusBay = $door->getRooms()->contains($icarusBay) && $player->getPlace() !== $icarusBay;

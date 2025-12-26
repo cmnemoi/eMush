@@ -3212,7 +3212,6 @@ class EquipmentConfigData
                 'take',
                 'examine',
                 'repair_percent_25',
-                'sabotage_percent_25',
                 'drop',
             ],
             'mechanics' => [],
@@ -4294,6 +4293,28 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [],
+            'initStatuses' => [],
+        ],
+        [
+            'name' => ItemEnum::CHEFS_KNIFE . '_default',
+            'equipmentName' => ItemEnum::CHEFS_KNIFE,
+            'breakableType' => BreakableTypeEnum::BREAKABLE,
+            'dismountedProducts' => ['metal_scraps' => 1],
+            'isPersonal' => true,
+            'type' => 'item_config',
+            'isStackable' => true,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+                'repair_percent_25',
+            ],
+            'mechanics' => [
+                'weapon_knife_default',
+                'weapon_modifier_chef_knife_default', // +10% aim compared to a regular knife
+                // +1 steak in expedition (handled by AbstractLootItemsEventHandler)
+            ],
             'initStatuses' => [],
         ],
     ];

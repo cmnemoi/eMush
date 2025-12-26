@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
@@ -322,6 +323,19 @@ class Exploration
     public function getNumberOfActiveSurvivalists(): int
     {
         return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::SURVIVALIST))->count();
+    }
+
+    public function getNumberOfChefsKnives(): int
+    {
+        $numberOfKnives = 0;
+        foreach ($this->getNotLostActiveExplorators() as $explorer) {
+            $numberOfKnives += $explorer->getEquipments()
+                ->filter(static fn (GameItem $item) => $item->getName() === ItemEnum::CHEFS_KNIFE)
+                ->filter(static fn (GameItem $item) => $item->isOperational())
+                ->count();
+        }
+
+        return $numberOfKnives;
     }
 
     public function getActiveNonSurvivalistExplorators(): PlayerCollection

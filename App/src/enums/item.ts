@@ -120,6 +120,7 @@ const LIZARO_JUNGLE = "lizaro_jungle";
 const NATAMY_RIFLE = "natamy_rifle";
 const OLD_FAITHFUL = "old_faithful";
 const ROCKET_LAUNCHER = "rocket_launcher";
+const CHEFS_KNIFE = "chefs_knife";
 
 // food
 const COFFEE = "coffee";
@@ -541,5 +542,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [FRUIT_BASKET]:{
         'image': getImgUrl('items/fruit_basket.png')
+    },
+    [CHEFS_KNIFE]:{
+        'image': getImgUrl('items/chefs_knife_temp.png') //Septembre needs to touch up the image
     }
 };

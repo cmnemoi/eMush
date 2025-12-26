@@ -3241,6 +3241,8 @@ abstract class ModifierConfigData
                 modifierRange: 'player',
                 modifierActivationRequirements: [
                     'random_16',
+                    'player_in_room_not_alone',
+                    ModifierRequirementEnum::PLAYER_ANY_WEAPON,
                 ],
                 targetEvent: ActionEvent::POST_ACTION,
                 priority: ModifierPriorityEnum::AFTER_INITIAL_EVENT,
@@ -3278,6 +3280,7 @@ abstract class ModifierConfigData
                 applyWhenTargeted: false,
                 tagConstraints: [
                     SymptomEnum::BREAKOUTS => ModifierRequirementEnum::NONE_TAGS,
+                    ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
                 ],
             ),
             new EventModifierConfigDto(
@@ -3531,6 +3534,23 @@ abstract class ModifierConfigData
                 priority: ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
                 applyWhenTargeted: true,
                 tagConstraints: [],
+            ),
+            new VariableEventModifierConfigDto(
+                key: 'modifier_+10aim_on_action_attack_on_chef_knife',
+                name: null,
+                strategy: ModifierStrategyEnum::VARIABLE_MODIFIER,
+                modifierRange: ModifierHolderClassEnum::PLAYER,
+                modifierActivationRequirements: [
+                ],
+                targetEvent: ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+                targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
+                priority: ModifierPriorityEnum::INITIAL_SET_VALUE,
+                tagConstraints: [
+                    ActionEnum::ATTACK->value => ModifierRequirementEnum::ALL_TAGS,
+                    ItemEnum::CHEFS_KNIFE => ModifierRequirementEnum::ALL_TAGS,
+                ],
+                delta: 10,
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
         ];
     }

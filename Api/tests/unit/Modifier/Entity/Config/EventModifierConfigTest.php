@@ -62,8 +62,8 @@ final class EventModifierConfigTest extends TestCase
     {
         $modifier = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifier
-            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTargetVariable(DaedalusVariableEnum::FUEL);
+            ->setTargetVariable(DaedalusVariableEnum::FUEL)
+            ->setTargetEvent(ActionVariableEvent::APPLY_COST);
         $action = new ActionConfig();
         $action->setActionName(ActionEnum::AUTO_DESTROY);
         $player = new Player();

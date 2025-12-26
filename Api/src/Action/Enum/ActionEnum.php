@@ -64,7 +64,6 @@ enum ActionEnum: string
     case TRY_KUBE = 'try_kube';
     case OPEN = 'open';
     case SHOOT = 'shoot';
-    case SHOOT_99 = 'shoot_99_percent';
     case HEAL = 'heal';
     case SELF_HEAL = 'self_heal';
     case RENOVATE = 'renovate';

@@ -30,7 +30,6 @@ use Mush\Tests\RoomLogDto;
 final class ShootActionCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
-    private ActionConfig $action99Config;
     private Shoot $shootAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
@@ -45,12 +44,11 @@ final class ShootActionCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SHOOT]);
-        $this->action99Config = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SHOOT_99]);
         $this->shootAction = $I->grabService(Shoot::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 
         $this->givenChunHasABlaster();
-        $this->actionConfig->setSuccessRate(100);
+        $this->blaster->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
     }
 
     public function shouldRemoveHealthToTargetOnSuccess(FunctionalTester $I): void
@@ -127,6 +125,11 @@ final class ShootActionCest extends AbstractFunctionalTest
 
     public function maxDamageEventShouldIncreaseDamage(FunctionalTester $I): void
     {
+        /* @FIXME
+         * What the heck is this cest? How much health does KT have at the start?
+         * How do we control for the injury?
+         * If we check that KT has lost "at least 1 health", won't it always return true even if the event failed to raise the max damage?
+         */
         $this->givenBlasterDamageSpreadIs([1, 1]);
         $this->givenBlasterHas100ChanceToDispatchEvent(WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_MAX_DAMAGE_20_RANDOM_INJURY_TO_TARGET->toString());
 
@@ -313,8 +316,8 @@ final class ShootActionCest extends AbstractFunctionalTest
     public function oldFaithfulFailedShotShouldNotRemoveHealthPoints(FunctionalTester $I): void
     {
         $this->givenKuanTiHasHealthPoints(10);
-        $this->actionConfig->setSuccessRate(0);
         $this->givenChunHasAOldFaithful();
+        $this->oldFaithful->getWeaponMechanicOrThrow()->setBaseAccuracy(0);
         $this->givenOldFaithfulHas100ChanceToDispatchEvent(WeaponEventEnum::OLD_FAITHFUL_FAILED_SHOT->toString());
 
         $this->whenChunShootsAtKuanTiWithOldFaithful();
@@ -335,7 +338,6 @@ final class ShootActionCest extends AbstractFunctionalTest
     public function lizaroJungleSuccessfulShotShouldRemoveThreeHealthPoints(FunctionalTester $I): void
     {
         $this->givenKuanTiHasHealthPoints(5);
-        $this->action99Config->setSuccessRate(100);
         $this->givenChunHasALizaroJungle();
         $this->givenLizaroJungleHas100ChanceToDispatchEvent(WeaponEventEnum::LIZARO_JUNGLE_SUCCESSFUL_SHOT->toString());
 
@@ -353,8 +355,9 @@ final class ShootActionCest extends AbstractFunctionalTest
     public function lizaroJungleFailedShotShouldNotRemoveHealthPoints(FunctionalTester $I): void
     {
         $this->givenKuanTiHasHealthPoints(10);
-        $this->action99Config->setSuccessRate(0);
+        $this->actionConfig->setSuccessRate(0);
         $this->givenChunHasALizaroJungle();
+        $this->lizaroJungle->getWeaponMechanicOrThrow()->setBaseAccuracy(0);
         $this->givenLizaroJungleHas100ChanceToDispatchEvent(WeaponEventEnum::LIZARO_JUNGLE_FAILED_SHOT->toString());
 
         $this->whenChunShootsAtKuanTiWithLizaroJungle();
@@ -416,7 +419,7 @@ final class ShootActionCest extends AbstractFunctionalTest
 
     public function shouldNotRemoveHealthOnFailedShot(FunctionalTester $I): void
     {
-        $this->actionConfig->setSuccessRate(0);
+        $this->blaster->getWeaponMechanicOrThrow()->setBaseAccuracy(0);
         $this->givenKuanTiHasHealthPoints(10);
 
         $this->whenChunShootsAtKuanTi();
@@ -503,6 +506,7 @@ final class ShootActionCest extends AbstractFunctionalTest
             reasons: [],
             time: new \DateTime(),
         );
+        $this->natamyRifle->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
     }
 
     private function givenNatamyRifleHas100ChanceToDispatchEvent(string $event): void
@@ -523,6 +527,7 @@ final class ShootActionCest extends AbstractFunctionalTest
             reasons: [],
             time: new \DateTime(),
         );
+        $this->oldFaithful->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
     }
 
     private function givenOldFaithfulHas100ChanceToDispatchEvent(string $event): void
@@ -563,6 +568,7 @@ final class ShootActionCest extends AbstractFunctionalTest
             reasons: [],
             time: new \DateTime(),
         );
+        $this->rocketLauncher->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
     }
 
     private function givenRocketLauncherHasDamage(array $damage): void
@@ -653,7 +659,7 @@ final class ShootActionCest extends AbstractFunctionalTest
     private function whenChunShootsAtKuanTiWithLizaroJungle(): void
     {
         $this->shootAction->loadParameters(
-            actionConfig: $this->action99Config,
+            actionConfig: $this->actionConfig,
             actionProvider: $this->lizaroJungle,
             player: $this->chun,
             target: $this->kuanTi,
@@ -675,7 +681,7 @@ final class ShootActionCest extends AbstractFunctionalTest
     private function whenChunWantToShootsAtKuanTiWithLizaroJungle(FunctionalTester $I): void
     {
         $this->shootAction->loadParameters(
-            actionConfig: $this->action99Config,
+            actionConfig: $this->actionConfig,
             actionProvider: $this->lizaroJungle,
             player: $this->chun,
             target: $this->kuanTi,

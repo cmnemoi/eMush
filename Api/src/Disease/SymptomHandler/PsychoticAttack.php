@@ -18,6 +18,7 @@ class PsychoticAttack extends AbstractSymptomHandler
     protected string $name = SymptomEnum::PSYCHOTIC_ATTACKS;
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;
+    private ?Player $victim;
 
     public function __construct(
         RandomServiceInterface $randomService,
@@ -33,14 +34,23 @@ class PsychoticAttack extends AbstractSymptomHandler
         array $tags,
         \DateTime $time
     ): void {
-        $possibleEvents = [];
-
-        if ($attackEvent = $this->createViolentActionEvent($player, ItemEnum::KNIFE, ActionEnum::ATTACK->value)) {
-            $possibleEvents[] = $attackEvent;
+        $this->victim = $this->drawRandomPlayerInRoom($player);
+        if ($this->victim === null) {
+            return;
         }
 
-        if ($shootEvent = $this->createViolentActionEvent($player, ItemEnum::BLASTER, ActionEnum::SHOOT->value)) {
-            $possibleEvents[] = $shootEvent;
+        $possibleEvents = [];
+
+        foreach (ItemEnum::getBlades() as $weapon) {
+            if ($attackEvent = $this->createViolentActionEvent($player, $weapon, ActionEnum::ATTACK->value)) {
+                $possibleEvents[] = $attackEvent;
+            }
+        }
+
+        foreach (ItemEnum::getGuns() as $weapon) {
+            if ($shootEvent = $this->createViolentActionEvent($player, $weapon, ActionEnum::SHOOT->value)) {
+                $possibleEvents[] = $shootEvent;
+            }
         }
 
         if (\count($possibleEvents) === 0) {
@@ -54,11 +64,6 @@ class PsychoticAttack extends AbstractSymptomHandler
 
     private function createViolentActionEvent(Player $player, string $weaponName, string $actionName): ?ActionEvent
     {
-        $victim = $this->drawRandomPlayerInRoom($player);
-        if ($victim === null) {
-            return null;
-        }
-
         $weapon = $this->getPlayerWeapon($player, $weaponName);
         if ($weapon === null) {
             return null;
@@ -81,7 +86,7 @@ class PsychoticAttack extends AbstractSymptomHandler
             actionProvider: $weapon,
             player: $player,
             tags: $tags,
-            actionTarget: $victim
+            actionTarget: $this->victim
         );
         $actionEvent->setEventName(ActionEvent::EXECUTE_ACTION);
 

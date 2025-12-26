@@ -130,7 +130,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::CHUN,
         ],
         [
-            'item' => 'apprentron_optimist',
+            'item' => 'apprentron_optimist', // @TODO: Maintenance Agent Mage Book
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -375,21 +375,21 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::JIN_SU,
         ],
         [
-            'item' => 'apprentron_it_expert', // make this standard gift? find replacement?
+            'item' => 'apprentron_it_expert', // @TODO: Multipass
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::KUAN_TI,
         ],
         [
-            'item' => GearItemEnum::ADJUSTABLE_WRENCH, // @TODO: find replacement
+            'item' => GearItemEnum::ADJUSTABLE_WRENCH,
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::KUAN_TI,
         ],
         [
-            'item' => GearItemEnum::ALIEN_BOTTLE_OPENER, // @TODO: find replacement
+            'item' => 'apprentron_it_expert',
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -459,7 +459,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::RALUCA,
         ],
         [
-            'item' => GearItemEnum::ROLLING_BOULDER,
+            'item' => GearItemEnum::ROLLING_BOULDER, // @TODO: Lil' Hunter Nappin' Blankie
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -473,7 +473,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::ROLAND,
         ],
         [
-            'item' => ToolItemEnum::EXTINGUISHER, // @TODO: find replacement
+            'item' => GearItemEnum::ROLLING_BOULDER,
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -487,7 +487,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::ROLAND,
         ],
         [
-            'item' => GearItemEnum::STAINPROOF_APRON, // @TODO: Chef's Knife
+            'item' => ItemEnum::CHEFS_KNIFE,
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -501,7 +501,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::STEPHEN,
         ],
         [
-            'item' => GameRationEnum::LOMBRICK_BAR, // @TODO: check Lombrick Bar is setup and coded
+            'item' => GameRationEnum::LOMBRICK_BAR,
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -515,16 +515,9 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::STEPHEN,
         ],
         [
-            'item' => 'apprentron_sprinter',
+            'item' => 'apprentron_sprinter', // @TODO: Debris Printer
             'quantity' => 1,
             'weight' => 1,
-            'filterType' => self::FILTER_BY_CHARACTER,
-            'filterValue' => CharacterEnum::TERRENCE,
-        ],
-        [
-            'item' => GearItemEnum::ADJUSTABLE_WRENCH,
-            'quantity' => 1,
-            'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::TERRENCE,
         ],
@@ -536,7 +529,14 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::TERRENCE,
         ],
         [
-            'item' => GearItemEnum::ANTIGRAV_SCOOTER, // gag
+            'item' => GearItemEnum::ANTIGRAV_SCOOTER,
+            'quantity' => 1,
+            'weight' => 5,
+            'filterType' => self::FILTER_BY_CHARACTER,
+            'filterValue' => CharacterEnum::TERRENCE,
+        ],
+        [
+            'item' => GearItemEnum::ANTIGRAV_SCOOTER, // @TODO: Evil Drone, gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -578,8 +578,8 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::DEREK,
         ],
         [
-            'item' => ItemEnum::THICK_TUBE, // gag
-            'quantity' => 1,
+            'item' => GameRationEnum::ANABOLIC, // gag
+            'quantity' => 3,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::DEREK,
@@ -592,7 +592,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::DEREK,
         ],
         [
-            'item' => GameRationEnum::ANABOLIC, // gag
+            'item' => GameRationEnum::ANABOLIC, // @TODO: Patrolship keys
             'quantity' => 3,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,

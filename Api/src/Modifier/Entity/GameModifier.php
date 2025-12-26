@@ -66,6 +66,11 @@ class GameModifier
         return $this->modifierConfig;
     }
 
+    public function getEventModifierConfigOrThrow(): EventModifierConfig
+    {
+        return $this->modifierConfig instanceof EventModifierConfig ? $this->modifierConfig : throw new \LogicException("{$this->getName()} is not an event modifier!");
+    }
+
     public function getVariableModifierConfigOrThrow(): VariableEventModifierConfig
     {
         return $this->modifierConfig instanceof VariableEventModifierConfig ? $this->modifierConfig : throw new \LogicException("{$this->getName()} is not a variable event modifier!");

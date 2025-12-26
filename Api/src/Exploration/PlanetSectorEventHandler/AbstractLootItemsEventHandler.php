@@ -63,23 +63,42 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
     protected function getLogParameters(PlanetSectorEvent $event): array
     {
         $logParameters = parent::getLogParameters($event);
-        $logParameters['bonus_loot_thanks_to_skill'] = $this->getBonusLootLog($event);
+        $logParameters['bonus_loot_thanks_to_skill'] = $this->getSkillBonusLootLog($event);
+        $logParameters['bonus_loot_thanks_to_items'] = $this->getItemBonusLootLog($event);
 
         return $logParameters;
     }
 
-    protected function getBonusLootLog(PlanetSectorEvent $event): ?string
+    protected function getSkillBonusLootLog(PlanetSectorEvent $event): ?string
     {
-        $bonusLoot = $this->getBonusLootFromEvent($event);
         $language = $event->getExploration()->getDaedalus()->getLanguage();
-        $skill = $this->getBonusSkillFromEvent($event);
+        $bonusLoot = $this->getBonusLootFromSkill($event);
 
         return $bonusLoot > 0 ? \sprintf(
             '////%s',
             $this->translationService->translate(
                 key: 'bonus_loot_thanks_to_skill',
                 parameters: [
-                    'skill' => $skill->toString(),
+                    'skill' => $this->getBonusSkillFromEvent($event)->toString(),
+                    'quantity' => $bonusLoot,
+                    'character_gender' => 'other',
+                ],
+                domain: 'planet_sector_event',
+                language: $language
+            )
+        ) : '';
+    }
+
+    protected function getItemBonusLootLog(PlanetSectorEvent $event): ?string
+    {
+        $language = $event->getExploration()->getDaedalus()->getLanguage();
+        $bonusLoot = $this->getBonusLootFromItems($event);
+
+        return $bonusLoot > 0 ? \sprintf(
+            '////%s',
+            $this->translationService->translate(
+                key: 'bonus_loot_thanks_to_items',
+                parameters: [
                     'quantity' => $bonusLoot,
                     'character_gender' => 'other',
                 ],
@@ -93,16 +112,26 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
     {
         $numberOfItemsToCreate = (int) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputQuantity());
 
-        return $numberOfItemsToCreate + $this->getBonusLootFromEvent($event);
+        return $numberOfItemsToCreate + $this->getBonusLootFromSkill($event) + $this->getBonusLootFromItems($event);
     }
 
-    private function getBonusLootFromEvent(PlanetSectorEvent $event): int
+    private function getBonusLootFromSkill(PlanetSectorEvent $event): int
     {
         $exploration = $event->getExploration();
 
         return match ($event->getName()) {
             PlanetSectorEvent::PROVISION => $exploration->getNumberOfActiveSurvivalists(),
             PlanetSectorEvent::HARVEST => $exploration->getNumberOfActiveBotanists(),
+            default => 0,
+        };
+    }
+
+    private function getBonusLootFromItems(PlanetSectorEvent $event): int
+    {
+        $exploration = $event->getExploration();
+
+        return match ($event->getName()) {
+            PlanetSectorEvent::PROVISION => $exploration->getNumberOfChefsKnives(),
             default => 0,
         };
     }

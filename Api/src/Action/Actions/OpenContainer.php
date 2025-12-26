@@ -43,6 +43,10 @@ class OpenContainer extends AbstractAction
             'name' => ActionLogEnum::OPEN_LUNCHBOX,
             'visibility' => VisibilityEnum::HIDDEN,
         ],
+        ItemEnum::FRUIT_BASKET => [
+            'name' => ActionLogEnum::OPEN_FRUIT_BASKET,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ],
     ];
     protected ActionEnum $name = ActionEnum::OPEN_CONTAINER;
 

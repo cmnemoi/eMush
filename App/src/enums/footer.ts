@@ -40,7 +40,8 @@ export const team: (Contributor)[] = [
     { name: 'Aderach', role: 'moderator', coreTeam: true },
     { name: 'Nickboom', role: 'helper', coreTeam: true },
     { name: 'S3d1n', role: 'developer', coreTeam: false },
-    { name: 'Aeon PSR', role: 'artist', coreTeam: false }
+    { name: 'Aeon PSR', role: 'artist', coreTeam: false },
+    { name: 'Septembre', role: 'artist', coreTeam: false }
 ];
 
 export const crowdin = "https://eternaltwin.crowdin.com/multilingual/c9f4ef84da7d855637e201101992f6ed/all?languages=fr,es,en&filter=basic&value=0";

@@ -1752,7 +1752,7 @@ abstract class StatusConfigData
             'actionConfigs' => [],
         ],
         [
-            'name' => 'electric_charges_coffee_thermos_default',
+            'name' => 'container_4_charges_default',
             'statusName' => EquipmentStatusEnum::ELECTRIC_CHARGES,
             'visibility' => 'public',
             'type' => 'charge_status_config',
@@ -1766,7 +1766,7 @@ abstract class StatusConfigData
             'actionConfigs' => [],
         ],
         [
-            'name' => 'electric_charges_lunchbox_default',
+            'name' => 'container_3_charges_default',
             'statusName' => EquipmentStatusEnum::ELECTRIC_CHARGES,
             'visibility' => 'public',
             'type' => 'charge_status_config',

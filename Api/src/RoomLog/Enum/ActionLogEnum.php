@@ -171,6 +171,7 @@ abstract class ActionLogEnum
     public const string ANNIVERSARY_GIFT_MUSH_SKILL = 'anniversary_gift_mush_skill';
     public const string OPEN_COFFEE_THERMOS = 'open_coffee_thermos';
     public const string OPEN_LUNCHBOX = 'open_lunchbox';
+    public const string OPEN_FRUIT_BASKET = 'open_fruit_basket';
     public const string ESTBALISH_LINK_WITH_SOL_SUCCESS = 'establish_link_with_sol_success';
     public const string ESTBALISH_LINK_WITH_SOL_FAIL = 'establish_link_with_sol_fail';
     public const string UPGRADE_NERON_SUCCESS = 'upgrade_neron_success';

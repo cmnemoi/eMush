@@ -1366,5 +1366,15 @@
         <target>Un changement de tactique s'impose! Vous avez réinitialisé vos compétences.</target>
       </segment>
     </unit>
+    <unit id="open_fruit_basket">
+      <segment id="open_fruit_basket" state="translated">
+        <source>open_fruit_basket</source>
+        <target>**{character}** sort {equipment_gender, select, 
+            female {une} 
+            male {un} 
+            other {}
+          } **{equipment}** de son panier.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

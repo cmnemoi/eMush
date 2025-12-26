@@ -2080,6 +2080,14 @@ class MechanicsData
             ],
             'modifierConfigs' => [],
         ],
+        [
+            'name' => 'container_' . ItemEnum::FRUIT_BASKET . '_default',
+            'type' => EquipmentMechanicEnum::CONTAINER,
+            'actions' => [
+                'open_container_cost_0',
+            ],
+            'containerContents' => ContainerContentEnum::FRUIT_BASKET_CONTENT,
+        ],
     ];
 
     public static function getByName(string $name): array

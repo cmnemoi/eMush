@@ -3808,7 +3808,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => ['container_coffee_thermos_default'],
-            'initStatuses' => ['electric_charges_coffee_thermos_default'],
+            'initStatuses' => ['container_4_charges_default'],
         ],
         [
             'name' => 'apprentron_optimist_default',
@@ -4164,7 +4164,7 @@ class EquipmentConfigData
             ],
             'mechanics' => ['container_lunchbox_default'],
             'initStatuses' => [
-                'electric_charges_lunchbox_default',
+                'container_3_charges_default',
             ],
         ],
         [
@@ -4263,6 +4263,23 @@ class EquipmentConfigData
                 EquipmentEnum::SWEDISH_SOFA . '_weird_blueprint_default',
             ],
             'initStatuses' => [],
+        ],
+        [
+            'name' => ItemEnum::FRUIT_BASKET . '_default',
+            'equipmentName' => ItemEnum::FRUIT_BASKET,
+            'breakableType' => BreakableTypeEnum::DESTROY_ON_BREAK,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => false,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => ['container_' . ItemEnum::FRUIT_BASKET . '_default'],
+            'initStatuses' => ['container_3_charges_default'],
         ],
     ];
 

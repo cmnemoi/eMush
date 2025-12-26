@@ -85,17 +85,20 @@ const BABEL_MODULE = "babel_module";
 const WHITE_FLAG = "white_flag";
 const LUMP_OF_COAL = "lump_of_coal";
 const EVIL_COMPASS = "evil_compass";
+const SWEDISH_SOFA_KIT = "swedish_sofa_kit";
+const JUKEBOX_KIT = "jukebox_kit";
 
 //containers
 const ANNIVERSARY_GIFT = "anniversary_gift";
 const COFFEE_THERMOS = "coffee_thermos";
 const LUNCHBOX = "lunchbox";
+const FRUIT_BASKET = "fruit_basket";
 
 //means of communication
 const ITRACKIE = "itrackie";
 const TRACKER = "tracker";
 const WALKIE_TALKIE = "walkie_talkie";
-const ITRACKIE_2 = 'itrackie_2';
+const ITRACKIE_2 = "itrackie_2";
 
 // artefacts
 const ALIEN_BOTTLE_OPENER = 'alien_bottle_opener';
@@ -146,9 +149,6 @@ const RETRO_FUNGAL_SERUM = "retro_fungal_serum";
 const SUPER_SOAPER = "super_soaper";
 
 const SWEDISH_SOFA = "swedish_sofa";
-
-const SWEDISH_SOFA_KIT = "swedish_sofa_kit";
-const JUKEBOX_KIT = "jukebox_kit";
 
 export const itemEnum: {[index: string]: any} = {
     [ALIEN_BOTTLE_OPENER]: {
@@ -534,5 +534,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [JUKEBOX_KIT]:{
         'image': getImgUrl('items/jukebox_kit.png')
+    },
+    [FRUIT_BASKET]:{
+        'image': getImgUrl('items/fruit_basket.png')
     }
 };

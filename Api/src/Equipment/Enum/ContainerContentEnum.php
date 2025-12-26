@@ -30,6 +30,69 @@ class ContainerContentEnum
         ],
     ];
 
+    public const array FRUIT_BASKET_CONTENT = [
+        [
+            'item' => GameFruitEnum::CREEPNUT,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+        [
+            'item' => GameFruitEnum::MEZTINE,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+        [
+            'item' => GameFruitEnum::GUNTIFLOP,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+        [
+            'item' => GameFruitEnum::PLOSHMINA,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+        [
+            'item' => GameFruitEnum::PRECATI,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+        [
+            'item' => GameFruitEnum::BOTTINE,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+        [
+            'item' => GameFruitEnum::FRAGILANE,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+        [
+            'item' => GameFruitEnum::ANEMOLE,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+        [
+            'item' => GameFruitEnum::PENICRAFT,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+        [
+            'item' => GameFruitEnum::KUBINUS,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+        [
+            'item' => GameFruitEnum::CALEBOOT,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+        [
+            'item' => GameFruitEnum::FILANDRA,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+    ];
+
     public const array ANNIVERSARY_GIFT_CONTENT = [
         [
             'item' => GearItemEnum::PLASTENITE_ARMOR, // @TODO: Lucky Lizaro

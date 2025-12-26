@@ -3874,5 +3874,39 @@ Can be inserted in the combustion chamber.</target>
         <target>Comes with sixteen 600.000RPM studio quality magnetovinyls, more or less equivalent to a 46GHz/256 bit file. You'd need bionic ears to perceive this level of detail, but when has that ever slowed technological advances? // Can be built to make a Jukebox. Consider where to build it carefully.</target>
       </segment>
     </unit>
+    <unit id="fruit_basket">
+      <segment id="name" state="translated">
+        <source>fruit_basket.name</source>
+        <target>Fruit Basket</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>fruit_basket.short_name</source>
+        <target>Fruit basket</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>fruit_basket.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>fruit_basket.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>fruit_basket.description</source>
+        <target>Let's hope at least one of these is edible.//
+Contains {quantity, plural,
+        one {1 **Alien Fruit**}
+        other {# **Alien Fruits**}
+}.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>fruit_basket.examine</source>
+        <target>Beats transporting them one by one.//
+Contains {quantity, plural,
+        one {1 **Alien Fruite**}
+        other {# **Alien Fruits**}
+}.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

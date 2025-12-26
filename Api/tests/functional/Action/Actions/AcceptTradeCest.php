@@ -288,6 +288,66 @@ final class AcceptTradeCest extends AbstractFunctionalTest
         $I->assertEquals(0, $this->player->getTriumph());
     }
 
+    public function shouldExchangePlayerIfInactive(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsCommsManager();
+        $this->givenPlayerIsFocusedOnCommsCenter();
+
+        $trade = $this->givenHumanFuelDealTrade(1, 1);
+        $this->givenKuanIsInactiveInStorage();
+
+        $this->whenPlayerAcceptsTrade($trade->getTradeOptions()->first()->getId());
+
+        $this->thenKuanTiShouldBeDead($I);
+    }
+
+    public function shouldNotExchangePlayerIfStrawmanInStorage(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsCommsManager();
+        $this->givenPlayerIsFocusedOnCommsCenter();
+
+        $trade = $this->givenHumanFuelDealTrade(5, 1);
+        $this->givenKuanIsInactiveInStorage();
+        $this->givenStrawnManIsInStorage();
+        $this->givenStrawnManIsInStorage();
+        $this->givenStrawnManIsInStorage();
+        $this->givenStrawnManIsInStorage();
+        $this->givenStrawnManIsInStorage();
+
+        $this->whenPlayerAcceptsTrade($trade->getTradeOptions()->first()->getId());
+
+        $this->thenKuanTiShouldBeAlive($I);
+        $this->thenStrawmanShouldNotBeInStorage($I);
+    }
+
+    public function shouldExchangeStrawman(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsCommsManager();
+        $this->givenPlayerIsFocusedOnCommsCenter();
+
+        $trade = $this->givenHumanFuelDealTrade(1, 1);
+        $this->givenStrawnManIsInStorage();
+
+        $this->whenPlayerAcceptsTrade($trade->getTradeOptions()->first()->getId());
+
+        $this->thenStrawmanShouldNotBeInStorage($I);
+    }
+
+    public function shouldExchangeBothPlayerAndStrawman(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsCommsManager();
+        $this->givenPlayerIsFocusedOnCommsCenter();
+
+        $trade = $this->givenHumanFuelDealTrade(2, 1);
+        $this->givenKuanIsInactiveInStorage();
+        $this->givenStrawnManIsInStorage();
+
+        $this->whenPlayerAcceptsTrade($trade->getTradeOptions()->first()->getId());
+
+        $this->thenKuanTiShouldBeDead($I);
+        $this->thenStrawmanShouldNotBeInStorage($I);
+    }
+
     private function givenStorages(FunctionalTester $I): void
     {
         foreach (RoomEnum::getStorages() as $storage) {
@@ -357,6 +417,24 @@ final class AcceptTradeCest extends AbstractFunctionalTest
         return $trade;
     }
 
+    private function givenHumanFuelDealTrade(int $humansRequired, int $offeredFuel): Trade
+    {
+        $transport = new Hunter(
+            hunterConfig: $this->daedalus->getGameConfig()->getHunterConfigs()->getByNameOrThrow(HunterEnum::TRANSPORT),
+            daedalus: $this->daedalus,
+        );
+        $this->hunterRepository->save($transport);
+
+        $trade = TradeFactory::createHumanFuelTestTrade(
+            humansRequired: $humansRequired,
+            offeredFuel: $offeredFuel,
+            transportId: $transport->getId(),
+        );
+        $this->tradeRepository->save($trade);
+
+        return $trade;
+    }
+
     private function givenItemInPlace(string $item, string $room): void
     {
         $place = $this->daedalus->getPlaceByNameOrThrow($room);
@@ -411,5 +489,41 @@ final class AcceptTradeCest extends AbstractFunctionalTest
     private function thenActionShouldBeExecutable(FunctionalTester $I): void
     {
         $I->assertNull($this->acceptTrade->cannotExecuteReason(), 'Action should be executable');
+    }
+
+    private function givenKuanIsInactiveInStorage(): void
+    {
+        $this->kuanTi->setPlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::FRONT_STORAGE));
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::HIGHLY_INACTIVE,
+            $this->kuanTi,
+            [],
+            new \DateTime()
+        );
+    }
+
+    private function givenStrawnManIsInStorage(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            ItemEnum::STRAWMAN,
+            $this->daedalus->getPlaceByNameOrThrow(RoomEnum::FRONT_STORAGE),
+            [],
+            new \DateTime()
+        );
+    }
+
+    private function thenKuanTiShouldBeDead(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->kuanTi->isDead());
+    }
+
+    private function thenKuanTiShouldBeAlive(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->kuanTi->isAlive());
+    }
+
+    private function thenStrawmanShouldNotBeInStorage(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->daedalus->getPlaceByNameOrThrow(RoomEnum::FRONT_STORAGE)->hasEquipmentByName(ItemEnum::STRAWMAN));
     }
 }

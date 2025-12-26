@@ -403,7 +403,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::KUAN_TI,
         ],
         [
-            'item' => 'apprentron_creative', // @TODO: Strawman
+            'item' => ItemEnum::STRAWMAN,
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,

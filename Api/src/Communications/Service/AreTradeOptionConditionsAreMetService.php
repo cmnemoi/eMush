@@ -9,6 +9,7 @@ use Mush\Communications\Entity\TradeAsset;
 use Mush\Communications\Enum\TradeAssetEnum;
 use Mush\Communications\Repository\TradeOptionRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
@@ -52,12 +53,27 @@ final readonly class AreTradeOptionConditionsAreMetService
     {
         return match ($assetType) {
             TradeAssetEnum::ITEM => fn (Player $trader, TradeAsset $requiredAsset) => $this->numberOfItemsInDaedalusStorages($requiredAsset->getAssetName(), $trader->getDaedalus()) >= $requiredAsset->getQuantity(),
-            TradeAssetEnum::RANDOM_PLAYER => static fn (Player $trader, TradeAsset $requiredAsset) => $trader->getDaedalus()->getPlayers()->getTradablePlayersFor($trader)->count() >= $requiredAsset->getQuantity(),
+            TradeAssetEnum::RANDOM_PLAYER => [$this, 'hasPlayersToSell'],
             TradeAssetEnum::DAEDALUS_VARIABLE => static fn (Player $trader, TradeAsset $requiredAsset) => $trader->getDaedalus()->getVariableValueByName($requiredAsset->getAssetName()) >= $requiredAsset->getQuantity(),
-            TradeAssetEnum::SPECIFIC_PLAYER => static fn (Player $trader, TradeAsset $requiredAsset) => $trader->canTradePlayer($trader->getDaedalus()->getPlayers()->getByNameOrDefault($requiredAsset->getAssetName())),
+            TradeAssetEnum::SPECIFIC_PLAYER => [$this, 'hasSpecificPlayerToSell'],
             TradeAssetEnum::RANDOM_PROJECT => static fn (Player $trader, TradeAsset $requiredAsset) => $trader->getDaedalus()->getFinishedNeronProjects()->count() >= $requiredAsset->getQuantity(),
             default => static fn (Player $trader, TradeAsset $requiredAsset) => true,
         };
+    }
+
+    private function getStrawmanToSell(Player $trader): int
+    {
+        return $this->numberOfItemsInDaedalusStorages(ItemEnum::STRAWMAN, $trader->getDaedalus());
+    }
+
+    private function hasPlayersToSell(Player $trader, TradeAsset $requiredAsset): bool
+    {
+        return $trader->getDaedalus()->getPlayers()->getTradablePlayersFor($trader)->count() + $this->getStrawmanToSell($trader) >= $requiredAsset->getQuantity();
+    }
+
+    private function hasSpecificPlayerToSell(Player $trader, TradeAsset $requiredAsset): bool
+    {
+        return $trader->canTradePlayer($trader->getDaedalus()->getPlayers()->getByNameOrDefault($requiredAsset->getAssetName())) || $this->getStrawmanToSell($trader) > 0;
     }
 
     private function numberOfItemsInDaedalusStorages(string $itemName, Daedalus $daedalus): int

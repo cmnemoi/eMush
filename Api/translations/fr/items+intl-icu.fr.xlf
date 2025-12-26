@@ -3883,5 +3883,35 @@ Contient {quantity, plural,
 }.</target>
       </segment>
     </unit>
+    <unit id="strawman">
+      <segment id="name" state="translated">
+        <source>strawman.name</source>
+        <target>Derek de paille</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>strawman.short_name</source>
+        <target>Derek de paille</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>strawman.plural_name</source>
+        <target>Dereks de paille</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>strawman.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>strawman.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>strawman.description</source>
+        <target>Pour peu d'avoir une mauvaise vue ou d'être peu familier avec l'anatomie humaine, il est identique au vrai. Et lui, il ne flirte pas avec tout le monde au moins.//:point: Compte comme un équipier vendable si placé dans un stockage.//:point: Peut remplacer n'importe quel equipier demandé avec un peu de baratin...</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>strawman.examine</source>
+        <target>Pour peu d'avoir une mauvaise vue ou d'être peu familier avec l'anatomie humaine, il est identique au vrai. Et lui, il ne flirte pas avec tout le monde au moins.//Le Derek de paille sera offert en priorité aux marchands à la place d'un membre de l'équipage s'il se trouve dans un stockage. //Et avec un peu de baratin, on pourrait le faire remplacer n'importe qui...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

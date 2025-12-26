@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\Communications\Service;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communications\Entity\TradeAsset;
 use Mush\Communications\Entity\TradeOption;
 use Mush\Communications\Enum\TradeAssetEnum;
@@ -14,9 +15,11 @@ use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
+use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Exception\GameException;
 use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
+use Mush\Game\Service\RandomService;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -50,6 +53,7 @@ final class ConsumeRequiredTradeAssetsServiceTest extends TestCase
     private FakeEventService $eventService;
     private FakeGetRandomElementsFromArrayService $getRandomElementsFromArray;
     private PlayerService $playerService;
+    private RandomService $randomService;
     private Daedalus $daedalus;
     private Player $trader;
 
@@ -405,6 +409,10 @@ final class ConsumeRequiredTradeAssetsServiceTest extends TestCase
             $this->createPlayerInfoRepositoryStub(),
             false,
         );
+        $this->randomService = new RandomService(
+            $this->createEntityManagerInterfaceStub(),
+            $this->createGameEquipmentRepositoryStub()
+        );
     }
 
     private function initializeTradeOptionRepository(): void
@@ -420,7 +428,8 @@ final class ConsumeRequiredTradeAssetsServiceTest extends TestCase
             $this->eventService,
             $this->getRandomElementsFromArray,
             $this->playerService,
-            $this->tradeOptionRepository
+            $this->tradeOptionRepository,
+            $this->randomService
         );
     }
 
@@ -464,5 +473,17 @@ final class ConsumeRequiredTradeAssetsServiceTest extends TestCase
     {
         // @var PlayerInfoRepositoryInterface
         return self::createStub(PlayerInfoRepositoryInterface::class);
+    }
+
+    private function createEntityManagerInterfaceStub(): EntityManagerInterface
+    {
+        // @var EntityManagerInterface
+        return self::createStub(EntityManagerInterface::class);
+    }
+
+    private function createGameEquipmentRepositoryStub(): GameEquipmentRepository
+    {
+        // @var GameEquipmentRepository
+        return self::createStub(GameEquipmentRepository::class);
     }
 }

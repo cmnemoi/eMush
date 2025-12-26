@@ -63,4 +63,29 @@ final class TradeFactory
             transportId: $transportId,
         );
     }
+
+    public static function createHumanFuelTestTrade(int $humansRequired, int $offeredFuel, int $transportId): Trade
+    {
+        return new Trade(
+            name: TradeEnum::HUMAN_VS_FUEL,
+            tradeOptions: [
+                new TradeOption(
+                    requiredAssets: [
+                        new TradeAsset(
+                            type: TradeAssetEnum::RANDOM_PLAYER,
+                            quantity: $humansRequired,
+                        ),
+                    ],
+                    offeredAssets: [
+                        new TradeAsset(
+                            type: TradeAssetEnum::ITEM,
+                            quantity: $offeredFuel,
+                            assetName: ItemEnum::FUEL_CAPSULE,
+                        ),
+                    ],
+                ),
+            ],
+            transportId: $transportId,
+        );
+    }
 }

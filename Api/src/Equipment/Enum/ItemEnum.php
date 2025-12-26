@@ -55,6 +55,7 @@ class ItemEnum
     public const string LUMP_OF_COAL = 'lump_of_coal';
     public const string EVIL_COMPASS = 'evil_compass';
     public const string FRUIT_BASKET = 'fruit_basket';
+    public const string STRAWMAN = 'strawman';
 
     public static function getArtefacts(): ArrayCollection
     {

@@ -4259,9 +4259,7 @@ class EquipmentConfigData
                 'hide',
                 'examine',
             ],
-            'mechanics' => [
-                EquipmentEnum::SWEDISH_SOFA . '_weird_blueprint_default',
-            ],
+            'mechanics' => [EquipmentEnum::SWEDISH_SOFA . '_weird_blueprint_default'],
             'initStatuses' => [],
         ],
         [
@@ -4280,6 +4278,23 @@ class EquipmentConfigData
             ],
             'mechanics' => ['container_' . ItemEnum::FRUIT_BASKET . '_default'],
             'initStatuses' => ['container_3_charges_default'],
+        ],
+        [
+            'name' => 'strawman_default',
+            'equipmentName' => ItemEnum::STRAWMAN,
+            'breakableType' => BreakableTypeEnum::NONE,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => false,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => [],
+            'initStatuses' => [],
         ],
     ];
 

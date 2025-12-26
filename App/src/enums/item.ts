@@ -87,6 +87,7 @@ const LUMP_OF_COAL = "lump_of_coal";
 const EVIL_COMPASS = "evil_compass";
 const SWEDISH_SOFA_KIT = "swedish_sofa_kit";
 const JUKEBOX_KIT = "jukebox_kit";
+const STRAWMAN = "strawman";
 
 //containers
 const ANNIVERSARY_GIFT = "anniversary_gift";
@@ -465,6 +466,9 @@ export const itemEnum: {[index: string]: any} = {
     },
     [WHITE_FLAG]: {
         'image': getImgUrl('items/white_flag.jpg')
+    },
+    [STRAWMAN]: {
+        'image': getImgUrl('items/strawDerek.png')
     },
     [SUPPORT_DRONE] : {
         'image': getImgUrl('items/help_drone.jpg')

@@ -389,6 +389,7 @@ class GameConfigData
                     EquipmentEnum::JUKEBOX . '_kit_default',
                     EquipmentEnum::SWEDISH_SOFA . '_weird_blueprint_default',
                     ItemEnum::FRUIT_BASKET . '_default',
+                    'strawman_default',
                 ],
                 'statusConfigs' => [
                     'alien_artefact_default',

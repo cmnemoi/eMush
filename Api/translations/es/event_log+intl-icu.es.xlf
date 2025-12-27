@@ -1203,5 +1203,11 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
         <target>N.E.R.O.N. destruyó **{equipment}** de acuerdo con su programación.</target>
       </segment>
     </unit>
+    <unit id="psychotic_attacks">
+      <segment id="psychotic_attacks" state="initial">
+        <source>psychotic_attacks</source>
+        <target>psychotic_attacks</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -3945,5 +3945,35 @@ Contains {quantity, plural,
 //No one but you may wield it.</target>
       </segment>
     </unit>
+    <unit id="strawman">
+      <segment id="name" state="initial">
+        <source>strawman.name</source>
+        <target>strawman.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>strawman.short_name</source>
+        <target>strawman.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>strawman.plural_name</source>
+        <target>strawman.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>strawman.gender</source>
+        <target>strawman.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>strawman.first_letter</source>
+        <target>strawman.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>strawman.description</source>
+        <target>strawman.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>strawman.examine</source>
+        <target>strawman.examine</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

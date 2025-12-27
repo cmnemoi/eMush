@@ -396,7 +396,7 @@ Sea lo que sea de lo que estén hechas, sin importar su densidad o condición, u
       </segment>
       <segment id="genre" state="translated">
         <source>emergency_reactor.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>emergency_reactor.first_letter</source>

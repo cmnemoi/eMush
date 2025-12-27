@@ -138,7 +138,7 @@
                         male {**{character}** a lâché un **{target_equipment}**.}
                         female {**{character}** a lâché une **{target_equipment}**.}
                         name {**{character}** a lâché **{target_equipment}**.}
-                        other {invalid gender input}
+                        other {(erreur de trad! signalez moi) **{character}** a lâché **{target_equipment}**.}
                 }</target>
       </segment>
     </unit>
@@ -520,7 +520,7 @@
         <target>{target_equipment_gender, select,
                         male {**{character}** a pris un **{target_equipment}**.}
                         female {**{character}** a pris une **{target_equipment}**.}
-                        other {invalid gender input for {equipment}}
+                        other {(erreur de trad! signalez moi) **{character}** a pris **{target_equipment}**.}
                 }</target>
       </segment>
     </unit>

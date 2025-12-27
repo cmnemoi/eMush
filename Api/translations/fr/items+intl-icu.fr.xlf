@@ -3726,8 +3726,7 @@ La caméra ne détecte pas son propre sabotage.</target>
         <source>itrackie_2.description</source>
         <target>Pff, l'autre modèle? Il est si vieux! Si campagnard! Si passé! Si *démodé*! Avec une coque en (couleur) or et plus de prise casque embarassante, ceci est une montée en classe qui vous fera vous demander, « Mais comment j'ai pu faire sans ? » !
         // :point: Permet de communiquer à distance avec les autres équipiers.
-        // :point: Permet d'avoir accès à la mini-carte augmentée du Daedalus. **Appli ACTOPI incluse avec chaque achat!**
-        </target>
+        // :point: Permet d'avoir accès à la mini-carte augmentée du Daedalus. **Appli ACTOPI incluse avec chaque achat!**</target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie_2.examine</source>

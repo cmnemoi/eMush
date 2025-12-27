@@ -326,6 +326,12 @@
         <target>This was increased by + {quantity} because the expedition team has the skill: {skill}</target>
       </segment>
     </unit>
+    <unit id="bonus_loot_thanks_to_items">
+      <segment id="description" state="translated">
+        <source>bonus_loot_thanks_to_items</source>
+        <target>This was increased by + {quantity} thanks to the team's equipment!</target>
+      </segment>
+    </unit>
     <unit id="fight_prevented_by_skill">
       <segment id="description" state="translated">
         <source>fight_prevented_by_skill</source>

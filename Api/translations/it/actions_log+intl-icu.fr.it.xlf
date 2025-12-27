@@ -854,7 +854,7 @@
       </segment>
     </unit>
     <unit id="anniversary_gift_mush_skill">
-      <segment id="anniversary_gift_mush_skill" state="initial">
+      <segment id="anniversary_gift_mush_skill" state="translated">
         <source>anniversary_gift_mush_skill</source>
         <target>anniversary_gift_mush_skill</target>
       </segment>
@@ -905,6 +905,12 @@
       <segment id="adapt_epigenetics_success" state="translated">
         <source>adapt_epigenetics_success</source>
         <target>adapt_epigenetics_success</target>
+      </segment>
+    </unit>
+    <unit id="open_fruit_basket">
+      <segment id="open_fruit_basket" state="initial">
+        <source>open_fruit_basket</source>
+        <target>open_fruit_basket</target>
       </segment>
     </unit>
   </file>

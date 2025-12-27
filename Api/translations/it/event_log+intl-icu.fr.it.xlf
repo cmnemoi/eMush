@@ -983,5 +983,11 @@
         <target>food_destroyed_by_neron</target>
       </segment>
     </unit>
+    <unit id="psychotic_attacks">
+      <segment id="psychotic_attacks" state="initial">
+        <source>psychotic_attacks</source>
+        <target>psychotic_attacks</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

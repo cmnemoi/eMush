@@ -209,6 +209,16 @@ enum AchievementEnum: string
     case DISEASE_CONTRACTED_20 = 'disease_contracted_20';
     case DISEASE_CONTRACTED_50 = 'disease_contracted_50';
     case MANKAROG_DOWN_1 = 'mankarog_down_1';
+    case MUSH_KILLED_1 = 'mush_killed_1';
+    case TEAM_MUSH_KILLED_1 = 'team_mush_killed_1';
+    case TEAM_MUSH_KILLED_50 = 'team_mush_killed_50';
+    case TEAM_MUSH_KILLED_100 = 'team_mush_killed_100';
+    case TEAM_MUSH_KILLED_200 = 'team_mush_killed_200';
+    case TEAM_MUSH_KILLED_500 = 'team_mush_killed_500';
+    case TEAM_MUSH_KILLED_750 = 'team_mush_killed_750';
+    case TEAM_MUSH_KILLED_1000 = 'team_mush_killed_1000';
+    case TEAM_MUSH_KILLED_2000 = 'team_mush_killed_2000';
+    case TEAM_MUSH_KILLED_4000 = 'team_mush_killed_4000';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

@@ -81,6 +81,8 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::KIND_PERSON, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::DISEASE_CONTRACTED, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::MANKAROG_DOWN, StatisticStrategyEnum::INCREMENT, isRare: true),
+            new StatisticConfigDto(StatisticEnum::MUSH_KILLED, StatisticStrategyEnum::INCREMENT),
+            new StatisticConfigDto(StatisticEnum::TEAM_MUSH_KILLED, StatisticStrategyEnum::INCREMENT),
         ];
     }
 

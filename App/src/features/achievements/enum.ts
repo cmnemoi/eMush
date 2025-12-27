@@ -67,6 +67,8 @@ export const enum StatisticEnum {
     KIND_PERSON = 'kind_person',
     DISEASE_CONTRACTED = 'disease_contracted',
     MANKAROG_DOWN = 'mankarog_down',
+    MUSH_KILLED = 'mush_killed',
+    TEAM_MUSH_KILLED = 'team_mush_killed',
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -267,5 +269,11 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.MANKAROG_DOWN]: {
         'icon': getImgUrl('achievements/mankarog.png')
+    },
+    [StatisticEnum.MUSH_KILLED]: {
+        'icon': getImgUrl('achievements/mush_kill.png')
+    },
+    [StatisticEnum.TEAM_MUSH_KILLED]: {
+        'icon': getImgUrl('ui_icons/soldier.png')
     }
 };

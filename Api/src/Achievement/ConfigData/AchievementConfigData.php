@@ -869,6 +869,16 @@ abstract class AchievementConfigData
             new AchievementConfigDto(name: AchievementEnum::DISEASE_CONTRACTED_20, points: 0, threshold: 20),
             new AchievementConfigDto(name: AchievementEnum::DISEASE_CONTRACTED_50, points: 0, threshold: 50),
             new AchievementConfigDto(name: AchievementEnum::MANKAROG_DOWN_1, points: 0, threshold: 1),
+            new AchievementConfigDto(name: AchievementEnum::MUSH_KILLED_1, points: 0, threshold: 1),
+            new AchievementConfigDto(name: AchievementEnum::TEAM_MUSH_KILLED_1, points: 5, threshold: 1),
+            new AchievementConfigDto(name: AchievementEnum::TEAM_MUSH_KILLED_50, points: 8, threshold: 50),
+            new AchievementConfigDto(name: AchievementEnum::TEAM_MUSH_KILLED_100, points: 10, threshold: 100),
+            new AchievementConfigDto(name: AchievementEnum::TEAM_MUSH_KILLED_200, points: 20, threshold: 200),
+            new AchievementConfigDto(name: AchievementEnum::TEAM_MUSH_KILLED_500, points: 30, threshold: 500),
+            new AchievementConfigDto(name: AchievementEnum::TEAM_MUSH_KILLED_750, points: 40, threshold: 750),
+            new AchievementConfigDto(name: AchievementEnum::TEAM_MUSH_KILLED_1000, points: 50, threshold: 1000),
+            new AchievementConfigDto(name: AchievementEnum::TEAM_MUSH_KILLED_2000, points: 30, threshold: 2000),
+            new AchievementConfigDto(name: AchievementEnum::TEAM_MUSH_KILLED_4000, points: 30, threshold: 4000),
         ];
     }
 

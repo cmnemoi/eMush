@@ -44,22 +44,69 @@ final readonly class EquipmentEventSubscriber implements EventSubscriberInterfac
 
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
-        $equipment = $event->getGameEquipment();
+        $this->increaseGrenadeUsedInExpeditionStatistic($event);
+        $this->increaseFrozenFoodEatenStatistic($event);
+        $this->increaseInfectedCatShotStatistic($event);
+    }
 
-        if ($equipment->getName() === ItemEnum::GRENADE && $event->hasTag(PlanetSectorEvent::FIGHT)) {
-            foreach ($event->getDaedalus()->getExplorationOrThrow()->getNotLostActiveExplorators() as $explorator) {
-                $this->updatePlayerStatisticService->execute(
-                    player: $explorator,
-                    statisticName: StatisticEnum::GRENADIER,
-                );
-            }
+    private function increaseGrenadeUsedInExpeditionStatistic(EquipmentEvent $event): void
+    {
+        if ($event->getGameEquipment()->getName() !== ItemEnum::GRENADE) {
+            return;
         }
 
-        if ($equipment->hasStatus(EquipmentStatusEnum::FROZEN) && $event->hasTag(ActionEnum::CONSUME->toString())) {
+        if ($event->doesNotHaveTag(PlanetSectorEvent::FIGHT)) {
+            return;
+        }
+
+        foreach ($event->getDaedalus()->getExplorationOrThrow()->getNotLostActiveExplorators() as $explorator) {
             $this->updatePlayerStatisticService->execute(
-                player: $event->getAuthorOrThrow(),
-                statisticName: StatisticEnum::FROZEN_TAKEN,
+                player: $explorator,
+                statisticName: StatisticEnum::GRENADIER,
             );
+        }
+    }
+
+    private function increaseFrozenFoodEatenStatistic(EquipmentEvent $event): void
+    {
+        if ($event->getGameEquipment()->doesNotHaveStatus(EquipmentStatusEnum::FROZEN)) {
+            return;
+        }
+
+        if ($event->doesNotHaveTag(ActionEnum::CONSUME->toString())) {
+            return;
+        }
+
+        $this->updatePlayerStatisticService->execute(
+            player: $event->getAuthorOrThrow(),
+            statisticName: StatisticEnum::FROZEN_TAKEN,
+        );
+    }
+
+    private function increaseInfectedCatShotStatistic(EquipmentEvent $event): void
+    {
+        if ($event->getGameEquipment()->doesNotHaveStatus(EquipmentStatusEnum::CAT_INFECTED)) {
+            return;
+        }
+
+        if ($event->doesNotHaveTag(ActionEnum::SHOOT_CAT->toString())) {
+            return;
+        }
+
+        $killer = $event->getAuthor();
+
+        foreach ($event->getDaedalus()->getAlivePlayers()->getHumanPlayer() as $player) {
+            $this->updatePlayerStatisticService->execute(
+                player: $player,
+                statisticName: StatisticEnum::TEAM_MUSH_KILLED,
+            );
+
+            if ($killer === $player) {
+                $this->updatePlayerStatisticService->execute(
+                    player: $player,
+                    statisticName: StatisticEnum::MUSH_KILLED,
+                );
+            }
         }
     }
 }

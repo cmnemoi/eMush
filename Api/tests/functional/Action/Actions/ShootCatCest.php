@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\ShootCat;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -35,6 +37,7 @@ final class ShootCatCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
     private ShootCat $shootCat;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private GameItem $schrodinger;
@@ -46,6 +49,7 @@ final class ShootCatCest extends AbstractFunctionalTest
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SHOOT_CAT->value]);
         $this->shootCat = $I->grabService(ShootCat::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -219,6 +223,60 @@ final class ShootCatCest extends AbstractFunctionalTest
         $this->whenPlayerShoots();
 
         $I->assertEquals($initialTriumph, $this->player->getTriumph());
+    }
+
+    public function shouldHumanKillerGainStatWhenShootingInfectedCat(FunctionalTester $I): void
+    {
+        $this->givenShotIsSuccessful($I);
+
+        $this->givenCatIsInfected();
+
+        $this->whenPlayerShoots();
+
+        // the killer should gain both stats
+        $this->thenPlayerShouldHaveMushKilledPendingStatistic($this->player, $I);
+
+        $this->thenPlayerShouldHaveTeamMushKilledPendingStatistic($this->player, $I);
+
+        // another human should gain only team mush killed stat
+        $this->thenPlayerShouldNotHaveMushKilledPendingStatistic($this->player2, $I);
+
+        $this->thenPlayerShouldHaveTeamMushKilledPendingStatistic($this->player2, $I);
+    }
+
+    public function shouldMushKillerGainNoStatWhenShootingInfectedCat(FunctionalTester $I): void
+    {
+        $mushPlayer = $this->givenMushPlayer($I);
+
+        $this->givenShotIsSuccessful($I);
+
+        $this->givenCatIsInfected();
+
+        $this->whenMushShoots($mushPlayer, $I);
+
+        // the mush killer should not gain any of the stats
+        $this->thenPlayerShouldNotHaveMushKilledPendingStatistic($mushPlayer, $I);
+
+        $this->thenPlayerShouldNotHaveTeamMushKilledPendingStatistic($mushPlayer, $I);
+
+        // a human should gain only team mush killed stat
+        $this->thenPlayerShouldNotHaveMushKilledPendingStatistic($this->player, $I);
+
+        $this->thenPlayerShouldHaveTeamMushKilledPendingStatistic($this->player, $I);
+    }
+
+    public function shouldGainNoStatWhenMissingAShot(FunctionalTester $I): void
+    {
+        $this->givenShotIsFailure($I);
+
+        $this->givenCatIsInfected();
+
+        $this->whenPlayerShoots();
+
+        // the shooter should not gain any of the stats
+        $this->thenPlayerShouldNotHaveMushKilledPendingStatistic($this->player, $I);
+
+        $this->thenPlayerShouldNotHaveTeamMushKilledPendingStatistic($this->player, $I);
     }
 
     public function shouldGainKillCountOnSuccess(FunctionalTester $I): void
@@ -402,5 +460,45 @@ final class ShootCatCest extends AbstractFunctionalTest
             ],
             actual: $this->player->getPlayerInfo()->getPlayerHighlights()[0]->toArray(),
         );
+    }
+
+    private function thenPlayerShouldHaveMushKilledPendingStatistic(Player $player, FunctionalTester $I): void
+    {
+        $pendingStatistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            name: StatisticEnum::MUSH_KILLED,
+            userId: $player->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        );
+        $I->assertEquals(1, $pendingStatistic?->getCount());
+    }
+
+    private function thenPlayerShouldNotHaveMushKilledPendingStatistic(Player $player, FunctionalTester $I): void
+    {
+        $pendingStatistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            name: StatisticEnum::MUSH_KILLED,
+            userId: $player->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        );
+        $I->assertNull($pendingStatistic);
+    }
+
+    private function thenPlayerShouldHaveTeamMushKilledPendingStatistic(Player $player, FunctionalTester $I): void
+    {
+        $pendingStatistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            name: StatisticEnum::TEAM_MUSH_KILLED,
+            userId: $player->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        );
+        $I->assertEquals(1, $pendingStatistic?->getCount());
+    }
+
+    private function thenPlayerShouldNotHaveTeamMushKilledPendingStatistic(Player $player, FunctionalTester $I): void
+    {
+        $pendingStatistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            name: StatisticEnum::TEAM_MUSH_KILLED,
+            userId: $player->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        );
+        $I->assertNull($pendingStatistic);
     }
 }

@@ -908,7 +908,7 @@
       </segment>
     </unit>
     <unit id="open_fruit_basket">
-      <segment id="open_fruit_basket" state="initial">
+      <segment id="open_fruit_basket" state="translated">
         <source>open_fruit_basket</source>
         <target>open_fruit_basket</target>
       </segment>

@@ -308,12 +308,6 @@
         <target>Combat avoided because the expedition team has {equipment}</target>
       </segment>
     </unit>
-    <unit id="bonus_loot_thanks_to_items">
-      <segment id="description" state="translated">
-        <source>bonus_loot_thanks_to_items</source>
-        <target>This was increased by + {quantity} thanks to the team's equipment!</target>
-      </segment>
-    </unit>
     <unit id="skill_reduced_damage_for_player">
       <segment id="description" state="translated">
         <source>skill_reduced_damage_for_player</source>

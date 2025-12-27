@@ -1204,7 +1204,7 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
       </segment>
     </unit>
     <unit id="psychotic_attacks">
-      <segment id="psychotic_attacks" state="initial">
+      <segment id="psychotic_attacks" state="translated">
         <source>psychotic_attacks</source>
         <target>psychotic_attacks</target>
       </segment>

@@ -3908,6 +3908,36 @@ Contains {quantity, plural,
 }.</target>
       </segment>
     </unit>
+    <unit id="strawman">
+      <segment id="name" state="translated">
+        <source>strawman.name</source>
+        <target>strawman.name</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>strawman.short_name</source>
+        <target>strawman.short_name</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>strawman.plural_name</source>
+        <target>strawman.plural_name</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>strawman.gender</source>
+        <target>strawman.gender</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>strawman.first_letter</source>
+        <target>strawman.first_letter</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>strawman.description</source>
+        <target>strawman.description</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>strawman.examine</source>
+        <target>strawman.examine</target>
+      </segment>
+    </unit>
     <unit id="chefs_knife">
       <segment id="name" state="translated">
         <source>chefs_knife.name</source>
@@ -3943,36 +3973,6 @@ Contains {quantity, plural,
 //Expedition: + 1 added to the strength of your team during combats.
 //Expedition: The **Provision** event yields an additional steak.
 //No one but you may wield it.</target>
-      </segment>
-    </unit>
-    <unit id="strawman">
-      <segment id="name" state="initial">
-        <source>strawman.name</source>
-        <target>strawman.name</target>
-      </segment>
-      <segment id="short_name" state="initial">
-        <source>strawman.short_name</source>
-        <target>strawman.short_name</target>
-      </segment>
-      <segment id="plural_name" state="initial">
-        <source>strawman.plural_name</source>
-        <target>strawman.plural_name</target>
-      </segment>
-      <segment id="genre" state="initial">
-        <source>strawman.gender</source>
-        <target>strawman.gender</target>
-      </segment>
-      <segment id="first_letter" state="initial">
-        <source>strawman.first_letter</source>
-        <target>strawman.first_letter</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>strawman.description</source>
-        <target>strawman.description</target>
-      </segment>
-      <segment id="examine" state="initial">
-        <source>strawman.examine</source>
-        <target>strawman.examine</target>
       </segment>
     </unit>
   </file>

@@ -3616,87 +3616,87 @@
       </segment>
     </unit>
     <unit id="fruit_basket">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>fruit_basket.name</source>
         <target>fruit_basket.name</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>fruit_basket.short_name</source>
         <target>fruit_basket.short_name</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>fruit_basket.gender</source>
         <target>fruit_basket.gender</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>fruit_basket.first_letter</source>
         <target>fruit_basket.first_letter</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>fruit_basket.description</source>
         <target>fruit_basket.description</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>fruit_basket.examine</source>
         <target>fruit_basket.examine</target>
       </segment>
     </unit>
     <unit id="strawman">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>strawman.name</source>
         <target>strawman.name</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>strawman.short_name</source>
         <target>strawman.short_name</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>strawman.plural_name</source>
         <target>strawman.plural_name</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>strawman.gender</source>
         <target>strawman.gender</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>strawman.first_letter</source>
         <target>strawman.first_letter</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>strawman.description</source>
         <target>strawman.description</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>strawman.examine</source>
         <target>strawman.examine</target>
       </segment>
     </unit>
     <unit id="chefs_knife">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>chefs_knife.name</source>
         <target>chefs_knife.name</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>chefs_knife.short_name</source>
         <target>chefs_knife.short_name</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>chefs_knife.plural_name</source>
         <target>chefs_knife.plural_name</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>chefs_knife.gender</source>
         <target>chefs_knife.gender</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>chefs_knife.first_letter</source>
         <target>chefs_knife.first_letter</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>chefs_knife.description</source>
         <target>chefs_knife.description</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>chefs_knife.examine</source>
         <target>chefs_knife.examine</target>
       </segment>

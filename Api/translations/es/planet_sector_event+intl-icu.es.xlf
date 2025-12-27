@@ -325,7 +325,7 @@
       </segment>
     </unit>
     <unit id="bonus_loot_thanks_to_items">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>bonus_loot_thanks_to_items</source>
         <target>bonus_loot_thanks_to_items</target>
       </segment>

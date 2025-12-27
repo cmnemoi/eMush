@@ -1300,15 +1300,15 @@
       </segment>
     </unit>
     <unit id="nils_contacted">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>nils_contacted.name</source>
         <target>nils_contacted.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>nils_contacted.description</source>
         <target>nils_contacted.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>nils_contacted_1.name</source>
         <target>nils_contacted_1.name</target>
       </segment>
@@ -1431,62 +1431,62 @@
         <target>Davy Crockett De L'Infini</target>
       </segment>
     </unit>
-        <unit id="mush_killed">
-      <segment id="name" state="initial">
+    <unit id="mush_killed">
+      <segment id="name" state="translated">
         <source>mush_killed.name</source>
         <target>mush_killed.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mush_killed.description</source>
         <target>mush_killed.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>mush_killed_1.name</source>
         <target>mush_killed_1.name</target>
       </segment>
     </unit>
     <unit id="team_mush_killed">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>team_mush_killed.name</source>
         <target>team_mush_killed.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>team_mush_killed.description</source>
         <target>team_mush_killed.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>team_mush_killed_1.name</source>
         <target>team_mush_killed_1.name</target>
       </segment>
-      <segment id="x50" state="initial">
+      <segment id="x50" state="translated">
         <source>team_mush_killed_50.name</source>
         <target>team_mush_killed_50.name</target>
       </segment>
-      <segment id="x100" state="initial">
+      <segment id="x100" state="translated">
         <source>team_mush_killed_100.name</source>
         <target>team_mush_killed_100.name</target>
       </segment>
-      <segment id="x200" state="initial">
+      <segment id="x200" state="translated">
         <source>team_mush_killed_200.name</source>
         <target>team_mush_killed_200.name</target>
       </segment>
-      <segment id="x500" state="initial">
+      <segment id="x500" state="translated">
         <source>team_mush_killed_500.name</source>
         <target>team_mush_killed_500.name</target>
       </segment>
-      <segment id="x750" state="initial">
+      <segment id="x750" state="translated">
         <source>team_mush_killed_750.name</source>
         <target>team_mush_killed_750.name</target>
       </segment>
-      <segment id="x1000" state="initial">
+      <segment id="x1000" state="translated">
         <source>team_mush_killed_1000.name</source>
         <target>team_mush_killed_1000.name</target>
       </segment>
-      <segment id="x2000" state="initial">
+      <segment id="x2000" state="translated">
         <source>team_mush_killed_2000.name</source>
         <target>team_mush_killed_2000.name</target>
       </segment>
-      <segment id="x4000" state="initial">
+      <segment id="x4000" state="translated">
         <source>team_mush_killed_4000.name</source>
         <target>team_mush_killed_4000.name</target>
       </segment>

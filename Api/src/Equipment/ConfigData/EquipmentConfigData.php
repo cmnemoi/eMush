@@ -4355,6 +4355,23 @@ class EquipmentConfigData
             'mechanics' => [],
             'initStatuses' => [],
         ],
+        [
+            'name' => ItemEnum::MULTIPASS . '_default',
+            'equipmentName' => ItemEnum::MULTIPASS,
+            'breakableType' => BreakableTypeEnum::NONE,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => true,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => [],
+            'initStatuses' => [],
+        ],
     ];
 
     public static function getByEquipmentName(string $name): array

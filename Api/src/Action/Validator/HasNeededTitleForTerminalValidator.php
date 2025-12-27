@@ -5,7 +5,9 @@ namespace Mush\Action\Validator;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\TitleEnum;
+use Mush\Skill\Enum\SkillEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -34,7 +36,10 @@ class HasNeededTitleForTerminalValidator extends ConstraintValidator
         if ($titleNeededForTerminal === null) {
             return;
         }
-        if ($this->shouldBypassTitle($value)) {
+        if ($this->usingConspirator($value)) {
+            return;
+        }
+        if ($this->usingMultipass($value)) {
             return;
         }
 
@@ -46,12 +51,22 @@ class HasNeededTitleForTerminalValidator extends ConstraintValidator
         }
     }
 
-    private function shouldBypassTitle(AbstractAction $value): bool
+    private function usingConspirator(AbstractAction $value): bool
     {
         $terminal = $value->gameEquipmentTarget();
         $player = $value->getPlayer();
 
         return $terminal->getName() === EquipmentEnum::BIOS_TERMINAL && $value->getActionName() === ActionEnum::BYPASS_TERMINAL->value;
+    }
+
+    private function usingMultipass(AbstractAction $value): bool
+    {
+        $terminal = $value->gameEquipmentTarget();
+        $player = $value->getPlayer();
+
+        return $terminal->getName() === EquipmentEnum::COMMAND_TERMINAL
+        && $player->hasAnyOperationalEquipment([ItemEnum::MULTIPASS])
+        && $player->hasSkill(SkillEnum::CONCEPTOR);
     }
 
     private function shouldBuildViolation(bool $titleNeededToAccess, bool $playerHasTitle): bool

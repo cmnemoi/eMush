@@ -12,6 +12,7 @@ use Mush\Daedalus\Enum\NeronCrewLockEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -112,6 +113,45 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
     {
         // given player is commander
         $this->player->addTitle(TitleEnum::COMMANDER);
+
+        // when player access command terminal
+        $this->accessTerminal->loadParameters(
+            actionConfig: $this->accessTerminalConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->accessTerminal->execute();
+
+        // then the player should be focused on command terminal
+        $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::FOCUSED));
+    }
+
+    public function testMultipass(FunctionalTester $I): void
+    {
+        // given player is not commander
+        $I->assertFalse($this->player->hasTitle(TitleEnum::COMMANDER));
+        // given player has a multipass
+        $this->createEquipment(ItemEnum::MULTIPASS, $this->player);
+
+        // when player access command terminal
+        $this->accessTerminal->loadParameters(
+            actionConfig: $this->accessTerminalConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->accessTerminal->execute();
+
+        // then the action is not executable and player is not focused on command terminal
+        $I->assertFalse($this->player->hasStatus(PlayerStatusEnum::FOCUSED));
+        $I->assertEquals(
+            expected: ActionImpossibleCauseEnum::TERMINAL_ROLE_RESTRICTED,
+            actual: $this->accessTerminal->cannotExecuteReason(),
+        );
+
+        // given player is also a conceptor
+        $this->addSkillToPlayer(SkillEnum::CONCEPTOR, $I, $this->player);
 
         // when player access command terminal
         $this->accessTerminal->loadParameters(

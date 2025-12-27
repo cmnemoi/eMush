@@ -3948,35 +3948,35 @@ Contient {quantity, plural,
 //:point: Expédition : L'évènement **Provision** donne un steak de plus.</target>
       </segment>
     </unit>
-    <unit id="lizaro_jungle">
+    <unit id="lucky_lizaro">
       <segment id="name" state="translated">
-        <source>lizaro_jungle.name</source>
+        <source>lucky_lizaro.name</source>
         <target>Lizaro Fétiche</target>
       </segment>
       <segment id="short_name" state="translated">
-        <source>lizaro_jungle.short_name</source>
+        <source>lucky_lizaro.short_name</source>
         <target>Lizaro Fétiche</target>
       </segment>
       <segment id="plural_name" state="translated">
-        <source>lizaro_jungle.plural_name</source>
+        <source>lucky_lizaro.plural_name</source>
         <target>Lizaros Jungle</target>
       </segment>
       <segment id="genre" state="translated">
-        <source>lizaro_jungle.gender</source>
+        <source>lucky_lizaro.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
-        <source>lizaro_jungle.first_letter</source>
+        <source>lucky_lizaro.first_letter</source>
         <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
-        <source>lizaro_jungle.description</source>
+        <source>lucky_lizaro.description</source>
         <target>Un compagnon personnel qui vous avait manqué.//
 :point: Expédition : +1 à la force de votre équipe en cas de combat.//
 :point: Personne n'a le droit d'y toucher à part vous.</target>
       </segment>
       <segment id="examine" state="translated">
-        <source>lizaro_jungle.examine</source>
+        <source>lucky_lizaro.examine</source>
         <target>Il vous a souvent sauvé la vie. Sûrement il vous servira une fois de plus.//
 Expédition : +1 à la force de votre équipe en cas de combat.//
 Un chasseur et son fusil ne sont jamais séparés.</target>
@@ -4006,6 +4006,32 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       <segment id="examine" state="translated">
         <source>spaceship_keys.examine</source>
         <target>La fine odeur d'eau de toilette laisse comprendre qu'elles appartiennent à Derek. Quelqu'un a du oublié de les confisquer après sa mutation à l'infanterie...//Permet de passer outre le Verrou Équipage en position Pilotage. Attention à ne pas les laisser traîner n'importe où...</target>
+      </segment>
+    </unit>
+    <unit id="multipass">
+      <segment id="name" state="translated">
+        <source>multipass.name</source>
+        <target>Passe Mul-Ti</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>multipass.short_name</source>
+        <target>Mul-Ti Pass</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>multipass.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>multipass.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>multipass.description</source>
+        <target>Il faut toujours garder une clé d'urgence cachée quelque part.//:point: Permet aux :sk_conceptor: Concepteurs d'accéder au Terminal de Commandement.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>multipass.examine</source>
+        <target>Un petit cadeau de Raluca à Kuan Ti. Il n'a pas bâti tout ce projet pour ne pas mener le voyage...//:point: Permet aux :sk_conceptor: Concepteurs d'accéder au Terminal de Commandement.</target>
       </segment>
     </unit>
   </file>

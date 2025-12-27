@@ -389,6 +389,7 @@ class GameConfigData
                     ItemEnum::CHEFS_KNIFE . '_default',
                     ItemEnum::LUCKY_LIZARO . '_default',
                     ItemEnum::SPACESHIP_KEYS . '_default',
+                    ItemEnum::MULTIPASS . '_default',
                 ],
                 'statusConfigs' => [
                     'alien_artefact_default',

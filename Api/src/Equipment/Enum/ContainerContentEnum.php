@@ -375,7 +375,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::JIN_SU,
         ],
         [
-            'item' => 'apprentron_it_expert', // @TODO: Multipass
+            'item' => ItemEnum::MULTIPASS, // @TODO: Multipass
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,

@@ -89,6 +89,7 @@ const SWEDISH_SOFA_KIT = "swedish_sofa_kit";
 const JUKEBOX_KIT = "jukebox_kit";
 const STRAWMAN = "strawman";
 const SPACESHIP_KEYS = "spaceship_keys";
+const MULTIPASS = "multipass";
 
 //containers
 const ANNIVERSARY_GIFT = "anniversary_gift";
@@ -553,5 +554,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [SPACESHIP_KEYS]:{
         'image': getImgUrl('items/spaceship_keys.png')
+    },
+    [MULTIPASS]:{
+        'image': getImgUrl('items/multipass.png')
     }
 };

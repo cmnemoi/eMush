@@ -4317,6 +4317,28 @@ class EquipmentConfigData
             ],
             'initStatuses' => [],
         ],
+        [
+            'name' => ItemEnum::LUCKY_LIZARO . '_default',
+            'equipmentName' => ItemEnum::LUCKY_LIZARO,
+            'breakableType' => BreakableTypeEnum::BREAKABLE,
+            'dismountedProducts' => ['metal_scraps' => 1, 'thick_tube' => 1],
+            'isPersonal' => true,
+            'type' => 'item_config',
+            'isStackable' => true,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+                'repair_percent_12',
+            ],
+            'mechanics' => [
+                'weapon_lizaro_jungle_default',
+            ],
+            'initStatuses' => [
+                'electric_charges_rocket_launcher_default',
+            ],
+        ],
     ];
 
     public static function getByEquipmentName(string $name): array

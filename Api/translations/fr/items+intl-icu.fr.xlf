@@ -3948,5 +3948,39 @@ Contient {quantity, plural,
 //:point: Expédition : L'évènement **Provision** donne un steak de plus.</target>
       </segment>
     </unit>
+    <unit id="lizaro_jungle">
+      <segment id="name" state="translated">
+        <source>lizaro_jungle.name</source>
+        <target>Lizaro Fétiche</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>lizaro_jungle.short_name</source>
+        <target>Lizaro Fétiche</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>lizaro_jungle.plural_name</source>
+        <target>Lizaros Jungle</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>lizaro_jungle.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>lizaro_jungle.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>lizaro_jungle.description</source>
+        <target>Un compagnon personnel qui vous avait manqué.//
+:point: Expédition : +1 à la force de votre équipe en cas de combat.//
+:point: Personne n'a le droit d'y toucher à part vous.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>lizaro_jungle.examine</source>
+        <target>Il vous a souvent sauvé la vie. Sûrement il vous servira une fois de plus.//
+Expédition : +1 à la force de votre équipe en cas de combat.//
+Un chasseur et son fusil ne sont jamais séparés.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

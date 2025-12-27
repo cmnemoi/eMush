@@ -387,6 +387,7 @@ class GameConfigData
                     ItemEnum::FRUIT_BASKET . '_default',
                     'strawman_default',
                     ItemEnum::CHEFS_KNIFE . '_default',
+                    ItemEnum::LUCKY_LIZARO . '_default',
                 ],
                 'statusConfigs' => [
                     'alien_artefact_default',

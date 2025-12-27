@@ -95,7 +95,7 @@ class ContainerContentEnum
 
     public const array ANNIVERSARY_GIFT_CONTENT = [
         [
-            'item' => GearItemEnum::PLASTENITE_ARMOR, // @TODO: Lucky Lizaro
+            'item' => ItemEnum::LUCKY_LIZARO,
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -179,7 +179,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::ELEESHA,
         ],
         [
-            'item' => ToolItemEnum::MEDIKIT, // @TODO: find replacement
+            'item' => ToolItemEnum::MEDIKIT, // @TODO: Reset Vaccine
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -305,7 +305,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::IAN,
         ],
         [
-            'item' => ToolItemEnum::EXTINGUISHER, // @TODO: Alien Fruit Basket
+            'item' => ItemEnum::FRUIT_BASKET,
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,

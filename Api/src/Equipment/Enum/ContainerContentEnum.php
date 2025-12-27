@@ -592,8 +592,8 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::DEREK,
         ],
         [
-            'item' => GameRationEnum::ANABOLIC, // @TODO: Patrolship keys
-            'quantity' => 3,
+            'item' => ItemEnum::SPACESHIP_KEYS, // gag
+            'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::DEREK,

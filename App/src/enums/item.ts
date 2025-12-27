@@ -88,6 +88,7 @@ const EVIL_COMPASS = "evil_compass";
 const SWEDISH_SOFA_KIT = "swedish_sofa_kit";
 const JUKEBOX_KIT = "jukebox_kit";
 const STRAWMAN = "strawman";
+const SPACESHIP_KEYS = "spaceship_keys";
 
 //containers
 const ANNIVERSARY_GIFT = "anniversary_gift";
@@ -549,5 +550,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [LUCKY_LIZARO]:{
         'image': getImgUrl('items/lucky_lizaro.png')
+    },
+    [SPACESHIP_KEYS]:{
+        'image': getImgUrl('items/spaceship_keys.png')
     }
 };

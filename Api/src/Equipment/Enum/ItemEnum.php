@@ -58,6 +58,7 @@ class ItemEnum
     public const string STRAWMAN = 'strawman';
     public const string CHEFS_KNIFE = 'chefs_knife';
     public const string LUCKY_LIZARO = 'lucky_lizaro';
+    public const string SPACESHIP_KEYS = 'spaceship_keys';
 
     public static function getArtefacts(): ArrayCollection
     {

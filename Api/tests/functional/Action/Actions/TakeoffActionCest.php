@@ -114,6 +114,29 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $I->assertEquals(ActionImpossibleCauseEnum::TERMINAL_NERON_LOCK, $this->takeoffAction->cannotExecuteReason());
     }
 
+    public function nonPilotPlayerCanBypassCrewLockWithSpaceshipKeys(FunctionalTester $I): void
+    {
+        // given KT is not a pilot (default)
+        // given crewlock is on pilot (default)
+
+        // given there is a patrol ship
+        $patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(EquipmentEnum::PATROL_SHIP, $this->player->getPlace(), [], new \DateTime());
+
+        // given KT has spaceship keys
+        $this->createEquipment(ItemEnum::SPACESHIP_KEYS, $this->kuanTi);
+
+        // when KT tries to take off
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $patrolShip,
+            player: $this->kuanTi,
+            target: $patrolShip
+        );
+
+        // then the action is executable
+        $I->assertEquals(null, $this->takeoffAction->cannotExecuteReason());
+    }
+
     public function testTakeoffCriticalSuccess(FunctionalTester $I)
     {
         $this->action->setCriticalRate(100);

@@ -3982,5 +3982,31 @@ Expédition : +1 à la force de votre équipe en cas de combat.//
 Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
     </unit>
+    <unit id="spaceship_keys">
+      <segment id="name" state="translated">
+        <source>spaceship_keys.name</source>
+        <target>Trousseau de clés de Patrouilleur</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>spaceship_keys.short_name</source>
+        <target>Trousseau de clés</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>spaceship_keys.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>spaceship_keys.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>spaceship_keys.description</source>
+        <target>De quoi leur prouver que vous *savez* piloter!//:point: Permet de passer outre le Verrou Équipage en position Pilotage.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>spaceship_keys.examine</source>
+        <target>La fine odeur d'eau de toilette laisse comprendre qu'elles appartiennent à Derek. Quelqu'un a du oublié de les confisquer après sa mutation à l'infanterie...//Permet de passer outre le Verrou Équipage en position Pilotage. Attention à ne pas les laisser traîner n'importe où...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

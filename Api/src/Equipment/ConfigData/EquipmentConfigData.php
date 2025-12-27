@@ -4321,14 +4321,13 @@ class EquipmentConfigData
             'name' => ItemEnum::LUCKY_LIZARO . '_default',
             'equipmentName' => ItemEnum::LUCKY_LIZARO,
             'breakableType' => BreakableTypeEnum::BREAKABLE,
-            'dismountedProducts' => ['metal_scraps' => 1, 'thick_tube' => 1],
+            'dismountedProducts' => [],
             'isPersonal' => true,
             'type' => 'item_config',
             'isStackable' => true,
             'actions' => [
                 'take',
                 'drop',
-                'hide',
                 'examine',
                 'repair_percent_12',
             ],
@@ -4338,6 +4337,23 @@ class EquipmentConfigData
             'initStatuses' => [
                 'electric_charges_rocket_launcher_default',
             ],
+        ],
+        [
+            'name' => ItemEnum::SPACESHIP_KEYS . '_default',
+            'equipmentName' => ItemEnum::SPACESHIP_KEYS,
+            'breakableType' => BreakableTypeEnum::NONE,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => true,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => [],
+            'initStatuses' => [],
         ],
     ];
 

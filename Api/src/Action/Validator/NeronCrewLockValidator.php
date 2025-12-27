@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Daedalus\Enum\NeronCrewLockEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Symfony\Component\HttpFoundation\File\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
@@ -33,9 +34,12 @@ final class NeronCrewLockValidator extends ConstraintValidator
         $crewLock = $player->getDaedalus()->getNeron()->getCrewLock()->toString();
 
         $skillNeeded = $this->getSkillNeeded($crewLock);
+        $bypassItems = $this->getBypassItem($crewLock);
         $restrictedTerminals = $this->getRestrictedTerminals($crewLock);
 
-        if ($player->hasAnySkill($skillNeeded) === false && $restrictedTerminals->contains($terminal->getName())) {
+        if (!$player->hasAnySkill($skillNeeded)
+            && !$player->hasAnyOperationalEquipment($bypassItems)
+            && $restrictedTerminals->contains($terminal->getName())) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }
@@ -47,6 +51,16 @@ final class NeronCrewLockValidator extends ConstraintValidator
             NeronCrewLockEnum::PILOTING->value => [SkillEnum::PILOT],
             NeronCrewLockEnum::PROJECTS->value => [SkillEnum::CONCEPTOR],
             NeronCrewLockEnum::RESEARCH->value => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+            default => [],
+        };
+    }
+
+    private function getBypassItem(string $crewLock): array
+    {
+        return match ($crewLock) {
+            NeronCrewLockEnum::PILOTING->value => [ItemEnum::SPACESHIP_KEYS],
+            NeronCrewLockEnum::PROJECTS->value => [],
+            NeronCrewLockEnum::RESEARCH->value => [],
             default => [],
         };
     }

@@ -3815,7 +3815,7 @@ Permet de charger du carburant dans le module de combustion.</target>
       </segment>
       <segment id="description" state="translated">
         <source>swedish_sofa_kit.description</source>
-        <target>Un kit complet, encore scellé après tant d'années. Garanti d'avoir tout le matériel nécessaire! // :point: Peut être assemblé pour donner un Sofa.</target>
+        <target>Un kit complet, encore scellé après tant d'années. Garanti d'avoir tout le matériel nécessaire ! // :point: Peut être assemblé pour donner un Sofa.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>swedish_sofa_kit.examine</source>
@@ -3943,9 +3943,9 @@ Contient {quantity, plural,
       <segment id="examine" state="translated">
         <source>chefs_knife.examine</source>
         <target>Des couteaux comme ça y'en a beaucoup, des gens comme vous... moins.
-//:point: +10% précision comparé à un couteau standard.
-//:point: Expédition : + 1 à la force de votre équipe en cas de combat.
-//:point: Expédition : L'évènement **Provision** donne un steak de plus.</target>
+//+10% précision comparé à un couteau standard.
+//Expédition : + 1 à la force de votre équipe en cas de combat.
+//Expédition : L'évènement **Provision** donne un steak de plus.</target>
       </segment>
     </unit>
     <unit id="lucky_lizaro">
@@ -4005,17 +4005,17 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>spaceship_keys.examine</source>
-        <target>La fine odeur d'eau de toilette laisse comprendre qu'elles appartiennent à Derek. Quelqu'un a du oublié de les confisquer après sa mutation à l'infanterie...//Permet de passer outre le Verrou Équipage en position Pilotage. Attention à ne pas les laisser traîner n'importe où...</target>
+        <target>La fine odeur d'eau de toilette laisse comprendre qu'elles appartiennent à Derek. Quelqu'un a dû oublier de les confisquer après sa mutation à l'infanterie...//Permet de passer outre le Verrou Équipage en position Pilotage. Attention à ne pas les laisser traîner n'importe où...</target>
       </segment>
     </unit>
     <unit id="multipass">
       <segment id="name" state="translated">
         <source>multipass.name</source>
-        <target>Passe Mul-Ti</target>
+        <target>Mul-Ti Pass</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>multipass.short_name</source>
-        <target>Mul-Ti Pass</target>
+        <target>MT Pass</target>
       </segment>
       <segment id="genre" state="translated">
         <source>multipass.gender</source>
@@ -4031,7 +4031,7 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>multipass.examine</source>
-        <target>Un petit cadeau de Raluca à Kuan Ti. Il n'a pas bâti tout ce projet pour ne pas mener le voyage...//:point: Permet aux :sk_conceptor: Concepteurs d'accéder au Terminal de Commandement.</target>
+        <target>Un petit cadeau de Raluca à Kuan Ti. Il n'a pas bâti tout ce projet pour ne pas mener le voyage...//Permet aux :sk_conceptor: Concepteurs d'accéder au Terminal de Commandement.</target>
       </segment>
     </unit>
   </file>

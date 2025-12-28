@@ -430,7 +430,7 @@
 			"hunterSpawnRate": "Hunter spawn rate at cycle change",
 			"hunterSafeCycles": "Cycles when no hunter can spawn",
 			"startingHuntersTruceCycles": "Cycles at the beginning of the game with no new hunters spawning",
-			"randomSpores": "Nombre de spores distribué en début de partie si l'option est active"
+			"randomSpores": "Number of spores distributed at game start if the option is on"
 		},
 		"characterConfig": {
 			"name": "Name",

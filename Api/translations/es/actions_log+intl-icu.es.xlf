@@ -1010,7 +1010,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="anniversary_gift_mush_skill">
       <segment id="anniversary_gift_mush_skill" state="translated">
         <source>anniversary_gift_mush_skill</source>
-        <target>anniversary_gift_mush_skill</target>
+        <target>Vaya, vaya. Hay un tufo de feromona emanando de esta cosa... "Haznos sentir orgullosos, Agente". Encuentras una Aprendizpora... ¡y contiene **{skill}**!</target>
       </segment>
     </unit>
     <unit id="establish_link_with_sol_fail">
@@ -1046,13 +1046,13 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="exchange_body_success">
       <segment id="exchange_body_success" state="translated">
         <source>exchange_body_success</source>
-        <target>***Solo para la moderación***: **{character}** se transfiere a **{target_character}**.</target>
+        <target>***Solo para Moderación***: **{character}** se transfiere a **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="cure_success">
       <segment id="cure_success" state="translated">
         <source>cure_success</source>
-        <target>cure_success</target>
+        <target>***Solo para Moderación** : **{character}** vacuna a **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="adapt_epigenetics_success">
@@ -1064,7 +1064,11 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="open_fruit_basket">
       <segment id="open_fruit_basket" state="translated">
         <source>open_fruit_basket</source>
-        <target>open_fruit_basket</target>
+        <target>**{character}** saca {equipment_gender, select, 
+            female {una} 
+            male {un} 
+            other {}
+          } **{equipment}** de su canasta.</target>
       </segment>
     </unit>
   </file>

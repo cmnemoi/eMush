@@ -1300,17 +1300,17 @@
       </segment>
     </unit>
     <unit id="nils_contacted">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>nils_contacted.name</source>
-        <target>nils_contacted.name</target>
+        <target>Nils contactado</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>nils_contacted.description</source>
-        <target>nils_contacted.description</target>
+        <target>La tripulación ha contactado con Nils Carlsson</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>nils_contacted_1.name</source>
-        <target>nils_contacted_1.name</target>
+        <target>Autoridad científica</target>
       </segment>
     </unit>
     <unit id="team_all_rebels">
@@ -1366,27 +1366,27 @@
     <unit id="frozen_taken">
       <segment id="name" state="translated">
         <source>frozen_taken.name</source>
-        <target>frozen_taken.name</target>
+        <target>Alimentos congelados consumidos</target>
       </segment>
       <segment id="description" state="translated">
         <source>frozen_taken.description</source>
-        <target>frozen_taken.description</target>
+        <target>Alimentos congelados consumidos</target>
       </segment>
       <segment id="x1" state="translated">
         <source>frozen_taken_1.name</source>
-        <target>frozen_taken_1.name</target>
+        <target>Yeti</target>
       </segment>
     </unit>
     <unit id="kind_person">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>kind_person.name</source>
         <target>kind_person.name</target>
       </segment>
       <segment id="description" state="translated">
         <source>kind_person.description</source>
-        <target>kind_person.description</target>
+        <target>En ese momento supiste encontrar las palabras adecuadas...</target>
       </segment>
-      <segment id="x1" state="translated">
+      <segment id="x1" state="initial">
         <source>kind_person_1.name</source>
         <target>kind_person_1.name</target>
       </segment>
@@ -1394,61 +1394,61 @@
     <unit id="disease_contracted">
       <segment id="name" state="translated">
         <source>disease_contracted.name</source>
-        <target>disease_contracted.name</target>
+        <target>Enfermedades contraídas</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>disease_contracted.description</source>
         <target>disease_contracted.description</target>
       </segment>
       <segment id="x1" state="translated">
         <source>disease_contracted_1.name</source>
-        <target>disease_contracted_1.name</target>
+        <target>Hipocondríaco</target>
       </segment>
-      <segment id="x10" state="translated">
+      <segment id="x10" state="initial">
         <source>disease_contracted_10.name</source>
         <target>disease_contracted_10.name</target>
       </segment>
-      <segment id="x20" state="translated">
+      <segment id="x20" state="initial">
         <source>disease_contracted_20.name</source>
         <target>disease_contracted_20.name</target>
       </segment>
-      <segment id="x50" state="translated">
+      <segment id="x50" state="initial">
         <source>disease_contracted_50.name</source>
         <target>disease_contracted_50.name</target>
       </segment>
     </unit>
     <unit id="mankarog_down">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>mankarog_down.name</source>
         <target>mankarog_down.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>mankarog_down.description</source>
         <target>mankarog_down.description</target>
       </segment>
-      <segment id="x1" state="translated">
+      <segment id="x1" state="initial">
         <source>mankarog_down_1.name</source>
         <target>mankarog_down_1.name</target>
       </segment>
     </unit>
     <unit id="mush_killed">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mush_killed.name</source>
-        <target>mush_killed.name</target>
+        <target>Verdugo de los Mush</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mush_killed.description</source>
-        <target>mush_killed.description</target>
+        <target>¡Mush que mataste con tus propias manos!</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>mush_killed_1.name</source>
-        <target>mush_killed_1.name</target>
+        <target>Esporafobo</target>
       </segment>
     </unit>
     <unit id="team_mush_killed">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>team_mush_killed.name</source>
-        <target>team_mush_killed.name</target>
+        <target>Soldado de la Humanidad</target>
       </segment>
       <segment id="description" state="initial">
         <source>team_mush_killed.description</source>

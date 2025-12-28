@@ -2466,7 +2466,7 @@ Expedición: +1 a la fuerza de tu equipo en caso de combate.</target>
         <source>natamy_rifle.examine</source>
         <target>El fusil Natamy es un fusil de asalto anti-Mush.
 //
-Expedición: +1 añadido a la fuerza de tu equipo en caso de combate.
+Expedición: + 1 a la fuerza de tu equipo en caso de combate.
 //
 Un fusil muy especial desarrollado por la tripulación. Sus municiones contienen bicarbonato de sodio y retro-patulina que tienen propiedades antifúngicas.</target>
       </segment>
@@ -3848,205 +3848,312 @@ La rockola de esos años maravillosos. ¡Y tiene las canciones favoritas de la t
       </segment>
       <segment id="description" state="translated">
         <source>itrackie_2.description</source>
-        <target>itrackie_2.description</target>
+        <target>Pff, ¿El otro modelo? ¡Es tan viejo! ¡Tan rústico! ¡Tan anticuado! ¡Tan *pasado de moda*! Con una carcasa dorada y sin el molesto conector para auriculares, esta es una auténtica mejora que te hará preguntarte: "¿Cómo me las arreglaba sin él?".
+        // :point: Sirve para comunicarse a distancia con otros tripulantes.
+        // :point: Permite el acceso del minimapa mejorado del Daedalus. **¡Aplicación ACTOPI incluida en cada compra!**</target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie_2.examine</source>
-        <target>itrackie_2.examine</target>
+        <target>Sientes el remordimiento del comprador... y sin embargo, era gratis...//
+        //Sirve para comunicarse a distancia con otros tripulantes.
+        //Permite el acceso del minimapa mejorado del Daedalus. **¡Aplicación ACTOPI incluida en cada compra!**</target>
       </segment>
     </unit>
     <unit id="lump_of_coal">
       <segment id="name" state="translated">
         <source>lump_of_coal.name</source>
-        <target>lump_of_coal.name</target>
+        <target>Trozo de carbón</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>lump_of_coal.short_name</source>
-        <target>lump_of_coal.short_name</target>
+        <target>Trozo de carbón</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>lump_of_coal.plural_name</source>
-        <target>lump_of_coal.plural_name</target>
+        <target>Trozos de carbón</target>
       </segment>
       <segment id="genre" state="translated">
         <source>lump_of_coal.gender</source>
-        <target>lump_of_coal.gender</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>lump_of_coal.first_letter</source>
-        <target>lump_of_coal.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
         <source>lump_of_coal.description</source>
-        <target>lump_of_coal.description</target>
+        <target>Alguien se portó mal este año.//
+:point: Este trozo de carbón hipercomprimido es tan eficaz como una cápsula de combustible.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>lump_of_coal.examine</source>
-        <target>lump_of_coal.examine</target>
+        <target>Y yo tengo... una piedra...//
+Da 1 unidad de Combustible.//
+Puede ser insertado en la cámara de combustión.</target>
       </segment>
     </unit>
     <unit id="evil_compass">
       <segment id="name" state="translated">
         <source>evil_compass.name</source>
-        <target>evil_compass.name</target>
+        <target>Alujúrb Cuadrimaldita</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>evil_compass.short_name</source>
-        <target>evil_compass.short_name</target>
+        <target>Brújula Cuadrimétrica</target>
       </segment>
       <segment id="genre" state="translated">
         <source>evil_compass.gender</source>
-        <target>evil_compass.gender</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>evil_compass.first_letter</source>
-        <target>evil_compass.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
         <source>evil_compass.description</source>
-        <target>evil_compass.description</target>
+        <target>La Alurjúrb es un artefacto sagrado del culto de La-Erenjay ¿Cómo llego aquí?
+        //:ic_explorer: Expedición: 5x de posibilidad de recorrer una de las zonas restantes: "Mankarog", "Volcán" o "Actividad Sísmica".//:point: Vista de lejos, parece una brújula normal...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>evil_compass.examine</source>
-        <target>evil_compass.examine</target>
+        <target>La Alujúrb ha sido maldecida nada menos que cuatro veces por los magos Ke Zobabas de La-Erenjay. Se dice que, en su presencia, los espejos se rompen, los gatos se cubren de hollín y los tréboles desarrollan dos hojas extra.
+//:ic_explorer: Expedición: 5x de posibilidad de recorrer una de las zonas restantes: "Mankarog", "Volcán" o "Actividad Sísmica".//:point: Se camufla como una **Brújula Cuadrimétrica** en el registro de la sala.</target>
       </segment>
     </unit>
     <unit id="swedish_sofa_kit">
       <segment id="name" state="translated">
         <source>swedish_sofa_kit.name</source>
-        <target>swedish_sofa_kit.name</target>
+        <target>Kit de sofá</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>swedish_sofa_kit.short_name</source>
-        <target>swedish_sofa_kit.short_name</target>
+        <target>Kit</target>
       </segment>
       <segment id="genre" state="translated">
         <source>swedish_sofa_kit.gender</source>
-        <target>swedish_sofa_kit.gender</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>swedish_sofa_kit.first_letter</source>
-        <target>swedish_sofa_kit.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
         <source>swedish_sofa_kit.description</source>
-        <target>swedish_sofa_kit.description</target>
+        <target>Un kit completo, aún sellado después de tantos años. ¡Garantizado de incluir todos los materiales necesarios! // :point: Se puede armar crear un Sofá.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>swedish_sofa_kit.examine</source>
-        <target>swedish_sofa_kit.examine</target>
+        <target>Este kit contiene todo lo necesario para montar un auténtico sofá sueco, incluyendo un misterioso tubo grueso que las instrucciones de montaje describen como esencial. // Se puede armar para crear un sofá. Elige bien dónde montarlo.</target>
       </segment>
     </unit>
     <unit id="jukebox_kit">
       <segment id="name" state="translated">
         <source>jukebox_kit.name</source>
-        <target>jukebox_kit.name</target>
+        <target>Kit de Rockola</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>jukebox_kit.short_name</source>
-        <target>jukebox_kit.short_name</target>
+        <target>Kit</target>
       </segment>
       <segment id="genre" state="translated">
         <source>jukebox_kit.gender</source>
-        <target>jukebox_kit.gender</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>jukebox_kit.first_letter</source>
-        <target>jukebox_kit.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
         <source>jukebox_kit.description</source>
-        <target>jukebox_kit.description</target>
+        <target>Un kit completo, aún sellado después de tantos años. ¡Equipo completo necesario garantizado! // :point: Se puede armar para crear una Rockola.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>jukebox_kit.examine</source>
-        <target>jukebox_kit.examine</target>
+        <target>También incluye 16 magnetovinilos de 600.000 RPM con calidad de estudio, aproximadamente equivalentes a un archivo de 48 GHz/256 bits. Se necesitarían oídos biónicos para percibir este nivel de detalle sonoro, pero el progreso continúa. // Se puede armar para crear una Rockola. Elige bien dónde construirla.</target>
       </segment>
     </unit>
     <unit id="fruit_basket">
       <segment id="name" state="translated">
         <source>fruit_basket.name</source>
-        <target>fruit_basket.name</target>
+        <target>Canasta de frutas</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>fruit_basket.short_name</source>
-        <target>fruit_basket.short_name</target>
+        <target>Canasta de frutas</target>
       </segment>
       <segment id="genre" state="translated">
         <source>fruit_basket.gender</source>
-        <target>fruit_basket.gender</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>fruit_basket.first_letter</source>
-        <target>fruit_basket.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
         <source>fruit_basket.description</source>
-        <target>fruit_basket.description</target>
+        <target>Seguramente habrá uno que es comestible ¿no?.//
+Contiene {quantity, plural,
+        one {1 **Fruto alienígena**}
+        other {# **Frutos alienígenas**}
+}.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>fruit_basket.examine</source>
-        <target>fruit_basket.examine</target>
+        <target>Bueno, esto es mejor que llevarlos uno por uno. // Contiene {quantity, plural,
+una {1 **Fruto Alienígena**}
+other {# **Frutos Alienígenas**}
+}.</target>
       </segment>
     </unit>
     <unit id="strawman">
       <segment id="name" state="translated">
         <source>strawman.name</source>
-        <target>strawman.name</target>
+        <target>Derek de paja</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>strawman.short_name</source>
-        <target>strawman.short_name</target>
+        <target>Derek de paja</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>strawman.plural_name</source>
-        <target>strawman.plural_name</target>
+        <target>Dereks de paja</target>
       </segment>
       <segment id="genre" state="translated">
         <source>strawman.gender</source>
-        <target>strawman.gender</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>strawman.first_letter</source>
-        <target>strawman.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
         <source>strawman.description</source>
-        <target>strawman.description</target>
+        <target>A menos que tengas mala vista o desconozcas la anatomía humana, es idéntico al original. Y al menos este no coquetea con todo el mundo. //:point: El Derek de paja cuenta como un compañero inactivo para intercambios con mercaderes si está en un almacén. //:point: Con un poco de convencimiento, podrías conseguir que reemplace a cualquier persona en específico que soliciten...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>strawman.examine</source>
-        <target>strawman.examine</target>
+        <target>A menos que tengas mala vista o desconozcas la anatomía humana, es idéntico al original. Y al menos este no coquetea con todo el mundo. //El Derek de paja tendrá prioridad para los comerciantes en lugar de un miembro de la tripulación si está en un almacén. //Con un poco de convencimiento, podrías conseguir que reemplace a cualquier persona en específico que soliciten...</target>
       </segment>
     </unit>
     <unit id="chefs_knife">
       <segment id="name" state="translated">
         <source>chefs_knife.name</source>
-        <target>chefs_knife.name</target>
+        <target>Cuchillo de cocinero</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>chefs_knife.short_name</source>
-        <target>chefs_knife.short_name</target>
+        <target>Cuchillo</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>chefs_knife.plural_name</source>
-        <target>chefs_knife.plural_name</target>
+        <target>Cuchillos</target>
       </segment>
       <segment id="genre" state="translated">
         <source>chefs_knife.gender</source>
-        <target>chefs_knife.gender</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>chefs_knife.first_letter</source>
-        <target>chefs_knife.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
         <source>chefs_knife.description</source>
-        <target>chefs_knife.description</target>
+        <target>Un cuchillo multiusos finamente afilado. Cocina, asalta, destaza, afeita, lo hace todo y lo mejor de todo: es tuyo.
+//:point: +10% de precisión a comparación de un cuchillo normal.
+//:point: Expedición: +1 a la fuerza del equipo en combate.
+//:point: Expedición: El evento **Provisión** da un bistec más.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>chefs_knife.examine</source>
-        <target>chefs_knife.examine</target>
+        <target>Hay muchos cuchillos como ese, pero solo alguien como tú.
+//+10% de precisión a comparación de un cuchillo normal.
+//Expedición: +1 a la fuerza del equipo en combate.
+//Expedición: El evento **Provisión** da un bistec más.</target>
+      </segment>
+    </unit>
+    <unit id="lucky_lizaro">
+      <segment id="name" state="translated">
+        <source>lucky_lizaro.name</source>
+        <target>Lizaro de la suerte</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>lucky_lizaro.short_name</source>
+        <target>Lizaro de la suerte</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>lucky_lizaro.plural_name</source>
+        <target>Lizaros de la suerte</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>lucky_lizaro.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>lucky_lizaro.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>lucky_lizaro.description</source>
+        <target>Un compañero personal al que echabas de menos.//
+:point: Expedición: + 1 a la fuerza de tu equipo en caso de combate.//
+:point: Nadie tiene permitido tocarlo excepto tú.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>lucky_lizaro.examine</source>
+        <target>Te ha salvado la vida en muchas ocasiones. Seguramente funcionará una vez más.//Expedición: + 1 a la fuerza de tu equipo en caso de combate.//Un cazador y su rifle nunca se separan.</target>
+      </segment>
+    </unit>
+    <unit id="spaceship_keys">
+      <segment id="name" state="translated">
+        <source>spaceship_keys.name</source>
+        <target>Llavero de Patrullero</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>spaceship_keys.short_name</source>
+        <target>Llavero</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>spaceship_keys.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>spaceship_keys.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>spaceship_keys.description</source>
+        <target>¡Demuéstrales que *sabes* pilotar!// :point: Permite ignorar el bloqueo de seguridad del Pilotaje.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>spaceship_keys.examine</source>
+        <target>El fino aroma del perfume sugiere que estas le pertenecen a Derek. Alguien debió haber olvidado confiscárselas cuando lo desplegaron con la infantería...// Permite ignorar el bloqueo de seguridad del Pilotaje. Será mejor no dejarlas por ahí...</target>
+      </segment>
+    </unit>
+    <unit id="multipass">
+      <segment id="name" state="translated">
+        <source>multipass.name</source>
+        <target>Mul-Ti Pass</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>multipass.short_name</source>
+        <target>MT Pass</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>multipass.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>multipass.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>multipass.description</source>
+        <target>Siempre debes tener una llave de emergencia escondida en algún lugar.//
+:point: Permite a los :sk_conceptor: Artífices acceder a la Terminal de Comando.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>multipass.examine</source>
+        <target>Un regalito de Raluca para Kuan Ti. Él no diseñó la nave para no manejarla...//Permite a los :sk_conceptor: Artífices acceder a la Terminal de Comando.</target>
       </segment>
     </unit>
   </file>

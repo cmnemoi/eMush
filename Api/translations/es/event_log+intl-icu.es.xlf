@@ -576,7 +576,7 @@
     <unit id="exploration_event_preview">
       <segment id="exploration_event_preview" state="translated">
         <source>exploration_event_preview</source>
-        <target>Un análisis visual exhaustivo del paisaje indica que el próximo sector será {next_sector}.</target>
+        <target>Un análisis visual exhaustivo del paisaje indica que el próximo sector será **{next_sector}**.</target>
       </segment>
     </unit>
     <unit id="liquid_map_helped">
@@ -1206,7 +1206,7 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
     <unit id="psychotic_attacks">
       <segment id="psychotic_attacks" state="translated">
         <source>psychotic_attacks</source>
-        <target>psychotic_attacks</target>
+        <target>***Solo para Moderación:*** El síntoma **Ataques psicóticos** obliga a **{character}** a atacar.</target>
       </segment>
     </unit>
   </file>

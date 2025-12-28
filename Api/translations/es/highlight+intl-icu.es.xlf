@@ -50,7 +50,7 @@
     <unit id="shred">
       <segment id="highlight" state="translated">
         <source>shred.highlight</source>
-        <target>Destruiste información importante... casi.</target>
+        <target>Destruiste información importante... o casi.</target>
       </segment>
     </unit>
     <unit id="sabotage">
@@ -488,7 +488,7 @@
     <unit id="conversion.player">
       <segment id="highlight" state="translated">
         <source>conversion.player.highlight</source>
-        <target>Atrapaste a **{target_character}** en tus rizomas. ¡Ahora es parte de Mush !</target>
+        <target>Atrapaste a **{target_character}** en tus rizomas. ¡Ahora es parte de Mush!</target>
       </segment>
     </unit>
     <unit id="conversion.player_target">

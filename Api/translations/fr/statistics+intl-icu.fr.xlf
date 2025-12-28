@@ -1302,15 +1302,15 @@
     <unit id="nils_contacted">
       <segment id="name" state="translated">
         <source>nils_contacted.name</source>
-        <target>nils_contacted.name</target>
+        <target>Nils contacté</target>
       </segment>
       <segment id="description" state="translated">
         <source>nils_contacted.description</source>
-        <target>nils_contacted.description</target>
+        <target>L'équipage du vaisseau a contacté Nils Carlsson.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>nils_contacted_1.name</source>
-        <target>nils_contacted_1.name</target>
+        <target>Autorité Scientifique</target>
       </segment>
     </unit>
     <unit id="team_all_rebels">
@@ -1380,41 +1380,41 @@
     <unit id="kind_person">
       <segment id="name" state="translated">
         <source>kind_person.name</source>
-        <target>kind_person.name</target>
+        <target>Soutiens Psychologiques</target>
       </segment>
       <segment id="description" state="translated">
         <source>kind_person.description</source>
-        <target>kind_person.description</target>
+        <target>A ce moment là, vous avez su trouver les mots justes...</target>
       </segment>
       <segment id="x1" state="translated">
         <source>kind_person_1.name</source>
-        <target>kind_person_1.name</target>
+        <target>Psychologue Des Eons</target>
       </segment>
     </unit>
     <unit id="disease_contracted">
       <segment id="name" state="translated">
         <source>disease_contracted.name</source>
-        <target>disease_contracted.name</target>
+        <target>Maladies contractées</target>
       </segment>
       <segment id="description" state="translated">
         <source>disease_contracted.description</source>
-        <target>disease_contracted.description</target>
+        <target>Vomissement, Toux, Grippe, et autres désagréments...</target>
       </segment>
       <segment id="x1" state="translated">
         <source>disease_contracted_1.name</source>
-        <target>disease_contracted_1.name</target>
+        <target>Hypocondriaque</target>
       </segment>
       <segment id="x10" state="translated">
         <source>disease_contracted_10.name</source>
-        <target>disease_contracted_10.name</target>
+        <target>Chétif</target>
       </segment>
       <segment id="x20" state="translated">
         <source>disease_contracted_20.name</source>
-        <target>disease_contracted_20.name</target>
+        <target>Malade Chronique</target>
       </segment>
       <segment id="x50" state="translated">
         <source>disease_contracted_50.name</source>
-        <target>disease_contracted_50.name</target>
+        <target>Grand Souffreteux</target>
       </segment>
     </unit>
     <unit id="mankarog_down">
@@ -1434,61 +1434,61 @@
     <unit id="mush_killed">
       <segment id="name" state="translated">
         <source>mush_killed.name</source>
-        <target>mush_killed.name</target>
+        <target>Bourreau Des Mush</target>
       </segment>
       <segment id="description" state="translated">
         <source>mush_killed.description</source>
-        <target>mush_killed.description</target>
+        <target>Mush que vous avez tués de vos propres mains !</target>
       </segment>
       <segment id="x1" state="translated">
         <source>mush_killed_1.name</source>
-        <target>mush_killed_1.name</target>
+        <target>Sporophobe</target>
       </segment>
     </unit>
     <unit id="team_mush_killed">
       <segment id="name" state="translated">
         <source>team_mush_killed.name</source>
-        <target>team_mush_killed.name</target>
+        <target>Soldat de l'Humanité</target>
       </segment>
       <segment id="description" state="translated">
         <source>team_mush_killed.description</source>
-        <target>team_mush_killed.description</target>
+        <target>Envahisseurs Mush décimés par les équipages avec lesquels vous avez voyagé.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>team_mush_killed_1.name</source>
-        <target>team_mush_killed_1.name</target>
+        <target>Mangeur D'Agaric</target>
       </segment>
       <segment id="x50" state="translated">
         <source>team_mush_killed_50.name</source>
-        <target>team_mush_killed_50.name</target>
+        <target>Exploseur De Vesse De Loup</target>
       </segment>
       <segment id="x100" state="translated">
         <source>team_mush_killed_100.name</source>
-        <target>team_mush_killed_100.name</target>
+        <target>Écraseur de Bolet</target>
       </segment>
       <segment id="x200" state="translated">
         <source>team_mush_killed_200.name</source>
-        <target>team_mush_killed_200.name</target>
+        <target>Ravageur Du Père Magotte</target>
       </segment>
       <segment id="x500" state="translated">
         <source>team_mush_killed_500.name</source>
-        <target>team_mush_killed_500.name</target>
+        <target>Cauchemar Des Prés</target>
       </segment>
       <segment id="x750" state="translated">
         <source>team_mush_killed_750.name</source>
-        <target>team_mush_killed_750.name</target>
+        <target>Grand Fléau Myconien</target>
       </segment>
       <segment id="x1000" state="translated">
         <source>team_mush_killed_1000.name</source>
-        <target>team_mush_killed_1000.name</target>
+        <target>Chef De Caste Des Dévoreurs D'Amanite Phalloïde</target>
       </segment>
       <segment id="x2000" state="translated">
         <source>team_mush_killed_2000.name</source>
-        <target>team_mush_killed_2000.name</target>
+        <target>Archi-Déchireur Des Rhizomes Temporels</target>
       </segment>
       <segment id="x4000" state="translated">
         <source>team_mush_killed_4000.name</source>
-        <target>team_mush_killed_4000.name</target>
+        <target>Purificateur Des Trompes De La Mort Des Grandes Anciennes</target>
       </segment>
     </unit>
   </file>

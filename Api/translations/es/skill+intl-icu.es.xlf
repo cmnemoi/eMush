@@ -1031,11 +1031,11 @@
     <unit id="nimble_fingers">
       <segment id="nimble_fingers.name" state="translated">
         <source>nimble_fingers.name</source>
-        <target>Dedo de hada</target>
+        <target>Dedos de hada</target>
       </segment>
       <segment id="nimble_fingers.description" state="translated">
         <source>nimble_fingers.description</source>
-        <target>Con tus manos benditas puedes hacer cosas maravillosas, como manipular las cámaras...//:point: Tus acciones **Instalar** y **Sacar** son **discretas** con las cámaras.</target>
+        <target>Con un poco de ayuda de tus rizomas puedes hacer cosas maravillosas, como manipular las cámaras...//:point: Tus acciones **Instalar** y **Sacar** son **discretas** con las cámaras.</target>
       </segment>
     </unit>
     <unit id="polymath">

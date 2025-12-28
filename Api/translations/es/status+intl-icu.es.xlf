@@ -466,7 +466,7 @@
     <unit id="multi_teamster">
       <segment id="name" state="translated">
         <source>multi_teamster.name</source>
-        <target>Multi-equipos</target>
+        <target>Multi-cuenta</target>
       </segment>
       <segment id="description" state="translated">
         <source>multi_teamster.description</source>
@@ -490,7 +490,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>pariah.description</source>
-        <target>Alguien te ha lanzado un conjuro. Llevas un peso sobre los hombros. Te señalan con el dedo, te espían, no dejan de mirarte. Eres un chivo expiatorio. La víctima. //
+        <target>Alguien te ha impuesto un castigo. Llevas un peso sobre los hombros. Te señalan con el dedo, te espían, no dejan de mirarte. Eres un chivo expiatorio. La víctima. //
 Tus acciones **Furtivas** se vuelven **Discretas**. //
 Todas tus acciones se vuelven más difíciles.</target>
       </segment>

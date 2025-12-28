@@ -548,8 +548,9 @@ other {**{character}** ha disparado sobre **{target_character}**, pero no fue ca
         <target>{version, select,
 1 {**{target_character}** se da la vuelta y se encuentra cara a cara con **{character}**, quien le apunta con un lanzacohetes. Un cohete sale disparado y explota a los pies de **{target_character}**, quien emprende un vuelo inesperado... pero, sin coordinación, cae con fuerza hacia atrás...}
 2 {Desde tiempos inmemoriales, la humanidad ha explorado las posibilidades de las herramientas. Incluso se podría decir que estas herramientas son las que hacen grande a la humanidad. Claramente, **{target_character}** no está de acuerdo. De hecho, una herramienta conocida como lanzacohetes acaba de propulsarlo al limbo.}
-3 {Un día, un gran cocinero, que también era un emperador, a quien llamaban "El azote de los dioses", ¿o era uno de sus lacayos...? Da igual. Decidió que, para dedicar menos tiempo a preparar la comida para sus ejércitos, sus jinetes dejarían la carne en sus monturas para que se ablandara durante el viaje. De ahí surgió el "Steak Tartare". Sin embargo, la apariencia ahora similar de **{target_character}** no debería despertar tu apetito.
-other {"invalid version number"}</target>
+3 {Un día, un gran cocinero, que también era un emperador, a quien llamaban "El azote de los dioses", ¿o era uno de sus lacayos...? Da igual. Decidió que, para dedicar menos tiempo a preparar la comida para sus ejércitos, sus jinetes dejarían la carne en sus monturas para que se ablandara durante el viaje. De ahí surgió el "Steak Tartare". Sin embargo, la apariencia ahora similar de **{target_character}** no debería despertar tu apetito.}
+other {"invalid version number"}
+}</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items">

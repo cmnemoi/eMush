@@ -1405,7 +1405,7 @@
     <unit id="psychotic_attacks">
       <segment id="psychotic_attacks" state="translated">
         <source>psychotic_attacks</source>
-        <target>**Modération Uniquement:** Le symptôme **Accès Psychotique** force **{character}** à attaquer.</target>
+        <target>***Modération Uniquement:*** Le symptôme **Accès Psychotique** force **{character}** à attaquer.</target>
       </segment>
     </unit>
   </file>

@@ -1261,7 +1261,7 @@ other{**{target_character}** has been contaminated by a Mush raid during explora
     <unit id="psychotic_attacks">
       <segment id="psychotic_attacks" state="translated">
         <source>psychotic_attacks</source>
-        <target>psychotic_attacks</target>
+        <target>***For Moderation Only*** : **Psychotic Attacks** symptom forces **{character}** to attack.</target>
       </segment>
     </unit>
   </file>

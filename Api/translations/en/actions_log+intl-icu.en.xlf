@@ -1124,11 +1124,12 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="open_fruit_basket">
       <segment id="open_fruit_basket" state="translated">
         <source>open_fruit_basket</source>
-        <target>**{character}** takes a **{equipment}** out of {character_gender, select, 
+        <target>**{character}** takes {equipment_first_letter, select,
+vowel {an} 
+other {a}} **{equipment}** out of {character_gender, select, 
         female {her} 
         male {his} 
-        other {their}
-        } basket.</target>
+        other {their}} basket.</target>
       </segment>
     </unit>
   </file>

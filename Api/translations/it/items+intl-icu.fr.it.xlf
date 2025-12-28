@@ -3701,5 +3701,87 @@
         <target>chefs_knife.examine</target>
       </segment>
     </unit>
+    <unit id="lucky_lizaro">
+      <segment id="name" state="initial">
+        <source>lucky_lizaro.name</source>
+        <target>lucky_lizaro.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>lucky_lizaro.short_name</source>
+        <target>lucky_lizaro.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>lucky_lizaro.plural_name</source>
+        <target>lucky_lizaro.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>lucky_lizaro.gender</source>
+        <target>lucky_lizaro.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>lucky_lizaro.first_letter</source>
+        <target>lucky_lizaro.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>lucky_lizaro.description</source>
+        <target>lucky_lizaro.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>lucky_lizaro.examine</source>
+        <target>lucky_lizaro.examine</target>
+      </segment>
+    </unit>
+    <unit id="spaceship_keys">
+      <segment id="name" state="initial">
+        <source>spaceship_keys.name</source>
+        <target>spaceship_keys.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>spaceship_keys.short_name</source>
+        <target>spaceship_keys.short_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>spaceship_keys.gender</source>
+        <target>spaceship_keys.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>spaceship_keys.first_letter</source>
+        <target>spaceship_keys.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>spaceship_keys.description</source>
+        <target>spaceship_keys.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>spaceship_keys.examine</source>
+        <target>spaceship_keys.examine</target>
+      </segment>
+    </unit>
+    <unit id="multipass">
+      <segment id="name" state="initial">
+        <source>multipass.name</source>
+        <target>multipass.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>multipass.short_name</source>
+        <target>multipass.short_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>multipass.gender</source>
+        <target>multipass.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>multipass.first_letter</source>
+        <target>multipass.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>multipass.description</source>
+        <target>multipass.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>multipass.examine</source>
+        <target>multipass.examine</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -8,7 +8,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>alien_artefact.description</source>
-        <target>his object is... strange...</target>
+        <target>This object is... strange...</target>
       </segment>
     </unit>
     <unit id="electric_charges">
@@ -187,7 +187,7 @@ other{Charges are the number of times you can use an object. **Charged** objects
     <unit id="antisocial">
       <segment id="name" state="translated">
         <source>antisocial.name</source>
-        <target>Antisocial</target>
+        <target>Asocial</target>
       </segment>
       <segment id="description" state="translated">
         <source>antisocial.description</source>

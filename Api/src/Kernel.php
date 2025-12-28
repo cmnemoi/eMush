@@ -4,6 +4,7 @@ namespace Mush;
 
 use Mush\Action\DependencyInjection\ActionPass;
 use Mush\Disease\DependencyInjection\SymptomHandlerPass;
+use Mush\Equipment\DependencyInjection\AiHandlerPass;
 use Mush\Equipment\DependencyInjection\EquipmentCycleHandlerPass;
 use Mush\Equipment\DependencyInjection\WeaponEffectHandlerPass;
 use Mush\Exploration\DependencyInjection\PlanetSectorEventHandlerPass;
@@ -55,5 +56,6 @@ class Kernel extends BaseKernel
         $container->addCompilerPass(new ModifierRequirementHandlerPass());
         $container->addCompilerPass(new PlanetSectorEventHandlerPass());
         $container->addCompilerPass(new WeaponEffectHandlerPass());
+        $container->addCompilerPass(new AiHandlerPass());
     }
 }

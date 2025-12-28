@@ -2,13 +2,14 @@
 
 namespace Mush\Equipment\Listener;
 
-use Mush\Equipment\DroneTasks\DroneTasksHandler;
-use Mush\Equipment\Entity\Drone;
+use Mush\Equipment\Entity\Npc;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentCycleEvent;
-use Mush\Equipment\NPCTasks\Pavlov\DogTasksHandler;
-use Mush\Equipment\NPCTasks\Schrodinger\CatTasksHandler;
+use Mush\Equipment\NPCTasks\AiHandler\CatTasksHandler;
+use Mush\Equipment\NPCTasks\AiHandler\DogTasksHandler;
+use Mush\Equipment\NPCTasks\AiHandler\DroneTasksHandler;
 use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
+use Mush\Equipment\Service\AiHandlerServiceInterface;
 use Mush\Equipment\Service\EquipmentCycleHandlerServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\EventPriorityEnum;
@@ -26,6 +27,7 @@ final class EquipmentCycleSubscriber implements EventSubscriberInterface
         private EquipmentCycleHandlerServiceInterface $equipmentCycleHandler,
         private GameEquipmentRepositoryInterface $gameEquipmentRepository,
         private GetRandomElementsFromArrayServiceInterface $getRandomElementsFromArray,
+        private AiHandlerServiceInterface $aiHandlerServiceInterface,
     ) {}
 
     public static function getSubscribedEvents(): array
@@ -33,8 +35,7 @@ final class EquipmentCycleSubscriber implements EventSubscriberInterface
         return [
             EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE => [
                 ['onNewCycle', EventPriorityEnum::LOW],
-                ['onDroneNewCycle', EventPriorityEnum::HIGH],
-                ['onNPCNewCycle', EventPriorityEnum::LOW],
+                ['onNPCNewCycle', EventPriorityEnum::HIGH],
             ],
         ];
     }
@@ -60,25 +61,23 @@ final class EquipmentCycleSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onDroneNewCycle(EquipmentCycleEvent $event): void
-    {
-        $equipment = $event->getGameEquipment();
-
-        if ($equipment instanceof Drone) {
-            $this->droneTasksHandler->execute($equipment, $event->getTime());
-        }
-    }
-
     public function onNPCNewCycle(EquipmentCycleEvent $event): void
     {
         $equipment = $event->getGameEquipment();
 
-        if ($equipment->getName() === ItemEnum::PAVLOV) {
-            $this->dogTasksHandler->execute($equipment, $event->getTime());
-        }
+        if ($equipment instanceof Npc) {
+            $handler = $this->aiHandlerServiceInterface->getAiHandler($equipment->getAiHandler()->value);
+            if ($handler) {
+                $handler->execute($equipment, $event->getTime());
+            }
 
-        if ($equipment->getName() === ItemEnum::SCHRODINGER) {
+        // TODO Delete after 31/01/2026
+        } elseif ($equipment->getName() === ItemEnum::PAVLOV) {
+            $this->dogTasksHandler->execute($equipment, $event->getTime());
+        } elseif ($equipment->getName() === ItemEnum::SCHRODINGER) {
             $this->catTasksHandler->execute($equipment, $event->getTime());
+        } elseif ($equipment->getName() === ItemEnum::SUPPORT_DRONE) {
+            $this->droneTasksHandler->execute($equipment, $event->getTime());
         }
     }
 }

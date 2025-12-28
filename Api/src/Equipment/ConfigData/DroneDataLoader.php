@@ -4,7 +4,7 @@ namespace Mush\Equipment\ConfigData;
 
 use Mush\Equipment\Entity\Config\DroneConfig;
 
-final class DroneDataLoader extends EquipmentConfigDataLoader
+final class DroneDataLoader extends NpcDataLoader
 {
     public function loadConfigsData(): void
     {
@@ -29,6 +29,7 @@ final class DroneDataLoader extends EquipmentConfigDataLoader
             $this->setEquipmentConfigActions($droneConfig, $droneConfigData);
             $this->setEquipmentConfigMechanics($droneConfig, $droneConfigData);
             $this->setEquipmentConfigStatusConfigs($droneConfig, $droneConfigData);
+            $this->setNPCConfigAttributes($droneConfig, $droneConfigData);
 
             $this->entityManager->persist($droneConfig);
         }

@@ -2,9 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Mush\Equipment\DroneTasks;
+namespace Mush\Equipment\NPCTasks\AiHandler;
 
 use Mush\Equipment\Entity\Drone;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\AIHandlerEnum;
+use Mush\Equipment\NPCTasks\Drone\ExtinguishFireTask;
+use Mush\Equipment\NPCTasks\Drone\LandTask;
+use Mush\Equipment\NPCTasks\Drone\MoveTask;
+use Mush\Equipment\NPCTasks\Drone\RepairBrokenEquipmentTask;
+use Mush\Equipment\NPCTasks\Drone\ShootHunterTask;
+use Mush\Equipment\NPCTasks\Drone\TakeoffTask;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -17,8 +25,10 @@ use Mush\Status\Service\StatusServiceInterface;
  * Example : If the drone is in a room with broken equipment, it will repair it.
  * But if there is no broken equipment, it will skip directly by moving to a random adjacent room.
  */
-class DroneTasksHandler
+class DroneTasksHandler extends AbstractAiHandler
 {
+    protected string $name = AIHandlerEnum::DRONE->value;
+
     public function __construct(
         private D100RollServiceInterface $d100Roll,
         private StatusServiceInterface $statusService,
@@ -36,13 +46,17 @@ class DroneTasksHandler
         $landTask->setNextDroneTask($moveTask);
     }
 
-    public function execute(Drone $drone, \DateTime $time): void
+    public function execute(GameEquipment $NPC, \DateTime $time): void
     {
-        $this->applyTurboUpgrade($drone, $time);
+        if (!$NPC instanceof Drone) {
+            throw new \RuntimeException("Equipment {$NPC->getName()} should be a drone");
+        }
+
+        $this->applyTurboUpgrade($NPC, $time);
 
         // Each task will call the next one if it cannot be executed, starting with the first one.
-        while ($drone->isOperational()) {
-            $this->extinguishFireTask->execute($drone, $time);
+        while ($NPC->isOperational()) {
+            $this->extinguishFireTask->execute($NPC, $time);
         }
     }
 

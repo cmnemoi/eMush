@@ -6,12 +6,12 @@ namespace Mush\Tests\functional\Equipment\DroneTasks;
 
 use Codeception\Attribute\DataProvider;
 use Codeception\Example;
-use Mush\Equipment\DroneTasks\TakeoffTask;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\NPCTasks\Drone\TakeoffTask;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;

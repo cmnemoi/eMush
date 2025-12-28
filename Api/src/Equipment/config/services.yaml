@@ -21,6 +21,10 @@ services:
   Mush\Equipment\WeaponEffect\:
     resource: '../WeaponEffect/'
     tags: ['mush.equipment.weapon_effect_handler']
+  
+  Mush\Equipment\NPCTasks\AiHandler\:
+    resource: '../NPCTasks/AiHandler/'
+    tags: ['mush.equipment.ai_handler']
  
   Mush\Equipment\Repository\GameEquipmentRepositoryInterface: '@Mush\Equipment\Repository\GameEquipmentRepository'
   Mush\Equipment\Repository\WeaponEventConfigRepositoryInterface: '@Mush\Equipment\Repository\WeaponEventConfigRepository'

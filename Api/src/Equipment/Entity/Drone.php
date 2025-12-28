@@ -8,14 +8,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Repository\ActionConfigRepositoryInterface;
-use Mush\Equipment\DroneTasks\AbstractDroneTask;
-use Mush\Equipment\DroneTasks\ExtinguishFireTask;
-use Mush\Equipment\DroneTasks\LandTask;
-use Mush\Equipment\DroneTasks\RepairBrokenEquipmentTask;
-use Mush\Equipment\DroneTasks\ShootHunterTask;
-use Mush\Equipment\DroneTasks\TakeoffTask;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\NPCTasks\Drone\AbstractDroneTask;
+use Mush\Equipment\NPCTasks\Drone\ExtinguishFireTask;
+use Mush\Equipment\NPCTasks\Drone\LandTask;
+use Mush\Equipment\NPCTasks\Drone\RepairBrokenEquipmentTask;
+use Mush\Equipment\NPCTasks\Drone\ShootHunterTask;
+use Mush\Equipment\NPCTasks\Drone\TakeoffTask;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Service\TranslationServiceInterface as Translate;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -28,7 +28,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 
 #[ORM\Entity]
-class Drone extends GameItem
+class Drone extends Npc
 {
     private const float ATTEMPT_INCREASE = 1.25;
     private const array UPGRADES = [

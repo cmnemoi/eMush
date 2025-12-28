@@ -8,7 +8,7 @@ use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
-class DroneConfig extends ItemConfig
+class DroneConfig extends NpcConfig
 {
     public function createGameEquipment(EquipmentHolderInterface $holder): Drone
     {

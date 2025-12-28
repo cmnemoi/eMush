@@ -10,7 +10,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
-use Mush\Equipment\NPCTasks\Schrodinger\CatTasksHandler;
+use Mush\Equipment\NPCTasks\AiHandler\CatTasksHandler;
 use Mush\Equipment\NPCTasks\Schrodinger\MoveAwayFromPeopleTask;
 use Mush\Equipment\NPCTasks\Schrodinger\MoveInRandomAdjacentRoomTask;
 use Mush\Equipment\NPCTasks\Schrodinger\MoveTowardsOwnerTask;

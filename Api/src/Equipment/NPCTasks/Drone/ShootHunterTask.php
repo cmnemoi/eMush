@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Equipment\DroneTasks;
+namespace Mush\Equipment\NPCTasks\Drone;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Drone;

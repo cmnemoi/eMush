@@ -61,6 +61,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
     'game_item' => GameItem::class,
     'drone' => Drone::class,
     'space_ship' => SpaceShip::class,
+    'npc' => Npc::class,
 ])]
 class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface, ExaminableInterface
 {

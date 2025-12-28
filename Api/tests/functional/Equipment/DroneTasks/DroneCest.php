@@ -6,13 +6,13 @@ namespace Mush\tests\functional\Equipment\DroneTasks;
 
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\DroneTasks\DroneTasksHandler;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\NPCTasks\AiHandler\DroneTasksHandler;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
@@ -35,7 +35,7 @@ final class DroneCest extends AbstractFunctionalTest
 {
     private DroneTasksHandler $droneTasksHandler;
 
-    private Drone $drone;
+    private GameEquipment $drone;
     private GameEquipment $patrolShip;
 
     private EventServiceInterface $eventService;

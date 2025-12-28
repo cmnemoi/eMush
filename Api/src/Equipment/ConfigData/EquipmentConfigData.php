@@ -3,6 +3,7 @@
 namespace Mush\Equipment\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\AIHandlerEnum;
 use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -3742,6 +3743,7 @@ class EquipmentConfigData
             'initStatuses' => [
                 EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::SUPPORT_DRONE . '_default',
             ],
+            'AIHandler' => AIHandlerEnum::DRONE,
         ],
         [
             'name' => EquipmentEnum::HYDROPONIC_INCUBATOR . '_default',
@@ -3758,12 +3760,12 @@ class EquipmentConfigData
             'initStatuses' => [],
         ],
         [
-            'name' => 'schrodinger_default',
+            'name' => 'schrodinger_npc_default',
             'equipmentName' => ItemEnum::SCHRODINGER,
             'breakableType' => BreakableTypeEnum::NONE,
             'dismountedProducts' => [],
             'isPersonal' => false,
-            'type' => 'item_config',
+            'type' => 'npc_config',
             'isStackable' => false,
             'actions' => [
                 'take_cat',
@@ -3774,6 +3776,7 @@ class EquipmentConfigData
             ],
             'mechanics' => [],
             'initStatuses' => [],
+            'AIHandler' => AIHandlerEnum::CAT,
         ],
         [
             'name' => 'anniversary_gift_default',
@@ -4133,12 +4136,12 @@ class EquipmentConfigData
             'initStatuses' => [],
         ],
         [
-            'name' => 'pavlov_default',
+            'name' => 'pavlov_npc_default',
             'equipmentName' => ItemEnum::PAVLOV,
             'breakableType' => BreakableTypeEnum::NONE,
             'dismountedProducts' => [],
             'isPersonal' => false,
-            'type' => 'item_config',
+            'type' => 'npc_config',
             'isStackable' => false,
             'actions' => [
                 'examine',
@@ -4146,6 +4149,7 @@ class EquipmentConfigData
             ],
             'mechanics' => [],
             'initStatuses' => [],
+            'AIHandler' => AIHandlerEnum::PAVLOV,
         ],
         [
             'name' => 'lunchbox_default',

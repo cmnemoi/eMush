@@ -2,9 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mush\Equipment\NPCTasks\Schrodinger;
+namespace Mush\Equipment\NPCTasks\AiHandler;
 
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\AIHandlerEnum;
+use Mush\Equipment\NPCTasks\Schrodinger\MoveAwayFromPeopleTask;
+use Mush\Equipment\NPCTasks\Schrodinger\MoveInRandomAdjacentRoomTask;
+use Mush\Equipment\NPCTasks\Schrodinger\MoveTowardsOwnerTask;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -13,9 +17,10 @@ use Mush\Status\Enum\PlayerStatusEnum;
  * This NPC tries to get closer to its owner (Raluca), but if none is found (i.e. she is dead), it'll get grumpy and try to avoid people.
  * See the flowchart for behavior details.
  */
-class CatTasksHandler
+class CatTasksHandler extends AbstractAiHandler
 {
     private const int FAVORED_TASK = 70;
+    protected string $name = AIHandlerEnum::CAT->value;
 
     public function __construct(
         private D100RollServiceInterface $d100Roll,

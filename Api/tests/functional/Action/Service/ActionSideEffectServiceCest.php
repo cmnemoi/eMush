@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentInitEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -34,6 +35,7 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
     private ActionConfig $action;
     private PetCat $petCatAction;
     private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I)
     {
@@ -44,6 +46,7 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $this->searchAction = $I->grabService(Search::class);
         $this->petCatAction = $I->grabService(PetCat::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
     public function shouldMakePlayerDirty(FunctionalTester $I): void
@@ -161,17 +164,12 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
 
     private function givenPlayerHasCat(FunctionalTester $I): void
     {
-        $catConfig = $I->grabEntityFromRepository(ItemConfig::class, ['name' => ItemEnum::SCHRODINGER . '_' . GameConfigEnum::DEFAULT]);
-        $cat = new GameItem($this->player1);
-        $cat
-            ->setName(ItemEnum::SCHRODINGER)
-            ->setEquipment($catConfig);
-        $I->haveInRepository($cat);
-
-        $event = new EquipmentInitEvent($cat, $catConfig, [], new \DateTime());
-        $event->setAuthor($this->player1);
-
-        $this->eventService->callEvent($event, EquipmentInitEvent::NEW_EQUIPMENT);
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            ItemEnum::SCHRODINGER,
+            $this->player,
+            [],
+            new \DateTime(),
+        );
     }
 
     private function givenPetCatActionMakesPlayerClumsy(FunctionalTester $I): void

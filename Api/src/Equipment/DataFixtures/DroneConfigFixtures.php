@@ -13,7 +13,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 
-class DroneConfigFixtures extends EquipmentConfigFixtures implements DependentFixtureInterface
+class DroneConfigFixtures extends NpcConfigFixtures implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -33,6 +33,7 @@ class DroneConfigFixtures extends EquipmentConfigFixtures implements DependentFi
             $this->setEquipmentConfigActions($droneConfig, $droneConfigData, $manager);
             $this->setEquipmentConfigMechanics($droneConfig, $droneConfigData, $manager);
             $this->setEquipmentConfigStatusConfigs($droneConfig, $droneConfigData, $manager);
+            $this->setNPCConfigAttributes($droneConfig, $droneConfigData);
 
             $manager->persist($droneConfig);
 

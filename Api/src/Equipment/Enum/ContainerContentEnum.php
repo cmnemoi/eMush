@@ -93,6 +93,24 @@ class ContainerContentEnum
         ],
     ];
 
+    public const array DEBRIS_PRINTER_CONTENT = [
+        [
+            'item' => ItemEnum::PLASTIC_SCRAPS,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+        [
+            'item' => ItemEnum::METAL_SCRAPS,
+            'quantity' => 1,
+            'weight' => 6,
+        ],
+        [
+            'item' => ItemEnum::METAL_SCRAPS,
+            'quantity' => 3,
+            'weight' => 1,
+        ],
+    ];
+
     public const array ANNIVERSARY_GIFT_CONTENT = [
         [
             'item' => ItemEnum::LUCKY_LIZARO,
@@ -515,7 +533,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::STEPHEN,
         ],
         [
-            'item' => 'apprentron_sprinter', // @TODO: Debris Printer
+            'item' => ItemEnum::DEBRIS_PRINTER,
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,

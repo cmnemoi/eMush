@@ -17,10 +17,11 @@ enum ActionEnum: string
     case CREATE_TRADE = 'create_trade';
     case FORCE_CYCLE_CHANGE = 'force_cycle_change';
     case FORCE_EXPLORATION_STEP = 'force_exploration_step';
-
-    // alpha actions
     case REJUVENATE = 'rejuvenate';
     case FAKE_DISEASE = 'fake_disease';
+    case RECHARGE_BATTERY = 'recharge_battery';
+
+    // deprecated
     case UPDATE_TALKIE = 'update_talkie';
 
     // Permanent Item actions

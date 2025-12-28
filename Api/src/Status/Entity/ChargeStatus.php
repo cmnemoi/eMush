@@ -54,6 +54,20 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
         return $this;
     }
 
+    public function setMaxCharge(int $charge): static
+    {
+        $this->getVariableByName($this->getName())->setMaxValue($charge);
+
+        return $this;
+    }
+
+    public function setChargeToMax(): static
+    {
+        $this->getVariableByName($this->getName())->setValue($this->getMaxChargeOrThrow());
+
+        return $this;
+    }
+
     public function isCharged(): bool
     {
         return !$this->getVariableByName($this->getName())->isMin();

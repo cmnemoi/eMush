@@ -35,6 +35,7 @@ class Container extends EquipmentMechanic
             foreach ($itemData as $key => $value) {
                 $itemData[$key] = $value;
             }
+            $itemData['id'] = $this->generateId($itemData['item'], $itemData['quantity']);
             $this->contents[] = $itemData;
         }
 
@@ -47,22 +48,38 @@ class Container extends EquipmentMechanic
 
         $contents = $this->filterContents($this->contents, $player);
 
-        foreach ($contents as ['item' => $item, 'weight' => $weight]) {
-            $probaCollection->setElementProbability($item, $weight);
+        foreach ($contents as ['id' => $id, 'weight' => $weight]) {
+            $probaCollection->setElementProbability($id, $weight);
         }
 
         return $probaCollection;
     }
 
-    public function getQuantityOfItemOrThrow(string $searchedItem): int
+    public function getNameOfItemOrThrow(string $searchedId): string
     {
-        foreach ($this->contents as ['item' => $item, 'quantity' => $quantity]) {
-            if ($item === $searchedItem) {
+        foreach ($this->contents as ['id' => $id, 'item' => $item]) {
+            if ($id === $searchedId) {
+                return $item;
+            }
+        }
+
+        throw new \RuntimeException("Container {$this->getName()} does not contain {$searchedId}.");
+    }
+
+    public function getQuantityOfItemOrThrow(string $searchedId): int
+    {
+        foreach ($this->contents as ['id' => $id, 'quantity' => $quantity]) {
+            if ($id === $searchedId) {
                 return $quantity;
             }
         }
 
-        throw new \RuntimeException("Container {$this->getName()} does not contain {$searchedItem}.");
+        throw new \RuntimeException("Container {$this->getName()} does not contain {$searchedId}.");
+    }
+
+    private function generateId(string $item, string $quantity): string
+    {
+        return $item . '_' . $quantity;
     }
 
     private function filterContents(array $contents, ?Player $player = null): array

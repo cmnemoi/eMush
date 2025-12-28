@@ -96,6 +96,7 @@ const ANNIVERSARY_GIFT = "anniversary_gift";
 const COFFEE_THERMOS = "coffee_thermos";
 const LUNCHBOX = "lunchbox";
 const FRUIT_BASKET = "fruit_basket";
+const DEBRIS_PRINTER = "debris_printer";
 
 //means of communication
 const ITRACKIE = "itrackie";
@@ -557,5 +558,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [MULTIPASS]:{
         'image': getImgUrl('items/multipass.png')
+    },
+    [DEBRIS_PRINTER]:{
+        'image': getImgUrl('items/debris_printer.png')
     }
 };

@@ -4034,5 +4034,31 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
         <target>Un petit cadeau de Raluca à Kuan Ti. Il n'a pas bâti tout ce projet pour ne pas mener le voyage...//Permet aux :sk_conceptor: Concepteurs d'accéder au Terminal de Commandement.</target>
       </segment>
     </unit>
+    <unit id="debris_printer">
+      <segment id="name" state="translated">
+        <source>debris_printer.name</source>
+        <target>Imprimante à Débris</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>debris_printer.short_name</source>
+        <target>Imprimante à débris</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>debris_printer.gender</source>
+        <target>female</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>debris_printer.first_letter</source>
+        <target>vowel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>debris_printer.description</source>
+        <target>Peut créer du tout en effaçant le rien. Et on utilise ça pour une machine à sous.//:point: Tirez le levier une fois par jour pour une chance de **gagner gros**!</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>debris_printer.examine</source>
+        <target>C'est toujours fun de cliquer sur des boutons. Encore, et encore, et encore.//Activez l'appareil une fois par jour, pas plus, pas moins, pour ~~développer une accoutumance~~ obtenir votre récompense.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

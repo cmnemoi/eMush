@@ -122,14 +122,15 @@ class GameConfigDataLoader extends ConfigDataLoader
     private function setGameConfigEquipmentConfigs(GameConfig $gameConfig, array $gameConfigData): void
     {
         $equipmentConfigs = [];
-        foreach ($gameConfigData['equipmentConfigs'] as $equipmentConfigName) {
-            $equipmentConfig = $this->entityManager->getRepository(EquipmentConfig::class)->findOneBy(['name' => $equipmentConfigName]);
-
-            if ($equipmentConfig === null) {
-                throw new \Exception("Equipment config {$equipmentConfigName} not found");
+        foreach ($this->entityManager->getRepository(EquipmentConfig::class)->findAll() as $equipmentConfig) {
+            /*@TODO: this solution requires creating a duped config of every single equipment if we ever create a second game config data.
+            This function would need to be modified to first fill up with _default configs, then create all matching _name config datas (overriding the _default ones when needed).
+            ...but let's cross that bridge when we get there. For now, this massively simplifies the gameConfigData named default, aka, the only one.*/
+            $equipmentConfigName = explode('_', $equipmentConfig->getName());
+            // @TODO: Replace end() with array_last() once we have upgraded to php 9.5
+            if (end($equipmentConfigName) === $gameConfigData['name']) {
+                $equipmentConfigs[] = $equipmentConfig;
             }
-
-            $equipmentConfigs[] = $equipmentConfig;
         }
 
         $gameConfig->setEquipmentsConfig(new ArrayCollection($equipmentConfigs));

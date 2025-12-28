@@ -283,11 +283,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>rejuvenate.description</source>
-        <target>Permet de retrouver tout ses :pa:, :pm:, :hp: et :pmo:.
-//
-Uniquement valable pendant l'alpha.
-//
-Merci de nous aider !</target>
+        <target>Permet de retrouver tout ses :pa:, :pm:, :hp: et :pmo:.//Admins uniquement. Quel privilège...</target>
       </segment>
     </unit>
     <unit id="reset_skill_points">
@@ -1861,6 +1857,16 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>force_exploration_step.description</source>
         <target>Avance l'expédition d'un cycle. Finola estime une amélioration de survie de ±0,0002%. Étude non revue par les pairs (ni par NERON).</target>
+      </segment>
+    </unit>
+    <unit id="recharge_battery">
+      <segment id="recharge_battery" state="translated">
+        <source>recharge_battery.name</source>
+        <target>Supercharger</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>recharge_battery.description</source>
+        <target>Branche une batterie nucléaire au bidule pour garantir qu'il ne tombe plus à court de charges.//Bien un truc d'admin, ça...</target>
       </segment>
     </unit>
   </file>

@@ -7,20 +7,19 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasRole;
-use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\VariableEventInterface;
+use Mush\Action\Validator\HasStatus;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Enum\RoleEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class RejuvenateAlpha extends AbstractAction
+class RechargeBattery extends AbstractAction
 {
-    protected ActionEnum $name = ActionEnum::REJUVENATE;
+    protected ActionEnum $name = ActionEnum::RECHARGE_BATTERY;
 
     protected StatusServiceInterface $statusService;
 
@@ -37,17 +36,23 @@ class RejuvenateAlpha extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(
+        $metadata->addConstraints([
             new HasRole([
                 'roles' => [RoleEnum::SUPER_ADMIN],
                 'groups' => ['visibility'],
-            ])
-        );
+            ]),
+            new HasStatus([
+                'status' => EquipmentStatusEnum::ELECTRIC_CHARGES,
+                'target' => HasStatus::PARAMETER,
+                'contain' => true,
+                'groups' => ['visibility'],
+            ]),
+        ]);
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $target === null;
+        return $target instanceof GameEquipment;
     }
 
     protected function checkResult(): ActionResult
@@ -57,28 +62,6 @@ class RejuvenateAlpha extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $this->dispatchSetToMaxEvent(PlayerVariableEnum::HEALTH_POINT);
-        $this->dispatchSetToMaxEvent(PlayerVariableEnum::MORAL_POINT);
-        $this->dispatchSetToMaxEvent(PlayerVariableEnum::ACTION_POINT);
-        $this->dispatchSetToMaxEvent(PlayerVariableEnum::MOVEMENT_POINT);
-    }
-
-    private function dispatchSetToMaxEvent(string $variable): void
-    {
-        $maxValue = $this->player->getVariableByName($variable)->getMaxValue();
-
-        if ($maxValue === null) {
-            throw new \LogicException("{$variable} should have a maximum value");
-        }
-
-        $playerModifierEvent = new PlayerVariableEvent(
-            $this->player,
-            $variable,
-            $maxValue,
-            $this->getActionConfig()->getActionTags(),
-            new \DateTime(),
-        );
-        $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::SET_VALUE);
+        $this->gameEquipmentTarget()->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->setMaxCharge(99)->setChargeToMax();
     }
 }

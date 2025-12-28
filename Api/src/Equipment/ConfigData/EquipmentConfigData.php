@@ -4376,6 +4376,23 @@ class EquipmentConfigData
             'mechanics' => [],
             'initStatuses' => [],
         ],
+        [
+            'name' => ItemEnum::DEBRIS_PRINTER . '_default',
+            'equipmentName' => ItemEnum::DEBRIS_PRINTER,
+            'breakableType' => BreakableTypeEnum::NONE,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => false,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => ['container_' . ItemEnum::DEBRIS_PRINTER . '_default'],
+            'initStatuses' => ['container_1_charge_daily_default'],
+        ],
     ];
 
     public static function getByEquipmentName(string $name): array

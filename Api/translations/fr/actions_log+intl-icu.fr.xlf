@@ -1376,5 +1376,24 @@
           } **{equipment}** de son panier.</target>
       </segment>
     </unit>
+    <unit id="recharge_battery_success">
+      <segment id="recharge_battery_success" state="translated">
+        <source>recharge_battery_success</source>
+        <target>**{character}** sort une petite pile avec des pictogrammes de danger bien inquiétants de sa poche, et l'insère dans **{target_equipment}**. Il y a un petit bruit de fond craquelant, mais l'engin semble rempli d'énergie.</target>
+      </segment>
+    </unit>
+    <unit id="use_debris_printer">
+      <segment id="use_debris_printer" state="translated">
+        <source>use_debris_printer</source>
+        <target>**{character}** appuie sur le bouton vert et les loupiotes s'emballent... On se croirait à Las Fortuna Tessera... {quantity, select, 
+        1 {De la fente sort **{equipment_gender, select, 
+            female {une} 
+            male {un} 
+            other {}}} 
+        3 {**DING DING DING !** Jackpot ! **Trois}
+        other {{quantity}}
+        } {equipment}{quantity, select, 1 {} other {s}}** !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

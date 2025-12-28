@@ -47,6 +47,10 @@ class OpenContainer extends AbstractAction
             'name' => ActionLogEnum::OPEN_FRUIT_BASKET,
             'visibility' => VisibilityEnum::PUBLIC,
         ],
+        ItemEnum::DEBRIS_PRINTER => [
+            'name' => ActionLogEnum::USE_DEBRIS_PRINTER,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ],
     ];
     protected ActionEnum $name = ActionEnum::OPEN_CONTAINER;
 
@@ -95,12 +99,13 @@ class OpenContainer extends AbstractAction
 
         $containerType = $target->getContainerMechanicOrThrow();
 
-        $contentName = (string) $this->randomService->getSingleRandomElementFromProbaCollection($containerType->getContentWeights($this->player));
-        $contentQuantity = $containerType->getQuantityOfItemOrThrow($contentName);
+        $contentId = (string) $this->randomService->getSingleRandomElementFromProbaCollection($containerType->getContentWeights($this->player));
+        $contentName = $containerType->getNameOfItemOrThrow($contentId);
+        $contentQuantity = $containerType->getQuantityOfItemOrThrow($contentId);
 
         $this->createOpeningLog($contentName, $contentQuantity);
 
-        if ($target->isOnLastChargeOrSingleUse()) {
+        if ($target->isEmptyAndNotReusable()) {
             $this->destroyEmptyContainer();
         }
 
@@ -109,6 +114,7 @@ class OpenContainer extends AbstractAction
 
     private function createOpeningLog(string $contentName, int $contentQuantity): void
     {
+        // @TODO: move all this logic to RoomLogService
         $logKey = $this->gameEquipmentTarget()->getName();
         $content = $this->gameEquipmentService->findGameEquipmentConfigFromNameAndDaedalus($contentName, $this->gameEquipmentTarget()->getDaedalus());
         $logParameters = [

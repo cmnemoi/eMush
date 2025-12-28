@@ -2096,6 +2096,14 @@ class MechanicsData
                 'modifier_+10aim_on_action_attack_on_chef_knife',
             ],
         ],
+        [
+            'name' => 'container_' . ItemEnum::DEBRIS_PRINTER . '_default',
+            'type' => EquipmentMechanicEnum::CONTAINER,
+            'actions' => [
+                'open_container_cost_0',
+            ],
+            'containerContents' => ContainerContentEnum::DEBRIS_PRINTER_CONTENT,
+        ],
     ];
 
     public static function getByName(string $name): array

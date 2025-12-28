@@ -60,6 +60,7 @@ class ItemEnum
     public const string LUCKY_LIZARO = 'lucky_lizaro';
     public const string SPACESHIP_KEYS = 'spaceship_keys';
     public const string MULTIPASS = 'multipass';
+    public const string DEBRIS_PRINTER = 'debris_printer';
 
     public static function getArtefacts(): ArrayCollection
     {

@@ -54,7 +54,7 @@ class FakeDisease extends AbstractAction
                 'message' => ActionImpossibleCauseEnum::ON_PLANET,
             ]),
             new HasRole([
-                'roles' => [RoleEnum::SUPER_ADMIN, RoleEnum::ADMIN],
+                'roles' => [RoleEnum::SUPER_ADMIN],
                 'groups' => [ClassConstraint::VISIBILITY],
             ]),
         ]);

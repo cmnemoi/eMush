@@ -49,6 +49,7 @@ use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Entity\VisibleStatusHolderInterface;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -338,12 +339,13 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return $charge;
     }
 
-    public function isOnLastChargeOrSingleUse(): bool
+    public function isEmptyAndNotReusable(): bool
     {
         $charges = $this->getStatuses()->filter(static fn (Status $status) => $status instanceof ChargeStatus);
 
         $charge = $charges->first();
-        if (!$charge instanceof ChargeStatus || $charge->getCharge() === 1) {
+        if (!$charge instanceof ChargeStatus
+            || $charge->getCharge() === 1 && $charge->getStrategy() === ChargeStrategyTypeEnum::NONE) {
             return true;
         }
 

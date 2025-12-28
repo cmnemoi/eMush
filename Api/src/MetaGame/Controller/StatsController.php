@@ -100,7 +100,7 @@ final class StatsController extends AbstractFOSRestController
         if ($user->isInGame()) {
             $result = "Can't request this data if in game.";
         } else {
-            $result = $this->statsService->getMushData();
+            $result = $this->statsService->getMushData($request->get('first', 0), $request->get('last', 0));
         }
 
         return $this->view($result, Response::HTTP_OK);

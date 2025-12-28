@@ -22,5 +22,5 @@ interface StatsServiceInterface
 
     public function getExploFightData(int $daedalusId): string;
 
-    public function getMushData(): string;
+    public function getMushData(int $firstShipId, int $lastShipid): string;
 }

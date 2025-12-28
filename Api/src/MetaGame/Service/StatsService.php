@@ -106,7 +106,7 @@ final class StatsService implements StatsServiceInterface
         return $resultText;
     }
 
-    public function getMushData(): string
+    public function getMushData(int $firstShipId, int $lastShipid): string
     {
         $alphaMushAmount = 0;
         $betaMushAmount = 0;
@@ -117,16 +117,24 @@ final class StatsService implements StatsServiceInterface
         // we get every mush from this logs as it happen when you are first converted
         $queryBuilder = $this->entityManager->getRepository(RoomLog::class)->createQueryBuilder('room_log')
             ->select('room_log')
+            ->innerJoin('room_log.daedalusInfo', 'daedalusInfo')
             ->where("room_log.log = 'mush_initial_bonus.log'")
-            ->where('room_log.playerInfo IS NOT NULL');
+            ->andWhere('room_log.playerInfo IS NOT NULL')
+            ->andWhere('daedalusInfo.id BETWEEN :firstShipId AND :lastShipid')
+            ->setParameter('firstShipId', $firstShipId)
+            ->setParameter('lastShipid', $lastShipid);
 
         $mushConversionLog = $queryBuilder->getQuery()->getResult();
 
         // we get every vaccinated log
         $queryBuilder = $this->entityManager->getRepository(RoomLog::class)->createQueryBuilder('room_log')
             ->select('room_log')
+            ->innerJoin('room_log.daedalusInfo', 'daedalusInfo')
             ->where("room_log.log = 'player_vaccinated'")
-            ->where('room_log.playerInfo IS NOT NULL');
+            ->andWhere('room_log.playerInfo IS NOT NULL')
+            ->andWhere('daedalusInfo.id BETWEEN :firstShipId AND :lastShipid')
+            ->setParameter('firstShipId', $firstShipId)
+            ->setParameter('lastShipid', $lastShipid);
 
         $mushVaccinationLog = $queryBuilder->getQuery()->getResult();
 

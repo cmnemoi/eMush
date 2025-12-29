@@ -31,6 +31,9 @@ enum AchievementEnum: string
     case GAME_WITHOUT_SLEEP_1 = 'game_without_sleep_1';
     case GAME_WITHOUT_SLEEP_20 = 'game_without_sleep_20';
     case GAME_WITHOUT_SLEEP_100 = 'game_without_sleep_100';
+    case ARTEFACT_COLL_1 = 'artefact_coll_1';
+    case ARTEFACT_COLL_10 = 'artefact_coll_10';
+    case ARTEFACT_COLL_15 = 'artefact_coll_15';
     case PLANET_SCANNED_1 = 'planet_scanned_1';
     case SIGNAL_EQUIP_1 = 'signal_equip_1';
     case SIGNAL_EQUIP_20 = 'signal_equip_20';

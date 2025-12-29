@@ -8,6 +8,7 @@ use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Services\UpdatePlayerStatisticService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -27,6 +28,7 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
     {
         $this->incrementExploFeedStatisticFromEvent($event);
         $this->incrementExplorerStatisticFromEvent($event);
+        $this->incrementArtefactCollectedStatisticFromEvent($event);
     }
 
     private function incrementExploFeedStatisticFromEvent(ExplorationEvent $event): void
@@ -40,6 +42,7 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
         $broughtFood = $daedalus->getPlanetPlace()->getEquipments()->filter(
             static fn (GameEquipment $equipment) => $equipment->hasMechanicByName(EquipmentMechanicEnum::RATION)
         );
+
         if ($broughtFood->isEmpty()) {
             return;
         }
@@ -61,6 +64,27 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
             $this->updatePlayerStatisticService->execute(
                 player: $explorator,
                 statisticName: StatisticEnum::EXPLORER,
+            );
+        }
+    }
+
+    private function incrementArtefactCollectedStatisticFromEvent(ExplorationEvent $event): void
+    {
+        $exploration = $event->getExploration();
+        if ($exploration->allExploratorsAreDeadOrLost()) {
+            return;
+        }
+
+        $daedalus = $event->getDaedalus();
+        $artefacts = $daedalus->getPlanetPlace()->getEquipments()->filter(
+            static fn (GameEquipment $equipment) => ItemEnum::getArtefacts()->contains($equipment->getName())
+        );
+
+        foreach ($exploration->getNotLostActiveExplorators() as $explorator) {
+            $this->updatePlayerStatisticService->execute(
+                player: $explorator,
+                statisticName: StatisticEnum::ARTEFACT_COLL,
+                count: $artefacts->count(),
             );
         }
     }

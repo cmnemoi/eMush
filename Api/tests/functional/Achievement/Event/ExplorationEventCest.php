@@ -21,9 +21,10 @@ use Mush\Player\Entity\Player;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
-final class ExplorationEventSubscriberCest extends AbstractExplorationTester
+final class ExplorationEventCest extends AbstractExplorationTester
 {
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
+    private GameEquipmentServiceInterface $gameEquipmentService;
     private StatisticRepositoryInterface $statisticRepository;
     private GameEquipmentServiceInterface $equipmentService;
     private Exploration $exploration;
@@ -34,6 +35,7 @@ final class ExplorationEventSubscriberCest extends AbstractExplorationTester
         parent::_before($I);
 
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
         $this->closedDaedalus = $this->daedalus->getDaedalusInfo()->getClosedDaedalus();
         $this->equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -84,6 +86,36 @@ final class ExplorationEventSubscriberCest extends AbstractExplorationTester
         $this->givenDerekExploresAnInsectHeCanSolo($I, $derek);
 
         $this->thenDerekAndJaniceDoNotHaveMankarogDownStatistic($I, $derek, $janice);
+    }
+
+    public function shouldIncrementArtefactCollStatisticWhenPlayerFindsArtefactInExploration(FunctionalTester $I): void
+    {
+        $planet = $this->createPlanet([PlanetSectorEnum::OXYGEN], $I);
+
+        $this->exploration = $this->createExploration($planet, $this->players);
+
+        // given 3 artefacts on the planet
+        $this->gameEquipmentService->createGameEquipmentsFromName(
+            ItemEnum::STARMAP_FRAGMENT,
+            $this->daedalus->getPlanetPlace(),
+            quantity: 3,
+            reasons: ['exploration'],
+            time: new \DateTime(),
+        );
+
+        // given a mundane item on the planet
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            ItemEnum::PLASTIC_SCRAPS,
+            $this->daedalus->getPlanetPlace(),
+            ['exploration'],
+            new \DateTime()
+        );
+
+        // when exploration is closed
+        $this->explorationService->closeExploration($this->exploration, ['test']);
+
+        // then all explorators should have artefact coll statistic x3
+        $this->thenPlayersArtefactCollPendingStatisticShouldBe(3, $I);
     }
 
     private function givenAnExplorationWithFoodItems(FunctionalTester $I): void
@@ -248,5 +280,28 @@ final class ExplorationEventSubscriberCest extends AbstractExplorationTester
         $I->assertNull($janicePendingStatistic);
         $I->assertNull($derekStatistic);
         $I->assertNull($janiceStatistic);
+    }
+
+    private function thenPlayersArtefactCollPendingStatisticShouldBe(int $expected, FunctionalTester $I): void
+    {
+        foreach ($this->players as $player) {
+            $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                StatisticEnum::ARTEFACT_COLL,
+                $player->getUser()->getId(),
+                $this->closedDaedalus->getId(),
+            );
+
+            $I->assertEquals(
+                expected: [
+                    'name' => StatisticEnum::ARTEFACT_COLL,
+                    'count' => $expected,
+                    'userId' => $player->getUser()->getId(),
+                    'closedDaedalusId' => $this->closedDaedalus->getId(),
+                    'isRare' => false,
+                ],
+                actual: $statistic?->toArray(),
+                message: 'Player ' . $player->getLogName() . ' artefact coll statistic should be ' . $expected,
+            );
+        }
     }
 }

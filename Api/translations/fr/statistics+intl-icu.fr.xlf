@@ -97,6 +97,28 @@
         <target>Télégénique</target>
       </segment>
     </unit>
+    <unit id="artefact_coll">
+      <segment id="name" state="translated">
+        <source>artefact_coll.name</source>
+        <target>Artefacts collectés</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>artefact_coll.description</source>
+        <target>Artefacts collectés en expédition tout au long de votre carrière.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>artefact_coll_1.name</source>
+        <target>Archéologue Inconnu</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>artefact_coll_10.name</source>
+        <target>Allan Grant</target>
+      </segment>
+      <segment id="x15" state="translated">
+        <source>artefact_coll_15.name</source>
+        <target>Indiana Jones</target>
+      </segment>
+    </unit>
     <unit id="planet_scanned">
       <segment id="name" state="translated">
         <source>planet_scanned.name</source>

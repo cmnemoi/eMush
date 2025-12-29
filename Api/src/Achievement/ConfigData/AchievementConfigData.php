@@ -150,6 +150,21 @@ abstract class AchievementConfigData
                 threshold: 100,
             ),
             new AchievementConfigDto(
+                name: AchievementEnum::ARTEFACT_COLL_1,
+                points: 1,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::ARTEFACT_COLL_10,
+                points: 10,
+                threshold: 10,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::ARTEFACT_COLL_15,
+                points: 50,
+                threshold: 15,
+            ),
+            new AchievementConfigDto(
                 name: AchievementEnum::PLANET_SCANNED_1,
                 points: 1,
                 threshold: 1,

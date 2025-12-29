@@ -83,6 +83,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::MANKAROG_DOWN, StatisticStrategyEnum::INCREMENT, isRare: true),
             new StatisticConfigDto(StatisticEnum::MUSH_KILLED, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::TEAM_MUSH_KILLED, StatisticStrategyEnum::INCREMENT),
+            new StatisticConfigDto(StatisticEnum::ARTEFACT_COLL, StatisticStrategyEnum::INCREMENT),
         ];
     }
 

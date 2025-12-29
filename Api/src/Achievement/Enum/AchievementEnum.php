@@ -192,6 +192,8 @@ enum AchievementEnum: string
     case DAY_MAX_11 = 'day_max_11';
     case DAY_MAX_12 = 'day_max_12';
     case DAY_MAX_13 = 'day_max_13';
+    case PROJECT_COMPLETE_1 = 'project_complete_1';
+    case RESEARCH_COMPLETE_1 = 'research_complete_1';
     case DRUGS_TAKEN_1 = 'drugs_taken_1';
     case KIVANC_CONTACTED_1 = 'kivanc_contacted_1';
     case NILS_CONTACTED_1 = 'nils_contacted_1';

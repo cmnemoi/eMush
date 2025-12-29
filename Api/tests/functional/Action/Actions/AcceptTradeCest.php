@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Action\Tests\Functional\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\AcceptTrade;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -46,6 +48,7 @@ final class AcceptTradeCest extends AbstractFunctionalTest
     private CreateHunterService $createHunter;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private HunterRepositoryInterface $hunterRepository;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private StatusServiceInterface $statusService;
     private TradeRepositoryInterface $tradeRepository;
 
@@ -61,6 +64,7 @@ final class AcceptTradeCest extends AbstractFunctionalTest
         $this->createHunter = $I->grabService(CreateHunterService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->hunterRepository = $I->grabService(HunterRepositoryInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->tradeRepository = $I->grabService(TradeRepositoryInterface::class);
 
@@ -348,6 +352,31 @@ final class AcceptTradeCest extends AbstractFunctionalTest
         $this->thenStrawmanShouldNotBeInStorage($I);
     }
 
+    public function shouldNotAdvanceProjectsCompletePendingStatistic(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+
+        $trade = $this->givenTestProjectExchangeTrade(requiredProjects: 1, offeredProjects: 2);
+
+        // given a project is finished
+        $this->finishProject(
+            $this->daedalus->getProjectByName(ProjectName::ARMOUR_CORRIDOR),
+            $this->player2,
+            $I
+        );
+
+        $this->whenPlayerAcceptsTrade(tradeOptionId: $trade->getTradeOptions()->first()->getId());
+
+        $I->assertNull(
+            $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                name: StatisticEnum::PROJECT_COMPLETE,
+                userId: $this->player->getUser()->getId(),
+                closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+            )
+        );
+    }
+
     private function givenStorages(FunctionalTester $I): void
     {
         foreach (RoomEnum::getStorages() as $storage) {
@@ -410,6 +439,24 @@ final class AcceptTradeCest extends AbstractFunctionalTest
         $trade = TradeFactory::createProjectTestTrade(
             requiredProjects: $requiredProjects,
             offeredOxygen: $offeredOxygen,
+            transportId: $transport->getId(),
+        );
+        $this->tradeRepository->save($trade);
+
+        return $trade;
+    }
+
+    private function givenTestProjectExchangeTrade(int $requiredProjects, int $offeredProjects): Trade
+    {
+        $transport = new Hunter(
+            hunterConfig: $this->daedalus->getGameConfig()->getHunterConfigs()->getByNameOrThrow(HunterEnum::TRANSPORT),
+            daedalus: $this->daedalus,
+        );
+        $this->hunterRepository->save($transport);
+
+        $trade = TradeFactory::createProjectExchangeTestTrade(
+            requiredProjects: $requiredProjects,
+            offeredProjects: $offeredProjects,
             transportId: $transport->getId(),
         );
         $this->tradeRepository->save($trade);

@@ -6,7 +6,9 @@ namespace Mush\Achievement\Listener;
 
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Services\UpdatePlayerStatisticService;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Project\Enum\ProjectName;
+use Mush\Project\Enum\ProjectType;
 use Mush\Project\Event\ProjectEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -17,7 +19,7 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ProjectEvent::PROJECT_FINISHED => 'onProjectFinished',
+            ProjectEvent::PROJECT_FINISHED => ['onProjectFinished', EventPriorityEnum::LOWEST],
         ];
     }
 
@@ -35,5 +37,20 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
                 statisticName: $statisticName,
             );
         }
+
+        if (!$event->hasAuthor()) {
+            return;
+        }
+
+        $statisticNameForAuthor = match ($event->getProject()->getType()) {
+            ProjectType::NERON_PROJECT => StatisticEnum::PROJECT_COMPLETE,
+            ProjectType::RESEARCH => StatisticEnum::RESEARCH_COMPLETE,
+            default => StatisticEnum::NULL,
+        };
+
+        $this->updatePlayerStatisticService->execute(
+            player: $event->getAuthor(),
+            statisticName: $statisticNameForAuthor,
+        );
     }
 }

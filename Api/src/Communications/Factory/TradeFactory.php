@@ -64,6 +64,30 @@ final class TradeFactory
         );
     }
 
+    public static function createProjectExchangeTestTrade(int $requiredProjects, int $offeredProjects, int $transportId): Trade
+    {
+        return new Trade(
+            name: TradeEnum::FOREST_DEAL,
+            tradeOptions: [
+                new TradeOption(
+                    requiredAssets: [
+                        new TradeAsset(
+                            type: TradeAssetEnum::RANDOM_PROJECT,
+                            quantity: $requiredProjects,
+                        ),
+                    ],
+                    offeredAssets: [
+                        new TradeAsset(
+                            type: TradeAssetEnum::RANDOM_PROJECT,
+                            quantity: $offeredProjects,
+                        ),
+                    ],
+                ),
+            ],
+            transportId: $transportId,
+        );
+    }
+
     public static function createHumanFuelTestTrade(int $humansRequired, int $offeredFuel, int $transportId): Trade
     {
         return new Trade(

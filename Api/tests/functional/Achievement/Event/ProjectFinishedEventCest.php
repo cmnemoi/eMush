@@ -75,4 +75,38 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
             );
         }
     }
+
+    public function shouldGiveProjectDiggedStatisticToAuthor(FunctionalTester $I): void
+    {
+        // when project is finished
+        $this->finishProject($this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD), $this->player, $I);
+
+        // then author should have PROJECT_COMPLETE statistic
+        $I->assertEquals(
+            expected: 1,
+            actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                StatisticEnum::PROJECT_COMPLETE,
+                $this->player->getUser()->getId(),
+                $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
+            )?->getCount(),
+            message: "{$this->player->getLogName()} should have PROJECT_COMPLETE statistic"
+        );
+    }
+
+    public function shouldGiveResearchDiggedStatisticToAuthor(FunctionalTester $I): void
+    {
+        // when project is finished
+        $this->finishProject($this->daedalus->getProjectByName(ProjectName::ANTISPORE_GAS), $this->player, $I);
+
+        // then author should have RESEARCH_COMPLETE statistic
+        $I->assertEquals(
+            expected: 1,
+            actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                StatisticEnum::RESEARCH_COMPLETE,
+                $this->player->getUser()->getId(),
+                $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
+            )?->getCount(),
+            message: "{$this->player->getLogName()} should have RESEARCH_COMPLETE statistic"
+        );
+    }
 }

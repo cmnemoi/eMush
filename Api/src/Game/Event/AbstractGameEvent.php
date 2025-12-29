@@ -78,7 +78,11 @@ class AbstractGameEvent extends Event
 
     public function hasAuthor(): bool
     {
-        return $this->author !== null && !$this->author->isNull();
+        if ($this->author === null) {
+            return false;
+        }
+
+        return !$this->author->isNull();
     }
 
     public function getTime(): \DateTime

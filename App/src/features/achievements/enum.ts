@@ -59,6 +59,8 @@ export const enum StatisticEnum {
     COFFEE_MAN = "coffee_man",
     RATION_TAKEN = "ration_taken",
     DAY_MAX = "day_max",
+    PROJECT_COMPLETE = "project_complete",
+    RESEARCH_COMPLETE = "research_complete",
     DRUGS_TAKEN = "drugs_taken",
     KIVANC_CONTACTED = "kivanc_contacted",
     NILS_CONTACTED = "nils_contacted",
@@ -248,6 +250,12 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.DAY_MAX]: {
         'icon': getImgUrl('comms/calendar.png')
+    },
+    [StatisticEnum.PROJECT_COMPLETE]: {
+        'icon': getImgUrl('achievements/conceptor.png')
+    },
+    [StatisticEnum.RESEARCH_COMPLETE]: {
+        'icon': getImgUrl('achievements/research_digged.png')
     },
     [StatisticEnum.DRUGS_TAKEN]: {
         'icon': getImgUrl('ui_icons/pill.png')

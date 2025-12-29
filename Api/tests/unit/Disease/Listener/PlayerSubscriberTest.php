@@ -76,6 +76,8 @@ final class PlayerSubscriberTest extends TestCase
 
     public function testShouldNotCreateTraumaOnMushPlayerOnPlayerDeath(): void
     {
+        $daedalus = DaedalusFactory::createDaedalus();
+
         // given a Mush player
         $mushPlayer = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
         StatusFactory::createStatusByNameForHolder(PlayerStatusEnum::MUSH, $mushPlayer);

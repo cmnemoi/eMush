@@ -1325,6 +1325,34 @@
         <target>Oh Happy Days</target>
       </segment>
     </unit>
+    <unit id="project_complete">
+      <segment id="name" state="translated">
+        <source>project_complete.name</source>
+        <target>Conception</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>project_complete.description</source>
+        <target>Nombre de projets que vous avez achevés.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>project_complete_1.name</source>
+        <target>Concepteur</target>
+      </segment>
+    </unit>
+    <unit id="research_complete">
+      <segment id="name" state="translated">
+        <source>research_complete.name</source>
+        <target>Recherches</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>research_complete.description</source>
+        <target>Nombre de recherches que vous avez achevées.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>research_complete_1.name</source>
+        <target>Technicien de laboratoire</target>
+      </segment>
+    </unit>
     <unit id="drugs_taken">
       <segment id="name" state="translated">
         <source>drugs_taken.name</source>

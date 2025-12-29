@@ -171,6 +171,18 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
         $I->assertTrue($this->daedalus->hasStatus(DaedalusStatusEnum::COMMUNICATIONS_EXPERT));
     }
 
+    public function shouldNotGiveProjectCompleteStatisticOnUpgradeNeron(FunctionalTester $I): void
+    {
+        $this->createNeronVersionForDaedalus();
+        $this->givenChunIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenNeronMinorVersionIs(99);
+
+        $this->whenChunUpgradesNeron();
+
+        $this->thenProjectCompletePendingStatisticIsNotGiven($I);
+    }
+
     private function whenChunTriesToUpgradeNeron(): void
     {
         $this->upgradeNeron->loadParameters(
@@ -306,6 +318,17 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
                 userId: $this->player->getUser()->getId(),
                 closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
             )?->getCount(),
+        );
+    }
+
+    private function thenProjectCompletePendingStatisticIsNotGiven(FunctionalTester $I): void
+    {
+        $I->assertNull(
+            $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                name: StatisticEnum::PROJECT_COMPLETE,
+                userId: $this->chun->getUser()->getId(),
+                closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+            )
         );
     }
 

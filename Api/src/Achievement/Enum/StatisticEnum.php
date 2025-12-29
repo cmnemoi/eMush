@@ -66,6 +66,8 @@ enum StatisticEnum: string
     case COFFEE_MAN = 'coffee_man';
     case RATION_TAKEN = 'ration_taken';
     case DAY_MAX = 'day_max';
+    case PROJECT_COMPLETE = 'project_complete';
+    case RESEARCH_COMPLETE = 'research_complete';
     case DRUGS_TAKEN = 'drugs_taken';
     case KIVANC_CONTACTED = 'kivanc_contacted';
     case NILS_CONTACTED = 'nils_contacted';

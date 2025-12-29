@@ -72,6 +72,8 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::COFFEE_MAN, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::RATION_TAKEN, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::DAY_MAX, StatisticStrategyEnum::MAX),
+            new StatisticConfigDto(StatisticEnum::PROJECT_COMPLETE, StatisticStrategyEnum::INCREMENT),
+            new StatisticConfigDto(StatisticEnum::RESEARCH_COMPLETE, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::DRUGS_TAKEN, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::KIVANC_CONTACTED, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::NILS_CONTACTED, StatisticStrategyEnum::INCREMENT),

@@ -63,6 +63,8 @@ enum StatisticEnum: string
     case MUSH_GENOME = 'mush_genome';
     case REBELS = 'rebels';
     case PILGRED_IS_BACK = 'pilgred_is_back';
+    case COFFEE_MAN = 'coffee_man';
+    case RATION_TAKEN = 'ration_taken';
     case DAY_MAX = 'day_max';
     case DRUGS_TAKEN = 'drugs_taken';
     case KIVANC_CONTACTED = 'kivanc_contacted';

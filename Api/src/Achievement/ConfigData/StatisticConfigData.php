@@ -69,6 +69,8 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::MUSH_GENOME, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::REBELS, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::PILGRED_IS_BACK, StatisticStrategyEnum::INCREMENT, isRare: true),
+            new StatisticConfigDto(StatisticEnum::COFFEE_MAN, StatisticStrategyEnum::INCREMENT),
+            new StatisticConfigDto(StatisticEnum::RATION_TAKEN, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::DAY_MAX, StatisticStrategyEnum::MAX),
             new StatisticConfigDto(StatisticEnum::DRUGS_TAKEN, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::KIVANC_CONTACTED, StatisticStrategyEnum::INCREMENT),

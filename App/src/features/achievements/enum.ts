@@ -56,6 +56,8 @@ export const enum StatisticEnum {
     MUSH_GENOME = "mush_genome",
     REBELS = "rebels",
     PILGRED_IS_BACK = "pilgred_is_back",
+    COFFEE_MAN = "coffee_man",
+    RATION_TAKEN = "ration_taken",
     DAY_MAX = "day_max",
     DRUGS_TAKEN = "drugs_taken",
     KIVANC_CONTACTED = "kivanc_contacted",
@@ -237,6 +239,12 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.PILGRED_IS_BACK]: {
         'icon': getImgUrl('ui_icons/action_points/pa_pilgred.png')
+    },
+    [StatisticEnum.COFFEE_MAN]: {
+        'icon': getImgUrl('ui_icons/coffee.png')
+    },
+    [StatisticEnum.RATION_TAKEN]: {
+        'icon': getImgUrl('ui_icons/ration.png')
     },
     [StatisticEnum.DAY_MAX]: {
         'icon': getImgUrl('comms/calendar.png')

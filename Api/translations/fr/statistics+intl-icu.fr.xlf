@@ -1239,6 +1239,38 @@
         <target>Propulsion de prochaine génération</target>
       </segment>
     </unit>
+    <unit id="coffee_man">
+      <segment id="name" state="translated">
+        <source>coffee_man.name</source>
+        <target>Un café pour la 16 !</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>coffee_man.description</source>
+        <target>Nombre de cafés que vous avez avalés.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>coffee_man_1.name</source>
+        <target>CAFÉ !</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>coffee_man_500.name</source>
+        <target>Cafféinomane</target>
+      </segment>
+    </unit>
+    <unit id="ration_taken">
+      <segment id="name" state="translated">
+        <source>ration_taken.name</source>
+        <target>Rations avalées</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>ration_taken.description</source>
+        <target>Nombre de rations que vous avez avalées.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>ration_taken_1.name</source>
+        <target>Goinfre</target>
+      </segment>
+    </unit>
     <unit id="day_max">
       <segment id="name" state="translated">
         <source>day_max.name</source>

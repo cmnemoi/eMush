@@ -103,7 +103,9 @@ final readonly class ActionEventSubscriber implements EventSubscriberInterface
     private function getConsumeStatisticToIncrementFromEvent(ActionEvent $event): StatisticEnum
     {
         return match ($event->getEquipmentActionTargetOrThrow()->getName()) {
+            GameRationEnum::COFFEE => StatisticEnum::COFFEE_MAN,
             GameRationEnum::COOKED_RATION => StatisticEnum::COOKED_TAKEN,
+            GameRationEnum::STANDARD_RATION => StatisticEnum::RATION_TAKEN,
             default => StatisticEnum::NULL,
         };
     }

@@ -178,6 +178,9 @@ enum AchievementEnum: string
     case MUSH_GENOME_1 = 'mush_genome_1';
     case REBELS_1 = 'rebels_1';
     case PILGRED_IS_BACK_1 = 'pilgred_is_back_1';
+    case COFFEE_MAN_1 = 'coffee_man_1';
+    case COFFEE_MAN_500 = 'coffee_man_500';
+    case RATION_TAKEN_1 = 'ration_taken_1';
     case DAY_MAX_3 = 'day_max_3';
     case DAY_MAX_4 = 'day_max_4';
     case DAY_MAX_5 = 'day_max_5';

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -321,6 +323,19 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             userId: $this->kuanTi->getUser()->getId(),
             closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
         ));
+    }
+
+    public function shouldIncrementCoffeeTakenStatisticWhenEatingCoffee(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasFood(GameRationEnum::COFFEE);
+
+        $this->whenKuanTiConsumesFood(GameRationEnum::COFFEE);
+
+        $I->assertEquals(1, $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            name: StatisticEnum::COFFEE_MAN,
+            userId: $this->kuanTi->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        )?->getCount());
     }
 
     private function givenKuanTiHasAContaminatedRationWithSpores(int $spores): void

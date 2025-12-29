@@ -818,6 +818,21 @@ abstract class AchievementConfigData
                 points: 1,
                 threshold: 1,
             ),
+            new AchievementConfigDto(
+                name: AchievementEnum::COFFEE_MAN_1,
+                points: 1,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::COFFEE_MAN_500,
+                points: 10,
+                threshold: 500,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::RATION_TAKEN_1,
+                points: 1,
+                threshold: 1,
+            ),
             new AchievementConfigDto(name: AchievementEnum::DAY_MAX_3, points: 1, threshold: 3),
             new AchievementConfigDto(name: AchievementEnum::DAY_MAX_4, points: 1, threshold: 4),
             new AchievementConfigDto(name: AchievementEnum::DAY_MAX_5, points: 1, threshold: 5),

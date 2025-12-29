@@ -69,8 +69,8 @@ final class ActionHistoryRevealLogServiceTest extends TestCase
         $chun = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $daedalus);
 
         $chun
-            ->addActionToHistory(ActionEnum::DAUNT)
-            ->addActionToHistory(ActionEnum::GRAFT);
+            ->addActionToHistory(ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::DAUNT)))
+            ->addActionToHistory(ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::GRAFT)));
 
         $chichatAction = new Chitchat(
             eventService: self::createStub(EventServiceInterface::class),

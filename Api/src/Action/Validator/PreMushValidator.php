@@ -20,7 +20,7 @@ class PreMushValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, PreMush::class);
         }
 
-        if ($value->getPlayer()->getDaedalus()->getGameStatus() === GameStatusEnum::STARTING) {
+        if (($value->getPlayer()->getDaedalus()->getGameStatus() === GameStatusEnum::STARTING) !== $constraint->isStarting) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

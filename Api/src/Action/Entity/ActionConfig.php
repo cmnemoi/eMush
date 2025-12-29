@@ -132,6 +132,11 @@ class ActionConfig implements GameVariableHolderInterface
         return $types;
     }
 
+    public function hasType(string $type): bool
+    {
+        return \in_array($type, $this->getTypes(), true);
+    }
+
     public function getActionTags(): array
     {
         $tags = $this->getTypes();

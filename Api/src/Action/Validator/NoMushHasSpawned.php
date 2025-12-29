@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Action\Validator;
 
 /**
- * Raises a violation if all Mushs are dead.
+ * Raises a violation if no alpha mush were created at the end of the Starting phase.
  */
 final class NoMushHasSpawned extends ClassConstraint
 {

@@ -213,32 +213,13 @@ enum ActionEnum: string
     case COMMANDER_ORDER = 'commander_order';
     case COM_MANAGER_ANNOUNCEMENT = 'com_manager_announcement';
 
+    // Statuses-related actions
+
+    case REMOVE_BEGINNER = 'remove_beginner';
+
     public function toString(): string
     {
         return $this->value;
-    }
-
-    public function shouldNotBeRecordedInHistory(): bool
-    {
-        return (new ArrayCollection([
-            self::CHANGE_NERON_CPU_PRIORITY,
-            self::CHANGE_NERON_CREW_LOCK,
-            self::CHANGE_NERON_FOOD_DESTRUCTION_OPTION,
-            self::DROP,
-            self::EXAMINE,
-            self::MOVE,
-            self::TAKE,
-            self::TAKE_CAT,
-            self::TOGGLE_MAGNETIC_NET,
-            self::TOGGLE_NERON_INHIBITION,
-            self::TOGGLE_PLASMA_SHIELD,
-            self::TOGGLE_DEATH_ANNOUNCEMENTS,
-            self::TOGGLE_VOCODED_ANNOUNCEMENTS,
-            self::ACCEPT_MISSION,
-            self::REJECT_MISSION,
-            self::EXIT_TERMINAL,
-            self::CONVERT_ACTION_TO_MOVEMENT,
-        ]))->contains($this);
     }
 
     public function isDetectedByMycoAlarm(): bool
@@ -254,47 +235,6 @@ enum ActionEnum: string
             self::SCREW_TALKIE,
             self::TRAP_CLOSET,
         ], true);
-    }
-
-    public static function getPermanentItemActions(): array
-    {
-        return [
-            self::TAKE->value,
-            self::DROP->value,
-            self::HIDE->value,
-        ];
-    }
-
-    public static function getPermanentEquipmentActions(): array
-    {
-        return [
-            self::EXAMINE->value,
-            self::REPAIR->value,
-            self::REPORT_EQUIPMENT->value,
-        ];
-    }
-
-    public static function getPermanentSelfActions(): array
-    {
-        return [
-            self::UNGAG->value,
-            self::GET_UP->value,
-            self::GUARD->value,
-            self::SEARCH->value,
-            self::EXTRACT_SPORE->value,
-            self::GO_BERSERK->value,
-            self::REPORT_FIRE->value,
-        ];
-    }
-
-    public static function getPermanentPlayerActions(): array
-    {
-        return [
-            self::HIT->value,
-            self::WHISPER->value,
-            self::HEAL->value,
-            self::SELF_HEAL->value,
-        ];
     }
 
     public static function getForceGetUpActions(): array
@@ -313,27 +253,6 @@ enum ActionEnum: string
             self::BECOME_ANONYMOUS->value,
             self::BECOME_ANONYMOUS_REVERSE->value,
         ];
-    }
-
-    public static function getActionPointModifierProtectedActions(): array
-    {
-        return [
-            self::REJUVENATE->value,
-            self::SUICIDE->value,
-            self::AUTO_DESTROY->value,
-            self::RESET_SKILL_POINTS->value,
-            self::KILL_PLAYER->value,
-            self::EXIT_TERMINAL->value,
-        ];
-    }
-
-    public static function getChangingRoomActions(): ArrayCollection
-    {
-        return new ArrayCollection([
-            self::MOVE->value,
-            self::LAND->value,
-            self::TAKEOFF->value,
-        ]);
     }
 
     public static function getChangingRoomPatrolshipActions(): ArrayCollection

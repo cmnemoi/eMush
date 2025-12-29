@@ -1869,5 +1869,19 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Branche une batterie nucléaire au bidule pour garantir qu'il ne tombe plus à court de charges.//Bien un truc d'admin, ça...</target>
       </segment>
     </unit>
+    <unit id="remove_beginner">
+      <segment id="name" state="translated">
+        <source>remove_beginner.name</source>
+        <target>Je ne suis pas un débutant!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>remove_beginner.description</source>
+        <target>Retirez votre badge de l'Académie avec un certain dédain. // Cette action ne peut être effectuée qu'avant le début de la partie. // Vos chances de devenir Mush reviendront à la normale.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>remove_beginner.confirmation</source>
+        <target>Le statut Débutant permet à vos coéquipiers de savoir qu'il faut vous laisser une plus grande marge d'erreur. Cette action est irréversible. Si vous êtes un vrai débutant, il est fortement recommandé de ne pas faire cela. Êtes-vous sûr de vouloir continuer ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

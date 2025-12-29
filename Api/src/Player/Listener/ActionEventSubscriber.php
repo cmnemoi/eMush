@@ -66,9 +66,9 @@ final class ActionEventSubscriber implements EventSubscriberInterface
         }
 
         $author = $event->getAuthor();
-        $actionName = $event->getActionName();
+        $actionConfig = $event->getActionConfig();
 
-        $author->addActionToHistory($actionName);
+        $author->addActionToHistory($actionConfig);
 
         $this->playerRepository->save($author);
     }

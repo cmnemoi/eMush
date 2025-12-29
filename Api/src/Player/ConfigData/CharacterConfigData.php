@@ -33,6 +33,7 @@ class CharacterConfigData
         ActionEnum::COM_MANAGER_ANNOUNCEMENT->value,
         ActionEnum::WHISPER->value,
         ActionEnum::RECHARGE_BATTERY->value,
+        ActionEnum::REMOVE_BEGINNER->value,
     ];
 
     public static array $dataArray = [

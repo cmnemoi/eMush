@@ -130,7 +130,7 @@ class ActionData
         [
             'name' => 'move',
             'action_name' => ActionEnum::MOVE,
-            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
+            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -194,7 +194,7 @@ class ActionData
         [
             'name' => 'take',
             'action_name' => ActionEnum::TAKE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -210,7 +210,7 @@ class ActionData
         [
             'name' => 'drop',
             'action_name' => ActionEnum::DROP,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -898,7 +898,7 @@ class ActionData
         [
             'name' => 'examine',
             'action_name' => ActionEnum::EXAMINE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -1669,7 +1669,7 @@ class ActionData
         [
             'name' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value,
             'action_name' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT,
-            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
+            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'hidden', 'fail' => 'hidden'],
@@ -1766,7 +1766,7 @@ class ActionData
         [
             'name' => ActionEnum::EXIT_TERMINAL->value,
             'action_name' => ActionEnum::EXIT_TERMINAL,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => VisibilityEnum::HIDDEN, 'fail' => VisibilityEnum::HIDDEN],
@@ -1938,7 +1938,7 @@ class ActionData
         [
             'name' => ActionEnum::CHANGE_NERON_CPU_PRIORITY->value,
             'action_name' => ActionEnum::CHANGE_NERON_CPU_PRIORITY,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PRIVATE, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
@@ -2018,7 +2018,7 @@ class ActionData
         [
             'name' => ActionEnum::CHANGE_NERON_CREW_LOCK->value,
             'action_name' => ActionEnum::CHANGE_NERON_CREW_LOCK,
-            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
+            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PRIVATE, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
@@ -2034,7 +2034,7 @@ class ActionData
         [
             'name' => ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION->value,
             'action_name' => ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION,
-            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
+            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PRIVATE, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
@@ -2050,7 +2050,7 @@ class ActionData
         [
             'name' => ActionEnum::TOGGLE_PLASMA_SHIELD->value,
             'action_name' => ActionEnum::TOGGLE_PLASMA_SHIELD,
-            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
+            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PRIVATE, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
@@ -2066,7 +2066,7 @@ class ActionData
         [
             'name' => ActionEnum::TOGGLE_MAGNETIC_NET->value,
             'action_name' => ActionEnum::TOGGLE_MAGNETIC_NET,
-            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
+            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PRIVATE, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
@@ -2258,7 +2258,7 @@ class ActionData
         [
             'name' => ActionEnum::ACCEPT_MISSION->value,
             'action_name' => ActionEnum::ACCEPT_MISSION,
-            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
+            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => VisibilityEnum::HIDDEN, 'fail' => VisibilityEnum::HIDDEN],
@@ -2274,7 +2274,7 @@ class ActionData
         [
             'name' => ActionEnum::REJECT_MISSION->value,
             'action_name' => ActionEnum::REJECT_MISSION,
-            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
+            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => VisibilityEnum::HIDDEN, 'fail' => VisibilityEnum::HIDDEN],
@@ -2322,7 +2322,7 @@ class ActionData
         [
             'name' => ActionEnum::TOGGLE_NERON_INHIBITION->value,
             'action_name' => ActionEnum::TOGGLE_NERON_INHIBITION,
-            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
+            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => 'private', 'fail' => 'private'],
@@ -2562,7 +2562,7 @@ class ActionData
         [
             'name' => 'take_cat',
             'action_name' => ActionEnum::TAKE_CAT,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -2962,7 +2962,7 @@ class ActionData
         [
             'name' => ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value,
             'action_name' => ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS,
-            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
+            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PRIVATE, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
@@ -2978,7 +2978,7 @@ class ActionData
         [
             'name' => ActionEnum::TOGGLE_DEATH_ANNOUNCEMENTS->value,
             'action_name' => ActionEnum::TOGGLE_DEATH_ANNOUNCEMENTS,
-            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
+            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PRIVATE, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
@@ -3094,6 +3094,22 @@ class ActionData
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
+            'actionPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+        ],
+        [
+            'name' => ActionEnum::REMOVE_BEGINNER->value,
+            'action_name' => ActionEnum::REMOVE_BEGINNER,
+            'types' => [ActionTypeEnum::ACTION_CONFIRM, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY, ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
+            'target' => ActionHolderEnum::PLAYER,
+            'scope' => ActionRangeEnum::SELF,
+            'visibilities' => ['success' => VisibilityEnum::PUBLIC, 'fail' => VisibilityEnum::PRIVATE],
             'actionPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

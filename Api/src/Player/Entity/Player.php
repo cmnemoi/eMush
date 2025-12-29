@@ -18,6 +18,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Chat\Entity\Message;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -1196,15 +1197,17 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return \array_slice($this->actionHistory, offset: 0, length: $limit);
     }
 
-    public function addActionToHistory(ActionEnum $action): static
+    public function addActionToHistory(ActionConfig $actionConfig): static
     {
         // should not add specific actions
-        if ($action->shouldNotBeRecordedInHistory()) {
+        if ($actionConfig->hasType(ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY->toString())) {
             return $this;
         }
 
+        $actionName = $actionConfig->getActionName();
+
         // Add the action to the beginning of the array
-        array_unshift($this->actionHistory, $action);
+        array_unshift($this->actionHistory, $actionName);
 
         // Keep only a decent amount of actions in the history
         $this->actionHistory = \array_slice($this->actionHistory, offset: 0, length: self::MAX_ACTION_HISTORY);

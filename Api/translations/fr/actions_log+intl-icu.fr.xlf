@@ -1395,5 +1395,11 @@
         } {equipment}{quantity, select, 1 {} other {s}}** !</target>
       </segment>
     </unit>
+    <unit id="remove_beginner_success">
+      <segment id="remove_beginner_success" state="translated">
+        <source>remove_beginner_success</source>
+        <target>:st_beginner: **{character}** arrache son petit badge de l'Académie de son veston et le jette vers un coin de la pièce. Après un tel acte de bravade, on est sûrs de {character_gender, select, female {la} male {le} other {lea}} prendre au sérieux.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

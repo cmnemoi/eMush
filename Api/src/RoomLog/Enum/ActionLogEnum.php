@@ -634,6 +634,9 @@ abstract class ActionLogEnum
         ActionEnum::RECHARGE_BATTERY->value => [
             ActionOutputEnum::SUCCESS => ActionEnum::RECHARGE_BATTERY->value . '_success',
         ],
+        ActionEnum::REMOVE_BEGINNER->value => [
+            ActionOutputEnum::SUCCESS => ActionEnum::REMOVE_BEGINNER->value . '_success',
+        ],
     ];
 
     public static function dependsOnNeronMood(string $logKey): bool

@@ -554,13 +554,7 @@ class ActionsFixtures extends Fixture
         $removeCameraAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REMOVE_CAMERA));
         $manager->persist($removeCameraAction);
 
-        $examineEquipmentAction = new ActionConfig();
-        $examineEquipmentAction
-            ->setName(ActionEnum::EXAMINE->value)
-            ->setActionName(ActionEnum::EXAMINE)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
-
+        $examineEquipmentAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::EXAMINE));
         $manager->persist($examineEquipmentAction);
 
         $checkSporeLevelAction = new ActionConfig();

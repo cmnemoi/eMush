@@ -36,10 +36,7 @@ describe('formatText', () => {
 
             const result = formatText(text).replace(/<img[^>]*>/g, "<img/>");
 
-            expect(result).to.equal(`Vous avez gagné 1 <img/>
-            Vous avez gagné 1 <img/>
-            Vous avez perdu 3 <img/>
-            Vous avez perdu 3 <img/>`);
+            expect(result).to.equal(`Vous avez gagné 1 <img/><br>Vous avez gagné 1 <img/><br>Vous avez perdu 3 <img/><br>Vous avez perdu 3 <img/>`);
         });
         it('should not replace :does_not_exists:', () => {
             const text = `Quel est le sens de la vie :does_not_exists: ?`;
@@ -61,8 +58,7 @@ describe('formatText', () => {
 
             const result = formatText(text);
 
-            expect(result).to.equal(`Raluca a pris un Débris métallique:<br>
-            Raluca a pris un Débris métallique.`);
+            expect(result).to.equal(`Raluca a pris un Débris métallique:<br><br>Raluca a pris un Débris métallique.`);
         });
         it('should replace 1 :pmo: by 1 image', () => {
             const text = "Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 :hp: OU + 1 :pmo: OU + 2:pm:.";
@@ -116,8 +112,7 @@ describe('formatText', () => {
 
             const result = formatText(text);
 
-            expect(result).to.equal(`<strong>Raluca</strong> a laché <em>un</em> <strong>Débris métallique</strong>
-            <strong>Raluca</strong> a pris <em>un</em> <strong>Débris métallique.</strong>`);
+            expect(result).to.equal(`<strong>Raluca</strong> a laché <em>un</em> <strong>Débris métallique</strong><br><strong>Raluca</strong> a pris <em>un</em> <strong>Débris métallique.</strong>`);
         });
         it('should allow combination of bold and italic', () => {
             const text = "***INVENTAIRE***";

@@ -35,6 +35,7 @@
         <RichTextEditor
             :visible="showRichEditor"
             :initial-text="text"
+            :max-length="maxLength"
             @cancel="closeRichEditor"
             @send="sendNewMessage"
         />
@@ -90,10 +91,8 @@ export default defineComponent ({
             this.showRichEditor = false;
 
             if (textToSend.length > 0) {
-                const formattedText = textToSend.replace(/\n/g, "//");
-
                 this.sendMessage({
-                    text: formattedText,
+                    text: textToSend,
                     parent: this.parent,
                     channel: this.channel,
                     player: this.player

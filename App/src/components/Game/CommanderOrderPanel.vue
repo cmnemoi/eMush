@@ -94,7 +94,6 @@ export default defineComponent ({
         getImgUrl,
         async executeTargetAction(action: Action): Promise<void> {
             if(action.canExecute) {
-                this.mission = this.mission.replace(/\n/g, "//");
                 const params = { "subordinate": this.selectedSubordinate, "mission": this.mission };
                 this.selectedSubordinate = '';
                 this.mission = '';

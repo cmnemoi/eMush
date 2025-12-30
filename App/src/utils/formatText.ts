@@ -93,8 +93,9 @@ export function formatText(text: string|null): string {
         "gim"
     );
 
-
-    formattedText = formattedText.replace(/(?<!http:|https:)\/\//g, '<br>');
+    formattedText = formattedText.replace(/((?<!http:|https:)\/\/)|(\n)/g, '<br>');
+    formattedText = formattedText.replace(/ {2,}/g, ' ');
+    formattedText = formattedText.replace(/<br> /g, '<br>');
     formattedText = formattedText.replaceAll(markdownLinkRegex, markdownLinkSubstitution);
     formattedText = formattedText.replace(/:([a-zA-Z0-9_]+):/g, emoteSubstitution);
     formattedText = formattedText.replaceAll(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');

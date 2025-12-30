@@ -25,20 +25,26 @@
                         type="button"
                         class="format-button confirm-btn"
                         @click="confirm"
+                        :disabled="editedText.length > maxLength"
                         :title="$t('game.communications.buttonValidateAdvEditor')">
                         <img :src="getImgUrl('comms/submit.gif')" alt="send">
                     </button>
                 </div>
             </div>
 
-            <textarea
-                v-model="editedText"
-                class="edit-area"
-                @select="selectHighlightedText"
-                @keydown.esc.exact.prevent="cancel"
-                @keydown.enter.exact.prevent="confirm"
-                ref="textEditor"
-            ></textarea>
+            <div class="edit-area-wrapper">
+                <textarea
+                    v-model="editedText"
+                    class="edit-area"
+                    @select="selectHighlightedText"
+                    @keydown.esc.exact.prevent="cancel"
+                    @keydown.enter.exact.prevent="confirm"
+                    ref="textEditor"
+                />
+                <div class="character-count" :class="{ 'getting-close': editedText?.length > maxLength/2, 'over-limit': editedText?.length > maxLength}">
+                    {{ editedText?.length }} / {{ maxLength}}
+                </div>
+            </div>
 
             <ul class="emote-tabs">
                 <RichTextEditorEmoteButton
@@ -91,6 +97,10 @@ export default defineComponent({
         visible: {
             type: Boolean,
             default: false
+        },
+        maxLength: {
+            type: Number,
+            required: true
         }
     },
     data() {
@@ -209,13 +219,11 @@ export default defineComponent({
         },
 
         confirm(): void {
-            this.$emit('send', this.editedText);
-            this.showCharacterGrid = false;
-            this.editedText = "";
-        },
-
-        toggleCharacterGrid(): void {
-            this.showCharacterGrid = !this.showCharacterGrid;
+            if (this.editedText.length <= this.maxLength) {
+                this.$emit('send', this.editedText);
+                this.showCharacterGrid = false;
+                this.editedText = "";
+            }
         },
 
         isValidSelection(selection: TextSelection): boolean {
@@ -272,62 +280,64 @@ export default defineComponent({
 });
 </script>
 
-<!-- Formattage CSS  =================================================================================  -->
 <style lang="scss" scoped>
 @use "sass:color";
 
-    .message-input-advanced-overlay {
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0);
-        display: flex;
-        flex-direction: row;
-        position: sticky;
-        max-width: 97%;
-        justify-content: left;
-        z-index: 1000;
-    }
+.message-input-advanced-overlay {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0);
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    max-width: 97%;
+    justify-content: left;
+    z-index: 1000;
+}
 
-    .text-format-dialog {
-        background-color: #fff;
-        border-radius: 3px;
-        padding: 10px;
-        position: relative;
-        width: 400px;
-        max-width: 100%;
-        min-width: 290px;
-        max-height: 90vh;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-        span {
-            display: inline; /* Forcer les <span> à être inline */
-        }
+.text-format-dialog {
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 10px;
+    position: relative;
+    width: 400px;
+    max-width: 100%;
+    min-width: 290px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    span {
+        display: inline; /* Forcer les <span> à être inline */
     }
+}
 
-    .toolbar {
-        display: flex;
-        flex-flow: row wrap;
-        gap: 5px;
-        justify-content: space-between;
-        flex-wrap: wrap;
-    }
+.toolbar {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 5px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 
-    .toolbar-formatting {
-        flex-flow: row wrap;
-        justify-content: flex-start;
-        gap: 5px;
-    }
+.toolbar-formatting {
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    gap: 5px;
+}
 
-    .toolbar-dialog-buttons{
-        flex-flow: row wrap;
-        justify-content: flex-end;
-        gap: 10px;
-    }
+.toolbar-dialog-buttons{
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    gap: 10px;
+}
 
+
+.edit-area-wrapper {
+    position: relative;
 
     .edit-area {
         width: 100%;
@@ -339,117 +349,142 @@ export default defineComponent({
         resize: vertical;
     }
 
-    .preview-area {
-        width: 100%;
-        min-height: 90px;
-        padding: 8px;
-        border: 1px solid #ddd;
+    .character-count {
+        position: absolute;
+        bottom: 3px;
+        right: 3px;
+        font-size: 11px;
+        font-style: italic;
+        font-weight: bold;
+        color: transparent; // Only display when over the limit
+        opacity: 0;
+        padding: 2px 5px;
         border-radius: 3px;
-        background-color: #eee;
-        overflow-y: auto;
-        scroll-behavior: smooth;
-        display: inline;
-        word-break: break-word;
-        :deep(em) {
-            color: color.adjust(#cf1830, $lightness: 15%);
-        }
-    }
+        pointer-events: none;
 
-    .dialog-buttons {
-        display: flex;
-        justify-content: flex-end;
-        flex-flow: row wrap;
-        gap: 10px;
-        margin-top: 10px;
-    }
-
-    .confirm-btn {
-        background-color: #008EE5;
-        border: 1px solid #008EE5;
-        color: white;
-
-        &:hover {
-            background-color: #015e97;
-        }
-    }
-
-    .format-button {
-        display: inline-block;
-        cursor: pointer;
-        @include button-style();
-
-        & {
-            width: 24px;
-            margin-left: 4px;
+        &.getting-close {
+            color: rgba(128, 128, 128, 0.75);
+            opacity: 1;
         }
 
-        &:hover {
-            background-color: #00B0EC;
+        &.over-limit {
+            color: #d32f2f;
+            opacity: 1;
         }
     }
+}
 
-    .emote-tabs {
-        justify-content: space-between;
-        margin-right: -4px;
+.preview-area {
+    width: 100%;
+    min-height: 90px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #eee;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    display: inline;
+    word-break: break-word;
+    :deep(em) {
+        color: color.adjust(#cf1830, $lightness: 15%);
+    }
+}
+
+.dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    flex-flow: row wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.confirm-btn {
+    background-color: #008EE5;
+    border: 1px solid #008EE5;
+    color: white;
+
+    &:hover {
+        background-color: #015e97;
+    }
+}
+
+.format-button {
+    display: inline-block;
+    cursor: pointer;
+    @include button-style();
+
+    & {
+        width: 24px;
+        margin-left: 4px;
     }
 
-    .emote-line {
-        margin-top: -5px;
-        border: 2px solid #0074df;
-        border-bottom-left-radius: 3px;
-        border-bottom-right-radius: 3px;
+    &:hover {
+        background-color: #00B0EC;
+    }
+}
+
+.emote-tabs {
+    justify-content: space-between;
+    margin-right: -4px;
+}
+
+.emote-line {
+    margin-top: -5px;
+    border: 2px solid #0074df;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.character-grid {
+    display: grid;
+    position: absolute; /* Positionnement absolu pour superposer */
+    top: 40px;
+    left: 0px;
+    z-index: auto; /* S'assure que la grille est au-dessus des autres éléments */
+    grid-template-columns: repeat(5, 1fr); /* 4 colonnes pour 16 personnages */
+    gap: 3px;
+    margin-bottom: 10px;
+    max-height: 220px;
+    overflow-y: auto;
+    border: 1px solid #aad4e5;
+    border-radius: 3px;
+    padding: 3px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Ajoute une ombre pour l'effet popup */
+}
+
+.character-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: #e9f5fb;
     }
 
-    .character-grid {
-        display: grid;
-        position: absolute; /* Positionnement absolu pour superposer */
-        top: 40px;
-        left: 0px;
-        z-index: auto; /* S'assure que la grille est au-dessus des autres éléments */
-        grid-template-columns: repeat(5, 1fr); /* 4 colonnes pour 16 personnages */
-        gap: 3px;
-        margin-bottom: 10px;
-        max-height: 220px;
-        overflow-y: auto;
-        border: 1px solid #aad4e5;
-        border-radius: 3px;
-        padding: 3px;
-        background-color: white;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Ajoute une ombre pour l'effet popup */
+    img {
+        height: 16px;
+        object-fit: cover;
+        border-radius: 5%;
     }
 
-    .character-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        padding: 2px;
-        border-radius: 3px;
-        transition: background-color 0.2s;
-
-        &:hover {
-            background-color: #e9f5fb;
-        }
-
-        img {
-            height: 16px;
-            object-fit: cover;
-            border-radius: 5%;
-        }
-
-        .character-name {
-            margin-top: 4px;
-            font-size: 11px;
-            text-align: center;
-        }
+    .character-name {
+        margin-top: 4px;
+        font-size: 11px;
+        text-align: center;
     }
+}
 
-    .character-btn {
-        font-size: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.character-btn {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 </style>

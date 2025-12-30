@@ -81,14 +81,11 @@ export default defineComponent ({
                 return;
             }
 
-            const params = { "announcement": this.formatBreakLines(this.announcement) };
+            const params = { "announcement": this.announcement };
             this.resetAnnouncement();
 
             await this.executeAction({ target: null, action, params });
             await this.closeComManagerAnnouncementPanel();
-        },
-        formatBreakLines(text: string): string {
-            return text.replace(/\n/g, "//");
         },
         resetAnnouncement(): void {
             this.announcement = "";

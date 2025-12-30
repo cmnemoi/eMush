@@ -50,6 +50,7 @@ enum StatisticEnum: string
     case MUSH_CYCLES = 'mush_cycles';
     case EDEN_CONTAMINATED = 'eden_contaminated';
     case MAGE_BOOK_LEARNED = 'mage_book_learned';
+    case NATAMIST = 'natamist';
     case POLITICIAN = 'politician';
     case HUNTER_DOWN = 'hunter_down';
     case LIKES = 'likes';

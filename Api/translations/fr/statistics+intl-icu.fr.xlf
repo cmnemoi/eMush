@@ -1587,5 +1587,19 @@
         <target>Savant</target>
       </segment>
     </unit>
+    <unit id="natamist">
+      <segment id="name" state="translated">
+        <source>natamist.name</source>
+        <target>Natamiste</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>natamist.description</source>
+        <target>Nombre de représentants Mush détruits au Fusil Natamy.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>natamist_1.name</source>
+        <target>Lépiocidaire</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

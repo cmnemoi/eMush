@@ -6,6 +6,7 @@ namespace Mush\Achievement\Listener;
 
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Services\UpdatePlayerStatisticService;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -19,8 +20,8 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            PlayerEvent::DEATH_PLAYER => ['onPlayerDeath', EventPriorityEnum::LOWEST],
             PlayerEvent::END_PLAYER => ['onPlayerEnd', EventPriorityEnum::LOWEST],
-            PlayerEvent::DEATH_PLAYER => ['onDeathPlayer', EventPriorityEnum::LOWEST],
             PlayerEvent::PLAYER_GOT_LIKED => ['onPlayerGotLiked', EventPriorityEnum::LOWEST],
         ];
     }
@@ -41,7 +42,22 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onDeathPlayer(PlayerEvent $event): void
+    public function onPlayerDeath(PlayerEvent $event): void
+    {
+        $this->incrementMushKilledStats($event);
+    }
+
+    public function onPlayerGotLiked(PlayerEvent $event): void
+    {
+        $player = $event->getPlayer();
+
+        $this->updatePlayerStatisticService->execute(
+            player: $player,
+            statisticName: StatisticEnum::LIKES,
+        );
+    }
+
+    private function incrementMushKilledStats(PlayerEvent $event): void
     {
         // Don't increment stats if death did not result from killing
         if (!$this->isAboutAssassination($event)) {
@@ -71,18 +87,15 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
                     player: $player,
                     statisticName: StatisticEnum::MUSH_KILLED,
                 );
+
+                if ($event->hasTag(ItemEnum::NATAMY_RIFLE)) {
+                    $this->updatePlayerStatisticService->execute(
+                        player: $player,
+                        statisticName: StatisticEnum::NATAMIST,
+                    );
+                }
             }
         }
-    }
-
-    public function onPlayerGotLiked(PlayerEvent $event): void
-    {
-        $player = $event->getPlayer();
-
-        $this->updatePlayerStatisticService->execute(
-            player: $player,
-            statisticName: StatisticEnum::LIKES,
-        );
     }
 
     private function isAboutAssassination(PlayerEvent $event): bool

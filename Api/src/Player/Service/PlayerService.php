@@ -248,7 +248,7 @@ final class PlayerService implements PlayerServiceInterface
         return $this->persist($player);
     }
 
-    public function killPlayer(Player $player, string $endReason, \DateTime $time = new \DateTime(), ?Player $author = null): Player
+    public function killPlayer(Player $player, string $endReason, \DateTime $time = new \DateTime(), array $tags = [], ?Player $author = null): Player
     {
         try {
             $this->playerRepository->startTransaction();
@@ -264,7 +264,7 @@ final class PlayerService implements PlayerServiceInterface
             $this->removePlayerTitles($player);
             $this->createClosedPlayer($player, $endReason, $time);
             $this->markPlayerAsDead($player, $endReason, $time);
-            $this->dispatchPlayerDeathEvent($player, $endReason, $time, $author);
+            $this->dispatchPlayerDeathEvent($player, $endReason, $tags, $time, $author);
             $this->playerRepository->save($player);
             $this->playerRepository->commitTransaction();
         } catch (\Throwable $e) {
@@ -349,11 +349,14 @@ final class PlayerService implements PlayerServiceInterface
         $this->persistClosedPlayer($closedPlayer);
     }
 
-    private function dispatchPlayerDeathEvent(Player $player, string $endCause, \DateTime $date, ?Player $author = null): void
+    private function dispatchPlayerDeathEvent(Player $player, string $endCause, array $tags, \DateTime $date, ?Player $author = null): void
     {
-        $playerDeathEvent = new PlayerEvent($player, [$endCause], $date);
-        $playerDeathEvent->setAuthor($author);
-        $playerDeathEvent->addTag($player->getName());
+        $playerDeathEvent = new PlayerEvent($player, $tags, $date);
+        $playerDeathEvent
+            ->setAuthor($author)
+            ->addTag($endCause)
+            ->addTag($player->getName());
+
         $this->eventService->callEvent($playerDeathEvent, PlayerEvent::DEATH_PLAYER);
     }
 

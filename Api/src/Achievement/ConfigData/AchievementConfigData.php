@@ -749,6 +749,11 @@ abstract class AchievementConfigData
                 points: 1,
                 threshold: 1,
             ),
+            new AchievementConfigDto(
+                name: AchievementEnum::NATAMIST_1,
+                points: 0,
+                threshold: 1
+            ),
             new AchievementConfigDto(name: AchievementEnum::HUNTER_DOWN_1, points: 1, threshold: 1),
             new AchievementConfigDto(name: AchievementEnum::HUNTER_DOWN_20, points: 1, threshold: 20),
             new AchievementConfigDto(name: AchievementEnum::HUNTER_DOWN_50, points: 1, threshold: 50),

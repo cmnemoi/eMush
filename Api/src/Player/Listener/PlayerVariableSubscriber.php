@@ -108,7 +108,8 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
                 player: $player,
                 endReason: $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP) ?? EndCauseEnum::INJURY,
                 time: $event->getTime(),
-                author: $event->getAuthor()
+                author: $event->getAuthor(),
+                tags: $event->getTags()
             );
         }
     }

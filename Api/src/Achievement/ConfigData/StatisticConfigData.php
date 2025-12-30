@@ -56,6 +56,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::MUSH_CYCLES, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::EDEN_CONTAMINATED, StatisticStrategyEnum::INCREMENT, isRare: true),
             new StatisticConfigDto(StatisticEnum::MAGE_BOOK_LEARNED, StatisticStrategyEnum::INCREMENT),
+            new StatisticConfigDto(StatisticEnum::NATAMIST, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::HUNTER_DOWN, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::POLITICIAN, StatisticStrategyEnum::INCREMENT, isRare: true),
             new StatisticConfigDto(StatisticEnum::LIKES, StatisticStrategyEnum::INCREMENT),

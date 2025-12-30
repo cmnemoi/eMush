@@ -1573,5 +1573,19 @@
         <target>Purificateur Des Trompes De La Mort Des Grandes Anciennes</target>
       </segment>
     </unit>
+    <unit id="mage_books_learned">
+      <segment id="name" state="translated">
+        <source>mage_books_learned.name</source>
+        <target>Apprentrons</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>mage_books_learned.description</source>
+        <target>Nombre d'apprentrons que vous avez consulté.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>mage_books_learned_1.name</source>
+        <target>Savant</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

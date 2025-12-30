@@ -41,6 +41,7 @@ export const enum StatisticEnum {
     EDEN = "eden",
     MUSH_CYCLES = "mush_cycles",
     EDEN_CONTAMINATED = "eden_contaminated",
+    MAGE_BOOK_LEARNED = "mage_book_learned",
     POLITICIAN = "politician",
     HUNTER_DOWN = "hunter_down",
     LIKES = "likes",
@@ -196,6 +197,9 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.EDEN_CONTAMINATED]: {
         'icon': getImgUrl('ui_icons/eden2.png')
+    },
+    [StatisticEnum.MAGE_BOOK_LEARNED]: {
+        'icon': getImgUrl('achievements/learned.png')
     },
     [StatisticEnum.POLITICIAN]: {
         'icon': getImgUrl('achievements/politician.png')

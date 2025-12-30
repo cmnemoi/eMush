@@ -744,6 +744,11 @@ abstract class AchievementConfigData
                 points: 10,
                 threshold: 1,
             ),
+            new AchievementConfigDto(
+                name: AchievementEnum::MAGE_BOOK_LEARNED_1,
+                points: 1,
+                threshold: 1,
+            ),
             new AchievementConfigDto(name: AchievementEnum::HUNTER_DOWN_1, points: 1, threshold: 1),
             new AchievementConfigDto(name: AchievementEnum::HUNTER_DOWN_20, points: 1, threshold: 20),
             new AchievementConfigDto(name: AchievementEnum::HUNTER_DOWN_50, points: 1, threshold: 50),

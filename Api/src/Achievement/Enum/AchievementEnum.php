@@ -152,6 +152,7 @@ enum AchievementEnum: string
     case MUSH_CYCLES_2000 = 'mush_cycles_2000';
     case MUSH_CYCLES_10000 = 'mush_cycles_10000';
     case EDEN_CONTAMINATED_1 = 'eden_contaminated_1';
+    case MAGE_BOOK_LEARNED_1 = 'mage_book_learned_1';
     case POLITICIAN_1 = 'politician_1';
     case POLITICIAN_20 = 'politician_20';
     case POLITICIAN_50 = 'politician_50';

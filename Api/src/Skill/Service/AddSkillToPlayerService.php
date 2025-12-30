@@ -31,7 +31,7 @@ class AddSkillToPlayerService
         private StatusServiceInterface $statusService,
     ) {}
 
-    public function execute(SkillEnum $skill, Player $player): void
+    public function execute(SkillEnum $skill, Player $player, array $tags = []): void
     {
         $this->checkPlayerDoesNotHaveSkill($skill, $player);
 
@@ -41,7 +41,7 @@ class AddSkillToPlayerService
         $this->createSkillPoints($skill);
         $this->createSkillItems($skill);
 
-        $this->dispatchSkillCreatedEvent($skill);
+        $this->dispatchSkillCreatedEvent($skill, $tags);
     }
 
     private function checkPlayerDoesNotHaveSkill(SkillEnum $skill, Player $player): void
@@ -106,11 +106,8 @@ class AddSkillToPlayerService
         );
     }
 
-    private function dispatchSkillCreatedEvent(Skill $skill): void
+    private function dispatchSkillCreatedEvent(Skill $skill, array $tags): void
     {
-        $this->eventService->callEvent(
-            new SkillCreatedEvent($skill),
-            SkillCreatedEvent::class,
-        );
+        $this->eventService->callEvent(new SkillCreatedEvent($skill, $tags), SkillCreatedEvent::class);
     }
 }

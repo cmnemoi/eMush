@@ -115,7 +115,7 @@ final class ReadBook extends AbstractAction
     {
         $skill = $this->bookMechanic()->getSkill();
 
-        $this->addSkillToPlayer->execute($skill, $this->player);
+        $this->addSkillToPlayer->execute($skill, $this->player, tags: $this->getTags());
     }
 
     private function createLearnedSkillLog(): void

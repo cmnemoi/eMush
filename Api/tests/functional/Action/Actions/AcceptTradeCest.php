@@ -29,6 +29,7 @@ use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Repository\HunterRepositoryInterface;
 use Mush\Hunter\Service\CreateHunterService;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -365,6 +366,12 @@ final class AcceptTradeCest extends AbstractFunctionalTest
             $this->player2,
             $I
         );
+
+        // setup projects which do not need specific room to exist to avoid errors
+        $this->daedalus
+            ->getAllAvailableProjects()
+            ->filter(static fn (Project $project) => !\in_array($project->getName(), [ProjectName::FIRE_SENSOR->toString(), ProjectName::DOOR_SENSOR->toString()], true))
+            ->map(static fn (Project $project) => $project->unpropose());
 
         $this->whenPlayerAcceptsTrade(tradeOptionId: $trade->getTradeOptions()->first()->getId());
 

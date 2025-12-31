@@ -91,6 +91,7 @@ const STRAWMAN = "strawman";
 const SPACESHIP_KEYS = "spaceship_keys";
 const MULTIPASS = "multipass";
 const ANTIQUE_PERFUME_ITEM = "antique_perfume_item";
+const MEGAPHONE = "megaphone";
 
 //containers
 const ANNIVERSARY_GIFT = "anniversary_gift";
@@ -565,5 +566,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [ANTIQUE_PERFUME_ITEM]:{
         'image': getImgUrl('items/antique_perfume.png')
+    },
+    [MEGAPHONE]:{
+        'image': getImgUrl('items/speaker.jpg')
     }
 };

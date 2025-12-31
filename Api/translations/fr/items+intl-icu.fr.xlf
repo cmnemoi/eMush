@@ -4086,5 +4086,31 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
         <target>"Attendez, l'objet ou la compétence?"//Permet de **se laver** une fois par jour. Laisse un registre **Public** à l'utilisation.</target>
       </segment>
     </unit>
+    <unit id="megaphone">
+      <segment id="name" state="translated">
+        <source>megaphone.name</source>
+        <target>Mégaphone</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>megaphone.short_name</source>
+        <target>Mégaphone</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>megaphone.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>megaphone.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>megaphone.description</source>
+        <target>Pourquoi déléguer quand on peut diriger soi même?//:point: Prenez le en main pour **hurler** des **Annonces** comme un vrai Resp. Communications!</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>megaphone.examine</source>
+        <target>De quoi bien ennuyer l'équipage depuis n'importe où.//Permet d'effectuer des **Annonces Générales**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

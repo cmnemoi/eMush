@@ -148,7 +148,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::CHUN,
         ],
         [
-            'item' => 'apprentron_optimist', // @TODO: Maintenance Agent Mage Book
+            'item' => ItemEnum::MEGAPHONE,
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,

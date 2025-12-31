@@ -4410,6 +4410,23 @@ class EquipmentConfigData
             'mechanics' => ['tools_' . ItemEnum::ANTIQUE_PERFUME_ITEM . '_default'],
             'initStatuses' => [ItemEnum::ANTIQUE_PERFUME_ITEM . '_charge_default'],
         ],
+        [
+            'name' => ItemEnum::MEGAPHONE . '_default',
+            'equipmentName' => ItemEnum::MEGAPHONE,
+            'breakableType' => BreakableTypeEnum::NONE,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => true,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => [],
+            'initStatuses' => [],
+        ],
     ];
 
     public static function getByEquipmentName(string $name): array

@@ -171,7 +171,7 @@ final class OpenContainerCest extends AbstractFunctionalTest
         $chunEquipment = $this->chun->getEquipments()->map(static fn (GameItem $item) => $item->getEquipment()->getEquipmentName());
 
         $I->assertTrue(
-            condition: array_intersect(['apprentron_medic', ItemEnum::MUSH_SAMPLE, ItemEnum::MYCO_ALARM, 'apprentron_optimist'], $chunEquipment->toArray()) !== [],
+            condition: array_intersect(['apprentron_medic', ItemEnum::MUSH_SAMPLE, ItemEnum::MYCO_ALARM, ItemEnum::MEGAPHONE], $chunEquipment->toArray()) !== [],
             message: "Chun should have a piece of equipment between Medic mage book, Mush sample, Mycoalarm or Optimist magebook, but she has: {implode(', ', {$chunEquipment})}"
         );
     }

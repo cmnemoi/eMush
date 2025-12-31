@@ -62,6 +62,7 @@ class ItemEnum
     public const string MULTIPASS = 'multipass';
     public const string DEBRIS_PRINTER = 'debris_printer';
     public const string ANTIQUE_PERFUME_ITEM = 'antique_perfume_item';
+    public const string MEGAPHONE = 'megaphone';
 
     public static function getArtefacts(): ArrayCollection
     {

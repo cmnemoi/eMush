@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Enum\ItemEnum;
 use Symfony\Component\HttpFoundation\File\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -30,6 +32,10 @@ final class NeedTitleValidator extends ConstraintValidator
         }
 
         if ($constraint->allowIfNoPlayerHasTheTitle && $this->noPlayerHasTitleInDaedalus($constraint->title, $daedalus)) {
+            return;
+        }
+
+        if ($value->getActionName() === ActionEnum::COM_MANAGER_ANNOUNCEMENT->toString() && $player->hasEquipmentByName(ItemEnum::MEGAPHONE)) {
             return;
         }
 

@@ -9,6 +9,7 @@ use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\ComManagerAnnounce;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -84,6 +85,15 @@ final class ComManagerAnnounceCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldBeVisibleIfNotCommsManagerPlayerHasMegaphone(FunctionalTester $I): void
+    {
+        $this->createEquipment(ItemEnum::MEGAPHONE, $this->kuanTi);
+
+        $this->whenKuanTiTriesToMakeAGeneralAnnouncement();
+
+        $this->thenActionIsVisible($I);
+    }
+
     private function givenChunIsCommsManager(): void
     {
         $this->chun->addTitle(TitleEnum::COM_MANAGER);
@@ -113,6 +123,11 @@ final class ComManagerAnnounceCest extends AbstractFunctionalTest
     private function thenActionIsNotVisible(FunctionalTester $I): void
     {
         $I->assertFalse($this->comManagerAnnouncement->isVisible());
+    }
+
+    private function thenActionIsVisible(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->comManagerAnnouncement->isVisible());
     }
 
     private function thenDaedalusShouldHaveGeneralAnnouncement(FunctionalTester $I): void

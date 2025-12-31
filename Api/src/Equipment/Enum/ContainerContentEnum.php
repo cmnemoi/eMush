@@ -477,7 +477,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::RALUCA,
         ],
         [
-            'item' => GearItemEnum::ROLLING_BOULDER, // @TODO: Lil' Hunter Nappin' Blankie
+            'item' => ItemEnum::SHIP_BLANKET,
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,

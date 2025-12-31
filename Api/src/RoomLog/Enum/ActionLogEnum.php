@@ -640,6 +640,9 @@ abstract class ActionLogEnum
         ActionEnum::REMOVE_BEGINNER->value => [
             ActionOutputEnum::SUCCESS => ActionEnum::REMOVE_BEGINNER->value . '_success',
         ],
+        ActionEnum::LIE_DOWN_IN_SHIP->value => [
+            ActionOutputEnum::SUCCESS => ActionEnum::LIE_DOWN_IN_SHIP->value,
+        ],
     ];
 
     public static function dependsOnNeronMood(string $logKey): bool

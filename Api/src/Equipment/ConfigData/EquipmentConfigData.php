@@ -2975,7 +2975,7 @@ class EquipmentConfigData
         ],
         [
             'name' => 'bed_default',
-            'equipmentName' => 'bed',
+            'equipmentName' => EquipmentEnum::BED,
             'breakableType' => BreakableTypeEnum::NONE,
             'dismountedProducts' => [],
             'isPersonal' => false,
@@ -4425,6 +4425,23 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [],
+            'initStatuses' => [],
+        ],
+        [
+            'name' => ItemEnum::SHIP_BLANKET . '_default',
+            'equipmentName' => ItemEnum::SHIP_BLANKET,
+            'breakableType' => BreakableTypeEnum::DESTROY_ON_BREAK,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => false,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => ['tool_' . ItemEnum::SHIP_BLANKET . '_default'],
             'initStatuses' => [],
         ],
     ];

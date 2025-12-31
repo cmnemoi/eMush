@@ -1893,5 +1893,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Le statut Débutant permet à vos coéquipiers de savoir qu'il faut vous laisser une plus grande marge d'erreur. Cette action est irréversible. Si vous êtes un vrai débutant, il est fortement recommandé de ne pas faire cela. Êtes-vous sûr de vouloir continuer ?</target>
       </segment>
     </unit>
+    <unit id="lie_down_in_ship">
+      <segment id="lie_down_in_ship" state="translated">
+        <source>lie_down_in_ship.name</source>
+        <target>S'allonger</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>lie_down_in_ship.description</source>
+        <target>On manque de place là dedans, mais la couette promet une sieste adéquate. // S'allonger permet à chaque cycle passé de gagner 1 :pa:, ainsi que 1 :pmo: si un psy est présent... Mais monter à deux dans cet appareil serait ambitieux.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -2112,6 +2112,13 @@ class MechanicsData
             ],
             'modifierConfigs' => [],
         ],
+        [
+            'name' => 'tool_' . ItemEnum::SHIP_BLANKET . '_default',
+            'type' => 'tool',
+            'actions' => [
+                ActionEnum::LIE_DOWN_IN_SHIP->value,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

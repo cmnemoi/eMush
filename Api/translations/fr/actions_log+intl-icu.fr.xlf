@@ -1407,5 +1407,11 @@
         <target>:st_beginner: **{character}** arrache son petit badge de l'Académie de son veston et le jette vers un coin de la pièce. Après un tel acte de bravade, on est sûrs de {character_gender, select, female {la} male {le} other {lea}} prendre au sérieux.</target>
       </segment>
     </unit>
+    <unit id="lie_down_in_ship">
+      <segment id="lie_down_in_ship" state="translated">
+        <source>lie_down_in_ship</source>
+        <target>**{character}** incline son siège, et déploie sa **{target_equipment}**... C'est à peu près confortable. Allez, le pays des rêves n'attend toujours pas !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

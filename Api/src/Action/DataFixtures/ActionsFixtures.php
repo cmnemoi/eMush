@@ -497,14 +497,14 @@ class ActionsFixtures extends Fixture
 
         $manager->persist($strengthenHullAction);
 
-        $lieDownActon = new ActionConfig();
-        $lieDownActon
+        $lieDownAction = new ActionConfig();
+        $lieDownAction
             ->setName(ActionEnum::LIE_DOWN->value)
             ->setActionName(ActionEnum::LIE_DOWN)
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
 
-        $manager->persist($lieDownActon);
+        $manager->persist($lieDownAction);
 
         $getUpAction = new ActionConfig();
         $getUpAction
@@ -1191,6 +1191,9 @@ class ActionsFixtures extends Fixture
         $sabotageExploration = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SABOTAGE_EXPLORATION));
         $manager->persist($sabotageExploration);
 
+        $lieDownInShipAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::LIE_DOWN_IN_SHIP));
+        $manager->persist($lieDownInShipAction);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1238,7 +1241,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::OXYGEN_INJECT, $oxygenInjectAction);
         $this->addReference(self::OXYGEN_RETRIEVE, $retrieveOxygenAction);
         $this->addReference(self::STRENGTHEN_HULL, $strengthenHullAction);
-        $this->addReference(self::LIE_DOWN, $lieDownActon);
+        $this->addReference(self::LIE_DOWN, $lieDownAction);
         $this->addReference(self::GET_UP, $getUpAction);
         $this->addReference(ActionEnum::COFFEE->value, $coffeeAction);
         $this->addReference(self::DISPENSE_DRUG, $dispenseAction);
@@ -1351,5 +1354,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::WHISPER->value, $whisper);
         $this->addReference(ActionEnum::ADAPT_EPIGENETICS->value, $adaptEpigenetics);
         $this->addReference(ActionEnum::SABOTAGE_EXPLORATION->value, $sabotageExploration);
+        $this->addReference(ActionEnum::LIE_DOWN_IN_SHIP->value, $lieDownInShipAction);
     }
 }

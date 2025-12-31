@@ -64,6 +64,8 @@ final class RoomLogService implements RoomLogServiceInterface
             return $this->createExamineLog($player, $actionParameter);
         }
 
+        $parameters = $this->getActionLogParameters($event);
+
         $logMapping = ActionLogEnum::ACTION_LOGS[$actionName->value] ?? null;
         if (!$logMapping) {
             return $this->createLog(
@@ -72,7 +74,7 @@ final class RoomLogService implements RoomLogServiceInterface
                 VisibilityEnum::HIDDEN,
                 'actions_log',
                 $player,
-                $this->getActionLogParameters($event),
+                $parameters,
                 $time
             );
         }
@@ -83,8 +85,6 @@ final class RoomLogService implements RoomLogServiceInterface
         } else {
             return null;
         }
-
-        $parameters = $this->getActionLogParameters($event);
 
         $visibility = $actionResult?->getVisibility() ?? VisibilityEnum::HIDDEN;
         if ($actionParameter instanceof GameEquipment && $actionParameter->getEquipment()->isPersonal()) {

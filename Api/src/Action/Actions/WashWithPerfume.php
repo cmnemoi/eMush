@@ -12,9 +12,9 @@ use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class Shower extends AbstractWashSelfAction
+class WashWithPerfume extends AbstractWashSelfAction
 {
-    protected ActionEnum $name = ActionEnum::TAKE_SHOWER;
+    protected ActionEnum $name = ActionEnum::WASH_WITH_PERFUME;
 
     public function __construct(
         EventServiceInterface $eventService,
@@ -24,10 +24,15 @@ class Shower extends AbstractWashSelfAction
         private RandomServiceInterface $randomService
     ) {
         parent::__construct($eventService, $actionService, $validator, $statusService, $randomService);
+
+        $this->statusService = $statusService;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new Reach([
+            'reach' => ReachEnum::INVENTORY,
+            'groups' => ['visibility'],
+        ]));
     }
 }

@@ -55,7 +55,6 @@ abstract class ActionLogEnum
     public const string SHOWER_HUMAN = 'shower_human';
     public const string SHOWER_MUSH = 'shower_mush';
     public const string WASH_IN_SINK_HUMAN = 'wash_in_sink_human';
-    public const string WASH_IN_SINK_MUSH = 'wash_in_sink_mush';
     public const string STRENGTHEN_SUCCESS = 'strengthen_success';
     public const string SPREAD_FIRE_SUCCESS = 'spread_fire_success';
     public const string TAKE = 'take';
@@ -276,11 +275,15 @@ abstract class ActionLogEnum
         ],
         ActionEnum::TAKE_SHOWER->value => [
             ActionOutputEnum::SUCCESS => self::SHOWER_HUMAN,
-            ActionOutputEnum::FAIL => self::SHOWER_MUSH,
+            ActionOutputEnum::MUSH_SHOWER_DAMAGE => self::SHOWER_MUSH,
         ],
         ActionEnum::WASH_IN_SINK->value => [
             ActionOutputEnum::SUCCESS => self::WASH_IN_SINK_HUMAN,
-            ActionOutputEnum::FAIL => self::WASH_IN_SINK_MUSH,
+            ActionOutputEnum::MUSH_SHOWER_DAMAGE => self::SHOWER_MUSH,
+        ],
+        ActionEnum::WASH_WITH_PERFUME->value => [
+            ActionOutputEnum::SUCCESS => ActionEnum::WASH_WITH_PERFUME->value,
+            ActionOutputEnum::MUSH_SHOWER_DAMAGE => ActionEnum::WASH_WITH_PERFUME->value,
         ],
         ActionEnum::LIE_DOWN->value => [
             ActionOutputEnum::SUCCESS => self::LIE_DOWN,

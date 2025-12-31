@@ -18,8 +18,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -112,25 +110,15 @@ final class ShowerActionCest extends AbstractFunctionalTest
     {
         $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
-        /** @var ChargeStatusConfig $mushStatusConfig */
-        $mushStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => PlayerStatusEnum::MUSH]);
-        $mushStatus = new ChargeStatus($this->player1, $mushStatusConfig);
-        $I->haveInRepository($mushStatus);
+        $this->convertPlayerToMush($I, $this->player);
 
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::SHOWER]);
-
-        $gameEquipment = new GameEquipment($room);
-        $gameEquipment
-            ->setEquipment($equipmentConfig)
-            ->setName(EquipmentEnum::SHOWER);
-        $I->haveInRepository($gameEquipment);
+        $shower = $this->createEquipment(EquipmentEnum::SHOWER, $this->player->getPlace());
 
         $this->showerAction->loadParameters(
             actionConfig: $this->action,
-            actionProvider: $gameEquipment,
-            player: $this->player1,
-            target: $gameEquipment
+            actionProvider: $shower,
+            player: $this->player,
+            target: $shower
         );
 
         $I->assertTrue($this->showerAction->isVisible());
@@ -144,14 +132,15 @@ final class ShowerActionCest extends AbstractFunctionalTest
             $this->player1->getActionPoint()
         );
 
-        $logs = $I->grabEntitiesFromRepository(RoomLog::class, [
-            'place' => $room->getName(),
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo()->getId(),
-            'log' => ActionLogEnum::SHOWER_MUSH,
-            'visibility' => VisibilityEnum::PRIVATE,
-        ]);
-        $I->assertCount(1, $logs);
+        $I->seeInRepository(
+            RoomLog::class,
+            [
+                'place' => $this->player->getPlace()->getLogName(),
+                'playerInfo' => $this->player->getPlayerInfo()->getId(),
+                'log' => ActionLogEnum::SHOWER_MUSH,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]
+        );
     }
 
     public function testShowerWithSoap(FunctionalTester $I): void

@@ -4060,5 +4060,31 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
         <target>C'est toujours fun de cliquer sur des boutons. Encore, et encore, et encore.//Activez l'appareil une fois par jour, pas plus, pas moins, pour ~~développer une accoutumance~~ obtenir votre récompense.</target>
       </segment>
     </unit>
+    <unit id="antique_perfume_item">
+      <segment id="name" state="translated">
+        <source>antique_perfume_item.name</source>
+        <target>Parfum Antique...?</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>antique_perfume_item.short_name</source>
+        <target>Parfum Antique</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>antique_perfume_item.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>antique_perfume_item.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>antique_perfume_item.description</source>
+        <target>Un bon vieux sent-bon des années vingt. Deux mille vingt.//:point: Permet de **se laver** une fois par jour. Laisse un registre **Public** à l'utilisation.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>antique_perfume_item.examine</source>
+        <target>"Attendez, l'objet ou la compétence?"//Permet de **se laver** une fois par jour. Laisse un registre **Public** à l'utilisation.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

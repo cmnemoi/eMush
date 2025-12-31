@@ -407,7 +407,8 @@ class ActionsFixtures extends Fixture
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)
             ->setInjuryRate(2)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->setVisibility(ActionOutputEnum::MUSH_SHOWER_DAMAGE, VisibilityEnum::PRIVATE);
 
         $manager->persist($showerAction);
 
@@ -421,6 +422,18 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
 
         $manager->persist($sinkAction);
+
+        $washWithPerfumeAction = new ActionConfig();
+        $washWithPerfumeAction
+            ->setName(ActionEnum::WASH_WITH_PERFUME->value)
+            ->setActionName(ActionEnum::WASH_WITH_PERFUME)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setActionCost(2)
+            ->setInjuryRate(2)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC);
+
+        $manager->persist($washWithPerfumeAction);
 
         $fuelInjectAction = new ActionConfig();
         $fuelInjectAction
@@ -1219,6 +1232,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::UNGAG_DEFAULT, $ungagAction);
         $this->addReference(ActionEnum::TAKE_SHOWER->toString(), $showerAction);
         $this->addReference(self::WASH_IN_SINK, $sinkAction);
+        $this->addReference(ActionEnum::WASH_WITH_PERFUME->toString(), $washWithPerfumeAction);
         $this->addReference(self::FUEL_INJECT, $fuelInjectAction);
         $this->addReference(self::FUEL_RETRIEVE, $retrieveFuelAction);
         $this->addReference(self::OXYGEN_INJECT, $oxygenInjectAction);

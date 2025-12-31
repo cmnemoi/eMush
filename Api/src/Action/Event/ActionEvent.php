@@ -198,6 +198,7 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
             && $this->hasAnyTag([
                 ActionEnum::TAKE_SHOWER->toString(),
                 ActionEnum::WASH_IN_SINK->toString(),
+                ActionEnum::WASH_WITH_PERFUME->toString(),
             ]);
     }
 

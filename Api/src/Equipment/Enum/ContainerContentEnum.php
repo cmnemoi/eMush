@@ -225,7 +225,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::FINOLA,
         ],
         [
-            'item' => GearItemEnum::MAGELLAN_LIQUID_MAP, // @TODO: "Antique Perfume...?" item
+            'item' => ItemEnum::ANTIQUE_PERFUME_ITEM,
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,

@@ -15,7 +15,6 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
@@ -52,9 +51,6 @@ class TakeCat extends AbstractAction
         /** @var GameItem $target */
         $target = $this->gameItemTarget();
         $tags[] = $target->getName();
-        if ($target->hasStatus(EquipmentStatusEnum::HEAVY)) {
-            $tags[] = EquipmentStatusEnum::HEAVY;
-        }
 
         return $tags;
     }

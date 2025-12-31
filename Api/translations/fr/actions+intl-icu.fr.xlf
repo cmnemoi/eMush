@@ -439,6 +439,16 @@ Cette action n'est disponible qu'une fois par jour pour l'ensemble de l'équipag
 Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.</target>
       </segment>
     </unit>
+    <unit id="wash_with_perfume">
+      <segment id="name" state="translated">
+        <source>wash_with_perfume.name</source>
+        <target>Se faire propret</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>wash_with_perfume.description</source>
+        <target>Remplace une odeur parfumée avec une autre odeur parfumée.//Cette action n'est disponible qu'une fois par jour.</target>
+      </segment>
+    </unit>
     <unit id="extinguish">
       <segment id="name" state="translated">
         <source>extinguish.name</source>

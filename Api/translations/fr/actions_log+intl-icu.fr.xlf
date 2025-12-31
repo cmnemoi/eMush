@@ -502,6 +502,12 @@
                 }</target>
       </segment>
     </unit>
+    <unit id="wash_with_perfume">
+      <segment id="wash_with_perfume" state="translated">
+        <source>wash_with_perfume</source>
+        <target>**{character}** se couvre abondamment de parfum sur le visage, le cou, sous le col, les aisselles... Pas de doute, {character_gender, select, male {il} female {elle} other {iel}} est "propre".</target>
+      </segment>
+    </unit>
     <unit id="shred_success">
       <segment id="shred_success" state="translated">
         <source>shred_success</source>

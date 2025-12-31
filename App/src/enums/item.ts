@@ -90,6 +90,7 @@ const JUKEBOX_KIT = "jukebox_kit";
 const STRAWMAN = "strawman";
 const SPACESHIP_KEYS = "spaceship_keys";
 const MULTIPASS = "multipass";
+const ANTIQUE_PERFUME_ITEM = "antique_perfume_item";
 
 //containers
 const ANNIVERSARY_GIFT = "anniversary_gift";
@@ -561,5 +562,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [DEBRIS_PRINTER]:{
         'image': getImgUrl('items/debris_printer.png')
+    },
+    [ANTIQUE_PERFUME_ITEM]:{
+        'image': getImgUrl('items/antique_perfume.png')
     }
 };

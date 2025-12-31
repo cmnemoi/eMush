@@ -339,6 +339,7 @@ final class ShootActionCest extends AbstractFunctionalTest
     {
         $this->givenKuanTiHasHealthPoints(5);
         $this->givenChunHasALizaroJungle();
+        $this->lizaroJungle->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
         $this->givenLizaroJungleHas100ChanceToDispatchEvent(WeaponEventEnum::LIZARO_JUNGLE_SUCCESSFUL_SHOT->toString());
 
         $this->whenChunShootsAtKuanTiWithLizaroJungle();

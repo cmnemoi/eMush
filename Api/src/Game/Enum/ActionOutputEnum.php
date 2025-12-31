@@ -11,4 +11,5 @@ abstract class ActionOutputEnum
     public const string CRITICAL_SUCCESS = 'critical_success';
     public const string NO_FUEL = 'no_fuel';
     public const string ARACK_PREVENTS_TRAVEL = 'arack_prevents_travel';
+    public const string MUSH_SHOWER_DAMAGE = 'mush_shower_damage';
 }

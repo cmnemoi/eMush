@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
 
+// @TODO: Deprecated. Do not use. Convert all Plumbing items into tools, then delete me.
 #[ORM\Entity]
 class Plumbing extends Tool
 {

@@ -61,6 +61,7 @@ class ItemEnum
     public const string SPACESHIP_KEYS = 'spaceship_keys';
     public const string MULTIPASS = 'multipass';
     public const string DEBRIS_PRINTER = 'debris_printer';
+    public const string ANTIQUE_PERFUME_ITEM = 'antique_perfume_item';
 
     public static function getArtefacts(): ArrayCollection
     {

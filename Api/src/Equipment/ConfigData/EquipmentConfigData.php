@@ -4393,6 +4393,23 @@ class EquipmentConfigData
             'mechanics' => ['container_' . ItemEnum::DEBRIS_PRINTER . '_default'],
             'initStatuses' => ['container_1_charge_daily_default'],
         ],
+        [
+            'name' => ItemEnum::ANTIQUE_PERFUME_ITEM . '_default',
+            'equipmentName' => ItemEnum::ANTIQUE_PERFUME_ITEM,
+            'breakableType' => BreakableTypeEnum::NONE,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => false,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => ['tools_' . ItemEnum::ANTIQUE_PERFUME_ITEM . '_default'],
+            'initStatuses' => [ItemEnum::ANTIQUE_PERFUME_ITEM . '_charge_default'],
+        ],
     ];
 
     public static function getByEquipmentName(string $name): array

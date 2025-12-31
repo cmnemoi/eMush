@@ -2104,6 +2104,14 @@ class MechanicsData
             ],
             'containerContents' => ContainerContentEnum::DEBRIS_PRINTER_CONTENT,
         ],
+        [
+            'name' => 'tools_' . ItemEnum::ANTIQUE_PERFUME_ITEM . '_default',
+            'type' => 'tool',
+            'actions' => [
+                ActionEnum::WASH_WITH_PERFUME->value,
+            ],
+            'modifierConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

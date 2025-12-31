@@ -180,8 +180,7 @@ abstract class ModifierConfigData
                 priority: ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
                 applyWhenTargeted: false,
                 tagConstraints: [
-                    ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
-                    ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                    'wash_self' => ModifierRequirementEnum::ANY_TAGS,
                 ],
                 delta: -1,
                 targetVariable: PlayerVariableEnum::ACTION_POINT,
@@ -2540,13 +2539,14 @@ abstract class ModifierConfigData
                 modifierRange: ModifierHolderClassEnum::EQUIPMENT,
                 modifierActivationRequirements: [
                     'random_25',
+                    // ModifierRequirementEnum::PLAYER_IS_NOT_MUSH, Does not work, needs the modifierRange to be Player
                 ],
                 targetEvent: ActionEvent::POST_ACTION,
                 priority: ModifierPriorityEnum::AFTER_INITIAL_EVENT,
                 applyWhenTargeted: true,
                 tagConstraints: [
                     ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
-                    ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+                    ActionOutputEnum::MUSH_SHOWER_DAMAGE => ModifierRequirementEnum::NONE_TAGS,
                     SkillEnum::SPLASHPROOF->value => ModifierRequirementEnum::NONE_TAGS,
                     ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                     ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
@@ -2561,13 +2561,14 @@ abstract class ModifierConfigData
                 modifierRange: ModifierHolderClassEnum::EQUIPMENT,
                 modifierActivationRequirements: [
                     'random_25',
+                    // ModifierRequirementEnum::PLAYER_IS_NOT_MUSH, Does not work, needs the modifierRange to be Player
                 ],
                 targetEvent: ActionEvent::POST_ACTION,
                 priority: ModifierPriorityEnum::AFTER_INITIAL_EVENT,
                 applyWhenTargeted: true,
                 tagConstraints: [
                     ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
-                    ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+                    ActionOutputEnum::MUSH_SHOWER_DAMAGE => ModifierRequirementEnum::NONE_TAGS,
                     SkillEnum::SPLASHPROOF->value => ModifierRequirementEnum::NONE_TAGS,
                     ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                     ModifierNameEnum::THALASSO_MOVEMENT_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
@@ -2582,13 +2583,14 @@ abstract class ModifierConfigData
                 modifierRange: ModifierHolderClassEnum::EQUIPMENT,
                 modifierActivationRequirements: [
                     'random_25',
+                    // ModifierRequirementEnum::PLAYER_IS_NOT_MUSH, Does not work, needs the modifierRange to be Player
                 ],
                 targetEvent: ActionEvent::POST_ACTION,
                 priority: ModifierPriorityEnum::AFTER_INITIAL_EVENT,
                 applyWhenTargeted: true,
                 tagConstraints: [
                     ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
-                    ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+                    ActionOutputEnum::MUSH_SHOWER_DAMAGE => ModifierRequirementEnum::NONE_TAGS,
                     SkillEnum::SPLASHPROOF->value => ModifierRequirementEnum::NONE_TAGS,
                     ModifierNameEnum::THALASSO_HEALTH_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,
                     ModifierNameEnum::THALASSO_MORALE_POINTS_MODIFIER => ModifierRequirementEnum::NONE_TAGS,

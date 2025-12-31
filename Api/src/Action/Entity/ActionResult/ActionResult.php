@@ -209,8 +209,10 @@ abstract class ActionResult
     public function getResultTags(): array
     {
         $tags = [$this->isASuccess() ? ActionOutputEnum::SUCCESS : ActionOutputEnum::FAIL];
-        $this->isACriticalSuccess() ? $tags[] = ActionOutputEnum::CRITICAL_SUCCESS : null;
-        $this->isACriticalFail() ? $tags[] = ActionOutputEnum::CRITICAL_FAIL : null;
+
+        if ($this->getName() !== ActionOutputEnum::SUCCESS && $this->getName() !== ActionOutputEnum::FAIL) {
+            $tags[] = $this->getName();
+        }
 
         return $tags;
     }

@@ -66,14 +66,28 @@ final class ActionSubscriber implements EventSubscriberInterface
     public function onPostAction(ActionEvent $event): void
     {
         match ($event->getActionName()) {
-            ActionEnum::LAND => $this->handleLandActionLog($event),
+            ActionEnum::LAND => $this->createLandActionLog($event),
             ActionEnum::MOVE => $this->tryToCreateCatNoises($event),
+            ActionEnum::CONSUME, ActionEnum::CONSUME_DRUG => $this->handleMushConsumeLog($event),
             default => null,
         };
 
         $this->handlePlayerWakeUpLog($event);
         $this->handleContentLog($event);
         $this->handleMycoAlarmLog($event);
+    }
+
+    private function createMushConsumeLog(Player $player): void
+    {
+        $this->roomLogService->createLog(
+            LogEnum::CONSUME_MUSH,
+            $player->getPlace(),
+            VisibilityEnum::PRIVATE,
+            'event_log',
+            $player,
+            [$player->getLogKey() => $player->getLogName()],
+            new \DateTime()
+        );
     }
 
     private function createForceGetUpLog(Player $player): void
@@ -87,11 +101,6 @@ final class ActionSubscriber implements EventSubscriberInterface
             [$player->getLogKey() => $player->getLogName()],
             new \DateTime()
         );
-    }
-
-    private function handleLandActionLog(ActionEvent $event): void
-    {
-        $this->createLandActionLog($event);
     }
 
     private function handleContentLog(ActionEvent $event): void
@@ -112,6 +121,14 @@ final class ActionSubscriber implements EventSubscriberInterface
             [$player->getLogKey() => $player->getLogName(), 'content' => $actionResult->getContentOrThrow()],
             new \DateTime('now')
         );
+    }
+
+    private function handleMushConsumeLog(ActionEvent $event): void
+    {
+        $player = $event->getAuthor();
+        if ($player->isMush()) {
+            $this->createMushConsumeLog($player);
+        }
     }
 
     private function handlePlayerWakeUpLog(ActionEvent $event): void

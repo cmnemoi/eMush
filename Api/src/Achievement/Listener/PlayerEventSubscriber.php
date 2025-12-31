@@ -6,6 +6,7 @@ namespace Mush\Achievement\Listener;
 
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Services\UpdatePlayerStatisticService;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Player\Entity\Player;
@@ -20,10 +21,27 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            PlayerEvent::CONVERSION_PLAYER => ['onConversionPlayer', EventPriorityEnum::LOWEST],
             PlayerEvent::DEATH_PLAYER => ['onPlayerDeath', EventPriorityEnum::LOWEST],
             PlayerEvent::END_PLAYER => ['onPlayerEnd', EventPriorityEnum::LOWEST],
             PlayerEvent::PLAYER_GOT_LIKED => ['onPlayerGotLiked', EventPriorityEnum::LOWEST],
         ];
+    }
+
+    public function onConversionPlayer(PlayerEvent $event): void
+    {
+        if ($event->hasTag(ActionEnum::EXCHANGE_BODY->toString())) {
+            return;
+        }
+
+        // Increment for the author (has_mushed) if there is an author
+        $author = $event->getAuthor();
+        if ($author !== null) {
+            $this->updatePlayerStatisticService->execute(
+                player: $author,
+                statisticName: StatisticEnum::HAS_MUSHED,
+            );
+        }
     }
 
     public function onPlayerEnd(PlayerEvent $event): void

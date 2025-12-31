@@ -26,6 +26,7 @@ enum StatisticEnum: string
     case SIGNAL_EQUIP = 'signal_equip';
     case SIGNAL_FIRE = 'signal_fire';
     case SUCCEEDED_INSPECTION = 'succeeded_inspection';
+    case HAS_MUSHED = 'has_mushed';
     case ANDIE = 'andie';
     case CHUN = 'chun';
     case KUAN_TI = 'kuan_ti';

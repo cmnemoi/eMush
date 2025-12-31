@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Action\Actions;
 
+use Mush\Achievement\Entity\PendingStatistic;
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\ExchangeBody;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -41,6 +44,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
 
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private StatusServiceInterface $statusService;
 
     private Player $source;
@@ -56,6 +60,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->exchangeBody = $I->grabService(ExchangeBody::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->source = $this->player;
         $this->target = $this->player2;
@@ -312,6 +317,13 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->whenSourceExchangesBodyWithTarget();
 
         $this->thenTargetPlayerShouldHaveUsedStatuses($I);
+    }
+
+    public function shouldNotIncrementContaminatorStatistic(FunctionalTester $I): void
+    {
+        $this->whenSourceExchangesBodyWithTarget();
+
+        $this->thenThereShouldBeNoContaminatorStatistic($I);
     }
 
     private function givenTargetPlayerHasShooterSkill(FunctionalTester $I): void
@@ -642,5 +654,12 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     private function thenTargetPlayerShouldHaveUsedStatuses(FunctionalTester $I): void
     {
         $I->assertTrue($this->target->hasStatus(PlayerStatusEnum::HAS_ADAPTED_EPIGENETICS));
+    }
+
+    private function thenThereShouldBeNoContaminatorStatistic(FunctionalTester $I): void
+    {
+        $stats = $this->pendingStatisticRepository->findAllByClosedDaedalusId($this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId());
+        $contaminatorStats = array_filter($stats, static fn (PendingStatistic $stat) => $stat->getConfig()->getName() === StatisticEnum::HAS_MUSHED);
+        $I->assertEmpty($contaminatorStats);
     }
 }

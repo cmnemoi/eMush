@@ -195,6 +195,11 @@ abstract class AchievementConfigData
                 threshold: 1_000,
             ),
             new AchievementConfigDto(
+                name: AchievementEnum::HAS_MUSHED_1,
+                points: 1,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
                 name: AchievementEnum::SUCCEEDED_INSPECTION_1,
                 points: 0,
                 threshold: 1,

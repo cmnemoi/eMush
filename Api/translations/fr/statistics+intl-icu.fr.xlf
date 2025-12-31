@@ -1601,5 +1601,19 @@
         <target>Lépiocidaire</target>
       </segment>
     </unit>
+    <unit id="has_mushed">
+      <segment id="name" state="translated">
+        <source>has_mushed.name</source>
+        <target>Infecteur</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>has_mushed.description</source>
+        <target>Nombre de fois où vous avez contaminé un membre de l'équipage jusqu'à l'infection totale.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>has_mushed_1.name</source>
+        <target>Agent infectieux</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

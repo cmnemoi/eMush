@@ -279,6 +279,15 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $this->thenContaminatorShouldHaveTriumph(10, $I); // +1 infection, +1 infection, +8 conversion
     }
 
+    public function shouldAdvanceInfectionRelatedStatistics(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasAContaminatedRationWithSpores(7);
+
+        $this->whenKuanTiConsumesTheRation();
+
+        $this->thenContaminatorShouldHaveConversionStatistic(1, $I);
+    }
+
     public function shouldImproveTimesEatenStatisticWhenEatingContaminatedRation(FunctionalTester $I): void
     {
         $this->givenKuanTiHasAContaminatedRationWithSpores(4);
@@ -492,5 +501,14 @@ final class ConsumeActionCest extends AbstractFunctionalTest
     private function thenContaminatorShouldHaveTriumph(int $triumph, FunctionalTester $I): void
     {
         $I->assertEquals($triumph, $this->contaminator->getTriumph());
+    }
+
+    private function thenContaminatorShouldHaveConversionStatistic(int $expectedCount, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedCount, $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            name: StatisticEnum::HAS_MUSHED,
+            userId: $this->contaminator->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        )?->getCount());
     }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\Infect;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -32,6 +34,7 @@ final class InfectCest extends AbstractFunctionalTest
     private Infect $infect;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private PlayerDiseaseService $playerDiseaseService;
 
     public function _before(FunctionalTester $I)
@@ -42,6 +45,7 @@ final class InfectCest extends AbstractFunctionalTest
         $this->infect = $I->grabService(Infect::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseService::class);
 
         $this->givenKuanTiIsMush();
@@ -96,6 +100,15 @@ final class InfectCest extends AbstractFunctionalTest
         $this->whenKuanTiInfectsPlayer();
 
         $this->thenMycoAlarmPrintsPublicLog($I);
+    }
+
+    public function shouldIncrementPendingStatistic(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasSpores(2);
+
+        $this->whenKuanTiInfectsPlayer();
+
+        $this->thenKuanTiShouldHaveContaminatorStatistic(1, $I);
     }
 
     private function givenKuanTiIsMush(): void
@@ -220,5 +233,17 @@ final class InfectCest extends AbstractFunctionalTest
             ),
             I: $I,
         );
+    }
+
+    private function thenKuanTiShouldHaveContaminatorStatistic(int $expectedCount, FunctionalTester $I): void
+    {
+        $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            StatisticEnum::HAS_MUSHED,
+            $this->kuanTi->getUser()->getId(),
+            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
+        );
+
+        $I->assertNotNull($statistic);
+        $I->assertEquals($expectedCount, $statistic->getCount());
     }
 }

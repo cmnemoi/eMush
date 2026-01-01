@@ -217,7 +217,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>lie_down.description</source>
-        <target>To relax, or just have a chat, nothing beats a little lie down… Lying down allows you to restore 1 :pa: every cycle and 1 :pmo: if a shrink is present.</target>
+        <target>To relax, or just have a chat, nothing beats a little lie down… Lying down allows you to restore 1 :pa: every cycle, and 1 :pmo: if a shrink is present.</target>
       </segment>
     </unit>
     <unit id="move">
@@ -435,6 +435,16 @@ Thanks for your help!</target>
 //
 This action is only available once per day for the entire crew.
 Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
+      </segment>
+    </unit>
+    <unit id="wash_with_perfume">
+      <segment id="name" state="translated">
+        <source>wash_with_perfume.name</source>
+        <target>Tidy up</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>wash_with_perfume.description</source>
+        <target>Replaces an odorous smell with another odorous smell.//This action can only be performed once per day.</target>
       </segment>
     </unit>
     <unit id="extinguish">
@@ -1839,6 +1849,40 @@ Or you simply need some fresh air.... or not.</target>
       <segment id="description" state="translated">
         <source>force_exploration_step.description</source>
         <target>Advances the expedition by one cycle. Finola estimates a ±0.0002% increase in survival. Study not peer-reviewed (nor reviewed by NERON).</target>
+      </segment>
+    </unit>
+    <unit id="recharge_battery">
+      <segment id="recharge_battery" state="translated">
+        <source>recharge_battery.name</source>
+        <target>Supercharge</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>recharge_battery.description</source>
+        <target>Inserts a nuclear battery into the thingy to make sure it never empties out.//Gotta be an admin thing...</target>
+      </segment>
+    </unit>
+    <unit id="remove_beginner">
+      <segment id="name" state="translated">
+        <source>remove_beginner.name</source>
+        <target>I'm not a newbie!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>remove_beginner.description</source>
+        <target>Remove your Academy badge with some disdain. // This action can only be executed before the game starts. // Your chances of being selected as Mush will go back up.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>remove_beginner.confirmation</source>
+        <target>The Beginner status helps your teammates be aware you could need a bigger margin for error. Removing the status is permanent for the duration of this ship. If you are an actual beginner, it is advised not to remove the status. Are you sure you want to continue?</target>
+      </segment>
+    </unit>
+    <unit id="lie_down_in_ship">
+      <segment id="lie_down_in_ship" state="translated">
+        <source>lie_down_in_ship.name</source>
+        <target>Lie down</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>lie_down_in_ship.description</source>
+        <target>It's cramped in there, but the blanket promises a cromulent nap. // Lying down allows you to restore 1 :pa: every cycle, and 1 :pmo: if a shrink is present... Although it'd be ambitious to have two people aboard.</target>
       </segment>
     </unit>
   </file>

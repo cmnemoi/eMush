@@ -4068,5 +4068,109 @@ A hunter and their gun are never far apart.</target>
 Allows :sk_conceptor: Designers to access the Command Terminal.</target>
       </segment>
     </unit>
+    <unit id="debris_printer">
+      <segment id="name" state="translated">
+        <source>debris_printer.name</source>
+        <target>Debris Printer</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>debris_printer.short_name</source>
+        <target>Debris printer</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>debris_printer.gender</source>
+        <target>female</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>debris_printer.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>debris_printer.description</source>
+        <target>Can create anything by erasing its absence. And that kind of tech is being used for a slot machine. // :point: Pull the lever once per day for a chance to **Win Big**!!</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>debris_printer.examine</source>
+        <target>A label on the side of the machine says "It's always fun to press buttons, again and again and again." Sinister. // Once per day, cross your fingers and aim for the jackpot.</target>
+      </segment>
+    </unit>
+    <unit id="antique_perfume_item">
+      <segment id="name" state="translated">
+        <source>antique_perfume_item.name</source>
+        <target>Antique Perfume...?</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>antique_perfume_item.short_name</source>
+        <target>Antique Perfume</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>antique_perfume_item.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>antique_perfume_item.first_letter</source>
+        <target>vowel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>antique_perfume_item.description</source>
+        <target>A good ol' stinker from the twenties. The twenty twenties.//:point: Can be used to **wash yourself** once per day. Creates a **Public** log when used.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>antique_perfume_item.examine</source>
+        <target>"Wait, the item or the skill?"//Can be used to **wash yourself** once per day. Creates a **Public** log when used.</target>
+      </segment>
+    </unit>
+    <unit id="megaphone">
+      <segment id="name" state="translated">
+        <source>megaphone.name</source>
+        <target>Megaphone</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>megaphone.short_name</source>
+        <target>Megaphone</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>megaphone.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>megaphone.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>megaphone.description</source>
+        <target>Why delegate when you can lead?//:point: Take this in hand to **shout** **Announcements** just like a real Comms Manager!</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>megaphone.examine</source>
+        <target>The perfect tool to bother the crew from anywhere.//Allows its wielder to do **General Announcements**.</target>
+      </segment>
+    </unit>
+    <unit id="ship_blanket">
+      <segment id="name" state="translated">
+        <source>ship_blanket.name</source>
+        <target>"Lil' Star Hunter©" Blanket Ages 5 to 99</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>ship_blanket.short_name</source>
+        <target>Travel blanket</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>ship_blanket.gender</source>
+        <target>female</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>ship_blanket.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>ship_blanket.description</source>
+        <target>**Wow!** with these AMAZING colors and GLOW IN THE DARK stars, the Duke of Nightmares must be quaking in his boots! With the Lil' Star Hunter© Blanket and Helmet, here's a well prepared Spaceman!//:point: Allows you to turn any spaceship into a sleeping nook.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>ship_blanket.examine</source>
+        <target>"Lil' Star Hunter©" Helmet sold separately. Hand wash only. The "Lil' Star Hunter©" Blanket is not a toy. Do not eat. Do not shove in an exhaust pipe. 99% Polyester. In accordance with the 3151 Huchbert law on daily life carcinogenics, you have waived your rights to sue. No refunds. // Allows **Lying Down** in a Patrol Ship, Pasiphae, or any other spaceship.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

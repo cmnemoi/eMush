@@ -299,6 +299,12 @@ other {invalid gender input}}.</target>
         <target>Te lavas y sientes que el agua te quema... Cuánto extrañas disfrutar de un buen baño...</target>
       </segment>
     </unit>
+    <unit id="wash_with_perfume">
+      <segment id="wash_with_perfume" state="initial">
+        <source>wash_with_perfume</source>
+        <target>wash_with_perfume</target>
+      </segment>
+    </unit>
     <unit id="shred_success">
       <segment id="shred_success" state="translated">
         <source>shred_success</source>
@@ -1069,6 +1075,30 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
             male {un} 
             other {}
           } **{equipment}** de su canasta.</target>
+      </segment>
+    </unit>
+    <unit id="recharge_battery_success">
+      <segment id="recharge_battery_success" state="initial">
+        <source>recharge_battery_success</source>
+        <target>recharge_battery_success</target>
+      </segment>
+    </unit>
+    <unit id="use_debris_printer">
+      <segment id="use_debris_printer" state="initial">
+        <source>use_debris_printer</source>
+        <target>use_debris_printer</target>
+      </segment>
+    </unit>
+    <unit id="remove_beginner_success">
+      <segment id="remove_beginner_success" state="initial">
+        <source>remove_beginner_success</source>
+        <target>remove_beginner_success</target>
+      </segment>
+    </unit>
+    <unit id="lie_down_in_ship">
+      <segment id="lie_down_in_ship" state="initial">
+        <source>lie_down_in_ship</source>
+        <target>lie_down_in_ship</target>
       </segment>
     </unit>
   </file>

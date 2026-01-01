@@ -4057,7 +4057,7 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>debris_printer.examine</source>
-        <target>C'est toujours fun de cliquer sur des boutons. Encore, et encore, et encore.//Activez l'appareil une fois par jour, pas plus, pas moins, pour ~~développer une accoutumance~~ obtenir votre récompense.</target>
+        <target>Il y a une étiquette attachée dessus qui dit « C'est toujours fun de cliquer sur des boutons, encore, et encore, et encore ». Sinistre. // Une fois par jour, croisez les doigts et visez le jackpot.</target>
       </segment>
     </unit>
     <unit id="antique_perfume_item">
@@ -4135,7 +4135,7 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>ship_blanket.examine</source>
-        <target>Casque "Le Petit Chasseur©" vendu séparément. Lavage à la main uniquement. La Couette "Le Petit Chasseur©" n'est pas un jouet. Ne pas ingérer. Ne pas insérer dans un tuyau d'échappement. 99% Polyester. En accordance avec la loi Huchbert de 3151 sur les carcinogènes quotidiens, vous renoncez à vos droits de poursuite en justice. Aucun remboursement ne sera accordé.//Permet de **S'Allonger** en Patrouilleur, Pasiphae, ou tout autre véhicule spatial.</target>
+        <target>Casque "Le Petit Chasseur©" vendu séparément. Lavage à la main uniquement. La Couette "Le Petit Chasseur©" n'est pas un jouet. Ne pas ingérer. Ne pas insérer dans un tuyau d'échappement. 99% Polyester. Conformément avec la loi Huchbert de 3151 sur les carcinogènes quotidiens, vous renoncez à vos droits de poursuite en justice. Aucun remboursement ne sera accordé.//Permet de **S'Allonger** en Patrouilleur, Pasiphae, ou tout autre véhicule spatial.</target>
       </segment>
     </unit>
   </file>

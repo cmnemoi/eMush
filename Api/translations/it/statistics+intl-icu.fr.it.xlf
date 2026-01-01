@@ -97,6 +97,28 @@
         <target>camera_installed_1.name</target>
       </segment>
     </unit>
+    <unit id="artefact_coll">
+      <segment id="name" state="initial">
+        <source>artefact_coll.name</source>
+        <target>artefact_coll.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>artefact_coll.description</source>
+        <target>artefact_coll.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>artefact_coll_1.name</source>
+        <target>artefact_coll_1.name</target>
+      </segment>
+      <segment id="x10" state="initial">
+        <source>artefact_coll_10.name</source>
+        <target>artefact_coll_10.name</target>
+      </segment>
+      <segment id="x15" state="initial">
+        <source>artefact_coll_15.name</source>
+        <target>artefact_coll_15.name</target>
+      </segment>
+    </unit>
     <unit id="planet_scanned">
       <segment id="name" state="translated">
         <source>planet_scanned.name</source>
@@ -1217,6 +1239,38 @@
         <target>pilgred_is_back_1.name</target>
       </segment>
     </unit>
+    <unit id="coffee_man">
+      <segment id="name" state="initial">
+        <source>coffee_man.name</source>
+        <target>coffee_man.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>coffee_man.description</source>
+        <target>coffee_man.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>coffee_man_1.name</source>
+        <target>coffee_man_1.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>coffee_man_500.name</source>
+        <target>coffee_man_500.name</target>
+      </segment>
+    </unit>
+    <unit id="ration_taken">
+      <segment id="name" state="initial">
+        <source>ration_taken.name</source>
+        <target>ration_taken.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>ration_taken.description</source>
+        <target>ration_taken.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>ration_taken_1.name</source>
+        <target>ration_taken_1.name</target>
+      </segment>
+    </unit>
     <unit id="day_max">
       <segment id="name" state="translated">
         <source>day_max.name</source>
@@ -1269,6 +1323,34 @@
       <segment id="x13" state="translated">
         <source>day_max_13.name</source>
         <target>day_max_13.name</target>
+      </segment>
+    </unit>
+    <unit id="project_complete">
+      <segment id="name" state="initial">
+        <source>project_complete.name</source>
+        <target>project_complete.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>project_complete.description</source>
+        <target>project_complete.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>project_complete_1.name</source>
+        <target>project_complete_1.name</target>
+      </segment>
+    </unit>
+    <unit id="research_complete">
+      <segment id="name" state="initial">
+        <source>research_complete.name</source>
+        <target>research_complete.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>research_complete.description</source>
+        <target>research_complete.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>research_complete_1.name</source>
+        <target>research_complete_1.name</target>
       </segment>
     </unit>
     <unit id="drugs_taken">
@@ -1489,6 +1571,62 @@
       <segment id="x4000" state="translated">
         <source>team_mush_killed_4000.name</source>
         <target>team_mush_killed_4000.name</target>
+      </segment>
+    </unit>
+    <unit id="mage_books_learned">
+      <segment id="name" state="initial">
+        <source>mage_books_learned.name</source>
+        <target>mage_books_learned.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mage_books_learned.description</source>
+        <target>mage_books_learned.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>mage_books_learned_1.name</source>
+        <target>mage_books_learned_1.name</target>
+      </segment>
+    </unit>
+    <unit id="natamist">
+      <segment id="name" state="initial">
+        <source>natamist.name</source>
+        <target>natamist.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>natamist.description</source>
+        <target>natamist.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>natamist_1.name</source>
+        <target>natamist_1.name</target>
+      </segment>
+    </unit>
+    <unit id="has_mushed">
+      <segment id="name" state="initial">
+        <source>has_mushed.name</source>
+        <target>has_mushed.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>has_mushed.description</source>
+        <target>has_mushed.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>has_mushed_1.name</source>
+        <target>has_mushed_1.name</target>
+      </segment>
+    </unit>
+    <unit id="mushed">
+      <segment id="name" state="initial">
+        <source>mushed.name</source>
+        <target>mushed.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>mushed.description</source>
+        <target>mushed.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>mushed_1.name</source>
+        <target>mushed_1.name</target>
       </segment>
     </unit>
   </file>

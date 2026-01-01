@@ -159,7 +159,7 @@
     <unit id="lie_down">
       <segment id="lie_down" state="translated">
         <source>lie_down</source>
-        <target>**{character}** is lying down... It's good to just stop and take a break. Destination : the land of dreams!</target>
+        <target>**{character}** is lying down... It's good to just stop and take a break. Destination: the land of dreams!</target>
       </segment>
     </unit>
     <unit id="enter_room">
@@ -291,6 +291,16 @@
       <segment id="wash_in_sink_mush" state="translated">
         <source>wash_in_sink_mush</source>
         <target>While washing you feel yourself burning, like the water is slowly killing you... What you wouldn't do to switch places with one of them...</target>
+      </segment>
+    </unit>
+    <unit id="wash_with_perfume">
+      <segment id="wash_with_perfume" state="translated">
+        <source>wash_with_perfume</source>
+        <target>{character_gender, select, 
+male {**{character}** generously sprays himself with perfume across his face, neck, top, armpits, ... No doubt about it, he smells "clean" now. } 
+female {**{character}** generously sprays herself with perfume across her face, neck, top, armpits, ... No doubt about it, she smells "clean" now. } 
+other {**{character}** generously sprays themself with perfume across their face, neck, top, armpits, ... No doubt about it, they smell "clean" now. }
+} </target>
       </segment>
     </unit>
     <unit id="shred_success">
@@ -1130,6 +1140,37 @@ other {a}} **{equipment}** out of {character_gender, select,
         female {her} 
         male {his} 
         other {their}} basket.</target>
+      </segment>
+    </unit>
+    <unit id="recharge_battery_success">
+      <segment id="recharge_battery_success" state="translated">
+        <source>recharge_battery_success</source>
+        <target>**{character}** pulls out a small battery with warning labels all over it from their pocket, and inserts it into **{target_equipment}**. There's an odd crackly background noise, but the machine is bursting at the seams with power.</target>
+      </segment>
+    </unit>
+    <unit id="use_debris_printer">
+      <segment id="use_debris_printer" state="translated">
+        <source>use_debris_printer</source>
+        <target>**{character}** pushes the green button and the lights go off in a spectacular fashion...! You'd almost think yourself at Las Fortuna Tessera... {quantity, select, 
+        1 {Into the tray drops **{equipment_first_letter, select, 
+            consonant {a} 
+            vowel {an} 
+            other {}}} 
+        3 {**DING DING DING !** Jackpot ! **Three}
+        other {{quantity}}
+        } {equipment}{quantity, select, 1 {} other {s}}** !</target>
+      </segment>
+    </unit>
+    <unit id="remove_beginner_success">
+      <segment id="remove_beginner_success" state="translated">
+        <source>remove_beginner_success</source>
+        <target>:st_beginner: **{character}** rips their Academy badge off of their jacket and discards it in a corner of the room. After such an act of bravado, the crew is sure to take {character_gender, select, female {her} male {him} other {them}} more seriously.</target>
+      </segment>
+    </unit>
+    <unit id="lie_down_in_ship">
+      <segment id="lie_down_in_ship" state="translated">
+        <source>lie_down_in_ship</source>
+        <target>**{character}** inclines their seat, and deploys their **{target_equipment}**... It's more or less comfortable. Same destination as ever: the land of dreams!</target>
       </segment>
     </unit>
   </file>

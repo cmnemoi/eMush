@@ -223,7 +223,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>lie_down.description</source>
-        <target>Pour vous détendre ou parler, rien de tel que de s'allonger un peu. S'allonger permet à chaque cycle passé de gagner 1 :pa: et 1 :pmo: si un psy est présent.</target>
+        <target>Pour vous détendre ou parler, rien de tel que de s'allonger un peu. S'allonger permet à chaque cycle passé de gagner 1 :pa:, ainsi que 1 :pmo: si un psy est présent.</target>
       </segment>
     </unit>
     <unit id="move">

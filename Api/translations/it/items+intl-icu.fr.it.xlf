@@ -3702,85 +3702,189 @@
       </segment>
     </unit>
     <unit id="lucky_lizaro">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>lucky_lizaro.name</source>
         <target>lucky_lizaro.name</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>lucky_lizaro.short_name</source>
         <target>lucky_lizaro.short_name</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>lucky_lizaro.plural_name</source>
         <target>lucky_lizaro.plural_name</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>lucky_lizaro.gender</source>
         <target>lucky_lizaro.gender</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>lucky_lizaro.first_letter</source>
         <target>lucky_lizaro.first_letter</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>lucky_lizaro.description</source>
         <target>lucky_lizaro.description</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>lucky_lizaro.examine</source>
         <target>lucky_lizaro.examine</target>
       </segment>
     </unit>
     <unit id="spaceship_keys">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>spaceship_keys.name</source>
         <target>spaceship_keys.name</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>spaceship_keys.short_name</source>
         <target>spaceship_keys.short_name</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>spaceship_keys.gender</source>
         <target>spaceship_keys.gender</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>spaceship_keys.first_letter</source>
         <target>spaceship_keys.first_letter</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>spaceship_keys.description</source>
         <target>spaceship_keys.description</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>spaceship_keys.examine</source>
         <target>spaceship_keys.examine</target>
       </segment>
     </unit>
     <unit id="multipass">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>multipass.name</source>
         <target>multipass.name</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>multipass.short_name</source>
         <target>multipass.short_name</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>multipass.gender</source>
         <target>multipass.gender</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>multipass.first_letter</source>
         <target>multipass.first_letter</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>multipass.description</source>
         <target>multipass.description</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>multipass.examine</source>
         <target>multipass.examine</target>
+      </segment>
+    </unit>
+    <unit id="debris_printer">
+      <segment id="name" state="initial">
+        <source>debris_printer.name</source>
+        <target>debris_printer.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>debris_printer.short_name</source>
+        <target>debris_printer.short_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>debris_printer.gender</source>
+        <target>debris_printer.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>debris_printer.first_letter</source>
+        <target>debris_printer.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>debris_printer.description</source>
+        <target>debris_printer.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>debris_printer.examine</source>
+        <target>debris_printer.examine</target>
+      </segment>
+    </unit>
+    <unit id="antique_perfume_item">
+      <segment id="name" state="initial">
+        <source>antique_perfume_item.name</source>
+        <target>antique_perfume_item.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>antique_perfume_item.short_name</source>
+        <target>antique_perfume_item.short_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>antique_perfume_item.gender</source>
+        <target>antique_perfume_item.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>antique_perfume_item.first_letter</source>
+        <target>antique_perfume_item.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>antique_perfume_item.description</source>
+        <target>antique_perfume_item.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>antique_perfume_item.examine</source>
+        <target>antique_perfume_item.examine</target>
+      </segment>
+    </unit>
+    <unit id="megaphone">
+      <segment id="name" state="initial">
+        <source>megaphone.name</source>
+        <target>megaphone.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>megaphone.short_name</source>
+        <target>megaphone.short_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>megaphone.gender</source>
+        <target>megaphone.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>megaphone.first_letter</source>
+        <target>megaphone.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>megaphone.description</source>
+        <target>megaphone.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>megaphone.examine</source>
+        <target>megaphone.examine</target>
+      </segment>
+    </unit>
+    <unit id="ship_blanket">
+      <segment id="name" state="initial">
+        <source>ship_blanket.name</source>
+        <target>ship_blanket.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>ship_blanket.short_name</source>
+        <target>ship_blanket.short_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>ship_blanket.gender</source>
+        <target>ship_blanket.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>ship_blanket.first_letter</source>
+        <target>ship_blanket.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>ship_blanket.description</source>
+        <target>ship_blanket.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>ship_blanket.examine</source>
+        <target>ship_blanket.examine</target>
       </segment>
     </unit>
   </file>

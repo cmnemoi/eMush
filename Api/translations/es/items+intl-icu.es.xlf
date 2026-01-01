@@ -4156,5 +4156,109 @@ other {# **Frutos Alienígenas**}
         <target>Un regalito de Raluca para Kuan Ti. Él no diseñó la nave para no manejarla...//Permite a los :sk_conceptor: Artífices acceder a la Terminal de Comando.</target>
       </segment>
     </unit>
+    <unit id="debris_printer">
+      <segment id="name" state="initial">
+        <source>debris_printer.name</source>
+        <target>debris_printer.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>debris_printer.short_name</source>
+        <target>debris_printer.short_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>debris_printer.gender</source>
+        <target>debris_printer.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>debris_printer.first_letter</source>
+        <target>debris_printer.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>debris_printer.description</source>
+        <target>debris_printer.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>debris_printer.examine</source>
+        <target>debris_printer.examine</target>
+      </segment>
+    </unit>
+    <unit id="antique_perfume_item">
+      <segment id="name" state="initial">
+        <source>antique_perfume_item.name</source>
+        <target>antique_perfume_item.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>antique_perfume_item.short_name</source>
+        <target>antique_perfume_item.short_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>antique_perfume_item.gender</source>
+        <target>antique_perfume_item.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>antique_perfume_item.first_letter</source>
+        <target>antique_perfume_item.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>antique_perfume_item.description</source>
+        <target>antique_perfume_item.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>antique_perfume_item.examine</source>
+        <target>antique_perfume_item.examine</target>
+      </segment>
+    </unit>
+    <unit id="megaphone">
+      <segment id="name" state="initial">
+        <source>megaphone.name</source>
+        <target>megaphone.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>megaphone.short_name</source>
+        <target>megaphone.short_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>megaphone.gender</source>
+        <target>megaphone.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>megaphone.first_letter</source>
+        <target>megaphone.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>megaphone.description</source>
+        <target>megaphone.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>megaphone.examine</source>
+        <target>megaphone.examine</target>
+      </segment>
+    </unit>
+    <unit id="ship_blanket">
+      <segment id="name" state="initial">
+        <source>ship_blanket.name</source>
+        <target>ship_blanket.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>ship_blanket.short_name</source>
+        <target>ship_blanket.short_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>ship_blanket.gender</source>
+        <target>ship_blanket.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>ship_blanket.first_letter</source>
+        <target>ship_blanket.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>ship_blanket.description</source>
+        <target>ship_blanket.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>ship_blanket.examine</source>
+        <target>ship_blanket.examine</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

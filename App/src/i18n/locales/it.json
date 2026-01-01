@@ -430,7 +430,7 @@
 			"hunterSpawnRate": "Taux d'apparition des hunters au changement de cycle",
 			"hunterSafeCycles": "Cycles où les hunters ne peuvent apparaître",
 			"startingHuntersTruceCycles": "Nombre de cycles avant l'apparition de nouveaux hunters au début de la partie",
-			"randomSpores": "Nombre de spores distribué en début de partie si l'option est active"
+			"randomSpores": "Nombre de spores distribués en début de partie si l'option est active"
 		},
 		"characterConfig": {
 			"name": "Nom",
@@ -1120,8 +1120,8 @@
 		"notification": {
 			"subscribeSuccess": "Vous êtes maintenant abonné aux notifications !",
 			"subscribeError": "Une erreur s'est produite lors de l'abonnement aux notifications.",
-			"unsubscribeSuccess": "Vous vous êtes désabonné des notifications.",
-			"unsubscribeError": "Une erreur s'est produite lors de la désabonnement des notifications."
+			"unsubscribeSuccess": "Vous vous êtes désabonné aux notifications.",
+			"unsubscribeError": "Une erreur s'est produite lors du désabonnement aux notifications."
 		},
 		"newVersion": "Une nouvelle version du jeu est disponible, veuillez vider votre cache."
 	},

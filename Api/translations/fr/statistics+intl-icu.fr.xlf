@@ -1625,7 +1625,7 @@
         <target>Nombre de fois où vous avez été contaminé jusqu'à l'infection totale.</target>
       </segment>
       <segment id="x1" state="translated">
-        <source>mushed.name</source>
+        <source>mushed_1.name</source>
         <target>Infecté</target>
       </segment>
     </unit>

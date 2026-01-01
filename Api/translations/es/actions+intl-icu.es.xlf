@@ -430,6 +430,16 @@ Esta acción solo está disponible una vez por día para toda la tripulación.
 Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
       </segment>
     </unit>
+    <unit id="wash_with_perfume">
+      <segment id="name" state="initial">
+        <source>wash_with_perfume.name</source>
+        <target>wash_with_perfume.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>wash_with_perfume.description</source>
+        <target>wash_with_perfume.description</target>
+      </segment>
+    </unit>
     <unit id="extinguish">
       <segment id="name" state="translated">
         <source>extinguish.name</source>
@@ -1841,6 +1851,40 @@ Todos tus camaradas serán *notificados* y el anuncio permanecerá en la pestañ
       <segment id="description" state="translated">
         <source>force_exploration_step.description</source>
         <target>Avanza la expedición un ciclo. Finola estima un aumento del ±0,0002 % en la supervivencia. Estudio no revisado por pares (ni revisado por NERON).</target>
+      </segment>
+    </unit>
+    <unit id="recharge_battery">
+      <segment id="recharge_battery" state="initial">
+        <source>recharge_battery.name</source>
+        <target>recharge_battery.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>recharge_battery.description</source>
+        <target>recharge_battery.description</target>
+      </segment>
+    </unit>
+    <unit id="remove_beginner">
+      <segment id="name" state="initial">
+        <source>remove_beginner.name</source>
+        <target>remove_beginner.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>remove_beginner.description</source>
+        <target>remove_beginner.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>remove_beginner.confirmation</source>
+        <target>remove_beginner.confirmation</target>
+      </segment>
+    </unit>
+    <unit id="lie_down_in_ship">
+      <segment id="lie_down_in_ship" state="initial">
+        <source>lie_down_in_ship.name</source>
+        <target>lie_down_in_ship.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>lie_down_in_ship.description</source>
+        <target>lie_down_in_ship.description</target>
       </segment>
     </unit>
   </file>

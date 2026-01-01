@@ -438,6 +438,10 @@ class DaedalusConfig
 
     public function getHoliday(): string
     {
+        if ($this->holiday === HolidayEnum::CURRENT) {
+            $this->setHoliday(HolidayEnum::CURRENT);
+        }
+
         return $this->holiday;
     }
 
@@ -529,7 +533,8 @@ class DaedalusConfig
             return HolidayEnum::HALLOWEEN;
         }
 
-        return HolidayEnum::NONE;
+        // check again next time getHoliday is called
+        return HolidayEnum::CURRENT;
     }
 
     public function getPlayerCount(): int

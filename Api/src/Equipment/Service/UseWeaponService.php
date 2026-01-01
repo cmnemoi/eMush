@@ -80,7 +80,6 @@ final readonly class UseWeaponService
         $result->addDetail('baseDamage', $damage);
         // Add weapon event type to tags to handle critical events effects
         $tags[] = $weaponEventConfig->getType()->toString();
-        $tags[] = $result->getGameItemActionProviderOrDefault()->getName();
 
         $playerVariableEvent = new PlayerVariableEvent(
             player: $target,

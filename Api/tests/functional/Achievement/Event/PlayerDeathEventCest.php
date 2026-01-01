@@ -6,11 +6,12 @@ namespace Mush\tests\functional\Achievement\Event;
 
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
-use Mush\Action\Entity\ActionResult\Success;
+use Mush\Action\Actions\Shoot;
+use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Equipment\Service\UseWeaponService;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -19,16 +20,20 @@ use Mush\Tests\FunctionalTester;
  */
 final class PlayerDeathEventCest extends AbstractFunctionalTest
 {
+    private ActionConfig $shootConfig;
+    private Shoot $shootAction;
+
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private UseWeaponService $useWeapon;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
+        $this->shootConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SHOOT]);
+        $this->shootAction = $I->grabService(Shoot::class);
+
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->useWeapon = $I->grabService(UseWeaponService::class);
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
     }
 
@@ -92,16 +97,19 @@ final class PlayerDeathEventCest extends AbstractFunctionalTest
 
     private function whenPlayerKillsPlayer2WithNatamyRifle(): void
     {
+        /** @var GameItem $natamyRifle */
         $natamyRifle = $this->player->getEquipments()->filter(
             static fn (GameItem $item) => $item->getName() === ItemEnum::NATAMY_RIFLE
         )->first();
+        $natamyRifle->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
 
-        $result = new Success()
-            ->setPlayer($this->player)
-            ->setTarget($this->player2)
-            ->setActionProvider($natamyRifle);
-
-        $this->useWeapon->execute($result, []);
+        $this->shootAction->loadParameters(
+            actionConfig: $this->shootConfig,
+            actionProvider: $natamyRifle,
+            player: $this->player,
+            target: $this->player2,
+        );
+        $this->shootAction->execute();
     }
 
     private function thenPlayerShouldHaveNatamistStatistic(FunctionalTester $I): void

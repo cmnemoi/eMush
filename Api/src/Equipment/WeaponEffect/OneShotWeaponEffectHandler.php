@@ -20,6 +20,7 @@ final readonly class OneShotWeaponEffectHandler extends AbstractWeaponEffectHand
         $this->playerService->killPlayer(
             player: $effect->applyToShooter() ? $effect->getAttacker() : $effect->getTarget(),
             endReason: $effect->getEndCause(),
+            tags: $effect->getTags(),
             author: $effect->getAttacker(),
         );
     }

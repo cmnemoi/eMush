@@ -1903,5 +1903,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>On manque de place là dedans, mais la couette promet une sieste adéquate. // S'allonger permet à chaque cycle passé de gagner 1 :pa:, ainsi que 1 :pmo: si un psy est présent... Mais monter à deux dans cet appareil serait ambitieux.</target>
       </segment>
     </unit>
+    <unit id="read_schoolbooks">
+      <segment id="name" state="translated">
+        <source>read_schoolbooks.name</source>
+        <target>Réviser!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>read_schoolbooks.description</source>
+        <target>Rafraichissez votre mémoire pour remettre à jour vos connaissances.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

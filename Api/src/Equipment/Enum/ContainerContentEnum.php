@@ -393,7 +393,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::JIN_SU,
         ],
         [
-            'item' => ItemEnum::MULTIPASS, // @TODO: Multipass
+            'item' => ItemEnum::MULTIPASS,
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,
@@ -561,7 +561,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::TERRENCE,
         ],
         [
-            'item' => 'apprentron_genius', // @TODO: Forgotten school notes
+            'item' => ItemEnum::SCHOOLBOOKS,
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,

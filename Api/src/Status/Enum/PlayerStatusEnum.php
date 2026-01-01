@@ -89,6 +89,7 @@ abstract class PlayerStatusEnum
     public const string HAS_USED_FERTILE_TODAY = 'has_used_fertile_today';
     public const string HAS_USED_TRAITOR_THIS_EXPEDITION = 'has_used_traitor_this_expedition';
     public const string HAS_EXTRA_MUSH_SLOT_ANNIVERSARY = 'has_extra_mush_slot_anniversary';
+    public const string HAS_READ_SCHOOLBOOKS_ANNIVERSARY = 'has_read_schoolbooks_anniversary';
     public const array MUSH_SKILL_STATUSES_SWAPPED_BY_TRANSFER = [
         self::HAS_ADAPTED_EPIGENETICS,
         self::HAS_USED_MASS_GGEDON,

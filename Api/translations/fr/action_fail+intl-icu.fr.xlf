@@ -870,5 +870,11 @@
         <target>Les grands champis se rencontrent. Un de vos compagnons prévoit déjà de ruiner le prochain secteur.</target>
       </segment>
     </unit>
+    <unit id="does_not_have_skill_polyvalent">
+      <segment id="description" state="translated">
+        <source>does_not_have_skill_polyvalent.description</source>
+        <target>Vous devez prendre :sk_polyvalent: Polyvalent avant d'effectuer vos révisions.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

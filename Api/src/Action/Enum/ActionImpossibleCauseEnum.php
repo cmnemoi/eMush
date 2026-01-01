@@ -130,6 +130,7 @@ abstract class ActionImpossibleCauseEnum
     public const string SABOTAGE_EXPLORATION_LOST = 'sabotage_exploration_lost';
     public const string EXPLORATION_ALREADY_SABOTAGED = 'exploration_already_sabotaged';
     public const string SABOTAGE_EXPLORATION_SPENT = 'sabotage_exploration_spent';
+    public const string DOES_NOT_HAVE_SKILL_POLYVALENT = 'does_not_have_skill_polyvalent';
 
     // April Fools Dog messages
     public const string DOG_IS_SEASICK = 'dog_is_seasick';

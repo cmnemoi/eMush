@@ -1194,6 +1194,9 @@ class ActionsFixtures extends Fixture
         $lieDownInShipAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::LIE_DOWN_IN_SHIP));
         $manager->persist($lieDownInShipAction);
 
+        $readSchoolbooksAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::READ_SCHOOLBOOKS));
+        $manager->persist($readSchoolbooksAction);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1355,5 +1358,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::ADAPT_EPIGENETICS->value, $adaptEpigenetics);
         $this->addReference(ActionEnum::SABOTAGE_EXPLORATION->value, $sabotageExploration);
         $this->addReference(ActionEnum::LIE_DOWN_IN_SHIP->value, $lieDownInShipAction);
+        $this->addReference(ActionEnum::READ_SCHOOLBOOKS->value, $readSchoolbooksAction);
     }
 }

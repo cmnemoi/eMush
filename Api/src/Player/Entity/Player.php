@@ -1293,14 +1293,17 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function getHumanSkillSlots(): int
     {
-        $skillSlots = $this->daedalus->getDaedalusConfig()->getHumanSkillSlots();
+        // @TODO: SkillSlots should be a player-side value instead of a DaedalusConfig value
+        $skillSlots = min($this->daedalus->getDaedalusConfig()->getHumanSkillSlots(), $this->getHumanLevel());
 
-        return $this->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK) ? $skillSlots + 1 : $skillSlots;
+        $skillSlots = $this->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK) ? $skillSlots + 1 : $skillSlots;
+
+        return $this->hasStatus(PlayerStatusEnum::HAS_READ_SCHOOLBOOKS_ANNIVERSARY) ? $skillSlots + 2 : $skillSlots;
     }
 
     public function getMushSkillSlots(): int
     {
-        $skillSlots = $this->daedalus->getDaedalusConfig()->getMushSkillSlots();
+        $skillSlots = min($this->daedalus->getDaedalusConfig()->getMushSkillSlots(), $this->getMushLevel());
 
         return $this->hasStatus(PlayerStatusEnum::HAS_EXTRA_MUSH_SLOT_ANNIVERSARY) ? $skillSlots + 1 : $skillSlots;
     }

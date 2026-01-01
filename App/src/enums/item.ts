@@ -93,6 +93,7 @@ const MULTIPASS = "multipass";
 const ANTIQUE_PERFUME_ITEM = "antique_perfume_item";
 const MEGAPHONE = "megaphone";
 const SHIP_BLANKET = "ship_blanket";
+const SCHOOLBOOKS = "schoolbooks";
 
 //containers
 const ANNIVERSARY_GIFT = "anniversary_gift";
@@ -573,5 +574,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [SHIP_BLANKET]:{
         'image': getImgUrl('items/ship_blanket.png')
+    },
+    [SCHOOLBOOKS]:{
+        'image': getImgUrl('items/schoolbooks.png')
     }
 };

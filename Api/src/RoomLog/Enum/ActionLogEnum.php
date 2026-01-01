@@ -643,6 +643,9 @@ abstract class ActionLogEnum
         ActionEnum::LIE_DOWN_IN_SHIP->value => [
             ActionOutputEnum::SUCCESS => ActionEnum::LIE_DOWN_IN_SHIP->value,
         ],
+        ActionEnum::READ_SCHOOLBOOKS->value => [
+            ActionOutputEnum::SUCCESS => ActionEnum::READ_BOOK->value,
+        ],
     ];
 
     public static function dependsOnNeronMood(string $logKey): bool

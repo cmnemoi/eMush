@@ -81,6 +81,7 @@ enum ActionEnum: string
     case OPEN_CONTAINER = 'open_container';
     case PLAY_WITH_DOG = 'play_with_dog';
     case LIE_DOWN_IN_SHIP = 'lie_down_in_ship';
+    case READ_SCHOOLBOOKS = 'read_schoolbooks';
 
     // Equipment-enabled actions
     case INSERT_FUEL = 'insert_fuel';

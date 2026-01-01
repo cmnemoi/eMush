@@ -64,6 +64,7 @@ class ItemEnum
     public const string ANTIQUE_PERFUME_ITEM = 'antique_perfume_item';
     public const string MEGAPHONE = 'megaphone';
     public const string SHIP_BLANKET = 'ship_blanket';
+    public const string SCHOOLBOOKS = 'schoolbooks';
 
     public static function getArtefacts(): ArrayCollection
     {

@@ -4138,5 +4138,31 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
         <target>Casque "Le Petit Chasseur©" vendu séparément. Lavage à la main uniquement. La Couette "Le Petit Chasseur©" n'est pas un jouet. Ne pas ingérer. Ne pas insérer dans un tuyau d'échappement. 99% Polyester. Conformément avec la loi Huchbert de 3151 sur les carcinogènes quotidiens, vous renoncez à vos droits de poursuite en justice. Aucun remboursement ne sera accordé.//Permet de **S'Allonger** en Patrouilleur, Pasiphae, ou tout autre véhicule spatial.</target>
       </segment>
     </unit>
+    <unit id="schoolbooks">
+      <segment id="name" state="translated">
+        <source>schoolbooks.name</source>
+        <target>Set de Cahiers d'Université</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>schoolbooks.short_name</source>
+        <target>Set de cahiers de cours</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>schoolbooks.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>schoolbooks.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>schoolbooks.description</source>
+        <target>Des cahiers remplis d’une écriture soignée. Quelle aubaine de les avoir retrouvés!//:point: Faites passer votre **Polyvalence** au niveau supérieur.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>schoolbooks.examine</source>
+        <target>3152, Année 6 -- Appartient à A. Graham.//Améliore **Polyvalent**... Il va falloir les lire pour se rappeler comment.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

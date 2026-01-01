@@ -1408,5 +1408,11 @@
         <target>***Modération Uniquement:*** Le symptôme **Accès Psychotique** force **{character}** à attaquer.</target>
       </segment>
     </unit>
+    <unit id="revised_knowledge">
+      <segment id="revised_knowledge" state="translated">
+        <source>revised_knowledge</source>
+        <target>C'était pourtant si simple ! Vous vous étiez vraiment laissé aller... Vous êtes maintenant **Botaniste**, **Biologiste** et **Diplomate** !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

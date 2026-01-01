@@ -4444,6 +4444,24 @@ class EquipmentConfigData
             'mechanics' => ['tool_' . ItemEnum::SHIP_BLANKET . '_default'],
             'initStatuses' => [],
         ],
+        [
+            'name' => ItemEnum::SCHOOLBOOKS . '_default',
+            'equipmentName' => ItemEnum::SCHOOLBOOKS,
+            'breakableType' => BreakableTypeEnum::DESTROY_ON_BREAK,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => true,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+                ActionEnum::READ_SCHOOLBOOKS->value,
+            ],
+            'mechanics' => [],
+            'initStatuses' => [],
+        ],
     ];
 
     public static function getByEquipmentName(string $name): array

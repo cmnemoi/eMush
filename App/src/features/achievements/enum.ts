@@ -37,6 +37,7 @@ export const enum StatisticEnum {
     SIGNAL_FIRE = "signal_fire",
     SUCCEEDED_INSPECTION = "succeeded_inspection",
     HAS_MUSHED = 'has_mushed',
+    MUSHED = 'mushed',
     COOKED_TAKEN = "cooked_taken",
     DAILY_ORDER = "daily_order",
     EDEN = "eden",
@@ -187,6 +188,9 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.HAS_MUSHED]: {
         'icon': getImgUrl('achievements/infecter.png')
+    },
+    [StatisticEnum.MUSHED]: {
+        'icon': getImgUrl('status/mush.png')
     },
     [StatisticEnum.COOKED_TAKEN]: {
         'icon': getImgUrl('achievements/rationcooked.png')

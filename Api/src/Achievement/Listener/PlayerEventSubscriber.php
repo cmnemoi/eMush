@@ -34,6 +34,12 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
             return;
         }
 
+        // Increment for the converted player (mushed)
+        $this->updatePlayerStatisticService->execute(
+            player: $event->getPlayer(),
+            statisticName: StatisticEnum::MUSHED,
+        );
+
         // Increment for the author (has_mushed) if there is an author
         $author = $event->getAuthor();
         if ($author !== null) {

@@ -33,6 +33,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::SIGNAL_FIRE, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::SUCCEEDED_INSPECTION, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::HAS_MUSHED, StatisticStrategyEnum::INCREMENT),
+            new StatisticConfigDto(StatisticEnum::MUSHED, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::NEW_PLANTS, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::ANDIE, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::CHUN, StatisticStrategyEnum::INCREMENT),

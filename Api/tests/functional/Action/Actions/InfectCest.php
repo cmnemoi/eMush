@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Achievement\Entity\PendingStatistic;
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\Infect;
@@ -108,7 +109,8 @@ final class InfectCest extends AbstractFunctionalTest
 
         $this->whenKuanTiInfectsPlayer();
 
-        $this->thenKuanTiShouldHaveContaminatorStatistic(1, $I);
+        $this->thenKuanTiShouldHaveContaminatorStatistic($I);
+        $this->thenPlayerShouldHaveInfectedStatistic($I);
     }
 
     private function givenKuanTiIsMush(): void
@@ -235,15 +237,28 @@ final class InfectCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenKuanTiShouldHaveContaminatorStatistic(int $expectedCount, FunctionalTester $I): void
+    private function thenKuanTiShouldHaveContaminatorStatistic(FunctionalTester $I): void
+    {
+        $stats = $this->pendingStatisticRepository->findAllByClosedDaedalusId($this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId());
+        $contaminatorStats = array_values(array_filter($stats, static fn (PendingStatistic $stat) => $stat->getConfig()->getName() === StatisticEnum::HAS_MUSHED));
+
+        $I->assertCount(1, $contaminatorStats);
+
+        /** @var PendingStatistic $statistic */
+        $statistic = $contaminatorStats[0];
+
+        $I->assertEquals($this->kuanTi->getUser()->getId(), $statistic->getUserId());
+        $I->assertEquals(1, $statistic->getCount());
+    }
+
+    private function thenPlayerShouldHaveInfectedStatistic(FunctionalTester $I): void
     {
         $statistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
-            StatisticEnum::HAS_MUSHED,
-            $this->kuanTi->getUser()->getId(),
-            $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
+            name: StatisticEnum::MUSHED,
+            userId: $this->player->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),
         );
 
-        $I->assertNotNull($statistic);
-        $I->assertEquals($expectedCount, $statistic->getCount());
+        $I->assertEquals(1, $statistic?->getCount());
     }
 }

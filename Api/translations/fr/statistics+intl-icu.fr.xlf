@@ -1615,5 +1615,19 @@
         <target>Agent infectieux</target>
       </segment>
     </unit>
+    <unit id="mushed">
+      <segment id="name" state="translated">
+        <source>mushed.name</source>
+        <target>Infecté</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>mushed.description</source>
+        <target>Nombre de fois où vous avez été contaminé jusqu'à l'infection totale.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>mushed.name</source>
+        <target>Infecté</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

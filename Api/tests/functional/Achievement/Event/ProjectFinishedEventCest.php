@@ -6,6 +6,7 @@ namespace Mush\Test\Functional\Achievement\Event;
 
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
+use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -108,5 +109,79 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
             )?->getCount(),
             message: "{$this->player->getLogName()} should have RESEARCH_COMPLETE statistic"
         );
+    }
+
+    public function shouldUpdateProjectTeamStatisticToCrew(FunctionalTester $I): void
+    {
+        $closedDaedalusId = $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId();
+
+        // when project is finished
+        $this->finishProject($this->daedalus->getProjectByName(ProjectName::PLASMA_SHIELD), $this->player, $I);
+
+        // then the crew should have PROJECT_TEAM statistic
+        foreach ($this->daedalus->getAlivePlayers() as $player) {
+            $I->assertEquals(
+                expected: 1,
+                actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                    StatisticEnum::PROJECT_TEAM,
+                    $player->getUser()->getId(),
+                    $closedDaedalusId,
+                )?->getCount(),
+                message: "{$player->getLogName()} should have PROJECT_TEAM statistic"
+            );
+        }
+
+        // when another project is finished
+        $this->finishProject($this->daedalus->getProjectByName(ProjectName::FIRE_SENSOR), Player::createNull(), $I);
+
+        // then the crew should have PROJECT_TEAM statistic updated
+        foreach ($this->daedalus->getAlivePlayers() as $player) {
+            $I->assertEquals(
+                expected: 2,
+                actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                    StatisticEnum::PROJECT_TEAM,
+                    $player->getUser()->getId(),
+                    $closedDaedalusId,
+                )?->getCount(),
+                message: "{$player->getLogName()} should have PROJECT_TEAM statistic updated to 2"
+            );
+        }
+    }
+
+    public function shouldUpdateResearchTeamStatisticToCrew(FunctionalTester $I): void
+    {
+        $closedDaedalusId = $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId();
+
+        // when research is finished
+        $this->finishProject($this->daedalus->getProjectByName(ProjectName::ANTISPORE_GAS), $this->player, $I);
+
+        // then the crew should have RESEARCH_TEAM statistic
+        foreach ($this->daedalus->getAlivePlayers() as $player) {
+            $I->assertEquals(
+                expected: 1,
+                actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                    StatisticEnum::RESEARCH_TEAM,
+                    $player->getUser()->getId(),
+                    $closedDaedalusId,
+                )?->getCount(),
+                message: "{$player->getLogName()} should have RESEARCH_TEAM statistic"
+            );
+        }
+
+        // when another project is finished
+        $this->finishProject($this->daedalus->getProjectByName(ProjectName::MUSH_HUNTER_ZC16H), $this->player, $I);
+
+        // then the crew should have RESEARCH_TEAM statistic updated
+        foreach ($this->daedalus->getAlivePlayers() as $player) {
+            $I->assertEquals(
+                expected: 2,
+                actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                    StatisticEnum::RESEARCH_TEAM,
+                    $player->getUser()->getId(),
+                    $closedDaedalusId,
+                )?->getCount(),
+                message: "{$player->getLogName()} should have RESEARCH_TEAM statistic updated to 2"
+            );
+        }
     }
 }

@@ -79,6 +79,8 @@ export const enum StatisticEnum {
     MANKAROG_DOWN = 'mankarog_down',
     MUSH_KILLED = 'mush_killed',
     TEAM_MUSH_KILLED = 'team_mush_killed',
+    PROJECT_TEAM = 'project_team',
+    RESEARCH_TEAM = 'research_team',
     LAST_MEMBER = 'last_member',
     COMMANDER_SHOULD_GO_LAST = 'commander_should_go_last',
 }
@@ -317,6 +319,12 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.TEAM_MUSH_KILLED]: {
         'icon': getImgUrl('ui_icons/soldier.png')
+    },
+    [StatisticEnum.PROJECT_TEAM]: {
+        'icon': getImgUrl('skills/human/conceptor.png')
+    },
+    [StatisticEnum.RESEARCH_TEAM]: {
+        'icon': getImgUrl('ui_icons/research.png')
     },
     [StatisticEnum.LAST_MEMBER]: {
         'icon': getImgUrl('comms/fav.png')

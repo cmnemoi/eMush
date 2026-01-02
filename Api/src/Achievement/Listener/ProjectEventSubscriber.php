@@ -25,6 +25,13 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
 
     public function onProjectFinished(ProjectEvent $event): void
     {
+        $this->advanceForSpecificProjectFinished($event);
+        $this->advanceForAuthorOfFinishedProjectType($event);
+        $this->advanceForCrewWhenFinishedProjectType($event);
+    }
+
+    private function advanceForSpecificProjectFinished(ProjectEvent $event): void
+    {
         $statisticName = match ($event->getProject()->getName()) {
             ProjectName::PILGRED->toString() => StatisticEnum::PILGRED_IS_BACK,
             ProjectName::PLASMA_SHIELD->toString() => StatisticEnum::PLASMA_SHIELD,
@@ -37,12 +44,15 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
                 statisticName: $statisticName,
             );
         }
+    }
 
+    private function advanceForAuthorOfFinishedProjectType(ProjectEvent $event): void
+    {
         if (!$event->hasAuthor()) {
             return;
         }
 
-        $statisticNameForAuthor = match ($event->getProject()->getType()) {
+        $statisticName = match ($event->getProject()->getType()) {
             ProjectType::NERON_PROJECT => StatisticEnum::PROJECT_COMPLETE,
             ProjectType::RESEARCH => StatisticEnum::RESEARCH_COMPLETE,
             default => StatisticEnum::NULL,
@@ -50,7 +60,30 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
 
         $this->updatePlayerStatisticService->execute(
             player: $event->getAuthor(),
-            statisticName: $statisticNameForAuthor,
+            statisticName: $statisticName,
         );
+    }
+
+    private function advanceForCrewWhenFinishedProjectType(ProjectEvent $event): void
+    {
+        $statisticName = match ($event->getProject()->getType()) {
+            ProjectType::NERON_PROJECT => StatisticEnum::PROJECT_TEAM,
+            ProjectType::RESEARCH => StatisticEnum::RESEARCH_TEAM,
+            default => StatisticEnum::NULL,
+        };
+
+        $numberOfFinishedProjects = match ($event->getProject()->getType()) {
+            ProjectType::NERON_PROJECT => $event->getDaedalus()->getFinishedNeronProjects()->count(),
+            ProjectType::RESEARCH => $event->getDaedalus()->getFinishedResearchProjects()->count(),
+            default => 0,
+        };
+
+        foreach ($event->getDaedalus()->getAlivePlayers() as $player) {
+            $this->updatePlayerStatisticService->execute(
+                player: $player,
+                statisticName: $statisticName,
+                count: $numberOfFinishedProjects,
+            );
+        }
     }
 }

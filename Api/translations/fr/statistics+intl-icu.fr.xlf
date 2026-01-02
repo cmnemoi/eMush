@@ -1651,6 +1651,66 @@
         <target>Infecté</target>
       </segment>
     </unit>
+    <unit id="project_team">
+      <segment id="name" state="translated">
+        <source>project_team.name</source>
+        <target>Equipe Technique</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>project_team.description</source>
+        <target>Nombre maximal de Projets jamais développés par un de vos équipages.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>project_team_1.name</source>
+        <target>Agent de Maintenance</target>
+      </segment>
+      <segment id="x2" state="translated">
+        <source>project_team_2.name</source>
+        <target>Technicien</target>
+      </segment>
+      <segment id="x4" state="translated">
+        <source>project_team_4.name</source>
+        <target>Mécanicien</target>
+      </segment>
+      <segment id="x8" state="translated">
+        <source>project_team_8.name</source>
+        <target>Ingénieur</target>
+      </segment>
+      <segment id="x16" state="translated">
+        <source>project_team_16.name</source>
+        <target>Omnipotent</target>
+      </segment>
+    </unit>
+    <unit id="research_team">
+      <segment id="name" state="translated">
+        <source>research_team.name</source>
+        <target>Equipe De Chercheurs</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>research_team.description</source>
+        <target>Nombre maximal de Recherches jamais atteint par un de vos équipages.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>research_team_1.name</source>
+        <target>Rat De Laboratoire</target>
+      </segment>
+      <segment id="x2" state="translated">
+        <source>research_team_2.name</source>
+        <target>Doctorant</target>
+      </segment>
+      <segment id="x4" state="translated">
+        <source>research_team_4.name</source>
+        <target>Chercheur</target>
+      </segment>
+      <segment id="x8" state="translated">
+        <source>research_team_8.name</source>
+        <target>Professeur</target>
+      </segment>
+      <segment id="x16" state="translated">
+        <source>research_team_16.name</source>
+        <target>Omniscient</target>
+      </segment>
+    </unit>
     <unit id="last_member">
       <segment id="name" state="translated">
         <source>last_member.name</source>

@@ -234,6 +234,16 @@ enum AchievementEnum: string
     case TEAM_MUSH_KILLED_1000 = 'team_mush_killed_1000';
     case TEAM_MUSH_KILLED_2000 = 'team_mush_killed_2000';
     case TEAM_MUSH_KILLED_4000 = 'team_mush_killed_4000';
+    case PROJECT_TEAM_1 = 'project_team_1';
+    case PROJECT_TEAM_2 = 'project_team_2';
+    case PROJECT_TEAM_4 = 'project_team_4';
+    case PROJECT_TEAM_8 = 'project_team_8';
+    case PROJECT_TEAM_16 = 'project_team_16';
+    case RESEARCH_TEAM_1 = 'research_team_1';
+    case RESEARCH_TEAM_2 = 'research_team_2';
+    case RESEARCH_TEAM_4 = 'research_team_4';
+    case RESEARCH_TEAM_8 = 'research_team_8';
+    case RESEARCH_TEAM_16 = 'research_team_16';
     case LAST_MEMBER_1 = 'last_member_1';
     case LAST_MEMBER_2 = 'last_member_2';
     case LAST_MEMBER_5 = 'last_member_5';

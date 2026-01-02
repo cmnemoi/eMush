@@ -1651,5 +1651,73 @@
         <target>Infecté</target>
       </segment>
     </unit>
+    <unit id="last_member">
+      <segment id="name" state="translated">
+        <source>last_member.name</source>
+        <target>Dernier survivant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>last_member.description</source>
+        <target>Vous avez tenu bon jusqu'à la fin. Vous faites partie de l'Histoire !</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>last_member_1.name</source>
+        <target>Héros De Sol</target>
+      </segment>
+      <segment id="x2" state="translated">
+        <source>last_member_2.name</source>
+        <target>Champion De La Lutte</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>last_member_5.name</source>
+        <target>Martyr Ultime</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>last_member_10.name</source>
+        <target>Dernier Espoir</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>last_member_50.name</source>
+        <target>Combattant De L'Infini</target>
+      </segment>
+      <segment id="x100" state="translated">
+        <source>last_member_100.name</source>
+        <target>Immortel</target>
+      </segment>
+    </unit>
+    <unit id="commander_should_go_last">
+      <segment id="name" state="translated">
+        <source>commander_should_go_last.name</source>
+        <target>Dernier Commandant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>commander_should_go_last.description</source>
+        <target>Le Commandant doit être le dernier à quitter le vaisseau.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>commander_should_go_last_1.name</source>
+        <target>Dernier Commandant</target>
+      </segment>
+      <segment id="x2" state="translated">
+        <source>commander_should_go_last_2.name</source>
+        <target>Dernier Commandant Des Abymes</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>commander_should_go_last_5.name</source>
+        <target>Dernier Commandant Des Eons</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>commander_should_go_last_10.name</source>
+        <target>Dernier Commandant De La Galaxie</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>commander_should_go_last_50.name</source>
+        <target>Dernier Commandant Des Cordes</target>
+      </segment>
+      <segment id="x100" state="translated">
+        <source>commander_should_go_last_100.name</source>
+        <target>Dernier Commandant De L'Univers</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

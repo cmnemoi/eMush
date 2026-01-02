@@ -122,6 +122,44 @@ abstract class EndCauseEnum
         ]);
     }
 
+    public static function getDeathEndCauses(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::ABANDONED,
+            self::ALIEN_ABDUCTED,
+            self::ALLERGY,
+            self::ASPHYXIA,
+            self::ASSASSINATED,
+            self::BEHEADED,
+            self::BLACK_BITE,
+            self::BLED,
+            self::BURNT,
+            self::CLUMSINESS,
+            self::CLUMSINESS_CAT,
+            self::DAEDALUS_DESTROYED,
+            self::DEPRESSION,
+            self::ELECTROCUTED,
+            self::EXPLORATION_COMBAT,
+            self::EXPLORATION_LOST,
+            self::EXPLORATION,
+            self::INFECTION,
+            self::INJURY,
+            self::KILLED_BY_NERON,
+            self::MANKAROG,
+            self::METAL_PLATE,
+            self::NO_INFIRMERIE,
+            self::PATROL_SHIP_EXPLOSION,
+            self::QUARANTINE,
+            self::ROCKETED,
+            self::SELF_EXTRACTED,
+            self::SPACE_ASPHYXIATED,
+            self::SPACE_BATTLE,
+            self::STARVATION,
+            self::SUICIDE,
+            self::SUPER_NOVA,
+        ]);
+    }
+
     public static function isDeathEndCause(string $endCause): bool
     {
         return self::getDeathEndCauses()->contains($endCause);
@@ -162,44 +200,6 @@ abstract class EndCauseEnum
             self::SUPER_NOVA,
             self::DEPRESSION,
             self::QUARANTINE,
-        ]);
-    }
-
-    private static function getDeathEndCauses(): ArrayCollection
-    {
-        return new ArrayCollection([
-            self::ABANDONED,
-            self::ALIEN_ABDUCTED,
-            self::ALLERGY,
-            self::ASPHYXIA,
-            self::ASSASSINATED,
-            self::BEHEADED,
-            self::BLACK_BITE,
-            self::BLED,
-            self::BURNT,
-            self::CLUMSINESS,
-            self::CLUMSINESS_CAT,
-            self::DAEDALUS_DESTROYED,
-            self::DEPRESSION,
-            self::ELECTROCUTED,
-            self::EXPLORATION_COMBAT,
-            self::EXPLORATION_LOST,
-            self::EXPLORATION,
-            self::INFECTION,
-            self::INJURY,
-            self::KILLED_BY_NERON,
-            self::MANKAROG,
-            self::METAL_PLATE,
-            self::NO_INFIRMERIE,
-            self::PATROL_SHIP_EXPLOSION,
-            self::QUARANTINE,
-            self::ROCKETED,
-            self::SELF_EXTRACTED,
-            self::SPACE_ASPHYXIATED,
-            self::SPACE_BATTLE,
-            self::STARVATION,
-            self::SUICIDE,
-            self::SUPER_NOVA,
         ]);
     }
 }

@@ -93,6 +93,8 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::MUSH_KILLED, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::TEAM_MUSH_KILLED, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::ARTEFACT_COLL, StatisticStrategyEnum::INCREMENT),
+            new StatisticConfigDto(StatisticEnum::LAST_MEMBER, StatisticStrategyEnum::INCREMENT, isRare: true),
+            new StatisticConfigDto(StatisticEnum::COMMANDER_SHOULD_GO_LAST, StatisticStrategyEnum::INCREMENT, isRare: true),
         ];
     }
 

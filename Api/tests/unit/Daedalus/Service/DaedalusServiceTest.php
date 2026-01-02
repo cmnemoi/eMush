@@ -359,7 +359,8 @@ final class DaedalusServiceTest extends TestCase
 
         $this->setupTestAttributeTitles($daedalus);
 
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('callEvent')->never();
+        $this->playerService->shouldReceive('addTitleToPlayer')->once();
 
         $this->service->attributeTitles($daedalus, new \DateTime());
     }
@@ -383,7 +384,9 @@ final class DaedalusServiceTest extends TestCase
         $players = $this->setupTestAttributeTitles($daedalus);
         $players->last()->addTitle('title');
 
-        $this->eventService->shouldReceive('callEvent')->twice();
+        $this->eventService->shouldReceive('callEvent')->never();
+        $this->playerService->shouldReceive('addTitleToPlayer')->once();
+        $this->playerService->shouldReceive('removeTitleFromPlayer')->once();
 
         $this->service->attributeTitles($daedalus, new \DateTime());
     }

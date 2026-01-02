@@ -261,7 +261,7 @@ final class PlayerService implements PlayerServiceInterface
                 return $player;
             }
 
-            $this->removePlayerTitles($player);
+            $this->removePlayerTitles($player, $endReason, $time);
             $this->createClosedPlayer($player, $endReason, $time);
             $this->markPlayerAsDead($player, $endReason, $time);
             $this->dispatchPlayerDeathEvent($player, $endReason, $tags, $time, $author);
@@ -272,6 +272,24 @@ final class PlayerService implements PlayerServiceInterface
 
             throw $e;
         }
+
+        return $player;
+    }
+
+    public function addTitleToPlayer(Player $player, string $title, \DateTime $date): Player
+    {
+        $player->addTitle($title);
+        $playerEvent = new PlayerEvent($player, [$title], $date);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::TITLE_ATTRIBUTED);
+
+        return $player;
+    }
+
+    public function removeTitleFromPlayer(Player $player, string $title, \DateTime $date, array $tags = []): Player
+    {
+        $player->removeTitle($title);
+        $playerEvent = new PlayerEvent($player, array_merge([$title], $tags), $date);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::TITLE_REMOVED);
 
         return $player;
     }
@@ -330,9 +348,11 @@ final class PlayerService implements PlayerServiceInterface
         $this->persistPlayerInfo($playerInfo);
     }
 
-    private function removePlayerTitles(Player $player): void
+    private function removePlayerTitles(Player $player, string $reason, \DateTime $date): void
     {
-        $player->removeAllTitles();
+        foreach ($player->getTitles() as $title) {
+            $this->removeTitleFromPlayer($player, $title, $date, [$reason]);
+        }
         $this->persist($player);
     }
 

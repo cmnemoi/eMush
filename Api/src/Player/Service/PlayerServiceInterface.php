@@ -35,4 +35,8 @@ interface PlayerServiceInterface
     public function findUserCurrentGame(User $user): ?Player;
 
     public function killPlayer(Player $player, string $endReason, \DateTime $time = new \DateTime(), array $tags = [], ?Player $author = null): Player;
+
+    public function addTitleToPlayer(Player $player, string $title, \DateTime $date): Player;
+
+    public function removeTitleFromPlayer(Player $player, string $title, \DateTime $date, array $tags = []): Player;
 }

@@ -934,6 +934,18 @@ abstract class AchievementConfigData
             new AchievementConfigDto(name: AchievementEnum::TEAM_MUSH_KILLED_1000, points: 50, threshold: 1000),
             new AchievementConfigDto(name: AchievementEnum::TEAM_MUSH_KILLED_2000, points: 30, threshold: 2000),
             new AchievementConfigDto(name: AchievementEnum::TEAM_MUSH_KILLED_4000, points: 30, threshold: 4000),
+            new AchievementConfigDto(name: AchievementEnum::LAST_MEMBER_1, points: 10, threshold: 1),
+            new AchievementConfigDto(name: AchievementEnum::LAST_MEMBER_2, points: 10, threshold: 2),
+            new AchievementConfigDto(name: AchievementEnum::LAST_MEMBER_5, points: 20, threshold: 5),
+            new AchievementConfigDto(name: AchievementEnum::LAST_MEMBER_10, points: 5, threshold: 10),
+            new AchievementConfigDto(name: AchievementEnum::LAST_MEMBER_50, points: 1, threshold: 50),
+            new AchievementConfigDto(name: AchievementEnum::LAST_MEMBER_100, points: 1, threshold: 100),
+            new AchievementConfigDto(name: AchievementEnum::COMMANDER_SHOULD_GO_LAST_1, points: 20, threshold: 1),
+            new AchievementConfigDto(name: AchievementEnum::COMMANDER_SHOULD_GO_LAST_2, points: 20, threshold: 2),
+            new AchievementConfigDto(name: AchievementEnum::COMMANDER_SHOULD_GO_LAST_5, points: 5, threshold: 5),
+            new AchievementConfigDto(name: AchievementEnum::COMMANDER_SHOULD_GO_LAST_10, points: 0, threshold: 10),
+            new AchievementConfigDto(name: AchievementEnum::COMMANDER_SHOULD_GO_LAST_50, points: 0, threshold: 50),
+            new AchievementConfigDto(name: AchievementEnum::COMMANDER_SHOULD_GO_LAST_100, points: 0, threshold: 100),
         ];
     }
 

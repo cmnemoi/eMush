@@ -10,6 +10,7 @@ use Mush\Notification\Entity\Subscription;
 use Mush\Notification\Repository\SubscriptionRepositoryInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\unit\TestDoubles\Service\FakeWebPushService;
@@ -22,12 +23,14 @@ final class DaedalusEventCest extends AbstractFunctionalTest
 {
     private EventService $eventService;
     private FakeWebPushService $webPush;
+    private PlayerServiceInterface $playerService;
     private SubscriptionRepositoryInterface $subscriptionRepository;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventService::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->webPush = $I->grabService(WebPushService::class);
         $this->subscriptionRepository = $I->grabService(SubscriptionRepositoryInterface::class);
     }
@@ -60,6 +63,8 @@ final class DaedalusEventCest extends AbstractFunctionalTest
     {
         $this->givenUserIsSubscribedToNotifications();
 
+        $this->givenPlayerDies(); // to avoid achievement notifications
+
         $this->eventService->callEvent(
             event: new DaedalusEvent($this->daedalus, [EndCauseEnum::DAEDALUS_DESTROYED], new \DateTime()),
             name: DaedalusEvent::FINISH_DAEDALUS,
@@ -82,6 +87,14 @@ final class DaedalusEventCest extends AbstractFunctionalTest
     {
         $this->subscriptionRepository->save(
             Subscription::createDefaultSubscription()->forUserId($this->player->getUser()->getId())
+        );
+    }
+
+    private function givenPlayerDies(): void
+    {
+        $this->playerService->killPlayer(
+            $this->player,
+            EndCauseEnum::ASPHYXIA
         );
     }
 

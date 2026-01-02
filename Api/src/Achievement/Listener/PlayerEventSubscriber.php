@@ -9,6 +9,7 @@ use Mush\Achievement\Services\UpdatePlayerStatisticService;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\EventPriorityEnum;
+use Mush\Game\Enum\TitleEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -25,6 +26,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
             PlayerEvent::DEATH_PLAYER => ['onPlayerDeath', EventPriorityEnum::LOWEST],
             PlayerEvent::END_PLAYER => ['onPlayerEnd', EventPriorityEnum::LOWEST],
             PlayerEvent::PLAYER_GOT_LIKED => ['onPlayerGotLiked', EventPriorityEnum::LOWEST],
+            PlayerEvent::TITLE_REMOVED => ['onTitleRemoved', EventPriorityEnum::LOWEST],
         ];
     }
 
@@ -69,6 +71,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
     public function onPlayerDeath(PlayerEvent $event): void
     {
         $this->incrementMushKilledStats($event);
+        $this->attributeLastManStanding($event);
     }
 
     public function onPlayerGotLiked(PlayerEvent $event): void
@@ -78,6 +81,30 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         $this->updatePlayerStatisticService->execute(
             player: $player,
             statisticName: StatisticEnum::LIKES,
+        );
+    }
+
+    public function onTitleRemoved(PlayerEvent $event): void
+    {
+        // Don't attribute if it was not Commander
+        if ($event->doesNotHaveTag(TitleEnum::COMMANDER)) {
+            return;
+        }
+
+        // Don't attribute if the ship is going with living players ($event->getPlayer() is still marked as alive)
+        if (!$event->getDaedalus()->getDaedalusInfo()->isDaedalusFinished()
+            && $event->getDaedalus()->getAlivePlayers()->count() > 1) {
+            return;
+        }
+
+        // Don't attribute if player did not die
+        if (!array_intersect($event->getTags(), EndCauseEnum::getDeathEndCauses()->toArray())) {
+            return;
+        }
+
+        $this->updatePlayerStatisticService->execute(
+            player: $event->getPlayer(),
+            statisticName: StatisticEnum::COMMANDER_SHOULD_GO_LAST,
         );
     }
 
@@ -120,6 +147,33 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
                 }
             }
         }
+    }
+
+    private function attributeLastManStanding(PlayerEvent $event): void
+    {
+        $player = $event->getPlayer();
+
+        // Don't attribute if the player did not die
+        if (EndCauseEnum::isNotDeathEndCause($player->getPlayerInfo()->getClosedPlayer()->getEndCause())) {
+            return;
+        }
+
+        $daedalus = $event->getDaedalus();
+
+        // Don't attribute if Daedalus is still ongoing
+        if (!$daedalus->getDaedalusInfo()->isDaedalusFinished()) {
+            return;
+        }
+
+        // Don't attribute if the player is not the last to die
+        if (!$daedalus->getAlivePlayers()->isEmpty()) {
+            return;
+        }
+
+        $this->updatePlayerStatisticService->execute(
+            player: $player,
+            statisticName: StatisticEnum::LAST_MEMBER,
+        );
     }
 
     private function isAboutAssassination(PlayerEvent $event): bool

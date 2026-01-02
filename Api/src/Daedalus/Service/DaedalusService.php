@@ -569,20 +569,13 @@ class DaedalusService implements DaedalusServiceInterface
 
             if (!$titleAssigned) {
                 if (!$player->hasTitle($title)) {
-                    $player->addTitle($title);
-                    $this->dispatchTitleEvent($player, $title, $date, PlayerEvent::TITLE_ATTRIBUTED);
+                    $this->playerService->addTitleToPlayer($player, $title, $date);
                 }
                 $titleAssigned = true;
             } elseif ($player->hasTitle($title)) {
-                $this->removeTitleFromPlayer($player, $title, $date);
+                $this->playerService->removeTitleFromPlayer($player, $title, $date);
             }
         }
-    }
-
-    private function removeTitleFromPlayer(Player $player, string $title, \DateTime $date): void
-    {
-        $player->removeTitle($title);
-        $this->dispatchTitleEvent($player, $title, $date, PlayerEvent::TITLE_REMOVED);
     }
 
     private function removeTitlesFromIneligiblePlayers(Daedalus $daedalus, \DateTime $date): void
@@ -605,14 +598,8 @@ class DaedalusService implements DaedalusServiceInterface
                 continue;
             }
 
-            $this->removeTitleFromPlayer($player, $titlePriority->getName(), $date);
+            $this->playerService->removeTitleFromPlayer($player, $titlePriority->getName(), $date);
         }
-    }
-
-    private function dispatchTitleEvent(Player $player, string $title, \DateTime $date, string $eventType): void
-    {
-        $playerEvent = new PlayerEvent($player, [$title], $date);
-        $this->eventService->callEvent($playerEvent, $eventType);
     }
 
     private function getRandomPlayersWithLessOxygen(Daedalus $daedalus): ?Player

@@ -234,6 +234,18 @@ enum AchievementEnum: string
     case TEAM_MUSH_KILLED_1000 = 'team_mush_killed_1000';
     case TEAM_MUSH_KILLED_2000 = 'team_mush_killed_2000';
     case TEAM_MUSH_KILLED_4000 = 'team_mush_killed_4000';
+    case LAST_MEMBER_1 = 'last_member_1';
+    case LAST_MEMBER_2 = 'last_member_2';
+    case LAST_MEMBER_5 = 'last_member_5';
+    case LAST_MEMBER_10 = 'last_member_10';
+    case LAST_MEMBER_50 = 'last_member_50';
+    case LAST_MEMBER_100 = 'last_member_100';
+    case COMMANDER_SHOULD_GO_LAST_1 = 'commander_should_go_last_1';
+    case COMMANDER_SHOULD_GO_LAST_2 = 'commander_should_go_last_2';
+    case COMMANDER_SHOULD_GO_LAST_5 = 'commander_should_go_last_5';
+    case COMMANDER_SHOULD_GO_LAST_10 = 'commander_should_go_last_10';
+    case COMMANDER_SHOULD_GO_LAST_50 = 'commander_should_go_last_50';
+    case COMMANDER_SHOULD_GO_LAST_100 = 'commander_should_go_last_100';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

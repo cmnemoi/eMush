@@ -106,6 +106,11 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
         return $this->playerInfo;
     }
 
+    public function getPlayerInfoOrThrow(): PlayerInfo
+    {
+        return $this->playerInfo ?? throw new \RuntimeException('RoomLog should have a player info');
+    }
+
     public function setPlayerInfo(?PlayerInfo $playerInfo): static
     {
         $this->playerInfo = $playerInfo;

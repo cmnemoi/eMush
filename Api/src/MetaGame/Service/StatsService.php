@@ -141,7 +141,7 @@ final class StatsService implements StatsServiceInterface
         // we store the id of every player vaccinated
         /** @var RoomLog $log */
         foreach ($mushVaccinationLog as $log) {
-            $fates['vaccinated'][] = $log->getPlayerOrThrow()->getId();
+            $fates['vaccinated'][] = $log->getPlayerInfoOrThrow()->getId();
         }
 
         // we check every log from $mushConversionLog
@@ -183,10 +183,10 @@ final class StatsService implements StatsServiceInterface
         $textResult .= \sprintf('Number of Mush : %d.//', $alphaMushAmount + $betaMushAmount);
         $textResult .= \sprintf('Number of Alpha Mush : %d.//', $alphaMushAmount);
         $textResult .= \sprintf('Number of Beta Mush : %d.//', $betaMushAmount);
-        $textResult .= \sprintf('Number of Spore Extracted : %d.//', $this->getSporeExtracted());
-        $textResult .= \sprintf('Number of Spore Used for Phagocyte : %d.//', $this->getPhagocyteSpores());
-        $textResult .= \sprintf('Number of Spore Used To Infect Directly : %d.//', $this->getInfectActionSpores());
-        $textResult .= \sprintf('Number of Spore Used to Trap a Room: %d.//', $this->getTrapSpores());
+        $textResult .= \sprintf('Number of Spore Extracted : %d.//', $this->getSporeExtracted($firstShipId, $lastShipid));
+        $textResult .= \sprintf('Number of Spore Used for Phagocyte : %d.//', $this->getPhagocyteSpores($firstShipId, $lastShipid));
+        $textResult .= \sprintf('Number of Spore Used To Infect Directly : %d.//', $this->getInfectActionSpores($firstShipId, $lastShipid));
+        $textResult .= \sprintf('Number of Spore Used to Trap a Room: %d.//', $this->getTrapSpores($firstShipId, $lastShipid));
 
         foreach ($fates as $key => $value) {
             $textResult .= \sprintf("Number of Mush with the fate '%s' : %d.//", $key, \count($value));
@@ -195,44 +195,60 @@ final class StatsService implements StatsServiceInterface
         return $textResult;
     }
 
-    private function getSporeExtracted(): int
+    private function getSporeExtracted(int $firstShipId, int $lastShipid): int
     {
         $queryBuilder = $this->entityManager->getRepository(RoomLog::class)->createQueryBuilder('room_log')
             ->select('room_log')
-            ->where("room_log.log = 'extract_spore_success'");
+            ->innerJoin('room_log.daedalusInfo', 'daedalusInfo')
+            ->where("room_log.log = 'extract_spore_success'")
+            ->andWhere('daedalusInfo.id BETWEEN :firstShipId AND :lastShipid')
+            ->setParameter('firstShipId', $firstShipId)
+            ->setParameter('lastShipid', $lastShipid);
 
         $extractSporeLog = $queryBuilder->getQuery()->getResult();
 
         return \count($extractSporeLog);
     }
 
-    private function getInfectActionSpores(): int
+    private function getInfectActionSpores(int $firstShipId, int $lastShipid): int
     {
         $queryBuilder = $this->entityManager->getRepository(RoomLog::class)->createQueryBuilder('room_log')
             ->select('room_log')
-            ->where("room_log.log = 'infect_success'");
+            ->innerJoin('room_log.daedalusInfo', 'daedalusInfo')
+            ->where("room_log.log = 'infect_success'")
+            ->andWhere('daedalusInfo.id BETWEEN :firstShipId AND :lastShipid')
+            ->setParameter('firstShipId', $firstShipId)
+            ->setParameter('lastShipid', $lastShipid);
 
         $infectLog = $queryBuilder->getQuery()->getResult();
 
         return \count($infectLog);
     }
 
-    private function getPhagocyteSpores(): int
+    private function getPhagocyteSpores(int $firstShipId, int $lastShipid): int
     {
         $queryBuilder = $this->entityManager->getRepository(RoomLog::class)->createQueryBuilder('room_log')
             ->select('room_log')
-            ->where("room_log.log = 'phagocyte_success'");
+            ->innerJoin('room_log.daedalusInfo', 'daedalusInfo')
+            ->where("room_log.log = 'phagocyte_success'")
+            ->andWhere('daedalusInfo.id BETWEEN :firstShipId AND :lastShipid')
+            ->setParameter('firstShipId', $firstShipId)
+            ->setParameter('lastShipid', $lastShipid);
 
         $phagocyteLog = $queryBuilder->getQuery()->getResult();
 
         return \count($phagocyteLog);
     }
 
-    private function getTrapSpores(): int
+    private function getTrapSpores(int $firstShipId, int $lastShipid): int
     {
         $queryBuilder = $this->entityManager->getRepository(RoomLog::class)->createQueryBuilder('room_log')
             ->select('room_log')
-            ->where("room_log.log = 'trap_closet_success'");
+            ->innerJoin('room_log.daedalusInfo', 'daedalusInfo')
+            ->where("room_log.log = 'trap_closet_success'")
+            ->andWhere('daedalusInfo.id BETWEEN :firstShipId AND :lastShipid')
+            ->setParameter('firstShipId', $firstShipId)
+            ->setParameter('lastShipid', $lastShipid);
 
         $trapLog = $queryBuilder->getQuery()->getResult();
 

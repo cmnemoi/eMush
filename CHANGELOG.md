@@ -1,3 +1,60 @@
+# [0.20.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.19.2...0.20.0) (2026-01-02)
+
+
+### Bug Fixes
+
+* Antique Perfume immunized human player can now lose spores ([83c9937](https://gitlab.com/eternaltwin/mush/mush/commit/83c9937f8e25fe387cc52febbe1fd3b40da9c540))
+* **chat:** Add character counter to RTE and fix newlines allowing to go over the max length ([bdcd8e7](https://gitlab.com/eternaltwin/mush/mush/commit/bdcd8e7eb1b8c1bb8215042ac5024cb501d897b2))
+* Limit messages and epitaphs to respectively 4096 and 512 characters ([ec01f1b](https://gitlab.com/eternaltwin/mush/mush/commit/ec01f1be0ce76fcc577da15180b7254949dae49d))
+* mush consume log only fires once ([48cc407](https://gitlab.com/eternaltwin/mush/mush/commit/48cc407ea23549bf05d01b8f6747e1173f394e97))
+* new Crowdin translations ([4209e6b](https://gitlab.com/eternaltwin/mush/mush/commit/4209e6b4202f723a105c712d994935a01703b1cc))
+* new Crowdin translations ([2269276](https://gitlab.com/eternaltwin/mush/mush/commit/2269276ad6bf71c94b23cdf5cff6043b64534f0f))
+* new Crowdin translations ([17bf83e](https://gitlab.com/eternaltwin/mush/mush/commit/17bf83e214b6aa44e95485042c3bafbcaf309690))
+* new Crowdin translations ([a3dca15](https://gitlab.com/eternaltwin/mush/mush/commit/a3dca158f27597778cd583b4ea5c0b130eca2520))
+* new Crowdin translations ([e89bfb8](https://gitlab.com/eternaltwin/mush/mush/commit/e89bfb8602a564fdc205de33912eb86c6c7d9611))
+* new Crowdin translations ([dc16a71](https://gitlab.com/eternaltwin/mush/mush/commit/dc16a7145da776235db1f7676b164162079577a2))
+* One shot kills with Natamy Rifle grant Natamist stat ([0334ed9](https://gitlab.com/eternaltwin/mush/mush/commit/0334ed99e7575b557e0cfc73a3c85b52b57fbe02))
+* Remove handling of '\n' in formatText ([29c6e09](https://gitlab.com/eternaltwin/mush/mush/commit/29c6e09806bac41c61cf6e611a5ff5b8707fa98d))
+* THE list is not printable when there are no alphas. ([87d9f3a](https://gitlab.com/eternaltwin/mush/mush/commit/87d9f3a9f61b513f1340ef308ca6664c8ea307f9))
+
+
+### Features
+
+* Andie's schoolbooks ([5532ffe](https://gitlab.com/eternaltwin/mush/mush/commit/5532ffe9c142ba32598ca5290bca16808d490093))
+* Antique Perfume item + deprecated Plumbing mechanic ([99d88d3](https://gitlab.com/eternaltwin/mush/mush/commit/99d88d3a4938063bb476052bda1120940eb6c850))
+* beginners can opt out of beginner + not recorded in action history now an action type ([f0bfbae](https://gitlab.com/eternaltwin/mush/mush/commit/f0bfbae4e8ed80905a7f269d51f3cfa1fbe185d4))
+* can select range of deadalus Id for mush stats ([2bee1c7](https://gitlab.com/eternaltwin/mush/mush/commit/2bee1c77eeb9390b701219c843a7e8adbd28cd81))
+* **chat:** Shrink date when more than 11 tabs exists ([030bda6](https://gitlab.com/eternaltwin/mush/mush/commit/030bda68a9ee7fc83383ae844b4b441cad163314))
+* Chef's Knife + Weapon related bug fixes ([57b05f0](https://gitlab.com/eternaltwin/mush/mush/commit/57b05f06afcc2bbe72c2313ea8d31a93a17d2ab4))
+* debris printer + gameconfigdata debloat + most admin actions are now super_admin only ([ce8952c](https://gitlab.com/eternaltwin/mush/mush/commit/ce8952cd8c5c23de3b6e362fe26fca1b08f4fd6c))
+* evil drone Saki (And fix to patrol ships not moving item to space when destroyed) ([a7d4c7d](https://gitlab.com/eternaltwin/mush/mush/commit/a7d4c7d80f85e6a7f1aab1a9c784ba017971be43))
+* fruit basket + Septembre added to contributors list ([d4dc636](https://gitlab.com/eternaltwin/mush/mush/commit/d4dc636cdd48d254066d0e223c86aa4326ac3f63))
+* Holiday can start midship ([626b72f](https://gitlab.com/eternaltwin/mush/mush/commit/626b72fd562ec833db5d48cc86063799c5d3836d))
+* iTrackie 2 with built in personal ACTOPI ([3050ec2](https://gitlab.com/eternaltwin/mush/mush/commit/3050ec20ac3c77ef758065ec2c964eb79ee27fe1))
+* Kit item type, Heavy status in tooltip, Jukebox Kit, Sofa Kit, Sofa Blueprint (weird) ([310aff8](https://gitlab.com/eternaltwin/mush/mush/commit/310aff862638475a0a9d8ee8bfacdfffddeb22d6))
+* lucky lizaro item + icon cleanups for prev items ([3bc6d22](https://gitlab.com/eternaltwin/mush/mush/commit/3bc6d223fdf05965e5956afcb58e0e55e66fbc0e))
+* lump of coal ([f4162ba](https://gitlab.com/eternaltwin/mush/mush/commit/f4162ba11065bafbf5b15b8bed29ace3e3061955))
+* mage books for lethargy, gunner, neron's only friend, hygienist ([beda568](https://gitlab.com/eternaltwin/mush/mush/commit/beda5685b20fa0f40be4b0a5a3214ee0815d5ee6))
+* megaphone item ([5dee4b6](https://gitlab.com/eternaltwin/mush/mush/commit/5dee4b649733f6837f11941c798464d8599aff26))
+* Multipass item ([af18645](https://gitlab.com/eternaltwin/mush/mush/commit/af186458339fb50e0c1b383fc2a455c3a041a221))
+* mush player gets a free, random mush skill when opening their giftbox ([8c21422](https://gitlab.com/eternaltwin/mush/mush/commit/8c214223dce0c7c435dbfb8754ccfd2ba8b529d5))
+* npc architecture ([c373d14](https://gitlab.com/eternaltwin/mush/mush/commit/c373d1405588ca091c38c0d7233812618579a7e8))
+* Quadricursed Ssapmoc ([20f56e7](https://gitlab.com/eternaltwin/mush/mush/commit/20f56e78771953a2f2826593b8922593851188b3))
+* Reset Vaccine item ([b5e4faf](https://gitlab.com/eternaltwin/mush/mush/commit/b5e4fafe6d96cf02ba1a5cb3c577ebd1c05eba28))
+* Ship Blanket Item ([9d43aa9](https://gitlab.com/eternaltwin/mush/mush/commit/9d43aa9b3f8f74f4c8e061bb85864b3ff6f14dcd))
+* spaceship keys ([8c534b8](https://gitlab.com/eternaltwin/mush/mush/commit/8c534b87e3b2abb930c0870ebe9024df3f7f0dc0))
+* **stat:** Coffee man and Rations taken ([e06fe32](https://gitlab.com/eternaltwin/mush/mush/commit/e06fe328635d7e6617e76bd51bb55ba8e7132ba4))
+* **stat:** Contaminator ([b43ed8d](https://gitlab.com/eternaltwin/mush/mush/commit/b43ed8d90aa2e09a81e00c8b84ccda6e7d1d1460))
+* **stat:** Infected ([c7b8f46](https://gitlab.com/eternaltwin/mush/mush/commit/c7b8f46fc8fdaf851a634da1d11f44b0c428710f))
+* **statistic:** Artefacts collected ([1312f7b](https://gitlab.com/eternaltwin/mush/mush/commit/1312f7b578d2dbead64257f069ea904dbba29ed4))
+* **stat:** Mage books learned ([d8c055d](https://gitlab.com/eternaltwin/mush/mush/commit/d8c055da24c97473362f7c7cda45c191ed3c3ee2))
+* **stat:** Natamist ([ca92500](https://gitlab.com/eternaltwin/mush/mush/commit/ca925009d4f1e221d2f4e4533692df63e63c2ca1))
+* **stat:** Nils Contacted ([d2cde19](https://gitlab.com/eternaltwin/mush/mush/commit/d2cde19b61adc5f67162ed090bb24d3577416602))
+* **stat:** Rebellion! ([476c29b](https://gitlab.com/eternaltwin/mush/mush/commit/476c29b7bbd1359bbeb736ffecb7ccbbe5bcbe34))
+* **stat:** Research digged and Project digged ([cddbd47](https://gitlab.com/eternaltwin/mush/mush/commit/cddbd47657762841672dd1a433cb2ea179b84e69))
+* **stat:** Shroom Killer, Soldier of Humanity ([3f09cc4](https://gitlab.com/eternaltwin/mush/mush/commit/3f09cc4154341fbe6647821b807d63d0b9da9d81))
+* strawman item ([7b77dda](https://gitlab.com/eternaltwin/mush/mush/commit/7b77dda3d654de6ef63bcd1734c7b0c92cde9e95))
+
 # [0.19.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.19.1...0.19.2) (2025-12-19)
 
 

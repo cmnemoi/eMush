@@ -424,11 +424,11 @@
       </segment>
     </unit>
     <unit id="wash_with_perfume">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>wash_with_perfume.name</source>
         <target>wash_with_perfume.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>wash_with_perfume.description</source>
         <target>wash_with_perfume.description</target>
       </segment>
@@ -1820,37 +1820,61 @@
       </segment>
     </unit>
     <unit id="recharge_battery">
-      <segment id="recharge_battery" state="initial">
+      <segment id="recharge_battery" state="translated">
         <source>recharge_battery.name</source>
         <target>recharge_battery.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>recharge_battery.description</source>
         <target>recharge_battery.description</target>
       </segment>
     </unit>
     <unit id="remove_beginner">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>remove_beginner.name</source>
         <target>remove_beginner.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>remove_beginner.description</source>
         <target>remove_beginner.description</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>remove_beginner.confirmation</source>
         <target>remove_beginner.confirmation</target>
       </segment>
     </unit>
     <unit id="lie_down_in_ship">
-      <segment id="lie_down_in_ship" state="initial">
+      <segment id="lie_down_in_ship" state="translated">
         <source>lie_down_in_ship.name</source>
         <target>lie_down_in_ship.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>lie_down_in_ship.description</source>
         <target>lie_down_in_ship.description</target>
+      </segment>
+    </unit>
+    <unit id="read_schoolbooks">
+      <segment id="name" state="initial">
+        <source>read_schoolbooks.name</source>
+        <target>read_schoolbooks.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>read_schoolbooks.description</source>
+        <target>read_schoolbooks.description</target>
+      </segment>
+    </unit>
+    <unit id="use_reset_vaccine">
+      <segment id="name" state="initial">
+        <source>use_reset_vaccine.name</source>
+        <target>use_reset_vaccine.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>use_reset_vaccine.description</source>
+        <target>use_reset_vaccine.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>use_reset_vaccine.confirmation</source>
+        <target>use_reset_vaccine.confirmation</target>
       </segment>
     </unit>
   </file>

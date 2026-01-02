@@ -829,5 +829,11 @@
         <target>exploration_already_sabotaged.description</target>
       </segment>
     </unit>
+    <unit id="does_not_have_skill_polyvalent">
+      <segment id="description" state="initial">
+        <source>does_not_have_skill_polyvalent.description</source>
+        <target>does_not_have_skill_polyvalent.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

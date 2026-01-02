@@ -1885,5 +1885,29 @@ Or you simply need some fresh air.... or not.</target>
         <target>It's cramped in there, but the blanket promises a cromulent nap. // Lying down allows you to restore 1 :pa: every cycle, and 1 :pmo: if a shrink is present... Although it'd be ambitious to have two people aboard.</target>
       </segment>
     </unit>
+    <unit id="read_schoolbooks">
+      <segment id="name" state="translated">
+        <source>read_schoolbooks.name</source>
+        <target>Refresher course</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>read_schoolbooks.description</source>
+        <target>Jug your memory to refresh your knowledge.</target>
+      </segment>
+    </unit>
+    <unit id="use_reset_vaccine">
+      <segment id="name" state="translated">
+        <source>use_reset_vaccine.name</source>
+        <target>Total Reset</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>use_reset_vaccine.description</source>
+        <target>Become someone new, instantly and permanently. Your skills will be unset and you will gain access to a brand new selection.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>use_reset_vaccine.confirmation</source>
+        <target>Warning: this process is unpredictable and irreversible. Are you absolutely, completely sure you want to continue?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

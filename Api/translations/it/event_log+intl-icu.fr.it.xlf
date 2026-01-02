@@ -667,6 +667,12 @@
         <target>drone</target>
       </segment>
     </unit>
+    <unit id="drone_full_name">
+      <segment state="initial">
+        <source>drone_full_name</source>
+        <target>drone_full_name</target>
+      </segment>
+    </unit>
     <unit id="drone_entered_room">
       <segment state="translated">
         <source>drone_entered_room</source>
@@ -987,6 +993,34 @@
       <segment id="psychotic_attacks" state="translated">
         <source>psychotic_attacks</source>
         <target>psychotic_attacks</target>
+      </segment>
+    </unit>
+    <unit id="revised_knowledge">
+      <segment id="revised_knowledge" state="initial">
+        <source>revised_knowledge</source>
+        <target>revised_knowledge</target>
+      </segment>
+    </unit>
+    <unit id="evil_drone">
+      <segment id="evil_drone.flirt" state="initial">
+        <source>evil_drone.flirt</source>
+        <target>evil_drone.flirt</target>
+      </segment>
+      <segment id="evil_drone.recycle" state="initial">
+        <source>evil_drone.recycle</source>
+        <target>evil_drone.recycle</target>
+      </segment>
+      <segment id="evil_drone.conspire" state="initial">
+        <source>evil_drone.conspire</source>
+        <target>evil_drone.conspire</target>
+      </segment>
+      <segment id="evil_drone.clean" state="initial">
+        <source>evil_drone.clean</source>
+        <target>evil_drone.clean</target>
+      </segment>
+      <segment id="evil_drone.kidnapping" state="initial">
+        <source>evil_drone.kidnapping</source>
+        <target>evil_drone.kidnapping</target>
       </segment>
     </unit>
   </file>

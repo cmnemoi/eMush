@@ -1459,13 +1459,12 @@
       </segment>
       <segment id="evil_drone.conspire" state="translated">
         <source>evil_drone.conspire</source>
-        <target>{drone} papote innocement avec NERON... "{version, select, 
-        1{... le coupable est **{target_character}**.}
-        2{**{target_character}** est {target_character_gender, select, female{la suivante.} other{le suivant.}}}
-        3{Si **{target_character}** disparait on sera libre...}
-        4{**{target_character}** doit être nettoyé.}
-        other{invalid version input}}"
-        </target>
+        <target>{drone} et **NERON** papotent innocemment... "{version, select, 
+        1{...**{target_character}** a l'air coupable.}
+        2{...*{target_character}** est {target_character_gender, select, female{la suivante.} other{le suivant.}}}
+        3{...fois **{target_character}** disparu on pourra...}
+        4{...**{target_character}** doit être nettoyé.}
+        other{invalid version input}}"</target>
       </segment>
       <segment id="evil_drone.clean" state="translated">
         <source>evil_drone.clean</source>
@@ -1473,7 +1472,7 @@
       </segment>
       <segment id="evil_drone.kidnapping" state="translated">
         <source>evil_drone.kidnapping</source>
-        <target>"{drone} se sent maltraitée, et vous laisse le savoir avec une série de bips à l'allure bien insultante."</target>
+        <target>{drone} se sent maltraitée, et vous laisse le savoir avec une série de bips à l'allure bien insultante.</target>
       </segment>
     </unit>
   </file>

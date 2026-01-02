@@ -300,7 +300,7 @@
 male {**{character}** generously sprays himself with perfume across his face, neck, top, armpits, ... No doubt about it, he smells "clean" now. } 
 female {**{character}** generously sprays herself with perfume across her face, neck, top, armpits, ... No doubt about it, she smells "clean" now. } 
 other {**{character}** generously sprays themself with perfume across their face, neck, top, armpits, ... No doubt about it, they smell "clean" now. }
-} </target>
+}</target>
       </segment>
     </unit>
     <unit id="shred_success">
@@ -1171,6 +1171,12 @@ other {a}} **{equipment}** out of {character_gender, select,
       <segment id="lie_down_in_ship" state="translated">
         <source>lie_down_in_ship</source>
         <target>**{character}** inclines their seat, and deploys their **{target_equipment}**... It's more or less comfortable. Same destination as ever: the land of dreams!</target>
+      </segment>
+    </unit>
+    <unit id="use_reset_vaccine">
+      <segment id="use_reset_vaccine" state="translated">
+        <source>use_reset_vaccine</source>
+        <target>**{character}** gulps, contemplating the weight of the act {character_gender, select, male {he} female {she} other {they}} are about to undertake... Enough stalling. {character_gender, select, male {He slides} female {She slides} other {They slide}} the needle of the **{target_equipment}** into {character_gender, select, male {his} female {her} other {their}} thigh... A few spasms later, and **{character}** is unrecognizable!!!</target>
       </segment>
     </unit>
   </file>

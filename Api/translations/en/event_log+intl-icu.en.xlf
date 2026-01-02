@@ -802,6 +802,40 @@ other{**{target_character}** has been contaminated by a Mush raid during explora
         other {Wheatley}} #{drone_serial_number}**</target>
       </segment>
     </unit>
+    <unit id="drone_full_name">
+      <segment state="translated">
+        <source>drone_full_name</source>
+        <target>{drone_nickname, select,
+        1 {Support Drone Betty}
+        2 {Support Drone Charlotte}
+        3 {Support Drone Dalek}
+        4 {Support Drone Dave}
+        5 {Support Drone Doc}
+        6 {Support Drone Doudou}
+        7 {Support Drone Douglams}
+        8 {Support Drone Einstein}
+        9 {Support Drone Fido}
+        10 {Support Drone Fito}
+        11 {Support Drone Groo}
+        12 {Support Drone Isaac}
+        13 {Support Drone Loulou}
+        14 {Support Drone Médor}
+        15 {Support Drone Nabuk}
+        16 {Support Drone Papitou}
+        17 {Support Drone Poutou}
+        18 {Support Drone Rex}
+        19 {Support Drone Robbie}
+        20 {Support Drone Robert}
+        21 {Support Drone Selry}
+        22 {Support Drone Steve}
+        23 {Support Drone Terminus}
+        24 {Support Drone Troll}
+        25 {Support Drone Vortex}
+        26 {Support Drone Wheatley}
+        666 {Cleaning Drone Saki}
+        other {Wheatley}} #{drone_serial_number}</target>
+      </segment>
+    </unit>
     <unit id="drone_entered_room">
       <segment state="translated">
         <source>drone_entered_room</source>
@@ -1262,6 +1296,39 @@ other{**{target_character}** has been contaminated by a Mush raid during explora
       <segment id="psychotic_attacks" state="translated">
         <source>psychotic_attacks</source>
         <target>***For Moderation Only*** : **Psychotic Attacks** symptom forces **{character}** to attack.</target>
+      </segment>
+    </unit>
+    <unit id="revised_knowledge">
+      <segment id="revised_knowledge" state="translated">
+        <source>revised_knowledge</source>
+        <target>It was that easy! You'd really let yourself go... You are now a **Botanist**, **Biologist**, and **Diplomat**!</target>
+      </segment>
+    </unit>
+    <unit id="evil_drone">
+      <segment id="evil_drone.flirt" state="translated">
+        <source>evil_drone.flirt</source>
+        <target>**Cleaning drone Saki** seems interested in **{target_character}**. Its beeps and boops leave nobody in any doubt of its intentions.</target>
+      </segment>
+      <segment id="evil_drone.recycle" state="translated">
+        <source>evil_drone.recycle</source>
+        <target>This room is in a horrible state ever since the death of **{target_character}**. There's dust and blood everywhere, that just won't do. Thankfully, your favorite **Cleaning drone Saki** is here to help! Thanks to its integrated recycling system, a trashbag isn't even necessary! Here, eat while it's still warm!</target>
+      </segment>
+      <segment id="evil_drone.conspire" state="translated">
+        <source>evil_drone.conspire</source>
+        <target>{drone} and **NERON** are chatting innocently... "{version, select, 
+        1{...**{target_character}** seems guilty.}
+        2{...**{target_character}** is next.}
+        3{...once **{target_character}** has disappeared, we...}
+        4{...**{target_character}** must be cleaned.}
+        other{invalid version input}}"</target>
+      </segment>
+      <segment id="evil_drone.clean" state="translated">
+        <source>evil_drone.clean</source>
+        <target>{drone} pulls out a cloth from its inventory and starts cleaning {target_equipment_first_letter, select, vowel {an} other {a}} **{target_equipment}** zealously.</target>
+      </segment>
+      <segment id="evil_drone.kidnapping" state="translated">
+        <source>evil_drone.kidnapping</source>
+        <target>{drone} feels mistreated, and makes that known with a series of insulting-sounding beeps and boops.</target>
       </segment>
     </unit>
   </file>

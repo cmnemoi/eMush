@@ -3923,7 +3923,7 @@ Contient {quantity, plural,
       </segment>
       <segment id="plural_name" state="translated">
         <source>evil_drone.plural_name</source>
-        <target>Drones ménager</target>
+        <target>Drones ménagers</target>
       </segment>
       <segment id="genre" state="translated">
         <source>evil_drone.gender</source>
@@ -3940,8 +3940,8 @@ Contient {quantity, plural,
       <segment id="examine" state="translated">
         <source>evil_drone.examine</source>
         <target>Le robot ménager Saki sait absolument tout faire avec une efficacité hors du commun. Mais pour la sécurité de l'humanité, la cinquième loi de la robotique ne lui autorise qu'à faire du ménage.//
-L'arrivée du Saki dans les rayons des spatio-marchées à conduit à une vague de disparition inquiétante. Heureusement, les êtres vivants sont toujours considérés comme propre par défaut désormais.//
-Ce modèle en édition limité vient avec un costume d'idole et une peinture de grande qualité.</target>
+L'arrivée du Saki dans les manoirs de la haute société amena avec elle une vague de disparitions inquiétante. Heureusement, les êtres vivants sont toujours considérés comme propre par défaut désormais.//
+Ce modèle est une édition limitée très rare!</target>
       </segment>
     </unit>
     <unit id="chefs_knife">

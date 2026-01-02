@@ -206,7 +206,7 @@
       </segment>
     </unit>
     <unit id="wash_with_perfume">
-      <segment id="wash_with_perfume" state="initial">
+      <segment id="wash_with_perfume" state="translated">
         <source>wash_with_perfume</source>
         <target>wash_with_perfume</target>
       </segment>
@@ -920,27 +920,33 @@
       </segment>
     </unit>
     <unit id="recharge_battery_success">
-      <segment id="recharge_battery_success" state="initial">
+      <segment id="recharge_battery_success" state="translated">
         <source>recharge_battery_success</source>
         <target>recharge_battery_success</target>
       </segment>
     </unit>
     <unit id="use_debris_printer">
-      <segment id="use_debris_printer" state="initial">
+      <segment id="use_debris_printer" state="translated">
         <source>use_debris_printer</source>
         <target>use_debris_printer</target>
       </segment>
     </unit>
     <unit id="remove_beginner_success">
-      <segment id="remove_beginner_success" state="initial">
+      <segment id="remove_beginner_success" state="translated">
         <source>remove_beginner_success</source>
         <target>remove_beginner_success</target>
       </segment>
     </unit>
     <unit id="lie_down_in_ship">
-      <segment id="lie_down_in_ship" state="initial">
+      <segment id="lie_down_in_ship" state="translated">
         <source>lie_down_in_ship</source>
         <target>lie_down_in_ship</target>
+      </segment>
+    </unit>
+    <unit id="use_reset_vaccine">
+      <segment id="use_reset_vaccine" state="initial">
+        <source>use_reset_vaccine</source>
+        <target>use_reset_vaccine</target>
       </segment>
     </unit>
   </file>

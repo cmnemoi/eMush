@@ -829,5 +829,11 @@
         <target>Hive minds think alike. One of your companions has already sabotaged the next sector.</target>
       </segment>
     </unit>
+    <unit id="does_not_have_skill_polyvalent">
+      <segment id="description" state="translated">
+        <source>does_not_have_skill_polyvalent.description</source>
+        <target>You must take :sk_polyvalent: Polyvalent before your course.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

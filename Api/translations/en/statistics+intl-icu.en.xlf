@@ -1417,6 +1417,28 @@
         <target>Liberation</target>
       </segment>
     </unit>
+    <unit id="team_rebels">
+      <segment id="name" state="translated">
+        <source>team_rebels.name</source>
+        <target>Rebellion!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>team_rebels.description</source>
+        <target>Maximum amount of rebel signals decrypted by your crew in a single ship.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>team_rebels_1.name</source>
+        <target>Dissident</target>
+      </segment>
+      <segment id="x3" state="translated">
+        <source>team_rebels_3.name</source>
+        <target>Rebel</target>
+      </segment>
+      <segment id="x6" state="translated">
+        <source>team_rebels_6.name</source>
+        <target>Terrorist</target>
+      </segment>
+    </unit>
     <unit id="plasma_shield">
       <segment id="name" state="translated">
         <source>plasma_shield.name</source>

@@ -98,23 +98,23 @@
       </segment>
     </unit>
     <unit id="artefact_coll">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>artefact_coll.name</source>
         <target>artefact_coll.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>artefact_coll.description</source>
         <target>artefact_coll.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>artefact_coll_1.name</source>
         <target>artefact_coll_1.name</target>
       </segment>
-      <segment id="x10" state="initial">
+      <segment id="x10" state="translated">
         <source>artefact_coll_10.name</source>
         <target>artefact_coll_10.name</target>
       </segment>
-      <segment id="x15" state="initial">
+      <segment id="x15" state="translated">
         <source>artefact_coll_15.name</source>
         <target>artefact_coll_15.name</target>
       </segment>
@@ -1240,33 +1240,33 @@
       </segment>
     </unit>
     <unit id="coffee_man">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>coffee_man.name</source>
         <target>coffee_man.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>coffee_man.description</source>
         <target>coffee_man.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>coffee_man_1.name</source>
         <target>coffee_man_1.name</target>
       </segment>
-      <segment id="x500" state="initial">
+      <segment id="x500" state="translated">
         <source>coffee_man_500.name</source>
         <target>coffee_man_500.name</target>
       </segment>
     </unit>
     <unit id="ration_taken">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>ration_taken.name</source>
         <target>ration_taken.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>ration_taken.description</source>
         <target>ration_taken.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>ration_taken_1.name</source>
         <target>ration_taken_1.name</target>
       </segment>
@@ -1326,29 +1326,29 @@
       </segment>
     </unit>
     <unit id="project_complete">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>project_complete.name</source>
         <target>project_complete.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>project_complete.description</source>
         <target>project_complete.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>project_complete_1.name</source>
         <target>project_complete_1.name</target>
       </segment>
     </unit>
     <unit id="research_complete">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>research_complete.name</source>
         <target>research_complete.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>research_complete.description</source>
         <target>research_complete.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>research_complete_1.name</source>
         <target>research_complete_1.name</target>
       </segment>
@@ -1415,6 +1415,28 @@
       <segment id="x10" state="translated">
         <source>team_all_rebels_10.name</source>
         <target>team_all_rebels_10.name</target>
+      </segment>
+    </unit>
+    <unit id="team_rebels">
+      <segment id="name" state="initial">
+        <source>team_rebels.name</source>
+        <target>team_rebels.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>team_rebels.description</source>
+        <target>team_rebels.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>team_rebels_1.name</source>
+        <target>team_rebels_1.name</target>
+      </segment>
+      <segment id="x3" state="initial">
+        <source>team_rebels_3.name</source>
+        <target>team_rebels_3.name</target>
+      </segment>
+      <segment id="x6" state="initial">
+        <source>team_rebels_6.name</source>
+        <target>team_rebels_6.name</target>
       </segment>
     </unit>
     <unit id="plasma_shield">
@@ -1574,57 +1596,57 @@
       </segment>
     </unit>
     <unit id="mage_books_learned">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mage_books_learned.name</source>
         <target>mage_books_learned.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mage_books_learned.description</source>
         <target>mage_books_learned.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>mage_books_learned_1.name</source>
         <target>mage_books_learned_1.name</target>
       </segment>
     </unit>
     <unit id="natamist">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>natamist.name</source>
         <target>natamist.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>natamist.description</source>
         <target>natamist.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>natamist_1.name</source>
         <target>natamist_1.name</target>
       </segment>
     </unit>
     <unit id="has_mushed">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>has_mushed.name</source>
         <target>has_mushed.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>has_mushed.description</source>
         <target>has_mushed.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>has_mushed_1.name</source>
         <target>has_mushed_1.name</target>
       </segment>
     </unit>
     <unit id="mushed">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mushed.name</source>
         <target>mushed.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mushed.description</source>
         <target>mushed.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>mushed_1.name</source>
         <target>mushed_1.name</target>
       </segment>

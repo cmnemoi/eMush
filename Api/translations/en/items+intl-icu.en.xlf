@@ -3942,6 +3942,38 @@ The Strawderek will be sold in priority to merchants requesting crewmates, so lo
 Could even replace any one specific requested person with a silver tongue...</target>
       </segment>
     </unit>
+    <unit id="evil_drone">
+      <segment id="name" state="translated">
+        <source>evil_drone.name</source>
+        <target>Drone ménager</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>evil_drone.short_name</source>
+        <target>evil_drone.short_name</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>evil_drone.plural_name</source>
+        <target>Cleaning drones</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>evil_drone.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>evil_drone.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>evil_drone.description</source>
+        <target>The Cleaning Robot Saki can do anything with unrivaled efficiency. But for the safety of humanity, the fifth law of robotics forbids it everything but cleaning duty.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>evil_drone.examine</source>
+        <target>The Cleaning Robot Saki can do anything with unrivaled efficiency. But for the safety of humanity, the fifth law of robotics forbids it everything but cleaning duty.//
+The arrival of Saki in high society households brought with it a wave of worrying disappearances. Thankfully, humans are now hardwired to be considered clean.//
+This is a very rare, limited edition variant!</target>
+      </segment>
+    </unit>
     <unit id="chefs_knife">
       <segment id="name" state="translated">
         <source>chefs_knife.name</source>
@@ -4170,6 +4202,58 @@ Allows :sk_conceptor: Designers to access the Command Terminal.</target>
       <segment id="examine" state="translated">
         <source>ship_blanket.examine</source>
         <target>"Lil' Star Hunter©" Helmet sold separately. Hand wash only. The "Lil' Star Hunter©" Blanket is not a toy. Do not eat. Do not shove in an exhaust pipe. 99% Polyester. In accordance with the 3151 Huchbert law on daily life carcinogenics, you have waived your rights to sue. No refunds. // Allows **Lying Down** in a Patrol Ship, Pasiphae, or any other spaceship.</target>
+      </segment>
+    </unit>
+    <unit id="schoolbooks">
+      <segment id="name" state="translated">
+        <source>schoolbooks.name</source>
+        <target>University Schoolbooks</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>schoolbooks.short_name</source>
+        <target>Set of schoolbooks</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>schoolbooks.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>schoolbooks.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>schoolbooks.description</source>
+        <target>Dutifully annotated notebooks. What luck to have found them again!//:point: Bring your **Polyvalence** to the next level.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>schoolbooks.examine</source>
+        <target>3152, Year 6 -- Belongs to A. Graham.// Improves **Polyvalent**... Though you'll need to read them to remember how exactly.</target>
+      </segment>
+    </unit>
+    <unit id="reset_vaccine">
+      <segment id="name" state="translated">
+        <source>reset_vaccine.name</source>
+        <target>Reset Vaccine</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>reset_vaccine.short_name</source>
+        <target>Reset vaccine</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>reset_vaccine.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>reset_vaccine.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>reset_vaccine.description</source>
+        <target>Despite its name, the midlife crisis can apply to anyone. This is its highly concentrated solution. //:point: **One time use: Resets and completely randomizes the skills of its user.**</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>reset_vaccine.examine</source>
+        <target>The Nunsens process extracts pure knowledge from neuro-cryptographied paper pulp by emulsifying it. In other words, this needle contains a mash of Mage Books thrown into a mixer on 'very fine' setting.//**Unique: Resets the skills of its user and replaces them with a completely random selection to choose from.**</target>
       </segment>
     </unit>
   </file>

@@ -65,6 +65,7 @@ class ItemEnum
     public const string MEGAPHONE = 'megaphone';
     public const string SHIP_BLANKET = 'ship_blanket';
     public const string SCHOOLBOOKS = 'schoolbooks';
+    public const string RESET_VACCINE = 'reset_vaccine';
 
     public static function getArtefacts(): ArrayCollection
     {

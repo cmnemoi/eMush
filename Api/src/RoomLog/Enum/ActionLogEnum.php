@@ -646,6 +646,9 @@ abstract class ActionLogEnum
         ActionEnum::READ_SCHOOLBOOKS->value => [
             ActionOutputEnum::SUCCESS => ActionEnum::READ_BOOK->value,
         ],
+        ActionEnum::USE_RESET_VACCINE->value => [
+            ActionOutputEnum::SUCCESS => ActionEnum::USE_RESET_VACCINE->value,
+        ],
     ];
 
     public static function dependsOnNeronMood(string $logKey): bool

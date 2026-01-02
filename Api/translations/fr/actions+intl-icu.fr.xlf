@@ -1913,5 +1913,23 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Rafraichissez votre mémoire pour remettre à jour vos connaissances.</target>
       </segment>
     </unit>
+    <unit id="use_reset_vaccine">
+      <segment id="name" state="translated">
+        <source>use_reset_vaccine.name</source>
+        <target>Réinvention Totale</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>use_reset_vaccine.description</source>
+        <target>Devenez quelqu'un de nouveau de manière soudaine et permanente. Vos compétences seront déselectionnées et vous aurez accès à une toute nouvelle sélection.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>use_reset_vaccine.confirmation</source>
+        <target>Attention: l'effet de cette action est imprévisible et irréversible. Êtes vous absolument, complètement {character_gender, select,
+                male {certain}
+                female {certaine}
+                other {certain}
+                } de vouloir continuer?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

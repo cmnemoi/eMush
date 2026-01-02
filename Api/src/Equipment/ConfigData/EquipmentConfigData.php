@@ -4462,6 +4462,24 @@ class EquipmentConfigData
             'mechanics' => [],
             'initStatuses' => [],
         ],
+        [
+            'name' => ItemEnum::RESET_VACCINE . '_default',
+            'equipmentName' => ItemEnum::RESET_VACCINE,
+            'breakableType' => BreakableTypeEnum::NONE,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => false,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+                ActionEnum::USE_RESET_VACCINE->value,
+            ],
+            'mechanics' => [],
+            'initStatuses' => [],
+        ],
     ];
 
     public static function getByEquipmentName(string $name): array

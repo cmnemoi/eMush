@@ -197,7 +197,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::ELEESHA,
         ],
         [
-            'item' => ToolItemEnum::MEDIKIT, // @TODO: Reset Vaccine
+            'item' => ItemEnum::RESET_VACCINE,
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,

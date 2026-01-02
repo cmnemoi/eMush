@@ -1413,5 +1413,11 @@
         <target>**{character}** incline son siège, et déploie sa **{target_equipment}**... C'est à peu près confortable. Allez, le pays des rêves n'attend toujours pas !</target>
       </segment>
     </unit>
+    <unit id="use_reset_vaccine">
+      <segment id="use_reset_vaccine" state="translated">
+        <source>use_reset_vaccine</source>
+        <target>**{character}** déglutit et contemple l'énormité de l'acte {character_gender, select, male {qu'il} female {qu'elle} other {qu'iel}} s'apprête à faire... Assez patienté. {character_gender, select, male {Il} female {Elle} other {Iel}} s'insère l'aiguille du **{target_equipment}** dans la cuisse... Quelques convulsions plus tard, et **{character}** est méconnaissable !!!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

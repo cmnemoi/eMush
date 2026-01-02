@@ -1197,6 +1197,9 @@ class ActionsFixtures extends Fixture
         $readSchoolbooksAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::READ_SCHOOLBOOKS));
         $manager->persist($readSchoolbooksAction);
 
+        $useResetVaccineAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::USE_RESET_VACCINE));
+        $manager->persist($useResetVaccineAction);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1359,5 +1362,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::SABOTAGE_EXPLORATION->value, $sabotageExploration);
         $this->addReference(ActionEnum::LIE_DOWN_IN_SHIP->value, $lieDownInShipAction);
         $this->addReference(ActionEnum::READ_SCHOOLBOOKS->value, $readSchoolbooksAction);
+        $this->addReference(ActionEnum::USE_RESET_VACCINE->value, $useResetVaccineAction);
     }
 }

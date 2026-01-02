@@ -94,6 +94,7 @@ const ANTIQUE_PERFUME_ITEM = "antique_perfume_item";
 const MEGAPHONE = "megaphone";
 const SHIP_BLANKET = "ship_blanket";
 const SCHOOLBOOKS = "schoolbooks";
+const RESET_VACCINE = "reset_vaccine";
 
 //containers
 const ANNIVERSARY_GIFT = "anniversary_gift";
@@ -577,5 +578,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [SCHOOLBOOKS]:{
         'image': getImgUrl('items/schoolbooks.png')
+    },
+    [RESET_VACCINE]:{
+        'image': getImgUrl('items/reset_vaccine.png')
     }
 };

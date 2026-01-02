@@ -4164,5 +4164,31 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
         <target>3152, Année 6 -- Appartient à A. Graham.//Améliore **Polyvalent**... Il va falloir les lire pour se rappeler comment.</target>
       </segment>
     </unit>
+    <unit id="reset_vaccine">
+      <segment id="name" state="translated">
+        <source>reset_vaccine.name</source>
+        <target>Vaccin de Réinitialisation</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>reset_vaccine.short_name</source>
+        <target>Vaccin de réinitialisation</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>reset_vaccine.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>reset_vaccine.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>reset_vaccine.description</source>
+        <target>Malgré son nom, la crise de la quarantaine n'épargne personne. Le contenu de cette seringue en est la solution.//:point: **Usage unique: réinitialise et randomise complètement les compétences de son utilisateur.**</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>reset_vaccine.examine</source>
+        <target>Le processus de Nawak permet d'extraire de la connaissance pure en émulsifiant la pulpe de papier neuro-crypté. En d'autres mots, cette seringue contient une grosse purée d'apprentrons jetés dans un mixeur en mode ultra-fin.//**Usage unique: Réinitialise les compétences de son utilisateur et les remplace par une sélection complètement aléatoire.**</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

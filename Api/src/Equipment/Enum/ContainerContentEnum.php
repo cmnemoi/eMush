@@ -554,7 +554,7 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::TERRENCE,
         ],
         [
-            'item' => GearItemEnum::ANTIGRAV_SCOOTER, // @TODO: Evil Drone, gag
+            'item' => ItemEnum::EVIL_DRONE, // gag
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,

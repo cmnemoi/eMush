@@ -879,6 +879,40 @@
         other {Wheatley}} #{drone_serial_number}**</target>
       </segment>
     </unit>
+    <unit id="drone_full_name">
+      <segment state="translated">
+        <source>drone_full_name</source>
+        <target>{drone_nickname, select,
+        1 {Drone de Soutien Betty}
+        2 {Drone de Soutien Charlotte}
+        3 {Drone de Soutien Dalek}
+        4 {Drone de Soutien Dave}
+        5 {Drone de Soutien Doc}
+        6 {Drone de Soutien Doudou}
+        7 {Drone de Soutien Douglams}
+        8 {Drone de Soutien Einstein}
+        9 {Drone de Soutien Fido}
+        10 {Drone de Soutien Fito}
+        11 {Drone de Soutien Groo}
+        12 {Drone de Soutien Isaac}
+        13 {Drone de Soutien Loulou}
+        14 {Drone de Soutien Médor}
+        15 {Drone de Soutien Nabuk}
+        16 {Drone de Soutien Papitou}
+        17 {Drone de Soutien Poutou}
+        18 {Drone de Soutien Rex}
+        19 {Drone de Soutien Robbie}
+        20 {Drone de Soutien Robert}
+        21 {Drone de Soutien Selry}
+        22 {Drone de Soutien Steve}
+        23 {Drone de Soutien Terminus}
+        24 {Drone de Soutien Troll}
+        25 {Drone de Soutien Vortex}
+        26 {Drone de Soutien Wheatley}
+        666 {Drone Ménager Saki}
+        other {Wheatley}} #{drone_serial_number}</target>
+      </segment>
+    </unit>
     <unit id="drone_entered_room">
       <segment state="translated">
         <source>drone_entered_room</source>
@@ -1412,6 +1446,34 @@
       <segment id="revised_knowledge" state="translated">
         <source>revised_knowledge</source>
         <target>C'était pourtant si simple ! Vous vous étiez vraiment laissé aller... Vous êtes maintenant **Botaniste**, **Biologiste** et **Diplomate** !</target>
+      </segment>
+    </unit>
+    <unit id="evil_drone">
+      <segment id="evil_drone.flirt" state="translated">
+        <source>evil_drone.flirt</source>
+        <target>**Robot ménager Saki** a l'air intéressée par **{target_character}**, ses bips et ses boops sont révélateur de son code le plus secret.</target>
+      </segment>
+      <segment id="evil_drone.recycle" state="translated">
+        <source>evil_drone.recycle</source>
+        <target>Cette salle est vraiment dans un sale état depuis la mort de **{target_character}**. Il y a de la poussière et du sang partout, ce n'est vraiment pas possible de se laisser aller comme ça. Heureusement, le **Robot ménager Saki**, votre robot ménager préféré, est toujours là pour vous aider ! Grâce à son recycleur intégré, il n'a même pas besoin d'un sac-poubelle ! Mangez vite pendant que c'est encore chaud !</target>
+      </segment>
+      <segment id="evil_drone.conspire" state="translated">
+        <source>evil_drone.conspire</source>
+        <target>{drone} papote innocement avec NERON... "{version, select, 
+        1{... le coupable est **{target_character}**.}
+        2{**{target_character}** est {target_character_gender, select, female{la suivante.} other{le suivant.}}}
+        3{Si **{target_character}** disparait on sera libre...}
+        4{**{target_character}** doit être nettoyé.}
+        other{invalid version input}}"
+        </target>
+      </segment>
+      <segment id="evil_drone.clean" state="translated">
+        <source>evil_drone.clean</source>
+        <target>{drone} sort un chiffon de son inventaire et commence à nettoyer {target_equipment_gender, select, female{une } name{} other{un }}**{target_equipment}** avec assiduité.</target>
+      </segment>
+      <segment id="evil_drone.kidnapping" state="translated">
+        <source>evil_drone.kidnapping</source>
+        <target>"{drone} se sent maltraitée, et vous laisse le savoir avec une série de bips à l'allure bien insultante."</target>
       </segment>
     </unit>
   </file>

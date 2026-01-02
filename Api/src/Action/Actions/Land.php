@@ -83,13 +83,11 @@ final class Land extends AbstractAction
         /** @var SpaceShip $patrolShip */
         $patrolShip = $this->target;
 
+        $patrolShipPlace = $patrolShip->getPlace();
+
         $daedalus = $patrolShip->getDaedalus();
 
         $patrolShipDockingPlace = $daedalus->getPlaceByNameOrThrow($patrolShip->getDockingPlace());
-
-        foreach ($this->player->getPlace()->getPlayers()->getPlayerAlive() as $player) {
-            $this->playerService->changePlace($player, $patrolShipDockingPlace);
-        }
 
         $this->patrolShipManoeuvreService->handleLand(
             patrolShip: $patrolShip,
@@ -98,5 +96,9 @@ final class Land extends AbstractAction
             tags: $this->getActionConfig()->getActionTags(),
             time: new \DateTime(),
         );
+
+        foreach ($patrolShipPlace->getPlayers()->getPlayerAlive() as $player) {
+            $this->playerService->changePlace($player, $patrolShipDockingPlace);
+        }
     }
 }

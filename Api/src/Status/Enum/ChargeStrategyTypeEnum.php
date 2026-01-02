@@ -23,6 +23,7 @@ abstract class ChargeStrategyTypeEnum
     public const string DAILY_INCREMENT = 'daily_increment';
     public const string CYCLE_INCREMENT = 'cycle_increment';
     public const string CYCLE_DECREMENT = 'cycle_decrement';
+    public const string CYCLE_RESET = 'cycle_reset';
     public const string GROWING_PLANT = 'growing_plant';
     public const string DAILY_RESET = 'daily_reset';
     public const string NONE = 'none';

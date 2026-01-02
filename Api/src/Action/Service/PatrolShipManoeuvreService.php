@@ -58,14 +58,6 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
 
         $dockingPlaceName = $patrolShip->getDockingPlace();
 
-        $this->gameEquipmentService->moveEquipmentTo(
-            equipment: $patrolShip,
-            newHolder: $daedalus->getPlaceByNameOrThrow($dockingPlaceName),
-            tags: $tags,
-            time: $time,
-            author: $pilot,
-        );
-
         if ($actionResult->isNotACriticalSuccess()) {
             $this->handlePatrolShipManoeuvreDamage($patrolShip, $pilot, $tags, $time);
         }
@@ -74,6 +66,14 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
         $isPatrolShipAlive = $patrolShipArmor?->isCharged();
         if ($isPatrolShipAlive) {
             $this->moveScrapToPatrolShipDockingPlace($patrolShip, $tags, $time, $pilot);
+
+            $this->gameEquipmentService->moveEquipmentTo(
+                equipment: $patrolShip,
+                newHolder: $daedalus->getPlaceByNameOrThrow($dockingPlaceName),
+                tags: $tags,
+                time: $time,
+                author: $pilot,
+            );
         }
     }
 
@@ -106,6 +106,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
 
         $patrolShipPlace = $daedalus->getPlaceByNameOrThrow($patrolShip->getPatrolShipName());
         $patrolShipPlaceContent = $patrolShipPlace->getEquipments();
+        $patrolShipPlaceContent->removeElement($patrolShip);
 
         // if no scrap in patrol ship, then there is nothing to move : abort
         if ($patrolShipPlaceContent->isEmpty()) {

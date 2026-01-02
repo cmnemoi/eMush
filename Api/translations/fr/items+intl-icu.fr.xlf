@@ -3912,6 +3912,38 @@ Contient {quantity, plural,
         <target>Pour peu d'avoir une mauvaise vue ou d'être peu familier avec l'anatomie humaine, il est identique au vrai. Et lui, il ne flirte pas avec tout le monde au moins.//Le Derek de paille sera offert en priorité aux marchands à la place d'un membre de l'équipage s'il se trouve dans un stockage. //Et avec un peu de baratin, on pourrait le faire remplacer n'importe qui...</target>
       </segment>
     </unit>
+    <unit id="evil_drone">
+      <segment id="name" state="translated">
+        <source>evil_drone.name</source>
+        <target>Drone ménager</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>evil_drone.short_name</source>
+        <target>Drone ménager</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>evil_drone.plural_name</source>
+        <target>Drones ménager</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>evil_drone.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>evil_drone.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>evil_drone.description</source>
+        <target>Le robot ménager Saki sait absolument tout faire avec une efficacité hors du commun. Mais pour la sécurité de l'humanité, la cinquième loi de la robotique ne lui autorise qu'à faire du ménage.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>evil_drone.examine</source>
+        <target>Le robot ménager Saki sait absolument tout faire avec une efficacité hors du commun. Mais pour la sécurité de l'humanité, la cinquième loi de la robotique ne lui autorise qu'à faire du ménage.//
+L'arrivée du Saki dans les rayons des spatio-marchées à conduit à une vague de disparition inquiétante. Heureusement, les êtres vivants sont toujours considérés comme propre par défaut désormais.//
+Ce modèle en édition limité vient avec un costume d'idole et une peinture de grande qualité.</target>
+      </segment>
+    </unit>
     <unit id="chefs_knife">
       <segment id="name" state="translated">
         <source>chefs_knife.name</source>

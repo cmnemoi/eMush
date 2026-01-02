@@ -125,4 +125,51 @@ class RoomEnum
             self::CENTRAL_CORRIDOR,
         ]);
     }
+
+    //  A result of 10 is a room next to you. 30 is quite close, more than 50 is going to be the other side of the ship.
+    public static function getChebyshevDistance(string $roomNameA, string $roomNameB): int
+    {
+        $roomACoordinates = self::getRoomCoordinates($roomNameA);
+        $roomBCoordinates = self::getRoomCoordinates($roomNameB);
+
+        $x = abs($roomACoordinates[0] - $roomBCoordinates[0]);
+        $y = abs($roomACoordinates[1] - $roomBCoordinates[1]);
+
+        return (int) max($x, $y);
+    }
+
+    // First value is X, second value is Y. The values are arbitrary, they are meant to be used to approximate the distance between two rooms. Ex : To have an NPC avoid calculating path toward objects that are too far for him. Useful for complex behaviors
+    public static function getRoomCoordinates(string $name): array
+    {
+        return match ($name) {
+            self::REFECTORY => [20, 30],
+            self::CENTRAL_CORRIDOR => [20, 20],
+            self::FRONT_CORRIDOR => [20, 10],
+            self::BRIDGE => [20, 0],
+            self::FRONT_STORAGE => [30, 15],
+            self::HYDROPONIC_GARDEN => [30, 10],
+            self::MEDLAB => [10, 15],
+            self::LABORATORY => [10, 10],
+            self::FRONT_ALPHA_TURRET => [30, 0],
+            self::FRONT_BRAVO_TURRET => [10, 0],
+            self::CENTRE_ALPHA_TURRET => [40, 15],
+            self::CENTRE_BRAVO_TURRET => [0, 15],
+            self::ALPHA_BAY => [30, 40],
+            self::BRAVO_BAY => [10, 40],
+            self::CENTER_ALPHA_STORAGE => [40, 40],
+            self::CENTER_BRAVO_STORAGE => [0, 40],
+            self::REAR_CORRIDOR => [20, 50],
+            self::ALPHA_DORM => [30, 45],
+            self::BRAVO_DORM => [10, 45],
+            self::NEXUS => [20, 60],
+            self::ALPHA_BAY_2 => [30, 60],
+            self::ICARUS_BAY => [10, 60],
+            self::ENGINE_ROOM => [20, 70],
+            self::REAR_ALPHA_STORAGE => [25, 60],
+            self::REAR_BRAVO_STORAGE => [15, 60],
+            self::REAR_ALPHA_TURRET => [30, 70],
+            self::REAR_BRAVO_TURRET => [10, 70],
+            default => [1000, 1000]
+        };
+    }
 }

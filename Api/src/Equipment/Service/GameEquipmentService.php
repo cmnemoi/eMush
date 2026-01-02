@@ -17,6 +17,7 @@ use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\DroneNicknameEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
@@ -320,10 +321,14 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
 
     private function movePatrolShipContentToSpace(GameEquipment $patrolShip, ?Player $player, array $tags): void
     {
+        if ($patrolShip->isInAPatrolShip() === false) {
+            return;
+        }
+
         /** @var Daedalus $daedalus */
         $daedalus = $patrolShip->getDaedalus();
 
-        $patrolShipPlace = $daedalus->getPlaceByNameOrThrow($patrolShip->getName());
+        $patrolShipPlace = $patrolShip->getPlace();
 
         /** @var GameEquipment $item */
         foreach ($patrolShipPlace->getEquipments() as $item) {
@@ -393,9 +398,11 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
 
     private function initDrone(Drone $drone): Drone
     {
+        $isEvilDrone = $drone->getName() === ItemEnum::EVIL_DRONE;
+
         $droneInfo = new DroneInfo(
             $drone,
-            nickName: $this->randomService->random(1, \count(DroneNicknameEnum::cases())),
+            nickName: $isEvilDrone ? 666 : $this->randomService->random(1, \count(DroneNicknameEnum::cases())),
             serialNumber: $this->randomService->random(1, 99)
         );
         $this->entityManager->persist($droneInfo);

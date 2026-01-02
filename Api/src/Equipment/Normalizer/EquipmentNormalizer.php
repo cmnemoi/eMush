@@ -89,7 +89,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         $normalizedEquipment = [
             'id' => $equipment->getId(),
             'key' => $key,
-            'name' => $this->translationService->translate($key . '.name', $nameParameters, $type, $language),
+            'name' => $this->getEquipmentName($equipment, $key, $nameParameters, $type, $language),
             'description' => $definition,
             'statuses' => $statuses,
             'actions' => $this->getNormalizedActions($equipment, ActionHolderEnum::EQUIPMENT, $currentPlayer, $format, $context),
@@ -101,6 +101,15 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         }
 
         return $normalizedEquipment;
+    }
+
+    private function getEquipmentName(GameEquipment $equipment, string $key, array $nameParameters, string $type, string $language): string
+    {
+        if ($equipment instanceof Drone) {
+            return $this->translationService->translate('drone_full_name', ['drone_nickname' => $equipment->getNickname(), 'drone_serial_number' => $equipment->getSerialNumber()], 'event_log', $language);
+        }
+
+        return $this->translationService->translate($key . '.name', $nameParameters, $type, $language);
     }
 
     private function getNameKey(GameEquipment $equipment): string

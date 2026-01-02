@@ -326,6 +326,8 @@ class GameConfigData
                     PlayerStatusEnum::HAS_EXTRA_MUSH_SLOT_ANNIVERSARY . '_default',
                     ItemEnum::ANTIQUE_PERFUME_ITEM . '_charge_default',
                     PlayerStatusEnum::HAS_READ_SCHOOLBOOKS_ANNIVERSARY . '_default',
+                    EquipmentStatusEnum::EVIL_DRONE_TARGET . '_default',
+                    EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::EVIL_DRONE . '_default',
                 ],
                 'triumphConfigs' => array_map(static fn (TriumphConfigDto $triumphConfig) => $triumphConfig->name->toConfigKey('default'), TriumphConfigData::getAll()),
                 'hunterConfigs' => [

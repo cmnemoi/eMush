@@ -48,6 +48,7 @@ class ItemEnum
     public const string SCHRODINGER = 'schrodinger';
     public const string SUPPORT_DRONE = 'support_drone';
     public const string PAVLOV = 'pavlov';
+    public const string EVIL_DRONE = 'evil_drone';
     public const string ANNIVERSARY_GIFT = 'anniversary_gift';
     public const string COFFEE_THERMOS = 'coffee_thermos';
     public const string STANDARD_RATION = 'standard_ration';

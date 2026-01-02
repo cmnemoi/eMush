@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Equipment\Service;
 
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
@@ -30,6 +33,26 @@ final class GameEquipmentServiceCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+    }
+
+    public function shouldMovePatrolShipItemsInSpaceWhenDestroyed(FunctionalTester $I): void
+    {
+        $place = $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
+
+        $patrolShipConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP]);
+        $ship = $this->patrolShip = $this->gameEquipmentService->createGameEquipment(
+            equipmentConfig: $patrolShipConfig,
+            holder: $place,
+            reasons: [],
+            time: new \DateTime(),
+            patrolShipName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+        );
+
+        $drone = $this->createEquipment(ItemEnum::SUPPORT_DRONE, $place);
+
+        $this->gameEquipmentService->handlePatrolShipDestruction($ship, null, [EndCauseEnum::SUPER_NOVA]);
+
+        $I->assertTrue($drone->getPlace()->getName() === RoomEnum::SPACE);
     }
 
     public function testInvertebrateShellBreaksAllEquipmentInRoomAfterBeingDestroyedByAFire(FunctionalTester $I): void

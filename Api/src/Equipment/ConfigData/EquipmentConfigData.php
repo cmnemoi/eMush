@@ -3746,6 +3746,23 @@ class EquipmentConfigData
             'AIHandler' => AIHandlerEnum::DRONE,
         ],
         [
+            'name' => ItemEnum::EVIL_DRONE . '_default',
+            'equipmentName' => ItemEnum::EVIL_DRONE,
+            'breakableType' => BreakableTypeEnum::BREAKABLE,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'drone_config',
+            'isStackable' => false,
+            'actions' => [
+                'take',
+                'drop',
+                'examine',
+            ],
+            'mechanics' => [],
+            'initStatuses' => [EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::EVIL_DRONE . '_default'],
+            'AIHandler' => AIHandlerEnum::DRONE_EVIL,
+        ],
+        [
             'name' => EquipmentEnum::HYDROPONIC_INCUBATOR . '_default',
             'equipmentName' => EquipmentEnum::HYDROPONIC_INCUBATOR,
             'breakableType' => BreakableTypeEnum::NONE,

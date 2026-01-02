@@ -30,6 +30,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -583,6 +584,17 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
+
+        /** @var StatusServiceInterface $statusService */
+        $statusService = $I->grabService(StatusServiceInterface::class);
+
+        // @var ChargeStatus $pasiphaeArmor
+        $statusService->createStatusFromName(
+            EquipmentStatusEnum::PATROL_SHIP_ARMOR,
+            $pasiphae,
+            [],
+            new \DateTime()
+        );
 
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(

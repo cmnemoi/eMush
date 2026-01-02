@@ -111,6 +111,7 @@ abstract class LogDeclinationEnum
             WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_SHOOTER_DROP_WEAPON_SHOOTER_RANDOM_INJURY->value => [self::VERSION => 2],
             LogEnum::DOG_BARK => [self::VERSION => 17],
             LogEnum::DOG_BOTHER_CAT => [self::VERSION => 4],
+            'evil_drone.conspire' => [self::VERSION => 4],
         ];
     }
 }

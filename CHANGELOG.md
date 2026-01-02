@@ -1,3 +1,16 @@
+# [0.21.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.20.0...0.21.0) (2026-01-02)
+
+
+### Bug Fixes
+
+* mush stats ([eb54ded](https://gitlab.com/eternaltwin/mush/mush/commit/eb54ded6f3984451ec8cd70bb2f3201426a230c2))
+
+
+### Features
+
+* **stat:** Last Man Standing ([cd945e0](https://gitlab.com/eternaltwin/mush/mush/commit/cd945e0a7c645a0549f380b88a5ec6bfc014b478))
+* **stat:** Project Team, Research Team ([47336f4](https://gitlab.com/eternaltwin/mush/mush/commit/47336f4d65130e52cb93c6cc6ce4e78cfa09b218))
+
 # [0.20.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.19.2...0.20.0) (2026-01-02)
 
 

@@ -77,6 +77,7 @@ enum StatisticEnum: string
     case NILS_CONTACTED = 'nils_contacted';
     case ARTEFACT_SPECIALIST = 'artefact_specialist';
     case TEAM_ALL_REBELS = 'team_all_rebels';
+    case TEAM_REBELS = 'team_rebels';
     case PLASMA_SHIELD = 'plasma_shield';
     case GRENADIER = 'grenadier';
     case FROZEN_TAKEN = 'frozen_taken';

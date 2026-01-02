@@ -70,6 +70,7 @@ export const enum StatisticEnum {
     NILS_CONTACTED = "nils_contacted",
     ARTEFACT_SPECIALIST = "artefact_specialist",
     TEAM_ALL_REBELS = "team_all_rebels",
+    TEAM_REBELS = 'team_rebels',
     PLASMA_SHIELD = "plasma_shield",
     GRENADIER = 'grenadier',
     FROZEN_TAKEN = 'frozen_taken',
@@ -287,6 +288,9 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.TEAM_ALL_REBELS]: {
         'icon': getImgUrl('achievements/revolution.png')
+    },
+    [StatisticEnum.TEAM_REBELS]: {
+        'icon': getImgUrl('achievements/rebellion.png')
     },
     [StatisticEnum.PLASMA_SHIELD]: {
         'icon': getImgUrl('plasma.png')

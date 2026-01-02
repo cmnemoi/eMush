@@ -1417,6 +1417,28 @@
         <target>Libération</target>
       </segment>
     </unit>
+    <unit id="team_rebels">
+      <segment id="name" state="translated">
+        <source>team_rebels.name</source>
+        <target>Rébellion !</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>team_rebels.description</source>
+        <target>Nombre maximal de signaux rebelles décodés par votre équipage durant un voyage.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>team_rebels_1.name</source>
+        <target>Dissident</target>
+      </segment>
+      <segment id="x3" state="translated">
+        <source>team_rebels_3.name</source>
+        <target>Rebelle</target>
+      </segment>
+      <segment id="x6" state="translated">
+        <source>team_rebels_6.name</source>
+        <target>Terroriste</target>
+      </segment>
+    </unit>
     <unit id="plasma_shield">
       <segment id="name" state="translated">
         <source>plasma_shield.name</source>

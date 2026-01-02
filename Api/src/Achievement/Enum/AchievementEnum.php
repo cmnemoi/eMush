@@ -212,6 +212,9 @@ enum AchievementEnum: string
     case TEAM_ALL_REBELS_1 = 'team_all_rebels_1';
     case TEAM_ALL_REBELS_5 = 'team_all_rebels_5';
     case TEAM_ALL_REBELS_10 = 'team_all_rebels_10';
+    case TEAM_REBELS_1 = 'team_rebels_1';
+    case TEAM_REBELS_3 = 'team_rebels_3';
+    case TEAM_REBELS_6 = 'team_rebels_6';
     case PLASMA_SHIELD_1 = 'plasma_shield_1';
     case GRENADIER_1 = 'grenadier_1';
     case FROZEN_TAKEN_1 = 'frozen_taken_1';

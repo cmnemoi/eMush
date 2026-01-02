@@ -83,6 +83,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::NILS_CONTACTED, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::ARTEFACT_SPECIALIST, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::TEAM_ALL_REBELS, StatisticStrategyEnum::INCREMENT),
+            new StatisticConfigDto(StatisticEnum::TEAM_REBELS, StatisticStrategyEnum::MAX),
             new StatisticConfigDto(StatisticEnum::PLASMA_SHIELD, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::GRENADIER, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::FROZEN_TAKEN, StatisticStrategyEnum::INCREMENT),

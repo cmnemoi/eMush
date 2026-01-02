@@ -207,4 +207,9 @@ class Planet implements LogParameterInterface, ActionHolderInterface
     {
         return $activePlayer->getPlace()->getProvidedActions(ActionHolderEnum::PLANET, [ActionRangeEnum::ROOM, ActionRangeEnum::SHELF]);
     }
+
+    public function hasAllRevealedSectors(): bool
+    {
+        return $this->getUnrevealedSectors()->isEmpty();
+    }
 }

@@ -81,6 +81,7 @@ export const enum StatisticEnum {
     TEAM_MUSH_KILLED = 'team_mush_killed',
     PROJECT_TEAM = 'project_team',
     RESEARCH_TEAM = 'research_team',
+    TAGS_COMPLETE = 'tags_complete',
     LAST_MEMBER = 'last_member',
     COMMANDER_SHOULD_GO_LAST = 'commander_should_go_last',
 }
@@ -325,6 +326,9 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.RESEARCH_TEAM]: {
         'icon': getImgUrl('ui_icons/research.png')
+    },
+    [StatisticEnum.TAGS_COMPLETE]: {
+        'icon': getImgUrl('achievements/planet_complete.png')
     },
     [StatisticEnum.LAST_MEMBER]: {
         'icon': getImgUrl('comms/fav.png')

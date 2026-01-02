@@ -1711,6 +1711,20 @@
         <target>Omniscient</target>
       </segment>
     </unit>
+    <unit id="tags_complete">
+      <segment id="name" state="translated">
+        <source>tags_complete.name</source>
+        <target>Balayages Complets</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>tags_complete.description</source>
+        <target>Nombre de planètes dont toutes les sections ont été révélées par votre équipage durant une partie.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>tags_complete_1.name</source>
+        <target>Scanneur Fou</target>
+      </segment>
+    </unit>
     <unit id="last_member">
       <segment id="name" state="translated">
         <source>last_member.name</source>

@@ -19,6 +19,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 
 final class PlanetService implements PlanetServiceInterface
 {
@@ -29,6 +30,7 @@ final class PlanetService implements PlanetServiceInterface
         private EventServiceInterface $eventService,
         private PlanetRepository $planetRepository,
         private RandomServiceInterface $randomService,
+        private StatusServiceInterface $statusService,
     ) {}
 
     public function createPlanet(Player $player): Planet
@@ -93,6 +95,7 @@ final class PlanetService implements PlanetServiceInterface
     {
         foreach ($entities as $entity) {
             if ($entity instanceof Planet) {
+                $this->incrementRemovedCompletelyRevealedPlanets($entity);
                 $entity->getPlayer()->removePlanet($entity);
             }
             $this->entityManager->remove($entity);
@@ -264,6 +267,18 @@ final class PlanetService implements PlanetServiceInterface
         }
 
         return $total;
+    }
+
+    private function incrementRemovedCompletelyRevealedPlanets(Planet $planet): void
+    {
+        if (!$planet->hasAllRevealedSectors()) {
+            return;
+        }
+
+        $this->statusService->createOrIncrementChargeStatus(
+            name: DaedalusStatusEnum::REMOVED_COMPLETELY_REVEALED_PLANETS,
+            holder: $planet->getDaedalus(),
+        );
     }
 
     private function persist(array $entities): void

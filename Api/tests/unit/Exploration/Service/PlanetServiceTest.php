@@ -16,6 +16,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
+use Mush\Status\Service\StatusServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -49,7 +50,8 @@ final class PlanetServiceTest extends TestCase
             $this->entityManager,
             self::createStub(EventServiceInterface::class),
             $this->planetRepository,
-            $this->randomService
+            $this->randomService,
+            self::createStub(StatusServiceInterface::class),
         );
 
         // Given a Daedalus

@@ -88,6 +88,7 @@ enum StatisticEnum: string
     case TEAM_MUSH_KILLED = 'team_mush_killed';
     case PROJECT_TEAM = 'project_team';
     case RESEARCH_TEAM = 'research_team';
+    case TAGS_COMPLETE = 'tags_complete';
     case LAST_MEMBER = 'last_member';
     case COMMANDER_SHOULD_GO_LAST = 'commander_should_go_last';
     case NULL = '';

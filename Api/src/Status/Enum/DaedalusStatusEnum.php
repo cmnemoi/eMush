@@ -25,4 +25,5 @@ abstract class DaedalusStatusEnum
     public const string GHOST_SAMPLE = 'ghost_sample';
     public const string GHOST_CHUN = 'ghost_chun';
     public const string FIRST_STARMAP_FRAGMENT = 'first_starmap_fragment';
+    public const string REMOVED_COMPLETELY_REVEALED_PLANETS = 'removed_completely_revealed_planets';
 }

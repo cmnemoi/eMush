@@ -944,6 +944,7 @@ abstract class AchievementConfigData
             new AchievementConfigDto(name: AchievementEnum::RESEARCH_TEAM_4, points: 5, threshold: 4),
             new AchievementConfigDto(name: AchievementEnum::RESEARCH_TEAM_8, points: 10, threshold: 8),
             new AchievementConfigDto(name: AchievementEnum::RESEARCH_TEAM_16, points: 5, threshold: 16),
+            new AchievementConfigDto(name: AchievementEnum::TAGS_COMPLETE_1, points: 1, threshold: 1),
             new AchievementConfigDto(name: AchievementEnum::LAST_MEMBER_1, points: 10, threshold: 1),
             new AchievementConfigDto(name: AchievementEnum::LAST_MEMBER_2, points: 10, threshold: 2),
             new AchievementConfigDto(name: AchievementEnum::LAST_MEMBER_5, points: 20, threshold: 5),

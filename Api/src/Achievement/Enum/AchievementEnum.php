@@ -244,6 +244,7 @@ enum AchievementEnum: string
     case RESEARCH_TEAM_4 = 'research_team_4';
     case RESEARCH_TEAM_8 = 'research_team_8';
     case RESEARCH_TEAM_16 = 'research_team_16';
+    case TAGS_COMPLETE_1 = 'tags_complete_1';
     case LAST_MEMBER_1 = 'last_member_1';
     case LAST_MEMBER_2 = 'last_member_2';
     case LAST_MEMBER_5 = 'last_member_5';

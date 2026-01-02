@@ -326,6 +326,7 @@ class GameConfigData
                     PlayerStatusEnum::HAS_EXTRA_MUSH_SLOT_ANNIVERSARY . '_default',
                     ItemEnum::ANTIQUE_PERFUME_ITEM . '_charge_default',
                     PlayerStatusEnum::HAS_READ_SCHOOLBOOKS_ANNIVERSARY . '_default',
+                    DaedalusStatusEnum::REMOVED_COMPLETELY_REVEALED_PLANETS . '_default',
                     EquipmentStatusEnum::EVIL_DRONE_TARGET . '_default',
                     EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::EVIL_DRONE . '_default',
                 ],

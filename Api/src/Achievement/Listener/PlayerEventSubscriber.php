@@ -8,16 +8,22 @@ use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Services\UpdatePlayerStatisticService;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Exploration\Entity\Planet;
+use Mush\Exploration\Repository\PlanetRepository;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class PlayerEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private UpdatePlayerStatisticService $updatePlayerStatisticService) {}
+    public function __construct(
+        private PlanetRepository $planetRepository,
+        private UpdatePlayerStatisticService $updatePlayerStatisticService
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -71,6 +77,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
     public function onPlayerDeath(PlayerEvent $event): void
     {
         $this->incrementMushKilledStats($event);
+        $this->updatePlanetsCompletelyRevealedStatistic($event);
         $this->attributeLastManStanding($event);
     }
 
@@ -147,6 +154,20 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
                 }
             }
         }
+    }
+
+    private function updatePlanetsCompletelyRevealedStatistic(PlayerEvent $event): void
+    {
+        $currentPlanets = $this->planetRepository->findAllByDaedalus($event->getDaedalus());
+        $numberOfCompleteCurrentPlanets = \count(array_filter($currentPlanets, static fn (Planet $planet) => $planet->hasAllRevealedSectors()));
+        $removedPlanetsCounter = $event->getDaedalus()->getChargeStatusByName(DaedalusStatusEnum::REMOVED_COMPLETELY_REVEALED_PLANETS);
+        $numberOfCompleteDeletedPlanets = $removedPlanetsCounter ? $removedPlanetsCounter->getCharge() : 0;
+
+        $this->updatePlayerStatisticService->execute(
+            player: $event->getPlayer(),
+            statisticName: StatisticEnum::TAGS_COMPLETE,
+            count: $numberOfCompleteCurrentPlanets + $numberOfCompleteDeletedPlanets
+        );
     }
 
     private function attributeLastManStanding(PlayerEvent $event): void

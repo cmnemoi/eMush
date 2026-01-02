@@ -14,6 +14,9 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Exploration\Entity\Planet;
+use Mush\Exploration\Entity\PlanetSector;
+use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -34,6 +37,7 @@ final class PlayerDeathEventCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
+    private PlanetServiceInterface $planetService;
     private PlayerServiceInterface $playerService;
     private StatisticRepositoryInterface $statisticRepository;
 
@@ -47,6 +51,7 @@ final class PlayerDeathEventCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
+        $this->planetService = $I->grabService(PlanetServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
     }
@@ -84,6 +89,72 @@ final class PlayerDeathEventCest extends AbstractFunctionalTest
         $this->thenPlayerShouldNotHaveNatamistStatistic($I);
     }
 
+    public function shouldNotUpdateTotalClearancePendingStatisticForCurrentNonClearPlanetOnPlayerDeath(FunctionalTester $I): void
+    {
+        $this->givenUnrevealedPlanet();
+
+        $this->whenPlayerDies($this->player);
+
+        $this->thenPlayerShouldNotHaveTotalClearancePendingStatistic($I);
+    }
+
+    public function shouldNotUpdateTotalClearancePendingStatisticForDeletedNonClearPlanetOnPlayerDeath(FunctionalTester $I): void
+    {
+        $planet = $this->givenUnrevealedPlanet();
+        $this->givenPlanetIsDeleted($planet);
+
+        $this->thenPlayerShouldNotHaveTotalClearancePendingStatistic($I);
+    }
+
+    public function shouldUpdateTotalClearancePendingStatisticForCurrentClearPlanetOnPlayerDeath(FunctionalTester $I): void
+    {
+        $this->givenFullyRevealedPlanet();
+
+        $this->whenPlayerDies($this->player);
+
+        $this->thenPlayerShouldHaveTotalClearancePendingStatistic(1, $I);
+    }
+
+    public function shouldUpdateTotalClearancePendingStatisticForClearDeletedPlanetOnPlayerDeath(FunctionalTester $I): void
+    {
+        $planet = $this->givenFullyRevealedPlanet();
+        $this->givenPlanetIsDeleted($planet);
+
+        $this->whenPlayerDies($this->player);
+
+        $this->thenPlayerShouldHaveTotalClearancePendingStatistic(1, $I);
+    }
+
+    public function shouldUpdateTotalClearancePendingStatisticForClearPlanetsOnPlayerDeath(FunctionalTester $I): void
+    {
+        $this->givenFullyRevealedPlanet();
+        $planet = $this->givenFullyRevealedPlanet();
+        $this->givenPlanetIsDeleted($planet);
+
+        $this->whenPlayerDies($this->player);
+
+        $this->thenPlayerShouldHaveTotalClearancePendingStatistic(2, $I);
+    }
+
+    public function shouldUpdateTotalClearanceStatisticForCurrentClearPlanetOnShipFinished(FunctionalTester $I): void
+    {
+        $this->givenFullyRevealedPlanet();
+
+        $this->whenDaedalusIsDestroyed();
+
+        $this->thenPlayerShouldHaveTotalClearanceStatistic(1, $I);
+    }
+
+    public function shouldUpdateTotalClearanceStatisticForDeletedClearPlanetOnShipFinished(FunctionalTester $I): void
+    {
+        $planet = $this->givenFullyRevealedPlanet();
+        $this->givenPlanetIsDeleted($planet);
+
+        $this->whenDaedalusIsDestroyed();
+
+        $this->thenPlayerShouldHaveTotalClearanceStatistic(1, $I);
+    }
+
     public function shouldNotGrantLastManWhenTheOnlyPlayerDiesOnStartingShip(FunctionalTester $I): void
     {
         $this->givenDaedalusIsMarkedAsStarting();
@@ -108,7 +179,7 @@ final class PlayerDeathEventCest extends AbstractFunctionalTest
     {
         $this->givenDaedalusIsMarkedAsStarting();
 
-        $this->whenDaedalusIsDestroyed($this->player);
+        $this->whenDaedalusIsDestroyed();
 
         $this->thenLastMandStandingStatisticShouldBeAttributedOnce($I);
     }
@@ -117,7 +188,7 @@ final class PlayerDeathEventCest extends AbstractFunctionalTest
     {
         $this->givenDaedalusIsMarkedAsFull();
 
-        $this->whenDaedalusIsDestroyed($this->player);
+        $this->whenDaedalusIsDestroyed();
 
         $this->thenLastMandStandingStatisticShouldBeAttributedOnce($I);
     }
@@ -126,7 +197,7 @@ final class PlayerDeathEventCest extends AbstractFunctionalTest
     {
         $this->givenDaedalusIsMarkedAsFull();
 
-        $this->whenDaedalusReturnsToSol($this->player);
+        $this->whenDaedalusReturnsToSol();
 
         $this->thenLastMandStandingStatisticShouldNotBeAttributed($I);
     }
@@ -206,6 +277,28 @@ final class PlayerDeathEventCest extends AbstractFunctionalTest
     private function givenPlayer2IsMush(FunctionalTester $I): void
     {
         $this->convertPlayerToMush($I, $this->player2);
+    }
+
+    private function givenFullyRevealedPlanet(): Planet
+    {
+        $planet = $this->givenUnrevealedPlanet();
+
+        /** @var PlanetSector $sector */
+        foreach ($planet->getSectors() as $sector) {
+            $sector->reveal();
+        }
+
+        return $planet;
+    }
+
+    private function givenUnrevealedPlanet(): Planet
+    {
+        return $this->planetService->createPlanet($this->player2);
+    }
+
+    private function givenPlanetIsDeleted(Planet $planet): void
+    {
+        $this->planetService->delete([$planet]);
     }
 
     private function givenDaedalusIsMarkedAsStarting(): void
@@ -298,6 +391,40 @@ final class PlayerDeathEventCest extends AbstractFunctionalTest
                 $closedDaedalusId
             ),
             message: "{$this->player->getLogName()} should have NOT natamist statistic"
+        );
+    }
+
+    private function thenPlayerShouldHaveTotalClearancePendingStatistic(int $expectedCount, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $expectedCount,
+            actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                StatisticEnum::TAGS_COMPLETE,
+                $this->player->getUser()->getId(),
+                $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+            )?->getCount(),
+        );
+    }
+
+    private function thenPlayerShouldNotHaveTotalClearancePendingStatistic(FunctionalTester $I): void
+    {
+        $I->assertNull(
+            actual: $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+                StatisticEnum::TAGS_COMPLETE,
+                $this->player->getUser()->getId(),
+                $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+            ),
+        );
+    }
+
+    private function thenPlayerShouldHaveTotalClearanceStatistic(int $expectedCount, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $expectedCount,
+            actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                StatisticEnum::TAGS_COMPLETE,
+                $this->player->getUser()->getId()
+            )?->getCount(),
         );
     }
 

@@ -95,6 +95,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::ARTEFACT_COLL, StatisticStrategyEnum::INCREMENT),
             new StatisticConfigDto(StatisticEnum::PROJECT_TEAM, StatisticStrategyEnum::MAX),
             new StatisticConfigDto(StatisticEnum::RESEARCH_TEAM, StatisticStrategyEnum::MAX),
+            new StatisticConfigDto(StatisticEnum::TAGS_COMPLETE, StatisticStrategyEnum::MAX),
             new StatisticConfigDto(StatisticEnum::LAST_MEMBER, StatisticStrategyEnum::INCREMENT, isRare: true),
             new StatisticConfigDto(StatisticEnum::COMMANDER_SHOULD_GO_LAST, StatisticStrategyEnum::INCREMENT, isRare: true),
         ];

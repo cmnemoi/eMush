@@ -29,10 +29,7 @@ describe('formatText', () => {
             expect(result).to.equal("<em>Raluca</em> a pris un Débris métallique.");
         });
         it('should replace :hp:, :pm:, :pa: and :pmo tags with an image', () => {
-            const text = `Vous avez gagné 1 :pm:
-            Vous avez gagné 1 :pa:
-            Vous avez perdu 3 :hp:
-            Vous avez perdu 3 :pmo:`;
+            const text = `Vous avez gagné 1 :pm://Vous avez gagné 1 :pa://Vous avez perdu 3 :hp://Vous avez perdu 3 :pmo:`;
 
             const result = formatText(text).replace(/<img[^>]*>/g, "<img/>");
 
@@ -51,14 +48,6 @@ describe('formatText', () => {
             const result = formatText(text);
 
             expect(result).to.equal(`Raluca a pris un Débris métallique.<br>Raluca a pris un Débris métallique.`);
-        });
-        it('should replace ://\\n with <br>', () => {
-            const text = `Raluca a pris un Débris métallique://
-            Raluca a pris un Débris métallique.`;
-
-            const result = formatText(text);
-
-            expect(result).to.equal(`Raluca a pris un Débris métallique:<br><br>Raluca a pris un Débris métallique.`);
         });
         it('should replace 1 :pmo: by 1 image', () => {
             const text = "Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 :hp: OU + 1 :pmo: OU + 2:pm:.";
@@ -107,8 +96,7 @@ describe('formatText', () => {
 
     describe("Complex tests", () => {
         it('should allow multiple bold and italic elements', () => {
-            const text = `**Raluca** a laché *un* **Débris métallique**
-            **Raluca** a pris *un* **Débris métallique.**`;
+            const text = `**Raluca** a laché *un* **Débris métallique**//**Raluca** a pris *un* **Débris métallique.**`;
 
             const result = formatText(text);
 

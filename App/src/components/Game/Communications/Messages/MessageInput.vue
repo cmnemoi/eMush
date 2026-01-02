@@ -12,8 +12,8 @@
                 @keyup="resize()"
                 @focusout ="updateTypedMessage(text)"
             />
-            <div class="character-count" :class="{ 'getting-close': text?.length > maxLength/2, 'over-limit': text?.length > maxLength}">
-                {{ text?.length }} / {{ maxLength}}
+            <div class="character-count" :class="{ 'getting-close': textLength > maxLength/2, 'over-limit': textLength > maxLength}">
+                {{ textLength }} / {{ maxLength}}
             </div>
             <div class="buttons-container">
                 <Tippy tag="button" class="format-button" @click.prevent="openRichEditor">
@@ -25,7 +25,7 @@
                 </Tippy>
                 <button
                     class="submit-button"
-                    :disabled="text === undefined || text.length == 0 || text.length > maxLength"
+                    :disabled="text === undefined || textLength == 0 || textLength > maxLength"
                     @click="sendNewMessage()">
                     <img :src="getImgUrl('comms/submit.gif')" alt="submit">
                 </button>
@@ -79,7 +79,10 @@ export default defineComponent ({
         ...mapGetters({
             typedMessage: 'communication/typedMessage',
             player: 'player/player'
-        })
+        }),
+        textLength(): number {
+            return this.text ? this.text.length + this.text.split('\n').length - 1 : 0;
+        }
     },
     methods: {
         getImgUrl,
@@ -91,8 +94,10 @@ export default defineComponent ({
             this.showRichEditor = false;
 
             if (textToSend.length > 0) {
+                const formattedText = textToSend.replace(/\n/g, "//");
+
                 this.sendMessage({
-                    text: textToSend,
+                    text: formattedText,
                     parent: this.parent,
                     channel: this.channel,
                     player: this.player

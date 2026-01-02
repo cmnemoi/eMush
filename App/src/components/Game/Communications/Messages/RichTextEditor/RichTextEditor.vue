@@ -25,7 +25,7 @@
                         type="button"
                         class="format-button confirm-btn"
                         @click="confirm"
-                        :disabled="editedText.length > maxLength"
+                        :disabled="editedTextLength > maxLength"
                         :title="$t('game.communications.buttonValidateAdvEditor')">
                         <img :src="getImgUrl('comms/submit.gif')" alt="send">
                     </button>
@@ -41,8 +41,8 @@
                     @keydown.enter.exact.prevent="confirm"
                     ref="textEditor"
                 />
-                <div class="character-count" :class="{ 'getting-close': editedText?.length > maxLength/2, 'over-limit': editedText?.length > maxLength}">
-                    {{ editedText?.length }} / {{ maxLength}}
+                <div class="character-count" :class="{ 'getting-close': editedTextLength > maxLength/2, 'over-limit': editedTextLength > maxLength}">
+                    {{ editedTextLength }} / {{ maxLength}}
                 </div>
             </div>
 
@@ -122,6 +122,9 @@ export default defineComponent({
         formattedPreview(): string {
             // Conversion des marqueurs markdown en HTML pour la prévisualisation
             return formatText(this.editedText.replace(/\n/g, "//"));
+        },
+        editedTextLength(): number {
+            return this.editedText ? this.editedText.length + this.editedText.split('\n').length - 1 : 0;
         }
     },
     watch: {
@@ -219,7 +222,7 @@ export default defineComponent({
         },
 
         confirm(): void {
-            if (this.editedText.length <= this.maxLength) {
+            if (this.editedTextLength <= this.maxLength) {
                 this.$emit('send', this.editedText);
                 this.showCharacterGrid = false;
                 this.editedText = "";
@@ -260,7 +263,7 @@ export default defineComponent({
         getPositionAfterSelected(end: number): number {
             // used to search formatting tag after selection, return new end position
             let index = end;
-            while (index < this.editedText.length && /[*~]/.test(this.editedText[index])) {
+            while (index < this.editedTextLength && /[*~]/.test(this.editedText[index])) {
                 index++;
             }
             return index;

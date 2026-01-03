@@ -1656,7 +1656,7 @@
         <source>project_team.name</source>
         <target>Equipo Técnico</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>project_team.description</source>
         <target>project_team.description</target>
       </segment>
@@ -1686,7 +1686,7 @@
         <source>research_team.name</source>
         <target>Equipo de Investigación</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>research_team.description</source>
         <target>research_team.description</target>
       </segment>
@@ -1712,15 +1712,15 @@
       </segment>
     </unit>
     <unit id="tags_complete">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>tags_complete.name</source>
         <target>tags_complete.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>tags_complete.description</source>
-        <target>tags_complete.description</target>
+        <target>La cantidad de planetas en los que tu tripulación ha revelado todos los sectores durante una sola partida.</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>tags_complete_1.name</source>
         <target>tags_complete_1.name</target>
       </segment>
@@ -1750,7 +1750,7 @@
         <source>last_member_10.name</source>
         <target>Última Esperanza</target>
       </segment>
-      <segment id="x50" state="initial">
+      <segment id="x50" state="translated">
         <source>last_member_50.name</source>
         <target>last_member_50.name</target>
       </segment>
@@ -1784,7 +1784,7 @@
         <source>commander_should_go_last_10.name</source>
         <target>El Último Comandante de la Galaxia</target>
       </segment>
-      <segment id="x50" state="initial">
+      <segment id="x50" state="translated">
         <source>commander_should_go_last_50.name</source>
         <target>commander_should_go_last_50.name</target>
       </segment>

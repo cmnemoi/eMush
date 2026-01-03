@@ -603,7 +603,7 @@
 :point: Puede acceder al historial del registro durante **16 ciclos** *(en lugar de 8)*.//
 :point: Puede ver de dónde vienen y hacia dónde van los tripulantes en el registro.//
 :point: Permite **imprimir LA lista secreta** utilizando la Tabuladora.//
-:beta: Expedición: Evita el evento **Muerte** al buscar tripulantes perdidos.</target>
+:point: Expedición: Evita el evento **Muerte** al buscar tripulantes perdidos.</target>
       </segment>
     </unit>
     <unit id="bacterophiliac">

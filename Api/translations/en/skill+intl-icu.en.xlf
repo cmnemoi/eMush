@@ -539,7 +539,7 @@
 :point: Can access the registry’s history for **16 cycles** *(instead of 8)*.//
 :point: Can see where crew members come from and where they go in the registry.//
 :point: Allows printing **THE secret list** using the Tabulatrix.//
-:beta: Expedition: Prevents the **Death** event when searching for missing crew members.</target>
+:point: Expedition: Prevents the **Death** event when searching for missing crew members.</target>
       </segment>
     </unit>
     <unit id="bacterophiliac">

@@ -12,6 +12,7 @@ use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\EventPriorityEnum;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\User\Repository\UserRepositoryInterface;
@@ -68,8 +69,20 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
 
     public function afterDaedalusFinish(DaedalusEvent $event): void
     {
-        $closedDaedalusId = $event->getDaedalus()->getDaedalusInfo()->getClosedDaedalus()->getId();
-        $this->publishPendingStatisticsService->fromClosedDaedalus($closedDaedalusId);
+        $closedDaedalus = $event->getDaedalus()->getDaedalusInfo()->getClosedDaedalus();
+        $this->publishPendingStatisticsService->fromClosedDaedalus($closedDaedalus->getId());
+
+        /** @var ClosedPlayer $player */
+        foreach ($closedDaedalus->getPlayers() as $player) {
+            $this->commandBus->dispatch(
+                new UpdateUserStatisticCommand(
+                    userId: $player->getUser()->getId(),
+                    statisticName: StatisticEnum::TRIUMPH,
+                    language: $closedDaedalus->getLanguage(),
+                    count: $player->getTriumph() ?? 0
+                )
+            );
+        }
     }
 
     private function incrementEndCauseStatisticFromEvent(DaedalusEvent $event): void

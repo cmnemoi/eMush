@@ -263,6 +263,13 @@ enum AchievementEnum: string
     case COMMANDER_SHOULD_GO_LAST_10 = 'commander_should_go_last_10';
     case COMMANDER_SHOULD_GO_LAST_50 = 'commander_should_go_last_50';
     case COMMANDER_SHOULD_GO_LAST_100 = 'commander_should_go_last_100';
+    case TRIUMPH_1 = 'triumph_1';
+    case TRIUMPH_50 = 'triumph_50';
+    case TRIUMPH_200 = 'triumph_200';
+    case TRIUMPH_500 = 'triumph_500';
+    case TRIUMPH_1000 = 'triumph_1000';
+    case TRIUMPH_2000 = 'triumph_2000';
+    case TRIUMPH_3000 = 'triumph_3000';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

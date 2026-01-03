@@ -1837,5 +1837,43 @@
         <target>physician_50.name</target>
       </segment>
     </unit>
+    <unit id="triumph">
+      <segment id="name" state="translated">
+        <source>triumph.name</source>
+        <target>Triomphe</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>triumph.description</source>
+        <target>Triomphe total.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>triumph_1.name</source>
+        <target>Connaissance</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>triumph_50.name</source>
+        <target>Célébrité</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>triumph_200.name</source>
+        <target>Personnage Historique</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>triumph_500.name</source>
+        <target>Légende</target>
+      </segment>
+      <segment id="x1000" state="translated">
+        <source>triumph_1000.name</source>
+        <target>Mythe</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>triumph_2000.name</source>
+        <target>Messie</target>
+      </segment>
+      <segment id="x3000" state="translated">
+        <source>triumph_3000.name</source>
+        <target>Demiurge</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

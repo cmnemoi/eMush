@@ -86,6 +86,7 @@ export const enum StatisticEnum {
     TAGS_COMPLETE = 'tags_complete',
     LAST_MEMBER = 'last_member',
     COMMANDER_SHOULD_GO_LAST = 'commander_should_go_last',
+    TRIUMPH = 'triumph',
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -343,5 +344,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.COMMANDER_SHOULD_GO_LAST]: {
         'icon': getImgUrl('title_commander.png')
+    },
+    [StatisticEnum.TRIUMPH]: {
+        'icon': getImgUrl('ui_icons/player_variables/triumph.png')
     }
 };

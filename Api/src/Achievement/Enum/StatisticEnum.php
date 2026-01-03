@@ -93,6 +93,7 @@ enum StatisticEnum: string
     case TAGS_COMPLETE = 'tags_complete';
     case LAST_MEMBER = 'last_member';
     case COMMANDER_SHOULD_GO_LAST = 'commander_should_go_last';
+    case TRIUMPH = 'triumph';
     case NULL = '';
 
     public static function fromOrNull(string $value): self

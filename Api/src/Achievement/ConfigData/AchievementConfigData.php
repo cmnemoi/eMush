@@ -963,6 +963,13 @@ abstract class AchievementConfigData
             new AchievementConfigDto(name: AchievementEnum::COMMANDER_SHOULD_GO_LAST_10, points: 0, threshold: 10),
             new AchievementConfigDto(name: AchievementEnum::COMMANDER_SHOULD_GO_LAST_50, points: 0, threshold: 50),
             new AchievementConfigDto(name: AchievementEnum::COMMANDER_SHOULD_GO_LAST_100, points: 0, threshold: 100),
+            new AchievementConfigDto(name: AchievementEnum::TRIUMPH_1, points: 1, threshold: 1),
+            new AchievementConfigDto(name: AchievementEnum::TRIUMPH_50, points: 5, threshold: 50),
+            new AchievementConfigDto(name: AchievementEnum::TRIUMPH_200, points: 10, threshold: 200),
+            new AchievementConfigDto(name: AchievementEnum::TRIUMPH_500, points: 20, threshold: 500),
+            new AchievementConfigDto(name: AchievementEnum::TRIUMPH_1000, points: 0, threshold: 1000),
+            new AchievementConfigDto(name: AchievementEnum::TRIUMPH_2000, points: 0, threshold: 2000),
+            new AchievementConfigDto(name: AchievementEnum::TRIUMPH_3000, points: 0, threshold: 3000),
         ];
     }
 

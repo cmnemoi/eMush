@@ -12,7 +12,7 @@ class NpcData
     #[ORM\Id, ORM\GeneratedValue, ORM\Column(type: 'integer')]
     private int $id;
 
-    #[ORM\OneToOne(inversedBy: 'npc', targetEntity: Npc::class, cascade: ['ALL'])]
+    #[ORM\OneToOne(inversedBy: 'data', targetEntity: Npc::class, cascade: ['ALL'])]
     private Npc $npc;
 
     #[ORM\Column(type: 'array', nullable: false, options : ['default' => 'a:0:{}'])]

@@ -1,3 +1,15 @@
+# [0.22.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.21.0...0.22.0) (2026-01-03)
+
+
+### Bug Fixes
+
+* orm npc ([8965d91](https://gitlab.com/eternaltwin/mush/mush/commit/8965d9169012ac2758d8855d2c1235d19986e401))
+
+
+### Features
+
+* **stat:** Total Clearance ([15c6d51](https://gitlab.com/eternaltwin/mush/mush/commit/15c6d5199e5d13f43312d95473db642e02066376))
+
 # [0.21.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.20.0...0.21.0) (2026-01-02)
 
 

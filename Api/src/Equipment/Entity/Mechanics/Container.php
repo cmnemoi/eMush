@@ -31,6 +31,8 @@ class Container extends EquipmentMechanic
 
     public function setContents(array $containerData): static
     {
+        $this->contents = [];
+
         foreach ($containerData as $itemData) {
             foreach ($itemData as $key => $value) {
                 $itemData[$key] = $value;

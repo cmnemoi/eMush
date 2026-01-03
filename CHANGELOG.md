@@ -1,3 +1,11 @@
+## [0.22.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.22.0...0.22.1) (2026-01-03)
+
+
+### Bug Fixes
+
+* gift and containers never reseting their content ([02c8759](https://gitlab.com/eternaltwin/mush/mush/commit/02c8759cf56cd37825d5e104d4bbe6fa84786ab8))
+* new Crowdin translations ([0ed4f6a](https://gitlab.com/eternaltwin/mush/mush/commit/0ed4f6a20f169e54180316e6330310c4e1b759b6))
+
 # [0.22.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.21.0...0.22.0) (2026-01-03)
 
 

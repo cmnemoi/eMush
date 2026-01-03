@@ -1439,7 +1439,7 @@
     <unit id="psychotic_attacks">
       <segment id="psychotic_attacks" state="translated">
         <source>psychotic_attacks</source>
-        <target>***Modération Uniquement:*** Le symptôme **Accès Psychotique** force **{character}** à attaquer.</target>
+        <target>***Modération Uniquement :*** Le symptôme **Accès Psychotique** force **{character}** à attaquer.</target>
       </segment>
     </unit>
     <unit id="revised_knowledge">
@@ -1451,7 +1451,7 @@
     <unit id="evil_drone">
       <segment id="evil_drone.flirt" state="translated">
         <source>evil_drone.flirt</source>
-        <target>**Robot ménager Saki** a l'air intéressée par **{target_character}**, ses bips et ses boops sont révélateur de son code le plus secret.</target>
+        <target>**Robot ménager Saki** a l'air intéressée par **{target_character}**, ses bips et ses boops sont révélateurs de son code le plus secret.</target>
       </segment>
       <segment id="evil_drone.recycle" state="translated">
         <source>evil_drone.recycle</source>
@@ -1472,7 +1472,7 @@
       </segment>
       <segment id="evil_drone.kidnapping" state="translated">
         <source>evil_drone.kidnapping</source>
-        <target>{drone} se sent maltraitée, et vous laisse le savoir avec une série de bips à l'allure bien insultante.</target>
+        <target>{drone} se sent maltraité, et vous le laisse savoir avec une série de bips à l'allure bien insultante.</target>
       </segment>
     </unit>
   </file>

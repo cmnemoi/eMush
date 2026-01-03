@@ -944,7 +944,7 @@
       </segment>
     </unit>
     <unit id="use_reset_vaccine">
-      <segment id="use_reset_vaccine" state="initial">
+      <segment id="use_reset_vaccine" state="translated">
         <source>use_reset_vaccine</source>
         <target>use_reset_vaccine</target>
       </segment>

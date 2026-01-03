@@ -3672,31 +3672,31 @@
       </segment>
     </unit>
     <unit id="evil_drone">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>evil_drone.name</source>
         <target>evil_drone.name</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>evil_drone.short_name</source>
         <target>evil_drone.short_name</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>evil_drone.plural_name</source>
         <target>evil_drone.plural_name</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>evil_drone.gender</source>
         <target>evil_drone.gender</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>evil_drone.first_letter</source>
         <target>evil_drone.first_letter</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>evil_drone.description</source>
         <target>evil_drone.description</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>evil_drone.examine</source>
         <target>evil_drone.examine</target>
       </segment>
@@ -3918,53 +3918,53 @@
       </segment>
     </unit>
     <unit id="schoolbooks">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>schoolbooks.name</source>
         <target>schoolbooks.name</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>schoolbooks.short_name</source>
         <target>schoolbooks.short_name</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>schoolbooks.gender</source>
         <target>schoolbooks.gender</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>schoolbooks.first_letter</source>
         <target>schoolbooks.first_letter</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>schoolbooks.description</source>
         <target>schoolbooks.description</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>schoolbooks.examine</source>
         <target>schoolbooks.examine</target>
       </segment>
     </unit>
     <unit id="reset_vaccine">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>reset_vaccine.name</source>
         <target>reset_vaccine.name</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>reset_vaccine.short_name</source>
         <target>reset_vaccine.short_name</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>reset_vaccine.gender</source>
         <target>reset_vaccine.gender</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>reset_vaccine.first_letter</source>
         <target>reset_vaccine.first_letter</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>reset_vaccine.description</source>
         <target>reset_vaccine.description</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>reset_vaccine.examine</source>
         <target>reset_vaccine.examine</target>
       </segment>

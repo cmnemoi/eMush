@@ -3832,7 +3832,7 @@ La rockola de esos años maravillosos. ¡Y tiene las canciones favoritas de la t
       </segment>
       <segment id="short_name" state="translated">
         <source>itrackie_2.short_name</source>
-        <target>Itrackie 2</target>
+        <target>iTrackie 2</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>itrackie_2.plural_name</source>
@@ -4036,33 +4036,34 @@ other {# **Frutos Alienígenas**}
       </segment>
     </unit>
     <unit id="evil_drone">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>evil_drone.name</source>
-        <target>evil_drone.name</target>
+        <target>Dron de limpieza</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>evil_drone.short_name</source>
-        <target>evil_drone.short_name</target>
+        <target>Dron de limpieza</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>evil_drone.plural_name</source>
-        <target>evil_drone.plural_name</target>
+        <target>Drones de limpieza</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>evil_drone.gender</source>
-        <target>evil_drone.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>evil_drone.first_letter</source>
-        <target>evil_drone.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>evil_drone.description</source>
-        <target>evil_drone.description</target>
+        <target>El Robot de Limpieza Saki puede hacerlo todo con una eficiencia extraordinaria. Pero, por la seguridad de la humanidad, la quinta ley de la robótica solo le permite realizar tareas domésticas.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>evil_drone.examine</source>
-        <target>evil_drone.examine</target>
+        <target>El Robot de Limpieza Saki puede hacerlo todo con una eficiencia extraordinaria. Pero, por la seguridad de la humanidad, la Quinta Ley de la Robótica solo le permite realizar tareas domésticas. // La llegada de Saki a los hogares de la alta sociedad trajo consigo una ola de desapariciones inquietantes. Por suerte, ahora los seres vivos se consideran limpios por defecto.//
+¡Este modelo es una edición limitada muy rara!</target>
       </segment>
     </unit>
     <unit id="chefs_knife">
@@ -4189,157 +4190,157 @@ other {# **Frutos Alienígenas**}
     <unit id="debris_printer">
       <segment id="name" state="translated">
         <source>debris_printer.name</source>
-        <target>debris_printer.name</target>
+        <target>Impresora de Chatarra</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>debris_printer.short_name</source>
-        <target>debris_printer.short_name</target>
+        <target>Impresora de chatarra</target>
       </segment>
       <segment id="genre" state="translated">
         <source>debris_printer.gender</source>
-        <target>debris_printer.gender</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>debris_printer.first_letter</source>
-        <target>debris_printer.first_letter</target>
+        <target>vowel</target>
       </segment>
       <segment id="description" state="translated">
         <source>debris_printer.description</source>
-        <target>debris_printer.description</target>
+        <target>Puede crearlo todo al borrar su ausencia. Y ese tipo de tecnología es usada para una máquina tragamonedas.// :point: ¡Jala la palanca una vez al día para tener la oportunidad de ganar un **gran premio**!</target>
       </segment>
       <segment id="examine" state="translated">
         <source>debris_printer.examine</source>
-        <target>debris_printer.examine</target>
+        <target>Tiene una estampa pegada que dice: "Siempre es divertido pulsar botones, una y otra y otra vez". Siniestro. // Una vez al día, cruza los dedos y apunta al premio gordo.</target>
       </segment>
     </unit>
     <unit id="antique_perfume_item">
       <segment id="name" state="translated">
         <source>antique_perfume_item.name</source>
-        <target>antique_perfume_item.name</target>
+        <target>¿Perfume Antiguo...?</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>antique_perfume_item.short_name</source>
-        <target>antique_perfume_item.short_name</target>
+        <target>Perfume Antiguo</target>
       </segment>
       <segment id="genre" state="translated">
         <source>antique_perfume_item.gender</source>
-        <target>antique_perfume_item.gender</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>antique_perfume_item.first_letter</source>
-        <target>antique_perfume_item.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
         <source>antique_perfume_item.description</source>
-        <target>antique_perfume_item.description</target>
+        <target>Una buena fragancia clásica de los años 20. Dos mil veinte. //:point: Te permite **lavarte** una vez al día. Deja un registro **Público** cuando se usa.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>antique_perfume_item.examine</source>
-        <target>antique_perfume_item.examine</target>
+        <target>"Espera, ¿el objeto o la habilidad?"//Puede ser usado al **lavarte** una vez al día. Crea un registro **Público** cuando se usa.</target>
       </segment>
     </unit>
     <unit id="megaphone">
       <segment id="name" state="translated">
         <source>megaphone.name</source>
-        <target>megaphone.name</target>
+        <target>Megáfono</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>megaphone.short_name</source>
-        <target>megaphone.short_name</target>
+        <target>Megáfono</target>
       </segment>
       <segment id="genre" state="translated">
         <source>megaphone.gender</source>
-        <target>megaphone.gender</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>megaphone.first_letter</source>
-        <target>megaphone.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
         <source>megaphone.description</source>
-        <target>megaphone.description</target>
+        <target>¿Para qué dirigir cuando puedes liderar? //:point: ¡Toma el control y **grita** **Anuncios** como un verdadero Oficial de Comunicaciones!</target>
       </segment>
       <segment id="examine" state="translated">
         <source>megaphone.examine</source>
-        <target>megaphone.examine</target>
+        <target>La herramienta perfecta para molestar a la tripulación desde cualquier lugar.//Permite hacer **Anuncios Generales**.</target>
       </segment>
     </unit>
     <unit id="ship_blanket">
       <segment id="name" state="translated">
         <source>ship_blanket.name</source>
-        <target>ship_blanket.name</target>
+        <target>Cobija "Lil' Star Hunter©" Edades de 5 a 99 años</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>ship_blanket.short_name</source>
-        <target>ship_blanket.short_name</target>
+        <target>Cobija de viaje</target>
       </segment>
       <segment id="genre" state="translated">
         <source>ship_blanket.gender</source>
-        <target>ship_blanket.gender</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>ship_blanket.first_letter</source>
-        <target>ship_blanket.first_letter</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
         <source>ship_blanket.description</source>
-        <target>ship_blanket.description</target>
+        <target>**¡Guau!** Con sus IMPRESIONANTES colores y estrellas que BRILLAN EN LA NOCHE, ¡más vale que el Duque de las Pesadillas se cuide! Con la cobija y el casco Little Hunter©, ¡aquí va un astronauta bien equipado! //:point: Te permite transformar cualquier vehículo espacial estándar en un acogedor nido para dormir.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>ship_blanket.examine</source>
-        <target>ship_blanket.examine</target>
+        <target>El casco "Little Hunter©" se vende por separado. Lavar solo a mano. La cobija "Little Hunter©" no es un juguete. No ingerir. No insertar en un tubo de escape. 99 % poliéster. De acuerdo con la Ley Huchbert 3151 sobre carcinógenos diarios, usted renuncia a su derecho a demandar. No se realizarán reembolsos. //Permite **Acostarse** en un Patrullero, Pasiphae o cualquier otra nave espacial.</target>
       </segment>
     </unit>
     <unit id="schoolbooks">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>schoolbooks.name</source>
-        <target>schoolbooks.name</target>
+        <target>Set de Libros Universitarios</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>schoolbooks.short_name</source>
-        <target>schoolbooks.short_name</target>
+        <target>Set de libros</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>schoolbooks.gender</source>
-        <target>schoolbooks.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>schoolbooks.first_letter</source>
-        <target>schoolbooks.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>schoolbooks.description</source>
-        <target>schoolbooks.description</target>
+        <target>Cuadernos llenos de escritura clara y concisa. ¡Qué suerte haberlos encontrado de nuevo! //:point: Lleva tu **Polivalencia** al siguiente nivel.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>schoolbooks.examine</source>
-        <target>schoolbooks.examine</target>
+        <target>3152, Año 6 -- pertenece a A. Graham.// Mejora **Polivalente**... Sin embargo, necesitarás leerlo para saber cómo exactamente.</target>
       </segment>
     </unit>
     <unit id="reset_vaccine">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>reset_vaccine.name</source>
-        <target>reset_vaccine.name</target>
+        <target>Vacuna Reiniciadora</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>reset_vaccine.short_name</source>
-        <target>reset_vaccine.short_name</target>
+        <target>Vacuna reiniciadora</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>reset_vaccine.gender</source>
-        <target>reset_vaccine.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>reset_vaccine.first_letter</source>
-        <target>reset_vaccine.first_letter</target>
+        <target>consonante</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>reset_vaccine.description</source>
-        <target>reset_vaccine.description</target>
+        <target>A pesar de su nombre, la crisis de la mediana edad no perdona a nadie. El contenido de esta jeringa es la solución. //:point: **Uso único: reinicia y elige al azar por completo las habilidades del usuario.**</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>reset_vaccine.examine</source>
-        <target>reset_vaccine.examine</target>
+        <target>El proceso de Nawak extrae conocimiento puro mediante la emulsión de pulpa de papel neurocodificada. En otras palabras, esta jeringa contiene un puré espeso de Librotones mezclado en una licuadora ultraafilada. //**Uso único: Restablece las habilidades del usuario y las reemplaza con una selección completamente aleatoria.**</target>
       </segment>
     </unit>
   </file>

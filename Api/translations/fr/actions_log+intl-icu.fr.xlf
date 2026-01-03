@@ -1321,7 +1321,7 @@
     <unit id="anniversary_gift_mush_skill">
       <segment id="anniversary_gift_mush_skill" state="translated">
         <source>anniversary_gift_mush_skill</source>
-        <target>Tiens tiens? Ça sent comme un message phéromonal sous ce truc... "Rends-nous fier, Agent." Vous trouvez un Apprenspore... et il contient **{skill}**!</target>
+        <target>Tiens, tiens ? Ça sent comme un message phéromonal sous ce truc... "Rends-nous fier, Agent." Vous trouvez un Apprenspore... et il contient **{skill}** !</target>
       </segment>
     </unit>
     <unit id="establish_link_with_sol_fail">
@@ -1385,7 +1385,7 @@
     <unit id="recharge_battery_success">
       <segment id="recharge_battery_success" state="translated">
         <source>recharge_battery_success</source>
-        <target>**{character}** sort une petite pile avec des pictogrammes de danger bien inquiétants de sa poche, et l'insère dans **{target_equipment}**. Il y a un petit bruit de fond craquelant, mais l'engin semble rempli d'énergie.</target>
+        <target>**{character}** sort une petite pile avec des pictogrammes de danger bien inquiétants de sa poche, et l'insère dans **{target_equipment}**. Il y a un petit bruit de fond crépitant, mais l'engin semble rempli d'énergie.</target>
       </segment>
     </unit>
     <unit id="use_debris_printer">

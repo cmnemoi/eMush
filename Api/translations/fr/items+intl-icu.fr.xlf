@@ -3724,15 +3724,15 @@ La caméra ne détecte pas son propre sabotage.</target>
       </segment>
       <segment id="description" state="translated">
         <source>itrackie_2.description</source>
-        <target>Pff, l'autre modèle? Il est si vieux! Si campagnard! Si passé! Si *démodé*! Avec une coque en (couleur) or et plus de prise casque embarassante, ceci est une montée en classe qui vous fera vous demander, « Mais comment j'ai pu faire sans ? » !
+        <target>Pff, l'autre modèle? Il est si vieux ! Si campagnard ! Si passé ! Si *démodé* ! Avec une coque en (couleur) or et plus de prise casque embarassante, ceci est une montée en classe qui vous fera vous demander, « Mais comment j'ai pu faire sans ? » !
         // :point: Permet de communiquer à distance avec les autres équipiers.
-        // :point: Permet d'avoir accès à la mini-carte augmentée du Daedalus. **Appli ACTOPI incluse avec chaque achat!**</target>
+        // :point: Permet d'avoir accès à la mini-carte augmentée du Daedalus. **Appli ACTOPI incluse avec chaque achat !**</target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie_2.examine</source>
         <target>Vous avez l'impression de ressentir un regret post-achat... et pourtant, c'était gratuit.//
         // Permet de communiquer à distance avec les autres équipiers.
-        // Permet d'avoir accès à la mini-carte augmentée du Daedalus. **Appli ACTOPI incluse avec chaque achat!**</target>
+        // Permet d'avoir accès à la mini-carte augmentée du Daedalus. **Appli ACTOPI incluse avec chaque achat !**</target>
       </segment>
     </unit>
     <unit id="lump_of_coal">
@@ -3787,7 +3787,7 @@ Permet de charger du carburant dans le module de combustion.</target>
       </segment>
       <segment id="description" state="translated">
         <source>evil_compass.description</source>
-        <target>L'Elossoub est un artéfact sacré du culte de La-Erenjay. Comment est-il arrivé ici? 
+        <target>L'Elossoub est un artéfact sacré du culte de La-Erenjay. Comment est-il arrivé ici ? 
         //:ic_explorer: Expédition : Chance de parcourir une des sections restantes "Mankarog", "Volcan", "Activité Sismique" x5.//:point: De loin, on pourrait la prendre pour une boussole normale...</target>
       </segment>
       <segment id="examine" state="translated">
@@ -3867,7 +3867,7 @@ Permet de charger du carburant dans le module de combustion.</target>
       </segment>
       <segment id="description" state="translated">
         <source>fruit_basket.description</source>
-        <target>Sûrement y'en a un qui est comestible là dedans?//
+        <target>Sûrement y'en a un qui est comestible là-dedans ?//
 Contient {quantity, plural,
         one {1 **Fruit alien**}
         other {# **Fruits alien**}
@@ -3905,7 +3905,7 @@ Contient {quantity, plural,
       </segment>
       <segment id="description" state="translated">
         <source>strawman.description</source>
-        <target>Pour peu d'avoir une mauvaise vue ou d'être peu familier avec l'anatomie humaine, il est identique au vrai. Et lui, il ne flirte pas avec tout le monde au moins.//:point: Compte comme un équipier vendable si placé dans un stockage.//:point: Peut remplacer n'importe quel equipier demandé avec un peu de baratin...</target>
+        <target>Pour peu d'avoir une mauvaise vue ou d'être peu familier avec l'anatomie humaine, il est identique au vrai. Et lui, il ne flirte pas avec tout le monde au moins.//:point: Compte comme un équipier vendable si placé dans un stockage.//:point: Peut remplacer n'importe quel équipier demandé avec un peu de baratin...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>strawman.examine</source>
@@ -3967,7 +3967,7 @@ Ce modèle est une édition limitée très rare!</target>
       </segment>
       <segment id="description" state="translated">
         <source>chefs_knife.description</source>
-        <target>Bien aiguisé et multi-usage. Cuisine, menaces, découpage, rasage, il peut tout faire, et encore mieux: il est rien qu'à vous.
+        <target>Bien aiguisé et multi-usage. Cuisine, menaces, découpage, rasage, il peut tout faire, et encore mieux : il est rien qu'à vous.
 //:point: +10% précision comparé à un couteau standard.
 //:point: Expédition : + 1 à la force de votre équipe en cas de combat.
 //:point: Expédition : L'évènement **Provision** donne un steak de plus.</target>
@@ -4033,7 +4033,7 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="description" state="translated">
         <source>spaceship_keys.description</source>
-        <target>De quoi leur prouver que vous *savez* piloter!//:point: Permet de passer outre le Verrou Équipage en position Pilotage.</target>
+        <target>De quoi leur prouver que vous *savez* piloter !//:point: Permet de passer outre le Verrou Équipage en position Pilotage.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>spaceship_keys.examine</source>
@@ -4085,7 +4085,7 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="description" state="translated">
         <source>debris_printer.description</source>
-        <target>Peut créer du tout en effaçant le rien. Et on utilise ça pour une machine à sous.//:point: Tirez le levier une fois par jour pour une chance de **gagner gros**!</target>
+        <target>Peut créer du tout en effaçant le rien. Et on utilise ça pour une machine à sous.//:point: Tirez le levier une fois par jour pour une chance de **gagner gros** !</target>
       </segment>
       <segment id="examine" state="translated">
         <source>debris_printer.examine</source>
@@ -4137,7 +4137,7 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="description" state="translated">
         <source>megaphone.description</source>
-        <target>Pourquoi déléguer quand on peut diriger soi même?//:point: Prenez le en main pour **hurler** des **Annonces** comme un vrai Resp. Communications!</target>
+        <target>Pourquoi déléguer quand on peut diriger soi-même ?//:point: Prenez-le en main pour **hurler** des **Annonces** comme un vrai Resp. Communications !</target>
       </segment>
       <segment id="examine" state="translated">
         <source>megaphone.examine</source>
@@ -4163,7 +4163,7 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="description" state="translated">
         <source>ship_blanket.description</source>
-        <target>**Wow!** Avec ses couleurs DINGUE et ses ÉTOILES qui brillent dans la nuit, le Duc de Cauchemar n'a qu'à bien se tenir! Avec la Couette et le Casque Petit Chasseur©, Voilà un Spationaute bien paré!//:point: Permet de transformer tout véhicule spatial standard en petit nid douillet.</target>
+        <target>**Wow !!** Avec ses couleurs DINGUE et ses ÉTOILES qui brillent dans la nuit, le Duc de Cauchemar n'a qu'à bien se tenir ! Avec la Couette et le Casque Petit Chasseur©, Voilà un Spationaute bien paré !//:point: Permet de transformer tout véhicule spatial standard en petit nid douillet.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>ship_blanket.examine</source>
@@ -4215,7 +4215,7 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="description" state="translated">
         <source>reset_vaccine.description</source>
-        <target>Malgré son nom, la crise de la quarantaine n'épargne personne. Le contenu de cette seringue en est la solution.//:point: **Usage unique: réinitialise et randomise complètement les compétences de son utilisateur.**</target>
+        <target>Malgré son nom, la crise de la quarantaine n'épargne personne. Le contenu de cette seringue en est la solution.//:point: **Usage unique : réinitialise et randomise complètement les compétences de son utilisateur.**</target>
       </segment>
       <segment id="examine" state="translated">
         <source>reset_vaccine.examine</source>

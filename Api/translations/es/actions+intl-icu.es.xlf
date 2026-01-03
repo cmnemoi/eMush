@@ -433,11 +433,11 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
     <unit id="wash_with_perfume">
       <segment id="name" state="translated">
         <source>wash_with_perfume.name</source>
-        <target>wash_with_perfume.name</target>
+        <target>Limpiarse</target>
       </segment>
       <segment id="description" state="translated">
         <source>wash_with_perfume.description</source>
-        <target>wash_with_perfume.description</target>
+        <target>Reemplaza un olor fuerte por otro olor fuerte.//Esta acción solo se puede realizar una vez al día.</target>
       </segment>
     </unit>
     <unit id="extinguish">
@@ -1856,59 +1856,59 @@ Todos tus camaradas serán *notificados* y el anuncio permanecerá en la pestañ
     <unit id="recharge_battery">
       <segment id="recharge_battery" state="translated">
         <source>recharge_battery.name</source>
-        <target>recharge_battery.name</target>
+        <target>Súpercarga</target>
       </segment>
       <segment id="description" state="translated">
         <source>recharge_battery.description</source>
-        <target>recharge_battery.description</target>
+        <target>Inserta una batería nuclear a esta cosa para asegurarte de que nunca más se quede sin energía. // Eso es definitivamente una cosa del administrador...</target>
       </segment>
     </unit>
     <unit id="remove_beginner">
       <segment id="name" state="translated">
         <source>remove_beginner.name</source>
-        <target>remove_beginner.name</target>
+        <target>¡No soy un jugador principiante!</target>
       </segment>
       <segment id="description" state="translated">
         <source>remove_beginner.description</source>
-        <target>remove_beginner.description</target>
+        <target>Quítate tu insignia de la Academia con un toque de desdén. // Esta acción solo se puede realizar antes del inicio del juego. // Tus posibilidades de ser seleccionado como Mush volverán a la normalidad.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>remove_beginner.confirmation</source>
-        <target>remove_beginner.confirmation</target>
+        <target>El estado de Nuevo Recluta permite que tus compañeros sepan que deben darte más margen de error. Esta acción es irreversible. Si eres un principiante de verdad, te recomendamos encarecidamente que no lo hagas. ¿Quieres continuar de todas maneras?</target>
       </segment>
     </unit>
     <unit id="lie_down_in_ship">
       <segment id="lie_down_in_ship" state="translated">
         <source>lie_down_in_ship.name</source>
-        <target>lie_down_in_ship.name</target>
+        <target>Recostarse</target>
       </segment>
       <segment id="description" state="translated">
         <source>lie_down_in_ship.description</source>
-        <target>lie_down_in_ship.description</target>
+        <target>No hay mucho espacio ahí, pero la cobija promete una siesta decente. // Acostarse te permite ganar 1 :pa: con cada ciclo completado, así como 1 :pmo: si hay un Psicólogo presente... Pero acomodar a dos personas en este artilugio sería ambicioso.</target>
       </segment>
     </unit>
     <unit id="read_schoolbooks">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>read_schoolbooks.name</source>
-        <target>read_schoolbooks.name</target>
+        <target>Refrescar curso</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>read_schoolbooks.description</source>
-        <target>read_schoolbooks.description</target>
+        <target>Refresca tu memoria para actualizar tus conocimientos.</target>
       </segment>
     </unit>
     <unit id="use_reset_vaccine">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>use_reset_vaccine.name</source>
-        <target>use_reset_vaccine.name</target>
+        <target>Reinvención Total</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>use_reset_vaccine.description</source>
-        <target>use_reset_vaccine.description</target>
+        <target>Conviértete en alguien nuevo de forma repentina y permanente. Tus habilidades serán deseleccionadas y tendrás acceso a una selección completamente nueva.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>use_reset_vaccine.confirmation</source>
-        <target>use_reset_vaccine.confirmation</target>
+        <target>Advertencia: el efecto de esta acción es impredecible e irreversible. ¿Deseas continuar de todas maneras?</target>
       </segment>
     </unit>
   </file>

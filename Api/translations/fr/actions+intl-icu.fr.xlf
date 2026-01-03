@@ -1882,7 +1882,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
     <unit id="remove_beginner">
       <segment id="name" state="translated">
         <source>remove_beginner.name</source>
-        <target>Je ne suis pas un débutant!</target>
+        <target>Je ne suis pas un débutant !</target>
       </segment>
       <segment id="description" state="translated">
         <source>remove_beginner.description</source>
@@ -1906,7 +1906,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
     <unit id="read_schoolbooks">
       <segment id="name" state="translated">
         <source>read_schoolbooks.name</source>
-        <target>Réviser!</target>
+        <target>Réviser !</target>
       </segment>
       <segment id="description" state="translated">
         <source>read_schoolbooks.description</source>
@@ -1924,11 +1924,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="confirmation" state="translated">
         <source>use_reset_vaccine.confirmation</source>
-        <target>Attention: l'effet de cette action est imprévisible et irréversible. Êtes vous absolument, complètement {character_gender, select,
+        <target>Attention : l'effet de cette action est imprévisible et irréversible. Êtes-vous absolument, complètement {character_gender, select,
                 male {certain}
                 female {certaine}
                 other {certain}
-                } de vouloir continuer?</target>
+                } de vouloir continuer ?</target>
       </segment>
     </unit>
   </file>

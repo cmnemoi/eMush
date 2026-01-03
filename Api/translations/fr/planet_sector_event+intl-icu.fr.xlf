@@ -341,7 +341,7 @@
     <unit id="bonus_loot_thanks_to_items">
       <segment id="description" state="translated">
         <source>bonus_loot_thanks_to_items</source>
-        <target>+ {quantity, plural, one {# obtenu} other {# obtenus}} car l'expédition dispose de l'équipement adéquat!</target>
+        <target>+ {quantity, plural, one {# obtenu} other {# obtenus}} car l'expédition dispose de l'équipement adéquat !</target>
       </segment>
     </unit>
     <unit id="fight_prevented_by_skill">

@@ -1418,23 +1418,23 @@
       </segment>
     </unit>
     <unit id="team_rebels">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>team_rebels.name</source>
         <target>team_rebels.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>team_rebels.description</source>
         <target>team_rebels.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>team_rebels_1.name</source>
         <target>team_rebels_1.name</target>
       </segment>
-      <segment id="x3" state="initial">
+      <segment id="x3" state="translated">
         <source>team_rebels_3.name</source>
         <target>team_rebels_3.name</target>
       </segment>
-      <segment id="x6" state="initial">
+      <segment id="x6" state="translated">
         <source>team_rebels_6.name</source>
         <target>team_rebels_6.name</target>
       </segment>
@@ -1649,6 +1649,148 @@
       <segment id="x1" state="translated">
         <source>mushed_1.name</source>
         <target>mushed_1.name</target>
+      </segment>
+    </unit>
+    <unit id="project_team">
+      <segment id="name" state="initial">
+        <source>project_team.name</source>
+        <target>project_team.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>project_team.description</source>
+        <target>project_team.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>project_team_1.name</source>
+        <target>project_team_1.name</target>
+      </segment>
+      <segment id="x2" state="initial">
+        <source>project_team_2.name</source>
+        <target>project_team_2.name</target>
+      </segment>
+      <segment id="x4" state="initial">
+        <source>project_team_4.name</source>
+        <target>project_team_4.name</target>
+      </segment>
+      <segment id="x8" state="initial">
+        <source>project_team_8.name</source>
+        <target>project_team_8.name</target>
+      </segment>
+      <segment id="x16" state="initial">
+        <source>project_team_16.name</source>
+        <target>project_team_16.name</target>
+      </segment>
+    </unit>
+    <unit id="research_team">
+      <segment id="name" state="initial">
+        <source>research_team.name</source>
+        <target>research_team.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>research_team.description</source>
+        <target>research_team.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>research_team_1.name</source>
+        <target>research_team_1.name</target>
+      </segment>
+      <segment id="x2" state="initial">
+        <source>research_team_2.name</source>
+        <target>research_team_2.name</target>
+      </segment>
+      <segment id="x4" state="initial">
+        <source>research_team_4.name</source>
+        <target>research_team_4.name</target>
+      </segment>
+      <segment id="x8" state="initial">
+        <source>research_team_8.name</source>
+        <target>research_team_8.name</target>
+      </segment>
+      <segment id="x16" state="initial">
+        <source>research_team_16.name</source>
+        <target>research_team_16.name</target>
+      </segment>
+    </unit>
+    <unit id="tags_complete">
+      <segment id="name" state="initial">
+        <source>tags_complete.name</source>
+        <target>tags_complete.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>tags_complete.description</source>
+        <target>tags_complete.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>tags_complete_1.name</source>
+        <target>tags_complete_1.name</target>
+      </segment>
+    </unit>
+    <unit id="last_member">
+      <segment id="name" state="initial">
+        <source>last_member.name</source>
+        <target>last_member.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>last_member.description</source>
+        <target>last_member.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>last_member_1.name</source>
+        <target>last_member_1.name</target>
+      </segment>
+      <segment id="x2" state="initial">
+        <source>last_member_2.name</source>
+        <target>last_member_2.name</target>
+      </segment>
+      <segment id="x5" state="initial">
+        <source>last_member_5.name</source>
+        <target>last_member_5.name</target>
+      </segment>
+      <segment id="x10" state="initial">
+        <source>last_member_10.name</source>
+        <target>last_member_10.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>last_member_50.name</source>
+        <target>last_member_50.name</target>
+      </segment>
+      <segment id="x100" state="initial">
+        <source>last_member_100.name</source>
+        <target>last_member_100.name</target>
+      </segment>
+    </unit>
+    <unit id="commander_should_go_last">
+      <segment id="name" state="initial">
+        <source>commander_should_go_last.name</source>
+        <target>commander_should_go_last.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>commander_should_go_last.description</source>
+        <target>commander_should_go_last.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>commander_should_go_last_1.name</source>
+        <target>commander_should_go_last_1.name</target>
+      </segment>
+      <segment id="x2" state="initial">
+        <source>commander_should_go_last_2.name</source>
+        <target>commander_should_go_last_2.name</target>
+      </segment>
+      <segment id="x5" state="initial">
+        <source>commander_should_go_last_5.name</source>
+        <target>commander_should_go_last_5.name</target>
+      </segment>
+      <segment id="x10" state="initial">
+        <source>commander_should_go_last_10.name</source>
+        <target>commander_should_go_last_10.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>commander_should_go_last_50.name</source>
+        <target>commander_should_go_last_50.name</target>
+      </segment>
+      <segment id="x100" state="initial">
+        <source>commander_should_go_last_100.name</source>
+        <target>commander_should_go_last_100.name</target>
       </segment>
     </unit>
   </file>

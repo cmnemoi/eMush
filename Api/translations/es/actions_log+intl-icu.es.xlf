@@ -302,7 +302,7 @@ other {invalid gender input}}.</target>
     <unit id="wash_with_perfume">
       <segment id="wash_with_perfume" state="translated">
         <source>wash_with_perfume</source>
-        <target>wash_with_perfume</target>
+        <target>**{character}** se perfuma generosamente la cara, el cuello, la parte superior del cuerpo, las axilas... Sin duda, ahora huele a limpio.</target>
       </segment>
     </unit>
     <unit id="shred_success">
@@ -1080,31 +1080,38 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="recharge_battery_success">
       <segment id="recharge_battery_success" state="translated">
         <source>recharge_battery_success</source>
-        <target>recharge_battery_success</target>
+        <target>**{character}** saca de su bolsillo una pequeña batería con pictogramas de peligro bastante alarmantes y la inserta en **{target_equipment}**. Se oye un ligero sonido de crujido de fondo, pero el dispositivo parece estar lleno de energía.</target>
       </segment>
     </unit>
     <unit id="use_debris_printer">
       <segment id="use_debris_printer" state="translated">
         <source>use_debris_printer</source>
-        <target>use_debris_printer</target>
+        <target>**{character}** presiona el botón verde y las luces se encienden... Es como estar en La Fortuna Tessera... {quantity, select,
+1 {De la ranura sale **{equipment_gender, select,
+female {una}
+male {un}
+other {}}}
+3 {**¡DING DING DING!** ¡Premio mayor! **Tres}
+other {{quantity}}
+} {equipment}{quantity, select, 1 {} other {s}}**!</target>
       </segment>
     </unit>
     <unit id="remove_beginner_success">
       <segment id="remove_beginner_success" state="translated">
         <source>remove_beginner_success</source>
-        <target>remove_beginner_success</target>
+        <target>:st_beginner: **{character}** se arranca la pequeña insignia de la Academia de la chaqueta y la lanza hacia un rincón de la habitación. Tras semejante acto de bravuconería, seguro que ahora le tomaremos en serio.</target>
       </segment>
     </unit>
     <unit id="lie_down_in_ship">
       <segment id="lie_down_in_ship" state="translated">
         <source>lie_down_in_ship</source>
-        <target>lie_down_in_ship</target>
+        <target>**{character}** reclina su asiento y despliega su **{target_equipment}**... Es bastante cómodo. ¡Rumbo al país de los sueños!</target>
       </segment>
     </unit>
     <unit id="use_reset_vaccine">
-      <segment id="use_reset_vaccine" state="initial">
+      <segment id="use_reset_vaccine" state="translated">
         <source>use_reset_vaccine</source>
-        <target>use_reset_vaccine</target>
+        <target>**{character}** traga saliva y contempla el peso del acto que está a punto de cometer... Basta de esperar. **{character}** inserta la aguja de la **{target_equipment}** en su muslo... Unas cuantas convulsiones después, y ¡**{character}** está irreconocible!</target>
       </segment>
     </unit>
   </file>

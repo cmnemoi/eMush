@@ -1061,7 +1061,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorName' => 'Ruminants',
                 'eventName' => 'Provision',
                 'eventDescription' => 'Vous chassez avec succès un Chab Chab... Vous récupérez de la viande alien.',
-                'eventOutcome' => 'Vous gagnez 6 Steaks aliens.////+ 1 obtenu car l\'expédition dispose de la compétence : Survie////+ 1 obtenu car l\'expédition dispose de l\'équipement adéquat!',
+                'eventOutcome' => 'Vous gagnez 6 Steaks aliens.////+ 1 obtenu car l\'expédition dispose de la compétence : Survie////+ 1 obtenu car l\'expédition dispose de l\'équipement adéquat !',
             ],
             actual: $normalizedExplorationLog,
         );

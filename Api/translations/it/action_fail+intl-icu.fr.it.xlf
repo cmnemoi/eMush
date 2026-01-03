@@ -830,7 +830,7 @@
       </segment>
     </unit>
     <unit id="does_not_have_skill_polyvalent">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>does_not_have_skill_polyvalent.description</source>
         <target>does_not_have_skill_polyvalent.description</target>
       </segment>

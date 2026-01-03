@@ -1854,25 +1854,25 @@
       </segment>
     </unit>
     <unit id="read_schoolbooks">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>read_schoolbooks.name</source>
         <target>read_schoolbooks.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>read_schoolbooks.description</source>
         <target>read_schoolbooks.description</target>
       </segment>
     </unit>
     <unit id="use_reset_vaccine">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>use_reset_vaccine.name</source>
         <target>use_reset_vaccine.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>use_reset_vaccine.description</source>
         <target>use_reset_vaccine.description</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>use_reset_vaccine.confirmation</source>
         <target>use_reset_vaccine.confirmation</target>
       </segment>

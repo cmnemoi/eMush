@@ -3945,11 +3945,11 @@ Could even replace any one specific requested person with a silver tongue...</ta
     <unit id="evil_drone">
       <segment id="name" state="translated">
         <source>evil_drone.name</source>
-        <target>Drone ménager</target>
+        <target>Cleaning drone</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>evil_drone.short_name</source>
-        <target>evil_drone.short_name</target>
+        <target>Cleaning drone</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>evil_drone.plural_name</source>

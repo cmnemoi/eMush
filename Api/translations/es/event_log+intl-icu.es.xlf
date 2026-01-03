@@ -753,9 +753,37 @@
       </segment>
     </unit>
     <unit id="drone_full_name">
-      <segment state="initial">
+      <segment state="translated">
         <source>drone_full_name</source>
-        <target>drone_full_name</target>
+        <target>{drone_nickname, select,
+        1 {Support Drone Betty}
+        2 {Support Drone Charlotte}
+        3 {Support Drone Dalek}
+        4 {Support Drone Dave}
+        5 {Support Drone Doc}
+        6 {Support Drone Doudou}
+        7 {Support Drone Douglams}
+        8 {Support Drone Einstein}
+        9 {Support Drone Fido}
+        10 {Support Drone Fito}
+        11 {Support Drone Groo}
+        12 {Support Drone Isaac}
+        13 {Support Drone Loulou}
+        14 {Support Drone Médor}
+        15 {Support Drone Nabuk}
+        16 {Support Drone Papitou}
+        17 {Support Drone Poutou}
+        18 {Support Drone Rex}
+        19 {Support Drone Robbie}
+        20 {Support Drone Robert}
+        21 {Support Drone Selry}
+        22 {Support Drone Steve}
+        23 {Support Drone Terminus}
+        24 {Support Drone Troll}
+        25 {Support Drone Vortex}
+        26 {Support Drone Wheatley}
+        666 {Cleaning Drone Saki}
+        other {Wheatley}} #{drone_serial_number}</target>
       </segment>
     </unit>
     <unit id="drone_entered_room">
@@ -1224,31 +1252,36 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
       </segment>
     </unit>
     <unit id="revised_knowledge">
-      <segment id="revised_knowledge" state="initial">
+      <segment id="revised_knowledge" state="translated">
         <source>revised_knowledge</source>
-        <target>revised_knowledge</target>
+        <target>¡Fue tan sencillo! De verdad te dejaste llevar... ¡Ahora eres **Botánico**, **Biólogo** y **Diplomático**!</target>
       </segment>
     </unit>
     <unit id="evil_drone">
-      <segment id="evil_drone.flirt" state="initial">
+      <segment id="evil_drone.flirt" state="translated">
         <source>evil_drone.flirt</source>
-        <target>evil_drone.flirt</target>
+        <target>**El robot de limpieza Saki** siente interés por **{target_character}**, sus pitidos y ruidos no dejan duda de sus intenciones.</target>
       </segment>
-      <segment id="evil_drone.recycle" state="initial">
+      <segment id="evil_drone.recycle" state="translated">
         <source>evil_drone.recycle</source>
-        <target>evil_drone.recycle</target>
+        <target>Esta habitación es un desastre desde que **{target_character}** murió. Hay polvo y sangre por todas partes; es inaceptable que se ensucie tanto. Por suerte, **Saki, el Robot de Limpieza**, tu robot doméstico favorito, ¡siempre está ahí para ayudarte! Gracias a su reciclador integrado, ¡ni siquiera necesita una bolsa de basura! ¡Ven y come mientras aún esté caliente!</target>
       </segment>
-      <segment id="evil_drone.conspire" state="initial">
+      <segment id="evil_drone.conspire" state="translated">
         <source>evil_drone.conspire</source>
-        <target>evil_drone.conspire</target>
+        <target>{drone} y **NERON** charlan inocentemente... "{version, select, 
+        1{...**{target_character}** parece culpable.}
+        2{...*{target_character}** es {target_character_gender, select, female{la siguiente.} other{el siguiente.}}}
+        3{...una vez que **{target_character}** haya desaparecido, podremos...}
+        4{...**{target_character}** debe ser {target_character_gender, select, female{limpiada.} other{limpiado.}}}
+        other{invalid version input}}"</target>
       </segment>
-      <segment id="evil_drone.clean" state="initial">
+      <segment id="evil_drone.clean" state="translated">
         <source>evil_drone.clean</source>
-        <target>evil_drone.clean</target>
+        <target>{drone} saca un trapo de su inventario y comienza a limpiar diligentemente {target_equipment_gender, select, female {una} name{} other{un}} **{target_equipment}**.</target>
       </segment>
-      <segment id="evil_drone.kidnapping" state="initial">
+      <segment id="evil_drone.kidnapping" state="translated">
         <source>evil_drone.kidnapping</source>
-        <target>evil_drone.kidnapping</target>
+        <target>{drone} se siente maltratado y lo hace saber con una serie de insultos a base de sonidos robóticos.</target>
       </segment>
     </unit>
   </file>

@@ -1902,7 +1902,7 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
       <segment id="description" state="translated">
         <source>use_reset_vaccine.description</source>
-        <target>Become someone new, instantly and permanently. Your skills will be unset and you will gain access to a brand new selection.</target>
+        <target>Become someone new, instantly and permanently. Your skills will be unset and you will gain access to a brand-new selection.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>use_reset_vaccine.confirmation</source>

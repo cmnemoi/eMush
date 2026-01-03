@@ -1492,7 +1492,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>kind_person_1.name</source>
-        <target>Psychologue Des Eons</target>
+        <target>Psychologue Des Éons</target>
       </segment>
     </unit>
     <unit id="disease_contracted">

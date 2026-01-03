@@ -100,23 +100,23 @@
     <unit id="artefact_coll">
       <segment id="name" state="translated">
         <source>artefact_coll.name</source>
-        <target>artefact_coll.name</target>
+        <target>Artefactos recolectados</target>
       </segment>
       <segment id="description" state="translated">
         <source>artefact_coll.description</source>
-        <target>artefact_coll.description</target>
+        <target>Cantidad de artefactos aliens recolectados en expediciones.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>artefact_coll_1.name</source>
-        <target>artefact_coll_1.name</target>
+        <target>Arqueólogo de lo Desconocido</target>
       </segment>
       <segment id="x10" state="translated">
         <source>artefact_coll_10.name</source>
-        <target>artefact_coll_10.name</target>
+        <target>Allan Grant</target>
       </segment>
       <segment id="x15" state="translated">
         <source>artefact_coll_15.name</source>
-        <target>artefact_coll_15.name</target>
+        <target>Indiana Jones</target>
       </segment>
     </unit>
     <unit id="planet_scanned">
@@ -1242,33 +1242,33 @@
     <unit id="coffee_man">
       <segment id="name" state="translated">
         <source>coffee_man.name</source>
-        <target>coffee_man.name</target>
+        <target>¡Un café, por favor!</target>
       </segment>
       <segment id="description" state="translated">
         <source>coffee_man.description</source>
-        <target>coffee_man.description</target>
+        <target>Cantidad de cafés consumidos.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>coffee_man_1.name</source>
-        <target>coffee_man_1.name</target>
+        <target>¡CAFÉ!</target>
       </segment>
       <segment id="x500" state="translated">
         <source>coffee_man_500.name</source>
-        <target>coffee_man_500.name</target>
+        <target>Cafeinómano</target>
       </segment>
     </unit>
     <unit id="ration_taken">
       <segment id="name" state="translated">
         <source>ration_taken.name</source>
-        <target>ration_taken.name</target>
+        <target>Raciones consumidas</target>
       </segment>
       <segment id="description" state="translated">
         <source>ration_taken.description</source>
-        <target>ration_taken.description</target>
+        <target>Cantidad de raciones consumidas.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>ration_taken_1.name</source>
-        <target>ration_taken_1.name</target>
+        <target>Tragón</target>
       </segment>
     </unit>
     <unit id="day_max">
@@ -1328,29 +1328,29 @@
     <unit id="project_complete">
       <segment id="name" state="translated">
         <source>project_complete.name</source>
-        <target>project_complete.name</target>
+        <target>Diseñador</target>
       </segment>
       <segment id="description" state="translated">
         <source>project_complete.description</source>
-        <target>project_complete.description</target>
+        <target>Cantidad de proyectos que has terminado.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>project_complete_1.name</source>
-        <target>project_complete_1.name</target>
+        <target>Artífice</target>
       </segment>
     </unit>
     <unit id="research_complete">
       <segment id="name" state="translated">
         <source>research_complete.name</source>
-        <target>research_complete.name</target>
+        <target>Investigaciones</target>
       </segment>
       <segment id="description" state="translated">
         <source>research_complete.description</source>
-        <target>research_complete.description</target>
+        <target>Cantidad de investigaciones que has terminado.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>research_complete_1.name</source>
-        <target>research_complete_1.name</target>
+        <target>Técnico de laboratorio</target>
       </segment>
     </unit>
     <unit id="drugs_taken">
@@ -1418,25 +1418,25 @@
       </segment>
     </unit>
     <unit id="team_rebels">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>team_rebels.name</source>
-        <target>team_rebels.name</target>
+        <target>¡Rebelión!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>team_rebels.description</source>
-        <target>team_rebels.description</target>
+        <target>Cantidad máxima de redes rebeldes contactadas por la tripulación durante el viaje.</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>team_rebels_1.name</source>
-        <target>team_rebels_1.name</target>
+        <target>Disidiente</target>
       </segment>
-      <segment id="x3" state="initial">
+      <segment id="x3" state="translated">
         <source>team_rebels_3.name</source>
-        <target>team_rebels_3.name</target>
+        <target>Rebelde</target>
       </segment>
-      <segment id="x6" state="initial">
+      <segment id="x6" state="translated">
         <source>team_rebels_6.name</source>
-        <target>team_rebels_6.name</target>
+        <target>Terrorista</target>
       </segment>
     </unit>
     <unit id="plasma_shield">
@@ -1598,57 +1598,199 @@
     <unit id="mage_books_learned">
       <segment id="name" state="translated">
         <source>mage_books_learned.name</source>
-        <target>mage_books_learned.name</target>
+        <target>Librotones</target>
       </segment>
       <segment id="description" state="translated">
         <source>mage_books_learned.description</source>
-        <target>mage_books_learned.description</target>
+        <target>Cantidad de librotones que has leído.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>mage_books_learned_1.name</source>
-        <target>mage_books_learned_1.name</target>
+        <target>Sabio</target>
       </segment>
     </unit>
     <unit id="natamist">
       <segment id="name" state="translated">
         <source>natamist.name</source>
-        <target>natamist.name</target>
+        <target>Natamista</target>
       </segment>
       <segment id="description" state="translated">
         <source>natamist.description</source>
-        <target>natamist.description</target>
+        <target>Cantidad de Mush destruidos usando el Fusil Natamy.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>natamist_1.name</source>
-        <target>natamist_1.name</target>
+        <target>Lepiotacídico</target>
       </segment>
     </unit>
     <unit id="has_mushed">
       <segment id="name" state="translated">
         <source>has_mushed.name</source>
-        <target>has_mushed.name</target>
+        <target>Infeccioso</target>
       </segment>
       <segment id="description" state="translated">
         <source>has_mushed.description</source>
-        <target>has_mushed.description</target>
+        <target>Número de veces que has contaminado a un miembro de la tripulación hasta la infección total.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>has_mushed_1.name</source>
-        <target>has_mushed_1.name</target>
+        <target>Agente infeccioso</target>
       </segment>
     </unit>
     <unit id="mushed">
       <segment id="name" state="translated">
         <source>mushed.name</source>
-        <target>mushed.name</target>
+        <target>Infectado</target>
       </segment>
       <segment id="description" state="translated">
         <source>mushed.description</source>
-        <target>mushed.description</target>
+        <target>Número de veces en la que fuiste contaminado hasta la infección total.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>mushed_1.name</source>
-        <target>mushed_1.name</target>
+        <target>Infectado</target>
+      </segment>
+    </unit>
+    <unit id="project_team">
+      <segment id="name" state="translated">
+        <source>project_team.name</source>
+        <target>Equipo Técnico</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>project_team.description</source>
+        <target>project_team.description</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>project_team_1.name</source>
+        <target>Agente de Mantenimiento</target>
+      </segment>
+      <segment id="x2" state="translated">
+        <source>project_team_2.name</source>
+        <target>Técnico</target>
+      </segment>
+      <segment id="x4" state="translated">
+        <source>project_team_4.name</source>
+        <target>Mecánico</target>
+      </segment>
+      <segment id="x8" state="translated">
+        <source>project_team_8.name</source>
+        <target>Ingeniero</target>
+      </segment>
+      <segment id="x16" state="translated">
+        <source>project_team_16.name</source>
+        <target>Omnipotente</target>
+      </segment>
+    </unit>
+    <unit id="research_team">
+      <segment id="name" state="translated">
+        <source>research_team.name</source>
+        <target>Equipo de Investigación</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>research_team.description</source>
+        <target>research_team.description</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>research_team_1.name</source>
+        <target>Rata de Laboratorio</target>
+      </segment>
+      <segment id="x2" state="translated">
+        <source>research_team_2.name</source>
+        <target>Doctor</target>
+      </segment>
+      <segment id="x4" state="translated">
+        <source>research_team_4.name</source>
+        <target>Investigador</target>
+      </segment>
+      <segment id="x8" state="translated">
+        <source>research_team_8.name</source>
+        <target>Profesor</target>
+      </segment>
+      <segment id="x16" state="translated">
+        <source>research_team_16.name</source>
+        <target>Omnisciente</target>
+      </segment>
+    </unit>
+    <unit id="tags_complete">
+      <segment id="name" state="initial">
+        <source>tags_complete.name</source>
+        <target>tags_complete.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>tags_complete.description</source>
+        <target>tags_complete.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>tags_complete_1.name</source>
+        <target>tags_complete_1.name</target>
+      </segment>
+    </unit>
+    <unit id="last_member">
+      <segment id="name" state="translated">
+        <source>last_member.name</source>
+        <target>Último sobreviviente</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>last_member.description</source>
+        <target>Aguantaste hasta el final. ¡Eres parte de la historia!</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>last_member_1.name</source>
+        <target>Héroe de Sol</target>
+      </segment>
+      <segment id="x2" state="translated">
+        <source>last_member_2.name</source>
+        <target>Campeón de Lucha</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>last_member_5.name</source>
+        <target>Mártir Supremo</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>last_member_10.name</source>
+        <target>Última Esperanza</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>last_member_50.name</source>
+        <target>last_member_50.name</target>
+      </segment>
+      <segment id="x100" state="translated">
+        <source>last_member_100.name</source>
+        <target>Inmortal</target>
+      </segment>
+    </unit>
+    <unit id="commander_should_go_last">
+      <segment id="name" state="translated">
+        <source>commander_should_go_last.name</source>
+        <target>Último Comandante</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>commander_should_go_last.description</source>
+        <target>El comandante es el último en abandonar la nave.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>commander_should_go_last_1.name</source>
+        <target>Último Comandante</target>
+      </segment>
+      <segment id="x2" state="translated">
+        <source>commander_should_go_last_2.name</source>
+        <target>Último Comandante de los Abismos</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>commander_should_go_last_5.name</source>
+        <target>Último Comandante de los Siglos</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>commander_should_go_last_10.name</source>
+        <target>El Último Comandante de la Galaxia</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>commander_should_go_last_50.name</source>
+        <target>commander_should_go_last_50.name</target>
+      </segment>
+      <segment id="x100" state="translated">
+        <source>commander_should_go_last_100.name</source>
+        <target>Último Comandante del Universo</target>
       </segment>
     </unit>
   </file>

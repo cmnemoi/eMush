@@ -238,10 +238,14 @@ final class ShootCatCest extends AbstractFunctionalTest
 
         $this->thenPlayerShouldHaveTeamMushKilledPendingStatistic($this->player, $I);
 
+        $this->thenPlayerShouldNotHaveNatamistPendingStatistic($this->player, $I);
+
         // another human should gain only team mush killed stat
         $this->thenPlayerShouldNotHaveMushKilledPendingStatistic($this->player2, $I);
 
         $this->thenPlayerShouldHaveTeamMushKilledPendingStatistic($this->player2, $I);
+
+        $this->thenPlayerShouldNotHaveNatamistPendingStatistic($this->player2, $I);
     }
 
     public function shouldMushKillerGainNoStatWhenShootingInfectedCat(FunctionalTester $I): void
@@ -263,6 +267,29 @@ final class ShootCatCest extends AbstractFunctionalTest
         $this->thenPlayerShouldNotHaveMushKilledPendingStatistic($this->player, $I);
 
         $this->thenPlayerShouldHaveTeamMushKilledPendingStatistic($this->player, $I);
+    }
+
+    public function shouldGainNatamistStatWhenHumanKillsInfectedCatWithNatamyRifle(FunctionalTester $I): void
+    {
+        $this->givenShotIsSuccessful($I);
+
+        $this->givenCatIsInfected();
+
+        $this->whenPlayerShootsWithNatamyRifle();
+
+        // the killer should gain all stats
+        $this->thenPlayerShouldHaveMushKilledPendingStatistic($this->player, $I);
+
+        $this->thenPlayerShouldHaveTeamMushKilledPendingStatistic($this->player, $I);
+
+        $this->thenPlayerShouldHaveNatamistPendingStatistic($this->player, $I);
+
+        // another human should gain only team mush killed stat
+        $this->thenPlayerShouldNotHaveMushKilledPendingStatistic($this->player2, $I);
+
+        $this->thenPlayerShouldHaveTeamMushKilledPendingStatistic($this->player2, $I);
+
+        $this->thenPlayerShouldNotHaveNatamistPendingStatistic($this->player2, $I);
     }
 
     public function shouldGainNoStatWhenMissingAShot(FunctionalTester $I): void
@@ -438,6 +465,24 @@ final class ShootCatCest extends AbstractFunctionalTest
         $this->shootCat->execute();
     }
 
+    private function whenPlayerShootsWithNatamyRifle(): void
+    {
+        $natamyRifle = $this->gameEquipmentService->createGameEquipmentFromName(
+            ItemEnum::NATAMY_RIFLE,
+            $this->player,
+            ['test'],
+            new \DateTime()
+        );
+
+        $this->shootCat->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $natamyRifle,
+            player: $this->player,
+            target: $this->schrodinger,
+        );
+        $this->shootCat->execute();
+    }
+
     private function thenPlayerSecondToLastHighlightIsSuccessfulShootCatAction(FunctionalTester $I): void
     {
         $I->assertEquals(
@@ -496,6 +541,26 @@ final class ShootCatCest extends AbstractFunctionalTest
     {
         $pendingStatistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
             name: StatisticEnum::TEAM_MUSH_KILLED,
+            userId: $player->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        );
+        $I->assertNull($pendingStatistic);
+    }
+
+    private function thenPlayerShouldHaveNatamistPendingStatistic(Player $player, FunctionalTester $I): void
+    {
+        $pendingStatistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            name: StatisticEnum::NATAMIST,
+            userId: $player->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        );
+        $I->assertEquals(1, $pendingStatistic?->getCount());
+    }
+
+    private function thenPlayerShouldNotHaveNatamistPendingStatistic(Player $player, FunctionalTester $I): void
+    {
+        $pendingStatistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            name: StatisticEnum::NATAMIST,
             userId: $player->getUser()->getId(),
             closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
         );

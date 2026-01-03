@@ -106,6 +106,13 @@ final readonly class EquipmentEventSubscriber implements EventSubscriberInterfac
                     player: $player,
                     statisticName: StatisticEnum::MUSH_KILLED,
                 );
+
+                if ($event->hasTag(ItemEnum::NATAMY_RIFLE)) {
+                    $this->updatePlayerStatisticService->execute(
+                        player: $player,
+                        statisticName: StatisticEnum::NATAMIST,
+                    );
+                }
             }
         }
     }

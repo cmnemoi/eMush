@@ -68,6 +68,15 @@ class ShootCat extends AttemptAction
         return $target instanceof GameItem && $target->isSchrodinger();
     }
 
+    public function getTags(): array
+    {
+        $tags = parent::getTags();
+
+        $tags[] = $this->itemActionProvider()->getName();
+
+        return $tags;
+    }
+
     // Special checkResult for Shoot action waiting for a refactor
     protected function checkResult(): ActionResult
     {

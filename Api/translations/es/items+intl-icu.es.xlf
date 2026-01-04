@@ -4096,7 +4096,7 @@ other {# **Frutos Alienígenas**}
       </segment>
       <segment id="examine" state="translated">
         <source>chefs_knife.examine</source>
-        <target>Hay muchos cuchillos como ese, pero solo alguien como tú.
+        <target>Hay muchos cuchillos como este, pero solo alguien como tú.
 //+10% de precisión a comparación de un cuchillo normal.
 //Expedición: +1 a la fuerza del equipo en combate.
 //Expedición: El evento **Provisión** da un bistec más.</target>
@@ -4236,7 +4236,7 @@ other {# **Frutos Alienígenas**}
       </segment>
       <segment id="examine" state="translated">
         <source>antique_perfume_item.examine</source>
-        <target>"Espera, ¿el objeto o la habilidad?"//Puede ser usado al **lavarte** una vez al día. Crea un registro **Público** cuando se usa.</target>
+        <target>"Espera, ¿el objeto o la habilidad?"//Puede ser usado para **lavarte** una vez al día. Crea un registro **Público** cuando se usa.</target>
       </segment>
     </unit>
     <unit id="megaphone">

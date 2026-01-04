@@ -1552,7 +1552,7 @@
     <unit id="team_mush_killed">
       <segment id="name" state="translated">
         <source>team_mush_killed.name</source>
-        <target>team_mush_killed.name</target>
+        <target>Soldier of Humanity</target>
       </segment>
       <segment id="description" state="translated">
         <source>team_mush_killed.description</source>
@@ -1654,41 +1654,41 @@
     <unit id="project_team">
       <segment id="name" state="translated">
         <source>project_team.name</source>
-        <target>project_team.name</target>
+        <target>Technical Team</target>
       </segment>
       <segment id="description" state="translated">
         <source>project_team.description</source>
-        <target>project_team.description</target>
+        <target>Maximum number of projects ever carried out by one of your crews.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>project_team_1.name</source>
-        <target>project_team_1.name</target>
+        <target>Maintenance Tech</target>
       </segment>
       <segment id="x2" state="translated">
         <source>project_team_2.name</source>
-        <target>project_team_2.name</target>
+        <target>Technician</target>
       </segment>
       <segment id="x4" state="translated">
         <source>project_team_4.name</source>
-        <target>project_team_4.name</target>
+        <target>Mechanic</target>
       </segment>
       <segment id="x8" state="translated">
         <source>project_team_8.name</source>
-        <target>project_team_8.name</target>
+        <target>Engineer</target>
       </segment>
       <segment id="x16" state="translated">
         <source>project_team_16.name</source>
-        <target>project_team_16.name</target>
+        <target>Omnipotent</target>
       </segment>
     </unit>
     <unit id="research_team">
       <segment id="name" state="translated">
         <source>research_team.name</source>
-        <target>research_team.name</target>
+        <target>Research Team</target>
       </segment>
       <segment id="description" state="translated">
         <source>research_team.description</source>
-        <target>research_team.description</target>
+        <target>Most research ever carried out by one of your crews.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>research_team_1.name</source>
@@ -1714,7 +1714,7 @@
     <unit id="tags_complete">
       <segment id="name" state="translated">
         <source>tags_complete.name</source>
-        <target>tags_complete.name</target>
+        <target>Mad Scanner</target>
       </segment>
       <segment id="description" state="translated">
         <source>tags_complete.description</source>
@@ -1728,27 +1728,27 @@
     <unit id="last_member">
       <segment id="name" state="translated">
         <source>last_member.name</source>
-        <target>last_member.name</target>
+        <target>Last Survivor</target>
       </segment>
       <segment id="description" state="translated">
         <source>last_member.description</source>
-        <target>last_member.description</target>
+        <target>You held out until the end. You have become part of History!</target>
       </segment>
       <segment id="x1" state="translated">
         <source>last_member_1.name</source>
-        <target>last_member_1.name</target>
+        <target>Hero of Sol</target>
       </segment>
       <segment id="x2" state="translated">
         <source>last_member_2.name</source>
-        <target>last_member_2.name</target>
+        <target>Wrestling Champion</target>
       </segment>
       <segment id="x5" state="translated">
         <source>last_member_5.name</source>
-        <target>last_member_5.name</target>
+        <target>Ultimate Martyr</target>
       </segment>
       <segment id="x10" state="translated">
         <source>last_member_10.name</source>
-        <target>last_member_10.name</target>
+        <target>Last Hope</target>
       </segment>
       <segment id="x50" state="translated">
         <source>last_member_50.name</source>
@@ -1756,13 +1756,13 @@
       </segment>
       <segment id="x100" state="translated">
         <source>last_member_100.name</source>
-        <target>last_member_100.name</target>
+        <target>Immortal</target>
       </segment>
     </unit>
     <unit id="commander_should_go_last">
       <segment id="name" state="translated">
         <source>commander_should_go_last.name</source>
-        <target>commander_should_go_last.name</target>
+        <target>Last Commandant</target>
       </segment>
       <segment id="description" state="translated">
         <source>commander_should_go_last.description</source>
@@ -1770,19 +1770,19 @@
       </segment>
       <segment id="x1" state="translated">
         <source>commander_should_go_last_1.name</source>
-        <target>commander_should_go_last_1.name</target>
+        <target>Last Commandant</target>
       </segment>
       <segment id="x2" state="translated">
         <source>commander_should_go_last_2.name</source>
-        <target>commander_should_go_last_2.name</target>
+        <target>Last Commandant of the Ages</target>
       </segment>
       <segment id="x5" state="translated">
         <source>commander_should_go_last_5.name</source>
-        <target>commander_should_go_last_5.name</target>
+        <target>Last Commandant of the Eons</target>
       </segment>
       <segment id="x10" state="translated">
         <source>commander_should_go_last_10.name</source>
-        <target>commander_should_go_last_10.name</target>
+        <target>Last Galactic Commandant</target>
       </segment>
       <segment id="x50" state="translated">
         <source>commander_should_go_last_50.name</source>
@@ -1790,7 +1790,7 @@
       </segment>
       <segment id="x100" state="translated">
         <source>commander_should_go_last_100.name</source>
-        <target>commander_should_go_last_100.name</target>
+        <target>Last Commandant of the Universe</target>
       </segment>
     </unit>
   </file>

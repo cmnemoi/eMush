@@ -1271,7 +1271,7 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
         <source>evil_drone.conspire</source>
         <target>{drone} y **NERON** charlan inocentemente... "{version, select, 
         1{...**{target_character}** parece culpable.}
-        2{...*{target_character}** es {target_character_gender, select, female{la siguiente.} other{el siguiente.}}}
+        2{...**{target_character}** es {target_character_gender, select, female{la siguiente.} other{el siguiente.}}}
         3{...una vez que **{target_character}** haya desaparecido, podremos...}
         4{...**{target_character}** debe ser {target_character_gender, select, female{limpiada.} other{limpiado.}}}
         other{invalid version input}}"</target>

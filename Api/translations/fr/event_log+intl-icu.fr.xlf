@@ -1462,9 +1462,9 @@
         <source>evil_drone.conspire</source>
         <target>{drone} et **NERON** papotent innocemment... "{version, select, 
         1{...**{target_character}** a l'air coupable.}
-        2{...*{target_character}** est {target_character_gender, select, female{la suivante.} other{le suivant.}}}
+        2{...**{target_character}** est {target_character_gender, select, female{la suivante.} other{le suivant.}}}
         3{...fois **{target_character}** disparu on pourra...}
-        4{...**{target_character}** doit être nettoyé.}
+        4{...**{target_character}** doit être {target_character_gender, select, female{nettoyée} other{nettoyé}}.}
         other{invalid version input}}"</target>
       </segment>
       <segment id="evil_drone.clean" state="translated">

@@ -104,7 +104,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>artefact_coll.description</source>
-        <target>Cantidad de artefactos aliens recolectados en expediciones.</target>
+        <target>Artefactos colectados en expedición a lo largo de tus viajes.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>artefact_coll_1.name</source>
@@ -1428,7 +1428,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>team_rebels_1.name</source>
-        <target>Disidiente</target>
+        <target>Disidente</target>
       </segment>
       <segment id="x3" state="translated">
         <source>team_rebels_3.name</source>
@@ -1556,7 +1556,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>team_mush_killed.description</source>
-        <target>team_mush_killed.description</target>
+        <target>Invasores Mush diezmados por los equipos con los que has viajado.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>team_mush_killed_1.name</source>
@@ -1658,7 +1658,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>project_team.description</source>
-        <target>project_team.description</target>
+        <target>Cantidad máxima de proyectos terminados por uno de tus equipos.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>project_team_1.name</source>
@@ -1688,7 +1688,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>research_team.description</source>
-        <target>research_team.description</target>
+        <target>Cantidad máxima de investigaciones terminadas por uno de tus equipos.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>research_team_1.name</source>
@@ -1714,15 +1714,15 @@
     <unit id="tags_complete">
       <segment id="name" state="translated">
         <source>tags_complete.name</source>
-        <target>tags_complete.name</target>
+        <target>Loco del Escáner</target>
       </segment>
       <segment id="description" state="translated">
         <source>tags_complete.description</source>
-        <target>La cantidad de planetas en los que tu tripulación ha revelado todos los sectores durante una sola partida.</target>
+        <target>Cantidad de planetas en los que tu equipo ha revelado todos sus sectores durante una partida.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>tags_complete_1.name</source>
-        <target>tags_complete_1.name</target>
+        <target>Análisis Completo</target>
       </segment>
     </unit>
     <unit id="last_member">
@@ -1782,7 +1782,7 @@
       </segment>
       <segment id="x10" state="translated">
         <source>commander_should_go_last_10.name</source>
-        <target>El Último Comandante de la Galaxia</target>
+        <target>Último Comandante de la Galaxia</target>
       </segment>
       <segment id="x50" state="translated">
         <source>commander_should_go_last_50.name</source>

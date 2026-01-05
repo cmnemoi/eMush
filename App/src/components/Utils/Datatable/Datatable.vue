@@ -10,23 +10,29 @@
                         @click="sortTable(field)"
                         :class=sortClassname(field)
                     >
-                        <slot v-if="field.slot" :name="`header-${field.key}`" v-bind="field" />
-                        <span v-else class="header-text">{{ $t(field.name) }}</span>
+                        <slot v-if="field.slot || field.slotHeader" :name="`header-${field.key}`" v-bind="field" />
+                        <div v-else class="header-text">
+                            <span :class="{'header-text-name': field.emote}">{{ $t(field.name) }}</span>
+                            <Tippy v-if="field.emote" tag="span" class="header-text-emote">
+                                <span v-html="formatText(field.emote)"/>
+                                <template #content>
+                                    {{ $t(field.name) }}
+                                </template>
+                            </Tippy>
+                        </div>
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="row in rowData" :key='row.id' @click="onRowClick(row)">
                     <td v-for="field in headers" :key='field.key'>
-                        <slot v-if="field.slot" :name="`row-${field.key}`" v-bind="row" />
+                        <slot v-if="field.slot || field.slotRow" :name="`row-${field.key}`" v-bind="row" />
                         <span v-else-if="field.image !== 'characterBody'" v-html="formatText($t(String(field.subkey ? row[field.key][field.subkey] : row[field.key])))"/>
                         <span v-else-if="field.image">
                             <img :src="row[field.image]" alt="Character Image" style="max-width: 16px;"/>
                             {{ $t(String(field.subkey ? row[field.key][field.subkey] : row[field.key])) }}
                         </span>
-                        <span v-else v-html="formatText($t(String(field.subkey ? row[field.key][field.subkey] : row[field.key])))">
-
-                        </span>
+                        <span v-else v-html="formatText($t(String(field.subkey ? row[field.key][field.subkey] : row[field.key])))"></span>
                     </td>
                 </tr>
             </tbody>
@@ -53,6 +59,7 @@ export interface Header {
     key: string,
     subkey: string | null,
     name: string | null,
+    emote: string | null,
     sortable: boolean | null,
     image: any | null,
 }
@@ -165,7 +172,13 @@ table {
 
     th, td {
         padding: 1em 0.5em 1em 1.2em;
+        text-align: left;
         vertical-align: middle;
+
+        @media only screen and (max-width: $breakpoint-desktop-m) {
+            text-align: center;
+            padding: 1em 0.5em 1em 0.5em;
+        }
 
         :deep(a), :deep(button) {
             @include button-style();
@@ -173,8 +186,17 @@ table {
             & {
                 width: fit-content;
                 flex: 1;
-                padding: 2px 15px 4px;
                 white-space: nowrap;
+            }
+        }
+
+        .header-text {
+            .header-text-name { display: initial }
+            .header-text-emote { display: none }
+
+            @media only screen and (max-width: $breakpoint-desktop-m) {
+                .header-text-name { display: none }
+                .header-text-emote { display: initial }
             }
         }
     }
@@ -182,7 +204,6 @@ table {
     th {
         position: relative;
         letter-spacing: .05em;
-        text-align: left;
         font-weight: bold;
         border-bottom: 1px solid rgba(255, 255, 255, .75);
         max-width: 120px;

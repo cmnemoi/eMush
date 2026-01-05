@@ -22,7 +22,7 @@ export default defineComponent ({
     flex-direction: row;
     margin: 1.8em auto -1px auto;
     padding: 0 20px;
-    max-width: $breakpoint-desktop-l;
+    max-width: $breakpoint-desktop-m;
     width: 100%;
 
     a {

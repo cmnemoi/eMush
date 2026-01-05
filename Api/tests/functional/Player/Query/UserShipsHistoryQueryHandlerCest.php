@@ -84,6 +84,7 @@ final class UserShipsHistoryQueryHandlerCest extends AbstractFunctionalTest
             expected: [
                 'data' => [
                     new UserShipsHistoryViewModel(
+                        characterBody: 'kuan_ti',
                         characterName: 'kuan_ti',
                         daysSurvived: 0,
                         nbExplorations: 1,

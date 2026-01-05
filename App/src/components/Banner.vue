@@ -7,14 +7,14 @@
         <div class="mainmenu" :class="{ 'few-links': visibleLinksCount <= 4 }">
             <router-link v-if="loggedIn && visibleLinksCount <= 4" :to="{ name: 'GamePage' }" @click="reloadData">Daedalus</router-link>
             <router-link v-if="loggedIn" :to="{ name: 'MePage' }">{{ $t("banner.user") }}</router-link>
-            <router-link v-if="loggedIn" class="hide-on-tiny-devices-800" :to="{ name: 'RankingPage' }">{{ $t("banner.ranking") }}</router-link>
-            <router-link v-if="isAdmin" class="hide-on-tiny-devices-800" :to="{ name: 'Admin' }">{{ $t('banner.admin') }}</router-link>
-            <router-link v-if="isModerator && !isAdmin" class="hide-on-tiny-devices-800" :to="{ name: 'Moderation' }">{{ $t("banner.moderation") }}</router-link>
+            <router-link v-if="loggedIn" class="hide-on-desktop-s" :to="{ name: 'RankingPage' }">{{ $t("banner.ranking") }}</router-link>
+            <router-link v-if="isAdmin" class="hide-on-desktop-s" :to="{ name: 'Admin' }">{{ $t('banner.admin') }}</router-link>
+            <router-link v-if="isModerator && !isAdmin" class="hide-on-desktop-s" :to="{ name: 'Moderation' }">{{ $t("banner.moderation") }}</router-link>
             <router-link :to="{ name: 'NewsPage' }">{{ $t("banner.news") }}</router-link>
-            <router-link v-if="loggedIn" class="hide-on-tiny-devices-800" :to="{ name: 'Rules' }">{{ $t("banner.rules") }}</router-link>
+            <router-link v-if="loggedIn" class="hide-on-desktop-s" :to="{ name: 'Rules' }">{{ $t("banner.rules") }}</router-link>
             <a
                 :href="discordLink"
-                class="hide-on-tiny-devices-400"
+                class="hide-on-mobile-l"
                 target="_blank"
                 rel="noreferrer noopener">{{ $t("banner.discord") }}</a>
             <a
@@ -135,7 +135,7 @@ const reloadData = async () => {
         }
 
         // Handle mobile devices
-        @media (max-width: 768px) {
+        @media (max-width: $breakpoint-mobile-l) {
 
             // Reset all corners
             border-radius: 0;
@@ -162,13 +162,13 @@ const reloadData = async () => {
         }
     }
 
-    .hide-on-tiny-devices-800 {
-        @media (max-width: 800px) {
+    .hide-on-desktop-s {
+        @media (max-width: $breakpoint-desktop-s) {
             display: none;
         }
     }
-    .hide-on-tiny-devices-400 {
-        @media (max-width: 400px) {
+    .hide-on-mobile-l {
+        @media (max-width: $breakpoint-mobile-l) {
             display: none;
         }
     }

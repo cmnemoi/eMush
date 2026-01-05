@@ -50,7 +50,7 @@ export default defineComponent ({
 
     .expedition {
         width: 100%;
-        max-width: calc($breakpoint-desktop-l / 3);
+        max-width: calc($breakpoint-desktop-m / 3);
         margin: 4px 0px;
     }
 

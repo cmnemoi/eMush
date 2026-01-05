@@ -9,6 +9,7 @@ use Mush\Game\ViewModel\ViewModelInterface;
 final readonly class UserShipsHistoryViewModel implements ViewModelInterface
 {
     public function __construct(
+        public string $characterBody,
         public string $characterName,
         public int $daysSurvived,
         public int $nbExplorations,
@@ -26,6 +27,7 @@ final readonly class UserShipsHistoryViewModel implements ViewModelInterface
     public static function fromQueryRow(array $row): self
     {
         return new self(
+            (string) $row['character_name'],
             (string) $row['character_name'],
             (int) $row['days_survived'],
             (int) $row['nb_explorations'],

@@ -86,7 +86,7 @@ export default defineComponent ({
 .neron-core-terminal {
     position: relative;
     flex-direction: column;
-    width: 424px;
+    width: $game-canvas-width;
     height: 460px;
     padding: 5px 8px;
     color: $deepBlue;

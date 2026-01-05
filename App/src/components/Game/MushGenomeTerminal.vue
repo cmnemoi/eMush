@@ -41,7 +41,7 @@ export default defineComponent ({
 .mush-genome-terminal {
     position: relative;
     flex-direction: column;
-    width: 424px;
+    width: $game-canvas-width;
     padding: 5px 8px;
     color: $deepBlue;
     background: $brightCyan;

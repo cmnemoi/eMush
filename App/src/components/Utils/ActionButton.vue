@@ -78,7 +78,7 @@ export default defineComponent ({
     min-width: 15em;
 }
 
-@media screen and (max-width: $breakpoint-desktop-m) {
+@media screen and (max-width: $breakpoint-desktop-s) {
     .action-button-flex-v2 {
         margin-bottom: 16px;
         position: relative;

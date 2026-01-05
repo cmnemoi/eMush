@@ -187,6 +187,8 @@ export default defineComponent ({
 <style lang="scss"> //Not scoped to apply to children components
 
 .comms-panel {
+    margin-top: 2px;
+
     .chatbox-container {
         .unit {
             padding: 5px 0;
@@ -276,7 +278,7 @@ export default defineComponent ({
             span.shrink { display: initial; }
         }
 
-        @media screen and (max-width: $breakpoint-desktop-l) {
+        @media screen and (max-width: $breakpoint-desktop-s) {
             span.normal { display: none; }
             span.shrink { display: initial; }
         }

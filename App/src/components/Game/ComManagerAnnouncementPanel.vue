@@ -139,7 +139,7 @@ export default defineComponent ({
     position: relative;
     flex-direction: column;
     width: 100%;
-    max-width: 424px;
+    max-width: $game-canvas-width;
     height: 460px;
     margin-bottom: 2em;
     color: $deepBlue;

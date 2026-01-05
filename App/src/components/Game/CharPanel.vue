@@ -18,12 +18,12 @@
                 <div class="health-points">
                     <div class="life">
                         <Tippy tag="ol">
-                            <li class="quantityLife">
+                            <li>
                                 <ul>
                                     <li v-for="n in player?.healthPoint?.max" :key="n" :class="isFull(n, player.healthPoint.quantity)" />
                                 </ul>
                             </li>
-                            <li class="iconLife">
+                            <li>
                                 <p><img :src="getImgUrl('ui_icons/player_variables/hp.png')" alt="hp">{{ player.healthPoint.quantity }}</p>
                             </li>
                             <template #content>
@@ -34,12 +34,12 @@
                     </div>
                     <div class="morale">
                         <Tippy tag="ol">
-                            <li class="quantityMorale">
+                            <li>
                                 <ul>
                                     <li v-for="n in player?.moralPoint?.max" :key="n" :class="isFull(n, player.moralPoint.quantity)" />
                                 </ul>
                             </li>
-                            <li class="iconMorale">
+                            <li>
                                 <p><img :src="getImgUrl('ui_icons/player_variables/moral.png')" alt="mp">{{ player.moralPoint.quantity }}</p>
                             </li>
                             <template #content>
@@ -49,49 +49,50 @@
                         </Tippy>
                     </div>
                 </div>
+                <div class="inventory">
+                    <inventory
+                        :items="player.items"
+                        :min-slot="3"
+                        :selected-item="getTargetItem"
+                        @select="toggleItemSelection"
+                    />
+                </div>
             </div>
-            <div class="inventory">
-                <inventory
-                    :items="player.items"
-                    :min-slot="3"
-                    :selected-item="getTargetItem"
-                    @select="toggleItemSelection"
+            <div class="actions-card">
+                <div v-if="!loading && selectedItem" class="item-info">
+                    <p class="item-name">
+                        {{ selectedItem.name }}
+                    </p>
+                    <div class="item-statuses">
+                        <Statuses :statuses="selectedItem.statuses" type="item" />
+                    </div>
+                </div>
+                <ActionTabs
+                    v-if="actionTabs"
+                    v-model:activeTab="activeTab"
+                    :target-actions-mush="targetActionsMush"
+                    :target-actions-admin="targetActionsAdmin"
                 />
-            </div>
-            <div v-if="!loading && selectedItem" class="item-info">
-                <p class="item-name">
-                    {{ selectedItem.name }}
-                </p>
-                <div class="item-statuses">
-                    <Statuses :statuses="selectedItem.statuses" type="item" />
-                </div>
-            </div>
-            <ActionTabs
-                v-if="actionTabs"
-                v-model:activeTab="activeTab"
-                :target-actions-mush="targetActionsMush"
-                :target-actions-admin="targetActionsAdmin"
-            />
-            <div v-if="!loading && target" class="interactions">
-                <div v-if="selectedItem">
-                    <ActionButton
-                        v-for="(action, key) in targetActions"
-                        :key="key"
-                        :action="action"
-                        @click="executeWithDoubleTap(action, target)"
-                    />
-                </div>
-                <div v-else>
-                    <ActionButton
-                        v-for="(action, key) in targetActions"
-                        :key="key"
-                        :action="action"
-                        @click="executeWithDoubleTap(action)"
-                    />
+                <div v-if="!loading && target" class="interactions">
+                    <div v-if="selectedItem">
+                        <ActionButton
+                            v-for="(action, key) in targetActions"
+                            :key="key"
+                            :action="action"
+                            @click="executeWithDoubleTap(action, target)"
+                        />
+                    </div>
+                    <div v-else>
+                        <ActionButton
+                            v-for="(action, key) in targetActions"
+                            :key="key"
+                            :action="action"
+                            @click="executeWithDoubleTap(action)"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
-
         <div class="column">
             <div class="skills">
                 <ul>
@@ -397,360 +398,329 @@ onBeforeMount(() => {
 <style lang="scss" scoped>
 @use "sass:color";
 
-.iconLife, .iconMorale {
-    position: relative;
-}
-
 .char-panel {
     flex-direction: row;
 
+    @media screen and (max-width: $breakpoint-desktop-s) { width: 100%;}
+
+
     .char-sheet {
+        flex-direction: column;
         max-width: 176px;
         min-height: 459px;
         padding: 5px;
         border-top-left-radius: 4px;
         background: rgba(54, 76, 148, 0.35);
 
-        .avatar img {
-            width: 100%;
-            max-width: 166px;
-            height: auto;
-        }
-
-        .statuses {
-            position: absolute;
-            flex-flow: column wrap;
-            align-items: flex-start;
-            margin: 2px;
-            max-height: 215px;
-            gap: 3px;
-        }
-    }
-}
-
-
-.health-points {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    row-gap: 0.6em;
-    margin: -.75em 0 .25em;
-
-    .life,
-    .morale {
-        flex-direction: row;
-        align-items: center;
-        filter: drop-shadow(0 0 5px $deepBlue);
-
-
-        ol {
-            align-items: center;
-            flex-direction: column-reverse;
-
-            @media screen and (max-width: $breakpoint-desktop-l) { flex-direction: row-reverse; }
-
-            li:first-child { z-index: 1; }
-        }
-
-        p,
-        ul {
-            display: flex;
+        @media screen and (max-width: $breakpoint-desktop-s) {
             flex-direction: row;
-            align-items: center;
-            border: 1px solid color.adjust($greyBlue, $lightness: 3.2%);
-            border-radius: 3px;
-            background: $greyBlue;
-            box-shadow: 0 0 4px 1px inset rgba(28, 29, 56, 1);
-        }
-
-        p {
-            margin: 0 0 -1px 0;
-            padding: .15em .4em .2em;
-            font-size: 0.8em;
-            letter-spacing: 0.03em;
-            border-bottom-width: 0;
-            text-shadow: 0 0 2px black, 0 0 2px black;
-
-            img {
-                width: 11px;
-                height: 13px;
-                margin-right: 1px;
-            }
-        }
-
-        ul {
-            padding: .1em .2em;
-            border-radius: 2px;
-
-            @media screen and (max-width: $breakpoint-desktop-m) { display: none; }
-
-            li {
-                width: 4px;
-                height: 5px;
-                background: rgba(138, 170, 44, 1);
-                box-shadow: 1px 1px 0 0 inset rgba(255, 255, 255, 0.7);
-
-                &:not(:last-child) { margin-right: 1px; }
-
-                &.empty {
-                    background: rgba(37, 72, 137, 1);
-                    box-shadow: 1px 1px 0 0 inset rgba(78, 154, 255, 0.7);
-                }
-            }
-        }
-    }
-}
-
-div.inventory {
-    overflow: visible;
-    margin: 0 -1px;
-
-    @media screen and (max-width: $breakpoint-desktop-l) {
-        width: 110px;
-        margin: 0 auto;
-    }
-
-    @media screen and (max-width: $breakpoint-desktop-m) { width: 82px; }
-}
-
-.item-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin: 8px;
-
-    .item-name {
-        margin: 0;
-        letter-spacing: 0.03em;
-        font-variant: small-caps;
-        text-align: center;
-    }
-
-    .item-statuses {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        gap: 5px;
-    }
-}
-
-.column {
-    justify-content: space-between;
-}
-
-.skills {
-    ul {
-        display: flex;
-        flex-direction: column;
-        float: right;
-    }
-
-    li {
-        display: flex;
-        position: relative;
-        align-items: center;
-
-        /* justify-content: center; */
-        width: 30px;
-        height: 34px;
-        padding-right: 3px;
-        margin-bottom: 7px;
-        background: transparent url('/src/assets/images/skills/skillblock.png') center left no-repeat;
-        border-left: 1px solid #191a53;
-
-        button {
-            @include button-style();
-
-            & {
-                width: 22px;
-                height: 22px;
-                padding: 0;
-            }
-
-            img {
-                top: 0;
-                padding: 0;
-            }
-        }
-
-        &.skill-slot {
-
-            &:before {
-                position: absolute;
-                z-index: 1;
-                top: 14px;
-                left: 13px;
-                width: 20px;
-                height: 23px;
-                padding-top: 7px;
-                font-family: $font-days-one;
-                font-size: .9em;
-                text-align: center;
-            }
-        }
-
-        &.skill-slot-basic {
-            @extend .skill-slot;
-            background: transparent url('/src/assets/images/skills/skillblock.png') center left no-repeat;
-        }
-
-        &.skill-slot-once {
-            @extend .skill-slot;
-            background: transparent url('/src/assets/images/skills/skillblock_once.png') center left no-repeat;
-        }
-
-        &.skill-slot-gold {
-            @extend .skill-slot;
-            background: transparent url('/src/assets/images/skills/skillblock_gold.png') center left no-repeat;
-        }
-
-        &.locked {
-            background: transparent url('/src/assets/images/skills/skillblock_gold.png') center left no-repeat;
-
-            &:before {
-                content: "";
-                position: absolute;
-                z-index: 1;
-                top: 14px;
-                left: 13px;
-                background: transparent url('/src/assets/images/skills/lock_gold.png') center no-repeat;
-                width: 20px;
-                height: 23px;
-                padding-top: 7px;
-                font-family: $font-days-one;
-                font-size: .9em;
-                text-align: center;
-            }
-        }
-
-        &:nth-child(2).locked:before { content:"2"; }
-        &:nth-child(3).locked:before { content:"3"; }
-        &:nth-child(4).locked:before { content:"4"; }
-    }
-}
-
-.actions-sheet {
-    align-items: center;
-    justify-content: flex-start;
-    width: 28px;
-    min-height: 134px;
-    padding: 5px 5px 5px 0;
-    border-top-right-radius: 4px;
-    background: rgba(54, 76, 148, 0.35);
-
-    & > img { margin: 3px; }
-
-    .action-points {
-        flex-direction: row;
-
-        & > div {
-            ul {
-                display: block;
-                flex-direction: column;
-                align-items: center;
-                border: 3px solid transparent;
-                border-image: url('/src/assets/images/actionpoints_bg.svg') 40% stretch;
-
-                li {
-                    width: 5px;
-                    height: 6px;
-                    border-bottom: 1px solid black;
-                    background: rgba(138, 170, 44, 1);
-                    box-shadow: 0 -1px 0 0 inset rgba(0, 0, 0, 0.4);
-                }
-            }
-        }
-
-        .movements ul li {
-            background: rgb(0, 255, 228);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(0, 255, 228, 1) 20%);
-
-            &.empty {
-                background: rgb(14, 62, 56);
-                background: linear-gradient(135deg, rgba(18, 85, 106, 1) 5%, rgba(14, 62, 56, 1) 20%);
-            }
-        }
-
-        .actions ul li {
-            background: rgb(255, 85, 153);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(255, 85, 153, 1) 20%);
-
-            &.empty {
-                background: rgb(64, 0, 0);
-                background: linear-gradient(135deg, rgba(77, 17, 32, 1) 5%, rgba(64, 0, 0, 1) 20%);
-            }
-        }
-    }
-    .specials {
-        display: flex;
-        flex-direction: column;
-
-        li {
-            display: flex;
-            flex-direction: row;
-            align-items: baseline;
-            margin: 2px 0;
-            font-size: 0.75em;
-            font-weight: 700;
-
-            img { margin-right: -3px; }
-        }
-    }
-}
-
-@media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) {
-    .actions-sheet {
-        width: 100%;
-    }
-    .char-panel {
-        width: 100%;
-
-        .char-sheet {
-            display: block;
+            gap: 5px;
             width: 100%;
             max-width: initial;
             min-height: initial;
+        }
 
-            .avatar {
-            align-items: center;
-            justify-content: center;
-            width: 110px;
-            height: 70px;
-            overflow: hidden;
-
-                img { width: initial; }
-            }
-
-            .char-card { float: left; }
-
-            .health-points { margin-top: -0.3em; }
-
-            .inventory {
-                float: left;
-                clear: left;
+        .char-card {
+            justify-content: flex-start;
+            @media screen and (max-width: $breakpoint-desktop-s) {
                 width: 110px;
             }
 
+            .avatar img {
+                max-width: 166px;
+            }
+
+            .statuses {
+                position: absolute;
+                flex-flow: column wrap;
+                align-items: flex-start;
+                margin: 2px;
+                max-height: 215px;
+                gap: 3px;
+            }
+        }
+
+        .health-points {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            row-gap: 0.6em;
+            margin: -.75em 0 .25em;
+
+            .life, .morale {
+                flex-direction: row;
+                align-items: center;
+                filter: drop-shadow(0 0 5px $deepBlue);
+
+
+                ol {
+                    align-items: center;
+                    flex-direction: column-reverse;
+
+                    @media screen and (max-width: $breakpoint-desktop-s) {
+                        flex-direction: row-reverse;
+                    }
+
+                    li:first-child {
+                        z-index: 1;
+                    }
+                }
+
+                p,
+                ul {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    border: 1px solid color.adjust($greyBlue, $lightness: 3.2%);
+                    border-radius: 3px;
+                    background: $greyBlue;
+                    box-shadow: 0 0 4px 1px inset rgba(28, 29, 56, 1);
+                }
+
+                p {
+                    margin: 0 0 -1px 0;
+                    padding: .15em .4em .2em;
+                    font-size: 0.8em;
+                    letter-spacing: 0.03em;
+                    border-bottom-width: 0;
+                    text-shadow: 0 0 2px black, 0 0 2px black;
+
+                    img {
+                        width: 11px;
+                        height: 13px;
+                        margin-right: 1px;
+                    }
+                }
+
+                ul {
+                    padding: .1em .2em;
+                    border-radius: 2px;
+
+                    @media screen and (max-width: $breakpoint-desktop-s) {
+                        display: none;
+                    }
+
+                    li {
+                        width: 4px;
+                        height: 5px;
+                        background: rgba(138, 170, 44, 1);
+                        box-shadow: 1px 1px 0 0 inset rgba(255, 255, 255, 0.7);
+
+                        &:not(:last-child) {
+                            margin-right: 1px;
+                        }
+
+                        &.empty {
+                            background: rgba(37, 72, 137, 1);
+                            box-shadow: 1px 1px 0 0 inset rgba(78, 154, 255, 0.7);
+                        }
+                    }
+                }
+            }
+        }
+
+        .inventory {
+            overflow: visible;
+            margin: 0 -1px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .actions-card {
+            flex: 1;
+
+            .item-info {
+                display: flex;
+                justify-content: center;
+                flex-direction: row;
+                gap: 4px;
+                margin: 8px;
+
+                .item-name {
+                    margin: 0;
+                    letter-spacing: 0.03em;
+                    font-variant: small-caps;
+                    text-align: center;
+                }
+
+                .item-statuses {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 5px;
+                }
+            }
+
             .interactions {
-                padding-left: 8%;
-                padding-right: 8%;
-                margin: auto;
-                background: none;
+                @media screen and (max-width: $breakpoint-desktop-s) { margin-top: 6px; }
             }
         }
     }
 
-    @each $crewmate, $face-position-x, $face-position-y in $face-position { // adjust the image position in the crewmate avatar div
-        $translate-x : (50% - $face-position-x);
-        $translate-y : (50% - $face-position-y);
-        .#{$crewmate} .avatar img {
-            transform: translate($translate-x, $translate-y);
+    .column {
+        justify-content: space-between;
+
+        .skills {
+            ul {
+                margin-top: -1px;
+                display: flex;
+                flex-direction: column;
+                float: right;
+            }
+
+            li {
+                display: flex;
+                position: relative;
+                align-items: center;
+
+                /* justify-content: center; */
+                width: 30px;
+                height: 34px;
+                padding-right: 3px;
+                margin-bottom: 7px;
+                background: transparent url('/src/assets/images/skills/skillblock.png') center left no-repeat;
+                border-left: 1px solid #191a53;
+
+                button {
+                    @include button-style();
+
+                    & {
+                        width: 22px;
+                        height: 22px;
+                        padding: 0;
+                    }
+
+                    img {
+                        top: 0;
+                        padding: 0;
+                    }
+                }
+
+                &.skill-slot {
+
+                    &:before {
+                        position: absolute;
+                        z-index: 1;
+                        top: 14px;
+                        left: 13px;
+                        width: 20px;
+                        height: 23px;
+                        padding-top: 7px;
+                        font-family: $font-days-one;
+                        font-size: .9em;
+                        text-align: center;
+                    }
+                }
+
+                &.skill-slot-basic {
+                    @extend .skill-slot;
+                    background: transparent url('/src/assets/images/skills/skillblock.png') center left no-repeat;
+                }
+
+                &.skill-slot-once {
+                    @extend .skill-slot;
+                    background: transparent url('/src/assets/images/skills/skillblock_once.png') center left no-repeat;
+                }
+
+                &.skill-slot-gold {
+                    @extend .skill-slot;
+                    background: transparent url('/src/assets/images/skills/skillblock_gold.png') center left no-repeat;
+                }
+
+                &.locked {
+                    background: transparent url('/src/assets/images/skills/skillblock_gold.png') center left no-repeat;
+
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        z-index: 1;
+                        top: 14px;
+                        left: 13px;
+                        background: transparent url('/src/assets/images/skills/lock_gold.png') center no-repeat;
+                        width: 20px;
+                        height: 23px;
+                        padding-top: 7px;
+                        font-family: $font-days-one;
+                        font-size: .9em;
+                        text-align: center;
+                    }
+                }
+
+                &:nth-child(2).locked:before { content:"2"; }
+                &:nth-child(3).locked:before { content:"3"; }
+                &:nth-child(4).locked:before { content:"4"; }
+            }
+        }
+
+        .actions-sheet {
+            align-items: center;
+            justify-content: flex-start;
+            width: 28px;
+            padding: 5px 5px 5px 0;
+            border-top-right-radius: 4px;
+            background: rgba(54, 76, 148, 0.35);
+
+            & > img { margin: 3px; }
+
+            .action-points {
+                flex-direction: row;
+
+                & > div {
+                    ul {
+                        display: block;
+                        flex-direction: column;
+                        align-items: center;
+                        border: 3px solid transparent;
+                        border-image: url('/src/assets/images/actionpoints_bg.svg') 40% stretch;
+
+                        li {
+                            width: 5px;
+                            height: 6px;
+                            border-bottom: 1px solid black;
+                            background: rgba(138, 170, 44, 1);
+                            box-shadow: 0 -1px 0 0 inset rgba(0, 0, 0, 0.4);
+                        }
+                    }
+                }
+
+                .movements ul li {
+                    background: rgb(0, 255, 228);
+                    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(0, 255, 228, 1) 20%);
+
+                    &.empty {
+                        background: rgb(14, 62, 56);
+                        background: linear-gradient(135deg, rgba(18, 85, 106, 1) 5%, rgba(14, 62, 56, 1) 20%);
+                    }
+                }
+
+                .actions ul li {
+                    background: rgb(255, 85, 153);
+                    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 5%, rgba(255, 85, 153, 1) 20%);
+
+                    &.empty {
+                        background: rgb(64, 0, 0);
+                        background: linear-gradient(135deg, rgba(77, 17, 32, 1) 5%, rgba(64, 0, 0, 1) 20%);
+                    }
+                }
+            }
+            .specials {
+                display: flex;
+                flex-direction: column;
+
+                li {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: baseline;
+                    margin: 2px 0;
+                    font-size: 0.75em;
+                    font-weight: 700;
+
+                    img { margin-right: -3px; }
+                }
+            }
         }
     }
-
 }
-
-
 </style>

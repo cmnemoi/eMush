@@ -1,6 +1,6 @@
 <template>
-    <ul class="inventory" @wheel="ScrollIcons($event)">
-        <li
+    <div class="inventory" @wheel="ScrollIcons($event)">
+        <div
             v-for="item in items"
             :key="`${item.id}-${item.description}`"
             tabindex="0"
@@ -25,14 +25,14 @@
                     </span>
                 </template>
             </Tippy>
-        </li>
-        <li
+        </div>
+        <div
             v-for="n in emptySlots"
             :key="n"
             class="slot empty"
             @mousedown.stop="$emit('select', null)"
         />
-    </ul>
+    </div>
 </template>
 
 <script lang="ts">

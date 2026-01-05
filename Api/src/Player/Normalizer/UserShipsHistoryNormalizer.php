@@ -35,7 +35,8 @@ final class UserShipsHistoryNormalizer implements NormalizerInterface
         );
 
         return [
-            'characterName' => \sprintf(':%s: %s', $object->characterName, $characterName),
+            'characterBody' => \sprintf(':%s:', $object->characterName),
+            'characterName' => $characterName,
             'daysSurvived' => $object->daysSurvived,
             'nbExplorations' => $object->nbExplorations,
             'nbNeronProjects' => $object->nbNeronProjects,

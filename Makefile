@@ -52,6 +52,10 @@ fill-daedalus:
 	@sleep 10
 	docker compose -f docker/docker-compose.yml run -u dev mush-php php bin/console mush:fill-daedalus
 
+.PHONY: validate-crew-death
+validate-crew-death:
+	docker compose -f docker/docker-compose.yml run -u dev mush-php php bin/console mush:validate-crew-death
+
 .PHONY: install
 install: setup-git-hooks setup-env-variables build install-api install-front install-eternaltwin setup-JWT-certificates setup-vapid-keys reset-eternaltwin-database docker-start fill-daedalus
 	@echo "Installation completed successfully ! You can access eMush at http://localhost/."

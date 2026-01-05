@@ -9,12 +9,33 @@
             :filter="filter"
             @pagination-click="paginationClick"
         >
-            <template #header-actions>
-                {{ $t('userProfile.shipHistory.daedalus') }}
+
+            <template #header-characterName>
+                <div class="header-text">
+                    <span :class="{'header-text-name': field.emote}">{{ $t(field.name) }}</span>
+                    <Tippy v-if="field.emote" tag="span" class="header-text-emote">
+                        <span v-html="formatText(field.emote)"/>
+                        <template #content>
+                            {{ $t(field.name) }}
+                        </template>
+                    </Tippy>
+                </div>
             </template>
+            <template #row-characterName="slotProps">
+                <div class="character-name">
+                    <Tippy tag="span">
+                        <span v-html="formatText(slotProps.characterBody)"/>
+                        <template #content>
+                            {{ slotProps.characterName }}
+                        </template>
+                    </Tippy>
+                    <span class="hide-on-desktop-m">{{ slotProps.characterName }}</span>
+                </div>
+            </template>
+
             <template #row-actions="slotProps">
                 <router-link class="router" :to="{ name: 'TheEnd', params: { closedDaedalusId: slotProps.daedalusId } }">
-                    <img :src="getImgUrl('ui_icons/right.png')" id="arrow" /> {{ $t('userProfile.shipHistory.awards') }}
+                    <img :src="getImgUrl('ui_icons/right.png')" id="arrow" /> <span class="hide-on-desktop-m">{{ $t('userProfile.shipHistory.awards') }}</span>
                 </router-link>
             </template>
         </Datatable>
@@ -28,6 +49,7 @@ import { getImgUrl } from '@/utils/getImgUrl';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
+import { formatText } from "@/utils/formatText";
 
 const route = useRoute();
 const store = useStore();
@@ -40,41 +62,51 @@ const fields = ref([
     {
         key: 'characterName',
         name: 'userProfile.shipHistory.character',
-        sortable: false
+        // TODO: Switch with :female_admin: when we can access user gender
+        emote: ':male_admin:',
+        sortable: false,
+        slotRow: true
     },
     {
         key: 'daysSurvived',
         name: 'userProfile.shipHistory.days',
+        emote: ':ic_watch:',
         sortable: false
     },
     {
         key: 'nbExplorations',
         name: 'userProfile.shipHistory.explorations',
+        emote: ':ic_explorer:',
         sortable: false
     },
     {
         key: 'nbResearchProjects',
         name: 'userProfile.shipHistory.researches',
+        emote: ':ic_research:',
         sortable: false
     },
     {
         key: 'nbNeronProjects',
         name: 'userProfile.shipHistory.neronProjects',
+        emote: ':ap_core:',
         sortable: false
     },
     {
         key: 'nbScannedPlanets',
         name: 'userProfile.shipHistory.scannedPlanets',
+        emote: ':ic_planet_scanned:',
         sortable: false
     },
     {
         key: 'titles',
         name: 'userProfile.shipHistory.titles',
+        emote: ':st_commander:',
         sortable: false
     },
     {
         key: 'triumph',
         name: 'userProfile.shipHistory.triumph',
+        emote: ':triumph:',
         sortable: false
     },
     {
@@ -84,9 +116,10 @@ const fields = ref([
     },
     {
         key: 'actions',
-        name: 'userProfile.shipHistory.goToTheEnd',
+        name: 'Daedalus',
+        emote: ':ic_note:',
         sortable: false,
-        slot: true
+        slotRow: true
     }
 ]);
 
@@ -128,10 +161,26 @@ watch(route, () => loadData());
 }
 
 .router {
-    padding-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 5px;
 }
 
 #arrow {
     top: 0;
+}
+
+.hide-on-desktop-m {
+    display: initial;
+
+    @media only screen and (max-width: $breakpoint-desktop-m) { display: none;}
+}
+
+.character-name {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
 }
 </style>

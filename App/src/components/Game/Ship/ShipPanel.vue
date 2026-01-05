@@ -110,7 +110,7 @@ export default defineComponent ({
     position: relative;
     flex-direction: row;
     width: 100%;
-    max-width: 424px;
+    max-width: $game-canvas-width;
     height: fit-content;
     max-height: 460px;
     background: #09092d url("/src/assets/images/shipview/background.png") center repeat;

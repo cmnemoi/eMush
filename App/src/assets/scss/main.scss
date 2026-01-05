@@ -193,6 +193,21 @@ button {
     }
 }
 
+@media screen and (max-width: $breakpoint-desktop-m) {
+  .box-container {
+    width: $breakpoint-desktop-s;
+  }
+}
+
+@media screen and (max-width: $breakpoint-desktop-s) {
+  .box-container {
+    max-width: 460px;
+    width: 100%;
+    align-items: center;
+
+  }
+}
+
 button.action-button {
     display: block;
     margin: 0.2rem;

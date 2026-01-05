@@ -62,7 +62,8 @@ final readonly class UserShipsHistoryControllerCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson([
             'data' => [
-                'characterName' => ':andie: Andie',
+                'characterBody' => ':andie:',
+                'characterName' => 'Andie',
                 'daysSurvived' => 0,
                 'nbExplorations' => 0,
                 'nbNeronProjects' => 0,

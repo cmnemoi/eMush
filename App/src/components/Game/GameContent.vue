@@ -135,7 +135,7 @@ export default defineComponent ({
         grid-area: projects-panel;
     }
 
-    grid-template-columns: 1fr 2fr 2fr;
+    grid-template-columns: 1fr minmax(320px, 424px) 2fr;
     grid-template-rows: auto 1fr;
     grid-template-areas:
       "char-panel       central-panel       comms-panel"

@@ -48,5 +48,9 @@ onMounted(async () => {
 
 :deep(canvas) {
     max-width: 100%;
+
+    @media screen and (max-width: 450px) {
+        image-rendering: smooth !important;
+    }
 }
 </style>

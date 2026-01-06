@@ -86,7 +86,7 @@ export default defineComponent ({
 .trading-terminal {
     position: relative;
     flex-direction: column;
-    width: $game-canvas-width;
+    width: 424px;
     padding: 5px 8px;
     color: $deepBlue;
     background: $brightCyan;

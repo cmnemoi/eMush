@@ -531,6 +531,21 @@ const activeTab    = ref<'stats' | string>('stats');
 
 // Responsive design
 @media (max-width: 480px) {
+  .statistics-container {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .stats-cards {
+    .stat-card {
+      padding: 8px 4px;
+
+      .card-text {
+        font-size: 9px;
+      }
+    }
+  }
+
   .nav-tabs {
     .tab-button {
       padding: 6px 8px;

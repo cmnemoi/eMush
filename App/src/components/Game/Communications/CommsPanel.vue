@@ -276,7 +276,7 @@ export default defineComponent ({
             span.shrink { display: initial; }
         }
 
-        @media screen and (max-width: $breakpoint-desktop-s) {
+        @media screen and (max-width: $breakpoint-desktop-l) {
             span.normal { display: none; }
             span.shrink { display: initial; }
         }

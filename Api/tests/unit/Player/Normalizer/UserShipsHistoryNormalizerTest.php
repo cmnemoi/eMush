@@ -32,7 +32,6 @@ final class UserShipsHistoryNormalizerTest extends TestCase
     {
         // given
         $viewModel = new UserShipsHistoryViewModel(
-            characterBody: 'jin_su',
             characterName: 'jin_su',
             daysSurvived: 10,
             nbExplorations: 5,
@@ -51,8 +50,7 @@ final class UserShipsHistoryNormalizerTest extends TestCase
 
         // then
         self::assertEquals([
-            'characterBody' => ':jin_su:',
-            'characterName' => 'Jin Su',
+            'characterName' => ':jin_su: Jin Su',
             'daysSurvived' => 10,
             'nbExplorations' => 5,
             'nbNeronProjects' => 3,
@@ -69,7 +67,6 @@ final class UserShipsHistoryNormalizerTest extends TestCase
     {
         // given
         $viewModel = new UserShipsHistoryViewModel(
-            characterBody: ':jin_su:',
             characterName: 'jin_su',
             daysSurvived: 10,
             nbExplorations: 5,
@@ -89,8 +86,7 @@ final class UserShipsHistoryNormalizerTest extends TestCase
         // then
         self::assertEquals(
             [
-                'characterBody' => ':jin_su:',
-                'characterName' => 'Jin Su',
+                'characterName' => ':jin_su: Jin Su',
                 'daysSurvived' => 10,
                 'nbExplorations' => 5,
                 'nbNeronProjects' => 3,

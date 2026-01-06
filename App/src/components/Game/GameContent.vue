@@ -1,8 +1,8 @@
 <template>
-    <div v-if="player">
+    <div v-if="player" class="game-content-wrapper">
         <ExpeditionPopUp :exploration="player.daedalus.exploration" />
         <div v-if="['in_game'].includes(player.gameStatus)" class="box-container">
-            <InvitationPrivateChannelMenu class="hide-on-breakpoint-desktop-m" />
+            <InvitationPrivateChannelMenu />
             <div class="top-banner">
                 <BannerPanel :player="player" :daedalus="player.daedalus" />
             </div>
@@ -18,7 +18,6 @@
                     <ShipPanel v-else :room="player.room" :player="player" />
                 </div>
                 <div class="grid-container comms-panel-container">
-                    <InvitationPrivateChannelMenu class="show-on-breakpoint-desktop-m" />
                     <CommsPanel :calendar="player.daedalus.calendar"/>
                 </div>
                 <div class="grid-container projects-panel-container">
@@ -103,10 +102,16 @@ export default defineComponent ({
 
 <style lang="scss" scoped>
 
+.game-content-wrapper {
+    width: fit-content;
+    margin: auto;
+}
+
 .box-container {
     margin-top: 8px;
     position: relative;
     min-height: 424px;
+    //z-index: 10;
 }
 
 .game-content {
@@ -119,7 +124,6 @@ export default defineComponent ({
 
     .central-panel-container {
         grid-area: central-panel;
-        margin-bottom: 2px;
     }
 
     .comms-panel-container {
@@ -131,45 +135,16 @@ export default defineComponent ({
         grid-area: projects-panel;
     }
 
-    grid-template-columns: 207px $game-canvas-width auto;
+    grid-template-columns: 1fr minmax(320px, 424px) 2fr;
     grid-template-rows: auto 1fr;
     grid-template-areas:
       "char-panel       central-panel       comms-panel"
       "projects-panel   projects-panel      comms-panel";
 }
 
-.show-on-breakpoint-desktop-m {
-    display: none;
-}
-
-@media screen and (max-width: $breakpoint-desktop-m) {
+@media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) {
     .game-content {
-        grid-template-columns: 207px $game-canvas-width;
-        grid-template-rows: auto 1fr auto;
-        grid-template-areas:
-            "char-panel central-panel"
-            "comms-panel comms-panel"
-            "projects-panel projects-panel";
-
-        .grid-container {
-            overflow-x: auto;
-            align-items: center;
-        }
-    }
-
-    .hide-on-breakpoint-desktop-m {
-        display: none;
-    }
-
-    .show-on-breakpoint-desktop-m {
-        display: initial;
-    }
-}
-
-@media screen and (max-width: $breakpoint-desktop-s) {
-    .game-content {
-        grid-template-columns: minmax(320px, $game-canvas-width);
-        grid-template-rows: auto 1fr;
+        grid-template-columns: 1fr;
         grid-template-areas:
             "char-panel"
             "central-panel"

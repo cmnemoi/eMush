@@ -405,7 +405,7 @@ h1 {
         align-items: center;
         padding: 1.25em;
 
-        @media screen and (min-width: $breakpoint-desktop-m) { border-left: 1px solid rgba(255, 255, 255, 0.1); }
+        @media screen and (min-width: 960px) { border-left: 1px solid rgba(255, 255, 255, 0.1); }
 
         .choice {
             margin: 0 0 .8em;

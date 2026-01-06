@@ -1075,7 +1075,7 @@ watch(minimap, () => {
     transform-origin: bottom left;
     transition: transform 0.5s;
 
-    @media screen and (max-width: $breakpoint-mobile-l) { transform: scale(0.4); }
+    @media screen and (max-width: $breakpoint-desktop-l) { transform: scale(0.4); }
 
     &:hover, &:focus, &:focus-within, &:active {
         transform: scale(1);

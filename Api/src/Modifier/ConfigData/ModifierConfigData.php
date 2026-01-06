@@ -12,6 +12,7 @@ use Mush\Action\Event\ActionVariableEvent;
 use Mush\Chat\Enum\MessageModificationEnum;
 use Mush\Chat\Event\MessageEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
@@ -3524,6 +3525,7 @@ abstract class ModifierConfigData
                 tagConstraints: [
                     PlayerVariableEnum::SPORE => ModifierRequirementEnum::ALL_TAGS,
                     VariableEventInterface::GAIN => ModifierRequirementEnum::ALL_TAGS,
+                    DaedalusEvent::FULL_DAEDALUS => ModifierRequirementEnum::NONE_TAGS,
                 ],
             ),
             new EventModifierConfigDto(

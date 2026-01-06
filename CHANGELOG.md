@@ -1,3 +1,26 @@
+# [0.23.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.22.2...0.23.0) (2026-01-06)
+
+
+### Bug Fixes
+
+* can't land when target by hunters and hunters can't target patrolship on the daedalus ([2e18899](https://gitlab.com/eternaltwin/mush/mush/commit/2e18899ec4267f970e10169250fc31979c436c89))
+* Ensure the phaser canvas size has the correct size to avoid tearing ([0863005](https://gitlab.com/eternaltwin/mush/mush/commit/086300541914e65837ad3be517c0a93106b6a03d))
+* giftboxes only give mush skill to alpha mush ([df6a628](https://gitlab.com/eternaltwin/mush/mush/commit/df6a6287484ce08c71b6fb4040bd01fa7c18c080))
+* Hygienist cannot block starting spore ([494ecdd](https://gitlab.com/eternaltwin/mush/mush/commit/494ecdd7c1bd33956b7c67f6d320e5b94e7be424))
+* new Crowdin translations ([b2873fd](https://gitlab.com/eternaltwin/mush/mush/commit/b2873fda4e3e0883ab72269450fe6ad774c378fd))
+* Shooting infected cat with Natamy Rifle by a human grants Natamist stat ([04b94c8](https://gitlab.com/eternaltwin/mush/mush/commit/04b94c812abbe3aa08f051eed37fbf6b8b8a0038))
+* starting spores do not trigger disease for cause infection ([2460551](https://gitlab.com/eternaltwin/mush/mush/commit/2460551f86a022977b39b964619c87cce204c59b))
+
+
+### Features
+
+* Rework responsiveness across the app ([bec6767](https://gitlab.com/eternaltwin/mush/mush/commit/bec676731e5457a8219d7e270ad6e8369c2972c8))
+
+
+### Reverts
+
+* "feat: Rework responsiveness across the app" (bec676731) ([6748ade](https://gitlab.com/eternaltwin/mush/mush/commit/6748adea97e96abfbbcbe6427dd42469fa52bf2a))
+
 ## [0.22.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.22.1...0.22.2) (2026-01-03)
 
 

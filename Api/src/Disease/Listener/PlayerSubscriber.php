@@ -2,10 +2,12 @@
 
 namespace Mush\Disease\Listener;
 
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -105,6 +107,10 @@ final class PlayerSubscriber implements EventSubscriberInterface
     public function onInfectionPlayer(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
+
+        if ($event->hasAnyTag([PlanetSectorEvent::MUSH_TRAP, DaedalusEvent::FULL_DAEDALUS])) {
+            return;
+        }
 
         if ($this->randomService->isSuccessful(self::INFECTION_DISEASE_RATE)) {
             $this->diseaseCauseService->handleDiseaseForCause(

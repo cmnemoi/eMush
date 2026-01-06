@@ -561,7 +561,8 @@ final class HunterService implements HunterServiceInterface
 
     private function patrolShipsInBattle(Daedalus $daedalus): ArrayCollection
     {
-        return $this->gameEquipmentService->findPatrolShipsByDaedalus($daedalus);
+        return $this->gameEquipmentService->findPatrolShipsByDaedalus($daedalus)
+            ->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInAPatrolShip());
     }
 
     private function removeTargetsInvolvingHunter(Hunter $hunter): void

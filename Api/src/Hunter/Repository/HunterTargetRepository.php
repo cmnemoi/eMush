@@ -24,6 +24,12 @@ final class HunterTargetRepository extends ServiceEntityRepository implements Hu
         $this->entityManager = $this->getEntityManager();
     }
 
+    public function save(HunterTarget $hunterTarget): void
+    {
+        $this->entityManager->persist($hunterTarget);
+        $this->entityManager->flush();
+    }
+
     public function delete(HunterTarget $hunterTarget): void
     {
         $this->entityManager->remove($hunterTarget);

@@ -4,6 +4,7 @@ namespace Mush\Action\Service;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameEquipment;
@@ -15,6 +16,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Hunter\Repository\HunterTargetRepositoryInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -32,6 +34,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
     private RandomServiceInterface $randomService;
     private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
+    private HunterTargetRepositoryInterface $hunterTargetRepository;
 
     public function __construct(
         EventServiceInterface $eventService,
@@ -39,12 +42,14 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
         RandomServiceInterface $randomService,
         RoomLogServiceInterface $roomLogService,
         StatusServiceInterface $statusService,
+        HunterTargetRepositoryInterface $hunterTargetRepository,
     ) {
         $this->eventService = $eventService;
         $this->gameEquipmentService = $gameEquipmentService;
         $this->randomService = $randomService;
         $this->roomLogService = $roomLogService;
         $this->statusService = $statusService;
+        $this->hunterTargetRepository = $hunterTargetRepository;
     }
 
     public function handleLand(
@@ -57,6 +62,8 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
         $daedalus = $patrolShip->getDaedalus();
 
         $dockingPlaceName = $patrolShip->getDockingPlace();
+
+        $this->removeTarget($patrolShip, $daedalus);
 
         if ($actionResult->isNotACriticalSuccess()) {
             $this->handlePatrolShipManoeuvreDamage($patrolShip, $pilot, $tags, $time);
@@ -222,5 +229,15 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
         $placeName = \in_array(ActionEnum::LAND->value, $tags, strict: true) ? $patrolShip->getDockingPlace() : $patrolShip->getPatrolShipName();
 
         return $daedalus->getPlaceByNameOrThrow($placeName);
+    }
+
+    private function removeTarget(SpaceShip $patrolShip, Daedalus $daedalus)
+    {
+        $targets = $this->hunterTargetRepository->findAllByPatrolShip($patrolShip);
+
+        foreach ($targets as $hunterTarget) {
+            $hunterTarget->setTargetEntity($daedalus);
+            $this->hunterTargetRepository->save($hunterTarget);
+        }
     }
 }

@@ -37,7 +37,7 @@ final readonly class PlayerActionSubscriber implements EventSubscriberInterface
         $target = $event->getActionTarget();
         $author = $event->getAuthor();
         if ($event->getActionName() === ActionEnum::OPEN_CONTAINER && $target instanceof GameItem) {
-            if ($target->getName() === ItemEnum::ANNIVERSARY_GIFT && $author->isMush() && $author->hasStatus(PlayerStatusEnum::HAS_EXTRA_MUSH_SLOT_ANNIVERSARY) === false) {
+            if ($target->getName() === ItemEnum::ANNIVERSARY_GIFT && $author->isMush() && $author->isAlphaMush() && !$author->hasStatus(PlayerStatusEnum::HAS_EXTRA_MUSH_SLOT_ANNIVERSARY)) {
                 $this->statusService->createStatusFromName(
                     statusName: PlayerStatusEnum::HAS_EXTRA_MUSH_SLOT_ANNIVERSARY,
                     holder: $author,

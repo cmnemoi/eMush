@@ -72,7 +72,7 @@ final class OpenContainerCest extends AbstractFunctionalTest
     public function anniversaryGiftShouldGiveMushPlayerRandomMushSkill(FunctionalTester $I): void
     {
         $this->givenAnniversaryGiftInChunInventory();
-        $this->givenChunIsMush();
+        $this->givenChunIsAlphaMush();
         $this->whenChunOpensGift();
         $this->thenChunShouldHaveAMushPerkAndExtraSlot($I);
     }
@@ -109,7 +109,7 @@ final class OpenContainerCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenChunIsMush(): void
+    private function givenChunIsAlphaMush(): void
     {
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::MUSH,
@@ -117,6 +117,8 @@ final class OpenContainerCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
         );
+
+        $this->chun->flagAsAlphaMush();
     }
 
     private function whenPlayerTriesToContainer(): void

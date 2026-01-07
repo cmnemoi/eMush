@@ -1069,7 +1069,7 @@
 			"discord": "Discord",
 			"forum": "Foro",
 			"wiki": "Wiki",
-			"statistics": "Statistiques",
+			"statistics": "Estadísticas",
 			"notifications": {
 				"title": "Notificaciones",
 				"empty": "¡Nada que ver aquí!",
@@ -1084,7 +1084,7 @@
 				"notifications": "Notificaciones",
 				"actionTabs": "Separar las acciones de Mush y de humanos",
 				"doubleTap": "Doble clic para las acciones",
-				"hideStatusesOnItem": "Cacher les statuts sur les images d'objets",
+				"hideStatusesOnItem": "Ocultar los estados de los íconos de los objetos.",
 				"lessPopups": "Menos ventanas emergentes en el juego"
 			}
 		},

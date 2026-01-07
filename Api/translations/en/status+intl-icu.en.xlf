@@ -4,7 +4,7 @@
     <unit id="alien_artefact">
       <segment id="name" state="translated">
         <source>alien_artefact.name</source>
-        <target>Alien Artefact</target>
+        <target>Alien Artifact</target>
       </segment>
       <segment id="description" state="translated">
         <source>alien_artefact.description</source>

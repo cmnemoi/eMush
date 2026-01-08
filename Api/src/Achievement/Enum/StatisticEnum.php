@@ -83,6 +83,8 @@ enum StatisticEnum: string
     case FROZEN_TAKEN = 'frozen_taken';
     case KIND_PERSON = 'kind_person';
     case DISEASE_CONTRACTED = 'disease_contracted';
+    case SHRINKER = 'shrinker';
+    case PHYSICIAN = 'physician';
     case MANKAROG_DOWN = 'mankarog_down';
     case MUSH_KILLED = 'mush_killed';
     case TEAM_MUSH_KILLED = 'team_mush_killed';

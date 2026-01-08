@@ -76,6 +76,8 @@ export const enum StatisticEnum {
     FROZEN_TAKEN = 'frozen_taken',
     KIND_PERSON = 'kind_person',
     DISEASE_CONTRACTED = 'disease_contracted',
+    SHRINKER = 'shrinker',
+    PHYSICIAN = 'physician',
     MANKAROG_DOWN = 'mankarog_down',
     MUSH_KILLED = 'mush_killed',
     TEAM_MUSH_KILLED = 'team_mush_killed',
@@ -311,6 +313,12 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.DISEASE_CONTRACTED]: {
         'icon': getImgUrl('status/disease.png')
+    },
+    [StatisticEnum.SHRINKER]: {
+        'icon': getImgUrl('achievements/shrink_done.png')
+    },
+    [StatisticEnum.PHYSICIAN]: {
+        'icon': getImgUrl('ui_icons/action_points/pa_heal.png')
     },
     [StatisticEnum.MANKAROG_DOWN]: {
         'icon': getImgUrl('achievements/mankarog.png')

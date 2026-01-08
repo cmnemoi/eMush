@@ -1793,5 +1793,49 @@
         <target>Dernier Commandant De L'Univers</target>
       </segment>
     </unit>
+    <unit id="shrinker">
+      <segment id="name" state="initial">
+        <source>shrinker.name</source>
+        <target>shrinker.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shrinker.description</source>
+        <target>shrinker.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>shrinker_1.name</source>
+        <target>shrinker_1.name</target>
+      </segment>
+      <segment id="x10" state="initial">
+        <source>shrinker_10.name</source>
+        <target>shrinker_10.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>shrinker_50.name</source>
+        <target>shrinker_50.name</target>
+      </segment>
+    </unit>
+    <unit id="physician">
+      <segment id="name" state="initial">
+        <source>physician.name</source>
+        <target>physician.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>physician.description</source>
+        <target>physician.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>physician_1.name</source>
+        <target>physician_1.name</target>
+      </segment>
+      <segment id="x10" state="initial">
+        <source>physician_10.name</source>
+        <target>physician_10.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>physician_50.name</source>
+        <target>physician_50.name</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

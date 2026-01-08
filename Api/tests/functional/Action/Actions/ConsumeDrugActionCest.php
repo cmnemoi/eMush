@@ -164,6 +164,13 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
             ],
             actual: $healingLog->getParameters(),
         );
+
+        // then player gets shrinker statistic for curing depression
+        $I->assertEquals(1, $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            name: StatisticEnum::SHRINKER,
+            userId: $this->player->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        )?->getCount());
     }
 
     public function shouldImproveDrugsTakenStatistic(FunctionalTester $I): void

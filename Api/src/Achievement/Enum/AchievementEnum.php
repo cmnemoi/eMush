@@ -223,6 +223,12 @@ enum AchievementEnum: string
     case DISEASE_CONTRACTED_10 = 'disease_contracted_10';
     case DISEASE_CONTRACTED_20 = 'disease_contracted_20';
     case DISEASE_CONTRACTED_50 = 'disease_contracted_50';
+    case SHRINKER_1 = 'shrinker_1';
+    case SHRINKER_10 = 'shrinker_10';
+    case SHRINKER_50 = 'shrinker_50';
+    case PHYSICIAN_1 = 'physician_1';
+    case PHYSICIAN_10 = 'physician_10';
+    case PHYSICIAN_50 = 'physician_50';
     case MANKAROG_DOWN_1 = 'mankarog_down_1';
     case MUSH_KILLED_1 = 'mush_killed_1';
     case TEAM_MUSH_KILLED_1 = 'team_mush_killed_1';

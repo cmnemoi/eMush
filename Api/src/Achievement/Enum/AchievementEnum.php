@@ -270,6 +270,7 @@ enum AchievementEnum: string
     case TRIUMPH_1000 = 'triumph_1000';
     case TRIUMPH_2000 = 'triumph_2000';
     case TRIUMPH_3000 = 'triumph_3000';
+    case VENERIAN_DISEASE_1 = 'venerian_disease_1';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

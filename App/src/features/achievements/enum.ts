@@ -87,6 +87,7 @@ export const enum StatisticEnum {
     LAST_MEMBER = 'last_member',
     COMMANDER_SHOULD_GO_LAST = 'commander_should_go_last',
     TRIUMPH = 'triumph',
+    VENERIAN_DISEASE = 'venerian_disease',
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -347,5 +348,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.TRIUMPH]: {
         'icon': getImgUrl('ui_icons/player_variables/triumph.png')
+    },
+    [StatisticEnum.VENERIAN_DISEASE]: {
+        'icon': getImgUrl('achievements/venerian.png')
     }
 };

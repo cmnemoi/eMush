@@ -271,7 +271,7 @@ class DoTheThing extends AbstractAction
         $stds = array_keys($sexDiseaseCauseConfig->getDiseases()->toArray());
 
         return $player->getMedicalConditions()->getActiveDiseases()->filter(
-            static function ($disease) use ($stds) { return \in_array($disease->getDiseaseConfig()->getName(), $stds, true); }
+            static function ($disease) use ($stds) { return \in_array($disease->getDiseaseConfig()->getDiseaseName(), $stds, true); }
         );
     }
 

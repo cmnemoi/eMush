@@ -970,6 +970,7 @@ abstract class AchievementConfigData
             new AchievementConfigDto(name: AchievementEnum::TRIUMPH_1000, points: 0, threshold: 1000),
             new AchievementConfigDto(name: AchievementEnum::TRIUMPH_2000, points: 0, threshold: 2000),
             new AchievementConfigDto(name: AchievementEnum::TRIUMPH_3000, points: 0, threshold: 3000),
+            new AchievementConfigDto(name: AchievementEnum::VENERIAN_DISEASE_1, points: 0, threshold: 1),
         ];
     }
 

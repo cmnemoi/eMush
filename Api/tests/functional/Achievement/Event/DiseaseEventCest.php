@@ -10,9 +10,12 @@ use Mush\Action\Actions\Heal;
 use Mush\Action\Actions\SelfHeal;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
+use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DisorderEnum;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -37,6 +40,7 @@ final class DiseaseEventCest extends AbstractFunctionalTest
     private ActionConfig $selfHealConfig;
     private SelfHeal $selfHealAction;
 
+    private DiseaseCauseServiceInterface $diseaseCauseService;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
@@ -53,6 +57,7 @@ final class DiseaseEventCest extends AbstractFunctionalTest
         $this->selfHealConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SELF_HEAL]);
         $this->selfHealAction = $I->grabService(SelfHeal::class);
 
+        $this->diseaseCauseService = $I->grabService(DiseaseCauseServiceInterface::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
@@ -93,12 +98,12 @@ final class DiseaseEventCest extends AbstractFunctionalTest
         $this->givenPlayerGetsDiseaseByNameWithDelay(DisorderEnum::SPLEEN, 1);
 
         $this->thenPlayerShouldNotHavePendingStatistic(StatisticEnum::DISEASE_CONTRACTED, $this->player, $I);
-        $this->thenPatientHasActiveDiseasesOfAmount(0, $I);
+        $this->thenPlayerHasActiveDiseasesOfAmount(0, $I);
 
         $this->whenCycleIsProgressedForPlayer();
 
         $this->thenPlayerShouldNotHavePendingStatistic(StatisticEnum::DISEASE_CONTRACTED, $this->player, $I);
-        $this->thenPatientHasActiveDiseasesOfAmount(1, $I);
+        $this->thenPlayerHasActiveDiseasesOfAmount(1, $I);
     }
 
     public function shouldIncrementShrinkerPendingStatisticWhenCuringDisorder(FunctionalTester $I): void
@@ -109,12 +114,12 @@ final class DiseaseEventCest extends AbstractFunctionalTest
 
         $this->whenCycleIsProgressedForPlayer();
         // Paranoia has 1 disease point
-        $this->thenPatientHasActiveDiseasesOfAmount(1, $I);
+        $this->thenPlayerHasActiveDiseasesOfAmount(1, $I);
         $this->thenPlayerShouldNotHavePendingStatistic(StatisticEnum::SHRINKER, $this->player2, $I);
 
         $this->whenCycleIsProgressedForPlayer();
         // Paranoia has no disease points and is cured
-        $this->thenPatientHasActiveDiseasesOfAmount(0, $I);
+        $this->thenPlayerHasActiveDiseasesOfAmount(0, $I);
         $this->thenPlayerShouldHaveOnePointOfPendingStatistic(StatisticEnum::SHRINKER, $this->player2, $I);
     }
 
@@ -122,11 +127,11 @@ final class DiseaseEventCest extends AbstractFunctionalTest
     {
         $this->givenPlayerHasActiveDiseaseByNameWithDiseasePoints(DisorderEnum::SPLEEN, 1);
 
-        $this->thenPatientHasActiveDiseasesOfAmount(1, $I);
+        $this->thenPlayerHasActiveDiseasesOfAmount(1, $I);
 
         $this->whenCycleIsProgressedForPlayer();
 
-        $this->thenPatientHasActiveDiseasesOfAmount(0, $I);
+        $this->thenPlayerHasActiveDiseasesOfAmount(0, $I);
         $this->thenPlayerShouldNotHavePendingStatistic(StatisticEnum::SHRINKER, $this->player, $I);
     }
 
@@ -139,12 +144,12 @@ final class DiseaseEventCest extends AbstractFunctionalTest
         $this->whenPlayerIsHealed();
 
         // Black bite had a resistance point which has been removed but the disease still stays
-        $this->thenPatientHasActiveDiseasesOfAmount(1, $I);
+        $this->thenPlayerHasActiveDiseasesOfAmount(1, $I);
         $this->thenPlayerShouldNotHavePendingStatistic(StatisticEnum::PHYSICIAN, $this->player2, $I);
 
         $this->whenPlayerIsHealed();
         // Black bite had no resistance points so is cured
-        $this->thenPatientHasActiveDiseasesOfAmount(0, $I);
+        $this->thenPlayerHasActiveDiseasesOfAmount(0, $I);
         $this->thenPlayerShouldHaveOnePointOfPendingStatistic(StatisticEnum::PHYSICIAN, $this->player2, $I);
     }
 
@@ -157,13 +162,24 @@ final class DiseaseEventCest extends AbstractFunctionalTest
         $this->whenPlayerSelfHeals();
 
         // Black bite had a resistance point which has been removed but the disease still stays
-        $this->thenPatientHasActiveDiseasesOfAmount(1, $I);
+        $this->thenPlayerHasActiveDiseasesOfAmount(1, $I);
         $this->thenPlayerShouldNotHavePendingStatistic(StatisticEnum::PHYSICIAN, $this->player, $I);
 
         $this->whenPlayerSelfHeals();
         // Black bite had no resistance points so is cured
-        $this->thenPatientHasActiveDiseasesOfAmount(0, $I);
+        $this->thenPlayerHasActiveDiseasesOfAmount(0, $I);
         $this->thenPlayerShouldHaveOnePointOfPendingStatistic(StatisticEnum::PHYSICIAN, $this->player, $I);
+    }
+
+    public function shouldIncrementVenerianDiseasePendingStatistic(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasDiseaseAppearByName(DiseaseEnum::GASTROENTERIS);
+
+        $this->whenPlayersTransmitStdsWhenDoingTheThing($this->player, $this->player2, $I);
+
+        $this->thenPlayer2HasActiveDiseasesOfAmount(1, $I);
+        $this->thenPlayerShouldHaveOnePointOfPendingStatistic(StatisticEnum::VENERIAN_DISEASE, $this->player2, $I);
+        $this->thenPlayerShouldNotHavePendingStatistic(StatisticEnum::VENERIAN_DISEASE, $this->player, $I);
     }
 
     private function givenPlayerLiesDownWithShrinkInTheRoom(FunctionalTester $I): void
@@ -250,6 +266,19 @@ final class DiseaseEventCest extends AbstractFunctionalTest
         $this->selfHealAction->execute();
     }
 
+    private function whenPlayersTransmitStdsWhenDoingTheThing(Player $player, Player $target, FunctionalTester $I): void
+    {
+        // Simulate std transmission
+        $playerStds = $this->getPlayerStds($player);
+        $parameterStds = $this->getPlayerStds($target);
+
+        if ($playerStds->count() > 0) {
+            $this->transmitStd($playerStds, $target, $I);
+        } elseif ($parameterStds->count() > 0) {
+            $this->transmitStd($parameterStds, $player, $I);
+        }
+    }
+
     private function thenPlayerShouldHaveOnePointOfPendingStatistic(StatisticEnum $statisticName, Player $player, FunctionalTester $I): void
     {
         $pendingStatistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
@@ -270,8 +299,34 @@ final class DiseaseEventCest extends AbstractFunctionalTest
         $I->assertNull($pendingStatistic);
     }
 
-    private function thenPatientHasActiveDiseasesOfAmount(int $expectedCount, FunctionalTester $I): void
+    private function thenPlayerHasActiveDiseasesOfAmount(int $expectedCount, FunctionalTester $I): void
     {
         $I->assertEquals($expectedCount, $this->player->getMedicalConditions()->getActiveDiseases()->count());
+    }
+
+    private function thenPlayer2HasActiveDiseasesOfAmount(int $expectedCount, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedCount, $this->player2->getMedicalConditions()->getActiveDiseases()->count());
+    }
+
+    private function getPlayerStds(Player $player): PlayerDiseaseCollection
+    {
+        $sexDiseaseCauseConfig = $this->diseaseCauseService->findCauseConfigByDaedalus(DiseaseCauseEnum::SEX, $player->getDaedalus());
+
+        $stds = array_keys($sexDiseaseCauseConfig->getDiseases()->toArray());
+
+        return $player->getMedicalConditions()->getActiveDiseases()->filter(
+            static function ($disease) use ($stds) { return \in_array($disease->getDiseaseConfig()->getDiseaseName(), $stds, true); }
+        );
+    }
+
+    private function transmitStd(PlayerDiseaseCollection $stds, Player $target, FunctionalTester $I): void
+    {
+        $doTheThingConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DO_THE_THING]);
+
+        /** @var PlayerDisease $std */
+        $std = $stds->first();
+
+        $this->playerDiseaseService->createDiseaseFromName($std->getName(), $target, $doTheThingConfig->getActionTags());
     }
 }

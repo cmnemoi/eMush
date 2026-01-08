@@ -101,6 +101,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::LAST_MEMBER, StatisticStrategyEnum::INCREMENT, isRare: true),
             new StatisticConfigDto(StatisticEnum::COMMANDER_SHOULD_GO_LAST, StatisticStrategyEnum::INCREMENT, isRare: true),
             new StatisticConfigDto(StatisticEnum::TRIUMPH, StatisticStrategyEnum::INCREMENT),
+            new StatisticConfigDto(StatisticEnum::VENERIAN_DISEASE, StatisticStrategyEnum::INCREMENT),
         ];
     }
 

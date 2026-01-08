@@ -1875,5 +1875,19 @@
         <target>Demiurge</target>
       </segment>
     </unit>
+    <unit id="venerian_disease">
+      <segment id="name" state="translated">
+        <source>venerian_disease.name</source>
+        <target>Maladies vénériennes contractées</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>venerian_disease.description</source>
+        <target>...</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>venerian_disease_1.name</source>
+        <target>Hédoniste</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

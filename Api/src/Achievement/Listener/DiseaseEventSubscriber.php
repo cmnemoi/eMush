@@ -6,6 +6,7 @@ namespace Mush\Achievement\Listener;
 
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Services\UpdatePlayerStatisticService;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
@@ -33,6 +34,13 @@ final readonly class DiseaseEventSubscriber implements EventSubscriberInterface
             player: $event->getTargetPlayer(),
             statisticName: StatisticEnum::DISEASE_CONTRACTED,
         );
+
+        if ($event->hasTag(ActionEnum::DO_THE_THING->toString())) {
+            $this->updatePlayerStatisticService->execute(
+                player: $event->getTargetPlayer(),
+                statisticName: StatisticEnum::VENERIAN_DISEASE,
+            );
+        }
     }
 
     public function onCureDisease(DiseaseEvent $event): void

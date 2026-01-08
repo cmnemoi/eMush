@@ -485,6 +485,35 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldPreventIncidentPointGainIfBricBrocProjectIsActivated(FunctionalTester $I): void
+    {
+        // making sure the ship can have incidents to begin with.
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
+
+        // given Bric Broc project is finished
+        $this->finishProject(
+            $this->daedalus->getProjectByName(ProjectName::BRIC_BROC),
+            $this->chun,
+            $I
+        );
+
+        // given bric broc project activation rate is 100%
+        $bricBroc = $this->daedalus->getProjectByName(ProjectName::BRIC_BROC);
+        $config = $bricBroc->getConfig();
+        (new \ReflectionClass($config))->getProperty('activationRate')->setValue($config, 100);
+
+        // given incident point are 0
+        $this->daedalus->removeIncidentPoints(500);
+
+        $I->assertEquals(0, $this->daedalus->getIncidentPoints(), 'Incident point should be ZERO before new cycle');
+
+        // when cycle change event is triggered
+        $this->whenANewCyclePasses();
+
+        // then incident point should still be 0
+        $I->assertEquals(0, $this->daedalus->getIncidentPoints(), 'Incident point should be ZERO after new cycle');
+    }
+
     public function shouldCreateANeronAnnouncementWhenBricBrocIsActivated(FunctionalTester $I): void
     {
         // given Daedalus is in game so incidents can happen

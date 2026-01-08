@@ -17,7 +17,10 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\DifficultyServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Enum\EndCauseEnum as EnumEndCauseEnum;
+use Mush\Project\Enum\ProjectName;
+use Mush\Project\Event\BricBrocProjectWorkedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Lock\LockFactory;
 
@@ -26,12 +29,14 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     public const int CYCLE_OXYGEN_LOSS = -3;
     public const string BASE_DAEDALUS_CYCLE_CHANGE = 'base_daedalus_cycle_change';
     public const int LOBBY_TIME_LIMIT = 3 * 24 * 60;
+    private bool $bricBrocWasActivated = false;
 
     private DaedalusServiceInterface $daedalusService;
     private DispatchCycleIncidentsService $dispatchCycleIncidents;
     private DifficultyServiceInterface $difficultyService;
     private EventServiceInterface $eventService;
     private LockFactory $lockFactory;
+    private RandomServiceInterface $randomService;
 
     public function __construct(
         DaedalusServiceInterface $daedalusService,
@@ -39,18 +44,21 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         DifficultyServiceInterface $difficultyService,
         EventServiceInterface $eventService,
         LockFactory $lockFactory,
+        RandomServiceInterface $randomService,
     ) {
         $this->daedalusService = $daedalusService;
         $this->dispatchCycleIncidents = $daedalusIncidentDecayService;
         $this->difficultyService = $difficultyService;
         $this->eventService = $eventService;
         $this->lockFactory = $lockFactory;
+        $this->randomService = $randomService;
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
             DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => [
+                ['checkBricBroc', 2000],
                 ['updateDaedalusCycle', EventPriorityEnum::HIGHEST],
                 ['updateDaedalusDifficulty', EventPriorityEnum::HIGHEST],
                 ['applyDaedalusEndCycle', EventPriorityEnum::DAEDALUS_VARIABLES],
@@ -58,6 +66,20 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
                 ['attributeTitles', EventPriorityEnum::ATTRIBUTE_TITTLES], // do this after all cycle change events to prevent titles being attributed to dead players
             ],
         ];
+    }
+
+    public function checkBricBroc(DaedalusCycleEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        if ($daedalus->hasProject(ProjectName::BRIC_BROC)) {
+            $bricBroc = $daedalus->getProjectByName(ProjectName::BRIC_BROC);
+            if ($bricBroc->isFinished() && $this->randomService->isSuccessful($bricBroc->getActivationRate())) {
+                $this->bricBrocWasActivated = true;
+
+                return;
+            }
+        }
+        $this->bricBrocWasActivated = false;
     }
 
     public function updateDaedalusCycle(DaedalusCycleEvent $event): void
@@ -78,7 +100,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $lock->acquire(true);
 
         try {
-            $this->difficultyService->updateDaedalusDifficulty($event->getDaedalus());
+            $this->difficultyService->updateDaedalusDifficulty($event->getDaedalus(), $this->bricBrocWasActivated);
         } finally {
             $lock->release();
         }
@@ -102,7 +124,9 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $lock->acquire(true);
 
         try {
-            $this->dispatchNewCycleIncidentsJob($event);
+            if ($this->finishDaedalusIfNoHumanIsAlive($event->getDaedalus(), $event->getTime()) === false) {
+                $this->bricBrocWasActivated ? $this->dispatchBricBrocEvent($event) : $this->dispatchNewCycleIncidentsJob($event);
+            }
         } finally {
             $lock->release();
         }
@@ -123,6 +147,12 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         } finally {
             $lock->release();
         }
+    }
+
+    private function dispatchBricBrocEvent(DaedalusCycleEvent $event): void
+    {
+        $bricBrocWorkedEvent = new BricBrocProjectWorkedEvent($event->getDaedalus(), [EventEnum::NEW_CYCLE], $event->getTime());
+        $this->eventService->callEvent($bricBrocWorkedEvent, BricBrocProjectWorkedEvent::class);
     }
 
     private function applyDaedalusEndCycleJob(DaedalusCycleEvent $event): void
@@ -147,10 +177,6 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
         $time = $event->getTime();
-
-        if ($this->finishDaedalusIfNoHumanIsAlive($daedalus, $time)) {
-            return;
-        }
 
         $this->dispatchCycleIncidents->execute($daedalus, $time);
     }

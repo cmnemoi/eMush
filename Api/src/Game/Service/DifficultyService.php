@@ -12,9 +12,9 @@ final class DifficultyService implements DifficultyServiceInterface
 {
     public function __construct(private DaedalusRepositoryInterface $daedalusRepository) {}
 
-    public function updateDaedalusDifficulty(Daedalus $daedalus): void
+    public function updateDaedalusDifficulty(Daedalus $daedalus, bool $skipIncidentUpdate = false): void
     {
-        $this->updateIncidentPoints($daedalus);
+        $skipIncidentUpdate ? null : $this->updateIncidentPoints($daedalus);
         $this->updateHunterPoints($daedalus);
     }
 

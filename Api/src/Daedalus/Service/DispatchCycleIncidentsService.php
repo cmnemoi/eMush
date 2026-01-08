@@ -14,15 +14,12 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
 use Mush\Game\Entity\Collection\ProbaCollection;
-use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\Random\ProbaCollectionRandomElementServiceInterface;
 use Mush\Game\Service\Random\RandomFloatServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Project\Enum\ProjectName;
-use Mush\Project\Event\BricBrocProjectWorkedEvent;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
@@ -53,7 +50,7 @@ final class DispatchCycleIncidentsService
 
     private function isPrevented(Daedalus $daedalus, \DateTime $time): bool
     {
-        if ($daedalus->isFilling() || $this->isPreventedByBricBroc($daedalus, $time)) {
+        if ($daedalus->isFilling()) {
             return true;
         }
 
@@ -154,19 +151,6 @@ final class DispatchCycleIncidentsService
             ),
             default => throw new \LogicException("Incident type {$incident->name->value} not supported"),
         };
-    }
-
-    private function isPreventedByBricBroc(Daedalus $daedalus, \DateTime $time): bool
-    {
-        $bricBroc = $daedalus->getProjectByName(ProjectName::BRIC_BROC);
-        if (!$bricBroc->isFinished() || $this->d100Roll->isAFailure($bricBroc->getActivationRate())) {
-            return false;
-        }
-
-        $bricBrocWorkedEvent = new BricBrocProjectWorkedEvent($daedalus, [EventEnum::NEW_CYCLE], $time);
-        $this->eventService->callEvent($bricBrocWorkedEvent, BricBrocProjectWorkedEvent::class);
-
-        return true;
     }
 
     private function daedalusCannotAffordIncident(Daedalus $daedalus, CycleIncidentEnum $incident): bool

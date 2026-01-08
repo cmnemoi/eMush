@@ -111,21 +111,6 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->thenIncidentsShouldNotBeExecuted($result, 'Incidents should not be executed if Daedalus is filling');
     }
 
-    public function testShouldNotBeExecutedIfPreventedByBricBroc(): void
-    {
-        // Given
-        $daedalus = $this->givenADaedalus();
-        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
-        $this->givenBricBrocProjectIsFinished($daedalus);
-        $this->givenD100RollIsSuccessful();
-
-        // When
-        $result = $this->whenDispatchingCycleIncidents($daedalus);
-
-        // Then
-        $this->thenIncidentsShouldNotBeExecuted($result, 'BricBroc should prevent the execution');
-    }
-
     public function testShouldNotBeExecutedIfNotEnoughIncidentPoints(): void
     {
         // Given

@@ -13,6 +13,7 @@
     />
     <div
         v-if="isRoot && !isSystemMessage"
+        ref="message"
         :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
         @click="$emit('reply')"
         @mouseover="read(message);mouseOver = true"
@@ -39,6 +40,7 @@
     </div>
     <div
         v-if="isRoot && isSystemMessage"
+        ref="message"
         class="log"
         @click="$emit('reply')"
         @mouseover="read(message)"
@@ -50,6 +52,7 @@
     </div>
     <div
         v-else-if="!isRoot"
+        ref="message"
         :class="isHidden ? 'message child-message hidden' : 'message child-message'"
         @click="$emit('reply')"
         @mouseover="read(message);mouseOver = true"
@@ -130,29 +133,29 @@ export default defineComponent ({
             player: 'player/player',
             readMessageMutex: 'communication/readMessageMutex'
         }),
-        characterPortrait: function(): string| null {
+        characterPortrait: function (): string | null {
             if (this.message.character.key !== null) {
                 const images = characterEnum[this.message.character.key];
                 return this.isRoot ? images.body : images.head;
             }
             return null;
         },
-        isNeronMessage: function(): boolean {
+        isNeronMessage: function (): boolean {
             return this.message.character.key === CharacterEnum.NERON;
         },
-        isSystemMessage: function(): boolean {
+        isSystemMessage: function (): boolean {
             return this.message.character.key === null;
         },
-        isHidden: function(): boolean {
+        isHidden: function (): boolean {
             return this.message.isHidden;
         },
-        isPlayerAlive: function(): boolean {
+        isPlayerAlive: function (): boolean {
             if (!this.player) {
                 return false;
             }
             return !['finished'].includes(this.player.gameStatus);
         },
-        actions: function(): Array<string> {
+        actions: function (): Array<string> {
             const actions = [];
             if (this.isPlayerAlive) {
                 if (this.channel.supportsReplies()) {
@@ -162,7 +165,7 @@ export default defineComponent ({
                     this.channel.isFavorite() ? actions.push('unfavorite') : actions.push('favorite');
                 }
             }
-            if(this.adminMode) {
+            if (this.adminMode) {
                 actions.push('delete');
             }
 
@@ -205,6 +208,15 @@ export default defineComponent ({
         },
         closeReportDialog() {
             this.reportPopupVisible = false;
+        },
+        scrollIntoView: function(): void {
+            const element = this.$refs.message as HTMLElement;
+            // scrollIntoView() might take a `container: 'nearest'` options later, but it is not yet widely supported
+            // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView#browser_compatibility
+            // Without it the method scrolls every scrollable, so we need to scroll the main window back
+            const { scrollX, scrollY } = window;
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            window.scroll(scrollX, scrollY);
         },
         async submitComplaint(params: URLSearchParams) {
             await this.reportMessage({ messageId: this.message.id, params: params });

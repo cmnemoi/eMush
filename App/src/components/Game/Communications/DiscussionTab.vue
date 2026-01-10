@@ -10,13 +10,14 @@
             <button
                 v-if="message.hasChildrenToDisplay()"
                 class="toggle-children"
-                @click="message.toggleChildren()"
+                @click="toggleChildrenAndScroll(message)"
             >
                 {{ ($t(message.isFirstChildHidden() ? 'game.communications.showMessageChildren' : 'game.communications.hideMessageChildren', { count: message.getHiddenChildrenCount() })) }}
             </button>
             <Message
                 v-for="(child, childId) in message.children"
                 :key="childId"
+                ref="children"
                 :message="child"
                 :is-replyable="true"
                 @reply="replyTo(message)"
@@ -70,6 +71,29 @@ export default defineComponent ({
             } else {
                 this.messageToReply = message;
             }
+        },
+        toggleChildrenAndScroll: function (message: MessageEntity): void {
+            message.toggleChildren();
+            if (message.isFirstChildHidden()) {
+                return;
+            }
+
+            this.$nextTick(() => {
+                const firstUnreadChild = message.getFirstUnreadChild();
+                const lastChild = message.getLastChild();
+                const childrenComponents = this.$refs.children as Array<InstanceType<typeof Message>>;
+                if (firstUnreadChild) {  // Scroll to the first unread message if there is one
+                    const firstUnreadComponent = childrenComponents.find((component: InstanceType<typeof Message>) => {
+                        return component.message.id === firstUnreadChild.id;
+                    });
+                    firstUnreadComponent?.scrollIntoView();
+                } else if (lastChild) { // Scroll to the last message otherwise
+                    const lastChildComponent = childrenComponents.find((component: InstanceType<typeof Message>) => {
+                        return component.message.id === lastChild.id;
+                    });
+                    lastChildComponent?.scrollIntoView();
+                }
+            });
         },
         ...mapActions('communication', [
             'loadMessages'

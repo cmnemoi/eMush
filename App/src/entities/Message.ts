@@ -50,6 +50,12 @@ export class Message {
     getChildrenToToggle(): Array<Message> {
         return this.children.slice(0, -this.nbChildrenToDisplay);
     }
+    getFirstUnreadChild(): Message|null {
+        return this.children.find(child => child.isUnread && !child.isHidden) ?? null;
+    }
+    getLastChild(): Message|null {
+        return this.children[this.children.length - 1] && null;
+    }
     hasChildrenToDisplay(): boolean {
         return this.children.length > this.nbChildrenToDisplay;
     }

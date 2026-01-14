@@ -2,7 +2,6 @@
 
 namespace Mush\Tests\functional\Daedalus\Event;
 
-use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\EventEnum;
@@ -11,9 +10,6 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\Player;
-use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -40,7 +36,6 @@ final class FilledDaedalusCest extends AbstractFunctionalTest
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::STARTING);
 
         $characterConfig = $this->daedalus->getGameConfig()->getCharactersConfig();
-        $numberOfCharacters = $characterConfig->count();
 
         foreach ($characterConfig as $character) {
             if (
@@ -49,9 +44,14 @@ final class FilledDaedalusCest extends AbstractFunctionalTest
             ) {
                 $this->addPlayerByCharacter($I, $this->daedalus, $character->getCharacterName());
             }
+
+            if ($this->daedalus->getPlayers()->count() === 16) {
+                break;
+            }
         }
 
         $numberOfMush = $this->daedalus->getGameConfig()->getDaedalusConfig()->getNbMush();
+        dump(\count($this->daedalus->getPlayers()));
 
         // start the game
         $event = new DaedalusEvent(
@@ -62,128 +62,12 @@ final class FilledDaedalusCest extends AbstractFunctionalTest
         $this->eventService->callEvent($event, DaedalusEvent::FULL_DAEDALUS);
 
         $I->assertEquals(GameStatusEnum::CURRENT, $this->daedalus->getGameStatus());
-        $I->assertEquals($numberOfCharacters, $this->daedalus->getPlayers()->getPlayerAlive()->count());
+        $I->assertEquals(16, $this->daedalus->getPlayers()->getPlayerAlive()->count());
         $I->assertEquals($numberOfMush, $this->daedalus->getPlayers()->getMushPlayer()->count());
-        $I->assertEquals($numberOfCharacters - $numberOfMush, $this->daedalus->getPlayers()->getHumanPlayer()->count());
+        $I->assertEquals(16 - $numberOfMush, $this->daedalus->getPlayers()->getHumanPlayer()->count());
         $mushPlayers = $this->daedalus->getPlayers()->getMushPlayer();
         foreach ($mushPlayers as $mushPlayer) {
             $I->assertTrue($mushPlayer->isAlphaMush());
-        }
-    }
-
-    public function testStartDaedalusAlphaMushAlreadyDead(FunctionalTester $I): void
-    {
-        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::STARTING);
-
-        $characterConfig = $this->daedalus->getGameConfig()->getCharactersConfig();
-        $numberOfCharacters = $characterConfig->count();
-
-        foreach ($characterConfig as $character) {
-            if (
-                $this->player1->getName() !== $character->getCharacterName()
-                && $this->player2->getName() !== $character->getCharacterName()
-            ) {
-                $newPlayer = $this->addPlayerByCharacter($I, $this->daedalus, $character->getCharacterName());
-
-                // kill the new player
-                $this->playerService->killPlayer(
-                    player: $newPlayer,
-                    endReason: EndCauseEnum::mapEndCause([ActionEnum::HIT->value]),
-                    time: new \DateTime(),
-                );
-            }
-        }
-
-        $numberOfMush = $this->daedalus->getGameConfig()->getDaedalusConfig()->getNbMush();
-
-        // start the game
-        $event = new DaedalusEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusEvent::FULL_DAEDALUS);
-
-        $I->assertEquals(GameStatusEnum::CURRENT, $this->daedalus->getGameStatus());
-        $I->assertEquals(2, $this->daedalus->getPlayers()->getPlayerAlive()->count());
-        $I->assertEquals($numberOfCharacters - 2, $this->daedalus->getPlayers()->getPlayerDead()->count());
-
-        // if player 1 and 2 (still alive) are mush
-        if ($this->player1->isMush() && $this->player2->isMush()) {
-            $I->assertEquals($numberOfMush, $this->daedalus->getPlayers()->getMushPlayer()->count());
-            $I->assertEquals(2, $this->daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count());
-            $I->assertEquals($numberOfMush - 2, $this->daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count());
-
-        // if player 1 or 2 (still alive) are mush
-        } elseif ($this->player1->isMush() || $this->player2->isMush()) {
-            $I->assertEquals($numberOfMush, $this->daedalus->getPlayers()->getMushPlayer()->count());
-            $I->assertEquals(1, $this->daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count());
-            $I->assertEquals($numberOfMush - 1, $this->daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count());
-        // if all mush are dead
-        } else {
-            $I->assertEquals($numberOfMush, $this->daedalus->getPlayers()->getMushPlayer()->count());
-            $I->assertEquals(0, $this->daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count());
-            $I->assertEquals($numberOfMush, $this->daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count());
-        }
-    }
-
-    public function testStartDaedalusAlphaMushAlreadyClosed(FunctionalTester $I): void
-    {
-        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::STARTING);
-
-        $characterConfig = $this->daedalus->getGameConfig()->getCharactersConfig();
-        $numberOfCharacters = $characterConfig->count();
-
-        foreach ($characterConfig as $character) {
-            if (
-                $this->player1->getName() !== $character->getCharacterName()
-                && $this->player2->getName() !== $character->getCharacterName()
-            ) {
-                $newPlayer = $this->addPlayerByCharacter($I, $this->daedalus, $character->getCharacterName());
-
-                // kill the new player
-                $this->playerService->killPlayer(
-                    player: $newPlayer,
-                    endReason: EndCauseEnum::mapEndCause([ActionEnum::HIT->value]),
-                    time: new \DateTime(),
-                );
-
-                // close the new player
-                $event = new PlayerEvent($newPlayer, [ActionEnum::HIT->value], new \DateTime());
-                $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
-            }
-        }
-
-        $numberOfMush = $this->daedalus->getGameConfig()->getDaedalusConfig()->getNbMush();
-
-        // start the game
-        $event = new DaedalusEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusEvent::FULL_DAEDALUS);
-
-        $I->assertEquals(GameStatusEnum::CURRENT, $this->daedalus->getGameStatus());
-        $I->assertEquals(2, $this->daedalus->getPlayers()->getPlayerAlive()->count());
-        $I->assertEquals($numberOfCharacters - 2, $this->daedalus->getPlayers()->getPlayerDead()->count());
-
-        // if player 1 and 2 (still alive) are mush
-        if ($this->player1->isMush() && $this->player2->isMush()) {
-            $I->assertEquals($numberOfMush, $this->daedalus->getPlayers()->getMushPlayer()->count());
-            $I->assertEquals(2, $this->daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count());
-            $I->assertEquals($numberOfMush - 2, $this->daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count());
-
-        // if player 1 or 2 (still alive) are mush
-        } elseif ($this->player1->isMush() || $this->player2->isMush()) {
-            $I->assertEquals($numberOfMush, $this->daedalus->getPlayers()->getMushPlayer()->count());
-            $I->assertEquals(1, $this->daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count());
-            $I->assertEquals($numberOfMush - 1, $this->daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count());
-        // if all mush are dead
-        } else {
-            $I->assertEquals($numberOfMush, $this->daedalus->getPlayers()->getMushPlayer()->count());
-            $I->assertEquals(0, $this->daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->count());
-            $I->assertEquals($numberOfMush, $this->daedalus->getPlayers()->getMushPlayer()->getPlayerDead()->count());
         }
     }
 

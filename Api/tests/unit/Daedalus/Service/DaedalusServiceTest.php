@@ -309,20 +309,6 @@ final class DaedalusServiceTest extends TestCase
         self::assertCount(3, $threeCapsulePlayer->getEquipments());
     }
 
-    public function testSelectAlphaMush()
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $gameConfig = $daedalus->getGameConfig();
-
-        $daedalus->setAvailableCharacters($gameConfig->getCharactersConfig()->getAllExceptAndrek());
-
-        $this->randomService->shouldReceive('getRandomElementsFromProbaCollection')
-            ->andReturn([CharacterEnum::CHAO, CharacterEnum::ELEESHA])
-            ->once();
-
-        $result = $this->service->selectAlphaMush($daedalus, new \DateTime());
-    }
-
     public function testChangeHull()
     {
         $daedalusConfig = new DaedalusConfig();

@@ -116,6 +116,8 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
 
     public function shouldGiveTriumphOnDaedalusFull(FunctionalTester $I): void
     {
+        $this->daedalus->getDaedalusConfig()->setNbMush(10);
+
         $this->createExtraPlace(RoomEnum::FRONT_STORAGE, $I, $this->daedalus);
 
         $this->kuanTi->setTriumph(0);

@@ -155,17 +155,37 @@ final class CreatePlayerServiceCest extends AbstractFunctionalTest
         $I->assertNotNull($daedalus->getFilledAt());
     }
 
-    public function alphaMushEleeshaGetsChronicVertigosWhenJoiningLast(FunctionalTester $I): void
+    public function alphaMushGetStartingDiseaseBeforeAlphaSelection(FunctionalTester $I): void
     {
         $this->givenGameIsStartingWithThreePlayersAndEleeshaAvailable($I);
         $eleesha = $this->whenEleeshaJoinsLast($I);
         $this->thenGameIsCurrentAndEleeshaIsMushWithChronicVertigos($eleesha, $I);
     }
 
+    public function playerGetStartingStatusBeforeAlphaSelection(FunctionalTester $I): void
+    {
+        $this->givenEleeshaIsImmunized($I);
+        $this->givenGameIsStartingWithThreePlayersAndEleeshaAvailable($I);
+        $eleesha = $this->whenEleeshaJoinsLast($I);
+
+        $I->assertNotTrue($eleesha->isMush());
+        $I->assertTrue($eleesha->hasStatus(PlayerStatusEnum::IMMUNIZED));
+    }
+
+    private function givenEleeshaIsImmunized(FunctionalTester $I): void
+    {
+        /** @var CharacterConfig $eleeshaConfig */
+        $eleeshaConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ELEESHA]);
+        $statusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['name' => 'immunized_default']);
+        $eleeshaConfig->setInitStatuses([$statusConfig]);
+        $I->haveInRepository($eleeshaConfig);
+    }
+
     private function givenGameIsStartingWithThreePlayersAndEleeshaAvailable(FunctionalTester $I): void
     {
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::STARTING);
         $this->daedalus->getDaedalusConfig()->setPlayerCount(3);
+        $this->daedalus->getDaedalusConfig()->setNbMush(3);
         $eleeshaConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ELEESHA]);
         $this->daedalus->addAvailableCharacter($eleeshaConfig);
         $I->haveInRepository($this->daedalus);

@@ -41,7 +41,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
@@ -296,42 +295,37 @@ class DaedalusService implements DaedalusServiceInterface
         // Chose alpha Mushs
         $chancesArray = [];
 
-        /** @var CharacterConfig $characterConfig */
-        foreach ($daedalus->getAvailableCharacters() as $characterConfig) {
-            if ($characterConfig
-                ->getInitStatuses()
-                ->map(static fn (StatusConfig $statusConfig) => $statusConfig->getStatusName())
-                ->contains(PlayerStatusEnum::IMMUNIZED)
+        /** @var Player $character */
+        foreach ($daedalus->getAlivePlayers() as $character) {
+            if ($character->hasStatus(PlayerStatusEnum::IMMUNIZED)
             ) {
                 continue;
             }
 
-            if ($daedalus->getPlayers()->getPlayerByName($characterConfig->getName())?->hasStatus(PlayerStatusEnum::BEGINNER)) {
+            if ($character->hasStatus(PlayerStatusEnum::BEGINNER)) {
                 $mushChance = 1;
             } else {
                 $mushChance = 2;
             }
-            $chancesArray[$characterConfig->getCharacterName()] = $mushChance;
+            $chancesArray[$character->getName()] = $mushChance;
         }
 
         $mushNumber = $gameConfig->getDaedalusConfig()->getNbMush();
+        $playerNumber = $daedalus->getAlivePlayers()->count();
+        $maxPlayerNumber = $daedalus->getDaedalusConfig()->getPlayerCount();
+
+        $mushNumber = (int) ceil($mushNumber * $playerNumber / $maxPlayerNumber);
 
         $mushPlayerName = $this->randomService->getRandomElementsFromProbaCollection(new ProbaCollection($chancesArray), $mushNumber);
         foreach ($mushPlayerName as $playerName) {
-            $mushPlayers = $daedalus
-                ->getPlayers()
-                ->filter(static fn (Player $player) => $player->getName() === $playerName);
+            $mush = $daedalus->getPlayerByNameOrThrow($playerName);
 
-            if (!$mushPlayers->isEmpty()) {
-                /** @var Player $currentPlayer */
-                $currentPlayer = $mushPlayers->first();
-                $playerEvent = new PlayerEvent(
-                    $currentPlayer,
-                    [DaedalusEvent::FULL_DAEDALUS],
-                    $date
-                );
-                $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
-            }
+            $playerEvent = new PlayerEvent(
+                $mush,
+                [DaedalusEvent::FULL_DAEDALUS],
+                $date
+            );
+            $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
         }
 
         return $daedalus;

@@ -92,6 +92,14 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
     public function testSelectAlphaMushChunNotPicked(FunctionalTester $I): void
     {
+        // given Chun is Immunized
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::IMMUNIZED,
+            $this->chun,
+            [],
+            new \DateTime()
+        );
+
         // test with 60 iterations Chun is not alpha mush because mush selection is random
         for ($i = 0; $i < 60; ++$i) {
             $this->daedalus = $this->daedalusService->selectAlphaMush($this->daedalus, new \DateTime());
@@ -100,6 +108,18 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
             $chun = $this->daedalus->getPlayers()->getPlayerByName(CharacterEnum::CHUN);
             $I->assertNull($chun->getStatusByName(PlayerStatusEnum::MUSH));
         }
+    }
+
+    public function testSelectOneAlphaIfNotEnoughPlayer(FunctionalTester $I): void
+    {
+        // given there is only three players, Chun, Kuan Ti and Derek
+        $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
+
+        // when I select alpha mush
+        $this->daedalus = $this->daedalusService->selectAlphaMush($this->daedalus, new \DateTime());
+
+        // then I should only have one mush
+        $I->assertEquals(1, $this->daedalus->getMushPlayers()->count());
     }
 
     public function testAttributeTitles(FunctionalTester $I): void

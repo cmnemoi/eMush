@@ -295,7 +295,7 @@ export default defineComponent({
     display: flex;
     flex-direction: row;
     position: sticky;
-    max-width: 97%;
+    max-width: 100%;
     justify-content: left;
     z-index: 1000;
 }
@@ -307,7 +307,6 @@ export default defineComponent({
     position: relative;
     width: 400px;
     max-width: 100%;
-    min-width: 290px;
     max-height: 90vh;
     display: flex;
     flex-direction: column;

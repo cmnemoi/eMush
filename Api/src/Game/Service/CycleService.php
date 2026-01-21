@@ -37,7 +37,7 @@ class CycleService implements CycleServiceInterface
 
     public function handleDaedalusAndExplorationCycleChanges(\DateTime $dateTime, Daedalus $daedalus): CycleChangeResult
     {
-        $lock = $this->lockFactory->createLock('daedalus_cycle_change');
+        $lock = $this->lockFactory->createLock('daedalus_cycle_change_' . $daedalus->getName());
         if (!$lock->acquire()) {
             return new CycleChangeResult(0, 0);
         }
@@ -162,10 +162,15 @@ class CycleService implements CycleServiceInterface
         $cycleElapsed = $this->getNumberOfExplorationCycleElapsed($dateExplorationLastCycle, $dateTime, $exploration);
 
         if ($cycleElapsed > 0) {
-            $this->activateExplorationCycleChange($exploration);
+            $this->entityManager->refresh($exploration);
+            if ($exploration->isChangingCycle()) {
+                return 0;
+            }
 
             try {
                 $this->entityManager->beginTransaction();
+                $this->activateExplorationCycleChange($exploration);
+
                 for ($i = 0; $i < $cycleElapsed; ++$i) {
                     $dateExplorationLastCycle->add(new \DateInterval('PT' . $exploration->getCycleLength() . 'M'));
                     $cycleEvent = new ExplorationEvent(

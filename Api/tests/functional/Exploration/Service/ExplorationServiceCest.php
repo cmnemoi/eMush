@@ -329,7 +329,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         $I->assertEquals(8, $this->daedalus->getFuel());
     }
 
-    public function testCloseExplorationDoesNotAddOxygenNorFuelToDaedalusIfAllExploratorsAreDead(FunctionalTester $I): void
+    public function testCloseExplorationDoesNotAddOxygenNorFuelToDaedalusIfAllExploratorsAreDeadOrLost(FunctionalTester $I): void
     {
         // given an extra player so Daedalus is not finished when all explorators are dead
         $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
@@ -378,14 +378,17 @@ final class ExplorationServiceCest extends AbstractExplorationTester
             time: new \DateTime(),
         );
 
-        // given all explorators are dead
-        foreach ($exploration->getExplorators() as $explorator) {
-            $this->playerService->killPlayer(
-                player: $explorator,
-                endReason: EndCauseEnum::INJURY,
-                time: new \DateTime(),
-            );
-        }
+        $this->playerService->killPlayer(
+            player: $this->player1,
+            endReason: EndCauseEnum::INJURY,
+            time: new \DateTime(),
+        );
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::LOST,
+            $this->player2,
+            [],
+            new \DateTime()
+        );
 
         // when exploration is finished
         $this->explorationService->closeExploration($exploration, ['test']);

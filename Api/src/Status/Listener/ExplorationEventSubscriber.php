@@ -81,7 +81,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         $this->removeStuckInTheShipStatusToExplorators($event);
         $this->removeUsedTraitorStatusToExplorators($event);
 
-        if ($event->getExploration()->isAnyExploratorAlive()) {
+        if (!$event->getExploration()->allExploratorsAreDeadOrLost()) {
             $this->addLootedOxygenToDaedalus($event);
             $this->addLootedFuelToDaedalus($event);
         }

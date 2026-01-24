@@ -137,8 +137,8 @@ class CycleService implements CycleServiceInterface
 
     public function getExplorationDateStartNextCycle(Exploration $exploration): \DateTime
     {
-        if (($dateExplorationLastCycle = $exploration->getUpdatedAt()) === null) {
-            throw new \LogicException('Exploration should have an UpdatedAt Value');
+        if (($dateExplorationLastCycle = $exploration->getLastVisitAt()) === null) {
+            throw new \LogicException('Exploration should have a LastUpdatedAt Value');
         }
 
         $nextCycleStartAt = clone $dateExplorationLastCycle;
@@ -153,7 +153,7 @@ class CycleService implements CycleServiceInterface
             return 0;
         }
 
-        $dateExplorationLastCycle = $exploration->getUpdatedAt();
+        $dateExplorationLastCycle = $exploration->getLastVisitAt();
         if ($dateExplorationLastCycle === null) {
             throw new \LogicException('Exploration should have an UpdatedAt Value');
         }
@@ -172,11 +172,11 @@ class CycleService implements CycleServiceInterface
                 $this->activateExplorationCycleChange($exploration);
 
                 for ($i = 0; $i < $cycleElapsed; ++$i) {
-                    $dateExplorationLastCycle->add(new \DateInterval('PT' . $exploration->getCycleLength() . 'M'));
+                    $lastVisitAt = $exploration->advanceLastVisitAt();
                     $cycleEvent = new ExplorationEvent(
                         $exploration,
                         [EventEnum::NEW_CYCLE],
-                        $dateExplorationLastCycle
+                        $lastVisitAt
                     );
                     $this->eventService->callEvent($cycleEvent, ExplorationEvent::EXPLORATION_NEW_CYCLE);
 

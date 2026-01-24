@@ -6,6 +6,7 @@ namespace Mush\Exploration\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\Daedalus;
@@ -58,6 +59,9 @@ class Exploration
 
     #[ORM\ManyToOne(targetEntity: PlanetSector::class)]
     private ?PlanetSector $nextSector;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTime $lastVisitAt = null;
 
     public function __construct(Planet $planet)
     {
@@ -371,5 +375,29 @@ class Exploration
     public function getPlayersWhoCanSeeNextSector(): PlayerCollection
     {
         return $this->getAliveExplorators()->getPlayersWithAnySkill([SkillEnum::TRAITOR, SkillEnum::U_TURN]);
+    }
+
+    public function getLastVisitAt(): ?\DateTime
+    {
+        if ($this->lastVisitAt === null) {
+            $this->lastVisitAt = $this->getUpdatedAt();
+        }
+
+        return $this->lastVisitAt;
+    }
+
+    public function advanceLastVisitAt(): \DateTime
+    {
+        $lastVisitAt = $this->getLastVisitAt();
+
+        if ($lastVisitAt === null) {
+            throw new \LogicException('lastVisitAt should not be null to be advanced');
+        }
+
+        $lastVisitAt = clone $lastVisitAt;
+
+        $this->lastVisitAt = $lastVisitAt->add(new \DateInterval('PT' . $this->getCycleLength() . 'M'));
+
+        return $this->lastVisitAt;
     }
 }

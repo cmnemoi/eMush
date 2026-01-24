@@ -111,6 +111,19 @@ final class SabotageExplorationCest extends AbstractExplorationTester
         $I->assertEquals(1, $this->kuanTi->getPlayerInfo()->getStatistics()->getTraitorUsed());
     }
 
+    public function shouldNotChangeUpdatedAt(FunctionalTester $I): void
+    {
+        $this->givenPlayersAreInAnExpedition($I);
+
+        $this->explorationService->persist([$this->exploration]);
+
+        $updatedAt = $this->exploration->getLastVisitAt()->getMicrosecond();
+
+        $this->whenKuanTiExecutesSabotageExplorationAction();
+
+        $I->assertEquals($updatedAt, $this->exploration->getLastVisitAt()->getMicrosecond());
+    }
+
     private function givenPlayersAreInAnExpedition(FunctionalTester $I): void
     {
         $this->exploration = $this->createExploration(

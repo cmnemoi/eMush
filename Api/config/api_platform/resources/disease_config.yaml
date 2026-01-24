@@ -16,8 +16,3 @@ Mush\Disease\Entity\Config\DiseaseConfig:
       security: 'is_granted("ROLE_ADMIN")'
     put:
       security: 'is_granted("ROLE_ADMIN")'
-  properties:
-    modifierConfigs:
-      subresource:
-        resourceClass: 'Mush\Modifier\Entity\ModifierConfig'
-        collection: true

@@ -212,7 +212,7 @@ final class CreatePlayerServiceCest extends AbstractFunctionalTest
             'Eleesha should be mush.'
         );
         $I->assertTrue(
-            $eleesha->getMedicalConditionByNameOrThrow(DisorderEnum::CHRONIC_VERTIGO)->isActive(),
+            $eleesha->getMedicalConditionByNameOrThrow(DisorderEnum::CHRONIC_VERTIGO->toString())->isActive(),
             'Eleesha should have chronic vertigos.'
         );
     }

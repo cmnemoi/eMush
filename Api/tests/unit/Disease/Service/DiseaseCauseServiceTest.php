@@ -30,12 +30,16 @@ use Mush\Game\Service\Random\FakeD100RollService;
 use Mush\Game\Service\Random\FakeGetRandomIntegerService;
 use Mush\Game\Service\Random\ProbaCollectionRandomElementService;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\ConfigData\ModifierConfigData;
+use Mush\Modifier\Entity\Config\DirectModifierConfig;
+use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Tests\unit\Modifier\TestDoubles\InMemoryModifierConfigRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -49,6 +53,7 @@ final class DiseaseCauseServiceTest extends TestCase
     private ProbaCollectionRandomElementService $probaCollectionRandomElement;
     private PlayerDiseaseService $playerDiseaseService;
     private InMemoryPlayerDiseaseRepository $playerDiseaseRepository;
+    private InMemoryModifierConfigRepository $inMemoryModifierConfigRepository;
 
     /** @var ConsumableDiseaseServiceInterface|Mockery\Mock */
     private ConsumableDiseaseServiceInterface $consumableDiseaseService;
@@ -62,6 +67,7 @@ final class DiseaseCauseServiceTest extends TestCase
         $this->d100Roll = new FakeD100RollService();
         $this->probaCollectionRandomElement = new ProbaCollectionRandomElementService(new FakeGetRandomIntegerService(result: 0));
         $this->playerDiseaseRepository = new InMemoryPlayerDiseaseRepository();
+        $this->inMemoryModifierConfigRepository = new InMemoryModifierConfigRepository();
 
         $eventService = self::createStub(EventServiceInterface::class);
         $randomService = self::createStub(RandomServiceInterface::class);
@@ -71,6 +77,7 @@ final class DiseaseCauseServiceTest extends TestCase
             eventService: $eventService,
             randomService: $randomService,
             playerDiseaseRepository: $this->playerDiseaseRepository,
+            modifierConfigRepository: $this->inMemoryModifierConfigRepository
         );
 
         $this->diseaseCauseService = new DiseaseCauseService(
@@ -78,6 +85,7 @@ final class DiseaseCauseServiceTest extends TestCase
             d100Roll: $this->d100Roll,
             probaCollectionRandomElement: $this->probaCollectionRandomElement,
             playerDiseaseService: $this->playerDiseaseService,
+            randomService: $randomService
         );
     }
 
@@ -94,11 +102,11 @@ final class DiseaseCauseServiceTest extends TestCase
     {
         // setup
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setDiseaseName(DiseaseEnum::FOOD_POISONING);
+        $diseaseConfig->setDiseaseName(DiseaseEnum::FOOD_POISONING->toString());
 
         $diseaseCauseConfig = new DiseaseCauseConfig();
         $diseaseCauseConfig
-            ->setDiseases([DiseaseEnum::FOOD_POISONING => 1])
+            ->setDiseases([DiseaseEnum::FOOD_POISONING->toString() => 1])
             ->setCauseName(DiseaseCauseEnum::PERISHED_FOOD);
 
         $gameConfig = new GameConfig();
@@ -125,49 +133,19 @@ final class DiseaseCauseServiceTest extends TestCase
         $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
 
         // then player should have food poisoning disease
-        self::assertNotNull($player->getMedicalConditionByName(DiseaseEnum::FOOD_POISONING)?->getId());
-    }
-
-    public function testSpoiledFoodDecomposing()
-    {
-        // setup
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setDiseaseName(DiseaseEnum::FOOD_POISONING);
-
-        $diseaseCauseConfig = new DiseaseCauseConfig();
-        $diseaseCauseConfig
-            ->setDiseases([DiseaseEnum::FOOD_POISONING => 1])
-            ->setCauseName(DiseaseCauseEnum::PERISHED_FOOD);
-
-        $gameConfig = new GameConfig();
-        $gameConfig
-            ->addDiseaseConfig($diseaseConfig)
-            ->addDiseaseCauseConfig($diseaseCauseConfig);
-
-        $daedalus = new Daedalus();
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
-
-        $player = PlayerFactory::createPlayer();
-        $player->setDaedalus($daedalus);
-
-        $gameEquipment = new GameEquipment(new Place());
-
-        $statusConfig = new StatusConfig();
-        $statusConfig->setStatusName(EquipmentStatusEnum::DECOMPOSING);
-        $decomposing = new Status($gameEquipment, $statusConfig);
-
-        // given spoiled food roll to give disease is successful
-        $this->d100Roll->makeSuccessful();
-
-        // when spoiled food is handled
-        $this->diseaseCauseService->handleSpoiledFood($player, $gameEquipment);
-
-        // then player should have food poisoning disease
-        self::assertNotNull($player->getMedicalConditionByName(DiseaseEnum::FOOD_POISONING)?->getId());
+        self::assertNotNull($player->getMedicalConditionByName(DiseaseEnum::FOOD_POISONING->toString())?->getId());
     }
 
     public function testConsumableWithDiseases()
     {
+        $modifierConfig1 = DirectModifierConfig::fromDto(ModifierConfigData::getByName('direct_modifier_player_-1_max_healthPoint'));
+        $modifierConfig2 = EventModifierConfig::fromDto(ModifierConfigData::getByName('vomiting_consume'));
+        $modifierConfig3 = EventModifierConfig::fromDto(ModifierConfigData::getByName('vomiting_move_random_40'));
+
+        $this->inMemoryModifierConfigRepository->save($modifierConfig1);
+        $this->inMemoryModifierConfigRepository->save($modifierConfig2);
+        $this->inMemoryModifierConfigRepository->save($modifierConfig3);
+
         $daedalus = DaedalusFactory::createDaedalus();
         $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
@@ -176,7 +154,7 @@ final class DiseaseCauseServiceTest extends TestCase
         $gameEquipment->setName('someName');
 
         $disease = new ConsumableDiseaseAttribute();
-        $disease->setDisease(DiseaseEnum::FOOD_POISONING);
+        $disease->setDisease(DiseaseEnum::FOOD_POISONING->toString());
 
         $consumableDisease = new ConsumableDisease();
         $consumableDisease
@@ -191,13 +169,13 @@ final class DiseaseCauseServiceTest extends TestCase
 
         $this->diseaseCauseService->handleConsumable($player, $gameEquipment);
 
-        self::assertNull($player->getMedicalConditionByName(DiseaseEnum::FOOD_POISONING)?->getId());
+        self::assertNull($player->getMedicalConditionByName(DiseaseEnum::FOOD_POISONING->toString())?->getId());
 
         $this->d100Roll->makeSuccessful();
 
         $this->diseaseCauseService->handleConsumable($player, $gameEquipment);
 
-        self::assertNotNull($player->getMedicalConditionByName(DiseaseEnum::FOOD_POISONING)?->getId());
+        self::assertNotNull($player->getMedicalConditionByName(DiseaseEnum::FOOD_POISONING->toString())?->getId());
     }
 
     public function testConsumableWithCures()
@@ -207,7 +185,7 @@ final class DiseaseCauseServiceTest extends TestCase
         $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
 
-        $diseaseName = DiseaseEnum::FOOD_POISONING;
+        $diseaseName = DiseaseEnum::FOOD_POISONING->toString();
         $gameEquipment = new GameEquipment(new Place());
         $gameEquipment->setName($diseaseName);
 
@@ -231,7 +209,7 @@ final class DiseaseCauseServiceTest extends TestCase
         $playerDisease = new PlayerDisease();
         $playerDisease
             ->setPlayer($player)
-            ->setDiseaseConfig(DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(DiseaseEnum::FOOD_POISONING)));
+            ->setDiseaseConfig(DiseaseConfig::fromDto(DiseaseConfigData::getByName(DiseaseEnum::FOOD_POISONING->toString())));
         $player->addMedicalCondition($playerDisease);
         $this->playerDiseaseRepository->save($playerDisease);
 
@@ -246,11 +224,11 @@ final class DiseaseCauseServiceTest extends TestCase
     {
         // given food poisoning disease cause
         $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setDiseaseName(DiseaseEnum::FOOD_POISONING);
+        $diseaseConfig->setDiseaseName(DiseaseEnum::FOOD_POISONING->toString());
 
         $diseaseCauseConfig = new DiseaseCauseConfig();
         $diseaseCauseConfig
-            ->setDiseases([DiseaseEnum::FOOD_POISONING => 1])
+            ->setDiseases([DiseaseEnum::FOOD_POISONING->toString() => 1])
             ->setCauseName(DiseaseCauseEnum::PERISHED_FOOD);
 
         $gameConfig = new GameConfig();
@@ -267,6 +245,6 @@ final class DiseaseCauseServiceTest extends TestCase
         $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::PERISHED_FOOD, $player);
 
         // then player should have food poisoning disease
-        self::assertNotNull($player->getMedicalConditionByName(DiseaseEnum::FOOD_POISONING)?->getId());
+        self::assertNotNull($player->getMedicalConditionByName(DiseaseEnum::FOOD_POISONING->toString())?->getId());
     }
 }

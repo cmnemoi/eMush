@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\WeaponEffect;
 
-use Mush\Disease\Enum\DiseaseCauseEnum;
-use Mush\Disease\Service\DiseaseCauseServiceInterface;
+use Mush\Disease\Enum\InjuryEnum;
+use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Enum\WeaponEffectEnum;
 use Mush\Equipment\Event\WeaponEffect;
 use Mush\Game\Service\Random\D100RollServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 
 final readonly class RandomInjuryWeaponEffectHandler extends AbstractWeaponEffectHandler
 {
     public function __construct(
-        private DiseaseCauseServiceInterface $diseaseCauseService,
         private D100RollServiceInterface $d100Roll,
+        private RandomServiceInterface $randomService,
+        private PlayerDiseaseServiceInterface $playerDiseaseService,
     ) {}
 
     public function getName(): string
@@ -36,8 +38,10 @@ final readonly class RandomInjuryWeaponEffectHandler extends AbstractWeaponEffec
 
     private function inflictRandomInjuryOnVictim(Player $victim)
     {
-        $this->diseaseCauseService->handleDiseaseForCause(
-            cause: DiseaseCauseEnum::RANDOM_INJURY,
+        $injury = $this->randomService->getRandomElement(InjuryEnum::cases());
+
+        $this->playerDiseaseService->createDiseaseFromName(
+            $injury->toString(),
             player: $victim,
         );
     }

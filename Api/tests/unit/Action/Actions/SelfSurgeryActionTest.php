@@ -33,8 +33,10 @@ use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\Random\GetRandomIntegerService;
 use Mush\Game\Service\Random\ProbaCollectionRandomElementService;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Factory\PlayerFactory;
+use Mush\Tests\unit\Modifier\TestDoubles\InMemoryModifierConfigRepository;
 
 /**
  * @internal
@@ -46,6 +48,9 @@ final class SelfSurgeryActionTest extends AbstractActionTest
 
     private DiseaseCauseService $diseaseCauseService;
 
+    /** @var InMemoryModifierConfigRepository|Mockery\Mock */
+    private InMemoryModifierConfigRepository $inMemoryModifierConfigRepository;
+
     /**
      * @before
      */
@@ -55,12 +60,14 @@ final class SelfSurgeryActionTest extends AbstractActionTest
 
         $this->createActionEntity(ActionEnum::SELF_SURGERY);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->inMemoryModifierConfigRepository = \Mockery::mock(InMemoryModifierConfigRepository::class);
 
         $playerDiseaseService = new PlayerDiseaseService(
             d100Roll: self::createStub(D100RollServiceInterface::class),
             eventService: self::createStub(EventServiceInterface::class),
-            randomService: self::createStub(RandomServiceInterface::class),
-            playerDiseaseRepository: new InMemoryPlayerDiseaseRepository()
+            randomService: $this->randomService,
+            playerDiseaseRepository: new InMemoryPlayerDiseaseRepository(),
+            modifierConfigRepository: $this->inMemoryModifierConfigRepository
         );
         $probaCollectionRandomElementService = new ProbaCollectionRandomElementService(
             getRandomInteger: new GetRandomIntegerService()
@@ -71,6 +78,7 @@ final class SelfSurgeryActionTest extends AbstractActionTest
             d100Roll: self::createStub(D100RollServiceInterface::class),
             probaCollectionRandomElement: $probaCollectionRandomElementService,
             playerDiseaseService: $playerDiseaseService,
+            randomService: $this->randomService
         );
 
         $this->actionHandler = new SelfSurgery(
@@ -107,7 +115,7 @@ final class SelfSurgeryActionTest extends AbstractActionTest
             ->setEquipment($item)
             ->setName(EquipmentEnum::SURGERY_PLOT);
 
-        $diseaseConfig1 = DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(InjuryEnum::BROKEN_FOOT));
+        $diseaseConfig1 = DiseaseConfig::fromDto(DiseaseConfigData::getByName(InjuryEnum::BROKEN_FOOT->toString()));
         $playerDisease1 = new PlayerDisease();
         $playerDisease1->setDiseaseConfig($diseaseConfig1);
 
@@ -148,12 +156,14 @@ final class SelfSurgeryActionTest extends AbstractActionTest
             ->once();
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->randomService->shouldReceive('random');
+        $this->inMemoryModifierConfigRepository->shouldReceive('findByName')->andReturn(new DirectModifierConfig('test'));
         $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Fail::class, $result);
 
-        self::assertNotNull($player->getMedicalConditionByName(InjuryEnum::BROKEN_FOOT), 'Broken foot should not be removed');
-        self::assertNotNull($player->getMedicalConditionByName(DiseaseEnum::SEPSIS), 'Player should get sepsis');
+        self::assertNotNull($player->getMedicalConditionByName(InjuryEnum::BROKEN_FOOT->toString()), 'Broken foot should not be removed');
+        self::assertNotNull($player->getMedicalConditionByName(DiseaseEnum::SEPSIS->toString()), 'Player should get sepsis');
     }
 
     public function testExecuteSuccess()

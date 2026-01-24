@@ -93,7 +93,7 @@ abstract class LogDeclinationEnum
             WeaponEventEnum::NATAMY_RIFLE_SUCCESSFUL_SHOT->value => [self::VERSION => 5],
             WeaponEventEnum::NATAMY_RIFLE_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS->value => [self::VERSION => 2],
             WeaponEventEnum::NATAMY_RIFLE_FAILED_SHOT->value => [self::VERSION => 100],
-            WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->value => [self::VERSION => 4],
+            WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_HAEMORRHAGE->value => [self::VERSION => 4],
             WeaponEventEnum::KNIFE_INSTAGIB_BLED->value => [self::VERSION => 2],
             WeaponEventEnum::KNIFE_FAILED_HIT->value => [self::VERSION => 3],
             WeaponEventEnum::KNIFE_SHOOTER_DROP_WEAPON->value => [self::VERSION => 2],

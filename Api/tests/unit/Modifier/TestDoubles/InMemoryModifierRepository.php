@@ -38,4 +38,15 @@ final class InMemoryModifierRepository implements ModifierRepositoryInterface
             )
         ) ?: null;
     }
+
+    public function findOneBy(array $criteria): ?GameModifier
+    {
+        if (\array_key_exists('name', $criteria)) {
+            $name = $criteria['name'];
+
+            return $this->modifiers[$name];
+        }
+
+        return null;
+    }
 }

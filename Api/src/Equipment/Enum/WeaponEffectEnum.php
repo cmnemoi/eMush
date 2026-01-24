@@ -54,7 +54,7 @@ enum WeaponEffectEnum: string
     case INFLICT_BURNT_HAND_INJURY_TO_SHOOTER = 'inflict_burnt_hand_injury_to_shooter';
     case INFLICT_BROKEN_SHOULDER_INJURY_TO_SHOOTER = 'inflict_broken_shoulder_injury_to_shooter';
     case INFLICT_MASHED_FOOT_TO_SHOOTER = 'inflict_mashed_foot_to_shooter';
-    case INFLICT_MINOR_HAEMORRHAGE_TO_TARGET_10_PERCENTS = 'inflict_minor_haemorrhage_to_target_10_percents';
+    case INFLICT_HAEMORRHAGE_TO_TARGET_10_PERCENTS = 'inflict_minor_haemorrhage_to_target_10_percents';
     case INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_50_PERCENTS = 'inflict_critical_haemorrhage_injury_to_target_50_percents';
     case INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_60_PERCENTS = 'inflict_critical_haemorrhage_injury_to_target_60_percents';
     case INFLICT_BUSTED_ARM_JOINT_TO_TARGET = 'inflict_busted_arm_joint_to_target';

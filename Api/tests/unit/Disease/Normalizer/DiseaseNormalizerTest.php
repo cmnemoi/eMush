@@ -108,11 +108,11 @@ final class DiseaseNormalizerTest extends TestCase
             ->setTargetVariable(PlayerVariableEnum::MORAL_POINT);
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setDiseaseName('name')
-            ->setModifierConfigs(new ModifierCollection([$modifierConfig]));
+            ->setDiseaseName('name');
 
         $playerDisease = new PlayerDisease();
-        $playerDisease->setDiseaseConfig($diseaseConfig);
+        $playerDisease->setDiseaseConfig($diseaseConfig)
+            ->setModifierConfigs(new ModifierCollection([$modifierConfig]));
 
         $this->translationService
             ->shouldReceive('translate')
@@ -167,11 +167,11 @@ final class DiseaseNormalizerTest extends TestCase
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setDiseaseName('name')
-            ->setModifierConfigs([$symptomConfig]);
+            ->setDiseaseName('name');
 
         $playerDisease = new PlayerDisease();
-        $playerDisease->setDiseaseConfig($diseaseConfig);
+        $playerDisease->setDiseaseConfig($diseaseConfig)
+            ->setModifierConfigs([$symptomConfig]);
 
         $this->translationService
             ->shouldReceive('translate')

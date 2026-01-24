@@ -3,13 +3,14 @@
 namespace Mush\Disease\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseStatusEnum;
-use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
@@ -28,6 +29,9 @@ class PlayerDisease implements ModifierProviderInterface
     #[ORM\ManyToOne(targetEntity: DiseaseConfig::class)]
     private DiseaseConfig $diseaseConfig;
 
+    #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
+    private Collection $modifierConfigs;
+
     #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'diseases')]
     private Player $player;
 
@@ -35,10 +39,15 @@ class PlayerDisease implements ModifierProviderInterface
     private string $status = DiseaseStatusEnum::ACTIVE;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $diseasePoint = 0;
+    private int $duration = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $resistancePoint = 0;
+    private int $healActionResistance = 1;
+
+    public function __construct()
+    {
+        $this->modifierConfigs = new ArrayCollection();
+    }
 
     public static function createNull(): self
     {
@@ -90,33 +99,40 @@ class PlayerDisease implements ModifierProviderInterface
         return $this;
     }
 
-    public function getDiseasePoint(): int
+    public function getDuration(): int
     {
-        return $this->diseasePoint;
+        return $this->duration;
     }
 
-    public function setDiseasePoint(int $diseasePoint): self
+    public function setDuration(int $duration): self
     {
-        $this->diseasePoint = $diseasePoint;
+        $this->duration = $duration;
 
         return $this;
     }
 
-    public function decrementDiseasePoints(): self
+    public function decrementDuration(): self
     {
-        --$this->diseasePoint;
+        --$this->duration;
 
         return $this;
     }
 
-    public function getResistancePoint(): int
+    public function getHealActionResistance(): int
     {
-        return $this->resistancePoint;
+        return $this->healActionResistance;
     }
 
-    public function setResistancePoint(int $resistancePoint): self
+    public function setHealActionResistance(int $healActionResistance): self
     {
-        $this->resistancePoint = $resistancePoint;
+        $this->healActionResistance = $healActionResistance;
+
+        return $this;
+    }
+
+    public function decrementHealActionResistance(): self
+    {
+        --$this->healActionResistance;
 
         return $this;
     }
@@ -151,7 +167,7 @@ class PlayerDisease implements ModifierProviderInterface
 
     public function healsAtCycleChange(): bool
     {
-        return $this->isAPhysicalDisease() || $this->getName() === DisorderEnum::SPLEEN || $this->getName() === DisorderEnum::VERTIGO;
+        return $this->diseaseConfig->canNaturalHeal() && $this->isAnInjury() === false;
     }
 
     public function isIncubating(): bool
@@ -183,8 +199,34 @@ class PlayerDisease implements ModifierProviderInterface
         return ActionProviderOperationalStateEnum::DEACTIVATED;
     }
 
+    public function getModifierConfigs(): Collection
+    {
+        return $this->modifierConfigs;
+    }
+
+    /**
+     * @param array<int, AbstractModifierConfig>|Collection<int, AbstractModifierConfig> $modifierConfigs
+     */
+    public function setModifierConfigs(array|Collection $modifierConfigs): self
+    {
+        if (\is_array($modifierConfigs)) {
+            $modifierConfigs = new ArrayCollection($modifierConfigs);
+        }
+
+        $this->modifierConfigs = $modifierConfigs;
+
+        return $this;
+    }
+
     public function getAllModifierConfigs(): ArrayCollection
     {
-        return new ArrayCollection($this->diseaseConfig->getModifierConfigs()->toArray());
+        return new ArrayCollection($this->getModifierConfigs()->toArray());
+    }
+
+    public function hasModifier(string $modifierName): bool
+    {
+        $modifier = $this->getAllModifierConfigs()->findFirst(static fn ($key, $modifierConfig): bool => $modifierConfig->getName() === $modifierName);
+
+        return $modifier !== null;
     }
 }

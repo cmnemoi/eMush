@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\Random\ProbaCollectionRandomElementServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
@@ -25,6 +26,7 @@ final readonly class DiseaseCauseService implements DiseaseCauseServiceInterface
         private D100RollServiceInterface $d100Roll,
         private ProbaCollectionRandomElementServiceInterface $probaCollectionRandomElement,
         private PlayerDiseaseServiceInterface $playerDiseaseService,
+        private RandomServiceInterface $randomService,
     ) {}
 
     public function handleSpoiledFood(Player $player, GameEquipment $gameEquipment): void
@@ -73,13 +75,22 @@ final readonly class DiseaseCauseService implements DiseaseCauseServiceInterface
         return $causesConfigs->first();
     }
 
-    public function handleDiseaseForCause(string $cause, Player $player, ?int $delayMin = null, ?int $delayLength = null): PlayerDisease
+    public function handleDiseaseForCause(string $cause, Player $player, int $delayMin = 0, int $delayLength = 0): PlayerDisease
     {
         $diseasesProbaCollection = $this->findCauseConfigByDaedalus($cause, $player->getDaedalus())->getDiseases();
 
         $diseaseName = (string) $this->probaCollectionRandomElement->generateFrom($diseasesProbaCollection);
 
         return $this->playerDiseaseService->createDiseaseFromName($diseaseName, $player, [$cause], $delayMin, $delayLength);
+    }
+
+    public function giveAnyDisease(Player $player, int $delayMin = 0, int $delayLength = 0): PlayerDisease
+    {
+        $diseasesCollection = $player->getDaedalus()->getGameConfig()->getDiseaseConfig();
+
+        $diseaseName = (string) $this->randomService->getRandomElement($diseasesCollection->toArray())->getDiseaseName();
+
+        return $this->playerDiseaseService->createDiseaseFromName($diseaseName, $player, [], $delayMin, $delayLength);
     }
 
     public function foodShouldMakePlayerSick(GameEquipment $gameEquipment): bool

@@ -118,7 +118,7 @@ final class FightTest extends TestCase
 
         // Then the disease cause service should be called to create a disease for the explorator
         $disease = self::createStub(PlayerDisease::class);
-        $disease->method('getName')->willReturn(DiseaseEnum::MIGRAINE);
+        $disease->method('getName')->willReturn(DiseaseEnum::MIGRAINE->toString());
 
         $this->diseaseCauseService->shouldReceive('handleDiseaseForCause')
             ->once()
@@ -138,7 +138,7 @@ final class FightTest extends TestCase
                 'event_log',
                 $explorator,
                 [
-                    'disease' => DiseaseEnum::MIGRAINE,
+                    'disease' => DiseaseEnum::MIGRAINE->toString(),
                     'is_player_mush' => 'false',
                 ],
                 $event->getTime(),

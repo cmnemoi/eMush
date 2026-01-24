@@ -33,7 +33,7 @@ final class PlayerDiseaseServiceCest extends AbstractFunctionalTest
     {
         // given player has an incubating disease
         $disease = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::COLD,
+            diseaseName: DiseaseEnum::COLD->toString(),
             player: $this->player,
             reasons: [],
             delayMin: 1,
@@ -51,7 +51,7 @@ final class PlayerDiseaseServiceCest extends AbstractFunctionalTest
         $this->playerDiseaseService->handleNewCycle($disease, new \DateTime());
 
         // then the disease should heal silently
-        $I->assertNull($this->player->getMedicalConditionByName(DiseaseEnum::COLD));
+        $I->assertNull($this->player->getMedicalConditionByName(DiseaseEnum::COLD->toString()));
 
         $I->grabEntityFromRepository(
             RoomLog::class,
@@ -68,13 +68,13 @@ final class PlayerDiseaseServiceCest extends AbstractFunctionalTest
     {
         // given player has a disease
         $disease = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::COLD,
+            diseaseName: DiseaseEnum::COLD->toString(),
             player: $this->player,
             reasons: [],
         );
 
         // given the disease has 0 disease points, so it should heal spontaneously at cycle change
-        $disease->setDiseasePoint(0);
+        $disease->setDuration(0);
 
         // when I call handleNewCycle on the disease
         $this->playerDiseaseService->handleNewCycle($disease, new \DateTime());

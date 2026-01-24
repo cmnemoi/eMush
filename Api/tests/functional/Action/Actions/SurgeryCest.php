@@ -214,7 +214,7 @@ final class SurgeryCest extends AbstractFunctionalTest
     private function givenKuanTiIsInjured(): void
     {
         $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: InjuryEnum::BROKEN_FINGER,
+            diseaseName: InjuryEnum::BROKEN_FINGER->toString(),
             player: $this->kuanTi,
         );
     }
@@ -282,17 +282,17 @@ final class SurgeryCest extends AbstractFunctionalTest
 
     private function thenKuanTiShouldNotHaveAnyInjury(FunctionalTester $I): void
     {
-        $I->assertNull($this->kuanTi->getMedicalConditionByName(InjuryEnum::BROKEN_FINGER));
+        $I->assertNull($this->kuanTi->getMedicalConditionByName(InjuryEnum::BROKEN_FINGER->toString()));
     }
 
     private function thenKuanTiShouldHaveAnInjury(FunctionalTester $I): void
     {
-        $I->assertNotNull($this->kuanTi->getMedicalConditionByName(InjuryEnum::BROKEN_FINGER));
+        $I->assertNotNull($this->kuanTi->getMedicalConditionByName(InjuryEnum::BROKEN_FINGER->toString()));
     }
 
     private function thenKuanTiShouldHaveASepsis(FunctionalTester $I): void
     {
-        $I->assertNotNull($this->kuanTi->getMedicalConditionByName(DiseaseEnum::SEPSIS), 'Kuan Ti should have sepsis');
+        $I->assertNotNull($this->kuanTi->getMedicalConditionByName(DiseaseEnum::SEPSIS->toString()), 'Kuan Ti should have sepsis');
     }
 
     private function thenPlayerShouldHaveTriumph(int $quantity, Player $player, FunctionalTester $I): void

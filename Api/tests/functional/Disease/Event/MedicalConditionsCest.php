@@ -28,17 +28,17 @@ final class MedicalConditionsCest extends AbstractFunctionalTest
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
     }
 
-    public function shouldLoseDiseasePointAtCycleChange(FunctionalTester $I): void
+    public function shouldLoseDurationAtCycleChange(FunctionalTester $I): void
     {
         // given Chun has a migraine
         $disease = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::MIGRAINE,
+            diseaseName: DiseaseEnum::MIGRAINE->toString(),
             player: $this->chun,
             reasons: [],
         );
 
         // given migraine has 2 disease points
-        $disease->setDiseasePoint(2);
+        $disease->setDuration(2);
 
         // when a new cycle is triggered
         $playerCycleEvent = new PlayerCycleEvent(
@@ -49,20 +49,20 @@ final class MedicalConditionsCest extends AbstractFunctionalTest
         $this->eventService->callEvent($playerCycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
         // then the disorder should have 1 disease point
-        $I->assertEquals(1, $disease->getDiseasePoint());
+        $I->assertEquals(1, $disease->getDuration());
     }
 
     public function shouldHealAtCycleChange(FunctionalTester $I): void
     {
         // given Chun has a migraine
         $disease = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::MIGRAINE,
+            diseaseName: DiseaseEnum::MIGRAINE->toString(),
             player: $this->chun,
             reasons: [],
         );
 
         // given disease has 1 disease point
-        $disease->setDiseasePoint(1);
+        $disease->setDuration(1);
 
         // when a new cycle is triggered
         $playerCycleEvent = new PlayerCycleEvent(
@@ -73,6 +73,6 @@ final class MedicalConditionsCest extends AbstractFunctionalTest
         $this->eventService->callEvent($playerCycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
         // then the disease should be removed
-        $I->assertNull($this->chun->getMedicalConditionByName(DiseaseEnum::MIGRAINE));
+        $I->assertNull($this->chun->getMedicalConditionByName(DiseaseEnum::MIGRAINE->toString()));
     }
 }

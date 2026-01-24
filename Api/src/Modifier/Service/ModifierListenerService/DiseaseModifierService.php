@@ -21,8 +21,7 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
 
     public function newDisease(Player $player, PlayerDisease $playerDisease, array $tags, \DateTime $time): void
     {
-        $diseaseConfig = $playerDisease->getDiseaseConfig();
-        foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
+        foreach ($playerDisease->getModifierConfigs() as $modifierConfig) {
             $this->modifierCreationService->createModifier(
                 modifierConfig: $modifierConfig,
                 holder: $this->getModifierHolderFromConfig($player, $modifierConfig),
@@ -35,15 +34,14 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
 
     public function cureDisease(Player $player, PlayerDisease $playerDisease, array $tags, \DateTime $time): void
     {
-        $diseaseConfig = $playerDisease->getDiseaseConfig();
-        foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
+        foreach ($playerDisease->getModifierConfigs() as $modifierConfig) {
             $this->modifierCreationService->deleteModifier(
                 modifierConfig: $modifierConfig,
                 holder: $this->getModifierHolderFromConfig($player, $modifierConfig),
-                modifierProvider: $playerDisease->getCreatedAt() < new \DateTime('2025-04-13 20:30:00') ? $player : $playerDisease, // TODO: Remove feature flag after all Daedalus created before this date are finished
+                modifierProvider: $playerDisease,
                 tags: $tags,
                 time: $time,
-                revertOnRemove: $playerDisease->isActive()
+                revertOnRemove: $playerDisease->isActive() ? null : false
             );
         }
     }

@@ -127,7 +127,7 @@ final class SelfHealCest extends AbstractFunctionalTest
 
         // given player has a flu
         $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::FLU,
+            diseaseName: DiseaseEnum::FLU->toString(),
             player: $this->player,
             reasons: []
         );

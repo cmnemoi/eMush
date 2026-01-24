@@ -2,30 +2,40 @@
 
 namespace Mush\Disease\Enum;
 
-abstract class DiseaseEnum
+enum DiseaseEnum: string
 {
-    public const string ACID_REFLUX = 'acid_reflux';
-    public const string BLACK_BITE = 'black_bite';
-    public const string CAT_ALLERGY = 'cat_allergy';
-    public const string COLD = 'cold';
-    public const string EXTREME_TINNITUS = 'extreme_tinnitus';
-    public const string FLU = 'flu';
-    public const string FOOD_POISONING = 'food_poisoning';
-    public const string FUNGIC_INFECTION = 'fungic_infection';
-    public const string GASTROENTERIS = 'gastroenteritis';
-    public const string JUNKBUMPKINITIS = 'junkbumpkinitis';
-    public const string MIGRAINE = 'migraine';
-    public const string MUSH_ALLERGY = 'mush_allergy';
-    public const string QUINCKS_OEDEMA = 'quincks_oedema';
-    public const string REJUVENATION = 'rejuvenation';
-    public const string RUBELLA = 'rubella';
-    public const string SEPSIS = 'sepsis';
-    public const string SINUS_STORM = 'sinus_storm';
-    public const string SKIN_INFLAMMATION = 'skin_inflammation';
-    public const string SLIGHT_NAUSEA = 'slight_nausea';
-    public const string SMALLPOX = 'smallpox';
-    public const string SPACE_RABIES = 'space_rabies';
-    public const string SYPHILIS = 'syphilis';
-    public const string TAPEWORM = 'tapeworm';
-    public const string VITAMIN_DEFICIENCY = 'vitamin_deficiency';
+    case ACID_REFLUX = 'acid_reflux';
+    case BLACK_BITE = 'black_bite';
+    case CAT_ALLERGY = 'cat_allergy';
+    case COLD = 'cold';
+    case EXTREME_TINNITUS = 'extreme_tinnitus';
+    case FLU = 'flu';
+    case FOOD_POISONING = 'food_poisoning';
+    case FUNGIC_INFECTION = 'fungic_infection';
+    case GASTROENTERIS = 'gastroenteritis';
+    case JUNKBUMPKINITIS = 'junkbumpkinitis';
+    case MIGRAINE = 'migraine';
+    case MUSH_ALLERGY = 'mush_allergy';
+    case QUINCKS_OEDEMA = 'quincks_oedema';
+    case REJUVENATION = 'rejuvenation';
+    case RUBELLA = 'rubella';
+    case SEPSIS = 'sepsis';
+    case SINUS_STORM = 'sinus_storm';
+    case SKIN_INFLAMMATION = 'skin_inflammation';
+    case SLIGHT_NAUSEA = 'slight_nausea';
+    case SMALLPOX = 'smallpox';
+    case SPACE_RABIES = 'space_rabies';
+    case SYPHILIS = 'syphilis';
+    case TAPEWORM = 'tapeworm';
+    case VITAMIN_DEFICIENCY = 'vitamin_deficiency';
+
+    public function toConfigKey(string $configKey): string
+    {
+        return $this->value . '_' . $configKey;
+    }
+
+    public function toString(): string
+    {
+        return $this->value;
+    }
 }

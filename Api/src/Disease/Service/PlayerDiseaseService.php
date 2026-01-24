@@ -15,6 +15,8 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Modifier\Repository\ModifierConfigRepositoryInterface;
 use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillEnum;
 
@@ -25,6 +27,7 @@ final class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         private EventServiceInterface $eventService,
         private RandomServiceInterface $randomService,
         private PlayerDiseaseRepositoryInterface $playerDiseaseRepository,
+        private ModifierConfigRepositoryInterface $modifierConfigRepository,
     ) {}
 
     public function persist(PlayerDisease $playerDisease): PlayerDisease
@@ -63,8 +66,8 @@ final class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         string $diseaseName,
         Player $player,
         array $reasons = [],
-        ?int $delayMin = null,
-        ?int $delayLength = null
+        int $delayMin = 0,
+        int $delayLength = 0
     ): PlayerDisease {
         $diseaseConfig = $this->findDiseaseConfigByNameAndDaedalus($diseaseName, $player->getDaedalus());
 
@@ -86,19 +89,20 @@ final class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $disease = new PlayerDisease();
         $disease
             ->setPlayer($player)
-            ->setDiseaseConfig($diseaseConfig);
+            ->setDiseaseConfig($diseaseConfig)
+            ->setHealActionResistance($diseaseConfig->getHealActionResistance());
         $player->addMedicalCondition($disease);
 
-        $delayMin = $delayMin ?? $diseaseConfig->getDelayMin();
-        $delayLength = $delayLength ?? $diseaseConfig->getDelayLength();
-
         if ($delayMin !== 0) {
-            $disease->setDiseasePoint($this->randomService->random($delayMin, $delayMin + $delayLength));
+            $disease->setDuration($this->randomService->random($delayMin, $delayMin + $delayLength));
             $disease->setStatus(DiseaseStatusEnum::INCUBATING);
         } else {
-            $diseaseDurationMin = $diseaseConfig->getDiseasePointMin();
-            $disease->setDiseasePoint($this->randomService->random($diseaseDurationMin, $diseaseDurationMin + $diseaseConfig->getDiseasePointLength()));
+            $diseaseDurationMin = $diseaseConfig->getDuration()[0];
+            $diseaseDurationMax = $diseaseConfig->getDuration()[1];
+            $disease->setDuration($this->randomService->random($diseaseDurationMin, $diseaseDurationMax));
         }
+
+        $this->giveModifierFromConfig($disease);
 
         $this->persist($disease);
 
@@ -116,6 +120,27 @@ final class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         return $disease;
     }
 
+    public function handleNewCycleForPlayer(Player $player, \DateTime $time)
+    {
+        // first, decrement a random active disease which heals at cycle change
+        if ($player->hasActiveDiseaseHealingAtCycleChange()) {
+            $playerDisease = $this->randomService->getRandomElement($player->getActiveDiseasesHealingAtCycleChange()->toArray());
+            $playerDisease->decrementDuration();
+            $this->persist($playerDisease);
+        }
+
+        // then, treat a random disorder by a shrink
+        if ($player->hasActiveDisorder() && $player->isLaidDownInShrinkRoom()) {
+            $disorder = $this->randomService->getRandomElement($player->getActiveDisorders()->toArray());
+            $this->treatDisorder($disorder, $time);
+        }
+
+        // finally, handle all player diseases as a whole
+        foreach ($player->getMedicalConditions() as $playerDisease) {
+            $this->handleNewCycle($playerDisease, $time);
+        }
+    }
+
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void
     {
         if ($playerDisease->shouldHealSilently()) {
@@ -124,64 +149,70 @@ final class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             return;
         }
 
+        // handle duration if disease is incubating
         if ($playerDisease->isIncubating()) {
-            $playerDisease->decrementDiseasePoints();
+            $playerDisease->decrementDuration();
         }
 
-        $diseasePoint = $playerDisease->getDiseasePoint();
+        $diseasePoint = $playerDisease->getDuration();
         if ($diseasePoint <= 0) {
+            // activate an incubating disease
             if ($playerDisease->isIncubating()) {
                 $diseaseConfig = $playerDisease->getDiseaseConfig();
-                $diseaseDurationMin = $diseaseConfig->getDiseasePointMin();
+                $diseaseDurationMin = $diseaseConfig->getDuration()[0];
+                $diseaseDurationMax = $diseaseConfig->getDuration()[1];
                 $playerDisease
                     ->setStatus(DiseaseStatusEnum::ACTIVE)
-                    ->setResistancePoint($diseaseConfig->getResistance())
-                    ->setDiseasePoint(
+                    ->setHealActionResistance($diseaseConfig->getHealActionResistance())
+                    ->setDuration(
                         $this->randomService->random(
                             $diseaseDurationMin,
-                            $diseaseDurationMin + $diseaseConfig->getDiseasePointLength()
+                            $diseaseDurationMax
                         )
                     );
 
                 $this->persist($playerDisease);
                 $this->activateDisease($playerDisease, [DiseaseCauseEnum::INCUBATING_END], $time);
-            } else {
+            }
+            // or heal an active one
+            else {
                 $this->removePlayerDisease($playerDisease, [DiseaseStatusEnum::SPONTANEOUS_CURE], $time, VisibilityEnum::PRIVATE);
             }
-        } else {
-            $this->persist($playerDisease);
         }
+
+        $this->persist($playerDisease);
     }
 
     public function healDisease(Player $author, PlayerDisease $playerDisease, array $reasons, \DateTime $time, string $visibility): void
     {
-        if ($playerDisease->getResistancePoint() === 0) {
-            $this->removePlayerDisease($playerDisease, $reasons, $time, $visibility, $author);
-        } else {
-            $event = new DiseaseEvent(
-                $playerDisease,
-                $reasons,
-                $time
-            );
-            $event->setAuthor($author);
-            $event->setVisibility($visibility);
-            $this->eventService->callEvent($event, DiseaseEvent::TREAT_DISEASE);
+        $playerDisease->decrementHealActionResistance();
 
-            $playerDisease->setResistancePoint($playerDisease->getResistancePoint() - 1);
-            $this->persist($playerDisease);
+        $event = new DiseaseEvent(
+            $playerDisease,
+            $reasons,
+            $time
+        );
+        $event->setAuthor($author);
+        $event->setVisibility($visibility);
+        $this->eventService->callEvent($event, DiseaseEvent::TREAT_DISEASE);
+
+        $this->persist($playerDisease);
+
+        if ($playerDisease->getHealActionResistance() <= 0) {
+            $this->removePlayerDisease($playerDisease, $reasons, $time, $visibility, $author);
         }
     }
 
     public function treatDisorder(PlayerDisease $playerDisease, \DateTime $time): void
     {
-        $playerDisease->decrementDiseasePoints();
+        $playerDisease->decrementHealActionResistance();
 
         $player = $playerDisease->getPlayer();
         $playerRoom = $player->getPlace();
         $shrink = $this->randomService->getRandomPlayer($playerRoom->getAliveShrinksExceptPlayer($player));
 
         // if disorder is cured, remove it
-        if ($playerDisease->getDiseasePoint() <= 0) {
+        if ($playerDisease->getHealActionResistance() <= 0) {
             $this->removePlayerDisease(
                 $playerDisease,
                 [SkillEnum::SHRINK->value],
@@ -204,6 +235,21 @@ final class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $this->eventService->callEvent($event, DiseaseEvent::TREAT_DISEASE);
 
         $this->persist($playerDisease);
+    }
+
+    public function giveModifierFromConfig(PlayerDisease $playerDisease): void
+    {
+        $modifierConfigs = [];
+
+        foreach ($playerDisease->getDiseaseConfig()->getModifierConfigs() as $modifierConfigName) {
+            /** @var AbstractModifierConfig $modifierConfig */
+            $modifierConfig = $this->modifierConfigRepository->findByName($modifierConfigName);
+            if ($modifierConfig === null) {
+                throw new \Exception('Modifier config not found: ' . $modifierConfigName);
+            }
+            $modifierConfigs[] = $modifierConfig;
+        }
+        $playerDisease->setModifierConfigs($modifierConfigs);
     }
 
     private function findDiseaseConfigByNameAndDaedalus(string $diseaseName, Daedalus $daedalus): DiseaseConfig
@@ -236,7 +282,7 @@ final class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         $player = $disease->getPlayer();
         $diseaseConfig = $disease->getDiseaseConfig();
 
-        foreach ($diseaseConfig->getOverride() as $diseaseName) {
+        foreach ($diseaseConfig->getRemoveLower() as $diseaseName) {
             $overrodeDisease = $player->getMedicalConditionByName($diseaseName);
             if ($overrodeDisease !== null) {
                 $this->removePlayerDisease(

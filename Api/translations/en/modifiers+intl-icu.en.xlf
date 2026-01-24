@@ -244,5 +244,11 @@
         <target>Each action costs **{quantity}** {emote} more with a cat present in the room.</target>
       </segment>
     </unit>
+    <unit id="roll.action.percentage_decrease_shoot_shoot_cat_shoot_hunter_shoot_hunter_patrol_ship_shoot_random_hunter_shoot_random_hunter_patrol_ship">
+      <segment id="description" state="translated">
+        <source>roll.action.percentage_decrease_shoot_shoot_cat_shoot_hunter_shoot_hunter_patrol_ship_shoot_random_hunter_shoot_random_hunter_patrol_ship.description</source>
+        <target>**Shoot** actions are **{quantity}%** less likely to succeed.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

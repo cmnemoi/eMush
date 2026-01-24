@@ -567,7 +567,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
         // then modifiers provided by disease
         $modifierConfigs = $this->getMedicalConditions()
-            ->map(static fn (PlayerDisease $playerDisease) => $playerDisease->getDiseaseConfig()->getModifierConfigs())
+            ->map(static fn (PlayerDisease $playerDisease) => $playerDisease->getModifierConfigs())
             ->reduce(static fn (array $modifierConfigs, $skillModifierConfigs) => array_merge($modifierConfigs, $skillModifierConfigs->toArray()), $modifierConfigs);
 
         return new ArrayCollection($modifierConfigs);

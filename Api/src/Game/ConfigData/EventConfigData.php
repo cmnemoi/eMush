@@ -65,11 +65,27 @@ class EventConfigData
         ],
         [
             'type' => 'variable_event_config',
+            'quantity' => -3,
+            'targetVariable' => PlayerVariableEnum::HEALTH_POINT,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
+            'name' => 'change.value.max_player_-3_healthPoint',
+        ],
+        [
+            'type' => 'variable_event_config',
             'quantity' => -4,
             'targetVariable' => PlayerVariableEnum::HEALTH_POINT,
             'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
             'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
             'name' => 'change.value.max_player_-4_healthPoint',
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => -5,
+            'targetVariable' => PlayerVariableEnum::HEALTH_POINT,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VALUE_MAX,
+            'name' => 'change.value.max_player_-5_healthPoint',
         ],
         [
             'type' => 'variable_event_config',
@@ -652,11 +668,11 @@ class EventConfigData
                 ]
             ),
             new WeaponEventConfigDto(
-                name: WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->toString(),
-                eventName: WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->toString(),
+                name: WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_HAEMORRHAGE->toString(),
+                eventName: WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_HAEMORRHAGE->toString(),
                 eventType: WeaponEventType::NORMAL,
                 effectKeys: [
-                    WeaponEffectEnum::INFLICT_MINOR_HAEMORRHAGE_TO_TARGET_10_PERCENTS->toString(),
+                    WeaponEffectEnum::INFLICT_HAEMORRHAGE_TO_TARGET_10_PERCENTS->toString(),
                 ]
             ),
             new WeaponEventConfigDto(
@@ -1195,48 +1211,48 @@ class EventConfigData
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_MASHED_EAR_INJURY_TO_TARGET->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::DAMAGED_EARS,
+                injuryName: InjuryEnum::DAMAGED_EARS->toString(),
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_TORN_TONGUE_INJURY_TO_TARGET_30_PERCENTS->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::TORN_TONGUE,
+                injuryName: InjuryEnum::TORN_TONGUE->toString(),
                 triggerRate: 30,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_BURST_NOSE_INJURY_TO_TARGET_10_PERCENTS->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::BURST_NOSE,
+                injuryName: InjuryEnum::BURST_NOSE->toString(),
                 triggerRate: 10,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_BURST_NOSE_INJURY_TO_TARGET_30_PERCENTS->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::BURST_NOSE,
+                injuryName: InjuryEnum::BURST_NOSE->toString(),
                 triggerRate: 30,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_OPEN_AIR_BRAIN_INJURY_TO_TARGET_30_PERCENTS->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::OPEN_AIR_BRAIN,
+                injuryName: InjuryEnum::OPEN_AIR_BRAIN->toString(),
                 triggerRate: 30,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_HEAD_TRAUMA_INJURY_TO_TARGET_30_PERCENTS->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::HEAD_TRAUMA,
+                injuryName: InjuryEnum::HEAD_TRAUMA->toString(),
                 triggerRate: 30,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::HAEMORRHAGE,
+                injuryName: InjuryEnum::HAEMORRHAGE->toString(),
                 triggerRate: 40,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_10_PERCENTS->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::CRITICAL_HAEMORRHAGE,
+                injuryName: InjuryEnum::CRITICAL_HAEMORRHAGE->toString(),
                 triggerRate: 10,
             ),
             new ModifyMaxDamageWeaponEffectConfigDto(
@@ -1264,7 +1280,7 @@ class EventConfigData
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::CRITICAL_HAEMORRHAGE,
+                injuryName: InjuryEnum::CRITICAL_HAEMORRHAGE->toString(),
                 triggerRate: 40,
             ),
             new RemoveActionPointsWeaponEffectConfigDto(
@@ -1275,53 +1291,53 @@ class EventConfigData
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_MASHED_FOOT_INJURY_TO_TARGET->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::MASHED_FOOT,
+                injuryName: InjuryEnum::MASHED_FOOT->toString(),
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_BROKEN_SHOULDER_INJURY_TO_TARGET->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::BROKEN_SHOULDER,
+                injuryName: InjuryEnum::BROKEN_SHOULDER->toString(),
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_BURNT_HAND_INJURY_TO_SHOOTER->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::BURNT_HAND,
+                injuryName: InjuryEnum::BURNT_HAND->toString(),
                 toShooter: true,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_BROKEN_SHOULDER_INJURY_TO_SHOOTER->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::BROKEN_SHOULDER,
+                injuryName: InjuryEnum::BROKEN_SHOULDER->toString(),
                 toShooter: true,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_MASHED_FOOT_TO_SHOOTER->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::MASHED_FOOT,
+                injuryName: InjuryEnum::MASHED_FOOT->toString(),
                 toShooter: true,
             ),
             new InflictInjuryWeaponEffectConfigDto(
-                name: WeaponEffectEnum::INFLICT_MINOR_HAEMORRHAGE_TO_TARGET_10_PERCENTS->toString(),
+                name: WeaponEffectEnum::INFLICT_HAEMORRHAGE_TO_TARGET_10_PERCENTS->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::MINOR_HAEMORRHAGE,
+                injuryName: InjuryEnum::HAEMORRHAGE->toString(),
                 triggerRate: 10,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_50_PERCENTS->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::CRITICAL_HAEMORRHAGE,
+                injuryName: InjuryEnum::CRITICAL_HAEMORRHAGE->toString(),
                 triggerRate: 50,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_60_PERCENTS->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::CRITICAL_HAEMORRHAGE,
+                injuryName: InjuryEnum::CRITICAL_HAEMORRHAGE->toString(),
                 triggerRate: 60,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_BUSTED_ARM_JOINT_TO_TARGET->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::BUSTED_ARM_JOINT,
+                injuryName: InjuryEnum::BUSTED_ARM_JOINT->toString(),
             ),
             new OneShotWeaponEffectConfigDto(
                 name: WeaponEffectEnum::KNIFE_ONE_SHOT->toString(),
@@ -1331,18 +1347,18 @@ class EventConfigData
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_PUNCTURED_LUNG_TO_TARGET->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::PUNCTURED_LUNG,
+                injuryName: InjuryEnum::PUNCTURED_LUNG->toString(),
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_TORN_TONGUE_INJURY_TO_SHOOTER->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::TORN_TONGUE,
+                injuryName: InjuryEnum::TORN_TONGUE->toString(),
                 toShooter: true,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_BRUISED_SHOULDER_INJURY_TO_SHOOTER->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
-                injuryName: InjuryEnum::BRUISED_SHOULDER,
+                injuryName: InjuryEnum::BRUISED_SHOULDER->toString(),
                 toShooter: true,
             ),
             new SplashDamageAllWeaponEffectConfigDto(

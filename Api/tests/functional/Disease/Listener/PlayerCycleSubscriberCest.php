@@ -97,7 +97,7 @@ class PlayerCycleSubscriberCest
         $playerDisease
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(10);
+            ->setDuration(10);
 
         $I->haveInRepository($playerDisease);
 
@@ -114,80 +114,7 @@ class PlayerCycleSubscriberCest
         $I->seeInRepository(PlayerDisease::class, [
             'player' => $player,
             'diseaseConfig' => $diseaseConfig,
-            'diseasePoint' => 9,
-        ]);
-    }
-
-    public function testOnPlayerCycleSpontaneousCure(FunctionalTester $I): void
-    {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        $mushChannel = new Channel();
-        $mushChannel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH);
-        $I->haveInRepository($mushChannel);
-
-        /** @var Place $place */
-        $place = $I->have(Place::class, [
-            'daedalus' => $daedalus,
-        ]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $place,
-        ]);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setDiseaseName('Name')
-            ->buildName(GameConfigEnum::TEST);
-
-        $I->haveInRepository($diseaseConfig);
-
-        $playerDisease = new PlayerDisease();
-        $playerDisease
-            ->setPlayer($player)
-            ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(1);
-
-        $I->haveInRepository($playerDisease);
-        $I->refreshEntities($player);
-
-        $event = new PlayerCycleEvent($player, [EventEnum::NEW_CYCLE], new \DateTime());
-
-        $this->subscriber->onPlayerNewCycle($event);
-        $I->dontSeeInRepository(PlayerDisease::class, [
-            'player' => $player,
-            'diseaseConfig' => $diseaseConfig,
-        ]);
-
-        $I->seeInRepository(RoomLog::class, [
-            'playerInfo' => $playerInfo->getId(),
-            'place' => $place->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'log' => LogEnum::DISEASE_CURED,
+            'duration' => 9,
         ]);
     }
 
@@ -245,7 +172,7 @@ class PlayerCycleSubscriberCest
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
             ->setStatus(DiseaseStatusEnum::INCUBATING)
-            ->setDiseasePoint(1);
+            ->setDuration(1);
 
         $I->haveInRepository($playerDisease);
 
@@ -255,7 +182,7 @@ class PlayerCycleSubscriberCest
 
         $this->subscriber->onPlayerNewCycle($event);
 
-        $I->assertGreaterThan(0, $playerDisease->getDiseasePoint());
+        $I->assertGreaterThan(0, $playerDisease->getDuration());
 
         $I->seeInRepository(PlayerDisease::class, [
             'player' => $player,
@@ -340,7 +267,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->setModifierConfigs([$symptomConfig])
+            ->setModifierConfigs([$symptomConfig->getName()])
             ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
@@ -349,8 +276,9 @@ class PlayerCycleSubscriberCest
         $playerDisease
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
+            ->setModifierConfigs([$symptomConfig])
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setDiseasePoint(10);
+            ->setDuration(10);
         $I->haveInRepository($playerDisease);
         $I->refreshEntities($player);
         $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());
@@ -419,7 +347,7 @@ class PlayerCycleSubscriberCest
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
             ->setDiseaseName('Name')
-            ->setModifierConfigs([$symptomConfig])
+            ->setModifierConfigs([$symptomConfig->getName()])
             ->buildName(GameConfigEnum::TEST);
 
         $I->haveInRepository($diseaseConfig);
@@ -428,8 +356,9 @@ class PlayerCycleSubscriberCest
         $playerDisease
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
+            ->setModifierConfigs([$symptomConfig])
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setDiseasePoint(10);
+            ->setDuration(10);
         $I->haveInRepository($playerDisease);
         $I->refreshEntities($player);
         $diseaseEvent = new DiseaseEvent($playerDisease, [], new \DateTime());

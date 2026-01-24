@@ -21,17 +21,14 @@ class DiseaseCauseConfigDataLoader extends ConfigDataLoader
 
     public function loadConfigsData(): void
     {
-        foreach (DiseaseCauseConfigData::$dataArray as $diseaseCauseConfigData) {
-            $diseaseCauseConfig = $this->diseaseCauseConfigRepository->findOneBy(['name' => $diseaseCauseConfigData['name']]);
+        foreach (DiseaseCauseConfigData::getAll() as $diseaseCauseConfigDto) {
+            $diseaseCauseConfig = $this->diseaseCauseConfigRepository->findOneBy(['name' => $diseaseCauseConfigDto->name . '_default']);
 
-            if ($diseaseCauseConfig === null) {
-                $diseaseCauseConfig = new DiseaseCauseConfig();
+            if ($diseaseCauseConfig instanceof DiseaseCauseConfig) {
+                $diseaseCauseConfig->updateFromDto($diseaseCauseConfigDto);
+            } else {
+                $diseaseCauseConfig = DiseaseCauseConfig::fromDto($diseaseCauseConfigDto);
             }
-
-            $diseaseCauseConfig
-                ->setName($diseaseCauseConfigData['name'])
-                ->setCauseName($diseaseCauseConfigData['causeName'])
-                ->setDiseases($diseaseCauseConfigData['diseases']);
 
             $this->entityManager->persist($diseaseCauseConfig);
         }

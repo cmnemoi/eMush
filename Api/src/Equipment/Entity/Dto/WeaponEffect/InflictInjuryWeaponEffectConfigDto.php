@@ -26,4 +26,15 @@ final readonly class InflictInjuryWeaponEffectConfigDto extends WeaponEffectDto
             $this->toShooter,
         );
     }
+
+    public function toEntityFixture(): InflictInjuryWeaponEffectConfig
+    {
+        return new InflictInjuryWeaponEffectConfig(
+            $this->name,
+            $this->eventName,
+            $this->injuryName,
+            100,
+            $this->toShooter,
+        );
+    }
 }

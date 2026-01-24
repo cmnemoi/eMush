@@ -32,6 +32,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Tests\unit\Modifier\TestDoubles\InMemoryModifierConfigRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -63,6 +64,7 @@ final class PlayerDiseaseServiceTest extends TestCase
             eventService: $this->eventService,
             randomService: $this->randomService,
             playerDiseaseRepository: $this->playerDiseaseRepository,
+            modifierConfigRepository: new InMemoryModifierConfigRepository(),
         );
     }
 
@@ -73,40 +75,6 @@ final class PlayerDiseaseServiceTest extends TestCase
     {
         \Mockery::close();
         $this->playerDiseaseRepository->clear();
-    }
-
-    public function testCreateDiseaseFromNameAndWithDiseaseConfigDelay()
-    {
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setDelayMin(4)->setDelayLength(4)
-            ->setDiseaseName('name');
-
-        $gameConfig = new GameConfig();
-        $gameConfig->addDiseaseConfig($diseaseConfig);
-
-        $daedalus = new Daedalus();
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
-
-        $player = PlayerFactory::createPlayer();
-        $player->setDaedalus($daedalus);
-
-        $this
-            ->randomService
-            ->shouldReceive('random')
-            ->withArgs([$diseaseConfig->getDelayMin(), $diseaseConfig->getDelayMin() + $diseaseConfig->getDelayLength()])
-            ->andReturn(4)
-            ->once();
-        $this->eventService->shouldReceive('callEvent')->once();
-
-        $disease = $this->playerDiseaseService->createDiseaseFromName('name', $player, [DiseaseCauseEnum::INCUBATING_END]);
-
-        $savedDisease = $this->playerDiseaseRepository->findByIdOrThrow($disease->getId());
-
-        self::assertSame($diseaseConfig, $savedDisease->getDiseaseConfig());
-        self::assertSame($player, $savedDisease->getPlayer());
-        self::assertSame(4, $savedDisease->getDiseasePoint());
-        self::assertSame(DiseaseStatusEnum::INCUBATING, $savedDisease->getStatus());
     }
 
     public function testCreateDiseaseFromNameAndWithArgumentsDelay()
@@ -135,7 +103,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         self::assertInstanceOf(PlayerDisease::class, $savedDisease);
         self::assertSame($diseaseConfig, $savedDisease->getDiseaseConfig());
         self::assertSame($player, $savedDisease->getPlayer());
-        self::assertSame(4, $savedDisease->getDiseasePoint());
+        self::assertSame(4, $savedDisease->getDuration());
         self::assertSame(DiseaseStatusEnum::INCUBATING, $savedDisease->getStatus());
     }
 
@@ -154,7 +122,7 @@ final class PlayerDiseaseServiceTest extends TestCase
 
         $this->randomService
             ->shouldReceive('random')
-            ->withArgs([$diseaseConfig->getDiseasePointMin(), $diseaseConfig->getDiseasePointMin() + $diseaseConfig->getDiseasePointLength()])
+            ->withArgs([$diseaseConfig->getDuration()[0], $diseaseConfig->getDuration()[1]])
             ->andReturn(4)
             ->once();
         $this->eventService->shouldReceive('callEvent')->twice();
@@ -166,7 +134,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         self::assertInstanceOf(PlayerDisease::class, $savedDisease);
         self::assertSame($diseaseConfig, $savedDisease->getDiseaseConfig());
         self::assertSame($player, $savedDisease->getPlayer());
-        self::assertSame(4, $savedDisease->getDiseasePoint());
+        self::assertSame(4, $savedDisease->getDuration());
         self::assertSame(DiseaseStatusEnum::ACTIVE, $savedDisease->getStatus());
     }
 
@@ -176,13 +144,13 @@ final class PlayerDiseaseServiceTest extends TestCase
         $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
 
-        $diseaseConfig = DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(DiseaseEnum::ACID_REFLUX));
+        $diseaseConfig = DiseaseConfig::fromDto(DiseaseConfigData::getByName(DiseaseEnum::ACID_REFLUX->toString()));
         $diseasePlayer = new PlayerDisease();
         $diseasePlayer
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::INCUBATING)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(1);
+            ->setDuration(1);
         $this->eventService->shouldReceive('callEvent')->once();
 
         $this->randomService->shouldReceive('random')->andReturn(10);
@@ -190,7 +158,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         $this->playerDiseaseService->handleNewCycle($diseasePlayer, new \DateTime());
 
         $savedDisease = $this->playerDiseaseRepository->findByIdOrThrow($diseasePlayer->getId());
-        self::assertSame(10, $savedDisease->getDiseasePoint());
+        self::assertSame(10, $savedDisease->getDuration());
         self::assertSame(DiseaseStatusEnum::ACTIVE, $savedDisease->getStatus());
     }
 
@@ -200,22 +168,21 @@ final class PlayerDiseaseServiceTest extends TestCase
         $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
 
-        $diseaseConfig = DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(InjuryEnum::BROKEN_SHOULDER));
-        $diseaseConfig->setOverride([InjuryEnum::BROKEN_SHOULDER]);
+        $diseaseConfig = DiseaseConfig::fromDto(DiseaseConfigData::getByName(InjuryEnum::BUSTED_SHOULDER->toString()));
         $diseasePlayer = new PlayerDisease();
         $diseasePlayer
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::INCUBATING)
             ->setDiseaseConfig($diseaseConfig)
-            ->setDiseasePoint(1);
+            ->setDuration(1);
 
-        $diseaseConfig2 = DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(InjuryEnum::BROKEN_SHOULDER));
+        $diseaseConfig2 = DiseaseConfig::fromDto(DiseaseConfigData::getByName(InjuryEnum::BROKEN_SHOULDER->toString()));
         $diseasePlayer2 = new PlayerDisease();
         $diseasePlayer2
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setDiseaseConfig($diseaseConfig2)
-            ->setDiseasePoint(1);
+            ->setDuration(1);
         $player->addMedicalCondition($diseasePlayer2);
         $this->playerDiseaseRepository->save($diseasePlayer2);
 
@@ -243,7 +210,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         $this->playerDiseaseService->handleNewCycle($diseasePlayer, new \DateTime());
 
         $savedDisease = $this->playerDiseaseRepository->findByIdOrThrow($diseasePlayer->getId());
-        self::assertSame(10, $savedDisease->getDiseasePoint());
+        self::assertSame(10, $savedDisease->getDuration());
         self::assertSame(DiseaseStatusEnum::ACTIVE, $savedDisease->getStatus());
     }
 
@@ -257,10 +224,10 @@ final class PlayerDiseaseServiceTest extends TestCase
         $diseasePlayer
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setResistancePoint(0);
+            ->setHealActionResistance(0);
         $this->playerDiseaseRepository->save($diseasePlayer);
 
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->eventService->shouldReceive('callEvent')->twice();
 
         $this->playerDiseaseService->healDisease($player, $diseasePlayer, ['reason'], new \DateTime(), VisibilityEnum::PUBLIC);
 
@@ -278,14 +245,14 @@ final class PlayerDiseaseServiceTest extends TestCase
         $diseasePlayer
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
-            ->setResistancePoint(1);
+            ->setHealActionResistance(2);
 
         $this->eventService->shouldReceive('callEvent')->once();
 
         $this->playerDiseaseService->healDisease($player, $diseasePlayer, ['reason'], new \DateTime(), VisibilityEnum::PUBLIC);
 
         $savedDisease = $this->playerDiseaseRepository->findByIdOrThrow($diseasePlayer->getId());
-        self::assertSame(0, $savedDisease->getResistancePoint());
+        self::assertSame(1, $savedDisease->getHealActionResistance());
     }
 
     public function testHygienistShouldPreventPhysicialDiseaseCreation(): void
@@ -294,9 +261,9 @@ final class PlayerDiseaseServiceTest extends TestCase
 
         $player = $this->givenPlayerWithHygienistSkill($daedalus);
 
-        $this->whenDiseaseIsCreatedForPlayer(DiseaseEnum::ACID_REFLUX, $player);
+        $this->whenDiseaseIsCreatedForPlayer(DiseaseEnum::ACID_REFLUX->toString(), $player);
 
-        $this->thenPlayerShouldNotHaveDisease($player, DiseaseEnum::ACID_REFLUX);
+        $this->thenPlayerShouldNotHaveDisease($player, DiseaseEnum::ACID_REFLUX->toString());
     }
 
     public function testHygienistShouldNotPreventDisorderCreation(): void
@@ -305,9 +272,9 @@ final class PlayerDiseaseServiceTest extends TestCase
 
         $player = $this->givenPlayerWithHygienistSkill($daedalus);
 
-        $this->whenDiseaseIsCreatedForPlayer(DisorderEnum::AGORAPHOBIA, $player);
+        $this->whenDiseaseIsCreatedForPlayer(DisorderEnum::AGORAPHOBIA->toString(), $player);
 
-        $this->thenPlayerShouldHaveDisease($player, DisorderEnum::AGORAPHOBIA);
+        $this->thenPlayerShouldHaveDisease($player, DisorderEnum::AGORAPHOBIA->toString());
     }
 
     private function givenPlayerWithHygienistSkill(Daedalus $daedalus): Player

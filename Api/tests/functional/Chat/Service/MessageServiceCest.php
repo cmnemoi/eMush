@@ -73,7 +73,7 @@ final class MessageServiceCest extends AbstractFunctionalTest
     {
         // given player is deaf
         $this->playerDiseaseService->createDiseaseFromName(
-            InjuryEnum::DESTROYED_EARS,
+            InjuryEnum::DESTROYED_EARS->toString(),
             $this->player,
         );
 
@@ -128,7 +128,7 @@ final class MessageServiceCest extends AbstractFunctionalTest
     private function givenPlayerHasTornTongue(): void
     {
         $this->playerDiseaseService->createDiseaseFromName(
-            InjuryEnum::TORN_TONGUE,
+            InjuryEnum::TORN_TONGUE->toString(),
             $this->player,
             [],
         );

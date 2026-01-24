@@ -35,7 +35,7 @@ final class DiseaseModifierStackingCest extends AbstractFunctionalTest
     private function givenPlayerAttractsFlu(): void
     {
         $disease = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::FLU,
+            diseaseName: DiseaseEnum::FLU->toString(),
             player: $this->player,
             reasons: [],
         );
@@ -44,7 +44,7 @@ final class DiseaseModifierStackingCest extends AbstractFunctionalTest
     private function givenPlayerAttractsFungicInfection(): void
     {
         $disease = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::FUNGIC_INFECTION,
+            diseaseName: DiseaseEnum::FUNGIC_INFECTION->toString(),
             player: $this->player,
             reasons: [],
         );

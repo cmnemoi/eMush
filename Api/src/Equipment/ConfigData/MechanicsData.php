@@ -1149,7 +1149,7 @@ class MechanicsData
             'type' => 'weapon',
             'damageSpread' => [1, 3],
             'successfulEventKeys' => [
-                WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->value => 75,
+                WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_HAEMORRHAGE->value => 75,
                 WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_RANDOM_INJURY->value => 5,
                 WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_50_CRITICAL_HAEMORRHAGE->value => 5,
                 WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_50_CRITICAL_HAEMORRHAGE_RANDOM_INJURY->value => 3,

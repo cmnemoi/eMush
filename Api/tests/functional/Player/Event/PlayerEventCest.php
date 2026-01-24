@@ -189,7 +189,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setDiseaseName(DiseaseEnum::FUNGIC_INFECTION)
+            ->setDiseaseName(DiseaseEnum::FUNGIC_INFECTION->toString())
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
 
@@ -197,7 +197,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
         $diseaseCause
             ->setCauseName(DiseaseCauseEnum::INFECTION)
             ->setDiseases([
-                DiseaseEnum::FUNGIC_INFECTION => 1,
+                DiseaseEnum::FUNGIC_INFECTION->toString() => 1,
             ])
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
@@ -205,7 +205,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
         $diseaseCause
             ->setCauseName(DiseaseCauseEnum::INFECTION)
             ->setDiseases([
-                DiseaseEnum::FUNGIC_INFECTION => 1,
+                DiseaseEnum::FUNGIC_INFECTION->toString() => 1,
             ])
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);

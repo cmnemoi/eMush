@@ -55,13 +55,13 @@ final class DisorderCest extends AbstractFunctionalTest
     {
         // given Chun has a depression (a disorder)
         $disorder = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DisorderEnum::DEPRESSION,
+            diseaseName: DisorderEnum::DEPRESSION->toString(),
             player: $this->chun,
             reasons: [],
         );
 
         // given disorder has 5 disease points
-        $disorder->setDiseasePoint(5);
+        $disorder->setHealActionResistance(5);
 
         // given KT is a shrink
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHRINK, $this->kuanTi));
@@ -83,20 +83,20 @@ final class DisorderCest extends AbstractFunctionalTest
         $this->eventService->callEvent($playerCycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
         // then the disease point should decrease by 1
-        $I->assertEquals(4, $disorder->getDiseasePoint());
+        $I->assertEquals(4, $disorder->getHealActionResistance());
     }
 
     public function shouldBeHealedWhenPlayerIsLaidDownWithShrinkInRoom(FunctionalTester $I): void
     {
         // given Chun has a depression (a disorder)
         $disorder = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DisorderEnum::DEPRESSION,
+            diseaseName: DisorderEnum::DEPRESSION->toString(),
             player: $this->chun,
             reasons: [],
         );
 
         // given disorder has 1 disease point
-        $disorder->setDiseasePoint(1);
+        $disorder->setHealActionResistance(1);
 
         // given KT is a shrink
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHRINK, $this->kuanTi));
@@ -118,14 +118,14 @@ final class DisorderCest extends AbstractFunctionalTest
         $this->eventService->callEvent($playerCycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
         // then the disease should be removed
-        $I->assertNull($this->chun->getMedicalConditionByName(DisorderEnum::DEPRESSION));
+        $I->assertNull($this->chun->getMedicalConditionByName(DisorderEnum::DEPRESSION->toString()));
     }
 
     public function shouldPrintAPublicLogWhenTreatedByShrink(FunctionalTester $I): void
     {
         // given Chun has a depression (a disorder)
         $disorder = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DisorderEnum::DEPRESSION,
+            diseaseName: DisorderEnum::DEPRESSION->toString(),
             player: $this->chun,
             reasons: [],
         );
@@ -165,7 +165,7 @@ final class DisorderCest extends AbstractFunctionalTest
     {
         // given Chun has a depression (a disorder)
         $disorder = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DisorderEnum::DEPRESSION,
+            diseaseName: DisorderEnum::DEPRESSION->toString(),
             player: $this->chun,
             reasons: [],
         );
@@ -215,13 +215,13 @@ final class DisorderCest extends AbstractFunctionalTest
     {
         // given Chun has a depression (a disorder)
         $disorder = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DisorderEnum::DEPRESSION,
+            diseaseName: DisorderEnum::DEPRESSION->toString(),
             player: $this->chun,
             reasons: [],
         );
 
         // given disorder has 1 disease point
-        $disorder->setDiseasePoint(1);
+        $disorder->setHealActionResistance(1);
 
         // given KT is a shrink
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHRINK, $this->kuanTi));
@@ -258,13 +258,13 @@ final class DisorderCest extends AbstractFunctionalTest
     {
         // given Chun has a depression (a disorder)
         $disorder = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DisorderEnum::DEPRESSION,
+            diseaseName: DisorderEnum::DEPRESSION->toString(),
             player: $this->chun,
             reasons: [],
         );
 
         // given disorder has 1 disease point
-        $disorder->setDiseasePoint(1);
+        $disorder->setHealActionResistance(1);
 
         // given KT is a shrink
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHRINK, $this->kuanTi));
@@ -301,13 +301,13 @@ final class DisorderCest extends AbstractFunctionalTest
     {
         // given Chun has a depression (a disorder)
         $disorder = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DisorderEnum::DEPRESSION,
+            diseaseName: DisorderEnum::DEPRESSION->toString(),
             player: $this->chun,
             reasons: [],
         );
 
         // given disorder has 1 disease point
-        $disorder->setDiseasePoint(1);
+        $disorder->setDuration(1);
 
         // given Chun is a shrink
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHRINK, $this->chun));
@@ -329,30 +329,30 @@ final class DisorderCest extends AbstractFunctionalTest
         $this->eventService->callEvent($playerCycleEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
         // then the disorder should not be removed
-        $I->assertNotNull($this->chun->getMedicalConditionByName(DisorderEnum::DEPRESSION));
+        $I->assertNotNull($this->chun->getMedicalConditionByName(DisorderEnum::DEPRESSION->toString()));
     }
 
     public function onlyOneShouldBeTreatedAtATime(FunctionalTester $I): void
     {
         // given Chun has a depression (a disorder)
         $depression = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DisorderEnum::DEPRESSION,
+            diseaseName: DisorderEnum::DEPRESSION->toString(),
             player: $this->chun,
             reasons: [],
         );
 
         // given disorder has 2 disease points
-        $depression->setDiseasePoint(2);
+        $depression->setHealActionResistance(2);
 
         // given Chun has a paranoia (a disorder)
         $paranoia = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DisorderEnum::PARANOIA,
+            diseaseName: DisorderEnum::PARANOIA->toString(),
             player: $this->chun,
             reasons: [],
         );
 
         // given disorder has 2 disease points
-        $paranoia->setDiseasePoint(2);
+        $paranoia->setHealActionResistance(2);
 
         // given KT is a shrink
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHRINK, $this->kuanTi));
@@ -375,8 +375,8 @@ final class DisorderCest extends AbstractFunctionalTest
 
         // then only one disorder should be treated
         $I->assertTrue(
-            ($depression->getDiseasePoint() === 1 && $paranoia->getDiseasePoint() === 2)
-            || ($paranoia->getDiseasePoint() === 1 && $depression->getDiseasePoint() === 2)
+            ($depression->getHealActionResistance() === 1 && $paranoia->getHealActionResistance() === 2)
+            || ($paranoia->getHealActionResistance() === 1 && $depression->getHealActionResistance() === 2)
         );
     }
 }

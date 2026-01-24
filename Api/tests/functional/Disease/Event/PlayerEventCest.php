@@ -55,18 +55,18 @@ final class PlayerEventCest extends AbstractFunctionalTest
         }
         // given player has a disease
         $disease = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::MIGRAINE,
+            diseaseName: DiseaseEnum::MIGRAINE->toString(),
             player: $this->player,
             reasons: [],
         );
-        $disease->setDiseasePoint(10);
+        $disease->setDuration(10);
 
         // given the fitful sleep modifier of the disease always triggers at cycle change
         // note : this modifier removes 1 AP to the player
         /** @var TriggerEventModifierConfig $modifierConfig */
-        $modifierConfig = $disease->getDiseaseConfig()->getModifierConfigs()->filter(
-            static fn (AbstractModifierConfig $modifierConfig) => $modifierConfig->getName() === 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_20'
-        )->first();
+        $modifierConfig = $disease->getModifierConfigs()
+            ->filter(static fn (AbstractModifierConfig $modifierConfig) => $modifierConfig->getName() === 'modifier_for_player_set_-1actionPoint_on_new_cycle_if_random_20')
+            ->first();
         $modifierConfig->setModifierActivationRequirements([]);
 
         // when player has a new cycle
@@ -100,7 +100,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
     {
         // given player has a disease
         $disease = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::COLD,
+            diseaseName: DiseaseEnum::COLD->toString(),
             player: $this->player,
             reasons: [],
         );
@@ -108,12 +108,12 @@ final class PlayerEventCest extends AbstractFunctionalTest
         // given the modifier of the disease always triggers at cycle change
         // note : this modifier removes 1 AP to the player
         /** @var TriggerEventModifierConfig $modifierConfig */
-        $modifierConfig = $disease->getDiseaseConfig()->getModifierConfigs()->first();
+        $modifierConfig = $disease->getModifierConfigs()->first();
         $modifierConfig->setModifierActivationRequirements([]);
         $I->haveInRepository($modifierConfig);
 
         // given the disease has no longer any disease points, so it heals at next cycle change
-        $disease->setDiseasePoint(0);
+        $disease->setDuration(0);
         $I->haveInRepository($disease);
 
         // when player has a new cycle
@@ -136,7 +136,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
 
         // then the healing room correctly print the disease name
         $I->assertEquals(
-            DiseaseEnum::COLD,
+            DiseaseEnum::COLD->toString(),
             $healingRoomLog->getParameters()['disease']
         );
 
@@ -155,26 +155,26 @@ final class PlayerEventCest extends AbstractFunctionalTest
     {
         // given player has a disease
         $disease = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::COLD,
+            diseaseName: DiseaseEnum::COLD->toString(),
             player: $this->player,
             reasons: [],
         );
-        $disease->setDiseasePoint(10);
+        $disease->setDuration(10);
 
         // given player has another disease
         $disease2 = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DisorderEnum::CHRONIC_VERTIGO,
+            diseaseName: DisorderEnum::CHRONIC_VERTIGO->toString(),
             player: $this->player,
             reasons: [],
         );
-        $disease2->setDiseasePoint(10);
+        $disease2->setDuration(10);
 
         $initialAP = $this->player->getActionPoint();
 
         // given the modifier of the disease always triggers at cycle change
         // note : this modifier removes 1 AP to the player
         /** @var TriggerEventModifierConfig $modifierConfig */
-        $modifierConfig = $disease->getDiseaseConfig()->getModifierConfigs()->first();
+        $modifierConfig = $disease->getModifierConfigs()->first();
         $modifierConfig->setModifierActivationRequirements([]);
         $I->haveInRepository($modifierConfig);
 
@@ -213,7 +213,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
 
         // given Chun has a disease which makes her dirty at cycle change
         $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::FUNGIC_INFECTION,
+            diseaseName: DiseaseEnum::FUNGIC_INFECTION->toString(),
             player: $this->chun,
             reasons: [],
         );
@@ -234,7 +234,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
     {
         // given Chun has space rabies, so she has the biting symptom
         $spaceRabies = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::SPACE_RABIES,
+            diseaseName: DiseaseEnum::SPACE_RABIES->toString(),
             player: $this->chun,
             reasons: [],
         );
@@ -277,7 +277,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
     {
         // given Chun has space rabies, so she has the biting symptom
         $spaceRabies = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::SPACE_RABIES,
+            diseaseName: DiseaseEnum::SPACE_RABIES->toString(),
             player: $this->chun,
             reasons: [],
         );
@@ -312,7 +312,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
     {
         // given I have an incubating disease
         $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DisorderEnum::CHRONIC_VERTIGO,
+            diseaseName: DisorderEnum::CHRONIC_VERTIGO->toString(),
             player: $this->player,
             reasons: [],
             delayMin: 1,

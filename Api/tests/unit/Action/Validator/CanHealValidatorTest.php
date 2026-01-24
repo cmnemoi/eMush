@@ -100,7 +100,7 @@ final class CanHealValidatorTest extends TestCase
             ->setPlayer($target)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setDiseaseConfig($diseaseConfig)
-            ->setResistancePoint(0);
+            ->setHealActionResistance(0);
 
         $target->addMedicalCondition($targetDisease);
 
@@ -245,7 +245,7 @@ final class CanHealValidatorTest extends TestCase
             ->setPlayer($target)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setDiseaseConfig($diseaseConfig)
-            ->setResistancePoint(0);
+            ->setHealActionResistance(0);
 
         $target->addMedicalCondition($targetDisease);
 

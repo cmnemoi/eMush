@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\WeaponEffect;
 
-use Mush\Disease\Enum\DiseaseCauseEnum;
-use Mush\Disease\Service\DiseaseCauseServiceInterface;
+use Mush\Disease\Enum\InjuryEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Enum\WeaponEffectEnum;
 use Mush\Equipment\Event\WeaponEffect;
@@ -20,7 +19,6 @@ final readonly class SplashInjuryWeaponEffectHandler extends AbstractWeaponEffec
     public function __construct(
         private PlayerDiseaseServiceInterface $playerDiseaseService,
         private RandomService $randomService,
-        private DiseaseCauseServiceInterface $diseaseCauseService,
     ) {}
 
     public function getName(): string
@@ -40,8 +38,10 @@ final readonly class SplashInjuryWeaponEffectHandler extends AbstractWeaponEffec
         for ($i = 0; $i < $effect->getQuantity(); ++$i) {
             /** @var Player $target */
             $target = $this->randomService->getRandomElement($targets->toArray());
-            $this->diseaseCauseService->handleDiseaseForCause(
-                cause: DiseaseCauseEnum::RANDOM_INJURY,
+            $injury = $this->randomService->getRandomElement(InjuryEnum::cases());
+
+            $this->playerDiseaseService->createDiseaseFromName(
+                $injury->toString(),
                 player: $target,
             );
         }

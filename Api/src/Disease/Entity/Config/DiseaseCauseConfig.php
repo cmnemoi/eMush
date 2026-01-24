@@ -3,6 +3,7 @@
 namespace Mush\Disease\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Disease\Dto\DiseaseCauseConfigDto;
 use Mush\Game\Entity\Collection\ProbaCollection;
 
 #[ORM\Entity]
@@ -28,14 +29,23 @@ class DiseaseCauseConfig
         $this->diseases = [];
     }
 
-    public static function fromConfigData(array $configData): self
+    public static function fromDto(DiseaseCauseConfigDto $dto): self
     {
         $diseaseCauseConfig = new self();
-        $diseaseCauseConfig->setName($configData['name']);
-        $diseaseCauseConfig->setCauseName($configData['causeName']);
-        $diseaseCauseConfig->setDiseases($configData['diseases']);
+        $diseaseCauseConfig->setName($dto->key);
+        $diseaseCauseConfig->setCauseName($dto->name);
+        $diseaseCauseConfig->setDiseases($dto->diseases);
 
         return $diseaseCauseConfig;
+    }
+
+    public function updateFromDto(DiseaseCauseConfigDto $dto): self
+    {
+        $this->setName($dto->key);
+        $this->setCauseName($dto->name);
+        $this->setDiseases($dto->diseases);
+
+        return $this;
     }
 
     public function getId(): ?int

@@ -39,7 +39,7 @@ final class CannotTakeHeavyItemCest extends AbstractFunctionalTest
     {
         // given player has the broken shoulder
         $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: InjuryEnum::BROKEN_SHOULDER,
+            diseaseName: InjuryEnum::BROKEN_SHOULDER->toString(),
             player: $this->player,
             reasons: [],
         );
@@ -59,5 +59,25 @@ final class CannotTakeHeavyItemCest extends AbstractFunctionalTest
         $this->takeAction->loadParameters($this->takeConfig, $equipment, $this->player, $equipment);
         $I->assertTrue($this->takeAction->isVisible());
         $I->assertEquals($this->takeAction->cannotExecuteReason(), ActionImpossibleCauseEnum::SYMPTOMS_ARE_PREVENTING_ACTION);
+    }
+
+    public function testDropHeavyItem(FunctionalTester $I)
+    {
+        $equipment = $this->createEquipment(
+            equipmentName: ToolItemEnum::SUPERFREEZER,
+            holder: $this->player,
+        );
+
+        // given player has the broken shoulder
+        $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: InjuryEnum::BROKEN_SHOULDER->toString(),
+            player: $this->player,
+            reasons: [],
+        );
+
+        $I->assertFalse($this->player->hasStatus(EquipmentStatusEnum::HEAVY));
+
+        // then freezer should be in the inventory of the room
+        $I->assertEquals($this->player->getPlace(), $equipment->getHolder());
     }
 }

@@ -12,7 +12,9 @@ class EventConfigFixtures extends Fixture
 {
     public const string MAX_HEALTH_REDUCE_1 = 'change.value.max_player_-1_healthPoint';
     public const string MAX_HEALTH_REDUCE_2 = 'change.value.max_player_-2_healthPoint';
+    public const string MAX_HEALTH_REDUCE_3 = 'change.value.max_player_-3_healthPoint';
     public const string MAX_HEALTH_REDUCE_4 = 'change.value.max_player_-4_healthPoint';
+    public const string MAX_HEALTH_REDUCE_5 = 'change.value.max_player_-5_healthPoint';
     public const string MAX_MORAL_REDUCE_1 = 'change.value.max_player_-1_moralPoint';
     public const string MAX_MORAL_REDUCE_2 = 'change.value.max_player_-2_moralPoint';
     public const string MAX_MORAL_REDUCE_3 = 'change.value.max_player_-3_moralPoint';

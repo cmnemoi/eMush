@@ -35,7 +35,6 @@ class ActionEffectSubscriber implements EventSubscriberInterface
         return [
             ApplyEffectEvent::CONSUME => 'onConsume',
             ApplyEffectEvent::HEAL => 'onHeal',
-            ApplyEffectEvent::PLAYER_GET_SICK => 'onPlayerGetSick',
             ApplyEffectEvent::PLAYER_CURE_INJURY => 'onPlayerCureInjury',
             ApplyEffectEvent::ULTRA_HEAL => 'onUltraHeal',
         ];
@@ -68,19 +67,6 @@ class ActionEffectSubscriber implements EventSubscriberInterface
         }
 
         $this->playerDiseaseService->healDisease($event->getAuthor(), $diseaseToHeal, $event->getTags(), $event->getTime(), $event->getVisibility());
-    }
-
-    public function onPlayerGetSick(ApplyEffectEvent $event): void
-    {
-        $player = $event->getParameter();
-
-        if (!$player instanceof Player) {
-            return;
-        }
-
-        $actionName = $event->getFirstTag();
-
-        $this->diseaseCauseService->handleDiseaseForCause($actionName, $player);
     }
 
     public function onPlayerCureInjury(ApplyEffectEvent $event): void

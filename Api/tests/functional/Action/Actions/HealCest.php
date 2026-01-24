@@ -122,7 +122,7 @@ final class HealCest extends AbstractFunctionalTest
     {
         // given Kuan Ti has a flu
         $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::FLU,
+            diseaseName: DiseaseEnum::FLU->toString(),
             player: $this->player2,
             reasons: []
         );

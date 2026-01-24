@@ -2,36 +2,28 @@
 
 namespace Mush\Disease\Enum;
 
-abstract class DisorderEnum
+enum DisorderEnum: string
 {
-    public const string AGORAPHOBIA = 'agoraphobia';
-    public const string AILUROPHOBIA = 'ailurophobia';
-    public const string CHRONIC_MIGRAINE = 'chronic_migraine';
-    public const string CHRONIC_VERTIGO = 'chronic_vertigo';
-    public const string COPROLALIA = 'coprolalia';
-    public const string CRABISM = 'crabism';
-    public const string DEPRESSION = 'depression';
-    public const string PARANOIA = 'paranoia';
-    public const string PSYCHOTIC_EPISODE = 'psychotic_episodes';
-    public const string SPLEEN = 'spleen';
-    public const string VERTIGO = 'vertigo';
-    public const string WEAPON_PHOBIA = 'weapon_phobia';
+    case AGORAPHOBIA = 'agoraphobia';
+    case AILUROPHOBIA = 'ailurophobia';
+    case CHRONIC_MIGRAINE = 'chronic_migraine';
+    case CHRONIC_VERTIGO = 'chronic_vertigo';
+    case COPROLALIA = 'coprolalia';
+    case CRABISM = 'crabism';
+    case DEPRESSION = 'depression';
+    case PARANOIA = 'paranoia';
+    case PSYCHOTIC_EPISODE = 'psychotic_episodes';
+    case SPLEEN = 'spleen';
+    case VERTIGO = 'vertigo';
+    case WEAPON_PHOBIA = 'weapon_phobia';
 
-    public static function getAllDisorders(): array
+    public function toConfigKey(string $configKey): string
     {
-        return [
-            self::AGORAPHOBIA,
-            self::AILUROPHOBIA,
-            self::CHRONIC_MIGRAINE,
-            self::CHRONIC_VERTIGO,
-            self::COPROLALIA,
-            self::CRABISM,
-            self::DEPRESSION,
-            self::PARANOIA,
-            self::PSYCHOTIC_EPISODE,
-            self::SPLEEN,
-            self::VERTIGO,
-            self::WEAPON_PHOBIA,
-        ];
+        return $this->value . '_' . $configKey;
+    }
+
+    public function toString(): string
+    {
+        return $this->value;
     }
 }

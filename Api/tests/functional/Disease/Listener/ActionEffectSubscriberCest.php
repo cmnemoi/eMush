@@ -268,7 +268,7 @@ class ActionEffectSubscriberCest
         $diseasePlayer
             ->setPlayer($player)
             ->setDiseaseConfig($diseaseConfig)
-            ->setResistancePoint(1);
+            ->setHealActionResistance(2);
         $I->haveInRepository($diseasePlayer);
 
         $event = new ApplyEffectEvent(
@@ -285,7 +285,7 @@ class ActionEffectSubscriberCest
             'player' => $player,
             'diseaseConfig' => $diseaseConfig,
             'status' => DiseaseStatusEnum::ACTIVE,
-            'resistancePoint' => 0,
+            'healActionResistance' => 1,
         ]);
     }
 

@@ -164,4 +164,5 @@ abstract class ModifierNameEnum
     public const string PARANOID_MODIFIER_FREE_CAMERA_ACTIONS = 'paranoid_modifier_free_camera_actions';
     public const string SPLASHPROOF_MODIFIER_MINUS_1_ACTION_POINT_ON_SHOWER_NO_STACK_SOAP = 'splashproof_modifier_minus_1_action_point_on_shower_no_stack_soap';
     public const string FERTILE_MODIFIER = 'fertile_modifier';
+    public const string DISEASE_SHOOT_ACTION_REDUCED_SUCCESS = 'disease_shoot_action_reduced_success';
 }

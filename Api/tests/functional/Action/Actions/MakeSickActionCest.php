@@ -68,7 +68,7 @@ final class MakeSickActionCest extends AbstractFunctionalTest
         $I->seeInRepository(PlayerDisease::class, [
             'player' => $this->player2->getId(),
             'status' => DiseaseStatusEnum::INCUBATING,
-            'diseaseConfig' => $I->grabEntityFromRepository(DiseaseConfig::class, ['diseaseName' => DiseaseEnum::FLU]),
+            'diseaseConfig' => $I->grabEntityFromRepository(DiseaseConfig::class, ['diseaseName' => DiseaseEnum::FLU->toString()]),
         ]);
     }
 
@@ -120,7 +120,7 @@ final class MakeSickActionCest extends AbstractFunctionalTest
     private function givenMakeSickOnlyGivesFlu(FunctionalTester $I): void
     {
         $diseaseCauseConfig = $I->grabEntityFromRepository(DiseaseCauseConfig::class, ['causeName' => ActionEnum::MAKE_SICK->toString()]);
-        $diseaseCauseConfig->setDiseases([DiseaseEnum::FLU => 1]);
+        $diseaseCauseConfig->setDiseases([DiseaseEnum::FLU->toString() => 1]);
     }
 
     private function whenChunMakesSickKuanTi(): void

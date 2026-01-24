@@ -9,7 +9,7 @@ use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Enum\PlanetSectorEnum;
@@ -25,11 +25,11 @@ use Mush\Player\Factory\PlayerFactory;
 class RandomService implements RandomServiceInterface
 {
     private EntityManagerInterface $entityManager;
-    private GameEquipmentRepository $gameEquipmentRepository;
+    private GameEquipmentRepositoryInterface $gameEquipmentRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        GameEquipmentRepository $gameEquipmentRepository,
+        GameEquipmentRepositoryInterface $gameEquipmentRepository,
     ) {
         $this->entityManager = $entityManager;
         $this->gameEquipmentRepository = $gameEquipmentRepository;

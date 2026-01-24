@@ -51,7 +51,7 @@ final class AttackCest extends AbstractFunctionalTest
 
     public function shouldRemoveHealthToTargetOnSuccess(FunctionalTester $I): void
     {
-        $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->toString());
+        $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_HAEMORRHAGE->toString());
 
         $this->givenKuanTiHasHealthPoints(10);
 
@@ -62,7 +62,7 @@ final class AttackCest extends AbstractFunctionalTest
 
     public function armorShouldReduceDamage(FunctionalTester $I): void
     {
-        $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->toString());
+        $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_HAEMORRHAGE->toString());
 
         $this->givenKnifeDamageSpreadIs([1, 1]);
 
@@ -178,7 +178,7 @@ final class AttackCest extends AbstractFunctionalTest
 
     public function shouldPrintSpecialLogWhenDamageIsAbsorbedByArmor(FunctionalTester $I): void
     {
-        $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->toString());
+        $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_HAEMORRHAGE->toString());
         $this->givenKnifeDamageSpreadIs([1, 1]);
         $this->givenKuanTiHasPlasteniteArmor();
 
@@ -197,7 +197,7 @@ final class AttackCest extends AbstractFunctionalTest
 
     public function shouldNotPrintProtectionLogWhenPlayerHasArmorButGetsDamage(FunctionalTester $I): void
     {
-        $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->toString());
+        $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_HAEMORRHAGE->toString());
         $this->givenKnifeDamageSpreadIs([2, 2]);
         $this->givenKuanTiHasPlasteniteArmor();
 
@@ -355,6 +355,7 @@ final class AttackCest extends AbstractFunctionalTest
 
     private function thenKuanTiShouldHaveInjuryCount(int $expectedCount, FunctionalTester $I): void
     {
-        $I->assertEquals($expectedCount, $this->kuanTi->getPlayerInfo()->getStatistics()->getInjuryCount());
+        // some injuries can give an additional injury
+        $I->assertGreaterOrEquals($expectedCount, $this->kuanTi->getPlayerInfo()->getStatistics()->getInjuryCount());
     }
 }

@@ -140,7 +140,7 @@ final class InfectCest extends AbstractFunctionalTest
     private function givenPlayerHasMushAllergy(): void
     {
         $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::MUSH_ALLERGY,
+            diseaseName: DiseaseEnum::MUSH_ALLERGY->toString(),
             player: $this->player,
             reasons: [],
         );

@@ -63,7 +63,7 @@ final class DiseaseStatisticCest extends AbstractFunctionalTest
     private function whenChunGetsActiveFlu(): void
     {
         $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::FLU,
+            diseaseName: DiseaseEnum::FLU->toString(),
             player: $this->chun,
             reasons: [],
         );
@@ -72,7 +72,7 @@ final class DiseaseStatisticCest extends AbstractFunctionalTest
     private function whenChunGetsActiveCold(): void
     {
         $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::COLD,
+            diseaseName: DiseaseEnum::COLD->toString(),
             player: $this->chun,
             reasons: [],
         );
@@ -81,7 +81,7 @@ final class DiseaseStatisticCest extends AbstractFunctionalTest
     private function whenChunGetsDelayedFluByOneCycle(): void
     {
         $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::FLU,
+            diseaseName: DiseaseEnum::FLU->toString(),
             player: $this->chun,
             reasons: [],
             delayMin: 1,

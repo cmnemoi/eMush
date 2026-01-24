@@ -53,7 +53,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
     {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
+            ->setDiseaseName(DiseaseEnum::FOOD_POISONING->toString())
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
 
@@ -61,7 +61,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
         $diseaseCause
             ->setCauseName(DiseaseCauseEnum::CYCLE)
             ->setDiseases([
-                DiseaseEnum::FOOD_POISONING => 2,
+                DiseaseEnum::FOOD_POISONING->toString() => 2,
             ])
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
@@ -70,7 +70,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
         $diseaseCause2
             ->setCauseName(DiseaseCauseEnum::PERISHED_FOOD)
             ->setDiseases(
-                [DiseaseEnum::MUSH_ALLERGY => 1]
+                [DiseaseEnum::MUSH_ALLERGY->toString() => 1]
             )
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause2);
@@ -122,7 +122,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
     {
         // given player has a incubating flu
         $flu = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::FLU,
+            diseaseName: DiseaseEnum::FLU->toString(),
             player: $this->player,
             reasons: [],
             delayMin: 1,
@@ -131,7 +131,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
 
         // given I have a fruit healing the flu
         $consumableDiseaseAttribute = new ConsumableDiseaseAttribute()
-            ->setDisease(DiseaseEnum::FLU)
+            ->setDisease(DiseaseEnum::FLU->toString())
             ->setType(MedicalConditionTypeEnum::CURE);
 
         $consumableDiseaseConfig = $this->consumableDiseaseService->findConsumableDiseases(GameFruitEnum::KUBINUS, $this->daedalus);
@@ -148,7 +148,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
         $this->diseaseCauseService->handleConsumable($this->player, $fluHealerFruit);
 
         // then the flu should still be incubating
-        $I->assertNotNull($this->player->getMedicalConditionByName(DiseaseEnum::FLU));
+        $I->assertNotNull($this->player->getMedicalConditionByName(DiseaseEnum::FLU->toString()));
         $I->assertEquals(
             expected: DiseaseStatusEnum::INCUBATING,
             actual: $flu->getStatus()

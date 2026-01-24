@@ -44,7 +44,7 @@ final class AgoraphobiaActionCest extends AbstractFunctionalTest
 
         // given player has the agoraphobia disease
         $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DisorderEnum::AGORAPHOBIA,
+            diseaseName: DisorderEnum::AGORAPHOBIA->toString(),
             player: $this->player,
             reasons: [],
         );

@@ -4,6 +4,7 @@ namespace Mush\RoomLog\Listener;
 
 use Mush\Action\Actions\Takeoff;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Disease\Enum\DiseaseEventEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEventReason;
 use Mush\Equipment\Enum\GearItemEnum;
@@ -57,6 +58,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         Takeoff::DROP_CRITICAL_ITEM => ActionLogEnum::DROP,
         ActionEnum::CURE_CAT->value => ActionLogEnum::DROP,
         PlayerStatusEnum::HIGHLY_INACTIVE => LogEnum::OBJECT_FELL,
+        DiseaseEventEnum::DROP_HEAVY_ITEMS->value => ActionLogEnum::DROP,
     ];
     private RoomLogServiceInterface $roomLogService;
 

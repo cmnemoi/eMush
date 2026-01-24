@@ -4,26 +4,26 @@ declare(strict_types=1);
 
 namespace Mush\tests\unit\Equipment\WeaponEffectHandler;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Repository\InMemoryPlayerDiseaseRepository;
-use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
-use Mush\Disease\Service\DiseaseCauseService;
 use Mush\Disease\Service\PlayerDiseaseService;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\WeaponEffectEnum;
 use Mush\Equipment\Event\WeaponEffect;
 use Mush\Equipment\Factory\GameEquipmentFactory;
+use Mush\Equipment\Repository\InMemoryGameEquipmentRepository;
 use Mush\Equipment\ValueObject\DamageSpread;
 use Mush\Equipment\WeaponEffect\RandomInjuryWeaponEffectHandler;
 use Mush\Game\ConfigData\EventConfigData;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\FakeD100RollService as FakeD100Roll;
-use Mush\Game\Service\Random\FakeGetRandomIntegerService;
-use Mush\Game\Service\Random\ProbaCollectionRandomElementService;
+use Mush\Game\Service\RandomService;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Factory\PlayerFactory;
+use Mush\Tests\unit\Modifier\TestDoubles\InMemoryModifierConfigRepository;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
@@ -45,24 +45,22 @@ final class RandomInjuryWeaponEffectHandlerTest extends TestCase
         /** @var RandomServiceInterface|Stub $randomService */
         $randomService = self::createStub(RandomServiceInterface::class);
 
-        /** @var ConsumableDiseaseServiceInterface|Stub $consumableDiseaseService */
-        $consumableDiseaseService = self::createStub(ConsumableDiseaseServiceInterface::class);
+        /** @var EntityManagerInterface|Stub $entityManager */
+        $entityManager = self::createStub(EntityManagerInterface::class);
 
         $this->handler = new RandomInjuryWeaponEffectHandler(
-            new DiseaseCauseService(
-                playerDiseaseService: new PlayerDiseaseService(
-                    d100Roll: new FakeD100Roll(),
-                    eventService: $eventService,
-                    randomService: $randomService,
-                    playerDiseaseRepository: new InMemoryPlayerDiseaseRepository(),
-                ),
-                d100Roll: new FakeD100Roll(),
-                probaCollectionRandomElement: new ProbaCollectionRandomElementService(
-                    new FakeGetRandomIntegerService(result: 0)
-                ),
-                consumableDiseaseService: $consumableDiseaseService,
+            d100Roll: new FakeD100Roll(),
+            randomService: new RandomService(
+                $entityManager,
+                new InMemoryGameEquipmentRepository(),
             ),
-            new FakeD100Roll()
+            playerDiseaseService: new PlayerDiseaseService(
+                d100Roll: new FakeD100Roll(),
+                eventService: $eventService,
+                randomService: $randomService,
+                playerDiseaseRepository: new InMemoryPlayerDiseaseRepository(),
+                modifierConfigRepository: new InMemoryModifierConfigRepository(),
+            ),
         );
     }
 

@@ -161,7 +161,7 @@ final class ChitchatCest extends AbstractFunctionalTest
     private function givenPlayerIsMute(Player $player): void
     {
         $this->diseaseService->createDiseaseFromName(
-            diseaseName: InjuryEnum::TORN_TONGUE,
+            diseaseName: InjuryEnum::TORN_TONGUE->toString(),
             player: $player,
             reasons: [],
         );

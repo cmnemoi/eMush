@@ -38,7 +38,7 @@ enum WeaponEventEnum: string
     case NATAMY_RIFLE_SHOOTER_PLUS_2_DAMAGE = 'natamy_rifle_shooter_plus_2_damage';
 
     // knife
-    case KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE = 'knife_successful_hit_10_minor_haemorrhage';
+    case KNIFE_SUCCESSFUL_HIT_10_HAEMORRHAGE = 'knife_successful_hit_10_haemorrhage';
     case KNIFE_PLUS_2_DAMAGE_RANDOM_INJURY = 'knife_plus_2_damage_random_injury';
     case KNIFE_PLUS_2_DAMAGE_50_CRITICAL_HAEMORRHAGE = 'knife_plus_2_damage_50_critical_haemorrhage';
     case KNIFE_PLUS_2_DAMAGE_50_CRITICAL_HAEMORRHAGE_RANDOM_INJURY = 'knife_plus_2_damage_50_critical_haemorrhage_random_injury';

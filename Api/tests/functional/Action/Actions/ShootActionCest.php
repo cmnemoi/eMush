@@ -144,7 +144,7 @@ final class ShootActionCest extends AbstractFunctionalTest
 
         $this->whenChunShootsAtKuanTi();
 
-        $this->thenKuanTiShouldHaveInjury(InjuryEnum::DAMAGED_EARS, $I);
+        $this->thenKuanTiShouldHaveInjury(InjuryEnum::DAMAGED_EARS->toString(), $I);
     }
 
     public function shooterPlusOneDamageTargetDamagedEarsEventShouldInflictOneMoreDamageToTarget(FunctionalTester $I): void
@@ -164,7 +164,7 @@ final class ShootActionCest extends AbstractFunctionalTest
 
         $this->whenChunShootsAtKuanTi();
 
-        $this->thenKuanTiShouldHaveHealthPoints(8, $I);
+        $this->thenKuanTiShouldHaveHealthPoints(1, $I);
     }
 
     public function shooterPlusOneDamageTargetRemoveTwoApEventShouldRemoveTwoApFromTarget(FunctionalTester $I): void

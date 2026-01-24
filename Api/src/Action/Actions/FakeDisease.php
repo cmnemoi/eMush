@@ -67,6 +67,6 @@ class FakeDisease extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $this->diseaseCauseService->handleDiseaseForCause($this->getActionName(), $this->player);
+        $this->diseaseCauseService->giveAnyDisease($this->player);
     }
 }

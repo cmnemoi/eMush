@@ -37,14 +37,14 @@ final class SymptomOnlyTriggerOnceCest extends AbstractFunctionalTest
     {
         // given player has a disease with vomiting symptom on consume
         $disease = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::GASTROENTERIS,
+            diseaseName: DiseaseEnum::GASTROENTERIS->toString(),
             player: $this->player,
             reasons: [],
         );
 
         // given player has another disease with vomiting symptom on consume
         $disease2 = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::FOOD_POISONING,
+            diseaseName: DiseaseEnum::FOOD_POISONING->toString(),
             player: $this->player,
             reasons: [],
         );

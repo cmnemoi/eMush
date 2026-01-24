@@ -1161,7 +1161,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // given player1 has a migraine
         $disease = $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::MIGRAINE,
+            diseaseName: DiseaseEnum::MIGRAINE->toString(),
             player: $this->player,
             reasons: [],
         );
@@ -1175,7 +1175,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
                 static fn (DiseaseCauseConfig $diseaseCauseConfig) => $diseaseCauseConfig->getCauseName() === DiseaseCauseEnum::EXPLORATION
             )
             ->first();
-        $explorationDiseaseCauseConfig->setDiseases([DiseaseEnum::MIGRAINE => 1]);
+        $explorationDiseaseCauseConfig->setDiseases([DiseaseEnum::MIGRAINE->toString() => 1]);
 
         // when disease event is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);

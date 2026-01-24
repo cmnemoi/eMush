@@ -48,7 +48,7 @@ class DiseaseNormalizer implements NormalizerInterface
             $language
         );
 
-        $description = $this->getModifierEffects($diseaseConfig, $description, $language);
+        $description = $this->getModifierEffects($object, $description, $language);
 
         return [
             'key' => $diseaseConfig->getDiseaseName(),
@@ -63,12 +63,12 @@ class DiseaseNormalizer implements NormalizerInterface
         ];
     }
 
-    private function getModifierEffects(DiseaseConfig $diseaseConfig, string $description, string $language): string
+    private function getModifierEffects(PlayerDisease $disease, string $description, string $language): string
     {
         $effects = [];
 
         /** @var VariableEventModifierConfig $modifierConfig */
-        foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
+        foreach ($disease->getModifierConfigs() as $modifierConfig) {
             $key = $modifierConfig->getTranslationKey();
             $parameters = $modifierConfig->getTranslationParameters();
 

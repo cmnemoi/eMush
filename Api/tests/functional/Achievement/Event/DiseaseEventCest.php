@@ -69,7 +69,7 @@ final class DiseaseEventCest extends AbstractFunctionalTest
 
     public function shouldIncrementDiseaseContractedPendingStatisticWhenGettingIll(FunctionalTester $I): void
     {
-        $this->givenPlayerHasDiseaseAppearByName(DiseaseEnum::FLU);
+        $this->givenPlayerHasDiseaseAppearByName(DiseaseEnum::FLU->toString());
 
         $this->thenPlayerShouldHaveOnePointOfPendingStatistic(StatisticEnum::DISEASE_CONTRACTED, $this->player, $I);
 
@@ -80,7 +80,7 @@ final class DiseaseEventCest extends AbstractFunctionalTest
 
     public function shouldIncrementDiseaseContractedPendingStatisticWhenGettingIllAfterDelay(FunctionalTester $I): void
     {
-        $this->givenPlayerGetsDiseaseByNameWithDelay(DiseaseEnum::FLU, 2);
+        $this->givenPlayerGetsDiseaseByNameWithDelay(DiseaseEnum::FLU->toString(), 2);
         // 2 cycles until the disease appears
         $this->thenPlayerShouldNotHavePendingStatistic(StatisticEnum::DISEASE_CONTRACTED, $this->player, $I);
 
@@ -95,7 +95,7 @@ final class DiseaseEventCest extends AbstractFunctionalTest
 
     public function shouldNotIncrementDiseaseContractedPendingStatisticWhenGettingDisorder(FunctionalTester $I): void
     {
-        $this->givenPlayerGetsDiseaseByNameWithDelay(DisorderEnum::SPLEEN, 1);
+        $this->givenPlayerGetsDiseaseByNameWithDelay(DisorderEnum::SPLEEN->toString(), 1);
 
         $this->thenPlayerShouldNotHavePendingStatistic(StatisticEnum::DISEASE_CONTRACTED, $this->player, $I);
         $this->thenPlayerHasActiveDiseasesOfAmount(0, $I);
@@ -110,7 +110,7 @@ final class DiseaseEventCest extends AbstractFunctionalTest
     {
         // player2 is shrink
         $this->givenPlayerLiesDownWithShrinkInTheRoom($I);
-        $this->givenPlayerHasActiveDiseaseByNameWithDiseasePoints(DisorderEnum::PARANOIA, 2);
+        $this->givenPlayerHasActiveDiseaseByNameWithResistancePoints(DisorderEnum::PARANOIA->toString(), 2);
 
         $this->whenCycleIsProgressedForPlayer();
         // Paranoia has 1 disease point
@@ -125,7 +125,7 @@ final class DiseaseEventCest extends AbstractFunctionalTest
 
     public function shouldNotIncrementShrinkerPendingStatisticWhenDisorderSelfCured(FunctionalTester $I): void
     {
-        $this->givenPlayerHasActiveDiseaseByNameWithDiseasePoints(DisorderEnum::SPLEEN, 1);
+        $this->givenPlayerHasActiveDiseaseByNameWithDiseasePoints(DisorderEnum::SPLEEN->toString(), 1);
 
         $this->thenPlayerHasActiveDiseasesOfAmount(1, $I);
 
@@ -137,15 +137,9 @@ final class DiseaseEventCest extends AbstractFunctionalTest
 
     public function shouldIncrementPhysicianPendingStatisticWhenCuringDisease(FunctionalTester $I): void
     {
-        $this->givenPlayerHasActiveDiseaseByNameWithResistancePoints(DiseaseEnum::BLACK_BITE, 1);
+        $this->givenPlayerHasActiveDiseaseByNameWithResistancePoints(DiseaseEnum::BLACK_BITE->toString(), 1);
         $this->givenOtherPlayerHasMedikit();
         $this->givenPlayerIsLowHealth();
-
-        $this->whenPlayerIsHealed();
-
-        // Black bite had a resistance point which has been removed but the disease still stays
-        $this->thenPlayerHasActiveDiseasesOfAmount(1, $I);
-        $this->thenPlayerShouldNotHavePendingStatistic(StatisticEnum::PHYSICIAN, $this->player2, $I);
 
         $this->whenPlayerIsHealed();
         // Black bite had no resistance points so is cured
@@ -155,15 +149,9 @@ final class DiseaseEventCest extends AbstractFunctionalTest
 
     public function shouldIncrementPhysicianPendingStatisticWhenSelfCuringDisease(FunctionalTester $I): void
     {
-        $this->givenPlayerHasActiveDiseaseByNameWithResistancePoints(DiseaseEnum::BLACK_BITE, 1);
+        $this->givenPlayerHasActiveDiseaseByNameWithResistancePoints(DiseaseEnum::BLACK_BITE->toString(), 1);
         $this->givenPlayerHasMedikit();
         $this->givenPlayerIsLowHealth();
-
-        $this->whenPlayerSelfHeals();
-
-        // Black bite had a resistance point which has been removed but the disease still stays
-        $this->thenPlayerHasActiveDiseasesOfAmount(1, $I);
-        $this->thenPlayerShouldNotHavePendingStatistic(StatisticEnum::PHYSICIAN, $this->player, $I);
 
         $this->whenPlayerSelfHeals();
         // Black bite had no resistance points so is cured
@@ -173,7 +161,7 @@ final class DiseaseEventCest extends AbstractFunctionalTest
 
     public function shouldIncrementVenerianDiseasePendingStatistic(FunctionalTester $I): void
     {
-        $this->givenPlayerHasDiseaseAppearByName(DiseaseEnum::GASTROENTERIS);
+        $this->givenPlayerHasDiseaseAppearByName(DiseaseEnum::GASTROENTERIS->toString());
 
         $this->whenPlayersTransmitStdsWhenDoingTheThing($this->player, $this->player2, $I);
 
@@ -206,12 +194,12 @@ final class DiseaseEventCest extends AbstractFunctionalTest
 
     private function givenPlayerHasActiveDiseaseByNameWithDiseasePoints(string $diseaseName, int $diseasePoints): void
     {
-        $this->givenPlayerHasDiseaseAppearByName($diseaseName)->setDiseasePoint($diseasePoints);
+        $this->givenPlayerHasDiseaseAppearByName($diseaseName)->setDuration($diseasePoints);
     }
 
     private function givenPlayerHasActiveDiseaseByNameWithResistancePoints(string $diseaseName, int $resistancePoints): void
     {
-        $this->givenPlayerHasDiseaseAppearByName($diseaseName)->setResistancePoint($resistancePoints);
+        $this->givenPlayerHasDiseaseAppearByName($diseaseName)->setHealActionResistance($resistancePoints);
     }
 
     private function givenOtherPlayerHasMedikit(): void

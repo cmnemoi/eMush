@@ -5,7 +5,6 @@ namespace Mush\Game\ConfigData;
 use Mush\Communications\Enum\RebelBaseEnum;
 use Mush\Communications\Enum\TradeEnum;
 use Mush\Communications\Enum\XylophEnum;
-use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Enum\GameConfigEnum;
@@ -84,11 +83,10 @@ class GameConfigData
                 'diseaseCauseConfigs' => [
                     'alien_fruit_default',
                     'perished_food_default',
-                    'cat_allergy_default',
+                    'cat_allergy_cause_default',
                     'cycle_default',
                     'cycle_low_morale_default',
                     'make_sick_default',
-                    'fake_disease_default',
                     'surgery_default',
                     'infection_default',
                     'sex_default',
@@ -96,7 +94,6 @@ class GameConfigData
                     'contact_default',
                     'exploration_default',
                     'alien_fight_default',
-                    DiseaseCauseEnum::RANDOM_INJURY . '_default',
                 ],
                 'diseaseConfigs' => [
                     'food_poisoning_default',
@@ -137,7 +134,6 @@ class GameConfigData
                     'busted_shoulder_default',
                     'critical_haemorrhage_default',
                     'haemorrhage_default',
-                    'minor_haemorrhage_default',
                     'damaged_ears_default',
                     'destroyed_ears_default',
                     'dysfunctional_liver_default',

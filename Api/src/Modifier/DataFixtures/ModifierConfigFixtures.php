@@ -68,6 +68,10 @@ final class ModifierConfigFixtures extends Fixture implements DependentFixtureIn
             if ($modifierActivationRequirement === null) {
                 throw new \Exception('Modifier activation requirement not found: ' . $activationRequirementName);
             }
+
+            if ($modifierActivationRequirement->getActivationRequirement() === 'random') {
+                continue;
+            }
             $modifierActivationRequirements[] = $modifierActivationRequirement;
         }
 

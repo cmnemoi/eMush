@@ -177,8 +177,8 @@ final class DaedalusFactory
     {
         /** @var ArrayCollection<array-key, DiseaseCauseConfig> $diseaseCauseConfigs */
         $diseaseCauseConfigs = new ArrayCollection();
-        foreach (DiseaseCauseConfigData::$dataArray as $diseaseCauseConfigData) {
-            $diseaseCauseConfigs->add(DiseaseCauseConfig::fromConfigData($diseaseCauseConfigData));
+        foreach (DiseaseCauseConfigData::getAll() as $diseaseCauseConfigData) {
+            $diseaseCauseConfigs->add(DiseaseCauseConfig::fromDto($diseaseCauseConfigData));
         }
 
         return $diseaseCauseConfigs;
@@ -188,8 +188,8 @@ final class DaedalusFactory
     {
         /** @var ArrayCollection<array-key, DiseaseConfig> $diseaseConfigs */
         $diseaseConfigs = new ArrayCollection();
-        foreach (DiseaseConfigData::$dataArray as $diseaseConfigData) {
-            $diseaseConfigs->add(DiseaseConfig::fromConfigData($diseaseConfigData));
+        foreach (DiseaseConfigData::getAll() as $diseaseConfigData) {
+            $diseaseConfigs->add(DiseaseConfig::fromDto($diseaseConfigData));
         }
 
         return $diseaseConfigs;

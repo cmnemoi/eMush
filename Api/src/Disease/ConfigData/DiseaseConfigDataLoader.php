@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Repository\DiseaseConfigRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
-use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Repository\ModifierConfigRepository;
 
 class DiseaseConfigDataLoader extends ConfigDataLoader
@@ -27,41 +26,17 @@ class DiseaseConfigDataLoader extends ConfigDataLoader
 
     public function loadConfigsData(): void
     {
-        foreach (DiseaseConfigData::$dataArray as $diseaseConfigData) {
-            $diseaseConfig = $this->diseaseConfigRepository->findOneBy(['name' => $diseaseConfigData['name']]);
+        foreach (DiseaseConfigData::getAll() as $diseaseConfigDto) {
+            $diseaseConfig = $this->diseaseConfigRepository->findOneBy(['name' => $diseaseConfigDto->key]);
 
-            if ($diseaseConfig === null) {
-                $diseaseConfig = new DiseaseConfig();
+            if ($diseaseConfig instanceof DiseaseConfig) {
+                $diseaseConfig->updateFromDto($diseaseConfigDto);
+            } else {
+                $diseaseConfig = DiseaseConfig::fromDto($diseaseConfigDto);
             }
-
-            $diseaseConfig
-                ->setName($diseaseConfigData['name'])
-                ->setDiseaseName($diseaseConfigData['diseaseName'])
-                ->setType($diseaseConfigData['type'])
-                ->setResistance($diseaseConfigData['resistance'])
-                ->setDelayMin($diseaseConfigData['delayMin'])
-                ->setDelayLength($diseaseConfigData['delayLength'])
-                ->setDiseasePointMin($diseaseConfigData['diseasePointMin'])
-                ->setDiseasePointLength($diseaseConfigData['diseasePointLength'])
-                ->setOverride($diseaseConfigData['override']);
-            $this->setDiseaseConfigModifierConfigs($diseaseConfig, $diseaseConfigData);
 
             $this->entityManager->persist($diseaseConfig);
         }
         $this->entityManager->flush();
-    }
-
-    private function setDiseaseConfigModifierConfigs(DiseaseConfig $diseaseConfig, array $diseaseConfigData): void
-    {
-        $modifierConfigs = [];
-        foreach ($diseaseConfigData['modifierConfigs'] as $modifierConfigName) {
-            /** @var AbstractModifierConfig $modifierConfig */
-            $modifierConfig = $this->modifierConfigRepository->findOneBy(['name' => $modifierConfigName]);
-            if ($modifierConfig === null) {
-                throw new \Exception('Modifier config not found: ' . $modifierConfigName);
-            }
-            $modifierConfigs[] = $modifierConfig;
-        }
-        $diseaseConfig->setModifierConfigs($modifierConfigs);
     }
 }

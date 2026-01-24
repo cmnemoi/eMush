@@ -11,6 +11,7 @@ use Mush\Action\DataFixtures\MushActionFixtures;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\DataFixtures\DaedalusConfigFixtures;
+use Mush\Disease\DataFixtures\DiseaseConfigFixtures;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -303,7 +304,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($derek);
 
         /** @var DiseaseConfig $chronicVertigo */
-        $chronicVertigo = $this->getReference(DisorderEnum::CHRONIC_VERTIGO . '_default');
+        $chronicVertigo = $this->getReference(DisorderEnum::CHRONIC_VERTIGO->toConfigKey('default'));
 
         $eleesha = $this->buildDefaultCharacterConfig();
         $eleesha
@@ -552,6 +553,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             MushActionFixtures::class,
             StatusFixtures::class,
             SkillConfigFixtures::class,
+            DiseaseConfigFixtures::class,
         ];
     }
 

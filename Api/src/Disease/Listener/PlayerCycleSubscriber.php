@@ -23,24 +23,6 @@ final class PlayerCycleSubscriber implements EventSubscriberInterface
 
     public function onPlayerNewCycle(PlayerCycleEvent $event): void
     {
-        $player = $event->getPlayer();
-
-        // first, decrement a random active disease which heals at cycle change
-        if ($player->hasActiveDiseaseHealingAtCycleChange()) {
-            $playerDisease = $this->randomService->getRandomElement($player->getActiveDiseasesHealingAtCycleChange()->toArray());
-            $playerDisease->decrementDiseasePoints();
-            $this->playerDiseaseService->persist($playerDisease);
-        }
-
-        // then, treat a random disorder by a shrink
-        if ($player->hasActiveDisorder() && $player->isLaidDownInShrinkRoom()) {
-            $disorder = $this->randomService->getRandomElement($player->getActiveDisorders()->toArray());
-            $this->playerDiseaseService->treatDisorder($disorder, $event->getTime());
-        }
-
-        // finally, handle all player diseases as a whole
-        foreach ($player->getMedicalConditions() as $playerDisease) {
-            $this->playerDiseaseService->handleNewCycle($playerDisease, $event->getTime());
-        }
+        $this->playerDiseaseService->handleNewCycleForPlayer($event->getPlayer(), $event->getTime());
     }
 }

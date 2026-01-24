@@ -53,7 +53,7 @@ final class PlayerSubscriberCest extends AbstractFunctionalTest
     private function givenPlayerIsSick(): void
     {
         $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::FLU,
+            diseaseName: DiseaseEnum::FLU->toString(),
             player: $this->player,
             reasons: [],
         );

@@ -97,7 +97,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         // given a player with a depression
         /** @var PlayerDisease $depression */
         $depression = $this->playerDiseaseService->createDiseaseFromName(
-            DisorderEnum::DEPRESSION,
+            DisorderEnum::DEPRESSION->toString(),
             $this->player,
             [],
         );
@@ -105,7 +105,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         // given player has a special drug which heals depression
 
         $consumableDiseaseAttribute = new ConsumableDiseaseAttribute()
-            ->setDisease(DisorderEnum::DEPRESSION)
+            ->setDisease(DisorderEnum::DEPRESSION->toString())
             ->setType(MedicalConditionTypeEnum::CURE);
 
         $consumableDiseaseConfig = $this->consumableDiseaseService->findConsumableDiseases(GameDrugEnum::TWINOID, $this->daedalus);
@@ -119,7 +119,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         );
 
         // given the depression has 0 disease points so it will be healed by the drug
-        $depression->setDiseasePoint(0);
+        $depression->setHealActionResistance(0);
 
         // when player consumes one drug
         $this->consumeAction->loadParameters(
@@ -131,7 +131,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         $this->consumeAction->execute();
 
         // then the depression should not be there
-        $I->assertNull($this->player->getMedicalConditionByName(DisorderEnum::DEPRESSION));
+        $I->assertNull($this->player->getMedicalConditionByName(DisorderEnum::DEPRESSION->toString()));
 
         // then I should not see the private healing log reserved to spontaneous healing
         $I->dontSeeInRepository(

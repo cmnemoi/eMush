@@ -87,7 +87,7 @@ final class HygienistCest extends AbstractFunctionalTest
     private function whenITryToCreateDiseaseForPlayer(): void
     {
         $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DiseaseEnum::ACID_REFLUX,
+            diseaseName: DiseaseEnum::ACID_REFLUX->toString(),
             player: $this->player,
             reasons: [],
         );
@@ -123,7 +123,7 @@ final class HygienistCest extends AbstractFunctionalTest
 
     private function thenPlayerShouldNotHaveDisease(FunctionalTester $I): void
     {
-        $I->assertNull($this->player->getMedicalConditionByName(DiseaseEnum::ACID_REFLUX));
+        $I->assertNull($this->player->getMedicalConditionByName(DiseaseEnum::ACID_REFLUX->toString()));
     }
 
     private function thenPlayerShouldHaveZeroSpores(FunctionalTester $I): void

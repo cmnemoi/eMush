@@ -99,25 +99,25 @@ final class DiseaseNormalizerCest extends AbstractFunctionalTest
     {
         return [
             'flu' => [
-                'diseaseKey' => DiseaseEnum::FLU,
+                'diseaseKey' => DiseaseEnum::FLU->toString(),
                 'diseaseName' => 'Grippe',
                 'diseaseType' => MedicalConditionTypeEnum::DISEASE,
                 'diseaseDescription' => 'Variante sévère de la grippe du poney... Irritable, autoritaire, mal de crâne, rhume, courbatures, rien ne vous est épargné. Attention à ne pas trop laisser traîner, on ne sait jamais.//Chaque cycle, **40%** de chances de rendre sale.//Max :hp: **-2**.//Max :pmo: **-2**.//Chaque cycle, **10%** de chances de perdre **1** :hp:.//Chaque cycle, **20%** de chances de perdre **1** :pa:.//Fait subir le symptôme **Vomissements**.//Fait subir le symptôme **Nausée**.',
             ],
             'agoraphobia' => [
-                'diseaseKey' => DisorderEnum::AGORAPHOBIA,
+                'diseaseKey' => DisorderEnum::AGORAPHOBIA->toString(),
                 'diseaseName' => 'Agoraphobie',
                 'diseaseType' => MedicalConditionTypeEnum::DISORDER,
                 'diseaseDescription' => 'Vous êtes effrayé par la foule et les grands espaces, vous avez, en plus, des vertiges incontrôlables... Dans l\'espace, ça va pas le faire.//S\'il y a au moins **4** personnes dans la pièce, chaque action coûte **1** :pa: de plus.//S\'il y a au moins **4** personnes dans la pièce, chaque déplacement coûte **1** :pm: de plus.//Impossible de **piloter**.',
             ],
             'gastroenteritis' => [
-                'diseaseKey' => DiseaseEnum::GASTROENTERIS,
+                'diseaseKey' => DiseaseEnum::GASTROENTERIS->toString(),
                 'diseaseName' => 'Gastro-entérite',
                 'diseaseType' => MedicalConditionTypeEnum::DISEASE,
                 'diseaseDescription' => 'Y a-t-il vraiment besoin de faire un dessin, de parler de l\'odeur ou des spasmes de l\'estomac ?//Max :hp: **-1**.//Chaque cycle, fait perdre **1** :pm:.//Chaque cycle, **16%** de chances de perdre **1** :hp:.//À chaque action **Consommer**, fait perdre **1** :pa:.//Fait subir le symptôme **Vomissements**.//Fait subir le symptôme **Nausée**.//Chaque cycle, rend sale.',
             ],
             'paranoia' => [
-                'diseaseKey' => DisorderEnum::PARANOIA,
+                'diseaseKey' => DisorderEnum::PARANOIA->toString(),
                 'diseaseName' => 'Crise Paranoïaque',
                 'diseaseType' => MedicalConditionTypeEnum::DISORDER,
                 'diseaseDescription' => 'Vous avez peur pour votre vie et éventuellement le faites savoir.//Max :pmo: **-3**.//Vos messages sont parfois modifiés, et vous vous en rendez compte... de temps en temps.',

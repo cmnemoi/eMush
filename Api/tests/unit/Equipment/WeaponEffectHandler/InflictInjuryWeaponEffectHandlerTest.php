@@ -23,6 +23,7 @@ use Mush\Game\Service\Random\FakeD100RollService;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
+use Mush\Tests\unit\Modifier\TestDoubles\InMemoryModifierConfigRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -46,6 +47,7 @@ final class InflictInjuryWeaponEffectHandlerTest extends TestCase
             eventService: self::createStub(EventServiceInterface::class),
             randomService: self::createStub(RandomServiceInterface::class),
             playerDiseaseRepository: new InMemoryPlayerDiseaseRepository(),
+            modifierConfigRepository: new InMemoryModifierConfigRepository(),
         );
 
         $this->handler = new InflictInjuryWeaponEffectHandler(
@@ -66,7 +68,7 @@ final class InflictInjuryWeaponEffectHandlerTest extends TestCase
 
         // then target should be injured
         self::assertTrue(
-            $effect->getTarget()->getMedicalConditionByNameOrThrow(InjuryEnum::DAMAGED_EARS)->isActive(),
+            $effect->getTarget()->getMedicalConditionByNameOrThrow(InjuryEnum::DAMAGED_EARS->toString())->isActive(),
             'Target should be injured'
         );
     }
@@ -81,7 +83,7 @@ final class InflictInjuryWeaponEffectHandlerTest extends TestCase
 
         // then shooter should be injured
         self::assertTrue(
-            $effect->getAttacker()->getMedicalConditionByNameOrThrow(InjuryEnum::DAMAGED_EARS)->isActive(),
+            $effect->getAttacker()->getMedicalConditionByNameOrThrow(InjuryEnum::DAMAGED_EARS->toString())->isActive(),
             'Shooter should be injured'
         );
     }
@@ -99,7 +101,7 @@ final class InflictInjuryWeaponEffectHandlerTest extends TestCase
 
         // then target should not be injured
         self::assertNull(
-            $effect->getTarget()->getMedicalConditionByName(InjuryEnum::DAMAGED_EARS),
+            $effect->getTarget()->getMedicalConditionByName(InjuryEnum::DAMAGED_EARS->toString()),
             'Target should not be injured'
         );
     }
@@ -121,7 +123,7 @@ final class InflictInjuryWeaponEffectHandlerTest extends TestCase
             weaponEffectConfig: new InflictInjuryWeaponEffectConfig(
                 name: 'test',
                 eventName: 'test',
-                injuryName: InjuryEnum::DAMAGED_EARS,
+                injuryName: InjuryEnum::DAMAGED_EARS->toString(),
                 triggerRate: 100,
                 toShooter: true,
             ),

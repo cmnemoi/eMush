@@ -23,9 +23,11 @@ interface PlayerDiseaseServiceInterface
         string $diseaseName,
         Player $player,
         array $reasons = [],
-        ?int $delayMin = null,
-        ?int $delayLength = null
+        int $delayMin = 0,
+        int $delayLength = 0
     ): PlayerDisease;
+
+    public function handleNewCycleForPlayer(Player $player, \DateTime $time);
 
     public function handleNewCycle(PlayerDisease $playerDisease, \DateTime $time): void;
 

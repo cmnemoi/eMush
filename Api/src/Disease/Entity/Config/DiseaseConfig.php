@@ -2,11 +2,9 @@
 
 namespace Mush\Disease\Entity\Config;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Disease\Dto\DiseaseConfigDto;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
-use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
@@ -25,47 +23,61 @@ class DiseaseConfig implements LogParameterInterface
     #[ORM\Column(type: 'string', nullable: false)]
     private string $name;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => MedicalConditionTypeEnum::DISEASE])]
     private string $type = MedicalConditionTypeEnum::DISEASE;
 
-    #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
-    private Collection $modifierConfigs;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $resistance = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $delayMin = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $delayLength = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $diseasePointMin = 4;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $diseasePointLength = 4;
-
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $override = [];
+    private array $modifierConfigs = [];
 
-    public function __construct()
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]
+    private bool $canHealNaturally = true;
+
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $duration = [1, 4];
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 1])]
+    private int $healActionResistance = 1;
+
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $mushCanHave = false;
+
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $removeLower = [];
+
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => 'none'])]
+    private string $eventWhenAppeared = 'none';
+
+    public static function fromDto(DiseaseConfigDto $dto): self
     {
-        $this->modifierConfigs = new ArrayCollection();
+        $disease = new self();
+        $disease->setName($dto->key);
+        $disease->setDiseaseName($dto->name);
+        $disease->setType($dto->type);
+        $disease->setNaturalHeal($dto->canHealNaturally);
+        $disease->setDuration($dto->duration);
+        $disease->setHealActionResistance($dto->healActionResistance);
+        $disease->setMushHave($dto->mushCanHave);
+        $disease->setModifierConfigs($dto->modifierConfigs);
+        $disease->setRemoveLower($dto->removeLower);
+        $disease->setEventWhenAppeared($dto->eventWhenAppeared);
+
+        return $disease;
     }
 
-    public static function fromConfigData(array $configData): self
+    public function updateFromDto(DiseaseConfigDto $dto): self
     {
-        return (new self())
-            ->setDiseaseName($configData['diseaseName'])
-            ->setName($configData['name'])
-            ->setType($configData['type'])
-            ->setResistance($configData['resistance'])
-            ->setDelayMin($configData['delayMin'])
-            ->setDelayLength($configData['delayLength'])
-            ->setDiseasePointMin($configData['diseasePointMin'])
-            ->setDiseasePointLength($configData['diseasePointLength'])
-            ->setOverride($configData['override']);
+        $this->setName($dto->key);
+        $this->setDiseaseName($dto->name);
+        $this->setType($dto->type);
+        $this->setNaturalHeal($dto->canHealNaturally);
+        $this->setDuration($dto->duration);
+        $this->setHealActionResistance($dto->healActionResistance);
+        $this->setMushHave($dto->mushCanHave);
+        $this->setModifierConfigs($dto->modifierConfigs);
+        $this->setRemoveLower($dto->removeLower);
+        $this->setEventWhenAppeared($dto->eventWhenAppeared);
+
+        return $this;
     }
 
     public function getId(): ?int
@@ -116,33 +128,78 @@ class DiseaseConfig implements LogParameterInterface
         return $this;
     }
 
-    public function getModifierConfigs(): Collection
+    public function getModifierConfigs(): array
     {
         return $this->modifierConfigs;
     }
 
-    /**
-     * @param array<int, AbstractModifierConfig>|Collection<int, AbstractModifierConfig> $modifierConfigs
-     */
-    public function setModifierConfigs(array|Collection $modifierConfigs): self
+    public function setModifierConfigs(array $modifierConfigs): self
     {
-        if (\is_array($modifierConfigs)) {
-            $modifierConfigs = new ArrayCollection($modifierConfigs);
-        }
-
         $this->modifierConfigs = $modifierConfigs;
 
         return $this;
     }
 
-    public function getResistance(): int
+    public function canNaturalHeal(): bool
     {
-        return $this->resistance;
+        return $this->canHealNaturally;
     }
 
-    public function setResistance(int $resistance): self
+    public function setNaturalHeal(bool $canHealNaturally): self
     {
-        $this->resistance = $resistance;
+        $this->canHealNaturally = $canHealNaturally;
+
+        return $this;
+    }
+
+    public function getDuration(): array
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(array $duration): self
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getHealActionResistance(): int
+    {
+        return $this->healActionResistance;
+    }
+
+    public function setHealActionResistance(int $healActionResistance): self
+    {
+        $this->healActionResistance = $healActionResistance;
+
+        return $this;
+    }
+
+    public function canMushHave(): bool
+    {
+        return $this->mushCanHave;
+    }
+
+    public function setMushHave(bool $mushCanHave): self
+    {
+        if (self::isNotAnInjury()) {
+            $this->mushCanHave = $mushCanHave;
+        } else {
+            $this->mushCanHave = true;
+        }
+
+        return $this;
+    }
+
+    public function getEventWhenAppeared(): string
+    {
+        return $this->eventWhenAppeared;
+    }
+
+    public function setEventWhenAppeared(string $eventWhenAppeared): self
+    {
+        $this->eventWhenAppeared = $eventWhenAppeared;
 
         return $this;
     }
@@ -162,62 +219,14 @@ class DiseaseConfig implements LogParameterInterface
         return LogParameterKeyEnum::DISEASE;
     }
 
-    public function getDelayMin(): int
+    public function getRemoveLower(): array
     {
-        return $this->delayMin;
+        return $this->removeLower;
     }
 
-    public function setDelayMin(int $delayMin): self
+    public function setRemoveLower(array $removeLower): self
     {
-        $this->delayMin = $delayMin;
-
-        return $this;
-    }
-
-    public function getDelayLength(): int
-    {
-        return $this->delayLength;
-    }
-
-    public function setDelayLength(int $delayLength): self
-    {
-        $this->delayLength = $delayLength;
-
-        return $this;
-    }
-
-    public function getDiseasePointMin(): int
-    {
-        return $this->diseasePointMin;
-    }
-
-    public function setDiseasePointMin(int $diseasePointMin): self
-    {
-        $this->diseasePointMin = $diseasePointMin;
-
-        return $this;
-    }
-
-    public function getDiseasePointLength(): int
-    {
-        return $this->diseasePointLength;
-    }
-
-    public function setDiseasePointLength(int $diseasePointLength): self
-    {
-        $this->diseasePointLength = $diseasePointLength;
-
-        return $this;
-    }
-
-    public function getOverride(): array
-    {
-        return $this->override;
-    }
-
-    public function setOverride(array $override): self
-    {
-        $this->override = $override;
+        $this->removeLower = $removeLower;
 
         return $this;
     }

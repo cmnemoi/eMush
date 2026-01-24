@@ -41,14 +41,14 @@ class NewDiseaseOnCycleCest
     {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setDiseaseName(DiseaseEnum::FOOD_POISONING)
+            ->setDiseaseName(DiseaseEnum::FOOD_POISONING->toString())
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
             ->setCauseName(DiseaseCauseEnum::CYCLE)
             ->setDiseases([
-                DiseaseEnum::FOOD_POISONING => 2,
+                DiseaseEnum::FOOD_POISONING->toString() => 2,
             ])
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
@@ -56,7 +56,7 @@ class NewDiseaseOnCycleCest
         $diseaseCauseLowMorale
             ->setCauseName(DiseaseCauseEnum::CYCLE_LOW_MORALE)
             ->setDiseases([
-                DiseaseEnum::FLU => 2,
+                DiseaseEnum::FLU->toString() => 2,
             ])
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCauseLowMorale);
@@ -114,14 +114,14 @@ class NewDiseaseOnCycleCest
     {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setDiseaseName(DiseaseEnum::FLU)
+            ->setDiseaseName(DiseaseEnum::FLU->toString())
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
         $diseaseCause = new DiseaseCauseConfig();
         $diseaseCause
             ->setCauseName(DiseaseCauseEnum::CYCLE)
             ->setDiseases([
-                DiseaseEnum::FOOD_POISONING => 2,
+                DiseaseEnum::FOOD_POISONING->toString() => 2,
             ])
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
@@ -129,7 +129,7 @@ class NewDiseaseOnCycleCest
         $diseaseCauseLowMorale
             ->setCauseName(DiseaseCauseEnum::CYCLE_LOW_MORALE)
             ->setDiseases([
-                DiseaseEnum::FLU => 2,
+                DiseaseEnum::FLU->toString() => 2,
             ])
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCauseLowMorale);

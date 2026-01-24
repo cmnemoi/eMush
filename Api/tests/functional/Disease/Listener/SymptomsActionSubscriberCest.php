@@ -56,7 +56,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
 
     public function testBreakoutsSymptom(FunctionalTester $I)
     {
-        $this->givenPlayerHasDisease(DiseaseEnum::SKIN_INFLAMMATION);
+        $this->givenPlayerHasDisease(DiseaseEnum::SKIN_INFLAMMATION->toString());
 
         // given breakouts_on_move does not have random_16 requirement
         $this->player->getModifiers()
@@ -73,7 +73,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
     {
         $this->player->setHealthPoint(10);
 
-        $this->givenPlayerHasDisease(DiseaseEnum::CAT_ALLERGY);
+        $this->givenPlayerHasDisease(DiseaseEnum::CAT_ALLERGY->toString());
 
         $schrodinger = $this->createEquipment(ItemEnum::SCHRODINGER, $this->player->getPlace());
 
@@ -88,18 +88,19 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
 
         $takeCat->execute();
 
-        $I->assertEquals(4, $this->player->getHealthPoint());
+        // Max HP is lost before damage is dealt, so we need to account for burning hand max hp penalty and remove one hp more
+        $I->assertEquals(3, $this->player->getHealthPoint());
 
-        $I->assertTrue($this->player->hasMedicalConditionByName(DiseaseEnum::QUINCKS_OEDEMA));
+        $I->assertTrue($this->player->hasMedicalConditionByName(DiseaseEnum::QUINCKS_OEDEMA->toString()));
 
-        $I->assertTrue($this->player->hasAnyMedicalConditionByName([InjuryEnum::BURNT_ARMS, InjuryEnum::BURNT_HAND]));
+        $I->assertTrue($this->player->hasAnyMedicalConditionByName([InjuryEnum::BURNT_ARMS->toString(), InjuryEnum::BURNT_HAND->toString()]));
 
         $this->thenISeeTheFollowingLogInPlayerRoom(SymptomEnum::CAT_ALLERGY, $I);
     }
 
     public function testDroolingSymptom(FunctionalTester $I)
     {
-        $this->givenPlayerHasDisease(DiseaseEnum::SPACE_RABIES);
+        $this->givenPlayerHasDisease(DiseaseEnum::SPACE_RABIES->toString());
 
         // given drooling_on_move does not have random_16 requirement
         $this->player->getModifiers()
@@ -114,7 +115,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
 
     public function testFoamingMouthSymptom(FunctionalTester $I)
     {
-        $this->givenPlayerHasDisease(DiseaseEnum::SPACE_RABIES);
+        $this->givenPlayerHasDisease(DiseaseEnum::SPACE_RABIES->toString());
 
         // given foaming_on_move does not have random_16 requirement
         $this->player->getModifiers()
@@ -129,7 +130,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
 
     public function testCatSneezingSymptom(FunctionalTester $I)
     {
-        $this->givenPlayerHasDisease(DiseaseEnum::CAT_ALLERGY);
+        $this->givenPlayerHasDisease(DiseaseEnum::CAT_ALLERGY->toString());
 
         // given cat_sneezing_on_move does not have random_16 requirement
         $this->player->getModifiers()
@@ -147,7 +148,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
 
     public function testMushSneezingSymptom(FunctionalTester $I)
     {
-        $this->givenPlayerHasDisease(DiseaseEnum::MUSH_ALLERGY);
+        $this->givenPlayerHasDisease(DiseaseEnum::MUSH_ALLERGY->toString());
 
         // given mush_sneezing does not have random_16 requirement
         $this->player->getModifiers()
@@ -167,7 +168,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
 
     public function testVomitingOnConsumeSymptom(FunctionalTester $I)
     {
-        $this->givenPlayerHasDisease(DiseaseEnum::FOOD_POISONING);
+        $this->givenPlayerHasDisease(DiseaseEnum::FOOD_POISONING->toString());
 
         $consume = $I->grabService(Consume::class);
 
@@ -187,7 +188,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
 
     public function testVomitingOnMoveSymptom(FunctionalTester $I)
     {
-        $this->givenPlayerHasDisease(DiseaseEnum::SLIGHT_NAUSEA);
+        $this->givenPlayerHasDisease(DiseaseEnum::SLIGHT_NAUSEA->toString());
 
         // given vomiting_move_random_40 does not have random_40 requirement
         $this->player->getModifiers()
@@ -201,7 +202,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
 
     public function testFearOfCatsSymptom(FunctionalTester $I)
     {
-        $this->givenPlayerHasDisease(DisorderEnum::AILUROPHOBIA);
+        $this->givenPlayerHasDisease(DisorderEnum::AILUROPHOBIA->toString());
 
         // given fear_of_cat_on_move does not have random_50 requirement
         $this->player->getModifiers()
@@ -221,7 +222,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
 
     public function testPsychoticAttackSymptomNeedsTarget(FunctionalTester $I)
     {
-        $this->givenPlayerHasDisease(DisorderEnum::PSYCHOTIC_EPISODE);
+        $this->givenPlayerHasDisease(DisorderEnum::PSYCHOTIC_EPISODE->toString());
         // given a blaster in hand
         $this->createEquipment(ItemEnum::BLASTER, $this->player);
 
@@ -240,7 +241,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
 
     public function testPsychoticAttackSymptomNeedsWeapon(FunctionalTester $I)
     {
-        $this->givenPlayerHasDisease(DisorderEnum::PSYCHOTIC_EPISODE);
+        $this->givenPlayerHasDisease(DisorderEnum::PSYCHOTIC_EPISODE->toString());
         // given a target in room
         $this->player2->setPlace($this->daedalus->getPlaceByName(RoomEnum::MEDLAB));
 
@@ -259,7 +260,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
 
     public function testPsychoticAttackSymptom(FunctionalTester $I)
     {
-        $this->givenPlayerHasDisease(DisorderEnum::PSYCHOTIC_EPISODE);
+        $this->givenPlayerHasDisease(DisorderEnum::PSYCHOTIC_EPISODE->toString());
         // given a blaster
         $blaster = $this->createEquipment(ItemEnum::BLASTER, $this->player);
         // given a target in room

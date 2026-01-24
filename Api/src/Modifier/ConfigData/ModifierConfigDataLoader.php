@@ -41,19 +41,4 @@ abstract class ModifierConfigDataLoader extends ConfigDataLoader
 
         $modifierConfigData->setModifierActivationRequirements($modifierActivationRequirements);
     }
-
-    protected function getModifierConfigActivationRequirementsBis(AbstractModifierConfig $modifierConfigData, array $modifierActivationRequirementsAsString): void
-    {
-        $modifierActivationRequirements = [];
-        foreach ($modifierActivationRequirementsAsString as $activationRequirementName) {
-            $modifierActivationRequirement = $this->modifierActivationRequirementRepository->findOneBy(['name' => $activationRequirementName]);
-
-            if ($modifierActivationRequirement === null) {
-                throw new \Exception('Modifier activation requirement not found: ' . $activationRequirementName);
-            }
-            $modifierActivationRequirements[] = $modifierActivationRequirement;
-        }
-
-        $modifierConfigData->setModifierActivationRequirements($modifierActivationRequirements);
-    }
 }

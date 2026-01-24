@@ -52,7 +52,7 @@ class PlayerContaminationCest
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setDiseaseName(DiseaseEnum::FUNGIC_INFECTION)
+            ->setDiseaseName(DiseaseEnum::FUNGIC_INFECTION->toString())
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
 
@@ -60,7 +60,7 @@ class PlayerContaminationCest
         $diseaseCause
             ->setCauseName(DiseaseCauseEnum::INFECTION)
             ->setDiseases([
-                DiseaseEnum::FUNGIC_INFECTION => 1,
+                DiseaseEnum::FUNGIC_INFECTION->toString() => 1,
             ])
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
@@ -153,7 +153,7 @@ class PlayerContaminationCest
 
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
-            ->setDiseaseName(DiseaseEnum::FUNGIC_INFECTION)
+            ->setDiseaseName(DiseaseEnum::FUNGIC_INFECTION->toString())
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseConfig);
 
@@ -161,7 +161,7 @@ class PlayerContaminationCest
         $diseaseCause
             ->setCauseName(DiseaseCauseEnum::INFECTION)
             ->setDiseases([
-                DiseaseEnum::FUNGIC_INFECTION => 1,
+                DiseaseEnum::FUNGIC_INFECTION->toString() => 1,
             ])
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);

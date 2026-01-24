@@ -167,10 +167,10 @@ final class EdenCest extends AbstractExplorationTester
     {
         $this->givenNoLanderTriumphGain();
 
-        $this->givenPlayerGetsActiveMedicalCondition($this->chun, DiseaseEnum::FLU);
-        $this->givenPlayerGetsActiveMedicalCondition($this->chun, DiseaseEnum::GASTROENTERIS);
-        $this->givenPlayerGetsActiveMedicalCondition($this->chun, DiseaseEnum::ACID_REFLUX);
-        $this->givenPlayerGetsActiveMedicalCondition($this->kuanTi, DiseaseEnum::ACID_REFLUX);
+        $this->givenPlayerGetsActiveMedicalCondition($this->chun, DiseaseEnum::FLU->toString());
+        $this->givenPlayerGetsActiveMedicalCondition($this->chun, DiseaseEnum::GASTROENTERIS->toString());
+        $this->givenPlayerGetsActiveMedicalCondition($this->chun, DiseaseEnum::ACID_REFLUX->toString());
+        $this->givenPlayerGetsActiveMedicalCondition($this->kuanTi, DiseaseEnum::ACID_REFLUX->toString());
 
         $this->givenEveryoneHasTriumph(12);
 
@@ -186,9 +186,9 @@ final class EdenCest extends AbstractExplorationTester
     {
         $this->givenNoLanderTriumphGain();
 
-        $chunFlu = $this->givenPlayerGetsActiveMedicalCondition($this->chun, DiseaseEnum::FLU);
-        $this->givenPlayerGetsActiveMedicalCondition($this->kuanTi, DisorderEnum::AGORAPHOBIA);
-        $this->givenPlayerGetsActiveMedicalCondition($this->kuanTi, InjuryEnum::BROKEN_FINGER);
+        $chunFlu = $this->givenPlayerGetsActiveMedicalCondition($this->chun, DiseaseEnum::FLU->toString());
+        $this->givenPlayerGetsActiveMedicalCondition($this->kuanTi, DisorderEnum::AGORAPHOBIA->toString());
+        $this->givenPlayerGetsActiveMedicalCondition($this->kuanTi, InjuryEnum::BROKEN_FINGER->toString());
         $this->givenCuredMedicalCondition($chunFlu); // Chun no longer ill
 
         $this->givenEveryoneHasTriumph(12);
@@ -205,7 +205,7 @@ final class EdenCest extends AbstractExplorationTester
     {
         $this->givenNoLanderTriumphGain();
 
-        $this->givenPlayerGetsIncubatingMedicalCondition($this->chun, DiseaseEnum::FLU);
+        $this->givenPlayerGetsIncubatingMedicalCondition($this->chun, DiseaseEnum::FLU->toString());
 
         $this->givenEveryoneHasTriumph(12);
 

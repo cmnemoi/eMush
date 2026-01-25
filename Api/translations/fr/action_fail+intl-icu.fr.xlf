@@ -876,5 +876,11 @@
         <target>Vous devez prendre :sk_polyvalent: Polyvalent avant d'effectuer vos révisions.</target>
       </segment>
     </unit>
+    <unit id="daily_limit_mycoscan">
+      <segment id="description" state="translated">
+        <source>daily_limit_mycoscan.description</source>
+        <target>Pour éviter la surexposition aux rayons X, cette action ne peut être effectuée qu'une fois par jour. Elle sera de nouveau disponible après le cycle 8.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

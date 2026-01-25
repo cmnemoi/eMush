@@ -5,6 +5,7 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\CheckSporeLevel;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -39,15 +40,10 @@ final class CheckSporeLevelActionCest extends AbstractFunctionalTest
         $this->kuanTi->setActionPoint(2)->setSpores(2);
 
         // given the mycoscan is in the room
-        $gameEquipment = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::MYCOSCAN,
-            equipmentHolder: $this->kuanTi->getPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
+        $mycoscan = $this->createEquipment(EquipmentEnum::MYCOSCAN, $this->kuanTi->getPlace());
 
         // given kuan ti check his spore level
-        $this->checkSporeLevel->loadParameters($this->actionConfig, $gameEquipment, $this->kuanTi, $gameEquipment);
+        $this->checkSporeLevel->loadParameters($this->actionConfig, $mycoscan, $this->kuanTi, $mycoscan);
         $I->assertTrue($this->checkSporeLevel->isVisible());
         $this->checkSporeLevel->execute();
 
@@ -59,5 +55,38 @@ final class CheckSporeLevelActionCest extends AbstractFunctionalTest
             'visibility' => VisibilityEnum::PRIVATE,
             'log' => ActionLogEnum::CHECK_SPORE_LEVEL,
         ]);
+
+        // as well as a hidden one for moderators
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $this->kuanTi->getPlace()->getName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->kuanTi->getPlayerInfo()->getId(),
+            'visibility' => VisibilityEnum::HIDDEN,
+            'log' => ActionLogEnum::USE_MYCOSCAN,
+        ]);
+    }
+
+    public function testCheckSporeDailyLimit(FunctionalTester $I)
+    {
+        // given the mycoscan is in the room
+        $mycoscan = $this->createEquipment(EquipmentEnum::MYCOSCAN, $this->kuanTi->getPlace());
+
+        // given kuan ti checks his spore level
+        $this->checkSporeLevel->loadParameters($this->actionConfig, $mycoscan, $this->kuanTi, $mycoscan);
+        $I->assertTrue($this->checkSporeLevel->isVisible());
+
+        // action can be executed
+        $I->assertEquals(
+            expected: null,
+            actual: $this->checkSporeLevel->cannotExecuteReason(),
+        );
+
+        $this->checkSporeLevel->execute();
+
+        // action now has a cannotExecuteReason
+        $I->assertEquals(
+            expected: ActionImpossibleCauseEnum::DAILY_LIMIT_MYCOSCAN,
+            actual: $this->checkSporeLevel->cannotExecuteReason(),
+        );
     }
 }

@@ -1419,5 +1419,11 @@
         <target>**{character}** déglutit et contemple l'énormité de l'acte {character_gender, select, male {qu'il} female {qu'elle} other {qu'iel}} s'apprête à faire... Assez patienté. {character_gender, select, male {Il} female {Elle} other {Iel}} s'insère l'aiguille du **{target_equipment}** dans la cuisse... Quelques convulsions plus tard, et **{character}** est méconnaissable !!!</target>
       </segment>
     </unit>
+    <unit id="use_mycoscan">
+      <segment id="use_mycoscan" state="translated">
+        <source>use_mycoscan</source>
+        <target>Bzzrt... Bip-bip. Le mycoscan a fini d'analyser **{character}**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

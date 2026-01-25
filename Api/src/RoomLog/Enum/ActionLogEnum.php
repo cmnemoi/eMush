@@ -182,6 +182,7 @@ abstract class ActionLogEnum
     public const string PRINT_ZE_LIST = 'print_ze_list';
     public const string ADAPT_EPIGENETICS = 'adapt_epigenetics_success';
     public const string SABOTAGE_EXPLORATION_SUCCESS = 'sabotage_exploration_success';
+    public const string USE_MYCOSCAN = 'use_mycoscan';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -335,7 +336,7 @@ abstract class ActionLogEnum
         ],
 
         ActionEnum::CHECK_SPORE_LEVEL->value => [
-            ActionOutputEnum::SUCCESS => self::CHECK_SPORE_LEVEL,
+            ActionOutputEnum::SUCCESS => self::USE_MYCOSCAN,
         ],
 
         ActionEnum::REMOVE_SPORE->value => [

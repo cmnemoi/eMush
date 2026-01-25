@@ -933,7 +933,7 @@ class ActionData
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
-            'visibilities' => ['success' => 'private', 'fail' => 'private'],
+            'visibilities' => ['success' => VisibilityEnum::HIDDEN, 'fail' => 'private'],
             'actionPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

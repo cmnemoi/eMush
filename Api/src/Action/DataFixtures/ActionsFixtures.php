@@ -570,14 +570,7 @@ class ActionsFixtures extends Fixture
         $examineEquipmentAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::EXAMINE));
         $manager->persist($examineEquipmentAction);
 
-        $checkSporeLevelAction = new ActionConfig();
-        $checkSporeLevelAction
-            ->setName(ActionEnum::CHECK_SPORE_LEVEL->value)
-            ->setActionName(ActionEnum::CHECK_SPORE_LEVEL)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
-
+        $checkSporeLevelAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CHECK_SPORE_LEVEL));
         $manager->persist($checkSporeLevelAction);
 
         $flirtAction = new ActionConfig();

@@ -9,7 +9,9 @@ use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\InstallCamera;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
@@ -88,14 +90,23 @@ final class InstallCameraCest extends AbstractFunctionalTest
         );
     }
 
+    public function clumsinessDeathShouldStillInstallCamera(FunctionalTester $I): void
+    {
+        $place = $this->player->getPlace();
+
+        $this->player->setHealthPoint(2);
+
+        $this->actionConfig->getVariableByName(ActionVariableEnum::PERCENTAGE_INJURY)->setValue(100);
+
+        $this->whenPlayerInstallsCamera();
+
+        $I->assertTrue($place->hasEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT));
+        $I->assertTrue($place->doesNotHaveEquipmentByName(ItemEnum::CAMERA_ITEM));
+    }
+
     private function givenPlayerHasCamera(): void
     {
-        $this->camera = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::CAMERA_ITEM,
-            equipmentHolder: $this->player,
-            reasons: [],
-            time: new \DateTime(),
-        );
+        $this->camera = $this->createEquipment(ItemEnum::CAMERA_ITEM, $this->player);
     }
 
     private function givenPlayerIsATechnician(FunctionalTester $I): void

@@ -245,21 +245,22 @@ const skillImage = (skill: Skill): string => {
     }
 
     .crewmate-attributes {
-        flex-direction:row;
+        flex-direction: row;
+        align-items: center;
+        gap: 2px;
+        padding-left: 4px;
 
         .titles,
         .statuses {
             flex-direction:row;
+            align-items: center;
             font-size: 0.9em;
             flex-wrap: wrap;
+            gap: 2px;
+        }
 
-            :deep(.status) {
-                padding: 1px;
-            }
-
-            :deep(.title) {
-                padding: 1px;
-            }
+        .titles {
+            margin-bottom: 2px;
         }
     }
 

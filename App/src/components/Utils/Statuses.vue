@@ -111,7 +111,8 @@ export default defineComponent ({
 
 .charge {
     flex-direction: row;
-    gap: 2px;
+    align-items: center;
+    gap: 1px;
     text-shadow: 0 0 4px black;
     padding-bottom: 1px;
 }

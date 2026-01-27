@@ -73,33 +73,39 @@
     </div>
     <div class="hunters-container">
         <Tippy
+            v-for="group in hunterGroups"
+            :key="group.hunters[0].id"
             tag="div"
-            class="hunter"
-            :class="[{ 'highlight': isSelected(hunter) }, { 'hit': isHit(hunter) }, { 'kill': isKilled(hunter) }]"
-            @mousedown.stop="toggleHunterSelection(hunter)"
+            class="hunter-group"
+            @mousedown.stop="toggleHunterSelection(group.hunters[0])"
             @animationend="resetHunterState()"
-            v-for="hunter in player?.spaceBattle?.hunters"
-            :key="hunter.id"
         >
-            <div class="ship-img-container">
-                <img
-                    v-if="hunter.transportImage"
-                    :class="hunter.transportImage + '-img'"
-                    :src="getHunterImage(hunter.transportImage)"
-                    :alt="hunter.name">
-                <img
-                    v-else
-                    :class="hunter.key + '-img'"
-                    :src="getHunterImage(hunter.key)"
-                    :alt="hunter.name">
+            <div
+                class="hunter"
+                :class="[{ 'highlight': isSelected(group.hunters[0]) }, { 'hit': isHit(group.hunters[0]) }, { 'kill': isKilled(group.hunters[0]) }]"
+            >
+                <div class="ship-img-container">
+                    <img
+                        v-if="group.hunters[0].transportImage"
+                        :class="group.hunters[0].transportImage + '-img'"
+                        :src="getHunterImage(group.hunters[0].transportImage)"
+                        :alt="group.hunters[0].name">
+                    <img
+                        v-else
+                        :class="group.hunters[0].key + '-img'"
+                        :src="getHunterImage(group.hunters[0].key)"
+                        :alt="group.hunters[0].name">
+                </div>
+                <div class="stats">
+                    <p class="quantity">{{ group.hunters[0].health }}</p>
+                    <img class="armor-img" :src="getImgUrl('shield.png')" alt="armor">
+                    <span v-if="group.length() > 1" class="count">x{{ group.length() }}</span>
+                </div>
             </div>
-            <div class="stats">
-                <p class="quantity">{{ hunter.health }}</p>
-                <img class="armor-img" :src="getImgUrl('shield.png')" alt="armor">
-            </div>
+            <div v-for="i in Math.min(group.length() - 1, 2)" :key="i" :class="['hunter', `offset-${i}`]"/>
             <template #content>
-                <h1 v-html="formatContent(hunter.name)" />
-                <p v-html="formatContent(hunter.description)" />
+                <h1 v-html="formatContent(group.hunters[0].name)" />
+                <p v-html="formatContent(group.hunters[0].description)" />
             </template>
         </Tippy>
     </div>
@@ -108,9 +114,9 @@
 
 <script lang="ts">
 import { characterEnum } from '@/enums/character';
-import { hunterEnum } from '@/enums/hunter.enum';
+import { HunterImageEnum } from '@/enums/hunter.enum';
 import { Player } from '@/entities/Player';
-import { Hunter } from '@/entities/Hunter';
+import { Hunter, HunterGroup } from '@/entities/Hunter';
 import { SpaceBattleTurret } from '@/entities/SpaceBattleTurret';
 import { defineComponent } from 'vue';
 import { mapActions, mapGetters, mapMutations } from "vuex";
@@ -131,10 +137,12 @@ export default defineComponent({
             selectedTarget: 'room/selectedTarget',
             targetedHunterId: 'action/targetedHunterId'
         }),
-        getSelectedTarget(): Item | Hunter | null
-        {
+        getSelectedTarget(): Item | Hunter | null {
             if (this.selectedTarget instanceof Hunter) { return this.selectedTarget;}
             return null;
+        },
+        hunterGroups(): Array<HunterGroup> {
+            return HunterGroup.fromHunterArray(this.player?.spaceBattle?.hunters);
         }
     },
     methods: {
@@ -166,7 +174,7 @@ export default defineComponent({
             return turret.occupiers[randomIndex];
         },
         getHunterImage(hunterKey: string) : string {
-            return hunterEnum[hunterKey].image;
+            return HunterImageEnum[hunterKey];
         },
         isHit(hunter: Hunter) : boolean {
             return this.isHunterBeenHit && hunter.id === this.targetedHunterId;
@@ -208,20 +216,25 @@ export default defineComponent({
 @use "sass:color";
 
 $hit-color: #fd1f07;
-.allies-container, .hunters-container {
+
+.allies-container {
     position: absolute;
-    top: 25px;
+    flex-wrap: wrap;
+    top: 20px;
+    left: 13px;
     max-height: 320px;
 }
 
-.allies-container {
-    left: 13px;
-    flex-wrap: wrap;
-}
-
 .hunters-container {
-    right: 2px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
     flex-wrap: wrap-reverse;
+    align-items: center;
+    gap: 7px;
+    max-height: 290px;
+    top: 20px;
+    right: 9px;
 }
 
 .turret, .fighter, .hunter {
@@ -259,6 +272,13 @@ $hit-color: #fd1f07;
     text-shadow: 0 0 5px $deepBlue;
 
     p { margin: 0; }
+}
+
+.count {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 0.7em;
 }
 
 .ship-img-container {
@@ -351,7 +371,16 @@ img {
     flex-direction: row;
 }
 
+.hunter-group {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-self: center;
+}
+
 .hunter {
+    position: relative;
     width: 42px;
     height: 42px;
     border-top-left-radius: 5px;
@@ -360,6 +389,7 @@ img {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 10;
 
     &:hover, &:focus {
         background-color: color.adjust($slightlyDeepBlue, $lightness: 10%);
@@ -383,6 +413,22 @@ img {
         animation: hit-shake .5s ease-out 1 forwards;
         z-index: 3;
     }
+}
+
+.offset-1, .offset-2, .offset-3 {
+    min-width: 42px;
+    min-height: 42px;
+    position: absolute;
+}
+.offset-1 {
+    bottom: -4px;
+    right: -4px;
+    z-index: 3;
+}
+.offset-2 {
+    bottom: -6px;
+    right: -6px;
+    z-index: 2;
 }
 
 @keyframes hit-color {

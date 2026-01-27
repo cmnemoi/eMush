@@ -18,7 +18,6 @@ use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Service\ClosedExplorationServiceInterface;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Hunter\Service\HunterNormalizerHelperInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -47,7 +46,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         private TerminalNormalizer $terminalNormalizer,
         private TranslationServiceInterface $translationService,
         private GearToolServiceInterface $gearToolService,
-        private HunterNormalizerHelperInterface $hunterNormalizerHelper,
         private ClosedExplorationServiceInterface $closedExplorationService,
         private ExplorationServiceInterface $explorationService,
         private TriumphConfigRepositoryInterface $triumphConfigRepository,
@@ -227,7 +225,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $patrolShips = $this->getPatrolShipsInBattle($daedalus);
         $turrets = $this->gameEquipmentRepository->findByNamesAndDaedalus([EquipmentEnum::TURRET_COMMAND], $daedalus);
 
-        $huntersToNormalize = $this->hunterNormalizerHelper->getHuntersToNormalize($daedalus);
+        $huntersToNormalize = $daedalus->getHuntersAroundDaedalus();
         $normalizedHunters = [];
         foreach ($huntersToNormalize as $hunter) {
             $normalizedHunters[] = $this->normalizer->normalize($hunter, $format, $context);

@@ -15,7 +15,6 @@ use Mush\Exploration\Service\ClosedExplorationServiceInterface;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Hunter\Service\HunterNormalizerHelperInterface;
 use Mush\Modifier\Service\ModifierCreationService;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
@@ -54,7 +53,6 @@ final class CurrentPlayerNormalizerTest extends TestCase
             self::createStub(TerminalNormalizer::class),
             self::createStub(TranslationServiceInterface::class),
             self::createStub(GearToolServiceInterface::class),
-            self::createStub(HunterNormalizerHelperInterface::class),
             self::createStub(ClosedExplorationServiceInterface::class),
             self::createStub(ExplorationServiceInterface::class),
             self::createStub(TriumphConfigRepositoryInterface::class),

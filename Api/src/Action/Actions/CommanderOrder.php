@@ -12,6 +12,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\CanOrderACrewmate;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\MaxLengthConstraint;
 use Mush\Action\Validator\NeedTitle;
 use Mush\Chat\Services\GetAvailableSubordinatesForMissionService;
 use Mush\Game\Enum\TitleEnum;
@@ -60,6 +61,11 @@ final class CommanderOrder extends AbstractAction
             new CanOrderACrewmate([
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::ISSUE_MISSION_NO_TARGET,
+            ]),
+            new MaxLengthConstraint([
+                'parameterName' => 'mission',
+                'maxLength' => 4096,
+                'groups' => [ClassConstraint::EXECUTE],
             ]),
         ]);
     }

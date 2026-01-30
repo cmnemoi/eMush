@@ -7,7 +7,9 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\MaxLengthConstraint;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
@@ -44,14 +46,26 @@ class Write extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new HasStatus([
-            'status' => PlayerStatusEnum::FOCUSED,
-            'target' => HasStatus::PLAYER,
-            'statusTargetName' => ToolItemEnum::BLOCK_OF_POST_IT,
-            'groups' => ['visibility'],
-        ]));
-        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
+        $metadata->addConstraints([
+            new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]),
+            new HasStatus([
+                'status' => PlayerStatusEnum::FOCUSED,
+                'target' => HasStatus::PLAYER,
+                'statusTargetName' => ToolItemEnum::BLOCK_OF_POST_IT,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
+            new PlaceType([
+                'groups' => [ClassConstraint::EXECUTE],
+                'type' => 'planet',
+                'allowIfTypeMatches' => false,
+                'message' => ActionImpossibleCauseEnum::ON_PLANET,
+            ]),
+            new MaxLengthConstraint([
+                'parameterName' => 'content',
+                'maxLength' => 4096,
+                'groups' => [ClassConstraint::EXECUTE],
+            ]),
+        ]);
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

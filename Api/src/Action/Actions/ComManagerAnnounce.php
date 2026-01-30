@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
+use Mush\Action\Validator\MaxLengthConstraint;
 use Mush\Action\Validator\NeedTitle;
 use Mush\Daedalus\Service\ComManagerAnnouncementService;
 use Mush\Game\Enum\TitleEnum;
@@ -42,6 +43,11 @@ final class ComManagerAnnounce extends AbstractAction
             new NeedTitle([
                 'title' => TitleEnum::COM_MANAGER,
                 'groups' => [ClassConstraint::VISIBILITY],
+            ]),
+            new MaxLengthConstraint([
+                'parameterName' => 'announcement',
+                'maxLength' => 4096,
+                'groups' => [ClassConstraint::EXECUTE],
             ]),
         ]);
     }

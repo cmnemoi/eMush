@@ -10,6 +10,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Chat\Entity\Message;
 use Mush\Daedalus\Entity\ComManagerAnnouncement;
+use Mush\MetaGame\Dto\ReportPlayerDto;
 use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\MetaGame\Repository\ModerationSanctionRepository;
@@ -29,6 +30,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class ModerationController.
@@ -41,6 +43,7 @@ final class ModerationController extends AbstractFOSRestController
         private GetUserCurrentPlayerUseCase $getUserCurrentPlayerUseCase,
         private ModerationSanctionRepository $moderationSanctionRepository,
         private ModerationServiceInterface $moderationService,
+        private ValidatorInterface $validator,
         private PlayerRepository $playerRepository,
     ) {}
 
@@ -608,18 +611,27 @@ final class ModerationController extends AbstractFOSRestController
         Message $message,
         Request $request
     ): View {
+        $reportPlayerDto = new ReportPlayerDto()
+            ->setPlayerId((int) $request->get('player'))
+            ->setReason($request->get('reason'))
+            ->setAdminMessage($request->get('adminMessage', ''));
+        $violations = $this->validator->validate($reportPlayerDto);
+        if (\count($violations)) {
+            return $this->view(['errors' => $violations], Response::HTTP_BAD_REQUEST);
+        }
+
         /** @var User $reportAuthor */
         $reportAuthor = $this->getUser();
 
         /** @var Player $player */
-        $player = $this->playerRepository->find($request->get('player'));
+        $player = $this->playerRepository->find($reportPlayerDto->getPlayerId());
 
         $this->moderationService->reportPlayer(
             player: $player->getPlayerInfo(),
             author: $reportAuthor,
-            reason: $request->get('reason'),
+            reason: $reportPlayerDto->getReason(),
             sanctionEvidence: $message,
-            message: $request->get('adminMessage'),
+            message: $reportPlayerDto->getAdminMessage(),
         );
 
         return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);

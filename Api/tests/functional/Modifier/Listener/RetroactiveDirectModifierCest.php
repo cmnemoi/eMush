@@ -40,7 +40,7 @@ final class RetroactiveDirectModifierCest extends AbstractFunctionalTest
 
         // when Chun miss a finger
         $disease = $this->playerDiseaseService->createDiseaseFromName(
-            InjuryEnum::MISSING_FINGER->toString(),
+            InjuryEnum::BRUISED_SHOULDER->toString(),
             $this->chun
         );
 

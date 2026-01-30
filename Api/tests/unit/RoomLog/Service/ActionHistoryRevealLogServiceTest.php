@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
@@ -40,6 +41,7 @@ final class ActionHistoryRevealLogServiceTest extends TestCase
         $this->roomLogRepository = new InMemoryRoomLogRepository();
 
         $roomLogService = new RoomLogService(
+            cycleService: self::createStub(CycleServiceInterface::class),
             d100Roll: self::createStub(D100RollServiceInterface::class),
             getRandomInteger: self::createStub(GetRandomIntegerServiceInterface::class),
             roomLogRepository: $this->roomLogRepository,

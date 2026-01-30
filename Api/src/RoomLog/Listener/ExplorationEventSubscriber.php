@@ -117,7 +117,8 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                     type: 'event_log',
                     parameters: [
                         'next_sector' => $nextSectorName,
-                    ]
+                    ],
+                    dateTime: $event->getTime(),
                 );
             }
         }

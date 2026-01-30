@@ -20,6 +20,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\Random\FakeD100RollService as FakeD100Roll;
 use Mush\Game\Service\Random\FakeGetRandomIntegerService as FakeGetRandomInteger;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -64,6 +65,7 @@ final class RoomLogServiceTest extends TestCase
         $this->translationService = self::createStub(TranslationServiceInterface::class);
 
         $this->service = new RoomLogService(
+            self::createStub(CycleServiceInterface::class),
             $this->d100Roll,
             $this->getRandomInteger,
             $this->repository,

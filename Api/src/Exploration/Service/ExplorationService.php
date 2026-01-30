@@ -101,7 +101,7 @@ final class ExplorationService implements ExplorationServiceInterface
         }
     }
 
-    public function dispatchLandingEvent(Exploration $exploration): Exploration
+    public function dispatchLandingEvent(Exploration $exploration, \DateTime $time = new \DateTime()): Exploration
     {
         $planet = $exploration->getPlanet();
 
@@ -123,6 +123,7 @@ final class ExplorationService implements ExplorationServiceInterface
             $planetSectorEvent = new PlanetSectorEvent(
                 planetSector: $landingSector,
                 config: $eventConfig,
+                time: $time,
             );
         }
         $this->eventService->callEvent($planetSectorEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
@@ -130,7 +131,7 @@ final class ExplorationService implements ExplorationServiceInterface
         return $exploration;
     }
 
-    public function dispatchExplorationEvent(Exploration $exploration): Exploration
+    public function dispatchExplorationEvent(Exploration $exploration, \DateTime $time = new \DateTime()): Exploration
     {
         $closedExploration = $exploration->getClosedExploration();
         $sector = $exploration->getNextSectorOrThrow();
@@ -144,6 +145,7 @@ final class ExplorationService implements ExplorationServiceInterface
         $event = new PlanetSectorEvent(
             planetSector: $sector,
             config: $eventConfig,
+            time: $time,
         );
         $this->eventService->callEvent($event, PlanetSectorEvent::PLANET_SECTOR_EVENT);
 

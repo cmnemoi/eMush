@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Exploration\Entity\Planet;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\Random\D100RollServiceInterface as D100RollInterface;
 use Mush\Game\Service\Random\GetRandomIntegerServiceInterface as GetRandomIntegerInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -38,6 +39,7 @@ final class RoomLogService implements RoomLogServiceInterface
     public const int OBSERVANT_REVEAL_CHANCE = 25;
 
     public function __construct(
+        private CycleServiceInterface $cycleService,
         private D100RollInterface $d100Roll,
         private GetRandomIntegerInterface $getRandomInteger,
         private RoomLogRepositoryInterface $roomLogRepository,
@@ -150,6 +152,8 @@ final class RoomLogService implements RoomLogServiceInterface
             }
         }
 
+        $createdAt = $dateTime ?? new \DateTime('now');
+
         $roomLog = new RoomLog();
         $roomLog
             ->setLog($logKey)
@@ -159,9 +163,9 @@ final class RoomLogService implements RoomLogServiceInterface
             ->setPlace($place->getName())
             ->setPlayerInfo($player?->getPlayerInfo())
             ->setBaseVisibility($visibility)
-            ->setCreatedAt($dateTime ?? new \DateTime('now'))
-            ->setCycle($place->getDaedalus()->getCycle())
-            ->setDay($place->getDaedalus()->getDay());
+            ->setCreatedAt($createdAt)
+            ->setCycle($this->getLogCycle($createdAt, $place->getDaedalus()))
+            ->setDay($this->getLogDay($createdAt, $place->getDaedalus()));
 
         $visibility = $this->getVisibility($roomLog, $place);
         $roomLog->setVisibility($visibility);
@@ -421,5 +425,43 @@ final class RoomLogService implements RoomLogServiceInterface
         }
 
         return $data;
+    }
+
+    private function getLogDay(\DateTime $logTime, Daedalus $daedalus): int
+    {
+        $cycleStartedAt = $daedalus->getCycleStartedAt();
+
+        if ($cycleStartedAt === null) {
+            return $daedalus->getDay();
+        }
+
+        $nextCycleStartAt = clone $cycleStartedAt;
+        $nextCycleStartAt->add(new \DateInterval('PT' . $daedalus->getDaedalusConfig()->getCycleLength() . 'M'));
+
+        $cyclesElapsed = $this->cycleService->getNumberOfCycleElapsed($logTime, $nextCycleStartAt, $daedalus->getDaedalusInfo());
+        $currentCycle = $daedalus->getCycle() - 1;
+        $currentDay = $daedalus->getDay();
+        $cyclesPerDay = $daedalus->getNumberOfCyclesPerDay();
+        $daysElapsed = (int) -floor(($currentCycle - $cyclesElapsed) / $cyclesPerDay);
+
+        return $currentDay - $daysElapsed;
+    }
+
+    private function getLogCycle(\DateTime $logTime, Daedalus $daedalus): int
+    {
+        $cycleStartedAt = $daedalus->getCycleStartedAt();
+
+        if ($cycleStartedAt === null) {
+            return $daedalus->getCycle();
+        }
+
+        $nextCycleStartAt = clone $cycleStartedAt;
+        $nextCycleStartAt->add(new \DateInterval('PT' . $daedalus->getDaedalusConfig()->getCycleLength() . 'M'));
+
+        $cyclesElapsed = $this->cycleService->getNumberOfCycleElapsed($logTime, $nextCycleStartAt, $daedalus->getDaedalusInfo());
+        $currentCycle = $daedalus->getCycle() - 1;
+        $cyclesPerDay = $daedalus->getNumberOfCyclesPerDay();
+
+        return ((($currentCycle - $cyclesElapsed) % $cyclesPerDay) + $cyclesPerDay) % $cyclesPerDay + 1;
     }
 }

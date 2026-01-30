@@ -35,7 +35,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
 
     public function onExplorationStarted(ExplorationEvent $event): void
     {
-        $exploration = $this->explorationService->dispatchLandingEvent($event->getExploration());
+        $exploration = $this->explorationService->dispatchLandingEvent($event->getExploration(), $event->getTime());
 
         $exploration->incrementCycle();
         $this->explorationService->selectNextSectorIfAble($exploration);
@@ -47,7 +47,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
     public function onExplorationNewCycle(ExplorationEvent $event): void
     {
         $closedExploration = $event->getExploration()->getClosedExploration();
-        $exploration = $this->explorationService->dispatchExplorationEvent($event->getExploration());
+        $exploration = $this->explorationService->dispatchExplorationEvent($event->getExploration(), $event->getTime());
 
         // Exploration might have been closed early, if the "Back to Daedalus" event is triggered !
         if ($closedExploration->isExplorationFinished()) {

@@ -21,6 +21,7 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\EquipmentService;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\FakeD100RollService;
 use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
@@ -67,6 +68,7 @@ final class CreateOfferedTradeAssetsServiceTest extends TestCase
         $this->projectRepository = new InMemoryProjectRepository();
         $this->roomLogRepository = new InMemoryRoomLogRepository();
         $this->roomLogService = new RoomLogService(
+            cycleService: self::createStub(CycleServiceInterface::class),
             d100Roll: new FakeD100RollService(),
             getRandomInteger: new FakeGetRandomIntegerService(0),
             roomLogRepository: $this->roomLogRepository,

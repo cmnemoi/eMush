@@ -38,6 +38,7 @@ final class PlanetSectorEventSubscriber implements EventSubscriberInterface
                 visibility: VisibilityEnum::PRIVATE,
                 player: $traitor,
                 type: 'event_log',
+                dateTime: $event->getTime(),
             );
         }
     }

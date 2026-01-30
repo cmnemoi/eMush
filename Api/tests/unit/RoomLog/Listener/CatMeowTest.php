@@ -16,6 +16,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\Random\FakeD100RollService as FakeD100Roll;
 use Mush\Game\Service\Random\FakeGetRandomIntegerService;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -55,6 +56,7 @@ final class CatMeowTest extends TestCase
         $translationService = self::createStub(TranslationServiceInterface::class);
 
         $this->roomLogService = new RoomLogService(
+            self::createStub(CycleServiceInterface::class),
             new FakeD100Roll(),
             new FakeGetRandomIntegerService(result: 0),
             $this->roomLogRepository,

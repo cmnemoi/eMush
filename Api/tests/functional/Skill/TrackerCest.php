@@ -51,6 +51,8 @@ final class TrackerCest extends AbstractFunctionalTest
 
     public function shouldSeeLogsFromTwoDaysAgo(FunctionalTester $I): void
     {
+        $this->daedalus->setDay(3);
+
         $this->givenALogFromTwoDaysAgo();
 
         $this->whenChunReadsTheLogs();

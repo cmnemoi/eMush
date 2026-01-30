@@ -18,9 +18,9 @@ interface ExplorationServiceInterface
 
     public function closeExploration(Exploration $exploration, array $reasons, ?Player $author = null): void;
 
-    public function dispatchLandingEvent(Exploration $exploration): Exploration;
+    public function dispatchLandingEvent(Exploration $exploration, \DateTime $time = new \DateTime()): Exploration;
 
-    public function dispatchExplorationEvent(Exploration $exploration): Exploration;
+    public function dispatchExplorationEvent(Exploration $exploration, \DateTime $time = new \DateTime()): Exploration;
 
     public function getDummyExplorationForLostPlayer(ClosedExploration $closedExploration): Exploration;
 

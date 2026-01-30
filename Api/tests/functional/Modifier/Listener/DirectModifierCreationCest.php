@@ -31,9 +31,9 @@ final class DirectModifierCreationCest extends AbstractFunctionalTest
         // given Chun has 14 max HP
         $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->setMaxValue(14);
 
-        // when Chun miss a finger
+        // when Chun has a bruised shoulder
         $disease = $this->playerDiseaseService->createDiseaseFromName(
-            InjuryEnum::MISSING_FINGER->toString(),
+            InjuryEnum::BRUISED_SHOULDER->toString(),
             $this->chun
         );
 
@@ -58,7 +58,7 @@ final class DirectModifierCreationCest extends AbstractFunctionalTest
         $modifier = $I->grabEntityFromRepository(DirectModifierConfig::class, ['name' => 'direct_modifier_player_-1_max_healthPoint']);
         $modifier->setRevertOnRemove(false);
 
-        // when Chun miss a finger
+        // when Chun has a broken foot
         $disease = $this->playerDiseaseService->createDiseaseFromName(
             InjuryEnum::BROKEN_FOOT->toString(),
             $this->chun
@@ -86,7 +86,7 @@ final class DirectModifierCreationCest extends AbstractFunctionalTest
         // given modifer range is Daedalus
         $modifier->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
 
-        // when Chun miss a finger
+        // when Chun has a broken foot
         $disease = $this->playerDiseaseService->createDiseaseFromName(
             InjuryEnum::BROKEN_FOOT->toString(),
             $this->chun

@@ -38,7 +38,7 @@ final class RetroactiveDirectModifierCest extends AbstractFunctionalTest
         // given modifer range is Daedalus
         $modifier->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
 
-        // when Chun miss a finger
+        // when Chun has a bruised shoulder
         $disease = $this->playerDiseaseService->createDiseaseFromName(
             InjuryEnum::BRUISED_SHOULDER->toString(),
             $this->chun

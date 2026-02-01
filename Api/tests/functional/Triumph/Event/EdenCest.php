@@ -201,7 +201,7 @@ final class EdenCest extends AbstractExplorationTester
         $I->assertEquals(20, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
     }
 
-    public function testSilentIllnessEden(FunctionalTester $I): void
+    public function testSilentIllnessDoesntPenaliseEden(FunctionalTester $I): void
     {
         $this->givenNoLanderTriumphGain();
 
@@ -211,10 +211,10 @@ final class EdenCest extends AbstractExplorationTester
 
         $this->whenDaedalusTravelsToEden();
 
-        // human triumph: 12 initial - 4 (eden_no_cat) - 4 (eden_microbes)
+        // human triumph: 12 initial - 4 (eden_no_cat)
         //                + 6 (eden_at_least) + 2 (eden_one_man) + 4 (eden_sexy) + 4 for Chun (remedy)
-        $I->assertEquals(20, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
-        $I->assertEquals(16, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(24, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(20, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
     }
 
     public function testAlienPlantEden(FunctionalTester $I): void

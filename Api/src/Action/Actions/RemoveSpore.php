@@ -4,6 +4,7 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Fail;
+use Mush\Action\Entity\ActionResult\MushDamage;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
@@ -26,14 +27,6 @@ class RemoveSpore extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
-            new HasStatus(
-                [
-                    'status' => PlayerStatusEnum::MUSH,
-                    'target' => HasStatus::PLAYER,
-                    'contain' => false,
-                    'groups' => [ClassConstraint::EXECUTE],
-                    'message' => ActionImpossibleCauseEnum::MUSH_REMOVE_SPORE]
-            ),
             new HasStatus([
                 'status' => PlayerStatusEnum::IMMUNIZED,
                 'target' => HasStatus::PLAYER,
@@ -59,6 +52,11 @@ class RemoveSpore extends AbstractAction
     {
         $nbSpores = $this->player->getVariableValueByName(PlayerVariableEnum::SPORE);
 
+        // type of actionResult determines which log to print
+        if ($this->player->isMush()) {
+            return new MushDamage();
+        }
+
         if ($nbSpores > 0) {
             return new Success();
         }
@@ -78,14 +76,16 @@ class RemoveSpore extends AbstractAction
 
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
 
-        // The Player remove a spore
-        $sporeLossEvent = new PlayerVariableEvent(
-            $this->player,
-            PlayerVariableEnum::SPORE,
-            -1,
-            $this->getActionConfig()->getActionTags(),
-            new \DateTime(),
-        );
-        $this->eventService->callEvent($sporeLossEvent, VariableEventInterface::CHANGE_VARIABLE);
+        // The player removes a spore if human
+        if ($this->player->isHuman()) {
+            $sporeLossEvent = new PlayerVariableEvent(
+                $this->player,
+                PlayerVariableEnum::SPORE,
+                -1,
+                $this->getActionConfig()->getActionTags(),
+                new \DateTime(),
+            );
+            $this->eventService->callEvent($sporeLossEvent, VariableEventInterface::CHANGE_VARIABLE);
+        }
     }
 }

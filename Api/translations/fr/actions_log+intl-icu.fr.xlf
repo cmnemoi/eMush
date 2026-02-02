@@ -700,7 +700,7 @@
       </segment>
     </unit>
     <unit id="remove_spore_success">
-      <segment id="remove_spore_fail" state="translated">
+      <segment id="remove_spore_success" state="translated">
         <source>remove_spore_success</source>
         <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Tiens qu'est-ce que c'est que ça ?</target>
       </segment>
@@ -709,6 +709,12 @@
       <segment id="remove_spore_fail" state="translated">
         <source>remove_spore_fail</source>
         <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Heureusement vous n'aviez aucune spore à récupérer.</target>
+      </segment>
+    </unit>
+    <unit id="remove_spore_mush">
+      <segment id="remove_spore_mush" state="translated">
+        <source>remove_spore_mush</source>
+        <target>Vos instincts primaux vous hurlent de vous éloigner de cet engin, mais il faut souffrir pour paraître humain. Le bruit est atroce et le sang est pire...</target>
       </segment>
     </unit>
     <unit id="public_broadcast">

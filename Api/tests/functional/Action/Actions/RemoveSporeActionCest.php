@@ -38,19 +38,14 @@ final class RemoveSporeActionCest extends AbstractFunctionalTest
     public function testRemoveSpore(FunctionalTester $I)
     {
         // given the item is in the room
-        $extractor = $this->gameEquipmentService->createGameEquipmentFromName(
-            ToolItemEnum::SPORE_SUCKER,
-            $this->player->getPlace(),
-            [],
-            new \DateTime(),
-        );
+        $extractor = $this->createEquipment(ToolItemEnum::SPORE_SUCKER, $this->player->getPlace());
 
-        // given the player have those values
+        // given the player has those values
         $this->player
             ->setHealthPoint(9)
             ->setSpores(1);
 
-        // when the player try to remove a spore
+        // when the player tries to remove a spore
         $this->removeSpore->loadParameters(
             actionConfig: $this->actionConfig,
             actionProvider: $extractor,
@@ -72,20 +67,56 @@ final class RemoveSporeActionCest extends AbstractFunctionalTest
             'log' => ActionLogEnum::REMOVE_SPORE_SUCCESS,
         ]);
 
-        // when the player try to remove a spore
+        // when the player tries to remove a spore again
         $this->removeSpore->execute();
 
         // then they should have no spore and less HP
         $I->assertEquals(3, $this->player->getHealthPoint());
         $I->assertEquals(0, $this->player->getSpores());
 
-        // then they should see the success log
+        // then they should see the failure log
         $I->seeInRepository(RoomLog::class, [
             'place' => $this->player->getPlace()->getName(),
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
             'playerInfo' => $this->player->getPlayerInfo(),
             'visibility' => VisibilityEnum::PRIVATE,
             'log' => ActionLogEnum::REMOVE_SPORE_FAIL,
+        ]);
+    }
+
+    public function testRemoveSporeAsMush(FunctionalTester $I)
+    {
+        // given the item is in the room
+        $extractor = $this->createEquipment(ToolItemEnum::SPORE_SUCKER, $this->player->getPlace());
+
+        // given player is Mush
+        $this->convertPlayerToMush($I, $this->player);
+
+        // given the player has those values
+        $this->player
+            ->setHealthPoint(9)
+            ->setSpores(1);
+
+        // when the player tries to remove a spore
+        $this->removeSpore->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $extractor,
+            player: $this->player,
+            target: $extractor
+        );
+        $this->removeSpore->execute();
+
+        // then they should have 1 spore and less HP
+        $I->assertEquals(6, $this->player->getHealthPoint());
+        $I->assertEquals(1, $this->player->getSpores());
+
+        // then they should see the mush log
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $this->player->getPlace()->getName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player->getPlayerInfo(),
+            'visibility' => VisibilityEnum::PRIVATE,
+            'log' => ActionLogEnum::REMOVE_SPORE_MUSH,
         ]);
     }
 }

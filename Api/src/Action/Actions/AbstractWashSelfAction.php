@@ -3,7 +3,7 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
-use Mush\Action\Entity\ActionResult\MushShowerDamage;
+use Mush\Action\Entity\ActionResult\MushDamage;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
@@ -59,7 +59,7 @@ abstract class AbstractWashSelfAction extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        return $this->player->shouldBeHurtByShower() ? new MushShowerDamage() : new Success();
+        return $this->player->shouldBeHurtByShower() ? new MushDamage() : new Success();
     }
 
     protected function applyEffect(ActionResult $result): void

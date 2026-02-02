@@ -73,7 +73,6 @@ class ActionsFixtures extends Fixture
     public const string REMOVE_CAMERA = 'remove_camera';
     public const string CHECK_SPORE_LEVEL = 'check_spore_level';
     public const string EXAMINE_EQUIPMENT = 'examine_equipment';
-    public const string REMOVE_SPORE = 'remove_spore';
     public const string PUBLIC_BROADCAST = 'public_broadcast';
     public const string EXTINGUISH_MANUALLY = 'extinguish_manually';
     public const string MOTIVATIONAL_SPEECH = 'motivational_speech';
@@ -408,7 +407,7 @@ class ActionsFixtures extends Fixture
             ->setActionCost(2)
             ->setInjuryRate(2)
             ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setVisibility(ActionOutputEnum::MUSH_SHOWER_DAMAGE, VisibilityEnum::PRIVATE);
+            ->setVisibility(ActionOutputEnum::MUSH_DAMAGE, VisibilityEnum::PRIVATE);
 
         $manager->persist($showerAction);
 
@@ -597,15 +596,7 @@ class ActionsFixtures extends Fixture
 
         $manager->persist($doTheThingAction);
 
-        $removeSporeAction = new ActionConfig();
-        $removeSporeAction
-            ->setName(ActionEnum::REMOVE_SPORE->value)
-            ->setActionName(ActionEnum::REMOVE_SPORE)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
-
+        $removeSporeAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REMOVE_SPORE));
         $manager->persist($removeSporeAction);
 
         $publicBroadcastAction = new ActionConfig();
@@ -1255,7 +1246,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::CHECK_SPORE_LEVEL, $checkSporeLevelAction);
         $this->addReference(self::FLIRT_DEFAULT, $flirtAction);
         $this->addReference(self::DO_THE_THING, $doTheThingAction);
-        $this->addReference(self::REMOVE_SPORE, $removeSporeAction);
+        $this->addReference(ActionEnum::REMOVE_SPORE->value, $removeSporeAction);
         $this->addReference(self::PUBLIC_BROADCAST, $publicBroadcastAction);
         $this->addReference(self::EXTINGUISH_MANUALLY, $extinguishManuallyAction);
         $this->addReference(self::MOTIVATIONAL_SPEECH, $motivationalSpeechAction);

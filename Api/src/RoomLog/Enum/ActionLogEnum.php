@@ -71,6 +71,7 @@ abstract class ActionLogEnum
     public const string CHECK_SPORE_LEVEL = 'check_spore_level';
     public const string REMOVE_SPORE_SUCCESS = 'remove_spore_success';
     public const string REMOVE_SPORE_FAIL = 'remove_spore_fail';
+    public const string REMOVE_SPORE_MUSH = 'remove_spore_mush';
     public const string PUBLIC_BROADCAST = 'public_broadcast';
     public const string MOTIVATIONAL_SPEECH = 'motivational_speech';
     public const string BORING_SPEECH = 'boring_speech';
@@ -276,15 +277,15 @@ abstract class ActionLogEnum
         ],
         ActionEnum::TAKE_SHOWER->value => [
             ActionOutputEnum::SUCCESS => self::SHOWER_HUMAN,
-            ActionOutputEnum::MUSH_SHOWER_DAMAGE => self::SHOWER_MUSH,
+            ActionOutputEnum::MUSH_DAMAGE => self::SHOWER_MUSH,
         ],
         ActionEnum::WASH_IN_SINK->value => [
             ActionOutputEnum::SUCCESS => self::WASH_IN_SINK_HUMAN,
-            ActionOutputEnum::MUSH_SHOWER_DAMAGE => self::SHOWER_MUSH,
+            ActionOutputEnum::MUSH_DAMAGE => self::SHOWER_MUSH,
         ],
         ActionEnum::WASH_WITH_PERFUME->value => [
             ActionOutputEnum::SUCCESS => ActionEnum::WASH_WITH_PERFUME->value,
-            ActionOutputEnum::MUSH_SHOWER_DAMAGE => ActionEnum::WASH_WITH_PERFUME->value,
+            ActionOutputEnum::MUSH_DAMAGE => ActionEnum::WASH_WITH_PERFUME->value,
         ],
         ActionEnum::LIE_DOWN->value => [
             ActionOutputEnum::SUCCESS => self::LIE_DOWN,
@@ -342,6 +343,7 @@ abstract class ActionLogEnum
         ActionEnum::REMOVE_SPORE->value => [
             ActionOutputEnum::SUCCESS => self::REMOVE_SPORE_SUCCESS,
             ActionOutputEnum::FAIL => self::REMOVE_SPORE_FAIL,
+            ActionOutputEnum::MUSH_DAMAGE => self::REMOVE_SPORE_MUSH,
         ],
         ActionEnum::PUBLIC_BROADCAST->value => [
             ActionOutputEnum::SUCCESS => self::PUBLIC_BROADCAST,

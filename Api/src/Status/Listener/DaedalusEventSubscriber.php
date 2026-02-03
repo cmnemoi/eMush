@@ -13,6 +13,7 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -170,15 +171,45 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
      * By default, spawn half of the attacking hunters after travel.
      * If there are no attacking hunters, spawn a wave with half of the hunter points the daedalus has.
      * If there are not enough hunter points, spawn at least one hunter.
+     *
+     * Trail reducer project provides an additional reduction (stored in modifier delta).
      */
     private function getNumberOfCatchingUpHunters(Daedalus $daedalus): int
     {
-        $numberOfCatchingUpHunters = (int) ceil($daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER)->count() / 2);
-        if ($numberOfCatchingUpHunters <= 0) {
-            $hunterDrawCost = $daedalus->getGameConfig()->getHunterConfigs()->getHunter(HunterEnum::HUNTER)?->getDrawCost();
-            $numberOfCatchingUpHunters = (int) (ceil($daedalus->getHunterPoints() / $hunterDrawCost / 2)) ?: 1;
+        $huntersLeft = $daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER)->count();
+        $reductionRate = $this->getHunterReductionRate($daedalus);
+
+        if ($huntersLeft > 0) {
+            return (int) ceil($reductionRate * $huntersLeft);
         }
 
-        return $numberOfCatchingUpHunters;
+        $hunterDrawCost = $daedalus->getGameConfig()->getHunterConfigs()->getHunter(HunterEnum::HUNTER)?->getDrawCost();
+
+        return (int) ceil($reductionRate * $daedalus->getHunterPoints() / $hunterDrawCost) ?: 1;
+    }
+
+    /**
+     * Returns the rate of hunters that will catch up after travel.
+     * Base rate is from config (default 50%). Trail reducer adds an extra reduction (25%).
+     */
+    private function getHunterReductionRate(Daedalus $daedalus): float
+    {
+        $baseReduction = $daedalus->getGameConfig()->getDifficultyConfig()->getFollowingHuntersPercentage() / 100;
+        $trailReducerBonus = $this->getTrailReducerBonus($daedalus);
+
+        return $baseReduction - $trailReducerBonus;
+    }
+
+    private function getTrailReducerBonus(Daedalus $daedalus): float
+    {
+        if (!$daedalus->hasModifierByModifierName(ModifierNameEnum::TRAIL_REDUCER_MODIFIER)) {
+            return 0.0;
+        }
+
+        return $daedalus
+            ->getModifiers()
+            ->getByModifierNameOrThrow(ModifierNameEnum::TRAIL_REDUCER_MODIFIER)
+            ->getVariableModifierConfigOrThrow()
+            ->getDelta();
     }
 }

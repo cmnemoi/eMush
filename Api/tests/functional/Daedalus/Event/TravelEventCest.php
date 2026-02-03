@@ -343,8 +343,8 @@ final class TravelEventCest extends AbstractFunctionalTest
 
     public function testTravelFinishedSpawnsMinusSeventyFivePercentsOfPreviousWaveWithTrailReducer(FunctionalTester $I): void
     {
-        // given there are 10 hunters
-        for ($i = 0; $i < 10; ++$i) {
+        // given there are 47 hunters
+        for ($i = 0; $i < 47; ++$i) {
             $this->createHunterFromName($I, $this->daedalus, HunterEnum::HUNTER);
         }
 
@@ -358,14 +358,14 @@ final class TravelEventCest extends AbstractFunctionalTest
         // when travel is launched and finished
         $this->launchAndFinishesTravel();
 
-        // then 3 hunters are spawn
-        $I->assertCount(3, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER));
+        // then 12 hunters are spawn
+        $I->assertCount(12, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER));
     }
 
     public function testTravelFinishedSpawnsAQuarterPowerWaveWithTrailReducerIfThereWereNoHunterToFleeFrom(FunctionalTester $I): void
     {
-        // given daedalus has enough points to spawn 10 hunters
-        $this->daedalus->setHunterPoints(100);
+        // given daedalus has enough points to spawn 49 hunters
+        $this->daedalus->setHunterPoints(490);
 
         // given the trail reducer project is finished
         $trailReducer = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
@@ -374,32 +374,31 @@ final class TravelEventCest extends AbstractFunctionalTest
         // when travel is launched and finished
         $this->launchAndFinishesTravel();
 
-        // then 3 hunters are spawn
-        $I->assertCount(3, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER));
+        // then 13 hunters are spawn
+        $I->assertCount(13, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER));
     }
 
-    // TODO: Fix this test
-    // public function testTravelFinishedSpawnsOneHunterWithTrailReducerIfThereWasNoHunterToFleeFromAndNoEnoughPower(FunctionalTester $I): void
-    // {
-    //     // given there are no attacking hunters
-    //     $I->assertEquals(0, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER)->count());
+    public function testTravelFinishedSpawnsOneHunterWithTrailReducerIfThereWasNoHunterToFleeFromAndNoEnoughPower(FunctionalTester $I): void
+    {
+        // given there are no attacking hunters
+        $I->assertEquals(0, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER)->count());
 
-    //     // given daedalus has no points to spawn hunters
-    //     $this->daedalus->setHunterPoints(0);
+        // given daedalus has no points to spawn hunters
+        $this->daedalus->setHunterPoints(0);
 
-    //     // given the trail reducer project is finished
-    //     $trailReducer = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
-    //     $this->finishProject($trailReducer, $this->chun, $I);
+        // given the trail reducer project is finished
+        $trailReducer = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
+        $this->finishProject($trailReducer, $this->chun, $I);
 
-    //     // then daedalus should have 1 modifier
-    //     $I->assertCount(1, $this->daedalus->getModifiers());
+        // then daedalus should have 1 modifier
+        $I->assertCount(1, $this->daedalus->getModifiers());
 
-    //     // when travel is launched and finished
-    //     $this->launchAndFinishesTravel();
+        // when travel is launched and finished
+        $this->launchAndFinishesTravel();
 
-    //     // then 1 hunter is spawn
-    //     $I->assertCount(1, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
-    // }
+        // then 1 hunter is spawn
+        $I->assertCount(1, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER));
+    }
 
     public function testHunterAfterMultipleTravelsDoesNotShootRightAway(FunctionalTester $I): void
     {

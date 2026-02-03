@@ -84,6 +84,7 @@ abstract class DifficultyConfigData
                 minTransportSpawnRate: 5,
                 maxTransportSpawnRate: 15,
                 randomSpores: [2 => 75, 3 => 19, 4 => 6],
+                followingHuntersPercentage: 50,
             ),
         ];
     }

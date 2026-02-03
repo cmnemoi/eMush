@@ -48,5 +48,6 @@ final readonly class DifficultyConfigDto
         public int $minTransportSpawnRate,
         public int $maxTransportSpawnRate,
         public array $randomSpores,
+        public int $followingHuntersPercentage = 50,
     ) {}
 }

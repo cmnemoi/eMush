@@ -106,6 +106,9 @@ class DifficultyConfig
     #[ORM\Column(type: 'json', nullable: false, options: ['default' => '[]'])]
     private array $randomSpores = [];
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 50])]
+    private int $followingHuntersPercentage = 50;
+
     public function __construct() {}
 
     public static function fromDto(DifficultyConfigDto $dto): self
@@ -465,6 +468,18 @@ class DifficultyConfig
     public function setRandomSpores(array $randomSpores): static
     {
         $this->randomSpores = $randomSpores;
+
+        return $this;
+    }
+
+    public function getFollowingHuntersPercentage(): int
+    {
+        return $this->followingHuntersPercentage;
+    }
+
+    public function setFollowingHuntersPercentage(int $followingHuntersPercentage): static
+    {
+        $this->followingHuntersPercentage = $followingHuntersPercentage;
 
         return $this;
     }

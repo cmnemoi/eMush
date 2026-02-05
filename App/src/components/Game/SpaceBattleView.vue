@@ -389,7 +389,7 @@ img {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 10;
+    z-index: 5;
 
     &:hover, &:focus {
         background-color: color.adjust($slightlyDeepBlue, $lightness: 10%);

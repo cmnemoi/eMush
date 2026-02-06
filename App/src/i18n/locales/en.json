@@ -652,8 +652,11 @@
 			"maintenanceContent": "Dear crew, get ready for **game maintenance** in *1 cycle*. Use this time to contemplate the existential void or reflect on your life choices: *the fun will continue after the technical break... Or not*.",
 			"frenchAnnouncement": "French announcement",
 			"englishAnnouncement": "English announcement",
+			"spanishAnnouncement": "Spanish announcement",
+			"targetedAnnouncement": "Targeted announcement",
 			"sendNeronAnnouncement": "Send a NERON announcement",
-			"sendNeronAnnouncementToAllDaedaluses": "Send a NERON announcement to all Daedalus"
+			"sendNeronAnnouncementToAllDaedaluses": "Send a NERON announcement to all Daedalus",
+			"sendNeronAnnouncementToSinglelDaedalus": "Send a NERON announcement to the SELECTED Daedalus"
 		}
 	},
 	"charSelection": {

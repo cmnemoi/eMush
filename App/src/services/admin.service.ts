@@ -68,6 +68,17 @@ const AdminService = {
 
         return response;
     },
+    sendNeronAnnouncementToTarget: async(announcement: string, id: string): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(
+            ADMIN_ENDPOINT + '/neron-announcement-targeted',
+            { announcement: announcement, shipId: id }
+        );
+
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
     unlockDaedalus: async(daedalusId: integer): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(urlJoin(ADMIN_ENDPOINT, 'debug', 'unlock-daedalus', String(daedalusId)));

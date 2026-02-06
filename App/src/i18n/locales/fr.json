@@ -652,8 +652,11 @@
 			"maintenanceContent": "Cher équipage, préparez-vous pour une **maintenance du jeu** dans *1 cycle*. Profitez de ce temps pour contempler le vide existentiel ou réfléchir à vos choix de vie : *le plaisir continuera après la pause technique... Ou pas*.",
 			"frenchAnnouncement": "Annonce française",
 			"englishAnnouncement": "Annonce anglaise",
+			"spanishAnnouncement": "Annonce espagnole",
+			"targetedAnnouncement": "Annonce ciblée",
 			"sendNeronAnnouncement": "Envoyer une annonce NERON",
-			"sendNeronAnnouncementToAllDaedaluses": "Envoyer une annonce NERON à tous les Daedalus"
+			"sendNeronAnnouncementToAllDaedaluses": "Envoyer une annonce NERON à tous les Daedalus",
+			"sendNeronAnnouncementToSinglelDaedalus": "Envoyer une annonce NERON à un seul Daedalus"
 		}
 	},
 	"charSelection": {

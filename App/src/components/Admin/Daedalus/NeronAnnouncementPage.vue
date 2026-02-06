@@ -11,6 +11,14 @@
                     <th>{{ $t('admin.neronAnnouncement.englishAnnouncement') }}</th>
                     <td><textarea v-model="englishAnnouncement" /></td>
                 </tr>
+                <tr>
+                    <th>{{ $t('admin.neronAnnouncement.spanishAnnouncement') }}</th>
+                    <td><textarea v-model="spanishAnnouncement" /></td>
+                </tr>
+                <tr>
+                    <th>{{ $t('admin.neronAnnouncement.targetedAnnouncement') }}</th>
+                    <td><textarea v-model="targetedAnnouncement" /></td>
+                </tr>
             </tbody>
         </table>
         <div class="templates">
@@ -21,10 +29,15 @@
             <button class="action-button" @click="getTemplateByName('maintenance')">
                 {{ $t('admin.neronAnnouncement.maintenance') }}
             </button>
+            ShipId
+            <input type="number" v-model="shipId"/>
         </div>
     </div>
     <button :class="'action-button ' + (areAnnouncementsFilled() ? '' : 'disabled')" @click="sendNeronAnnouncements">
         {{ $t('admin.neronAnnouncement.sendNeronAnnouncementToAllDaedaluses') }}
+    </button>
+    <button :class="'action-button ' + (isTargetedAnnouncementFilled() ? '' : 'disabled')" @click="sendTargetedNeronAnnouncement">
+        {{ $t('admin.neronAnnouncement.sendNeronAnnouncementToSinglelDaedalus') }}
     </button>
 </template>
 
@@ -37,7 +50,10 @@ export default defineComponent ({
     name: "AdminNeronAnnouncement",
     methods: {
         areAnnouncementsFilled(): boolean {
-            return this.frenchAnnouncement != "" && this.englishAnnouncement !== "";
+            return this.frenchAnnouncement != "" && this.englishAnnouncement !== "" && this.spanishAnnouncement !== "";
+        },
+        isTargetedAnnouncementFilled(): boolean {
+            return this.targetedAnnouncement != "";
         },
         getTemplateByName(name: string): void {
             const selectedLocale = this.$i18n.locale;
@@ -51,18 +67,29 @@ export default defineComponent ({
             this.$i18n.locale = selectedLocale;
         },
         sendNeronAnnouncements(): void {
-            if (!this.frenchAnnouncement || !this.englishAnnouncement) {
+            if (!this.frenchAnnouncement || !this.englishAnnouncement || !this.spanishAnnouncement) {
                 return;
             }
 
             AdminService.sendNeronAnnouncementToAllDaedalusesByLanguage(this.frenchAnnouncement, GameLocales.FR);
             AdminService.sendNeronAnnouncementToAllDaedalusesByLanguage(this.englishAnnouncement, GameLocales.EN);
+            AdminService.sendNeronAnnouncementToAllDaedalusesByLanguage(this.spanishAnnouncement, GameLocales.ES);
+        },
+        sendTargetedNeronAnnouncement(): void {
+            if (!this.targetedAnnouncement) {
+                return;
+            }
+
+            AdminService.sendNeronAnnouncementToTarget(this.targetedAnnouncement, String(this.shipId));
         }
     },
     data() {
         return {
             frenchAnnouncement: "",
-            englishAnnouncement: ""
+            englishAnnouncement: "",
+            spanishAnnouncement: "",
+            targetedAnnouncement: "",
+            shipId: 0
         };
     }
 });

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\View\View;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
@@ -23,11 +24,13 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
 use Nelmio\ApiDocBundle\Annotation\Security;
+use Nelmio\ApiDocBundle\Attribute\Security as NelmioSecurity;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Class AdminController.
@@ -376,6 +379,43 @@ class AdminController extends AbstractFOSRestController
 
         return $this->view([
             'message' => "Announcement sent successfully to {$daedaluses->count()} Daedaluses",
+            'announcement' => $announcement,
+        ], Response::HTTP_CREATED);
+    }
+
+    #[IsGranted('ROLE_MODERATOR')]
+    #[Post(path: '/neron-announcement-targeted')]
+    #[NelmioSecurity(name: 'Bearer')]
+    public function sendNeronAnnouncementToASingleDaedalus(Request $request): View
+    {
+        $requestContent = json_decode($request->getContent(), true);
+
+        if (!\array_key_exists('announcement', $requestContent)) {
+            return $this->view('Announcement content is missing', Response::HTTP_BAD_REQUEST);
+        }
+
+        if (!\array_key_exists('shipId', $requestContent)) {
+            return $this->view('Ship Id is missing', Response::HTTP_BAD_REQUEST);
+        }
+
+        $shipId = $requestContent['shipId'];
+        $daedalus = $this->daedalusService->findById($shipId);
+
+        if ($daedalus === null) {
+            return $this->view("Daedalus doesn't exist", Response::HTTP_BAD_REQUEST);
+        }
+
+        $announcement = $requestContent['announcement'];
+
+        $this->neronMessageService->createNeronMessage(
+            messageKey: $announcement,
+            daedalus: $daedalus,
+            parameters: [],
+            dateTime: new \DateTime()
+        );
+
+        return $this->view([
+            'message' => 'Announcement sent successfully.',
             'announcement' => $announcement,
         ], Response::HTTP_CREATED);
     }

@@ -26,5 +26,7 @@ interface UserRepositoryInterface
 
     public function findUserNumberOfPastGames(User $user): int;
 
+    public function hasCompletedAGameBefore(User $user, \DateTime $date): bool;
+
     public function save(User $user): void;
 }

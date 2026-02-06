@@ -1,3 +1,5 @@
+import { Poll } from "./Poll";
+
 export class News {
     public iri: string|null;
     public id: number|null;
@@ -12,6 +14,7 @@ export class News {
     public isPublished: boolean;
     public updatedAt: Date|null;
     public hidden: boolean|null;
+    public poll: Poll|null;
 
     constructor() {
         this.iri = null;
@@ -27,6 +30,7 @@ export class News {
         this.isPublished = false;
         this.updatedAt = null;
         this.hidden = true;
+        this.poll = null;
     }
     load(object: any): News {
         if (typeof object !== "undefined") {
@@ -42,6 +46,11 @@ export class News {
             this.publicationDate = new Date(object.publicationDate);
             this.isPinned = object.isPinned;
             this.isPublished = object.isPublished;
+
+            if(object.poll)
+            {
+                this.poll = new Poll().load(object.poll);
+            }
         }
 
         return this;
@@ -68,7 +77,8 @@ export class News {
             spanishContent: this.spanishContent,
             publicationDate: this.publicationDate,
             isPinned: this.isPinned,
-            isPublished: this.isPublished
+            isPublished: this.isPublished,
+            poll: this.poll?.iri
         };
     }
 }

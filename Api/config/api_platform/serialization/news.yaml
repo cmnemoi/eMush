@@ -22,5 +22,7 @@ Mush\MetaGame\Entity\News:
       groups: [ 'news_read', 'news_write' ]
     publicationDate:
       groups: [ 'news_read', 'news_write' ]
+    poll :
+      groups: [ 'news_read', 'news_write' ]
     isPublished:
       groups: [ 'news_read' ]

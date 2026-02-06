@@ -89,4 +89,9 @@ class UserService implements UserServiceInterface
 
         $this->persist($user);
     }
+
+    public function userCanVoteInImportantPoll(User $user, \DateTime $date): bool
+    {
+        return $this->repository->hasCompletedAGameBefore($user, $date);
+    }
 }

@@ -1,0 +1,12 @@
+Mush\MetaGame\Entity\Poll\Poll:
+  attributes:
+    pagination_items_per_page: 25
+    normalization_context:
+      groups: [ 'poll_read' ]
+    denormalization_context:
+      groups: [ 'poll_write' ]
+  itemOperations:
+    get:
+      security: 'is_granted("ROLE_USER")'
+    put:
+      security: 'is_granted("ROLE_ADMIN")'

@@ -4,6 +4,7 @@ namespace Mush\MetaGame\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\MetaGame\Entity\Poll\Poll;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'news')]
@@ -39,6 +40,9 @@ class News
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTime $publicationDate = null;
+
+    #[ORM\OneToOne(targetEntity: Poll::class)]
+    private ?Poll $poll = null;
 
     public function getId(): int
     {
@@ -128,5 +132,17 @@ class News
     public function getIsPublished(): bool
     {
         return $this->publicationDate < new \DateTime();
+    }
+
+    public function getPoll(): ?Poll
+    {
+        return $this->poll;
+    }
+
+    public function setPoll(Poll $poll): self
+    {
+        $this->poll = $poll;
+
+        return $this;
     }
 }

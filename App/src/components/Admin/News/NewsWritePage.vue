@@ -26,6 +26,39 @@
                     <th>{{ $t('admin.newsWrite.spanishContent') }}</th>
                     <td><textarea v-model="news.spanishContent" /></td>
                 </tr>
+                <tr v-if="!news.id">
+                    <th><button
+                        class="action-button"
+                        type="button"
+                        @click="newPoll">
+                        {{ $t('admin.newsWrite.newPoll') }}
+                    </button></th>
+                    <td><input v-model="pollTitle" maxlength="250"/></td>
+                </tr>
+
+                <tr v-for="option in pollOptions" :key="option.id">
+                    <th><button
+                        class="action-button"
+                        type="button"
+                        @click="removePollOption(option)">
+                        {{ $t('admin.newsWrite.removePollOption') }}
+                    </button></th>
+                    <td><input v-model="option.name" maxlength="150"/></td>
+                </tr>
+
+                <tr v-if="poll">
+                    <th><button
+                        class="action-button"
+                        type="button"
+                        @click="newPollOption">
+                        {{ $t('admin.newsWrite.newPollOption') }}
+                    </button></th>
+                    <td>
+                        {{ $t('admin.newsWrite.maxVotes') }}
+                        <input type="number" min="1" v-model="maxVotes">
+                    </td>
+                </tr>
+
             </tbody>
         </table>
         <div class="flex-row wrap">
@@ -62,10 +95,23 @@ import NewsService from "@/services/news.service";
 import { News } from "@/entities/News";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import { mapActions } from "vuex";
+import UserService from "@/services/user.service";
+import { Poll } from "@/entities/Poll";
+
+interface PollOption {
+    id : number,
+    name : string
+}
 
 interface NewsData {
     news: News | null,
     errors: any,
+    pollTitle : string,
+    pollOptions : Array<PollOption>,
+    poll : boolean,
+    lastOptionId : number,
+    maxVotes : number
+
 }
 
 export default defineComponent({
@@ -76,7 +122,12 @@ export default defineComponent({
     data() : NewsData {
         return {
             news: null,
-            errors: {}
+            errors: {},
+            pollTitle : "",
+            pollOptions : [],
+            poll : false,
+            lastOptionId : 0,
+            maxVotes : 1
         };
     },
     methods: {
@@ -85,6 +136,19 @@ export default defineComponent({
                 console.error("News is null");
                 return;
             }
+
+            if (this.poll === true)
+            {
+                await this.createPoll()
+                    .then((result) => {
+                        this.news.poll = result;
+                    })
+                    .catch((error: any) => {
+                        this.errors = handleErrors(error);
+                    });
+            }
+
+
             await NewsService.createNews(this.news)
                 .then((result: News | null) => {
                     this.news = result;
@@ -111,6 +175,29 @@ export default defineComponent({
                 .catch((error: any) => {
                     this.errors = handleErrors(error);
                 });
+        },
+        newPoll(): void {
+            this.poll = true;
+        },
+        newPollOption(): void {
+            this.lastOptionId += 1;
+            const o : PollOption = { id : this.lastOptionId, name : '' };
+
+            this.pollOptions.push(o);
+        },
+        removePollOption(option : any): void {
+            const optionIndex = this.pollOptions.indexOf(option);
+            if (optionIndex !== -1)
+            {
+                this.pollOptions.splice(optionIndex, 1);
+            }
+        },
+        async createPoll(): Promise<Poll> {
+            const data : Array<string> = this.pollOptions.map((o : PollOption) => o.name);
+
+
+            return await UserService.createPoll(this.pollTitle, this.maxVotes, data);
+
         }
     },
     beforeMount() {

@@ -3757,6 +3757,7 @@ class EquipmentConfigData
                 'take',
                 'drop',
                 'examine',
+                'repair_percent_6',
             ],
             'mechanics' => [],
             'initStatuses' => [EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::EVIL_DRONE . '_default'],

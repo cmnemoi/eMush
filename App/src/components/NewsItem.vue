@@ -24,6 +24,7 @@
         <div class="content" v-if="localeIsSpanish()">
             <p v-html="formatNewsContent(news.spanishContent)" />
         </div>
+        <Poll v-if="news.poll !== null" :poll="news.poll"></Poll>
     </article>
 </template>
 
@@ -33,9 +34,14 @@ import { GameLocales } from "@/i18n";
 import { formatText } from "@/utils/formatText";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { defineComponent } from "vue";
+import Poll from "@/components/Utils/Poll.vue";
 
 export default defineComponent ({
     name: 'NewsItem',
+    components : {
+        Poll
+    },
+
     props: {
         news: {
             type: News,

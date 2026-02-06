@@ -4,8 +4,11 @@ namespace Mush\User\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Mush\Daedalus\Entity\ClosedDaedalus;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Player\Entity\ClosedPlayer;
+use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
@@ -134,6 +137,25 @@ final class UserRepository extends ServiceEntityRepository implements UserLoader
             ->setParameter('user_id', $user->getId());
 
         return (int) $qb->getQuery()->getSingleScalarResult() ?? 0;
+    }
+
+    public function hasCompletedAGameBefore(User $user, \DateTime $date): bool
+    {
+        $qb = $this->createQueryBuilder('user');
+        $qb->select('COUNT(daedalus_closed)')
+            ->innerJoin(PlayerInfo::class, 'player_info', 'WITH', 'player_info.user = user.id')
+            ->innerJoin(Player::class, 'player', 'WITH', 'player.id = player_info.id')
+            ->innerJoin(Daedalus::class, 'daedalus', 'WITH', 'daedalus.id = player.daedalus')
+            ->innerJoin(DaedalusInfo::class, 'daedalus_info', 'WITH', 'daedalus_info.daedalus = daedalus.id')
+            ->innerJoin(ClosedDaedalus::class, 'daedalus_closed', 'WITH', 'daedalus_closed.id = daedalus_info.closedDaedalus')
+            ->where('user.id = :user_id')
+            ->andWhere('daedalus_closed.finishedAt < :date')
+            ->setParameter('user_id', $user->getId())
+            ->setParameter('date', $date);
+
+        $result = (int) $qb->getQuery()->getSingleScalarResult() ?? 0;
+
+        return $result > 0;
     }
 
     public function save(User $user): void

@@ -26,4 +26,6 @@ interface UserServiceInterface
     public function acceptRules(User $user): void;
 
     public function readLatestNews(User $user): void;
+
+    public function userCanVoteInImportantPoll(User $user, \DateTime $date): bool;
 }

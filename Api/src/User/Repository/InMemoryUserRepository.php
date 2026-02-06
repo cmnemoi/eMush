@@ -44,6 +44,11 @@ final class InMemoryUserRepository implements UserRepositoryInterface
         throw new \LogicException('Not implemented');
     }
 
+    public function hasCompletedAGameBefore(User $user, \DateTime $date): bool
+    {
+        throw new \LogicException('Not implemented');
+    }
+
     public function save(User $user): void
     {
         // Update if exists, otherwise add

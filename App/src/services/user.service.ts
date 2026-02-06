@@ -3,6 +3,8 @@ import store from "@/store";
 import urlJoin from "url-join";
 import ApiService from './api.service';
 import { TokenService } from './storage.service';
+import { Poll } from "@/entities/Poll";
+import { PollOption } from "@/entities/PollOption";
 
 const API_URL = import.meta.env.VITE_APP_API_URL;
 const OAUTH_URL = import.meta.env.VITE_APP_OAUTH_URL;
@@ -11,6 +13,7 @@ const authorizationUrl = urlJoin(OAUTH_URL, "authorize");
 const tokenUrl = urlJoin(OAUTH_URL, "token");
 const callBackUrl = urlJoin(import.meta.env.VITE_APP_URL as string, "token");
 const userEndPoint = urlJoin(API_URL, "users");
+const pollEndPoint = urlJoin(API_URL, "poll");
 
 class AuthenticationError extends Error {
     public errorCode: number;
@@ -186,6 +189,78 @@ const UserService = {
         } catch (error: any) {
             console.error('Error getting version:', error);
             return '';
+        }
+    },
+
+    getPoll: async function(iri : any): Promise<Poll> {
+        try {
+            const response = await ApiService.get(urlJoin(pollEndPoint, iri));
+            const poll = new Poll().load(response.data);
+            return poll;
+        } catch (error: any) {
+            console.error("Error can't get poll", error);
+            return new Poll();
+        }
+    },
+
+    removeVotesInPoll: async function(pollId : number): Promise<any> {
+        try {
+            const response = await ApiService.post(urlJoin(pollEndPoint, 'remove-votes', String(pollId)));
+            return response.data;
+        } catch (error: any) {
+            console.error(error);
+            return [];
+        }
+    },
+
+    voteInPoll: async function(pollId : number, optionsId : Array<number>): Promise<any> {
+
+        const data : any = {};
+        let optionCount = 0;
+
+        optionsId.forEach((o: number) => {
+            data['option_' + optionCount] = o;
+            optionCount += 1;
+        });
+
+        try {
+            const response = await ApiService.post(urlJoin(pollEndPoint, 'vote', String(pollId)), data);
+            return response.data;
+        } catch (error: any) {
+            console.error(error);
+            return [];
+        }
+    },
+
+    createPoll: async function(title: string, maxvotes : number, options : Array<string>): Promise<Poll> {
+
+        const data : any = {};
+        data['title'] = title;
+        data['maxVotes'] = maxvotes;
+        let optionCount = 0;
+
+        options.forEach((o: string) => {
+            data['option_' + optionCount] = o;
+            optionCount += 1;
+        });
+
+        try {
+            const response = await ApiService.post(urlJoin(pollEndPoint, 'create-admin-poll'), data);
+            const poll = new Poll().load(response.data);
+            return poll;
+        } catch (error: any) {
+            console.error(error);
+            return new Poll();
+        }
+    },
+
+    closePoll: async function(pollId : number): Promise<any> {
+        try {
+            const response = await ApiService.post(urlJoin(pollEndPoint, 'close-poll', String(pollId)));
+            return response.data;
+        } catch (error: any) {
+            console.error(error);
+            return [];
         }
     }
 };

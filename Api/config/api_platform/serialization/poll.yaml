@@ -1,0 +1,4 @@
+Mush\MetaGame\Entity\Poll\Poll:
+  attributes:
+    id: 
+      groups: [ 'poll_read' ]

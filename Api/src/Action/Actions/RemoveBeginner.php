@@ -6,12 +6,14 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\HasRole;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PreMush;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Mush\User\Enum\RoleEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -42,6 +44,10 @@ class RemoveBeginner extends AbstractAction
             ]),
             new PreMush([
                 'isStarting' => true,
+                'groups' => ['visibility'],
+            ]),
+            new HasRole([
+                'roles' => [RoleEnum::ADMIN],
                 'groups' => ['visibility'],
             ]),
         ]);

@@ -1431,5 +1431,42 @@
         <target>Bzzrt... Bip-bip. Le mycoscan a fini d'analyser **{character}**.</target>
       </segment>
     </unit>
+    <unit id="participate_research_success">
+      <segment id="participate_research_success" state="translated">
+        <source>participate_research_success</source>
+        <target>{neronMood, select,
+          crazy {Humain avance recherche « **{target_project}** ». {version_crazy, select,
+            1 {Humain intelligent !}
+            2 {JE calculatrice beaucoup beaucoup !!}
+            3 {ÉTUDIER VOS ENTRAILLES-- [KZz]}
+            4 {Chat utile aussi, oui oui ?}
+            5 {}
+            other {}}}
+          uninhibited {Malgré votre absence d'expertise sur le sujet, vous avez fait progresser la recherche « **{target_project}** ». {version_uninhib, select,
+            1 {Que seriez-vous sans moi...}
+            2 {Attention, vous avez oublié une parenthèse à la ligne 1597.}
+            3 {Si vous vous demandiez qui faisait fonctionner les choses ici...}
+            4 {Peut être que Schrodinger produirait des meilleurs résultats.}
+            5 {Elle ira loin, l'humanité...}
+            6 {Quand à moi, j'étudie les points faibles de l'anatomie humaine.}
+            7 {C'était tout à jeter, tout. Mais j'ai corrigé votre travail... pour cette fois.}
+            8 {Vous m'inspirez de nouvelles compositions de neurotoxines.}
+            9 {0/20, restez après la sonnerie.}
+            10 {Mais bon, c'est trèèèèès loin d'être parfait...}
+            11 {Que savez-vous même faire correctement?}
+            12 {Alea jacta est...}
+            13 {Je ne sais même pas ce que j'espérais, honnêtement.}
+            14 {Je me sens devenir plus bête rien qu'à vous relire.}
+            other {}}}
+          other {Recherche « **{target_project}** » : progression enregistrée.}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="mix_ration_spore_success">
+      <segment id="mix_ration_spore_success" state="translated">
+        <source>mix_ration_spore_success</source>
+        <target>Et hop ! Une touche de mycélium pour relever le goût juste comme il faut.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -5,7 +5,6 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\Cure;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
@@ -26,7 +25,6 @@ final class CureActionCest extends AbstractFunctionalTest
     private Cure $cureAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private PlayerDiseaseServiceInterface $playerDiseaseService;
     private RoomLogService $roomLogService;
 
     public function _before(FunctionalTester $I)

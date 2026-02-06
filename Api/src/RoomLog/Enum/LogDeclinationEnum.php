@@ -112,6 +112,7 @@ abstract class LogDeclinationEnum
             LogEnum::DOG_BARK => [self::VERSION => 17],
             LogEnum::DOG_BOTHER_CAT => [self::VERSION => 4],
             'evil_drone.conspire' => [self::VERSION => 4],
+            ActionLogEnum::PARTICIPATE_RESEARCH_SUCCESS => [self::VERSION_UNINHIB => 14, self::VERSION_CRAZY => 5],
         ];
     }
 }

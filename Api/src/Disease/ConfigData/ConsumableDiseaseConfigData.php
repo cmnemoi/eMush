@@ -5,6 +5,7 @@ namespace Mush\Disease\ConfigData;
 /** @codeCoverageIgnore */
 class ConsumableDiseaseConfigData
 {
+    // @TODO: Please deprecate me!!!! Make foods use DiseaseCauseConfigData instead!!!!!
     public static array $dataArray = [
         [
             'name' => 'creepnut_default',

@@ -63,7 +63,6 @@ final readonly class UserShipsHistoryQueryHandler
         ON config_game.daedalus_config_id = config_daedalus.id
         WHERE users.user_id = :user_id
         AND daedalus_closed.finished_at IS NOT NULL
-        AND daedalus_closed.is_cheater = FALSE
         ORDER BY closed_player.finished_at DESC
         LIMIT :items_per_page
         OFFSET :offset';

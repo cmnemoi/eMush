@@ -9,6 +9,8 @@ use FOS\RestBundle\Controller\Annotations\Post;
 use Mush\Achievement\Command\UpdateUserStatisticCommand;
 use Mush\Achievement\Query\GetUserAchievementsQuery;
 use Mush\Achievement\Query\GetUserStatisticsQuery;
+use Mush\Achievement\Services\PublishPendingStatisticsService;
+use Mush\Daedalus\Entity\ClosedDaedalus;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,7 +26,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[AsController]
 final class AchievementController extends AbstractController
 {
-    public function __construct(private MessageBusInterface $queryBus, private MessageBusInterface $commandBus) {}
+    public function __construct(private MessageBusInterface $queryBus, private MessageBusInterface $commandBus, private PublishPendingStatisticsService $publishPendingStatisticsService) {}
 
     #[Get(path: '/statistics')]
     public function getUserStatisticsEndpoint(#[MapQueryString] GetUserStatisticsQuery $query): JsonResponse
@@ -50,6 +52,18 @@ final class AchievementController extends AbstractController
 
         return $this->json(
             data: ['message' => "Statistic {$command->statisticName->value} updated successfully for user {$command->userId} to {$command->count}"],
+            status: Response::HTTP_OK
+        );
+    }
+
+    #[Post(path: '/statistics/deliver/{daedalus}')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function deliverPendingStatistics(ClosedDaedalus $daedalus): JsonResponse
+    {
+        $this->publishPendingStatisticsService->fromClosedDaedalus($daedalus->getId());
+
+        return $this->json(
+            data: ['message' => 'Stats delivered successfully'],
             status: Response::HTTP_OK
         );
     }

@@ -5,6 +5,7 @@ import store from "@/store";
 const API_URL = import.meta.env.VITE_APP_API_URL as string;
 
 const ADMIN_ENDPOINT = urlJoin(API_URL, "admin");
+const STATS_ENDPOINT = urlJoin(API_URL, "statistics");
 
 const AdminService = {
     addNewRoomsToDaedalus: async(daedalusId: integer): Promise<any> => {
@@ -70,6 +71,13 @@ const AdminService = {
     unlockDaedalus: async(daedalusId: integer): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(urlJoin(ADMIN_ENDPOINT, 'debug', 'unlock-daedalus', String(daedalusId)));
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
+    deliverStats: async(daedalusId: integer): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(urlJoin(STATS_ENDPOINT, 'deliver', String(daedalusId)));
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;

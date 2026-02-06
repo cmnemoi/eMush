@@ -382,7 +382,8 @@
 			"maintenanceOn": "Put the game into maintenance",
 			"maintenanceOff": "Remove game from maintenance",
 			"createAPlanet": "Create a planet",
-			"markAsCheater": "Mark Daedalus as cheaters"
+			"markAsCheater": "Mark Daedalus as cheaters",
+			"deliverStats": "Deliver Statistics"
 		},
 		"save": "Save",
 		"show": "Show",

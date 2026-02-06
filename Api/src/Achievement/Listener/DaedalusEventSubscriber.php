@@ -70,7 +70,9 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
     public function afterDaedalusFinish(DaedalusEvent $event): void
     {
         $closedDaedalus = $event->getDaedalus()->getDaedalusInfo()->getClosedDaedalus();
-        $this->publishPendingStatisticsService->fromClosedDaedalus($closedDaedalus->getId());
+        if ($closedDaedalus->isCheater() === false) {
+            $this->publishPendingStatisticsService->fromClosedDaedalus($closedDaedalus->getId());
+        }
 
         /** @var ClosedPlayer $player */
         foreach ($closedDaedalus->getPlayers() as $player) {

@@ -101,6 +101,11 @@
                         @click="markDaedalusAsCheater(slotProps.id)">
                         {{ $t("admin.daedalus.markAsCheater") }}
                     </button>
+                    <button
+                        type="button"
+                        @click="deliverStats(slotProps.id)">
+                        {{ $t("admin.daedalus.deliverStats") }}
+                    </button>
                 </DropList>
             </template>
 
@@ -292,6 +297,11 @@ export default defineComponent({
         },
         async markDaedalusAsCheater(id: number) {
             await this.banDaedalus({ closedDaedalusId: id }).then(() => {
+                this.loadData();
+            });
+        },
+        async deliverStats(id: number) {
+            await AdminService.deliverStats(id).then(() => {
                 this.loadData();
             });
         }

@@ -382,7 +382,8 @@
 			"maintenanceOn": "Mettre le jeu en maintenance",
 			"maintenanceOff": "Retirer le jeu de la maintenance",
 			"createAPlanet": "Créer une planète",
-			"markAsCheater": "Marquer le Daedalus comme tricheurs"
+			"markAsCheater": "Marquer le Daedalus comme tricheurs",
+			"deliverStats": "Delivrer les pictos"
 		},
 		"save": "Sauvegarder",
 		"show": "Montrer",

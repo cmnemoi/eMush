@@ -40,7 +40,7 @@ final class UserShipsHistoryQueryHandlerCest extends AbstractFunctionalTest
         $I->assertCount(0, $result['data']);
     }
 
-    public function shouldBeEmptyIfDaedalusCheated(FunctionalTester $I): void
+    public function shouldNotBeEmptyIfDaedalusCheated(FunctionalTester $I): void
     {
         // given
         $closedDaedalus = $this->daedalus->getDaedalusInfo()->getClosedDaedalus();
@@ -52,7 +52,7 @@ final class UserShipsHistoryQueryHandlerCest extends AbstractFunctionalTest
         $result = $this->whenGettingUserShipsHistory($this->kuanTi->getUser());
 
         // then
-        $I->assertCount(0, $result['data']);
+        $I->assertCount(1, $result['data']);
     }
 
     public function shouldReturnShipsHistoryIfUserHasPastGames(FunctionalTester $I): void

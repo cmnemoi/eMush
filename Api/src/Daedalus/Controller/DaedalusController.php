@@ -225,7 +225,6 @@ class DaedalusController extends AbstractGameController
         if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
             throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
         }
-        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         $this->daedalusService->endDaedalus(
             $daedalus,

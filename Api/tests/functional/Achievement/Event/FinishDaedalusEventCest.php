@@ -154,6 +154,20 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
         $this->thenChunHasNoPendingStatistics($I);
     }
 
+    public function shouldNotClearPendingStatisticsAfterDaedalusEndIfCheater(FunctionalTester $I): void
+    {
+        $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->markAsCheater();
+
+        // given user1 has 2 cycles as chun
+        $this->givenPlayerHasLivedCycles(2, $this->chun);
+
+        $this->thenChunHasXCyclesPendingStatistic(2, $I);
+
+        $this->whenDaedalusEndsWith(EndCauseEnum::SUPER_NOVA);
+
+        $this->thenChunHasPendingStatistics($I);
+    }
+
     public function shouldNotIncrementDeprecatedCycleCount(FunctionalTester $I): void
     {
         // given user1 has 2 cycles as chun
@@ -344,6 +358,16 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
             closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
         )?->getCount();
         $I->assertNull($chunCyclesPendingStatistic, "Chun should have no cycles pending statistics, got {$chunCyclesPendingStatistic}");
+    }
+
+    private function thenChunHasPendingStatistics(FunctionalTester $I): void
+    {
+        $chunCyclesPendingStatistic = $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
+            name: StatisticEnum::CHUN,
+            userId: $this->chun->getUser()->getId(),
+            closedDaedalusId: $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId()
+        )?->getCount();
+        $I->assertNotNull($chunCyclesPendingStatistic, "Chun should have cycles pending statistics, got {$chunCyclesPendingStatistic}");
     }
 
     private function thenTriumphStatisticShouldEqualPlayerTriumphFor(Player $player, FunctionalTester $I): void

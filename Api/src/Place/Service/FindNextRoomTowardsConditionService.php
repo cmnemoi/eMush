@@ -21,13 +21,14 @@ final class FindNextRoomTowardsConditionService
         $visitedRooms = [$startRoom->getId() => true];
 
         while (!$roomsToVisit->isEmpty()) {
-            [$currentRoom, $previousRoom] = $roomsToVisit->dequeue();
+            [$currentRoom, $destinationRoom] = $roomsToVisit->dequeue();
 
-            if ($previousRoom && $condition($currentRoom)) {
-                return $previousRoom;
+            if ($condition($currentRoom)) {
+                // returns the adjacent room that's on the path to the condition, or null if the starting room fullfils it
+                return $destinationRoom;
             }
 
-            $this->addUnvisitedRoomsToQueue($currentRoom, $previousRoom, $roomsToVisit, $visitedRooms);
+            $this->addUnvisitedRoomsToQueue($currentRoom, $destinationRoom, $roomsToVisit, $visitedRooms);
         }
 
         return null;
@@ -35,7 +36,7 @@ final class FindNextRoomTowardsConditionService
 
     private function addUnvisitedRoomsToQueue(
         Place $currentRoom,
-        ?Place $previousRoom,
+        ?Place $destinationRoom,
         \SplQueue $queue,
         array &$visitedRooms
     ): void {
@@ -45,8 +46,10 @@ final class FindNextRoomTowardsConditionService
                 continue;
             }
 
+            // if this is the first depth (ie destinationRoom is null), destinationRoom is set to adjacentRoom
+            $nextRoom = $destinationRoom ?? $adjacentRoom;
+
             // Add the room to the queue
-            $nextRoom = $previousRoom ?? $adjacentRoom;
             $queue->enqueue([$adjacentRoom, $nextRoom]);
 
             // Mark room as visited

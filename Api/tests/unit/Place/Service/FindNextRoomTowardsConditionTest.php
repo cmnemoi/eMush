@@ -77,6 +77,7 @@ final class FindNextRoomTowardsConditionTest extends TestCase
         // Given
         $this->givenARoomLayoutWithTwoConnectedRooms();
         $this->givenStartRoomHasFire();
+        $this->givenAdjacentRoomHasFire(); // this helps check for false positives, as the function also returns null when no room match the condition
 
         // When
         $nextRoom = $this->whenFindingClosestRoomWithCondition(
@@ -256,6 +257,11 @@ final class FindNextRoomTowardsConditionTest extends TestCase
     private function givenStartRoomHasFire(): void
     {
         StatusFactory::createStatusByNameForHolder(StatusEnum::FIRE, $this->startRoom);
+    }
+
+    private function givenAdjacentRoomHasFire(): void
+    {
+        StatusFactory::createStatusByNameForHolder(StatusEnum::FIRE, $this->adjacentRoom1);
     }
 
     private function givenLastRoomHasFire(): void

@@ -132,7 +132,6 @@ export const EmoteStatusIcons: {[index: string]: {img: string; max_height: strin
     [EmoteStatusEnum.DISABLED]: { img: getImgUrl('status/disabled.png'), max_height: "1.2em" },
     [EmoteStatusEnum.DISEASE]: { img: getImgUrl('status/disease.png'), max_height: "1.2em" },
     [EmoteStatusEnum.DISORDER]: { img: getImgUrl('status/disorder.png'), max_height: "1.2em" },
-    [EmoteStatusEnum.FIRE]: { img: getImgUrl('status/fire.png'), max_height: "1.2em" },
     [EmoteStatusEnum.FIRST_TIME]: { img: getImgUrl('status/first_time.png'), max_height: "1.2em" },
     [EmoteStatusEnum.FOOD_DECAYING]: { img: getImgUrl('status/food_decaying.png'), max_height: "1.2em" },
     [EmoteStatusEnum.FOOD_FROZEN]: { img: getImgUrl('status/food_frozen.png'), max_height: "1.2em" },
@@ -169,7 +168,6 @@ export const EmoteStatusIcons: {[index: string]: {img: string; max_height: strin
     [EmoteStatusEnum.SUICIDAL]: { img: getImgUrl('status/suicidal.png'), max_height: "1.2em" },
     [EmoteStatusEnum.THINKLINKED]: { img: getImgUrl('status/thinklinked.png'), max_height: "1.2em" },
     [EmoteStatusEnum.UNSOCIABLE]: { img: getImgUrl('status/unsociable.png'), max_height: "1.2em" },
-    [EmoteStatusEnum.UPDATING]: { img: getImgUrl('status/update.png'), max_height: "1.2em" },
     [EmoteStatusEnum.COMMANDER]: { img: getImgUrl('title_commander.png'), max_height: "1.2em" },
     [EmoteStatusEnum.COMMS_MANAGER]: { img: getImgUrl('title_com_manager.png'), max_height: "1.2em" },
     [EmoteStatusEnum.NERON_MANAGER]: { img: getImgUrl('title_neron_manager.png'), max_height: "1.2em" }

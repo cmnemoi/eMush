@@ -50,9 +50,6 @@ export const statusItemEnum: {[index: string]: any} = {
     [StatusItemNameEnum.FROZEN]: {
         'icon': getImgUrl('status/food_frozen.png')
     },
-    [StatusItemNameEnum.UPDATING]: {
-        'icon': getImgUrl('status/update.png')
-    },
     [StatusItemNameEnum.UNSTABLE]: {
         'icon': getImgUrl('status/food_unstable.png')
     },

@@ -65,7 +65,7 @@
       </segment>
       <segment id="externalResources.tutorialsLink" state="translated">
         <source>tips.externalResources.tutorialsLink</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/</target>
+        <target>https://emushpedia.miraheze.org</target>
       </segment>
       <segment id="externalResources.wikiLink" state="translated">
         <source>tips.externalResources.wikiLink</source>

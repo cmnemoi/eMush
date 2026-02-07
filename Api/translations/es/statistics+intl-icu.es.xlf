@@ -12,21 +12,21 @@
       </segment>
       <segment id="x1" state="translated">
         <source>cat_cuddled_1.name</source>
-        <target>Gatubelo</target>
+        <target>{gender, select, female {Gatubela} other {Gatubelo}}</target>
       </segment>
     </unit>
     <unit id="coffee_taken">
       <segment id="name" state="translated">
         <source>coffee_taken.name</source>
-        <target>¡Un cafecito por favor!</target>
+        <target>{gender, select, female {Adicta} other {Adicto}} al café</target>
       </segment>
       <segment id="description" state="translated">
         <source>coffee_taken.description</source>
-        <target>Cafés consumidos</target>
+        <target>Cantidad de cafés retirados de la máquina.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>coffee_taken_1.name</source>
-        <target>¡RÁPIDO, CAFÉ!</target>
+        <target>{gender, select, female {Bebedora compulsiva} other {Bebedor compulsivo}}</target>
       </segment>
     </unit>
     <unit id="cooked_taken">
@@ -40,7 +40,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>cooked_taken_1.name</source>
-        <target>Tragón</target>
+        <target>{gender, select, female {Tragona} other {Tragón}}</target>
       </segment>
     </unit>
     <unit id="door_repaired">
@@ -54,13 +54,13 @@
       </segment>
       <segment id="x1" state="translated">
         <source>door_repaired_1.name</source>
-        <target>Cerrajero</target>
+        <target>{gender, select, female {Cerrajera} other {Cerrajero}}</target>
       </segment>
     </unit>
     <unit id="explorer">
       <segment id="name" state="translated">
         <source>explorer.name</source>
-        <target>Explorador</target>
+        <target>{gender, select, female {Exploradora} other {Explorador}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>explorer.description</source>
@@ -68,11 +68,11 @@
       </segment>
       <segment id="x1" state="translated">
         <source>explorer_1.name</source>
-        <target>Expedicionario</target>
+        <target>{gender, select, female {Expedicionaria} other {Expedicionario}}</target>
       </segment>
       <segment id="x50" state="translated">
         <source>explorer_50.name</source>
-        <target>Gran Expedicionario</target>
+        <target>{gender, select, female {Grand expedicionaria} other {Gran Expedicionario}}</target>
       </segment>
       <segment id="x200" state="translated">
         <source>explorer_200.name</source>
@@ -100,23 +100,23 @@
     <unit id="artefact_coll">
       <segment id="name" state="translated">
         <source>artefact_coll.name</source>
-        <target>Artefactos recolectados</target>
+        <target>Artefactos colectados</target>
       </segment>
       <segment id="description" state="translated">
         <source>artefact_coll.description</source>
-        <target>Artefactos colectados en expedición a lo largo de tus viajes.</target>
+        <target>Artefactos colectados en expedición a lo largo de tu carrera.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>artefact_coll_1.name</source>
-        <target>Arqueólogo de lo Desconocido</target>
+        <target>{gender, select, female {Arqueóloga Desconocida} other {Arqueólogo Desconocido}}</target>
       </segment>
       <segment id="x10" state="translated">
         <source>artefact_coll_10.name</source>
-        <target>Allan Grant</target>
+        <target>Buscatesoros</target>
       </segment>
       <segment id="x15" state="translated">
         <source>artefact_coll_15.name</source>
-        <target>Indiana Jones</target>
+        <target>Coleccionista</target>
       </segment>
     </unit>
     <unit id="planet_scanned">
@@ -126,7 +126,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>planet_scanned.description</source>
-        <target>Planetas detectados.</target>
+        <target>Cantidad de planetas que has descubierto.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>planet_scanned_1.name</source>
@@ -164,11 +164,11 @@
       </segment>
       <segment id="x1" state="translated">
         <source>give_mission_1.name</source>
-        <target>Jefe</target>
+        <target>{gender, select, female {Jefa} other {Jefe}}</target>
       </segment>
       <segment id="x10" state="translated">
         <source>give_mission_10.name</source>
-        <target>Patrón</target>
+        <target>{gender, select, female {Patrona} other {Patrón}}</target>
       </segment>
       <segment id="x50" state="translated">
         <source>give_mission_50.name</source>
@@ -180,13 +180,13 @@
       </segment>
       <segment id="x500" state="translated">
         <source>give_mission_500.name</source>
-        <target>Dictador</target>
+        <target>{gender, select, female {Dictadora} other {Dictador}}</target>
       </segment>
     </unit>
     <unit id="explo_feed">
       <segment id="name" state="translated">
         <source>explo_feed.name</source>
-        <target>Abastecedor</target>
+        <target>{gender, select, female {Abastecedora} other {Abastecedor}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>explo_feed.description</source>
@@ -194,11 +194,11 @@
       </segment>
       <segment id="x1" state="translated">
         <source>explo_feed_1.name</source>
-        <target>Recolector de frutos</target>
+        <target>{gender, select, female {Recolectora} other {Recolector}} de frutos</target>
       </segment>
       <segment id="x50" state="translated">
         <source>explo_feed_50.name</source>
-        <target>Cazador</target>
+        <target>{gender, select, female {Cazadora} other {Cazador}}</target>
       </segment>
       <segment id="x200" state="translated">
         <source>explo_feed_200.name</source>
@@ -206,11 +206,11 @@
       </segment>
       <segment id="x500" state="translated">
         <source>explo_feed_500.name</source>
-        <target>Devastador</target>
+        <target>{gender, select, female {Devastadora} other {Devastador}}</target>
       </segment>
       <segment id="x1000" state="translated">
         <source>explo_feed_1000.name</source>
-        <target>Arrazador</target>
+        <target>{gender, select, female {Arrasadora} other {Arrazador}}</target>
       </segment>
     </unit>
     <unit id="signal_equip">
@@ -232,21 +232,21 @@
       </segment>
       <segment id="x50" state="translated">
         <source>signal_equip_50.name</source>
-        <target>Amigo de las máquinas</target>
+        <target>{gender, select, female {Amiga} other {Amigo}} de las máquinas</target>
       </segment>
       <segment id="x200" state="translated">
         <source>signal_equip_200.name</source>
-        <target>Experto en equipos</target>
+        <target>{gender, select, female {Experta} other {Experto}} en equipos</target>
       </segment>
       <segment id="x1000" state="translated">
         <source>signal_equip_1000.name</source>
-        <target>Inspector técnico</target>
+        <target>{gender, select, female {Inspectora técnica} other {Inspector técnico}}</target>
       </segment>
     </unit>
     <unit id="gagged">
       <segment id="name" state="translated">
         <source>gagged.name</source>
-        <target>Amordazado</target>
+        <target>{gender, select, female {Amordazada} other {Amordazado}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>gagged.description</source>
@@ -254,7 +254,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>gagged_1.name</source>
-        <target>Amordazado</target>
+        <target>{gender, select, female {Amordazada} other {Amordazado}}</target>
       </segment>
     </unit>
     <unit id="succeeded_inspection">
@@ -274,7 +274,7 @@
     <unit id="back_to_root">
       <segment id="name" state="translated">
         <source>back_to_root.name</source>
-        <target>Sistema Solar</target>
+        <target>Sol</target>
       </segment>
       <segment id="description" state="translated">
         <source>back_to_root.description</source>
@@ -296,7 +296,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>new_plants_1.name</source>
-        <target>Sembrador</target>
+        <target>{gender, select, female {Sembradora} other {Sembrador}}</target>
       </segment>
     </unit>
     <unit id="andie">
@@ -944,7 +944,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>game_without_sleep_1.name</source>
-        <target>Despierto</target>
+        <target>{gender, select, female {Despierta} other {Despierto}}</target>
       </segment>
       <segment id="x20" state="translated">
         <source>game_without_sleep_20.name</source>
@@ -952,7 +952,7 @@
       </segment>
       <segment id="x100" state="translated">
         <source>game_without_sleep_100.name</source>
-        <target>Lúcido</target>
+        <target>{gender, select, female {Lúcida} other {Lúcido}}</target>
       </segment>
     </unit>
     <unit id="mush_cycles">
@@ -996,13 +996,13 @@
       </segment>
       <segment id="x1" state="translated">
         <source>eden_contaminated_1.name</source>
-        <target>Devorador de mundos</target>
+        <target>{gender, select, female {Devoradora} other {Devorador}} de mundos</target>
       </segment>
     </unit>
     <unit id="politician">
       <segment id="name" state="translated">
         <source>politician.name</source>
-        <target>Político</target>
+        <target>{gender, select, female {Política} other {Político}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>politician.description</source>
@@ -1018,7 +1018,7 @@
       </segment>
       <segment id="x50" state="translated">
         <source>politician_50.name</source>
-        <target>Embustero</target>
+        <target>{gender, select, female {Embustera} other {Embustero}}</target>
       </segment>
     </unit>
     <unit id="hunter_down">
@@ -1062,11 +1062,11 @@
       </segment>
       <segment id="x1" state="translated">
         <source>likes_1.name</source>
-        <target>Buen compañero</target>
+        <target>{gender, select, female {Buena compañera} other {Buen compañero}}</target>
       </segment>
       <segment id="x20" state="translated">
         <source>likes_20.name</source>
-        <target>Considerado simpático</target>
+        <target>{gender, select, female {Considerada simpática} other {Considerado simpático}}</target>
       </segment>
       <segment id="x50" state="translated">
         <source>likes_50.name</source>
@@ -1078,7 +1078,7 @@
       </segment>
       <segment id="x200" state="translated">
         <source>likes_200.name</source>
-        <target>Favorito de la tripulación</target>
+        <target>{gender, select, female {Favorita} other {Favorito}} de la tripulación</target>
       </segment>
       <segment id="x500" state="translated">
         <source>likes_500.name</source>
@@ -1088,7 +1088,7 @@
     <unit id="surgeon">
       <segment id="name" state="translated">
         <source>surgeon.name</source>
-        <target>Cirujano</target>
+        <target>Cirugías</target>
       </segment>
       <segment id="description" state="translated">
         <source>surgeon.description</source>
@@ -1102,7 +1102,7 @@
     <unit id="butcher">
       <segment id="name" state="translated">
         <source>butcher.name</source>
-        <target>Carnicero</target>
+        <target>Carnicerías</target>
       </segment>
       <segment id="description" state="translated">
         <source>butcher.description</source>
@@ -1110,7 +1110,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>butcher_1.name</source>
-        <target>Carnicero</target>
+        <target>{gender, select, female {Carnicera} other {Carnicero}}</target>
       </segment>
     </unit>
     <unit id="communication_expert">
@@ -1128,7 +1128,7 @@
       </segment>
       <segment id="x5" state="translated">
         <source>communication_expert_5.name</source>
-        <target>Ministro de comunicaciones</target>
+        <target>{gender, select, female {Ministra} other {Ministro}} de comunicaciones</target>
       </segment>
     </unit>
     <unit id="day_5_reached">
@@ -1138,7 +1138,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>day_5_reached.description</source>
-        <target>Día 5 alcanzado.</target>
+        <target>Cantidad de veces que has alcanzado el día 5.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>day_5_reached_1.name</source>
@@ -1152,11 +1152,11 @@
       </segment>
       <segment id="description" state="translated">
         <source>day_10_reached.description</source>
-        <target>Día 10 alcanzado.</target>
+        <target>Cantidad de veces que has alcanzado el día 10.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>day_10_reached_1.name</source>
-        <target>Héroe</target>
+        <target>{gender, select, female {Heroína} other {Héroe}}</target>
       </segment>
     </unit>
     <unit id="day_15_reached">
@@ -1166,11 +1166,11 @@
       </segment>
       <segment id="description" state="translated">
         <source>day_15_reached.description</source>
-        <target>Día 15 alcanzado.</target>
+        <target>Cantidad de veces que has alcanzado el día 15.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>day_15_reached_1.name</source>
-        <target>Antiguo</target>
+        <target>{gender, select, female {Antigua} other {Antiguo}}</target>
       </segment>
     </unit>
     <unit id="day_20_reached">
@@ -1180,7 +1180,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>day_20_reached.description</source>
-        <target>Día 20 alcanzado.</target>
+        <target>Cantidad de veces que has alcanzado el día 20.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>day_20_reached_1.name</source>
@@ -1194,13 +1194,13 @@
       </segment>
       <segment id="description" state="translated">
         <source>day_30_reached.description</source>
-        <target>Día 30 alcanzado.</target>
+        <target>Cantidad de veces que has alcanzado el día 30.</target>
       </segment>
     </unit>
     <unit id="mush_genome">
       <segment id="name" state="translated">
         <source>mush_genome.name</source>
-        <target>Revelador de enigmas</target>
+        <target>{gender, select, female {Reveladora} other {Revelador}} de enigmas</target>
       </segment>
       <segment id="description" state="translated">
         <source>mush_genome.description</source>
@@ -1208,7 +1208,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>mush_genome_1.name</source>
-        <target>Experto en mush</target>
+        <target>{gender, select, female {Experta} other {Experto}} en mush</target>
       </segment>
     </unit>
     <unit id="rebels">
@@ -1236,17 +1236,17 @@
       </segment>
       <segment id="x1" state="translated">
         <source>pilgred_is_back_1.name</source>
-        <target>Propulsión de ùltima generación</target>
+        <target>Propulsión de última generación</target>
       </segment>
     </unit>
     <unit id="coffee_man">
       <segment id="name" state="translated">
         <source>coffee_man.name</source>
-        <target>¡Un café, por favor!</target>
+        <target>¡Un cafecito, por favor!</target>
       </segment>
       <segment id="description" state="translated">
         <source>coffee_man.description</source>
-        <target>Cantidad de cafés consumidos.</target>
+        <target>Cafés consumidos.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>coffee_man_1.name</source>
@@ -1254,7 +1254,7 @@
       </segment>
       <segment id="x500" state="translated">
         <source>coffee_man_500.name</source>
-        <target>Cafeinómano</target>
+        <target>{gender, select, female {Cafeinómana} other {Cafeinómano}}</target>
       </segment>
     </unit>
     <unit id="ration_taken">
@@ -1264,7 +1264,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>ration_taken.description</source>
-        <target>Cantidad de raciones consumidas.</target>
+        <target>Cantidad de raciones no cocinadas consumidas.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>ration_taken_1.name</source>
@@ -1328,7 +1328,7 @@
     <unit id="project_complete">
       <segment id="name" state="translated">
         <source>project_complete.name</source>
-        <target>Diseñador</target>
+        <target>{gender, select, female {Creadora} other {Creador}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>project_complete.description</source>
@@ -1336,7 +1336,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>project_complete_1.name</source>
-        <target>Artífice</target>
+        <target>{gender, select, female {Inventora} other {Inventor}}</target>
       </segment>
     </unit>
     <unit id="research_complete">
@@ -1350,7 +1350,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>research_complete_1.name</source>
-        <target>Técnico de laboratorio</target>
+        <target>Laboratorista</target>
       </segment>
     </unit>
     <unit id="drugs_taken">
@@ -1424,7 +1424,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>team_rebels.description</source>
-        <target>Cantidad máxima de redes rebeldes contactadas por la tripulación durante el viaje.</target>
+        <target>Cantidad máxima de redes rebeldes decodificadas por tu equipo durante un viaje.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>team_rebels_1.name</source>
@@ -1484,15 +1484,15 @@
     <unit id="kind_person">
       <segment id="name" state="translated">
         <source>kind_person.name</source>
-        <target>kind_person.name</target>
+        <target>Ayudas psicológicas</target>
       </segment>
       <segment id="description" state="translated">
         <source>kind_person.description</source>
-        <target>En ese momento supiste encontrar las palabras adecuadas...</target>
+        <target>Todo comenzó una vez, cuando...</target>
       </segment>
       <segment id="x1" state="translated">
         <source>kind_person_1.name</source>
-        <target>kind_person_1.name</target>
+        <target>{gender, select, female {Psicóloga} other {Psicólogo}} Espacial</target>
       </segment>
     </unit>
     <unit id="disease_contracted">
@@ -1506,33 +1506,33 @@
       </segment>
       <segment id="x1" state="translated">
         <source>disease_contracted_1.name</source>
-        <target>Hipocondríaco</target>
+        <target>{gender, select, female {Hipocondriaca} other {Hipocondriaoco}}</target>
       </segment>
       <segment id="x10" state="translated">
         <source>disease_contracted_10.name</source>
-        <target>disease_contracted_10.name</target>
+        <target>Bajas Defensas</target>
       </segment>
       <segment id="x20" state="translated">
         <source>disease_contracted_20.name</source>
-        <target>Enfermo Crónico</target>
+        <target>{gender, select, female {Enferma crónica} other {Enfermo Crónico}}</target>
       </segment>
       <segment id="x50" state="translated">
         <source>disease_contracted_50.name</source>
-        <target>disease_contracted_50.name</target>
+        <target>Paciente de Oro</target>
       </segment>
     </unit>
     <unit id="mankarog_down">
       <segment id="name" state="translated">
         <source>mankarog_down.name</source>
-        <target>mankarog_down.name</target>
+        <target>Mankarogs abatidos</target>
       </segment>
       <segment id="description" state="translated">
         <source>mankarog_down.description</source>
-        <target>mankarog_down.description</target>
+        <target>Mankarogs abatidos por tu equipo en una expedición.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>mankarog_down_1.name</source>
-        <target>mankarog_down_1.name</target>
+        <target>{gender, select, female {Cazadora} other {Cazador}} de lo Extremo</target>
       </segment>
     </unit>
     <unit id="mush_killed">
@@ -1542,11 +1542,11 @@
       </segment>
       <segment id="description" state="translated">
         <source>mush_killed.description</source>
-        <target>¡Mush que mataste con tus propias manos!</target>
+        <target>¡Mush que has matado con tus propias manos!</target>
       </segment>
       <segment id="x1" state="translated">
         <source>mush_killed_1.name</source>
-        <target>Esporafobo</target>
+        <target>Matamush</target>
       </segment>
     </unit>
     <unit id="team_mush_killed">
@@ -1556,43 +1556,43 @@
       </segment>
       <segment id="description" state="translated">
         <source>team_mush_killed.description</source>
-        <target>Invasores Mush diezmados por los equipos con los que has viajado.</target>
+        <target>Invasores Mush aniquilados por el equipo con el que viajabas.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>team_mush_killed_1.name</source>
-        <target>team_mush_killed_1.name</target>
+        <target>Miradas amenazadoras</target>
       </segment>
       <segment id="x50" state="translated">
         <source>team_mush_killed_50.name</source>
-        <target>team_mush_killed_50.name</target>
+        <target>Matones</target>
       </segment>
       <segment id="x100" state="translated">
         <source>team_mush_killed_100.name</source>
-        <target>team_mush_killed_100.name</target>
+        <target>Pandillero</target>
       </segment>
       <segment id="x200" state="translated">
         <source>team_mush_killed_200.name</source>
-        <target>team_mush_killed_200.name</target>
+        <target>Gangster</target>
       </segment>
       <segment id="x500" state="translated">
         <source>team_mush_killed_500.name</source>
-        <target>team_mush_killed_500.name</target>
+        <target>Pesadilla</target>
       </segment>
       <segment id="x750" state="translated">
         <source>team_mush_killed_750.name</source>
-        <target>team_mush_killed_750.name</target>
+        <target>Cuadrilla</target>
       </segment>
       <segment id="x1000" state="translated">
         <source>team_mush_killed_1000.name</source>
-        <target>team_mush_killed_1000.name</target>
+        <target>{gender, select, female {Jefa} other {Jefe}} de tropa antimushiana</target>
       </segment>
       <segment id="x2000" state="translated">
         <source>team_mush_killed_2000.name</source>
-        <target>team_mush_killed_2000.name</target>
+        <target>Archienemigo de los Mush</target>
       </segment>
       <segment id="x4000" state="translated">
         <source>team_mush_killed_4000.name</source>
-        <target>team_mush_killed_4000.name</target>
+        <target>Aniquilador de Mush</target>
       </segment>
     </unit>
     <unit id="mage_books_learned">
@@ -1606,13 +1606,13 @@
       </segment>
       <segment id="x1" state="translated">
         <source>mage_books_learned_1.name</source>
-        <target>Sabio</target>
+        <target>{gender, select, female {Sabia} other {Sabio}}</target>
       </segment>
     </unit>
     <unit id="natamist">
       <segment id="name" state="translated">
         <source>natamist.name</source>
-        <target>Natamista</target>
+        <target>Fusilador</target>
       </segment>
       <segment id="description" state="translated">
         <source>natamist.description</source>
@@ -1626,29 +1626,29 @@
     <unit id="has_mushed">
       <segment id="name" state="translated">
         <source>has_mushed.name</source>
-        <target>Infeccioso</target>
+        <target>{gender, select, female {Infectadora} other {Infectador}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>has_mushed.description</source>
-        <target>Número de veces que has contaminado a un miembro de la tripulación hasta la infección total.</target>
+        <target>Cantidad de veces que has contaminado a un miembro de la tripulación hasta la infección total.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>has_mushed_1.name</source>
-        <target>Agente infeccioso</target>
+        <target>Mal bicho</target>
       </segment>
     </unit>
     <unit id="mushed">
       <segment id="name" state="translated">
         <source>mushed.name</source>
-        <target>Infectado</target>
+        <target>{gender, select, female {Infectada} other {Infectado}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>mushed.description</source>
-        <target>Número de veces en la que fuiste contaminado hasta la infección total.</target>
+        <target>Cantidad de veces en la que has sido contaminado(a) hasta la infección total.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>mushed_1.name</source>
-        <target>Infectado</target>
+        <target>{gender, select, female {Infectada} other {Infectado}}</target>
       </segment>
     </unit>
     <unit id="project_team">
@@ -1658,11 +1658,11 @@
       </segment>
       <segment id="description" state="translated">
         <source>project_team.description</source>
-        <target>Cantidad máxima de proyectos terminados por uno de tus equipos.</target>
+        <target>Cantidad máxima de proyectos desarrollados por uno de tus equipos.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>project_team_1.name</source>
-        <target>Agente de Mantenimiento</target>
+        <target>Manutenciario</target>
       </segment>
       <segment id="x2" state="translated">
         <source>project_team_2.name</source>
@@ -1688,7 +1688,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>research_team.description</source>
-        <target>Cantidad máxima de investigaciones terminadas por uno de tus equipos.</target>
+        <target>Cantidad máxima de investigaciones científicas terminadas por uno de tus equipos.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>research_team_1.name</source>
@@ -1718,7 +1718,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>tags_complete.description</source>
-        <target>Cantidad de planetas en los que tu equipo ha revelado todos sus sectores durante una partida.</target>
+        <target>Cantidad de planetas cuyos sectores han sido revelados por tu equipo durante una partida.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>tags_complete_1.name</source>
@@ -1728,7 +1728,7 @@
     <unit id="last_member">
       <segment id="name" state="translated">
         <source>last_member.name</source>
-        <target>Último sobreviviente</target>
+        <target>Último superviviente</target>
       </segment>
       <segment id="description" state="translated">
         <source>last_member.description</source>
@@ -1736,15 +1736,15 @@
       </segment>
       <segment id="x1" state="translated">
         <source>last_member_1.name</source>
-        <target>Héroe de Sol</target>
+        <target>{gender, select, female {Heroína} other {Héroe}} de Sol</target>
       </segment>
       <segment id="x2" state="translated">
         <source>last_member_2.name</source>
-        <target>Campeón de Lucha</target>
+        <target>{gender, select, female {Dura} other {Duro}} de Matar</target>
       </segment>
       <segment id="x5" state="translated">
         <source>last_member_5.name</source>
-        <target>Mártir Supremo</target>
+        <target>Mártir por Excelencia</target>
       </segment>
       <segment id="x10" state="translated">
         <source>last_member_10.name</source>
@@ -1752,11 +1752,11 @@
       </segment>
       <segment id="x50" state="translated">
         <source>last_member_50.name</source>
-        <target>last_member_50.name</target>
+        <target>Combatiente sin Igual</target>
       </segment>
       <segment id="x100" state="translated">
         <source>last_member_100.name</source>
-        <target>Inmortal</target>
+        <target>Soy Inmortal</target>
       </segment>
     </unit>
     <unit id="commander_should_go_last">
@@ -1766,7 +1766,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>commander_should_go_last.description</source>
-        <target>El comandante es el último en abandonar la nave.</target>
+        <target>El comandante siempre es el último en abandonar la nave.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>commander_should_go_last_1.name</source>
@@ -1774,23 +1774,119 @@
       </segment>
       <segment id="x2" state="translated">
         <source>commander_should_go_last_2.name</source>
-        <target>Último Comandante de los Abismos</target>
+        <target>Último Comandante del Bote</target>
       </segment>
       <segment id="x5" state="translated">
         <source>commander_should_go_last_5.name</source>
-        <target>Último Comandante de los Siglos</target>
+        <target>Último Comandante del Barco</target>
       </segment>
       <segment id="x10" state="translated">
         <source>commander_should_go_last_10.name</source>
-        <target>Último Comandante de la Galaxia</target>
+        <target>Último Comandante del Crucero</target>
       </segment>
       <segment id="x50" state="translated">
         <source>commander_should_go_last_50.name</source>
-        <target>commander_should_go_last_50.name</target>
+        <target>Último Comandante del Navío</target>
       </segment>
       <segment id="x100" state="translated">
         <source>commander_should_go_last_100.name</source>
-        <target>Último Comandante del Universo</target>
+        <target>Último Comandante del Espacio</target>
+      </segment>
+    </unit>
+    <unit id="shrinker">
+      <segment id="name" state="translated">
+        <source>shrinker.name</source>
+        <target>Psicoanálisis Completo</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>shrinker.description</source>
+        <target>Enfermedades psicológicas curadas</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>shrinker_1.name</source>
+        <target>Psicoanalista</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>shrinker_10.name</source>
+        <target>Psiquiatra</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>shrinker_50.name</source>
+        <target>Gurú</target>
+      </segment>
+    </unit>
+    <unit id="physician">
+      <segment id="name" state="translated">
+        <source>physician.name</source>
+        <target>Sanador</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>physician.description</source>
+        <target>Enfermedades físicas curadas</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>physician_1.name</source>
+        <target>Practicante</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>physician_10.name</source>
+        <target>{gender, select, female {Enfermera} other {Enfermero}}</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>physician_50.name</source>
+        <target>{gender, select, female {Doctora} other {Doctor}}</target>
+      </segment>
+    </unit>
+    <unit id="triumph">
+      <segment id="name" state="translated">
+        <source>triumph.name</source>
+        <target>Gloria</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>triumph.description</source>
+        <target>Gloria Total</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>triumph_1.name</source>
+        <target>Pasante</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>triumph_50.name</source>
+        <target>Celebridad</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>triumph_200.name</source>
+        <target>Personaje Histórico</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>triumph_500.name</source>
+        <target>Leyenda</target>
+      </segment>
+      <segment id="x1000" state="translated">
+        <source>triumph_1000.name</source>
+        <target>Mito</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>triumph_2000.name</source>
+        <target>Glorioso</target>
+      </segment>
+      <segment id="x3000" state="translated">
+        <source>triumph_3000.name</source>
+        <target>{gender, select, female {Ordenadora} other {Ordenador}} del Mundo</target>
+      </segment>
+    </unit>
+    <unit id="venerian_disease">
+      <segment id="name" state="translated">
+        <source>venerian_disease.name</source>
+        <target>Enfermedades venéreas contraídas</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>venerian_disease.description</source>
+        <target>...</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>venerian_disease_1.name</source>
+        <target>{gender, select, female {Promiscua} other {Promiscuo}}</target>
       </segment>
     </unit>
   </file>

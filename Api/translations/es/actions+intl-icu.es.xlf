@@ -579,7 +579,7 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
     <unit id="remove_spore">
       <segment id="name" state="translated">
         <source>remove_spore.name</source>
-        <target>Extraer espora</target>
+        <target>Retirar una espora</target>
       </segment>
       <segment id="description" state="translated">
         <source>remove_spore.description</source>

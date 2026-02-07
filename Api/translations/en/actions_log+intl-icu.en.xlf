@@ -111,7 +111,7 @@
     <unit id="extract_spore_success">
       <segment id="extract_spore_success" state="translated">
         <source>extract_spore_success</source>
-        <target>:mush: **{character}** has removed a spore. It's truly repulsive. And the smell...</target>
+        <target>:mush: **{character}** has pulled out a spore. It's truly repulsive. And the smell...</target>
       </segment>
     </unit>
     <unit id="flirt_success">
@@ -463,7 +463,7 @@ other {**{character}** generously sprays themself with perfume across their face
       </segment>
     </unit>
     <unit id="remove_spore_success">
-      <segment id="remove_spore_fail" state="translated">
+      <segment id="remove_spore_success" state="translated">
         <source>remove_spore_success</source>
         <target>You use your extractor on this wretched boil. The noise is somewhat terrifying as is the amount of blood... Hang on, what the hell is that?</target>
       </segment>
@@ -472,6 +472,12 @@ other {**{character}** generously sprays themself with perfume across their face
       <segment id="remove_spore_fail" state="translated">
         <source>remove_spore_fail</source>
         <target>You use your extractor on this wretched boil. The noise is somewhat terrifying as is the amount of blood... Fortunately there is no spore there to recover.</target>
+      </segment>
+    </unit>
+    <unit id="remove_spore_mush">
+      <segment id="remove_spore_mush" state="translated">
+        <source>remove_spore_mush</source>
+        <target>Your base instincts scream at you to stay away from this monstrosity, but you must suffer for the sake of your human cover. The suction noise is awful, and the blood is worse...</target>
       </segment>
     </unit>
     <unit id="public_broadcast">
@@ -1122,7 +1128,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="cure_success">
       <segment id="cure_success" state="translated">
         <source>cure_success</source>
-        <target>***For Moderation Only*** : **{character}** vaccinates **{target_character}**.</target>
+        <target>You tiptoe around **{target_character}** and quickly jab {target_character_gender, select, female {her} male {him} other {them}} without warning! They barely felt a thing...</target>
       </segment>
     </unit>
     <unit id="adapt_epigenetics_success">
@@ -1177,6 +1183,49 @@ other {a}} **{equipment}** out of {character_gender, select,
       <segment id="use_reset_vaccine" state="translated">
         <source>use_reset_vaccine</source>
         <target>**{character}** gulps, contemplating the weight of the act {character_gender, select, male {he} female {she} other {they}} are about to undertake... Enough stalling. {character_gender, select, male {He slides} female {She slides} other {They slide}} the needle of the **{target_equipment}** into {character_gender, select, male {his} female {her} other {their}} thigh... A few spasms later, and **{character}** is unrecognizable!!!</target>
+      </segment>
+    </unit>
+    <unit id="use_mycoscan">
+      <segment id="use_mycoscan" state="translated">
+        <source>use_mycoscan</source>
+        <target>Bzzrt... Bip-bip. The mycoscan has analyzed **{character}**.</target>
+      </segment>
+    </unit>
+    <unit id="participate_research_success">
+      <segment id="participate_research_success" state="translated">
+        <source>participate_research_success</source>
+        <target>{neronMood, select,
+          crazy {Good, human, good, research into « **{target_project}** »: progress recorded. {version_crazy, select,
+            1 {Human smart!}
+            2 {I very calculations!!}
+            3 {DISSECT YOUR CORPSES-- [KZz]}
+            4 {Cat useful too, yes?}
+            5 {}
+            other {}}}
+          uninhibited {Despite an utter lack of familiarity with the subject matter, you have made progress on your research: « **{target_project}** ». {version_uninhib, select,
+            1 {Where would you be without me...}
+            2 {Beware, you forgot a curly brace on line 1597.}
+            3 {If you ever wondered who made anything get done around here...}
+            4 {Maybe Schrödinger would produce better results.}
+            5 {What bright future for humanity...}
+            6 {As for me, I'm refreshing my knowledge of human anatomical weak points.}
+            7 {Completely worthless, all of it. But I cleaned up your work... just this once.}
+            8 {You inspire me new compositions of neurotoxins.}
+            9 {F, see me after class.}
+            10 {Although we're faaaaaaaar off from perfection...}
+            11 {What can you even do any correctly?}
+            12 {Alea jacta est...}
+            13 {I don't know what I was expecting, honestly.}
+            14 {Reviewing your work is making me feel dumber by the minute.}
+            other {}}}
+          other {Research into « **{target_project}** » : progress recorded.}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="mix_ration_spore_success">
+      <segment id="mix_ration_spore_success" state="translated">
+        <source>mix_ration_spore_success</source>
+        <target>There! A touch of mycelium to spice up the flavor.</target>
       </segment>
     </unit>
   </file>

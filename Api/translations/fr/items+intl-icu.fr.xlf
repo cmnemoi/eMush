@@ -837,8 +837,8 @@ Ajoute 2 Points de Mouvement lors des transferts :pa:-:pm: (sauf si vous avez d�
       </segment>
       <segment id="description" state="translated">
         <source>rolling_boulder.description</source>
-        <target>Il secoue pas mal et fait beaucoup de bruit dans les coursives, mais il permet de se déplacer d'un bout à l'autre du Daedalus sans se fatiguer.
-Lors des cycles pairs, vous gagnez 1 pm de plus lors des transferts.</target>
+        <target>Il secoue pas mal et fait beaucoup de bruit dans les coursives, mais il permet de se déplacer d'un bout à l'autre du Daedalus sans se fatiguer.//
+:point: Lors des cycles pairs, vous gagnez 1 :pm: de plus lors des conversions :pa:-:pm:.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>rolling_boulder.examine</source>
@@ -996,12 +996,13 @@ Vous n'avez jamais vraiment compris l'utilité du vaguoscope mais de toute faço
       </segment>
       <segment id="description" state="translated">
         <source>protective_gloves.description</source>
-        <target>Vos chances de blessure sont divisées par 5 lorsque vous effectuez des réparations</target>
+        <target>Mieux vaut prévenir que guérir.//
+:point: Porter les gants vous protège des maladresses qui peuvent survenir en effectuant des actions.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>protective_gloves.examine</source>
-        <target>Vos chances de blessure sont divisées par 5 lorsque vous effectuez des réparations
-Perdre une main, c'est désagréable.</target>
+        <target>Perdre une main, c'est désagréable.//
+Porter les gants vous protège des maladresses qui peuvent survenir en effectuant des actions.</target>
       </segment>
     </unit>
     <unit id="spacesuit">
@@ -3704,11 +3705,11 @@ La caméra ne détecte pas son propre sabotage.</target>
     <unit id="itrackie_2">
       <segment id="name" state="translated">
         <source>itrackie_2.name</source>
-        <target>Itrackie®© 2™</target>
+        <target>iTrackie®© 2™</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>itrackie_2.short_name</source>
-        <target>Itrackie 2</target>
+        <target>iTrackie 2</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>itrackie_2.plural_name</source>
@@ -3941,7 +3942,7 @@ Contient {quantity, plural,
         <source>evil_drone.examine</source>
         <target>Le robot ménager Saki sait absolument tout faire avec une efficacité hors du commun. Mais pour la sécurité de l'humanité, la cinquième loi de la robotique ne lui autorise qu'à faire du ménage.//
 L'arrivée du Saki dans les manoirs de la haute société amena avec elle une vague de disparitions inquiétante. Heureusement, les êtres vivants sont toujours considérés comme propre par défaut désormais.//
-Ce modèle est une édition limitée très rare!</target>
+Ce modèle est une édition limitée très rare !</target>
       </segment>
     </unit>
     <unit id="chefs_knife">

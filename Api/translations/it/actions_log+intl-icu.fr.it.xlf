@@ -350,7 +350,7 @@
       </segment>
     </unit>
     <unit id="remove_spore_success">
-      <segment id="remove_spore_fail" state="translated">
+      <segment id="remove_spore_success" state="translated">
         <source>remove_spore_success</source>
         <target>remove_spore_success</target>
       </segment>
@@ -359,6 +359,12 @@
       <segment id="remove_spore_fail" state="translated">
         <source>remove_spore_fail</source>
         <target>remove_spore_fail</target>
+      </segment>
+    </unit>
+    <unit id="remove_spore_mush">
+      <segment id="remove_spore_mush" state="initial">
+        <source>remove_spore_mush</source>
+        <target>remove_spore_mush</target>
       </segment>
     </unit>
     <unit id="public_broadcast">
@@ -947,6 +953,24 @@
       <segment id="use_reset_vaccine" state="translated">
         <source>use_reset_vaccine</source>
         <target>use_reset_vaccine</target>
+      </segment>
+    </unit>
+    <unit id="use_mycoscan">
+      <segment id="use_mycoscan" state="initial">
+        <source>use_mycoscan</source>
+        <target>use_mycoscan</target>
+      </segment>
+    </unit>
+    <unit id="participate_research_success">
+      <segment id="participate_research_success" state="initial">
+        <source>participate_research_success</source>
+        <target>participate_research_success</target>
+      </segment>
+    </unit>
+    <unit id="mix_ration_spore_success">
+      <segment id="mix_ration_spore_success" state="initial">
+        <source>mix_ration_spore_success</source>
+        <target>mix_ration_spore_success</target>
       </segment>
     </unit>
   </file>

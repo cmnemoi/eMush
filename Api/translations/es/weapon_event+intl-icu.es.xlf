@@ -196,7 +196,7 @@ other {**{character}** ha disparado sobre **{target_character}**, pero no fue ca
     <unit id="knife_plus_2_damage_random_injury">
       <segment id="knife_plus_2_damage_random_injury" state="translated">
         <source>knife_plus_2_damage_random_injury</source>
-        <target>Resultado de un buen entrenamiento o buena suerte, **{character}** perfora, sin dificultad, la defensa de **{character}**.</target>
+        <target>Resultado de un buen entrenamiento o buena suerte, **{character}** perfora, sin dificultad, la defensa de **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_50_critical_haemorrhage">
@@ -438,7 +438,7 @@ other {**{character}** ha disparado sobre **{target_character}**, pero no fue ca
     <unit id="lizaro_jungle_shooter_burnt_hand">
       <segment id="lizaro_jungle_shooter_burnt_hand" state="translated">
         <source>lizaro_jungle_shooter_burnt_hand</source>
-        <target>Disparando a **{target_character}**, **{character}** se quema con su arma. Espectacular.</target>
+        <target>Al disparar a **{target_character}**, **{character}** se quema con su arma. Espectacular.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_shooter_broken_shoulder">
@@ -596,7 +596,7 @@ other {"invalid version number"}
     <unit id="found_protections">
       <segment id="found_protections" state="translated">
         <source>found_protections</source>
-        <target>**{character}** intentó {weapon, select, bare_hands {golpear} knife {apuñalar a **{target_character}** con un arma blanca} other {disparar a}} **{target_character}**, pero la ropa protectora de {target_character, select, female {ella} other {él}} hizo su trabajo.</target>
+        <target>**{character}** intentó {weapon, select, bare_hands {golpear a **{target_character}**} knife {apuñalar a **{target_character}** con un arma blanca} other {disparar a **{target_character}**}}, pero dio contra su protección.</target>
       </segment>
     </unit>
   </file>

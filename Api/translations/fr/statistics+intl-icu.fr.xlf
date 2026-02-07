@@ -1794,47 +1794,47 @@
       </segment>
     </unit>
     <unit id="shrinker">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>shrinker.name</source>
-        <target>shrinker.name</target>
+        <target>Psychanalyse Totale</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>shrinker.description</source>
-        <target>shrinker.description</target>
+        <target>Maladies Psychologiques guéries</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>shrinker_1.name</source>
-        <target>shrinker_1.name</target>
+        <target>Psychanaliste</target>
       </segment>
-      <segment id="x10" state="initial">
+      <segment id="x10" state="translated">
         <source>shrinker_10.name</source>
-        <target>shrinker_10.name</target>
+        <target>Psychiatre</target>
       </segment>
-      <segment id="x50" state="initial">
+      <segment id="x50" state="translated">
         <source>shrinker_50.name</source>
-        <target>shrinker_50.name</target>
+        <target>Gourou</target>
       </segment>
     </unit>
     <unit id="physician">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>physician.name</source>
-        <target>physician.name</target>
+        <target>Personnel Soignant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>physician.description</source>
-        <target>physician.description</target>
+        <target>Maladies Physiques guéries</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>physician_1.name</source>
-        <target>physician_1.name</target>
+        <target>Infirmier</target>
       </segment>
-      <segment id="x10" state="initial">
+      <segment id="x10" state="translated">
         <source>physician_10.name</source>
-        <target>physician_10.name</target>
+        <target>Interne</target>
       </segment>
-      <segment id="x50" state="initial">
+      <segment id="x50" state="translated">
         <source>physician_50.name</source>
-        <target>physician_50.name</target>
+        <target>Docteur</target>
       </segment>
     </unit>
     <unit id="triumph">

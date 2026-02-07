@@ -1328,7 +1328,7 @@
     <unit id="project_complete">
       <segment id="name" state="translated">
         <source>project_complete.name</source>
-        <target>Conception</target>
+        <target>Designer</target>
       </segment>
       <segment id="description" state="translated">
         <source>project_complete.description</source>
@@ -1484,7 +1484,7 @@
     <unit id="kind_person">
       <segment id="name" state="translated">
         <source>kind_person.name</source>
-        <target>kind_person.name</target>
+        <target>Psychological Support</target>
       </segment>
       <segment id="description" state="translated">
         <source>kind_person.description</source>
@@ -1492,47 +1492,47 @@
       </segment>
       <segment id="x1" state="translated">
         <source>kind_person_1.name</source>
-        <target>kind_person_1.name</target>
+        <target>Psychologist of the ages</target>
       </segment>
     </unit>
     <unit id="disease_contracted">
       <segment id="name" state="translated">
         <source>disease_contracted.name</source>
-        <target>Contracted diseases</target>
+        <target>Disease contracted</target>
       </segment>
       <segment id="description" state="translated">
         <source>disease_contracted.description</source>
-        <target>disease_contracted.description</target>
+        <target>Vomiting, coughs, cold and other complaints...</target>
       </segment>
       <segment id="x1" state="translated">
         <source>disease_contracted_1.name</source>
-        <target>disease_contracted_1.name</target>
+        <target>Hypochondriac</target>
       </segment>
       <segment id="x10" state="translated">
         <source>disease_contracted_10.name</source>
-        <target>disease_contracted_10.name</target>
+        <target>Sicknote</target>
       </segment>
       <segment id="x20" state="translated">
         <source>disease_contracted_20.name</source>
-        <target>disease_contracted_20.name</target>
+        <target>Chronic Sufferer</target>
       </segment>
       <segment id="x50" state="translated">
         <source>disease_contracted_50.name</source>
-        <target>disease_contracted_50.name</target>
+        <target>Needs to man up</target>
       </segment>
     </unit>
     <unit id="mankarog_down">
       <segment id="name" state="translated">
         <source>mankarog_down.name</source>
-        <target>mankarog_down.name</target>
+        <target>Mankarogs Killed</target>
       </segment>
       <segment id="description" state="translated">
         <source>mankarog_down.description</source>
-        <target>mankarog_down.description</target>
+        <target>Mankarogs killed by your team during expeditions.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>mankarog_down_1.name</source>
-        <target>mankarog_down_1.name</target>
+        <target>Davy Crockett of Infinite Space</target>
       </segment>
     </unit>
     <unit id="mush_killed">
@@ -1564,7 +1564,7 @@
       </segment>
       <segment id="x50" state="translated">
         <source>team_mush_killed_50.name</source>
-        <target>Puffball Masher</target>
+        <target>Puffball Exploder</target>
       </segment>
       <segment id="x100" state="translated">
         <source>team_mush_killed_100.name</source>
@@ -1572,27 +1572,27 @@
       </segment>
       <segment id="x200" state="translated">
         <source>team_mush_killed_200.name</source>
-        <target>team_mush_killed_200.name</target>
+        <target>Shroom Broom</target>
       </segment>
       <segment id="x500" state="translated">
         <source>team_mush_killed_500.name</source>
-        <target>team_mush_killed_500.name</target>
+        <target>Meadow Menace</target>
       </segment>
       <segment id="x750" state="translated">
         <source>team_mush_killed_750.name</source>
-        <target>team_mush_killed_750.name</target>
+        <target>Grand Myconian Plague</target>
       </segment>
       <segment id="x1000" state="translated">
         <source>team_mush_killed_1000.name</source>
-        <target>team_mush_killed_1000.name</target>
+        <target>Great Tribal Leader of the Devourers of Phallic Amanite</target>
       </segment>
       <segment id="x2000" state="translated">
         <source>team_mush_killed_2000.name</source>
-        <target>Archtearer of Temporal Rootstalks</target>
+        <target>Grand Temporal Rhizome Destroyer</target>
       </segment>
       <segment id="x4000" state="translated">
         <source>team_mush_killed_4000.name</source>
-        <target>Purifier of The Olden Black Trumpets</target>
+        <target>Great Ancient Purifier of Cheaters of Death</target>
       </segment>
     </unit>
     <unit id="mage_books_learned">
@@ -1626,7 +1626,7 @@
     <unit id="has_mushed">
       <segment id="name" state="translated">
         <source>has_mushed.name</source>
-        <target>Infector</target>
+        <target>Contaminator</target>
       </segment>
       <segment id="description" state="translated">
         <source>has_mushed.description</source>
@@ -1752,7 +1752,7 @@
       </segment>
       <segment id="x50" state="translated">
         <source>last_member_50.name</source>
-        <target>last_member_50.name</target>
+        <target>Infinite Warrior</target>
       </segment>
       <segment id="x100" state="translated">
         <source>last_member_100.name</source>
@@ -1766,7 +1766,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>commander_should_go_last.description</source>
-        <target>commander_should_go_last.description</target>
+        <target>The commandant must always be last to leave the ship.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>commander_should_go_last_1.name</source>
@@ -1786,11 +1786,107 @@
       </segment>
       <segment id="x50" state="translated">
         <source>commander_should_go_last_50.name</source>
-        <target>commander_should_go_last_50.name</target>
+        <target>Last Warp Commandant</target>
       </segment>
       <segment id="x100" state="translated">
         <source>commander_should_go_last_100.name</source>
-        <target>Last Commandant of the Universe</target>
+        <target>Last Universal Commandant</target>
+      </segment>
+    </unit>
+    <unit id="shrinker">
+      <segment id="name" state="translated">
+        <source>shrinker.name</source>
+        <target>Complete Psychoanalysis</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>shrinker.description</source>
+        <target>Psychological Illnesses Treated</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>shrinker_1.name</source>
+        <target>Psychoanalyst</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>shrinker_10.name</source>
+        <target>Psychiatrist</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>shrinker_50.name</source>
+        <target>Guru</target>
+      </segment>
+    </unit>
+    <unit id="physician">
+      <segment id="name" state="translated">
+        <source>physician.name</source>
+        <target>Physician's Core</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>physician.description</source>
+        <target>Physical Issues Healed</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>physician_1.name</source>
+        <target>Nurse</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>physician_10.name</source>
+        <target>Intern</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>physician_50.name</source>
+        <target>Doctor</target>
+      </segment>
+    </unit>
+    <unit id="triumph">
+      <segment id="name" state="translated">
+        <source>triumph.name</source>
+        <target>Glory</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>triumph.description</source>
+        <target>Total Glory</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>triumph_1.name</source>
+        <target>Acquaintance</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>triumph_50.name</source>
+        <target>Celebrity</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>triumph_200.name</source>
+        <target>Historical Figure</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>triumph_500.name</source>
+        <target>Legend</target>
+      </segment>
+      <segment id="x1000" state="translated">
+        <source>triumph_1000.name</source>
+        <target>Myth</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>triumph_2000.name</source>
+        <target>Messiah</target>
+      </segment>
+      <segment id="x3000" state="translated">
+        <source>triumph_3000.name</source>
+        <target>Creator</target>
+      </segment>
+    </unit>
+    <unit id="venerian_disease">
+      <segment id="name" state="translated">
+        <source>venerian_disease.name</source>
+        <target>Venereal Diseases Caught</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>venerian_disease.description</source>
+        <target>...</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>venerian_disease_1.name</source>
+        <target>Hedonist</target>
       </segment>
     </unit>
   </file>

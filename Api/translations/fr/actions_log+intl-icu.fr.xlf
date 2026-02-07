@@ -442,15 +442,15 @@
                             other {invalid gender input}
                         }}
                     }}
-                    7 {{target_equipment_first_letter, select,
-                        vowel {**{character}** s'est finalement motivé et a réparé l'**{target_equipment}**. Bravo.}
+                    7 {**{character}** s'est finalement {character_gender, select, male {motivé} female {motivée} other {motivé.e}} et a réparé {target_equipment_first_letter, select,
+                        vowel {l'**{target_equipment}**.}
                         other {{target_equipment_gender, select,
-                            male {**{character}** s'est finalement motivé et a réparé le **{target_equipment}**. Bravo.}
-                            female {**{character}** s'est finalement motivée et a réparé la **{target_equipment}**. Bravo.}
-                            other {invalid gender input}
+                            male {le **{target_equipment}**.}
+                            female {la **{target_equipment}**.}
+                            other {invalid gender input for equipment}
                         }}
-                    }}
-                    other {invalid version input}
+                    } Bravo.}
+                    other {invalid version input for repair_success}
                 }</target>
       </segment>
     </unit>
@@ -1369,7 +1369,7 @@
     <unit id="cure_success">
       <segment id="cure_success" state="translated">
         <source>cure_success</source>
-        <target>***Pour la Modération Seulement*** : **{character}** vaccine **{target_character}**.</target>
+        <target>Vous vous approchez de **{target_character}** et {target_character_gender, select, female {la} male {le} other {lea}} vaccinez sans crier gare ! La sensation pourrait se confondre avec une piqûre d'insecte...</target>
       </segment>
     </unit>
     <unit id="adapt_epigenetics_success">

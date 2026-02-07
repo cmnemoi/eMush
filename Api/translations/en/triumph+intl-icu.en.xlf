@@ -826,7 +826,7 @@
     <unit id="pretty_cook.personal_description">
       <segment state="translated">
         <source>pretty_cook.personal_description</source>
-        <target>Stephen earns {quantity} :triumph: for every alien cooked.</target>
+        <target>Stephen earns {quantity} :triumph: for every alien defeated while on an expedition.</target>
       </segment>
     </unit>
     <unit id="pretty_cook.log">

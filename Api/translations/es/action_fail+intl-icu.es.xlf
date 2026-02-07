@@ -863,5 +863,11 @@ other {**Vuelve cuando estés limpio.**"}
         <target>Debes de tomar :sk_polyvalent: Polivalente antes de tu curso.</target>
       </segment>
     </unit>
+    <unit id="daily_limit_mycoscan">
+      <segment id="description" state="translated">
+        <source>daily_limit_mycoscan.description</source>
+        <target>Para evitar la sobreexposición a los rayos Sigma, esta acción solo puede ser realizada una vez al día. Volverá a estar disponible después del ciclo 8.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -835,5 +835,11 @@
         <target>does_not_have_skill_polyvalent.description</target>
       </segment>
     </unit>
+    <unit id="daily_limit_mycoscan">
+      <segment id="description" state="initial">
+        <source>daily_limit_mycoscan.description</source>
+        <target>daily_limit_mycoscan.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

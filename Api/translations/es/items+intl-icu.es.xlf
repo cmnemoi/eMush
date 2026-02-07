@@ -1006,13 +1006,12 @@ Está hecha de un látex ultra resistente y ligero para ser llevado cómodamente
       </segment>
       <segment id="description" state="translated">
         <source>protective_gloves.description</source>
-        <target>Tus probabilidades de ser herido se dividen por 5 cuando realizas reparaciones.</target>
+        <target>Más vale prevenir que lamentar.//
+:point: Al usar los guantes, te proteges de cualquier herida accidental que pueda surgir al realizar una acción.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>protective_gloves.examine</source>
-        <target>Tus probabilidades de ser herido se dividen por 5 cuando realizas reparaciones.
-//
-Perder una mano es muy desagradable y lo sabes.</target>
+        <target>Perder una mano es muy desagradable y lo sabes.// Al usar los guantes, te proteges de cualquier herida accidental que pueda surgir al realizar una acción.</target>
       </segment>
     </unit>
     <unit id="spacesuit">
@@ -1048,7 +1047,7 @@ Te hará sobrevivir al ser eyectado de una nave y respirar en atmósferas no res
 //
 Te hará sobrevivir al ser eyectado de una nave y respirar en atmósferas no respirables.
 //
-El jugador puede salir al espacio desde una plataforma de lanzamiento para una misión de reparación externa. Permite explorar un planeta con atmósfera no respirable.</target>
+Permite explorar un planeta con atmósfera no respirable.</target>
       </segment>
     </unit>
     <unit id="stainproof_apron">
@@ -3828,7 +3827,7 @@ La rockola de esos años maravillosos. ¡Y tiene las canciones favoritas de la t
     <unit id="itrackie_2">
       <segment id="name" state="translated">
         <source>itrackie_2.name</source>
-        <target>Itrackie®© 2™</target>
+        <target>iTrackie®© 2™</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>itrackie_2.short_name</source>

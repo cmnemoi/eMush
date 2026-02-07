@@ -391,7 +391,10 @@
     <unit id="neron_only_friend">
       <segment id="neron_only_friend.name" state="translated">
         <source>neron_only_friend.name</source>
-        <target>NERON's only friend</target>
+        <target>{character, select,
+        Janice {NERON's only friend}
+        other {NERON's second friend}
+}</target>
       </segment>
       <segment id="neron_only_friend.description" state="translated">
         <source>neron_only_friend.description</source>
@@ -919,7 +922,7 @@
       </segment>
       <segment id="doorman.description" state="translated">
         <source>doorman.description</source>
-        <target>Some rampant macrolepiota can imitate the unpleasant effects of proactive puffed rice. That works out well fo you as the Mush has given you its genotype.//:point: Once per day, you can **sabotage** a **Door** for free.</target>
+        <target>Some rampant macrolepiota can imitate the unpleasant effects of proactive puffed rice. That works out well for you as the Mush has given you its genotype.//:point: Once per day, you can **sabotage** a **Door** for free.</target>
       </segment>
     </unit>
     <unit id="nimble_fingers">

@@ -588,7 +588,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
     <unit id="remove_spore">
       <segment id="name" state="translated">
         <source>remove_spore.name</source>
-        <target>Extraire spore</target>
+        <target>Retirer une spore</target>
       </segment>
       <segment id="description" state="translated">
         <source>remove_spore.description</source>
@@ -1174,11 +1174,10 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>return_to_sol.confirmation</source>
-        <target>{character_gender, select,
-                male {Cette action est lourde de conséquences. Êtes-vous sûr de vouloir continuer ?}
-                female {Cette action est lourde de conséquences. Êtes-vous sûre de vouloir continuer ?}
-                other {Cette action est lourde de conséquences. Êtes-vous sûr de vouloir continuer ?}
-                }</target>
+        <target>Cette action mettra immédiatement fin à la partie. {character_gender, select,
+                male {Êtes-vous sûr de vouloir continuer ?}
+                female {Êtes-vous sûre de vouloir continuer ?}
+                other {Êtes-vous sûr.e de vouloir continuer ?}}</target>
       </segment>
     </unit>
     <unit id="participate">
@@ -1658,7 +1657,10 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="confirmation" state="translated">
         <source>travel_to_eden.confirmation</source>
-        <target>Cette action est irrémédiable, êtes-vous sûr de vouloir continuer ?</target>
+        <target>Cette action mettra immédiatement fin à la partie. {character_gender, select,
+                male {Êtes-vous sûr de vouloir continuer ?}
+                female {Êtes-vous sûre de vouloir continuer ?}
+                other {Êtes-vous sûr.e de vouloir continuer ?}}</target>
       </segment>
     </unit>
     <unit id="shoot_cat">
@@ -1910,7 +1912,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>read_schoolbooks.description</source>
-        <target>Rafraichissez votre mémoire pour remettre à jour vos connaissances.</target>
+        <target>Rafraîchissez votre mémoire pour remettre à jour vos connaissances.</target>
       </segment>
     </unit>
     <unit id="use_reset_vaccine">

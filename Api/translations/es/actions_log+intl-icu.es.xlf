@@ -470,7 +470,7 @@ other {Que extraño, **{character}** ha hecho que salga humo del **{target_equip
       </segment>
     </unit>
     <unit id="remove_spore_success">
-      <segment id="remove_spore_fail" state="translated">
+      <segment id="remove_spore_success" state="translated">
         <source>remove_spore_success</source>
         <target>Usas el extractor en este miserable forúnculo. El ruido es algo aterrador, al igual que la cantidad de sangre... Espera, ¿qué diablos es eso?</target>
       </segment>
@@ -479,6 +479,12 @@ other {Que extraño, **{character}** ha hecho que salga humo del **{target_equip
       <segment id="remove_spore_fail" state="translated">
         <source>remove_spore_fail</source>
         <target>Usas el extractor en este miserable forúnculo. El ruido es algo aterrador, al igual que la cantidad de sangre... Afortunadamente, no hay ninguna espora que extraer.</target>
+      </segment>
+    </unit>
+    <unit id="remove_spore_mush">
+      <segment id="remove_spore_mush" state="initial">
+        <source>remove_spore_mush</source>
+        <target>remove_spore_mush</target>
       </segment>
     </unit>
     <unit id="public_broadcast">
@@ -1058,7 +1064,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="cure_success">
       <segment id="cure_success" state="translated">
         <source>cure_success</source>
-        <target>***Solo para Moderación** : **{character}** vacuna a **{target_character}**.</target>
+        <target>**{character}** vacuna a **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="adapt_epigenetics_success">
@@ -1112,6 +1118,24 @@ other {{quantity}}
       <segment id="use_reset_vaccine" state="translated">
         <source>use_reset_vaccine</source>
         <target>**{character}** traga saliva y contempla el peso del acto que está a punto de cometer... Basta de esperar. **{character}** inserta la aguja de la **{target_equipment}** en su muslo... Unas cuantas convulsiones después, y ¡**{character}** está irreconocible!</target>
+      </segment>
+    </unit>
+    <unit id="use_mycoscan">
+      <segment id="use_mycoscan" state="translated">
+        <source>use_mycoscan</source>
+        <target>Bzzrt... Bip-bip. El mycoscan acaba de analizar a **{character}**.</target>
+      </segment>
+    </unit>
+    <unit id="participate_research_success">
+      <segment id="participate_research_success" state="initial">
+        <source>participate_research_success</source>
+        <target>participate_research_success</target>
+      </segment>
+    </unit>
+    <unit id="mix_ration_spore_success">
+      <segment id="mix_ration_spore_success" state="initial">
+        <source>mix_ration_spore_success</source>
+        <target>mix_ration_spore_success</target>
       </segment>
     </unit>
   </file>

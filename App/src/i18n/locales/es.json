@@ -382,7 +382,8 @@
 			"maintenanceOn": "Poner el juego en mantenimiento",
 			"maintenanceOff": "Retirar el juego del mantenimiento",
 			"createAPlanet": "Crear un planeta",
-			"markAsCheater": "Marcar Daedalus como tramposos"
+			"markAsCheater": "Marcar Daedalus como tramposos",
+			"deliverStats": "Delivrer les pictos"
 		},
 		"save": "Guardar",
 		"show": "Mostrar",
@@ -620,7 +621,11 @@
 			"spanishTitle": "Título español",
 			"spanishContent": "Contenido español",
 			"publicationDate": "Fecha de publicación",
-			"isPinned": "Fijar"
+			"isPinned": "Fijar",
+			"newPoll": "Ajouter un vote",
+			"removePollOption": "Retirer l'option",
+			"newPollOption": "Ajouter une option",
+			"maxVotes": "Nombre de vote par utilisateur :"
 		},
 		"hunterConfig": {
 			"name": "Nombre completo",
@@ -651,8 +656,11 @@
 			"maintenanceContent": "Querida tripulación, preparaos para el **mantenimiento del juego** en **1 ciclo**. Usad este tiempo para contemplar el vacío existencial o reflexionar en vuestras decisiones de vida: *La diversión continuará después de esta pausa técnica... O no*.",
 			"frenchAnnouncement": "Anuncio francés",
 			"englishAnnouncement": "Anuncio inglés",
+			"spanishAnnouncement": "Annonce espagnole",
+			"targetedAnnouncement": "Annonce ciblée",
 			"sendNeronAnnouncement": "Enviar un anuncio de NERON",
-			"sendNeronAnnouncementToAllDaedaluses": "Enviar un anuncio de NERON a todos los Daedalus"
+			"sendNeronAnnouncementToAllDaedaluses": "Enviar un anuncio de NERON a todos los Daedalus",
+			"sendNeronAnnouncementToSinglelDaedalus": "Enviar un anuncio de NERON a uno Daedalus"
 		}
 	},
 	"charSelection": {
@@ -736,6 +744,11 @@
 	"newsPage": {
 		"publishedAt": "Publicado el ",
 		"updatedAt": "Actualizado el "
+	},
+	"poll": {
+		"vote": "Confirmer le vote",
+		"cancel": "Annuler",
+		"close": "Cloturer"
 	},
 	"homePage": {
 		"joinUs": "¡ Únete !",

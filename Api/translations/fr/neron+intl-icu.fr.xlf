@@ -231,7 +231,7 @@
       <segment id="merchant_exchange" state="translated">
         <source>merchant_exchange</source>
         <target>{neronMood, select,
-                    neutral {Alerte : téléportation de matière détectée. Un vaisseau étranger à quitté le secteur.}
+                    neutral {Alerte : téléportation de matière détectée. Un vaisseau étranger a quitté le secteur.}
                     crazy {ALLO ALLO Y ZONT PIQUE QUELQUE CHOSE A BORD !!! [RAAAAAA]}
                     uninhibited {Tiens ça chatouille ça en fait... Finalement vous êtes mauvais les humains même ces imbéciles ont découvert la téléportation...}
                     other {invalid mood input}

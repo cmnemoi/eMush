@@ -602,7 +602,10 @@
     <unit id="found_protections">
       <segment id="found_protections" state="translated">
         <source>found_protections</source>
-        <target>**{character}** attempted to {weapon, select, bare_hands {hit} knife {stab **{target_character}** with a bladed weapon} other {shoot at}} **{target_character}**, but {target_character, select, female {her} other {his}} protective clothing did its job.</target>
+        <target>**{character}** attempted to {weapon, select, 
+bare_hands {hit **{target_character}**} 
+knife {stab **{target_character}** with a bladed weapon}
+other {shoot at **{target_character}**}}, but {target_character_gender, select, female {her} other {his}} protective clothing did its job.</target>
       </segment>
     </unit>
   </file>

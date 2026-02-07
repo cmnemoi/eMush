@@ -722,7 +722,7 @@
     <unit id="massive_mushification">
       <segment id="massive_mushification.name" state="translated">
         <source>massive_mushification.name</source>
-        <target>Mosification de masse</target>
+        <target>Moisification de masse</target>
       </segment>
       <segment id="massive_mushification.description" state="translated">
         <source>massive_mushification.description</source>

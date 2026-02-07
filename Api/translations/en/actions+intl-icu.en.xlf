@@ -586,7 +586,7 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
     <unit id="remove_spore">
       <segment id="name" state="translated">
         <source>remove_spore.name</source>
-        <target>Extract spore</target>
+        <target>Remove a spore</target>
       </segment>
       <segment id="description" state="translated">
         <source>remove_spore.description</source>
@@ -1156,7 +1156,7 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
       <segment id="description" state="translated">
         <source>return_to_sol.confirmation</source>
-        <target>This action has far-reaching consequences. Are you sure you want to continue?</target>
+        <target>This action will immediately end the game. Are you sure you want to continue?</target>
       </segment>
     </unit>
     <unit id="participate">
@@ -1640,7 +1640,7 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>travel_to_eden.confirmation</source>
-        <target>This action cannot be undone. Are you sure you want to continue?</target>
+        <target>This action will immediately end the game. Are you sure you want to continue?</target>
       </segment>
     </unit>
     <unit id="shoot_cat">

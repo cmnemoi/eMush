@@ -229,5 +229,11 @@
         <target>apply.cost_increase_if_item_in_room_schrodinger.description</target>
       </segment>
     </unit>
+    <unit id="roll.action.percentage_decrease_shoot_shoot_cat_shoot_hunter_shoot_hunter_patrol_ship_shoot_random_hunter_shoot_random_hunter_patrol_ship">
+      <segment id="description" state="initial">
+        <source>roll.action.percentage_decrease_shoot_shoot_cat_shoot_hunter_shoot_hunter_patrol_ship_shoot_random_hunter_shoot_random_hunter_patrol_ship.description</source>
+        <target>roll.action.percentage_decrease_shoot_shoot_cat_shoot_hunter_shoot_hunter_patrol_ship_shoot_random_hunter_shoot_random_hunter_patrol_ship.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

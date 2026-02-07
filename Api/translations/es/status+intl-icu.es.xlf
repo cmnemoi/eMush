@@ -279,7 +279,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>disabled.description</source>
-        <target>Ganas 2 :pm: menos en tus conversiones de :pa: a :pm:, pero puedes desplazarte gratis si estás en una sala con al menos otro tripulante.</target>
+        <target>Ganas 2 :pm: menos en tus conversiones de :pa: a :pm:, pero consumes 1 :pm: menos si sales de una sala con al menos otro tripulante.</target>
       </segment>
     </unit>
     <unit id="eureka_moment">

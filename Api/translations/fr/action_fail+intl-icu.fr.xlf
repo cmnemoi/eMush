@@ -879,7 +879,7 @@
     <unit id="daily_limit_mycoscan">
       <segment id="description" state="translated">
         <source>daily_limit_mycoscan.description</source>
-        <target>Pour éviter la surexposition aux rayons X, cette action ne peut être effectuée qu'une fois par jour. Elle sera de nouveau disponible après le cycle 8.</target>
+        <target>Pour éviter la surexposition aux rayons Sigma, cette action ne peut être effectuée qu'une fois par jour. Elle sera de nouveau disponible après le cycle 8.</target>
       </segment>
     </unit>
   </file>

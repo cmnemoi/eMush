@@ -383,7 +383,7 @@
 			"maintenanceOff": "Retirer le jeu de la maintenance",
 			"createAPlanet": "Créer une planète",
 			"markAsCheater": "Marquer le Daedalus comme tricheurs",
-			"deliverStats": "Delivrer les pictos"
+			"deliverStats": "Délivrer les pictos"
 		},
 		"save": "Sauvegarder",
 		"show": "Montrer",
@@ -622,7 +622,7 @@
 			"spanishContent": "Contenu espagnol",
 			"publicationDate": "Date de publication",
 			"isPinned": "Mettre en avant",
-			"newPoll": "Ajouter un vote",
+			"newPoll": "Ajouter un sondage",
 			"removePollOption": "Retirer l'option",
 			"newPollOption": "Ajouter une option",
 			"maxVotes": "Nombre de vote par utilisateur :"
@@ -748,7 +748,7 @@
 	"poll": {
 		"vote": "Confirmer le vote",
 		"cancel": "Annuler",
-		"close": "Cloturer"
+		"close": "Clôturer"
 	},
 	"homePage": {
 		"joinUs": "Inscrivez-vous !",

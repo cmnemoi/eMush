@@ -827,7 +827,7 @@ Después de ganar más de {regressiveFactor}, esto será menos frecuente.</targe
     <unit id="pretty_cook.personal_description">
       <segment state="translated">
         <source>pretty_cook.personal_description</source>
-        <target>Stephen gana {quantity} :triumph: por cada alienígena cocinado.</target>
+        <target>Stephen gana {quantity} :triumph: por cada alienígena derrotado en una expedición en la que participes.</target>
       </segment>
     </unit>
     <unit id="pretty_cook.log">

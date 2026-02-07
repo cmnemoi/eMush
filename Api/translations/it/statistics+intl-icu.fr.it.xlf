@@ -1793,5 +1793,101 @@
         <target>commander_should_go_last_100.name</target>
       </segment>
     </unit>
+    <unit id="shrinker">
+      <segment id="name" state="initial">
+        <source>shrinker.name</source>
+        <target>shrinker.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shrinker.description</source>
+        <target>shrinker.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>shrinker_1.name</source>
+        <target>shrinker_1.name</target>
+      </segment>
+      <segment id="x10" state="initial">
+        <source>shrinker_10.name</source>
+        <target>shrinker_10.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>shrinker_50.name</source>
+        <target>shrinker_50.name</target>
+      </segment>
+    </unit>
+    <unit id="physician">
+      <segment id="name" state="initial">
+        <source>physician.name</source>
+        <target>physician.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>physician.description</source>
+        <target>physician.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>physician_1.name</source>
+        <target>physician_1.name</target>
+      </segment>
+      <segment id="x10" state="initial">
+        <source>physician_10.name</source>
+        <target>physician_10.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>physician_50.name</source>
+        <target>physician_50.name</target>
+      </segment>
+    </unit>
+    <unit id="triumph">
+      <segment id="name" state="initial">
+        <source>triumph.name</source>
+        <target>triumph.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>triumph.description</source>
+        <target>triumph.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>triumph_1.name</source>
+        <target>triumph_1.name</target>
+      </segment>
+      <segment id="x50" state="initial">
+        <source>triumph_50.name</source>
+        <target>triumph_50.name</target>
+      </segment>
+      <segment id="x200" state="initial">
+        <source>triumph_200.name</source>
+        <target>triumph_200.name</target>
+      </segment>
+      <segment id="x500" state="initial">
+        <source>triumph_500.name</source>
+        <target>triumph_500.name</target>
+      </segment>
+      <segment id="x1000" state="initial">
+        <source>triumph_1000.name</source>
+        <target>triumph_1000.name</target>
+      </segment>
+      <segment id="x2000" state="initial">
+        <source>triumph_2000.name</source>
+        <target>triumph_2000.name</target>
+      </segment>
+      <segment id="x3000" state="initial">
+        <source>triumph_3000.name</source>
+        <target>triumph_3000.name</target>
+      </segment>
+    </unit>
+    <unit id="venerian_disease">
+      <segment id="name" state="initial">
+        <source>venerian_disease.name</source>
+        <target>venerian_disease.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>venerian_disease.description</source>
+        <target>venerian_disease.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>venerian_disease_1.name</source>
+        <target>venerian_disease_1.name</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

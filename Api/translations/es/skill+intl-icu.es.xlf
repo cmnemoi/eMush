@@ -440,9 +440,13 @@
     <unit id="neron_only_friend">
       <segment id="neron_only_friend.name" state="translated">
         <source>neron_only_friend.name</source>
-        <target>{character_gender, select,
-        female {Única amiga de NERON}
-        other {Único amigo de NERON}}</target>
+        <target>{character, select,
+    Janice {Única amiga de NERON}
+    other  {character_gender, select,
+           female {Segunda amiga de NERON}
+           other {Segundo amigo de NERON}
+      }
+}</target>
       </segment>
       <segment id="neron_only_friend.description" state="translated">
         <source>neron_only_friend.description</source>
@@ -736,7 +740,7 @@
       </segment>
       <segment id="fungal_kitchen.description" state="translated">
         <source>fungal_kitchen.description</source>
-        <target>Un gran clásico en la gastronomía exótica en el Sistema Solar.//:point: Puedes crear una **Ración envenenada** mezclando una **Espora** con un **consumible** por **1** :pa:.</target>
+        <target>Un gran clásico en la gastronomía exótica de Sol//:point: Puedes crear una **Ración envenenada** mezclando una **Espora** con un **consumible** por **1** :pa:.</target>
       </segment>
     </unit>
     <unit id="hard_boiled">

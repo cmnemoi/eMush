@@ -835,5 +835,11 @@
         <target>You must take :sk_polyvalent: Polyvalent before your course.</target>
       </segment>
     </unit>
+    <unit id="daily_limit_mycoscan">
+      <segment id="description" state="translated">
+        <source>daily_limit_mycoscan.description</source>
+        <target>To avoid overexposure to noxious Sigma rays, this action can only be used once per day. It will be available again after cycle 8.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

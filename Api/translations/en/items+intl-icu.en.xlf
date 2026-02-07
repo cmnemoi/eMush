@@ -674,11 +674,11 @@ Lets you communicate on the General Channel.</target>
     <unit id="itrackie">
       <segment id="name" state="translated">
         <source>itrackie.name</source>
-        <target>Itrackie</target>
+        <target>iTrackie®©</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>itrackie.short_name</source>
-        <target>Itrackie</target>
+        <target>iTrackie®©</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>itrackie.plural_name</source>
@@ -824,8 +824,8 @@ The latest model from McFloat Inc. With McFloat scooters, float around effortles
       </segment>
       <segment id="description" state="translated">
         <source>rolling_boulder.description</source>
-        <target>It's pretty shaky and makes a racket going along the corridors, but it does allow you to get from one end of the Daedalus to the other without getting tired.
-On every even cycle, you earn extra 1 :pm: during :pa:-:pm: conversion.</target>
+        <target>It's pretty shaky and makes a racket going along the corridors, but it does allow you to get from one end of the Daedalus to the other without getting tired.//
+:point: On even cycles, you earn 1 extra :pm: during :pa:-:pm: conversion.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>rolling_boulder.examine</source>
@@ -986,12 +986,13 @@ Plastenite armor is made from bio-sensitive latex and highly flexible materials,
       </segment>
       <segment id="description" state="translated">
         <source>protective_gloves.description</source>
-        <target>When carrying out repairs, your chances of getting injured are divided by 5.</target>
+        <target>Better safe than sorry.//
+:point: Holding the gloves protects you from injuries by clumsiness that may arise when taking action.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>protective_gloves.examine</source>
-        <target>When carrying out repairs, your chances of getting injured are divided by 5.
-Losing a hand doesn't make for a good day.</target>
+        <target>Losing a hand doesn't make for a good day.//
+Holding the gloves protects you from injuries by clumsiness that may arise when taking action.</target>
       </segment>
     </unit>
     <unit id="spacesuit">
@@ -3731,11 +3732,11 @@ An awesome jukebox from back in the day. Even better, it comes preloaded with th
     <unit id="itrackie_2">
       <segment id="name" state="translated">
         <source>itrackie_2.name</source>
-        <target>Itrackie®© 2™</target>
+        <target>iTrackie®© 2™</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>itrackie_2.short_name</source>
-        <target>Itrackie 2</target>
+        <target>iTrackie 2</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>itrackie_2.plural_name</source>

@@ -621,7 +621,11 @@
 			"spanishTitle": "Spanish title",
 			"spanishContent": "Spanish content",
 			"publicationDate": "Publication date",
-			"isPinned": "Pin the news"
+			"isPinned": "Pin the news",
+			"newPoll": "Add a poll",
+			"removePollOption": "Remove option",
+			"newPollOption": "Add an option",
+			"maxVotes": "Max number of votes per user:"
 		},
 		"hunterConfig": {
 			"name": "Full Name",
@@ -740,6 +744,11 @@
 	"newsPage": {
 		"publishedAt": "Published at ",
 		"updatedAt": "Updated at "
+	},
+	"poll": {
+		"vote": "Confirm vote",
+		"cancel": "Cancel",
+		"close": "Close poll"
 	},
 	"homePage": {
 		"joinUs": "Join us !",

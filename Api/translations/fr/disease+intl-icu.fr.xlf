@@ -34,7 +34,7 @@
     <unit id="tapeworm">
       <segment id="name" state="translated">
         <source>tapeworm.name</source>
-        <target>Vers Solitaire</target>
+        <target>Ver Solitaire</target>
       </segment>
       <segment id="description" state="translated">
         <source>tapeworm.description</source>

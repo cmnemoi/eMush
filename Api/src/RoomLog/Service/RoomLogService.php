@@ -88,8 +88,13 @@ final class RoomLogService implements RoomLogServiceInterface
             return null;
         }
 
+        // @TODO: These should probably be in $this->getVisibility(), but there's no way to get the ActionEvent from the RoomLog. Alternatively, we need a getBaseVisibility to put these in. what even is the nuance between baseVisibility and Visibility? What is baseVisibility for? Maybe $this->getVisibility() needs to be refactored to receive the ActionEvent instead of the RoomLog, and then we can retire baseVisibility.
         $visibility = $actionResult?->getVisibility() ?? VisibilityEnum::HIDDEN;
         if ($actionParameter instanceof GameEquipment && $actionParameter->getEquipment()->isPersonal()) {
+            $visibility = VisibilityEnum::PRIVATE;
+        }
+
+        if ($player->shouldBeAnonymous() && \in_array($actionName->value, ActionEnum::getIsPrivateWhenAnonymousActions(), true)) {
             $visibility = VisibilityEnum::PRIVATE;
         }
 

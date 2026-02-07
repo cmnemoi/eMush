@@ -225,6 +225,9 @@ enum ActionEnum: string
         return $this->value;
     }
 
+    // @TODO: we should settle on whether we want to use ActionEnum or cast all ActionEnum to string with ->value. This 50:50 approach sucks.
+    // @TODO: Why are some of these an array and others a one dimensional arrayCollection???
+
     public function isDetectedByMycoAlarm(): bool
     {
         return \in_array($this, [
@@ -255,6 +258,14 @@ enum ActionEnum: string
             self::GET_UP->value,
             self::BECOME_ANONYMOUS->value,
             self::BECOME_ANONYMOUS_REVERSE->value,
+        ];
+    }
+
+    public static function getIsPrivateWhenAnonymousActions(): array
+    {
+        return [
+            self::GET_UP->value,
+            self::LIE_DOWN->value,
         ];
     }
 

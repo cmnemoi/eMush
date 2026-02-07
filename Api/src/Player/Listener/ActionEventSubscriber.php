@@ -61,6 +61,7 @@ final class ActionEventSubscriber implements EventSubscriberInterface
 
     public function onPostAction(ActionEvent $event): void
     {
+        // @TODO: WHYYYYYYYYY. Can we vote on removing this pls? Get the action history consistent whether we clicked on get up or got up by doing another action?
         if ($event->hasTag(ActionEvent::FORCED_GET_UP)) {
             return;
         }

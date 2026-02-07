@@ -81,7 +81,6 @@ class GameConfigData
                     'xenox_default',
                 ],
                 'diseaseCauseConfigs' => [
-                    'alien_fruit_default',
                     'perished_food_default',
                     'cat_allergy_cause_default',
                     'cycle_default',

@@ -836,7 +836,7 @@
       </segment>
     </unit>
     <unit id="daily_limit_mycoscan">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>daily_limit_mycoscan.description</source>
         <target>daily_limit_mycoscan.description</target>
       </segment>

@@ -230,7 +230,7 @@
       </segment>
     </unit>
     <unit id="roll.action.percentage_decrease_shoot_shoot_cat_shoot_hunter_shoot_hunter_patrol_ship_shoot_random_hunter_shoot_random_hunter_patrol_ship">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>roll.action.percentage_decrease_shoot_shoot_cat_shoot_hunter_shoot_hunter_patrol_ship_shoot_random_hunter_shoot_random_hunter_patrol_ship.description</source>
         <target>roll.action.percentage_decrease_shoot_shoot_cat_shoot_hunter_shoot_hunter_patrol_ship_shoot_random_hunter_shoot_random_hunter_patrol_ship.description</target>
       </segment>

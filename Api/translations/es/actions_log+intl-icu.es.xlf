@@ -482,7 +482,7 @@ other {Que extraño, **{character}** ha hecho que salga humo del **{target_equip
       </segment>
     </unit>
     <unit id="remove_spore_mush">
-      <segment id="remove_spore_mush" state="initial">
+      <segment id="remove_spore_mush" state="translated">
         <source>remove_spore_mush</source>
         <target>remove_spore_mush</target>
       </segment>
@@ -1127,13 +1127,13 @@ other {{quantity}}
       </segment>
     </unit>
     <unit id="participate_research_success">
-      <segment id="participate_research_success" state="initial">
+      <segment id="participate_research_success" state="translated">
         <source>participate_research_success</source>
         <target>participate_research_success</target>
       </segment>
     </unit>
     <unit id="mix_ration_spore_success">
-      <segment id="mix_ration_spore_success" state="initial">
+      <segment id="mix_ration_spore_success" state="translated">
         <source>mix_ration_spore_success</source>
         <target>mix_ration_spore_success</target>
       </segment>

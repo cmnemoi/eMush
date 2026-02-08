@@ -43,8 +43,8 @@ final class Version20260120175041 extends AbstractMigration
         $this->addSql('ALTER TABLE disease_config RENAME COLUMN override TO modifier_configs');
         $this->addSql('COMMENT ON COLUMN disease_config.duration IS \'(DC2Type:array)\'');
         $this->addSql('COMMENT ON COLUMN disease_config.remove_lower IS \'(DC2Type:array)\'');
-        $this->addSql('ALTER TABLE disease_player ADD duration INT NOT NULL');
-        $this->addSql('ALTER TABLE disease_player ADD heal_action_resistance INT NOT NULL');
+        $this->addSql('ALTER TABLE disease_player ADD duration INT DEFAULT 0 NOT NULL');
+        $this->addSql('ALTER TABLE disease_player ADD heal_action_resistance INT DEFAULT 1 NOT NULL');
         $this->addSql('ALTER TABLE disease_player DROP disease_point');
         $this->addSql('ALTER TABLE disease_player DROP resistance_point');
     }

@@ -1,3 +1,10 @@
+## [0.24.3](https://gitlab.com/eternaltwin/mush/mush/compare/0.24.2...0.24.3) (2026-02-08)
+
+
+### Bug Fixes
+
+* kill disease admin action and added default values ([4b6eab2](https://gitlab.com/eternaltwin/mush/mush/commit/4b6eab2f2a7911f2e8781baa1c7bddcc4fb0cc03))
+
 ## [0.24.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.24.1...0.24.2) (2026-02-08)
 
 

@@ -415,6 +415,8 @@ export default defineComponent ({
 
 .newsgroup {
     margin-top: 2.8em;
+    width: 100%;
+
 
     a.more {
         align-self: flex-end;

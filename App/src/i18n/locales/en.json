@@ -748,7 +748,8 @@
 	"poll": {
 		"vote": "Confirm vote",
 		"cancel": "Cancel",
-		"close": "Close poll"
+		"close": "Close poll",
+		"canNotVote": "You can not vote."
 	},
 	"homePage": {
 		"joinUs": "Join us !",

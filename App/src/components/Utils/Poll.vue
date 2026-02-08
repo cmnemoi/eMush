@@ -33,7 +33,7 @@
             {{ $t('poll.cancel') }}
         </button>
 
-        <div v-if="poll.canVote === false && poll.voted === false"> {{ $t('admin.canNotVote') }}</div>
+        <div v-if="poll.canVote === false && poll.voted === false"> {{ $t('poll.canNotVote') }}</div>
 
         <button
             v-if="isAdmin && poll.closed === false"

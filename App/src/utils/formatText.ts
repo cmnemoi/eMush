@@ -85,7 +85,8 @@ export function formatText(text: string|null): string {
         "staging.emush.eternaltwin.org",
         "emushpedia.miraheze.org",
         "www.mushpedia.com",
-        "gitlab.com"
+        "gitlab.com",
+        "eternaltwin.org"
     ];
     const knowHostsRegex = "(?:(?:" + knownHosts.map(regexEscape).join(")|(?:") + "))";
     const markdownLinkRegex = new RegExp(

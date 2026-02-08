@@ -120,6 +120,18 @@ class DoTheThing extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::DO_THE_THING_WITNESS,
         ]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => PlayerStatusEnum::INACTIVE,
+            'contain' => false,
+            'target' => HasStatus::PLAYER,
+            'groups' => ['visibility'],
+        ]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => PlayerStatusEnum::HIGHLY_INACTIVE,
+            'contain' => false,
+            'target' => HasStatus::PLAYER,
+            'groups' => ['visibility'],
+        ]));
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

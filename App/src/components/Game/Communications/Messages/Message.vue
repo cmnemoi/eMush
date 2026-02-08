@@ -215,7 +215,7 @@ export default defineComponent ({
             // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView#browser_compatibility
             // Without it the method scrolls every scrollable, so we need to scroll the main window back
             const { scrollX, scrollY } = window;
-            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
             window.scroll(scrollX, scrollY);
         },
         async submitComplaint(params: URLSearchParams) {

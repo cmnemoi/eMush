@@ -54,7 +54,7 @@ export class Message {
         return this.children.find(child => child.isUnread && !child.isHidden) ?? null;
     }
     getLastChild(): Message|null {
-        return this.children[this.children.length - 1] && null;
+        return this.children[this.children.length - 1] ?? null;
     }
     hasChildrenToDisplay(): boolean {
         return this.children.length > this.nbChildrenToDisplay;

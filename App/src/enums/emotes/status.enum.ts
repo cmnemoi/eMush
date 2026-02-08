@@ -12,7 +12,6 @@ export enum EmoteStatusEnum {
     DISABLED = 'st_disabled',
     DISEASE = 'st_disease',
     DISORDER = 'st_disorder',
-    FIRE = 'st_fire',
     FIRST_TIME = 'st_first_time',
     FOOD_FROZEN = 'st_food_frozen',
     FOOD_DECAYING = 'st_food_decaying',
@@ -49,7 +48,6 @@ export enum EmoteStatusEnum {
     SUICIDAL = 'st_suicidal',
     THINKLINKED = 'st_thinklinked',
     UNSOCIABLE = 'st_unsociable',
-    UPDATING = 'st_updating',
     COMMANDER = 'st_commander',
     COMMS_MANAGER = 'st_comms_manager',
     NERON_MANAGER = 'st_neron_manager',
@@ -115,8 +113,7 @@ export const EmoteStatusAliases: { [index: string]: string } = {
     ['suicidal']: EmoteStatusEnum.SUICIDAL,
     ['brainsync']: EmoteStatusEnum.THINKLINKED,
     ['antisocial']: EmoteStatusEnum.UNSOCIABLE,
-    ['outcast']: EmoteStatusEnum.UNSOCIABLE,
-    ['updating']: EmoteStatusEnum.UPDATING
+    ['outcast']: EmoteStatusEnum.UNSOCIABLE
 };
 
 

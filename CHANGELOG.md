@@ -1,3 +1,10 @@
+## [0.24.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.24.0...0.24.1) (2026-02-08)
+
+
+### Bug Fixes
+
+* status tab for fancy text editor ([c544b73](https://gitlab.com/eternaltwin/mush/mush/commit/c544b73c4712856f1801f8fa87f935473a3f4a71))
+
 # [0.24.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.23.0...0.24.0) (2026-02-08)
 
 

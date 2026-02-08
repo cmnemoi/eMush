@@ -16,6 +16,8 @@ Mush\Equipment\Entity\Config\EquipmentConfig:
       security: 'is_granted("ROLE_ADMIN")'
     put:
       security: 'is_granted("ROLE_ADMIN")'
+    delete: 
+      security: 'is_granted("ROLE_ADMIN")'
   properties:
     mechanics:
       subresource:

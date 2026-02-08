@@ -656,6 +656,6 @@ abstract class ActionLogEnum
 
     public static function dependsOnNeronMood(string $logKey): bool
     {
-        return $logKey === self::PARTICIPATE_SUCCESS;
+        return \in_array($logKey, [self::PARTICIPATE_SUCCESS, self::PARTICIPATE_RESEARCH_SUCCESS], true);
     }
 }

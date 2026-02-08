@@ -67,6 +67,7 @@ export class News {
         return this;
     }
     toRecord(): Record<string, any> {
+
         return {
             id: this.id,
             frenchTitle: this.frenchTitle,
@@ -78,7 +79,7 @@ export class News {
             publicationDate: this.publicationDate,
             isPinned: this.isPinned,
             isPublished: this.isPublished,
-            poll: this.poll?.iri
+            poll: this.poll?.iri ?? undefined
         };
     }
 }

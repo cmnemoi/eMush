@@ -37,7 +37,7 @@ const NewsService = {
     updateNews: async(news: News): Promise<News | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
 
-        const newsData = await ApiService.put(NEWS_ENDPOINT + '/' + news.id, news)
+        const newsData = await ApiService.put(NEWS_ENDPOINT + '/' + news.id, news.toRecord())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         let updatedNews = null;

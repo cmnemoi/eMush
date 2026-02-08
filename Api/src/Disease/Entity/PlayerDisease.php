@@ -38,10 +38,10 @@ class PlayerDisease implements ModifierProviderInterface
     #[ORM\Column(type: 'string', nullable: false)]
     private string $status = DiseaseStatusEnum::ACTIVE;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $duration = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 1])]
     private int $healActionResistance = 1;
 
     public function __construct()

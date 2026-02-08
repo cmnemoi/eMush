@@ -10,7 +10,10 @@ use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepository;
+use Mush\Disease\Entity\PlayerDisease;
+use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\MetaGame\Command\MarkDaedalusAsCheaterCommand;
 use Mush\MetaGame\Command\MarkDaedalusAsCheaterCommandHandler;
 use Mush\MetaGame\Dto\CreateEquipmentForDaedalusDto;
@@ -51,6 +54,7 @@ final class AdminActionsController extends AbstractFOSRestController
         private readonly ProposeNewNeronProjectsUseCase $proposeNewNeronProjectsUseCase,
         private readonly StatusServiceInterface $statusService,
         private readonly FinishProjectService $finishProjectService,
+        private readonly PlayerDiseaseServiceInterface $playerDiseaseService
     ) {}
 
     /**
@@ -234,5 +238,18 @@ final class AdminActionsController extends AbstractFOSRestController
         $this->handler->execute($markDaedalusAsCheater);
 
         return $this->json(['detail' => "Closed daedalus {$markDaedalusAsCheater->closedDaedalusId} marked as cheater successfully."], Response::HTTP_OK);
+    }
+
+    /**
+     * Remove A disease.
+     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Post(path: '/kill-disease/{disease}')]
+    #[NelmioSecurity(name: 'Bearer')]
+    public function killDisease(PlayerDisease $disease): JsonResponse
+    {
+        $this->playerDiseaseService->removePlayerDisease($disease, ['ADMIN ACTION'], new \DateTime(), VisibilityEnum::HIDDEN);
+
+        return $this->json(['detail' => 'Disease Removed successfully'], Response::HTTP_OK);
     }
 }

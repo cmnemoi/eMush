@@ -1,3 +1,49 @@
+# [0.24.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.23.0...0.24.0) (2026-02-08)
+
+
+### Bug Fixes
+
+* Add a MaxLengthConstrait to the 'ComManagerAnnounce', 'CommanderOrder' and 'Write' actions ([ac2dbfa](https://gitlab.com/eternaltwin/mush/mush/commit/ac2dbfa0f1d8371961beb8e2e60da06af7b3a271))
+* **chat:** The RTE does not crop on small width device anymore ([2190829](https://gitlab.com/eternaltwin/mush/mush/commit/21908299f35099d36a5f4432d56da363a1e8e27f))
+* Correcting logs timestamps printed for exploration cycle ([30c6f45](https://gitlab.com/eternaltwin/mush/mush/commit/30c6f4525776045fab6f26f07826d47d062f769b))
+* eden penalty only applies to active diseases ([cde312b](https://gitlab.com/eternaltwin/mush/mush/commit/cde312bfdedf07f7565591247f8cc04a1ff6bdbd))
+* excl mark in eKanit webfont ([61d4ae2](https://gitlab.com/eternaltwin/mush/mush/commit/61d4ae217ff7943586aa90b069f7906b8aeed763))
+* Exploration cycle is not updated upon parameter change ([63637e2](https://gitlab.com/eternaltwin/mush/mush/commit/63637e22ba02ad44e5b4da52ff458b752fa94f15))
+* fixed diseasecauseconfigdata to be accurate to BM datasheets ([984a5eb](https://gitlab.com/eternaltwin/mush/mush/commit/984a5eb56bc1bfe6c41ded3ff3d18e8cfeff3cf2))
+* fixed flaking cest ([4363a48](https://gitlab.com/eternaltwin/mush/mush/commit/4363a48699e8b06e7b2430c13bc80fcdba682f2f))
+* fixed other flaky cest ([b99ac57](https://gitlab.com/eternaltwin/mush/mush/commit/b99ac57ff34bc5365119a1f6e6905e18c2d631a8))
+* Move hunters below UI menu in space battle view ([71a347e](https://gitlab.com/eternaltwin/mush/mush/commit/71a347e900bcd59333afd8d9c35ca4af24a41c3b))
+* new Crowdin translations ([24f0293](https://gitlab.com/eternaltwin/mush/mush/commit/24f02934422877bcac4d34bb2210b1b5569194a6))
+* new Crowdin translations ([7dbb9b7](https://gitlab.com/eternaltwin/mush/mush/commit/7dbb9b7761212d3ca58a4efca53e1acfda11bf16))
+* new Crowdin translations ([af5001b](https://gitlab.com/eternaltwin/mush/mush/commit/af5001bc9ccc9b3eab58070ac74f43193aa2d7a4))
+* should not give oxygen and fuel found in exploration if explorators are all lost or dead ([065c727](https://gitlab.com/eternaltwin/mush/mush/commit/065c727c126fdef862b81bc157d39afa8132680b))
+* small news are bigger on the homepage ([5e0ba59](https://gitlab.com/eternaltwin/mush/mush/commit/5e0ba5910c3afb6984a43a5ed10294c166e51aac))
+* Statuses and titles overlapping on crewmate panel ([f4ed2c5](https://gitlab.com/eternaltwin/mush/mush/commit/f4ed2c53fe045346ae5d3da50219e3e361a085cd))
+* Trail Reductor wasn't reducing following hunters correctly ([68adc3b](https://gitlab.com/eternaltwin/mush/mush/commit/68adc3bb2612fb3182927ea0d6989bfb277eb8b2))
+* When checking for a new cycle create a lock for each daedalus. Added race condition protection for handling exploration steps ([868c9a6](https://gitlab.com/eternaltwin/mush/mush/commit/868c9a6b528b244b76879ae81cf17ad09f5286c4))
+
+
+### Features
+
+* bric broc remove incident points ([2444a8b](https://gitlab.com/eternaltwin/mush/mush/commit/2444a8b975686b03a778ca58601b6486308ab4ba))
+* button to deliver pending stats and cheaters do not get stats when ship end ([39077f0](https://gitlab.com/eternaltwin/mush/mush/commit/39077f0028bca16bf602864071fcc62a9d9693b7))
+* **Chat:** Expanding a thread now scroll to its first unread message or the last message ([d787629](https://gitlab.com/eternaltwin/mush/mush/commit/d787629ee13508e9ec6e9179ffe2677e80155a41))
+* cure (rfs), fungal kitchen, and participate_research now have private logs ([5733412](https://gitlab.com/eternaltwin/mush/mush/commit/5733412ca4d230224037fbd81bbd65b83d43eec0))
+* **game:** Multiple hunters of same kind and hp stack in the space battle view ([91158b1](https://gitlab.com/eternaltwin/mush/mush/commit/91158b1e072f4731fa87f0934219c3f8a87aa9f6))
+* get up and lie down are Private visibility when Ninja ([083a1e2](https://gitlab.com/eternaltwin/mush/mush/commit/083a1e20f3d3b732fe19ce83256fa028a8fd7bd4))
+* installing & removing camera has a 5% chance for clumsiness ([e7d5d15](https://gitlab.com/eternaltwin/mush/mush/commit/e7d5d15670f4d71bb179a178e86b5adcfb4902b4))
+* neron announcement to spanish ships and to single ship ([1fab434](https://gitlab.com/eternaltwin/mush/mush/commit/1fab434fb55d801d4a288877348703c30b1d652e))
+* new poll entity ([9d11f0b](https://gitlab.com/eternaltwin/mush/mush/commit/9d11f0b4c22903c7f4a4286c478d4eb75d17ef08))
+* per player daily use limit on mycoscan ([b50f904](https://gitlab.com/eternaltwin/mush/mush/commit/b50f904427821ea3247b65aed47ae9a725682b78))
+* Rework responsiveness across the app ([c518214](https://gitlab.com/eternaltwin/mush/mush/commit/c5182142ff50bf2a7c9e25d099e5304b6ed83dc0))
+* reworked diseaseconfigdata to be more accurate to BM datasheets ([7a79b72](https://gitlab.com/eternaltwin/mush/mush/commit/7a79b72d313397cf6ca3c30cffc3117b721079a7))
+* ship have always at least one alpha mush ([359932b](https://gitlab.com/eternaltwin/mush/mush/commit/359932bc66a53ba1577e08e7de3c5fb465733c8d))
+* spore sucker can be used as mush ([c299de2](https://gitlab.com/eternaltwin/mush/mush/commit/c299de250b8533ca351c2087ba5da25770113ca4))
+* **stat:** Complete Psychoanalysis ([dc5312b](https://gitlab.com/eternaltwin/mush/mush/commit/dc5312be6c45797e1da25244ae53a21c9caa5f66))
+* **stat:** Triumph ([bf576e9](https://gitlab.com/eternaltwin/mush/mush/commit/bf576e91d85ce9afe90cf31d4120c49ee578eebf))
+* **stat:** Venereal Disease ([bc74aad](https://gitlab.com/eternaltwin/mush/mush/commit/bc74aad5348030ced4f533d941edbbeb80af634c))
+* torture costs 2 AP to execute ([86a8ae9](https://gitlab.com/eternaltwin/mush/mush/commit/86a8ae95e00e3c87b23e7ea33d742ff84ca08198))
+
 # [0.23.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.22.2...0.23.0) (2026-01-06)
 
 

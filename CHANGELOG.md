@@ -1,3 +1,10 @@
+## [0.24.4](https://gitlab.com/eternaltwin/mush/mush/compare/0.24.3...0.24.4) (2026-02-08)
+
+
+### Bug Fixes
+
+* migration disease ([3a817cf](https://gitlab.com/eternaltwin/mush/mush/commit/3a817cf7c2ceddb38af63961e94a73fe20afdb16))
+
 ## [0.24.3](https://gitlab.com/eternaltwin/mush/mush/compare/0.24.2...0.24.3) (2026-02-08)
 
 

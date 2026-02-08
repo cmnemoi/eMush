@@ -1,3 +1,10 @@
+## [0.24.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.24.1...0.24.2) (2026-02-08)
+
+
+### Bug Fixes
+
+* poll and news update ([2b44343](https://gitlab.com/eternaltwin/mush/mush/commit/2b4434364be0a4fe0147fe63cdf79967561b77ba))
+
 ## [0.24.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.24.0...0.24.1) (2026-02-08)
 
 

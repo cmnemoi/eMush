@@ -33,6 +33,9 @@ final class EvilDroneCest extends AbstractFunctionalTest
 
     private Place $nexus;
     private Place $corridor;
+    private Place $storage;
+
+    private Door $door;
 
     public function _before(FunctionalTester $I)
     {
@@ -44,14 +47,14 @@ final class EvilDroneCest extends AbstractFunctionalTest
 
         $this->nexus = $this->createExtraPlace(RoomEnum::NEXUS, $I, $this->daedalus);
         $this->corridor = $this->createExtraPlace(RoomEnum::REAR_CORRIDOR, $I, $this->daedalus);
-        $storage = $this->createExtraPlace(RoomEnum::REAR_ALPHA_STORAGE, $I, $this->daedalus);
+        $this->storage = $this->createExtraPlace(RoomEnum::REAR_ALPHA_STORAGE, $I, $this->daedalus);
 
-        Door::createFromRooms($this->nexus, $this->corridor);
-        Door::createFromRooms($this->corridor, $storage);
+        $this->door = Door::createFromRooms($this->nexus, $this->corridor);
+        Door::createFromRooms($this->corridor, $this->storage);
 
         $this->evilDrone = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::EVIL_DRONE,
-            equipmentHolder: $storage,
+            equipmentHolder: $this->storage,
             reasons: [],
             time: new \DateTime(),
         );
@@ -82,6 +85,25 @@ final class EvilDroneCest extends AbstractFunctionalTest
 
         // then it should have moved in the nexus and created the conspire log
         $I->seeInRepository(RoomLog::class, ['place' => $this->nexus->getLogName(), 'log' => 'evil_drone.conspire']);
+    }
+
+    public function evilDroneShouldNotBeStuckInInfiniteLoopIfSheCantMoveTowardTarget(FunctionalTester $I)
+    {
+        // given drone can't be idle
+        $this->evilDroneTaskHandler->setDoNothing(0);
+
+        // given there is a NERON core with Chun, somewhere it can't reach
+        $this->gameEquipmentService->createGameEquipmentFromName(EquipmentEnum::NERON_CORE, $this->chun->getPlace(), [], new \DateTime());
+
+        // given it has a lot of charges
+        $this->evilDrone->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->setMaxCharge(30);
+        $this->evilDrone->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->setCharge(30);
+
+        // when I activate it's handler
+        $this->evilDroneTaskHandler->execute($this->evilDrone, new \DateTime());
+
+        // easy assert to make sure no infinite loop happened
+        $I->assertNotTrue($this->evilDrone->getPlace()->getId() === $this->chun->getPlace()->getId());
     }
 
     public function evilDroneShouldFlirtWithPlayer(FunctionalTester $I)

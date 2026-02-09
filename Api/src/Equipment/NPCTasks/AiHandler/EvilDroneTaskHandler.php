@@ -151,7 +151,10 @@ class EvilDroneTaskHandler extends AbstractAiHandler
         $charges = $this->getMoveCharges($NPC);
 
         while ($charges->getCharge() > 0 && $this->hasReachedDestination($NPC, $destination) === false) {
-            $this->moveDrone($NPC, $destination, $time);
+            // we need to check if Saki can't get to her destination if we want to avoid un infinite loop
+            if ($this->moveDrone($NPC, $destination, $time) === false) {
+                break;
+            }
         }
     }
 
@@ -165,13 +168,13 @@ class EvilDroneTaskHandler extends AbstractAiHandler
         return $NPC->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
     }
 
-    private function moveDrone(Drone $NPC, Place $destination, \DateTime $time)
+    private function moveDrone(Drone $NPC, Place $destination, \DateTime $time): bool
     {
         $oldPlace = $NPC->getPlace();
         $nextPlace = $this->findNextRoomTowardsConditionService->execute($oldPlace, static fn (Place $place) => $place->getId() === $destination->getId());
 
         if ($nextPlace === null) {
-            return;
+            return false;
         }
 
         $this->gameEquipmentService->moveEquipmentTo(
@@ -188,6 +191,8 @@ class EvilDroneTaskHandler extends AbstractAiHandler
             [],
             $time
         );
+
+        return true;
     }
 
     private function dispatchDroneMovedEvent(Drone $drone, Place $oldRoom, \DateTime $time): void

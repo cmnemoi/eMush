@@ -1,3 +1,13 @@
+## [0.24.5](https://gitlab.com/eternaltwin/mush/mush/compare/0.24.4...0.24.5) (2026-02-09)
+
+
+### Bug Fixes
+
+* **Chat:** Fix 'Message.getLastChild' and now scroll to the top ([8273787](https://gitlab.com/eternaltwin/mush/mush/commit/82737874b97490c3769151fb6a832e03331f89c2))
+* new Crowdin translations ([dd890b9](https://gitlab.com/eternaltwin/mush/mush/commit/dd890b92c60d304fd82b3a7d6866cd5318f21ee5))
+* participate_research_success log works ([6eecef8](https://gitlab.com/eternaltwin/mush/mush/commit/6eecef837fc74f4142e86c0acaf41e6b3922f7b1))
+* Uppercase the timer and align it with the date below ([037f4df](https://gitlab.com/eternaltwin/mush/mush/commit/037f4dfb62fd0f9cad2378a8de42d6bef5a08e1a))
+
 ## [0.24.4](https://gitlab.com/eternaltwin/mush/mush/compare/0.24.3...0.24.4) (2026-02-08)
 
 

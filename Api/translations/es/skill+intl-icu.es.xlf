@@ -441,12 +441,14 @@
       <segment id="neron_only_friend.name" state="translated">
         <source>neron_only_friend.name</source>
         <target>{character, select,
-    Janice {Única amiga de NERON}
-    other  {character_gender, select,
-           female {Segunda amiga de NERON}
-           other {Segundo amigo de NERON}
-      }
-}</target>
+    Janice {Única amiga}
+    other  {
+          {character_gender, select,
+               female {Segunda amiga}
+               other {Segundo amigo}
+          }
+    }
+} de NERON</target>
       </segment>
       <segment id="neron_only_friend.description" state="translated">
         <source>neron_only_friend.description</source>

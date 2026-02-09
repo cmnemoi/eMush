@@ -72,7 +72,7 @@
       </segment>
       <segment id="x50" state="translated">
         <source>explorer_50.name</source>
-        <target>{gender, select, female {Grand expedicionaria} other {Gran Expedicionario}}</target>
+        <target>{gender, select, female {Gran expedicionaria} other {Gran Expedicionario}}</target>
       </segment>
       <segment id="x200" state="translated">
         <source>explorer_200.name</source>

@@ -301,6 +301,8 @@ span.tippy-tooltip {
         .timer {
             flex-direction: row;
             justify-content: flex-end;
+            text-transform: uppercase;
+            margin-right: 10px;
             gap: 0.4em;
             min-width: 100px;
 

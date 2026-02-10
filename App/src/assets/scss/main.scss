@@ -193,6 +193,23 @@ button {
     }
 }
 
+.table-filter-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  row-gap: 15px;
+  margin-bottom: 10px;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
 @media screen and (max-width: $breakpoint-desktop-m) {
   .box-container {
     width: $breakpoint-desktop-s;

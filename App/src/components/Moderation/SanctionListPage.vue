@@ -1,7 +1,7 @@
 <template>
     <div class="sanction_list_container">
         <h2 class="sanction_heading">{{ $t('moderation.sanctionsFor', { username: username }) }}</h2>
-        <div class="sanction_filter_options">
+        <div class="table-filter-container">
             <label>{{ $t('admin.show') }}
                 <select v-model="pagination.pageSize" @change="updateFilter">
                     <option
@@ -447,11 +447,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.sanction_filter_options {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 10px;
-}
 </style>

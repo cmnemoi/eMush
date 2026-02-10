@@ -1,6 +1,6 @@
 <template>
     <div class="news_list_container">
-        <div class="news_filter_options">
+        <div class="table-filter-container">
             <label>{{ $t('admin.show') }}
                 <select v-model="pagination.pageSize" @change="updateFilter">
                     <option
@@ -159,14 +159,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.news_filter_options {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 10px;
-}
-
 a {
         @include button-style();
 

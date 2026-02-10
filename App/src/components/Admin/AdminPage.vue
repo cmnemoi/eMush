@@ -24,6 +24,8 @@ export default defineComponent ({
 
 .box-container {
     margin-top: 0;
+    max-width: 1080px;
+    width: 100%;
 }
 
 </style>

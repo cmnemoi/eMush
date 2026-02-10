@@ -1,6 +1,6 @@
 <template>
     <div class="ship_ranking_container box-container">
-        <div class="label-container">
+        <div class="table-filter-container">
             <label>{{ $t('ranking.languages') }}
                 <select v-model="language" @change="updateFilterAndReloadData">
                     <option
@@ -287,26 +287,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
-.label-container {
-    display: inline-flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
-    & > label {
-        margin-right: 5px;
-        margin-bottom: 5px;
-    }
-}
-
-.user_filter_options {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 10px;
-}
-
 .router{
     padding-left: 5px;
 }

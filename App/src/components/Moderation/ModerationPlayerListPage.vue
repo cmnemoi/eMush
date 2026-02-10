@@ -1,6 +1,6 @@
 <template>
     <div class="player_list_container">
-        <div class="player_filter_options">
+        <div class="table-filter-container">
             <label>{{ $t('moderation.alivePlayersFilter') }}
                 <select v-model="playerStatusFilter" @change="updateFilter">
                     <option
@@ -282,19 +282,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
-.player_filter_options {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 10px;
-
-    label {
-        padding: 0 10px;
-    }
-}
-
 button {
     @include button-style();
 

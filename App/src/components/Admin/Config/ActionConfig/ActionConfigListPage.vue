@@ -1,6 +1,6 @@
 <template>
     <div class="user_list_container">
-        <div class="user_filter_options">
+        <div class="table-filter-container">
             <label>{{ $t('admin.show') }}
                 <select v-model="pagination.pageSize" @change="updateFilter">
                     <option
@@ -161,11 +161,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.user_filter_options {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 10px;
-}
 </style>

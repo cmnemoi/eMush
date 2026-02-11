@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -121,10 +122,9 @@ final class Fight extends AbstractPlanetSectorEventHandler
         /** @var Player $fighter */
         foreach ($fighters as $fighter) {
             /** @var ArrayCollection<int, GameItem> $fighterWeapons */
-            $fighterWeapons = $fighter->getEquipments()
-                ->filter(static fn (GameItem $item) => ItemEnum::getWeapons()->contains($item->getName()))
-                ->filter(static fn (GameItem $item) => $item->isOperational())
-                ->filter(static fn (GameItem $item) => $item->getName() !== ItemEnum::GRENADE || $includeGrenades);
+            $fighterWeapons = $fighter
+                ->getOperationalEquipmentsByNames(ItemEnum::getWeapons()->toArray())
+                ->filter(static fn (GameEquipment $item) => $item->getName() !== ItemEnum::GRENADE || $includeGrenades);
 
             foreach ($fighterWeapons as $weapon) {
                 /** @var ?Weapon $weaponMechanic */
@@ -152,15 +152,18 @@ final class Fight extends AbstractPlanetSectorEventHandler
     {
         $fighters = $event->getExploration()->getNotLostActiveExplorators();
         foreach ($fighters as $fighter) {
-            $fighterGrenades = $fighter->getEquipments()->filter(static fn (GameItem $item) => $item->getName() === ItemEnum::GRENADE);
+            $fighterGrenades = $fighter->getEquipmentsByNames([ItemEnum::GRENADE]);
 
             // We are removing grenades from the fighter until we have enough damage to kill the creature
             // or until we run out of grenades
             while ($damageWithoutGrenades > 0 && $fighterGrenades->count() > 0) {
+                /** @var GameEquipment $grenade */
                 $grenade = $fighterGrenades->first();
 
-                $damageWithoutGrenades -= $grenade->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON)->getExpeditionBonus();
+                /** @var Weapon $mechanic */
+                $mechanic = $grenade->getEquipment()->getMechanicByNameOrThrow(EquipmentMechanicEnum::WEAPON);
 
+                $damageWithoutGrenades -= $mechanic->getExpeditionBonus();
                 $fighterGrenades->removeElement($grenade);
                 $this->deleteEquipmentService->execute(
                     gameEquipment: $grenade,

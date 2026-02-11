@@ -68,6 +68,11 @@ interface StatusServiceInterface
         \DateTime $time
     ): void;
 
+    /**
+     * Returns the most recent equipment of a with the given status.
+     *
+     * @param Collection<array-key, GameEquipment> $equipments
+     */
     public function getMostRecent(string $statusName, Collection $equipments): GameEquipment;
 
     public function getByCriteria(StatusCriteria $criteria): Collection;

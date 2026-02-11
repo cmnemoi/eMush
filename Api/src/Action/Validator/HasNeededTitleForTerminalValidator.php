@@ -65,7 +65,7 @@ class HasNeededTitleForTerminalValidator extends ConstraintValidator
         $player = $value->getPlayer();
 
         return $terminal->getName() === EquipmentEnum::COMMAND_TERMINAL
-        && $player->hasAnyOperationalEquipment([ItemEnum::MULTIPASS])
+        && $player->hasOperationalEquipmentByName(ItemEnum::MULTIPASS)
         && $player->hasSkill(SkillEnum::CONCEPTOR);
     }
 

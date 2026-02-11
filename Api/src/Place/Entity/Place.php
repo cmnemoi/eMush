@@ -12,6 +12,7 @@ use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\EquipmentHolderAbstract;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -44,7 +45,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 #[ORM\Entity(repositoryClass: PlaceRepository::class)]
 #[ORM\Table(name: 'room')]
-class Place implements StatusHolderInterface, VisibleStatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface, ActionProviderInterface, PlayerHighlightTargetInterface
+class Place extends EquipmentHolderAbstract implements StatusHolderInterface, VisibleStatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface, ActionProviderInterface, PlayerHighlightTargetInterface
 {
     use ModifierHolderTrait;
     use TargetStatusTrait;
@@ -259,14 +260,6 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
         return $this;
     }
 
-    public function getItems(): Collection
-    {
-        return
-             $this
-                 ->getEquipments()
-                 ->filter(static fn (GameEquipment $equipment) => ($equipment->getClassName() === GameItem::class));
-    }
-
     public function getEquipments(): Collection
     {
         return $this->equipments;
@@ -318,35 +311,12 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
         return $this;
     }
 
-    public function hasEquipmentByName(string $name): bool
-    {
-        return !$this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->isEmpty();
-    }
-
-    public function hasOperationalEquipmentByName(string $name): bool
-    {
-        return !$this->getEquipments()->filter(
-            static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name
-            && $gameEquipment->isOperational()
-        )->isEmpty();
-    }
-
-    public function doesNotHaveEquipmentByName(string $name): bool
-    {
-        return $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->isEmpty();
-    }
-
     public function doesNotHaveVisibleEquipmentByName(string $name): bool
     {
         return $this
-            ->getAllEquipmentsByName($name)
+            ->getEquipmentsByNames([$name])
             ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->doesNotHaveStatus(EquipmentStatusEnum::HIDDEN))
             ->isEmpty();
-    }
-
-    public function getEquipmentByName(string $name): ?GameEquipment
-    {
-        return $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first() ?: null;
     }
 
     public function getEquipmentByNameOrThrow(string $name): GameEquipment
@@ -357,36 +327,6 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
         }
 
         return $equipment;
-    }
-
-    public function getFirstEquipmentByMechanicNameOrNull(string $mechanicName): ?GameEquipment
-    {
-        /** @var GameEquipment $equipment */
-        foreach ($this->equipments as $equipment) {
-            if ($equipment->hasMechanicByName($mechanicName)) {
-                return $equipment;
-            }
-        }
-
-        return null;
-    }
-
-    public function getFirstEquipmentByMechanicNameOrThrow(string $mechanicName): GameEquipment
-    {
-        $equipment = $this->getFirstEquipmentByMechanicNameOrNull($mechanicName);
-        if ($equipment === null) {
-            throw new \RuntimeException("There should be an equipment with {$mechanicName} mechanic in the place {$this->name}");
-        }
-
-        return $equipment;
-    }
-
-    /**
-     * @return Collection<int, GameEquipment>
-     */
-    public function getAllEquipmentsByName(string $name): Collection
-    {
-        return $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name);
     }
 
     public function getNonPersonalItems(): Collection

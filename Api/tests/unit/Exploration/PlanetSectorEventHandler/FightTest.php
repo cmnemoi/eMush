@@ -176,6 +176,7 @@ final class FightTest extends TestCase
         $player->method('hasStatus')->willReturn(false);
         $player->method('isAlive')->willReturn(true);
         $player->method('getEquipments')->willReturn(new ArrayCollection());
+        $player->method('getOperationalEquipmentsByNames')->willReturn(new ArrayCollection());
         new PlayerInfo($player, new User(), new CharacterConfig());
 
         return $player;

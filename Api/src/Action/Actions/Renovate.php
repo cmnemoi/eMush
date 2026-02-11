@@ -14,7 +14,6 @@ use Mush\Action\Validator\IsPatrolShipRenovable;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -98,21 +97,12 @@ final class Renovate extends AttemptAction
 
     private function getPieceOfScrapMetal(): GameEquipment
     {
-        $playerScrapMetal = $this->player->getEquipments()->filter(static function (GameItem $item) {
-            return $item->getName() === ItemEnum::METAL_SCRAPS;
-        });
-        if ($playerScrapMetal->count() >= 1) {
-            return $playerScrapMetal->first();
+        $playerScrapMetal = $this->player->getEquipmentByName(ItemEnum::METAL_SCRAPS);
+        if ($playerScrapMetal !== null) {
+            return $playerScrapMetal;
         }
 
-        $roomScrapMetal = $this->player->getPlace()->getEquipments()->filter(static function (GameEquipment $equipment) {
-            return $equipment->getName() === ItemEnum::METAL_SCRAPS;
-        });
-        if ($roomScrapMetal->isEmpty()) {
-            throw new \Exception('There should be a piece of scrap metal in the room or in the player inventory if Renovate action is available');
-        }
-
-        return $roomScrapMetal->first();
+        return $this->player->getPlace()->getEquipmentByNameOrThrow(ItemEnum::METAL_SCRAPS);
     }
 
     private function setPatrolShipArmorToMaximum(): void

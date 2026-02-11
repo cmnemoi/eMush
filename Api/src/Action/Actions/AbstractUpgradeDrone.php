@@ -133,7 +133,6 @@ abstract class AbstractUpgradeDrone extends AbstractAction
         $roomScrapMetal = $this->player->getPlace()->getEquipments()->filter($isScrapMetal);
 
         $totalScrapDestroyed = $this->destroyFromCollection($playerScrapMetal, quantity: $this->getOutputQuantity());
-
         if ($totalScrapDestroyed < $this->getOutputQuantity()) {
             $this->destroyFromCollection($roomScrapMetal, quantity: $this->getOutputQuantity() - $totalScrapDestroyed);
         }

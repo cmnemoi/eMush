@@ -56,7 +56,7 @@ final class ItemLostHandlerCest extends AbstractExplorationTester
 
         $this->itemLostHandler->handle($event);
 
-        $I->assertTrue($this->chun->doesNotHaveEquipment(ItemEnum::OLD_FAITHFUL), 'Chun should not have the old faithful');
+        $I->assertTrue($this->chun->doesNotHaveEquipmentByName(ItemEnum::OLD_FAITHFUL), 'Chun should not have the old faithful');
         $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::BURDENED), 'Chun should not have burdened status');
     }
 
@@ -75,7 +75,7 @@ final class ItemLostHandlerCest extends AbstractExplorationTester
 
         $this->itemLostHandler->handle($event);
 
-        $I->assertTrue($this->chun->doesNotHaveEquipment(ItemEnum::GRENADE), 'Chun should not have the grenade');
+        $I->assertTrue($this->chun->doesNotHaveEquipmentByName(ItemEnum::GRENADE), 'Chun should not have the grenade');
         $I->assertNull($this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
             name: StatisticEnum::GRENADIER,
             userId: $this->chun->getUser()->getId(),

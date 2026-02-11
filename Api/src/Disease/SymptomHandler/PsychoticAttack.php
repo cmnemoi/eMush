@@ -7,7 +7,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -105,9 +104,7 @@ class PsychoticAttack extends AbstractSymptomHandler
 
     private function getPlayerWeapon(Player $player, string $weapon): ?GameEquipment
     {
-        $weapon = $player->getEquipments()->filter(
-            static fn (GameItem $gameItem) => $gameItem->getName() === $weapon && $gameItem->isOperational()
-        )->first();
+        $weapon = $player->getOperationalEquipmentByName($weapon);
 
         if ($weapon instanceof GameEquipment) {
             return $weapon;

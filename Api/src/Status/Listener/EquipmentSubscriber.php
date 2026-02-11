@@ -201,6 +201,6 @@ final class EquipmentSubscriber implements EventSubscriberInterface
 
         return $holder->hasStatus(PlayerStatusEnum::BURDENED)
             && $equipment->hasStatus(EquipmentStatusEnum::HEAVY)
-            && $holder->getEquipments()->filter(static fn (GameItem $item) => $item->hasStatus(EquipmentStatusEnum::HEAVY))->count() <= 1;
+            && $holder->getItems()->filter(static fn (GameItem $item) => $item->hasStatus(EquipmentStatusEnum::HEAVY))->count() <= 1;
     }
 }

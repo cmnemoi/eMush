@@ -366,7 +366,7 @@ final class ConsumeRequiredTradeAssetsServiceTest extends TestCase
 
     private function thenStorageShouldHaveItems(string $storageName, string $itemName, int $expectedCount): void
     {
-        self::assertEquals($expectedCount, $this->daedalus->getPlaceByName($storageName)->getAllEquipmentsByName($itemName)->count());
+        self::assertEquals($expectedCount, $this->daedalus->getPlaceByName($storageName)->getEquipmentsByNames([$itemName])->count());
     }
 
     private function thenPlayerShouldBeDead(Player $player): void

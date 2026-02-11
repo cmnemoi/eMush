@@ -12,7 +12,6 @@ use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -100,12 +99,10 @@ class Build extends AbstractAction
             for ($i = 0; $i < $number; ++$i) {
                 if ($this->player->hasEquipmentByName($name)) {
                     /** @FIXME change to a random choice of the item */
-                    $ingredient = $this->player->getEquipments()
-                        ->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->first();
+                    $ingredient = $this->player->getEquipmentByNameOrThrow($name);
                 } else {
                     /** @FIXME change to a random choice of the equipment */
-                    $ingredient = $this->player->getPlace()->getEquipments()
-                        ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->first();
+                    $ingredient = $this->player->getPlace()->getEquipmentByNameOrThrow($name);
                 }
 
                 $interactEvent = new InteractWithEquipmentEvent(

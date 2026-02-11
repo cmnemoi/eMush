@@ -2089,7 +2089,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
     private function thenIShouldSeeFiveAlienSteaksOnPlanet(FunctionalTester $I): void
     {
-        $I->assertCount(5, $this->daedalus->getPlanetPlace()->getAllEquipmentsByName(GameRationEnum::ALIEN_STEAK));
+        $I->assertCount(5, $this->daedalus->getPlanetPlace()->getEquipmentsByNames([GameRationEnum::ALIEN_STEAK]));
     }
 
     private function thenIShouldSeeFourAlienFruitsOnPlanet(FunctionalTester $I): void

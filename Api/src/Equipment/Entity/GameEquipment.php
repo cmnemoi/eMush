@@ -235,7 +235,7 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
     }
 
     /**
-     * Checks if the equipment is operational: : it is not broken and has charges remaining.
+     * Checks if the equipment is operational: it is not broken and has charges remaining.
      */
     public function isOperational(): bool
     {

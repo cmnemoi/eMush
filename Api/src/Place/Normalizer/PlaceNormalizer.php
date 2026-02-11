@@ -20,6 +20,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -86,7 +87,10 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
                 || ($gameEquipment instanceof GameItem && $gameEquipment->shouldBeNormalizedAsEquipment())
             );
 
+        /** @var Collection<array-key, GameEquipment> $equipments */
         $equipments = $partition[0];
+
+        /** @var Collection<array-key, GameItem> $items */
         $items = $partition[1];
 
         // If there are multiple sofas in the same room, allow them to be displayed in the shelf
@@ -172,6 +176,16 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         return $doors;
     }
 
+    /**
+     * Normalizes equipments in the room for the given player.
+     *
+     * @param Player                               $currentPlayer player to normalize items for
+     * @param Collection<array-key, GameEquipment> $equipments    equipments to normalize
+     * @param ?string                              $format        format to use for normalization
+     * @param array                                $context       context to use for normalization
+     *
+     * @throws ExceptionInterface
+     */
     private function normalizeEquipments(
         Player $currentPlayer,
         Collection $equipments,
@@ -180,7 +194,6 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     ): array {
         $normalizedEquipments = [];
 
-        /** @var GameEquipment $equipment */
         foreach ($equipments as $equipment) {
             if (!($equipment->getEquipment()->isPersonal() && $equipment->getOwner() !== $currentPlayer)) {
                 $normalizedEquipments[] = $this->normalizer->normalize($equipment, $format, $context);
@@ -190,13 +203,22 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         return $normalizedEquipments;
     }
 
+    /**
+     * Normalizes items in the room for the given player.
+     *
+     * @param Player                                 $currentPlayer player to normalize items for
+     * @param ArrayCollection<int<0, max>, GameItem> $items         items to normalize
+     * @param ?string                                $format        format to use for normalization
+     * @param array                                  $context       context to use for normalization
+     *
+     * @throws \Exception
+     */
     private function normalizeItems(Collection $items, Player $currentPlayer, ?string $format, array $context): array
     {
         $piles = [];
 
         // For each group of item
         foreach ($this->groupItemCollectionByName($items, $currentPlayer) as $itemGroup) {
-            /** @var GameItem $patron */
             $patron = $itemGroup->first();
 
             $patronConfig = $patron->getEquipment();
@@ -291,7 +313,14 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         return $piles;
     }
 
-    // Group item by name
+    /**
+     * Groups a collection of items by their names.
+     *
+     * Items hidden from the player will not be included in the result.
+     *
+     * @param Collection<int<0, max>, GameItem> $items         the collection of items to be grouped
+     * @param Player                            $currentPlayer the player for whom visibility and grouping are determined
+     */
     private function groupItemCollectionByName(Collection $items, Player $currentPlayer): array
     {
         $itemsGroup = [];
@@ -303,14 +332,14 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             if (!$hiddenStatus || ($hiddenStatus->getTarget() === $currentPlayer)) {
                 $name = $item->getName();
 
-                // book and blueprint hae the same name event for similar blueprint This part split them
+                // Magebooks have the same name, group them by their associated skills
                 $book = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK);
                 if ($book instanceof Book) {
                     $name .= $book->getSkill()->toString();
                 }
+                // Blueprints have the same name, group them by their crafted equipment and ingredients
                 $blueprint = $item->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT);
                 if ($blueprint instanceof Blueprint) {
-                    // blueprints can create the same item but have different recipes
                     $name .= $blueprint->getCraftedEquipmentName() . $blueprint->getIngredientsNames();
                 }
 
@@ -388,6 +417,13 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         return implode('_', $statusNames);
     }
 
+    /**
+     * Put contaminated items on top of the shelf.
+     *
+     * @param Collection<array-key, GameItem> $items
+     *
+     * @return ArrayCollection<int<0, max>, GameItem>
+     */
     private function putContaminatedItemsOnTop(Collection $items): ArrayCollection
     {
         $items = $items->toArray();
@@ -401,13 +437,19 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
 
     /**
      * Handles the logic for displaying multiple instances of specific equipment types in the shelf.
+     *
+     * @param Collection<array-key, GameEquipment> $equipments
+     * @param Collection<array-key, GameItem>      $items
+     *
+     * @return Collection<array-key, GameItem>
      */
     private function handleMultipleInstanceEquipments(Place $room, Collection $equipments, Collection $items): Collection
     {
         $multiInstanceEquipments = [EquipmentEnum::SWEDISH_SOFA];
 
         foreach ($multiInstanceEquipments as $equipmentName) {
-            if ($room->getAllEquipmentsByName($equipmentName)->count() > 1) {
+            if ($room->getEquipmentsByNames([$equipmentName])->count() > 1) {
+                /** @var GameItem $equipment */
                 foreach ($equipments as $equipment) {
                     if ($equipment->getName() === $equipmentName && !$items->contains($equipment)) {
                         $items->add($equipment);

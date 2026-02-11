@@ -621,7 +621,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
     {
         $blueprintCount = 0;
         foreach ($this->daedalus->getRooms() as $room) {
-            $blueprintCount += $room->getAllEquipmentsByName('blueprint')->count();
+            $blueprintCount += $room->getEquipmentsByNames(['blueprint'])->count();
         }
         $I->assertEquals($quantity, $blueprintCount);
     }
@@ -631,7 +631,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $productsOfGuaranteedBlueprints = [EquipmentEnum::SWEDISH_SOFA, ItemEnum::GRENADE];
         $blueprintProducts = [];
         foreach ($this->daedalus->getRooms() as $room) {
-            foreach ($room->getAllEquipmentsByName('blueprint') as $blueprint) {
+            foreach ($room->getEquipmentsByNames(['blueprint']) as $blueprint) {
                 $blueprintProducts[] = $blueprint->getBlueprintMechanicOrThrow()->getCraftedEquipmentName();
             }
         }

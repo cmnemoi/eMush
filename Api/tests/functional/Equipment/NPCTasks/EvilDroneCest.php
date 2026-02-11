@@ -139,7 +139,7 @@ final class EvilDroneCest extends AbstractFunctionalTest
 
         // then it should have moved in the nexus and created the recycle log and two cooked rations
         $I->seeInRepository(RoomLog::class, ['place' => $this->nexus->getLogName(), 'log' => 'evil_drone.recycle']);
-        $I->assertCount(2, $this->nexus->getAllEquipmentsByName(GameRationEnum::COOKED_RATION));
+        $I->assertCount(2, $this->nexus->getEquipmentsByNames([GameRationEnum::COOKED_RATION]));
 
         // then I should see recycled in the drone memory
         $I->assertEquals('recycled', $this->evilDrone->getStringFromMemory('chun'));

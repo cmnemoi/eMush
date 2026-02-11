@@ -18,7 +18,6 @@ use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Daedalus\Repository\DaedalusInfoRepository;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Repository\TitlePriorityRepositoryInterface;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -342,7 +341,7 @@ class DaedalusService implements DaedalusServiceInterface
         if ($this->getOxygenCapsuleCount($player) === 0) {
             $this->playerService->killPlayer(player: $player, endReason: EndCauseEnum::ASPHYXIA, time: $date);
         } else {
-            $capsule = $player->getEquipments()->filter(static fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->first();
+            $capsule = $player->getEquipmentByNameOrThrow(ItemEnum::OXYGEN_CAPSULE);
 
             $equipmentEvent = new InteractWithEquipmentEvent(
                 $capsule,
@@ -626,7 +625,7 @@ class DaedalusService implements DaedalusServiceInterface
 
     private function getOxygenCapsuleCount(Player $player): int
     {
-        return $player->getEquipments()->filter(static fn (GameItem $item) => $item->getName() === ItemEnum::OXYGEN_CAPSULE)->count();
+        return $player->getEquipmentsByNames([ItemEnum::OXYGEN_CAPSULE])->count();
     }
 
     private function getValueInInterval(int $value, ?int $min, ?int $max): int

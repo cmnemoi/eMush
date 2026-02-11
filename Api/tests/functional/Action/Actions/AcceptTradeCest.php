@@ -193,7 +193,7 @@ final class AcceptTradeCest extends AbstractFunctionalTest
 
         $this->whenPlayerAcceptsTrade(tradeOptionId: $trade->getTradeOptions()->first()->getId());
 
-        $I->assertCount(10, $this->player->getPlace()->getAllEquipmentsByName(ItemEnum::OXYGEN_CAPSULE), 'Player room should have 10 oxygen capsules');
+        $I->assertCount(10, $this->player->getPlace()->getEquipmentsByNames([ItemEnum::OXYGEN_CAPSULE]), 'Player room should have 10 oxygen capsules');
     }
 
     public function shouldCreatePublicLogForCreatedItems(FunctionalTester $I): void

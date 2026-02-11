@@ -28,6 +28,7 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\EquipmentHolderAbstract;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -80,13 +81,12 @@ use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  * @SuppressWarnings(PHPMD.ExcessiveClassLength)
  */
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
-class Player implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface
+class Player extends EquipmentHolderAbstract implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface
 {
     use ModifierHolderTrait;
     use TargetStatusTrait;
@@ -345,7 +345,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function hasSampleAvailable(): bool
     {
         return $this->getDaedalus()->getStatusByName(DaedalusStatusEnum::GHOST_SAMPLE)
-        || $this->canReachEquipmentByName(ItemEnum::MUSH_SAMPLE);
+            || $this->canReachEquipmentByName(ItemEnum::MUSH_SAMPLE);
     }
 
     public function getEquipments(): Collection
@@ -362,11 +362,8 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function addEquipment(GameEquipment $gameEquipment): static
     {
-        if (!$gameEquipment instanceof GameItem) {
-            throw new UnexpectedTypeException($gameEquipment, GameItem::class);
-        }
-        if (!$this->getEquipments()->contains($gameEquipment)) {
-            $this->getEquipments()->add($gameEquipment);
+        if (!$this->items->contains($gameEquipment)) {
+            $this->items->add($gameEquipment);
             $gameEquipment->setHolder($this);
         }
 
@@ -382,50 +379,9 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this;
     }
 
-    public function hasEquipmentByName(string $name): bool
-    {
-        return $this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty() === false;
-    }
-
     public function hasItem(GameItem $item): bool
     {
         return $this->getEquipments()->contains($item);
-    }
-
-    public function hasOperationalEquipmentByName(string $name): bool
-    {
-        return $this->getEquipments()->filter(
-            static fn (GameItem $gameItem) => $gameItem->getName() === $name && $gameItem->isOperational()
-        )->isEmpty() === false;
-    }
-
-    public function doesNotHaveEquipment(string $name): bool
-    {
-        return $this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
-    }
-
-    public function hasAnyOperationalEquipment(array $names): bool
-    {
-        $operationalEquipments = $this->getEquipments()
-            ->filter(static fn (GameItem $gameItem) => $gameItem->isOperational())
-            ->map(static fn (GameItem $gameItem) => $gameItem->getName())
-            ->toArray();
-
-        $matchingEquipments = array_intersect($names, $operationalEquipments);
-
-        return empty($matchingEquipments) === false;
-    }
-
-    public function doesNotHaveAnyOperationalEquipment(array $names): bool
-    {
-        return $this->hasAnyOperationalEquipment($names) === false;
-    }
-
-    public function getEquipmentByName(string $name): ?GameEquipment
-    {
-        $equipment = $this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name);
-
-        return $equipment->isEmpty() ? null : $equipment->first();
     }
 
     public function getEquipmentByNameOrThrow(string $name): GameEquipment
@@ -440,7 +396,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
      */
     public function getCriticalItemsForMe(): Collection
     {
-        return $this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->isCritical());
+        return $this->getItems()->filter(static fn (GameItem $gameItem) => $gameItem->isCritical());
     }
 
     public function addStatus(Status $status): static
@@ -937,7 +893,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
      * @psalm-suppress MoreSpecificReturnType
      * @psalm-suppress LessSpecificReturnStatement
      */
-    public function getFocusedTerminal(): ?GameEquipment
+    public function getFocusedTerminal(): ?StatusHolderInterface
     {
         return $this->getStatusByName(PlayerStatusEnum::FOCUSED)?->getTarget();
     }
@@ -1350,12 +1306,12 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function hasATracker(): bool
     {
-        return $this->hasAnyOperationalEquipment([ItemEnum::TRACKER, ItemEnum::ITRACKIE, ItemEnum::ITRACKIE_2]);
+        return $this->hasAnyOperationalEquipmentsByNames([ItemEnum::TRACKER, ItemEnum::ITRACKIE, ItemEnum::ITRACKIE_2]);
     }
 
     public function hasATalkie(): bool
     {
-        return $this->hasAnyOperationalEquipment([ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE, ItemEnum::ITRACKIE_2]);
+        return $this->hasAnyOperationalEquipmentsByNames([ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE, ItemEnum::ITRACKIE_2]);
     }
 
     public function getOldPlaceOrThrow(): Place

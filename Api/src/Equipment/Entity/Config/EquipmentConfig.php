@@ -174,7 +174,7 @@ class EquipmentConfig
         return $equipmentMechanics->first() ?: null;
     }
 
-    public function getMechanicByNameOrThrow(string $mechanic): ?EquipmentMechanic
+    public function getMechanicByNameOrThrow(string $mechanic): EquipmentMechanic
     {
         $equipmentMechanics = $this->mechanics->filter(static fn (EquipmentMechanic $equipmentMechanic) => \in_array($mechanic, $equipmentMechanic->getMechanics(), true));
 

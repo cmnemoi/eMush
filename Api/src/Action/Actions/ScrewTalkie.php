@@ -97,10 +97,7 @@ class ScrewTalkie extends AbstractAction
         $target = $this->target;
 
         /** @var GameItem $talkie */
-        $talkie = $target->getEquipments()->filter(
-            static fn (GameItem $item) => $item->getName() === ItemEnum::WALKIE_TALKIE
-            || $item->getName() === ItemEnum::ITRACKIE || $item->getName() === ItemEnum::ITRACKIE_2
-        )->first();
+        $talkie = $target->getEquipmentsByNames([ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE, ItemEnum::ITRACKIE_2])->first();
 
         if (!$talkie->isBroken()) {
             $this->statusService->createStatusFromName(

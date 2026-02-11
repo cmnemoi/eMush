@@ -23,6 +23,6 @@ class RequirementAnyWeaponInInventory extends AbstractModifierRequirementHandler
         /** @var Player $player */
         $player = $holder;
 
-        return $player->hasAnyOperationalEquipment(ItemEnum::getWeapons()->toArray());
+        return $player->hasAnyOperationalEquipmentsByNames(ItemEnum::getWeapons()->toArray());
     }
 }

@@ -183,7 +183,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
         foreach ($places as $place) {
             $I->assertCount(
                 expectedCount: $expectedQuantity,
-                haystack: $place->getAllEquipmentsByName($equipmentName)
+                haystack: $place->getEquipmentsByNames([$equipmentName])
             );
         }
     }
@@ -191,7 +191,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
     private function thenRoomShouldNotContainEquipmentToRemove(Place $room, string $equipmentToRemove, FunctionalTester $I): void
     {
         $I->assertTrue(
-            condition: $room->getAllEquipmentsByName($equipmentToRemove)->isEmpty()
+            condition: $room->getEquipmentsByNames([$equipmentToRemove])->isEmpty()
         );
     }
 
@@ -199,7 +199,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
     {
         $I->assertCount(
             expectedCount: 1,
-            haystack: $room->getAllEquipmentsByName($equipmentToAdd)
+            haystack: $room->getEquipmentsByNames([$equipmentToAdd])
         );
     }
 
@@ -207,7 +207,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
     {
         $I->assertCount(
             expectedCount: 1,
-            haystack: $room->getAllEquipmentsByName($equipmentToRemove),
+            haystack: $room->getEquipmentsByNames([$equipmentToRemove]),
             message: 'Lab should contain one piece of equipment to remove'
         );
     }
@@ -216,7 +216,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
     {
         $I->assertCount(
             expectedCount: 1,
-            haystack: $this->daedalus->getSpace()->getAllEquipmentsByName($equipmentToRemove),
+            haystack: $this->daedalus->getSpace()->getEquipmentsByNames([$equipmentToRemove]),
             message: 'Space should still contain the equipment to remove'
         );
     }
@@ -224,7 +224,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
     private function thenSpaceShouldNotContainEquipmentToAdd(string $equipmentToAdd, FunctionalTester $I): void
     {
         $I->assertTrue(
-            condition: $this->daedalus->getSpace()->getAllEquipmentsByName($equipmentToAdd)->isEmpty(),
+            condition: $this->daedalus->getSpace()->getEquipmentsByNames([$equipmentToAdd])->isEmpty(),
             message: 'Space should not contain the equipment to add'
         );
     }

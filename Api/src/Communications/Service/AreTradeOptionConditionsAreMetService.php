@@ -80,7 +80,7 @@ final readonly class AreTradeOptionConditionsAreMetService
     {
         return $daedalus->getStorages()->reduce(
             static function (int $carry, Place $storage) use ($itemName) {
-                return $carry + $storage->getAllEquipmentsByName($itemName)->count();
+                return $carry + $storage->getEquipmentsByNames([$itemName])->count();
             },
             0
         );

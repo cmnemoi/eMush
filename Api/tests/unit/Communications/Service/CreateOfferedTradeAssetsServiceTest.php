@@ -272,7 +272,7 @@ final class CreateOfferedTradeAssetsServiceTest extends TestCase
     {
         self::assertCount(
             $expectedCount,
-            $player->getPlace()->getAllEquipmentsByName($itemName),
+            $player->getPlace()->getEquipmentsByNames([$itemName]),
             \sprintf('Player room should have %d %s', $expectedCount, $itemName)
         );
     }

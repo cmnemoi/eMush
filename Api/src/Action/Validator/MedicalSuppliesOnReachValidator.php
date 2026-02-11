@@ -24,7 +24,7 @@ final class MedicalSuppliesOnReachValidator extends ConstraintValidator
         }
 
         $player = $action->getPlayer();
-        if ($player->isNotIn(RoomEnum::MEDLAB) && $player->doesNotHaveEquipment(ToolItemEnum::MEDIKIT)) {
+        if ($player->isNotIn(RoomEnum::MEDLAB) && $player->doesNotHaveEquipmentByName(ToolItemEnum::MEDIKIT)) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }

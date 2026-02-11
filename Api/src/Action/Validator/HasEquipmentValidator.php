@@ -4,7 +4,6 @@ namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
@@ -79,47 +78,33 @@ class HasEquipmentValidator extends ConstraintValidator
 
     private function canReachEquipmentInInventory(Player $player, string $equipmentName, HasEquipment $constraint): bool
     {
-        $checkIfOperational = $constraint->checkIfOperational;
-        $number = $constraint->number;
-
-        $equipments = $player->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName);
-        if ($checkIfOperational) {
-            return !$equipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
+        if ($constraint->checkIfOperational) {
+            return $player->hasAnyOperationalEquipmentsByNames([$equipmentName]);
         }
 
-        return $equipments->count() >= $number;
+        return $player->getEquipmentsByNames([$equipmentName])->count() >= $constraint->number;
     }
 
     private function canReachEquipmentInShelf(Player $player, string $equipmentName, HasEquipment $constraint): bool
     {
-        $checkIfOperational = $constraint->checkIfOperational;
-        $number = $constraint->number;
-
-        $equipments = $player->getPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
-        if ($checkIfOperational) {
-            return !$equipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
+        if ($constraint->checkIfOperational) {
+            return $player->getPlace()->hasAnyOperationalEquipmentsByNames([$equipmentName]);
         }
 
-        return $equipments->count() >= $number;
+        return $player->getPlace()->getEquipmentsByNames([$equipmentName])->count() >= $constraint->number;
     }
 
     private function canReachEquipmentInRoom(Player $player, string $equipmentName, HasEquipment $constraint): bool
     {
-        $checkIfOperational = $constraint->checkIfOperational;
-        $number = $constraint->number;
-
-        $shelfEquipments = $player->getPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $equipmentName);
-        $playerEquipments = $player->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $equipmentName);
-
-        if ($checkIfOperational) {
-            return !($playerEquipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty()
-            && $shelfEquipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty());
+        if ($constraint->checkIfOperational) {
+            return $player->hasAnyOperationalEquipmentsByNames([$equipmentName])
+                || $player->getPlace()->hasAnyOperationalEquipmentsByNames([$equipmentName]);
         }
 
-        $shelfEquipmentsCount = $shelfEquipments->count();
-        $playerEquipmentsCount = $playerEquipments->count();
+        $shelfEquipmentsCount = $player->getPlace()->getEquipmentsByNames([$equipmentName])->count();
+        $playerEquipmentsCount = $player->getEquipmentsByNames([$equipmentName])->count();
 
-        return $playerEquipmentsCount + $shelfEquipmentsCount >= $number;
+        return $playerEquipmentsCount + $shelfEquipmentsCount >= $constraint->number;
     }
 
     private function canReachEquipmentInDaedalus(Player $player, string $equipmentName, HasEquipment $constraint): bool

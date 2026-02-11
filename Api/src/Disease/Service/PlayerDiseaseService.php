@@ -177,6 +177,8 @@ final class PlayerDiseaseService implements PlayerDiseaseServiceInterface
             // or heal an active one
             else {
                 $this->removePlayerDisease($playerDisease, [DiseaseStatusEnum::SPONTANEOUS_CURE], $time, VisibilityEnum::PRIVATE);
+
+                return;
             }
         }
 

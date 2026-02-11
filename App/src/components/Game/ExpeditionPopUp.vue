@@ -37,36 +37,51 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
-    span {
-        line-height: 1.6em;
 
-        :deep(strong) {
-            font-weight: normal;
-            font-variant: small-caps;
-            letter-spacing: 0.02em;
-            color: $cyan;
-        }
+
+.game-popup-exploration-wrapper {
+    max-width: $breakpoint-desktop-l;
+    width:100%;
+    display: flex;
+    align-items: flex-end;
+    margin: auto;
+
+    @media screen and (max-width: $breakpoint-desktop-m) {
+        width: $breakpoint-desktop-s;
+    }
+
+    @media screen and (max-width: $breakpoint-desktop-s) {
+        max-width: $game-canvas-width !important;
+        width: 100%;
+        align-items: center;
     }
 
     .expedition {
         width: 100%;
         max-width: calc($breakpoint-desktop-m / 3);
-        margin: 4px 0px;
-    }
+        margin: 5px 18px -5px 18px;
 
-    .game-popup-exploration-wrapper h1.header::before {
-        content: url("/src/assets/images/ui_icons/planet.png");
-        padding-right: 0.25em;
-    }
-
-    .game-popup-exploration-wrapper {
-        width: 100%;
-        display: flex;
-        align-items: flex-end;
-
-        @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) {
+        @media screen and (max-width: $breakpoint-desktop-s) {
+            max-width: $game-canvas-width !important;
+            width: 100%;
             align-items: center;
         }
-    }
 
+        h1.header::before {
+            content: url("/src/assets/images/ui_icons/planet.png");
+            padding-right: 0.25em;
+        }
+
+        span {
+            line-height: 1.6em;
+
+            :deep(strong) {
+                font-weight: normal;
+                font-variant: small-caps;
+                letter-spacing: 0.02em;
+                color: $cyan;
+            }
+        }
+    }
+}
 </style>

@@ -3058,7 +3058,7 @@ class ActionData
         [
             'name' => ActionEnum::BECOME_ANONYMOUS->value,
             'action_name' => ActionEnum::BECOME_ANONYMOUS,
-            'types' => [ActionTypeEnum::ACTION_MUSH],
+            'types' => [ActionTypeEnum::ACTION_MUSH, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'private', 'fail' => 'private'],

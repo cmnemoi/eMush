@@ -122,6 +122,20 @@ final class ShrinkHandlerTest extends TestCase
         $this->thenPlayerShouldGainOneMoralePoint($laidDownPatient);
     }
 
+    public function testMultipleShrinksInRoomGiveOnlyOneMoralePointToOtherShrinks(): void
+    {
+        // Given
+        $this->givenAShrink();
+        $this->givenAnotherShrink();
+        $laidDownShrink = $this->givenLaidDownShrink();
+
+        // When
+        $this->whenShrinkSkillActs();
+
+        // Then
+        $this->thenPlayerShouldGainOneMoralePoint($laidDownShrink);
+    }
+
     private function givenAShrinkWithTwoLaidDownPatientsInRoom(): void
     {
         $this->daedalus = DaedalusFactory::createDaedalus();

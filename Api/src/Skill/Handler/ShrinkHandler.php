@@ -42,12 +42,29 @@ final class ShrinkHandler
     private function addMoraleToLaidDownShrinks(Place $place): void
     {
         $shrinks = $place->getAlivePlayers()->getPlayersWithSkill(SkillEnum::SHRINK);
-        foreach ($shrinks as $shrink) {
-            $this->giveMoraleToLaidDownPlayers(
-                players: $shrinks->getAllExcept($shrink),
-                therapist: $shrink
-            );
+
+        // Need at least 2 shrinks for shrinks to gain moral
+        if ($shrinks->count() < 2) {
+            return;
         }
+
+        /** @var Player $firstShrink */
+        $firstShrink = $shrinks->first();
+
+        /** @var Player $lastShrink */
+        $lastShrink = $shrinks->last();
+
+        // The first shrink gives morale to all other shrinks
+        $this->giveMoraleToLaidDownPlayers(
+            players: $shrinks->getAllExcept($firstShrink),
+            therapist: $firstShrink
+        );
+
+        // The last shrink gives morale to the first shrink
+        $this->giveMoraleToLaidDownPlayers(
+            players: new PlayerCollection($shrinks->slice(0, 1)),
+            therapist: $lastShrink
+        );
     }
 
     private function giveMoraleToLaidDownPlayers(PlayerCollection $players, Player $therapist): void

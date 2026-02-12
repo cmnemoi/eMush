@@ -26,4 +26,9 @@ final readonly class DropWeaponEffectHandler extends AbstractWeaponEffectHandler
             time: $effect->getTime(),
         );
     }
+
+    public function isModifyingDamages(): bool
+    {
+        return false;
+    }
 }

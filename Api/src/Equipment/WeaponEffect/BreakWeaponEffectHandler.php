@@ -29,4 +29,9 @@ final readonly class BreakWeaponEffectHandler extends AbstractWeaponEffectHandle
             time: $effect->getTime(),
         );
     }
+
+    public function isModifyingDamages(): bool
+    {
+        return false;
+    }
 }

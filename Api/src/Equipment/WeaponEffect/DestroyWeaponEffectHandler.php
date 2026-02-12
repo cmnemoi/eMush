@@ -35,4 +35,9 @@ final readonly class DestroyWeaponEffectHandler extends AbstractWeaponEffectHand
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
+
+    public function isModifyingDamages(): bool
+    {
+        return false;
+    }
 }

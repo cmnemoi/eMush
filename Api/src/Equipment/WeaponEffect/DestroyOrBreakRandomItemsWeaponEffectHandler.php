@@ -46,4 +46,9 @@ final readonly class DestroyOrBreakRandomItemsWeaponEffectHandler extends Abstra
             );
         }
     }
+
+    public function isModifyingDamages(): bool
+    {
+        return false;
+    }
 }

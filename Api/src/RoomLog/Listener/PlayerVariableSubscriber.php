@@ -2,6 +2,7 @@
 
 namespace Mush\RoomLog\Listener;
 
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Event\PlayerEvent;
@@ -22,7 +23,7 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            VariableEventInterface::CHANGE_VARIABLE => 'onChangeVariable',
+            VariableEventInterface::CHANGE_VARIABLE => ['onChangeVariable', EventPriorityEnum::HIGH],
         ];
     }
 

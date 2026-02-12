@@ -32,6 +32,11 @@ final readonly class SplashDamageAllWeaponEffectHandler extends AbstractWeaponEf
         $this->inflictBackfireDamageToAttacker($effect);
     }
 
+    public function isModifyingDamages(): bool
+    {
+        return false;
+    }
+
     private function inflictDamageToPlayersInRoom(WeaponEffect $effect): void
     {
         $place = $effect->getAttacker()->getPlace();

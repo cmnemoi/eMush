@@ -49,13 +49,21 @@ final readonly class UseWeaponService
 
         $result->addDetail('eventName', $weaponEvent->getEventName());
 
-        $damageSpread = $this->dispatchWeaponEventEffects($weaponEvent, $result, $weaponMechanic, $tags);
+        // we first get the damage spread that will be applied to the target
+        $damageSpread = $this->dispatchWeaponEventEffectsThatModifyDamages($weaponEvent, $result, $weaponMechanic, $tags);
+        $baseDamage = $this->getBaseDamageToTarget($damageSpread, $result);
 
-        $damage = null;
+        // then we create the logs for the attack since we need to know if the armor of the target block the hit
+        $variableEvent = $this->getDamageEvent($result, $weaponEvent, $baseDamage, $target, $tags);
+        $this->createAttackEventLog($variableEvent, $result, $weaponEvent, $tags);
+
+        // then we dispatch the other effects
+        $this->dispatchOtherWeaponEventEffects($weaponEvent, $result, $weaponMechanic, $tags);
+
+        // then we remove health to the target if needed
         if ($this->shouldRemoveHealthToTarget($result, $target)) {
-            $damage = $this->removeHealthToTarget($result, $weaponEvent, $damageSpread, $target, $tags);
+            $this->removeHealthToTarget($variableEvent);
         }
-        $this->createEventLog($result, $weaponEvent, $tags, $damage);
     }
 
     public function executeWithoutTarget(ActionResult $result, array $tags): void
@@ -65,8 +73,11 @@ final readonly class UseWeaponService
 
         $result->addDetail('eventName', $weaponEvent->getEventName());
 
-        $this->createEventLog($result, $weaponEvent, $tags);
-        $this->dispatchWeaponEventEffects($weaponEvent, $result, $weaponMechanic, $tags);
+        $this->dispatchWeaponEventEffectsThatModifyDamages($weaponEvent, $result, $weaponMechanic, $tags);
+
+        $this->createWeaponEventLog($result, $weaponEvent, $tags);
+
+        $this->dispatchOtherWeaponEventEffects($weaponEvent, $result, $weaponMechanic, $tags);
     }
 
     private function getRandomWeaponEventConfig(ActionResult $result, Weapon $weaponMechanic): WeaponEventConfig
@@ -74,10 +85,16 @@ final readonly class UseWeaponService
         return $result->isASuccess() ? $this->getRandomSuccessfulWeaponEventConfig($result, $weaponMechanic) : $this->getRandomFailedWeaponEventConfig($result, $weaponMechanic);
     }
 
-    private function removeHealthToTarget(ActionResult $result, WeaponEventConfig $weaponEventConfig, DamageSpread $damageSpread, Player $target, array $tags): int
+    private function getBaseDamageToTarget(DamageSpread $damageSpread, ActionResult $result): int
     {
         $damage = $this->getRandomInteger->execute($damageSpread->min, $damageSpread->max);
         $result->addDetail('baseDamage', $damage);
+
+        return $damage;
+    }
+
+    private function getDamageEvent(ActionResult $result, WeaponEventConfig $weaponEventConfig, int $damage, Player $target, array $tags): PlayerVariableEvent
+    {
         // Add weapon event type to tags to handle critical events effects
         $tags[] = $weaponEventConfig->getType()->toString();
 
@@ -91,19 +108,39 @@ final readonly class UseWeaponService
         $playerVariableEvent->setVisibility(VisibilityEnum::PRIVATE);
         $playerVariableEvent->setAuthor($result->getPlayer());
 
-        /** @var PlayerVariableEvent $event */
-        $event = $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE)->getInitialEvent();
-
-        return $event->getRoundedQuantity();
+        return $playerVariableEvent;
     }
 
-    private function createEventLog(ActionResult $result, WeaponEventConfig $weaponEventConfig, array $tags, ?int $damage = null): void
+    private function removeHealthToTarget(PlayerVariableEvent $playerVariableEvent): void
+    {
+        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function createAttackEventLog(PlayerVariableEvent $playerVariableEvent, ActionResult $result, WeaponEventConfig $weaponEventConfig, array $tags): void
+    {
+        if ($result->isAFail()) {
+            $this->createWeaponEventLog($result, $weaponEventConfig, $tags);
+
+            return;
+        }
+
+        /** @var PlayerVariableEvent $event */
+        $event = $this->eventService->computeEventModifications($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+        $damage = $event->getRoundedQuantity();
+
+        if ($damage === 0) {
+            $this->createHitProtectionEventLog($result, $tags);
+        } else {
+            $this->createWeaponEventLog($result, $weaponEventConfig, $tags);
+        }
+    }
+
+    private function createWeaponEventLog(ActionResult $result, WeaponEventConfig $weaponEventConfig, array $tags): void
     {
         $attacker = $result->getPlayer();
-        $shouldPrintProtectionsLog = $damage !== null && $damage === 0;
 
         $this->roomLogService->createLog(
-            logKey: $shouldPrintProtectionsLog ? LogEnum::FOUND_PROTECTIONS : $weaponEventConfig->getName(),
+            logKey: $weaponEventConfig->getName(),
             place: $attacker->getPlace(),
             visibility: VisibilityEnum::PUBLIC,
             type: 'weapon_event',
@@ -112,7 +149,21 @@ final readonly class UseWeaponService
         );
     }
 
-    private function dispatchWeaponEventEffects(WeaponEventConfig $weaponEventConfig, ActionResult $result, Weapon $weaponMechanic, array $tags): DamageSpread
+    private function createHitProtectionEventLog(ActionResult $result, array $tags): void
+    {
+        $attacker = $result->getPlayer();
+
+        $this->roomLogService->createLog(
+            logKey: LogEnum::FOUND_PROTECTIONS,
+            place: $attacker->getPlace(),
+            visibility: VisibilityEnum::PUBLIC,
+            type: 'weapon_event',
+            player: $attacker,
+            parameters: $this->getLogParameters($result, $tags),
+        );
+    }
+
+    private function dispatchOtherWeaponEventEffects(WeaponEventConfig $weaponEventConfig, ActionResult $result, Weapon $weaponMechanic, array $tags)
     {
         $weaponEffectConfigs = $this->weaponEffectConfigRepository->findAllByWeaponEvent($weaponEventConfig);
         $damageSpread = $weaponMechanic->getDamageSpread();
@@ -126,7 +177,28 @@ final readonly class UseWeaponService
                     weapon: $result->getGameItemActionProviderOrDefault(),
                     damageSpread: $damageSpread,
                     tags: $tags,
-                )
+                ),
+                false
+            );
+        }
+    }
+
+    private function dispatchWeaponEventEffectsThatModifyDamages(WeaponEventConfig $weaponEventConfig, ActionResult $result, Weapon $weaponMechanic, array $tags): DamageSpread
+    {
+        $weaponEffectConfigs = $this->weaponEffectConfigRepository->findAllByWeaponEvent($weaponEventConfig);
+        $damageSpread = $weaponMechanic->getDamageSpread();
+
+        foreach ($weaponEffectConfigs as $weaponEffectConfig) {
+            $damageSpread = $this->weaponEffectHandlerService->handle(
+                new WeaponEffect(
+                    weaponEffectConfig: $weaponEffectConfig,
+                    attacker: $result->getPlayer(),
+                    target: $result->getTargetAsPlayer(),
+                    weapon: $result->getGameItemActionProviderOrDefault(),
+                    damageSpread: $damageSpread,
+                    tags: $tags,
+                ),
+                true
             );
         }
 

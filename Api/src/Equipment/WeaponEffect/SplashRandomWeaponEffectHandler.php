@@ -34,6 +34,11 @@ final readonly class SplashRandomWeaponEffectHandler extends AbstractWeaponEffec
         $this->inflictDamageToRandomPlayersInRoom($effect);
     }
 
+    public function isModifyingDamages(): bool
+    {
+        return false;
+    }
+
     private function inflictDamageToRandomPlayersInRoom(WeaponEffect $effect): void
     {
         $place = $effect->getAttacker()->getPlace();

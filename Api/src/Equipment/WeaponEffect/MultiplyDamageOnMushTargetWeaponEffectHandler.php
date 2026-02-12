@@ -20,4 +20,9 @@ final readonly class MultiplyDamageOnMushTargetWeaponEffectHandler extends Abstr
             $effect->multiplyDamage();
         }
     }
+
+    public function isModifyingDamages(): bool
+    {
+        return true;
+    }
 }

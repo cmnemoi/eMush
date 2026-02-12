@@ -27,4 +27,9 @@ final readonly class RemoveActionPointsWeaponEffectHandler extends AbstractWeapo
             visibility: VisibilityEnum::PRIVATE,
         );
     }
+
+    public function isModifyingDamages(): bool
+    {
+        return false;
+    }
 }

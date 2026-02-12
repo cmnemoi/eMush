@@ -36,6 +36,11 @@ final readonly class RandomInjuryWeaponEffectHandler extends AbstractWeaponEffec
         }
     }
 
+    public function isModifyingDamages(): bool
+    {
+        return false;
+    }
+
     private function inflictRandomInjuryOnVictim(Player $victim)
     {
         $injury = $this->randomService->getRandomElement(InjuryEnum::cases());

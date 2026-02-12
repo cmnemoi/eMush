@@ -20,4 +20,9 @@ final readonly class ModifyMaxDamageWeaponEffectHandler extends AbstractWeaponEf
     {
         $effect->modifyMaxDamage();
     }
+
+    public function isModifyingDamages(): bool
+    {
+        return true;
+    }
 }

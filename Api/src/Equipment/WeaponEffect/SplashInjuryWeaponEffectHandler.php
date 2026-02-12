@@ -46,4 +46,9 @@ final readonly class SplashInjuryWeaponEffectHandler extends AbstractWeaponEffec
             );
         }
     }
+
+    public function isModifyingDamages(): bool
+    {
+        return false;
+    }
 }

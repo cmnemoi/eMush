@@ -33,4 +33,9 @@ final readonly class InflictInjuryWeaponEffectHandler extends AbstractWeaponEffe
             reasons: $effect->getTags()
         );
     }
+
+    public function isModifyingDamages(): bool
+    {
+        return false;
+    }
 }

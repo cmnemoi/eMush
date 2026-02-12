@@ -18,4 +18,9 @@ final readonly class ModifyDamageWeaponEffectHandler extends AbstractWeaponEffec
     {
         $effect->modifyDamage();
     }
+
+    public function isModifyingDamages(): bool
+    {
+        return true;
+    }
 }

@@ -17,9 +17,13 @@ class WeaponEffectHandlerService
         $this->strategies[$handler->getName()] = $handler;
     }
 
-    public function handle(WeaponEffect $event): DamageSpread
+    public function handle(WeaponEffect $event, bool $modifyDamage): DamageSpread
     {
-        $this->getWeaponEffectHandler($event->getEventName())->handle($event);
+        $handler = $this->getWeaponEffectHandler($event->getEventName());
+
+        if ($modifyDamage === $handler->isModifyingDamages()) {
+            $handler->handle($event);
+        }
 
         return $event->getDamageSpread();
     }

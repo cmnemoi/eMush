@@ -24,4 +24,9 @@ final readonly class OneShotWeaponEffectHandler extends AbstractWeaponEffectHand
             author: $effect->getAttacker(),
         );
     }
+
+    public function isModifyingDamages(): bool
+    {
+        return false;
+    }
 }

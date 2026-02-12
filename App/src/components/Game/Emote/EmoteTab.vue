@@ -1,27 +1,24 @@
 <template>
     <div
-        tag="div"
         class="tab"
         :class="selected ? 'checked' : ''"
         :title="$t(config.tooltip)"
         @click="$emit('select')"
     >
-        <img :src="config.icon">
+        <img :src="config.icon" :alt="$t(config.tooltip)"/>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed, PropType } from "vue";
-import {
-    RichTextEditorEmoteButtonConfig
-} from "@/components/Game/Communications/Messages/RichTextEditor/RichTextEditorConfig";
+import { EmoteTabConfig } from "@/components/Game/Emote/EmoteConfig";
 
 export default defineComponent({
-    name: "RichTextEditorButton",
+    name: "EmoteTab",
     props: {
         selected: Boolean,
         config: {
-            type: Object as PropType<RichTextEditorEmoteButtonConfig>,
+            type: Object as PropType<EmoteTabConfig>,
             required: true
         }
     },

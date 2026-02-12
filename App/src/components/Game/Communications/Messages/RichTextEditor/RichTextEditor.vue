@@ -46,17 +46,7 @@
                 </div>
             </div>
 
-            <ul class="emote-tabs">
-                <RichTextEditorEmoteButton
-                    v-for="(button, i) in richTextEditorEmoteButtons"
-                    :key="i"
-                    :config="button"
-                    :selected="selectedEmoteTab == i"
-                    @select="selectedEmoteTab = i"
-                />
-            </ul>
-            <RichTextEditorEmotePanel v-if="selectedEmoteTab != -1" :config="richTextEditorEmoteButtons[selectedEmoteTab]" @emote="insertEmote" />
-            <div v-else class="emote-line"/>
+            <EmotePicker @emote="insertEmote"/>
         </div>
     </div>
 </template>
@@ -64,14 +54,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
-import { characterEnum, CharacterInfos } from "@/enums/character";
 import { formatText } from "@/utils/formatText";
-import RichTextEditorEmotePanel from "./RichTextEditorEmotePanel.vue";
-import RichTextEditorEmoteButton  from "./RichTextEditorEmoteButton.vue";
 import RichTextEditorFormattingButton from "./RichTextEditorFormattingButton.vue";
 import {
-    richTextEditorFormattingButtons, RichTextEditorFormattingButtonConfig, FormattingType,
-    richTextEditorEmoteButtons
+    RichTextEditorFormattingButtonConfig,
+    FormattingType,
+    richTextEditorFormattingButtons
 } from "./RichTextEditorConfig";
 import {
     applySelectedTextFormatting,
@@ -81,12 +69,12 @@ import {
     TextSelection,
     getFormattingLengthForType
 } from "@/utils/richTextFormatter";
+import EmotePicker from "@/components/Game/Emote/EmotePicker.vue";
 
 export default defineComponent({
     name: "RichTextEditor",
     components: {
-        RichTextEditorEmoteButton,
-        RichTextEditorEmotePanel,
+        EmotePicker,
         RichTextEditorFormattingButton
     },
     props: {
@@ -106,14 +94,10 @@ export default defineComponent({
     data() {
         return {
             editedText: this.initialText,
-            selectedEmoteTab: 0,
             selection: {
                 start: 0,
                 end: 0
             },
-            showCharacterGrid: false,
-            characters: characterEnum as {[key: string]: CharacterInfos},
-            richTextEditorEmoteButtons,
             richTextEditorFormattingButtons
         };
     },
@@ -209,7 +193,6 @@ export default defineComponent({
                 const formattedCharacter = formatEmote(emote);
                 this.editedText = insertTextAtPositionLogic(this.editedText, cursorPosition, formattedCharacter);
                 this.updateCursorPosition(element, cursorPosition + formattedCharacter.length);
-                this.closeCharacterGrid();
             } catch (error) {
                 console.error('Error inserting emote:', error);
             }
@@ -217,14 +200,12 @@ export default defineComponent({
 
         cancel(): void {
             this.$emit('cancel');
-            this.showCharacterGrid = false;
             this.editedText = "";
         },
 
         confirm(): void {
             if (this.editedTextLength <= this.maxLength) {
                 this.$emit('send', this.editedText);
-                this.showCharacterGrid = false;
                 this.editedText = "";
             }
         },
@@ -274,10 +255,6 @@ export default defineComponent({
                 element.focus();
                 element.selectionStart = element.selectionEnd = position;
             });
-        },
-
-        closeCharacterGrid(): void {
-            this.showCharacterGrid = false;
         }
     }
 });
@@ -423,70 +400,6 @@ export default defineComponent({
     &:hover {
         background-color: #00B0EC;
     }
-}
-
-.emote-tabs {
-    justify-content: space-between;
-    margin-right: -4px;
-}
-
-.emote-line {
-    margin-top: -5px;
-    border: 2px solid #0074df;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-.character-grid {
-    display: grid;
-    position: absolute; /* Positionnement absolu pour superposer */
-    top: 40px;
-    left: 0px;
-    z-index: auto; /* S'assure que la grille est au-dessus des autres éléments */
-    grid-template-columns: repeat(5, 1fr); /* 4 colonnes pour 16 personnages */
-    gap: 3px;
-    margin-bottom: 10px;
-    max-height: 220px;
-    overflow-y: auto;
-    border: 1px solid #aad4e5;
-    border-radius: 3px;
-    padding: 3px;
-    background-color: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Ajoute une ombre pour l'effet popup */
-}
-
-.character-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    padding: 2px;
-    border-radius: 3px;
-    transition: background-color 0.2s;
-
-    &:hover {
-        background-color: #e9f5fb;
-    }
-
-    img {
-        height: 16px;
-        object-fit: cover;
-        border-radius: 5%;
-    }
-
-    .character-name {
-        margin-top: 4px;
-        font-size: 11px;
-        text-align: center;
-    }
-}
-
-.character-btn {
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 </style>

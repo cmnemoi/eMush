@@ -14,17 +14,13 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { getImgUrl } from "@/utils/getImgUrl";
-import { CharacterInfos } from "@/enums/character";
-import {
-    RichTextEditorEmoteButtonConfig
-} from "@/components/Game/Communications/Messages/RichTextEditor/RichTextEditorConfig";
+import { EmoteTabConfig } from "@/components/Game/Emote/EmoteConfig";
 
 export default defineComponent({
     name: "RichTextEditorEmotePanel",
     props: {
         config: {
-            type: Object as PropType<RichTextEditorEmoteButtonConfig>,
+            type: Object as PropType<EmoteTabConfig>,
             required: true
         }
     },

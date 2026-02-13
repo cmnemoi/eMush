@@ -832,7 +832,7 @@
       </segment>
       <segment id="torturer.description" state="translated">
         <source>torturer.description</source>
-        <target>The torturer knows all the pressure points and most sensitive areas with which they can convey their most important message... **You WILL talk.**//:point: Grants the **Torture** Action. For 1 :pa:, the victim loses 1 :hp: and reveal x number of recent actions performed by them. Where x is the number of :hp: missing of the victim.</target>
+        <target>The torturer knows all the pressure points and most sensitive areas with which they can convey their most important message... **You WILL talk.**//:point: Grants the **Torture** Action. For :beta: **2** :pa:, the victim loses 1 :hp: and reveal x number of recent actions performed by them. Where x is the number of :hp: missing of the victim.</target>
       </segment>
     </unit>
     <unit id="ocd">

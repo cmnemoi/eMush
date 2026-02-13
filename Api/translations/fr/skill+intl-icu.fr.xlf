@@ -836,7 +836,7 @@
       </segment>
       <segment id="torturer.description" state="translated">
         <source>torturer.description</source>
-        <target>Le bourreau connait tous les circuits nerveux les plus sensibles pour arriver à faire parvenir son message le plus important... **Tu VAS parler.**//:point: Libère l'action **Torturer**.</target>
+        <target>Le bourreau connait tous les circuits nerveux les plus sensibles pour arriver à faire parvenir son message le plus important... **Tu VAS parler.**//:point: Libère l'action **Torturer**. Pour :beta: **2** :pa:, votre victime perd 1 :pv: et révèle ses X dernières actions, où X est leur nombre de :pv: manquants.</target>
       </segment>
     </unit>
     <unit id="ocd">

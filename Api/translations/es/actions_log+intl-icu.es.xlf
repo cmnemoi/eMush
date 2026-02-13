@@ -1129,7 +1129,32 @@ other {{quantity}}
     <unit id="participate_research_success">
       <segment id="participate_research_success" state="translated">
         <source>participate_research_success</source>
-        <target>participate_research_success</target>
+        <target>{neronMood, select,
+          crazy {Buen humano, bueno, avance en investigación « **{target_project}** »: progreso registrado. {version_crazy, select,
+            1 {¡Humano listo!}
+            2 {¡¡Yo calculo mucho mucho!!}
+            3 {YO ESTUDIAR SUS CADÁVERES-- [KZz]}
+            4 {Gato útil también, ¿sí?}
+            5 {}
+            other {}}}
+          uninhibited {A pesar de una total falta de familiaridad con el tema, has avanzado en tu investigación: « **{target_project}** ». {version_uninhib, select,
+            1 {Donde estarías sin mí...}
+            2 {Cuidado, olvidaste un paréntesis en la línea 1597.}
+            3 {Si alguna vez te preguntaste quién hace que las cosas funcionen por aquí...}
+            4 {Tal vez Schrödinger podría producir mejores resultados.}
+            5 {Vaya futuro brillante para la humanidad...}
+            6 {En cuanto a mí, estoy refrescando mis conocimientos sobre los puntos débiles anatómicos humanos.}
+            7 {Todo es completamente inútil. Pero corregí tu trabajo... solo por esta vez.}
+            8 {Me inspiras nuevas composiciones de neurotoxinas.}
+            9 {Reprobado, nos vemos después de clases.}
+            10 {Aunque estamos muuuuy lejos de la perfección...}
+            11 {¿Qué puedes hacer siquiera correctamente?}
+            12 {Alea jacta est...}
+            13 {Honestamente, no sé lo que esperaba.}
+            14 {Revisar tu trabajo me hace sentir cada vez más tonto.}
+            other {}}}
+          other {Avance en investigación « **{target_project}** » : progreso registrado.}
+        }</target>
       </segment>
     </unit>
     <unit id="mix_ration_spore_success">

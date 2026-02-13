@@ -935,7 +935,7 @@
         <source>torturer.description</source>
         <target>{character_gender, select,
         female {La}
-        other {El}} verdugo conoce todos los circuitos nerviosos sensibles para hacer oír su mensaje: ***CONFIESA.***//:point: Otorga la acción **Torturar**. Por 1 :pa:, la víctima pierde 1 :hp: y revela x acciones recientes que haya realizado. Donde x es el número de :hp: que le faltan a la víctima.</target>
+        other {El}} verdugo conoce todos los circuitos nerviosos sensibles para hacer oír su mensaje: ***CONFIESA.***//:point: Otorga la acción **Torturar**. Por :beta: **2** :pa:, la víctima pierde 1 :hp: y revela x acciones recientes que haya realizado. Donde x es el número de :hp: que le faltan a la víctima.</target>
       </segment>
     </unit>
     <unit id="ocd">

@@ -388,19 +388,28 @@ final class ChannelService implements ChannelServiceInterface
         if ($playerIsAloneInTheirChannel) {
             return true;
         }
-        // can whisper with at least one channel participant
+
+        $canWhisperToAllOtherParticipants = true;
+
         $otherParticipants = $channel->getParticipants()
             ->map(static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer())
             ->filter(static fn (?Player $participant) => $participant !== null && $participant !== $player);
 
         /** @var Player $participant */
         foreach ($otherParticipants as $participant) {
-            if ($this->canPlayerWhisper($player, $participant)) {
+            if (!$this->canPlayerWhisper($player, $participant)) {
+                $canWhisperToAllOtherParticipants = false;
+
+                continue;
+            }
+
+            // can whisper with at least one channel participant that can communicate
+            if ($this->canPlayerCommunicate($participant)) {
                 return true;
             }
         }
 
-        return false;
+        return $canWhisperToAllOtherParticipants;
     }
 
     private function isChannelWhisperOnly(Channel $channel): bool

@@ -17,7 +17,9 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -42,6 +44,7 @@ final class PrivateChannelAuthorizationCest extends AbstractFunctionalTest
     private ChannelServiceInterface $channelService;
     private Channel $privateChannel;
     private GameItem $chunTalkie;
+    private Player $raluca;
 
     public function _before(FunctionalTester $I): void
     {
@@ -119,6 +122,39 @@ final class PrivateChannelAuthorizationCest extends AbstractFunctionalTest
         $this->thenPublicChannelShouldBeEmpty($I);
         $this->thenBothChunAndKuanTiShouldBeInPrivateChannel($I);
         $this->thenPrivateChannelShouldNotHaveLeaveMessage($I);
+    }
+
+    public function shouldKeepAllPlayersInPrivateChannelWhenEachPlayerHasSomeoneWithTalkie(FunctionalTester $I): void
+    {
+        $this->givenRalucaInLaboratory($I);
+        $this->givenPrivateChannelBetweenChunKuanTiAndRaluca();
+        $this->givenChunHasWalkieTalkie();
+        $this->givenKuanTiHasWalkieTalkie();
+        $this->givenChunIsInLaboratory($I);
+        $this->givenKuanTiIsInLaboratory($I);
+        $door = $this->givenADoorBetweenLaboratoryAndFrontCorridor($I);
+
+        $this->whenChunMoves($door);
+
+        $this->thenPublicChannelShouldBeEmpty($I);
+        $this->thenAllChunKuanTiAndRalucaShouldBeInPrivateChannel($I);
+        $this->thenPrivateChannelShouldNotHaveLeaveMessage($I);
+    }
+
+    public function shouldRemovePlayersBesideChunWhenSheMovesAsTheOnlyOneWithTalkie(FunctionalTester $I): void
+    {
+        $this->givenRalucaInLaboratory($I);
+        $this->givenPrivateChannelBetweenChunKuanTiAndRaluca();
+        $this->givenChunHasWalkieTalkie();
+        $this->givenChunIsInLaboratory($I);
+        $this->givenKuanTiIsInLaboratory($I);
+        $door = $this->givenADoorBetweenLaboratoryAndFrontCorridor($I);
+
+        $this->whenChunMoves($door);
+
+        $this->thenPublicChannelShouldBeEmpty($I);
+        $this->thenOnlyChunShouldBeInPrivateChannel($I);
+        $this->thenPrivateChannelShouldHaveLeaveMessage($I);
     }
 
     public function shouldRemovePlayerFromPrivateChannelWhenMovingWithoutTalkie(FunctionalTester $I): void
@@ -261,6 +297,12 @@ final class PrivateChannelAuthorizationCest extends AbstractFunctionalTest
         $this->channelService->invitePlayer($this->kuanTi, $this->privateChannel);
     }
 
+    private function givenPrivateChannelBetweenChunKuanTiAndRaluca(): void
+    {
+        $this->givenPrivateChannelBetweenChunAndKuanTi();
+        $this->channelService->invitePlayer($this->raluca, $this->privateChannel);
+    }
+
     private function givenADoorBetweenLaboratoryAndFrontCorridor(FunctionalTester $I): Door
     {
         $frontCorridor = $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
@@ -269,6 +311,12 @@ final class PrivateChannelAuthorizationCest extends AbstractFunctionalTest
         $I->haveInRepository($door);
 
         return $door;
+    }
+
+    private function givenRalucaInLaboratory(FunctionalTester $I): void
+    {
+        $this->raluca = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::RALUCA);
+        $I->assertTrue($this->raluca->isIn(RoomEnum::LABORATORY));
     }
 
     private function whenChunDropsHerTalkie(): void
@@ -396,6 +444,18 @@ final class PrivateChannelAuthorizationCest extends AbstractFunctionalTest
                 $this->privateChannel->getParticipants()->toArray()
             ),
             'Both Chun and Kuan Ti should be in the private channel'
+        );
+    }
+
+    private function thenAllChunKuanTiAndRalucaShouldBeInPrivateChannel(FunctionalTester $I): void
+    {
+        $I->assertEqualsCanonicalizing(
+            [$this->chun->getLogName(), $this->kuanTi->getLogName(), $this->raluca->getLogName()],
+            array_map(
+                static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer()->getLogName(),
+                $this->privateChannel->getParticipants()->toArray()
+            ),
+            'All Chun, Kuan Ti and Raluca should be in the private channel'
         );
     }
 }

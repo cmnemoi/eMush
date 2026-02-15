@@ -62,7 +62,7 @@ class ScrewTalkie extends AbstractAction
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::INVENTORY,
-            'equipments' => [ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE, ItemEnum::ITRACKIE_2],
+            'equipments' => ItemEnum::getTalkies()->toArray(),
             'contains' => true,
             'all' => false,
             'target' => HasEquipment::PARAMETER,
@@ -71,7 +71,7 @@ class ScrewTalkie extends AbstractAction
         ]));
         $metadata->addConstraint(new HasEquipment([
             'reach' => ReachEnum::INVENTORY,
-            'equipments' => [ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE, ItemEnum::ITRACKIE_2],
+            'equipments' => ItemEnum::getTalkies()->toArray(),
             'contains' => true,
             'all' => false,
             'target' => HasEquipment::PLAYER,
@@ -97,7 +97,7 @@ class ScrewTalkie extends AbstractAction
         $target = $this->target;
 
         /** @var GameItem $talkie */
-        $talkie = $target->getEquipmentsByNames([ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE, ItemEnum::ITRACKIE_2])->first();
+        $talkie = $target->getEquipmentsByNames(ItemEnum::getTalkies()->toArray())->first();
 
         if (!$talkie->isBroken()) {
             $this->statusService->createStatusFromName(

@@ -4,6 +4,7 @@ namespace Mush\Player\Service;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\DBAL\LockMode;
+use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Game\Enum\EventEnum;
@@ -15,6 +16,7 @@ use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\ClosedPlayer;
+use Mush\Player\Entity\PersonalNotes;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
@@ -47,6 +49,7 @@ final class PlayerService implements PlayerServiceInterface
         private PlayerRepositoryInterface $playerRepository,
         private RoomLogServiceInterface $roomLogService,
         private PlayerInfoRepositoryInterface $playerInfoRepository,
+        private EntityManagerInterface $entityManager,
         private bool $antiSpam,
     ) {}
 
@@ -385,6 +388,7 @@ final class PlayerService implements PlayerServiceInterface
         $characterConfig = $daedalus->getGameConfig()->getCharactersConfig()->getByNameOrThrow($character);
 
         $laboratory = $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
+
         $player = new Player();
         $player
             ->setDaedalus($daedalus)
@@ -393,8 +397,12 @@ final class PlayerService implements PlayerServiceInterface
             ->setAvailableHumanSkills($characterConfig->getSkillConfigs());
 
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
         $this->persistPlayerInfo($playerInfo);
+
+        $personalNotes = new PersonalNotes($player);
+        $this->entityManager->persist($personalNotes);
+        $this->entityManager->flush();
+
         $this->persist($player);
 
         return $player;

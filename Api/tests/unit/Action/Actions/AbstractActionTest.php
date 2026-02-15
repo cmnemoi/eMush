@@ -15,6 +15,7 @@ use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\PersonalNotes;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
@@ -97,13 +98,8 @@ abstract class AbstractActionTest extends TestCase
             ->setPlace($room)
             ->setAvailableHumanSkills($characterConfig->getSkillConfigs());
 
-        $playerInfo = new PlayerInfo(
-            $player,
-            new User(),
-            $characterConfig
-        );
-
-        $player->setPlayerInfo($playerInfo);
+        new PlayerInfo($player, new User(), $characterConfig);
+        new PersonalNotes($player);
 
         return $player;
     }

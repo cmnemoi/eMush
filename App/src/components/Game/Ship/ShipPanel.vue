@@ -17,6 +17,18 @@
                 @mousedown.stop
                 @touchstart.stop
             />
+            <PersonalNotesButton
+                v-if="player.personalNotes?.hasAccess"
+                :highlighted="displayNotes"
+                @click="displayNotes = !displayNotes"
+                @mousedown.stop
+                @touchstart.stop
+            />
+            <PersonalNotes
+                v-if="player.personalNotes?.hasAccess && displayNotes"
+                :player="player"
+                @close="displayNotes = false"
+            />
             <RoomInventoryPanel
                 v-if="isInventoryOpen"
                 :items="room.items"
@@ -52,10 +64,14 @@ import { defineComponent } from "vue";
 import SpaceBattleView from "@/components/Game/SpaceBattleView.vue";
 import { Hunter } from "@/entities/Hunter";
 import { player } from "@/store/player.module";
+import PersonalNotesButton from "@/components/Game/PersonalNotes/PersonalNotesButton.vue";
+import PersonalNotes from "@/components/Game/PersonalNotes/PersonalNotes.vue";
 
 export default defineComponent ({
     name: "ShipPanel",
     components: {
+        PersonalNotes,
+        PersonalNotesButton,
         PhaserShip,
         CrewmatePanel,
         EquipmentPanel,
@@ -67,6 +83,11 @@ export default defineComponent ({
     },
     props: {
         player: Player
+    },
+    data() {
+        return {
+            displayNotes: false
+        };
     },
     computed: {
         ...mapGetters({

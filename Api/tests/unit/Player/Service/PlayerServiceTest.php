@@ -3,6 +3,7 @@
 namespace Mush\Tests\unit\Player\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -50,6 +51,9 @@ final class PlayerServiceTest extends TestCase
 
     private InMemoryPlayerInfoRepository $playerInfoRepository;
 
+    /** @var EntityManagerInterface|Mockery\Mock */
+    private EntityManagerInterface $entityManager;
+
     private CharacterConfigCollection $charactersConfigs;
 
     private PlayerService $service;
@@ -66,6 +70,7 @@ final class PlayerServiceTest extends TestCase
         $this->playerRepository = new InMemoryPlayerRepository();
         $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
         $this->playerInfoRepository = new InMemoryPlayerInfoRepository();
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
 
         $this->charactersConfigs = new CharacterConfigCollection();
 
@@ -76,6 +81,7 @@ final class PlayerServiceTest extends TestCase
             playerRepository: $this->playerRepository,
             roomLogService: $this->roomLogService,
             playerInfoRepository: $this->playerInfoRepository,
+            entityManager: $this->entityManager,
             antiSpam: false,
         );
     }
@@ -122,6 +128,8 @@ final class PlayerServiceTest extends TestCase
         $gameConfig->setCharactersConfig($this->charactersConfigs);
 
         $this->eventService->shouldReceive('callEvent')->once();
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
 
         $this->service->createPlayer($daedalus, $user, 'character');
 
@@ -136,6 +144,7 @@ final class PlayerServiceTest extends TestCase
         self::assertSame($characterConfig->getInitSatiety(), $savedPlayer->getSatiety());
         self::assertCount(0, $savedPlayer->getEquipments());
         self::assertCount(0, $savedPlayer->getSkills());
+        self::assertCount(1, $savedPlayer->getPersonalNotes()->getTabs());
     }
 
     public function testkillPlayer()

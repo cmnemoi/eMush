@@ -253,7 +253,17 @@
 		"rearAlphaStorage": "Almacén Alpha Trasero",
 		"rearBravoStorage": "Almacén Beta Trasero"
 	},
-	"admin": {
+  "personalNotes": {
+    "tooltipTitle": "Notas personales",
+    "tooltipDescription": "AAccede a tus notas personales en tu walkie. Permanecen con tu cuerpo en caso de traslado.",
+    "title": "Notas personales",
+    "iconPicker": "Elige un ícono",
+    "editTabIconTooltip": "Editar el ícono de esta pestaña",
+    "editTabIconTitle": "Editar ícono",
+    "deleteTabTooltip": "Eliminar esta pestaña",
+    "deleteTabTitle": "¿Realmente quieres eliminar esta pestaña?"
+  },
+  "admin": {
 		"actions": {
 			"equipment": {
 				"title": "Equipo",
@@ -1156,5 +1166,10 @@
 	"biography": {
 		"readCharacterBiography": "Leer la biografía de {characterName}",
 		"pageTitle": "Biografía detallada:"
-	}
+	},
+  "confirmPopOver": {
+    "title": "¿Estás seguro?",
+    "yes": "Sí",
+    "no": "No"
+  }
 }

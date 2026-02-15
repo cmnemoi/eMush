@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\tests\unit\Equipment\WeaponEffectHandler;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Equipment\Enum\ItemEnum;
@@ -39,6 +40,7 @@ final class OneShotWeaponEffectHandlerTest extends TestCase
                 playerRepository: new InMemoryPlayerRepository(),
                 roomLogService: self::createStub(RoomLogServiceInterface::class),
                 playerInfoRepository: self::createStub(PlayerInfoRepositoryInterface::class),
+                entityManager: self::createStub(EntityManagerInterface::class),
                 antiSpam: false,
             )
         );

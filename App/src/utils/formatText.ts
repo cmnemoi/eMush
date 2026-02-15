@@ -1,46 +1,5 @@
 import sanitizeHtml from 'sanitize-html';
-
-import { EmoteCharacterAliases, EmoteCharacterIcons } from "@/enums/emotes/characters.enum";
-import { EmoteResourcesAliases, EmoteResourcesIcons } from "@/enums/emotes/resources.enum";
-import { EmoteIconAliases, EmoteIconIcons } from "@/enums/emotes/icons.enum";
-import {
-    EmoteHumanSkillAliases,
-    EmoteHumanSkillIcons,
-    EmoteMushSkillAliases,
-    EmoteMushSkillIcons
-} from "@/enums/emotes/skills.enum";
-import { EmoteAstroAliases, EmoteAstroIcons } from "@/enums/emotes/astro.enum";
-import { EmoteEternalTwinAliases, EmoteEternalTwinIcons } from "@/enums/emotes/eternaltwin.enum";
-import { EmoteStatusAliases, EmoteStatusIcons } from "@/enums/emotes/status.enum";
-import { EmoteMuxxuAliases, EmoteMuxxuIcons } from "@/enums/emotes/muxxu.enum";
-import { EmoteTwinoidAliases, EmoteTwinoidIcons } from "@/enums/emotes/twinoid.enum";
-
-const emoteAliasesEnums = {
-    ...EmoteAstroAliases,
-    ...EmoteCharacterAliases,
-    ...EmoteEternalTwinAliases,
-    ...EmoteHumanSkillAliases,
-    ...EmoteIconAliases,
-    ...EmoteMushSkillAliases,
-    ...EmoteMuxxuAliases,
-    ...EmoteResourcesAliases,
-    ...EmoteStatusAliases,
-    ...EmoteTwinoidAliases
-};
-
-const emoteIconEnums = {
-    ...EmoteAstroIcons,
-    ...EmoteCharacterIcons,
-    ...EmoteEternalTwinIcons,
-    ...EmoteHumanSkillIcons,
-    ...EmoteIconIcons,
-    ...EmoteMushSkillIcons,
-    ...EmoteMuxxuIcons,
-    ...EmoteResourcesIcons,
-    ...EmoteStatusIcons,
-    ...EmoteTwinoidIcons
-};
-
+import { emoteAliasesEnums, emoteIconEnums } from "@/enums/emotes.enum";
 
 function markdownLinkSubstitution(_: string, p1: string, p2: string, p3: string): string {
     if (!p1) {

@@ -12,6 +12,7 @@ import { Terminal } from "@/entities/Terminal";
 import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { TerminalEnum } from "@/enums/terminal.enum";
 import { SpaceBattle } from "./SpaceBattle";
+import { PersonalNotes } from "@/entities/PersonalNotes";
 
 export type Skill = {
     key: string;
@@ -37,6 +38,7 @@ export class Player {
     public healthPoint: QuantityPoint|null;
     public moralPoint: QuantityPoint|null;
     public triumph: QuantityPoint|null;
+    public personalNotes: PersonalNotes|null;
     public daedalus: Daedalus|null;
     public items: Array<Item>;
     public diseases: Array<Status>;
@@ -62,6 +64,7 @@ export class Player {
         this.healthPoint = null;
         this.moralPoint = null;
         this.triumph = null;
+        this.personalNotes = null;
         this.gameStatus = null;
         this.daedalus = null;
         this.items = [];
@@ -103,6 +106,9 @@ export class Player {
             }
             if (typeof object.triumph !== 'undefined') {
                 this.triumph = (new QuantityPoint()).load(object.triumph);
+            }
+            if (typeof object.personalNotes !== 'undefined') {
+                this.personalNotes = PersonalNotes.load(object.personalNotes);
             }
             if (typeof object.daedalus !== 'undefined') {
                 this.daedalus = (new Daedalus()).load(object.daedalus);

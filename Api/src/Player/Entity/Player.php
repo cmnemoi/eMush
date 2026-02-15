@@ -160,6 +160,9 @@ class Player extends EquipmentHolderAbstract implements StatusHolderInterface, V
     #[OrderBy(['createdAt' => Order::Descending->value])]
     private Collection $receivedMissions;
 
+    #[ORM\OneToOne(mappedBy: 'player', targetEntity: PersonalNotes::class, cascade: ['remove'], orphanRemoval: true)]
+    private PersonalNotes $personalNotes;
+
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $readTipsChannelId = null;
 
@@ -834,6 +837,18 @@ class Player extends EquipmentHolderAbstract implements StatusHolderInterface, V
         return $this;
     }
 
+    public function getPersonalNotes(): PersonalNotes
+    {
+        return $this->personalNotes;
+    }
+
+    public function setPersonalNotes(PersonalNotes $personalNotes): static
+    {
+        $this->personalNotes = $personalNotes;
+
+        return $this;
+    }
+
     public function getClassName(): string
     {
         return static::class;
@@ -1306,12 +1321,23 @@ class Player extends EquipmentHolderAbstract implements StatusHolderInterface, V
 
     public function hasATracker(): bool
     {
-        return $this->hasAnyOperationalEquipmentsByNames([ItemEnum::TRACKER, ItemEnum::ITRACKIE, ItemEnum::ITRACKIE_2]);
+        return $this->hasAnyOperationalEquipmentsByNames(ItemEnum::getTrackers()->toArray());
     }
 
     public function hasATalkie(): bool
     {
-        return $this->hasAnyOperationalEquipmentsByNames([ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE, ItemEnum::ITRACKIE_2]);
+        return $this->hasAnyOperationalEquipmentsByNames(ItemEnum::getTalkies()->toArray());
+    }
+
+    public function canReachATalkie(): bool
+    {
+        if ($this->hasATalkie()) {
+            return true;
+        }
+
+        return $this->getPlace()
+            ->getOperationalEquipmentsByNames(ItemEnum::getTalkies()->toArray())
+            ->exists(fn (int $key, GameEquipment $equipment) => ($owner = $equipment->getOwner()) !== null && $owner->equals($this));
     }
 
     public function getOldPlaceOrThrow(): Place

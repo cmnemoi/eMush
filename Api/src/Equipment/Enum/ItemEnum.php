@@ -117,4 +117,22 @@ class ItemEnum
             self::LUCKY_LIZARO,
         ]);
     }
+
+    public static function getTalkies(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::WALKIE_TALKIE,
+            self::ITRACKIE,
+            self::ITRACKIE_2,
+        ]);
+    }
+
+    public static function getTrackers(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::TRACKER,
+            self::ITRACKIE,
+            self::ITRACKIE_2,
+        ]);
+    }
 }

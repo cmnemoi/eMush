@@ -253,6 +253,16 @@
 		"rearAlphaStorage": "Rear Alpha Storage",
 		"rearBravoStorage": "Rear Bravo Storage"
 	},
+  "personalNotes": {
+    "tooltipTitle": "Personal Notes",
+    "tooltipDescription": "Access your personal notes on your talkie. They stay with your body in case of transfer.",
+    "title": "Personal Notes",
+    "iconPicker": "Choose an icon",
+    "editTabIconTooltip": "Edit this tab's icon",
+    "editTabIconTitle": "Edit icon",
+    "deleteTabTooltip": "Delete this tab",
+    "deleteTabTitle": "Do you really want to delete this tab?"
+  },
 	"admin": {
 		"actions": {
 			"equipment": {
@@ -1156,5 +1166,10 @@
 	"biography": {
 		"readCharacterBiography": "Read {characterName}'s biography",
 		"pageTitle": "Detailed biography:"
-	}
+	},
+  "confirmPopOver": {
+    "title": "Are you sure?",
+    "yes": "Yes",
+    "no": "No"
+  }
 }

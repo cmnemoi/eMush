@@ -11,6 +11,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\ConfigData\CharacterConfigData;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\PersonalNotes;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Skill\ConfigData\SkillConfigData;
@@ -33,6 +34,7 @@ final class PlayerFactory
         $player = new Player();
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
         $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
+        new PersonalNotes($player);
         $player->setPlayerVariables($characterConfig);
         $player->setPlace(Place::createNull());
         self::setPlayerId($player, random_int(1, PHP_INT_MAX));
@@ -55,8 +57,10 @@ final class PlayerFactory
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
         $player->setAvailableHumanSkills($characterConfig->getSkillConfigs());
         $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
-
         (new \ReflectionClass($playerInfo))->getProperty('id')->setValue($playerInfo, random_int(1, PHP_INT_MAX));
+
+        $personalNotes = new PersonalNotes($player);
+        (new \ReflectionClass($personalNotes))->getProperty('id')->setValue($personalNotes, random_int(1, PHP_INT_MAX));
 
         $player->setPlayerVariables($characterConfig);
         $player->setPlace(Place::createNull());
@@ -107,6 +111,7 @@ final class PlayerFactory
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        new PersonalNotes($player);
         $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlayerVariables($characterConfig);
         $player->setPlace(Place::createRoomByName(RoomEnum::NULL));
@@ -131,6 +136,9 @@ final class PlayerFactory
 
         $closedPlayer = $playerInfo->getClosedPlayer();
         (new \ReflectionClass($closedPlayer))->getProperty('id')->setValue($closedPlayer, $id);
+
+        $personalNotes = $player->getPersonalNotes();
+        (new \ReflectionClass($personalNotes))->getProperty('id')->setValue($personalNotes, $id);
     }
 
     private static function addCharacterConfigSkillConfigs(CharacterConfig $characterConfig): void

@@ -28,6 +28,7 @@ use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\PersonalNotes;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerEvent;
@@ -218,9 +219,13 @@ class AbstractFunctionalTest
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
         $I->haveInRepository($playerInfo);
 
+        $personalNotes = new PersonalNotes($player);
+        $I->haveInRepository($personalNotes);
+
         $player->setDaedalus($daedalus);
         $player->setPlace($daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $player->setPlayerVariables($characterConfig);
+        $player->getPersonalNotes();
 
         $I->haveInRepository($player);
 

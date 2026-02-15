@@ -253,6 +253,16 @@
 		"rearAlphaStorage": "Stockage Alpha Arrière",
 		"rearBravoStorage": "Stockage Beta Arrière"
 	},
+  "personalNotes": {
+    "tooltipTitle": "Notes personnelles",
+    "tooltipDescription": "Accédez à vos notes personnelles sur votre talkie. Elles restent avec votre corps en cas de transfert.",
+    "title": "Notes personnelles",
+    "iconPicker": "Choisissez une icône",
+    "editTabIconTooltip": "Éditer l'icône de cet onglet",
+    "editTabIconTitle": "Modifier l'icône",
+    "deleteTabTooltip": "Supprimer cet onglet",
+    "deleteTabTitle": "Voulez-vous vraiment supprimer cet onglet ?"
+  },
 	"admin": {
 		"actions": {
 			"equipment": {
@@ -1156,5 +1166,10 @@
 	"biography": {
 		"readCharacterBiography": "Lire la biographie de {characterName}",
 		"pageTitle": "Biographie détaillée :"
-	}
+	},
+  "confirmPopOver": {
+    "title": "Êtes-vous sûr ?",
+    "yes": "Oui",
+    "no": "Non"
+  }
 }

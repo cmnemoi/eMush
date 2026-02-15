@@ -407,6 +407,7 @@ final class ConsumeRequiredTradeAssetsServiceTest extends TestCase
             $this->createPlayerRepositoryStub(),
             $this->createRoomLogServiceStub(),
             $this->createPlayerInfoRepositoryStub(),
+            $this->createEntityManagerInterfaceStub(),
             false,
         );
         $this->randomService = new RandomService(

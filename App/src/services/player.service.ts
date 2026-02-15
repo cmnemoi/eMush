@@ -4,6 +4,9 @@ import { Player } from "@/entities/Player";
 import ApiService from "@/services/api.service";
 import store from "@/store/index";
 import urlJoin from "url-join";
+import { AxiosResponse } from "axios";
+import Tab from "@/components/Game/Communications/Tab.vue";
+import { PersonalNotes, PersonalNotesTab } from "@/entities/PersonalNotes";
 
 type AvailableSkill = {
     key: string;
@@ -121,6 +124,11 @@ const PlayerService = {
 
     markMissionAsRead: async (missionId: number): Promise<void> => {
         await ApiService.put(urlJoin(PLAYER_ENDPOINT, 'mark-mission-as-read', String(missionId)));
+    },
+
+    updatePersonalNotes: async (playerId: number, tabs: PersonalNotesTab[]): Promise<PersonalNotes> => {
+        const response = await ApiService.put(urlJoin(PLAYER_ENDPOINT, String(playerId), "notes/tabs"), { tabs });
+        return PersonalNotes.load(response.data);
     }
 };
 export default PlayerService;

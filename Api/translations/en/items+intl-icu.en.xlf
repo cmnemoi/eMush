@@ -659,16 +659,18 @@ Lost in space, in the jungle, in the good old Daedalus ? We've got exactly what 
       <segment id="description" state="translated">
         <source>walkie_talkie.description</source>
         <target>The Walkie-Talkie is a dated means of communication, but it works.
-//
-Allows you to communicate remotely with other crewmembers.</target>
+          // :point: Allows you to communicate remotely with other crewmembers.
+          // :point: Lets you communicate on the General Channel.
+          // :point: Lets you access your personal notes.
+        </target>
       </segment>
       <segment id="examine" state="translated">
         <source>walkie_talkie.examine</source>
         <target>The Walkie-Talkie is a dated means of communication, but it works.
-//
-Allows you to communicate remotely with other crewmembers.
-//
-Lets you communicate on the General Channel.</target>
+          // :point: Allows you to communicate remotely with other crewmembers.
+          // :point: Lets you communicate on the General Channel.
+          // :point: Lets you access your personal notes.
+        </target>
       </segment>
     </unit>
     <unit id="itrackie">
@@ -694,15 +696,21 @@ Lets you communicate on the General Channel.</target>
       </segment>
       <segment id="description" state="translated">
         <source>itrackie.description</source>
-        <target>The iTrackie®© represents arguably the finest in digital gadgetry. It looks good, it's elegant, subtle, it vibrates, and almost never breaks down.//:point: Allows you to communicate remotely with other crew members.//:point: Allows you to access the upgraded mini-map of the Daedalus.</target>
+        <target>The iTrackie®© represents arguably the finest in digital gadgetry. It looks good, it's elegant, subtle, it vibrates, and almost never breaks down.
+          // :point: Allows you to communicate remotely with other crewmembers.
+          // :point: Lets you communicate on the General Channel.
+          // :point: Allows you to access the upgraded mini-map of the Daedalus.
+          // :point: Lets you access your personal notes.
+        </target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie.examine</source>
         <target>The iTrackie®© represents arguably the finest in digital gadgetry. It looks good, it's elegant, subtle, it vibrates, and almost never breaks down.
-//
-Allows you to communicate remotely with other crew members.
-//
-Allows you to access the upgraded mini-map of the Daedalus.</target>
+          // :point: Allows you to communicate remotely with other crewmembers.
+          // :point: Lets you communicate on the General Channel.
+          // :point: Allows you to access the upgraded mini-map of the Daedalus.
+          // :point: Lets you access your personal notes.
+        </target>
       </segment>
     </unit>
     <unit id="adjustable_wrench">
@@ -3755,13 +3763,20 @@ An awesome jukebox from back in the day. Even better, it comes preloaded with th
       <segment id="description" state="translated">
         <source>itrackie_2.description</source>
         <target>Pfft, that dusty dinosaur? It's so old! It's so quaint! It's so passé! It's so *last year*! With a subtle gold(-like) plating and no pesky headphone jack, this is an upgrade that will make you ask, "How did I ever go without?"!
-        //:point: Allows you to communicate remotely with other crew members.//:point: Allows you to access the upgraded mini-map of the Daedalus. **Free ACTOPI included with every purchase!**</target>
+          // :point: Allows you to communicate remotely with other crewmembers.
+          // :point: Lets you communicate on the General Channel.
+          // :point: Allows you to access the upgraded mini-map of the Daedalus. **Free ACTOPI included with every purchase!**
+          // :point: Lets you access your personal notes.
+        </target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie_2.examine</source>
         <target>You think you may be experiencing buyer's remorse. And you got this for free.//
-        //Allows you to communicate remotely with other crew members.
-        //Allows you to access the upgraded mini-map of the Daedalus. **Free ACTOPI included with every purchase!**</target>
+          // :point: Allows you to communicate remotely with other crewmembers.
+          // :point: Lets you communicate on the General Channel.
+          // :point: Allows you to access the upgraded mini-map of the Daedalus. **Free ACTOPI included with every purchase!**
+          // :point: Lets you access your personal notes.
+        </target>
       </segment>
     </unit>
     <unit id="lump_of_coal">

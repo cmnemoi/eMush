@@ -659,16 +659,18 @@ Llévalo siempre contigo y no te perderás."</target>
       <segment id="description" state="translated">
         <source>walkie_talkie.description</source>
         <target>El walkie-talkie es un antiguo pero eficiente aparato de comunicación.
-//
-Permite comunicarse a distancia con otros tripulantes.</target>
+          // :point: Permite comunicarse a distancia con otros tripulantes
+          // :point: Con él puedes hablar a través del chat general.
+          // :point: Permite acceder a tus notas personales
+        </target>
       </segment>
       <segment id="examine" state="translated">
         <source>walkie_talkie.examine</source>
         <target>El walkie-talkie es un antiguo pero eficiente aparato de comunicación.
-//
-Permite comunicarse a distancia con otros tripulantes.
-//
-Con él puedes hablar a través del chat general.</target>
+          // :point: Permite comunicarse a distancia con otros tripulantes
+          // :point: Con él puedes hablar a través del chat general.
+          // :point: Permite acceder a tus notas personales
+        </target>
       </segment>
     </unit>
     <unit id="itrackie">
@@ -695,20 +697,20 @@ Con él puedes hablar a través del chat general.</target>
       <segment id="description" state="translated">
         <source>itrackie.description</source>
         <target>El iTrakie®© es el mejor gadget digital que existe. Es elegante, estético, vibra y no se descompone nunca.
-//
-Sirve para comunicarse a distancia con otros tripulantes.
-//
-También da acceso a un minimapa aumentado del Daedalus.</target>
+          // :point: Permite comunicarse a distancia con otros tripulantes
+          // :point: Con él puedes hablar a través del chat general.
+          // :point: También da acceso a un minimapa aumentado del Daedalus.
+          // :point: Permite acceder a tus notas personales
+        </target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie.examine</source>
         <target>El iTrakie®© es el mejor gadget digital que existe. Es elegante, estético, vibra y no se descompone nunca.
-//
-Sirve para comunicarse a distancia con otros tripulantes.
-//
-También da acceso a un minimapa aumentado del Daedalus.
-//
-Una gran revolución en tus manos. **Cuidado con él**, el servicio post-venta de esto te puede costar un riñón.</target>
+          // :point: Permite comunicarse a distancia con otros tripulantes
+          // :point: Con él puedes hablar a través del chat general.
+          // :point: También da acceso a un minimapa aumentado del Daedalus.
+          // :point: Permite acceder a tus notas personales
+        </target>
       </segment>
     </unit>
     <unit id="adjustable_wrench">
@@ -3848,14 +3850,20 @@ La rockola de esos años maravillosos. ¡Y tiene las canciones favoritas de la t
       <segment id="description" state="translated">
         <source>itrackie_2.description</source>
         <target>Pff, ¿El otro modelo? ¡Es tan viejo! ¡Tan rústico! ¡Tan anticuado! ¡Tan *pasado de moda*! Con una carcasa dorada y sin el molesto conector para auriculares, esta es una auténtica mejora que te hará preguntarte: "¿Cómo me las arreglaba sin él?".
-        // :point: Sirve para comunicarse a distancia con otros tripulantes.
-        // :point: Permite el acceso del minimapa mejorado del Daedalus. **¡Aplicación ACTOPI incluida en cada compra!**</target>
+          // :point: Permite comunicarse a distancia con otros tripulantes
+          // :point: Con él puedes hablar a través del chat general.
+          // :point: Permite el acceso del minimapa mejorado del Daedalus. **¡Aplicación ACTOPI incluida en cada compra!**
+          // :point: Permite acceder a tus notas personales
+        </target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie_2.examine</source>
         <target>Sientes el remordimiento del comprador... y sin embargo, era gratis...//
-        //Sirve para comunicarse a distancia con otros tripulantes.
-        //Permite el acceso del minimapa mejorado del Daedalus. **¡Aplicación ACTOPI incluida en cada compra!**</target>
+        // :point: Permite comunicarse a distancia con otros tripulantes
+        // :point: Con él puedes hablar a través del chat general.
+        // :point: Permite el acceso del minimapa mejorado del Daedalus. **¡Aplicación ACTOPI incluida en cada compra!**
+        // :point: Permite acceder a tus notas personales
+        </target>
       </segment>
     </unit>
     <unit id="lump_of_coal">

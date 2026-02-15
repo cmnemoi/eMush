@@ -152,7 +152,6 @@ export default defineComponent ({
             "projects-panel projects-panel";
 
         .grid-container {
-            overflow-x: auto;
             align-items: center;
         }
     }

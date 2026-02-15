@@ -19,6 +19,7 @@ use Mush\Modifier\Service\ModifierCreationService;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Normalizer\CurrentPlayerNormalizer;
+use Mush\Player\Normalizer\PersonalNotesNormalizer;
 use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
@@ -51,6 +52,7 @@ final class CurrentPlayerNormalizerTest extends TestCase
             self::createStub(SpaceBattlePatrolShipNormalizer::class),
             self::createStub(SpaceBattleTurretNormalizer::class),
             self::createStub(TerminalNormalizer::class),
+            self::createStub(PersonalNotesNormalizer::class),
             self::createStub(TranslationServiceInterface::class),
             self::createStub(GearToolServiceInterface::class),
             self::createStub(ClosedExplorationServiceInterface::class),

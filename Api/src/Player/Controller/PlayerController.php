@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
@@ -13,6 +14,8 @@ use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Entity\Dto\PlayerCreateRequest;
 use Mush\Player\Entity\Dto\PlayerEndRequest;
+use Mush\Player\Entity\Dto\UpdatePersonalNotesTabsRequest;
+use Mush\Player\Entity\PersonalNotesTab;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\UseCase\DeletePlayerNotificationUseCase;
@@ -26,6 +29,7 @@ use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -37,6 +41,7 @@ class PlayerController extends AbstractGameController
 {
     use ErrorHandlerTrait;
 
+    private EntityManagerInterface $entityManager;
     private PlayerServiceInterface $playerService;
     private CycleServiceInterface $cycleService;
     private ValidatorInterface $validator;
@@ -47,14 +52,16 @@ class PlayerController extends AbstractGameController
 
     public function __construct(
         AdminServiceInterface $adminService,
+        EntityManagerInterface $entityManager,
         PlayerServiceInterface $playerService,
         CycleServiceInterface $cycleStrategyService,
         ValidatorInterface $validator,
         ChooseSkillUseCase $chooseSkillUseCase,
         DeletePlayerNotificationUseCase $deletePlayerNotification,
-        ModerationServiceInterface $moderationService
+        ModerationServiceInterface $moderationService,
     ) {
         parent::__construct($adminService);
+        $this->entityManager = $entityManager;
         $this->playerService = $playerService;
         $this->cycleService = $cycleStrategyService;
         $this->validator = $validator;
@@ -409,6 +416,97 @@ class PlayerController extends AbstractGameController
         $this->deletePlayerNotification->execute($player->getFirstNotificationOrThrow());
 
         return $this->view(['detail' => 'Notification deleted successfully'], Response::HTTP_OK);
+    }
+
+    /**
+     * Update all personal notes tabs. This replaces the entire tab collection.
+     *
+     * @OA\RequestBody(
+     *     description="Input data format",
+     *
+     *     @OA\MediaType(
+     *         mediaType="application/json",
+     *
+     *         @OA\Schema(
+     *             type="object",
+     *
+     *             @OA\Property(
+     *                 property="tabs",
+     *                 type="array",
+     *
+     *                 @OA\Items(
+     *                     type="object",
+     *
+     *                     @OA\Property(property="id", type="integer", description="Tab ID (for existing tabs)"),
+     *                     @OA\Property(property="icon", type="string", description="Tab icon"),
+     *                     @OA\Property(property="content", type="string", description="Tab content")
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     *
+     * @OA\Tag(name="Player")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Put(path="/{id}/notes/tabs")
+     *
+     * @Rest\View()
+     */
+    public function updatePersonalNotesTabs(#[MapRequestPayload] UpdatePersonalNotesTabsRequest $request, Player $player): View
+    {
+        if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
+            return $maintenanceView;
+        }
+
+        $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
+        $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You have to accept the rules to play the game.');
+
+        if (\count($violations = $this->validator->validate($request))) {
+            return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $personalNotes = $player->getPersonalNotes();
+
+        // Retrieve the list of tabs IDs in the request body
+        $tabsId = array_map(
+            static fn ($tab) => $tab['id'],
+            array_filter($request->getTabs(), static fn ($tab) => isset($tab['id']))
+        );
+
+        // Delete any existing tabs with an ID that is not in the request body
+        foreach ($personalNotes->getTabs() as $tab) {
+            if (!\in_array($tab->getId(), $tabsId, true)) {
+                $personalNotes->removeTab($tab);
+            }
+        }
+
+        // Save the tabs in the request body by updating existing tabs (where `id` is set) or
+        // creating new tabs.
+        foreach ($request->getTabs() as $tabData) {
+            // Update existing tabs
+            if (isset($tabData['id'])) {
+                $tab = $personalNotes->getTabFromId($tabData['id']);
+                if (!$tab) {  // The referenced tab ID doesn't exist
+                    return $this->view(['error' => "Tab with id {$tabData['id']} not found"], Response::HTTP_NOT_FOUND);
+                }
+                $tab->setIcon($tabData['icon']);
+                $tab->setIndex($tabData['index']);
+                $tab->setContent($tabData['content']);
+            }
+
+            // Create new tabs
+            else {
+                $newTab = new PersonalNotesTab($personalNotes, $tabData['icon'], $tabData['content'], $tabData['index']);
+                $personalNotes->addTab($newTab);
+            }
+        }
+
+        $this->entityManager->persist($personalNotes);
+        $this->entityManager->flush();
+
+        return $this->view($personalNotes, Response::HTTP_OK);
     }
 
     private function handleCycleChange(Player $player): void

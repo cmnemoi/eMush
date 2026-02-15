@@ -220,7 +220,7 @@ $hit-color: #fd1f07;
 .allies-container {
     position: absolute;
     flex-wrap: wrap;
-    top: 20px;
+    top: 30px;
     left: 13px;
     max-height: 320px;
 }
@@ -233,7 +233,7 @@ $hit-color: #fd1f07;
     align-items: center;
     gap: 7px;
     max-height: 290px;
-    top: 20px;
+    top: 30px;
     right: 9px;
 }
 

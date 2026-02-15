@@ -139,7 +139,7 @@ final class FunFactsService implements FunFactsServiceInterface
         ], true);
     }
 
-    private function getGreatestNumberFromArray(array $collection): null|float|int
+    private function getGreatestNumberFromArray(array $collection): float|int|null
     {
         $result = null;
         foreach ($collection as $number) {

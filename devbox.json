@@ -1,15 +1,14 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.16.0/.schema/devbox.schema.json",
   "packages": [
-    "php@8.4",
-    "php84Extensions.pgsql",
-    "php84Extensions.pdo",
-    "php84Extensions.pdo_pgsql",
-    "php84Extensions.opcache",
-    "php84Extensions.protobuf",
+    "php@8.5",
+    "php85Extensions.pgsql",
+    "php85Extensions.pdo",
+    "php85Extensions.pdo_pgsql",
+    "php85Extensions.protobuf",
+    "php85Extensions.intl@latest",
     "nodejs@22",
     "postgresql@17",
-    "php84Extensions.intl@latest",
     "yarn-berry_4@latest",
     "concurrently@latest"
   ],
@@ -17,32 +16,42 @@
     "init_hook": [],
     "scripts": {
       "emush": [
-        "concurrently --prefix \"[{name}]\" --names \"API,APP,ETWIN\" -c \"bgMagenta.bold,bgBlue.bold,bgGreen.bold\" \"devbox run start:api\" \"devbox run start:app\" \"devbox run start:eternaltwin\""
+        "concurrently --prefix \"[{name}]\" --names \"API,APP,ETWIN\" -c \"bgMagenta.bold,bgBlue.bold,bgGreen.bold\" \"cd Api && php -S localhost:8080 -t public\" \"cd App && yarn dev\" \"cd Eternaltwin && yarn eternaltwin start\""
       ],
       "install": [
+        "devbox services stop || true",
+        "pkill -f process-compose || true",
         "devbox run setup-env-variables",
         "devbox run install:postgres",
-        "concurrently \"devbox run install:api\" \"devbox run install:app\" \"devbox run install:eternaltwin\""
+        "devbox run install:api",
+        "devbox run install:app",
+        "devbox run install:eternaltwin"
       ],
       "install:api": [
+        "rm -rf Api/vendor Api/composer.lock",
         "cd Api && composer reset",
         "php bin/console mush:generate-web-push-keys"
       ],
       "install:app": [
+        "rm -rf App/.yarn/cache App/node_modules",
         "cd App && yarn install"
       ],
       "install:postgres": [
         "rm -rf .devbox/virtenv/postgresql/data",
+        "rm -f .devbox/virtenv/postgresql/.s.PGSQL.5432",
         "initdb",
         "devbox services start postgresql && sleep 5",
         "createuser -s -r postgres",
         "chmod +x init_db.sh && ./init_db.sh"
       ],
       "install:eternaltwin": [
+        "rm -rf Eternaltwin/.yarn/cache Eternaltwin/node_modules",
         "cd Eternaltwin && yarn install && yarn eternaltwin db sync"
       ],
       "setup-env-variables": [
+        "cp Api/.env.bare.metal Api/.env",
         "cp Api/.env.bare.metal Api/.env.local",
+        "cp Api/.env.bare.metal.test Api/.env.test",
         "cp Api/.env.bare.metal.test Api/.env.test.local",
         "cp App/.env.bare.metal App/.env",
         "cp Eternaltwin/eternaltwin.bare.metal.toml Eternaltwin/eternaltwin.local.toml"

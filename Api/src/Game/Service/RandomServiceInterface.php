@@ -50,7 +50,7 @@ interface RandomServiceInterface
 
     public function getRandomElement(array $array): mixed;
 
-    public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): null|int|string;
+    public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): int|string|null;
 
     public function getRandomElementsFromProbaCollection(ProbaCollection $array, int $number): array;
 
@@ -60,5 +60,5 @@ interface RandomServiceInterface
 
     public function getRandomPlanetSectorsToVisit(Planet $planet, int $number): ArrayCollection;
 
-    public function getRandomXylophNameToDecode(array $xylophArray): null|int|string;
+    public function getRandomXylophNameToDecode(array $xylophArray): int|string|null;
 }

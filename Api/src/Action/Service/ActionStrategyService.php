@@ -102,7 +102,7 @@ class ActionStrategyService implements ActionStrategyServiceInterface
         return $actionService->execute();
     }
 
-    private function loadGameEntity(?array $entityParameters): null|ActionProviderInterface|LogParameterInterface
+    private function loadGameEntity(?array $entityParameters): ActionProviderInterface|LogParameterInterface|null
     {
         if ($entityParameters === null) {
             return null;

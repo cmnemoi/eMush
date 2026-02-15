@@ -1,9 +1,9 @@
-FROM php:8.4-fpm
+FROM php:8.5-fpm
 
 ARG HOST_IP=host.docker.internal
 ARG UID=1000
 ARG GID=1000
-ARG PHP_VERSION=8.4
+ARG PHP_VERSION=8.5
 
 COPY php.ini /usr/local/etc/php/php.ini
 COPY php-fpm-pool.conf /usr/local/etc/php-fpm.d/www.conf
@@ -23,8 +23,6 @@ RUN apt-get -yq update && \
     docker-php-ext-install intl && \
     docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
     docker-php-ext-install pdo pdo_pgsql pgsql && \
-    docker-php-ext-install opcache && \
-    docker-php-ext-configure opcache --enable-opcache && \
     # Xdebug
     pecl install xdebug && \
     docker-php-ext-enable xdebug && \

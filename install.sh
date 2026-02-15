@@ -4,8 +4,8 @@ set -e
 
 NODE_VERSION=22
 NVM_VERSION=0.40.1
-POSTGRES_VERSION=14
-PHP_VERSION=8.4.10
+POSTGRES_VERSION=17
+PHP_VERSION=8.5
 
 # Function to log messages
 log_message() {
@@ -16,7 +16,7 @@ log_message() {
 # Function to run commands with logging
 run_command() {
     log_message "Running: $1"
-    eval "$1" >> install.log
+    eval "$1"
 }
 
 # Function to clean previous PID file
@@ -68,10 +68,12 @@ install_postgres() {
         
     sudo -u postgres psql -v ON_ERROR_STOP=1 --username "postgres" <<-EOSQL
         CREATE USER "mysql" WITH PASSWORD 'password';
+        ALTER ROLE "mysql" CREATEDB;
         CREATE DATABASE "mush" WITH OWNER "mysql";
         GRANT ALL PRIVILEGES ON DATABASE "mush" TO "mysql";
     
         CREATE USER "etwin.dev" WITH PASSWORD 'password';
+        ALTER ROLE "etwin.dev" CREATEDB;
         CREATE DATABASE "etwin.dev" WITH OWNER "etwin.dev";
         GRANT ALL PRIVILEGES ON DATABASE "etwin.dev" TO "etwin.dev";
         
@@ -99,7 +101,7 @@ install_frontend() {
     run_command "cd App && npm install -g yarn"
 
     log_message "Setup front-end env variables..."
-    run_command "cp .env.bare-metal .env"
+    run_command "cp .env.bare.metal .env"
 
     log_message "Installing front-end dependencies..."
     run_command "yarn install"
@@ -110,7 +112,7 @@ install_frontend() {
 # Function to install Eternaltwin server
 install_eternaltwin() {
     log_message "Setup Eternaltwin env variables..."
-    run_command "cd Eternaltwin && cp eternaltwin.bare-metal.toml eternaltwin.local.toml"
+    run_command "cd Eternaltwin && cp eternaltwin.bare.metal.toml eternaltwin.local.toml"
 
     log_message "Installing Eternaltwin server dependencies..."
     run_command "yarn set version latest && yarn install"
@@ -126,29 +128,21 @@ install_backend() {
     log_message "Installing PHP build dependencies..."
     install_package "ca-certificates"
     install_package "apt-transport-https"
-    install_package "software-properties-common"
     install_package "lsb-release"
     install_package "openssl"
     install_package "zip"
     install_package "unzip"
 
     log_message "Setup PHP repositories..."
-    case $(detect_os) in
-        debian)
-            #if OS is Debian, we need to add the PHP repository
-            if [ "$(lsb_release -si)" == "Debian" ]; then
-                run_command "curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x"
-                run_command "sudo sh -c 'echo \"deb https://packages.sury.org/php/ $(lsb_release -sc) main\" > /etc/apt/sources.list.d/php.list'"
-                run_command "sudo apt-get update -y && sudo apt-get upgrade -y"
-            fi
-            ;;
-        arch)
-            # PHP is available in the official repositories for Arch Linux
-            ;;
-        macos)
-            # PHP can be installed via Homebrew
-            ;;
-    esac
+    if [ "$(lsb_release -si)" == "Debian" ]; then
+        run_command "curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x"
+        run_command "sudo apt-get update -y && sudo apt-get upgrade -y"
+    fi
+    if [ "$(lsb_release -si)" == "Ubuntu" ]; then
+        install_package "software-properties-common"
+        run_command "LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php"
+        run_command "sudo apt-get update -y && sudo apt-get upgrade -y"
+    fi
 
     log_message "Installing PHP ${PHP_VERSION}..."
     install_package "php${PHP_VERSION}"
@@ -157,12 +151,12 @@ install_backend() {
     install_package "php${PHP_VERSION}-common"
     install_package "php${PHP_VERSION}-pgsql"
     install_package "php${PHP_VERSION}-curl"
-    install_package "php${PHP_VERSION}-opcache"
     install_package "php${PHP_VERSION}-intl"
     install_package "php${PHP_VERSION}-xml"
     install_package "php${PHP_VERSION}-dom"
     install_package "php${PHP_VERSION}-zip"
     install_package "php${PHP_VERSION}-mbstring"
+    install_package "php${PHP_VERSION}-protobuf"
 
     log_message "Installing Composer..."
     run_command "curl -sS https://getcomposer.org/installer | php"
@@ -174,9 +168,9 @@ install_backend() {
     run_command "chmod go+r config/jwt/private.pem"
 
     log_message "Setup back-end env variables..."
-    run_command "cp .env.bare-metal .env"
-    run_command "cp .env.bare-metal .env.local"
-    run_command "cp .env.bare-metal.test .env.test.local"
+    run_command "cp .env.bare.metal .env"
+    run_command "cp .env.bare.metal .env.local"
+    run_command "cp .env.bare.metal.test .env.test.local"
 
     log_message "Installing back-end dependencies..."
     run_command "composer install"

@@ -201,7 +201,7 @@ class RandomService implements RandomServiceInterface
     /** This function takes an array [element => proba%] as input and send back an array
      * Instead of proba relative weight also work.
      */
-    public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): null|int|string
+    public function getSingleRandomElementFromProbaCollection(ProbaCollection $array): int|string|null
     {
         if (\count($array) < 1) {
             return null;
@@ -271,7 +271,7 @@ class RandomService implements RandomServiceInterface
         return $this->getPlanetSectorCollectionFromIds($sectorIdsToVisit);
     }
 
-    public function getRandomXylophNameToDecode(array $xylophArray): null|int|string
+    public function getRandomXylophNameToDecode(array $xylophArray): int|string|null
     {
         $xylophProbaCollection = $this->getXylophNameProbaCollection($xylophArray);
 

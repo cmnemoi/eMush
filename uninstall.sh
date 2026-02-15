@@ -3,8 +3,8 @@
 set -e
 set -o pipefail
 
-POSTGRES_VERSION=14
-PHP_VERSION=8.4.10
+POSTGRES_VERSION=17
+PHP_VERSION=8.5
 LOG_FILE="uninstall.log"
 
 # Function to check for sudo permissions
@@ -27,7 +27,7 @@ log_message() {
 # Function to run commands and log output
 run_command() {
     log_message "Running: $1"
-    eval "$1" >> "$LOG_FILE" 2>&1
+    eval "$1"
 }
 
 # Function to uninstall packages
@@ -70,12 +70,12 @@ uninstall_php() {
     uninstall_package "php${PHP_VERSION}-common"
     uninstall_package "php${PHP_VERSION}-pgsql"
     uninstall_package "php${PHP_VERSION}-curl"
-    uninstall_package "php${PHP_VERSION}-opcache"
     uninstall_package "php${PHP_VERSION}-intl"
     uninstall_package "php${PHP_VERSION}-xml"
     uninstall_package "php${PHP_VERSION}-dom"
     uninstall_package "php${PHP_VERSION}-zip"
     uninstall_package "php${PHP_VERSION}-mbstring"
+    uninstall_package "php${PHP_VERSION}-protobuf"
 
     log_message "Remove PHP repositories..."
     run_command "sudo rm -rf /etc/apt/sources.list.d/php.list"

@@ -1,4 +1,4 @@
-FROM php:8.4-fpm
+FROM php:8.5-fpm
 
 ARG HOST_IP=172.19.0.1
 
@@ -14,7 +14,6 @@ RUN apt-get -yq update && \
     docker-php-ext-install intl && \
     docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
     docker-php-ext-install pdo pdo_pgsql pgsql && \
-    docker-php-ext-install opcache && \
     # Composer
     curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
     mv composer.phar /usr/local/bin/composer && \

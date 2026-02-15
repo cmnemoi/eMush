@@ -5,7 +5,7 @@ stages:
   - deploy
 
 .php_template: &php_template
-  image: registry.gitlab.com/eternaltwin/mush/mush/api:php-8.4
+  image: registry.gitlab.com/eternaltwin/mush/mush/api:php-8.5
   cache:
     paths:
       - "Api/vendor/"

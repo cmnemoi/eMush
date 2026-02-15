@@ -56,7 +56,9 @@ You can use [Devbox](https://www.jetify.com/docs/devbox/) to manage your develop
 ```bash
 git clone https://gitlab.com/eternaltwin/mush/mush.git && cd mush
 curl -fsSL https://get.jetify.com/devbox | bash # Install Devbox
+devbox update # Make sure Devbox is up to date
 devbox shell # Run a shell with dependencies managed by Devbox
+export COMPOSER_MEMORY_LIMIT=2G # Increase memory limit for Composer
 devbox run install # Install the project
 devbox run emush # Launch eMush
 ```
@@ -78,7 +80,7 @@ Invoke-WebRequest -Uri "https://gitlab.com/eternaltwin/mush/mush/-/raw/main/clon
 
 If you encounter any issue (very likely), refer to legacy installation instructions [here](https://gitlab.com/eternaltwin/mush/mush/-/wikis/Legacy-Windows-Install-Instructions) and ask for help on [Discord](https://discord.com/channels/693082011484684348/746873392463872071).
 
-#### Ubuntu
+#### Ubuntu / Debian
 
 Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/main/clone_and_install.sh?ref_type=heads | bash` in your terminal.
 

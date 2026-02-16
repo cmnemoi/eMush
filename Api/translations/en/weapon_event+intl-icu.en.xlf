@@ -181,9 +181,9 @@
         <target>With sharp eyes and a fiery resolve, **{character}** magnificently lands a shot right in **{target_character}**’s chest...</target>
       </segment>
     </unit>
-    <unit id="knife_successful_hit_10_minor_haemorrhage">
+    <unit id="knife_successful_hit_10_haemorrhage">
       <segment id="knife_successful_hit_10_minor_haemorrhage" state="translated">
-        <source>knife_successful_hit_10_minor_haemorrhage</source>
+        <source>knife_successful_hit_10_haemorrhage</source>
         <target>{version, select,
             1 {**{character}**'s blade, skillfully wielded, makes a huge gash in **{target_character}**.}
             2 {**{target_character}**'s face twists as **{character}** withdraws the blade that {character_gender, select, 

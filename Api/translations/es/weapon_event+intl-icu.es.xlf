@@ -182,9 +182,9 @@ other {**{character}** ha disparado sobre **{target_character}**, pero no fue ca
         <target>Con una mirada aguda y una determinación ardiente, **{character}** lanza un magnífico disparo directo al pecho de **{target_character}**...</target>
       </segment>
     </unit>
-    <unit id="knife_successful_hit_10_minor_haemorrhage">
+    <unit id="knife_successful_hit_10_haemorrhage">
       <segment id="knife_successful_hit_10_minor_haemorrhage" state="translated">
-        <source>knife_successful_hit_10_minor_haemorrhage</source>
+        <source>knife_successful_hit_10_haemorrhage</source>
         <target>{version, select,
   1 {Con mucha destreza, el cuchillo de **{character}**, hace un gran tajo a **{target_character}**...}
   2 {Sin poder esquivar, **{target_character}** cae {target_character_gender, select, female {ensangrentada} other {ensangrentado}}...}

@@ -189,9 +189,9 @@
         <target>L'œil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_character}**...</target>
       </segment>
     </unit>
-    <unit id="knife_successful_hit_10_minor_haemorrhage">
+    <unit id="knife_successful_hit_10_haemorrhage">
       <segment id="knife_successful_hit_10_minor_haemorrhage" state="translated">
-        <source>knife_successful_hit_10_minor_haemorrhage</source>
+        <source>knife_successful_hit_10_haemorrhage</source>
         <target>{version, select,
             1 {La lame de **{character}**, habilement maniée, fait une énorme estafilade à **{target_character}**.}
             2 {Le visage de **{target_character}** se tord lorsque **{character}** retire la lame {character_gender, select, 

@@ -33,7 +33,7 @@ abstract class AbstractRemoveHealthToARandomExplorator extends AbstractPlanetSec
             variableName: PlayerVariableEnum::HEALTH_POINT,
             quantity: -$healthLost,
             tags: $event->getTags(),
-            time: new \DateTime()
+            time: $event->getTime(),
         );
         $dispatchedEvents = $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
         $ropeWorked = $dispatchedEvents->filter(static fn (AbstractGameEvent $event) => $event->hasTag(ModifierNameEnum::ROPE_MODIFIER))->count() > 0;

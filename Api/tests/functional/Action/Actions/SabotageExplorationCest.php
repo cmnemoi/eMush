@@ -117,11 +117,11 @@ final class SabotageExplorationCest extends AbstractExplorationTester
 
         $this->explorationService->persist([$this->exploration]);
 
-        $updatedAt = $this->exploration->getLastVisitAt()->getMicrosecond();
+        $updatedAt = $this->exploration->getLastVisitAtOrThrow()->getMicrosecond();
 
         $this->whenKuanTiExecutesSabotageExplorationAction();
 
-        $I->assertEquals($updatedAt, $this->exploration->getLastVisitAt()->getMicrosecond());
+        $I->assertEquals($updatedAt, $this->exploration->getLastVisitAtOrThrow()->getMicrosecond());
     }
 
     private function givenPlayersAreInAnExpedition(FunctionalTester $I): void

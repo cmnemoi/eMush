@@ -169,8 +169,8 @@ final class RoomLogService implements RoomLogServiceInterface
             ->setPlayerInfo($player?->getPlayerInfo())
             ->setBaseVisibility($visibility)
             ->setCreatedAt($createdAt)
-            ->setCycle($this->getLogCycle($createdAt, $place->getDaedalus()))
-            ->setDay($this->getLogDay($createdAt, $place->getDaedalus()));
+            ->setCycle($place->getDaedalus()->getCycle())
+            ->setDay($place->getDaedalus()->getDay());
 
         $visibility = $this->getVisibility($roomLog, $place);
         $roomLog->setVisibility($visibility);
@@ -430,43 +430,5 @@ final class RoomLogService implements RoomLogServiceInterface
         }
 
         return $data;
-    }
-
-    private function getLogDay(\DateTime $logTime, Daedalus $daedalus): int
-    {
-        $cycleStartedAt = $daedalus->getCycleStartedAt();
-
-        if ($cycleStartedAt === null) {
-            return $daedalus->getDay();
-        }
-
-        $nextCycleStartAt = clone $cycleStartedAt;
-        $nextCycleStartAt->add(new \DateInterval('PT' . $daedalus->getDaedalusConfig()->getCycleLength() . 'M'));
-
-        $cyclesElapsed = $this->cycleService->getNumberOfCycleElapsed($logTime, $nextCycleStartAt, $daedalus->getDaedalusInfo());
-        $currentCycle = $daedalus->getCycle() - 1;
-        $currentDay = $daedalus->getDay();
-        $cyclesPerDay = $daedalus->getNumberOfCyclesPerDay();
-        $daysElapsed = (int) -floor(($currentCycle - $cyclesElapsed) / $cyclesPerDay);
-
-        return $currentDay - $daysElapsed;
-    }
-
-    private function getLogCycle(\DateTime $logTime, Daedalus $daedalus): int
-    {
-        $cycleStartedAt = $daedalus->getCycleStartedAt();
-
-        if ($cycleStartedAt === null) {
-            return $daedalus->getCycle();
-        }
-
-        $nextCycleStartAt = clone $cycleStartedAt;
-        $nextCycleStartAt->add(new \DateInterval('PT' . $daedalus->getDaedalusConfig()->getCycleLength() . 'M'));
-
-        $cyclesElapsed = $this->cycleService->getNumberOfCycleElapsed($logTime, $nextCycleStartAt, $daedalus->getDaedalusInfo());
-        $currentCycle = $daedalus->getCycle() - 1;
-        $cyclesPerDay = $daedalus->getNumberOfCyclesPerDay();
-
-        return ((($currentCycle - $cyclesElapsed) % $cyclesPerDay) + $cyclesPerDay) % $cyclesPerDay + 1;
     }
 }

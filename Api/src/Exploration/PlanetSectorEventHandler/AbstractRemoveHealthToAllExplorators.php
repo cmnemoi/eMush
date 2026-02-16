@@ -37,7 +37,7 @@ abstract class AbstractRemoveHealthToAllExplorators extends AbstractPlanetSector
                 variableName: PlayerVariableEnum::HEALTH_POINT,
                 quantity: -$healthLost,
                 tags: $event->getTags(),
-                time: new \DateTime()
+                time: $event->getTime(),
             );
             $dispatchedEvents = array_merge(
                 $dispatchedEvents,

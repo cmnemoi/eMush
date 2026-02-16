@@ -73,7 +73,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
         $I->assertEquals(
             expected: [
                 'createdAt' => $this->exploration->getCreatedAt(),
-                'updatedAt' => $this->exploration->getLastVisitAt(),
+                'updatedAt' => $this->exploration->getLastVisitAtOrThrow(),
                 'cycleLength' => 10,
                 'planet' => [
                     'id' => $this->planet->getId(),
@@ -118,7 +118,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
                 'timer' => [
                     'name' => 'Prochain cycle',
                     'description' => 'Votre montre incassable affiche le temps qu\'il reste avant le prochain **Cycle**.//Vous gagnerez alors quelques précieux :pa::pm: selon votre état de santé.',
-                    'timerCycle' => (clone $this->exploration->getLastVisitAt())->modify('+10 minutes')->format(\DateTimeInterface::ATOM),
+                    'timerCycle' => (clone $this->exploration->getLastVisitAtOrThrow())->modify('+10 minutes')->format(\DateTimeInterface::ATOM),
                 ],
                 'uiElements' => [
                     'tips' => 'L\'exploration se déroule automatiquement. Toutes les 10 minutes, une nouvelle étape se déroule. Une fois parti, impossible de faire demi-tour.',
@@ -161,7 +161,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
         $I->assertEquals(
             expected: [
                 'createdAt' => $dummyExploration->getCreatedAt(),
-                'updatedAt' => $dummyExploration->getUpdatedAt(),
+                'updatedAt' => $dummyExploration->getLastVisitAtOrThrow(),
                 'cycleLength' => 10,
                 'planet' => [
                     'id' => $this->planet->getId(),

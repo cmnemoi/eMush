@@ -69,10 +69,12 @@ final class ExplorationService implements ExplorationServiceInterface
 
         $this->persist([$exploration]);
 
+        $createdAt = $exploration->instantiateLastVisitAt();
+
         $explorationEvent = new ExplorationEvent(
             exploration: $exploration,
             tags: $reasons,
-            time: new \DateTime(),
+            time: $createdAt,
         );
         $this->eventService->callEvent($explorationEvent, ExplorationEvent::EXPLORATION_STARTED);
 
@@ -166,6 +168,7 @@ final class ExplorationService implements ExplorationServiceInterface
         $dummyExploration = new Exploration($planet);
         $dummyExploration->setCreatedAt($closedExploration->getCreatedAt());
         $dummyExploration->setUpdatedAt($closedExploration->getUpdatedAt());
+        $dummyExploration->instantiateLastVisitAt();
 
         /** @var array<int, Player> $explorators */
         $explorators = $closedExploration

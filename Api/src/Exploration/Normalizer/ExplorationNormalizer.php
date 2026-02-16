@@ -56,7 +56,7 @@ final class ExplorationNormalizer implements NormalizerInterface, NormalizerAwar
 
         return [
             'createdAt' => $exploration->getCreatedAt(),
-            'updatedAt' => $exploration->getLastVisitAt(),
+            'updatedAt' => $exploration->getLastVisitAtOrThrow(),
             'cycleLength' => $exploration->getCycleLength(),
             'planet' => $this->normalizer->normalize($exploration->getPlanet(), $format, $context),
             'explorators' => $this->normalizeExplorators($exploration->getExplorators()),

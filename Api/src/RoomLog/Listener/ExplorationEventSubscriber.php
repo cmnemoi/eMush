@@ -56,6 +56,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                     visibility: VisibilityEnum::PRIVATE,
                     type: 'event_log',
                     player: $explorator,
+                    dateTime: $event->getTime(),
                 );
             }
         } elseif (
@@ -73,7 +74,8 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                     player: $explorator,
                     parameters: [
                         'exploration_link' => "<a href='{$explorationUrl}'>" . strtoupper($here) . '</a>',
-                    ]
+                    ],
+                    dateTime: $event->getTime(),
                 );
             }
         } else {
@@ -86,7 +88,8 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                     player: $explorator,
                     parameters: [
                         'exploration_link' => "<a href='{$explorationUrl}'>" . strtoupper($here) . '</a>',
-                    ]
+                    ],
+                    dateTime: $event->getTime(),
                 );
             }
         }

@@ -373,10 +373,21 @@ class Exploration
         return $this->getAliveExplorators()->getPlayersWithAnySkill([SkillEnum::TRAITOR, SkillEnum::U_TURN]);
     }
 
-    public function getLastVisitAt(): ?\DateTime
+    public function instantiateLastVisitAt(): \DateTime
+    {
+        $this->lastVisitAt = $this->getCreatedAt();
+
+        if ($this->lastVisitAt === null) {
+            throw new \RuntimeException('failed to instantiate lastVisitAt');
+        }
+
+        return $this->lastVisitAt;
+    }
+
+    public function getLastVisitAtOrThrow(): \DateTime
     {
         if ($this->lastVisitAt === null) {
-            $this->lastVisitAt = $this->getUpdatedAt();
+            throw new \RuntimeException('failed to get lastVisitAt');
         }
 
         return $this->lastVisitAt;
@@ -384,11 +395,7 @@ class Exploration
 
     public function advanceLastVisitAt(): \DateTime
     {
-        $lastVisitAt = $this->getLastVisitAt();
-
-        if ($lastVisitAt === null) {
-            throw new \LogicException('lastVisitAt should not be null to be advanced');
-        }
+        $lastVisitAt = $this->getLastVisitAtOrThrow();
 
         $lastVisitAt = clone $lastVisitAt;
 

@@ -5,6 +5,7 @@ namespace Mush\Tests\functional\Game\Service;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
+use Mush\RoomLog\Entity\RoomLog;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -52,6 +53,15 @@ final class DaedalusCycleChangeCest extends AbstractFunctionalTest
         $I->assertTrue($this->chun->isAlive());
         $I->assertFalse($this->daedalus->isCycleChange());
         $I->assertEquals($this->daedalus->getDay(), 7);
+
+        // then there should be a room log from randomly processed cycle in the middle
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $this->chun->getPlace()->getName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->chun->getPlayerInfo()->getId(),
+            'day' => 3,
+            'cycle' => 4,
+        ]);
     }
 
     public function testMultipleCycleChangeCallsTriggerItOnlyOnce(FunctionalTester $I): void

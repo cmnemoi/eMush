@@ -7,7 +7,8 @@ namespace Mush\tests\functional\Action\Actions;
 use Mush\Action\Actions\RemoveCamera;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
@@ -23,14 +24,14 @@ final class RemoveCameraCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private RemoveCamera $removeCamera;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private GameItem $camera;
+    private GameEquipment $camera;
     private Place $place;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::INSTALL_CAMERA->value]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::REMOVE_CAMERA->value]);
         $this->removeCamera = $I->grabService(RemoveCamera::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 
@@ -75,7 +76,7 @@ final class RemoveCameraCest extends AbstractFunctionalTest
     private function givenPlaceHasCamera(): void
     {
         $this->camera = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::CAMERA_ITEM,
+            equipmentName: EquipmentEnum::CAMERA_EQUIPMENT,
             equipmentHolder: $this->place,
             reasons: [],
             time: new \DateTime(),

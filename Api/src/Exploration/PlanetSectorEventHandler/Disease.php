@@ -45,7 +45,8 @@ final class Disease extends AbstractPlanetSectorEventHandler
 
         $disease = $this->diseaseCauseService->handleDiseaseForCause(
             cause: DiseaseCauseEnum::EXPLORATION,
-            player: $diseasedPlayer
+            player: $diseasedPlayer,
+            time: $event->getTime(),
         );
 
         $this->roomLogService->createLog(

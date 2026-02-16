@@ -87,7 +87,7 @@ final class PlayerSubscriber implements EventSubscriberInterface
             } else {
                 $cause = DiseaseCauseEnum::CYCLE;
             }
-            $this->diseaseCauseService->handleDiseaseForCause($cause, $player);
+            $this->diseaseCauseService->handleDiseaseForCause($cause, $player, 0, 0, $event->getTime());
         }
     }
 
@@ -117,7 +117,8 @@ final class PlayerSubscriber implements EventSubscriberInterface
                 DiseaseCauseEnum::INFECTION,
                 $player,
                 self::INFECTION_DISEASES_INCUBATING_DELAY,
-                self::INFECTION_DISEASES_INCUBATING_LENGTH
+                self::INFECTION_DISEASES_INCUBATING_LENGTH,
+                $event->getTime()
             );
         }
     }
@@ -173,7 +174,7 @@ final class PlayerSubscriber implements EventSubscriberInterface
                 parameters: ['character_gender' => $author->getGender()],
                 dateTime: $event->getTime()
             );
-            $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::TRAUMA, $author);
+            $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::TRAUMA, $author, 0, 0, $event->getTime());
         }
     }
 
@@ -199,7 +200,7 @@ final class PlayerSubscriber implements EventSubscriberInterface
                     parameters: ['character_gender' => $player->getGender()],
                     dateTime: $event->getTime()
                 );
-                $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::TRAUMA, $player);
+                $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::TRAUMA, $player, 0, 0, $event->getTime());
             }
         }
     }

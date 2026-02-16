@@ -243,7 +243,7 @@ final class PlayerSubscriberTest extends TestCase
 
         // then only author trauma is applied (once)
         $this->diseaseCauseService->shouldHaveReceived('handleDiseaseForCause')
-            ->with(DiseaseCauseEnum::TRAUMA, $author)
+            ->with(DiseaseCauseEnum::TRAUMA, $author, 0, 0, $playerEvent->getTime())
             ->once();
         $this->roomLogService->shouldHaveReceived('createLog')->once();
     }

@@ -218,7 +218,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
         /** @var Player $explorator */
         foreach ($fighters as $explorator) {
             if ($this->randomService->isSuccessful($diseaseChance)) {
-                $disease = $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::ALIEN_FIGHT, $explorator);
+                $disease = $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::ALIEN_FIGHT, $explorator, 0, 0, $event->getTime());
                 $this->roomLogService->createLog(
                     LogEnum::DISEASE_BY_ALIEN_FIGHT,
                     $explorator->getPlace(),

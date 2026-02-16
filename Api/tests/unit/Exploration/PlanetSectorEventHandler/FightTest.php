@@ -122,7 +122,7 @@ final class FightTest extends TestCase
 
         $this->diseaseCauseService->shouldReceive('handleDiseaseForCause')
             ->once()
-            ->withArgs([DiseaseCauseEnum::ALIEN_FIGHT, $planetSector->getPlanet()->getPlayer()])
+            ->withArgs([DiseaseCauseEnum::ALIEN_FIGHT, $planetSector->getPlanet()->getPlayer(), 0, 0, $event->getTime()])
             ->andReturn($disease);
 
         // When I handle the fight event

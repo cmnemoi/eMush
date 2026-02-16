@@ -75,13 +75,13 @@ final readonly class DiseaseCauseService implements DiseaseCauseServiceInterface
         return $causesConfigs->first();
     }
 
-    public function handleDiseaseForCause(string $cause, Player $player, int $delayMin = 0, int $delayLength = 0): PlayerDisease
+    public function handleDiseaseForCause(string $cause, Player $player, int $delayMin = 0, int $delayLength = 0, \DateTime $time = new \DateTime()): PlayerDisease
     {
         $diseasesProbaCollection = $this->findCauseConfigByDaedalus($cause, $player->getDaedalus())->getDiseases();
 
         $diseaseName = (string) $this->probaCollectionRandomElement->generateFrom($diseasesProbaCollection);
 
-        return $this->playerDiseaseService->createDiseaseFromName($diseaseName, $player, [$cause], $delayMin, $delayLength);
+        return $this->playerDiseaseService->createDiseaseFromName($diseaseName, $player, [$cause], $delayMin, $delayLength, $time);
     }
 
     public function giveAnyDisease(Player $player, int $delayMin = 0, int $delayLength = 0): PlayerDisease

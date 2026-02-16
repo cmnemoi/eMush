@@ -67,7 +67,8 @@ final class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         Player $player,
         array $reasons = [],
         int $delayMin = 0,
-        int $delayLength = 0
+        int $delayLength = 0,
+        \DateTime $time = new \DateTime()
     ): PlayerDisease {
         $diseaseConfig = $this->findDiseaseConfigByNameAndDaedalus($diseaseName, $player->getDaedalus());
 
@@ -83,8 +84,6 @@ final class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         if (($disease = $player->getMedicalConditionByName($diseaseName)) !== null) {
             return $disease;
         }
-
-        $time = new \DateTime();
 
         $disease = new PlayerDisease();
         $disease

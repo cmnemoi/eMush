@@ -1,3 +1,21 @@
+## [0.24.6](https://gitlab.com/eternaltwin/mush/mush/compare/0.24.5...0.24.6) (2026-02-16)
+
+
+### Bug Fixes
+
+* `Remove secretly` button is no longer visible for cameras in inventory and shelves ([139615d](https://gitlab.com/eternaltwin/mush/mush/commit/139615dbe6eff2bdbf7424f70b8a74de6df04389))
+* A group of players without means to communicate can no longer be in private channel with players outside the room ([3af085d](https://gitlab.com/eternaltwin/mush/mush/commit/3af085dd9b75e0a7356713408591118f293063f0))
+* diseases persisting after they are removed ([8ef0941](https://gitlab.com/eternaltwin/mush/mush/commit/8ef094122e8e1986850af7681100a771f343faab))
+* Fixed weapon use order: public log of an attack occurring, private log for the victim of health loss, eventual death. ([9bf0617](https://gitlab.com/eternaltwin/mush/mush/commit/9bf0617b1fd6af651496d16366210afb7efbed2b))
+* Logs are no longer in disarray after advancing multiple cycles ([21c4297](https://gitlab.com/eternaltwin/mush/mush/commit/21c42973ef46117ef631bc44bfdbfba59827e65b))
+* new Crowdin translations ([8ff1565](https://gitlab.com/eternaltwin/mush/mush/commit/8ff1565b19546431d0c25128978e6cf7600520a1))
+* new Crowdin translations ([12687b1](https://gitlab.com/eternaltwin/mush/mush/commit/12687b14b44676dfc79a4082fe2f1021898a57cd))
+* Saki can't get stuck in an infinite loop anymore ([b8b6d23](https://gitlab.com/eternaltwin/mush/mush/commit/b8b6d2360881a5672e9b5e3a1416e108ae0efd8e))
+* Set admin container to 100% width and use same css for all table's filter ([5202e1f](https://gitlab.com/eternaltwin/mush/mush/commit/5202e1f0a8aee565c77c8a5a1a9b0120d8044849))
+* Shrink gaining more than one morale from other shrinks ([226bf03](https://gitlab.com/eternaltwin/mush/mush/commit/226bf03159eb6f6dedade87cb083475911c7dd94))
+* The expedition popup now stay aligned with the game ([ed2252b](https://gitlab.com/eternaltwin/mush/mush/commit/ed2252bd30e51f098908ae0b36a364ee3da85f42))
+* Timestamping diseases ([c392709](https://gitlab.com/eternaltwin/mush/mush/commit/c392709346b180f4a68edc6db3b15c9cd428430b))
+
 ## [0.24.5](https://gitlab.com/eternaltwin/mush/mush/compare/0.24.4...0.24.5) (2026-02-09)
 
 

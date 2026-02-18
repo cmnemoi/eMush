@@ -73,7 +73,7 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
     #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'equipments')]
     protected ?Place $place = null;
 
-    #[ORM\ManyToOne(targetEntity: EquipmentConfig::class)]
+    #[ORM\ManyToOne(targetEntity: EquipmentConfig::class, inversedBy: 'equipmentsCollection')]
     protected EquipmentConfig $equipment;
 
     #[ORM\Id]

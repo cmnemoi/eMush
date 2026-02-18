@@ -60,11 +60,15 @@ class EquipmentConfig
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isPersonal = false;
 
+    #[ORM\OneToMany(mappedBy: 'equipment', targetEntity: GameEquipment::class, cascade: ['remove'])]
+    private Collection $equipmentsCollection;
+
     public function __construct()
     {
         $this->mechanics = new ArrayCollection();
         $this->actionConfigs = new ArrayCollection();
         $this->initStatuses = new ArrayCollection();
+        $this->equipmentsCollection = new ArrayCollection();
     }
 
     public static function fromConfigData(array $configData): self

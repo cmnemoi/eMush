@@ -43,6 +43,12 @@ class ShootHunterTask extends AbstractDroneTask
 
         $successRate = $drone->getShootHunterSuccessRate();
         if ($this->d100Roll->isAFailure($successRate)) {
+            $this->statusService->createOrIncrementChargeStatus(
+                name: EquipmentStatusEnum::DRONE_SHOOT_HUNTER_FAILED_ATTEMPTS,
+                holder: $drone,
+                time: $time,
+            );
+
             return;
         }
 

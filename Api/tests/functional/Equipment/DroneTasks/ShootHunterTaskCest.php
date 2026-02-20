@@ -198,6 +198,19 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->thenPatrolShipShouldHaveCharges(9, $I);
     }
 
+    public function shouldIncrementFailedAttemptsOnMiss(FunctionalTester $I): void
+    {
+        $this->givenDroneIsAPilot();
+
+        $this->givenOneAttackingHunter();
+
+        $this->givenPatrolShipAlwaysMisses();
+
+        $this->whenIExecuteShootHunterTask();
+
+        $this->thenDroneShouldHaveShootHunterFailedAttempts(1, $I);
+    }
+
     public function shouldNotBeApplicableIfOnlyTransportAreAroundDaedalus(FunctionalTester $I): void
     {
         $this->givenDroneIsAPilot();
@@ -335,6 +348,11 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
     private function thenPatrolShipShouldHaveCharges(int $expectedCharges, FunctionalTester $I): void
     {
         $I->assertEquals($expectedCharges, $this->patrolShip->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->getCharge());
+    }
+
+    private function thenDroneShouldHaveShootHunterFailedAttempts(int $expectedAttempts, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedAttempts, $this->drone->getChargeStatusByName(EquipmentStatusEnum::DRONE_SHOOT_HUNTER_FAILED_ATTEMPTS)?->getCharge() ?? 0);
     }
 
     private function setupDroneNicknameAndSerialNumber(Drone $drone, int $nickName, int $serialNumber): void

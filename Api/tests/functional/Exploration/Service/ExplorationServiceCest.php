@@ -427,6 +427,39 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         }
     }
 
+    public function testDispatchLandingEventAlwaysReturnsNothingToReportIfAntigravPropellerProjectIsFinished(FunctionalTester $I): void
+    {
+        // given Antigrav Propeller project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::ICARUS_ANTIGRAV_PROPELLER),
+            author: $this->chun,
+            I: $I,
+        );
+
+        // given an exploration is created without a pilot
+        $exploration = $this->explorationService->createExploration(
+            players: new PlayerCollection([$this->chun]),
+            explorationShip: $this->icarus,
+            numberOfSectorsToVisit: $this->planet->getSize(),
+            reasons: ['test'],
+        );
+
+        // when dispatchLandingEvent is called
+        $events = [];
+        for ($i = 0; $i < $exploration->getNumberOfSectionsToVisit(); ++$i) {
+            $exploration = $this->explorationService->dispatchLandingEvent($exploration);
+            $events[] = $exploration->getClosedExploration()->getLogs()->last()->getEventName();
+        }
+
+        // then the first event is always landing nothing to report
+        for ($i = 0; $i < $exploration->getNumberOfSectionsToVisit(); ++$i) {
+            $I->assertEquals(
+                expected: PlanetSectorEvent::NOTHING_TO_REPORT,
+                actual: $events[$i],
+            );
+        }
+    }
+
     public function testDispatchExplorationEventDoesNotDispatchAgainEventIfExplorationTeamHasACompass(FunctionalTester $I): void
     {
         // given a planet

@@ -277,6 +277,12 @@
         <target>always_successful_thanks_to_skill</target>
       </segment>
     </unit>
+    <unit id="always_successful_thanks_to_project">
+      <segment id="description" state="initial">
+        <source>always_successful_thanks_to_project</source>
+        <target>always_successful_thanks_to_project</target>
+      </segment>
+    </unit>
     <unit id="fight_prevented_by_item">
       <segment id="description" state="translated">
         <source>fight_prevented_by_item</source>

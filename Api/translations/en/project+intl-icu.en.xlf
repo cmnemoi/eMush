@@ -318,7 +318,7 @@
       </segment>
       <segment id="icarus_antigrav_propeller.description" state="translated">
         <source>icarus_antigrav_propeller.description</source>
-        <target>Increases your chances of successfully landing on a planet.</target>
+        <target>Landing on a planet is now always safe, even without a pilot.</target>
       </segment>
       <segment id="icarus_antigrav_propeller.lore" state="translated">
         <source>icarus_antigrav_propeller.lore</source>

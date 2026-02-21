@@ -302,6 +302,12 @@
         <target>Always succeeds because the expedition team has the skill: {skill}.</target>
       </segment>
     </unit>
+    <unit id="always_successful_thanks_to_project">
+      <segment id="description" state="translated">
+        <source>always_successful_thanks_to_project</source>
+        <target>Always succeeds thanks to the project: {project}.</target>
+      </segment>
+    </unit>
     <unit id="fight_prevented_by_item">
       <segment id="description" state="translated">
         <source>fight_prevented_by_item</source>

@@ -318,7 +318,7 @@
       </segment>
       <segment id="icarus_antigrav_propeller.description" state="translated">
         <source>icarus_antigrav_propeller.description</source>
-        <target>Aumenta tus probabilidades de éxito al aterrizar en planetas sin un Piloto.</target>
+        <target>El aterrizaje en un planeta ahora es siempre seguro, incluso sin piloto.</target>
       </segment>
       <segment id="icarus_antigrav_propeller.lore" state="translated">
         <source>icarus_antigrav_propeller.lore</source>

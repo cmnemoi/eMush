@@ -110,14 +110,19 @@ final class ExplorationService implements ExplorationServiceInterface
         $landingSectorConfig = $this->findPlanetSectorConfigBySectorName(PlanetSectorEnum::LANDING);
         $landingSector = new PlanetSector($landingSectorConfig, $planet);
 
-        if ($exploration->hasAPilotAlive()) {
+        if ($exploration->hasAPilotAlive() || $exploration->getDaedalus()->hasFinishedProject(ProjectName::ICARUS_ANTIGRAV_PROPELLER)) {
             $eventConfig = $this->findPlanetSectorEventConfigByName(PlanetSectorEvent::NOTHING_TO_REPORT);
 
             $planetSectorEvent = new PlanetSectorEvent(
                 planetSector: $landingSector,
                 config: $eventConfig,
             );
-            $planetSectorEvent->addTag('always_successful_thanks_to_pilot');
+
+            if ($exploration->getDaedalus()->hasFinishedProject(ProjectName::ICARUS_ANTIGRAV_PROPELLER)) {
+                $planetSectorEvent->addTag('always_successful_thanks_to_project');
+            } else {
+                $planetSectorEvent->addTag('always_successful_thanks_to_pilot');
+            }
         } else {
             $eventKey = $this->drawPlanetSectorEvent($landingSector, $exploration);
             $eventConfig = $this->findPlanetSectorEventConfigByName($eventKey);
@@ -215,7 +220,6 @@ final class ExplorationService implements ExplorationServiceInterface
     public function getPlanetSectorEventProbaCollection(PlanetSector $sector, Exploration $exploration): ProbaCollection
     {
         $sectorEvents = clone $sector->getExplorationEvents();
-        $daedalus = $exploration->getDaedalus();
 
         if ($exploration->hasAFunctionalCompass()) {
             $sectorEvents->remove(PlanetSectorEvent::AGAIN);
@@ -223,10 +227,6 @@ final class ExplorationService implements ExplorationServiceInterface
         if ($exploration->hasAFunctionalBabelModule() && $sector->getName() === PlanetSectorEnum::INTELLIGENT) {
             $newProbability = $sectorEvents->getElementProbability(PlanetSectorEvent::ARTEFACT) * 2;
             $sectorEvents->setElementProbability(PlanetSectorEvent::ARTEFACT, $newProbability);
-        }
-        if ($daedalus->hasFinishedProject(ProjectName::ICARUS_ANTIGRAV_PROPELLER) && $sector->getName() === PlanetSectorEnum::LANDING) {
-            $newProbability = $sectorEvents->getElementProbability(PlanetSectorEvent::NOTHING_TO_REPORT) * 2;
-            $sectorEvents->setElementProbability(PlanetSectorEvent::NOTHING_TO_REPORT, $newProbability);
         }
         if ($exploration->isSabotaged()) {
             /** @var string $eventKey */

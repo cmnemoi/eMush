@@ -320,6 +320,12 @@
         <target>Toujours réussi car l'expédition possède la compétence : {skill}.</target>
       </segment>
     </unit>
+    <unit id="always_successful_thanks_to_project">
+      <segment id="description" state="translated">
+        <source>always_successful_thanks_to_project</source>
+        <target>Toujours réussi grâce au projet : {project}.</target>
+      </segment>
+    </unit>
     <unit id="fight_prevented_by_item">
       <segment id="description" state="translated">
         <source>fight_prevented_by_item</source>

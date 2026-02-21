@@ -6,6 +6,7 @@ namespace Mush\Exploration\PlanetSectorEventHandler;
 
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Project\Enum\ProjectName;
 use Mush\Skill\Enum\SkillEnum;
 
 final class NothingToReport extends AbstractPlanetSectorEventHandler
@@ -38,6 +39,17 @@ final class NothingToReport extends AbstractPlanetSectorEventHandler
             );
 
             return '////' . $alwaysSuccessfulThanksToSkill;
+        }
+
+        if ($event->hasTag('always_successful_thanks_to_project')) {
+            $alwaysSuccessfulThanksToProject = $this->translationService->translate(
+                key: 'always_successful_thanks_to_project',
+                parameters: ['project' => ProjectName::ICARUS_ANTIGRAV_PROPELLER->value],
+                domain: 'planet_sector_event',
+                language: $language,
+            );
+
+            return '////' . $alwaysSuccessfulThanksToProject;
         }
 
         return null;

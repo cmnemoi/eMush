@@ -497,8 +497,8 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         // given NERON crew lock is not on piloting so non-pilots can take off
         $this->setNeronCrewLock(NeronCrewLockEnum::NULL);
 
-        // given takeoff action has a 75% critical rate
-        $this->action->setCriticalRate(75);
+        // given takeoff action has a 0% critical rate
+        $this->action->setCriticalRate(0);
 
         // given Bay Door XXL project is finished
         $this->finishProject(
@@ -516,7 +516,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         );
         $result = $this->takeoffAction->execute();
 
-        // then takeoff should always be a critical success thanks to increased chances
+        // then takeoff should always be a critical success thanks to Bay Door XXL overriding critical rate to 100%
         $I->assertInstanceOf(CriticalSuccess::class, $result);
     }
 

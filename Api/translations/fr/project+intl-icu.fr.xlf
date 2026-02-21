@@ -426,7 +426,7 @@
       </segment>
       <segment id="bay_door_xxl.description" state="translated">
         <source>bay_door_xxl.description</source>
-        <target>Les manœuvres de décollage et d’atterrissage sont beaucoup plus simples.</target>
+        <target>Les manœuvres de décollage et d’atterrissage n'occasionnent jamais de dégats aux patrouilleurs et au Daedalus.</target>
       </segment>
       <segment id="bay_door_xxl.lore" state="translated">
         <source>bay_door_xxl.lore</source>

@@ -426,7 +426,7 @@
       </segment>
       <segment id="bay_door_xxl.description" state="translated">
         <source>bay_door_xxl.description</source>
-        <target>Takeoff and landing maneuvers are much more straightforward.</target>
+        <target>Takeoff and landing maneuvers never cause damage to patrol ships or the Daedalus.</target>
       </segment>
       <segment id="bay_door_xxl.lore" state="translated">
         <source>bay_door_xxl.lore</source>

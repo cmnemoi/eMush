@@ -426,7 +426,7 @@
       </segment>
       <segment id="bay_door_xxl.description" state="translated">
         <source>bay_door_xxl.description</source>
-        <target>Las maniobras de despegue y aterrizaje son más simples para no-pilotos.</target>
+        <target>Las maniobras de despegue y aterrizaje nunca causan daños a las naves patrulla ni al Daedalus.</target>
       </segment>
       <segment id="bay_door_xxl.lore" state="translated">
         <source>bay_door_xxl.lore</source>

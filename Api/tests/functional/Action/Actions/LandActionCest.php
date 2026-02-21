@@ -377,8 +377,8 @@ final class LandActionCest extends AbstractFunctionalTest
 
     public function shouldHaveIncreasedChanceOfCriticalSuccessWithBayDoorXXLProject(FunctionalTester $I): void
     {
-        // given land action has a 75% critical rate
-        $this->action->setCriticalRate(75);
+        // given land action has a 0% critical rate
+        $this->action->setCriticalRate(0);
 
         // given Bay Door XXL project is finished
         $this->finishProject(
@@ -396,7 +396,7 @@ final class LandActionCest extends AbstractFunctionalTest
         );
         $result = $this->landAction->execute();
 
-        // then landing should always be a critical success thanks to increased chances
+        // then landing should always be a critical success thanks to Bay Door XXL overriding critical rate to 100%
         $I->assertInstanceOf(CriticalSuccess::class, $result);
     }
 

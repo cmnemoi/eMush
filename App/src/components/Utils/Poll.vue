@@ -8,7 +8,7 @@
             :class="{ selected: selectedOptions.indexOf(option.id) !== -1, voted: option.voted }"
             @click.stop="selectOption(option.id)"
         >
-            <div class="progress-bar" :style="{ width: getPercentage(option.id) + '%' }"></div>
+            <div v-if="poll.closed || poll.voted" class="progress-bar" :style="{ width: getPercentage(option.id) + '%' }"></div>
             <div class="vote-content">
                 <div class="vote-icon"></div>
                 <div class="vote-text">{{ option.name }}</div>
@@ -27,7 +27,7 @@
             {{$t('poll.vote') + ' (' + votesRemainings + ')' }}
         </button>
         <button
-            v-if="poll.voted"
+            v-if="poll.voted && !poll.closed"
             class="vote-button"
             @click.stop="removeVotes">
             {{ $t('poll.cancel') }}

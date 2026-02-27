@@ -63,6 +63,20 @@ describe('formatText', () => {
 
             expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules' target='_blank' rel='noopener noreferrer'>Règlement</a>");
         });
+        it('should replace [Règlement](https://emush.eternaltwin.org/(rules)) by a link (contains parenthesis)', () => {
+            const text = "[Règlement](https://emush.eternaltwin.org/(rules))";
+
+            const result = formatText(text);
+
+            expect(result).to.equal("<a href='https://emush.eternaltwin.org/(rules)' title='https://emush.eternaltwin.org/(rules)' target='_blank' rel='noopener noreferrer'>Règlement</a>");
+        });
+        it('should replace [[Règlement](https://emush.eternaltwin.org/rules)] by a link (inside a [...] block)]', () => {
+            const text = "[[Règlement](https://emush.eternaltwin.org/rules)]";
+
+            const result = formatText(text);
+
+            expect(result).to.equal("[<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules' target='_blank' rel='noopener noreferrer'>Règlement</a>]");
+        });
         it('should not replace [Unknown](https://unknown.host.org) by a link', () => {
             const text = "[Unknown](https://unknown.host.org)";
 

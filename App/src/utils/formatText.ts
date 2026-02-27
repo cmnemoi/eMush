@@ -1,6 +1,37 @@
 import sanitizeHtml from 'sanitize-html';
 import { emoteAliasesEnums, emoteIconEnums } from "@/enums/emotes.enum";
 
+/**
+ * Return a RegExp matching a URL.
+ *
+ * Handle both markdown-style links (e.g [Mushpedia](https://mushpedia.com)) and
+ * direct links (e.g. https://emush.eternaltwin.org/news) to known hosts.
+ *
+ * Handle parenthesis pairs in the path component of the URL.
+ */
+function getMarkdownLinkRegex() {
+    const knownHosts = [
+        "localhost",
+        "emush.eternaltwin.org",
+        "staging.emush.eternaltwin.org",
+        "emushpedia.miraheze.org",
+        "www.mushpedia.com",
+        "gitlab.com",
+        "eternaltwin.org"
+    ];
+
+    // Regex components
+    const knownHostsRegex = "(?:(?:" + knownHosts.map(regexEscape).join(")|(?:") + "))";
+    const textUrl = String.raw`\[([^\[\]]+)\]`;
+    const path = String.raw`[^;:<>!\]\[?.\s\)\(]*`;
+    const allowParenthesisPair = String.raw`(?:(?:${path})|(?:\(${path}\)))*`;
+    const url = String.raw`(https?:\/\/${knownHostsRegex}${allowParenthesisPair})`;
+    const markdownUrl = String.raw`${textUrl}\(${url}\)`;
+
+    return new RegExp(String.raw`(?:${markdownUrl})|(?:${url})`, "gim");
+}
+
+
 function markdownLinkSubstitution(_: string, p1: string, p2: string, p3: string): string {
     if (!p1) {
         // Direct link
@@ -19,6 +50,7 @@ function emoteSubstitution(substring: string, p1: string): string {
     return substring;
 }
 
+
 export function regexEscape(text: string): string {
     return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -36,23 +68,7 @@ export function formatText(text: string|null): string {
         }
     });
 
-    // Handle both markdown-style links (e.g [Mushpedia](https://mushpedia.com))
-    // and direct links (e.g. https://emush.eternaltwin.org/news) to known hosts.
-    const knownHosts = [
-        "localhost",
-        "emush.eternaltwin.org",
-        "staging.emush.eternaltwin.org",
-        "emushpedia.miraheze.org",
-        "www.mushpedia.com",
-        "gitlab.com",
-        "eternaltwin.org"
-    ];
-    const knowHostsRegex = "(?:(?:" + knownHosts.map(regexEscape).join(")|(?:") + "))";
-    const markdownLinkRegex = new RegExp(
-        String.raw`\[([^\]]+)\]\((https?:\/\/${knowHostsRegex}[^;:<>!?.\s\n)\]"]*)\)|(https?:\/\/${knowHostsRegex}[^;:<>!?.\s\n)\]\['"]*)`,
-        "gim"
-    );
-
+    const markdownLinkRegex = getMarkdownLinkRegex();
     formattedText = formattedText.replace(/(?<!http:|https:)\/\//g, '<br>');
     formattedText = formattedText.replace(/ {2,}/g, ' ');
     formattedText = formattedText.replace(/<br> /g, '<br>');

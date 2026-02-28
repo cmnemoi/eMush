@@ -1831,7 +1831,9 @@ Not entirely fluid, not entirely solid, its viscosity has no equal save its powe
       </segment>
       <segment id="description" state="translated">
         <source>bandage.description</source>
-        <target>Used for first aid, and more besides...</target>
+        <target>Used for first aid, and more besides...
+        //
+        Can be used during expedition.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>bandage.examine</source>

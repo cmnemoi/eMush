@@ -91,7 +91,7 @@ class PlayerController extends AbstractGameController
         // Always needed so any player triggers exploration steps : do not remove it!
         // Please increment the number of times you tried to implement an automated test at API level to remove this comment but failed
         // Counter: 3
-        $this->handleExplorationCycleChange($player);
+        $this->handleCycleChange($player);
 
         $context = new Context();
         $context->setAttribute('currentPlayer', $player);
@@ -411,14 +411,9 @@ class PlayerController extends AbstractGameController
         return $this->view(['detail' => 'Notification deleted successfully'], Response::HTTP_OK);
     }
 
-    private function handleExplorationCycleChange(Player $player): void
+    private function handleCycleChange(Player $player): void
     {
         $daedalus = $player->getDaedalus();
-        if ($daedalus->isExplorationChangingCycle()) {
-            throw new HttpException(Response::HTTP_CONFLICT, 'Exploration is changing cycle');
-        }
-        if ($daedalus->hasOngoingExploration()) {
-            $this->cycleService->handleExplorationCycleChange(new \DateTime(), $daedalus->getExploration());
-        }
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
     }
 }

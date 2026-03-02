@@ -26,7 +26,7 @@ export const AlertsIcons: {[index: string]: string} = {
     [AlertEnum.GRAVITY_REBOOT]: getImgUrl('alerts/simulator_reboot.png'),
     [AlertEnum.HUNGER]: getImgUrl('alerts/hunger.png'),
     [AlertEnum.HUNTER]: getImgUrl('alerts/hunter.png'),
-    [AlertEnum.OUTCAST]: getImgUrl('status/unsociable.png'),
+    [AlertEnum.OUTCAST]: getImgUrl('status/hammer.png'),
     [AlertEnum.COMMUNICATIONS_DOWN]: getImgUrl('alerts/comm.png')
 }
 ;

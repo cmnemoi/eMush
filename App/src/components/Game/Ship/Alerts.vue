@@ -72,6 +72,7 @@ $redAlert: #ff4e64;
 
 .daedalus-state {
     display: flex;
+    align-items: center;
     flex-direction: row;
     gap: 10px;
     width: auto;

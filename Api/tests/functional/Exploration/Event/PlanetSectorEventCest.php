@@ -78,6 +78,11 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             );
         }
 
+        // given every player has enough health to survive damaging events
+        foreach ($this->players as $player) {
+            $player->setHealthPoint(14);
+        }
+
         // given Janice is lost
         $this->givenLostPlayer($this->janice);
     }
@@ -216,6 +221,11 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             events: [PlanetSectorEvent::DISASTER_3_5 => 1]
         );
 
+        $chunHealthBeforeEvent = $this->chun->getHealthPoint();
+        $kuanTiHealthBeforeEvent = $this->kuanTi->getHealthPoint();
+        $janiceHealthBeforeEvent = $this->janice->getHealthPoint();
+        $derekHealthBeforeEvent = $this->derek->getHealthPoint();
+
         // when an exploration is created, the disaster event is dispatched
         $this->createExploration(
             planet: $this->createPlanet([PlanetSectorEnum::OXYGEN], $I),
@@ -223,12 +233,22 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
 
         // then all explorators health is decreased, even if lost or stuck in the ship
-        foreach ($this->players as $player) {
-            $I->assertLessThan(
-                expected: $player->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
-                actual: $player->getHealthPoint(),
-            );
-        }
+        $I->assertLessThan(
+            expected: $chunHealthBeforeEvent,
+            actual: $this->chun->getHealthPoint(),
+        );
+        $I->assertLessThan(
+            expected: $kuanTiHealthBeforeEvent,
+            actual: $this->kuanTi->getHealthPoint(),
+        );
+        $I->assertLessThan(
+            expected: $janiceHealthBeforeEvent,
+            actual: $this->janice->getHealthPoint(),
+        );
+        $I->assertLessThan(
+            expected: $derekHealthBeforeEvent,
+            actual: $this->derek->getHealthPoint(),
+        );
     }
 
     public function testDisasterKillsPlayerWithTheRightDeathCause(FunctionalTester $I): void
@@ -842,11 +862,6 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $exploration = $this->createExploration(
             planet: $this->createPlanet([PlanetSectorEnum::INSECT], $I),
             explorators: $this->players
-        );
-
-        $this->givenOnlyThisEventCanHappenInSector(
-            event: 'fight_1',
-            sector: PlanetSectorEnum::INTELLIGENT,
         );
 
         $this->givenEveryoneHasZeroTriumph();

@@ -44,7 +44,7 @@ final class UserShipsHistoryQueryHandlerCest extends AbstractFunctionalTest
     {
         // given
         $closedDaedalus = $this->daedalus->getDaedalusInfo()->getClosedDaedalus();
-        $closedDaedalus->setFinishedAt(new \DateTime('now'))->markAsCheater();
+        $closedDaedalus->setFinishedAt(new \DateTime('now'))->switchIsCheater();
         $this->kuanTi->getPlayerInfo()->getClosedPlayer()->setClosedDaedalus($closedDaedalus);
         $I->haveInRepository($this->kuanTi->getPlayerInfo()->getClosedPlayer());
 

@@ -156,7 +156,7 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
 
     public function shouldNotClearPendingStatisticsAfterDaedalusEndIfCheater(FunctionalTester $I): void
     {
-        $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->markAsCheater();
+        $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->switchIsCheater();
 
         // given user1 has 2 cycles as chun
         $this->givenPlayerHasLivedCycles(2, $this->chun);

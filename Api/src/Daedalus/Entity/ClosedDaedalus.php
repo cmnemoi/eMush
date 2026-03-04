@@ -215,9 +215,9 @@ class ClosedDaedalus
         return $this->isCheater;
     }
 
-    public function markAsCheater(): void
+    public function switchIsCheater(): void
     {
-        $this->isCheater = true;
+        $this->isCheater = !$this->isCheater();
     }
 
     public function getIsCheater(): bool

@@ -15,7 +15,7 @@ final readonly class MarkDaedalusAsCheaterCommandHandler
     public function execute(MarkDaedalusAsCheaterCommand $command): void
     {
         $closedDaedalus = $this->closedDaedalusRepository->findOneByIdOrThrow($command->closedDaedalusId);
-        $closedDaedalus->markAsCheater();
+        $closedDaedalus->switchIsCheater();
         $this->closedDaedalusRepository->save($closedDaedalus);
     }
 }

@@ -98,6 +98,11 @@ final class WeaponEffect extends AbstractGameEvent
         $this->damageSpread = new DamageSpread($this->damageSpread->min, $this->damageSpread->max + $this->getQuantity());
     }
 
+    public function modifyMaxDamageBy(int $quantity): void
+    {
+        $this->damageSpread = new DamageSpread($this->damageSpread->min, $this->damageSpread->max + $quantity);
+    }
+
     public function modifyDamage(): void
     {
         $this->damageSpread = new DamageSpread($this->damageSpread->min + $this->getQuantity(), $this->damageSpread->max + $this->getQuantity());

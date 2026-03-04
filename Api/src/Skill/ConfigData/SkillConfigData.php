@@ -436,9 +436,6 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::SOLID,
-                modifierConfigs: [
-                    ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT,
-                ],
                 actionConfigs: [
                     ActionEnum::PUT_THROUGH_DOOR,
                 ],
@@ -509,9 +506,6 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::WRESTLER,
-                modifierConfigs: [
-                    ModifierNameEnum::PLAYER_PLUS_2_DAMAGE_ON_HIT,
-                ],
                 actionConfigs: [
                     ActionEnum::PUT_THROUGH_DOOR,
                 ],

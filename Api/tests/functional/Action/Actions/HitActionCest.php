@@ -207,36 +207,6 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->thenHitActionSuccessRateShouldBe(45, $I);
     }
 
-    public function solidPlayerShouldDoMoreDamage(FunctionalTester $I): void
-    {
-        $this->givenHitActionHasSuccessRate(100);
-
-        $this->givenKuanTiHasHealthPoint(10);
-
-        $this->givenChunHasSolidSkill();
-
-        $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
-
-        $this->whenChunHitsKuanTi();
-
-        $this->thenKuanTiShouldHaveExactlyHealthPoint(8, $I);
-    }
-
-    public function wrestlerPlayerShouldDoMoreDamage(FunctionalTester $I): void
-    {
-        $this->givenHitActionHasSuccessRate(100);
-
-        $this->givenKuanTiHasHealthPoint(10);
-
-        $this->givenChunHasWrestlerSkill();
-
-        $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
-
-        $this->whenChunHitsKuanTi();
-
-        $this->thenKuanTiShouldHaveExactlyHealthPoint(7, $I);
-    }
-
     public function shouldNotBeVisibleIfPlayerHasAKnife(FunctionalTester $I): void
     {
         $this->givenKuanTiHasAKnife();
@@ -297,7 +267,7 @@ final class HitActionCest extends AbstractFunctionalTest
 
         $this->whenChunHitsKuanTi();
 
-        $this->thenKuanTiShouldHaveExactlyHealthPoint(7, $I);
+        $this->thenKuanTiShouldHaveMoreOrEqualThanHealthPoint(7, $I);
     }
 
     public function shouldPrintSpecialLogWhenDamageIsAbsorbedByArmor(FunctionalTester $I): void

@@ -14,6 +14,7 @@ enum WeaponEffectEnum: string
     case INFLICT_RANDOM_INJURY = 'inflict_random_injury';
     case MODIFY_DAMAGE = 'modify_damage';
     case MODIFY_MAX_DAMAGE = 'modify_max_damage';
+    case MODIFY_MAX_DAMAGE_FROM_SKILLED_ATTACKER = 'modify_max_damage_from_skilled_attacker';
     case ONE_SHOT = 'one_shot';
     case REMOVE_ACTION_POINTS = 'remove_action_points';
     case MULTIPLY_DAMAGE_ON_MUSH_TARGET = 'multiply_damage_on_mush_target';
@@ -39,6 +40,7 @@ enum WeaponEffectEnum: string
     // modify max damage effects
     case ADD_TWO_MAX_DAMAGE = 'add_two_max_damage';
     case REMOVE_EIGHT_DAMAGE = 'remove_eight_damage';
+    case ADD_SKILL_MAX_DAMAGE = 'add_skill_max_damage';
 
     // inflict specific injuries effects
     case INFLICT_BURST_NOSE_INJURY_TO_TARGET_10_PERCENTS = 'inflict_burst_nose_injury_to_target_10_percents';

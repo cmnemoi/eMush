@@ -1014,6 +1014,9 @@ class EventConfigData
                 name: WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString(),
                 eventName: WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString(),
                 eventType: WeaponEventType::NORMAL,
+                effectKeys: [
+                    WeaponEffectEnum::ADD_SKILL_MAX_DAMAGE->toString(),
+                ]
             ),
             new WeaponEventConfigDto(
                 name: WeaponEventEnum::BARE_HANDS_PLUS_1_DAMAGE->toString(),
@@ -1021,6 +1024,7 @@ class EventConfigData
                 eventType: WeaponEventType::CRITIC,
                 effectKeys: [
                     WeaponEffectEnum::ADD_ONE_DAMAGE->toString(),
+                    WeaponEffectEnum::ADD_SKILL_MAX_DAMAGE->toString(),
                 ]
             ),
             new WeaponEventConfigDto(
@@ -1029,6 +1033,7 @@ class EventConfigData
                 eventType: WeaponEventType::CRITIC,
                 effectKeys: [
                     WeaponEffectEnum::INFLICT_BURST_NOSE_INJURY_TO_TARGET_10_PERCENTS->toString(),
+                    WeaponEffectEnum::ADD_SKILL_MAX_DAMAGE->toString(),
                 ]
             ),
             new WeaponEventConfigDto(
@@ -1259,6 +1264,11 @@ class EventConfigData
                 name: WeaponEffectEnum::ADD_TWO_MAX_DAMAGE->toString(),
                 eventName: WeaponEffectEnum::MODIFY_MAX_DAMAGE->toString(),
                 quantity: 2,
+            ),
+            new ModifyMaxDamageWeaponEffectConfigDto(
+                name: WeaponEffectEnum::ADD_SKILL_MAX_DAMAGE->toString(),
+                eventName: WeaponEffectEnum::MODIFY_MAX_DAMAGE_FROM_SKILLED_ATTACKER->toString(),
+                quantity: 0,
             ),
             new BreakWeaponEffectConfigDto(
                 name: WeaponEffectEnum::BREAK_WEAPON->toString(),

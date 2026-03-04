@@ -219,6 +219,7 @@ final class GoBerserkCest extends AbstractFunctionalTest
         $baseDamage = $this->whenKuanTiHitsChun()->getDetails()['baseDamage'];
 
         $this->thenChunShouldHaveHealthPointsOfAmount($initialHealthPoint - ($baseDamage + 1), $I);
+        $this->thenChunShouldHaveHealthInRange($initialHealthPoint - 4, $initialHealthPoint - 2, $I);
 
         $this->thenKuanTiShouldHaveMutateDamageStatisticAt($baseDamage + 1, $I);
     }
@@ -236,6 +237,7 @@ final class GoBerserkCest extends AbstractFunctionalTest
         $baseDamage = $this->whenKuanTiHitsChun()->getDetails()['baseDamage'];
 
         $this->thenChunShouldHaveHealthPointsOfAmount($initialHealthPoint - ($baseDamage + 1), $I);
+        $this->thenChunShouldHaveHealthInRange($initialHealthPoint - 4, $initialHealthPoint - 2, $I);
 
         $this->thenKuanTiShouldHaveMutateDamageStatisticAt($baseDamage + 1, $I);
     }
@@ -528,6 +530,12 @@ final class GoBerserkCest extends AbstractFunctionalTest
     private function thenChunShouldHaveHealthPointsOfAmount(int $expectedHealthPoints, FunctionalTester $I): void
     {
         $I->assertEquals($expectedHealthPoints, $this->chun->getVariableValueByName(PlayerVariableEnum::HEALTH_POINT));
+    }
+
+    private function thenChunShouldHaveHealthInRange(int $min, int $max, FunctionalTester $I): void
+    {
+        $I->assertLessOrEquals($max, $this->chun->getHealthPoint());
+        $I->assertGreaterOrEquals($min, $this->chun->getHealthPoint());
     }
 
     private function thenKuanTiShouldHaveHealthPointsOfAmount(int $expectedHealthPoints, FunctionalTester $I): void

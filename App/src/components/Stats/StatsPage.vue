@@ -1,9 +1,7 @@
 <template>
-    <StatsBanner />
-    <div class="admin-container">
-        <div class="box-container">
-            <router-view></router-view>
-        </div>
+    <div class="box-container">
+        <StatsBanner />
+        <router-view></router-view>
     </div>
 </template>
 
@@ -20,10 +18,3 @@ export default defineComponent ({
 
 </script>
 
-<style lang="scss" scoped>
-
-.box-container {
-    margin-top: 0;
-}
-
-</style>

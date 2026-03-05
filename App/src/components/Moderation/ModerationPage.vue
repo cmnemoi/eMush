@@ -1,6 +1,6 @@
 <template>
-    <ModerationBanner />
     <div class="box-container">
+        <ModerationBanner />
         <router-view></router-view>
     </div>
 </template>
@@ -19,8 +19,3 @@ export default defineComponent ({
 
 </script>
 
-<style lang="scss" scoped>
-    .box-container {
-        margin-top: 0;
-    }
-</style>

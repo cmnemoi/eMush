@@ -8,9 +8,11 @@
                 </button>
             </div>
         </div>
-        <h2 class="full-row">{{ $t('biography.pageTitle') }}</h2>
-        <CharacterBiographyDetails class="details" :character-name="characterName" :details="details" />
-        <CharacterBiographyTimeLine class="timeline" :bio="biography" />
+        <h2>{{ $t('biography.pageTitle') }}</h2>
+        <div class="biography-container">
+            <CharacterBiographyTimeLine :bio="biography" />
+            <CharacterBiographyDetails class="details" :character-name="characterName" :details="details" />
+        </div>
     </div>
 </template>
 
@@ -47,57 +49,29 @@ watch([characterName, language], () => {
 const goToCharacter = (character: CharacterEnum) => {
     router.push({ name: "CharacterBiographyView", params: { characterName: character } });
 };
-
 </script>
 
-<style scoped>
-.full-row {
-    grid-column: 1 / -1;
-    margin-bottom: auto;
-    margin-top: 0.4rem;
-    order: 1;
-}
-
-.box-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-}
-
+<style scoped lang="scss">
 .navigation-bar {
-    grid-column: 1 / -1;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
     gap: 0.5rem;
     padding: 6px 0;
-    margin: 0;
-    min-height: 45px;
-    box-sizing: border-box;
-    order: 0;
 }
 
-.details {
-    order: 2;
-}
+.biography-container {
+    flex-direction:row;
+    gap: 1rem;
 
-.timeline {
-    order: 3;
-}
-
-@media (min-width: 768px) {
-    .box-container {
-        grid-template-columns: 1fr 250px;
+    @media screen and (max-width: $breakpoint-desktop-s) {
+        flex-direction: column-reverse;
     }
 
     .details {
-        order: 3;
-    }
-
-    .timeline {
-        order: 2;
+        flex: 0;
+        min-width: 270px;
     }
 }
 </style>

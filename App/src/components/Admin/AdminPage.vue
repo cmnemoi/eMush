@@ -1,9 +1,7 @@
 <template>
-    <AdminBanner />
-    <div class="admin-container">
-        <div class="box-container">
-            <router-view></router-view>
-        </div>
+    <div class="box-container">
+        <AdminBanner />
+        <router-view></router-view>
     </div>
 </template>
 
@@ -17,15 +15,4 @@ export default defineComponent ({
         AdminBanner
     }
 });
-
 </script>
-
-<style lang="scss" scoped>
-
-.box-container {
-    margin-top: 0;
-    max-width: 1080px;
-    width: 100%;
-}
-
-</style>

@@ -22,9 +22,9 @@
                 v-for="(character, key) in characters"
                 :key="key"
                 class="char"
-                @click="selectedCharacter = character; characterSelected = true;"
-                @mouseenter="hoveredCharacter = character; characterHovered = true; "
-                @mouseleave="characterHovered = false"
+                @click="selectedCharacter = character"
+                @mouseenter="hoveredCharacter = character"
+                @mouseleave="hoveredCharacter = null"
             >
                 <div class="header">
                     <p class="level">{{ character.level }}</p>
@@ -41,30 +41,15 @@
                 </div>
             </section>
         </div>
-        <span class="more-info" v-if="characters.length > 0 && !characterHovered && !characterSelected">
+        <span class="more-info" v-if="characters.length > 0 && !displayedCharacter">
             {{ $t('charSelection.moreInfo') }}
         </span>
-        <div class="banner" v-if="!error">
-            <div class="skills" v-if="characterHovered">
+        <div class="char-details" v-if="!error && displayedCharacter">
+            <div class="skills">
                 <Tippy
                     tag="div"
                     class="skill"
-                    v-for="skill in hoveredCharacter?.skills"
-                    :key="skill.name"
-                >
-                    <img :src="skillIcon(skill.key)" :alt="skill.name">
-                    <p>{{ skill.name }}</p>
-                    <template #content>
-                        <h1 v-html="formatText(skill.name)" />
-                        <p v-html="formatText(skill.description)" />
-                    </template>
-                </Tippy>
-            </div>
-            <div class="skills" v-else-if="characterSelected">
-                <Tippy
-                    tag="div"
-                    class="skill"
-                    v-for="skill in selectedCharacter?.skills"
+                    v-for="skill in displayedCharacter.skills"
                     :key="skill.name"
                 >
                     <img :src="skillIcon(skill.key)" :alt="skill.name">
@@ -76,21 +61,18 @@
                 </Tippy>
             </div>
             <div class="description">
-                <p v-if="characterHovered">
-                    {{ hoveredCharacter?.abstract }}
-                </p>
-                <p v-else-if="characterSelected">
-                    {{ selectedCharacter?.abstract }}
-                    <router-link class="link" :to="`biography/${selectedCharacter?.key}`">
-                        <p>{{ $t('biography.readCharacterBiography', { characterName: selectedCharacter?.name }) }}</p>
+                <p>
+                    {{ displayedCharacter?.abstract }}
+                    <router-link class="link" :to="`biography/${displayedCharacter?.key}`">
+                        <p>{{ $t('biography.readCharacterBiography', { characterName: displayedCharacter?.name }) }}</p>
                     </router-link>
                 </p>
             </div>
-            <div class="gamestart" v-if="selectedCharacter">
+            <div class="gamestart" v-if="displayedCharacter == selectedCharacter">
                 <p class="choice">
-                    {{ $t("charSelection.youChoose") }} <strong>{{ characterCompleteName(selectedCharacter) }}</strong>.
+                    {{ $t("charSelection.youChoose") }} <strong>{{ characterCompleteName(displayedCharacter) }}</strong>.
                 </p>
-                <a class="start" href="#" @click="selectCharacter(selectedCharacter)"><span>{{ $t("charSelection.startGame") }}</span></a>
+                <a class="start" href="#" @click="selectCharacter(displayedCharacter)"><span>{{ $t("charSelection.startGame") }}</span></a>
             </div>
         </div>
     </div>
@@ -142,10 +124,8 @@ export default defineComponent ({
             characters: Array<SelectableCharacter>(),
             daedaluses: Array<any>(),
             daedalusName: '',
-            characterHovered: false,
-            hoveredCharacter: null,
-            characterSelected: false,
-            selectedCharacter: null,
+            hoveredCharacter: null as SelectableCharacter | null,
+            selectedCharacter: null as SelectableCharacter | null,
             error: null as any,
             languages: gameLocales,
             selectedLanguage: ''
@@ -155,7 +135,10 @@ export default defineComponent ({
         ...mapGetters({
             getUserInfo: 'auth/getUserInfo',
             notificationsCount: 'notifications/notificationsCount'
-        })
+        }),
+        displayedCharacter (): SelectableCharacter | null {
+            return this.hoveredCharacter ?? this.selectedCharacter;
+        }
     },
     methods: {
         loadAvailableCharacters(language: string) {
@@ -188,9 +171,7 @@ export default defineComponent ({
             this.selectedLanguage = language;
         },
         resetValues: function() {
-            this.characterHovered = false;
             this.hoveredCharacter = null;
-            this.characterSelected = false;
             this.selectedCharacter = null;
         },
         selectCharacter: function(character: SelectableCharacter) {
@@ -217,21 +198,8 @@ export default defineComponent ({
 @use "sass:color";
 
 .selected {
-	box-shadow: $orange 0px 0px 8px;
+    box-shadow: $orange 0px 0px 8px;
 }
-
-.box-container {
-    justify-content: stretch;
-    min-height: 625px;
-}
-
-h1 {
-    flex-flow: row wrap;
-    margin: 15px;
-    font-size: 1.5em;
-    font-variant: small-caps;
-}
-
 
 .daedalus-selection {
     display: flex;
@@ -361,10 +329,9 @@ h1 {
     }
 }
 
-.banner {
+.char-details {
     flex-flow: row wrap;
     justify-content: flex-start;
-    // font-size: .85em;
 
     & > * {
         flex: 1;
@@ -433,7 +400,7 @@ h1 {
 
             &::before, &::after {
                 content:"";
-                width: 35px;
+                width: 36px;
                 height: 100%;
                 background: transparent url('/src/assets/images/big-button-side.png') center no-repeat;
             }
@@ -447,6 +414,3 @@ h1 {
 }
 
 </style>
-
-
-

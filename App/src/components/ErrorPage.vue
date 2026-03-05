@@ -1,14 +1,15 @@
 <template>
     <div class="box-container">
-        <h1 class="title">{{ title || $t("errors.title") }}</h1>
-        <div class="error-container">
+        <h1>{{ title || $t("errors.title") }}</h1>
+        <div class="flex-row">
             <img class="neron-img" :src="getImgUrl('neron_eye.gif')" alt="Neron">
-            <span class="neron-message" v-html="$t('errors.neronMessage')"></span>
-            <p class="error">{{ errorMessage }}</p>
-            <p class="community" v-html="$t('errors.consultCommunity')"></p>
+            <div class="neron-message">
+                <span v-html="$t('errors.neronMessage')"></span>
+                <p class="error">{{ errorMessage }}</p>
+            </div>
         </div>
+        <p class="community" v-html="$t('errors.consultCommunity')"></p>
     </div>
-
 </template>
 
 <script lang="ts">
@@ -34,43 +35,28 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.box-container {
-    :deep(strong) {
-        color: $cyan;
-    }
+:deep(strong) {
+    color: $cyan;
+}
 
-    :deep(a) {
-        color: $green;
-    }
+:deep(a) {
+    color: $green;
+}
 
-    .title {
-        font-size: 17pt;
-        margin-bottom: 15px;
-    }
+.neron-img {
+    float: left;
+    width: 100px;
+    height: 100px;
+}
 
-    .error-container {
-        display: block;
-        margin: 5px 0 10px 0;
-        font-size: 11pt;
+.neron-message {
+    flex-direction: column;
+    font-size: 11pt;
 
-        .neron-img {
-            float: left;
-            width: 100px;
-            height: 100px;
-            margin-right: 10px;
-        }
-
-        .neron-message {
-            display: inline;
-        }
-
-        .error {
-            margin: 10px 10px;
-            margin-left: 110px;
-            padding: 5px 10px;
-            border: 1px solid $red;
-            background-color: #222b6b;
-        }
+    .error {
+        padding: 5px 10px;
+        border: 1px solid $red;
+        background-color: #222b6b;
     }
 }
 </style>

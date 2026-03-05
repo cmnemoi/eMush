@@ -102,13 +102,6 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
-
-.box-container {
-    margin-top: 8px;
-    position: relative;
-    min-height: 424px;
-}
-
 .game-content {
     display: grid;
     gap: 6px;

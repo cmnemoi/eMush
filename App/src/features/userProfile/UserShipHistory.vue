@@ -157,7 +157,7 @@ watch(route, () => loadData());
 
 <style lang="scss" scoped>
 .user-profile-ships-container {
-    padding: 20px;
+    padding: 0 20px;
 }
 
 .router {

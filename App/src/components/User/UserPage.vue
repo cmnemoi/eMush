@@ -1,14 +1,12 @@
 <template>
-    <div class="User-container">
-        <div class="box-container">
-            <h2>{{ $t('userProfile.pageTitle', { user: user.username }) }}</h2>
-            <div class="user-content-layout">
-                <div class="user-ships-section">
-                    <UserShipHistory  />
-                </div>
-                <div class="user-sidebar">
-                    <UserAchievements />
-                </div>
+    <div class="box-container">
+        <h1>{{ $t('userProfile.pageTitle', { user: user.username }) }}</h1>
+        <div class="user-content-layout">
+            <div class="user-ships-section">
+                <UserShipHistory  />
+            </div>
+            <div class="user-sidebar">
+                <UserAchievements />
             </div>
         </div>
     </div>

@@ -159,7 +159,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             'actions_log',
             $player,
             [
-                $player->getLogKey() => $player->getLogName(),
+                $player->getLogKey() => $player->getAnonymousKeyOrLogName(),
                 ...$this->getPatrolShipLogParameters($player, $patrolShip),
             ],
             $event->getTime()
@@ -179,7 +179,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             'actions_log',
             $player,
             [
-                $player->getLogKey() => $player->getLogName(),
+                $player->getLogKey() => $player->getAnonymousKeyOrLogName(),
                 ...$this->getPatrolShipLogParameters($player, $patrolShip),
             ],
             $event->getTime()

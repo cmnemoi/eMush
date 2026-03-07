@@ -1,5 +1,9 @@
 <template>
-    <div v-if="isOpen" id="login-modal" class="modal-background">
+    <div
+        v-if="isOpen"
+        id="login-modal"
+        class="modal-background"
+        @mousedown.prevent>
         <div class="modal-box">
             <button class="modal-close" @click="close">
                 {{ $t('game.popUp.close') }}

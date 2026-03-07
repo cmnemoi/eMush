@@ -13,6 +13,8 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
     private int $logLevel;
     private string $environmentName;
 
+    private array $excludedExceptions = [];
+
     public function __construct(HttpClientInterface $httpClient)
     {
         parent::__construct();
@@ -35,8 +37,16 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
         $this->environmentName = $envName;
     }
 
+    public function setExcludedExceptions(array $excludedExceptions): void
+    {
+        $this->excludedExceptions = $excludedExceptions;
+    }
+
     protected function write(LogRecord $record): void
     {
+        if ($this->isExcluded($record)) {
+            return;
+        }
         if ($record->level->value >= $this->logLevel && filter_var($this->webhookUrl, FILTER_VALIDATE_URL)) {
             $timestamp = date('c');
             $content = $this->formatField($record->message, 6000);
@@ -122,5 +132,21 @@ class MonologDiscordWebHookHandler extends AbstractProcessingHandler
         }
 
         return $formatted;
+    }
+
+    private function isExcluded(LogRecord $record): bool
+    {
+        $throwable = $record->context['exception'] ?? null;
+        if (!$throwable instanceof \Throwable) {
+            return false;
+        }
+
+        foreach ($this->excludedExceptions as $excludedException) {
+            if ($throwable instanceof $excludedException) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

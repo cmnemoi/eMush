@@ -55,6 +55,7 @@ ADMIN="85e58895-ffc7-4dc3-a254-e9c3f6a7219f" # replace by your etwinID
 LOG_DISCORD_WEBHOOK_URL=dummy
 LOG_DISCORD_LOG_LEVEL=400
 LOG_DISCORD_ENVIRONMENT_NAME=Dist
+LOG_DISCORD_EXCLUDED_EXCEPTIONS="Symfony\\Component\\HttpKernel\\Exception\\MethodNotAllowedHttpException,Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException"
 
 VAPID_PUBLIC_KEY=__GENERATED_ON_FIRST_INSTALL__
 VAPID_PRIVATE_KEY=__GENERATED_ON_FIRST_INSTALL__

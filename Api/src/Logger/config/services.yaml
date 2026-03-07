@@ -25,3 +25,4 @@ services:
       - setLogLevel: [ '%env(LOG_DISCORD_LOG_LEVEL)%' ]
       - setWebhook: [ '%env(LOG_DISCORD_WEBHOOK_URL)%' ]
       - setEnvironmentName: [ '%env(LOG_DISCORD_ENVIRONMENT_NAME)%' ]
+      - setExcludedExceptions: [ '%env(csv:LOG_DISCORD_EXCLUDED_EXCEPTIONS)%' ]

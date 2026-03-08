@@ -2,39 +2,20 @@
 
 namespace Mush\Tests\functional\Equipment\Listener;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Plant;
+use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Project\Entity\Project;
-use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlantLogEnum;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -56,311 +37,175 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        $this->givenThereIsAGardenInDaedalus($I);
     }
 
-    public function testPlantGrowing(FunctionalTester $I)
+    public function youngPlantShouldGrowByOneCycle(FunctionalTester $I)
     {
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig
-            ->setStatusName(EquipmentStatusEnum::PLANT_YOUNG)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->setMaxCharge(8)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($statusConfig);
+        $bananaTree = $this->givenABananaTreeWithMaturationCycleInPlace(RoomEnum::HYDROPONIC_GARDEN, 1, $I);
 
-        /** @var DaedalusConfig $gameConfig */
-        $daedalusConfig = $I->have(DaedalusConfig::class);
+        $this->whenCycleChangesForBananaTree($bananaTree);
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'daedalusConfig' => $daedalusConfig,
-            'statusConfigs' => new ArrayCollection([$statusConfig]),
-        ]);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        $mushChannel = new Channel();
-        $mushChannel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH);
-        $I->haveInRepository($mushChannel);
-
-        $this->createProjects($I, $daedalus);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var EquipmentConfig $fruitConfig */
-        $fruitConfig = $I->have(EquipmentConfig::class, [
-            'gameConfig' => $gameConfig,
-            'name' => 'fruit_test',
-            'equipmentName' => 'fruit',
-        ]);
-
-        $plantMechanic = new Plant();
-        $plantMechanic
-            ->setMaturationTime([8 => 1])
-            ->setOxygen([1 => 1])
-            ->setFruitName($fruitConfig->getEquipmentName())
-            ->setName(GamePlantEnum::BANANA_TREE);
-        $I->haveInRepository($plantMechanic);
-
-        /** @var ItemConfig $equipmentConfig */
-        $equipmentConfig = $I->have(ItemConfig::class, [
-            'gameConfig' => $gameConfig,
-            'mechanics' => new ArrayCollection([$plantMechanic]),
-        ]);
-
-        $gameEquipment = new GameItem($room);
-        $gameEquipment
-            ->setEquipment($equipmentConfig)
-            ->setName(GamePlantEnum::BANANA_TREE);
-
-        $I->haveInRepository($gameEquipment);
-
-        $statusConfig->setStartCharge(6);
-
-        /** @var ChargeStatus $youngStatus */
-        $youngStatus = $this->statusService->createStatusFromConfig(
-            $statusConfig,
-            $gameEquipment,
-            [],
-            new \DateTime()
-        );
-
-        $time = new \DateTime();
-
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, [EventEnum::NEW_CYCLE], $time);
-
-        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
-
-        $I->assertCount(0, $room->getStatuses());
-        $I->assertCount(1, $gameEquipment->getStatuses());
-        $I->assertEquals(7, $gameEquipment->getStatuses()->first()->getCharge());
-
-        // growing up
-        $time = new \DateTime();
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, [EventEnum::NEW_CYCLE], $time);
-
-        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
-
-        // then plant is not young anymore
-        $I->assertCount(0, $room->getEquipments()->first()->getStatuses());
-
-        // then I see a public maturation log
-        /** @var RoomLog $roomLog */
-        $roomLog = $I->grabEntityFromRepository(RoomLog::class, [
-            'place' => $room->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'log' => PlantLogEnum::PLANT_MATURITY,
-            'visibility' => VisibilityEnum::PUBLIC,
-        ]);
-
-        // then the log is correcly parametrized
-        $logParameters = $roomLog->getParameters();
-        $I->assertEquals($logParameters['item'], GamePlantEnum::BANANA_TREE);
-
-        // then... actually, what is this assertion for ?
-        $I->assertCount(0, $room->getStatuses());
+        $this->thenBananaTreeShouldBe(2, $bananaTree, $I);
     }
 
-    public function testPlantChangeDay(FunctionalTester $I)
+    public function youngPlantShouldLoseYoungStatusWhenMaturationTimeIsReached(FunctionalTester $I)
     {
-        $thirstyStatusConfig = new StatusConfig();
-        $thirstyStatusConfig
-            ->setStatusName(EquipmentStatusEnum::PLANT_THIRSTY)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($thirstyStatusConfig);
-        $dryStatusConfig = new StatusConfig();
-        $dryStatusConfig
-            ->setStatusName(EquipmentStatusEnum::PLANT_DRY)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($dryStatusConfig);
-        $diseasedStatusConfig = new StatusConfig();
-        $diseasedStatusConfig
-            ->setStatusName(EquipmentStatusEnum::PLANT_DISEASED)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($diseasedStatusConfig);
+        $bananaTree = $this->givenABananaTreeWithMaturationCycleInPlace(RoomEnum::HYDROPONIC_GARDEN, 31, $I);
 
-        /** @var EquipmentConfig $fruitConfig */
-        $fruitConfig = $I->have(EquipmentConfig::class, [
-            'name' => 'fruit',
-            'equipmentName' => 'fruit',
-        ]);
+        $this->whenCycleChangesForBananaTree($bananaTree);
 
-        /** @var EquipmentConfig $equipmentConfig */
-        $hydropotConfig = $I->have(EquipmentConfig::class, [
-            'name' => ItemEnum::HYDROPOT,
-            'equipmentName' => ItemEnum::HYDROPOT,
-        ]);
+        $this->thenBananaTreeShouldBeAdult($bananaTree, $I);
 
-        /** @var DaedalusConfig $daedalusConfig */
-        $daedalusConfig = $I->have(DaedalusConfig::class);
+        $I->seeInRepository(
+            RoomLog::class,
+            [
+                'place' => $bananaTree->getPlace()->getName(),
+                'log' => PlantLogEnum::PLANT_MATURITY,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+    }
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'daedalusConfig' => $daedalusConfig,
-            'statusConfigs' => new ArrayCollection([$thirstyStatusConfig, $dryStatusConfig, $diseasedStatusConfig]),
-            'equipmentsConfig' => new ArrayCollection([$fruitConfig, $hydropotConfig]),
-        ]);
+    public function testYoungPlantDayChange(FunctionalTester $I)
+    {
+        $bananaTree = $this->givenABananaTreeWithMaturationCycleInPlace(RoomEnum::HYDROPONIC_GARDEN, 1, $I);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['cycle' => 8]);
-        $daedalus->setDaedalusVariables($daedalusConfig);
-        $daedalus->setOxygen(10);
+        $this->whenDayChangesForBananaTree($bananaTree);
 
-        $this->createProjects($I, $daedalus);
+        $this->thenTheresNoBananaInRoom($bananaTree->getPlace(), $I);
+    }
 
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
+    public function testAlmostMaturePlantDayChange(FunctionalTester $I)
+    {
+        $bananaTree = $this->givenABananaTreeWithMaturationCycleInPlace(RoomEnum::HYDROPONIC_GARDEN, 31, $I);
 
-        $mushChannel = new Channel();
-        $mushChannel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH);
-        $I->haveInRepository($mushChannel);
+        $this->whenDayChangesForBananaTree($bananaTree);
 
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+        $this->thenBananaTreeShouldBeAdult($bananaTree, $I);
 
-        $plantMechanic = new Plant();
-        $plantMechanic
-            ->setMaturationTime([8 => 1])
-            ->setOxygen([1 => 1])
-            ->setFruitName($fruitConfig->getEquipmentName())
-            ->setName('plant_name');
-
-        $I->haveInRepository($plantMechanic);
-
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['mechanics' => new ArrayCollection([$plantMechanic])]);
-
-        $gameEquipment = new GameItem($room);
-        $gameEquipment
-            ->setEquipment($equipmentConfig)
-            ->setName('plant name');
-
-        $I->haveInRepository($gameEquipment);
-
-        $statusConfig = new ChargeStatusConfig();
-        $statusConfig
-            ->setStatusName(EquipmentStatusEnum::PLANT_YOUNG)
-            ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setChargeStrategy(ChargeStrategyTypeEnum::GROWING_PLANT)
-            ->setMaxCharge(8)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($statusConfig);
-
-        $statusConfig->setStartCharge(6);
-
-        /** @var ChargeStatus $youngStatus */
-        $youngStatus = $this->statusService->createStatusFromConfig(
-            $statusConfig,
-            $gameEquipment,
-            [],
-            new \DateTime()
+        $I->seeInRepository(
+            RoomLog::class,
+            [
+                'place' => $bananaTree->getPlace()->getName(),
+                'log' => PlantLogEnum::PLANT_MATURITY,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
         );
 
-        // Plant is young : no fruit or oxygen
-        $time = new \DateTime();
+        $this->thenThereIsABananaInRoom($bananaTree->getPlace(), $I);
+    }
 
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, [EventEnum::PLANT_PRODUCTION, EventEnum::NEW_DAY], $time);
+    public function testDiseasedPlantDayChange(FunctionalTester $I)
+    {
+        $bananaTree = $this->givenAMatureBananaTreeInPlace(RoomEnum::HYDROPONIC_GARDEN, $I);
+        $this->createStatusOn(EquipmentStatusEnum::PLANT_DISEASED, $bananaTree);
 
-        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
+        $this->whenDayChangesForBananaTree($bananaTree);
 
-        $I->assertCount(2, $gameEquipment->getStatuses());
-        $I->assertCount(1, $room->getEquipments());
-        $I->assertTrue($gameEquipment->getStatuses()->exists(static fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_THIRSTY));
-        $I->assertEquals(10, $daedalus->getOxygen());
+        $this->thenTheresNoBananaInRoom($bananaTree->getPlace(), $I);
+    }
 
-        // Plant is diseased
-        $diseasedStatus = new Status($gameEquipment, $diseasedStatusConfig);
-        $I->haveInRepository($diseasedStatus);
+    public function testThirstyPlantDayChange(FunctionalTester $I)
+    {
+        $bananaTree = $this->givenAMatureBananaTreeInPlace(RoomEnum::HYDROPONIC_GARDEN, $I);
+        $this->createStatusOn(EquipmentStatusEnum::PLANT_THIRSTY, $bananaTree);
 
-        $gameEquipment->removeStatus($youngStatus);
+        $this->whenDayChangesForBananaTree($bananaTree);
 
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, [EventEnum::PLANT_PRODUCTION, EventEnum::NEW_DAY], $time);
+        $this->thenTheresNoBananaInRoom($bananaTree->getPlace(), $I);
+        // then plant grew thirstier
+        $I->assertFalse($bananaTree->hasStatus(EquipmentStatusEnum::PLANT_THIRSTY));
+        $I->assertTrue($bananaTree->hasStatus(EquipmentStatusEnum::PLANT_DRY));
+    }
 
-        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
+    public function testDryPlantDayChange(FunctionalTester $I)
+    {
+        $bananaTree = $this->givenAMatureBananaTreeInPlace(RoomEnum::HYDROPONIC_GARDEN, $I);
+        $this->createStatusOn(EquipmentStatusEnum::PLANT_DRY, $bananaTree);
 
-        $I->assertCount(0, $room->getStatuses());
-        $I->assertCount(1, $room->getEquipments());
-        $I->assertCount(2, $gameEquipment->getStatuses());
-        $I->assertTrue($gameEquipment->getStatuses()->exists(static fn (int $key, Status $value) => $value->getName() === EquipmentStatusEnum::PLANT_DRY));
-        $I->assertEquals(10, $daedalus->getOxygen());
+        $this->whenDayChangesForBananaTree($bananaTree);
 
-        // Plant is totally healthy
-        $thirstyStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DISEASED);
-        $gameEquipment->removeStatus($thirstyStatus);
-        $thirstyStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::PLANT_DRY);
-        $gameEquipment->removeStatus($thirstyStatus);
+        $this->thenTheresNoBananaInRoom($bananaTree->getPlace(), $I);
+        // then plant has died
+        $I->assertTrue($bananaTree->getPlace()->hasEquipmentByName(ItemEnum::HYDROPOT));
+    }
 
-        $time = new \DateTime();
-        $cycleEvent = new EquipmentCycleEvent($gameEquipment, $daedalus, [EventEnum::PLANT_PRODUCTION, EventEnum::NEW_DAY], $time);
+    public function testHealthyPlantDayChange(FunctionalTester $I)
+    {
+        $bananaTree = $this->givenAMatureBananaTreeInPlace(RoomEnum::HYDROPONIC_GARDEN, $I);
 
-        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
+        $this->whenDayChangesForBananaTree($bananaTree);
 
-        $I->assertCount(2, $room->getEquipments());
-        $I->assertCount(1, $room->getEquipments()->first()->getStatuses());
-        $I->assertTrue($room->getEquipments()->exists(static fn (int $key, GameEquipment $item) => $item->getName() === 'fruit'));
-        $I->assertEquals(11, $daedalus->getOxygen());
-        $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'log' => PlantLogEnum::PLANT_NEW_FRUIT,
-            'visibility' => VisibilityEnum::PUBLIC,
-        ]);
-
-        // Plant is dried
-        /** @var Place $room2 */
-        $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'corridor']);
-
-        $gameEquipment2 = new GameItem($room2);
-        $gameEquipment2
-            ->setEquipment($equipmentConfig)
-            ->setName('plant name');
-
-        $I->haveInRepository($gameEquipment2);
-
-        $daedalus->setCycle(8);
-
-        $driedOutStatus = new Status($gameEquipment2, $dryStatusConfig);
-        $I->haveInRepository($driedOutStatus);
-
-        $cycleEvent = new EquipmentCycleEvent(
-            $gameEquipment2,
-            $daedalus,
-            [EventEnum::PLANT_PRODUCTION, EventEnum::NEW_DAY],
-            new \DateTime()
-        );
-
-        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
-
-        $I->assertCount(0, $room2->getStatuses());
-        $I->assertCount(1, $room2->getEquipments());
-        $I->assertEquals(ItemEnum::HYDROPOT, $room2->getEquipments()->first()->getName());
-        $I->assertEquals(11, $daedalus->getOxygen());
+        $this->thenThereIsABananaInRoom($bananaTree->getPlace(), $I);
+        // plant grew thirsty
+        $I->assertTrue($bananaTree->hasStatus(EquipmentStatusEnum::PLANT_THIRSTY));
     }
 
     public function shouldMakePlantsGrowTwiceFasterInGardenWithHydroponicIncubatorProject(FunctionalTester $I): void
     {
         $this->givenThereIsAGardenInDaedalus($I);
-        $bananaTree = $this->givenABananaTreeWithOneMaturationCycleInPlace(RoomEnum::HYDROPONIC_GARDEN, $I);
+        $bananaTree = $this->givenABananaTreeWithMaturationCycleInPlace(RoomEnum::HYDROPONIC_GARDEN, 1, $I);
         $this->givenHydroponicIncubatorProjectIsFinished($I);
 
         $this->whenCycleChangesForBananaTree($bananaTree);
 
         $this->thenBananaTreeShouldBe(3, $bananaTree, $I);
     }
+
+    public function shouldNotMakePlantsGrowTwiceFasterOutsideOfGardenWithHydroponicIncubatorProject(FunctionalTester $I): void
+    {
+        $this->givenThereIsAGardenInDaedalus($I);
+        $bananaTree = $this->givenABananaTreeWithMaturationCycleInPlace(RoomEnum::LABORATORY, 1, $I);
+        $this->givenHydroponicIncubatorProjectIsFinished($I);
+
+        $this->whenCycleChangesForBananaTree($bananaTree);
+
+        $this->thenBananaTreeShouldBe(2, $bananaTree, $I);
+    }
+
+    public function testPlantCycleChangeDisease(FunctionalTester $I)
+    {
+        $bananaTree = $this->givenAMatureBananaTreeInPlace(RoomEnum::HYDROPONIC_GARDEN, $I);
+
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setPlantDiseaseRate(100);
+
+        $this->whenCycleChangesForBananaTree($bananaTree);
+
+        // plant grew sick
+        $I->assertTrue($bananaTree->hasStatus(EquipmentStatusEnum::PLANT_DISEASED));
+    }
+
+    public function shouldNotMakePlantSickIfInGardenWithNanoLadybugs(FunctionalTester $I)
+    {
+        $bananaTree = $this->givenAMatureBananaTreeInPlace(RoomEnum::HYDROPONIC_GARDEN, $I);
+
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setPlantDiseaseRate(100);
+
+        $this->givenNanoLadybugsProjectIsFinished($I);
+
+        $this->whenCycleChangesForBananaTree($bananaTree);
+
+        // plant did not grow sick
+        $I->assertFalse($bananaTree->hasStatus(EquipmentStatusEnum::PLANT_DISEASED));
+    }
+
+    public function shouldMakePlantSickOutsideOfGardenWithNanoLadybugs(FunctionalTester $I)
+    {
+        $bananaTree = $this->givenAMatureBananaTreeInPlace(RoomEnum::LABORATORY, $I);
+
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setPlantDiseaseRate(100);
+
+        $this->givenNanoLadybugsProjectIsFinished($I);
+
+        $this->whenCycleChangesForBananaTree($bananaTree);
+
+        // plant grew sick
+        $I->assertTrue($bananaTree->hasStatus(EquipmentStatusEnum::PLANT_DISEASED));
+    }
+
+    // Heatlamps and halloween jumpkin production are tested in PlantCycleHandlerTest
 
     private function givenThereIsAGardenInDaedalus(FunctionalTester $I): Place
     {
@@ -371,7 +216,7 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenABananaTreeWithOneMaturationCycleInPlace(string $placeName, FunctionalTester $I): GameItem
+    private function givenABananaTreeWithMaturationCycleInPlace(string $placeName, int $age, FunctionalTester $I): GameItem
     {
         $place = $this->daedalus->getPlaceByName($placeName);
         if ($place === null) {
@@ -390,7 +235,32 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         );
 
         $maturationStatus = $bananaTree->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG);
-        $maturationStatus->setCharge(1);
+        $maturationStatus->setCharge($age);
+        $maturationStatus->setMaxCharge(32);
+
+        return $bananaTree;
+    }
+
+    private function givenAMatureBananaTreeInPlace(string $placeName, FunctionalTester $I): GameItem
+    {
+        $place = $this->daedalus->getPlaceByName($placeName);
+        if ($place === null) {
+            $this->createExtraPlace(
+                placeName: $placeName,
+                I: $I,
+                daedalus: $this->daedalus
+            );
+        }
+
+        $bananaTree = $this->equipmentService->createGameEquipmentFromName(
+            equipmentName: GamePlantEnum::BANANA_TREE,
+            equipmentHolder: $place,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        $maturationStatus = $bananaTree->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG);
+        $bananaTree->removeStatus($maturationStatus);
 
         return $bananaTree;
     }
@@ -404,9 +274,24 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenNanoLadybugsProjectIsFinished(FunctionalTester $I): void
+    {
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::PARASITE_ELIM),
+            author: $this->chun,
+            I: $I
+        );
+    }
+
     private function whenCycleChangesForBananaTree(GameItem $bananaTree): void
     {
         $cycleEvent = new EquipmentCycleEvent($bananaTree, $this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
+    }
+
+    private function whenDayChangesForBananaTree(GameItem $bananaTree): void
+    {
+        $cycleEvent = new EquipmentCycleEvent($bananaTree, $this->daedalus, [EventEnum::NEW_DAY, EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($cycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
     }
 
@@ -418,14 +303,36 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         );
     }
 
-    private function createProjects(FunctionalTester $I, Daedalus $daedalus): void
+    private function thenBananaTreeShouldBeAdult(GameItem $bananaTree, FunctionalTester $I): void
     {
-        $projects = [ProjectName::PARASITE_ELIM, ProjectName::HEAT_LAMP, ProjectName::FOOD_RETAILER];
-        foreach ($projects as $project) {
-            $config = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => $project]);
-            $project = new Project($config, $daedalus);
-            $I->haveInRepository($project);
-            $daedalus->addProject($project);
-        }
+        $I->assertFalse($bananaTree->isYoungPlant());
+    }
+
+    private function thenTheresNoBananaInRoom(Place $place, FunctionalTester $I): void
+    {
+        $I->dontSeeInRepository(
+            RoomLog::class,
+            [
+                'place' => $place->getName(),
+                'log' => PlantLogEnum::PLANT_NEW_FRUIT,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+
+        $I->assertFalse($place->hasEquipmentByName(GameFruitEnum::BANANA));
+    }
+
+    private function thenThereIsABananaInRoom(Place $place, FunctionalTester $I): void
+    {
+        $I->SeeInRepository(
+            RoomLog::class,
+            [
+                'place' => $place->getName(),
+                'log' => PlantLogEnum::PLANT_NEW_FRUIT,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+
+        $I->assertTrue($place->hasEquipmentByName(GameFruitEnum::BANANA));
     }
 }

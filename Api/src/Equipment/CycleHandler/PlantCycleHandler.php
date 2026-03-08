@@ -53,7 +53,9 @@ final class PlantCycleHandler extends AbstractCycleHandler
 
         $diseaseRate = $daedalus->getGameConfig()->getDifficultyConfig()->getPlantDiseaseRate();
 
-        if ($this->randomService->isSuccessful($diseaseRate)) {
+        $shouldSkipDisease = $daedalus->hasActiveProject(ProjectName::PARASITE_ELIM) && $gameEquipment->isInPlaceByName(RoomEnum::HYDROPONIC_GARDEN);
+
+        if (!$shouldSkipDisease && $this->randomService->isSuccessful($diseaseRate)) {
             $this->statusService->createStatusFromName(
                 EquipmentStatusEnum::PLANT_DISEASED,
                 $gameEquipment,

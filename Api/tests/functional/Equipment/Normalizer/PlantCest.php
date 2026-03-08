@@ -208,7 +208,8 @@ final class PlantCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldDisplayYoungPlantEffectsToBotanistWithParasiteElimProject(FunctionalTester $I): void
+    // These two tests relate to the past behavior of Nano-Ladybugs, and are commentated out for archival purposes.
+    /*public function shouldDisplayYoungPlantEffectsToBotanistWithParasiteElimProject(FunctionalTester $I): void
     {
         $this->givenPlayerIsABotanist($I);
 
@@ -259,7 +260,7 @@ final class PlantCest extends AbstractFunctionalTest
             ],
             actual: $normalizedBananaTree['effects']
         );
-    }
+    }*/
 
     public function shouldDisplayEffectsToPolyvalent(FunctionalTester $I): void
     {

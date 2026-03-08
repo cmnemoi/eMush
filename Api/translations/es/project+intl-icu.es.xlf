@@ -138,7 +138,7 @@
       </segment>
       <segment id="parasite_elim.description" state="translated">
         <source>parasite_elim.description</source>
-        <target>Las Jóvenes plantas en el jardín alcanzan la adultez en 4 ciclos menos.</target>
+        <target>Please translate me: Plants in the garden cannot become Diseased.</target>
       </segment>
       <segment id="parasite_elim.lore" state="translated">
         <source>parasite_elim.lore</source>

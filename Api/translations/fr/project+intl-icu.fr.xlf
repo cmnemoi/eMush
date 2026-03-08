@@ -138,7 +138,7 @@
       </segment>
       <segment id="parasite_elim.description" state="translated">
         <source>parasite_elim.description</source>
-        <target>Les jeunes plantes dans le Jardin voient leur durée de croissance diminuée de 4 cycles.</target>
+        <target>Les plantes dans le Jardin ne peuvent pas tomber Malade.</target>
       </segment>
       <segment id="parasite_elim.lore" state="translated">
         <source>parasite_elim.lore</source>

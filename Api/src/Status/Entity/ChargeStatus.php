@@ -151,15 +151,20 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
             throw new \LogicException("Charge status should be plant_young status for its maturation time be calculated, got {$this->getName()} instead.");
         }
 
+        return $this->getMaxChargeOrThrow();
+        // This is the previous effect of Nano-ladybugs (shorten maturation time by 4 cycles), commentated out but kept, in case we want to revert, or reimplement it in a "legacy" setting
+        /*
         $plant = $this->getItemOwnerOrThrow();
+        $maturationTime = $this->getMaxChargeOrThrow();
+
         $parasiteElimProject = $plant->getDaedalus()->getProjectByName(ProjectName::PARASITE_ELIM);
 
-        $maturationTime = $this->getMaxChargeOrThrow();
         if ($parasiteElimProject->isFinished() && $plant->isInPlaceByName(RoomEnum::HYDROPONIC_GARDEN)) {
             $maturationTime -= $parasiteElimProject->getActivationRate();
         }
 
         return $maturationTime;
+        */
     }
 
     private function getItemOwnerOrThrow(): GameItem

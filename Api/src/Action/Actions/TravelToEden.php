@@ -16,6 +16,7 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -72,8 +73,20 @@ final class TravelToEden extends AbstractAction
     private function finishDaedalus(): void
     {
         $this->eventService->callEvent(
-            event: new DaedalusEvent($this->player->getDaedalus(), $this->getTags(), new \DateTime()),
+            event: new DaedalusEvent($this->player->getDaedalus(), $this->getEndTags(), new \DateTime()),
             name: DaedalusEvent::FINISH_DAEDALUS
         );
+    }
+
+    private function getEndTags(): array
+    {
+        $tags = $this->getActionConfig()->getTypes();
+        if ($this->player->getDaedalus()->getAlivePlayers()->hasPlayerWithStatus(PlayerStatusEnum::MUSH)) {
+            $tags[] = EndCauseEnum::EDEN_INFECTED;
+        } else {
+            $tags[] = EndCauseEnum::EDEN;
+        }
+
+        return $tags;
     }
 }

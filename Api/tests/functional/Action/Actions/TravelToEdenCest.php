@@ -197,6 +197,19 @@ final class TravelToEdenCest extends AbstractFunctionalTest
         );
     }
 
+    public function testInfectedSol(FunctionalTester $I): void
+    {
+        $this->givenPilgredIsFinished();
+
+        $this->givenEdenCoordinatesAreComputed();
+
+        $this->givenKuanTiIsMush($I);
+
+        $this->whenChunTravelsToEden();
+
+        $this->thenEndCauseIsInfectedEden($I);
+    }
+
     private function createCommandTerminal(): void
     {
         $this->commandTerminal = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -343,5 +356,10 @@ final class TravelToEdenCest extends AbstractFunctionalTest
 
         $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EDEN, $this->kuanTi->getUser()->getId());
         $I->assertNull($statistic?->getId());
+    }
+
+    private function thenEndCauseIsInfectedEden(FunctionalTester $I): void
+    {
+        $I->assertEquals(EndCauseEnum::EDEN_INFECTED, $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getEndCause());
     }
 }

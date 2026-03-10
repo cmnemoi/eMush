@@ -16,6 +16,7 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -64,7 +65,19 @@ final class ReturnToSol extends AbstractAction
 
     private function finishDaedalus(): void
     {
-        $daedalusEvent = new DaedalusEvent($this->player->getDaedalus(), $this->getActionConfig()->getActionTags(), new \DateTime());
+        $daedalusEvent = new DaedalusEvent($this->player->getDaedalus(), $this->getEndTags(), new \DateTime());
         $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
+    }
+
+    private function getEndTags(): array
+    {
+        $tags = $this->getActionConfig()->getTypes();
+        if ($this->player->getDaedalus()->getAlivePlayers()->hasPlayerWithStatus(PlayerStatusEnum::MUSH)) {
+            $tags[] = EndCauseEnum::SOL_RETURN_INFECTED;
+        } else {
+            $tags[] = EndCauseEnum::SOL_RETURN;
+        }
+
+        return $tags;
     }
 }

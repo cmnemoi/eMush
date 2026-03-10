@@ -19,6 +19,24 @@
         <target>Vous avez décidé d'essayer de rentrer sur Sol. La folle course du Daedalus s'arrête ici. Mais votre destin est-il maintenant une légende ?</target>
       </segment>
     </unit>
+    <unit id="sol_return_infected">
+      <segment id="name" state="translated">
+        <source>sol_return_infected.name</source>
+        <target>Mush retourné sur Sol</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>sol_return_infected.short_name</source>
+        <target>Le Daedalus est rentré sur Sol... avec des mush !</target>
+      </segment>
+      <segment id="category" state="translated">
+        <source>sol_return_infected.category</source>
+        <target>Vous êtes rentré sur Sol avec quelques mush à bord… mais la suite est une autre histoire !</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>sol_return_infected.description</source>
+        <target>Vous avez décidé d'essayer de rentrer sur Sol. La folle course du Daedalus s'arrête ici. Mais votre destin est-il maintenant une légende ?</target>
+      </segment>
+    </unit>
     <unit id="eden">
       <segment id="name" state="translated">
         <source>eden.name</source>
@@ -35,6 +53,24 @@
       <segment id="description" state="translated">
         <source>eden.description</source>
         <target>L'espoir renaît des scories de l'Humanité. Sur une nouvelle planète, un nouveau départ et la suite des aventures de nos héros. Mais c'est une autre histoire.</target>
+      </segment>
+    </unit>
+      <unit id="eden_infected">
+      <segment id="name" state="translated">
+        <source>eden_infected.name</source>
+        <target>Eden infecté par le Mush</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>eden_infected.short_name</source>
+        <target>Le Mush a infecté Eden !</target>
+      </segment>
+      <segment id="category" state="translated">
+        <source>eden_infected.category</source>
+        <target>Après toutes ces errances, vous avez mis le cap vers Eden… mais le combat ne s'arrêtera pas ici.</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eden_infected.description</source>
+        <target>Une nouvelle planète tombe entre les mains du Mush. Il y a-t-il encore un espoir pour l'humanité... ?</target>
       </segment>
     </unit>
     <unit id="daedalus_destroyed">

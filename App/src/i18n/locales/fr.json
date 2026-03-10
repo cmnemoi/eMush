@@ -135,7 +135,9 @@
 		"amountOfMushPlayers": "Nombre de Mushs",
 		"endCause": {
 			"sol_return": "Le Daedalus est rentré sur Sol !",
+			"sol_return_infected": "Le Daedalus est rentré sur Sol... avec des mush !",
 			"eden": "Le Daedalus s'est installé sur Eden !",
+			"eden_infected": "Le Mush a infecté Eden !",
 			"daedalus_destroyed": "Votre cadavre flotte parmi les débris du Daedalus pulvérisé !",
 			"killed_by_neron": "En route vers le vide infini !",
 			"super_nova": "Mort à cause d'un Administrateur Taquin !",

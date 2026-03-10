@@ -153,6 +153,22 @@ final class ReturnToSolCest extends AbstractFunctionalTest
         $this->thenBackToRootStatisticShouldBeIncrementedForAlivePlayers($I);
     }
 
+    public function testInfectedSol(FunctionalTester $I): void
+    {
+        $this->givenPilgredIsFinished();
+
+        $this->givenKuanTiIsMush();
+
+        $this->whenChunExecutesReturnToSolAction();
+
+        $this->thenEndCauseIsInfectedSol($I);
+    }
+
+    private function givenKuanTiIsMush(): void
+    {
+        $this->createStatusOn(PlayerStatusEnum::MUSH, $this->kuanTi);
+    }
+
     private function givenPilgredIsFinished(): void
     {
         $pilgred = $this->daedalus->getPilgred();
@@ -266,5 +282,10 @@ final class ReturnToSolCest extends AbstractFunctionalTest
 
         $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::BACK_TO_ROOT, $this->kuanTi->getUser()->getId());
         $I->assertNull($statistic);
+    }
+
+    private function thenEndCauseIsInfectedSol(FunctionalTester $I): void
+    {
+        $I->assertEquals(EndCauseEnum::SOL_RETURN_INFECTED, $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getEndCause());
     }
 }

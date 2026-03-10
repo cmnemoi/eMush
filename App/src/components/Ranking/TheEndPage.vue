@@ -14,10 +14,9 @@
     <PlayerHistoryPopup />
     <div class="container" v-if="closedDaedalus">
         <div class="ending-screen">
-            <img :src="getImgUrl('ending-sol.png')" :alt="$t('theEnd.endCause.sol_return')" v-if="closedDaedalus.endCause === 'sol_return'">
-            <img :src="getImgUrl('ending-eden.png')" :alt="$t('theEnd.endCause.eden')" v-else-if="closedDaedalus.endCause === 'eden'">
-            <img :src="getImgUrl('ending-destroyed.png')" :alt="$t(`ranking.endCause.${closedDaedalus.endCause}`)" v-else>
+            <img :src="getEndCauseConfig(closedDaedalus.endCause).img" :alt="$t(getEndCauseConfig(closedDaedalus.endCause).short_name)">
         </div>
+
         <div class="cheater-banner" v-if="closedDaedalus?.isCheater">
             <img :src="getImgUrl('ui_icons/noob.png')" alt="Cheater">
             {{ $t("theEnd.cheaterMessage") }}
@@ -386,6 +385,7 @@ import PlayerHistoryPopup from "@/components/Ranking/PlayerHistoryPopup.vue";
 import { toArray } from "@/utils/toArray";
 import DaedalusProjectCard from "@/components/Game/DaedalusProjectCard.vue";
 import CharacterSignature from "@/components/Game/CharacterSignature.vue";
+import { getEndCauseConfig } from "@/enums/endcause.enum";
 
 interface ClosedDaedalusState {
     closedDaedalus: ClosedDaedalus|null
@@ -432,6 +432,7 @@ export default defineComponent ({
         getImgUrl,
         formatText,
         toArray,
+        getEndCauseConfig,
         async loadData() {
             const closedDaedalusId = String(this.$route.params.closedDaedalusId);
             await DaedalusService.loadClosedDaedalus(Number(closedDaedalusId))

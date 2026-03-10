@@ -17,7 +17,9 @@ abstract class EndCauseEnum
     // admin only
     public const string SUICIDE = 'suicide';
     public const string SOL_RETURN = 'sol_return';
+    public const string SOL_RETURN_INFECTED = 'sol_return_infected';
     public const string EDEN = 'eden';
+    public const string EDEN_INFECTED = 'eden_infected';
     public const string DAEDALUS_DESTROYED = 'daedalus_destroyed';
     public const string KILLED_BY_NERON = 'killed_by_neron';
     public const string SUPER_NOVA = 'super_nova';
@@ -53,7 +55,9 @@ abstract class EndCauseEnum
     public const array DEATH_CAUSE_MAP = [
         self::STILL_LIVING => self::STILL_LIVING,
         self::SUICIDE => self::SUICIDE,
+        self::SOL_RETURN_INFECTED => self::SOL_RETURN_INFECTED,
         self::SOL_RETURN => self::SOL_RETURN,
+        self::EDEN_INFECTED => self::EDEN_INFECTED,
         self::EDEN => self::EDEN,
         self::DAEDALUS_DESTROYED => self::DAEDALUS_DESTROYED,
         self::KILLED_BY_NERON => self::KILLED_BY_NERON,
@@ -117,7 +121,9 @@ abstract class EndCauseEnum
     {
         return new ArrayCollection([
             self::SOL_RETURN,
+            self::SOL_RETURN_INFECTED,
             self::EDEN,
+            self::EDEN_INFECTED,
             self::ALIEN_ABDUCTED,
         ]);
     }

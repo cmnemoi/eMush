@@ -1,5 +1,6 @@
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import { DaedalusProject } from "./Daedalus";
+import { EndCauseEnum } from "@/enums/endcause.enum";
 
 type DaedalusStatistics = {
     title: string;
@@ -35,7 +36,7 @@ type FunFact = {
 export class ClosedDaedalus {
     public iri: string|null;
     public id: number|null;
-    public endCause: string|null;
+    public endCause: EndCauseEnum|null;
     public endDay: integer|null;
     public endCycle: integer|null;
     public players: ClosedPlayer[]|null;

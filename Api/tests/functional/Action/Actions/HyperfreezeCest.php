@@ -16,6 +16,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -191,7 +192,7 @@ final class HyperfreezeCest extends AbstractFunctionalTest
 
     private function thenPlayerShouldHaveChefPoints(int $expectedChefPoints, FunctionalTester $I): void
     {
-        $I->assertEquals($expectedChefPoints, $this->player->getSkillByNameOrThrow(SkillEnum::CHEF)->getSkillPoints());
+        $I->assertEquals($expectedChefPoints, $this->player->getSkillPointCount(SkillPointsEnum::CHEF_POINTS->toString()));
     }
 
     private function thenStandardRationShouldNotBeContaminated(FunctionalTester $I): void

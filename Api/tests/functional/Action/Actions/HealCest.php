@@ -292,7 +292,7 @@ final class HealCest extends AbstractFunctionalTest
 
     private function thenChunShouldHaveOneNursePoint(FunctionalTester $I): void
     {
-        $I->assertEquals(1, $this->player->getSkillByNameOrThrow(SkillEnum::NURSE)->getSkillPoints());
+        $I->assertEquals(1, $this->player->getSkillPointCount(SkillPointsEnum::NURSE_POINTS->toString()));
     }
 
     private function thenKuanTiShouldHaveSpore(int $quantity, FunctionalTester $I): void

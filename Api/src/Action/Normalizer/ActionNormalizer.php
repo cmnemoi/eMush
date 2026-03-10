@@ -20,7 +20,6 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Skill\Entity\Skill;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -260,10 +259,9 @@ class ActionNormalizer implements NormalizerInterface
     {
         $skillPointCosts = [];
 
-        /** @var Skill $skill */
-        foreach ($currentPlayer->getSkillsWithPoints() as $skill) {
-            if ($skill->hasAnyActionTypes($action->getTypes())) {
-                $skillPointCosts[] = $skill->getSkillPointsName();
+        foreach ($currentPlayer->getChargedSkillPoints() as $skillPoint) {
+            if ($skillPoint->hasAnyActionTypes($action->getTypes())) {
+                $skillPointCosts[] = $skillPoint->getSkillPointsName();
             }
         }
 

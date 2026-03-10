@@ -23,6 +23,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -180,10 +181,9 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->kuanTi);
 
         // given KT has two Technician points
-        $technicianSkill = $this->kuanTi->getSkillByNameOrThrow(SkillEnum::TECHNICIAN);
         $I->assertEquals(
             expected: 2,
-            actual: $technicianSkill->getSkillPoints(),
+            actual: $this->kuanTi->getSkillPointCount(SkillPointsEnum::TECHNICIAN_POINTS->toString()),
         );
 
         $this->givenTheActionIsLoaded($pasiphae);
@@ -193,7 +193,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         // then KT should have one Technician point left
         $I->assertEquals(
             expected: 1,
-            actual: $technicianSkill->getSkillPoints(),
+            actual: $this->kuanTi->getSkillPointCount(SkillPointsEnum::TECHNICIAN_POINTS->toString()),
         );
     }
 

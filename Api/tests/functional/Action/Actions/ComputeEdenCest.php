@@ -17,6 +17,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -282,7 +283,7 @@ final class ComputeEdenCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: 4,
-            actual: $this->player->getSkillByNameOrThrow(SkillEnum::IT_EXPERT)->getSkillPoints(),
+            actual: $this->player->getSkillPointCount(SkillPointsEnum::IT_EXPERT_POINTS->toString()),
         );
     }
 
@@ -329,7 +330,7 @@ final class ComputeEdenCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: $itPoints,
-            actual: $this->player->getSkillByNameOrThrow(SkillEnum::IT_EXPERT)->getSkillPoints(),
+            actual: $this->player->getSkillPointCount(SkillPointsEnum::IT_EXPERT_POINTS->toString()),
         );
     }
 

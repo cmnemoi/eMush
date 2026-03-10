@@ -149,19 +149,19 @@ enum SkillEnum: string
         return $this->isMushSkill() === false;
     }
 
-    public function getSkillPointsName(): string
+    public function getSkillPointsNames(): array
     {
         return match ($this) {
-            self::BOTANIST => 'garden',
-            self::CHEF => 'cook',
-            self::CONCEPTOR => 'core',
-            self::PHYSICIST => 'pilgred',
-            self::IT_EXPERT => 'computer',
-            self::NURSE => 'heal',
-            self::TECHNICIAN => 'engineer',
-            self::SHOOTER => 'shoot',
-            self::POLYMATH => 'computer',
-            default => '',
+            self::BOTANIST => ['garden'],
+            self::CHEF => ['cook'],
+            self::CONCEPTOR => ['core'],
+            self::PHYSICIST => ['pilgred'],
+            self::IT_EXPERT => ['computer'],
+            self::NURSE => ['heal'],
+            self::TECHNICIAN => ['engineer'],
+            self::SHOOTER => ['shoot'],
+            self::POLYMATH => ['computer'],
+            default => [''],
         };
     }
 

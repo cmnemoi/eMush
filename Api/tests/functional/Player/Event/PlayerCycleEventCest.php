@@ -313,12 +313,11 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         // given I have a Shooter player
         $chao = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::CHAO);
         $this->addSkillToPlayer(SkillEnum::SHOOTER, $I, $chao);
-        $shooterSkill = $chao->getSkillByNameOrThrow(SkillEnum::SHOOTER);
 
         // given the player has 2 shoot points
         $shooterPointsStatus = $chao->getChargeStatusByNameOrThrow(SkillPointsEnum::SHOOTER_POINTS->toString());
         $this->statusService->updateCharge($shooterPointsStatus, -2, tags: [], time: new \DateTime());
-        $I->assertEquals(expected: $shooterSkill->getSkillPoints(), actual: 2);
+        $I->assertEquals(expected: 2, actual: $chao->getSkillPointCount(SkillPointsEnum::SHOOTER_POINTS->toString()));
 
         // when a new day event is triggered
         $event = new PlayerCycleEvent(
@@ -329,7 +328,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($event, PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
         // then player should have 4 shoot points
-        $I->assertEquals(expected: $shooterSkill->getSkillPoints(), actual: 4);
+        $I->assertEquals(expected: 4, actual: $chao->getSkillPointCount(SkillPointsEnum::SHOOTER_POINTS->toString()));
 
         // then I should see a private log informing for the gain
         /** @var RoomLog $roomlog * */

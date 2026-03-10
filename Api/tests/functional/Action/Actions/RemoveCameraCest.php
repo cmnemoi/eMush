@@ -13,6 +13,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -116,7 +117,7 @@ final class RemoveCameraCest extends AbstractFunctionalTest
 
     private function thenPlayerShouldHaveTechnicianPoints(int $expectedTechnicianPoints, FunctionalTester $I): void
     {
-        $I->assertEquals($expectedTechnicianPoints, $this->player->getSkillByNameOrThrow(SkillEnum::TECHNICIAN)->getSkillPoints());
+        $I->assertEquals($expectedTechnicianPoints, $this->player->getSkillPointCount(SkillPointsEnum::TECHNICIAN_POINTS->toString()));
     }
 
     private function thenPlayerShouldHaveACameraInInventory(FunctionalTester $I): void

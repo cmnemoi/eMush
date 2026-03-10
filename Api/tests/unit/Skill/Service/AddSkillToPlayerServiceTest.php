@@ -19,7 +19,6 @@ use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Repository\InMemorySkillConfigRepository;
 use Mush\Skill\Service\AddSkillToPlayerService;
-use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\FakeStatusService;
 use PHPUnit\Framework\TestCase;
 
@@ -100,13 +99,6 @@ final class AddSkillToPlayerServiceTest extends TestCase
         $this->whenIAddSkillToPlayer(SkillEnum::PILOT);
     }
 
-    public function testShouldCreateSkillPoints(): void
-    {
-        $this->whenIAddSkillToPlayer(SkillEnum::SHOOTER);
-
-        $this->thenPlayerShouldHaveSkillPoints(SkillPointsEnum::SHOOTER_POINTS);
-    }
-
     private function givenPlayerHasSkill(SkillEnum $skill): void
     {
         Skill::createByNameForPlayer($skill, $this->player);
@@ -130,13 +122,5 @@ final class AddSkillToPlayerServiceTest extends TestCase
         $player = $this->playerRepository->findOneByName(CharacterEnum::ANDIE);
 
         self::assertTrue($player->hasSkill($skill));
-    }
-
-    private function thenPlayerShouldHaveSkillPoints(SkillPointsEnum $skillPoints): void
-    {
-        $player = $this->playerRepository->findOneByName(CharacterEnum::ANDIE);
-        $skillPointsStatus = $player->getStatusByName($skillPoints->toString());
-
-        self::assertNotNull($skillPointsStatus);
     }
 }

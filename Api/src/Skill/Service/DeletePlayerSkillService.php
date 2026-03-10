@@ -59,12 +59,14 @@ final class DeletePlayerSkillService
 
     private function deleteSkillPoints(Skill $skill): void
     {
-        $this->statusService->removeOrCutChargeStatus(
-            statusName: SkillPointsEnum::fromSkill($skill)->toString(),
-            holder: $skill->getPlayer(),
-            tags: [],
-            time: new \DateTime(),
-        );
+        foreach (SkillPointsEnum::fromSkill($skill) as $statusName) {
+            $this->statusService->removeOrCutChargeStatus(
+                statusName: $statusName,
+                holder: $skill->getPlayer(),
+                tags: [],
+                time: new \DateTime(),
+            );
+        }
     }
 
     private function deleteSkill(Skill $skill): void

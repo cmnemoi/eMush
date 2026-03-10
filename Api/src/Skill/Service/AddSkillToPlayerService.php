@@ -15,6 +15,7 @@ use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Event\SkillCreatedEvent;
 use Mush\Skill\Repository\SkillConfigRepositoryInterface;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Service\StatusServiceInterface;
 
 /**
@@ -38,7 +39,7 @@ class AddSkillToPlayerService
         $skill = $this->createSkillForPlayer($skill, $player);
 
         $this->createSkillModifiers($skill);
-        $this->createSkillPoints($skill);
+        $this->createSkillStatuses($skill);
         $this->createSkillItems($skill);
 
         $this->dispatchSkillCreatedEvent($skill, $tags);
@@ -78,16 +79,21 @@ class AddSkillToPlayerService
         }
     }
 
-    private function createSkillPoints(Skill $skill): void
+    private function createSkillStatuses(Skill $skill): void
     {
-        if ($skill->getSkillPointConfig()->isNull()) {
-            return;
+        foreach ($skill->getStatusConfigs() as $statusConfig) {
+            if ($statusConfig instanceof ChargeStatusConfig) {
+                $this->statusService->createOrExtendChargeStatusFromConfig(
+                    statusConfig: $statusConfig,
+                    holder: $skill->getPlayer()
+                );
+            } else {
+                $this->statusService->createStatusFromConfig(
+                    statusConfig: $statusConfig,
+                    holder: $skill->getPlayer()
+                );
+            }
         }
-
-        $this->statusService->createOrExtendChargeStatusFromConfig(
-            statusConfig: $skill->getSkillPointConfig(),
-            holder: $skill->getPlayer()
-        );
     }
 
     private function createSkillItems(Skill $skill): void

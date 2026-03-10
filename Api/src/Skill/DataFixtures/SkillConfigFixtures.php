@@ -20,7 +20,6 @@ use Mush\Skill\ConfigData\SkillConfigData;
 use Mush\Skill\Dto\SkillConfigDto;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Status\DataFixtures\StatusFixtures;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
 
 /** @codeCoverageIgnore */
 final class SkillConfigFixtures extends Fixture implements DependentFixtureInterface
@@ -38,7 +37,7 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
                 modifierConfigs: $this->getModifierConfigsFromDto($skillConfigDto),
                 actionConfigs: $this->getActionConfigsFromDto($skillConfigDto),
                 spawnEquipmentConfig: $this->getSpawnEquipmentConfigFromDto($skillConfigDto),
-                skillPointsConfig: $this->getSkillPointsConfigFromDto($skillConfigDto),
+                statusConfigs: $this->getStatusConfigsFromDto($skillConfigDto),
             );
             $manager->persist($skillConfig);
             $this->addReference($skillConfigDto->name->value, $skillConfig);
@@ -101,17 +100,22 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
     }
 
     /**
-     * @psalm-suppress LessSpecificReturnStatement
-     * @psalm-suppress MoreSpecificReturnType
+     * @return ArrayCollection<int, AbstractModifierConfig>
      */
-    private function getSkillPointsConfigFromDto(SkillConfigDto $skillConfigDto): ?ChargeStatusConfig
+    private function getStatusConfigsFromDto(SkillConfigDto $skillConfigDto): ArrayCollection
     {
-        $configName = $skillConfigDto->skillPointsConfig?->value;
-        if (!$configName) {
-            return null;
+        /** @var ArrayCollection<int, AbstractModifierConfig> $statusConfigs */
+        $statusConfigs = new ArrayCollection();
+        foreach ($skillConfigDto->statusConfigs as $statusConfigName) {
+            /** @var AbstractModifierConfig $statusConfig */
+            $statusConfig = $this->getReference($statusConfigName->value);
+            if (!$statusConfig) {
+                throw new \RuntimeException("StatusConfig {$statusConfigName} not found for SkillConfig {$skillConfigDto->name->toString()}");
+            }
+            $statusConfigs->add($statusConfig);
         }
 
-        return $this->getReference($configName);
+        return $statusConfigs;
     }
 
     /**

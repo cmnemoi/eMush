@@ -24,7 +24,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillConfigCollection;
-use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Repository\TriumphConfigRepositoryInterface;
@@ -269,15 +269,15 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     {
         $normalizedSkillPoints = [];
 
-        /** @var Skill $skill */
-        foreach ($player->getSkillsWithPoints()->getAllExcept(SkillEnum::FERTILE) as $skill) {
-            $skillPoints = $skill->getSkillPointsName();
+        foreach ($player->getChargedSkillPoints() as $skillPoints) {
+            /** @var ChargeStatus $skillPoints */
+            $key = $skillPoints->getSkillPointsName();
             $normalizedSkillPoints[] = [
-                'key' => $skillPoints,
+                'key' => $key,
                 'quantityPoint' => [
-                    'name' => $this->translationService->translate($skillPoints . '.name', [], 'player', $language),
-                    'description' => $this->translationService->translate($skillPoints . '.description', [], 'player', $language),
-                    'quantity' => $skill->getSkillPoints(),
+                    'name' => $this->translationService->translate($key . '.name', [], 'player', $language),
+                    'description' => $this->translationService->translate($key . '.description', [], 'player', $language),
+                    'quantity' => $skillPoints->getCharge(),
                 ],
             ];
         }

@@ -47,10 +47,12 @@ abstract class SkillConfigData
                     ActionEnum::MAKE_SICK,
                 ],
             ),
-            new SkillConfigDto(name: SkillEnum::BIOLOGIST),
+            new SkillConfigDto(
+                name: SkillEnum::BIOLOGIST
+            ),
             new SkillConfigDto(
                 name: SkillEnum::BOTANIST,
-                skillPointsConfig: SkillPointsEnum::BOTANIST_POINTS,
+                statusConfigs: [SkillPointsEnum::BOTANIST_POINTS],
             ),
             new SkillConfigDto(
                 name: SkillEnum::BYPASS,
@@ -66,7 +68,7 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::CHEF,
-                skillPointsConfig: SkillPointsEnum::CHEF_POINTS,
+                statusConfigs: [SkillPointsEnum::CHEF_POINTS],
             ),
             new SkillConfigDto(
                 name: SkillEnum::COLD_BLOODED,
@@ -76,7 +78,7 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::CONCEPTOR,
-                skillPointsConfig: SkillPointsEnum::CONCEPTOR_POINTS,
+                statusConfigs: [SkillPointsEnum::CONCEPTOR_POINTS],
             ),
             new SkillConfigDto(
                 name: SkillEnum::CONFIDENT,
@@ -215,7 +217,7 @@ abstract class SkillConfigData
                 modifierConfigs: [
                     ModifierNameEnum::DOUBLE_HACK_CHANCE,
                 ],
-                skillPointsConfig: SkillPointsEnum::IT_EXPERT_POINTS,
+                statusConfigs: [SkillPointsEnum::IT_EXPERT_POINTS],
             ),
             new SkillConfigDto(
                 name: SkillEnum::LEADER,
@@ -307,7 +309,7 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::NURSE,
-                skillPointsConfig: SkillPointsEnum::NURSE_POINTS,
+                statusConfigs: [SkillPointsEnum::NURSE_POINTS],
             ),
             new SkillConfigDto(
                 name: SkillEnum::OBSERVANT,
@@ -342,7 +344,7 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::PHYSICIST,
-                skillPointsConfig: SkillPointsEnum::PILGRED_POINTS,
+                statusConfigs: [SkillPointsEnum::PILGRED_POINTS],
             ),
             new SkillConfigDto(
                 name: SkillEnum::PILOT,
@@ -356,7 +358,7 @@ abstract class SkillConfigData
                 modifierConfigs: [
                     ModifierNameEnum::PLUS_2_MAX_PRIVATE_CHANNELS,
                 ],
-                skillPointsConfig: SkillPointsEnum::POLYMATH_IT_POINTS,
+                statusConfigs: [SkillPointsEnum::POLYMATH_IT_POINTS],
             ),
             new SkillConfigDto(
                 name: SkillEnum::POLYVALENT,
@@ -410,7 +412,7 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::SHOOTER,
-                skillPointsConfig: SkillPointsEnum::SHOOTER_POINTS,
+                statusConfigs: [SkillPointsEnum::SHOOTER_POINTS],
             ),
             new SkillConfigDto(
                 name: SkillEnum::SLIMETRAP,
@@ -462,7 +464,7 @@ abstract class SkillConfigData
                 modifierConfigs: [
                     'modifier_technician_double_repair_and_renovate_chance',
                 ],
-                skillPointsConfig: SkillPointsEnum::TECHNICIAN_POINTS,
+                statusConfigs: [SkillPointsEnum::TECHNICIAN_POINTS],
             ),
             new SkillConfigDto(
                 name: SkillEnum::TORTURER,

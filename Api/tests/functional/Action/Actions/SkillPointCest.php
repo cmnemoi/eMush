@@ -18,6 +18,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -88,10 +89,9 @@ final class SkillPointCest extends AbstractFunctionalTest
 
         $this->addSkillToPlayer(SkillEnum::SHOOTER, $I, $this->chao);
 
-        $shooterSkill = $this->chao->getSkillByNameOrThrow(SkillEnum::SHOOTER);
         $I->assertEquals(
             4,
-            $shooterSkill->getSkillPoints()
+            $this->chao->getSkillPointCount(SkillPointsEnum::SHOOTER_POINTS->toString())
         );
 
         // check the action cost
@@ -105,7 +105,7 @@ final class SkillPointCest extends AbstractFunctionalTest
         $I->assertEquals(0, $this->shootHunterAction->getActionPointCost());
         $I->assertEquals(
             4,
-            $shooterSkill->getSkillPoints()
+            $this->chao->getSkillPointCount(SkillPointsEnum::SHOOTER_POINTS->toString())
         );
 
         // Now execute the action
@@ -118,7 +118,7 @@ final class SkillPointCest extends AbstractFunctionalTest
 
         $I->assertEquals(
             3,
-            $shooterSkill->getSkillPoints()
+            $this->chao->getSkillPointCount(SkillPointsEnum::SHOOTER_POINTS->toString())
         );
         $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::FRONT_ALPHA_TURRET,

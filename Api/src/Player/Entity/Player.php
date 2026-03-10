@@ -80,6 +80,7 @@ use Mush\Status\Entity\VisibleStatusHolderInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\User\Entity\User;
 
 /**
@@ -591,9 +592,19 @@ class Player extends EquipmentHolderAbstract implements StatusHolderInterface, V
         return $mushSkills->addSkills($humanSkills);
     }
 
-    public function getSkillsWithPoints(): SkillCollection
+    public function getSkillPoints(): Collection
     {
-        return $this->getSkills()->getSkillsWithPoints();
+        return $this->getStatusesByName(SkillPointsEnum::getAllAsStrings());
+    }
+
+    public function getChargedSkillPoints(): Collection
+    {
+        return $this->getSkillPoints()->filter(static fn (ChargeStatus $status) => $status->isCharged());
+    }
+
+    public function getSkillPointCount(string $name): int
+    {
+        return $this->getChargeStatusByNameOrThrow($name)->getCharge();
     }
 
     public function getSkillByNameOrThrow(SkillEnum $name): Skill

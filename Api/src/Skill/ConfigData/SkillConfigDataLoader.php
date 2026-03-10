@@ -13,13 +13,14 @@ use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Skill\Dto\SkillConfigDto;
 use Mush\Skill\Entity\SkillConfig;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 
 final class SkillConfigDataLoader extends ConfigDataLoader
 {
     private EntityRepository $actionConfigRepository;
     private EntityRepository $modifierConfigRepository;
     private EntityRepository $skillConfigRepository;
+    private EntityRepository $statusConfigRepository;
     private EntityRepository $skillPointsRepository;
     private EntityRepository $spawnEquipmentConfigRepository;
 
@@ -30,7 +31,7 @@ final class SkillConfigDataLoader extends ConfigDataLoader
         $this->actionConfigRepository = $entityManager->getRepository(ActionConfig::class);
         $this->modifierConfigRepository = $entityManager->getRepository(AbstractModifierConfig::class);
         $this->skillConfigRepository = $entityManager->getRepository(SkillConfig::class);
-        $this->skillPointsRepository = $entityManager->getRepository(ChargeStatusConfig::class);
+        $this->statusConfigRepository = $entityManager->getRepository(StatusConfig::class);
         $this->spawnEquipmentConfigRepository = $entityManager->getRepository(SpawnEquipmentConfig::class);
     }
 
@@ -47,7 +48,7 @@ final class SkillConfigDataLoader extends ConfigDataLoader
                 name: $skillConfigDto->name,
                 modifierConfigs: $this->getModifierConfigsFromDto($skillConfigDto),
                 actionConfigs: $this->getActionConfigsFromDto($skillConfigDto),
-                skillPointsConfig: $this->getSkillPointsConfigFromDto($skillConfigDto),
+                statusConfigs: $this->getStatusConfigsFromDto($skillConfigDto),
                 spawnEquipmentConfig: $this->getSpawnEquipmentConfigFromDto($skillConfigDto),
             );
 
@@ -100,22 +101,23 @@ final class SkillConfigDataLoader extends ConfigDataLoader
         return $modifierConfigs;
     }
 
-    private function getSkillPointsConfigFromDto(SkillConfigDto $skillConfigDto): ?ChargeStatusConfig
+    /**
+     * @return ArrayCollection<int, StatusConfig>
+     */
+    private function getStatusConfigsFromDto(SkillConfigDto $skillConfigDto): ArrayCollection
     {
-        $configName = $skillConfigDto->skillPointsConfig?->value;
-        if (!$configName) {
-            return null;
+        /** @var ArrayCollection<int, StatusConfig> $statusConfigs */
+        $statusConfigs = new ArrayCollection();
+        foreach ($skillConfigDto->statusConfigs as $statusConfigName) {
+            /** @var StatusConfig $statusConfig */
+            $statusConfig = $this->statusConfigRepository->findOneBy(['name' => $statusConfigName]);
+            if (!$statusConfig) {
+                throw new \RuntimeException("StatusConfig {$statusConfigName} not found for SkillConfig {$skillConfigDto->name->toString()}");
+            }
+            $statusConfigs->add($statusConfig);
         }
 
-        /** @var ?ChargeStatusConfig $skillPointsConfig */
-        $skillPointsConfig = $this->skillPointsRepository->findOneBy([
-            'name' => $configName,
-        ]);
-        if (!$skillPointsConfig) {
-            throw new \RuntimeException("SkillPointsConfig {$configName} not found for SkillConfig {$skillConfigDto->name->toString()}");
-        }
-
-        return $skillPointsConfig;
+        return $statusConfigs;
     }
 
     private function getSpawnEquipmentConfigFromDto(SkillConfigDto $skillConfigDto): ?SpawnEquipmentConfig

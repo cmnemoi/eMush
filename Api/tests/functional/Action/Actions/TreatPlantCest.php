@@ -12,6 +12,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -95,7 +96,7 @@ final class TreatPlantCest extends AbstractFunctionalTest
 
     private function givenPlayerHasFourBotanistPoints(FunctionalTester $I): void
     {
-        $I->assertEquals(4, $this->player->getSkillByNameOrThrow(SkillEnum::BOTANIST)->getSkillPoints());
+        $I->assertEquals(4, $this->player->getSkillPointCount(SkillPointsEnum::BOTANIST_POINTS->toString()));
     }
 
     private function whenPlayerTreatsPlant(): void
@@ -116,6 +117,6 @@ final class TreatPlantCest extends AbstractFunctionalTest
 
     private function thenPlayerShouldHaveThreeBotanistPoints(FunctionalTester $I): void
     {
-        $I->assertEquals(3, $this->player->getSkillByNameOrThrow(SkillEnum::BOTANIST)->getSkillPoints());
+        $I->assertEquals(3, $this->player->getSkillPointCount(SkillPointsEnum::BOTANIST_POINTS->toString()));
     }
 }

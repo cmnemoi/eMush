@@ -12,8 +12,7 @@ use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Skill\Dto\SkillConfigDto;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Status\ConfigData\StatusConfigData;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]
 class SkillConfig
@@ -29,36 +28,33 @@ class SkillConfig
     #[ORM\ManyToOne(targetEntity: SpawnEquipmentConfig::class, cascade: ['persist'])]
     private ?SpawnEquipmentConfig $spawnEquipmentConfig;
 
-    #[ORM\ManyToOne(targetEntity: ChargeStatusConfig::class, cascade: ['persist'])]
-    private ?ChargeStatusConfig $skillPointsConfig;
-
     #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
     private Collection $modifierConfigs;
 
     #[ORM\ManyToMany(targetEntity: ActionConfig::class)]
     private Collection $actionConfigs;
 
+    #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
+    private Collection $statusConfigs;
+
     public function __construct(
         SkillEnum $name = SkillEnum::NULL,
         ArrayCollection $modifierConfigs = new ArrayCollection(),
         ArrayCollection $actionConfigs = new ArrayCollection(),
+        ArrayCollection $statusConfigs = new ArrayCollection(),
         ?SpawnEquipmentConfig $spawnEquipmentConfig = null,
-        ?ChargeStatusConfig $skillPointsConfig = null
     ) {
         $this->name = $name;
         $this->spawnEquipmentConfig = $spawnEquipmentConfig;
         $this->modifierConfigs = $modifierConfigs;
         $this->actionConfigs = $actionConfigs;
-        $this->skillPointsConfig = $skillPointsConfig;
+        $this->statusConfigs = $statusConfigs;
     }
 
     public static function createFromDto(SkillConfigDto $dto): self
     {
         $skill = new self(
             name: $dto->name,
-            skillPointsConfig: $dto->skillPointsConfig !== null ? ChargeStatusConfig::fromConfigData(
-                StatusConfigData::getByName($dto->skillPointsConfig->toString())
-            ) : null,
         );
         $skill->setId(crc32(serialize($skill)));
 
@@ -88,9 +84,12 @@ class SkillConfig
         return new ArrayCollection($this->actionConfigs->toArray());
     }
 
-    public function getSkillPointsConfig(): ChargeStatusConfig
+    /**
+     * @return ArrayCollection<int, StatusConfig>
+     */
+    public function getStatusConfigs(): ArrayCollection
     {
-        return $this->skillPointsConfig ?? ChargeStatusConfig::createNull();
+        return new ArrayCollection($this->statusConfigs->toArray());
     }
 
     public function hasSpawnEquipmentConfig(): bool
@@ -114,7 +113,7 @@ class SkillConfig
         $this->spawnEquipmentConfig = $skillConfig->spawnEquipmentConfig;
         $this->modifierConfigs = $skillConfig->modifierConfigs;
         $this->actionConfigs = $skillConfig->actionConfigs;
-        $this->skillPointsConfig = $skillConfig->skillPointsConfig;
+        $this->statusConfigs = $skillConfig->statusConfigs;
     }
 
     private function setId(int $id): self

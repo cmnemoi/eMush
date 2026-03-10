@@ -8,6 +8,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -53,6 +54,13 @@ final class AddSkillToPlayerServiceCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveItemsInInventory(ItemEnum::HYDROPOT, $I);
     }
 
+    public function shouldCreateStatusesForPlayer(FunctionalTester $I): void
+    {
+        $this->whenIAddSkillToPlayer(SkillEnum::TECHNICIAN);
+
+        $this->thenPlayerShouldHaveTechnicianSpecialistPoints($I);
+    }
+
     private function whenIAddSkillToPlayer(SkillEnum $skill): void
     {
         $this->addSkillToPlayerService->execute($skill, $this->player);
@@ -73,6 +81,11 @@ final class AddSkillToPlayerServiceCest extends AbstractFunctionalTest
                 static fn ($modifier) => $modifier->getModifierConfig()->getName() === 'modifier_for_daedalus_+1moral_on_day_change'
             )
         );
+    }
+
+    private function thenPlayerShouldHaveTechnicianSpecialistPoints(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->player->hasStatus(SkillPointsEnum::TECHNICIAN_POINTS->toString()));
     }
 
     private function thenPlayerShouldHaveTechnicianModifier(FunctionalTester $I): void

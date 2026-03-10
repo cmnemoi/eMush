@@ -17,6 +17,7 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusService;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -120,7 +121,7 @@ final class DisassembleCest extends AbstractFunctionalTest
 
         $this->whenPlayerDisassemblesTheBlaster();
 
-        $I->assertEquals(1, $this->player->getSkillByNameOrThrow(SkillEnum::TECHNICIAN)->getSkillPoints(), 'Tech should consume one tech point');
+        $I->assertEquals(1, $this->player->getSkillPointCount(SkillPointsEnum::TECHNICIAN_POINTS->toString()), 'Tech should consume one tech point');
     }
 
     private function givenPlayerHasABlaster(): void

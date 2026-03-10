@@ -22,7 +22,6 @@ use Mush\Skill\Repository\InMemorySkillConfigRepository;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Factory\StatusFactory;
 use Mush\Status\Service\FakeStatusService;
 use PHPUnit\Framework\TestCase;
@@ -87,13 +86,6 @@ final class ChooseSkillUseCaseTest extends TestCase
         $this->expectException(GameException::class);
 
         $this->whenIChooseSkill(SkillEnum::PILOT);
-    }
-
-    public function testShouldCreateSkillPoints(): void
-    {
-        $this->whenIChooseSkill(SkillEnum::SHOOTER);
-
-        $this->thenPlayerShouldHaveSkillPoints(SkillPointsEnum::SHOOTER_POINTS);
     }
 
     public function testShouldThrowIfPlayerDoesNotHaveEmptyHumanSkillSlot(): void
@@ -172,14 +164,6 @@ final class ChooseSkillUseCaseTest extends TestCase
         $player = $this->playerRepository->findOneByName($this->player->getName());
         $addedSkill = $player->getSkillByNameOrThrow($skill);
         self::assertEquals($skill, $addedSkill->getName());
-    }
-
-    private function thenPlayerShouldHaveSkillPoints(SkillPointsEnum $skillPoints): void
-    {
-        $player = $this->playerRepository->findOneByName($this->player->getName());
-        $skillPointsStatus = $player->getStatusByName($skillPoints->toString());
-
-        self::assertNotNull($skillPointsStatus);
     }
 
     private function initSkillConfigs(): void

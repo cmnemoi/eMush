@@ -23,6 +23,7 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -141,8 +142,7 @@ final class RepairActionCest extends AbstractFunctionalTest
         $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->kuanTi);
 
         // given Kuan Ti has two Technician points
-        $technicianSkill = $this->kuanTi->getSkillByNameOrThrow(SkillEnum::TECHNICIAN);
-        $I->assertEquals(2, $technicianSkill->getSkillPoints());
+        $I->assertEquals(2, $this->kuanTi->getSkillPointCount(SkillPointsEnum::TECHNICIAN_POINTS->toString()));
 
         // when Kuan Ti repairs the Mycoscan
         $this->repairAction->loadParameters(
@@ -154,7 +154,7 @@ final class RepairActionCest extends AbstractFunctionalTest
         $this->repairAction->execute();
 
         // then Kuan Ti should have one Technician point left
-        $I->assertEquals(1, $technicianSkill->getSkillPoints());
+        $I->assertEquals(1, $this->kuanTi->getSkillPointCount(SkillPointsEnum::TECHNICIAN_POINTS->toString()));
     }
 
     public function shouldNotConsumeEngineerPointWhenRelevant(FunctionalTester $I): void
@@ -166,8 +166,7 @@ final class RepairActionCest extends AbstractFunctionalTest
         $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->kuanTi);
 
         // given Kuan Ti has two Technician points
-        $technicianSkill = $this->kuanTi->getSkillByNameOrThrow(SkillEnum::TECHNICIAN);
-        $I->assertEquals(2, $technicianSkill->getSkillPoints());
+        $I->assertEquals(2, $this->kuanTi->getSkillPointCount(SkillPointsEnum::TECHNICIAN_POINTS->toString()));
 
         // when Kuan Ti examines the Mycoscan
         $this->examineAction->loadParameters(
@@ -179,7 +178,7 @@ final class RepairActionCest extends AbstractFunctionalTest
         $this->examineAction->execute();
 
         // then Kuan Ti should still have two technician points
-        $I->assertEquals(2, $technicianSkill->getSkillPoints());
+        $I->assertEquals(2, $this->kuanTi->getSkillPointCount(SkillPointsEnum::TECHNICIAN_POINTS->toString()));
     }
 
     public function shouldRewardCustomRepairObjectTriumphOnSuccess(FunctionalTester $I): void

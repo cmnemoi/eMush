@@ -20,8 +20,6 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Skill\ConfigData\SkillConfigData;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\SkillPointsEnum;
 
 #[ORM\Entity]
 class Skill implements ActionProviderInterface, ModifierProviderInterface
@@ -95,9 +93,9 @@ class Skill implements ActionProviderInterface, ModifierProviderInterface
         return $this->skillConfig->getModifierConfigs();
     }
 
-    public function getSkillPointConfig(): ChargeStatusConfig
+    public function getStatusConfigs(): ArrayCollection
     {
-        return $this->skillConfig->getSkillPointsConfig();
+        return $this->skillConfig->getStatusConfigs();
     }
 
     public function spawnsEquipment(): bool
@@ -108,23 +106,6 @@ class Skill implements ActionProviderInterface, ModifierProviderInterface
     public function getSpawnEquipmentConfigOrThrow(): SpawnEquipmentConfig
     {
         return $this->skillConfig->getSpawnEquipmentConfigOrThrow();
-    }
-
-    public function getSkillPoints(): int
-    {
-        return $this->player->getChargeStatusByName(
-            SkillPointsEnum::fromSkill($this)->toString()
-        )?->getCharge() ?? 0;
-    }
-
-    public function hasSkillPoints(): bool
-    {
-        return $this->getSkillPoints() > 0;
-    }
-
-    public function getSkillPointsName(): string
-    {
-        return $this->getName()->getSkillPointsName();
     }
 
     public function isMushSkill(): bool

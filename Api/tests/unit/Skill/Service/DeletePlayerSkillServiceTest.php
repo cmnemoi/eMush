@@ -221,12 +221,14 @@ final class DeletePlayerSkillServiceTest extends TestCase
         $this->givenPlayerHasSkill($skillName);
         $skill = $this->player->getSkillByNameOrThrow($skillName);
 
-        $this->statusService->createStatusFromName(
-            statusName: SkillPointsEnum::fromSkill($skill)->toString(),
-            holder: $this->player,
-            tags: [],
-            time: new \DateTime()
-        );
+        foreach (SkillPointsEnum::fromSkill($skill) as $status) {
+            $this->statusService->createStatusFromName(
+                statusName: $status,
+                holder: $this->player,
+                tags: [],
+                time: new \DateTime()
+            );
+        }
     }
 
     private function whenIDeleteSkill(SkillEnum $skill): void

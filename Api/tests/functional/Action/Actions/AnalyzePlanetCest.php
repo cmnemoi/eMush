@@ -27,6 +27,7 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -335,7 +336,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
 
     private function givenPlayerHasFourSkillPoints(FunctionalTester $I): void
     {
-        $I->assertEquals(4, $this->player->getSkillByNameOrThrow(SkillEnum::IT_EXPERT)->getSkillPoints());
+        $I->assertEquals(4, $this->player->getSkillPointCount(SkillPointsEnum::IT_EXPERT_POINTS->toString()));
     }
 
     private function givenPlayerHasTenActionPoints(): void
@@ -376,8 +377,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
 
     private function thenPlayerShouldHaveThreeITPoints(FunctionalTester $I): void
     {
-        $itExpertSkill = $this->player->getSkillByNameOrThrow(SkillEnum::IT_EXPERT);
-        $I->assertEquals(3, $itExpertSkill->getSkillPoints());
+        $I->assertEquals(3, $this->player->getSkillPointCount(SkillPointsEnum::IT_EXPERT_POINTS->toString()));
     }
 
     private function thenPlayerShouldHavePlanetScanRatio(int $expectedCount, FunctionalTester $I): void

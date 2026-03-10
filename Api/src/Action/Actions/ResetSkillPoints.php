@@ -9,7 +9,6 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasRole;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Skill\Entity\Skill;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Enum\RoleEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -48,9 +47,8 @@ class ResetSkillPoints extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Skill $skill */
-        foreach ($this->player->getSkills()->filter(static fn (Skill $skill) => !$skill->getSkillPointConfig()->isNull()) as $skill) {
-            $skillPointsStatus = $this->player->getChargeStatusByNameOrThrow($skill->getSkillPointConfig()->getStatusName());
+        foreach ($this->player->getSkillPoints() as $status) {
+            $skillPointsStatus = $this->player->getChargeStatusByNameOrThrow($status->getStatusConfig()->getStatusName());
             $this->statusService->updateCharge($skillPointsStatus, $skillPointsStatus->getMaxChargeOrThrow(), [], new \DateTime());
         }
     }

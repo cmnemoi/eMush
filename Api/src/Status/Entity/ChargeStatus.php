@@ -2,8 +2,10 @@
 
 namespace Mush\Status\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
@@ -12,6 +14,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 #[ORM\Entity]
@@ -165,6 +168,25 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
 
         return $maturationTime;
         */
+    }
+
+    public function hasAnyActionTypes(array $expectedActionTypes): bool
+    {
+        $skillActionTypes = $this->getSkillActionTypes()->map(
+            static fn (ActionTypeEnum $actionType) => $actionType->toString()
+        )->toArray();
+
+        return \count(array_intersect($skillActionTypes, $expectedActionTypes)) > 0;
+    }
+
+    public function getSkillPointsName(): string
+    {
+        return SkillPointsEnum::getPointNameFromStatusName($this->getName());
+    }
+
+    public function getSkillActionTypes(): ArrayCollection
+    {
+        return SkillPointsEnum::getPointsActionTypesFromStatusName($this->getName());
     }
 
     private function getItemOwnerOrThrow(): GameItem

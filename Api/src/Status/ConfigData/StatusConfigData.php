@@ -2149,6 +2149,22 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::MANKIND_ONLY_HOPE_STATUS . '_default',
+            'statusName' => PlayerStatusEnum::MANKIND_ONLY_HOPE_STATUS,
+            'visibility' => 'public',
+            'type' => 'status_config',
+            'chargeVisibility' => null,
+            'chargeStrategy' => 'none',
+            'maxCharge' => null,
+            'startCharge' => null,
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => null,
+            'modifierConfigs' => [
+                'modifier_for_daedalus_+1moral_on_day_change',
+            ],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

@@ -592,5 +592,16 @@ other{Charges are the number of times you can use an object. **Charged** objects
         <target>Your **Public** actions are anonymous. Your **Secret** and **Covert** actions are going to reveal your true identity, on the other hand...</target>
       </segment>
     </unit>
+    <unit id="mankind_only_hope_status">
+      <segment id="name" state="translated">
+        <source>mankind_only_hope_status.name</source>
+        <target>Mankind's only hope</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>mankind_only_hope_status.description</source>
+        <target>**Chun**'s unique immune system makes her the last hope for humanity. As long as she stays alive, we'll have a shot at combatting the Mush invasion.//
+:point: **Daily :pmo: morale loss** is reduced by 1 point for all crew members. // :point: Beware however : **Chun's death would have catastrophic consequences on the morale of the crew.**</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

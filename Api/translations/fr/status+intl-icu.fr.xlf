@@ -600,5 +600,16 @@
         <target>Vos actions **Publiques** sont anonymes. Vos actions **Discrètes** et **Furtives** révéleront votre identité par contre...</target>
       </segment>
     </unit>
+    <unit id="mankind_only_hope_status">
+      <segment id="name" state="translated">
+        <source>mankind_only_hope_status.name</source>
+        <target>Seul espoir de l'humanité</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>mankind_only_hope_status.description</source>
+        <target>Son système immunitaire hors-norme fait de **Chun** le seul espoir de l'humanité. Tant qu'elle restera en vie, nous aurons une petite chance de combattre l'invasion Mush.//
+:point: **La perte de :pmo: moral journalière** est réduite d'un point pour tous les membres d'équipage. // :point: Attention cependant : **la mort de Chun aura un lourd effet sur le moral de l'équipage.**</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -152,6 +152,14 @@ final class PlayerSubscriber implements EventSubscriberInterface
 
     private function removeMoraleToOtherPlayers(Player $player): void
     {
+        $quantity = 1;
+        if ($player->hasStatus(PlayerStatusEnum::PREGNANT)) {
+            ++$quantity;
+        }
+        if ($player->hasStatus(PlayerStatusEnum::MANKIND_ONLY_HOPE_STATUS)) {
+            $quantity += 2;
+        }
+
         /** @var Player $otherPlayer */
         foreach ($player->getDaedalus()->getAlivePlayers()->getAllExcept($player) as $otherPlayer) {
             if ($otherPlayer->isMush()) {
@@ -161,7 +169,7 @@ final class PlayerSubscriber implements EventSubscriberInterface
             $playerModifierEvent = new PlayerVariableEvent(
                 $otherPlayer,
                 PlayerVariableEnum::MORAL_POINT,
-                $player->hasStatus(PlayerStatusEnum::PREGNANT) ? -2 : -1,
+                -$quantity,
                 [EventEnum::PLAYER_DEATH],
                 new \DateTime()
             );

@@ -51,7 +51,7 @@ export default defineComponent ({
             return (status: Status): string | null => {
                 switch (this.type) {
                 case "player":
-                    return statusPlayerEnum[status.key]?.icon || null;
+                    return statusPlayerEnum[status.key]?.icon || getImgUrl('infoalert.png');
                 case "disease":
                     switch (status.diseaseType) {
                     case "disease":
@@ -67,9 +67,9 @@ export default defineComponent ({
                     if (this.isEmptyElectricCharge(status)) {
                         return getImgUrl('status/nocharge.png');
                     }
-                    return statusItemEnum[status.key]?.icon || null;
+                    return statusItemEnum[status.key]?.icon || getImgUrl('infoalert.png');
                 case "room":
-                    return statusRoomEnum[status.key]?.icon || null;
+                    return statusRoomEnum[status.key]?.icon || getImgUrl('infoalert.png');
                 default:
                     return null;
                 }

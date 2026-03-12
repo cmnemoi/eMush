@@ -4,6 +4,7 @@ namespace Mush\Player\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 class CharacterConfigData
 {
@@ -102,7 +103,7 @@ class CharacterConfigData
             'name' => 'chun',
             'characterName' => 'chun',
             'skillConfigs' => [
-                SkillEnum::MANKIND_ONLY_HOPE,
+                // SkillEnum::MANKIND_ONLY_HOPE,
                 SkillEnum::NURSE,
                 SkillEnum::PRESENTIMENT,
                 SkillEnum::SNEAK,
@@ -127,6 +128,7 @@ class CharacterConfigData
             ],
             'initStatuses' => [
                 'immunized_default',
+                PlayerStatusEnum::MANKIND_ONLY_HOPE_STATUS . '_default',
             ],
         ],
         [

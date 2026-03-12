@@ -8,6 +8,11 @@ use Mush\Game\Enum\CharacterEnum;
 
 enum StatisticEnum: string
 {
+    // Must be given manually
+    case CONTRIBUTIONS = 'contributions';
+    case FORTYTWO_MANDATE = 'fortytwo_mandate';
+
+    // normal stats
     case CAT_CUDDLED = 'cat_cuddled';
     case COFFEE_TAKEN = 'coffee_taken';
     case COOKED_TAKEN = 'cooked_taken';
@@ -38,7 +43,6 @@ enum StatisticEnum: string
     case HUA = 'hua';
     case JANICE = 'janice';
     case JIN_SU = 'jin_su';
-    case CONTRIBUTIONS = 'contributions';
     case IAN = 'ian';
     case STEPHEN = 'stephen';
     case DEREK = 'derek';

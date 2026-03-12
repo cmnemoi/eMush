@@ -1889,5 +1889,19 @@
         <target>Hédoniste</target>
       </segment>
     </unit>
+    <unit id="fortytwo_mandate">
+      <segment id="name" state="translated">
+        <source>fortytwo_mandate.name</source>
+        <target>Nombre de mandats au 42e étage</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>fortytwo_mandate.description</source>
+        <target>Nombre de mandats passés à dormir pendant les réunions.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>fortytwo_mandate_1.name</source>
+        <target>{gender, select, female {Ancienne Sénatrice} other {Ancien Sénateur}} de la Fédération</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

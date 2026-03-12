@@ -6,6 +6,18 @@ namespace Mush\Achievement\Enum;
 
 enum AchievementEnum: string
 {
+    // Must be given manually
+    case CONTRIBUTIONS_1 = 'contributions_1';
+    case CONTRIBUTIONS_5 = 'contributions_5';
+    case CONTRIBUTIONS_20 = 'contributions_20';
+    case CONTRIBUTIONS_50 = 'contributions_50';
+    case CONTRIBUTIONS_100 = 'contributions_100';
+    case CONTRIBUTIONS_300 = 'contributions_300';
+    case CONTRIBUTIONS_700 = 'contributions_700';
+    case CONTRIBUTIONS_1500 = 'contributions_1500';
+    case FORTYTWO_MANDATE_1 = 'fortytwo_mandate_1';
+
+    // normal achievements
     case GAGGED_1 = 'gagged_1';
     case CAT_CUDDLED_1 = 'cat_cuddled_1';
     case COFFEE_TAKEN_1 = 'coffee_taken_1';
@@ -93,14 +105,6 @@ enum AchievementEnum: string
     case JIN_SU_500 = 'jin_su_500';
     case JIN_SU_2000 = 'jin_su_2000';
     case JIN_SU_10000 = 'jin_su_10000';
-    case CONTRIBUTIONS_1 = 'contributions_1';
-    case CONTRIBUTIONS_5 = 'contributions_5';
-    case CONTRIBUTIONS_20 = 'contributions_20';
-    case CONTRIBUTIONS_50 = 'contributions_50';
-    case CONTRIBUTIONS_100 = 'contributions_100';
-    case CONTRIBUTIONS_300 = 'contributions_300';
-    case CONTRIBUTIONS_700 = 'contributions_700';
-    case CONTRIBUTIONS_1500 = 'contributions_1500';
     case IAN_50 = 'ian_50';
     case IAN_200 = 'ian_200';
     case IAN_500 = 'ian_500';

@@ -9,6 +9,7 @@ export const enum StatisticEnum {
     JANICE = "janice",
     JIN_SU = "jin_su",
     CONTRIBUTIONS = "contributions",
+    FORTYTWO_MANDATE = "fortytwo_mandate",
     IAN = "ian",
     STEPHEN = "stephen",
     DEREK = "derek",
@@ -114,6 +115,9 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.CONTRIBUTIONS]: {
         'icon': getImgUrl('ui_icons/action_points/pa_comp.png')
+    },
+    [StatisticEnum.FORTYTWO_MANDATE]: {
+        'icon': getImgUrl('ui_icons/42.png')
     },
     [StatisticEnum.IAN]: {
         'icon': getImgUrl('char/head/ian.png')

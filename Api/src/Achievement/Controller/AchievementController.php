@@ -45,7 +45,7 @@ final class AchievementController extends AbstractController
     }
 
     #[Post(path: '/statistics/update')]
-    #[IsGranted('ROLE_SUPER_ADMIN')]
+    #[IsGranted('ROLE_ADMIN')]
     public function incrementUserAchievementEndpoint(#[MapRequestPayload] UpdateUserStatisticCommand $command): JsonResponse
     {
         $this->commandBus->dispatch($command);

@@ -530,6 +530,11 @@ abstract class AchievementConfigData
                 threshold: 1500,
             ),
             new AchievementConfigDto(
+                name: AchievementEnum::FORTYTWO_MANDATE_1,
+                points: 0,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
                 name: AchievementEnum::IAN_50,
                 points: 5,
                 threshold: 50,

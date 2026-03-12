@@ -85,7 +85,7 @@ final class AddSkillToPlayerServiceCest extends AbstractFunctionalTest
 
     private function thenPlayerShouldHaveTechnicianSpecialistPoints(FunctionalTester $I): void
     {
-        $I->assertTrue($this->player->hasStatus(SkillPointsEnum::TECHNICIAN_POINTS->toString()));
+        $I->assertTrue($this->player->hasStatus(SkillPointsEnum::ENGINEER_POINTS->toString()));
     }
 
     private function thenPlayerShouldHaveTechnicianModifier(FunctionalTester $I): void

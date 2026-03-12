@@ -283,7 +283,7 @@ final class ComputeEdenCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: 4,
-            actual: $this->player->getSkillPointCount(SkillPointsEnum::IT_EXPERT_POINTS->toString()),
+            actual: $this->player->getSkillPointCount(SkillPointsEnum::COMPUTER_POINTS->toString()),
         );
     }
 
@@ -330,7 +330,7 @@ final class ComputeEdenCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: $itPoints,
-            actual: $this->player->getSkillPointCount(SkillPointsEnum::IT_EXPERT_POINTS->toString()),
+            actual: $this->player->getSkillPointCount(SkillPointsEnum::COMPUTER_POINTS->toString()),
         );
     }
 

@@ -121,7 +121,7 @@ class StatusService implements StatusServiceInterface
         string $visibility = VisibilityEnum::HIDDEN
     ): void {
         $chargeStatusConfig = $holder->getDaedalus()->getGameConfig()->getStatusConfigs()
-            ->filter(static fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === $statusName
+            ->filter(static fn (StatusConfig $statusConfig) => $statusConfig->getName() === $statusName
             && $statusConfig instanceof ChargeStatusConfig)->first();
 
         if (!$chargeStatusConfig instanceof ChargeStatusConfig) {
@@ -163,6 +163,17 @@ class StatusService implements StatusServiceInterface
 
         if ($statusConfigs->count() < 1) {
             throw new \LogicException("there should be at least 1 statusConfig with this statusName ({$name}). There are currently {$statusConfigs->count()}");
+        }
+
+        return $statusConfigs->first();
+    }
+
+    public function getStatusConfigByConfigNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
+    {
+        $statusConfigs = $daedalus->getGameConfig()->getStatusConfigs()->filter(static fn (StatusConfig $statusConfig) => $statusConfig->getName() === $name);
+
+        if ($statusConfigs->count() < 1) {
+            throw new \LogicException("there should be at least 1 statusConfig with this config name ({$name}). There are currently {$statusConfigs->count()}");
         }
 
         return $statusConfigs->first();
@@ -210,6 +221,26 @@ class StatusService implements StatusServiceInterface
         }
 
         $statusConfig = $this->getStatusConfigByNameAndDaedalus($statusName, $holder->getDaedalus());
+
+        return $this->createStatusFromConfig(
+            $statusConfig,
+            $holder,
+            $tags,
+            $time,
+            $target,
+            $visibility
+        );
+    }
+
+    public function createStatusFromConfigName(
+        string $configName,
+        StatusHolderInterface $holder,
+        array $tags,
+        \DateTime $time,
+        ?StatusHolderInterface $target = null,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): Status {
+        $statusConfig = $this->getStatusConfigByConfigNameAndDaedalus($configName, $holder->getDaedalus());
 
         return $this->createStatusFromConfig(
             $statusConfig,

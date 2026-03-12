@@ -55,7 +55,7 @@ final class DeletePlayerSkillServiceCest extends AbstractFunctionalTest
 
     public function shouldITPolymathHaveITPointsDeletedOnCuredMush(FunctionalTester $I): void
     {
-        $this->givenKuanTiIsMush($I);
+        $this->givenKuanTiIsMush();
         $this->givenKuanTiIsITExpert($I);
         $this->givenKuanTiIsPolymath($I);
         $this->whenKuanTiIsCured($I);
@@ -64,7 +64,7 @@ final class DeletePlayerSkillServiceCest extends AbstractFunctionalTest
 
     public function shouldPolymathITHaveITPointsDeletedOnCuredMush(FunctionalTester $I): void
     {
-        $this->givenKuanTiIsMush($I);
+        $this->givenKuanTiIsMush();
         $this->givenKuanTiIsPolymath($I);
         $this->givenKuanTiIsITExpert($I);
         $this->whenKuanTiIsCured($I);
@@ -245,45 +245,27 @@ final class DeletePlayerSkillServiceCest extends AbstractFunctionalTest
 
     private function thenKuanTiShouldHaveNoITPoints(FunctionalTester $I)
     {
-        $itExpertChargeStatus = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::IT_EXPERT_POINTS->toString());
-        $polymathChargeStatus = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::POLYMATH_IT_POINTS->toString());
-        $I->assertNull($itExpertChargeStatus, 'IT Expert charge status exists.');
-        $I->assertNull($polymathChargeStatus, 'Polymath charge status exists.');
+        $computerPointsStatus = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::COMPUTER_POINTS->toString());
+        $I->assertNull($computerPointsStatus, 'Computer points charge status exists.');
     }
 
     private function thenKuanTiShouldHaveMaxITPointsOfAmount(int $expectedQuantity, FunctionalTester $I)
     {
-        $itExpertMaxPoints = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::IT_EXPERT_POINTS->toString())?->getMaxChargeOrThrow();
-        $polymathMaxPoints = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::POLYMATH_IT_POINTS->toString())?->getMaxChargeOrThrow();
-        $higherItPoints = max($itExpertMaxPoints, $polymathMaxPoints);
-        $sumItPoints = $itExpertMaxPoints + $polymathMaxPoints;
+        $computerPointsMaxQuantity = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::COMPUTER_POINTS->toString())?->getMaxChargeOrThrow();
         $I->assertEquals(
             expected: $expectedQuantity,
-            actual: $higherItPoints,
-            message: "Expected {$expectedQuantity} max IT points, got the max {$higherItPoints}"
-        );
-        $I->assertEquals(
-            expected: $expectedQuantity,
-            actual: $sumItPoints,
-            message: "Expected {$expectedQuantity} max IT points, got the sum {$sumItPoints}"
+            actual: $computerPointsMaxQuantity,
+            message: "Expected {$expectedQuantity} max IT points, got the max {$computerPointsMaxQuantity}"
         );
     }
 
     private function thenKuanTiShouldHaveITPointsOfAmount(int $expectedQuantity, FunctionalTester $I)
     {
-        $itExpertPoints = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::IT_EXPERT_POINTS->toString())?->getCharge();
-        $polymathPoints = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::POLYMATH_IT_POINTS->toString())?->getCharge();
-        $higherItPoints = max($itExpertPoints, $polymathPoints);
-        $sumItPoints = $itExpertPoints + $polymathPoints;
+        $computerPointsQuantity = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::COMPUTER_POINTS->toString())?->getCharge();
         $I->assertEquals(
             expected: $expectedQuantity,
-            actual: $higherItPoints,
-            message: "Expected {$expectedQuantity} IT points, got the max {$higherItPoints}"
-        );
-        $I->assertEquals(
-            expected: $expectedQuantity,
-            actual: $sumItPoints,
-            message: "Expected {$expectedQuantity} IT points, got the sum {$sumItPoints}"
+            actual: $computerPointsQuantity,
+            message: "Expected {$expectedQuantity} IT points, got the max {$computerPointsQuantity}"
         );
     }
 }

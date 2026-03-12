@@ -54,7 +54,7 @@ final class SkillPointsCest extends AbstractFunctionalTest
         $I->seeInRepository(
             entity: RoomLog::class,
             params: [
-                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][$skillPoints['name']],
+                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][$skillPoints['pointName']],
             ],
         );
     }
@@ -64,11 +64,11 @@ final class SkillPointsCest extends AbstractFunctionalTest
         $this->addSkillToPlayer(SkillEnum::IT_EXPERT, $I);
         $this->addSkillToPlayer(SkillEnum::POLYMATH, $I);
 
-        $this->givenPlayerHasZeroSkillPointsOf(SkillPointsEnum::IT_EXPERT_POINTS);
+        $this->givenPlayerHasZeroSkillPointsOf(SkillPointsEnum::COMPUTER_POINTS);
 
         $this->whenADayPasses();
 
-        $this->thenPlayerShouldHaveIncreasedItPointsByThree($I, SkillPointsEnum::IT_EXPERT_POINTS);
+        $this->thenPlayerShouldHaveIncreasedItPointsByThree($I, SkillPointsEnum::COMPUTER_POINTS);
     }
 
     public function shouldPolymathITGainThreePoints(FunctionalTester $I): void
@@ -76,11 +76,11 @@ final class SkillPointsCest extends AbstractFunctionalTest
         $this->addSkillToPlayer(SkillEnum::POLYMATH, $I);
         $this->addSkillToPlayer(SkillEnum::IT_EXPERT, $I);
 
-        $this->givenPlayerHasZeroSkillPointsOf(SkillPointsEnum::POLYMATH_IT_POINTS);
+        $this->givenPlayerHasZeroSkillPointsOf(SkillPointsEnum::COMPUTER_POINTS);
 
         $this->whenADayPasses();
 
-        $this->thenPlayerShouldHaveIncreasedItPointsByThree($I, SkillPointsEnum::POLYMATH_IT_POINTS);
+        $this->thenPlayerShouldHaveIncreasedItPointsByThree($I, SkillPointsEnum::COMPUTER_POINTS);
     }
 
     public function shouldPrintPrivateLogOnDailyITGainOnly(FunctionalTester $I): void
@@ -91,19 +91,19 @@ final class SkillPointsCest extends AbstractFunctionalTest
         $I->dontSeeInRepository(
             entity: RoomLog::class,
             params: [
-                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][SkillPointsEnum::IT_EXPERT_POINTS->toString()],
+                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][SkillPointsEnum::COMPUTER_POINTS->toString()],
                 'visibility' => VisibilityEnum::PRIVATE,
             ],
         );
 
-        $this->givenPlayerHasZeroSkillPointsOf(SkillPointsEnum::IT_EXPERT_POINTS);
+        $this->givenPlayerHasZeroSkillPointsOf(SkillPointsEnum::COMPUTER_POINTS);
 
         $this->whenADayPasses();
 
         $I->seeInRepository(
             entity: RoomLog::class,
             params: [
-                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][SkillPointsEnum::IT_EXPERT_POINTS->toString()],
+                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][SkillPointsEnum::COMPUTER_POINTS->toString()],
                 'visibility' => VisibilityEnum::PRIVATE,
             ],
         );
@@ -117,19 +117,19 @@ final class SkillPointsCest extends AbstractFunctionalTest
         $I->dontSeeInRepository(
             entity: RoomLog::class,
             params: [
-                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][SkillPointsEnum::IT_EXPERT_POINTS->toString()],
+                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][SkillPointsEnum::COMPUTER_POINTS->toString()],
                 'visibility' => VisibilityEnum::PRIVATE,
             ],
         );
 
-        $this->givenPlayerHasZeroSkillPointsOf(SkillPointsEnum::POLYMATH_IT_POINTS);
+        $this->givenPlayerHasZeroSkillPointsOf(SkillPointsEnum::COMPUTER_POINTS);
 
         $this->whenADayPasses();
 
         $I->seeInRepository(
             entity: RoomLog::class,
             params: [
-                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][SkillPointsEnum::IT_EXPERT_POINTS->toString()],
+                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][SkillPointsEnum::COMPUTER_POINTS->toString()],
                 'visibility' => VisibilityEnum::PRIVATE,
             ],
         );
@@ -138,8 +138,8 @@ final class SkillPointsCest extends AbstractFunctionalTest
     private function givenPlayerHasZeroSkillPoints(Example $skillPoints): void
     {
         /** @var ChargeStatus $skillPointsStatus */
-        $skillPointsStatus = $this->statusService->createStatusFromName(
-            statusName: $skillPoints['name'],
+        $skillPointsStatus = $this->statusService->createStatusFromConfigName(
+            configName: $skillPoints['configName'],
             holder: $this->chun,
             tags: [],
             time: new \DateTime()
@@ -166,9 +166,9 @@ final class SkillPointsCest extends AbstractFunctionalTest
 
     private function thenPlayerShouldHaveIncreasedSkillPoints(FunctionalTester $I, Example $skillPoints): void
     {
-        $skillPointsStatus = $this->chun->getChargeStatusByNameOrThrow($skillPoints['name']);
+        $skillPointsStatus = $this->chun->getChargeStatusByNameOrThrow($skillPoints['pointName']);
         $I->assertEquals(
-            expected: $this->getSkillPointsIncrement($skillPoints['name']),
+            expected: $this->getSkillPointsIncrement($skillPoints['configName']),
             actual: $skillPointsStatus->getCharge()
         );
     }
@@ -184,24 +184,32 @@ final class SkillPointsCest extends AbstractFunctionalTest
 
     private function getSkillPointsIncrement(string $skillPoints): int
     {
-        return match (SkillPointsEnum::from($skillPoints)) {
-            SkillPointsEnum::BOTANIST_POINTS => 2,
-            SkillPointsEnum::CHEF_POINTS => 4,
-            SkillPointsEnum::CONCEPTOR_POINTS => 2,
-            SkillPointsEnum::IT_EXPERT_POINTS => 2,
-            SkillPointsEnum::PILGRED_POINTS => 1,
-            SkillPointsEnum::SHOOTER_POINTS => 2,
-            SkillPointsEnum::TECHNICIAN_POINTS => 1,
-            SkillPointsEnum::NURSE_POINTS => 2,
-            SkillPointsEnum::POLYMATH_IT_POINTS => 1,
+        return match ($skillPoints) {
+            SkillPointsEnum::TWO_GARDEN_POINTS_MAX_4->value . '_default' => 2,
+            SkillPointsEnum::FOUR_COOK_POINTS_MAX_8->value . '_default' => 4,
+            SkillPointsEnum::TWO_CORE_POINTS_MAX_4->value . '_default' => 2,
+            SkillPointsEnum::TWO_COMPUTER_POINTS_MAX_4->value . '_default' => 2,
+            SkillPointsEnum::ONE_PILGRED_POINTS_MAX_2->value . '_default' => 1,
+            SkillPointsEnum::TWO_SHOOT_POINTS_MAX_4->value . '_default' => 2,
+            SkillPointsEnum::ONE_ENGINEER_POINTS_MAX_2->value . '_default' => 1,
+            SkillPointsEnum::TWO_HEAL_POINTS_MAX_4->value . '_default' => 2,
+            SkillPointsEnum::ONE_COMPUTER_POINTS_MAX_2->value . '_default' => 1,
             default => throw new \LogicException("Please define the increment for {$skillPoints}"),
         };
     }
 
     private function skillPointsDataProvider(): array
     {
-        return SkillPointsEnum::getAll()->map(static fn (SkillPointsEnum $skillPoints) => [
-            'name' => $skillPoints->toString(),
-        ])->toArray();
+        return [
+            ['configName' => SkillPointsEnum::ONE_COMPUTER_POINTS_MAX_2->value . '_default', 'pointName' => SkillPointsEnum::COMPUTER_POINTS->value],
+            ['configName' => SkillPointsEnum::TWO_COMPUTER_POINTS_MAX_4->value . '_default', 'pointName' => SkillPointsEnum::COMPUTER_POINTS->value],
+            ['configName' => SkillPointsEnum::TWO_GARDEN_POINTS_MAX_4->value . '_default', 'pointName' => SkillPointsEnum::GARDEN_POINTS->value],
+            ['configName' => SkillPointsEnum::FOUR_COOK_POINTS_MAX_8->value . '_default', 'pointName' => SkillPointsEnum::COOK_POINTS->value],
+            ['configName' => SkillPointsEnum::TWO_CORE_POINTS_MAX_4->value . '_default', 'pointName' => SkillPointsEnum::CORE_POINTS->value],
+            ['configName' => SkillPointsEnum::TWO_HEAL_POINTS_MAX_4->value . '_default', 'pointName' => SkillPointsEnum::HEAL_POINTS->value],
+            ['configName' => SkillPointsEnum::ONE_PILGRED_POINTS_MAX_2->value . '_default', 'pointName' => SkillPointsEnum::PILGRED_POINTS->value],
+            ['configName' => SkillPointsEnum::TWO_SHOOT_POINTS_MAX_4->value . '_default', 'pointName' => SkillPointsEnum::SHOOT_POINTS->value],
+            ['configName' => SkillPointsEnum::ONE_ENGINEER_POINTS_MAX_2->value . '_default', 'pointName' => SkillPointsEnum::ENGINEER_POINTS->value],
+        ];
     }
 }

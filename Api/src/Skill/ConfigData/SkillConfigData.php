@@ -52,7 +52,7 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::BOTANIST,
-                statusConfigs: [SkillPointsEnum::BOTANIST_POINTS],
+                statusConfigs: [SkillPointsEnum::TWO_GARDEN_POINTS_MAX_4->value . '_default'],
             ),
             new SkillConfigDto(
                 name: SkillEnum::BYPASS,
@@ -68,7 +68,7 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::CHEF,
-                statusConfigs: [SkillPointsEnum::CHEF_POINTS],
+                statusConfigs: [SkillPointsEnum::FOUR_COOK_POINTS_MAX_8->value . '_default'],
             ),
             new SkillConfigDto(
                 name: SkillEnum::COLD_BLOODED,
@@ -78,7 +78,7 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::CONCEPTOR,
-                statusConfigs: [SkillPointsEnum::CONCEPTOR_POINTS],
+                statusConfigs: [SkillPointsEnum::TWO_CORE_POINTS_MAX_4->value . '_default'],
             ),
             new SkillConfigDto(
                 name: SkillEnum::CONFIDENT,
@@ -217,7 +217,7 @@ abstract class SkillConfigData
                 modifierConfigs: [
                     ModifierNameEnum::DOUBLE_HACK_CHANCE,
                 ],
-                statusConfigs: [SkillPointsEnum::IT_EXPERT_POINTS],
+                statusConfigs: [SkillPointsEnum::TWO_COMPUTER_POINTS_MAX_4->value . '_default'],
             ),
             new SkillConfigDto(
                 name: SkillEnum::LEADER,
@@ -309,7 +309,7 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::NURSE,
-                statusConfigs: [SkillPointsEnum::NURSE_POINTS],
+                statusConfigs: [SkillPointsEnum::TWO_HEAL_POINTS_MAX_4->value . '_default'],
             ),
             new SkillConfigDto(
                 name: SkillEnum::OBSERVANT,
@@ -344,7 +344,7 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::PHYSICIST,
-                statusConfigs: [SkillPointsEnum::PILGRED_POINTS],
+                statusConfigs: [SkillPointsEnum::ONE_PILGRED_POINTS_MAX_2->value . '_default'],
             ),
             new SkillConfigDto(
                 name: SkillEnum::PILOT,
@@ -358,7 +358,7 @@ abstract class SkillConfigData
                 modifierConfigs: [
                     ModifierNameEnum::PLUS_2_MAX_PRIVATE_CHANNELS,
                 ],
-                statusConfigs: [SkillPointsEnum::POLYMATH_IT_POINTS],
+                statusConfigs: [SkillPointsEnum::ONE_COMPUTER_POINTS_MAX_2->value . '_default'],
             ),
             new SkillConfigDto(
                 name: SkillEnum::POLYVALENT,
@@ -412,7 +412,7 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::SHOOTER,
-                statusConfigs: [SkillPointsEnum::SHOOTER_POINTS],
+                statusConfigs: [SkillPointsEnum::TWO_SHOOT_POINTS_MAX_4->value . '_default'],
             ),
             new SkillConfigDto(
                 name: SkillEnum::SLIMETRAP,
@@ -464,7 +464,7 @@ abstract class SkillConfigData
                 modifierConfigs: [
                     'modifier_technician_double_repair_and_renovate_chance',
                 ],
-                statusConfigs: [SkillPointsEnum::TECHNICIAN_POINTS],
+                statusConfigs: [SkillPointsEnum::ONE_ENGINEER_POINTS_MAX_2->value . '_default'],
             ),
             new SkillConfigDto(
                 name: SkillEnum::TORTURER,

@@ -75,6 +75,6 @@ final class ChooseSkillUseCaseCest extends AbstractFunctionalTest
 
     private function thenChaoHasShooterPoints(FunctionalTester $I): void
     {
-        $I->assertTrue($this->chao->hasStatus(SkillPointsEnum::SHOOTER_POINTS->toString()));
+        $I->assertTrue($this->chao->hasStatus(SkillPointsEnum::SHOOT_POINTS->toString()));
     }
 }

@@ -108,7 +108,7 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
         $statusConfigs = new ArrayCollection();
         foreach ($skillConfigDto->statusConfigs as $statusConfigName) {
             /** @var AbstractModifierConfig $statusConfig */
-            $statusConfig = $this->getReference($statusConfigName->value);
+            $statusConfig = $this->getReference($statusConfigName);
             if (!$statusConfig) {
                 throw new \RuntimeException("StatusConfig {$statusConfigName} not found for SkillConfig {$skillConfigDto->name->toString()}");
             }

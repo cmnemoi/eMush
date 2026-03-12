@@ -183,7 +183,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         // given KT has two Technician points
         $I->assertEquals(
             expected: 2,
-            actual: $this->kuanTi->getSkillPointCount(SkillPointsEnum::TECHNICIAN_POINTS->toString()),
+            actual: $this->kuanTi->getSkillPointCount(SkillPointsEnum::ENGINEER_POINTS->toString()),
         );
 
         $this->givenTheActionIsLoaded($pasiphae);
@@ -193,7 +193,7 @@ final class RenovateActionCest extends AbstractFunctionalTest
         // then KT should have one Technician point left
         $I->assertEquals(
             expected: 1,
-            actual: $this->kuanTi->getSkillPointCount(SkillPointsEnum::TECHNICIAN_POINTS->toString()),
+            actual: $this->kuanTi->getSkillPointCount(SkillPointsEnum::ENGINEER_POINTS->toString()),
         );
     }
 

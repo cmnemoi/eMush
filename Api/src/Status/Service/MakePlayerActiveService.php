@@ -17,6 +17,9 @@ final class MakePlayerActiveService
         if ($player->getUser()->lastActivityFromYesterdayOrLater()) {
             return;
         }
+        if ($player->isActive()) {
+            return;
+        }
 
         $this->statusService->removeStatus(
             statusName: PlayerStatusEnum::INACTIVE,

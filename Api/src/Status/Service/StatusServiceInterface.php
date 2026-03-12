@@ -60,6 +60,15 @@ interface StatusServiceInterface
         string $visibility = VisibilityEnum::HIDDEN
     ): Status;
 
+    public function createStatusFromConfigName(
+        string $configName,
+        StatusHolderInterface $holder,
+        array $tags,
+        \DateTime $time,
+        ?StatusHolderInterface $target = null,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): Status;
+
     public function handleAttempt(
         StatusHolderInterface $holder,
         string $actionName,

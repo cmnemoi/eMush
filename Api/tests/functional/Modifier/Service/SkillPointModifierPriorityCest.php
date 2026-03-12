@@ -38,8 +38,8 @@ final class SkillPointModifierPriorityCest extends AbstractFunctionalTest
         $this->givenPlayerIsDesigner($I);
         $this->givenRoomHasNeronCoreAccessedByPlayer($I);
         $this->whenPlayerAdvancesProject($I);
-        $this->thenPlayerShouldHaveSkillPointsOfAmount(3, SkillPointsEnum::CONCEPTOR_POINTS, $I);
-        $this->thenPlayerShouldHaveSkillPointsOfAmount(4, SkillPointsEnum::IT_EXPERT_POINTS, $I);
+        $this->thenPlayerShouldHaveSkillPointsOfAmount(3, SkillPointsEnum::CORE_POINTS, $I);
+        $this->thenPlayerShouldHaveSkillPointsOfAmount(4, SkillPointsEnum::COMPUTER_POINTS, $I);
     }
 
     public function shouldDesignerITApplyCorePointsOverITPoints(FunctionalTester $I): void
@@ -48,8 +48,8 @@ final class SkillPointModifierPriorityCest extends AbstractFunctionalTest
         $this->givenPlayerIsITExpert($I);
         $this->givenRoomHasNeronCoreAccessedByPlayer($I);
         $this->whenPlayerAdvancesProject($I);
-        $this->thenPlayerShouldHaveSkillPointsOfAmount(3, SkillPointsEnum::CONCEPTOR_POINTS, $I);
-        $this->thenPlayerShouldHaveSkillPointsOfAmount(4, SkillPointsEnum::IT_EXPERT_POINTS, $I);
+        $this->thenPlayerShouldHaveSkillPointsOfAmount(3, SkillPointsEnum::CORE_POINTS, $I);
+        $this->thenPlayerShouldHaveSkillPointsOfAmount(4, SkillPointsEnum::COMPUTER_POINTS, $I);
     }
 
     public function shouldPolymathITApplyITPoints(FunctionalTester $I): void
@@ -76,8 +76,8 @@ final class SkillPointModifierPriorityCest extends AbstractFunctionalTest
         $this->givenPlayerIsDesigner($I);
         $this->givenRoomHasNeronCoreAccessedByPlayer($I);
         $this->whenPlayerAdvancesProject($I);
-        $this->thenPlayerShouldHaveSkillPointsOfAmount(2, SkillPointsEnum::POLYMATH_IT_POINTS, $I);
-        $this->thenPlayerShouldHaveSkillPointsOfAmount(3, SkillPointsEnum::CONCEPTOR_POINTS, $I);
+        $this->thenPlayerShouldHaveSkillPointsOfAmount(2, SkillPointsEnum::COMPUTER_POINTS, $I);
+        $this->thenPlayerShouldHaveSkillPointsOfAmount(3, SkillPointsEnum::CORE_POINTS, $I);
     }
 
     public function shouldDesignerPolymathApplyCorePointsOverPolymathPoints(FunctionalTester $I): void
@@ -86,8 +86,8 @@ final class SkillPointModifierPriorityCest extends AbstractFunctionalTest
         $this->givenPlayerIsPolymath($I);
         $this->givenRoomHasNeronCoreAccessedByPlayer($I);
         $this->whenPlayerAdvancesProject($I);
-        $this->thenPlayerShouldHaveSkillPointsOfAmount(2, SkillPointsEnum::POLYMATH_IT_POINTS, $I);
-        $this->thenPlayerShouldHaveSkillPointsOfAmount(3, SkillPointsEnum::CONCEPTOR_POINTS, $I);
+        $this->thenPlayerShouldHaveSkillPointsOfAmount(2, SkillPointsEnum::COMPUTER_POINTS, $I);
+        $this->thenPlayerShouldHaveSkillPointsOfAmount(3, SkillPointsEnum::CORE_POINTS, $I);
     }
 
     private function givenRoomHasNeronCoreAccessedByPlayer(FunctionalTester $I): void
@@ -154,19 +154,11 @@ final class SkillPointModifierPriorityCest extends AbstractFunctionalTest
 
     private function thenPlayerShouldHaveITPointsOfAmount(int $expectedQuantity, FunctionalTester $I)
     {
-        $itExpertPoints = $this->player->getChargeStatusByName(SkillPointsEnum::IT_EXPERT_POINTS->toString())?->getCharge();
-        $polymathPoints = $this->player->getChargeStatusByName(SkillPointsEnum::POLYMATH_IT_POINTS->toString())?->getCharge();
-        $higherItPoints = max($itExpertPoints, $polymathPoints);
-        $sumItPoints = $itExpertPoints + $polymathPoints;
+        $computerPoints = $this->player->getChargeStatusByName(SkillPointsEnum::COMPUTER_POINTS->toString())?->getCharge();
         $I->assertEquals(
             expected: $expectedQuantity,
-            actual: $higherItPoints,
-            message: "Expected {$expectedQuantity} IT points, got the max {$higherItPoints}"
-        );
-        $I->assertEquals(
-            expected: $expectedQuantity,
-            actual: $sumItPoints,
-            message: "Expected {$expectedQuantity} IT points, got the sum {$sumItPoints}"
+            actual: $computerPoints,
+            message: "Expected {$expectedQuantity} IT points, got {$computerPoints}"
         );
     }
 }

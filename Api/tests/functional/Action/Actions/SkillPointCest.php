@@ -91,7 +91,7 @@ final class SkillPointCest extends AbstractFunctionalTest
 
         $I->assertEquals(
             4,
-            $this->chao->getSkillPointCount(SkillPointsEnum::SHOOTER_POINTS->toString())
+            $this->chao->getSkillPointCount(SkillPointsEnum::SHOOT_POINTS->toString())
         );
 
         // check the action cost
@@ -105,7 +105,7 @@ final class SkillPointCest extends AbstractFunctionalTest
         $I->assertEquals(0, $this->shootHunterAction->getActionPointCost());
         $I->assertEquals(
             4,
-            $this->chao->getSkillPointCount(SkillPointsEnum::SHOOTER_POINTS->toString())
+            $this->chao->getSkillPointCount(SkillPointsEnum::SHOOT_POINTS->toString())
         );
 
         // Now execute the action
@@ -118,7 +118,7 @@ final class SkillPointCest extends AbstractFunctionalTest
 
         $I->assertEquals(
             3,
-            $this->chao->getSkillPointCount(SkillPointsEnum::SHOOTER_POINTS->toString())
+            $this->chao->getSkillPointCount(SkillPointsEnum::SHOOT_POINTS->toString())
         );
         $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::FRONT_ALPHA_TURRET,

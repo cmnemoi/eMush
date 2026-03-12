@@ -158,7 +158,7 @@ class DayEventCest
 
         // Specialist point increment
         /** @var ChargeStatusConfig $statusConfig */
-        $statusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => SkillPointsEnum::SHOOTER_POINTS]);
+        $statusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => SkillPointsEnum::SHOOT_POINTS]);
 
         /** @var ChargeStatus $status */
         $status = $this->statusService->createStatusFromConfig(

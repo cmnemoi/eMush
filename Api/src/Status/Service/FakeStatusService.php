@@ -141,6 +141,27 @@ final class FakeStatusService implements StatusServiceInterface
         return $status;
     }
 
+    public function createStatusFromConfigName(
+        string $configName,
+        StatusHolderInterface $holder,
+        array $tags,
+        \DateTime $time,
+        ?StatusHolderInterface $target = null,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): Status {
+        $statusConfigData = StatusConfigData::getByName($configName);
+        $statusName = $statusConfigData['statusName'];
+        if ($statusConfigData['type'] === 'charge_status_config') {
+            $status = StatusFactory::createChargeStatusFromStatusName($statusName, $holder);
+        } else {
+            $status = StatusFactory::createStatusByNameForHolder($statusName, $holder);
+        }
+
+        $this->persist($status);
+
+        return $status;
+    }
+
     public function handleAttempt(
         StatusHolderInterface $holder,
         string $actionName,

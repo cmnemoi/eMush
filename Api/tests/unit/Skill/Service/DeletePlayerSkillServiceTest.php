@@ -18,7 +18,6 @@ use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\DeletePlayerSkillService;
-use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\FakeStatusService;
 use Mush\Tests\unit\Skill\TestDoubles\InMemorySkillRepository;
 use PHPUnit\Framework\TestCase;
@@ -82,17 +81,6 @@ final class DeletePlayerSkillServiceTest extends TestCase
         $this->whenIDeleteSkill(SkillEnum::NULL);
     }
 
-    public function testShouldDeletePlaceRangedSkillModifiers(): void
-    {
-        $modifier = $this->givenPlayerHasSkillWithPlaceRangedModifier(
-            SkillEnum::SHRINK,
-        );
-
-        $this->whenIDeleteSkill(SkillEnum::SHRINK);
-
-        $this->thenIShouldNotSeeModifierInRepository($modifier);
-    }
-
     public function testShouldDeletePlayerRangedSkillModifiers(): void
     {
         $modifier = $this->givenPlayerHasSkillWithPlayerRangedModifier(
@@ -117,42 +105,6 @@ final class DeletePlayerSkillServiceTest extends TestCase
         $this->thenIShouldNotSeeModifierInRepository($modifier);
     }
 
-    /**
-     * @dataProvider provideShouldDeleteSkillPointsCases
-     */
-    public function testShouldDeleteSkillPoints(SkillEnum $skill, SkillPointsEnum $skillPoints): void
-    {
-        $this->givenPlayerHasSkillWithPoints($skill);
-
-        $this->whenIDeleteSkill($skill);
-
-        $this->thenIShouldNotSeeSkillPointsInRepository($skillPoints);
-    }
-
-    public static function provideShouldDeleteSkillPointsCases(): iterable
-    {
-        return SkillPointsEnum::getAll()->map(static fn (SkillPointsEnum $skillPoints) => [
-            $skillPoints->value => [
-                match ($skillPoints) {
-                    SkillPointsEnum::BOTANIST_POINTS => SkillEnum::BOTANIST,
-                    SkillPointsEnum::CHEF_POINTS => SkillEnum::CHEF,
-                    SkillPointsEnum::CONCEPTOR_POINTS => SkillEnum::CONCEPTOR,
-                    SkillPointsEnum::IT_EXPERT_POINTS => SkillEnum::IT_EXPERT,
-                    SkillPointsEnum::NURSE_POINTS => SkillEnum::NURSE,
-                    SkillPointsEnum::PILGRED_POINTS => SkillEnum::PHYSICIST,
-                    SkillPointsEnum::POLYMATH_IT_POINTS => SkillEnum::POLYMATH,
-                    SkillPointsEnum::SHOOTER_POINTS => SkillEnum::SHOOTER,
-                    SkillPointsEnum::TECHNICIAN_POINTS => SkillEnum::TECHNICIAN,
-                    default => throw new \LogicException("Skill points {$skillPoints->toString()} not found"),
-                },
-                $skillPoints,
-            ],
-        ])->reduce(
-            static fn (array $carry, array $item) => array_merge($carry, $item),
-            []
-        );
-    }
-
     private function givenPlayerHasSkill(SkillEnum $skill): void
     {
         $skill = Skill::createByNameForPlayer($skill, $this->player);
@@ -164,25 +116,6 @@ final class DeletePlayerSkillServiceTest extends TestCase
         $modifier = GameModifierFactory::createByNameForHolder(
             name: $modifierName,
             holder: $this->player,
-        );
-        $this->modifierCreationService->persist($modifier);
-
-        new Skill(
-            skillConfig: new SkillConfig(
-                name: $skill,
-                modifierConfigs: new ArrayCollection([$modifier->getModifierConfig()])
-            ),
-            player: $this->player
-        );
-
-        return $modifier;
-    }
-
-    private function givenPlayerHasSkillWithPlaceRangedModifier(SkillEnum $skill): GameModifier
-    {
-        $modifier = GameModifierFactory::createByNameForHolder(
-            name: 'modifier_for_daedalus_+1moral_on_day_change',
-            holder: $this->player->getPlace(),
         );
         $this->modifierCreationService->persist($modifier);
 
@@ -216,21 +149,6 @@ final class DeletePlayerSkillServiceTest extends TestCase
         return $modifier;
     }
 
-    private function givenPlayerHasSkillWithPoints(SkillEnum $skillName): void
-    {
-        $this->givenPlayerHasSkill($skillName);
-        $skill = $this->player->getSkillByNameOrThrow($skillName);
-
-        foreach (SkillPointsEnum::fromSkill($skill) as $status) {
-            $this->statusService->createStatusFromName(
-                statusName: $status,
-                holder: $this->player,
-                tags: [],
-                time: new \DateTime()
-            );
-        }
-    }
-
     private function whenIDeleteSkill(SkillEnum $skill): void
     {
         $this->deletePlayerSkillService->execute(skillName: $skill, player: $this->player);
@@ -247,11 +165,5 @@ final class DeletePlayerSkillServiceTest extends TestCase
         $modifier = $this->modifierCreationService->findOneById($modifier->getId());
 
         self::assertTrue($modifier->isNull());
-    }
-
-    private function thenIShouldNotSeeSkillPointsInRepository(SkillPointsEnum $skillPoints): void
-    {
-        $player = $this->playerRepository->findOneByName($this->player->getName());
-        self::assertFalse($player?->hasStatus($skillPoints->toString()));
     }
 }

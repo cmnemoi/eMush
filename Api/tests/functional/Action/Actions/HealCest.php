@@ -227,7 +227,7 @@ final class HealCest extends AbstractFunctionalTest
 
     private function givenChunHasTwoNursePoints(FunctionalTester $I): void
     {
-        $this->player->getChargeStatusByName(SkillPointsEnum::NURSE_POINTS->toString())->setCharge(2);
+        $this->player->getChargeStatusByName(SkillPointsEnum::HEAL_POINTS->toString())->setCharge(2);
     }
 
     private function givenChunHasTenActionPoints(): void
@@ -292,7 +292,7 @@ final class HealCest extends AbstractFunctionalTest
 
     private function thenChunShouldHaveOneNursePoint(FunctionalTester $I): void
     {
-        $I->assertEquals(1, $this->player->getSkillPointCount(SkillPointsEnum::NURSE_POINTS->toString()));
+        $I->assertEquals(1, $this->player->getSkillPointCount(SkillPointsEnum::HEAL_POINTS->toString()));
     }
 
     private function thenKuanTiShouldHaveSpore(int $quantity, FunctionalTester $I): void

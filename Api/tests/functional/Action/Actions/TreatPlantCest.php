@@ -96,7 +96,7 @@ final class TreatPlantCest extends AbstractFunctionalTest
 
     private function givenPlayerHasFourBotanistPoints(FunctionalTester $I): void
     {
-        $I->assertEquals(4, $this->player->getSkillPointCount(SkillPointsEnum::BOTANIST_POINTS->toString()));
+        $I->assertEquals(4, $this->player->getSkillPointCount(SkillPointsEnum::GARDEN_POINTS->toString()));
     }
 
     private function whenPlayerTreatsPlant(): void
@@ -117,6 +117,6 @@ final class TreatPlantCest extends AbstractFunctionalTest
 
     private function thenPlayerShouldHaveThreeBotanistPoints(FunctionalTester $I): void
     {
-        $I->assertEquals(3, $this->player->getSkillPointCount(SkillPointsEnum::BOTANIST_POINTS->toString()));
+        $I->assertEquals(3, $this->player->getSkillPointCount(SkillPointsEnum::GARDEN_POINTS->toString()));
     }
 }

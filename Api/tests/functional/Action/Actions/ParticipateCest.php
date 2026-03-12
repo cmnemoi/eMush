@@ -377,7 +377,7 @@ final class ParticipateCest extends AbstractFunctionalTest
         // given KT has 4 Core points
         $I->assertEquals(
             expected: 4,
-            actual: $this->kuanTi->getSkillPointCount(SkillPointsEnum::CONCEPTOR_POINTS->toString()),
+            actual: $this->kuanTi->getSkillPointCount(SkillPointsEnum::CORE_POINTS->toString()),
         );
 
         // when KT participates in the project
@@ -392,7 +392,7 @@ final class ParticipateCest extends AbstractFunctionalTest
         // then KT should have 3 Core points
         $I->assertEquals(
             expected: 3,
-            actual: $this->kuanTi->getSkillPointCount(SkillPointsEnum::CONCEPTOR_POINTS->toString()),
+            actual: $this->kuanTi->getSkillPointCount(SkillPointsEnum::CORE_POINTS->toString()),
         );
     }
 
@@ -533,7 +533,7 @@ final class ParticipateCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: 4,
-            actual: $this->kuanTi->getSkillPointCount(SkillPointsEnum::IT_EXPERT_POINTS->toString()),
+            actual: $this->kuanTi->getSkillPointCount(SkillPointsEnum::COMPUTER_POINTS->toString()),
         );
     }
 
@@ -595,9 +595,9 @@ final class ParticipateCest extends AbstractFunctionalTest
     private function thenKuanTiShouldHaveITPoints(int $itPoints, FunctionalTester $I): void
     {
         $itExpertPoints = $this->kuanTi->hasSkill(SkillEnum::IT_EXPERT)
-            ? $this->kuanTi->getSkillPointCount(SkillPointsEnum::IT_EXPERT_POINTS->toString()) : 0;
+            ? $this->kuanTi->getSkillPointCount(SkillPointsEnum::COMPUTER_POINTS->toString()) : 0;
         $polymathItPoints = $this->kuanTi->hasSkill(SkillEnum::POLYMATH)
-            ? $this->kuanTi->getSkillPointCount(SkillPointsEnum::POLYMATH_IT_POINTS->toString()) : 0;
+            ? $this->kuanTi->getSkillPointCount(SkillPointsEnum::COMPUTER_POINTS->toString()) : 0;
         $itPointsMax = max($itExpertPoints, $polymathItPoints);
         $itPointsSum = $itExpertPoints + $polymathItPoints;
 
@@ -615,7 +615,7 @@ final class ParticipateCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: $corePoints,
-            actual: $this->kuanTi->getSkillPointCount(SkillPointsEnum::CONCEPTOR_POINTS->toString()),
+            actual: $this->kuanTi->getSkillPointCount(SkillPointsEnum::CORE_POINTS->toString()),
         );
     }
 

@@ -555,7 +555,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     {
         /** @var ChargeStatus $itPointsStatus */
         $itPointsStatus = $this->statusService->createStatusFromName(
-            statusName: SkillPointsEnum::IT_EXPERT_POINTS->toString(),
+            statusName: SkillPointsEnum::COMPUTER_POINTS->toString(),
             holder: $this->chun,
             tags: [],
             time: new \DateTime(),
@@ -571,7 +571,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     private function thenChunHasITPoints(int $quantity, FunctionalTester $I): void
     {
-        $itPointsStatus = $this->chun->getChargeStatusByNameOrThrow(SkillPointsEnum::IT_EXPERT_POINTS->toString());
+        $itPointsStatus = $this->chun->getChargeStatusByNameOrThrow(SkillPointsEnum::COMPUTER_POINTS->toString());
         $I->assertEquals($itPointsStatus->getCharge(), $quantity, message: "Chun should have {$quantity} IT points, but has {$itPointsStatus->getCharge()}");
     }
 

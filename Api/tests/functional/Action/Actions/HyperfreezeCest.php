@@ -192,7 +192,7 @@ final class HyperfreezeCest extends AbstractFunctionalTest
 
     private function thenPlayerShouldHaveChefPoints(int $expectedChefPoints, FunctionalTester $I): void
     {
-        $I->assertEquals($expectedChefPoints, $this->player->getSkillPointCount(SkillPointsEnum::CHEF_POINTS->toString()));
+        $I->assertEquals($expectedChefPoints, $this->player->getSkillPointCount(SkillPointsEnum::COOK_POINTS->toString()));
     }
 
     private function thenStandardRationShouldNotBeContaminated(FunctionalTester $I): void

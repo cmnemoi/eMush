@@ -117,7 +117,7 @@ final class RemoveCameraCest extends AbstractFunctionalTest
 
     private function thenPlayerShouldHaveTechnicianPoints(int $expectedTechnicianPoints, FunctionalTester $I): void
     {
-        $I->assertEquals($expectedTechnicianPoints, $this->player->getSkillPointCount(SkillPointsEnum::TECHNICIAN_POINTS->toString()));
+        $I->assertEquals($expectedTechnicianPoints, $this->player->getSkillPointCount(SkillPointsEnum::ENGINEER_POINTS->toString()));
     }
 
     private function thenPlayerShouldHaveACameraInInventory(FunctionalTester $I): void

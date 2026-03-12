@@ -121,7 +121,7 @@ final class DisassembleCest extends AbstractFunctionalTest
 
         $this->whenPlayerDisassemblesTheBlaster();
 
-        $I->assertEquals(1, $this->player->getSkillPointCount(SkillPointsEnum::TECHNICIAN_POINTS->toString()), 'Tech should consume one tech point');
+        $I->assertEquals(1, $this->player->getSkillPointCount(SkillPointsEnum::ENGINEER_POINTS->toString()), 'Tech should consume one tech point');
     }
 
     private function givenPlayerHasABlaster(): void

@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-box" v-if="isOpen" @mousedown.prevent>
+    <div class="modal-box" v-if="isOpen">
         <h1 class="header">
             {{ title }}
         </h1>

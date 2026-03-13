@@ -3,7 +3,7 @@
         v-if="isOpen"
         id="login-modal"
         class="modal-background"
-        @mousedown.prevent>
+        @mousedown="preventBackgroundClick">
         <div class="modal-box">
             <button class="modal-close" @click="close">
                 {{ $t('game.popUp.close') }}
@@ -26,6 +26,12 @@ export default defineComponent ({
     methods: {
         close() {
             this.$emit("close");
+        },
+        preventBackgroundClick(event: MouseEvent) {
+            event.stopPropagation();
+            if (event.target === event.currentTarget) {
+                event.preventDefault();
+            }
         }
     }
 });

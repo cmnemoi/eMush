@@ -13,7 +13,8 @@
         <div class="emote-picker" :class="{ 'popup': popup }">
             <div class="emote-header">
                 <span v-if="title">{{ $t(title) }}</span>
-                <button class="close-btn" @click="$emit('close')"><img :src="getImgUrl('comms/close.png')" alt="close">
+                <button v-if="popup" class="close-btn" @click="$emit('close')">
+                    <img :src="getImgUrl('comms/close.png')" alt="close"/>
                 </button>
             </div>
             <ul class="emote-tabs">

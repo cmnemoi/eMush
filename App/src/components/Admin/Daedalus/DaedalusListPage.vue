@@ -7,7 +7,7 @@
                     :value="option.value"
                     :key=option.value
                 >
-                    {{ option.text }}
+                    {{ option.label }}
                 </option>
             </select>
         </label>
@@ -115,23 +115,24 @@ import { defineComponent } from "vue";
 import urlJoin from "url-join";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import DropList from "@/components/Utils/DropList.vue";
-import qs from "qs";
-import ApiService from "@/services/api.service";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import AdminService from "@/services/admin.service";
 import DaedalusService from "@/services/daedalus.service";
 import { mapActions, mapGetters } from "vuex";
+import DataTableMixin from "@/mixin/dataTableMixin";
 
 
 export default defineComponent({
     name: "DeadalusListPage",
+    mixins: [DataTableMixin],
     components: {
         Datatable,
         DropList
     },
     data() {
         return {
+            endpoint: urlJoin(import.meta.env.VITE_APP_API_URL + 'daedaluses'),
             fields: [
                 {
                     key: 'id',
@@ -160,22 +161,6 @@ export default defineComponent({
                     sortable: false,
                     slot: true
                 }
-            ],
-            pagination: {
-                currentPage: 1,
-                pageSize: 10,
-                totalItem: 1,
-                totalPage: 1
-            },
-            rowData: [],
-            sortField: '',
-            sortDirection: 'DESC',
-            loading: false,
-            filter: '',
-            pageSizeOptions: [
-                { text: 5, value: 5 },
-                { text: 10, value: 10 },
-                { text: 20, value: 20 }
             ]
         };
     },
@@ -190,62 +175,6 @@ export default defineComponent({
         formatDate: (date: string): string => {
             const dateObject = new Date(date);
             return format(dateObject, 'PPPPpp', { locale: fr });
-        },
-        async loadData() {
-            this.loading = true;
-            const params: any = {
-                params: {},
-                paramsSerializer: qs.stringify
-            };
-            if (this.pagination.currentPage) {
-                params.params['page'] = this.pagination.currentPage;
-            }
-            if (this.pagination.pageSize) {
-                params.params['itemsPerPage'] = this.pagination.pageSize;
-            }
-            if (this.sortField) {
-                qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
-            }
-            if (this.filter) {
-                params.params['name'] = this.filter;
-            }
-            await ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'daedaluses'), params)
-                .then((result) => {
-                    return result.data;
-                })
-                .then((remoteRowData: any) => {
-                    this.rowData = remoteRowData['hydra:member'];
-                    this.pagination.totalItem = remoteRowData['hydra:totalItems'];
-                    this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
-                    this.loading = false;
-                });
-        },
-        sortTable(selectedField: any): void {
-            if (!selectedField.sortable) {
-                return;
-            }
-            if (this.sortField === selectedField.key) {
-                switch (this.sortDirection) {
-                case 'DESC':
-                    this.sortDirection = 'ASC';
-                    break;
-                case 'ASC':
-                    this.sortDirection = 'DESC';
-                    break;
-                }
-            } else {
-                this.sortDirection = 'DESC';
-            }
-            this.sortField = selectedField.key;
-            this.loadData();
-        },
-        updateFilter() {
-            this.pagination.currentPage = 1;
-            this.loadData();
-        },
-        paginationClick(page: number) {
-            this.pagination.currentPage = page;
-            this.loadData();
         },
         addNewRoomsToDaedalus(id: number) {
             AdminService.addNewRoomsToDaedalus(id).then(() => {
@@ -309,6 +238,3 @@ export default defineComponent({
     }
 });
 </script>
-
-<style lang="scss" scoped>
-</style>

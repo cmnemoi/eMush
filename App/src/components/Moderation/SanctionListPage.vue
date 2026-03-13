@@ -192,7 +192,6 @@ import { mapGetters } from "vuex";
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
 import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
 import { ModerationSanction } from "@/entities/ModerationSanction";
-import { moderation } from "@/store/moderation.module";
 
 interface SanctionListData {
     userId: string,

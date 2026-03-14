@@ -61,6 +61,15 @@ final class AddSkillToPlayerServiceCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveTechnicianSpecialistPoints($I);
     }
 
+    public function shouldCreateMultipleStatusesForPlayer(FunctionalTester $I): void
+    {
+        $this->whenIAddSkillToPlayer(SkillEnum::MAINTENANCE_CREW);
+
+        $this->thenPlayerShouldHaveTechnicianSpecialistPoints($I);
+        $this->thenPlayerShouldHaveGardenSpecialistPoints($I);
+        $this->thenPlayerShouldHaveCookSpecialistPoints($I);
+    }
+
     private function whenIAddSkillToPlayer(SkillEnum $skill): void
     {
         $this->addSkillToPlayerService->execute($skill, $this->player);
@@ -86,6 +95,16 @@ final class AddSkillToPlayerServiceCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveTechnicianSpecialistPoints(FunctionalTester $I): void
     {
         $I->assertTrue($this->player->hasStatus(SkillPointsEnum::ENGINEER_POINTS->toString()));
+    }
+
+    private function thenPlayerShouldHaveCookSpecialistPoints(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->player->hasStatus(SkillPointsEnum::COOK_POINTS->toString()));
+    }
+
+    private function thenPlayerShouldHaveGardenSpecialistPoints(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->player->hasStatus(SkillPointsEnum::GARDEN_POINTS->toString()));
     }
 
     private function thenPlayerShouldHaveTechnicianModifier(FunctionalTester $I): void

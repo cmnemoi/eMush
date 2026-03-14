@@ -31,6 +31,7 @@ import { formatText } from "@/utils/formatText";
 import { useDoubleTap } from "@/utils/useDoubleTap";
 import { computed, onBeforeMount } from "vue";
 import { useStore } from "vuex";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 type SelectableSkill = {
     key: string;
@@ -75,7 +76,7 @@ const chooseSkill = async (skill: SelectableSkill): Promise<void> => {
 
 const close = () => store.dispatch('popup/closeSkillSelectionPopUp');
 const initMushSkillsDisplay = ({ player }: { player: Player }) => store.dispatch('player/initMushSkillsDisplay', { player });
-const skillImage = (skill: SelectableSkill): string => SkillIconRecord[skill.key]?.icon ?? '';
+const skillImage = (skill: SelectableSkill): string => SkillIconRecord[skill.key]?.icon ?? (displayMushSkills.value ? getImgUrl('skills/mush/beta_mush.png') : getImgUrl('skills/human/beta_human.png'));
 
 onBeforeMount(() => initMushSkillsDisplay({ player: props.player }));
 </script>

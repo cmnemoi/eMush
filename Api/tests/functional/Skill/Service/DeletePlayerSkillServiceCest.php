@@ -157,6 +157,14 @@ final class DeletePlayerSkillServiceCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveITPointsOfAmount(2, $I);
     }
 
+    public function shouldMaintenanceCrewLoseAllPointTypesOnCuredMush(FunctionalTester $I): void
+    {
+        $this->givenKuanTiIsMush();
+        $this->givenKuanTiIsMaintenanceAgent($I);
+        $this->whenKuanTiIsCured($I);
+        $this->thenKuanTiShouldHaveNoMaintenanceCrewPoints($I);
+    }
+
     private function givenKuanTiIsMush(): void
     {
         $this->statusService->createStatusFromName(
@@ -198,6 +206,11 @@ final class DeletePlayerSkillServiceCest extends AbstractFunctionalTest
     private function givenKuanTiIsPolymath(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::POLYMATH, $I, $this->kuanTi);
+    }
+
+    private function givenKuanTiIsMaintenanceAgent(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::MAINTENANCE_CREW, $I, $this->kuanTi);
     }
 
     private function whenKuanTiIsCured(FunctionalTester $I): void
@@ -267,5 +280,17 @@ final class DeletePlayerSkillServiceCest extends AbstractFunctionalTest
             actual: $computerPointsQuantity,
             message: "Expected {$expectedQuantity} IT points, got the max {$computerPointsQuantity}"
         );
+    }
+
+    private function thenKuanTiShouldHaveNoMaintenanceCrewPoints(FunctionalTester $I)
+    {
+        $techPointsStatus = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::ENGINEER_POINTS->toString());
+        $I->assertNull($techPointsStatus, 'Tech points charge status exists.');
+
+        $cookPointsStatus = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::COOK_POINTS->toString());
+        $I->assertNull($cookPointsStatus, 'Cook points charge status exists.');
+
+        $gardenPointsStatus = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::GARDEN_POINTS->toString());
+        $I->assertNull($gardenPointsStatus, 'Garden points charge status exists.');
     }
 }

@@ -989,5 +989,15 @@
         <target>:beta: Vous êtes capable de vous adapter à toutes les épreuves. // :point: **Unique:** Pour **2** :pa:, vous pouvez réinitialiser votre sélection de compétences **Mush** (sauf Epigénétique). //// Cette compétence est en :beta: bêta-test: faites vos retours sur le forum ou le discord Eternaltwin.</target>
       </segment>
     </unit>
+    <unit id="maintenance_crew">
+      <segment id="maintenance_crew.name" state="translated">
+        <source>maintenance_crew.name</source>
+        <target>{character_gender, select, female {Agente} other {Agent}} de maintenance</target>
+      </segment>
+      <segment id="maintenance_crew.description" state="translated">
+        <source>maintenance_crew.description</source>
+        <target>:beta: Dans un monde de spécialistes, l'agent de maintenance brille en suivant son propre chemin. Et si ce chemin se retrouve à briller aussi, vous pouvez le remercier.// :point: +1 :pa_eng: par jour. // :point: +1 :pa_garden: par jour. // :point: +1 :pa_cook: par jour. //// Cette compétence est en :beta: bêta-test: faites vos retours sur le forum ou le discord Eternaltwin.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

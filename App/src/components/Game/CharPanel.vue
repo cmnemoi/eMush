@@ -316,7 +316,7 @@ const skillSlotImage = (index: number): string => {
 };
 
 const skillImage = (skill: Skill): string => {
-    return SkillIconRecord[skill.key]?.icon ?? '';
+    return SkillIconRecord[skill.key]?.icon ?? (skill.isMushSkill ? getImgUrl('skills/mush/beta_mush.png') : getImgUrl('skills/human/beta_human.png'));
 };
 
 const skillPointImg = (point: SkillPoint): string => {

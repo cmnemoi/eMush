@@ -18,10 +18,12 @@ enum SkillPointsEnum: string
 
     // garden points
     case GARDEN_POINTS = 'garden_points';
+    case ONE_GARDEN_POINTS_MAX_2 = '1_garden_points_max_2';
     case TWO_GARDEN_POINTS_MAX_4 = '2_garden_points_max_4';
 
     // cook points
     case COOK_POINTS = 'cook_points';
+    case ONE_COOK_POINTS_MAX_2 = '1_cook_points_max_2';
     case FOUR_COOK_POINTS_MAX_8 = '4_cook_points_max_8';
 
     // core points
@@ -58,6 +60,7 @@ enum SkillPointsEnum: string
             SkillEnum::SHOOTER => [self::TWO_SHOOT_POINTS_MAX_4->value . '_default'],
             SkillEnum::TECHNICIAN => [self::ONE_ENGINEER_POINTS_MAX_2->value . '_default'],
             SkillEnum::POLYMATH => [self::ONE_COMPUTER_POINTS_MAX_2->value . '_default'],
+            SkillEnum::MAINTENANCE_CREW => [self::ONE_ENGINEER_POINTS_MAX_2->value . '_default', self::ONE_GARDEN_POINTS_MAX_2->value . '_default', self::ONE_COOK_POINTS_MAX_2->value . '_default'],
             default => [''],
         };
     }

@@ -185,7 +185,7 @@ export default defineComponent ({
                 });
         },
         skillIcon: function(skill: string): string {
-            return SkillIconRecord[skill].icon ?? '';
+            return SkillIconRecord[skill]?.icon ?? getImgUrl('skills/human/beta_human.png');
         },
         ...mapActions('error', [
             'clearError'

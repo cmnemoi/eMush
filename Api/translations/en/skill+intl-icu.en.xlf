@@ -985,5 +985,15 @@
         <target>:beta: You can adapt to any difficulties. // :point: **Unique:** For **2** :pa:, you can reset your selected **Mush** skills (except Epigenetics). //// This skill is in :beta: beta: we welcome your feedback on the Eternaltwin forum and Discord.</target>
       </segment>
     </unit>
+    <unit id="maintenance_crew">
+      <segment id="maintenance_crew.name" state="translated">
+        <source>maintenance_crew.name</source>
+        <target>Maintenance Crew</target>
+      </segment>
+      <segment id="maintenance_crew.description" state="translated">
+        <source>maintenance_crew.description</source>
+        <target>:beta: In a world of specialists, the maintenance operative shines by following their own path. And if the floor starts shining too, you know who to thank.// :point: +1 :pa_eng: per day. // :point: +1 :pa_garden: per day. // :point: +1 :pa_cook: per day. //// This skill is in :beta: beta: we welcome your feedback on the Eternaltwin forum and Discord.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

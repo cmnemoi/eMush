@@ -3,7 +3,6 @@
 namespace Mush\Skill\Enum;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\Enum\ActionTypeEnum;
 
 enum SkillEnum: string
 {
@@ -100,6 +99,7 @@ enum SkillEnum: string
     case WRESTLER = 'wrestler';
     case DISABLED_SPRINTER = 'disabled_sprinter';
     case EPIGENETICS = 'epigenetics';
+    case MAINTENANCE_CREW = 'maintenance_crew';
 
     public function toString(): string
     {
@@ -161,26 +161,9 @@ enum SkillEnum: string
             self::TECHNICIAN => ['engineer'],
             self::SHOOTER => ['shoot'],
             self::POLYMATH => ['computer'],
+            self::MAINTENANCE_CREW => ['engineer', 'garden', 'cook'],
             default => [''],
         };
-    }
-
-    public function getSkillActionTypes(): ArrayCollection
-    {
-        return new ArrayCollection(
-            match ($this) {
-                self::BOTANIST => [ActionTypeEnum::ACTION_BOTANIST],
-                self::CHEF => [ActionTypeEnum::ACTION_COOK],
-                self::CONCEPTOR => [ActionTypeEnum::ACTION_CONCEPTOR],
-                self::PHYSICIST => [ActionTypeEnum::ACTION_PILGRED],
-                self::IT_EXPERT => [ActionTypeEnum::ACTION_IT],
-                self::NURSE => [ActionTypeEnum::ACTION_HEAL],
-                self::TECHNICIAN => [ActionTypeEnum::ACTION_TECHNICIAN],
-                self::SHOOTER => [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER],
-                self::POLYMATH => [ActionTypeEnum::ACTION_IT],
-                default => [],
-            }
-        );
     }
 
     public function isPolyvalentSkill(): bool

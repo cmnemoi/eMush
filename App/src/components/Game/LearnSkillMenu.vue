@@ -32,6 +32,7 @@ import { mapActions, mapGetters } from "vuex";
 import { SkillIconRecord } from "@/enums/skill.enum";
 import { Action } from "@/entities/Action";
 import { ActionEnum } from "@/enums/action.enum";
+import { getImgUrl } from "@/utils/getImgUrl";
 
 type SelectableSkill = {
     key: string,
@@ -94,7 +95,7 @@ export default defineComponent ({
             return skills;
         },
         skillImage(skill: SelectableSkill): string {
-            return SkillIconRecord[skill.key].icon ?? '';
+            return SkillIconRecord[skill.key]?.icon ?? getImgUrl('skills/human/beta_human.png');
         },
         async learnSkill(skill: SelectableSkill): Promise<void> {
             const action = this.learnAction;

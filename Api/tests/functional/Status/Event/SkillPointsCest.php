@@ -185,7 +185,9 @@ final class SkillPointsCest extends AbstractFunctionalTest
     private function getSkillPointsIncrement(string $skillPoints): int
     {
         return match ($skillPoints) {
+            SkillPointsEnum::ONE_GARDEN_POINTS_MAX_2->value . '_default' => 1,
             SkillPointsEnum::TWO_GARDEN_POINTS_MAX_4->value . '_default' => 2,
+            SkillPointsEnum::ONE_COOK_POINTS_MAX_2->value . '_default' => 1,
             SkillPointsEnum::FOUR_COOK_POINTS_MAX_8->value . '_default' => 4,
             SkillPointsEnum::TWO_CORE_POINTS_MAX_4->value . '_default' => 2,
             SkillPointsEnum::TWO_COMPUTER_POINTS_MAX_4->value . '_default' => 2,
@@ -203,7 +205,9 @@ final class SkillPointsCest extends AbstractFunctionalTest
         return [
             ['configName' => SkillPointsEnum::ONE_COMPUTER_POINTS_MAX_2->value . '_default', 'pointName' => SkillPointsEnum::COMPUTER_POINTS->value],
             ['configName' => SkillPointsEnum::TWO_COMPUTER_POINTS_MAX_4->value . '_default', 'pointName' => SkillPointsEnum::COMPUTER_POINTS->value],
+            ['configName' => SkillPointsEnum::ONE_GARDEN_POINTS_MAX_2->value . '_default', 'pointName' => SkillPointsEnum::GARDEN_POINTS->value],
             ['configName' => SkillPointsEnum::TWO_GARDEN_POINTS_MAX_4->value . '_default', 'pointName' => SkillPointsEnum::GARDEN_POINTS->value],
+            ['configName' => SkillPointsEnum::ONE_COOK_POINTS_MAX_2->value . '_default', 'pointName' => SkillPointsEnum::COOK_POINTS->value],
             ['configName' => SkillPointsEnum::FOUR_COOK_POINTS_MAX_8->value . '_default', 'pointName' => SkillPointsEnum::COOK_POINTS->value],
             ['configName' => SkillPointsEnum::TWO_CORE_POINTS_MAX_4->value . '_default', 'pointName' => SkillPointsEnum::CORE_POINTS->value],
             ['configName' => SkillPointsEnum::TWO_HEAL_POINTS_MAX_4->value . '_default', 'pointName' => SkillPointsEnum::HEAL_POINTS->value],

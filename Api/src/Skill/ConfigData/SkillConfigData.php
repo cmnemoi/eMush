@@ -542,6 +542,16 @@ abstract class SkillConfigData
                     ActionEnum::ADAPT_EPIGENETICS,
                 ],
             ),
+            new SkillConfigDto(
+                name: SkillEnum::MAINTENANCE_CREW,
+                actionConfigs: [
+                ],
+                statusConfigs: [
+                    SkillPointsEnum::ONE_ENGINEER_POINTS_MAX_2->value . '_default',
+                    SkillPointsEnum::ONE_GARDEN_POINTS_MAX_2->value . '_default',
+                    SkillPointsEnum::ONE_COOK_POINTS_MAX_2->value . '_default',
+                ],
+            ),
         ];
     }
 

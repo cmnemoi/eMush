@@ -11,7 +11,6 @@ use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
-use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
@@ -116,15 +115,6 @@ class Skill implements ActionProviderInterface, ModifierProviderInterface
     public function isHumanSkill(): bool
     {
         return $this->isMushSkill() === false;
-    }
-
-    public function hasAnyActionTypes(array $expectedActionTypes): bool
-    {
-        $skillActionTypes = $this->getName()->getSkillActionTypes()->map(
-            static fn (ActionTypeEnum $actionType) => $actionType->toString()
-        )->toArray();
-
-        return \count(array_intersect($skillActionTypes, $expectedActionTypes)) > 0;
     }
 
     public function getDaedalus(): Daedalus

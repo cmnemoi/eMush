@@ -1943,5 +1943,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
                 } de vouloir continuer ?</target>
       </segment>
     </unit>
+    <unit id="protect">
+      <segment id="name" state="translated">
+        <source>protect.name</source>
+        <target>Protéger</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>protect.description</source>
+        <target>Vous permet de sélectionner ce membre d'équipage comme votre VIP actuel. Vous ne pouvez protéger qu'une seule personne à la fois.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

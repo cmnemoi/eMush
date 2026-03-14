@@ -72,6 +72,7 @@ export const EmoteResourcesAliases: { [index: string]: string } = {
     ['triomphe_mush']: EmoteResourcesEnum.TRIUMP_MUSH,
     ['glory_mush']: EmoteResourcesEnum.TRIUMP_MUSH,
     ['pa_torture']: EmoteResourcesEnum.AP_TORTURE,
+    ['ap_torture']: EmoteResourcesEnum.AP_TORTURE,
     ['torture']: EmoteResourcesEnum.AP_TORTURE,
     ['pliers']: EmoteResourcesEnum.AP_TORTURE
 };

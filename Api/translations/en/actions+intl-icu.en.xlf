@@ -1909,5 +1909,15 @@ Or you simply need some fresh air.... or not.</target>
         <target>Warning: this process is unpredictable and irreversible. Are you absolutely, completely sure you want to continue?</target>
       </segment>
     </unit>
+    <unit id="protect">
+      <segment id="name" state="translated">
+        <source>protect.name</source>
+        <target>Protect</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>protect.description</source>
+        <target>Pick this crewmember as your current VIP. You can only protect one person at a time.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

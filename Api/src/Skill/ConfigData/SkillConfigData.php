@@ -553,6 +553,12 @@ abstract class SkillConfigData
                     SkillPointsEnum::ONE_COOK_POINTS_MAX_2->value . '_default',
                 ],
             ),
+            new SkillConfigDto(
+                name: SkillEnum::BODYGUARD,
+                actionConfigs: [
+                    ActionEnum::PROTECT,
+                ],
+            ),
         ];
     }
 

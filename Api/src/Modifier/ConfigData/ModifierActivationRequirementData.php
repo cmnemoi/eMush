@@ -168,6 +168,12 @@ class ModifierActivationRequirementData
             'activationRequirement' => '',
             'value' => 100,
         ],
+        [
+            'name' => ModifierRequirementEnum::BODYGUARD_IN_ROOM,
+            'activationRequirementName' => ModifierRequirementEnum::BODYGUARD_IN_ROOM,
+            'activationRequirement' => null,
+            'value' => 100,
+        ],
     ];
 
     public static function getByName(string $name): array

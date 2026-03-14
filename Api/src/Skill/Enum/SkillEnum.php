@@ -100,6 +100,7 @@ enum SkillEnum: string
     case DISABLED_SPRINTER = 'disabled_sprinter';
     case EPIGENETICS = 'epigenetics';
     case MAINTENANCE_CREW = 'maintenance_crew';
+    case BODYGUARD = 'bodyguard';
 
     public function toString(): string
     {

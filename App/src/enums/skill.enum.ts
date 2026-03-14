@@ -94,6 +94,7 @@ export enum SkillEnum {
     DISABLED_SPRINTER = 'disabled_sprinter',
     EPIGENETICS = 'epigenetics',
     MAINTENANCE_CREW = 'maintenance_crew',
+    BODYGUARD = 'bodyguard',
 }
 
 export const SkillIconRecord: {[index: string]: any} = {
@@ -467,6 +468,10 @@ export const SkillIconRecord: {[index: string]: any} = {
 
     [SkillEnum.MAINTENANCE_CREW]: {
         'icon': getImgUrl('skills/human/beta_human.png')
+    },
+
+    [SkillEnum.BODYGUARD]: {
+        'icon': getImgUrl('skills/human/bodyguard.png')
     }
 };
 

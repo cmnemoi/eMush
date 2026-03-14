@@ -611,5 +611,25 @@
 :point: **La perte de :pmo: moral journalière** est réduite d'un point pour tous les membres d'équipage. // :point: Attention cependant : **la mort de Chun aura un lourd effet sur le moral de l'équipage.**</target>
       </segment>
     </unit>
+    <unit id="bodyguard_user">
+      <segment id="name" state="translated">
+        <source>bodyguard_user.name</source>
+        <target>Garde du Corps</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>bodyguard_user.description</source>
+        <target>Vous êtes actuellement en train de protéger {target_character_icon} **{target_character}**. // *Tant que vous êtes dans la même pièce,* **les actions agressives {target_character_gender, select, female {la} other{le}} ciblant coûtent 2 :pa: supplémentaires**.</target>
+      </segment>
+    </unit>
+    <unit id="bodyguard_vip">
+      <segment id="name" state="translated">
+        <source>bodyguard_vip.name</source>
+        <target>V.I.P.</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>bodyguard_vip.description</source>
+        <target>{target_character_icon} **{target_character}** vous protège. Quel luxe ! // *Tant que vous êtes dans la même pièce,* **les actions agressives vous ciblant coûtent 2 :pa: supplémentaires**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

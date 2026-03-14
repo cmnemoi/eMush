@@ -995,5 +995,15 @@
         <target>:beta: In a world of specialists, the maintenance operative shines by following their own path. And if the floor starts shining too, you know who to thank.// :point: +1 :pa_eng: per day. // :point: +1 :pa_garden: per day. // :point: +1 :pa_cook: per day. //// This skill is in :beta: beta: we welcome your feedback on the Eternaltwin forum and Discord.</target>
       </segment>
     </unit>
+    <unit id="bodyguard">
+      <segment id="bodyguard.name" state="translated">
+        <source>bodyguard.name</source>
+        <target>Bodyguard</target>
+      </segment>
+      <segment id="bodyguard.description" state="translated">
+        <source>bodyguard.description</source>
+        <target>:beta: You've never failed an escort mission. Must be they call having crazy eyes...//:point: For 2 :pa:, you may **Protect** another crewmember. While you are in the same room, all aggressive actions targeting them cost an additional 2 :pa:. //// This skill is in :beta: beta: we welcome your feedback on the Eternaltwin forum and Discord.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

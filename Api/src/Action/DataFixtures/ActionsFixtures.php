@@ -1184,6 +1184,9 @@ class ActionsFixtures extends Fixture
         $useResetVaccineAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::USE_RESET_VACCINE));
         $manager->persist($useResetVaccineAction);
 
+        $protectAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PROTECT));
+        $manager->persist($protectAction);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1347,5 +1350,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::LIE_DOWN_IN_SHIP->value, $lieDownInShipAction);
         $this->addReference(ActionEnum::READ_SCHOOLBOOKS->value, $readSchoolbooksAction);
         $this->addReference(ActionEnum::USE_RESET_VACCINE->value, $useResetVaccineAction);
+        $this->addReference(ActionEnum::PROTECT->value, $protectAction);
     }
 }

@@ -1813,6 +1813,24 @@ abstract class ModifierConfigData
                 mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
+                key: ModifierNameEnum::INCREASE_AGGRESSIVE_ACTION_IF_PROTECTED_BY_2_AP,
+                name: ModifierNameEnum::INCREASE_AGGRESSIVE_ACTION_IF_PROTECTED_BY_2_AP,
+                strategy: ModifierStrategyEnum::VARIABLE_MODIFIER,
+                modifierRange: ModifierHolderClassEnum::PLAYER,
+                modifierActivationRequirements: [
+                    ModifierRequirementEnum::BODYGUARD_IN_ROOM,
+                ],
+                targetEvent: ActionVariableEvent::APPLY_COST,
+                priority: ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+                applyWhenTargeted: true,
+                tagConstraints: [
+                    ActionTypeEnum::ACTION_AGGRESSIVE->value => ModifierRequirementEnum::ALL_TAGS,
+                ],
+                delta: 2,
+                targetVariable: PlayerVariableEnum::ACTION_POINT,
+                mode: VariableModifierModeEnum::ADDITIVE,
+            ),
+            new VariableEventModifierConfigDto(
                 key: ModifierNameEnum::DRONE_PLUS_20_PERCENTAGE_ON_SHOOT_HUNTER,
                 name: ModifierNameEnum::PILOT_DRONE_MODIFIER,
                 strategy: ModifierStrategyEnum::VARIABLE_MODIFIER,

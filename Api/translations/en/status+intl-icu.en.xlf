@@ -603,5 +603,25 @@ other{Charges are the number of times you can use an object. **Charged** objects
 :point: **Daily :pmo: morale loss** is reduced by 1 point for all crew members. // :point: Beware however : **Chun's death would have catastrophic consequences on the morale of the crew.**</target>
       </segment>
     </unit>
+    <unit id="bodyguard_user">
+      <segment id="name" state="translated">
+        <source>bodyguard_user.name</source>
+        <target>Bodyguard</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>bodyguard_user.description</source>
+        <target>You are currently protecting {target_character_icon} **{target_character}**. // *As long as you are in the same room,* **all aggressive actions targeting them cost an additional 2 :ap:**.</target>
+      </segment>
+    </unit>
+    <unit id="bodyguard_vip">
+      <segment id="name" state="translated">
+        <source>bodyguard_vip.name</source>
+        <target>V.I.P.</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>bodyguard_vip.description</source>
+        <target>{target_character_icon} **{target_character}** is protecting you. What luxury! // *As long as you are in the same room,* **all aggressive actions targeting you cost an additional 2 :ap:**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

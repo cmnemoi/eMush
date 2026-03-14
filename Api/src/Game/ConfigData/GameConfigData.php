@@ -329,6 +329,8 @@ class GameConfigData
                     EquipmentStatusEnum::EVIL_DRONE_TARGET . '_default',
                     EquipmentStatusEnum::ELECTRIC_CHARGES . '_' . ItemEnum::EVIL_DRONE . '_default',
                     PlayerStatusEnum::HAS_USED_MYCOSCAN . '_default',
+                    PlayerStatusEnum::BODYGUARD_USER . '_default',
+                    PlayerStatusEnum::BODYGUARD_VIP . '_default',
                 ],
                 'triumphConfigs' => array_map(static fn (TriumphConfigDto $triumphConfig) => $triumphConfig->name->toConfigKey('default'), TriumphConfigData::getAll()),
                 'hunterConfigs' => [
@@ -532,6 +534,7 @@ class GameConfigData
                     SkillEnum::U_TURN,
                     SkillEnum::VICTIMIZER,
                     SkillEnum::WRESTLER,
+                    SkillEnum::BODYGUARD,
                 ],
                 'rebelBaseConfigs' => [
                     RebelBaseEnum::WOLF,

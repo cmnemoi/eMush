@@ -70,6 +70,8 @@ final class PlayerSubscriber implements EventSubscriberInterface
     {
         $playerEvent->addTag($playerEvent->getEventName());
 
+        $this->handleBodyguardStatus($playerEvent);
+
         $this->statusService->removeAllStatuses($playerEvent->getPlayer(), $playerEvent->getTags(), $playerEvent->getTime());
 
         $this->removePariahStatus($playerEvent);
@@ -214,6 +216,20 @@ final class PlayerSubscriber implements EventSubscriberInterface
                 tags: $event->getTags(),
                 time: $event->getTime(),
             );
+        }
+    }
+
+    private function handleBodyguardStatus(PlayerEvent $event): void
+    {
+        $player = $event->getPlayer();
+        if ($player->hasStatus(PlayerStatusEnum::BODYGUARD_USER)) {
+            $status = $player->getStatusByNameOrThrow(PlayerStatusEnum::BODYGUARD_USER);
+            $this->statusService->removeStatus(PlayerStatusEnum::BODYGUARD_VIP, $status->getTargetOrThrow(), $event->getTags(), $event->getTime());
+        }
+
+        if ($player->hasStatus(PlayerStatusEnum::BODYGUARD_VIP)) {
+            $status = $player->getStatusByNameOrThrow(PlayerStatusEnum::BODYGUARD_VIP);
+            $this->statusService->removeStatus(PlayerStatusEnum::BODYGUARD_USER, $status->getTargetOrThrow(), $event->getTags(), $event->getTime());
         }
     }
 }

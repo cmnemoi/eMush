@@ -58,7 +58,11 @@ class StatusNormalizer implements NormalizerInterface
 
         if (($target = $status->getTarget()) !== null) {
             $normalizedStatus['target'] = ['key' => $target->getName(), 'id' => $target->getId()];
-            $parameters['target'] = $target->getName();
+            if ($target instanceof Player) {
+                $parameters['target_character'] = $target->getLogName();
+            } else {
+                $parameters['target'] = $target->getName();
+            }
         }
 
         $normalizedStatus['name'] = $this->translationService->translate(

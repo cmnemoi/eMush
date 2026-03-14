@@ -44,6 +44,7 @@ abstract class ModifierRequirementEnum
     public const string ALONE = 'alone';
     public const string NOT_ALONE = 'not_alone';
     public const string FOUR_PEOPLE = 'four_people';
+    public const string BODYGUARD_IN_ROOM = 'bodyguard_in_room';
     public const string MUSH_IN_ROOM = 'mush_in_room';
     public const string ITEM_IN_ROOM = 'item_in_room';
     public const string CYCLE = 'cycle';

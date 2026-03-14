@@ -167,4 +167,5 @@ abstract class ModifierNameEnum
     public const string FERTILE_MODIFIER = 'fertile_modifier';
     public const string DISEASE_SHOOT_ACTION_REDUCED_SUCCESS = 'disease_shoot_action_reduced_success';
     public const string TRAIL_REDUCER_MODIFIER = 'trail_reducer_modifier';
+    public const string INCREASE_AGGRESSIVE_ACTION_IF_PROTECTED_BY_2_AP = 'increase_aggressive_action_if_protected_by_2_AP';
 }

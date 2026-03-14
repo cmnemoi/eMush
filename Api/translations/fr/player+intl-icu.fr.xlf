@@ -151,5 +151,15 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
         <target>Les Points de Soin vous donnent des **actions gratuites** pour toutes les *actions de soins*.</target>
       </segment>
     </unit>
+    <unit id="torture">
+      <segment id="name" state="translated">
+        <source>torture.name</source>
+        <target>Points de Torture</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>torture.description</source>
+        <target>Les Points de Torture vous permettent d'effectuer l'action **Torturer**. *Vous ne pouvez pas torturer sans.*</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

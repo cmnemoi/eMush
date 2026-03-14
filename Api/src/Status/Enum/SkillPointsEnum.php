@@ -46,6 +46,10 @@ enum SkillPointsEnum: string
     case ENGINEER_POINTS = 'engineer_points';
     case ONE_ENGINEER_POINTS_MAX_2 = '1_engineer_points_max_2';
 
+    // torture points
+    case TORTURE_POINTS = 'torture_points';
+    case ONE_TORTURE_POINTS_MAX_2 = '1_torture_points_max_2';
+
     case NULL = '';
 
     public static function fromSkill(Skill $skill): array
@@ -61,6 +65,7 @@ enum SkillPointsEnum: string
             SkillEnum::TECHNICIAN => [self::ONE_ENGINEER_POINTS_MAX_2->value . '_default'],
             SkillEnum::POLYMATH => [self::ONE_COMPUTER_POINTS_MAX_2->value . '_default'],
             SkillEnum::MAINTENANCE_CREW => [self::ONE_ENGINEER_POINTS_MAX_2->value . '_default', self::ONE_GARDEN_POINTS_MAX_2->value . '_default', self::ONE_COOK_POINTS_MAX_2->value . '_default'],
+            SkillEnum::TORTURER => [self::ONE_TORTURE_POINTS_MAX_2->value . '_default'],
             default => [''],
         };
     }
@@ -76,6 +81,7 @@ enum SkillPointsEnum: string
             SkillPointsEnum::HEAL_POINTS->value => 'heal',
             SkillPointsEnum::ENGINEER_POINTS->value => 'engineer',
             SkillPointsEnum::SHOOT_POINTS->value => 'shoot',
+            SkillPointsEnum::TORTURE_POINTS->value => 'torture',
             default => '',
         };
     }
@@ -84,14 +90,15 @@ enum SkillPointsEnum: string
     {
         return new ArrayCollection(
             match ($status) {
-                SkillPointsEnum::GARDEN_POINTS->value => [ActionTypeEnum::ACTION_BOTANIST],
-                SkillPointsEnum::COOK_POINTS->value => [ActionTypeEnum::ACTION_COOK],
-                SkillPointsEnum::CORE_POINTS->value => [ActionTypeEnum::ACTION_CONCEPTOR],
-                SkillPointsEnum::PILGRED_POINTS->value => [ActionTypeEnum::ACTION_PILGRED],
-                SkillPointsEnum::COMPUTER_POINTS->value => [ActionTypeEnum::ACTION_IT],
-                SkillPointsEnum::HEAL_POINTS->value => [ActionTypeEnum::ACTION_HEAL],
-                SkillPointsEnum::ENGINEER_POINTS->value => [ActionTypeEnum::ACTION_TECHNICIAN],
-                SkillPointsEnum::SHOOT_POINTS->value => [ActionTypeEnum::ACTION_SHOOT, ActionTypeEnum::ACTION_SHOOT_HUNTER],
+                SkillPointsEnum::GARDEN_POINTS->value => [ActionTypeEnum::ACTION_BOTANIST->value],
+                SkillPointsEnum::COOK_POINTS->value => [ActionTypeEnum::ACTION_COOK->value],
+                SkillPointsEnum::CORE_POINTS->value => [ActionTypeEnum::ACTION_CONCEPTOR->value],
+                SkillPointsEnum::PILGRED_POINTS->value => [ActionTypeEnum::ACTION_PILGRED->value],
+                SkillPointsEnum::COMPUTER_POINTS->value => [ActionTypeEnum::ACTION_IT->value],
+                SkillPointsEnum::HEAL_POINTS->value => [ActionTypeEnum::ACTION_HEAL->value],
+                SkillPointsEnum::ENGINEER_POINTS->value => [ActionTypeEnum::ACTION_TECHNICIAN->value],
+                SkillPointsEnum::SHOOT_POINTS->value => [ActionTypeEnum::ACTION_SHOOT->value, ActionTypeEnum::ACTION_SHOOT_HUNTER->value],
+                SkillPointsEnum::TORTURE_POINTS->value => [ActionTypeEnum::ACTION_TORTURE->value],
                 default => [],
             }
         );
@@ -109,6 +116,7 @@ enum SkillPointsEnum: string
             ['name' => self::ONE_PILGRED_POINTS_MAX_2->value . '_default'],
             ['name' => self::TWO_SHOOT_POINTS_MAX_4->value . '_default'],
             ['name' => self::ONE_ENGINEER_POINTS_MAX_2->value . '_default'],
+            ['name' => self::ONE_TORTURE_POINTS_MAX_2->value . '_default'],
         ];
     }
 
@@ -123,6 +131,7 @@ enum SkillPointsEnum: string
             self::PILGRED_POINTS->value,
             self::SHOOT_POINTS->value,
             self::ENGINEER_POINTS->value,
+            self::TORTURE_POINTS->value,
         ];
     }
 

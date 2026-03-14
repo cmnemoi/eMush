@@ -5,7 +5,6 @@ namespace Mush\Status\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
-use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
@@ -173,7 +172,7 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
     public function hasAnyActionTypes(array $expectedActionTypes): bool
     {
         $skillActionTypes = $this->getSkillActionTypes()->map(
-            static fn (ActionTypeEnum $actionType) => $actionType->toString()
+            static fn (string $actionType) => $actionType
         )->toArray();
 
         return \count(array_intersect($skillActionTypes, $expectedActionTypes)) > 0;

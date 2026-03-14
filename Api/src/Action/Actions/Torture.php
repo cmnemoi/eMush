@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
+use Mush\Action\Validator\PlayerCanAffordSpecialistPoints;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -40,6 +41,9 @@ final class Torture extends AbstractAction
             new Reach([
                 'reach' => ReachEnum::ROOM,
                 'groups' => [ClassConstraint::VISIBILITY],
+            ]),
+            new PlayerCanAffordSpecialistPoints([
+                'groups' => [ClassConstraint::EXECUTE],
             ]),
         ]);
     }

@@ -2197,6 +2197,22 @@ abstract class StatusConfigData
             ],
             'actionConfigs' => [],
         ],
+        [
+            'name' => SkillPointsEnum::ONE_TORTURE_POINTS_MAX_2->value . '_default',
+            'statusName' => SkillPointsEnum::TORTURE_POINTS->value,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::SKILL_POINTS_INCREMENT,
+            'maxCharge' => 2,
+            'startCharge' => 2,
+            'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_TORTURE],
+            'autoRemove' => false,
+            'modifierConfigs' => [
+                ModifierNameEnum::SKILL_POINT_TORTURE,
+            ],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

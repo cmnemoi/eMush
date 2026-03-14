@@ -22,6 +22,7 @@ enum ActionTypeEnum: string
     case ACTION_IT = 'action_it';
     case ACTION_COOK = 'action_cook';
     case ACTION_PILGRED = 'action_pilgred';
+    case ACTION_TORTURE = 'action_torture';
     case ACTION_ZERO_ACTION_COST = 'action_zero_action_cost';
     case ACTION_IMMUNE_TO_ACTION_POINT_MALUSES = 'action_immune_to_action_point_maluses';
     case ACTION_COMMS_CENTER = 'action_comms_center';

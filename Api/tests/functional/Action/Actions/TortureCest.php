@@ -8,10 +8,12 @@ use Mush\Action\Actions\Search;
 use Mush\Action\Actions\Torture;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -107,6 +109,15 @@ final class TortureCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldNotBeExecutableIfOutOfTorturePoints(FunctionalTester $I): void
+    {
+        $this->givenChunHasNoMoreTorturePoints();
+
+        $this->whenILoadParameters();
+
+        $this->thenActionIsNotExecutableWithMessage(ActionImpossibleCauseEnum::INSUFFICIENT_SPECIAL_POINT, $I);
+    }
+
     private function givenKuanTiHasHealthPoints(int $healthPoints): void
     {
         $this->kuanTi->setHealthPoint($healthPoints);
@@ -130,6 +141,21 @@ final class TortureCest extends AbstractFunctionalTest
         }
     }
 
+    private function givenChunHasNoMoreTorturePoints(): void
+    {
+        $this->chun->getChargeStatusByName(SkillPointsEnum::TORTURE_POINTS->toString())->setCharge(0);
+    }
+
+    private function whenILoadParameters(): void
+    {
+        $this->torture->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->chun,
+            player: $this->chun,
+            target: $this->kuanTi,
+        );
+    }
+
     private function whenChunTorturesKuanTi(): void
     {
         $this->torture->loadParameters(
@@ -144,5 +170,10 @@ final class TortureCest extends AbstractFunctionalTest
     private function thenKuanTiShouldHaveHealthPoints(int $healthPoints, FunctionalTester $I): void
     {
         $I->assertEquals($healthPoints, $this->kuanTi->getHealthPoint());
+    }
+
+    private function thenActionIsNotExecutableWithMessage(string $message, FunctionalTester $I): void
+    {
+        $I->assertEquals($message, $this->torture->cannotExecuteReason(), "Action should not be executable with message: {$message}");
     }
 }

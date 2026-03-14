@@ -471,6 +471,7 @@ abstract class SkillConfigData
                 actionConfigs: [
                     ActionEnum::TORTURE,
                 ],
+                statusConfigs: [SkillPointsEnum::ONE_TORTURE_POINTS_MAX_2->value . '_default'],
             ),
             new SkillConfigDto(
                 name: SkillEnum::TRAPPER,

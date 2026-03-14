@@ -255,6 +255,7 @@ class GameConfigData
                     SkillPointsEnum::TWO_HEAL_POINTS_MAX_4->value . '_default',
                     SkillPointsEnum::ONE_GARDEN_POINTS_MAX_2->value . '_default',
                     SkillPointsEnum::ONE_COOK_POINTS_MAX_2->value . '_default',
+                    SkillPointsEnum::ONE_TORTURE_POINTS_MAX_2->value . '_default',
                     PlayerStatusEnum::HAS_LEARNED_SKILL . '_default',
                     PlayerStatusEnum::GENIUS_IDEA . '_default',
                     PlayerStatusEnum::HAS_USED_GENIUS . '_default',

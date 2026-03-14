@@ -1344,6 +1344,12 @@
         <target>Vous avez gagné {quantity} :pa_cook:.</target>
       </segment>
     </unit>
+    <unit id="gain_torture_point">
+      <segment state="translated">
+        <source>gain_torture_point</source>
+        <target>Vous avez gagné {quantity} :pa_torture:.</target>
+      </segment>
+    </unit>
     <unit id="germaphobe_morale_loss">
       <segment state="translated">
         <source>germaphobe_morale_loss</source>

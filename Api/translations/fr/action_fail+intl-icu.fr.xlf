@@ -882,5 +882,11 @@
         <target>Pour éviter la surexposition aux rayons Sigma, cette action ne peut être effectuée qu'une fois par jour. Elle sera de nouveau disponible après le cycle 8.</target>
       </segment>
     </unit>
+    <unit id="insufficient_special_point">
+      <segment id="description" state="translated">
+        <source>insufficient_special_point.description</source>
+        <target>Vous n'avez pas la ressource nécessaire pour réaliser cette action. **Attendez demain**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

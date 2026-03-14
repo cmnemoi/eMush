@@ -143,11 +143,21 @@ Currently, you have {quantityAction} :pa: and {quantityMovement} :pm:.</target>
     <unit id="heal">
       <segment id="name" state="translated">
         <source>heal.name</source>
-        <target>Healing points</target>
+        <target>Healing Points</target>
       </segment>
       <segment id="description" state="translated">
         <source>heal.description</source>
         <target>Healing Points give you **free actions** for all **healing actions**.</target>
+      </segment>
+    </unit>
+    <unit id="torture">
+      <segment id="name" state="translated">
+        <source>torture.name</source>
+        <target>Torture Points</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>torture.description</source>
+        <target>Torture Points allow you to perform the **Torture** action. *You cannot torture without.*</target>
       </segment>
     </unit>
   </file>

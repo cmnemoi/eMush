@@ -46,6 +46,7 @@ abstract class ModifierNameEnum
     public const string SKILL_POINT_IT_EXPERT = 'modifier_skill_point_it_expert';
     public const string SKILL_POINT_BOTANIST = 'skill_point_botanist';
     public const string SKILL_POINT_PILGRED = 'skill_point_pilgred';
+    public const string SKILL_POINT_TORTURE = 'skill_point_torture';
     public const string CEASEFIRE = 'ceasefire_modifier';
     public const string MUTE_PREVENT_ACTIONS = 'mute_prevent_actions';
     public const string PREVENT_SHOOT = 'prevent_shoot';

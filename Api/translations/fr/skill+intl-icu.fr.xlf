@@ -836,7 +836,7 @@
       </segment>
       <segment id="torturer.description" state="translated">
         <source>torturer.description</source>
-        <target>Le bourreau connait tous les circuits nerveux les plus sensibles pour arriver à faire parvenir son message le plus important... **Tu VAS parler.**//:point: Libère l'action **Torturer**. Pour :beta: **2** :pa:, votre victime perd 1 :pv: et révèle ses X dernières actions, où X est leur nombre de :pv: manquants.</target>
+        <target>Le bourreau connait tous les circuits nerveux les plus sensibles pour arriver à faire parvenir son message le plus important... **Tu VAS parler.**//:point: +1 **utilisation de Torturer** :pa_torture: par jour. //:point: Donne accès à l'action **Torturer**. Pour 1 :pa_torture:, votre victime perd 1 :pv: et révèle ses X dernières actions, où X est leur nombre de :pv: manquants. :beta: Il n'est pas possible de Torturer sans :pa_torture:.</target>
       </segment>
     </unit>
     <unit id="ocd">

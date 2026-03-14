@@ -14,6 +14,7 @@ export enum EmoteResourcesEnum {
     AP_HEAL = 'ap_heal',
     AP_PILGRED = 'ap_pilgred',
     AP_SHOOT = 'ap_shoot',
+    AP_TORTURE = 'ap_torture',
     SPORE = 'spore',
     ARMOR = 'shield',
     SHIELD = 'plasma',
@@ -69,7 +70,10 @@ export const EmoteResourcesAliases: { [index: string]: string } = {
     ['triomphe']: EmoteResourcesEnum.TRIUMPH,
     ['glory']: EmoteResourcesEnum.TRIUMPH,
     ['triomphe_mush']: EmoteResourcesEnum.TRIUMP_MUSH,
-    ['glory_mush']: EmoteResourcesEnum.TRIUMP_MUSH
+    ['glory_mush']: EmoteResourcesEnum.TRIUMP_MUSH,
+    ['pa_torture']: EmoteResourcesEnum.AP_TORTURE,
+    ['torture']: EmoteResourcesEnum.AP_TORTURE,
+    ['pliers']: EmoteResourcesEnum.AP_TORTURE
 };
 
 export const EmoteResourcesIcons: {[index: string]: {img: string; max_height: string;}}= {
@@ -85,6 +89,7 @@ export const EmoteResourcesIcons: {[index: string]: {img: string; max_height: st
     [EmoteResourcesEnum.AP_HEAL]: { img: getImgUrl('ui_icons/action_points/pa_heal.png'), max_height: "1.2em" },
     [EmoteResourcesEnum.AP_PILGRED]: { img: getImgUrl('ui_icons/action_points/pa_pilgred.png'), max_height: "1.2em" },
     [EmoteResourcesEnum.AP_SHOOT]: { img: getImgUrl('ui_icons/action_points/pa_shoot.png'), max_height: "1.2em" },
+    [EmoteResourcesEnum.AP_TORTURE]: { img: getImgUrl('ui_icons/action_points/pa_torture.png'), max_height: "1.2em" },
     [EmoteResourcesEnum.SPORE]: { img: getImgUrl('status/spore.png'), max_height: "1.2em" },
     [EmoteResourcesEnum.ARMOR]: { img: getImgUrl('shield.png'), max_height: "1.2em" },
     [EmoteResourcesEnum.SHIELD]: { img: getImgUrl('plasma.png'), max_height: "1.2em" },

@@ -196,6 +196,7 @@ final class SkillPointsCest extends AbstractFunctionalTest
             SkillPointsEnum::ONE_ENGINEER_POINTS_MAX_2->value . '_default' => 1,
             SkillPointsEnum::TWO_HEAL_POINTS_MAX_4->value . '_default' => 2,
             SkillPointsEnum::ONE_COMPUTER_POINTS_MAX_2->value . '_default' => 1,
+            SkillPointsEnum::ONE_TORTURE_POINTS_MAX_2->value . '_default' => 1,
             default => throw new \LogicException("Please define the increment for {$skillPoints}"),
         };
     }
@@ -214,6 +215,7 @@ final class SkillPointsCest extends AbstractFunctionalTest
             ['configName' => SkillPointsEnum::ONE_PILGRED_POINTS_MAX_2->value . '_default', 'pointName' => SkillPointsEnum::PILGRED_POINTS->value],
             ['configName' => SkillPointsEnum::TWO_SHOOT_POINTS_MAX_4->value . '_default', 'pointName' => SkillPointsEnum::SHOOT_POINTS->value],
             ['configName' => SkillPointsEnum::ONE_ENGINEER_POINTS_MAX_2->value . '_default', 'pointName' => SkillPointsEnum::ENGINEER_POINTS->value],
+            ['configName' => SkillPointsEnum::ONE_TORTURE_POINTS_MAX_2->value . '_default', 'pointName' => SkillPointsEnum::TORTURE_POINTS->value],
         ];
     }
 }

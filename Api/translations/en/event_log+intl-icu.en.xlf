@@ -1200,6 +1200,12 @@ other{**{target_character}** has been contaminated by a Mush raid during explora
         <target>You have earned {quantity} :pa_cook:.</target>
       </segment>
     </unit>
+    <unit id="gain_torture_point">
+      <segment state="translated">
+        <source>gain_torture_point</source>
+        <target>You have earned {quantity} :pa_torture:.</target>
+      </segment>
+    </unit>
     <unit id="germaphobe_morale_loss">
       <segment state="translated">
         <source>germaphobe_morale_loss</source>

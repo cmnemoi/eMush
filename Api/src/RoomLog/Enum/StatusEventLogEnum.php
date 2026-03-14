@@ -32,6 +32,7 @@ abstract class StatusEventLogEnum
     public const string SOILED_BY_MASS_GGEDON = 'soiled_by_mass_ggedon';
     public const string GAIN_CHEF_POINT = 'gain_chef_point';
     public const string CHARGE_EXTENSION = 'charge_extension';
+    public const string GAIN_TORTURE_POINT = 'gain_torture_point';
 
     public const string VALUE = 'value';
     public const string VISIBILITY = 'visibility';
@@ -75,6 +76,7 @@ abstract class StatusEventLogEnum
                 SkillPointsEnum::SHOOT_POINTS->value => self::GAIN_SHOOT_POINT,
                 SkillPointsEnum::ENGINEER_POINTS->value => self::GAIN_TECHNICIAN_POINT,
                 SkillPointsEnum::COOK_POINTS->value => self::GAIN_CHEF_POINT,
+                SkillPointsEnum::TORTURE_POINTS->value => self::GAIN_TORTURE_POINT,
             ],
             self::VISIBILITY => [
                 SkillPointsEnum::GARDEN_POINTS->value => VisibilityEnum::PRIVATE,
@@ -85,6 +87,7 @@ abstract class StatusEventLogEnum
                 SkillPointsEnum::SHOOT_POINTS->value => VisibilityEnum::PRIVATE,
                 SkillPointsEnum::ENGINEER_POINTS->value => VisibilityEnum::PRIVATE,
                 SkillPointsEnum::COOK_POINTS->value => VisibilityEnum::PRIVATE,
+                SkillPointsEnum::TORTURE_POINTS->value => VisibilityEnum::PRIVATE,
             ],
         ],
         self::LOSS => [

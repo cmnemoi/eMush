@@ -32,6 +32,10 @@ export enum SkillPointEnum {
     SHOOT = 'shoot',
     PA_SHOOT = 'pa_shoot', //grandfathered in from formatText
     PA_GUN = 'pa_gun', //alternate spelling for players
+
+    //Torture
+    TORTURE = 'torture',
+    PLIERS = 'pliers',
 }
 
 export const skillPointEnum: {[index: string]: any} = {
@@ -103,5 +107,8 @@ export const skillPointEnum: {[index: string]: any} = {
     },
     [SkillPointEnum.PA_GUN]: {
         'icon': getImgUrl('ui_icons/action_points/pa_shoot.png')
+    },
+    [SkillPointEnum.TORTURE]: {
+        'icon': getImgUrl('ui_icons/action_points/pa_torture.png')
     }
 };

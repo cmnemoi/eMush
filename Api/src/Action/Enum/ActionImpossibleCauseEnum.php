@@ -132,6 +132,7 @@ abstract class ActionImpossibleCauseEnum
     public const string SABOTAGE_EXPLORATION_SPENT = 'sabotage_exploration_spent';
     public const string DOES_NOT_HAVE_SKILL_POLYVALENT = 'does_not_have_skill_polyvalent';
     public const string DAILY_LIMIT_MYCOSCAN = 'daily_limit_mycoscan';
+    public const string INSUFFICIENT_SPECIAL_POINT = 'insufficient_special_point';
 
     // April Fools Dog messages
     public const string DOG_IS_SEASICK = 'dog_is_seasick';

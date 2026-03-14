@@ -841,5 +841,11 @@
         <target>To avoid overexposure to noxious Sigma rays, this action can only be used once per day. It will be available again after cycle 8.</target>
       </segment>
     </unit>
+    <unit id="insufficient_special_point">
+      <segment id="description" state="translated">
+        <source>insufficient_special_point.description</source>
+        <target>You do not have the ressource required to do this. **Wait until tomorrow**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

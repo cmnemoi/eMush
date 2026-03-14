@@ -3597,6 +3597,22 @@ abstract class ModifierConfigData
                 delta: 10,
                 mode: VariableModifierModeEnum::ADDITIVE,
             ),
+            new VariableEventModifierConfigDto(
+                key: ModifierNameEnum::SKILL_POINT_TORTURE,
+                name: ModifierNameEnum::SKILL_POINT_TORTURE,
+                strategy: ModifierStrategyEnum::VARIABLE_MODIFIER,
+                modifierRange: ModifierHolderClassEnum::PLAYER,
+                modifierActivationRequirements: [],
+                targetEvent: ActionVariableEvent::APPLY_COST,
+                priority: ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
+                applyWhenTargeted: false,
+                tagConstraints: [
+                    ActionTypeEnum::ACTION_TORTURE->value => ModifierRequirementEnum::ANY_TAGS,
+                ],
+                delta: 0,
+                targetVariable: PlayerVariableEnum::ACTION_POINT,
+                mode: VariableModifierModeEnum::SET_VALUE,
+            ),
         ];
     }
 

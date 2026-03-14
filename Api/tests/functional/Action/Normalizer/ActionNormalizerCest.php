@@ -81,11 +81,12 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'skillPointCosts' => [],
                 'successRate' => 100,
                 'name' => 'Piéger pièce',
-                'description' => 'Permet de piéger la pièce, toutes les interactions avec les objets et équipements de la pièce déclencheront le piège.//Cette action est :ic_discrete: **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.',
+                'description' => 'Permet de piéger la pièce, toutes les interactions avec les objets et équipements de la pièce déclencheront le piège.// :point: Cette action est :ic_discrete: **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.',
                 'canExecute' => true,
                 'isMushAction' => true,
                 'confirmation' => null,
                 'isAdminAction' => false,
+                'baseVisibility' => 'secret',
             ],
             actual: $normalizedAction,
         );
@@ -126,11 +127,12 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'successRate' => 100,
                 'name' => 'Extirper une spore',
                 'description' => "Extirpez-vous une spore pour ensuite contaminer un coéquipier (mais avant ça, repérez les caméras).//
-        L'ensemble des **Mush** peuvent encore produire **4 spores** aujourd'hui.//Cette action est :ic_discrete: **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.",
+        L'ensemble des **Mush** peuvent encore produire **4 spores** aujourd'hui.// :point: Cette action est :ic_discrete: **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.",
                 'canExecute' => true,
                 'isMushAction' => true,
                 'confirmation' => null,
                 'isAdminAction' => false,
+                'baseVisibility' => 'secret',
             ],
             actual: $normalizedAction,
         );
@@ -194,6 +196,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'canExecute' => false,
                 'isMushAction' => false,
                 'isAdminAction' => false,
+                'baseVisibility' => 'public',
             ],
             actual: $normalizedAction,
         );
@@ -256,6 +259,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'isMushAction' => false,
                 'confirmation' => null,
                 'isAdminAction' => false,
+                'baseVisibility' => 'hidden',
             ],
             actual: $normalizedAction,
         );

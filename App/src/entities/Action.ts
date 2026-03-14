@@ -21,6 +21,7 @@ export class Action {
     public skillPointCosts: Array<string>;
     public isMushAction!: boolean;
     public isAdminAction!: boolean;
+    public baseVisibility: string|null;
 
     constructor() {
         this.iri = null;
@@ -35,6 +36,7 @@ export class Action {
         this.successRate = null;
         this.confirmation = null;
         this.skillPointCosts = [];
+        this.baseVisibility = null;
     }
     load(object:any) : Action {
         if (typeof object !== "undefined") {
@@ -53,6 +55,7 @@ export class Action {
             this.actionProvider = object.actionProvider;
             this.isMushAction = object.isMushAction;
             this.isAdminAction = object.isAdminAction;
+            this.baseVisibility = object.baseVisibility;
         }
         return this;
     }

@@ -85,6 +85,7 @@ final class HunterNormalizerCest extends AbstractFunctionalTest
                         'isMushAction' => false,
                         'actionProvider' => ['class' => $turret->getClassName(), 'id' => $turret->getId()],
                         'isAdminAction' => false,
+                        'baseVisibility' => 'hidden',
                     ],
                 ],
             ],

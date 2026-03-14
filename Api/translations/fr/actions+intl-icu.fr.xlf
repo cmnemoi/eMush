@@ -835,6 +835,16 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action est :ic_discrete: **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.</target>
       </segment>
     </unit>
+    <unit id="private">
+      <segment id="name" state="translated">
+        <source>private.name</source>
+        <target>Action privée</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>private.description</source>
+        <target>Cette action est :ic_personal: **Privée**. Personne d'autre que vous ne pourra la voir.</target>
+      </segment>
+    </unit>
     <unit id="play_arcade">
       <segment id="name" state="translated">
         <source>play_arcade.name</source>

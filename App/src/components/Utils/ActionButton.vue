@@ -1,26 +1,27 @@
 <template>
     <Tippy tag="div" :class="['action-button-flex-v2']" v-if="action">
         <a :class="['action-button', cssClass, isDisabled].join(' ')">
-            <span v-if="action.actionPointCost && !action.movementPointCost && !action.moralePointCost" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('ui_icons/player_variables/pa.png')" alt="ap"></span>
-            <span v-else-if="action.movementPointCost && !action.actionPointCost && !action.moralePointCost" class="cost">{{ action.movementPointCost }}<img :src="getImgUrl('ui_icons/player_variables/pm.png')" alt="mp"></span>
-            <span v-else-if="action.moralePointCost && !action.actionPointCost && !action.movementPointCost" class="cost">{{ action.moralePointCost }}<img :src="getImgUrl('ui_icons/player_variables/moral.png')" alt="pmo" /></span>
 
-            <span v-else-if="action.actionPointCost && action.movementPointCost && !action.moralePointCost" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('ui_icons/player_variables/pa.png')" alt="ap">{{ action.movementPointCost }}<img :src="getImgUrl('ui_icons/player_variables/pm.png')" alt="mp"></span>
-            <span v-else-if="action.actionPointCost && action.moralePointCost && !action.movementPointCost" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('ui_icons/player_variables/pa.png')" alt="ap">{{ action.moralePointCost }}<img :src="getImgUrl('ui_icons/player_variables/moral.png')" alt="pmo"></span>
-            <span v-else-if="action.movementPointCost && action.moralePointCost && !action.actionPointCost" class="cost">{{ action.movementPointCost }}<img :src="getImgUrl('ui_icons/player_variables/pm.png')" alt="mp">{{ action.moralePointCost }}<img :src="getImgUrl('ui_icons/player_variables/moral.png')" alt="pmo"></span>
+            <!--Action, Movement, Morale point costs-->
+            <span v-if="action.actionPointCost" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('ui_icons/player_variables/pa.png')" alt="ap"></span>
+            <span v-if="action.movementPointCost" class="cost">{{ action.movementPointCost }}<img :src="getImgUrl('ui_icons/player_variables/pm.png')" alt="mp"></span>
+            <span v-if="action.moralePointCost" class="cost">{{ action.moralePointCost }}<img :src="getImgUrl('ui_icons/player_variables/moral.png')" alt="pmo" /></span>
 
             <!-- @TODO -> Handle multiple specialist cost action, if that's the case display the most prioritized point -->
             <span v-if="action.skillPointCosts.length > 0" class="cost">
                 1<img :src="skillPointImage(action)" :alt="action.skillPointCosts[0]">
             </span>
-            <span v-if="action.canExecute">
+
+            <span>
                 {{ action.name }}
                 <span v-if="action.successRate < 100" class="success-rate"> ({{ action.successRate }}%)</span>
             </span>
-            <span v-else>
-                <s>{{ action.name }}</s>
-                <span v-if="action.successRate < 100" class="success-rate"> ({{ action.successRate }}%)</span>
-            </span>
+
+            <!--Visibility icon-->
+            <!-- @TODO -> Handle multiple specialist cost action, if that's the case display the most prioritized point -->
+            <span v-if="action.baseVisibility == 'private'" class="visibility"><img :src="getImgUrl('comms/personal.png')" alt="private"></span>
+            <span v-if="action.baseVisibility == 'secret'" class="visibility"><img :src="getImgUrl('comms/discrete.png')" alt="discrete"></span>
+            <span v-if="action.baseVisibility == 'covert'" class="visibility"><img :src="getImgUrl('comms/covert.png')" alt="covert"></span>
         </a>
         <template #content>
             <h1 v-html="formatContent(action.name)" />
@@ -67,7 +68,7 @@ export default defineComponent ({
 <style lang="scss" scoped>
 .action-button {
     margin: 0.2rem !important;
-    flex-flow: row wrap;
+    //flex-flow: row wrap;
     @include button-style();
     cursor: pointer;
 }

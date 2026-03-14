@@ -125,7 +125,7 @@ class ActionConfig implements GameVariableHolderInterface
             $types[] = $type->value;
         }
 
-        if (\in_array($this->visibilities[ActionOutputEnum::SUCCESS], [VisibilityEnum::SECRET, VisibilityEnum::COVERT], true)) {
+        if (\in_array($this->visibilities[ActionOutputEnum::SUCCESS], [VisibilityEnum::SECRET, VisibilityEnum::COVERT, VisibilityEnum::PRIVATE], true)) {
             $types[] = $this->visibilities[ActionOutputEnum::SUCCESS];
         }
 

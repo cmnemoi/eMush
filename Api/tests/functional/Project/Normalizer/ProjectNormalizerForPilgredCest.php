@@ -113,6 +113,7 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
                         'isMushAction' => false,
                         'actionProvider' => ['class' => $this->terminal::class, 'id' => $this->terminal->getId()],
                         'isAdminAction' => false,
+                        'baseVisibility' => 'public',
                     ],
                 ],
             ],

@@ -15,6 +15,7 @@ use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Action\Service\GetActionTargetFromContextService;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Exploration\Service\PlanetServiceInterface;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
@@ -29,6 +30,7 @@ class ActionNormalizer implements NormalizerInterface
         ActionTypeEnum::ACTION_AGGRESSIVE->value => ActionTypeEnum::ACTION_AGGRESSIVE->value,
         VisibilityEnum::COVERT => VisibilityEnum::COVERT,
         VisibilityEnum::SECRET => VisibilityEnum::SECRET,
+        VisibilityEnum::PRIVATE => VisibilityEnum::PRIVATE,
     ];
 
     private const array COST_POINT_MAP = [
@@ -120,6 +122,8 @@ class ActionNormalizer implements NormalizerInterface
                 } else {
                     $normalizedAction['successRate'] = 100;
                 }
+
+                $normalizedAction['baseVisibility'] = $actionConfig->getVisibility(ActionOutputEnum::SUCCESS);
 
                 return $this->normalizeDescription(
                     $normalizedAction,
@@ -215,7 +219,7 @@ class ActionNormalizer implements NormalizerInterface
         foreach ($types as $type) {
             if (\array_key_exists($type, self::ACTION_TYPE_DESCRIPTION_MAP)) {
                 $key = self::ACTION_TYPE_DESCRIPTION_MAP[$type];
-                $description .= '//' . $this->translationService->translate($key . '.description', [], 'actions', $language);
+                $description .= '// :point: ' . $this->translationService->translate($key . '.description', [], 'actions', $language);
             }
         }
 

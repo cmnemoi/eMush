@@ -101,11 +101,11 @@ Adding the class ".flashing" to the element will will animate its border to incr
     $border-color: rgb(12, 18, 13);
     $text-shadow-color: rgb(21, 39, 60);
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin: 1px;
+    display: block; //if I broke everything, revert me back to flex!
+    //flex-direction: row;
+    //align-items: center;
+    //justify-content: center;
+    //margin: 1px;
     padding: 1px 4px 3px;
     border-radius: 1px;
     color: white;

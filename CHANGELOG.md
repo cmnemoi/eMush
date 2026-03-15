@@ -1,3 +1,10 @@
+## [0.25.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.25.0...0.25.1) (2026-03-15)
+
+
+### Bug Fixes
+
+* old wrestler and robust do not add up to 4 extra dmg ([0afbd24](https://gitlab.com/eternaltwin/mush/mush/commit/0afbd2484f02c027d38afe864f56aa3fefa9f513))
+
 # [0.25.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.24.6...0.25.0) (2026-03-15)
 
 

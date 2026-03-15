@@ -25,14 +25,20 @@ final readonly class ModifyMaxDamageFromSkilledAttackerWeaponEffectHandler exten
         if ($attacker->hasStatus(PlayerStatusEnum::BERZERK)) {
             return;
         }
-
+        // TODO remove protection after 01/4/2026
         if ($attacker->hasSkill(SkillEnum::WRESTLER)) {
+            if ($attacker->getSkillByNameOrThrow(SkillEnum::WRESTLER)->getCreatedAt() < \DateTime::createFromFormat('d/m/Y:G', '10/3/2026:19')) {
+                return;
+            }
             $effect->modifyMaxDamageBy(2);
 
             return;
         }
 
         if ($attacker->hasSkill(SkillEnum::SOLID)) {
+            if ($attacker->getSkillByNameOrThrow(SkillEnum::SOLID)->getCreatedAt() < \DateTime::createFromFormat('d/m/Y:G', '10/3/2026:19')) {
+                return;
+            }
             $effect->modifyMaxDamageBy(1);
 
             return;

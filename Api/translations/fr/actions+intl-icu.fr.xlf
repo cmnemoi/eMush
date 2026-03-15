@@ -496,7 +496,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>use_bandage.description</source>
-        <target>Permet de soigner vos petits bobos.</target>
+        <target>Permet de soigner vos petits bobos. // :beta: **Peut être utilisé en expédition.**</target>
       </segment>
     </unit>
     <unit id="comfort">

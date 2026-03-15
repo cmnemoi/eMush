@@ -31,7 +31,7 @@
       </segment>
       <segment id="teamObjectives.mushTutorialLink" state="translated">
         <source>tips.teamObjectives.mushTutorialLink</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/etre-mush-premiers-pas.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Mush</target>
       </segment>
       <segment id="characterObjectives.title" state="translated">
         <source>tips.characterObjectives.title</source>
@@ -57,7 +57,7 @@
       </segment>
       <segment id="externalResources.tutorials" state="translated">
         <source>tips.externalResources.tutorials</source>
-        <target>**Les tutoriels communautaires** de l'Aide aux bolets</target>
+        <target>**Les guides et explications communautaires du wiki** </target>
       </segment>
       <segment id="externalResources.wiki" state="translated">
         <source>tips.externalResources.wiki</source>

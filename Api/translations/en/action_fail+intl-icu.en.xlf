@@ -844,7 +844,7 @@
     <unit id="insufficient_special_point">
       <segment id="description" state="translated">
         <source>insufficient_special_point.description</source>
-        <target>You do not have the ressource required to do this. **Wait until tomorrow**.</target>
+        <target>You do not have the resource required to do this. **Wait until tomorrow**.</target>
       </segment>
     </unit>
   </file>

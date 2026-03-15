@@ -647,10 +647,13 @@
       </segment>
       <segment id="lost_description" state="translated">
         <source>find_lost.lost_description</source>
-        <target>{version, select,
+        <target>{character, select,
+Terrence {(Translate me on Crowdin! find_lost) A string of swears and profanities emanating from somewhere nearby has you on edge. After following the voice to its origin, you find {character} struggling to repair his wheelchair after hours of wheeling it through mud!}
+other {{version, select,
   1 {¡Has encontrado huellas de pasos humanos! Al seguirlos encontráis a {character}. Pudisteis tener más suerte...}
   other {Mientras os aprestabas a salir de la zona, oís unos gritos detrás de ti. Es {character} que corre hacia ti. ¡Su traje está desgarrado!}
-  }</target>
+  }}
+}</target>
       </segment>
     </unit>
     <unit id="kill_lost">

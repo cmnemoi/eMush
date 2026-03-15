@@ -19,6 +19,24 @@
         <target>sol_return.description</target>
       </segment>
     </unit>
+    <unit id="sol_return_infected">
+      <segment id="name" state="initial">
+        <source>sol_return_infected.name</source>
+        <target>sol_return_infected.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>sol_return_infected.short_name</source>
+        <target>sol_return_infected.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>sol_return_infected.category</source>
+        <target>sol_return_infected.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>sol_return_infected.description</source>
+        <target>sol_return_infected.description</target>
+      </segment>
+    </unit>
     <unit id="eden">
       <segment id="name" state="translated">
         <source>eden.name</source>
@@ -35,6 +53,24 @@
       <segment id="description" state="translated">
         <source>eden.description</source>
         <target>eden.description</target>
+      </segment>
+    </unit>
+    <unit id="eden_infected">
+      <segment id="name" state="initial">
+        <source>eden_infected.name</source>
+        <target>eden_infected.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>eden_infected.short_name</source>
+        <target>eden_infected.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>eden_infected.category</source>
+        <target>eden_infected.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>eden_infected.description</source>
+        <target>eden_infected.description</target>
       </segment>
     </unit>
     <unit id="daedalus_destroyed">

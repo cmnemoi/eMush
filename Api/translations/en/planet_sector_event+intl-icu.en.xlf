@@ -645,10 +645,13 @@
       </segment>
       <segment id="lost_description" state="translated">
         <source>find_lost.lost_description</source>
-        <target>{version, select,
+        <target>{character, select,
+Terrence {A string of swears and profanities emanating from somewhere nearby has you on edge. After following the voice to its origin, you find {character} struggling to repair his wheelchair after hours of wheeling it through mud!}
+other {{version, select,
         1 {You have found traces of human footsteps!!! When you follow them, you find {character}. A crashing disappointment...}
         other {As you're getting ready to leave the zone, you hear cries behind you. It's coming from {character} who has been running behind you screaming for over an hour. Their clothes are all ripped!}
-        }</target>
+        }}
+}</target>
       </segment>
     </unit>
     <unit id="kill_lost">

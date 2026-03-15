@@ -826,6 +826,16 @@ Ya sea por una mutación genética incomprensible o por pura locura homicida, un
         <target>Esta acción es :ic_discrete: *Discreta*. Será revelada solo por las *Cámaras* y las *personas presentes* en la sala, incluso de *tu bando*.</target>
       </segment>
     </unit>
+    <unit id="private">
+      <segment id="name" state="translated">
+        <source>private.name</source>
+        <target>Acción discreta</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>private.description</source>
+        <target>Esta acción es :ic_personal: **Privada**. Solo tú puedes verla.</target>
+      </segment>
+    </unit>
     <unit id="play_arcade">
       <segment id="name" state="translated">
         <source>play_arcade.name</source>
@@ -1909,6 +1919,16 @@ Todos tus camaradas serán *notificados* y el anuncio permanecerá en la pestañ
       <segment id="confirmation" state="translated">
         <source>use_reset_vaccine.confirmation</source>
         <target>Advertencia: el efecto de esta acción es impredecible e irreversible. ¿Deseas continuar de todas maneras?</target>
+      </segment>
+    </unit>
+    <unit id="protect">
+      <segment id="name" state="translated">
+        <source>protect.name</source>
+        <target>Resguardar</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>protect.description</source>
+        <target>Elige a este tripulante como tu VIP. Solo puedes resguardar una persona a la vez.</target>
       </segment>
     </unit>
   </file>

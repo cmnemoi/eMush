@@ -1889,5 +1889,19 @@
         <target>venerian_disease_1.name</target>
       </segment>
     </unit>
+    <unit id="fortytwo_mandate">
+      <segment id="name" state="initial">
+        <source>fortytwo_mandate.name</source>
+        <target>fortytwo_mandate.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>fortytwo_mandate.description</source>
+        <target>fortytwo_mandate.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>fortytwo_mandate_1.name</source>
+        <target>fortytwo_mandate_1.name</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

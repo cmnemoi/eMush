@@ -183,7 +183,7 @@
     <unit id="hit">
       <segment id="hit" state="translated">
         <source>hit.name</source>
-        <target>Kick off</target>
+        <target>Hit</target>
       </segment>
       <segment id="description" state="translated">
         <source>hit.description</source>
@@ -494,7 +494,7 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
       <segment id="description" state="translated">
         <source>use_bandage.description</source>
-        <target>Allows you to heal minor ailments.</target>
+        <target>Allows you to heal minor ailments. // :beta: **Can be used during expeditions.**</target>
       </segment>
     </unit>
     <unit id="comfort">
@@ -831,6 +831,16 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       <segment id="description" state="translated">
         <source>secret.description</source>
         <target>This action is :ic_discrete: **Secret**. It will be revealed by **Cameras** and **Crewmates**, including those on **your side**.</target>
+      </segment>
+    </unit>
+    <unit id="private">
+      <segment id="name" state="translated">
+        <source>private.name</source>
+        <target>Private action</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>private.description</source>
+        <target>This action is :ic_personal: **Private**. Nobody but you will see it.</target>
       </segment>
     </unit>
     <unit id="play_arcade">

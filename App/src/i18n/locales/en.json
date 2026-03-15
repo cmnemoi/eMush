@@ -135,7 +135,9 @@
 		"amountOfMushPlayers": "Number of Mushs",
 		"endCause": {
 			"sol_return": "The Daedalus returned to Sol!",
+			"sol_return_infected": "The Daedalus returned to Sol... with some Mush in tow.",
 			"eden": "The Daedalus has settled on Eden!",
+			"eden_infected": "Le Mush a infecté Eden !",
 			"daedalus_destroyed": "Your corpse is floating amongst the debris of the pulverized Daedalus!",
 			"killed_by_neron": "On the way to the infinite void!",
 			"super_nova": "Death by impish administrator!",
@@ -253,16 +255,16 @@
 		"rearAlphaStorage": "Rear Alpha Storage",
 		"rearBravoStorage": "Rear Bravo Storage"
 	},
-  "personalNotes": {
-    "tooltipTitle": "Personal Notes",
-    "tooltipDescription": "Access your personal notes on your talkie. They stay with your body in case of transfer.",
-    "title": "Personal Notes",
-    "iconPicker": "Choose an icon",
-    "editTabIconTooltip": "Edit this tab's icon",
-    "editTabIconTitle": "Edit icon",
-    "deleteTabTooltip": "Delete this tab",
-    "deleteTabTitle": "Do you really want to delete this tab?"
-  },
+	"personalNotes": {
+		"tooltipTitle": "Personal Notes",
+		"tooltipDescription": "Access your personal notes on your talkie. They stay with your body in case of transfer.",
+		"title": "Personal Notes",
+		"iconPicker": "Choose an icon",
+		"editTabIconTooltip": "Edit this tab's icon",
+		"editTabIconTitle": "Edit icon",
+		"deleteTabTooltip": "Delete this tab",
+		"deleteTabTitle": "Do you really want to delete this tab?"
+	},
 	"admin": {
 		"actions": {
 			"equipment": {
@@ -284,6 +286,11 @@
 				"createAllPlayersInitStatuses": "Create starting statuses for all players",
 				"deleteAllByName": "Delete all status with this name",
 				"name": "Name"
+			},
+			"skills": {
+				"title": "Compétences",
+				"deleteAllByName": "Supprimer toutes les compétences portant ce nom",
+				"name": "Nom"
 			},
 			"rules": {
 				"title": "Rules",
@@ -1167,9 +1174,9 @@
 		"readCharacterBiography": "Read {characterName}'s biography",
 		"pageTitle": "Detailed biography:"
 	},
-  "confirmPopOver": {
-    "title": "Are you sure?",
-    "yes": "Yes",
-    "no": "No"
-  }
+	"confirmPopOver": {
+		"title": "Are you sure?",
+		"yes": "Yes",
+		"no": "No"
+	}
 }

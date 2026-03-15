@@ -60,7 +60,7 @@
       </segment>
       <segment id="tutorial" state="translated">
         <source>andie.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/andie-premiers-pas.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Andie_Graham</target>
       </segment>
     </unit>
     <unit id="Chao">
@@ -113,7 +113,7 @@
       </segment>
       <segment id="tutorial" state="translated">
         <source>chao.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/chao-premiers-pas.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Wang_Chao</target>
       </segment>
     </unit>
     <unit id="Chun">
@@ -172,7 +172,7 @@
       </segment>
       <segment id="tutorial" state="translated">
         <source>chun.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/chun-premiers-pas.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Zhong_Chun</target>
       </segment>
     </unit>
     <unit id="Derek">
@@ -226,7 +226,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>derek.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/derek-tutoriel.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Derek_Hogan</target>
       </segment>
     </unit>
     <unit id="Eleesha">
@@ -287,7 +287,7 @@
       </segment>
       <segment id="tutorial" state="translated">
         <source>eleesha.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/eleesha-premiers-pas.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Eleesha_Williams</target>
       </segment>
     </unit>
     <unit id="Finola">
@@ -342,7 +342,7 @@
       </segment>
       <segment id="tutorial" state="translated">
         <source>finola.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/finola-tutoriel.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Finola_Keegan</target>
       </segment>
     </unit>
     <unit id="Frieda">
@@ -398,7 +398,7 @@
       </segment>
       <segment id="tutorial" state="translated">
         <source>frieda.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/frieda-tutoriel.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Frieda_Bergmann</target>
       </segment>
     </unit>
     <unit id="Gioele">
@@ -506,7 +506,7 @@
       </segment>
       <segment id="tutorial" state="translated">
         <source>hua.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/hua-tutoriel.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Jiang_Hua</target>
       </segment>
     </unit>
     <unit id="Ian">
@@ -562,7 +562,7 @@
       </segment>
       <segment id="tutorial" state="translated">
         <source>ian.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/ian-premiers-pas.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Ian_Soulton</target>
       </segment>
     </unit>
     <unit id="jin_su">
@@ -617,7 +617,7 @@
       </segment>
       <segment id="tutorial" state="translated">
         <source>jin_su.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/jin-su-premiers-pas.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Kim_Jin_Su</target>
       </segment>
     </unit>
     <unit id="kuan_ti">
@@ -671,7 +671,7 @@
       </segment>
       <segment id="tutorial" state="translated">
         <source>kuan_ti.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/kuan-ti-premiers-pas.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Lai_Kuan_Ti</target>
       </segment>
     </unit>
     <unit id="Paola">
@@ -782,7 +782,7 @@
       </segment>
       <segment id="tutorial" state="translated">
         <source>raluca.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/raluca-premiers-pas.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Raluca_Tomescu</target>
       </segment>
     </unit>
     <unit id="Roland">
@@ -836,7 +836,7 @@
       </segment>
       <segment id="tutorial" state="translated">
         <source>roland.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/roland-tutoriel.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Roland_Zuccali</target>
       </segment>
     </unit>
     <unit id="Stephen">
@@ -895,7 +895,7 @@
       </segment>
       <segment id="tutorial" state="translated">
         <source>stephen.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/stephen-premiers-pas.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Stephen_Seagull</target>
       </segment>
     </unit>
     <unit id="Terrence">
@@ -951,7 +951,7 @@
       </segment>
       <segment id="tutorial" state="translated">
         <source>terrence.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/terrence-premiers-pas.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Terrence_Archer</target>
       </segment>
     </unit>
     <unit id="janice">
@@ -1006,7 +1006,7 @@
       </segment>
       <segment id="tutorial" state="translated">
         <source>janice.tutorial</source>
-        <target>https://cmnemoi.github.io/archive_aide_aux_bolets/janice-premiers-pas.html</target>
+        <target>https://emushpedia.miraheze.org/wiki/Janice_Kent</target>
       </segment>
     </unit>
     <unit id="Someone">

@@ -366,27 +366,27 @@
       </segment>
     </unit>
     <unit id="meztine">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>meztine.name</source>
         <target>meztine.name</target>
       </segment>
-      <segment id="short_name" state="translated">
+      <segment id="short_name" state="initial">
         <source>meztine.short_name</source>
         <target>meztine.short_name</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="initial">
         <source>meztine.gender</source>
         <target>meztine.gender</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="initial">
         <source>metzine.first_letter</source>
         <target>metzine.first_letter</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>meztine.description</source>
         <target>meztine.description</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="initial">
         <source>meztine.examine</source>
         <target>meztine.examine</target>
       </segment>

@@ -813,6 +813,16 @@
         <target>secret.description</target>
       </segment>
     </unit>
+    <unit id="private">
+      <segment id="name" state="initial">
+        <source>private.name</source>
+        <target>private.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>private.description</source>
+        <target>private.description</target>
+      </segment>
+    </unit>
     <unit id="play_arcade">
       <segment id="name" state="translated">
         <source>play_arcade.name</source>
@@ -1875,6 +1885,16 @@
       <segment id="confirmation" state="translated">
         <source>use_reset_vaccine.confirmation</source>
         <target>use_reset_vaccine.confirmation</target>
+      </segment>
+    </unit>
+    <unit id="protect">
+      <segment id="name" state="initial">
+        <source>protect.name</source>
+        <target>protect.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>protect.description</source>
+        <target>protect.description</target>
       </segment>
     </unit>
   </file>

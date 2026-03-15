@@ -661,16 +661,14 @@ Llévalo siempre contigo y no te perderás."</target>
         <target>El walkie-talkie es un antiguo pero eficiente aparato de comunicación.
           // :point: Permite comunicarse a distancia con otros tripulantes
           // :point: Con él puedes hablar a través del chat general.
-          // :point: Permite acceder a tus notas personales
-        </target>
+          // :point: Permite acceder a tus notas personales</target>
       </segment>
       <segment id="examine" state="translated">
         <source>walkie_talkie.examine</source>
         <target>El walkie-talkie es un antiguo pero eficiente aparato de comunicación.
           // :point: Permite comunicarse a distancia con otros tripulantes
           // :point: Con él puedes hablar a través del chat general.
-          // :point: Permite acceder a tus notas personales
-        </target>
+          // :point: Permite acceder a tus notas personales</target>
       </segment>
     </unit>
     <unit id="itrackie">
@@ -700,8 +698,7 @@ Llévalo siempre contigo y no te perderás."</target>
           // :point: Permite comunicarse a distancia con otros tripulantes
           // :point: Con él puedes hablar a través del chat general.
           // :point: También da acceso a un minimapa aumentado del Daedalus.
-          // :point: Permite acceder a tus notas personales
-        </target>
+          // :point: Permite acceder a tus notas personales</target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie.examine</source>
@@ -709,8 +706,7 @@ Llévalo siempre contigo y no te perderás."</target>
           // :point: Permite comunicarse a distancia con otros tripulantes
           // :point: Con él puedes hablar a través del chat general.
           // :point: También da acceso a un minimapa aumentado del Daedalus.
-          // :point: Permite acceder a tus notas personales
-        </target>
+          // :point: Permite acceder a tus notas personales</target>
       </segment>
     </unit>
     <unit id="adjustable_wrench">
@@ -1908,7 +1904,7 @@ Ni realmente fluido, ni realmente sólido, su viscosidad es tan solo comparable 
         <source>bandage.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>bandage.description</source>
         <target>Para curaciones de urgencia y algo más.</target>
       </segment>
@@ -2033,13 +2029,13 @@ A pesar de su apariencia, prácticamente no causa daño.</target>
       </segment>
       <segment id="description" state="translated">
         <source>printed_circuit_jelly.description</source>
-        <target>Aplicada en el Nexus a las partes más íntimas de NERON, la gelatina permite realizar los cálculos de investigación de laboratorio un 15 % más rápido.
-Al encontrarse en el Nexo, la gelatina aumenta tus esfuerzos de investigación en un 3 %.</target>
+        <target>Aplicada en el Nexus a las partes más íntimas de NERON, la gelatina permite realizar los cálculos de investigación de laboratorio más rápido. //
+:point: Al encontrarse en el Nexus, la gelatina aumenta tus esfuerzos de investigación en un 3 %.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>printed_circuit_jelly.examine</source>
         <target>Aplicada en el Nexus a las partes más íntimas de NERON, la gelatina permite realizar los cálculos de investigación de laboratorio un 15 % más rápido.
-Al encontrarse en el Nexo, la gelatina aumenta tus esfuerzos de investigación en un 3 %.
+Al encontrarse en el Nexus, la gelatina aumenta tus esfuerzos de investigación en un 3 %.
 Hubiéramos podido usar esto en la cocina pero el cocinero no quiere...</target>
       </segment>
     </unit>
@@ -3853,8 +3849,7 @@ La rockola de esos años maravillosos. ¡Y tiene las canciones favoritas de la t
           // :point: Permite comunicarse a distancia con otros tripulantes
           // :point: Con él puedes hablar a través del chat general.
           // :point: Permite el acceso del minimapa mejorado del Daedalus. **¡Aplicación ACTOPI incluida en cada compra!**
-          // :point: Permite acceder a tus notas personales
-        </target>
+          // :point: Permite acceder a tus notas personales</target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie_2.examine</source>
@@ -3862,8 +3857,7 @@ La rockola de esos años maravillosos. ¡Y tiene las canciones favoritas de la t
         // :point: Permite comunicarse a distancia con otros tripulantes
         // :point: Con él puedes hablar a través del chat general.
         // :point: Permite el acceso del minimapa mejorado del Daedalus. **¡Aplicación ACTOPI incluida en cada compra!**
-        // :point: Permite acceder a tus notas personales
-        </target>
+        // :point: Permite acceder a tus notas personales</target>
       </segment>
     </unit>
     <unit id="lump_of_coal">

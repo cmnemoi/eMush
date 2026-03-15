@@ -19,6 +19,24 @@
         <target>You decided to try to go back to Sol. The crazy journey of the Daedalus ends here. Does that mean that your destiny is now a legend?</target>
       </segment>
     </unit>
+    <unit id="sol_return_infected">
+      <segment id="name" state="translated">
+        <source>sol_return_infected.name</source>
+        <target>Mush returned to Sol</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>sol_return_infected.short_name</source>
+        <target>The Daedalus returned to Sol... with some Mush in tow.</target>
+      </segment>
+      <segment id="category" state="translated">
+        <source>sol_return_infected.category</source>
+        <target>You have returned to Sol with Mush amidst the crew... but the rest is another story!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>sol_return_infected.description</source>
+        <target>You decided to try to go back to Sol. However, there were still Mush on board. The crazy journey of the Daedalus ends here. Does that mean that your destiny is now a legend?</target>
+      </segment>
+    </unit>
     <unit id="eden">
       <segment id="name" state="translated">
         <source>eden.name</source>
@@ -35,6 +53,24 @@
       <segment id="description" state="translated">
         <source>eden.description</source>
         <target>Hope rises from the dross of humanity. On a new planet, a new beginning and the continuation of our heroes' adventures. But this is another story.</target>
+      </segment>
+    </unit>
+    <unit id="eden_infected">
+      <segment id="name" state="translated">
+        <source>eden_infected.name</source>
+        <target>Eden infected by the Mush</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>eden_infected.short_name</source>
+        <target>The Mush infected Eden!</target>
+      </segment>
+      <segment id="category" state="translated">
+        <source>eden_infected.category</source>
+        <target>After all these wanderings, you have set course for Eden... However, the Mush managed to infiltrate... but the rest is another story!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eden_infected.description</source>
+        <target>A new planet falls into the grasp of the Mush. Is there any hope left for humanity...?</target>
       </segment>
     </unit>
     <unit id="daedalus_destroyed">

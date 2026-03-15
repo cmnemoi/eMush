@@ -1506,7 +1506,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>disease_contracted_1.name</source>
-        <target>{gender, select, female {Hipocondriaca} other {Hipocondriaoco}}</target>
+        <target>{gender, select, female {Hipocondriaca} other {Hipocondriaco}}</target>
       </segment>
       <segment id="x10" state="translated">
         <source>disease_contracted_10.name</source>
@@ -1887,6 +1887,20 @@
       <segment id="x1" state="translated">
         <source>venerian_disease_1.name</source>
         <target>{gender, select, female {Promiscua} other {Promiscuo}}</target>
+      </segment>
+    </unit>
+    <unit id="fortytwo_mandate">
+      <segment id="name" state="translated">
+        <source>fortytwo_mandate.name</source>
+        <target>Cantidad de mandatos dentro del 42° piso</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>fortytwo_mandate.description</source>
+        <target>Cantidad de mandatos pasados durmiendo en reuniones.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>fortytwo_mandate_1.name</source>
+        <target>Ex {gender, select, female {Senadora} other {Senador}} de la Federación</target>
       </segment>
     </unit>
   </file>

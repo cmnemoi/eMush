@@ -841,5 +841,11 @@
         <target>daily_limit_mycoscan.description</target>
       </segment>
     </unit>
+    <unit id="insufficient_special_point">
+      <segment id="description" state="initial">
+        <source>insufficient_special_point.description</source>
+        <target>insufficient_special_point.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

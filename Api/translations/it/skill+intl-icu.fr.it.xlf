@@ -911,5 +911,25 @@
         <target>epigenetics.description</target>
       </segment>
     </unit>
+    <unit id="maintenance_crew">
+      <segment id="maintenance_crew.name" state="initial">
+        <source>maintenance_crew.name</source>
+        <target>maintenance_crew.name</target>
+      </segment>
+      <segment id="maintenance_crew.description" state="initial">
+        <source>maintenance_crew.description</source>
+        <target>maintenance_crew.description</target>
+      </segment>
+    </unit>
+    <unit id="bodyguard">
+      <segment id="bodyguard.name" state="initial">
+        <source>bodyguard.name</source>
+        <target>bodyguard.name</target>
+      </segment>
+      <segment id="bodyguard.description" state="initial">
+        <source>bodyguard.description</source>
+        <target>bodyguard.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

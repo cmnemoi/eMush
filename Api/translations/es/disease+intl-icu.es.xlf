@@ -358,7 +358,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>weapon_phobia.description</source>
-        <target>Ya no puedes volver a usar un arma, de solo verlas de ta pánico...</target>
+        <target>Ya no puedes volver a usar un arma, de solo verlas te da pánico...</target>
       </segment>
     </unit>
     <unit id="burns_50_of_body">

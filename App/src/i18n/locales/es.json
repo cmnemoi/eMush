@@ -135,7 +135,9 @@
 		"amountOfMushPlayers": "Cantidad de Mush",
 		"endCause": {
 			"sol_return": "¡El Daedalus volvió a Sol!",
+			"sol_return_infected": "Le Daedalus est rentré sur Sol... avec des mush !",
 			"eden": "¡El Daedalus aterrizó en Edén!",
+			"eden_infected": "¡El Mush infectó Eden!",
 			"daedalus_destroyed": "¡Tu cadáver flota junto a los restos del Daedalus!",
 			"killed_by_neron": " ¡De camino al vacío infinito!",
 			"super_nova": "¡Muerto por un desliz del administrador!",
@@ -253,17 +255,17 @@
 		"rearAlphaStorage": "Almacén Alpha Trasero",
 		"rearBravoStorage": "Almacén Beta Trasero"
 	},
-  "personalNotes": {
-    "tooltipTitle": "Notas personales",
-    "tooltipDescription": "AAccede a tus notas personales en tu walkie. Permanecen con tu cuerpo en caso de traslado.",
-    "title": "Notas personales",
-    "iconPicker": "Elige un ícono",
-    "editTabIconTooltip": "Editar el ícono de esta pestaña",
-    "editTabIconTitle": "Editar ícono",
-    "deleteTabTooltip": "Eliminar esta pestaña",
-    "deleteTabTitle": "¿Realmente quieres eliminar esta pestaña?"
-  },
-  "admin": {
+	"personalNotes": {
+		"tooltipTitle": "Notas personales",
+		"tooltipDescription": "AAccede a tus notas personales en tu walkie. Permanecen con tu cuerpo en caso de traslado.",
+		"title": "Notas personales",
+		"iconPicker": "Elige un ícono",
+		"editTabIconTooltip": "Editar el ícono de esta pestaña",
+		"editTabIconTitle": "Editar ícono",
+		"deleteTabTooltip": "Eliminar esta pestaña",
+		"deleteTabTitle": "¿Realmente quieres eliminar esta pestaña?"
+	},
+	"admin": {
 		"actions": {
 			"equipment": {
 				"title": "Equipo",
@@ -283,6 +285,11 @@
 				"title": "Estado",
 				"createAllPlayersInitStatuses": "Crear los estados iniciales para todos los jugadores",
 				"deleteAllByName": "Eliminar todos los estados con este nombre",
+				"name": "Nombre"
+			},
+			"skills": {
+				"title": "Habilidades",
+				"deleteAllByName": "Eliminar todas las habilidades con este nombre",
 				"name": "Nombre"
 			},
 			"rules": {
@@ -1167,9 +1174,9 @@
 		"readCharacterBiography": "Leer la biografía de {characterName}",
 		"pageTitle": "Biografía detallada:"
 	},
-  "confirmPopOver": {
-    "title": "¿Estás seguro?",
-    "yes": "Sí",
-    "no": "No"
-  }
+	"confirmPopOver": {
+		"title": "¿Estás seguro?",
+		"yes": "Sí",
+		"no": "No"
+	}
 }

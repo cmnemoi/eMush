@@ -255,16 +255,16 @@
 		"rearAlphaStorage": "Stockage Alpha Arrière",
 		"rearBravoStorage": "Stockage Beta Arrière"
 	},
-  "personalNotes": {
-    "tooltipTitle": "Notes personnelles",
-    "tooltipDescription": "Accédez à vos notes personnelles sur votre talkie. Elles restent avec votre corps en cas de transfert.",
-    "title": "Notes personnelles",
-    "iconPicker": "Choisissez une icône",
-    "editTabIconTooltip": "Éditer l'icône de cet onglet",
-    "editTabIconTitle": "Modifier l'icône",
-    "deleteTabTooltip": "Supprimer cet onglet",
-    "deleteTabTitle": "Voulez-vous vraiment supprimer cet onglet ?"
-  },
+	"personalNotes": {
+		"tooltipTitle": "Notes personnelles",
+		"tooltipDescription": "Accédez à vos notes personnelles sur votre talkie. Elles restent avec votre corps en cas de transfert.",
+		"title": "Notes personnelles",
+		"iconPicker": "Choisissez une icône",
+		"editTabIconTooltip": "Éditer l'icône de cet onglet",
+		"editTabIconTitle": "Modifier l'icône",
+		"deleteTabTooltip": "Supprimer cet onglet",
+		"deleteTabTitle": "Voulez-vous vraiment supprimer cet onglet ?"
+	},
 	"admin": {
 		"actions": {
 			"equipment": {
@@ -642,7 +642,7 @@
 			"newPoll": "Ajouter un sondage",
 			"removePollOption": "Retirer l'option",
 			"newPollOption": "Ajouter une option",
-			"maxVotes": "Nombre de vote par utilisateur :"
+			"maxVotes": "Nombre de votes par utilisateur :"
 		},
 		"hunterConfig": {
 			"name": "Nom complet",
@@ -1174,9 +1174,9 @@
 		"readCharacterBiography": "Lire la biographie de {characterName}",
 		"pageTitle": "Biographie détaillée :"
 	},
-  "confirmPopOver": {
-    "title": "Êtes-vous sûr ?",
-    "yes": "Oui",
-    "no": "Non"
-  }
+	"confirmPopOver": {
+		"title": "Êtes-vous sûr ?",
+		"yes": "Oui",
+		"no": "Non"
+	}
 }

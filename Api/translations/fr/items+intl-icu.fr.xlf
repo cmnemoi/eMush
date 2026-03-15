@@ -673,16 +673,14 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
         <target>Le talkie-walkie est un vieux moyen de communication, certes mais toujours efficace.
           // :point: Permet de communiquer à distance avec les autres équipiers.
           // :point: Permet de communiquer sur le canal Général.
-          // :point: Permet d'avoir accès à vos notes personnelles.
-      </target>
+          // :point: Permet d'avoir accès à vos notes personnelles.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>walkie_talkie.examine</source>
         <target>Le talkie-walkie est un vieux moyen de communication, certes mais toujours efficace.
           // :point: Permet de communiquer à distance avec les autres équipiers.
           // :point: Permet de communiquer sur le canal Général.
-          // :point: Permet d'avoir accès à vos notes personnelles.
-        </target>
+          // :point: Permet d'avoir accès à vos notes personnelles.</target>
       </segment>
     </unit>
     <unit id="itrackie">
@@ -712,8 +710,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
           // :point: Permet de communiquer à distance avec les autres équipiers.
           // :point: Permet de communiquer sur le canal Général.
           // :point: Permet d'avoir accès à la mini-carte augmentée du Daedalus.
-          // :point: Permet d'avoir accès à vos notes personnelles.
-        </target>
+          // :point: Permet d'avoir accès à vos notes personnelles.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie.examine</source>
@@ -721,8 +718,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
           // :point: Permet de communiquer à distance avec les autres équipiers.
           // :point: Permet de communiquer sur le canal Général.
           // :point: Permet d'avoir accès à la mini-carte augmentée du Daedalus.
-          // :point: Permet d'avoir accès à vos notes personnelles.
-        </target>
+          // :point: Permet d'avoir accès à vos notes personnelles.</target>
       </segment>
     </unit>
     <unit id="adjustable_wrench">
@@ -1411,7 +1407,7 @@ Il manque pas mal de feuilles mais il pourra encore vous servir quelque temps.</
       </segment>
       <segment id="description" state="translated">
         <source>duct_tape.description</source>
-        <target>On ne sait jamais mais ça peut servir.</target>
+        <target>On ne sait jamais mais ça peut servir. // :point: Peut être utilisé pour temporairement faire taire un coéquipier agaçant.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>duct_tape.examine</source>
@@ -1828,9 +1824,9 @@ Ni vraiment fluide, ni vraiment solide, sa viscosité n'a d'égal que la puissan
         <source>bandage.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>bandage.description</source>
-        <target>Permet des soins d'urgence et un peu plus.</target>
+        <target>Permet des soins d'urgence et un peu plus. // :beta: **Permet de se soigner pendant une expédition.**</target>
       </segment>
       <segment id="examine" state="translated">
         <source>bandage.examine</source>
@@ -1948,7 +1944,7 @@ Malgré son aspect, il ne fait presque aucun mal.</target>
       </segment>
       <segment id="description" state="translated">
         <source>printed_circuit_jelly.description</source>
-        <target>Appliquée dans le Nexus sur les parties les plus intimes de NERON elle permettra d'accélérer de 3% les calculs du laboratoire. Tant qu'elle se trouve dans le Nexus, la Gelée augmente vos essais de recherche de 3%.</target>
+        <target>Appliquée dans le Nexus sur les parties les plus intimes de NERON, elle permettra d'accélérer les calculs du laboratoire. // :point: Tant qu'elle se trouve dans le Nexus, la Gelée augmente l'effet de vos participations aux recherches de 3%.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>printed_circuit_jelly.examine</source>
@@ -3733,8 +3729,7 @@ La caméra ne détecte pas son propre sabotage.</target>
         // :point: Permet de communiquer à distance avec les autres équipiers.
         // :point: Permet de communiquer sur le canal Général.
         // :point: Permet d'avoir accès à la mini-carte augmentée du Daedalus. **Appli ACTOPI incluse avec chaque achat !**
-        // :point: Permet d'avoir accès à vos notes personnelles.
-        </target>
+        // :point: Permet d'avoir accès à vos notes personnelles.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie_2.examine</source>
@@ -3742,8 +3737,7 @@ La caméra ne détecte pas son propre sabotage.</target>
         // :point: Permet de communiquer à distance avec les autres équipiers.
         // :point: Permet de communiquer sur le canal Général.
         // :point: Permet d'avoir accès à la mini-carte augmentée du Daedalus. **Appli ACTOPI incluse avec chaque achat !**
-        // :point: Permet d'avoir accès à vos notes personnelles.
-        </target>
+        // :point: Permet d'avoir accès à vos notes personnelles.</target>
       </segment>
     </unit>
     <unit id="lump_of_coal">

@@ -942,7 +942,7 @@
       </segment>
       <segment id="polymath.description" state="translated">
         <source>polymath.description</source>
-        <target>Knowledge is always moving, state is overrated.//:point: **+2** private channels accessible.//:point: **+1** :pa_comp: per day.//:point: **-10%** to all your action attempts.</target>
+        <target>Knowledge is always moving, state is overrated.//:point: **+2** private channels accessible.//:point: **+1** :pa_comp: per day.</target>
       </segment>
     </unit>
     <unit id="nightmarish">
@@ -1002,7 +1002,7 @@
       </segment>
       <segment id="bodyguard.description" state="translated">
         <source>bodyguard.description</source>
-        <target>:beta: You've never failed an escort mission. Must be they call having crazy eyes...//:point: For 2 :pa:, you may **Protect** another crewmember. While you are in the same room, all aggressive actions targeting them cost an additional 2 :pa:. //// This skill is in :beta: beta: we welcome your feedback on the Eternaltwin forum and Discord.</target>
+        <target>:beta: You've never failed an escort mission. Must be what they call having crazy eyes...//:point: For 2 :pa:, you may **Protect** another crewmember. While you are in the same room, all aggressive actions targeting them cost an additional 2 :pa:. //// This skill is in :beta: beta: we welcome your feedback on the Eternaltwin forum and Discord.</target>
       </segment>
     </unit>
   </file>

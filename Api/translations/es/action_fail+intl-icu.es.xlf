@@ -869,5 +869,11 @@ other {**Vuelve cuando estés limpio.**"}
         <target>Para evitar la sobreexposición a los rayos Sigma, esta acción solo puede ser realizada una vez al día. Volverá a estar disponible después del ciclo 8.</target>
       </segment>
     </unit>
+    <unit id="insufficient_special_point">
+      <segment id="description" state="translated">
+        <source>insufficient_special_point.description</source>
+        <target>No dispones de los recursos necesarios para hacer esto. **Espera hasta mañana**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

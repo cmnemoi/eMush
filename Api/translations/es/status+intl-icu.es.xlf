@@ -608,7 +608,7 @@ Todas tus acciones se vuelven más difíciles.</target>
     <unit id="mush_trapped.description">
       <segment state="translated">
         <source>mush_trapped.description</source>
-        <target>La próxima persona que interactúe con la habitación, un equipo o la estantería recibirá una espora. Ten cuidado de no activar la trampa tú mismo…</target>
+        <target>La próxima persona que interactúe con la habitación, un equipo o la estantería recibirá una espora. **Ten cuidado de no activar la trampa por tu cuenta…**</target>
       </segment>
     </unit>
     <unit id="genius_idea">
@@ -691,6 +691,37 @@ Todas tus acciones se vuelven más difíciles.</target>
       <segment id="description" state="translated">
         <source>is_anonymous.description</source>
         <target>Tus acciones **Públicas** son anónimas. En cambio, tus acciones **Secretas** y **Furtivas** revelarán tu verdadera identidad…</target>
+      </segment>
+    </unit>
+    <unit id="mankind_only_hope_status">
+      <segment id="name" state="translated">
+        <source>mankind_only_hope_status.name</source>
+        <target>Nuestra última esperanza</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>mankind_only_hope_status.description</source>
+        <target>El excepcional sistema inmunitario de **Chun** la convierte en la última esperanza de la especie humana. Mientras este con vida, tendremos la oportunidad de vencer al Mush.//
+:point: **La perdida de ánimo diaria :pmo:** se reduce 1 punto para toda la tripulación. // :point: Precaución: **La muerte de Chun podría tener consecuencias catastróficas en el ánimo de la tripulación.**</target>
+      </segment>
+    </unit>
+    <unit id="bodyguard_user">
+      <segment id="name" state="translated">
+        <source>bodyguard_user.name</source>
+        <target>Guardaespaldas</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>bodyguard_user.description</source>
+        <target>Actualmente estás resguardando a {target_character_icon} **{target_character}**. // *Mientras estés en la misma sala,* **todas las acciones agresivas dirigidas a esta persona cuestan 2 :ap: adicionales**.</target>
+      </segment>
+    </unit>
+    <unit id="bodyguard_vip">
+      <segment id="name" state="translated">
+        <source>bodyguard_vip.name</source>
+        <target>V.I.P.</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>bodyguard_vip.description</source>
+        <target>{target_character_icon} **{target_character}** te está resguardando. ¡Qué lujo! // *Mientras estés en la misma sala,* **todas las acciones agresivas dirigidas a ti cuestan 2 :ap: adicionales**.</target>
       </segment>
     </unit>
   </file>

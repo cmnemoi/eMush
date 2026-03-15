@@ -1556,7 +1556,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>team_mush_killed.description</source>
-        <target>team_mush_killed.description</target>
+        <target>Mush invaders exterminated by the crews you traveled with.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>team_mush_killed_1.name</source>
@@ -1887,6 +1887,20 @@
       <segment id="x1" state="translated">
         <source>venerian_disease_1.name</source>
         <target>Hedonist</target>
+      </segment>
+    </unit>
+    <unit id="fortytwo_mandate">
+      <segment id="name" state="translated">
+        <source>fortytwo_mandate.name</source>
+        <target>Number of mandates within the 42nd</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>fortytwo_mandate.description</source>
+        <target>Number of mandates spent sleeping through meetings.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>fortytwo_mandate_1.name</source>
+        <target>Former Senator of the Federation</target>
       </segment>
     </unit>
   </file>

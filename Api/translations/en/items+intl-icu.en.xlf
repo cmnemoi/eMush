@@ -661,16 +661,14 @@ Lost in space, in the jungle, in the good old Daedalus ? We've got exactly what 
         <target>The Walkie-Talkie is a dated means of communication, but it works.
           // :point: Allows you to communicate remotely with other crewmembers.
           // :point: Lets you communicate on the General Channel.
-          // :point: Lets you access your personal notes.
-        </target>
+          // :point: Lets you access your personal notes.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>walkie_talkie.examine</source>
         <target>The Walkie-Talkie is a dated means of communication, but it works.
           // :point: Allows you to communicate remotely with other crewmembers.
           // :point: Lets you communicate on the General Channel.
-          // :point: Lets you access your personal notes.
-        </target>
+          // :point: Lets you access your personal notes.</target>
       </segment>
     </unit>
     <unit id="itrackie">
@@ -700,8 +698,7 @@ Lost in space, in the jungle, in the good old Daedalus ? We've got exactly what 
           // :point: Allows you to communicate remotely with other crewmembers.
           // :point: Lets you communicate on the General Channel.
           // :point: Allows you to access the upgraded mini-map of the Daedalus.
-          // :point: Lets you access your personal notes.
-        </target>
+          // :point: Lets you access your personal notes.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie.examine</source>
@@ -709,8 +706,7 @@ Lost in space, in the jungle, in the good old Daedalus ? We've got exactly what 
           // :point: Allows you to communicate remotely with other crewmembers.
           // :point: Lets you communicate on the General Channel.
           // :point: Allows you to access the upgraded mini-map of the Daedalus.
-          // :point: Lets you access your personal notes.
-        </target>
+          // :point: Lets you access your personal notes.</target>
       </segment>
     </unit>
     <unit id="adjustable_wrench">
@@ -1415,7 +1411,7 @@ There are a load of sheets missing, but there's a fair amount of use left in thi
       </segment>
       <segment id="description" state="translated">
         <source>duct_tape.description</source>
-        <target>As they say, if you can't fix it with duct tape, you're not using enough.</target>
+        <target>As they say, if you can't fix it with duct tape, you're not using enough. // :point: May be used to temporarily silence any particularly bothersome crewmate.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>duct_tape.examine</source>
@@ -1839,9 +1835,7 @@ Not entirely fluid, not entirely solid, its viscosity has no equal save its powe
       </segment>
       <segment id="description" state="translated">
         <source>bandage.description</source>
-        <target>Used for first aid, and more besides...
-        //
-        Can be used during expedition.</target>
+        <target>Used for first aid, and more besides... // :beta: **Can be used to heal yourself while in expedition.**</target>
       </segment>
       <segment id="examine" state="translated">
         <source>bandage.examine</source>
@@ -1963,14 +1957,14 @@ Despite the way it looks, it hardly hurts at all.</target>
       </segment>
       <segment id="description" state="translated">
         <source>printed_circuit_jelly.description</source>
-        <target>Applied to the most intimate parts of NERON's nexus, it allows lab research calculations to be carried out 15% more quickly.
-When found in the Nexus, the jelly increases your research efforts by 3%</target>
+        <target>Applied to the most intimate parts of NERON's nexus, it allows lab research calculations to be carried out more quickly. //
+:point: When placed in the Nexus, the jelly increases the efficiency of your participations to researches by 3%.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>printed_circuit_jelly.examine</source>
         <target>Applied to the most intimate parts of NERON's nexus, it allows lab research calculations to be carried out 15% more quickly.
 When found in the Nexus, the jelly increases your research efforts by 3%
-We coul have used this in the kitchen but the chef wasn't keen...</target>
+We could have used this in the kitchen, but the chef wasn't keen...</target>
       </segment>
     </unit>
     <unit id="invertebrate_shell">
@@ -2795,7 +2789,7 @@ If you take care of this plant it will repay you with Oxygen and delicious Creep
       <segment id="examine" state="translated">
         <source>cactax.examine</source>
         <target>Originally from the great deserts of Tantris, the cactax is used in sacred ceremonial rituals...
-If you take care of this plant it will repay you with Oxygen and delicious Metzines.</target>
+If you take care of this plant it will repay you with Oxygen and delicious Meztines.</target>
       </segment>
     </unit>
     <unit id="bifflon">
@@ -3766,8 +3760,7 @@ An awesome jukebox from back in the day. Even better, it comes preloaded with th
           // :point: Allows you to communicate remotely with other crewmembers.
           // :point: Lets you communicate on the General Channel.
           // :point: Allows you to access the upgraded mini-map of the Daedalus. **Free ACTOPI included with every purchase!**
-          // :point: Lets you access your personal notes.
-        </target>
+          // :point: Lets you access your personal notes.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>itrackie_2.examine</source>
@@ -3775,8 +3768,7 @@ An awesome jukebox from back in the day. Even better, it comes preloaded with th
           // :point: Allows you to communicate remotely with other crewmembers.
           // :point: Lets you communicate on the General Channel.
           // :point: Allows you to access the upgraded mini-map of the Daedalus. **Free ACTOPI included with every purchase!**
-          // :point: Lets you access your personal notes.
-        </target>
+          // :point: Lets you access your personal notes.</target>
       </segment>
     </unit>
     <unit id="lump_of_coal">

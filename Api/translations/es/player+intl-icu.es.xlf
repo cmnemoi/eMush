@@ -150,5 +150,15 @@ Actualmente tienes {quantityAction}  :pa: y {quantityMovement} :pm:.</target>
         <target>Los Puntos de Cura te dan **acciones gratuitas** para todas tus *acciones de cura* y *cirugías*.</target>
       </segment>
     </unit>
+    <unit id="torture">
+      <segment id="name" state="translated">
+        <source>torture.name</source>
+        <target>Puntos de Tortura</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>torture.description</source>
+        <target>Los Puntos de Tortura te permiten realizar la acción **Torturar**. *No puedes torturar sin ellos.*</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

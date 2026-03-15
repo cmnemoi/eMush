@@ -300,7 +300,7 @@
       </segment>
       <segment id="magnetic_net.description" state="translated">
         <source>magnetic_net.description</source>
-        <target>Cuando el Daedalus se desplaza, los patrulleros que le rodean son aterrizados automáticamente en sus bahías.</target>
+        <target>Cuando el Daedalus se desplaza, los patrulleros que le rodean son aterrizados automáticamente en sus plataformas.</target>
       </segment>
       <segment id="magnetic_net.lore" state="translated">
         <source>magnetic_net.lore</source>
@@ -426,7 +426,7 @@
       </segment>
       <segment id="bay_door_xxl.description" state="translated">
         <source>bay_door_xxl.description</source>
-        <target>Las maniobras de despegue y aterrizaje nunca causan daños a las naves patrulla ni al Daedalus.</target>
+        <target>Las maniobras de despegue y aterrizaje nunca causan daños a los patrulleros ni al Daedalus.</target>
       </segment>
       <segment id="bay_door_xxl.lore" state="translated">
         <source>bay_door_xxl.lore</source>
@@ -710,7 +710,7 @@
       </segment>
       <segment id="apero_kitchen.name" state="translated">
         <source>apero_kitchen.name</source>
-        <target>Aperco-cocina SNC</target>
+        <target>Cocina SNC</target>
       </segment>
       <segment id="apero_kitchen.description" state="translated">
         <source>apero_kitchen.description</source>
@@ -718,7 +718,7 @@
       </segment>
       <segment id="apero_kitchen.lore" state="translated">
         <source>apero_kitchen.lore</source>
-        <target>El fabricante SNC creó este aparato para hacer tu viaje más ameno.</target>
+        <target>El departamento de I+D de SNC ha desarrollado la herramienta definitiva para destruir la productividad ¡y hemos encontrado las cajas! Cuidado con excederse. ¡A BEBER!</target>
       </segment>
     </unit>
     <unit id="floor_heating">
@@ -808,7 +808,7 @@
       </segment>
       <segment id="antispore_gas.lore" state="translated">
         <source>antispore_gas.lore</source>
-        <target>Mientras hacíamos una sopa, vimos como el gas de las cebollas desatoraba los conductos de ventilación de la nave, matando a los hongos alojados ahí. ¿Por qué no utilizar la misma técnica para luchar contra el mal? Además todo el Daedalus huele a vainilla.</target>
+        <target>Al inyectar componentes con sabor a vainilla en el compresor de oxígeno a alta presión, se observa que esto mata todos los hongos en los conductos de ventilación. ¿Por qué no esparcirlo por todas partes, ayudar a destruir a nuestro odiado enemigo y, además, que toda la nave huela a vainilla?</target>
       </segment>
     </unit>
     <unit id="constipaspore_serum">
@@ -826,7 +826,7 @@
       </segment>
       <segment id="constipaspore_serum.lore" state="translated">
         <source>constipaspore_serum.lore</source>
-        <target>Mientras se estudiaba las células de algunos infectados, se logró detectar un fallo que al ser explotado retardaba la reproducción de sus virulentas esporas.</target>
+        <target>Al aislar los agregadores Mush, se observa que el ADN de Brugien, el cual fue añadido para permitir la rápida producción de esporas, presenta una importante debilidad que ralentiza el metabolismo de los portadores. Con un poco de ayuda, el famoso Atch Wum ya logró aplicar este proceso durante la invasión de [...].</target>
       </segment>
     </unit>
     <unit id="create_mycoscan">
@@ -844,7 +844,7 @@
       </segment>
       <segment id="create_mycoscan.lore" state="translated">
         <source>create_mycoscan.lore</source>
-        <target>El artículo de Finola Keegan "La espora de la vida" marcó un hito en la Mushología. Los diversos estudios basados en sus descubrimientos favorecieron la invención de esta maravilla.</target>
+        <target>El artículo de Finola Keegan, "De la espora a la no vida", es una obra fundamental en el campo de la Mushología. Creó una rama de la ciencia que estudia los organismos de agregación. Los agregadores, en efecto, son cepas de virus que permiten la división parcial de las cadenas de ADN o ARN en el huésped y extraen su composición genética para alterarse a sí mismos o a su acervo genético [...]. Este artículo conduce directamente a la creación de un producto costoso: el Mycoscan.</target>
       </segment>
     </unit>
     <unit id="meridon_scrambler">
@@ -854,7 +854,7 @@
       </segment>
       <segment id="meridon_scrambler.name" state="translated">
         <source>meridon_scrambler.name</source>
-        <target>Lopezitina</target>
+        <target>Bloqueador Meridon</target>
       </segment>
       <segment id="meridon_scrambler.description" state="translated">
         <source>meridon_scrambler.description</source>
@@ -862,7 +862,7 @@
       </segment>
       <segment id="meridon_scrambler.lore" state="translated">
         <source>meridon_scrambler.lore</source>
-        <target>En su Cartagena natal, los doctores Carlos y Pedro López completaron la fórmula de esta sustancia que al entrar en contacto con los lóbulos parietales de los Hunters, provocan una especie de aturdimiento bastante gracioso.</target>
+        <target>La teoría de Gauss-Freon. Un arma poderosa contra la increíble sincronización Mush. Al trabajar con las frecuencias de resonancia armónica de Fourrier, te das cuenta de que este enorme armazón puede transformarse en un altavoz y causar un trauma patulico en el frágil cerebro del Hunter. Traumatizados por los repetidos estallidos de este horrible sonido, parecen quedar desconcertados [...].</target>
       </segment>
     </unit>
     <unit id="mush_hunter_zc16h">
@@ -954,7 +954,7 @@
       </segment>
       <segment id="mush_reproductive_system.lore" state="translated">
         <source>mush_reproductive_system.lore</source>
-        <target>Un estudio fascinante que vincula la partenogénesis del rebozuelo en un entorno anaeróbico con la posibilidad de reproducir el parásito Mush. Los hallazgos de este informe catapultarán asus autores al estrellato científico.</target>
+        <target>Un estudio fascinante que vincula la partenogénesis del rebozuelo en un entorno anaeróbico con la posibilidad de reproducir el parásito Mush. Los hallazgos de este informe catapultarán a sus autores al estrellato científico.</target>
       </segment>
     </unit>
     <unit id="mycoalarm">
@@ -1008,7 +1008,7 @@
       </segment>
       <segment id="natamy_rifle.lore" state="translated">
         <source>natamy_rifle.lore</source>
-        <target>El resultado de un accidente, puede ser un gran descubrimiento.</target>
+        <target>Mientras diseccionaba cocodrilos con displasia del esfínter lateral, el profesor DipNui destacó las cualidades del tracto digestivo del animal. Ya no recuerdas por qué, pero esto te llevó a realizar un pequeño experimento con tu blaster. Resultó que la reducción causada por la toxina del Bacillus anthracitus tuvo un efecto devastador y convirtió el ADN de Mush en ADN "Zombi", lo que provocó degradaciones aterradoras en [...]</target>
       </segment>
     </unit>
     <unit id="ncc_contact_lenses">
@@ -1026,7 +1026,7 @@
       </segment>
       <segment id="ncc_contact_lenses.lore" state="translated">
         <source>ncc_contact_lenses.lore</source>
-        <target>Los gatos en el espacio desarrollaron una visión perfecta en toda la gama de condiciones de luz. Esto agradará mucho a la tripulación.</target>
+        <target>¿Quién hubiera pensado que los gatos escondieran tales secretos? Mientras trabajabas en problemas de ionización de la córnea durante un viaje interplanetario, piensas en inyectar un potenciador auto-gamma para mejorar la visión de tus compañeros de tripulación.</target>
       </segment>
     </unit>
     <unit id="patuline_scrambler">
@@ -1044,7 +1044,7 @@
       </segment>
       <segment id="patuline_scrambler.lore" state="translated">
         <source>patuline_scrambler.lore</source>
-        <target>Los experimentos del Dr. Dolopine en el año 2070 fueron claves en el desarrollo de esta rara sustancia para la cual se necesitó nada menos que una tonelada de patas de grillos bordelianos.</target>
+        <target>En ocasiones, los experimentos realizados bajo la influencia del LSD alrededor del año 2070 dieron lugar a excelentes artículos sobre experimentos parapsicológicos. Un análisis minucioso del último informe del profesor Delopine en 2069, que analiza la relación entre ciertas especies de ovejas y las hierbas que producen naturalmente esta droga, permitirá descubrir que es posible sintetizar brotes de patulos, conocidos por sus propiedades antifúngicas.</target>
       </segment>
     </unit>
     <unit id="perpetual_hydration">
@@ -1094,7 +1094,7 @@
       </segment>
       <segment id="retro_fungal_serum.lore" state="translated">
         <source>retro_fungal_serum.lore</source>
-        <target>Los estudios demostraron que las emanaciones de los quásares podrían ser "la solución final" para detener la invasión de los Mush. Estos resultados pueden convertir al equipo en una leyenda universal. Los resultados de este estudio son críticos y harán famosa a toda la tripulación.</target>
+        <target>Un excelente estudio sobre la correlación de Gershwin entre la infección fúngica y la mecánica de propagación relacionada con la inflexión de cuásares. Una vez confirmada esta correlación, la idea de usar un acelerador de partículas para sintetizar un potente sustrato retrofúngico se convirtió rápidamente en LA solución a la invasión Mush. Los hallazgos de este estudio son vitales y darán fama a todo el equipo.</target>
       </segment>
     </unit>
     <unit id="spore_sucker">

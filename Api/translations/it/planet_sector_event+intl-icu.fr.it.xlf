@@ -278,7 +278,7 @@
       </segment>
     </unit>
     <unit id="always_successful_thanks_to_project">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>always_successful_thanks_to_project</source>
         <target>always_successful_thanks_to_project</target>
       </segment>

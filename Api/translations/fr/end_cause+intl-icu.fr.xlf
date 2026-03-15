@@ -26,11 +26,11 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>sol_return_infected.short_name</source>
-        <target>Le Daedalus est rentré sur Sol... avec des mush !</target>
+        <target>Le Daedalus est rentré sur Sol... avec des Mush !</target>
       </segment>
       <segment id="category" state="translated">
         <source>sol_return_infected.category</source>
-        <target>Vous êtes rentré sur Sol avec quelques mush à bord… mais la suite est une autre histoire !</target>
+        <target>Vous êtes rentré sur Sol avec quelques Mush à bord… mais la suite est une autre histoire !</target>
       </segment>
       <segment id="description" state="translated">
         <source>sol_return_infected.description</source>
@@ -55,7 +55,7 @@
         <target>L'espoir renaît des scories de l'Humanité. Sur une nouvelle planète, un nouveau départ et la suite des aventures de nos héros. Mais c'est une autre histoire.</target>
       </segment>
     </unit>
-      <unit id="eden_infected">
+    <unit id="eden_infected">
       <segment id="name" state="translated">
         <source>eden_infected.name</source>
         <target>Eden infecté par le Mush</target>

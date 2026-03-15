@@ -1051,7 +1051,7 @@
       </segment>
       <segment id="polymath.description" state="translated">
         <source>polymath.description</source>
-        <target>El conocimiento es poder.//:point: **+2** canales privados disponibles.//:point: **+1** :pa_comp: al día.//:point: **-10%** a todas tus acciones de azar.</target>
+        <target>El conocimiento es poder.//:point: **+2** canales privados disponibles.//:point: **+1** :pa_comp: al día.</target>
       </segment>
     </unit>
     <unit id="nightmarish">
@@ -1093,6 +1093,26 @@
       <segment id="epigenetics.description" state="translated">
         <source>epigenetics.description</source>
         <target>:beta: Puedes adaptarte a cualquier dificultad. // :point: **Única**: Por **2** :pa:, puedes reiniciar tus habilidades **Mush** seleccionadas (excepto Epigenética). //// Esta habilidad está en :beta: beta: agradecemos tus comentarios en el foro y el Discord de Eternaltwin.</target>
+      </segment>
+    </unit>
+    <unit id="maintenance_crew">
+      <segment id="maintenance_crew.name" state="translated">
+        <source>maintenance_crew.name</source>
+        <target>Agente de mantenimiento</target>
+      </segment>
+      <segment id="maintenance_crew.description" state="translated">
+        <source>maintenance_crew.description</source>
+        <target>:beta: En un mundo de especialistas, {gender, select, female {la} other {el}} agente de mantenimiento brilla por seguir su propio camino. Y si el piso empieza a brillar también, ya sabrás a quién agradecer.// :point: +1 :pa_eng: por día. // :point: +1 :pa_garden: por día. // :point: +1 :pa_cook: por día. //// Esta habilidad está en fase:beta: beta: agradecemos sus comentarios en el foro de Eternaltwin y Discord.</target>
+      </segment>
+    </unit>
+    <unit id="bodyguard">
+      <segment id="bodyguard.name" state="translated">
+        <source>bodyguard.name</source>
+        <target>Guardaespaldas</target>
+      </segment>
+      <segment id="bodyguard.description" state="translated">
+        <source>bodyguard.description</source>
+        <target>:beta: Nunca has fallado una misión de escolta. Debe ser por tu mirada penetrante encima de todos en todo momento...//:point: Por 2 :pa:, puedes **Resguardar** a otro miembro de la tripulación. Mientras estés en la misma sala, todas las acciones agresivas dirigidas a ese tripulante cuestan 2 :pa: adicionales. //// Esta habilidad está en fase :beta: beta: agradecemos tus comentarios en el foro de Eternaltwin y Discord.</target>
       </segment>
     </unit>
   </file>

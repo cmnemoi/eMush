@@ -72,7 +72,7 @@ const onTabDragOver = (e: DragEvent, index: number) => {
     if (draggedTabIndex.value !== null && draggedTabIndex.value !== index) {
         const draggedTab = props.tabs[draggedTabIndex.value];
         const newTabs = [...props.tabs];
-        newTabs.splice(touchDraggedIndex.value!, 1);
+        newTabs.splice(draggedTabIndex.value!, 1);
         newTabs.splice(index, 0, draggedTab);
         emit('update:tabs', newTabs);
 

@@ -44,7 +44,7 @@
             <p class="text" v-html="$t('rules.alphaRules.tests')"/>
             <p class="text"> {{ $t("rules.alphaRules.endText") }} </p>
         </div>
-        <div class="flex-row" v-if="userConnected && hasAcceptedRules">
+        <div class="flex-row" v-if="userConnected && !hasAcceptedRules">
             <input type="checkbox" v-model="hasReadRules" class="checkbox" />
             <label for="hasReadRules" class="text" @click="hasReadRules = !hasReadRules">
                 {{ $t("rules.iHaveReadRules") }}

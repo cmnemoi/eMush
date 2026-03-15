@@ -148,11 +148,11 @@
       </segment>
     </unit>
     <unit id="torture">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>torture.name</source>
         <target>torture.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>torture.description</source>
         <target>torture.description</target>
       </segment>

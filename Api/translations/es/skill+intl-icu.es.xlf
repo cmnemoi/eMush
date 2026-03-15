@@ -411,8 +411,8 @@
       </segment>
       <segment id="solid.description" state="translated">
         <source>solid.description</source>
-        <target>No sufres al transportar objetos pesados. Muy bueno también para los combates cuerpo a cuerpo.//:point: Tus ataques cuerpo a cuerpo causan **1 punto de daño adicional**.//
-:point: **No eres penalizado** al llevar objetos pesados.//:point: Puedes **expulsar** de la sala a un tripulante por 2 :pa:.//:point: No se acumula con **Luchador**.</target>
+        <target>No sufres al transportar objetos pesados. Muy bueno también para los combates cuerpo a cuerpo.//:point: Aumenta 1 punto el **daño máximo** de tus ataques cuerpo a cuerpo.//
+:point: **No eres penalizado** al llevar objetos pesados.//:point: Puedes **expulsar** de la sala a un tripulante por 2 :pa:.//:point: No se acumula con **Luchador** ni al **mutar como Mush**.</target>
       </segment>
     </unit>
     <unit id="genius">
@@ -551,7 +551,7 @@
         <source>wrestler.description</source>
         <target>{character_gender, select,
         female {Los músculos de la luchadora hacen temblar los huesos de todos sus adversarios.}
-        other {Los músculos del luchador hacen temblar los huesos de todos sus adversarios.}}//:point: Tus ataques cuerpo a cuerpo causan **2 puntos de daño adicionales si no has mutado.**// :point: Puedes **expulsar** de la sala a un tripulante por 2 :pa:.// :point: No se acumula con **Robusto**.</target>
+        other {Los músculos del luchador hacen temblar los huesos de todos sus adversarios.}}//:point: Aumenta 2 puntos el **daño máximo** de tus ataques cuerpo a cuerpo.// :point: Puedes **expulsar** de la sala a un tripulante por 2 :pa:.// :point: No se acumula con **Robusto** ni al **mutar como Mush**.</target>
       </segment>
     </unit>
     <unit id="sprinter">

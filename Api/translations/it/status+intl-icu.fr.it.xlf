@@ -590,31 +590,31 @@
       </segment>
     </unit>
     <unit id="mankind_only_hope_status">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mankind_only_hope_status.name</source>
         <target>mankind_only_hope_status.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mankind_only_hope_status.description</source>
         <target>mankind_only_hope_status.description</target>
       </segment>
     </unit>
     <unit id="bodyguard_user">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>bodyguard_user.name</source>
         <target>bodyguard_user.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>bodyguard_user.description</source>
         <target>bodyguard_user.description</target>
       </segment>
     </unit>
     <unit id="bodyguard_vip">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>bodyguard_vip.name</source>
         <target>bodyguard_vip.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>bodyguard_vip.description</source>
         <target>bodyguard_vip.description</target>
       </segment>

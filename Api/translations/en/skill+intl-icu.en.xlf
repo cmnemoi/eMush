@@ -365,7 +365,7 @@
       </segment>
       <segment id="solid.description" state="translated">
         <source>solid.description</source>
-        <target>You'll incur no penalties for carrying heavy objects. Also, useful for hand-to-hand combat.//:point: Your hand-to-hand attacks **deal 1 additional damage**.//:point: **No penalties** for carrying heavy objects.//:point: Grants the **Kick them out** action.// :point: Doesn't accumulate with **Wrestler**.</target>
+        <target>You'll incur no penalties for carrying heavy objects. Also, useful for hand-to-hand combat. // :point: Your hand-to-hand attacks' **max damage** is increased by 1. // :point: **No penalties** for carrying heavy objects. // :point: Grants the **Kick them out** action. // :point: Doesn't stack with **Wrestler** nor **Mush mutation**.</target>
       </segment>
     </unit>
     <unit id="genius">
@@ -488,7 +488,7 @@
       </segment>
       <segment id="wrestler.description" state="translated">
         <source>wrestler.description</source>
-        <target>The wrestler's german suplex makes the vertebrae of your enemies tremble.//:point: Your hand-to-hand attacks **deal 2 additional damage** (doesn't apply during **Berzerk**).//:point: Grants the **Kick them out** action.//:point: Doesn't accumulate with **Solid**.</target>
+        <target>The wrestler's german suplex makes the vertebrae of your enemies tremble.//:point: Your hand-to-hand attacks' **max damage** is increased by 2.//:point: Grants the **Kick them out** action.//:point: Doesn't stack with **Solid** nor **Mush mutation**.</target>
       </segment>
     </unit>
     <unit id="sprinter">

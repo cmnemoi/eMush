@@ -20,19 +20,19 @@
       </segment>
     </unit>
     <unit id="sol_return_infected">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>sol_return_infected.name</source>
         <target>sol_return_infected.name</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>sol_return_infected.short_name</source>
         <target>sol_return_infected.short_name</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>sol_return_infected.category</source>
         <target>sol_return_infected.category</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>sol_return_infected.description</source>
         <target>sol_return_infected.description</target>
       </segment>
@@ -56,19 +56,19 @@
       </segment>
     </unit>
     <unit id="eden_infected">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>eden_infected.name</source>
         <target>eden_infected.name</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>eden_infected.short_name</source>
         <target>eden_infected.short_name</target>
       </segment>
-      <segment id="category" state="initial">
+      <segment id="category" state="translated">
         <source>eden_infected.category</source>
         <target>eden_infected.category</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>eden_infected.description</source>
         <target>eden_infected.description</target>
       </segment>

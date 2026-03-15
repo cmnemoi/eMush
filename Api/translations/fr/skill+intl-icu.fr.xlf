@@ -370,7 +370,7 @@
       </segment>
       <segment id="solid.description" state="translated">
         <source>solid.description</source>
-        <target>Vous n'avez aucune pénalité lorsque vous transportez un objet lourd. Pratique aussi pour les combats au corps-à-corps.//:point: Vos attaques de corps-à-corps infligent **un point de dégât supplémentaire**.//:point: **Pas de pénalités** pour les objets lourds.//:point: Dispose de la possibilité de **Mettre à la porte**.//:point: Ne se cumule pas avec **Lutteur**.</target>
+        <target>Vous n'avez aucune pénalité lorsque vous transportez un objet lourd. Pratique aussi pour les combats au corps-à-corps. //:point: Les **dégâts maximum** de vos attaques de corps-à-corps sont augmentés par 1. //:point: **Pas de pénalité** pour porter les objets lourds.//:point: Vous disposez de l'action **Mettre à la porte**.//:point: Ne se cumule pas avec **Lutteur** ni avec la **Mutation Mush**.</target>
       </segment>
     </unit>
     <unit id="genius">
@@ -492,7 +492,7 @@
       </segment>
       <segment id="wrestler.description" state="translated">
         <source>wrestler.description</source>
-        <target>Les german suplex du Lutteur font trembler les vertèbres de tous ses adversaires.//:point: Vos attaques de corps-à-corps infligent **2 dégâts supplémentaires** si vous n'êtes pas muté.//:point: Vous disposez de l'action **Mettre à la porte**.//:point: Ne se cumule pas avec **Robuste**.</target>
+        <target>Les german suplex du Lutteur font trembler les vertèbres de tous ses adversaires.//:point: Les **dégâts maximum** de vos attaques de corps-à-corps sont augmentés par 2.//:point: Vous disposez de l'action **Mettre à la porte**.//:point: Ne se cumule pas avec **Robuste** ni avec la **Mutation Mush**.</target>
       </segment>
     </unit>
     <unit id="sprinter">

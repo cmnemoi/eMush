@@ -487,7 +487,7 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
       </segment>
       <segment id="description" state="translated">
         <source>use_bandage.description</source>
-        <target>Permite curar tus heridas menores.</target>
+        <target>Permite curar tus heridas menores. // :beta: **Puede ser usado durante una expedición.**</target>
       </segment>
     </unit>
     <unit id="comfort">

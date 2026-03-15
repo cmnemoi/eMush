@@ -648,7 +648,7 @@
       <segment id="lost_description" state="translated">
         <source>find_lost.lost_description</source>
         <target>{character, select,
-Terrence {(Translate me on Crowdin! find_lost) A string of swears and profanities emanating from somewhere nearby has you on edge. After following the voice to its origin, you find {character} struggling to repair his wheelchair after hours of wheeling it through mud!}
+Terrence {Una serie de groserías y profanidades se escuchan de algún sitio cercano. Después de seguir el origen de esta voz, ¡encuentras a {character} esforzándose por reparar su silla de ruedas después de horas de haberla usado por el barro!}
 other {{version, select,
   1 {¡Has encontrado huellas de pasos humanos! Al seguirlos encontráis a {character}. Pudisteis tener más suerte...}
   other {Mientras os aprestabas a salir de la zona, oís unos gritos detrás de ti. Es {character} que corre hacia ti. ¡Su traje está desgarrado!}

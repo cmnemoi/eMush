@@ -57,7 +57,7 @@
       </segment>
       <segment id="externalResources.tutorials" state="translated">
         <source>tips.externalResources.tutorials</source>
-        <target>**Les guides et explications communautaires du wiki** </target>
+        <target>**Les guides et explications communautaires du wiki**</target>
       </segment>
       <segment id="externalResources.wiki" state="translated">
         <source>tips.externalResources.wiki</source>

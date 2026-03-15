@@ -1890,15 +1890,15 @@
       </segment>
     </unit>
     <unit id="fortytwo_mandate">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>fortytwo_mandate.name</source>
         <target>fortytwo_mandate.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>fortytwo_mandate.description</source>
         <target>fortytwo_mandate.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>fortytwo_mandate_1.name</source>
         <target>fortytwo_mandate_1.name</target>
       </segment>

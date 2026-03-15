@@ -936,7 +936,7 @@
       </segment>
     </unit>
     <unit id="gain_torture_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_torture_point</source>
         <target>gain_torture_point</target>
       </segment>

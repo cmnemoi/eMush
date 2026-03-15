@@ -842,7 +842,7 @@
       </segment>
     </unit>
     <unit id="insufficient_special_point">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>insufficient_special_point.description</source>
         <target>insufficient_special_point.description</target>
       </segment>

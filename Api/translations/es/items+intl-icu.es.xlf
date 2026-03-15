@@ -1471,7 +1471,7 @@ Si te sirve para algo, no olvides comunicarlo.</target>
       </segment>
       <segment id="description" state="translated">
         <source>duct_tape.description</source>
-        <target>Puede servir, nunca se sabe.</target>
+        <target>Puede servir, nunca se sabe. // :point: Puede ser usada para silenciar temporalmente a un tripulante molesto.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>duct_tape.examine</source>
@@ -1906,7 +1906,7 @@ Ni realmente fluido, ni realmente sólido, su viscosidad es tan solo comparable 
       </segment>
       <segment id="description" state="translated">
         <source>bandage.description</source>
-        <target>Para curaciones de urgencia y algo más.</target>
+        <target>Para curaciones de urgencia y algo más. // :beta: **Puede usarlo para curarte mientras estás en una expedición.**</target>
       </segment>
       <segment id="examine" state="translated">
         <source>bandage.examine</source>
@@ -2009,7 +2009,7 @@ A pesar de su apariencia, prácticamente no causa daño.</target>
     <unit id="printed_circuit_jelly">
       <segment id="name" state="translated">
         <source>printed_circuit_jelly.name</source>
-        <target>Gelatina de circuitos impresos</target>
+        <target>Gelatina con circuitos impresos</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>printed_circuit_jelly.short_name</source>

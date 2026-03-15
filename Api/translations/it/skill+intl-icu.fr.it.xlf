@@ -912,21 +912,21 @@
       </segment>
     </unit>
     <unit id="maintenance_crew">
-      <segment id="maintenance_crew.name" state="initial">
+      <segment id="maintenance_crew.name" state="translated">
         <source>maintenance_crew.name</source>
         <target>maintenance_crew.name</target>
       </segment>
-      <segment id="maintenance_crew.description" state="initial">
+      <segment id="maintenance_crew.description" state="translated">
         <source>maintenance_crew.description</source>
         <target>maintenance_crew.description</target>
       </segment>
     </unit>
     <unit id="bodyguard">
-      <segment id="bodyguard.name" state="initial">
+      <segment id="bodyguard.name" state="translated">
         <source>bodyguard.name</source>
         <target>bodyguard.name</target>
       </segment>
-      <segment id="bodyguard.description" state="initial">
+      <segment id="bodyguard.description" state="translated">
         <source>bodyguard.description</source>
         <target>bodyguard.description</target>
       </segment>

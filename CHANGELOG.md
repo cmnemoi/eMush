@@ -1,3 +1,46 @@
+# [0.25.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.24.6...0.25.0) (2026-03-15)
+
+
+### Bug Fixes
+
+* cascade when deleting equipment config ([97caa1d](https://gitlab.com/eternaltwin/mush/mush/commit/97caa1de5eeca73994967de06808222e03083ddf))
+* Fixed the drones being unable to train shooting. ([44b30f9](https://gitlab.com/eternaltwin/mush/mush/commit/44b30f9fbf78d40be8d8830a61439d24b6b400ab))
+* Improve URL and markdown URL parsing ([bd129fc](https://gitlab.com/eternaltwin/mush/mush/commit/bd129fc19440c7b262ce31c1c3ba8c47277e5022))
+* Interactable element in popup now works while still blocking interaction with Phaser ([8b1a7e3](https://gitlab.com/eternaltwin/mush/mush/commit/8b1a7e33061bb3b1cba1820f36b4af802cfa8762))
+* Make moderation usable on phone by handling any existing cropping ([6783f64](https://gitlab.com/eternaltwin/mush/mush/commit/6783f6452a0650f2b40ff23d85907a66f56b878b))
+* new Crowdin translations ([fb50e3d](https://gitlab.com/eternaltwin/mush/mush/commit/fb50e3d0c28862ec5c0f361cbf30f475ea5d20d9))
+* new Crowdin translations ([0fb2302](https://gitlab.com/eternaltwin/mush/mush/commit/0fb2302d5f84557a5344dc230d190dd01afb1182))
+* Only display EmotePicker's close button in popup mode ([93dfe03](https://gitlab.com/eternaltwin/mush/mush/commit/93dfe03eeee9c92ce3435f60d1e1820d14e1ade4))
+* Prevent click on modal from interacting with the game behind ([c22ffba](https://gitlab.com/eternaltwin/mush/mush/commit/c22ffbace6e41a57b44a6ffdd9e8b470a2487a96))
+* renamed skill points + bug fixes for It Expert & Polymath introduced by prev MR ([2f40c69](https://gitlab.com/eternaltwin/mush/mush/commit/2f40c69a94e3efdd8e7f5d9531f0c7c72329b345))
+* Taking off and landing is anonymous for ninja with active ability ([7763d68](https://gitlab.com/eternaltwin/mush/mush/commit/7763d6809e1f6c9e4d8edb9d2063c3f6cafd8c38))
+* Use the hammer icon in the alert banner for anathema ([f7e1144](https://gitlab.com/eternaltwin/mush/mush/commit/f7e11445e7f9ca25b6fc910811c5afbc0fa9bf02))
+* users can't remove vote after poll is closed. Users can't see progress bar before voting ([587a282](https://gitlab.com/eternaltwin/mush/mush/commit/587a282ba90acd7ba80760d6adae070e44694668))
+
+
+### Features
+
+* action buttons display the action's base visibility's icon ([c5c63f3](https://gitlab.com/eternaltwin/mush/mush/commit/c5c63f39560a1a0e6b9c547d09d38749d7e1e8ec))
+* Add personnal notes accessible through a talkie ([5983890](https://gitlab.com/eternaltwin/mush/mush/commit/5983890ec22f57aaa4b5af92afcc6c4b7cda2a42))
+* Bandages can be used during expedition ([117f22b](https://gitlab.com/eternaltwin/mush/mush/commit/117f22b974af88741318c2bb32d04e7dc6a441b8))
+* Buffed Antigrav Thrusters to 100% safe landing ([d06ebea](https://gitlab.com/eternaltwin/mush/mush/commit/d06ebea9e56889803b5d856e9baba3f060128bbd))
+* Buffed Bay Door XXL to 100% success ([6ba98dc](https://gitlab.com/eternaltwin/mush/mush/commit/6ba98dc0dd07c8a42e1cbf47c9ea57a9e0d0cb5c))
+* improve discord webhook ([5afdc01](https://gitlab.com/eternaltwin/mush/mush/commit/5afdc013bb18ae632bc88330b05d26bfe9f77cb5))
+* mankind's only hope is a status, but Chun's death costs more morale ([a72fea0](https://gitlab.com/eternaltwin/mush/mush/commit/a72fea03a4f10466a283173150ff00afb37000de))
+* nano ladybugs rework ([2503f1e](https://gitlab.com/eternaltwin/mush/mush/commit/2503f1ec09965b1ff56ef7ac109f8e011de510a7))
+* new admin action to remove all skill by name ([dd6fc23](https://gitlab.com/eternaltwin/mush/mush/commit/dd6fc23fbaef23c86c1ab08a006231a207495a41))
+* new Bodyguard skill for Chao ([9c4cc35](https://gitlab.com/eternaltwin/mush/mush/commit/9c4cc35895fdad4772712ef2701c5e66ecd44541))
+* new infected sol, infected eden endings. New image for killed by neron ending ([36ae21c](https://gitlab.com/eternaltwin/mush/mush/commit/36ae21cf1e51ea611b1ba266636dc95d896ac578))
+* new maintenance crew skill for Chun ([d7b181c](https://gitlab.com/eternaltwin/mush/mush/commit/d7b181c945afc228f42f97e89fbfa27b244cba54))
+* new stat for ex 42 members ([bd53d1e](https://gitlab.com/eternaltwin/mush/mush/commit/bd53d1ed907cad9de01146a93f4c686853b45ddd))
+* remove polymath penalty ([84311b3](https://gitlab.com/eternaltwin/mush/mush/commit/84311b37765038c4c2f6a7c61b4d6a8e3ecf5117))
+* Search action is secret ([95e8ccd](https://gitlab.com/eternaltwin/mush/mush/commit/95e8ccda857e6b10c23e9b89aea944e900af6115))
+* skills can give multiple statuses ([28a9631](https://gitlab.com/eternaltwin/mush/mush/commit/28a9631153fc447de9b58286651cc3bde488cf56))
+* Solid and Wrestler increase max damage instead of damage output ([dd2d093](https://gitlab.com/eternaltwin/mush/mush/commit/dd2d0933028d80eaecff4ac445e3f413ea0fc483))
+* toggling ninja on and off isn't added to action history ([cbe866b](https://gitlab.com/eternaltwin/mush/mush/commit/cbe866be5c6cdc9972a7a12931194107d8cc5f90))
+* torture action requires specialist points (daily limit) ([50a0170](https://gitlab.com/eternaltwin/mush/mush/commit/50a017009727e5e51b19c3f30e5900da38359e60))
+* updated footer ([c0b822b](https://gitlab.com/eternaltwin/mush/mush/commit/c0b822be7edd1585ccbc99a49838fc1f61acae05))
+
 ## [0.24.6](https://gitlab.com/eternaltwin/mush/mush/compare/0.24.5...0.24.6) (2026-02-16)
 
 

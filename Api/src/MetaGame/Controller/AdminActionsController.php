@@ -20,11 +20,14 @@ use Mush\MetaGame\Dto\CreateEquipmentForDaedalusDto;
 use Mush\MetaGame\Dto\CreateEquipmentForDaedalusesDto;
 use Mush\MetaGame\Dto\CreateProjectForDaedalusDto;
 use Mush\Player\Entity\Player;
+use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Service\FinishProjectService;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
 use Mush\Project\UseCase\ProposeNewNeronProjectsUseCase;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Service\StatusServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -54,7 +57,9 @@ final class AdminActionsController extends AbstractFOSRestController
         private readonly ProposeNewNeronProjectsUseCase $proposeNewNeronProjectsUseCase,
         private readonly StatusServiceInterface $statusService,
         private readonly FinishProjectService $finishProjectService,
-        private readonly PlayerDiseaseServiceInterface $playerDiseaseService
+        private readonly PlayerDiseaseServiceInterface $playerDiseaseService,
+        private readonly DeletePlayerSkillService $deletePlayerSkillService,
+        private readonly PlayerRepositoryInterface $playerRepository
     ) {}
 
     /**
@@ -183,6 +188,28 @@ final class AdminActionsController extends AbstractFOSRestController
     public function deleteAllStatusesByNameEndpoint(string $name): View
     {
         $this->statusService->deleteAllStatusesByName($name);
+
+        return $this->view(['detail' => "All statuses with name {$name} deleted successfully."], Response::HTTP_OK);
+    }
+
+    /**
+     * Delete all skills with a given name.
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Delete(path="/delete-all-skills-by-name/{name}", requirements={"name"="^[a-zA-Z_]+$"})
+     */
+    #[IsGranted('ROLE_ADMIN')]
+    public function deleteAllSkillsByNameEndpoint(string $name): View
+    {
+        $skill = SkillEnum::from($name);
+
+        $players = $this->playerRepository->getAllAlive();
+        foreach ($players as $player) {
+            if ($player) {
+                $this->deletePlayerSkillService->execute($skill, $player);
+            }
+        }
 
         return $this->view(['detail' => "All statuses with name {$name} deleted successfully."], Response::HTTP_OK);
     }

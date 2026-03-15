@@ -287,6 +287,11 @@
 				"deleteAllByName": "Supprimer tous les status portant ce nom",
 				"name": "Nom"
 			},
+			"skills": {
+				"title": "Compétences",
+				"deleteAllByName": "Supprimer toutes les compétences portant ce nom",
+				"name": "Nom"
+			},
 			"rules": {
 				"title": "Règles",
 				"resetAcceptance": "Réinitialiser l'acceptation des règles pour tous les utilisateurs"

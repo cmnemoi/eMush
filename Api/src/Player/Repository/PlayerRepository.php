@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -75,6 +76,20 @@ class PlayerRepository extends ServiceEntityRepository implements PlayerReposito
     public function getAll(): array
     {
         return $this->findAll();
+    }
+
+    public function getAllAlive(): PlayerCollection
+    {
+        $qb = $this->createQueryBuilder('player');
+
+        $qb
+            ->innerJoin('player.playerInfo', 'playerInfo')
+            ->innerJoin('playerInfo.closedPlayer', 'closedPlayer')
+            ->where('closedPlayer.dayDeath = 0');
+
+        $players = $qb->getQuery()->getResult();
+
+        return new PlayerCollection(\is_array($players) ? $players : []);
     }
 
     public function findById(int $id): ?Player

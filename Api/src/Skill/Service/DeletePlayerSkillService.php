@@ -26,7 +26,10 @@ final class DeletePlayerSkillService
 
     public function execute(SkillEnum $skillName, Player $player): void
     {
-        $skill = $player->getSkillByNameOrThrow($skillName);
+        $skill = $player->getSkillByNameOrNull($skillName);
+        if ($skill === null) {
+            return;
+        }
 
         $this->deleteSkillModifiers($skill);
         $this->deleteSkillPoints($skill);

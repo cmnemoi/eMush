@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Player\Repository;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 
@@ -23,6 +24,8 @@ interface PlayerRepositoryInterface
     public function lockAndRefresh(Player $player, int $mode): void;
 
     public function getAll(): array;
+
+    public function getAllAlive(): PlayerCollection;
 
     public function findById(int $id): ?Player;
 

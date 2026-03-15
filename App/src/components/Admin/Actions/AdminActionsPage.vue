@@ -46,6 +46,13 @@
             {{ $t('admin.actions.statuses.createAllPlayersInitStatuses') }}
         </button>
     </div>
+    <h2>{{$t('admin.actions.skills.title') }}</h2>
+    <div class="flex-row">
+        <Input :label="$t('admin.actions.skills.name')" type="text" v-model="skillName" />
+        <button class="action-button" @click="deleteAllSkills(skillName)">
+            {{ $t('admin.actions.skills.deleteAllByName') }}
+        </button>
+    </div>
     <h2>{{$t('admin.actions.rules.title') }}</h2>
     <div class="flex-row">
         <button class="action-button" @click="resetRulesAcceptance">
@@ -100,6 +107,7 @@ export default defineComponent ({
             deleteAllStatusesDto: {
                 statusName: 'mush'
             },
+            skillName : 'shooter',
             finishDaedalusProjectDto: {
                 projectName: 'pheromodem',
                 daedalus: 1
@@ -113,6 +121,7 @@ export default defineComponent ({
             createProjects: 'adminActions/createProjectsForOnGoingDaedaluses',
             createStatuses: 'adminActions/createPlayersAllInitStatusesForOnGoingDaedaluses',
             deleteAllStatusesByName: 'adminActions/deleteAllStatusesByName',
+            deleteAllSkillsByName: 'adminActions/deleteAllSkillsByName',
             proposeProjects: 'adminActions/proposeNewNeronProjectsForOnGoingDaedaluses',
             resetRulesAcceptance: 'adminActions/resetRulesAcceptanceForAllUsers',
             finishProjectForDaedalus: 'adminActions/finishProjectForDaedalus'
@@ -125,6 +134,9 @@ export default defineComponent ({
         },
         deleteAllStatuses(deleteAllStatusesDto: DeleteAllStatusesDto) {
             this.deleteAllStatusesByName(deleteAllStatusesDto);
+        },
+        deleteAllSkills(skillName : string) {
+            this.deleteAllSkillsByName(skillName);
         },
         finishDaedalusProject(finishDaedalusProjectDto: FinishDaedalusProjectDto) {
             this.finishProjectForDaedalus(finishDaedalusProjectDto);

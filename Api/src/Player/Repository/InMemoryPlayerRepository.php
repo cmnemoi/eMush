@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Player\Repository;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
 
@@ -63,6 +64,11 @@ final class InMemoryPlayerRepository implements PlayerRepositoryInterface
     public function getAll(): array
     {
         return array_values($this->players);
+    }
+
+    public function getAllAlive(): PlayerCollection
+    {
+        throw new \LogicException('Not implemented');
     }
 
     public function findById(int $id): ?Player

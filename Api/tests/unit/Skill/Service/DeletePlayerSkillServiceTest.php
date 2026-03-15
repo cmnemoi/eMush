@@ -74,13 +74,6 @@ final class DeletePlayerSkillServiceTest extends TestCase
         $this->thenPlayerShouldNotHaveSkill(SkillEnum::APPRENTICE);
     }
 
-    public function testShouldThrowIfPlayerDoesNotHaveSkill(): void
-    {
-        $this->expectException(\Exception::class);
-
-        $this->whenIDeleteSkill(SkillEnum::NULL);
-    }
-
     public function testShouldDeletePlayerRangedSkillModifiers(): void
     {
         $modifier = $this->givenPlayerHasSkillWithPlayerRangedModifier(

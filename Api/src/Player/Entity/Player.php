@@ -1469,6 +1469,13 @@ class Player extends EquipmentHolderAbstract implements StatusHolderInterface, V
         return $this->readTipsChannelId !== null;
     }
 
+    public function getSkillByNameOrNull(SkillEnum $name): ?Skill
+    {
+        $skill = $this->getSkills()->filter(static fn (Skill $skill) => $skill->getName() === $name)->first();
+
+        return $skill ?: null;
+    }
+
     private function hasPheromodemConnectedTracker(): bool
     {
         $hasTracker = $this->hasATracker();
@@ -1542,13 +1549,6 @@ class Player extends EquipmentHolderAbstract implements StatusHolderInterface, V
         }
 
         return $efficiency;
-    }
-
-    private function getSkillByNameOrNull(SkillEnum $name): ?Skill
-    {
-        $skill = $this->getSkills()->filter(static fn (Skill $skill) => $skill->getName() === $name)->first();
-
-        return $skill ?: null;
     }
 
     private function canReadRationProperties(GameEquipment $food): bool

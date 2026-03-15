@@ -1,3 +1,11 @@
+## [0.25.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.25.1...0.25.2) (2026-03-15)
+
+
+### Bug Fixes
+
+* Dragging tab with the mouse in personnal notes does not delete tabs anymore ([e499182](https://gitlab.com/eternaltwin/mush/mush/commit/e49918299d2919011e840e725ffc8537991d4524))
+* rules can't be accepted ([8594820](https://gitlab.com/eternaltwin/mush/mush/commit/85948209686e98a2ed5590f3cdacf4e500c24801))
+
 ## [0.25.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.25.0...0.25.1) (2026-03-15)
 
 

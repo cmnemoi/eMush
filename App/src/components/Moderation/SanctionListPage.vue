@@ -1,187 +1,185 @@
 <template>
-    <div class="sanction_list_container">
-        <h2 class="sanction_heading">{{ $t('moderation.sanctionsFor', { username: username }) }}</h2>
-        <div class="table-filter-container">
-            <label>{{ $t('admin.show') }}
-                <select v-model="pagination.pageSize" @change="updateFilter">
-                    <option
-                        v-for="option in pageSizeOptions"
-                        :value="option.value"
-                        :key=option.value
-                    >
-                        {{ option.text }}
-                    </option>
-                </select>
-            </label>
-            <label>{{ $t('moderation.sanctionType') }}
-                <select v-model="typeFilter" @change="updateFilter">
-                    <option value="">{{ $t('moderation.sanction.allTypes') }}</option>
-                    <option v-for="type in moderationSanctionTypes()" :value="type.value" :key="type.key">{{ $t(type.key) }}</option>
-                </select>
-            </label>
-            <label>{{ $t('moderation.sanctionReason') }}
-                <select v-model="reasonFilter" @change="updateFilter">
-                    <option value="">{{ $t('moderation.reason.allReasons') }}</option>
-                    <option v-for="reason in moderationReasons()" :value="reason.value" :key="reason.key">{{ $t(reason.key) }}</option>
-                </select>
-            </label>
-            <label>{{ $t('moderation.isSanctionActive') }}
-                <input
-                    type="checkbox"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    v-model="isActiveFilter"
-                    @change="updateFilter"
+    <h2 class="sanction_heading">{{ $t('moderation.sanctionsFor', { username: username }) }}</h2>
+    <div class="table-filter-container">
+        <label>{{ $t('admin.show') }}
+            <select v-model="pagination.pageSize" @change="updateFilter">
+                <option
+                    v-for="option in pageSizeOptions"
+                    :value="option.value"
+                    :key=option.value
                 >
-            </label>
-        </div>
-        <Datatable
-            :headers='fields'
-            :uri="uri"
-            :loading="loading"
-            :row-data="rowData"
-            :pagination="pagination"
-            :filter="filter"
-            @pagination-click="paginationClick"
-            @sort-table="sortTable"
-        >
-            <template #header-id>
-                #
-            </template>
-            <template #row-id="sanction">
-                {{ sanction.id }}
-            </template>
-
-            <template #header-moderationAction>
-                {{ $t("moderation.sanction.name") }}
-            </template>
-            <template #row-moderationAction="sanction">
-                {{ $t("moderation.sanction."+sanction.moderationAction) }}
-            </template>
-
-            <template #header-reason>
-                {{ $t("moderation.sanction.reason") }}
-            </template>
-            <template #row-reason="sanction">
-                {{ $t("moderation.reason." + sanction.reason) }}
-            </template>
-
-            <template #header-message>
-                {{ $t("moderation.sanctionDetail.message") }}
-            </template>
-            <template #row-message="sanction">
-                <div>
-                    <details>
-                        <summary>
-                            {{ $t('moderation.sanction.showMore') }}
-                        </summary>
-                        <span>
-                            {{ sanction.message }}
-                        </span>
-                    </details>
-                </div>
-            </template>
-
-            <template #header-startDate>
-                {{ $t("moderation.sanctionDetail.startDate") }}
-            </template>
-            <template #row-startDate="sanction">
-                {{ formatDate(sanction.startDate )}}
-            </template>
-
-            <template #header-endDate>
-                {{ $t("moderation.sanctionDetail.endDate") }}
-            </template>
-
-            <template #row-endDate="sanction">
-                <template v-if="sanction.moderationAction === 'quarantine_player'">
-                    N/A
-                </template>
-                <template v-else>
-                    {{ formatDate(sanction.endDate) }}
-                </template>
-            </template>
-
-            <template #header-actions>
-                {{ $t("moderation.actions.name") }}
-            </template>
-            <template #row-actions="sanction">
-                <button class="action-button" @click="showSanctionDetails(sanction)">Voir Détails</button>
-            </template>
-        </Datatable>
-
-        <h2 class="sanction_heading">{{ $t('moderation.reportsFor', { username: username }) }}</h2>
-
-        <Datatable
-            :headers='fields'
-            :uri="uri"
-            :loading="loading"
-            :row-data="reportRowData"
-            :pagination="pagination"
-            :filter="filter"
-            @pagination-click="paginationClick"
-            @sort-table="sortTable"
-        >
-            <template #header-id>
-                #
-            </template>
-            <template #row-id="sanction">
-                {{ sanction.id }}
-            </template>
-
-            <template #header-authorName>
-                {{ $t("moderation.sanction.author") }}
-            </template>
-            <template #row-authorName="sanction">
-                {{ sanction.authorName }}
-            </template>
-
-            <template #header-reason>
-                {{ $t("moderation.sanction.reason") }}
-            </template>
-            <template #row-reason="sanction">
-                {{ $t("moderation.reason." + sanction.reason) }}
-            </template>
-
-            <template #header-message>
-                {{ $t("moderation.sanctionDetail.message") }}
-            </template>
-            <template #row-message="sanction">
-                <div>
-                    <details>
-                        <summary>
-                            {{ $t('moderation.sanction.showMore') }}
-                        </summary>
-                        <span>
-                            {{ sanction.message }}
-                        </span>
-                    </details>
-                </div>
-            </template>
-
-            <template #header-startDate>
-                {{ $t("moderation.sanctionDetail.reportDate") }}
-            </template>
-            <template #row-startDate="sanction">
-                {{ formatDate(sanction.startDate )}}
-            </template>
-
-            <template #header-actions>
-                {{ $t("moderation.actions.name") }}
-            </template>
-            <template #row-actions="sanction">
-                <button class="action-button" @click="showSanctionDetails(sanction)">Voir Détails</button>
-            </template>
-        </Datatable>
-
-        <SanctionDetailPage
-            :is-open="showDetailPopup"
-            :moderation-sanction="selectedSanction"
-            @close="showDetailPopup = false"
-            @update="closeDetailAndUpdate"
-        />
+                    {{ option.text }}
+                </option>
+            </select>
+        </label>
+        <label>{{ $t('moderation.sanctionType') }}
+            <select v-model="typeFilter" @change="updateFilter">
+                <option value="">{{ $t('moderation.sanction.allTypes') }}</option>
+                <option v-for="type in moderationSanctionTypes()" :value="type.value" :key="type.key">{{ $t(type.key) }}</option>
+            </select>
+        </label>
+        <label>{{ $t('moderation.sanctionReason') }}
+            <select v-model="reasonFilter" @change="updateFilter">
+                <option value="">{{ $t('moderation.reason.allReasons') }}</option>
+                <option v-for="reason in moderationReasons()" :value="reason.value" :key="reason.key">{{ $t(reason.key) }}</option>
+            </select>
+        </label>
+        <label>{{ $t('moderation.isSanctionActive') }}
+            <input
+                type="checkbox"
+                class=""
+                placeholder=""
+                aria-controls="example"
+                v-model="isActiveFilter"
+                @change="updateFilter"
+            >
+        </label>
     </div>
+    <Datatable
+        :headers='fields'
+        :uri="uri"
+        :loading="loading"
+        :row-data="rowData"
+        :pagination="pagination"
+        :filter="filter"
+        @pagination-click="paginationClick"
+        @sort-table="sortTable"
+    >
+        <template #header-id>
+            #
+        </template>
+        <template #row-id="sanction">
+            {{ sanction.id }}
+        </template>
+
+        <template #header-moderationAction>
+            {{ $t("moderation.sanction.name") }}
+        </template>
+        <template #row-moderationAction="sanction">
+            {{ $t("moderation.sanction."+sanction.moderationAction) }}
+        </template>
+
+        <template #header-reason>
+            {{ $t("moderation.sanction.reason") }}
+        </template>
+        <template #row-reason="sanction">
+            {{ $t("moderation.reason." + sanction.reason) }}
+        </template>
+
+        <template #header-message>
+            {{ $t("moderation.sanctionDetail.message") }}
+        </template>
+        <template #row-message="sanction">
+            <div>
+                <details>
+                    <summary>
+                        {{ $t('moderation.sanction.showMore') }}
+                    </summary>
+                    <span>
+                        {{ sanction.message }}
+                    </span>
+                </details>
+            </div>
+        </template>
+
+        <template #header-startDate>
+            {{ $t("moderation.sanctionDetail.startDate") }}
+        </template>
+        <template #row-startDate="sanction">
+            {{ formatDate(sanction.startDate )}}
+        </template>
+
+        <template #header-endDate>
+            {{ $t("moderation.sanctionDetail.endDate") }}
+        </template>
+
+        <template #row-endDate="sanction">
+            <template v-if="sanction.moderationAction === 'quarantine_player'">
+                N/A
+            </template>
+            <template v-else>
+                {{ formatDate(sanction.endDate) }}
+            </template>
+        </template>
+
+        <template #header-actions>
+            {{ $t("moderation.actions.name") }}
+        </template>
+        <template #row-actions="sanction">
+            <button class="action-button" @click="showSanctionDetails(sanction)">Voir Détails</button>
+        </template>
+    </Datatable>
+
+    <h2 class="sanction_heading">{{ $t('moderation.reportsFor', { username: username }) }}</h2>
+
+    <Datatable
+        :headers='fields'
+        :uri="uri"
+        :loading="loading"
+        :row-data="reportRowData"
+        :pagination="pagination"
+        :filter="filter"
+        @pagination-click="paginationClick"
+        @sort-table="sortTable"
+    >
+        <template #header-id>
+            #
+        </template>
+        <template #row-id="sanction">
+            {{ sanction.id }}
+        </template>
+
+        <template #header-authorName>
+            {{ $t("moderation.sanction.author") }}
+        </template>
+        <template #row-authorName="sanction">
+            {{ sanction.authorName }}
+        </template>
+
+        <template #header-reason>
+            {{ $t("moderation.sanction.reason") }}
+        </template>
+        <template #row-reason="sanction">
+            {{ $t("moderation.reason." + sanction.reason) }}
+        </template>
+
+        <template #header-message>
+            {{ $t("moderation.sanctionDetail.message") }}
+        </template>
+        <template #row-message="sanction">
+            <div>
+                <details>
+                    <summary>
+                        {{ $t('moderation.sanction.showMore') }}
+                    </summary>
+                    <span>
+                        {{ sanction.message }}
+                    </span>
+                </details>
+            </div>
+        </template>
+
+        <template #header-startDate>
+            {{ $t("moderation.sanctionDetail.reportDate") }}
+        </template>
+        <template #row-startDate="sanction">
+            {{ formatDate(sanction.startDate )}}
+        </template>
+
+        <template #header-actions>
+            {{ $t("moderation.actions.name") }}
+        </template>
+        <template #row-actions="sanction">
+            <button class="action-button" @click="showSanctionDetails(sanction)">Voir Détails</button>
+        </template>
+    </Datatable>
+
+    <SanctionDetailPage
+        :is-open="showDetailPopup"
+        :moderation-sanction="selectedSanction"
+        @close="showDetailPopup = false"
+        @update="closeDetailAndUpdate"
+    />
 </template>
 
 <script lang="ts">

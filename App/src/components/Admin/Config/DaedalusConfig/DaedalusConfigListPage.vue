@@ -1,46 +1,44 @@
 <template>
-    <div class="user_list_container">
-        <div class="table-filter-container">
-            <label>{{ $t('admin.show') }}
-                <select v-model="pagination.pageSize" @change="updateFilter">
-                    <option
-                        v-for="option in pageSizeOptions"
-                        :value="option.value"
-                        :key=option.value
-                    >
-                        {{ option.text }}
-                    </option>
-                </select>
-            </label>
-            <label>{{ $t('admin.search') }}:
-                <input
-                    v-model="filter"
-                    type="search"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    @change="updateFilter"
+    <div class="table-filter-container">
+        <label>{{ $t('admin.show') }}
+            <select v-model="pagination.pageSize" @change="updateFilter">
+                <option
+                    v-for="option in pageSizeOptions"
+                    :value="option.value"
+                    :key=option.value
                 >
-            </label>
-        </div>
-        <Datatable
-            :headers='fields'
-            :uri="uri"
-            :loading="loading"
-            :row-data="rowData"
-            :pagination="pagination"
-            :filter="filter"
-            @pagination-click="paginationClick"
-            @sort-table="sortTable"
-        >
-            <template #header-actions>
-                Actions
-            </template>
-            <template #row-actions="slotProps">
-                <router-link :to="{ name: 'AdminDaedalusConfigDetail', params: { daedalusConfigId : slotProps.id } }">{{ $t('admin.edit') }}</router-link>
-            </template>
-        </Datatable>
+                    {{ option.text }}
+                </option>
+            </select>
+        </label>
+        <label>{{ $t('admin.search') }}:
+            <input
+                v-model="filter"
+                type="search"
+                class=""
+                placeholder=""
+                aria-controls="example"
+                @change="updateFilter"
+            >
+        </label>
     </div>
+    <Datatable
+        :headers='fields'
+        :uri="uri"
+        :loading="loading"
+        :row-data="rowData"
+        :pagination="pagination"
+        :filter="filter"
+        @pagination-click="paginationClick"
+        @sort-table="sortTable"
+    >
+        <template #header-actions>
+            Actions
+        </template>
+        <template #row-actions="slotProps">
+            <router-link :to="{ name: 'AdminDaedalusConfigDetail', params: { daedalusConfigId : slotProps.id } }">{{ $t('admin.edit') }}</router-link>
+        </template>
+    </Datatable>
 </template>
 
 <script lang="ts">

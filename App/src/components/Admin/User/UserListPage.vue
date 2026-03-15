@@ -4,63 +4,61 @@
         :action="{ value: 'ban_user', key: 'moderation.sanction.ban_user' }"
         @close="closeModerationDialog"
         @submit-sanction="banUser" />
-    <div class="user_list_container">
-        <div class="table-filter-container">
-            <label>{{ $t('admin.show') }}
-                <select v-model="pagination.pageSize" @change="updateFilter">
-                    <option
-                        v-for="option in pageSizeOptions"
-                        :value="option.value"
-                        :key=option.value
-                    >
-                        {{ option.text }}
-                    </option>
-                </select>
-            </label>
-            <label>{{ $t('moderation.searchByUsername') }}
-                <input
-                    v-model="filter"
-                    type="search"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    @change="updateFilter"
+    <div class="table-filter-container">
+        <label>{{ $t('admin.show') }}
+            <select v-model="pagination.pageSize" @change="updateFilter">
+                <option
+                    v-for="option in pageSizeOptions"
+                    :value="option.value"
+                    :key=option.value
                 >
-            </label>
-        </div>
-        <Datatable
-            :headers='fields'
-            :uri="uri"
-            :loading="loading"
-            :row-data="rowData"
-            :pagination="pagination"
-            :filter="filter"
-            @pagination-click="paginationClick"
-            @sort-table="sortTable"
-        >
-            <template #header-actions>
-                Actions
-            </template>
-            <template #row-actions="user">
-                <DropList class="align-right">
-                    <router-link :to="{ name: 'SanctionListPage', params: { username: user.username, userId : user.userId } }">{{ $t('moderation.sanctionList') }}</router-link>
-                    <router-link :to="{ name: 'ModerationUserListUserPage', params: { userId : user.userId } }">{{ $t('moderation.goToUserProfile') }}</router-link>
-                    <Tippy
-                        tag="button"
-                        v-if="!user.isBanned"
-                        @click="openModerationDialog(user)">
-                        {{ $t('moderation.sanction.ban_user') }}
-                        <template #content>
-                            <h1>{{ $t('moderation.sanction.ban_user') }}</h1>
-                            <p>{{ $t('moderation.sanction.banDescription') }}</p>
-                        </template>
-                    </Tippy>
-                    <router-link :to="{ name: 'AdminUserDetail', params: { userId : user.userId } }" v-if="isAdmin">{{ $t('admin.edit') }}</router-link>
-                    <router-link :to="{ name: 'ModerationUserDetail', params: { userId : user.userId } }" v-if="isModerator && !isAdmin">{{ $t('admin.edit') }}</router-link>
-                </DropList>
-            </template>
-        </Datatable>
+                    {{ option.text }}
+                </option>
+            </select>
+        </label>
+        <label>{{ $t('moderation.searchByUsername') }}
+            <input
+                v-model="filter"
+                type="search"
+                class=""
+                placeholder=""
+                aria-controls="example"
+                @change="updateFilter"
+            >
+        </label>
     </div>
+    <Datatable
+        :headers='fields'
+        :uri="uri"
+        :loading="loading"
+        :row-data="rowData"
+        :pagination="pagination"
+        :filter="filter"
+        @pagination-click="paginationClick"
+        @sort-table="sortTable"
+    >
+        <template #header-actions>
+            Actions
+        </template>
+        <template #row-actions="user">
+            <DropList class="align-right">
+                <router-link :to="{ name: 'SanctionListPage', params: { username: user.username, userId : user.userId } }">{{ $t('moderation.sanctionList') }}</router-link>
+                <router-link :to="{ name: 'ModerationUserListUserPage', params: { userId : user.userId } }">{{ $t('moderation.goToUserProfile') }}</router-link>
+                <Tippy
+                    tag="button"
+                    v-if="!user.isBanned"
+                    @click="openModerationDialog(user)">
+                    {{ $t('moderation.sanction.ban_user') }}
+                    <template #content>
+                        <h1>{{ $t('moderation.sanction.ban_user') }}</h1>
+                        <p>{{ $t('moderation.sanction.banDescription') }}</p>
+                    </template>
+                </Tippy>
+                <router-link :to="{ name: 'AdminUserDetail', params: { userId : user.userId } }" v-if="isAdmin">{{ $t('admin.edit') }}</router-link>
+                <router-link :to="{ name: 'ModerationUserDetail', params: { userId : user.userId } }" v-if="isModerator && !isAdmin">{{ $t('admin.edit') }}</router-link>
+            </DropList>
+        </template>
+    </Datatable>
 </template>
 
 <script lang="ts">

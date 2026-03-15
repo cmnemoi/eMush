@@ -1,33 +1,31 @@
 <template>
-    <div class="player_list_container">
-        <Datatable
-            :headers='fields'
-            :uri="uri"
-            :loading="loading"
-            :row-data="rowData"
-            :pagination="pagination"
-            @pagination-click="paginationClick"
-            @sort-table="sortTable"
-        >
-            <template #header-actions>
-                Actions
-            </template>
-            <template #row-actions="player">
-                <DropList class="align-right">
-                    <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': player.id} }">{{ $t("moderation.goToPlayerDetails") }}</router-link>
-                    <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': player.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
-                    <router-link :to="{ name: 'SanctionListPage', params: { username: player.user.username, userId : player.user.userId } }">{{ $t('moderation.sanctionList') }}</router-link>
-                    <button class="action-button" @click="closePlayer(player.id)" v-if="isAdmin && player.gameStatus === $t('moderation.playerList.gameStatuses.finished')">{{ $t("admin.playerList.closePlayer") }}</button>
-                </DropList>
-            </template>
-        </Datatable>
-    </div>
+    <Datatable
+        :headers='fields'
+        :uri="uri"
+        :loading="loading"
+        :row-data="rowData"
+        :pagination="pagination"
+        @pagination-click="paginationClick"
+        @sort-table="sortTable"
+    >
+        <template #header-actions>
+            Actions
+        </template>
+        <template #row-actions="player">
+            <DropList class="align-right">
+                <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': player.id} }">{{ $t("moderation.goToPlayerDetails") }}</router-link>
+                <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': player.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
+                <router-link :to="{ name: 'SanctionListPage', params: { username: player.user.username, userId : player.user.userId } }">{{ $t('moderation.sanctionList') }}</router-link>
+                <button class="action-button" @click="closePlayer(player.id)" v-if="isAdmin && player.gameStatus === $t('moderation.playerList.gameStatuses.finished')">{{ $t("admin.playerList.closePlayer") }}</button>
+            </DropList>
+        </template>
+    </Datatable>
 
     <div class="logsButtons">
         <button class="action-button" @click="seeAllTransfertLogs()"> {{ $t('moderation.seeAllTransfers') }}</button>
     </div>
 
-    <div class="flex-row">
+    <div class="flex-row wrap">
         <label>{{ $t('moderation.filters.day') }} :
             <input
                 type="search"

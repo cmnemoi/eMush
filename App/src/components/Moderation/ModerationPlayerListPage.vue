@@ -1,85 +1,83 @@
 <template>
-    <div class="player_list_container">
-        <div class="table-filter-container">
-            <label>{{ $t('moderation.alivePlayersFilter') }}
-                <select v-model="playerStatusFilter" @change="updateFilter">
-                    <option
-                        v-for="option in playerStatusFilterOption"
-                        :value=option.value
-                        :key=option.key
-                    >
-                        {{ $t(option.key) }}
-                    </option>
-                </select>
-            </label>
-            <label>{{ $t('moderation.mushPlayersFilter') }}
-                <input
-                    type="checkbox"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    v-model="mushPlayersFilter"
-                    @change="updateFilter"
+    <div class="table-filter-container">
+        <label>{{ $t('moderation.alivePlayersFilter') }}
+            <select v-model="playerStatusFilter" @change="updateFilter">
+                <option
+                    v-for="option in playerStatusFilterOption"
+                    :value=option.value
+                    :key=option.key
                 >
-            </label>
-            <label>{{ $t('moderation.searchByUsername')  }}
-                <input
-                    v-model="usernameFilter"
-                    type="search"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    @change="updateFilter"
-                >
-            </label>
-            <label>{{ $t('moderation.searchByCharacter')  }}
-                <input
-                    v-model="characterFilter"
-                    type="search"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    @change="updateFilter"
-                >
-            </label>
-            <label>{{ $t('moderation.searchByDaedalusId') }}
-                <input
-                    v-model="daedalusIdFilter"
-                    type="search"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    @change="updateFilter"
-                >
-            </label>
-            <button @click="closeAllPlayers" v-if="isAdmin">{{ $t("admin.playerList.closeAllPlayers") }}</button>
-        </div>
-        <Datatable
-            :headers='fields'
-            :uri="uri"
-            :loading="loading"
-            :row-data="rowData"
-            :pagination="pagination"
-            :character-filter="characterFilter"
-            :daedalus-id-filter="daedalusIdFilter"
-            :username-filter="usernameFilter"
-            @pagination-click="paginationClick"
-            @sort-table="sortTable"
-        >
-            <template #header-actions>
-                Actions
-            </template>
-            <template #row-actions="player">
-                <DropList class="align-right">
-                    <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': player.id} }">{{ $t("moderation.goToPlayerDetails") }}</router-link>
-                    <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': player.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
-                    <router-link :to="{ name: 'SanctionListPage', params: { username: player.user.username, userId : player.user.userId } }">{{ $t('moderation.sanctionList') }}</router-link>
-                    <router-link :to="{ name: 'ModerationShipView', params: { daedalusId : player.daedalusId } }">{{ $t('moderation.playerShipView') }}</router-link>
-                    <button class="action-button" @click="closePlayer(player.id)" v-if="isAdmin && player.gameStatus === $t('moderation.playerList.gameStatuses.finished')">{{ $t("admin.playerList.closePlayer") }}</button>
-                </DropList>
-            </template>
-        </Datatable>
+                    {{ $t(option.key) }}
+                </option>
+            </select>
+        </label>
+        <label>{{ $t('moderation.mushPlayersFilter') }}
+            <input
+                type="checkbox"
+                class=""
+                placeholder=""
+                aria-controls="example"
+                v-model="mushPlayersFilter"
+                @change="updateFilter"
+            >
+        </label>
+        <label>{{ $t('moderation.searchByUsername')  }}
+            <input
+                v-model="usernameFilter"
+                type="search"
+                class=""
+                placeholder=""
+                aria-controls="example"
+                @change="updateFilter"
+            >
+        </label>
+        <label>{{ $t('moderation.searchByCharacter')  }}
+            <input
+                v-model="characterFilter"
+                type="search"
+                class=""
+                placeholder=""
+                aria-controls="example"
+                @change="updateFilter"
+            >
+        </label>
+        <label>{{ $t('moderation.searchByDaedalusId') }}
+            <input
+                v-model="daedalusIdFilter"
+                type="search"
+                class=""
+                placeholder=""
+                aria-controls="example"
+                @change="updateFilter"
+            >
+        </label>
+        <button @click="closeAllPlayers" v-if="isAdmin">{{ $t("admin.playerList.closeAllPlayers") }}</button>
     </div>
+    <Datatable
+        :headers='fields'
+        :uri="uri"
+        :loading="loading"
+        :row-data="rowData"
+        :pagination="pagination"
+        :character-filter="characterFilter"
+        :daedalus-id-filter="daedalusIdFilter"
+        :username-filter="usernameFilter"
+        @pagination-click="paginationClick"
+        @sort-table="sortTable"
+    >
+        <template #header-actions>
+            Actions
+        </template>
+        <template #row-actions="player">
+            <DropList class="align-right">
+                <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': player.id} }">{{ $t("moderation.goToPlayerDetails") }}</router-link>
+                <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': player.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
+                <router-link :to="{ name: 'SanctionListPage', params: { username: player.user.username, userId : player.user.userId } }">{{ $t('moderation.sanctionList') }}</router-link>
+                <router-link :to="{ name: 'ModerationShipView', params: { daedalusId : player.daedalusId } }">{{ $t('moderation.playerShipView') }}</router-link>
+                <button class="action-button" @click="closePlayer(player.id)" v-if="isAdmin && player.gameStatus === $t('moderation.playerList.gameStatuses.finished')">{{ $t("admin.playerList.closePlayer") }}</button>
+            </DropList>
+        </template>
+    </Datatable>
 </template>
 
 <script lang="ts">

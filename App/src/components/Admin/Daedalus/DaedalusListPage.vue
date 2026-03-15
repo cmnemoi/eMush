@@ -1,116 +1,113 @@
 <template>
-    <div class="daedalus_list_container">
-        <div class="table-filter-container">
-            <label>{{$t("admin.show")}}
-                <select v-model="pagination.pageSize" @change="updateFilter">
-                    <option
-                        v-for="option in pageSizeOptions"
-                        :value="option.value"
-                        :key=option.value
-                    >
-                        {{ option.text }}
-                    </option>
-                </select>
-            </label>
-            <label>{{$t("admin.search")}}
-                <input
-                    v-model="filter"
-                    type="search"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    @change="updateFilter"
+    <div class="table-filter-container">
+        <label>{{$t("admin.show")}}
+            <select v-model="pagination.pageSize" @change="updateFilter">
+                <option
+                    v-for="option in pageSizeOptions"
+                    :value="option.value"
+                    :key=option.value
                 >
-            </label>
-            <DropList class="align-right" :name="$t('admin.daedalus.globalActions')">
-                <router-link :to="{ name: 'AdminDaedalusCreate' }">{{$t("admin.daedalus.create")}}</router-link>
-                <router-link :to="{ name: 'AdminNeronAnnouncement' }">{{$t("admin.neronAnnouncement.sendNeronAnnouncement")}}</router-link>
-                <button type="button" @click="destroyAllDaedaluses">
-                    {{$t("admin.daedalus.destroyAllDaedaluses")}}
+                    {{ option.text }}
+                </option>
+            </select>
+        </label>
+        <label>{{$t("admin.search")}}
+            <input
+                v-model="filter"
+                type="search"
+                class=""
+                placeholder=""
+                aria-controls="example"
+                @change="updateFilter"
+            >
+        </label>
+        <DropList class="align-right" :name="$t('admin.daedalus.globalActions')">
+            <router-link :to="{ name: 'AdminDaedalusCreate' }">{{$t("admin.daedalus.create")}}</router-link>
+            <router-link :to="{ name: 'AdminNeronAnnouncement' }">{{$t("admin.neronAnnouncement.sendNeronAnnouncement")}}</router-link>
+            <button type="button" @click="destroyAllDaedaluses">
+                {{$t("admin.daedalus.destroyAllDaedaluses")}}
+            </button>
+            <button
+                type="button"
+                @click="removeGameFromMaintenance"
+                v-if="gameInMaintenance()">
+                {{$t("admin.daedalus.maintenanceOff")}}
+            </button>
+            <button
+                type="button"
+                @click="putGameInMaintenance"
+                v-else>
+                {{$t("admin.daedalus.maintenanceOn")}}
+            </button>
+        </DropList>
+    </div>
+    <Datatable
+        :headers='fields'
+        :uri="uri"
+        :loading="loading"
+        :row-data="rowData"
+        :pagination="pagination"
+        :filter="filter"
+        @pagination-click="paginationClick"
+        @sort-table="sortTable"
+    >
+        <template #header-cycle>
+            Cycle/Day
+        </template>
+        <template #row-cycle="slotProps">
+            {{ slotProps.cycle }} / {{ slotProps.day }} ( {{ $t('admin.updatedAt') }} {{formatDate(slotProps.updatedAt)}})
+        </template>
+        <template #header-actions>
+            Actions
+        </template>
+        <template #row-actions="slotProps">
+            <DropList class="align-right" v-if="!daedalusIsFinished(slotProps)">
+                <button
+                    type="button"
+                    @click="destroyDaedalus(slotProps.id)">
+                    {{ $t("admin.daedalus.destroy") }}
                 </button>
                 <button
                     type="button"
-                    @click="removeGameFromMaintenance"
-                    v-if="gameInMaintenance()">
-                    {{$t("admin.daedalus.maintenanceOff")}}
+                    @click="unlockDaedalus(slotProps.id)">
+                    {{ $t("admin.daedalus.unlock") }}
                 </button>
                 <button
                     type="button"
-                    @click="putGameInMaintenance"
-                    v-else>
-                    {{$t("admin.daedalus.maintenanceOn")}}
+                    @click="addNewRoomsToDaedalus(slotProps.id)">
+                    {{ $t("admin.daedalus.addNewRooms") }}
+                </button>
+                <button
+                    type="button"
+                    @click="deleteDaedalusDuplicatedAlertElements(slotProps.id)">
+                    {{ $t("admin.daedalus.deleteDuplicatedAlertElements") }}
+                </button>
+                <button
+                    type="button"
+                    @click="createAPlanet(slotProps.id)">
+                    {{ $t("admin.daedalus.createAPlanet") }}
+                </button>
+                <button
+                    type="button"
+                    @click="markDaedalusAsCheater(slotProps.id)">
+                    {{ $t("admin.daedalus.markAsCheater") }}
+                </button>
+                <router-link :to="{ name: 'ModerationShipView', params: { daedalusId : slotProps.id } }">{{ $t('moderation.shipView') }}</router-link>
+            </DropList>
+            <DropList class="align-right" v-else>
+                <button
+                    type="button"
+                    @click="markDaedalusAsCheater(slotProps.id)">
+                    {{ $t("admin.daedalus.markAsCheater") }}
+                </button>
+                <button
+                    type="button"
+                    @click="deliverStats(slotProps.id)">
+                    {{ $t("admin.daedalus.deliverStats") }}
                 </button>
             </DropList>
-        </div>
-        <Datatable
-            :headers='fields'
-            :uri="uri"
-            :loading="loading"
-            :row-data="rowData"
-            :pagination="pagination"
-            :filter="filter"
-            @pagination-click="paginationClick"
-            @sort-table="sortTable"
-        >
-            <template #header-cycle>
-                Cycle/Day
-            </template>
-            <template #row-cycle="slotProps">
-                {{ slotProps.cycle }} / {{ slotProps.day }} ( {{ $t('admin.updatedAt') }} {{formatDate(slotProps.updatedAt)}})
-            </template>
-            <template #header-actions>
-                Actions
-            </template>
-            <template #row-actions="slotProps">
-                <DropList class="align-right" v-if="!daedalusIsFinished(slotProps)">
-                    <button
-                        type="button"
-                        @click="destroyDaedalus(slotProps.id)">
-                        {{ $t("admin.daedalus.destroy") }}
-                    </button>
-                    <button
-                        type="button"
-                        @click="unlockDaedalus(slotProps.id)">
-                        {{ $t("admin.daedalus.unlock") }}
-                    </button>
-                    <button
-                        type="button"
-                        @click="addNewRoomsToDaedalus(slotProps.id)">
-                        {{ $t("admin.daedalus.addNewRooms") }}
-                    </button>
-                    <button
-                        type="button"
-                        @click="deleteDaedalusDuplicatedAlertElements(slotProps.id)">
-                        {{ $t("admin.daedalus.deleteDuplicatedAlertElements") }}
-                    </button>
-                    <button
-                        type="button"
-                        @click="createAPlanet(slotProps.id)">
-                        {{ $t("admin.daedalus.createAPlanet") }}
-                    </button>
-                    <button
-                        type="button"
-                        @click="markDaedalusAsCheater(slotProps.id)">
-                        {{ $t("admin.daedalus.markAsCheater") }}
-                    </button>
-                    <router-link :to="{ name: 'ModerationShipView', params: { daedalusId : slotProps.id } }">{{ $t('moderation.shipView') }}</router-link>
-                </DropList>
-                <DropList class="align-right" v-else>
-                    <button
-                        type="button"
-                        @click="markDaedalusAsCheater(slotProps.id)">
-                        {{ $t("admin.daedalus.markAsCheater") }}
-                    </button>
-                    <button
-                        type="button"
-                        @click="deliverStats(slotProps.id)">
-                        {{ $t("admin.daedalus.deliverStats") }}
-                    </button>
-                </DropList>
-            </template>
-
-        </Datatable>
-    </div>
+        </template>
+    </Datatable>
 </template>
 
 <script lang="ts">

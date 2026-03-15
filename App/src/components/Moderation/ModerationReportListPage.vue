@@ -1,96 +1,94 @@
 <template>
-    <div class="sanction_list_container">
-        <h2 class="sanction_heading">{{ $t('moderation.reportToAddress') }}</h2>
-        <Datatable
-            :headers='fields'
-            :uri="uri"
-            :loading="loading"
-            :row-data="rowData"
-            :pagination="pagination"
-            @pagination-click="paginationClick"
-            @sort-table="sortTable"
-        >
-            <template #header-id>
-                #
-            </template>
-            <template #row-id="report">
-                {{ report.id }}
-            </template>
+    <h2 class="sanction_heading">{{ $t('moderation.reportToAddress') }}</h2>
+    <Datatable
+        :headers='fields'
+        :uri="uri"
+        :loading="loading"
+        :row-data="rowData"
+        :pagination="pagination"
+        @pagination-click="paginationClick"
+        @sort-table="sortTable"
+    >
+        <template #header-id>
+            #
+        </template>
+        <template #row-id="report">
+            {{ report.id }}
+        </template>
 
-            <template #header-daedalusId>
-                Daedalus
-            </template>
-            <template #row-daedalusId="report">
-                {{ getDaedalusId(report.playerId) }}
-            </template>
+        <template #header-daedalusId>
+            Daedalus
+        </template>
+        <template #row-daedalusId="report">
+            {{ getDaedalusId(report.playerId) }}
+        </template>
 
-            <template #header-authorName>
-                {{ $t('moderation.sanction.author') }}
-            </template>
-            <template #row-authorName="report">
-                <Tippy>
-                    {{ report.authorName }}
-                    <template #content>
-                        <h1 v-html="report.authorId" />
-                    </template>
-                </Tippy>
-            </template>
+        <template #header-authorName>
+            {{ $t('moderation.sanction.author') }}
+        </template>
+        <template #row-authorName="report">
+            <Tippy>
+                {{ report.authorName }}
+                <template #content>
+                    <h1 v-html="report.authorId" />
+                </template>
+            </Tippy>
+        </template>
 
-            <template #header-username>
-                {{ $t('moderation.sanction.target') }}
-            </template>
-            <template #row-username="report">
-                <img :src="getCharacterBodyFromKey(report?.playerName)" alt="Character Image" style="max-width: 16px;" />
-                {{ report.username }}
-                <div v-if="getPlayerStatus(report.playerId)" class="alive">
-                    {{ $t('moderation.sanction.alive') }}
-                </div>
-                <div v-if="getPlayerMush(report.playerId)" class="isMush">
-                    MUSH
-                </div>
-            </template>
+        <template #header-username>
+            {{ $t('moderation.sanction.target') }}
+        </template>
+        <template #row-username="report">
+            <img :src="getCharacterBodyFromKey(report?.playerName)" alt="Character Image" style="max-width: 16px;" />
+            {{ report.username }}
+            <div v-if="getPlayerStatus(report.playerId)" class="alive">
+                {{ $t('moderation.sanction.alive') }}
+            </div>
+            <div v-if="getPlayerMush(report.playerId)" class="isMush">
+                MUSH
+            </div>
+        </template>
 
-            <template #header-reason>
-                {{ $t('moderation.sanction.reason') }}
-            </template>
-            <template #row-reason="report">
-                {{  getReasonTranslation(report.reason) }}
-            </template>
+        <template #header-reason>
+            {{ $t('moderation.sanction.reason') }}
+        </template>
+        <template #row-reason="report">
+            {{  getReasonTranslation(report.reason) }}
+        </template>
 
-            <template #header-evidence>
-                {{ $t('moderation.sanctionDetail.message') }}
-            </template>
-            <template #row-evidence="report">
-                {{ report.message }}
-            </template>
+        <template #header-evidence>
+            {{ $t('moderation.sanctionDetail.message') }}
+        </template>
+        <template #row-evidence="report">
+            {{ report.message }}
+        </template>
 
-            <template #header-startDate>
-                {{ $t('moderation.sanction.date') }}
-            </template>
-            <template #row-startDate="report">
-                {{ formatDate(report.startDate) }}
-            </template>
+        <template #header-startDate>
+            {{ $t('moderation.sanction.date') }}
+        </template>
+        <template #row-startDate="report">
+            {{ formatDate(report.startDate) }}
+        </template>
 
-            <template #header-actions>
-                {{ $t('moderation.sanction.actions') }}
-            </template>
-            <template #row-actions="report">
-                <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.report') }}</button>
-                <button
-                    class="action-button"
-                    @click="goToSanctionEvidence(report)">
-                    {{ $t('moderation.report.seeContext') }}
-                </button>
-            </template>
+        <template #header-actions>
+            {{ $t('moderation.sanction.actions') }}
+        </template>
+        <template #row-actions="report">
+            <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.report') }}</button>
+            <button
+                class="action-button"
+                @click="goToSanctionEvidence(report)">
+                {{ $t('moderation.report.seeContext') }}
+            </button>
+        </template>
 
-        </Datatable>
-        <SanctionDetailPage
-            :is-open="showDetailPopup"
-            :moderation-sanction="selectedSanction"
-            @close="closeDetailPopUp"
-            @update="closeDetailAndUpdate"
-        />
-    </div>
+    </Datatable>
+    <SanctionDetailPage
+        :is-open="showDetailPopup"
+        :moderation-sanction="selectedSanction"
+        @close="closeDetailPopUp"
+        @update="closeDetailAndUpdate"
+    />
 </template>
 
 <script lang="ts">

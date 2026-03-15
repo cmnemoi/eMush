@@ -1,5 +1,5 @@
 <template>
-    <div v-if="player">
+    <template v-if="player">
         <ModerationActionPopup
             :moderation-dialog-visible="moderationDialogVisible"
             :action="currentAction"
@@ -43,7 +43,7 @@
             </template>
         </Datatable>
 
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <Tippy
                 tag="button"
                 class="action-button"
@@ -102,7 +102,7 @@
         </div>
 
         <span>{{ player.character.characterValue }} - {{ $t('moderation.player.playedBy') }} {{ player.user.username }}  - {{ player.isMush ? $t('moderation.player.mush') : $t('moderation.player.human') }} - {{ player.isAlive ? $t('moderation.player.alive') : $t('moderation.player.dead') }} - {{ player.user.isBanned ? $t('moderation.player.banned') : $t('moderation.player.notBanned') }} - {{ player.user.isInGame ? $t('moderation.player.inGame') : $t('moderation.player.notInGame') }}</span>
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <label>{{ $t('moderation.filters.day') }} :
                 <input
                     type="search"
@@ -162,7 +162,7 @@
                 @change="loadLogs(player)"/>
             {{ $t('moderation.ignoreNoise') }}
         </label>
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <label>{{ $t('moderation.filters.startDate') }} :
                 <input
                     type="search"
@@ -220,7 +220,7 @@
             </div>
             <span v-else>{{ $t('moderation.nothingToDisplay') }}</span>
         </div>
-        <div class="flex-row">
+        <div class="flex-row wrap">
             <label>{{ $t('moderation.filters.startDate') }} :
                 <input
                     type="search"
@@ -308,7 +308,7 @@
             </div>
             <span v-else>{{ $t('moderation.nothingToDisplay') }}</span>
         </div>
-    </div>
+    </template>
     <button class="action-button" @click="goBack">{{ $t("util.goBack") }}</button>
 </template>
 
@@ -711,7 +711,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .logs-container, .messages-container {
     position: relative;
-    // min-height: 436px;
+    width: 100%;
     height: 436px;
     overflow: auto;
     resize: vertical;

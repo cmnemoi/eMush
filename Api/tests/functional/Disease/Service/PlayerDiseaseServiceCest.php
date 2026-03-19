@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Disease\Service;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -60,6 +61,42 @@ final class PlayerDiseaseServiceCest extends AbstractFunctionalTest
                 'playerInfo' => $this->player->getPlayerInfo(),
                 'log' => LogEnum::DISEASE_CURED,
                 'visibility' => VisibilityEnum::HIDDEN,
+            ]
+        );
+    }
+
+    public function testCuringDiseaseShouldNotPrintLogTreatedDisease(FunctionalTester $I): void
+    {
+        // given player has a disease
+        $disease = $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DiseaseEnum::COLD->toString(),
+            player: $this->chun,
+            reasons: [],
+        );
+
+        // when I call handleNewCycle on the disease
+        $this->playerDiseaseService->healDisease($this->chun, $disease, [ActionEnum::HEAL->value], new \DateTime(), VisibilityEnum::PUBLIC);
+
+        // then the disease should heal
+        $I->assertNull($this->player->getMedicalConditionByName(DiseaseEnum::COLD->toString()));
+
+        $I->grabEntityFromRepository(
+            RoomLog::class,
+            [
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
+                'log' => LogEnum::DISEASE_CURED_PLAYER,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+
+        $I->cantSeeInRepository(
+            RoomLog::class,
+            [
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
+                'log' => LogEnum::DISEASE_TREATED_PLAYER,
+                'visibility' => VisibilityEnum::PUBLIC,
             ]
         );
     }

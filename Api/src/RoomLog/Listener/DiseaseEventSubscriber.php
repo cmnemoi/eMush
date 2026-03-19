@@ -69,6 +69,11 @@ class DiseaseEventSubscriber implements EventSubscriberInterface
 
     public function onDiseaseTreated(DiseaseEvent $event): void
     {
+        // don't want to print the log is the disease is cured
+        if ($event->getPlayerDisease()->getHealActionResistance() === 0) {
+            return;
+        }
+
         $player = $event->getTargetPlayer();
 
         $key = $event->mapLog(self::TREAT_LOG_MAP);

@@ -241,10 +241,10 @@
         <target>disease_cured_player</target>
       </segment>
     </unit>
-    <unit id="disease_healed_player">
+    <unit id="disease_treated_player">
       <segment state="translated">
-        <source>disease_healed_player</source>
-        <target>disease_healed_player</target>
+        <source>disease_treated_player</source>
+        <target>disease_treated_player</target>
       </segment>
     </unit>
     <unit id="disease_cured_drug">

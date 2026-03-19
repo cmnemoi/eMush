@@ -309,9 +309,9 @@
         <target>**{character}** a réussi à soigner **{target_character}** de sa maladie ({disease}).</target>
       </segment>
     </unit>
-    <unit id="disease_healed_player">
+    <unit id="disease_treated_player">
       <segment state="translated">
-        <source>disease_healed_player</source>
+        <source>disease_treated_player</source>
         <target>**{character}** a progressé sur les soins de la maladie de **{target_character}** mais il faudra continuer le traitement.</target>
       </segment>
     </unit>

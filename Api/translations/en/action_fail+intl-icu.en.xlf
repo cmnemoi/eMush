@@ -847,5 +847,11 @@
         <target>You do not have the resource required to do this. **Wait until tomorrow**.</target>
       </segment>
     </unit>
+    <unit id="target_already_outcast">
+      <segment id="description" state="translated">
+        <source>target_already_outcast.description</source>
+        <target>This crewmember is already under the protection of a bodyguard!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

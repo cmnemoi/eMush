@@ -1468,5 +1468,11 @@
         <target>Et hop ! Une touche de mycélium pour relever le goût juste comme il faut.</target>
       </segment>
     </unit>
+    <unit id="protect_success">
+      <segment id="protect_success" state="translated">
+        <source>protect_success</source>
+        <target>**{character}** s'approche de **{target_character}** et se met à suivre ses pas avec une précision militaire. Quiconque voudra lui faire du mal aura affaire à {character_gender, select, male {lui} female {elle} other {ellui}} !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

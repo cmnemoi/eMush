@@ -888,5 +888,15 @@
         <target>Vous n'avez pas la ressource nécessaire pour réaliser cette action. **Attendez demain**.</target>
       </segment>
     </unit>
+    <unit id="target_already_protected">
+      <segment id="description" state="translated">
+        <source>target_already_protected.description</source>
+        <target>{target_character_gender, select,
+            male {Cet équipier}
+            female {Cette équipière}
+            other {Cet.te équipier.e} est déjà sous la protection d'un garde du corps !
+            }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

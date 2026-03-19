@@ -7,6 +7,8 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
+use Mush\Action\Validator\ClassConstraint;
+use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
@@ -43,6 +45,15 @@ class Protect extends AbstractAction
                 'type' => PlaceTypeEnum::ROOM,
                 'groups' => ['execute'],
                 'message' => ActionImpossibleCauseEnum::NOT_A_ROOM,
+            ])
+        );
+        $metadata->addConstraint(
+            new HasStatus([
+                'status' => PlayerStatusEnum::BODYGUARD_VIP,
+                'target' => HasStatus::PARAMETER,
+                'contain' => false,
+                'groups' => [ClassConstraint::EXECUTE],
+                'message' => ActionImpossibleCauseEnum::TARGET_ALREADY_PROTECTED,
             ])
         );
     }

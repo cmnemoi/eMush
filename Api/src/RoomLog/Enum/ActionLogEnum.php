@@ -652,6 +652,9 @@ abstract class ActionLogEnum
         ActionEnum::USE_RESET_VACCINE->value => [
             ActionOutputEnum::SUCCESS => ActionEnum::USE_RESET_VACCINE->value,
         ],
+        ActionEnum::PROTECT->value => [
+            ActionOutputEnum::SUCCESS => ActionEnum::PROTECT->value . '_success',
+        ],
     ];
 
     public static function dependsOnNeronMood(string $logKey): bool

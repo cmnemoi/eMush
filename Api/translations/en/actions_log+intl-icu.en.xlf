@@ -1228,5 +1228,11 @@ other {a}} **{equipment}** out of {character_gender, select,
         <target>There! A touch of mycelium to spice up the flavor.</target>
       </segment>
     </unit>
+    <unit id="protect_success">
+      <segment id="protect_success" state="translated">
+        <source>protect_success</source>
+        <target>**{character}** moves closer to **{target_character}** and starts shadowing their footsteps. Whoever will seek to harm **{target_character}** will need to get past {character_gender, select, male {him} female {her} other {them}}!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

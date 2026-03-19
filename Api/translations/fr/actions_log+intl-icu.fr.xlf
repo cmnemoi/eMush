@@ -467,7 +467,7 @@
     <unit id="search_fail">
       <segment id="search_fail" state="translated">
         <source>search_fail</source>
-        <target>Vous n'avez rien découvert.</target>
+        <target>**{character}** a fouillé la pièce mais n'a rien découvert.</target>
       </segment>
     </unit>
     <unit id="shower_human">

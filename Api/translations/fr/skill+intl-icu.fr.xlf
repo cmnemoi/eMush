@@ -50,7 +50,7 @@
     <unit id="radio_expert">
       <segment id="radio_expert.name" state="translated">
         <source>radio_expert.name</source>
-        <target>{character_gender, select, female {Experte Radio} other {Expert Radio}}</target>
+        <target>{character_gender, select, female {Experte radio} other {Expert radio}}</target>
       </segment>
       <segment id="radio_expert.description" state="translated">
         <source>radio_expert.description</source>
@@ -1002,7 +1002,7 @@
     <unit id="bodyguard">
       <segment id="bodyguard.name" state="translated">
         <source>bodyguard.name</source>
-        <target>Garde du Corps</target>
+        <target>Garde du corps</target>
       </segment>
       <segment id="bodyguard.description" state="translated">
         <source>bodyguard.description</source>

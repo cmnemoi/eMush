@@ -894,8 +894,7 @@
         <target>{target_character_gender, select,
             male {Cet équipier}
             female {Cette équipière}
-            other {Cet.te équipier.e} est déjà sous la protection d'un garde du corps !
-            }</target>
+            other {Cet.te équipier.e}} est déjà sous la protection d'un garde du corps !</target>
       </segment>
     </unit>
   </file>

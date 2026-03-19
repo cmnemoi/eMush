@@ -266,7 +266,7 @@
     <unit id="search_fail">
       <segment id="search_fail" state="translated">
         <source>search_fail</source>
-        <target>You have found nothing.</target>
+        <target>**{character}** searched the room but found nothing.</target>
       </segment>
     </unit>
     <unit id="shower_human">

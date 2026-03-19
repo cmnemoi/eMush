@@ -935,7 +935,7 @@
         <source>torturer.description</source>
         <target>{character_gender, select,
         female {La}
-        other {El}} verdugo conoce todos los circuitos nerviosos sensibles para hacer oír su mensaje: ***CONFIESA.***//:point: Otorga la acción **Torturar**. Por :beta: **2** :pa:, la víctima pierde 1 :hp: y revela x acciones recientes que haya realizado. Donde x es el número de :hp: que le faltan a la víctima.</target>
+        other {El}} verdugo conoce todos los circuitos nerviosos sensibles para hacer oír su mensaje: ***CONFIESA.***//:point: +1 **Punto de tortura* al día.//:point: Otorga la acción **Torturar**. Por **1** :pa_torture:, la víctima pierde 1 :hp: y revela X acciones recientes que haya realizado. Donde X es el número de :hp: que le faltan a la víctima :beta: No es posible Torturar sin :pa_torture:.</target>
       </segment>
     </unit>
     <unit id="ocd">
@@ -1102,7 +1102,7 @@
       </segment>
       <segment id="maintenance_crew.description" state="translated">
         <source>maintenance_crew.description</source>
-        <target>:beta: En un mundo de especialistas, {gender, select, female {la} other {el}} agente de mantenimiento brilla por seguir su propio camino. Y si el piso empieza a brillar también, ya sabrás a quién agradecer.// :point: +1 :pa_eng: por día. // :point: +1 :pa_garden: por día. // :point: +1 :pa_cook: por día. //// Esta habilidad está en fase:beta: beta: agradecemos sus comentarios en el foro de Eternaltwin y Discord.</target>
+        <target>:beta: En un mundo de especialistas, {character_gender, select, female {la} other {el}} agente de mantenimiento brilla por seguir su propio camino. Y si el piso empieza a brillar también, ya sabrás a quién agradecer.// :point: +1 :pa_eng: por día. // :point: +1 :pa_garden: por día. // :point: +1 :pa_cook: por día. //// Esta habilidad está en fase:beta: beta: agradecemos sus comentarios en el foro de Eternaltwin y Discord.</target>
       </segment>
     </unit>
     <unit id="bodyguard">

@@ -614,7 +614,7 @@
     <unit id="bodyguard_user">
       <segment id="name" state="translated">
         <source>bodyguard_user.name</source>
-        <target>Garde du Corps</target>
+        <target>Garde du corps</target>
       </segment>
       <segment id="description" state="translated">
         <source>bodyguard_user.description</source>

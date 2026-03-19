@@ -217,7 +217,7 @@ other {**Vuelve cuando estés limpio.**"}
     <unit id="daily_spore_limit">
       <segment id="description" state="translated">
         <source>daily_spore_limit.description</source>
-        <target>Los *Mush* en su conjunto no pueden producir más de **{quantity} esporas** por día.</target>
+        <target>Los **Mush** en su conjunto no pueden producir más de **{quantity_maximum} esporas** por día.</target>
       </segment>
     </unit>
     <unit id="personal_spore_limit">
@@ -873,6 +873,12 @@ other {**Vuelve cuando estés limpio.**"}
       <segment id="description" state="translated">
         <source>insufficient_special_point.description</source>
         <target>No dispones de los recursos necesarios para hacer esto. **Espera hasta mañana**.</target>
+      </segment>
+    </unit>
+    <unit id="target_already_protected">
+      <segment id="description" state="initial">
+        <source>target_already_protected.description</source>
+        <target>target_already_protected.description</target>
       </segment>
     </unit>
   </file>

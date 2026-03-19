@@ -991,7 +991,7 @@ Plastenite armor is made from bio-sensitive latex and highly flexible materials,
       <segment id="description" state="translated">
         <source>protective_gloves.description</source>
         <target>Better safe than sorry.//
-:point: Holding the gloves protects you from injuries by clumsiness that may arise when taking action.</target>
+:point: While you are holding the gloves, you will never hurt yourself while carrying out hurtful actions.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>protective_gloves.examine</source>
@@ -1058,7 +1058,7 @@ The player can go into space via a launch bay for external repair missions. The 
       </segment>
       <segment id="description" state="translated">
         <source>stainproof_apron.description</source>
-        <target>You'll never get dirty again when doing your dirty deeds.</target>
+        <target>A well-worn apron, still useful as ever. // :point: While holding the apron, you will never get dirty when performing dirty actions.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>stainproof_apron.examine</source>

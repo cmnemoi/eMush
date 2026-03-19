@@ -36,13 +36,13 @@ other {**{character}** ha disparado sobre **{target_character}**, pero no fue ca
     <unit id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target">
       <segment id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target" state="translated">
         <source>blaster_shooter_plus_2_max_damage_20_random_injury_to_target</source>
-        <target>Hay apenas un parpadeo entre el disparo de **{character}**’ y el impacto de la bala sobre **{target_character}**.</target>
+        <target>Hay apenas un parpadeo entre el disparo de **{character}** y el impacto de la bala sobre **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_1_damage_target_damaged_ears">
       <segment id="blaster_shooter_plus_1_damage_target_damaged_ears" state="translated">
         <source>blaster_shooter_plus_1_damage_target_damaged_ears</source>
-        <target>Que resuene el rugido de los blasters: solo los supervivientes hablarán de ello. **{character}** está bien {character_gender, select, female {posicionada} other {posicionado}} para saberlo. **{target_character}** pierde el sentido de la audición.</target>
+        <target>Que resuene el rugido de los blasters: solo los supervivientes hablarán de ello. **{character}** está bien {target_character_gender, select, female {posicionada} other {posicionado}} para saberlo. **{target_character}** pierde el sentido de la audición.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma">

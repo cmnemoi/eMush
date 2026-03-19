@@ -272,7 +272,7 @@ other {invalid gender input}}.</target>
     <unit id="search_fail">
       <segment id="search_fail" state="translated">
         <source>search_fail</source>
-        <target>No has encontrado nada.</target>
+        <target>(update me on Crowdin: search_fail) **{character}** no has encontrado nada.</target>
       </segment>
     </unit>
     <unit id="shower_human">
@@ -1161,6 +1161,12 @@ other {{quantity}}
       <segment id="mix_ration_spore_success" state="translated">
         <source>mix_ration_spore_success</source>
         <target>mix_ration_spore_success</target>
+      </segment>
+    </unit>
+    <unit id="protect_success">
+      <segment id="protect_success" state="initial">
+        <source>protect_success</source>
+        <target>protect_success</target>
       </segment>
     </unit>
   </file>

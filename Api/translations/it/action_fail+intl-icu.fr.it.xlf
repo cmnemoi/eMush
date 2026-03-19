@@ -847,5 +847,11 @@
         <target>insufficient_special_point.description</target>
       </segment>
     </unit>
+    <unit id="target_already_protected">
+      <segment id="description" state="initial">
+        <source>target_already_protected.description</source>
+        <target>target_already_protected.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

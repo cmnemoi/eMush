@@ -973,5 +973,11 @@
         <target>mix_ration_spore_success</target>
       </segment>
     </unit>
+    <unit id="protect_success">
+      <segment id="protect_success" state="initial">
+        <source>protect_success</source>
+        <target>protect_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

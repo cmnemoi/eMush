@@ -997,7 +997,7 @@ Vous n'avez jamais vraiment compris l'utilité du vaguoscope mais de toute faço
       <segment id="description" state="translated">
         <source>protective_gloves.description</source>
         <target>Mieux vaut prévenir que guérir.//
-:point: Porter les gants vous protège des maladresses qui peuvent survenir en effectuant des actions.</target>
+:point: Pendant que vous portez les gants, vous ne vous blessez jamais en effectuant des actions blessantes.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>protective_gloves.examine</source>
@@ -1064,7 +1064,7 @@ Le joueur peut sortir dans l'espace depuis une baie de lancement pour une missio
       </segment>
       <segment id="description" state="translated">
         <source>stainproof_apron.description</source>
-        <target>Vous ne vous salissez jamais en effectuant des actions salissantes.</target>
+        <target>Un vieux tablier un peu usé mais toujours aussi efficace. // :point: Pendant que vous portez le tablier, vous ne vous salissez jamais en effectuant des actions salissantes.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>stainproof_apron.examine</source>

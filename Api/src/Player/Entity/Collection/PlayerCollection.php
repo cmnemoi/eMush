@@ -182,6 +182,11 @@ class PlayerCollection extends ArrayCollection
         return $this->filter(static fn (Player $player) => $player->doesNotHaveStatus($status));
     }
 
+    public function getAllWithoutInitStatus(string $status): self
+    {
+        return $this->filter(static fn (Player $player) => $player->getCharacterConfig()->hasInitStatus($status) === false);
+    }
+
     public function getTradablePlayersFor(Player $trader): self
     {
         return $this->filter(static fn (Player $player) => $trader->canTradePlayer($player));

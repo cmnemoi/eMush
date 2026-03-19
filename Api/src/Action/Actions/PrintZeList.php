@@ -181,7 +181,7 @@ final class PrintZeList extends AbstractAction
     private function randomPlayersWithout(Player $selectedAlphaMush): array
     {
         $players = $this->player->getDaedalus()->getPlayers()
-            ->getAllWithoutStatus(PlayerStatusEnum::IMMUNIZED)
+            ->getAllWithoutInitStatus(PlayerStatusEnum::IMMUNIZED)
             ->getAllExcept($selectedAlphaMush)->toArray();
 
         return $this->randomService->getRandomElements($players, $this->numberOfNames() - 1);

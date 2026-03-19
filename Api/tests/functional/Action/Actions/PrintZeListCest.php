@@ -243,7 +243,7 @@ final class PrintZeListCest extends AbstractFunctionalTest
 
         $this->whenChunPrintsZeList();
 
-        $this->thenZeListShouldContainNumberOfNames(2, $I);
+        $this->thenZeListShouldContainNumberOfNames(1, $I);
     }
 
     private function givenSomeExtraPlayersAreCreated(array $players, FunctionalTester $I): void

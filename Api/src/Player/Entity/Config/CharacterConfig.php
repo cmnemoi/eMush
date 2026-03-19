@@ -159,6 +159,13 @@ class CharacterConfig
         return $this;
     }
 
+    public function hasInitStatus(string $statusName): bool
+    {
+        return !$this->initStatuses
+            ->filter(static fn (StatusConfig $status) => $status->getStatusName() === $statusName)
+            ->isEmpty();
+    }
+
     public function getActionConfigs(): Collection
     {
         return $this->actionConfigs;

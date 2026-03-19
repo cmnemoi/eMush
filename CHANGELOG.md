@@ -1,3 +1,16 @@
+## [0.25.3](https://gitlab.com/eternaltwin/mush/mush/compare/0.25.2...0.25.3) (2026-03-19)
+
+
+### Bug Fixes
+
+* bodyguard public log, cannot be executed on current target (nor stack), costs 1 AP ([f992e21](https://gitlab.com/eternaltwin/mush/mush/commit/f992e213e09a0e19d2673af97550cc4e8021e02e))
+* disease treated log being displayed when disease is cured ([392481f](https://gitlab.com/eternaltwin/mush/mush/commit/392481ff4c57ce19b7c7193c143ba31dd7e93657))
+* eden and sol ending not giving triumph ([1f8b263](https://gitlab.com/eternaltwin/mush/mush/commit/1f8b263bd0ad33e567d380f79bad6ef8dbc04857))
+* higher contrast contour on bodyguard icon ([569e5f7](https://gitlab.com/eternaltwin/mush/mush/commit/569e5f7640ca137cc10c85887eda0f8ceb6eb044))
+* new Crowdin translations ([517ac27](https://gitlab.com/eternaltwin/mush/mush/commit/517ac27450b0502ba76a7e7fcf878d8b288899dc))
+* search_fail is secret too ([ba202aa](https://gitlab.com/eternaltwin/mush/mush/commit/ba202aa94db70b84fe0b47eed751b678f979a0f7))
+* ze list do not contain the name of dead immune players ([c15a126](https://gitlab.com/eternaltwin/mush/mush/commit/c15a1266863d79e83691368c6df5590756c736a8))
+
 ## [0.25.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.25.1...0.25.2) (2026-03-15)
 
 

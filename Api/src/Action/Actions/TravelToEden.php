@@ -80,7 +80,7 @@ final class TravelToEden extends AbstractAction
 
     private function getEndTags(): array
     {
-        $tags = $this->getActionConfig()->getTypes();
+        $tags = $this->getActionConfig()->getActionTags();
         if ($this->player->getDaedalus()->getAlivePlayers()->hasPlayerWithStatus(PlayerStatusEnum::MUSH)) {
             $tags[] = EndCauseEnum::EDEN_INFECTED;
         } else {

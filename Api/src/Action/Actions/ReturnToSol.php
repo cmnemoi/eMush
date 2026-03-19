@@ -71,7 +71,7 @@ final class ReturnToSol extends AbstractAction
 
     private function getEndTags(): array
     {
-        $tags = $this->getActionConfig()->getTypes();
+        $tags = $this->getActionConfig()->getActionTags();
         if ($this->player->getDaedalus()->getAlivePlayers()->hasPlayerWithStatus(PlayerStatusEnum::MUSH)) {
             $tags[] = EndCauseEnum::SOL_RETURN_INFECTED;
         } else {

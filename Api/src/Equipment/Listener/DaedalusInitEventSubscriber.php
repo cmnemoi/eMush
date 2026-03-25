@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Listener;
 
+use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Place\Entity\Place;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class DaedalusInitEventSubscriber implements EventSubscriberInterface
@@ -42,7 +44,7 @@ final readonly class DaedalusInitEventSubscriber implements EventSubscriberInter
         foreach ($spawnedBlueprints as $blueprintName) {
             $this->gameEquipmentService->createGameEquipmentFromName(
                 equipmentName: $blueprintName,
-                equipmentHolder: $this->randomService->getRandomElement($daedalus->getStorages()->toArray()),
+                equipmentHolder: $this->randomService->getRandomElement($daedalus->getRooms()->toArray()),
                 reasons: $reasons,
                 time: $time
             );
@@ -51,10 +53,18 @@ final readonly class DaedalusInitEventSubscriber implements EventSubscriberInter
         $this->daedalusRepository->save($daedalus);
 
         // spawn random items
+        /** @var RandomItemPlaces[] $randomItemPlaces */
         $randomItemPlaces = $daedalusConfig->getRandomItemPlaces();
-        if ($randomItemPlaces) {
-            foreach ($randomItemPlaces->getItems() as $itemName) {
-                $roomName = $this->randomService->getRandomElement($randomItemPlaces->getPlaces());
+
+        foreach ($randomItemPlaces as $randomItemPlace) {
+            $randomItemPlacePool = array_intersect($randomItemPlace->getPlaces(), $daedalus->getPlaces()->map(static fn (Place $place) => $place->getName())->toArray());
+
+            if (\count($randomItemPlacePool) === 0) {
+                continue;
+            }
+
+            foreach ($randomItemPlace->getItems() as $itemName) {
+                $roomName = $this->randomService->getRandomElement($randomItemPlacePool);
                 $room = $daedalus->getPlaceByNameOrThrow($roomName);
 
                 $this->gameEquipmentService->createGameEquipmentFromName(

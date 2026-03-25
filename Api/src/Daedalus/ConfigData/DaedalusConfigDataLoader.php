@@ -78,10 +78,17 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
 
     private function setDaedalusConfigRandomItemPlaces(DaedalusConfig $daedalusConfig, array $daedalusConfigData): void
     {
-        $randomItemPlaces = $this->randomItemPlacesRepository->findOneBy(['name' => $daedalusConfigData['randomItemPlaces']]);
+        $randomItemPlaceNames = $daedalusConfigData['randomItemPlaces'];
+        $randomItemPlaces = [];
 
-        if ($randomItemPlaces === null) {
-            throw new \Exception("RandomItemPlaces {$daedalusConfigData['randomItemPlaces']} not found!");
+        foreach ($randomItemPlaceNames as $randomItemPlaceName) {
+            $randomItemPlace = $this->randomItemPlacesRepository->findOneBy(['name' => $randomItemPlaceName]);
+
+            if ($randomItemPlace === null) {
+                throw new \Exception("RandomItemPlace {$randomItemPlaceName} not found!");
+            }
+
+            $randomItemPlaces[] = $randomItemPlace;
         }
 
         $daedalusConfig->setRandomItemPlaces($randomItemPlaces);

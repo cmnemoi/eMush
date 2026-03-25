@@ -10,7 +10,7 @@ export class DaedalusConfig {
     public initFuel: number|null;
     public initHull: number|null;
     public initShield: number|null;
-    public randomItemPlaces: RandomItemPlaces|null;
+    public randomItemPlaces: Array<RandomItemPlaces>|null;
     public placeConfigs: Array<PlaceConfig>|null;
     public dailySporeNb: number|null;
     public maxOxygen: number|null;
@@ -29,7 +29,7 @@ export class DaedalusConfig {
         this.initFuel = null;
         this.initHull = null;
         this.initShield = null;
-        this.randomItemPlaces = null;
+        this.randomItemPlaces = [];
         this.placeConfigs = [];
         this.dailySporeNb = null;
         this.maxOxygen = null;
@@ -58,7 +58,10 @@ export class DaedalusConfig {
             this.cyclePerGameDay = object.cyclePerGameDay;
             this.cycleLength = object.cycleLength;
             if (typeof object.randomItemPlaces !== "undefined") {
-                this.randomItemPlaces = (new RandomItemPlaces()).load(object.randomItemPlaces);
+                this.randomItemPlaces = [];
+                for (const randomItemPlace of object.randomItemPlaces) {
+                    this.randomItemPlaces.push(new RandomItemPlaces().load(randomItemPlace));
+                }
             }
             if (typeof object.placeConfigs !== "undefined") {
                 this.placeConfigs = [];
@@ -70,7 +73,8 @@ export class DaedalusConfig {
         return this;
     }
     jsonEncode() : object {
-        const randomItemPlaces = this.randomItemPlaces?.iri;
+        const randomItemPlaces : string[] = [];
+        this.randomItemPlaces?.forEach(randomItemPlace => (typeof randomItemPlace.iri === 'string' ? randomItemPlaces.push(randomItemPlace.iri) : null));
         const placeConfigs : string[] = [];
         this.placeConfigs?.forEach(placeConfig => (typeof placeConfig.iri === 'string' ? placeConfigs.push(placeConfig.iri) : null));
         return {

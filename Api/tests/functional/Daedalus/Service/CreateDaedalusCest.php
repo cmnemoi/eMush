@@ -82,7 +82,8 @@ class CreateDaedalusCest
                 RoomEnum::CENTRAL_CORRIDOR,
                 RoomEnum::FRONT_CORRIDOR,
             ]);
-        $daedalusConfig->setRandomItemPlaces($randomItemPlaces);
+        $I->haveInRepository($randomItemPlaces);
+        $daedalusConfig->setRandomItemPlaces([$randomItemPlaces]);
         $I->haveInRepository($daedalusConfig);
 
         // status config

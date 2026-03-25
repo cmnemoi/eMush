@@ -27,7 +27,10 @@ class DaedalusConfigData
             'nbMush' => 2,
             'cyclePerGameDay' => 8,
             'cycleLength' => 180,
-            'randomItemPlaces' => 'default',
+            'randomItemPlaces' => [
+                'daedalus_default',
+                'storage_default',
+            ],
             'startingApprentrons' => [
                 'apprentron_technician' => 14,
                 'apprentron_pilot' => 12,

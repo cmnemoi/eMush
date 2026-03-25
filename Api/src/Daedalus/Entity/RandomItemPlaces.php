@@ -5,7 +5,6 @@ namespace Mush\Daedalus\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'config_random_item_place')]
 class RandomItemPlaces
 {
     #[ORM\Id]

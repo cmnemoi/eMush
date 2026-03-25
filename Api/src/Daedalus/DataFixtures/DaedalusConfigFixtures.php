@@ -62,9 +62,10 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
                 'grenade_blueprint',
             ])
             ->setPlaces(RoomEnum::getStorages());
+        $manager->persist($randomStorageItemPlaces);
 
         $daedalusConfig
-            ->setRandomItemPlaces($randomStorageItemPlaces)
+            ->setRandomItemPlaces([$randomStorageItemPlaces])
             ->setHoliday(HolidayEnum::NONE);
 
         $manager->persist($daedalusConfig);

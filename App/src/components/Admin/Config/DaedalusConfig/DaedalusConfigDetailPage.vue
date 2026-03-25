@@ -99,11 +99,22 @@
                 :errors="errors.cycleLength"
             ></Input>
         </div>
+        <h3>{{ $t('admin.daedalusConfig.randomItemPlaces') }}</h3>
+        <ChildCollectionManager
+            :children="daedalusConfig.randomItemPlaces"
+            id="daedalusConfig_randomItemPlaces"
+            @add-id="selectNewRandomItemPlacePool"
+            @remove="removeRandomItemPlacePool"
+        >
+            <template #header="child">
+                <span :title="child.name"><strong>{{ child.id }}</strong> - {{ child.name }}</span>
+            </template>
+        </ChildCollectionManager>
         <h3>{{ $t('admin.daedalusConfig.placeConfigs') }}</h3>
         <ChildCollectionManager
             :children="daedalusConfig.placeConfigs"
             id="daedalusConfig_placeConfigs"
-            @add-id="selectNewPlaceConfigs"
+            @add-id="selectNewPlaceConfig"
             @remove="removePlaceConfig"
         >
             <template #header="child">
@@ -152,20 +163,11 @@ export default defineComponent({
 
             const newDaedalusConfig = this.daedalusConfig;
             newDaedalusConfig.id = null;
-            if (this.daedalusConfig.randomItemPlaces){
-                const newRandomItemPlaces = this.daedalusConfig.randomItemPlaces;
-                newRandomItemPlaces.id = null;
-                newRandomItemPlaces.name = newDaedalusConfig.name;
-                GameConfigService.createRandomItemPlaces(newRandomItemPlaces)
-                    .then((res: RandomItemPlaces | null) => {
-                        newDaedalusConfig.randomItemPlaces = res;
-                        GameConfigService.createDaedalusConfig(newDaedalusConfig)
-                            .then((res: DaedalusConfig | null) => {
-                                const newDaedalusConfigUrl = urlJoin(import.meta.env.VITE_APP_URL + "/config/daedalus-config", String(res?.id));
-                                window.location.href = newDaedalusConfigUrl;
-                            });
-                    });
-            }
+            GameConfigService.createDaedalusConfig(newDaedalusConfig)
+                .then((res: DaedalusConfig | null) => {
+                    const newDaedalusConfigUrl = urlJoin(import.meta.env.VITE_APP_URL + "/config/daedalus-config", String(res?.id));
+                    window.location.href = newDaedalusConfigUrl;
+                });
         },
         update(): void {
             if (this.daedalusConfig === null) {
@@ -176,10 +178,15 @@ export default defineComponent({
                 .then((res: DaedalusConfig | null) => {
                     this.daedalusConfig = res;
                     if (this.daedalusConfig !== null) {
-                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'daedalus_configs', String(this.daedalusConfig.id), 'random_item_places'))
+                        ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'daedalus_configs', String(this.daedalusConfig.id), 'random_item_places?pagination=false'))
                             .then((result) => {
+                                const randomItemPlaces: RandomItemPlaces[] = [];
+                                result.data['hydra:member'].forEach((datum: any) => {
+                                    const currentRandomItemPlace = (new RandomItemPlaces()).load(datum);
+                                    randomItemPlaces.push(currentRandomItemPlace);
+                                });
                                 if (this.daedalusConfig instanceof DaedalusConfig) {
-                                    this.daedalusConfig.randomItemPlaces = (new RandomItemPlaces()).load(result.data);
+                                    this.daedalusConfig.randomItemPlaces = randomItemPlaces;
                                 }
                             });
                         ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'daedalus_configs', String(this.daedalusConfig.id), 'place_configs?pagination=false'))
@@ -209,7 +216,7 @@ export default defineComponent({
                     }
                 });
         },
-        selectNewPlaceConfigs(selectedId: number): void {
+        selectNewPlaceConfig(selectedId: number): void {
             GameConfigService.loadPlaceConfig(selectedId).then((res) => {
                 if (res && this.daedalusConfig && this.daedalusConfig.placeConfigs) {
                     this.daedalusConfig.placeConfigs.push(res);
@@ -220,16 +227,33 @@ export default defineComponent({
             if (this.daedalusConfig && this.daedalusConfig.placeConfigs) {
                 this.daedalusConfig.placeConfigs = removeItem(this.daedalusConfig.placeConfigs, child);
             }
+        },
+        selectNewRandomItemPlacePool(selectedId: number): void {
+            GameConfigService.loadRandomItemPlaces(selectedId).then((res) => {
+                if (res && this.daedalusConfig && this.daedalusConfig.randomItemPlaces) {
+                    this.daedalusConfig.randomItemPlaces.push(res);
+                }
+            });
+        },
+        removeRandomItemPlacePool(child: any): void {
+            if (this.daedalusConfig && this.daedalusConfig.randomItemPlaces) {
+                this.daedalusConfig.randomItemPlaces = removeItem(this.daedalusConfig.randomItemPlaces, child);
+            }
         }
     },
     beforeMount() {
         const daedalusConfigId = String(this.$route.params.daedalusConfigId);
         GameConfigService.loadDaedalusConfig(Number(daedalusConfigId)).then((res: DaedalusConfig | null) => {
             this.daedalusConfig = res;
-            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'daedalus_configs', daedalusConfigId, 'random_item_places'))
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'daedalus_configs', daedalusConfigId, 'random_item_places?pagination=false'))
                 .then((result) => {
+                    const randomItemPlaces: RandomItemPlaces[] = [];
+                    result.data['hydra:member'].forEach((datum: any) => {
+                        const currentRandomItemPlace = (new RandomItemPlaces()).load(datum);
+                        randomItemPlaces.push(currentRandomItemPlace);
+                    });
                     if (this.daedalusConfig instanceof DaedalusConfig) {
-                        this.daedalusConfig.randomItemPlaces = (new RandomItemPlaces()).load(result.data);
+                        this.daedalusConfig.randomItemPlaces = randomItemPlaces;
                     }
                 });
             ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'daedalus_configs', daedalusConfigId, 'place_configs?pagination=false'))

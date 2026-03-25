@@ -422,6 +422,7 @@
 			"nbMush": "Initial number of Mushs",
 			"cyclePerGameDay": "Number of cycles per day",
 			"cycleLength": "Cycle length (in minutes)",
+			"randomItemPlaces": "Random Item Places",
 			"placeConfigs": "Rooms"
 		},
 		"difficultyConfig": {

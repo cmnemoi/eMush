@@ -152,7 +152,7 @@ final class DaedalusServiceTest extends TestCase
             ->setInitHull(4)
             ->setDailySporeNb(4)
             ->setPlaceConfigs(new ArrayCollection([$roomConfig]))
-            ->setRandomItemPlaces($randomItem);
+            ->setRandomItemPlaces([$randomItem]);
         $gameConfig
             ->setDaedalusConfig($daedalusConfig)
             ->setEquipmentsConfig(new ArrayCollection([$item]));

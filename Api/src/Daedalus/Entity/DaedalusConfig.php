@@ -59,8 +59,8 @@ class DaedalusConfig
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $startingApprentrons = [];
 
-    #[ORM\OneToOne(targetEntity: RandomItemPlaces::class, cascade: ['ALL'])]
-    private ?RandomItemPlaces $randomItemPlaces = null;
+    #[ORM\ManyToMany(targetEntity: RandomItemPlaces::class)]
+    private Collection $randomItemPlaces;
 
     #[ORM\ManyToMany(targetEntity: PlaceConfig::class)]
     private Collection $placeConfigs;
@@ -248,13 +248,20 @@ class DaedalusConfig
         return $this;
     }
 
-    public function getRandomItemPlaces(): ?RandomItemPlaces
+    public function getRandomItemPlaces(): Collection
     {
         return $this->randomItemPlaces;
     }
 
-    public function setRandomItemPlaces(RandomItemPlaces $randomItemPlaces): static
+    /**
+     * @param array<array-key, RandomItemPlaces>|Collection<array-key, RandomItemPlaces> $randomItemPlaces
+     */
+    public function setRandomItemPlaces(array|Collection $randomItemPlaces): static
     {
+        if (\is_array($randomItemPlaces)) {
+            $randomItemPlaces = new ArrayCollection($randomItemPlaces);
+        }
+
         $this->randomItemPlaces = $randomItemPlaces;
 
         return $this;

@@ -24,4 +24,5 @@ Mush\Daedalus\Entity\DaedalusConfig:
     randomItemPlaces:
       subresource:
         resourceClass: 'Mush\Daedalus\Entity\RandomItemPlaces'
+        collection: true
 

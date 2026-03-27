@@ -1482,5 +1482,34 @@
         <target>{drone} se sent maltraité, et vous le laisse savoir avec une série de bips à l'allure bien insultante.</target>
       </segment>
     </unit>
+    <unit id="pavlov_joined_expedition">
+      <segment id="pavlov_joined_expedition" state="translated">
+        <source>pavlov_joined_expedition</source>
+        <target>:dog: **Pavlov** descend de l'Icarus et se met à sautiller. Avec un bocal en plastique sur la tête, il est paré à toute épreuve !</target>
+      </segment>
+    </unit>
+    <unit id="pavlov_triggered_sector_revisit">
+      <segment id="pavlov_triggered_sector_revisit" state="translated">
+        <source>pavlov_triggered_sector_revisit</source>
+        <target>:dog: Ce secteur **{next_sector}** était tellement fun... on devrait y retourner !</target>
+      </segment>
+    </unit>
+    <unit id="pavlov_ready_for_planet">
+      <segment id="pavlov_ready_for_planet" state="translated">
+        <source>pavlov_ready_for_planet</source>
+        <target>{version, select,
+                1{:dog: **Pavlov** a encore plus de mal à rester calme que d'habitude...}
+                2{:dog: **Pavlov** a les yeux rivés sur la planète. Promenade ? C'est l'heure de la promenade ?}
+                3{:dog: **Pavlov** gémit. Il a hâte de se dégourdir les pattes !}
+                4{:dog: Les pattes arrière de **Pavlov** sont toutes agitées... Quelqu'un a un sac à crottes ?}
+                other{invalid version input}}</target>
+      </segment>
+    </unit>
+    <unit id="pavlov_turbo_worked">
+      <segment id="pavlov_turbo_worked" state="translated">
+        <source>pavlov_turbo_worked</source>
+        <target>La compétence **Missile** de **Pavlov** a porté ses fruits...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

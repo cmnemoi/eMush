@@ -29,4 +29,6 @@ interface ExplorationServiceInterface
     public function getPlanetSectorEventProbaCollection(PlanetSector $sector, Exploration $exploration): ProbaCollection;
 
     public function persist(array $entities): void;
+
+    public function selectNextSectorFromAlreadyVisitedSectors(Exploration $exploration): Exploration;
 }

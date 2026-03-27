@@ -240,6 +240,25 @@ final class ExplorationService implements ExplorationServiceInterface
         return $sectorEvents;
     }
 
+    public function selectNextSectorFromAlreadyVisitedSectors(Exploration $exploration): Exploration
+    {
+        $planet = $exploration->getPlanet();
+
+        // do not roll a next sector if the exploration is about to close
+        if ($exploration->getPlanet()->getVisitedSectors()->isEmpty() || $exploration->getCycle() >= $exploration->getNumberOfSectionsToVisit() + 1) {
+            return $exploration;
+        }
+
+        /** @var PlanetSector $sector */
+        $sector = $this->randomService->getRandomPlanetSectorsToRevisit($planet, 1)->first();
+
+        if ($sector) {
+            $exploration->setNextSector($sector);
+        }
+
+        return $exploration;
+    }
+
     private function drawPlanetSectorEvent(PlanetSector $sector, Exploration $exploration): string
     {
         $sectorEvents = $this->getPlanetSectorEventProbaCollection($sector, $exploration);

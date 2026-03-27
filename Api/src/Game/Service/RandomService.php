@@ -271,6 +271,16 @@ class RandomService implements RandomServiceInterface
         return $this->getPlanetSectorCollectionFromIds($sectorIdsToVisit);
     }
 
+    public function getRandomPlanetSectorsToRevisit(Planet $planet, int $number): ArrayCollection
+    {
+        $sectorIdsToVisit = $this->getRandomElementsFromProbaCollection(
+            array: $this->getPlanetSectorsToRevisitProbaCollection($planet),
+            number: $number,
+        );
+
+        return $this->getPlanetSectorCollectionFromIds($sectorIdsToVisit);
+    }
+
     public function getRandomXylophNameToDecode(array $xylophArray): int|string|null
     {
         $xylophProbaCollection = $this->getXylophNameProbaCollection($xylophArray);
@@ -294,6 +304,29 @@ class RandomService implements RandomServiceInterface
             }
 
             $probaCollection->setElementProbability($sector->getId(), $chanceToVisitSector);
+        }
+
+        return $probaCollection;
+    }
+
+    public function getPlanetSectorsToRevisitProbaCollection(Planet $planet): ProbaCollection
+    {
+        $probaCollection = new ProbaCollection();
+        foreach ($planet->getVisitedSectors() as $sector) {
+            $chanceToVisitSector = $sector->getWeightAtPlanetExploration();
+            if ($sector->getName() === PlanetSectorEnum::HYDROCARBON && $planet->getExploration()?->hasAFunctionalEcholocator()) {
+                $chanceToVisitSector *= 5;
+            }
+            if (PlanetSectorEnum::getLifeForms()->contains($sector->getName()) && $planet->getExploration()?->hasAFunctionalThermosensor()) {
+                $chanceToVisitSector *= 5;
+            }
+            if (PlanetSectorEnum::getEvilCompassSectors()->contains($sector->getName()) && $planet->getExploration()?->hasACursedCompass()) {
+                $chanceToVisitSector *= 5;
+            }
+
+            if (!PlanetSectorEnum::getNotRevisitableSectors()->contains($sector->getName())) {
+                $probaCollection->setElementProbability($sector->getId(), $chanceToVisitSector);
+            }
         }
 
         return $probaCollection;

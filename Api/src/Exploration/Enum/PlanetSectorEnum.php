@@ -83,4 +83,13 @@ final class PlanetSectorEnum
             self::SEISMIC_ACTIVITY,
         ]);
     }
+
+    public static function getNotRevisitableSectors(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::OXYGEN,
+            self::HYDROCARBON,
+            self::LOST,
+        ]);
+    }
 }

@@ -1338,5 +1338,34 @@ other{**{target_character}** has been contaminated by a Mush raid during explora
         <target>{drone} feels mistreated, and makes that known with a series of insulting-sounding beeps and boops.</target>
       </segment>
     </unit>
+    <unit id="pavlov_joined_expedition">
+      <segment id="pavlov_joined_expedition" state="translated">
+        <source>pavlov_joined_expedition</source>
+        <target>:dog: **Pavlov** steps out of the Icarus and starts running around. With a plastic fishbowl over his head, he is ready for anything!</target>
+      </segment>
+    </unit>
+    <unit id="pavlov_triggered_sector_revisit">
+      <segment id="pavlov_triggered_sector_revisit" state="translated">
+        <source>pavlov_triggered_sector_revisit</source>
+        <target>:dog: This **{next_sector}** sector was so fun... we should head there again!</target>
+      </segment>
+    </unit>
+    <unit id="pavlov_ready_for_planet">
+      <segment id="pavlov_ready_for_planet" state="translated">
+        <source>pavlov_ready_for_planet</source>
+        <target>{version, select,
+                1{:dog: **Pavlov** is struggling to stay calm even more than usual...}
+                2{:dog: **Pavlov** is staring at the planet below. Walkies? It's time for walkies?}
+                3{:dog: **Pavlov** whines. He's beyond excited to stretch his legs!}
+                4{:dog: **Pavlov**'s hind legs are shaking... Anybody brought a poop bag?}
+                other{invalid version input}}</target>
+      </segment>
+    </unit>
+    <unit id="pavlov_turbo_worked">
+      <segment id="pavlov_turbo_worked" state="translated">
+        <source>pavlov_turbo_worked</source>
+        <target>The **Missile** skill of **Pavlov** has borne fruit...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

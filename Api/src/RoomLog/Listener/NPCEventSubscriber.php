@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\RoomLog\Listener;
 
 use Mush\Equipment\Event\AbstractNPCEvent;
-use Mush\Equipment\Event\AnnoyCatEvent;
 use Mush\Equipment\Event\NPCMovedEvent;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\RoomLog\Enum\LogEnum;
@@ -23,7 +22,6 @@ final class NPCEventSubscriber implements EventSubscriberInterface
     {
         return [
             NPCMovedEvent::class => 'onNPCMoved',
-            AnnoyCatEvent::class => 'onPavlovAnnoyCat',
         ];
     }
 
@@ -41,19 +39,6 @@ final class NPCEventSubscriber implements EventSubscriberInterface
 
         $this->roomLogService->createLog(
             LogEnum::NPC_ENTERED_ROOM,
-            $event->getPlace(),
-            $event->getVisibility(),
-            'event_log',
-            null,
-            $this->getLogParameters($event),
-            $event->getTime()
-        );
-    }
-
-    public function onPavlovAnnoyCat(AnnoyCatEvent $event): void
-    {
-        $this->roomLogService->createLog(
-            LogEnum::DOG_BOTHER_CAT,
             $event->getPlace(),
             $event->getVisibility(),
             'event_log',

@@ -12,9 +12,11 @@ use Mush\Equipment\NPCTasks\Pavlov\AnnoyCatTask;
 use Mush\Equipment\NPCTasks\Pavlov\MoveInRandomAdjacentRoomTask;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -27,11 +29,15 @@ final class PavlovCest extends AbstractFunctionalTest
     private AnnoyCatTask $annoyCat;
     private MoveInRandomAdjacentRoomTask $moveInRandomAdjacentRoomTask;
 
+    private Place $icarusBay;
+    private Place $corridor;
+    private Place $storage;
+
     private GameEquipment $pavlov;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -40,6 +46,13 @@ final class PavlovCest extends AbstractFunctionalTest
         $this->moveInRandomAdjacentRoomTask = $I->grabService(MoveInRandomAdjacentRoomTask::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+
+        $this->icarusBay = $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
+        $this->corridor = $this->createExtraPlace(RoomEnum::REAR_CORRIDOR, $I, $this->daedalus);
+        $this->storage = $this->createExtraPlace(RoomEnum::REAR_ALPHA_STORAGE, $I, $this->daedalus);
+
+        Door::createFromRooms($this->corridor, $this->storage);
+        Door::createFromRooms($this->corridor, $this->icarusBay);
 
         $this->pavlov = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::PAVLOV,
@@ -56,6 +69,53 @@ final class PavlovCest extends AbstractFunctionalTest
         $this->whenPavlovActs();
 
         $this->thenISeeEnteredAndLeftRoomLogsInRepositories($I);
+    }
+
+    public function shouldAnnoyCat(FunctionalTester $I)
+    {
+        $this->annoyCat->setAnnoyCatChance(100);
+
+        $this->createEquipment(ItemEnum::SCHRODINGER, $this->pavlov->getPlace());
+
+        $this->whenPavlovActs();
+
+        $this->thenISeeAnnoyedCatLogInRepository($I);
+    }
+
+    public function shouldWalkOutOnAnnoyFailure(FunctionalTester $I)
+    {
+        $this->annoyCat->setAnnoyCatChance(0);
+        $this->givenFrontCorridorExists($I);
+
+        $this->createEquipment(ItemEnum::SCHRODINGER, $this->pavlov->getPlace());
+
+        $this->whenPavlovActs();
+
+        $this->thenISeeEnteredAndLeftRoomLogsInRepositories($I);
+    }
+
+    public function shouldPreferIcarusBayIfInOrbit(FunctionalTester $I)
+    {
+        // given Pavlov is in rear corridor
+        $this->gameEquipmentService->moveEquipmentTo(
+            $this->pavlov,
+            $this->corridor
+        );
+
+        // given there is a planet
+        $this->createStatusOn(DaedalusStatusEnum::IN_ORBIT, $this->daedalus);
+
+        $this->whenPavlovActs();
+
+        // then it should have entered the Icarus Bay
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY)->getLogName(),
+                'log' => LogEnum::NPC_ENTERED_ROOM,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
     }
 
     private function givenFrontCorridorExists(FunctionalTester $I)
@@ -85,6 +145,18 @@ final class PavlovCest extends AbstractFunctionalTest
             params: [
                 'place' => $this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR)->getLogName(),
                 'log' => LogEnum::NPC_ENTERED_ROOM,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
+    }
+
+    private function thenISeeAnnoyedCatLogInRepository(FunctionalTester $I)
+    {
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->pavlov->getPlace()->getLogName(),
+                'log' => LogEnum::DOG_BOTHER_CAT,
                 'visibility' => VisibilityEnum::PUBLIC,
             ]
         );

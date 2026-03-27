@@ -105,6 +105,10 @@ abstract class LogEnum
     public const string EXPLORATION_EVENT_PREVIEW = 'exploration_event_preview';
     public const string FOUND_PROTECTIONS = 'found_protections';
     public const string REVISED_KNOWLEDGE = 'revised_knowledge';
+    public const string PAVLOV_JOINED_EXPEDITION = 'pavlov_joined_expedition';
+    public const string PAVLOV_TRIGGERED_SECTOR_REVISIT = 'pavlov_triggered_sector_revisit';
+    public const string PAVLOV_READY_FOR_PLANET = 'pavlov_ready_for_planet';
+    public const string PAVLOV_TURBO_WORKED = 'pavlov_turbo_worked';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

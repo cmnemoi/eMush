@@ -8,6 +8,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\AIHandlerEnum;
 use Mush\Equipment\NPCTasks\Pavlov\AnnoyCatTask;
 use Mush\Equipment\NPCTasks\Pavlov\MoveInRandomAdjacentRoomTask;
+use Mush\Equipment\NPCTasks\Pavlov\MoveTowardsIcarusBayTask;
 
 /**
  * Handles Pavlov the dog, for April Fools.
@@ -18,14 +19,21 @@ class DogTasksHandler extends AbstractAiHandler
     protected string $name = AIHandlerEnum::PAVLOV->value;
 
     public function __construct(
+        private MoveTowardsIcarusBayTask $moveTowardsIcarusBayTask,
         private AnnoyCatTask $annoyCatTask,
         private MoveInRandomAdjacentRoomTask $moveInRandomAdjacentRoomTask
     ) {
+        $moveTowardsIcarusBayTask->setNextDogTask($annoyCatTask);
         $annoyCatTask->setNextDogTask($moveInRandomAdjacentRoomTask);
     }
 
     public function execute(GameEquipment $NPC, \DateTime $time): void
     {
-        $this->annoyCatTask->execute($NPC, $time);
+        // ignore Pavlov if he's on a planet
+        if ($NPC->getPlace()->isNotARoom()) {
+            return;
+        }
+
+        $this->moveTowardsIcarusBayTask->execute($NPC, $time);
     }
 }

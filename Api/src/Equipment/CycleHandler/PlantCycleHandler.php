@@ -7,6 +7,7 @@ namespace Mush\Equipment\CycleHandler;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
+use Mush\Daedalus\Service\GetHolidayForDaedalusService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -41,7 +42,8 @@ final class PlantCycleHandler extends AbstractCycleHandler
         private GameEquipmentServiceInterface $gameEquipmentService,
         private RandomServiceInterface $randomService,
         private EquipmentEffectServiceInterface $equipmentEffectService,
-        private StatusServiceInterface $statusService
+        private StatusServiceInterface $statusService,
+        private GetHolidayForDaedalusService $getHolidayForDaedalusService
     ) {}
 
     public function handleNewCycle(GameEquipment $gameEquipment, \DateTime $dateTime): void
@@ -264,6 +266,6 @@ final class PlantCycleHandler extends AbstractCycleHandler
 
     private function isHalloweenEvent(GameEquipment $gamePlant): bool
     {
-        return $gamePlant->getDaedalus()->getDaedalusConfig()->getHoliday() === HolidayEnum::HALLOWEEN;
+        return $this->getHolidayForDaedalusService->execute($gamePlant->getDaedalus()) === HolidayEnum::HALLOWEEN;
     }
 }

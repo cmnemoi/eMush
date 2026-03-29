@@ -6,6 +6,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Chat\Services\NeronMessageServiceInterface;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Service\GetHolidayForDaedalusService;
 use Mush\Game\Enum\HolidayEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -18,7 +19,8 @@ class DaedalusSubscriber implements EventSubscriberInterface
 
     public function __construct(
         NeronMessageServiceInterface $neronMessageService,
-        TranslationServiceInterface $translationService
+        TranslationServiceInterface $translationService,
+        private GetHolidayForDaedalusService $getHolidayForDaedalusService
     ) {
         $this->neronMessageService = $neronMessageService;
         $this->translationService = $translationService;
@@ -83,7 +85,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
     private function handleEventBeginMessage(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        $holiday = $daedalus->getDaedalusConfig()->getHoliday();
+        $holiday = $this->getHolidayForDaedalusService->execute($daedalus);
         $tags = $event->getTags();
         $time = $event->getTime();
 

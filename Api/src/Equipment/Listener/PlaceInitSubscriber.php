@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\Listener;
 
+use Mush\Daedalus\Service\GetHolidayForDaedalusService;
 use Mush\Equipment\Entity\Config\SpaceShipConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -24,6 +25,7 @@ class PlaceInitSubscriber implements EventSubscriberInterface
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
         EquipmentServiceInterface $equipmentService,
+        private GetHolidayForDaedalusService $getHolidayForDaedalusService
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->equipmentService = $equipmentService;
@@ -111,7 +113,7 @@ class PlaceInitSubscriber implements EventSubscriberInterface
         $place = $event->getPlace();
         $daedalus = $place->getDaedalus();
 
-        return $daedalus->getDaedalusConfig()->getHoliday() === HolidayEnum::APRIL_FOOLS && $place->getName() === RoomEnum::LABORATORY;
+        return $this->getHolidayForDaedalusService->execute($daedalus) === HolidayEnum::APRIL_FOOLS && $place->getName() === RoomEnum::LABORATORY;
     }
 
     private function createAprilFoolsPavlov(PlaceInitEvent $event): void

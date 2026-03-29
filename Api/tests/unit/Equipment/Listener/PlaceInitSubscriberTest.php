@@ -7,6 +7,7 @@ namespace Mush\Tests\unit\Equipment\Listener;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Service\GetHolidayForDaedalusService;
 use Mush\Equipment\Entity\Config\SpaceShipConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Listener\PlaceInitSubscriber;
@@ -39,6 +40,7 @@ final class PlaceInitSubscriberTest extends TestCase
         $this->placeInitSubscriber = new PlaceInitSubscriber(
             $this->gameEquipmentService,
             $this->equipmentService,
+            new GetHolidayForDaedalusService(),
         );
     }
 

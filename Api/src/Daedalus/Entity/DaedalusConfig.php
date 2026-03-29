@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Enum\CharacterSetEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
-use Mush\Game\Enum\HolidayEnum;
 use Mush\Place\Entity\PlaceConfig;
 
 #[ORM\Entity]
@@ -445,23 +444,12 @@ class DaedalusConfig
 
     public function getHoliday(): string
     {
-        if ($this->holiday === HolidayEnum::CURRENT) {
-            $this->setHoliday(HolidayEnum::CURRENT);
-        }
-
         return $this->holiday;
     }
 
     public function setHoliday(string $holiday): static
     {
-        $this->holiday = match ($holiday) {
-            HolidayEnum::CURRENT => $this->getCurrentHoliday(),
-            HolidayEnum::ANNIVERSARY => HolidayEnum::ANNIVERSARY,
-            HolidayEnum::HALLOWEEN => HolidayEnum::HALLOWEEN,
-            HolidayEnum::NONE => HolidayEnum::NONE,
-            HolidayEnum::APRIL_FOOLS => HolidayEnum::APRIL_FOOLS,
-            default => throw new \LogicException("{$holiday} is not a valid holiday check method"),
-        };
+        $this->holiday = $holiday;
 
         return $this;
     }
@@ -526,24 +514,6 @@ class DaedalusConfig
         return $this;
     }
 
-    public function getCurrentHoliday(): string
-    {
-        if ($this->isAnniversary()) {
-            return HolidayEnum::ANNIVERSARY;
-        }
-
-        if ($this->isAprilFools()) {
-            return HolidayEnum::APRIL_FOOLS;
-        }
-
-        if ($this->isHalloween()) {
-            return HolidayEnum::HALLOWEEN;
-        }
-
-        // check again next time getHoliday is called
-        return HolidayEnum::CURRENT;
-    }
-
     public function getPlayerCount(): int
     {
         return $this->playerCount;
@@ -578,26 +548,5 @@ class DaedalusConfig
         $this->freeLove = $freeLove;
 
         return $this;
-    }
-
-    private function isAnniversary(): bool
-    {
-        $currentDate = new \DateTime();
-
-        return $currentDate->format('j') >= 3 && $currentDate->format('j') <= 31 && $currentDate->format('F') === 'January';
-    }
-
-    private function isAprilFools(): bool
-    {
-        $currentDate = new \DateTime();
-
-        return $currentDate->format('j') <= 14 && $currentDate->format('F') === 'April';
-    }
-
-    private function isHalloween(): bool
-    {
-        $currentDate = new \DateTime();
-
-        return ($currentDate->format('j') >= 17 && $currentDate->format('F') === 'October') || ($currentDate->format('j') <= 14 && $currentDate->format('F') === 'November');
     }
 }

@@ -7,6 +7,7 @@ use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Service\PatrolShipManoeuvreServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Service\GetHolidayForDaedalusService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\ItemEnum;
@@ -29,6 +30,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         private GameEquipmentServiceInterface $gameEquipmentService,
         private PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService,
         private RandomServiceInterface $randomService,
+        private GetHolidayForDaedalusService $getHolidayForDaedalusService
     ) {}
 
     public static function getSubscribedEvents(): array
@@ -49,7 +51,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     {
         $this->createRandomApprentronInStorage($event);
         $this->spawnMushSample($event);
-        if ($event->getDaedalus()->getDaedalusConfig()->getHoliday() === HolidayEnum::ANNIVERSARY) {
+        if ($this->getHolidayForDaedalusService->execute($event->getDaedalus()) === HolidayEnum::ANNIVERSARY) {
             $this->createPresentsInPlayerInventories($event);
         }
     }

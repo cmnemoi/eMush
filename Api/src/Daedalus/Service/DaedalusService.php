@@ -31,7 +31,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Repository\LocalizationConfigRepository;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -59,7 +58,6 @@ class DaedalusService implements DaedalusServiceInterface
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
     private FunFactsServiceInterface $funFactsService;
-    private GameConfigServiceInterface $gameConfigService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -74,6 +72,7 @@ class DaedalusService implements DaedalusServiceInterface
         PlayerServiceInterface $playerService,
         StatusServiceInterface $statusService,
         FunFactsServiceInterface $funFactsService,
+        private GetHolidayForDaedalusService $getHolidayForDaedalusService
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
@@ -483,7 +482,7 @@ class DaedalusService implements DaedalusServiceInterface
         $allCharacters = $daedalus->getGameConfig()->getCharactersConfig();
         $playerCount = $daedalus->getDaedalusConfig()->getPlayerCount();
 
-        if ($daedalus->getDaedalusConfig()->getHoliday() === HolidayEnum::APRIL_FOOLS) {
+        if ($this->getHolidayForDaedalusService->execute($daedalus) === HolidayEnum::APRIL_FOOLS) {
             $randomCharacters = $this->randomService->getRandomElements($allCharacters->toArray(), $playerCount);
             $daedalus->setAvailableCharacters(new CharacterConfigCollection());
             foreach ($randomCharacters as $randomCharacter) {

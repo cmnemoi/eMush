@@ -206,7 +206,8 @@ final class InfectPlayerCest extends AbstractFunctionalTest
 
     private function givenDaedalusIsRegisteredAsFull(): void
     {
-        $this->daedalus->setFilledAt(new \DateTime());
+        $this->daedalus->setFilledAt(new \DateTime('2026-01-15T15:00:00+01:00'));
+        $this->daedalus->setCycleStartedAt(new \DateTime('2026-01-15T14:00:00+01:00'));
     }
 
     private function givenCustomAllNewMushRewardsWithTriumph(int $quantity): void

@@ -19,6 +19,7 @@ use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Repository\TitlePriorityRepositoryInterface;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Daedalus\Service\FunFactsServiceInterface;
+use Mush\Daedalus\Service\GetHolidayForDaedalusService;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
@@ -87,6 +88,7 @@ final class DaedalusServiceTest extends TestCase
     private TitlePriorityRepositoryInterface $titlePriorityRepository;
 
     private DaedalusService $service;
+    private GetHolidayForDaedalusService $getHolidayForDaedalusService;
 
     /**
      * @before
@@ -105,6 +107,7 @@ final class DaedalusServiceTest extends TestCase
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
         $this->funFactsService = \Mockery::mock(FunFactsServiceInterface::class);
         $this->titlePriorityRepository = self::createStub(TitlePriorityRepositoryInterface::class);
+        $this->getHolidayForDaedalusService = new GetHolidayForDaedalusService();
 
         $this->service = new DaedalusService(
             $this->entityManager,
@@ -119,6 +122,7 @@ final class DaedalusServiceTest extends TestCase
             $this->playerService,
             $this->statusService,
             $this->funFactsService,
+            $this->getHolidayForDaedalusService,
         );
     }
 

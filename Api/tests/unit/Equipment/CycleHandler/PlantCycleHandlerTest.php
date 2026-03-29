@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Daedalus\Service\GetHolidayForDaedalusService;
 use Mush\Equipment\CycleHandler\PlantCycleHandler;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
@@ -59,6 +60,7 @@ final class PlantCycleHandlerTest extends TestCase
             $this->randomService,
             $this->equipmentEffectService,
             $this->statusService,
+            new GetHolidayForDaedalusService()
         );
 
         $this->daedalus = DaedalusFactory::createDaedalus();

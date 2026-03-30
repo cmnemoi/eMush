@@ -332,6 +332,18 @@ class RandomService implements RandomServiceInterface
         return $probaCollection;
     }
 
+    public function getApprentonFromDaedalus(Daedalus $daedalus, int $amount): ArrayCollection
+    {
+        return new ArrayCollection($this->getRandomElementsFromProbaCollection($daedalus->getDaedalusConfig()->getStartingApprentrons(), $amount));
+    }
+
+    public function getBlueprintFromDaedalus(Daedalus $daedalus, int $amount): ArrayCollection
+    {
+        $availableBlueprints = $daedalus->getDaedalusConfig()->getRandomBlueprints()->withdrawElements($daedalus->getUniqueItems()->getStartingBlueprints());
+
+        return new ArrayCollection($this->getRandomElementsFromProbaCollection($availableBlueprints, $amount));
+    }
+
     private function getPlanetSectorsToRevealProbaCollection(Planet $planet): ProbaCollection
     {
         $probaCollection = new ProbaCollection();

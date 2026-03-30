@@ -444,11 +444,11 @@
       </segment>
       <segment id="trash_load.description" state="translated">
         <source>trash_load.description</source>
-        <target>Génère 4 débris métalliques et 4 débris plastiques en Salle des moteurs.</target>
+        <target>Fait apparaître 5 objets relativement utiles dans les stockages.</target>
       </segment>
       <segment id="trash_load.lore" state="translated">
         <source>trash_load.lore</source>
-        <target>L'ennemi est trop coriace ? Mettez donc un peu de fer dans les épinards !</target>
+        <target>La majorité du contenu des stockages ne vous sert à rien dans la situation actuelle. Des ballons de plage, des vêtements de rechange, des tentes et de la crème solaire... Vous étiez sensés être réveillés une fois à destination, en même temps. Mais en les passant au peigne fin, vous devriez pouvoir retrouver des choses avec un peu plus d'utilité que prévu.</target>
       </segment>
     </unit>
     <unit id="food_retailer">

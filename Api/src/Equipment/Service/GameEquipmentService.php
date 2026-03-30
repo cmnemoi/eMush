@@ -3,6 +3,7 @@
 namespace Mush\Equipment\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -17,6 +18,7 @@ use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\DroneNicknameEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -133,7 +135,9 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
         string $visibility = VisibilityEnum::HIDDEN,
         ?Player $author = null
     ): GameEquipment {
-        $config = $this->equipmentService->findByNameAndDaedalus($equipmentName, $equipmentHolder->getPlace()->getDaedalus());
+        $genericName = $this->getNameFromGeneric($equipmentName, $equipmentHolder->getPlace()->getDaedalus());
+
+        $config = $this->equipmentService->findByNameAndDaedalus($genericName ?? $equipmentName, $equipmentHolder->getPlace()->getDaedalus());
 
         return $this->createGameEquipment($config, $equipmentHolder, $reasons, $time, $visibility, $author);
     }
@@ -150,7 +154,9 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
         string $visibility = VisibilityEnum::HIDDEN,
         ?Player $author = null
     ): array {
-        $config = $this->equipmentService->findByNameAndDaedalus($equipmentName, $equipmentHolder->getPlace()->getDaedalus());
+        $genericName = $this->getNameFromGeneric($equipmentName, $equipmentHolder->getPlace()->getDaedalus());
+
+        $config = $this->equipmentService->findByNameAndDaedalus($genericName ?? $equipmentName, $equipmentHolder->getPlace()->getDaedalus());
 
         $equipments = [];
         for ($i = 0; $i < $quantity; ++$i) {
@@ -289,6 +295,14 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
         return $this->equipmentService->findByNameAndDaedalus($equipmentName, $daedalus);
     }
 
+    public function findAllConfigNameByMechanicAndDaedalus(string $mechanic, Daedalus $daedalus): Collection
+    {
+        return $daedalus->getGameConfig()
+            ->getEquipmentsConfig()
+            ->filter(static fn (EquipmentConfig $equipmentConfig) => $equipmentConfig->hasAnyMechanicTypeByName($mechanic))
+            ->map(static fn (EquipmentConfig $equipmentConfig) => $equipmentConfig->getEquipmentName());
+    }
+
     private function getEquipmentFromConfig(
         EquipmentConfig $config,
         EquipmentHolderInterface $holder,
@@ -415,5 +429,18 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
     private function getGameConfig(GameEquipment $gameEquipment): GameConfig
     {
         return $gameEquipment->getHolder()->getDaedalus()->getGameConfig();
+    }
+
+    private function getNameFromGeneric(string $generic, Daedalus $daedalus): ?string
+    {
+        $itemList = match ($generic) {
+            ItemEnum::MAGEBOOK_GENERIC => $this->findAllConfigNameByMechanicAndDaedalus(EquipmentMechanicEnum::BOOK, $daedalus),
+            ItemEnum::MAGEBOOK_STARTING => $this->randomService->getApprentonFromDaedalus($daedalus, 1),
+            ItemEnum::BLUEPRINT_GENERIC => $this->findAllConfigNameByMechanicAndDaedalus(EquipmentMechanicEnum::BLUEPRINT, $daedalus),
+            ItemEnum::BLUEPRINT_DAEDALUS => $this->randomService->getBlueprintFromDaedalus($daedalus, 1),
+            default => null
+        };
+
+        return $itemList === null ? null : $this->randomService->getRandomElement($itemList->toArray());
     }
 }

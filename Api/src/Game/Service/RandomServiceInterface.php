@@ -63,4 +63,8 @@ interface RandomServiceInterface
     public function getRandomPlanetSectorsToRevisit(Planet $planet, int $number): ArrayCollection;
 
     public function getRandomXylophNameToDecode(array $xylophArray): int|string|null;
+
+    public function getApprentonFromDaedalus(Daedalus $daedalus, int $amount): ArrayCollection;
+
+    public function getBlueprintFromDaedalus(Daedalus $daedalus, int $amount): ArrayCollection;
 }

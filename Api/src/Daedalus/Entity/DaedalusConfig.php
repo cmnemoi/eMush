@@ -112,6 +112,9 @@ class DaedalusConfig
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => CharacterSetEnum::FINOLA_CHAO])]
     private string $chaolaToggle = CharacterSetEnum::FINOLA_CHAO;
 
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $trashLoadInventory = [];
+
     public static function fromConfigData(array $configData): self
     {
         $daedalusConfig = new self();
@@ -141,7 +144,8 @@ class DaedalusConfig
             ->setRebelBaseContactDurationMin($configData['rebelBaseContactDurationMin'])
             ->setRebelBaseContactDurationMax($configData['rebelBaseContactDurationMax'])
             ->setStartingRandomBlueprintCount($configData['startingRandomBlueprintCount'])
-            ->setRandomBlueprints($configData['randomBlueprints']);
+            ->setRandomBlueprints($configData['randomBlueprints'])
+            ->setTrashLoadInventory($configData['trashLoadInventory']);
 
         return $daedalusConfig;
     }
@@ -231,6 +235,18 @@ class DaedalusConfig
     public function setInitCombustionChamberFuel(int $initCombustionChamberFuel): static
     {
         $this->initCombustionChamberFuel = $initCombustionChamberFuel;
+
+        return $this;
+    }
+
+    public function geTtrashLoadInventory(): ProbaCollection
+    {
+        return new ProbaCollection($this->trashLoadInventory);
+    }
+
+    public function setTrashLoadInventory(array $trashLoadInventory): static
+    {
+        $this->trashLoadInventory = $trashLoadInventory;
 
         return $this;
     }

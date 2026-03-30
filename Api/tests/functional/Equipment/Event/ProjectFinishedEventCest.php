@@ -273,18 +273,6 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
                 'creationPlaces' => [RoomEnum::NEXUS],
             ],
             [
-                'project' => ProjectName::TRASH_LOAD->value,
-                'equipment' => ItemEnum::METAL_SCRAPS,
-                'quantity' => 4,
-                'creationPlaces' => [RoomEnum::ENGINE_ROOM],
-            ],
-            [
-                'project' => ProjectName::TRASH_LOAD->value,
-                'equipment' => ItemEnum::PLASTIC_SCRAPS,
-                'quantity' => 4,
-                'creationPlaces' => [RoomEnum::ENGINE_ROOM],
-            ],
-            [
                 'project' => ProjectName::HYDROPONIC_INCUBATOR->value,
                 'equipment' => EquipmentEnum::HYDROPONIC_INCUBATOR,
                 'quantity' => 1,

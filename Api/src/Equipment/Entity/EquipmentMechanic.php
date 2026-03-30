@@ -146,4 +146,9 @@ abstract class EquipmentMechanic
         // remove weapon_ prefix and _default suffix
         return str_replace(['weapon_', '_default'], '', $this->getName());
     }
+
+    public function getClass(): string
+    {
+        return static::class;
+    }
 }

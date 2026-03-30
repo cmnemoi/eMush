@@ -73,7 +73,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     {
         $daedalus = $event->getDaedalus();
         $randomStorage = $this->randomService->getRandomElement($daedalus->getStorages()->toArray());
-        $randomApprentron = (string) $this->randomService->getSingleRandomElementFromProbaCollection($daedalus->getDaedalusConfig()->getStartingApprentrons());
+        $randomApprentron = (string) $this->randomService->getApprentonFromDaedalus($daedalus, 1)->first();
 
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: $randomApprentron,

@@ -66,7 +66,8 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
                 ->setStartingRandomBlueprintCount($daedalusConfigData['startingRandomBlueprintCount'])
                 ->setRandomBlueprints($daedalusConfigData['randomBlueprints'])
                 ->setPlayerCount($daedalusConfigData['playerCount'])
-                ->setChaolaToggle($daedalusConfigData['chaolaToggle']);
+                ->setChaolaToggle($daedalusConfigData['chaolaToggle'])
+                ->setTrashLoadInventory($daedalusConfigData['trashLoadInventory']);
 
             $this->setDaedalusConfigRandomItemPlaces($daedalusConfig, $daedalusConfigData);
             $this->setDaedalusConfigPlaceConfigs($daedalusConfig, $daedalusConfigData);

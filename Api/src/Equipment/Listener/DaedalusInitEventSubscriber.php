@@ -36,10 +36,7 @@ final readonly class DaedalusInitEventSubscriber implements EventSubscriberInter
         $time = $event->getTime();
 
         // spawn random blueprints
-        $spawnedBlueprints = $this->randomService->getRandomElementsFromProbaCollection(
-            array: $daedalusConfig->getRandomBlueprints(),
-            number: $daedalusConfig->getStartingRandomBlueprintCount(),
-        );
+        $spawnedBlueprints = $this->randomService->getBlueprintFromDaedalus($daedalus, $daedalusConfig->getStartingRandomBlueprintCount());
 
         foreach ($spawnedBlueprints as $blueprintName) {
             $this->gameEquipmentService->createGameEquipmentFromName(
@@ -49,7 +46,7 @@ final readonly class DaedalusInitEventSubscriber implements EventSubscriberInter
                 time: $time
             );
         }
-        $daedalus->getUniqueItems()->makeStartingBlueprintsUnique($spawnedBlueprints);
+        $daedalus->getUniqueItems()->makeStartingBlueprintsUnique($spawnedBlueprints->toArray());
         $this->daedalusRepository->save($daedalus);
 
         // spawn random items

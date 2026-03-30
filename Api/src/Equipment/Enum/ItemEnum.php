@@ -69,6 +69,12 @@ class ItemEnum
     public const string SCHOOLBOOKS = 'schoolbooks';
     public const string RESET_VACCINE = 'reset_vaccine';
 
+    // generic items : DO NOT GIVE CONFIG
+    public const string MAGEBOOK_STARTING = 'magebook_starting';
+    public const string MAGEBOOK_GENERIC = 'magebook_generic';
+    public const string BLUEPRINT_DAEDALUS = 'blueprint_daedalus';
+    public const string BLUEPRINT_GENERIC = 'blueprint_generic';
+
     public static function getArtefacts(): ArrayCollection
     {
         return new ArrayCollection([

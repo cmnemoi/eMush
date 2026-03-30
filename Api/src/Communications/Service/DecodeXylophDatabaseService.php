@@ -203,10 +203,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
 
     private function receiveMageBooks(Place $queue, int $quantity, array $tags)
     {
-        $mageBookNames = $this->randomService->getRandomElementsFromProbaCollection(
-            array: $queue->getDaedalus()->getDaedalusConfig()->getStartingApprentrons(),
-            number: $quantity
-        );
+        $mageBookNames = $this->randomService->getApprentonFromDaedalus($queue->getDaedalus(), $quantity);
         foreach ($mageBookNames as $mageBook) {
             $this->queueDocumentOfName($mageBook, $queue, $tags);
         }
@@ -215,11 +212,12 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
     private function receiveBlueprints(Place $queue, int $quantity, array $tags)
     {
         $daedalus = $queue->getDaedalus();
-        $availableBlueprints = $daedalus->getDaedalusConfig()->getRandomBlueprints()->withdrawElements($daedalus->getUniqueItems()->getStartingBlueprints());
-        $selectedBlueprints = $this->randomService->getRandomElementsFromProbaCollection($availableBlueprints, $quantity);
+        $selectedBlueprints = $this->randomService->getBlueprintFromDaedalus($daedalus, $quantity);
         foreach ($selectedBlueprints as $blueprint) {
             $this->queueDocumentOfName($blueprint, $queue, $tags);
         }
+
+        $daedalus->getUniqueItems()->makeStartingBlueprintsUnique($selectedBlueprints->toArray());
     }
 
     private function receiveLostResearch(Place $queue, int $negativePercent, array $tags)

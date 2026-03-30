@@ -296,4 +296,11 @@ class EquipmentConfig
 
         return $this;
     }
+
+    public function hasAnyMechanicTypeByName(string $name): bool
+    {
+        $className = EquipmentMechanicEnum::getClassByName($name);
+
+        return $this->getMechanics()->exists(static fn (int $n, EquipmentMechanic $equipmentMechanic) => $equipmentMechanic->getClass() === $className);
+    }
 }

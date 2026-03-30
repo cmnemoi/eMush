@@ -3,6 +3,9 @@
 namespace Mush\Daedalus\ConfigData;
 
 use Mush\Daedalus\Enum\CharacterSetEnum;
+use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\Enum\HolidayEnum;
 use Mush\Place\Enum\RoomEnum;
 
@@ -115,6 +118,21 @@ class DaedalusConfigData
             ],
             'playerCount' => 16,
             'chaolaToggle' => CharacterSetEnum::ONE,
+            'trashLoadInventory' => [
+                ItemEnum::THICK_TUBE => 8,
+                ItemEnum::METAL_SCRAPS => 4,
+                ItemEnum::METAL_SCRAPS . '_bis' => 4,
+                ItemEnum::MAGEBOOK_STARTING => 3,
+                ItemEnum::MAGEBOOK_STARTING . '_bis' => 3,
+                ToolItemEnum::BANDAGE => 2,
+                ItemEnum::ROPE => 2,
+                ItemEnum::ROPE . '_bis' => 2,
+                ItemEnum::KNIFE => 2,
+                ItemEnum::BLUEPRINT_DAEDALUS => 2,
+                ItemEnum::HYDROPOT => 1,
+                GearItemEnum::SOAP => 1,
+                ItemEnum::MEGAPHONE => 1,
+            ],
         ],
     ];
 

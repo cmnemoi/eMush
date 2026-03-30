@@ -848,9 +848,15 @@
       </segment>
     </unit>
     <unit id="target_already_protected">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>target_already_protected.description</source>
         <target>target_already_protected.description</target>
+      </segment>
+    </unit>
+    <unit id="private_property_not_owner">
+      <segment id="description" state="initial">
+        <source>private_property_not_owner.description</source>
+        <target>private_property_not_owner.description</target>
       </segment>
     </unit>
   </file>

@@ -1872,7 +1872,7 @@
       </segment>
       <segment id="x3000" state="translated">
         <source>triumph_3000.name</source>
-        <target>{gender, select, female {Ordenadora} other {Ordenador}} del Mundo</target>
+        <target>{gender, select, female {Creadora} other {Creador}} del Mundo</target>
       </segment>
     </unit>
     <unit id="venerian_disease">
@@ -1901,6 +1901,36 @@
       <segment id="x1" state="translated">
         <source>fortytwo_mandate_1.name</source>
         <target>Ex {gender, select, female {Senadora} other {Senador}} de la Federación</target>
+      </segment>
+    </unit>
+    <unit id="eden_biodiversity">
+      <segment id="name" state="translated">
+        <source>eden_biodiversity.name</source>
+        <target>Biodiversidad edenista</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eden_biodiversity.description</source>
+        <target>Cantidad máxima de especias de plantas llevadas a Eden.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_biodiversity_1.name</source>
+        <target>Devoto de la monocultura</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_biodiversity_3.name</source>
+        <target>Botánico espacial</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_biodiversity_5.name</source>
+        <target>Ecólogo preocupado</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_biodiversity_7.name</source>
+        <target>Praxis ecoterrorista</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_biodiversity_13.name</source>
+        <target>"¿¡De donde salieron todas estas macetas!?"</target>
       </segment>
     </unit>
   </file>

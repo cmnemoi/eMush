@@ -1903,5 +1903,35 @@
         <target>Former Senator of the Federation</target>
       </segment>
     </unit>
+    <unit id="eden_biodiversity">
+      <segment id="name" state="translated">
+        <source>eden_biodiversity.name</source>
+        <target>Edenist Biodiversity</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eden_biodiversity.description</source>
+        <target>Highest number of species of plants brought to Eden.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_biodiversity_1.name</source>
+        <target>Monoculture Cultist</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_biodiversity_3.name</source>
+        <target>Space Botanist</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_biodiversity_5.name</source>
+        <target>Concerned Ecologist</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_biodiversity_7.name</source>
+        <target>Ecoterrorist Praxis</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_biodiversity_13.name</source>
+        <target>"Where are all these pots coming from!?"</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

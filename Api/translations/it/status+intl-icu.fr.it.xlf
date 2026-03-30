@@ -619,5 +619,15 @@
         <target>bodyguard_vip.description</target>
       </segment>
     </unit>
+    <unit id="private_property">
+      <segment id="name" state="initial">
+        <source>private_property.name</source>
+        <target>private_property.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>private_property.description</source>
+        <target>private_property.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

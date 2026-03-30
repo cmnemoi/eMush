@@ -837,7 +837,7 @@
     <unit id="wants_walkies">
       <segment id="description" state="translated">
         <source>wants_walkies.description</source>
-        <target>Pavlov aboie comme un fou! Vu la planète, ça doit l'heure de la promenade! Mais sans combinaison spatiale adaptée, on peut oublier...</target>
+        <target>Pavlov aboie comme un fou! Vu la planète, ça doit l'heure de la promenade! On ne le fera pas revoir ses priorités...</target>
       </segment>
     </unit>
     <unit id="playtime_solo">

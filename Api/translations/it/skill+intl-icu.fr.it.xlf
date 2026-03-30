@@ -931,5 +931,15 @@
         <target>bodyguard.description</target>
       </segment>
     </unit>
+    <unit id="infantryman">
+      <segment id="infantryman.name" state="initial">
+        <source>infantryman.name</source>
+        <target>infantryman.name</target>
+      </segment>
+      <segment id="infantryman.description" state="initial">
+        <source>infantryman.description</source>
+        <target>infantryman.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

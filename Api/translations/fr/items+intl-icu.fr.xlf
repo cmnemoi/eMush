@@ -966,7 +966,8 @@ Vous n'avez jamais vraiment compris l'utilité du vaguoscope mais de toute faço
       </segment>
       <segment id="description" state="translated">
         <source>plastenite_armor.description</source>
-        <target>Cette armure est conseillée pour partir en expédition.//Absorbe 1 point de dégât de combat.</target>
+        <target>Cette armure est conseillée pour partir en expédition.// 
+:point: Donne +1 point d'armure. Les points d'armure diminuent les dégâts subis lors des combats à bord du Daedalus, ainsi que l'évènement Combat en expédition. *Les coups critiques ignorent l'armure.*</target>
       </segment>
       <segment id="examine" state="translated">
         <source>plastenite_armor.examine</source>
@@ -1036,9 +1037,7 @@ Permet de survivre après une éjection et de respirer sur les planètes non res
         <source>spacesuit.examine</source>
         <target>La combinaison spatiale permet d'explorer des planètes sans oxygène.
 //
-Permet de survivre après une éjection et de respirer sur les planètes non respirables.
-//
-Le joueur peut sortir dans l'espace depuis une baie de lancement pour une mission de réparation externe. Le personnage peut également participer à une expédition sur une planète à l’atmosphère non respirable.</target>
+Permet de survivre après une éjection et de respirer sur les planètes non respirables.</target>
       </segment>
     </unit>
     <unit id="stainproof_apron">
@@ -1677,7 +1676,9 @@ Répugnant... Vous devriez le brûler.</target>
       </segment>
       <segment id="description" state="translated">
         <source>metal_scraps.description</source>
-        <target>Encore des débris sans intérêt.</target>
+        <target>Des débris bien utiles. // 
+:point: Peut être consommé pour réparer :shield: l'armure du Daedalus. //
+:point: Les Techniciens peuvent tenter de **Blinder** des objets avec. Le débris est consommé même en cas d'échec.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>metal_scraps.examine</source>
@@ -2354,7 +2355,7 @@ Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire
       </segment>
       <segment id="examine" state="translated">
         <source>security_blaster.examine</source>
-        <target>Un blaster tout sauf standard. Son propriétaire en a pris grand soin et l'a amélioré au fil des années.//Expédition : + 2 à la force de votre équipe en cas de combat.//Un vieux blaster offert aux forces d'infanterie de la fédération. Après des années de bidouillage, il est désormais encore plus redoutable que les modèles récents.</target>
+        <target>Un blaster tout sauf standard. Son propriétaire en a pris grand soin et l'a amélioré au fil des années.//Expédition : + 2 à la force de votre équipe en cas de combat.//Un vieux blaster offert aux fantassins des Forces de Défense de Sol. Après des années de bidouillage, il est désormais encore plus redoutable que les modèles récents.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle">

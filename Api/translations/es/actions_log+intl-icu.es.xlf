@@ -272,7 +272,7 @@ other {invalid gender input}}.</target>
     <unit id="search_fail">
       <segment id="search_fail" state="translated">
         <source>search_fail</source>
-        <target>(update me on Crowdin: search_fail) **{character}** no has encontrado nada.</target>
+        <target>**{character}** hurgó por toda la sala pero no encontró nada.</target>
       </segment>
     </unit>
     <unit id="shower_human">
@@ -1148,7 +1148,7 @@ other {{quantity}}
             8 {Me inspiras nuevas composiciones de neurotoxinas.}
             9 {Reprobado, nos vemos después de clases.}
             10 {Aunque estamos muuuuy lejos de la perfección...}
-            11 {¿Qué puedes hacer siquiera correctamente?}
+            11 {¿Qué puedes hacer correctamente siquiera?}
             12 {Alea jacta est...}
             13 {Honestamente, no sé lo que esperaba.}
             14 {Revisar tu trabajo me hace sentir cada vez más tonto.}
@@ -1160,13 +1160,13 @@ other {{quantity}}
     <unit id="mix_ration_spore_success">
       <segment id="mix_ration_spore_success" state="translated">
         <source>mix_ration_spore_success</source>
-        <target>mix_ration_spore_success</target>
+        <target>¡Listo! Una pizca de micelio para darle más sazón.</target>
       </segment>
     </unit>
     <unit id="protect_success">
-      <segment id="protect_success" state="initial">
+      <segment id="protect_success" state="translated">
         <source>protect_success</source>
-        <target>protect_success</target>
+        <target>**{character}** se acerca a **{target_character}** y comienza a seguir sus pasos y vigilar su espacio. ¡Quienquiera que intente hacerle daño a **{target_character}** tendrá que vérselas primero con {character_gender, select, male {el} female {ella} other {el}}!</target>
       </segment>
     </unit>
   </file>

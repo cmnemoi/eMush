@@ -124,7 +124,7 @@
     <unit id="exploration_started_no_spacesuit">
       <segment state="translated">
         <source>exploration_started_no_spacesuit.subTitle</source>
-        <target>Estás atrapado en la máquina que te llevó en una expedición que no tiene ni una atmósfera rica en oxígeno ni un traje espacial. Tendrás que esperar a que tus compañeros terminen su exploración.</target>
+        <target>Te quedaste en la máquina que te llevó a una expedición que no tiene una atmósfera rica en oxígeno dado que tú no posees un traje espacial. Tendrás que esperar a que tus compañeros terminen su exploración.</target>
       </segment>
       <segment state="translated">
         <source>exploration_started_no_spacesuit.description</source>
@@ -160,7 +160,7 @@
     <unit id="clumsiness_cat">
       <segment state="translated">
         <source>clumsiness_cat.description</source>
-        <target>Sea lo que sea que estés intentando hacer, Schrödinger deja claro su disgusto con una feroz andanada de zarpazos.</target>
+        <target>Sea lo que sea que estés intentando hacer, Schrödinger deja claro su disgusto con una feroz rabieta de zarpazos.</target>
       </segment>
     </unit>
     <unit id="soiled">

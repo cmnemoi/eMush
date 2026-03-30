@@ -724,5 +724,15 @@ Todas tus acciones se vuelven más difíciles.</target>
         <target>{target_character_icon} **{target_character}** te está resguardando. ¡Qué lujo! // *Mientras estés en la misma sala,* **todas las acciones agresivas dirigidas a ti cuestan 2 :ap: adicionales**.</target>
       </segment>
     </unit>
+    <unit id="private_property">
+      <segment id="name" state="translated">
+        <source>private_property.name</source>
+        <target>Biobloqueado</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>private_property.description</source>
+        <target>Este objeto está bloqueado biométricamente a su propietario: {target_character_icon} **{target_character}**. Solo puede ser utilizado por **{target_character}** mientras este con vida.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

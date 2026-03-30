@@ -676,7 +676,9 @@
       </segment>
       <segment id="hard_boiled.description" state="translated">
         <source>hard_boiled.description</source>
-        <target>Votre épiderme est particulièrement coriace. Le plastenite sans la transpiration.//:point: Chaque **dégât de combat** qui vous est infligé est **réduit d'un point**, sauf les combats en expédition.</target>
+        <target>Votre épiderme est particulièrement coriace. Le plastenite sans la transpiration.//
+:point: Donne +1 point d'armure. Les points d'armure diminuent les dégâts subis lors des combats à bord du Daedalus, ainsi que l'évènement Combat en expédition. *Les coups critiques ignorent l'armure.*//
+:point: Exceptionnellement, ce point-ci n'a aucun effet en expédition.</target>
       </segment>
     </unit>
     <unit id="saboteur">
@@ -1006,7 +1008,11 @@
       </segment>
       <segment id="bodyguard.description" state="translated">
         <source>bodyguard.description</source>
-        <target>:beta: Vous ne connaissez pas une seule mission d'escorte que vous n'avez pas mené à bien. Ça doit être ça, avoir l'œil fou...//:point: Pour 2 :pa:, vous pouvez **Protéger** un autre membre de l'équipage. Pendant que vous êtes dans la même pièce, toutes les actions agressives le ciblant coûtent 2 :pa: supplémentaires. //// Cette compétence est en :beta: bêta-test: faites vos retours sur le forum ou le discord Eternaltwin.</target>
+        <target>:beta: Vous ne connaissez pas une seule mission d'escorte que vous n'avez pas mené à bien. Ça doit être ça, avoir l'œil fou...//
+:point: Pour 1 :pa:, vous pouvez **Protéger** un autre membre de l'équipage. Ce coéquipier devient votre **VIP** : pendant que vous êtes dans la même pièce, toutes les actions agressives le ciblant coûtent 2 :pa: supplémentaires. //
+:point: Cette protection dure tant que vous restez en vie, ou jusqu'à ce que vous changiez de cible. //
+//
+Cette compétence est en :beta: bêta-test: faites vos retours sur le forum ou le discord Eternaltwin.</target>
       </segment>
     </unit>
     <unit id="infantryman">
@@ -1016,7 +1022,10 @@
       </segment>
       <segment id="infantryman.description" state="translated">
         <source>infantryman.description</source>
-        <target>:beta: Une arme de service, un entrainement standard pour ne plus se tirer dans le pied, vous êtes un digne représentant de ce qu'on nomme dans la haute société : La chair à canon. //:point: **Double vos chances de toucher** aux tourelles.//:point: +1 **Tirs gratuits** :pa_shoot: par jour.//:point: Commence la partie avec un **blaster amélioré**.</target>
+        <target>:beta: Une arme de service, un entrainement standard pour ne plus se tirer dans le pied, vous êtes un digne représentant de ce qu'on nomme dans la haute société : La chair à canon. //
+:point: +1 **Tirs gratuits** :pa_shoot: par jour.//
+:point: **Double vos chances de toucher** aux tourelles.//
+:point: Commence la partie avec un **blaster amélioré**.</target>
       </segment>
     </unit>
   </file>

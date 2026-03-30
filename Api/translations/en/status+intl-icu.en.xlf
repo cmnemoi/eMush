@@ -623,5 +623,15 @@ other{Charges are the number of times you can use an object. **Charged** objects
         <target>{target_character_icon} **{target_character}** is protecting you. What luxury! // *As long as you are in the same room,* **all aggressive actions targeting you cost an additional 2 :ap:**.</target>
       </segment>
     </unit>
+    <unit id="private_property">
+      <segment id="name" state="translated">
+        <source>private_property.name</source>
+        <target>Biolocked</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>private_property.description</source>
+        <target>This item is biometrically locked to its owner {target_character_icon}  **{target_character}**. It can only be used by {target_character_gender, select, female {her while she is} male {him while he is} other{them while they are}} still alive.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

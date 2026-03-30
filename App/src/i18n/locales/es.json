@@ -257,7 +257,7 @@
 	},
 	"personalNotes": {
 		"tooltipTitle": "Notas personales",
-		"tooltipDescription": "AAccede a tus notas personales en tu walkie. Permanecen con tu cuerpo en caso de traslado.",
+		"tooltipDescription": "Accede a tus notas personales en tu iTrackie. Permanecen con tu cuerpo en caso de transferencia.",
 		"title": "Notas personales",
 		"iconPicker": "Elige un ícono",
 		"editTabIconTooltip": "Editar el ícono de esta pestaña",
@@ -677,7 +677,7 @@
 			"targetedAnnouncement": "Aviso dirigido",
 			"sendNeronAnnouncement": "Enviar un anuncio de NERON",
 			"sendNeronAnnouncementToAllDaedaluses": "Enviar un anuncio de NERON a todos los Daedalus",
-			"sendNeronAnnouncementToSinglelDaedalus": "Enviar un anuncio de NERON a uno Daedalus"
+			"sendNeronAnnouncementToSinglelDaedalus": "Enviar un anuncio de NERON a un Daedalus"
 		}
 	},
 	"charSelection": {

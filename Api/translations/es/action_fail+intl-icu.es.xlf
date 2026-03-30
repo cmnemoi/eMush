@@ -876,9 +876,15 @@ other {**Vuelve cuando estés limpio.**"}
       </segment>
     </unit>
     <unit id="target_already_protected">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>target_already_protected.description</source>
-        <target>target_already_protected.description</target>
+        <target>¡Este tripulante ya está bajo el resguardo de un guardaespaldas!</target>
+      </segment>
+    </unit>
+    <unit id="private_property_not_owner">
+      <segment id="description" state="translated">
+        <source>private_property_not_owner.description</source>
+        <target>El seguro biométrico en este objeto te impide utilizarlo. Su dueño aún está vivo.</target>
       </segment>
     </unit>
   </file>

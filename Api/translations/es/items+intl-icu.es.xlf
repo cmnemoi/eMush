@@ -1942,7 +1942,7 @@ En el espacio, la primera sanguijuela puede hacer mucho daño.
         <source>medikit.examine</source>
         <target>Es básicamente un botiquín. Si el usuario forma parte del equipo de primeros auxilios, le da un bonus.
 //
-Las unidades de combate están equipadas para curar sus heridas superficiales.</target>
+Tras las terribles guerras de los Mush, los estados gobernantes decidieron reducir al máximo la exposición a las esporas de los Mush para proteger a las tropas. Las unidades de combate están equipadas sistemáticamente con un botiquín médico ultra completo, que debería permitir a cualquier agente de la Federación curar sus propias heridas superficiales.</target>
       </segment>
     </unit>
     <unit id="retro_fungal_serum">
@@ -2430,6 +2430,36 @@ Expedición: + 1 a la fuerza de tu equipo en caso de combate.</target>
 Expedición: + 1 a la fuerza de tu equipo en caso de combate.
 //
 Te ayudará a defenderte con elegancia.</target>
+      </segment>
+    </unit>
+    <unit id="security_blaster">
+      <segment id="name" state="translated">
+        <source>security_blaster.name</source>
+        <target>Blaster personalizado</target>
+      </segment>
+      <segment id="security_blaster" state="translated">
+        <source>security_blaster.short_name</source>
+        <target>Blaster personalizado</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>security_blaster.plural_name</source>
+        <target>Blasters personalizados</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>security_blaster.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>security_blaster.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>security_blaster.description</source>
+        <target>Un blaster fuera de lo común. Su dueño lo ha cuidado con esmero, mejorándolo con el paso de los años.//Expedición: +2 a la fuerza de tu equipo durante los combates.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>security_blaster.examine</source>
+        <target> Un blaster fuera de lo común. Su dueño lo ha cuidado con esmero, mejorándolo con el paso de los años.// Expedición: +2 a la fuerza de tu equipo durante los combates.// Un antiguo blaster originalmente ofrecido a la infantería de la Federación para la Defensa de Sol. Tras años de ajustes, es incluso más potente que los diseños más modernos.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle">

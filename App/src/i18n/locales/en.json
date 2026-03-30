@@ -288,7 +288,7 @@
 				"name": "Name"
 			},
 			"skills": {
-				"title": "Compétences",
+				"title": "Skills",
 				"deleteAllByName": "Supprimer toutes les compétences portant ce nom",
 				"name": "Nom"
 			},
@@ -422,7 +422,6 @@
 			"nbMush": "Initial number of Mushs",
 			"cyclePerGameDay": "Number of cycles per day",
 			"cycleLength": "Cycle length (in minutes)",
-			"randomItemPlaces": "Random Item Places",
 			"placeConfigs": "Rooms"
 		},
 		"difficultyConfig": {

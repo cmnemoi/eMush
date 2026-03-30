@@ -974,7 +974,7 @@
       </segment>
     </unit>
     <unit id="protect_success">
-      <segment id="protect_success" state="initial">
+      <segment id="protect_success" state="translated">
         <source>protect_success</source>
         <target>protect_success</target>
       </segment>

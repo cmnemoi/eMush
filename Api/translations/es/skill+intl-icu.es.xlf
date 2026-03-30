@@ -601,7 +601,9 @@
     <unit id="tracker">
       <segment id="tracker.name" state="translated">
         <source>tracker.name</source>
-        <target>Rastreador</target>
+        <target>{character_gender, select,
+        female {Rastreadora}
+        other {Rastreador}}</target>
       </segment>
       <segment id="tracker.description" state="translated">
         <source>tracker.description</source>
@@ -652,7 +654,7 @@
         <target>{character_gender, select,
         female {La indolente es fría e indiferente.}
         other {El indolente es frío e indiferente.}} No le afecta ver morir a un camarada.//:point: **No pierdes Puntos de Ánimo (:pmo:) cuando un compañero muere**.//
-:point: No tienes riesgo de transtornos psicológicos si es testigo de una muerte.</target>
+:point: No tienes riesgo de trastornos psicológicos si eres testigo de una muerte.</target>
       </segment>
     </unit>
     <unit id="expert">
@@ -662,7 +664,7 @@
       </segment>
       <segment id="expert.description" state="translated">
         <source>expert.description</source>
-        <target>Haciendo lo tuyo eres muy hábil, y no temes ensuciarte ni hacerte daño.//:point: El **éxito de tus acciones aumenta en 20%**, pero las **heridas** y **suciedad** aumentan también.</target>
+        <target>Haciendo lo tuyo eres muy hábil, y no temes ensuciarte ni hacerte daño.//:point: El **éxito de tus acciones aumenta en 20%**, pero la probabilidad de **herirte** y **ensuciarte** aumentan también.</target>
       </segment>
     </unit>
     <unit id="defacer">
@@ -682,7 +684,7 @@
       </segment>
       <segment id="u_turn.description" state="translated">
         <source>u_turn.description</source>
-        <target>Tienes que ser capaz de cambiar tus certezas.//:point: Expedición: Por **2** :pa:, puedes volver de urgencia al Daedalus.</target>
+        <target>Tienes que ser capaz de cambiar tus certezas.//:point: Expedición: Por **2** :pa:, puedes volver de urgencia al Daedalus.//:beta: Puedes ver **que sector será el próximo en ser visitado** durante una expedición.</target>
       </segment>
     </unit>
     <unit id="politician">
@@ -742,7 +744,7 @@
       </segment>
       <segment id="fungal_kitchen.description" state="translated">
         <source>fungal_kitchen.description</source>
-        <target>Un gran clásico en la gastronomía exótica de Sol//:point: Puedes crear una **Ración envenenada** mezclando una **Espora** con un **consumible** por **1** :pa:.</target>
+        <target>Un gran clásico en la gastronomía exótica de Sol.//:point: Puedes crear una **Comida envenenada** mezclando una **Espora** con un **consumible** por **1** :pa:. Quien ingiera el consumible, **será infectado**.</target>
       </segment>
     </unit>
     <unit id="hard_boiled">
@@ -822,7 +824,7 @@
       </segment>
       <segment id="traitor.description" state="translated">
         <source>traitor.description</source>
-        <target>Has desarrollado una habilidad fabulosa para atraer problemas. *Mira, un mankarog... ¿y si le hacemos cosquillas por aquí?*...//:beta: Puedes saber qué sector se visitará a continuación en la expedición.//:beta: Puedes sabotear un sector por expedición.</target>
+        <target>Has desarrollado una habilidad fabulosa para atraer problemas. *Mira, un mankarog... ¿y si le hacemos cosquillas por aquí?*...//:beta: Puedes saber qué sector se visitará a continuación en la expedición.//:beta: Puedes sabotear un sector por expedición para forzar un evento negativo.</target>
       </segment>
     </unit>
     <unit id="cold_blooded">
@@ -1021,7 +1023,7 @@
       </segment>
       <segment id="scrapper.description" state="translated">
         <source>scrapper.description</source>
-        <target>Aquel que nada desperdicia, particularmente cuando el barco comienza a romperse...//:point: **Diario**: En cada **almacén**, por **0** :pa:, puedes encontrar piezas, o algo mejor.</target>
+        <target>Aquel que nada desperdicia, particularmente cuando la nave comienza a romperse...//:point: **Diario**: En cada **almacén**, por **0** :pa:, puedes encontrar piezas, o algo mejor.</target>
       </segment>
     </unit>
     <unit id="doorman">
@@ -1112,7 +1114,17 @@
       </segment>
       <segment id="bodyguard.description" state="translated">
         <source>bodyguard.description</source>
-        <target>:beta: Nunca has fallado una misión de escolta. Debe ser por tu mirada penetrante encima de todos en todo momento...//:point: Por 2 :pa:, puedes **Resguardar** a otro miembro de la tripulación. Mientras estés en la misma sala, todas las acciones agresivas dirigidas a ese tripulante cuestan 2 :pa: adicionales. //// Esta habilidad está en fase :beta: beta: agradecemos tus comentarios en el foro de Eternaltwin y Discord.</target>
+        <target>:beta: Nunca has fallado una misión de escolta. Debe ser por tu mirada penetrante encima de todos en todo momento...//:point: Por 1 :pa:, puedes **Resguardar** a otro miembro de la tripulación. Mientras estés en la misma sala, todas las acciones agresivas dirigidas a ese tripulante cuestan 2 :pa: adicionales. //// Esta habilidad está en fase :beta: beta: agradecemos tus comentarios en el foro de Eternaltwin y Discord.</target>
+      </segment>
+    </unit>
+    <unit id="infantryman">
+      <segment id="infantryman.name" state="translated">
+        <source>infantryman.name</source>
+        <target>Soldado de infantería</target>
+      </segment>
+      <segment id="infantryman.description" state="initial">
+        <source>infantryman.description</source>
+        <target>infantryman.description</target>
       </segment>
     </unit>
   </file>

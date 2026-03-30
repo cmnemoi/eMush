@@ -796,7 +796,7 @@
     <unit id="wants_walkies">
       <segment id="description" state="translated">
         <source>wants_walkies.description</source>
-        <target>Pavlov is barking like crazy at the sight of the planet... It's walkies time! Sadly, we don't have a canine spacesuit...</target>
+        <target>Pavlov is barking like crazy at the sight of the planet... It's walkies time! There will be no changing his priorities...</target>
       </segment>
     </unit>
     <unit id="playtime_solo">
@@ -851,6 +851,12 @@
       <segment id="description" state="translated">
         <source>target_already_protected.description</source>
         <target>This crewmember is already under the protection of a bodyguard!</target>
+      </segment>
+    </unit>
+    <unit id="private_property_not_owner">
+      <segment id="description" state="translated">
+        <source>private_property_not_owner.description</source>
+        <target>The biolock on this item will not let you... Its owner is still alive.</target>
       </segment>
     </unit>
   </file>

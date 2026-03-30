@@ -672,7 +672,9 @@
       </segment>
       <segment id="hard_boiled.description" state="translated">
         <source>hard_boiled.description</source>
-        <target>Your skin is particularly tough. Plastenite without the sweat.//:point: All **combat damage** you sustain is **reduced by one point**, except expedition fights.</target>
+        <target>Your skin is particularly tough. Plastenite without the sweat.//
+:point: Grants +1 Armor point. Armor points reduce the damage taken from combat within the Daedalus, and Fight events in expedition. *Critical Hits ignore armor.*//
+:point: This particular source of armor is inactive during expeditions.</target>
       </segment>
     </unit>
     <unit id="saboteur">
@@ -1002,7 +1004,24 @@
       </segment>
       <segment id="bodyguard.description" state="translated">
         <source>bodyguard.description</source>
-        <target>:beta: You've never failed an escort mission. Must be what they call having crazy eyes...//:point: For 2 :pa:, you may **Protect** another crewmember. While you are in the same room, all aggressive actions targeting them cost an additional 2 :pa:. //// This skill is in :beta: beta: we welcome your feedback on the Eternaltwin forum and Discord.</target>
+        <target>:beta: You've never failed an escort mission. Must be of what they call having crazy eyes...//
+:point: For 1 :pa:, you may **Protect** another crewmember. This crewmember becomes your **VIP**: While you are in the same room, all aggressive actions targeting them cost an additional 2 :pa:. //
+:point: This protection lasts until you die or switch targets. //
+// 
+This skill is in :beta: beta: we welcome your feedback on the Eternaltwin forum and Discord.</target>
+      </segment>
+    </unit>
+    <unit id="infantryman">
+      <segment id="infantryman.name" state="translated">
+        <source>infantryman.name</source>
+        <target>Infantryman</target>
+      </segment>
+      <segment id="infantryman.description" state="translated">
+        <source>infantryman.description</source>
+        <target>:beta: A service weapon and enough training not to accidentally shoot yourself in the foot, you are a shining example of what the rich and powerful may call "canon fodder". //
+:point: +1 :pa_shoot: per day (**Shoot** Action Points).//
+:point: **Doubles the odds of successful hits** when using turrets.//
+:point: Starts out with an **Improved Blaster**.</target>
       </segment>
     </unit>
   </file>

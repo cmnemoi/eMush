@@ -42,6 +42,14 @@
         </button>
     </div>
     <div class="flex-row">
+        <Input :label="$t('admin.actions.statuses.name')" type="text" v-model="createStatusForHolderDto.statusName" />
+        <Input :label="$t('admin.actions.statuses.holder')" type="text" v-model="createStatusForHolderDto.holder" />
+        <Input :label="$t('admin.actions.equipment.daedalus')" type="number" v-model="createStatusForHolderDto.daedalus" />
+        <button class="action-button" @click="createStatusForHolder(createStatusForHolderDto)">
+            {{ $t('admin.actions.statuses.createStatusForHolderOnDaedalus') }}
+        </button>
+    </div>
+    <div class="flex-row">
         <button class="action-button" @click="createStatuses">
             {{ $t('admin.actions.statuses.createAllPlayersInitStatuses') }}
         </button>
@@ -76,6 +84,12 @@ interface CreateDaedalusEquipmentDto extends CreateEquipmentDto {
     daedalus: number;
 }
 
+interface createStatusForHolderDto {
+    statusName: string;
+    holder: string;
+    daedalus: number;
+}
+
 interface DeleteAllStatusesDto {
     statusName: string;
 }
@@ -107,6 +121,11 @@ export default defineComponent ({
             deleteAllStatusesDto: {
                 statusName: 'mush'
             },
+            createStatusForHolderDto: {
+                statusName: 'eden_computed',
+                holder: 'daedalus',
+                daedalus: 1
+            },
             skillName : 'shooter',
             finishDaedalusProjectDto: {
                 projectName: 'pheromodem',
@@ -121,6 +140,7 @@ export default defineComponent ({
             createProjects: 'adminActions/createProjectsForOnGoingDaedaluses',
             createStatuses: 'adminActions/createPlayersAllInitStatusesForOnGoingDaedaluses',
             deleteAllStatusesByName: 'adminActions/deleteAllStatusesByName',
+            createStatusForHolderOnDaedalus: 'adminActions/createStatusForHolderOnDaedalus',
             deleteAllSkillsByName: 'adminActions/deleteAllSkillsByName',
             proposeProjects: 'adminActions/proposeNewNeronProjectsForOnGoingDaedaluses',
             resetRulesAcceptance: 'adminActions/resetRulesAcceptanceForAllUsers',
@@ -134,6 +154,9 @@ export default defineComponent ({
         },
         deleteAllStatuses(deleteAllStatusesDto: DeleteAllStatusesDto) {
             this.deleteAllStatusesByName(deleteAllStatusesDto);
+        },
+        createStatusForHolder(createStatusForHolderDto: createStatusForHolderDto){
+            this.createStatusForHolderOnDaedalus(createStatusForHolderDto);
         },
         deleteAllSkills(skillName : string) {
             this.deleteAllSkillsByName(skillName);

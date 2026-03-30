@@ -187,6 +187,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getPlayers()->getPlayerAlive();
     }
 
+    public function getPlayerByName(string $name): ?Player
+    {
+        return $this->getPlayers()->getPlayerByName($name);
+    }
+
     public function getPlayerByNameOrThrow(string $name): Player
     {
         $player = $this->getPlayers()->getPlayerByName($name);
@@ -284,6 +289,27 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         }
 
         return $place;
+    }
+
+    public function getStatusHolderByNameOrThrow(string $name): StatusHolderInterface
+    {
+        if ($name === 'daedalus') {
+            return $this;
+        }
+
+        $place = $this->getPlaceByName($name);
+        if ($place !== null) {
+            return $place;
+        }
+
+        $player = $this->getPlayerByName($name);
+        if ($player !== null) {
+            return $player;
+        }
+
+        // handle equipments and hunters maybe? they're also statusholders. implement if and when needed
+
+        throw new \RuntimeException("Daedalus should have a statusHolder named {$name}");
     }
 
     /** @return Collection<array-key, Place> */

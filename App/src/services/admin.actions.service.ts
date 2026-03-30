@@ -35,6 +35,16 @@ const AdminActionsService = {
     deleteAllStatusesByName: async(statusName: string): Promise<any> => {
         return await ApiService.delete(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'delete-all-statuses-by-name', statusName));
     },
+    createStatusForHolderOnDaedalus: async(statusName: string, holder: string, daedalus: integer): Promise<any> => {
+        return await ApiService.post(
+            urlJoin(ADMIN_ACTIONS_ENDPOINT, 'create-status-for-holder-on-daedalus'),
+            {
+                statusName: statusName,
+                holder: holder,
+                daedalus: daedalus
+            }
+        );
+    },
     deleteAllSkillsByName: async(skillName: string): Promise<any> => {
         return await ApiService.delete(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'delete-all-skills-by-name', skillName));
     },

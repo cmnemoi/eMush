@@ -89,6 +89,7 @@ export const enum StatisticEnum {
     COMMANDER_SHOULD_GO_LAST = 'commander_should_go_last',
     TRIUMPH = 'triumph',
     VENERIAN_DISEASE = 'venerian_disease',
+    EDEN_BIODIVERSITY = 'eden_biodiversity',
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -355,5 +356,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.VENERIAN_DISEASE]: {
         'icon': getImgUrl('achievements/venerian.png')
+    },
+    [StatisticEnum.EDEN_BIODIVERSITY]: {
+        'icon': getImgUrl('infoalert.png') // placeholder
     }
 };

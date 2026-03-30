@@ -6,6 +6,8 @@ namespace Mush\tests\functional\Daedalus\Event;
 
 use Codeception\Attribute\DataProvider;
 use Codeception\Example;
+use Mush\Achievement\Command\UpdateUserStatisticCommand;
+use Mush\Achievement\Command\UpdateUserStatisticCommandHandler;
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Achievement\Repository\StatisticRepositoryInterface;
@@ -14,11 +16,14 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -37,6 +42,7 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private PlayerServiceInterface $playerService;
     private StatisticRepositoryInterface $statisticRepository;
+    private UpdateUserStatisticCommandHandler $updateUserStatistic;
 
     public function _before(FunctionalTester $I): void
     {
@@ -46,6 +52,7 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
+        $this->updateUserStatistic = $I->grabService(UpdateUserStatisticCommandHandler::class);
     }
 
     #[DataProvider('characterDataProvider')]
@@ -220,6 +227,30 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
         $this->thenTriumphStatisticShouldEqualPlayerTriumphFor($this->player2, $I);
     }
 
+    public function shouldUpdateEdenBiodiversityStatisticToCrew(FunctionalTester $I): void
+    {
+        // Given three plants
+        $this->createEquipment(GamePlantEnum::BANANA_TREE, $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
+        $this->createEquipment(GamePlantEnum::FIBONICCUS, $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
+        $this->createEquipment(GamePlantEnum::BUTTALIEN, $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
+
+        // Given player2 has a record of 7 plants
+        $this->updateUserStatistic->__invoke(
+            new UpdateUserStatisticCommand(
+                $this->player2->getUser()->getId(),
+                StatisticEnum::EDEN_BIODIVERSITY,
+                LanguageEnum::FRENCH,
+                7
+            )
+        );
+
+        $this->whenDaedalusEndsWith(EndCauseEnum::EDEN);
+
+        $I->assertTrue($this->daedalus->getDaedalusInfo()->isDaedalusFinished());
+        $this->thenEdenBiodiversityStatisticShouldEqualCountFor(3, $this->player, $I);
+        $this->thenEdenBiodiversityStatisticShouldEqualCountFor(7, $this->player2, $I);
+    }
+
     protected function characterDataProvider(): array
     {
         return [
@@ -382,6 +413,20 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
             expected: $triumphOnEndPage,
             actual: $tirumphInStatistics,
             message: "{$player->getLogName()} with {$triumphOnEndPage} triumph has {$tirumphInStatistics} triumph in statistics",
+        );
+    }
+
+    private function thenEdenBiodiversityStatisticShouldEqualCountFor(int $count, Player $player, FunctionalTester $I): void
+    {
+        $edenBiodiversityInStatistics = $this->statisticRepository->findByNameAndUserIdOrNull(
+            name: StatisticEnum::EDEN_BIODIVERSITY,
+            userId: $player->getUser()->getId()
+        )?->getCount();
+
+        $I->assertEquals(
+            expected: $count,
+            actual: $edenBiodiversityInStatistics,
+            message: "{$player->getLogName()} with {$count} expected eden biodiversity stat has {$edenBiodiversityInStatistics} instead",
         );
     }
 }

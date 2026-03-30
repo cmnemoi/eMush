@@ -1903,5 +1903,35 @@
         <target>{gender, select, female {Ancienne Sénatrice} other {Ancien Sénateur}} de la Fédération</target>
       </segment>
     </unit>
+    <unit id="eden_biodiversity">
+      <segment id="name" state="translated">
+        <source>eden_biodiversity.name</source>
+        <target>Biodiversité Edenique</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eden_biodiversity.description</source>
+        <target>Record de variétés de plantes amenées sur Eden.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_biodiversity_1.name</source>
+        <target>Cultiste de la monoculture</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_biodiversity_3.name</source>
+        <target>Botaniste de l'espace</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_biodiversity_5.name</source>
+        <target>Écologiste concerné</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_biodiversity_7.name</source>
+        <target>Praxis Écoterroriste</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_biodiversity_13.name</source>
+        <target>"Mais d'où sortent tous ces pots !?"</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

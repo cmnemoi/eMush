@@ -275,6 +275,11 @@ enum AchievementEnum: string
     case TRIUMPH_2000 = 'triumph_2000';
     case TRIUMPH_3000 = 'triumph_3000';
     case VENERIAN_DISEASE_1 = 'venerian_disease_1';
+    case EDEN_BIODIVERSITY_1 = 'eden_biodiversity_1';
+    case EDEN_BIODIVERSITY_3 = 'eden_biodiversity_3';
+    case EDEN_BIODIVERSITY_5 = 'eden_biodiversity_5';
+    case EDEN_BIODIVERSITY_7 = 'eden_biodiversity_7';
+    case EDEN_BIODIVERSITY_13 = 'eden_biodiversity_13';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

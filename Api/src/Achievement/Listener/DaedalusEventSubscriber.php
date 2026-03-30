@@ -8,10 +8,14 @@ use Mush\Achievement\Command\UpdateUserStatisticCommand;
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Services\PublishPendingStatisticsService;
 use Mush\Achievement\Services\UpdatePlayerStatisticService;
+use Mush\Action\Enum\ActionEnum;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\EventPriorityEnum;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -65,6 +69,7 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
     {
         $this->incrementEndCauseStatisticFromEvent($event);
         $this->incrementCharacterCyclesStatisticFromEvent($event);
+        $this->incrementPostEndCauseStatisticsFromEvent($event);
     }
 
     public function afterDaedalusFinish(DaedalusEvent $event): void
@@ -144,6 +149,14 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
         }
     }
 
+    private function incrementPostEndCauseStatisticsFromEvent(DaedalusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        if ($event->hasAnyTag([EndCauseEnum::EDEN, EndCauseEnum::EDEN_INFECTED, ActionEnum::TRAVEL_TO_EDEN->toString()])) {
+            $this->incrementEdenPlantDiversityRecordForPlayersOnDaedalus($daedalus);
+        }
+    }
+
     private function getPlayerStatisticToIncrementFromEvent(Player $player, DaedalusEvent $event): StatisticEnum
     {
         return match ($event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP)) {
@@ -152,5 +165,30 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
             EndCauseEnum::SOL_RETURN => StatisticEnum::BACK_TO_ROOT,
             default => StatisticEnum::NULL,
         };
+    }
+
+    private function incrementEdenPlantDiversityRecordForPlayersOnDaedalus(Daedalus $daedalus): void
+    {
+        $plantNames = [];
+
+        /** @var Place $place */
+        foreach ($daedalus->getPlaces() as $place) {
+            $plantsInRoom = $place->getEquipmentsByNames(GamePlantEnum::getAll());
+            foreach ($plantsInRoom as $plant) {
+                $plantNames[] = $plant->getName();
+            }
+        }
+        // whoops this doesn't account for plants in player inventories
+
+        $numberOfUniquePlants = \count(array_unique($plantNames));
+
+        /** @var Player $player */
+        foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
+            $this->updatePlayerStatisticService->execute(
+                player: $player,
+                statisticName: StatisticEnum::EDEN_BIODIVERSITY,
+                count: $numberOfUniquePlants,
+            );
+        }
     }
 }

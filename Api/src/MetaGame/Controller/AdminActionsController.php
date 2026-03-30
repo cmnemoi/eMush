@@ -19,6 +19,7 @@ use Mush\MetaGame\Command\MarkDaedalusAsCheaterCommandHandler;
 use Mush\MetaGame\Dto\CreateEquipmentForDaedalusDto;
 use Mush\MetaGame\Dto\CreateEquipmentForDaedalusesDto;
 use Mush\MetaGame\Dto\CreateProjectForDaedalusDto;
+use Mush\MetaGame\Dto\CreateStatusForHolderOnDaedalusDto;
 use Mush\Player\Entity\Player;
 use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Project\Entity\ProjectConfig;
@@ -190,6 +191,28 @@ final class AdminActionsController extends AbstractFOSRestController
         $this->statusService->deleteAllStatusesByName($name);
 
         return $this->view(['detail' => "All statuses with name {$name} deleted successfully."], Response::HTTP_OK);
+    }
+
+    /**
+     * Creates a status for holder on daedalus id.
+     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Post(path: '/create-status-for-holder-on-daedalus')]
+    #[NelmioSecurity(name: 'Bearer')]
+    public function createStatusForHolderOnDaedalusEndpoint(Request $request): View
+    {
+        $dto = new CreateStatusForHolderOnDaedalusDto(...$request->toArray());
+        $daedalus = $this->daedalusRepository->find($dto->daedalus);
+        $holder = $daedalus->getStatusHolderByNameOrThrow($dto->holder);
+
+        $this->statusService->createStatusFromName(
+            $dto->statusName,
+            $holder,
+            [],
+            new \DateTime()
+        );
+
+        return $this->view(['detail' => "Status with name {$dto->statusName} successfully created on {$dto->holder}"], Response::HTTP_OK);
     }
 
     /**

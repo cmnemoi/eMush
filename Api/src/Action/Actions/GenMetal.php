@@ -9,7 +9,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
-use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\HasGenMetalForCurrentStorage;
 use Mush\Action\Validator\PlaceName;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\GameRationEnum;
@@ -55,10 +55,7 @@ final class GenMetal extends AttemptAction
                 'places' => RoomEnum::getStorages(),
                 'groups' => [ClassConstraint::VISIBILITY],
             ]),
-            new HasStatus([
-                'status' => PlayerStatusEnum::HAS_GEN_METAL,
-                'contain' => false,
-                'target' => HasStatus::PLAYER,
+            new HasGenMetalForCurrentStorage([
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::DAILY_LIMIT,
             ]),
@@ -68,6 +65,18 @@ final class GenMetal extends AttemptAction
     public function support(?LogParameterInterface $target, array $parameters): bool
     {
         return $target === null;
+    }
+
+    public static function genMetalStatusForStorage(string $roomName): string
+    {
+        return match ($roomName) {
+            RoomEnum::FRONT_STORAGE => PlayerStatusEnum::HAS_GEN_METAL_FRONT_STORAGE,
+            RoomEnum::CENTER_ALPHA_STORAGE => PlayerStatusEnum::HAS_GEN_METAL_CENTER_ALPHA_STORAGE,
+            RoomEnum::REAR_ALPHA_STORAGE => PlayerStatusEnum::HAS_GEN_METAL_REAR_ALPHA_STORAGE,
+            RoomEnum::CENTER_BRAVO_STORAGE => PlayerStatusEnum::HAS_GEN_METAL_CENTER_BRAVO_STORAGE,
+            RoomEnum::REAR_BRAVO_STORAGE => PlayerStatusEnum::HAS_GEN_METAL_REAR_BRAVO_STORAGE,
+            default => throw new \LogicException("No gen metal status for room: {$roomName}"),
+        };
     }
 
     protected function applyEffect(ActionResult $result): void
@@ -99,7 +108,7 @@ final class GenMetal extends AttemptAction
     private function createHasGeneratedMetalStatus(): void
     {
         $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::HAS_GEN_METAL,
+            statusName: self::genMetalStatusForStorage($this->player->getPlace()->getName()),
             holder: $this->player,
             tags: $this->getTags(),
             time: new \DateTime(),

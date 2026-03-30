@@ -71,6 +71,11 @@ abstract class PlayerStatusEnum
     public const string ANTIQUE_PERFUME_IMMUNIZED = 'antique_perfume_immunized';
     public const string HAS_DAUNTED = 'has_daunted';
     public const string HAS_GEN_METAL = 'has_gen_metal';
+    public const string HAS_GEN_METAL_FRONT_STORAGE = 'has_gen_metal_front_storage';
+    public const string HAS_GEN_METAL_CENTER_ALPHA_STORAGE = 'has_gen_metal_center_alpha_storage';
+    public const string HAS_GEN_METAL_REAR_ALPHA_STORAGE = 'has_gen_metal_rear_alpha_storage';
+    public const string HAS_GEN_METAL_CENTER_BRAVO_STORAGE = 'has_gen_metal_center_bravo_storage';
+    public const string HAS_GEN_METAL_REAR_BRAVO_STORAGE = 'has_gen_metal_rear_bravo_storage';
     public const string HAS_SABOTAGED_DOOR = 'has_sabotaged_door';
     public const string FITFUL_SLEEP = 'fitful_sleep';
     public const string CONTACTED_SOL_TODAY = 'contacted_sol_today';

@@ -26,7 +26,7 @@ final class ClumsinessShouldNotInfectCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::GEN_METAL->value]);
         $this->genMetal = $I->grabService(GenMetal::class);
         $this->actionConfig->setInjuryRate(100);
-        $this->addSkillToPlayer(SkillEnum::METALWORKER, $I);
+        $this->addSkillToPlayer(SkillEnum::SCRAPPER, $I);
     }
 
     public function shouldNotInfect(FunctionalTester $I): void

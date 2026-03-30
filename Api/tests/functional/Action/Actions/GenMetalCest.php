@@ -34,8 +34,9 @@ final class GenMetalCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::GEN_METAL->value]);
         $this->genMetal = $I->grabService(GenMetal::class);
 
-        $this->addSkillToPlayer(SkillEnum::METALWORKER, $I);
+        $this->addSkillToPlayer(SkillEnum::SCRAPPER, $I);
         $this->createExtraPlace(RoomEnum::CENTER_ALPHA_STORAGE, $I, $this->daedalus);
+        $this->createExtraPlace(RoomEnum::FRONT_STORAGE, $I, $this->daedalus);
 
         $this->givenPlayerIsInStorage();
     }
@@ -103,7 +104,7 @@ final class GenMetalCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldBeAvailableOncePerDay(FunctionalTester $I): void
+    public function shouldBeAvailableOncePerDayPerStorage(FunctionalTester $I): void
     {
         $this->givenActionSuccessRateIs(100);
 
@@ -114,9 +115,25 @@ final class GenMetalCest extends AbstractFunctionalTest
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DAILY_LIMIT, $I);
     }
 
+    public function shouldBeAvailableInADifferentStorageAfterUsingInOne(FunctionalTester $I): void
+    {
+        $this->givenActionSuccessRateIs(100);
+
+        $this->givenPlayerUsedGenMetalAction();
+
+        $this->givenPlayerIsInFrontStorage();
+
+        $this->thenActionShouldBeExecutable($I);
+    }
+
     private function givenPlayerIsInStorage(): void
     {
         $this->player->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::CENTER_ALPHA_STORAGE));
+    }
+
+    private function givenPlayerIsInFrontStorage(): void
+    {
+        $this->player->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::FRONT_STORAGE));
     }
 
     private function givenPlayerIsInLaboratory(): void
@@ -164,6 +181,11 @@ final class GenMetalCest extends AbstractFunctionalTest
     private function thenItemShouldNotBeGenerated(FunctionalTester $I): void
     {
         $I->assertCount(0, $this->player->getEquipments());
+    }
+
+    private function thenActionShouldBeExecutable(FunctionalTester $I): void
+    {
+        $I->assertNull($this->genMetal->cannotExecuteReason());
     }
 
     private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void

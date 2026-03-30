@@ -43,7 +43,7 @@ export enum SkillEnum {
     MANKIND_ONLY_HOPE = 'mankind_only_hope',
     MASSIVE_MUSHIFICATION = 'massive_mushification',
     MEDIC = 'medic',
-    METALWORKER = 'metalworker',
+    SCRAPPER = 'scrapper',
     MOTIVATOR = 'motivator',
     MYCELIUM_SPIRIT = 'mycelium_spirit',
     MYCOLOGIST = 'mycologist',
@@ -266,7 +266,7 @@ export const SkillIconRecord: {[index: string]: any} = {
         'icon': getImgUrl('skills/human/medic.png')
     },
 
-    [SkillEnum.METALWORKER]: {
+    [SkillEnum.SCRAPPER]: {
         'icon': getImgUrl('skills/human/metaliciste.png')
     },
 

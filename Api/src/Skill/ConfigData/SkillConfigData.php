@@ -256,7 +256,7 @@ abstract class SkillConfigData
                 ],
             ),
             new SkillConfigDto(
-                name: SkillEnum::METALWORKER,
+                name: SkillEnum::SCRAPPER,
                 actionConfigs: [
                     ActionEnum::GEN_METAL,
                 ],

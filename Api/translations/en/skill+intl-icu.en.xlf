@@ -905,14 +905,14 @@
         <target>Sometimes the prey only escapes because it has the opportunity.//:point: **Daily**: For **1** :pa:, you can intimidate a crew member. They will lose **2** :pa: and **4** :pm:.</target>
       </segment>
     </unit>
-    <unit id="metalworker">
-      <segment id="metalworker.name" state="translated">
-        <source>metalworker.name</source>
-        <target>Metalworker</target>
+    <unit id="scrapper">
+      <segment id="scrapper.name" state="translated">
+        <source>scrapper.name</source>
+        <target>Scrapper</target>
       </segment>
-      <segment id="metalworker.description" state="translated">
-        <source>metalworker.description</source>
-        <target>It seems pretty clear that you're a really productive person.//:point: **Daily**: If you find yourself in a **storage**, you have a chance of finding scraps or better for **0** :pa:.</target>
+      <segment id="scrapper.description" state="translated">
+        <source>scrapper.description</source>
+        <target>Waste not, want not. Particularly when the ship is breaking down...//:point: **Daily**: In each **storage room**, for **0** :pa:, you can dig up scraps, or better.</target>
       </segment>
     </unit>
     <unit id="doorman">

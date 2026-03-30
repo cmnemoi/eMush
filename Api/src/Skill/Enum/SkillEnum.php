@@ -48,7 +48,6 @@ enum SkillEnum: string
     case MANKIND_ONLY_HOPE = 'mankind_only_hope';
     case MASSIVE_MUSHIFICATION = 'massive_mushification';
     case MEDIC = 'medic';
-    case METALWORKER = 'metalworker';
     case MOTIVATOR = 'motivator';
     case MYCELIUM_SPIRIT = 'mycelium_spirit';
     case MYCOLOGIST = 'mycologist';
@@ -76,6 +75,7 @@ enum SkillEnum: string
     case RADIO_EXPERT = 'radio_expert';
     case RADIO_PIRACY = 'radio_piracy';
     case REBEL = 'rebel';
+    case SCRAPPER = 'scrapper';
     case ROBOTICS_EXPERT = 'robotics_expert';
     case SABOTEUR = 'saboteur';
     case SELF_SACRIFICE = 'self_sacrifice';

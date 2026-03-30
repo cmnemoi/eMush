@@ -831,14 +831,14 @@
         <target>intimidating.description</target>
       </segment>
     </unit>
-    <unit id="metalworker">
-      <segment id="metalworker.name" state="translated">
-        <source>metalworker.name</source>
-        <target>metalworker.name</target>
+    <unit id="scrapper">
+      <segment id="scrapper.name" state="translated">
+        <source>scrapper.name</source>
+        <target>scrapper.name</target>
       </segment>
-      <segment id="metalworker.description" state="translated">
-        <source>metalworker.description</source>
-        <target>metalworker.description</target>
+      <segment id="scrapper.description" state="translated">
+        <source>scrapper.description</source>
+        <target>scrapper.description</target>
       </segment>
     </unit>
     <unit id="doorman">

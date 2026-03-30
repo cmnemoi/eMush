@@ -1014,14 +1014,14 @@
         <target>A veces la presa solo escapa porque tiene la oportunidad.//:point: **Diario**: Por **1** :pa:, puedes intimidar a un tripulante. El tripulante perderá **2** :pa: y **4** :pm:.</target>
       </segment>
     </unit>
-    <unit id="metalworker">
-      <segment id="metalworker.name" state="translated">
-        <source>metalworker.name</source>
-        <target>Materialista</target>
+    <unit id="scrapper">
+      <segment id="scrapper.name" state="translated">
+        <source>scrapper.name</source>
+        <target>Chatarrero</target>
       </segment>
-      <segment id="metalworker.description" state="translated">
-        <source>metalworker.description</source>
-        <target>¡Está bastante claro que eres una persona muy productiva!//:point: **Diario**: Si estás en un **almacén**, por **0** :pa:, tienes la oportunidad de encontrar piezas o algo mejor.</target>
+      <segment id="scrapper.description" state="translated">
+        <source>scrapper.description</source>
+        <target>Aquel que nada desperdicia, particularmente cuando el barco comienza a romperse...//:point: **Diario**: En cada **almacén**, por **0** :pa:, puedes encontrar piezas, o algo mejor.</target>
       </segment>
     </unit>
     <unit id="doorman">

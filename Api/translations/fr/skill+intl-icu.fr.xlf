@@ -909,14 +909,14 @@
         <target>Parfois la proie s'échappe seulement parce qu'elle en a l'occasion.//:point: **Journalier**. Pour **1** :pa:, Permet d'intimider un joueur. Celui-ci perd **2** :pa: et **4** :pm:.</target>
       </segment>
     </unit>
-    <unit id="metalworker">
-      <segment id="metalworker.name" state="translated">
-        <source>metalworker.name</source>
-        <target>Métalo</target>
+    <unit id="scrapper">
+      <segment id="scrapper.name" state="translated">
+        <source>scrapper.name</source>
+        <target>Recycleur</target>
       </segment>
-      <segment id="metalworker.description" state="translated">
-        <source>metalworker.description</source>
-        <target>Vous, on peut dire que vous êtes vraiment quelqu'un de productif !//:point: **Journalier** : Si vous vous trouvez dans un **Stockage**, pour **0** :pa:, vous avez une chance de trouver des débris voire mieux.</target>
+      <segment id="scrapper.description" state="translated">
+        <source>scrapper.description</source>
+        <target>Rien ne se perd, tout se récupère. Particulièrement quand le vaisseau s'effondre autour de nous...//:point: **Journalier** : Dans chaque **Stockage**, pour **0** :pa:, vous pouvez dénicher des débris, voire mieux.</target>
       </segment>
     </unit>
     <unit id="doorman">

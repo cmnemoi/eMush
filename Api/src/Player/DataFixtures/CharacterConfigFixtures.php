@@ -232,8 +232,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var SkillConfig $intimidatingSkillConfig */
         $intimidatingSkillConfig = $this->getReference(SkillEnum::INTIMIDATING->value);
 
-        /** @var SkillConfig $metalworkerSkillConfig */
-        $metalworkerSkillConfig = $this->getReference(SkillEnum::METALWORKER->value);
+        /** @var SkillConfig $scrapperSkillConfig */
+        $scrapperSkillConfig = $this->getReference(SkillEnum::SCRAPPER->value);
 
         /** @var SkillConfig $polymathSkillConfig */
         $polymathSkillConfig = $this->getReference(SkillEnum::POLYMATH->value);
@@ -525,7 +525,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $pilotSkillConfig,
                 $shooterSkillConfig,
                 $itExpertSkillConfig,
-                $metalworkerSkillConfig,
+                $scrapperSkillConfig,
             ])
             ->setInitStatuses([$disabledStatus])
             ->setStartingItems($iTrackieCollection);

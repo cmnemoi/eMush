@@ -76,7 +76,6 @@ class CharacterConfigData
                 SkillEnum::WRESTLER,
                 SkillEnum::TORTURER,
                 SkillEnum::BODYGUARD,
-                SkillEnum::INTIMIDATING,
                 SkillEnum::INFANTRYMAN,
             ],
             'maxNumberPrivateChannel' => 3,

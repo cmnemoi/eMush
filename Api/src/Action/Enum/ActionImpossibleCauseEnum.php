@@ -134,6 +134,7 @@ abstract class ActionImpossibleCauseEnum
     public const string DAILY_LIMIT_MYCOSCAN = 'daily_limit_mycoscan';
     public const string INSUFFICIENT_SPECIAL_POINT = 'insufficient_special_point';
     public const string TARGET_ALREADY_PROTECTED = 'target_already_protected';
+    public const string PRIVATE_PROPERTY_NOT_OWNER = 'private_property_not_owner';
 
     // April Fools Dog messages
     public const string DOG_IS_SEASICK = 'dog_is_seasick';

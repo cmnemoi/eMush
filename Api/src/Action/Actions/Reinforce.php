@@ -12,6 +12,7 @@ use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasSkill;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\PrivateProperty;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
@@ -72,6 +73,7 @@ final class Reinforce extends AttemptAction
                 'message' => ActionImpossibleCauseEnum::REINFORCE_LACK_RESSOURCES,
             ]),
         ]);
+        $metadata->addConstraint(new PrivateProperty(['groups' => ['execute']]));
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

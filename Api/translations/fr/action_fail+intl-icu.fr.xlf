@@ -897,5 +897,11 @@
             other {Cet.te équipier.e}} est déjà sous la protection d'un garde du corps !</target>
       </segment>
     </unit>
+    <unit id="private_property_not_owner">
+      <segment id="description" state="translated">
+        <source>private_property_not_owner.description</source>
+        <target>La sécurité biologique sur cet objet vous refuse cette action car son propriétaire est toujours en vie.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

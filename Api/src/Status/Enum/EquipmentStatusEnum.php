@@ -34,6 +34,7 @@ class EquipmentStatusEnum
     public const CAT_INFECTED = 'cat_infected';
     public const SENSOR_DRONE_UPGRADE = 'sensor_drone_upgrade';
     public const EVIL_DRONE_TARGET = 'evil_drone_target';
+    public const PRIVATE_PROPERTY = 'private_property';
 
     public const UPDATING = 'updating';
 

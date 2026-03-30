@@ -1009,5 +1009,15 @@
         <target>:beta: Vous ne connaissez pas une seule mission d'escorte que vous n'avez pas mené à bien. Ça doit être ça, avoir l'œil fou...//:point: Pour 2 :pa:, vous pouvez **Protéger** un autre membre de l'équipage. Pendant que vous êtes dans la même pièce, toutes les actions agressives le ciblant coûtent 2 :pa: supplémentaires. //// Cette compétence est en :beta: bêta-test: faites vos retours sur le forum ou le discord Eternaltwin.</target>
       </segment>
     </unit>
+    <unit id="infantryman">
+      <segment id="infantryman.name" state="translated">
+        <source>infantryman.name</source>
+        <target>Fantassin</target>
+      </segment>
+      <segment id="infantryman.description" state="translated">
+        <source>infantryman.description</source>
+        <target>:beta: Une arme de service, un entrainement standard pour ne plus se tirer dans le pied, vous êtes un digne représentant de ce qu'on nomme dans la haute société : La chair à canon. //:point: **Double vos chances de toucher** aux tourelles.//:point: +1 **Tirs gratuits** :pa_shoot: par jour.//:point: Commence la partie avec un **blaster amélioré**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

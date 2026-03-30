@@ -2327,6 +2327,36 @@ Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire
         <target>L'arme de base des forces de sécurité.//Expédition : + 1 à la force de votre équipe en cas de combat.//Arme à faisceau d'énergie dirigée. Dernière née de la gamme BrizHotFire. Permet de se défendre, sans effort et en toute élégance, de tout danger.</target>
       </segment>
     </unit>
+    <unit id="security_blaster">
+      <segment id="name" state="translated">
+        <source>security_blaster.name</source>
+        <target>Blaster customisé</target>
+      </segment>
+      <segment id="security_blaster" state="translated">
+        <source>security_blaster.short_name</source>
+        <target>Blaster customisé</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>security_blaster.plural_name</source>
+        <target>Blasters customisés</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>security_blaster.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>security_blaster.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>security_blaster.description</source>
+        <target>Un blaster tout sauf standard. Son propriétaire en a pris grand soin et l'a amélioré au fil des années.//Expédition : + 2 à la force de votre équipe en cas de combat.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>security_blaster.examine</source>
+        <target>Un blaster tout sauf standard. Son propriétaire en a pris grand soin et l'a amélioré au fil des années.//Expédition : + 2 à la force de votre équipe en cas de combat.//Un vieux blaster offert aux forces d'infanterie de la fédération. Après des années de bidouillage, il est désormais encore plus redoutable que les modèles récents.</target>
+      </segment>
+    </unit>
     <unit id="natamy_rifle">
       <segment id="name" state="translated">
         <source>natamy_rifle.name</source>

@@ -60,11 +60,11 @@
             </div>
             <div class="actions-card">
                 <div v-if="!loading && selectedItem" class="item-info">
-                    <p class="item-name">
+                    <div class="item-name">
                         {{ selectedItem.name }}
-                    </p>
-                    <div class="item-statuses">
-                        <Statuses :statuses="selectedItem.statuses" type="item" />
+                        <div class="item-statuses">
+                            <Statuses :statuses="selectedItem.statuses" type="item" />
+                        </div>
                     </div>
                 </div>
                 <ActionTabs

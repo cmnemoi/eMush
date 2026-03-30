@@ -17,6 +17,7 @@ export enum StatusItemNameEnum {
     DECOMPOSING = "decomposing",
     CONTAMINATED = "contaminated",
     CAT_INFECTED = "cat_infected",
+    PRIVATE_PROPERTY = "private_propety",
 }
 
 export const statusItemEnum: {[index: string]: any} = {
@@ -78,6 +79,7 @@ export const StatusItemPriorityEnum: {[index: string]: number} = {
     [StatusItemNameEnum.PLANT_THIRSTY]: 9,
     [StatusItemNameEnum.DECOMPOSING]: 10,
     [StatusItemNameEnum.FROZEN]: 11,
-    [StatusItemNameEnum.ELECTRIC_CHARGE]: 12,
-    [StatusItemNameEnum.ALIEN_ARTEFACT]: 13
+    [StatusItemNameEnum.PRIVATE_PROPERTY] : 12,
+    [StatusItemNameEnum.ELECTRIC_CHARGE]: 13,
+    [StatusItemNameEnum.ALIEN_ARTEFACT]: 14
 };

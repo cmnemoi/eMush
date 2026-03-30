@@ -130,7 +130,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
                 /** @var ?Weapon $weaponMechanic */
                 $weaponMechanic = $weapon->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON);
                 $expeditionStrength += $weaponMechanic?->getExpeditionBonus() ?? 0;
-                if ($weapon->getName() === ItemEnum::BLASTER
+                if (($weapon->getName() === ItemEnum::BLASTER || $weapon->getName() === ItemEnum::SECURITY_BLASTER)
                 && $weapon->getDaedalus()->hasModifierByModifierName(ModifierNameEnum::CENTAURI_REBEL_BASE_MODIFIER)) {
                     $expeditionStrength += (int) $weapon->getDaedalus()->getModifiers()->getByModifierNameOrThrow(ModifierNameEnum::CENTAURI_REBEL_BASE_MODIFIER)->getVariableModifierConfigOrThrow()->getDelta();
                 }

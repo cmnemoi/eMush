@@ -2146,6 +2146,33 @@ class EquipmentConfigData
             ],
         ],
         [
+            'name' => ItemEnum::SECURITY_BLASTER . '_default',
+            'equipmentName' => ItemEnum::SECURITY_BLASTER,
+            'breakableType' => BreakableTypeEnum::BREAKABLE,
+            'dismountedProducts' => ['metal_scraps' => 1],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => true,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+                'disassemble_percent_25_cost_3',
+                'repair_percent_25',
+                'sabotage_percent_25',
+                ActionEnum::SLIME_OBJECT->value,
+                ActionEnum::REINFORCE->value,
+            ],
+            'mechanics' => [
+                'weapon_security_blaster_default',
+            ],
+            'initStatuses' => [
+                'electric_charges_security_blaster_default',
+                EquipmentStatusEnum::PRIVATE_PROPERTY . '_default',
+            ],
+        ],
+        [
             'name' => 'knife_default',
             'equipmentName' => 'knife',
             'breakableType' => BreakableTypeEnum::BREAKABLE,

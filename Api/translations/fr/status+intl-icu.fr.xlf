@@ -631,5 +631,15 @@
         <target>{target_character_icon} **{target_character}** vous protège. Quel luxe ! // *Tant que vous êtes dans la même pièce,* **les actions agressives vous ciblant coûtent 2 :pa: supplémentaires**.</target>
       </segment>
     </unit>
+    <unit id="private_property">
+      <segment id="name" state="translated">
+        <source>private_property.name</source>
+        <target>Biocodé</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>private_property.description</source>
+        <target>Cet objet possède un système le reliant à {target_character_gender, select, female {sa} other{son}} propriétaire {target_character_icon}  **{target_character}**. Il n'est utilisable par personne d'autre tant {target_character_gender, select, female {qu'elle} other{qu'il}} respire encore.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

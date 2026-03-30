@@ -10,6 +10,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasSkill;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
+use Mush\Action\Validator\PrivateProperty;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
@@ -58,6 +59,7 @@ final class Disassemble extends AttemptAction
             'message' => ActionImpossibleCauseEnum::DISMANTLE_REINFORCED,
         ]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
+        $metadata->addConstraint(new PrivateProperty(['groups' => ['execute']]));
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

@@ -77,6 +77,7 @@ class CharacterConfigData
                 SkillEnum::TORTURER,
                 SkillEnum::BODYGUARD,
                 SkillEnum::INTIMIDATING,
+                SkillEnum::INFANTRYMAN,
             ],
             'maxNumberPrivateChannel' => 3,
             'maxHealthPoint' => 14,

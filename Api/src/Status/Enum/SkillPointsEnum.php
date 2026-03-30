@@ -41,6 +41,7 @@ enum SkillPointsEnum: string
     // shoot points
     case SHOOT_POINTS = 'shoot_points';
     case TWO_SHOOT_POINTS_MAX_4 = '2_shoot_points_max_4';
+    case ONE_SHOOT_POINTS_MAX_2 = '1_shoot_points_max_2';
 
     // engineer points
     case ENGINEER_POINTS = 'engineer_points';
@@ -115,6 +116,7 @@ enum SkillPointsEnum: string
             ['name' => self::TWO_HEAL_POINTS_MAX_4->value . '_default'],
             ['name' => self::ONE_PILGRED_POINTS_MAX_2->value . '_default'],
             ['name' => self::TWO_SHOOT_POINTS_MAX_4->value . '_default'],
+            ['name' => self::ONE_SHOOT_POINTS_MAX_2->value . '_default'],
             ['name' => self::ONE_ENGINEER_POINTS_MAX_2->value . '_default'],
             ['name' => self::ONE_TORTURE_POINTS_MAX_2->value . '_default'],
         ];

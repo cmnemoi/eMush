@@ -195,6 +195,9 @@ class StatusService implements StatusServiceInterface
         $this->throwIfWrongBreakableType($statusConfig, $holder);
 
         $status = $this->createStatusEntity($statusConfig, $holder, $target);
+
+        $this->handlePrivateProperty($status, $holder);
+
         $status = $this->persistStatusSafely($status, $statusConfig, $holder, $target);
 
         $this->processStatusCreationEvent($status, $holder, $tags, $time, $target, $visibility);
@@ -615,5 +618,28 @@ class StatusService implements StatusServiceInterface
             $statusTarget->removeStatusLinksTarget();
             $this->entityManager->remove($statusTarget);
         }
+    }
+
+    private function handlePrivateProperty(Status $status, StatusHolderInterface $holder): void
+    {
+        if ($status->getName() !== EquipmentStatusEnum::PRIVATE_PROPERTY) {
+            return;
+        }
+
+        if (!$holder instanceof GameEquipment) {
+            throw new \Exception("holder of status {$status->getName()} should be a gameEquipment");
+
+            return;
+        }
+
+        $equipementHolder = $holder->getHolder();
+
+        if (!$equipementHolder instanceof Player) {
+            throw new \Exception("holder of equipment {$holder->getName()} should be a player");
+
+            return;
+        }
+
+        $status->setTarget($equipementHolder);
     }
 }

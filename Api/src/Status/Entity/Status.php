@@ -202,6 +202,13 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
         return $target instanceof Player ? $target : throw new \RuntimeException("Status {$this->getName()} target is not a Player, but {$target->getClassName()}");
     }
 
+    public function getPlayerTargetOrNull(): ?Player
+    {
+        $target = $this->getTarget();
+
+        return $target instanceof Player ? $target : null;
+    }
+
     public function getPlaceTargetOrThrow(): Place
     {
         $target = $this->getTargetOrThrow();

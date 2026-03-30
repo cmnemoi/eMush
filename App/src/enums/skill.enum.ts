@@ -95,6 +95,7 @@ export enum SkillEnum {
     EPIGENETICS = 'epigenetics',
     MAINTENANCE_CREW = 'maintenance_crew',
     BODYGUARD = 'bodyguard',
+    INFANTRYMAN = 'infantryman',
 }
 
 export const SkillIconRecord: {[index: string]: any} = {

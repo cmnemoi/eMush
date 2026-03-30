@@ -212,6 +212,7 @@ class GameConfigData
                     'electric_charges_coffee_machine_default',
                     'electric_charges_narcotic_distiller_default',
                     'electric_charges_blaster_default',
+                    'electric_charges_security_blaster_default',
                     'sink_charge_default',
                     'fire_default',
                     'plant_young_default',
@@ -246,6 +247,7 @@ class GameConfigData
                     EquipmentStatusEnum::JUKEBOX_SONG . '_default',
                     SkillPointsEnum::TWO_CORE_POINTS_MAX_4->value . '_default',
                     SkillPointsEnum::TWO_SHOOT_POINTS_MAX_4->value . '_default',
+                    SkillPointsEnum::ONE_SHOOT_POINTS_MAX_2->value . '_default',
                     SkillPointsEnum::ONE_ENGINEER_POINTS_MAX_2->value . '_default',
                     SkillPointsEnum::TWO_COMPUTER_POINTS_MAX_4->value . '_default',
                     SkillPointsEnum::ONE_COMPUTER_POINTS_MAX_2->value . '_default',
@@ -336,6 +338,7 @@ class GameConfigData
                     PlayerStatusEnum::HAS_USED_MYCOSCAN . '_default',
                     PlayerStatusEnum::BODYGUARD_USER . '_default',
                     PlayerStatusEnum::BODYGUARD_VIP . '_default',
+                    EquipmentStatusEnum::PRIVATE_PROPERTY . '_default',
                 ],
                 'triumphConfigs' => array_map(static fn (TriumphConfigDto $triumphConfig) => $triumphConfig->name->toConfigKey('default'), TriumphConfigData::getAll()),
                 'hunterConfigs' => [
@@ -540,6 +543,7 @@ class GameConfigData
                     SkillEnum::VICTIMIZER,
                     SkillEnum::WRESTLER,
                     SkillEnum::BODYGUARD,
+                    SkillEnum::INFANTRYMAN,
                 ],
                 'rebelBaseConfigs' => [
                     RebelBaseEnum::WOLF,

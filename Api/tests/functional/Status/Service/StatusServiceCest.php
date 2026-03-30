@@ -20,6 +20,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
@@ -588,5 +589,26 @@ final class StatusServiceCest extends AbstractFunctionalTest
         foreach ($this->players as $player) {
             $I->assertFalse($player->hasStatus(PlayerStatusEnum::STARVING));
         }
+    }
+
+    public function shouldCreatePrivatePropertyStatus(FunctionalTester $I): void
+    {
+        $blaster = $this->createEquipment(ItemEnum::SECURITY_BLASTER, $this->chun);
+
+        $I->assertTrue($blaster->hasStatus(EquipmentStatusEnum::PRIVATE_PROPERTY));
+        $I->assertTrue($blaster->getStatusByNameOrThrow(EquipmentStatusEnum::PRIVATE_PROPERTY)->getPlayerTargetOrThrow() === $this->chun);
+    }
+
+    public function shouldCreatePrivatePropertyStatusEvenWithFullPockets(FunctionalTester $I): void
+    {
+        // we make sure that chun's pockets are full
+        $this->createEquipment(ItemEnum::FUEL_CAPSULE, $this->chun);
+        $this->createEquipment(ItemEnum::FUEL_CAPSULE, $this->chun);
+        $this->createEquipment(ItemEnum::FUEL_CAPSULE, $this->chun);
+
+        $blaster = $this->createEquipment(ItemEnum::SECURITY_BLASTER, $this->chun);
+
+        $I->assertTrue($blaster->hasStatus(EquipmentStatusEnum::PRIVATE_PROPERTY));
+        $I->assertTrue($blaster->getStatusByNameOrThrow(EquipmentStatusEnum::PRIVATE_PROPERTY)->getPlayerTargetOrThrow() === $this->chun);
     }
 }

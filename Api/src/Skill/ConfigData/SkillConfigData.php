@@ -559,6 +559,14 @@ abstract class SkillConfigData
                     ActionEnum::PROTECT,
                 ],
             ),
+            new SkillConfigDto(
+                name: SkillEnum::INFANTRYMAN,
+                modifierConfigs: [
+                    ModifierNameEnum::PLAYER_DOUBLE_SUCCESS_RATE_ON_SHOOT_HUNTER,
+                ],
+                statusConfigs: [SkillPointsEnum::ONE_SHOOT_POINTS_MAX_2->value . '_default'],
+                spawnEquipmentConfig: SpawnEquipmentConfigData::ONE_SECURITY_BLASTER_IN_PLAYER_INVENTORY,
+            ),
         ];
     }
 

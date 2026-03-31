@@ -1,3 +1,23 @@
+# [0.26.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.25.3...0.26.0) (2026-03-31)
+
+
+### Bug Fixes
+
+* ne longer change the config when checking for the holiday. Anniversary and halloween are shorter ([a37f370](https://gitlab.com/eternaltwin/mush/mush/commit/a37f370efde7613f929fa8d0ef40fbdefa67b473))
+* new Crowdin translations ([d15a83f](https://gitlab.com/eternaltwin/mush/mush/commit/d15a83f870ffe179a7a059514f874c00f1b7ae43))
+* new Crowdin translations ([9d5ae54](https://gitlab.com/eternaltwin/mush/mush/commit/9d5ae54143acf008ec5dafbe0489f4c37c9b3d1c))
+
+
+### Features
+
+* Certain items spawn all over Daedalus ([c63690e](https://gitlab.com/eternaltwin/mush/mush/commit/c63690ec9ab14c294ec4f25c9384334a5225fb7a))
+* eden biodiversity stat and achievements + admin action to create status on daedalus ([67571ba](https://gitlab.com/eternaltwin/mush/mush/commit/67571baeffc6025e958342f4c15449d86cd865d4))
+* Metalworker can be used in all storages once per day ([7252df8](https://gitlab.com/eternaltwin/mush/mush/commit/7252df89e971a64e54fa3939151ffbb6859c50b9))
+* new skill infantryman ([da7fbe4](https://gitlab.com/eternaltwin/mush/mush/commit/da7fbe459f57d7782c8548dc73cec075db388a08))
+* pavlov joins explorations + some pavlov code cleanup ([89c581d](https://gitlab.com/eternaltwin/mush/mush/commit/89c581d560df6cc8656a55d06931482a7f253037))
+* remove intimidating from Chao ([bb1e0bd](https://gitlab.com/eternaltwin/mush/mush/commit/bb1e0bd1d0fc749f9c85675f4f252b525d5cf35c))
+* trash load project give 5 items at random from a predifined list and create random item when using generic name ([9824a2c](https://gitlab.com/eternaltwin/mush/mush/commit/9824a2cca7bf132a8d06f79719fd7dce66a484b8))
+
 ## [0.25.3](https://gitlab.com/eternaltwin/mush/mush/compare/0.25.2...0.25.3) (2026-03-19)
 
 

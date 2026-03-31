@@ -158,7 +158,7 @@
         <source>pilgred.description</source>
         <target>Réparer PILGRED vous permettra d'ouvrir de nouvelles routes spatiales, dont celle vers la Terre. De plus, la machine à café se régénèrera quatre fois plus vite.</target>
       </segment>
-      <segment id="pilgred.lore" state="final">
+      <segment id="pilgred.lore" state="translated">
         <source>pilgred.lore</source>
         <target/>
       </segment>

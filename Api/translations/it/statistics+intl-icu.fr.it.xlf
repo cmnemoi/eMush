@@ -1904,31 +1904,31 @@
       </segment>
     </unit>
     <unit id="eden_biodiversity">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>eden_biodiversity.name</source>
         <target>eden_biodiversity.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>eden_biodiversity.description</source>
         <target>eden_biodiversity.description</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>eden_biodiversity_1.name</source>
         <target>eden_biodiversity_1.name</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>eden_biodiversity_3.name</source>
         <target>eden_biodiversity_3.name</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>eden_biodiversity_5.name</source>
         <target>eden_biodiversity_5.name</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>eden_biodiversity_7.name</source>
         <target>eden_biodiversity_7.name</target>
       </segment>
-      <segment id="x1" state="initial">
+      <segment id="x1" state="translated">
         <source>eden_biodiversity_13.name</source>
         <target>eden_biodiversity_13.name</target>
       </segment>

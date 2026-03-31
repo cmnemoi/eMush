@@ -1662,7 +1662,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>project_team_1.name</source>
-        <target>Manutenciario</target>
+        <target>Agente de mantenimiento</target>
       </segment>
       <segment id="x2" state="translated">
         <source>project_team_2.name</source>

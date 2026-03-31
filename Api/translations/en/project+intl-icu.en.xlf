@@ -158,7 +158,7 @@
         <source>pilgred.description</source>
         <target>Repairing PILGRED gives you access to new space routes, including the route to Earth. In addition, the coffee machine will regenerate four times as fast.</target>
       </segment>
-      <segment id="pilgred.lore" state="final">
+      <segment id="pilgred.lore" state="translated">
         <source>pilgred.lore</source>
         <target/>
       </segment>

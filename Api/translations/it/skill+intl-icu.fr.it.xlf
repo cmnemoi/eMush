@@ -932,11 +932,11 @@
       </segment>
     </unit>
     <unit id="infantryman">
-      <segment id="infantryman.name" state="initial">
+      <segment id="infantryman.name" state="translated">
         <source>infantryman.name</source>
         <target>infantryman.name</target>
       </segment>
-      <segment id="infantryman.description" state="initial">
+      <segment id="infantryman.description" state="translated">
         <source>infantryman.description</source>
         <target>infantryman.description</target>
       </segment>

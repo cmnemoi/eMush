@@ -2459,7 +2459,7 @@ Te ayudará a defenderte con elegancia.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>security_blaster.examine</source>
-        <target> Un blaster fuera de lo común. Su dueño lo ha cuidado con esmero, mejorándolo con el paso de los años.// Expedición: +2 a la fuerza de tu equipo durante los combates.// Un antiguo blaster originalmente ofrecido a la infantería de la Federación para la Defensa de Sol. Tras años de ajustes, es incluso más potente que los diseños más modernos.</target>
+        <target>Un blaster fuera de lo común. Su dueño lo ha cuidado con esmero, mejorándolo con el paso de los años.// Expedición: +2 a la fuerza de tu equipo durante los combates.// Un antiguo blaster originalmente ofrecido a la infantería de la Federación para la Defensa de Sol. Tras años de ajustes, es incluso más potente que los diseños más modernos.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle">

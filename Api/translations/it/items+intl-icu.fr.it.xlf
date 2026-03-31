@@ -2200,31 +2200,31 @@
       </segment>
     </unit>
     <unit id="security_blaster">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>security_blaster.name</source>
         <target>security_blaster.name</target>
       </segment>
-      <segment id="security_blaster" state="initial">
+      <segment id="security_blaster" state="translated">
         <source>security_blaster.short_name</source>
         <target>security_blaster.short_name</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>security_blaster.plural_name</source>
         <target>security_blaster.plural_name</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>security_blaster.gender</source>
         <target>security_blaster.gender</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>security_blaster.first_letter</source>
         <target>security_blaster.first_letter</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>security_blaster.description</source>
         <target>security_blaster.description</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>security_blaster.examine</source>
         <target>security_blaster.examine</target>
       </segment>

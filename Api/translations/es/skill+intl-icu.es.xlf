@@ -1122,9 +1122,12 @@
         <source>infantryman.name</source>
         <target>Soldado de infantería</target>
       </segment>
-      <segment id="infantryman.description" state="initial">
+      <segment id="infantryman.description" state="translated">
         <source>infantryman.description</source>
-        <target>infantryman.description</target>
+        <target>:beta: translate me! //
+:point: +1 :pa_shoot: **Disparos gratis** al día.//
+:point: **Duplica la probabilidad de éxito** al disparar desde los cañones.//
+:point: Comienza la partida con **un blaster personalizado**.//</target>
       </segment>
     </unit>
   </file>

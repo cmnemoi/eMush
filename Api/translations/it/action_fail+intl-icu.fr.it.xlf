@@ -854,7 +854,7 @@
       </segment>
     </unit>
     <unit id="private_property_not_owner">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>private_property_not_owner.description</source>
         <target>private_property_not_owner.description</target>
       </segment>

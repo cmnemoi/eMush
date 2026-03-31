@@ -1030,25 +1030,25 @@
       </segment>
     </unit>
     <unit id="pavlov_joined_expedition">
-      <segment id="pavlov_joined_expedition" state="initial">
+      <segment id="pavlov_joined_expedition" state="translated">
         <source>pavlov_joined_expedition</source>
         <target>pavlov_joined_expedition</target>
       </segment>
     </unit>
     <unit id="pavlov_triggered_sector_revisit">
-      <segment id="pavlov_triggered_sector_revisit" state="initial">
+      <segment id="pavlov_triggered_sector_revisit" state="translated">
         <source>pavlov_triggered_sector_revisit</source>
         <target>pavlov_triggered_sector_revisit</target>
       </segment>
     </unit>
     <unit id="pavlov_ready_for_planet">
-      <segment id="pavlov_ready_for_planet" state="initial">
+      <segment id="pavlov_ready_for_planet" state="translated">
         <source>pavlov_ready_for_planet</source>
         <target>pavlov_ready_for_planet</target>
       </segment>
     </unit>
     <unit id="pavlov_turbo_worked">
-      <segment id="pavlov_turbo_worked" state="initial">
+      <segment id="pavlov_turbo_worked" state="translated">
         <source>pavlov_turbo_worked</source>
         <target>pavlov_turbo_worked</target>
       </segment>

@@ -1998,7 +1998,7 @@ abstract class StatusConfigData
         [
             'name' => EquipmentStatusEnum::SENSOR_DRONE_UPGRADE . '_default',
             'statusName' => EquipmentStatusEnum::SENSOR_DRONE_UPGRADE,
-            'visibility' => VisibilityEnum::PUBLIC,
+            'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'status_config',
             'modifierConfigs' => [],
             'actionConfigs' => [],

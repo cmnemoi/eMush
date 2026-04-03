@@ -75,6 +75,7 @@ enum WeaponEffectEnum: string
 
     // remove action point effects
     case REMOVE_ONE_ACTION_POINT_TO_SHOOTER = 'remove_one_action_point_to_shooter';
+    case REMOVE_TWO_ACTION_POINT_TO_SHOOTER = 'remove_two_action_point_to_shooter';
     case REMOVE_TWO_ACTION_POINTS_TO_TARGET = 'remove_two_action_points_to_target';
     case REMOVE_ONE_ACTION_POINT_TO_TARGET = 'remove_one_action_point_to_target';
 

@@ -773,7 +773,7 @@ class EventConfigData
                 eventName: WeaponEventEnum::KNIFE_SHOOTER_MINUS_2_AP->toString(),
                 eventType: WeaponEventType::FUMBLE,
                 effectKeys: [
-                    WeaponEffectEnum::REMOVE_TWO_ACTION_POINTS_TO_TARGET->toString(),
+                    WeaponEffectEnum::REMOVE_TWO_ACTION_POINT_TO_SHOOTER->toString(),
                 ]
             ),
             new WeaponEventConfigDto(
@@ -1157,6 +1157,12 @@ class EventConfigData
                 name: WeaponEffectEnum::REMOVE_ONE_ACTION_POINT_TO_SHOOTER->toString(),
                 eventName: WeaponEffectEnum::REMOVE_ACTION_POINTS->toString(),
                 quantity: 1,
+                toShooter: true,
+            ),
+            new RemoveActionPointsWeaponEffectConfigDto(
+                name: WeaponEffectEnum::REMOVE_TWO_ACTION_POINT_TO_SHOOTER->toString(),
+                eventName: WeaponEffectEnum::REMOVE_ACTION_POINTS->toString(),
+                quantity: 2,
                 toShooter: true,
             ),
             new RemoveActionPointsWeaponEffectConfigDto(

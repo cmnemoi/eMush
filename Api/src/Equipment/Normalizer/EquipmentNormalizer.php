@@ -75,10 +75,12 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         $type = $equipment->getNormalizationType();
 
         $statuses = [];
-        foreach ($equipment->getStatuses() as $status) {
-            $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['equipment' => $equipment]));
-            if (\is_array($normedStatus) && \count($normedStatus) > 0) {
-                $statuses[] = $normedStatus;
+        if (!$equipment instanceof Door) {
+            foreach ($equipment->getStatuses() as $status) {
+                $normedStatus = $this->normalizer->normalize($status, $format, array_merge($context, ['equipment' => $equipment]));
+                if (\is_array($normedStatus) && \count($normedStatus) > 0) {
+                    $statuses[] = $normedStatus;
+                }
             }
         }
 
@@ -94,6 +96,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             'statuses' => $statuses,
             'actions' => $this->getNormalizedActions($equipment, ActionHolderEnum::EQUIPMENT, $currentPlayer, $format, $context),
             'effects' => $this->getEquipmentEffects($equipment, $currentPlayer),
+            'isBroken' => $equipment->isBroken(),
         ];
 
         if ($equipment->shouldBeNormalizedAsItem() || $equipment->getName() === EquipmentEnum::SWEDISH_SOFA) {
@@ -107,6 +110,11 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
     {
         if ($equipment instanceof Drone) {
             return $this->translationService->translate('drone_full_name', ['drone_nickname' => $equipment->getNickname(), 'drone_serial_number' => $equipment->getSerialNumber()], 'event_log', $language);
+        }
+
+        // don't normalize door's name
+        if ($equipment instanceof Door) {
+            return '';
         }
 
         return $this->translationService->translate($key . '.name', $nameParameters, $type, $language);

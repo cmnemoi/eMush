@@ -24,17 +24,10 @@ export class Equipment {
             this.key = object.key;
             this.name = object.name;
             this.description = object.description;
+            this.isBroken = object.isBroken;
 
             object.actions.forEach((actionObject: any) => {
                 this.actions.push((new Action).load(actionObject));
-            });
-            object.statuses.forEach((statusObject : any) => {
-                const status = (new Status()).load(statusObject);
-                this.statuses.push(status);
-
-                if (status.key === 'broken') {
-                    this.isBroken = true;
-                }
             });
         }
         return this;

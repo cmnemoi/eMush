@@ -191,6 +191,12 @@
                     @change="loadPublicChannelMessages(player)"
                 >
             </label>
+            <button
+                class="action-button"
+                @click="openAllMessages(this.publicChannelMessages)"
+            >
+                {{ $t('moderation.openAllMessage') }}
+            </button>
         </div>
         <div class="messages-container">
             <h2> {{ $t('moderation.generalChannel') }}</h2>
@@ -700,6 +706,12 @@ export default defineComponent({
                 const closedDaedalusId = this.getClosedDaedalusId(sanctionEvidence.id);
                 router.push({ name: 'TheEnd', params: { closedDaedalusId } });
             }
+        },
+        openAllMessages(channel : MessageEntity[])
+        {
+            channel.forEach((message: MessageEntity) => {
+                message.toggleChildren();
+            });
         }
     },
     beforeMount() {

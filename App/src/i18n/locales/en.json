@@ -1024,7 +1024,8 @@
 		"suspendSanctionDescription": "Suspend sanction. The end date is set to the current date. The sanction remains in the user's history.",
 		"removeSanction": "Delete sanction",
 		"removeSanctionDescription": "Delete sanction. The sanction is completely removed from the user's history.",
-		"byIp": "Ban by IPs"
+		"byIp": "Ban by IPs",
+		"openAllMessage": "Open all messages"
 	},
 	"rules": {
 		"title": "Rules of eMush",

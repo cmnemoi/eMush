@@ -1024,7 +1024,8 @@
 		"suspendSanctionDescription": "Suspender la sanción. La fecha de fin se fija a la fecha actual. La sanción permanece en el historial del usuario.",
 		"removeSanction": "Suprimir la sanción",
 		"removeSanctionDescription": "Suprimir la sanción. La sanción es completamente eliminada del historial del usuario.",
-		"byIp": "Banear por IPs"
+		"byIp": "Banear por IPs",
+		"openAllMessage": "Ouvrir tout les messages"
 	},
 	"rules": {
 		"title": "Reglamento de eMush",

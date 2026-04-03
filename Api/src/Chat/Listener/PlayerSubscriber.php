@@ -64,7 +64,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         if ($endCause === null) {
             throw new \LogicException('Player should die with a reason');
         }
-        if (EndCauseEnum::isDeathEndCause($endCause) && $neron->areDeathAnnouncementsActive()) {
+        if ((EndCauseEnum::isDeathEndCause($endCause) && $neron->areDeathAnnouncementsActive()) || $endCause === EndCauseEnum::QUARANTINE) {
             $this->neronMessageService->createPlayerDeathMessage($player, $endCause, $time);
         }
     }

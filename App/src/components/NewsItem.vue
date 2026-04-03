@@ -61,7 +61,7 @@ export default defineComponent ({
             return this.$i18n.locale.split('-')[0] === GameLocales.ES;
         },
         formatDate(date: Date | null) {
-            return date ? date.toLocaleDateString(this.$i18n.locale) : '';
+            return date ? date.toLocaleDateString() : '';
         },
         formatNewsContent(content: string | null) {
             return content ? formatText(content) : '';

@@ -1,3 +1,10 @@
+## [0.26.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.26.1...0.26.2) (2026-04-04)
+
+
+### Bug Fixes
+
+* status not showing ([0656c44](https://gitlab.com/eternaltwin/mush/mush/commit/0656c44339232dfd560669675a9bd9bdcb867714))
+
 ## [0.26.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.26.0...0.26.1) (2026-04-04)
 
 

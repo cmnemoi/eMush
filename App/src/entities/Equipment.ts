@@ -29,6 +29,11 @@ export class Equipment {
             object.actions.forEach((actionObject: any) => {
                 this.actions.push((new Action).load(actionObject));
             });
+
+            object.statuses.forEach((statusObject : any) => {
+                const status = (new Status()).load(statusObject);
+                this.statuses.push(status);
+            });
         }
         return this;
     }

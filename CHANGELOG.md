@@ -1,3 +1,15 @@
+## [0.26.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.26.0...0.26.1) (2026-04-04)
+
+
+### Bug Fixes
+
+* doors don't show names and status ([b66a746](https://gitlab.com/eternaltwin/mush/mush/commit/b66a746a78c31d8f876607e553a06cb29ea95b74))
+* drone sensor upgrade status no longer visible ([a5914cf](https://gitlab.com/eternaltwin/mush/mush/commit/a5914cfc6809eb911788891e3fff73649aa224d2))
+* fumble with knife remove ap from shooter ([1332270](https://gitlab.com/eternaltwin/mush/mush/commit/1332270ae7361f69577efe8814d8cbf7b7fbc247))
+* new Crowdin translations ([8e111f8](https://gitlab.com/eternaltwin/mush/mush/commit/8e111f88b521989e5e5f7b5bd4392b2069c0ef1d))
+* news show time according to user config ([abb6690](https://gitlab.com/eternaltwin/mush/mush/commit/abb66901c0a842a02bf2ebe744e95193bba122f2))
+* quarentine always have an announcement ([adf78e9](https://gitlab.com/eternaltwin/mush/mush/commit/adf78e975929f9405a20962d0c9a138ef3cf6452))
+
 # [0.26.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.25.3...0.26.0) (2026-03-31)
 
 

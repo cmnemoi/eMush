@@ -1124,10 +1124,7 @@
       </segment>
       <segment id="infantryman.description" state="translated">
         <source>infantryman.description</source>
-        <target>:beta: translate me! //
-:point: +1 :pa_shoot: **Disparos gratis** al día.//
-:point: **Duplica la probabilidad de éxito** al disparar desde los cañones.//
-:point: Comienza la partida con **un blaster personalizado**.//</target>
+        <target>:beta: Con un arma reglamentaria y el entrenamiento suficiente para no dispararte accidentalmente en el pie eres un claro ejemplo de lo que los ricos y poderosos podrían llamar "carne de cañón". //:point: +1 :p_shoot: al día.//:point: **Duplica la probabilidad de tiros exitosos** al usar cañones.//:point: Comienza con un **Blaster personalizado** en el inventario.</target>
       </segment>
     </unit>
   </file>

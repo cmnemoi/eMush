@@ -1488,7 +1488,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>kind_person.description</source>
-        <target>kind_person.description</target>
+        <target>On this occasion, you managed to find the perfect words...</target>
       </segment>
       <segment id="x1" state="translated">
         <source>kind_person_1.name</source>
@@ -1556,7 +1556,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>team_mush_killed.description</source>
-        <target>Mush invaders exterminated by the crews you traveled with.</target>
+        <target>Mush invaders decimated by the crews with which you have travelled.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>team_mush_killed_1.name</source>

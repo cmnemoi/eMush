@@ -272,7 +272,7 @@ other {invalid gender input}}.</target>
     <unit id="search_fail">
       <segment id="search_fail" state="translated">
         <source>search_fail</source>
-        <target>**{character}** hurgó por toda la sala pero no encontró nada.</target>
+        <target>**{character}** hurgó por toda la sala, pero no encontró nada.</target>
       </segment>
     </unit>
     <unit id="shower_human">

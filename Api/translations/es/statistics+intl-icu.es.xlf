@@ -1488,7 +1488,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>kind_person.description</source>
-        <target>Todo comenzó una vez, cuando...</target>
+        <target>En esta ocasión, encontraste las palabras adecuadas...</target>
       </segment>
       <segment id="x1" state="translated">
         <source>kind_person_1.name</source>

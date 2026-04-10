@@ -15,6 +15,9 @@ function getMarkdownLinkRegex() {
         "emush.eternaltwin.org",
         "staging.emush.eternaltwin.org",
         "emushpedia.miraheze.org",
+        "fr.emushpedia.com",
+        "en.emushpedia.com",
+        "es.emushpedia.com",
         "www.mushpedia.com",
         "gitlab.com",
         "eternaltwin.org"

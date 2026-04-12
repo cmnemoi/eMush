@@ -163,6 +163,7 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
             EndCauseEnum::EDEN => StatisticEnum::EDEN,
             EndCauseEnum::EDEN_INFECTED => $player->isMush() ? StatisticEnum::EDEN_CONTAMINATED : StatisticEnum::EDEN,
             EndCauseEnum::SOL_RETURN => StatisticEnum::BACK_TO_ROOT,
+            EndCauseEnum::SOL_RETURN_INFECTED => StatisticEnum::BACK_TO_ROOT,
             default => StatisticEnum::NULL,
         };
     }

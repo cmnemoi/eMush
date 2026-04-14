@@ -1,3 +1,12 @@
+## [0.26.3](https://gitlab.com/eternaltwin/mush/mush/compare/0.26.2...0.26.3) (2026-04-14)
+
+
+### Bug Fixes
+
+* Add emushpedia.com to the allowed list of URL ([b3c50fc](https://gitlab.com/eternaltwin/mush/mush/commit/b3c50fc0e87e8c7373fe465d901ee9fe516d3ab5))
+* back to root stat not given when mush return to sol ([bfd59aa](https://gitlab.com/eternaltwin/mush/mush/commit/bfd59aad430d6dcc513fda347b4556fcdfdd7a9a))
+* play with pavlov blocked by asteroid and trader ([a6b5b09](https://gitlab.com/eternaltwin/mush/mush/commit/a6b5b09de898103885283cdda8a999b0b00f42c8))
+
 ## [0.26.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.26.1...0.26.2) (2026-04-04)
 
 

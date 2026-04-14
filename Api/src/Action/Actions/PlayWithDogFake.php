@@ -22,8 +22,8 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -65,7 +65,7 @@ class PlayWithDogFake extends AbstractAction
     {
         $metadata->addConstraint(new HasStatus(['status' => PlayerStatusEnum::GERMAPHOBE, 'target' => HasStatus::PLAYER, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PLAYER_IS_GERMAPHOBIC]));
         $metadata->addConstraint(new HasStatus(['status' => DaedalusStatusEnum::TRAVELING, 'target' => HasStatus::DAEDALUS, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DOG_IS_SEASICK]));
-        $metadata->addConstraint(new NumberOfAttackingHunters(['mode' => NumberOfAttackingHunters::GREATER_THAN, 'number' => 0, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DOG_IS_WORRIED]));
+        $metadata->addConstraint(new NumberOfAttackingHunters(['mode' => NumberOfAttackingHunters::GREATER_THAN, 'number' => 0, 'exclude' => [HunterEnum::ASTEROID, HunterEnum::TRANSPORT], 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DOG_IS_WORRIED]));
         $metadata->addConstraint(new HasEquipment(['reach' => ReachEnum::DAEDALUS, 'equipments' => [EquipmentEnum::FUEL_TANK], 'checkIfOperational' => true, 'number' => 2, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DISTRACTED_BY_BROKEN_FUEL_TANK]));
         $metadata->addConstraint(new HasEquipment(['reach' => ReachEnum::ROOM, 'equipments' => [ItemEnum::SCHRODINGER], 'contains' => false, 'target' => HasEquipment::PLAYER, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::BOTHERING_CAT]));
         $metadata->addConstraint(new HasEquipment(['reach' => ReachEnum::ROOM, 'equipments' => GameRationEnum::getAllRations(), 'all' => false, 'contains' => false, 'target' => HasEquipment::PLAYER, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::DISTRACTED_BY_FOOD]));

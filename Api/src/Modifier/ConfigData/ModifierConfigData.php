@@ -81,7 +81,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1.0,
                 targetVariable: 'movementPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_x0.9percentage_on_action_shoot',
@@ -97,7 +97,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 0.9,
                 targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
-                mode: 'multiplicative',
+                mode: VariableModifierModeEnum::MULTIPLICATIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_+10percentage_on_cycle_disease',
@@ -113,7 +113,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 10.0,
                 targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_target_player_+1healthPoint_on_injury',
@@ -150,7 +150,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1.5,
                 targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
-                mode: 'multiplicative',
+                mode: VariableModifierModeEnum::MULTIPLICATIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_-1actionPoint_on_shower',
@@ -169,7 +169,7 @@ abstract class ModifierConfigData
                 ],
                 delta: -1,
                 targetVariable: PlayerVariableEnum::ACTION_POINT,
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: ModifierNameEnum::SPLASHPROOF_MODIFIER_MINUS_1_ACTION_POINT_ON_SHOWER_NO_STACK_SOAP,
@@ -185,7 +185,7 @@ abstract class ModifierConfigData
                 ],
                 delta: -1,
                 targetVariable: PlayerVariableEnum::ACTION_POINT,
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_x1.1percentage_on_action_shoot_hunter',
@@ -201,7 +201,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1.1,
                 targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
-                mode: 'multiplicative',
+                mode: VariableModifierModeEnum::MULTIPLICATIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_+2movementPoint_on_event_action_movement_conversion',
@@ -218,7 +218,7 @@ abstract class ModifierConfigData
                 ],
                 delta: -2,
                 targetVariable: 'movementPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_+1movementPoint_on_event_action_movement_conversion_if_cycle_even',
@@ -236,7 +236,7 @@ abstract class ModifierConfigData
                 ],
                 delta: -1.0,
                 targetVariable: 'movementPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_x2percentage_on_strengthen_hull',
@@ -252,7 +252,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 2.0,
                 targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
-                mode: 'multiplicative',
+                mode: VariableModifierModeEnum::MULTIPLICATIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_x2percentage_on_renovate',
@@ -268,7 +268,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 2.0,
                 targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
-                mode: 'multiplicative',
+                mode: VariableModifierModeEnum::MULTIPLICATIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_x2hull_on_change.variable_if_reason_strengthen_hull',
@@ -284,7 +284,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 2.0,
                 targetVariable: 'hull',
-                mode: 'multiplicative',
+                mode: VariableModifierModeEnum::MULTIPLICATIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_daedalus_-1actionPoint_on_comms_action',
@@ -300,7 +300,7 @@ abstract class ModifierConfigData
                 ],
                 delta: -1.0,
                 targetVariable: 'actionPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_daedalus_-1movementPoint_on_event_action_movement_conversion',
@@ -316,7 +316,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1.0,
                 targetVariable: 'movementPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_daedalus_-1movementPoint_on_change.variable_if_reason_new_cycle',
@@ -332,7 +332,7 @@ abstract class ModifierConfigData
                 ],
                 delta: -1.0,
                 targetVariable: PlayerVariableEnum::MOVEMENT_POINT,
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_daedalus_+1oxygen_on_change.variable_if_reason_new_cycle',
@@ -348,7 +348,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1,
                 targetVariable: 'oxygen',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_+2movementPoint_on_move_if_item_in_room_schrodinger',
@@ -368,7 +368,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 2.0,
                 targetVariable: 'movementPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_+2actionPoint_on_actions_if_item_in_room_schrodinger_if_not_reason_move',
@@ -388,7 +388,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 2.0,
                 targetVariable: 'actionPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_+1actionPoint_on_actions_if_player_in_room_four_people',
@@ -409,7 +409,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1.0,
                 targetVariable: 'actionPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_+1movementPoint_on_move_action_if_player_in_room_four_people',
@@ -429,7 +429,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1.0,
                 targetVariable: 'movementPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_+1actionPoint',
@@ -450,7 +450,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1.0,
                 targetVariable: 'actionPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_+2actionPoint',
@@ -471,7 +471,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 2.0,
                 targetVariable: 'actionPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_+3actionPoint',
@@ -492,7 +492,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 3.0,
                 targetVariable: 'actionPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_x0.85percentage_on_action_shoot',
@@ -508,7 +508,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 0.85,
                 targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
-                mode: 'multiplicative',
+                mode: VariableModifierModeEnum::MULTIPLICATIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_x0.8percentage_on_action_shoot',
@@ -524,7 +524,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 0.8,
                 targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
-                mode: 'multiplicative',
+                mode: VariableModifierModeEnum::MULTIPLICATIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_x0.6percentage_on_action_shoot',
@@ -540,7 +540,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 0.6,
                 targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
-                mode: 'multiplicative',
+                mode: VariableModifierModeEnum::MULTIPLICATIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_equipment_+1actionPoint_on_consume',
@@ -556,7 +556,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1.0,
                 targetVariable: 'actionPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_-2movementPoint_on_event_action_movement_conversion',
@@ -572,7 +572,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 2.0,
                 targetVariable: 'movementPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_-1movementPoint_on_move_if_player_in_room_not_alone',
@@ -590,7 +590,7 @@ abstract class ModifierConfigData
                 ],
                 delta: -1.0,
                 targetVariable: 'movementPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_place_+2actionPoint_on_action_aggressive',
@@ -606,7 +606,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 2.0,
                 targetVariable: 'actionPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_+2movementPoint_on_move',
@@ -624,7 +624,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 2.0,
                 targetVariable: 'movementPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'lying_down_modifier_for_player_+1actionPoint_on_new_cycle',
@@ -642,7 +642,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1.0,
                 targetVariable: 'actionPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'hyperactive_modifier_for_player_+1movementPoint_on_new_cycle',
@@ -658,7 +658,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1.0,
                 targetVariable: 'movementPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_+30percentage_on_cycle_disease',
@@ -674,7 +674,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 30.0,
                 targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_set_4satiety_on_change.variable_if_reason_consume',
@@ -690,7 +690,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 4.0,
                 targetVariable: 'satiety',
-                mode: 'set_value',
+                mode: VariableModifierModeEnum::SET_VALUE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_x1.33percentage_on_action_shoot',
@@ -706,7 +706,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1.33,
                 targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
-                mode: 'multiplicative',
+                mode: VariableModifierModeEnum::MULTIPLICATIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_daedalus_+30percentage_on_action_scan',
@@ -722,7 +722,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 30,
                 targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_daedalus_-1actionPoint_on_action_analyze_planet',
@@ -738,7 +738,7 @@ abstract class ModifierConfigData
                 ],
                 delta: -1.0,
                 targetVariable: 'actionPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_daedalus_-1actionPoint_on_action_scan_planet',
@@ -772,7 +772,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1.0,
                 targetVariable: 'outputQuantity',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_place_+1sector_revealed_on_action_scan_planet_random_50',
@@ -792,7 +792,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1.0,
                 targetVariable: 'outputQuantity',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_pilot_always_critical_success_piloting',
@@ -858,7 +858,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1.0,
                 targetVariable: 'outputQuantity',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_daedalus_-1action_point_on_action_analyze_planet',
@@ -874,7 +874,7 @@ abstract class ModifierConfigData
                 ],
                 delta: -1.0,
                 targetVariable: 'actionPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_player_set_0spore_on_change.variable',
@@ -909,7 +909,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 4.0,
                 targetVariable: 'outputQuantity',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_place_x2_hunter_damage_on_change.variable',
@@ -926,7 +926,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 2.0,
                 targetVariable: 'health',
-                mode: 'multiplicative',
+                mode: VariableModifierModeEnum::MULTIPLICATIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_daedalus_-25percentage_following_hunters_on_daedalus_travel',
@@ -1073,7 +1073,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1,
                 targetVariable: 'oxygen',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_daedalus_x2_turret_charges_on_new_cycle',
@@ -1107,7 +1107,7 @@ abstract class ModifierConfigData
                 ],
                 delta: -1,
                 targetVariable: 'actionPoint',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_daedalus_+2players_allowed_on_takeoff_to_planet',
@@ -1123,7 +1123,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 2,
                 targetVariable: 'outputQuantity',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_for_daedalus_x2_signal_on_action_contact_sol',
@@ -1221,7 +1221,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 1.5,
                 targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
-                mode: 'multiplicative',
+                mode: VariableModifierModeEnum::MULTIPLICATIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_skill_point_it_expert',
@@ -1894,7 +1894,7 @@ abstract class ModifierConfigData
                 ],
                 delta: 2,
                 targetVariable: 'outputQuantity',
-                mode: 'additive',
+                mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
                 key: ModifierNameEnum::DOUBLE_DECODE_REBEL_SIGNAL,

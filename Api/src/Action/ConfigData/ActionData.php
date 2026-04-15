@@ -582,7 +582,7 @@ class ActionData
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'private', ActionOutputEnum::MUSH_DAMAGE => 'private'],
-            'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
+            'actionPoint' => ['value' => 2, 'min_value' => 1, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 2, 'min_value' => 0, 'max_value' => 100],

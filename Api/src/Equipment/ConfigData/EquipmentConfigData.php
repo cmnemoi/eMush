@@ -2750,9 +2750,7 @@ class EquipmentConfigData
             'isStackable' => null,
             'actions' => [
                 'repair_percent_25',
-                'disassemble_percent_25_cost_3',
                 'sabotage_percent_25',
-                ActionEnum::REINFORCE->value,
                 'examine',
                 'report_equipment',
             ],
@@ -2972,9 +2970,7 @@ class EquipmentConfigData
             'isStackable' => null,
             'actions' => [
                 'repair_percent_25',
-                'disassemble_percent_25_cost_3',
                 'sabotage_percent_25',
-                ActionEnum::REINFORCE->value,
                 'examine',
                 'report_equipment',
             ],

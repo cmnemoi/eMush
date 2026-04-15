@@ -6,6 +6,7 @@ use Mush\Action\Actions\Disassemble;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\RoomLog;
@@ -50,9 +51,9 @@ final class AutomaticGetUpCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // given a shower is in player's room
-        $shower = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::SHOWER,
+        // given a camera is in player's room
+        $camera = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::CAMERA_ITEM,
             equipmentHolder: $this->kuanTi->getPlace(),
             reasons: [],
             time: new \DateTime(),
@@ -64,9 +65,9 @@ final class AutomaticGetUpCest extends AbstractFunctionalTest
         // when player disassemble the shower
         $this->disassembleAction->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $shower,
+            actionProvider: $camera,
             player: $this->kuanTi,
-            target: $shower
+            target: $camera
         );
         $this->disassembleAction->execute();
 

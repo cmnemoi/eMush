@@ -30,6 +30,7 @@ class RandomItemPlacesData
                 GearItemEnum::STAINPROOF_APRON,
                 ToolItemEnum::HACKER_KIT,
                 ToolItemEnum::BLOCK_OF_POST_IT,
+                ItemEnum::THICK_TUBE,
                 'grenade',
                 'blaster',
                 'blaster',

@@ -72,9 +72,9 @@ final class DisassembleCest extends AbstractFunctionalTest
 
     public function shouldBeVisibleIfPlayerIsATechnician(FunctionalTester $I): void
     {
-        // given a shower in KT's room
-        $shower = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::SHOWER,
+        // given a camera in KT's room
+        $camera = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::CAMERA_ITEM,
             equipmentHolder: $this->kuanTi->getPlace(),
             reasons: [],
             time: new \DateTime(),
@@ -86,9 +86,9 @@ final class DisassembleCest extends AbstractFunctionalTest
         // when KT tries to disassemble the shower
         $this->disassembleAction->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $shower,
+            actionProvider: $camera,
             player: $this->kuanTi,
-            target: $shower
+            target: $camera
         );
 
         // then the action should be visible

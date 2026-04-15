@@ -7,7 +7,6 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\DailySporesLimit;
 use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
@@ -50,6 +49,7 @@ class Infect extends AbstractAction
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus(['status' => PlayerStatusEnum::MUSH, 'target' => HasStatus::PLAYER, 'groups' => ['visibility']]));
+        $metadata->addConstraint(new HasStatus(['status' => PlayerStatusEnum::MUSH, 'target' => HasStatus::PLAYER, 'groups' => ['execute'], 'charge' => HasStatus::MAX_CHARGE, 'message' => ActionImpossibleCauseEnum::INFECT_COOLDOWN]));
         $metadata->addConstraint(new GameVariableLevel([
             'target' => GameVariableLevel::PLAYER,
             'checkMode' => GameVariableLevel::IS_MIN,
@@ -69,7 +69,6 @@ class Infect extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::INFECT_IMMUNE,
         ]));
-        $metadata->addConstraint(new DailySporesLimit(['target' => DailySporesLimit::PLAYER, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::INFECT_DAILY_LIMIT]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
@@ -110,7 +109,7 @@ class Infect extends AbstractAction
         $mushStatus = $this->player->getChargeStatusByNameOrThrow(PlayerStatusEnum::MUSH);
         $this->statusService->updateCharge(
             $mushStatus,
-            1,
+            -4,
             $this->getTags(),
             new \DateTime()
         );

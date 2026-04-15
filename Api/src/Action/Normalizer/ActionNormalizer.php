@@ -247,6 +247,12 @@ class ActionNormalizer implements NormalizerInterface
             $translationParameters['quantity_maximum'] = $sporeGameVariable->getMaxValue();
             $translationParameters['quantity_remaining'] = $sporeGameVariable->getMaxValue() - $sporeGameVariable->getValue();
         }
+        if ($actionName === ActionEnum::INFECT->value) {
+            $status = $currentPlayer->getChargeStatusByNameOrThrow(PlayerStatusEnum::MUSH);
+            $cooldown = $status->getMaxChargeOrThrow() - $status->getCharge();
+
+            $translationParameters['cooldown'] = $cooldown;
+        }
         if ($actionName === ActionEnum::PRINT_ZE_LIST->value) {
             /** @var PrintZeList $printZeListAction */
             $printZeListAction = $actionClass;

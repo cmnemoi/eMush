@@ -121,7 +121,6 @@ enum SkillEnum: string
             self::FUNGAL_KITCHEN,
             self::GREEN_JELLY,
             self::HARD_BOILED,
-            self::INFECTOR,
             self::MASSIVE_MUSHIFICATION,
             self::MYCELIUM_SPIRIT,
             self::NERON_DEPRESSION,

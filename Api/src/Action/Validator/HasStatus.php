@@ -11,6 +11,7 @@ namespace Mush\Action\Validator;
  * @param bool    $ownerSide           If true, the status is checked on the owner side, if false, the status is checked on the target side (default: true)
  * @param bool    $bypassIfUserIsAdmin If true, the status check is bypassed if the user is admin (default: false)
  * @param ?string $statusTargetName    If not null, the status target name must match this for the action to be allowed (default: null)
+ * @param string  $charge              Check the charge of the status. Any by default. If not ANY, will return an error if status is not charge status. Available values are ANY_CHARGE, MAX_CHARGE, MIN_CHARGE
  */
 class HasStatus extends ClassConstraint
 {
@@ -19,6 +20,9 @@ class HasStatus extends ClassConstraint
     public const string ACTION_PROVIDER = 'action_provider';
     public const string PLAYER_ROOM = 'player_room';
     public const string DAEDALUS = 'daedalus';
+    public const string MAX_CHARGE = 'max_charge';
+    public const string MIN_CHARGE = 'min_charge';
+    public const string ANY_CHARGE = 'any_charge';
 
     public string $message = 'parameter do not match expected status';
 
@@ -36,4 +40,6 @@ class HasStatus extends ClassConstraint
 
     // if not null, the status target name must match this for the action to be allowed
     public ?string $statusTargetName = null;
+
+    public string $charge = self::ANY_CHARGE;
 }

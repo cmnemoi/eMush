@@ -45,6 +45,7 @@ abstract class ActionImpossibleCauseEnum
     public const string INFECT_NO_SPORE = 'infect_no_spore';
     public const string INFECT_MUSH = 'infect_mush';
     public const string INFECT_DAILY_LIMIT = 'infect_daily_limit';
+    public const string INFECT_COOLDOWN = 'infect_cooldown';
     public const string PHAGOCYTE_NO_SPORE = 'phagocyte_no_spore';
     public const string TRANSFER_NO_SPORE = 'transfer_no_spore';
     public const string MUTATED = 'mutated';

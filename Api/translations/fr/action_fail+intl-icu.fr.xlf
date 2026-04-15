@@ -264,6 +264,12 @@
         <target>Vous ne pouvez plus effectuer cette action aujourd'hui.</target>
       </segment>
     </unit>
+    <unit id="infect_cooldown">
+      <segment id="description" state="translated">
+        <source>infect_cooldown.description</source>
+        <target>Vous pourrez poinçonner à nouveau dans {cooldown} cycles.</target>
+      </segment>
+    </unit>
     <unit id="transfer_no_spore">
       <segment id="description" state="translated">
         <source>transfer_no_spore.description</source>

@@ -3,6 +3,8 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -48,6 +50,19 @@ class HasStatusValidator extends ConstraintValidator
         return $target;
     }
 
+    private function checkCharges(?Status $status, HasStatus $constraint): bool
+    {
+        if ($constraint->charge === HasStatus::ANY_CHARGE) {
+            return true;
+        }
+
+        if ($status instanceof ChargeStatus) {
+            return $constraint->charge === HasStatus::MAX_CHARGE ? $status->isChargedToMax() : !$status->isCharged();
+        }
+
+        throw new UnexpectedTypeException($status, ChargeStatus::class);
+    }
+
     private function checkValidator(HasStatus $constraint, StatusHolderInterface $target): void
     {
         if ($constraint->ownerSide && $target->hasStatus($constraint->status) !== $constraint->contain) {
@@ -59,6 +74,11 @@ class HasStatusValidator extends ConstraintValidator
                 ->addViolation();
         }
         if ($constraint->statusTargetName !== null && $target->getStatusByName($constraint->status)?->getTarget()?->getName() !== $constraint->statusTargetName) {
+            $this->context->buildViolation($constraint->message)
+                ->addViolation();
+        }
+
+        if ($this->checkCharges($target->getStatusByName($constraint->status), $constraint) === false) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

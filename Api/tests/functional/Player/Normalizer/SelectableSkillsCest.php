@@ -93,7 +93,7 @@ final class SelectableSkillsCest extends AbstractFunctionalTest
         $this->addSkillToPlayer->execute(skill: SkillEnum::ANONYMUSH, player: $this->player);
         $this->addSkillToPlayer->execute(skill: SkillEnum::SPLASHPROOF, player: $this->player);
         $this->addSkillToPlayer->execute(skill: SkillEnum::TRANSFER, player: $this->player);
-        $this->addSkillToPlayer->execute(skill: SkillEnum::INFECTOR, player: $this->player);
+        $this->addSkillToPlayer->execute(skill: SkillEnum::SLIMETRAP, player: $this->player);
 
         $this->whenINormalizePlayer();
 

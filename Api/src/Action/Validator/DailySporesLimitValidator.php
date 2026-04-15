@@ -3,7 +3,6 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -24,13 +23,6 @@ class DailySporesLimitValidator extends ConstraintValidator
 
         if ($constraint->target === DailySporesLimit::DAEDALUS && $player->getDaedalus()->getSpores() <= 0) {
             $this->context->buildViolation($constraint->message)->addViolation();
-        }
-
-        if ($constraint->target === DailySporesLimit::PLAYER) {
-            $mushStatus = $player->getChargeStatusByNameOrThrow(PlayerStatusEnum::MUSH);
-            if ($mushStatus->getCharge() === $mushStatus->getMaxChargeOrThrow()) {
-                $this->context->buildViolation($constraint->message)->addViolation();
-            }
         }
     }
 }

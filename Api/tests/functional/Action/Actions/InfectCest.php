@@ -10,6 +10,7 @@ use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
 use Mush\Action\Actions\Infect;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Service\PlayerDiseaseService;
 use Mush\Equipment\Enum\ItemEnum;
@@ -21,7 +22,6 @@ use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -52,22 +52,16 @@ final class InfectCest extends AbstractFunctionalTest
         $this->givenKuanTiIsMush();
     }
 
-    public function infectorShouldBeAbleToInfectTwiceADay(FunctionalTester $I)
-    {
-        $this->addSkillToPlayer(SkillEnum::INFECTOR, $I, $this->kuanTi);
-
-        $this->givenKuanTiInfectsPlayer();
-
-        $this->whenKuanTiTriesToInfect();
-
-        $this->thenActionShouldBeExecutable($I);
-    }
-
-    public function dayChangeShouldMakeAbleToInfectAgain(FunctionalTester $I): void
+    public function shouldOnlyBeAbleToInfectEveryFourCycles(FunctionalTester $I): void
     {
         $this->givenKuanTiInfectsPlayer();
 
-        $this->whenANewDayPasses();
+        $I->assertEquals(ActionImpossibleCauseEnum::INFECT_COOLDOWN, $this->infect->cannotExecuteReason());
+
+        $this->whenANewCyclePasses();
+        $this->whenANewCyclePasses();
+        $this->whenANewCyclePasses();
+        $this->whenANewCyclePasses();
 
         $this->thenActionShouldBeExecutable($I);
     }
@@ -202,6 +196,18 @@ final class InfectCest extends AbstractFunctionalTest
             event: new PlayerCycleEvent(
                 player: $this->kuanTi,
                 tags: [EventEnum::NEW_DAY],
+                time: new \DateTime()
+            ),
+            name: PlayerCycleEvent::PLAYER_NEW_CYCLE,
+        );
+    }
+
+    private function whenANewCyclePasses(): void
+    {
+        $this->eventService->callEvent(
+            event: new PlayerCycleEvent(
+                player: $this->kuanTi,
+                tags: [EventEnum::NEW_CYCLE],
                 time: new \DateTime()
             ),
             name: PlayerCycleEvent::PLAYER_NEW_CYCLE,

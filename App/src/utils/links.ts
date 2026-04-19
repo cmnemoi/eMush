@@ -6,12 +6,12 @@ export const getForumLink = (): string => urlJoin(import.meta.env.VITE_ETERNALTW
 export const getWikiLink = (locale: string): string => {
     switch (locale) {
     case GameLocales.FR:
-        return 'https://emushpedia.miraheze.org/';
+        return 'https://fr.emushpedia.com/';
     case GameLocales.EN:
-        return 'http://www.mushpedia.com/';
+        return 'https://en.emushpedia.com/';
     case GameLocales.ES:
-        return 'http://www.mushpedia.com/';
+        return 'https://es.emushpedia.com/';
     default:
-        return 'http://www.mushpedia.com/';
+        return 'https://fr.emushpedia.com/';
     }
 };

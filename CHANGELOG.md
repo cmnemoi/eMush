@@ -1,3 +1,20 @@
+# [0.27.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.26.3...0.27.0) (2026-04-19)
+
+
+### Bug Fixes
+
+* new Crowdin translations ([2acd903](https://gitlab.com/eternaltwin/mush/mush/commit/2acd9031214f6d09f36d2240663ba72973c612e6))
+* Shower now always cost at least one AP ([9cc1e46](https://gitlab.com/eternaltwin/mush/mush/commit/9cc1e46b485c2a422d6cbebe0e05e773b799ac6d))
+
+
+### Features
+
+* deactivated random spores ([dffd2f0](https://gitlab.com/eternaltwin/mush/mush/commit/dffd2f0feb4599d81c93906e9ed53cb28dac634c))
+* infect action can be used every 4 cycles. Infector Skill is removed ([028c286](https://gitlab.com/eternaltwin/mush/mush/commit/028c286b4d0b7b8108a76b99016a2fedab34d3f8))
+* new wiki link added ([a3f72bd](https://gitlab.com/eternaltwin/mush/mush/commit/a3f72bde0f0348b78f7ac60fc5379ac872237906))
+* showers can't be dismantled. A single tube is dropped in one storage at the start of the game ([d936c38](https://gitlab.com/eternaltwin/mush/mush/commit/d936c3864876750abf4f52d3781edce12ef23583))
+* splashproof do not reduce cost of taking shower ([b89384d](https://gitlab.com/eternaltwin/mush/mush/commit/b89384d21bd7361018e962795139968262f87208))
+
 ## [0.26.3](https://gitlab.com/eternaltwin/mush/mush/compare/0.26.2...0.26.3) (2026-04-14)
 
 

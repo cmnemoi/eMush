@@ -484,7 +484,7 @@ other {Que extraño, **{character}** ha hecho que salga humo del **{target_equip
     <unit id="remove_spore_mush">
       <segment id="remove_spore_mush" state="translated">
         <source>remove_spore_mush</source>
-        <target>remove_spore_mush</target>
+        <target>Tus instintos más básicos te gritan que te mantengas alejado de esta monstruosidad, pero debes sufrir por el bien de tu tapadera humana. El ruido de la succión es horrible, y la sangre es aún peor...</target>
       </segment>
     </unit>
     <unit id="public_broadcast">

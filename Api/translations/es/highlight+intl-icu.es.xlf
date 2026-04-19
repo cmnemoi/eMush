@@ -170,11 +170,11 @@
     <unit id="play_arcade">
       <segment id="highlight" state="translated">
         <source>play_arcade.highlight</source>
-        <target>¡Has pwnado la Dynarcada!</target>
+        <target>¡Has ganado en la Dynarcade!</target>
       </segment>
       <segment id="highlight_fail" state="translated">
         <source>play_arcade.highlight_fail</source>
-        <target>¡Perdiste en la Dynarcada!</target>
+        <target>¡Perdiste en la Dynarcade!</target>
       </segment>
     </unit>
     <unit id="hack">
@@ -384,7 +384,7 @@
     <unit id="convert_cat">
       <segment id="highlight" state="translated">
         <source>convert_cat.highlight</source>
-        <target>Enviaste a Schrödinger a un viaje. Destinación: **Mush**.</target>
+        <target>Enviaste a Schrödinger a un viaje hacia la infección **Mush**.</target>
       </segment>
     </unit>
     <unit id="torture">

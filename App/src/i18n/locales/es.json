@@ -1025,7 +1025,7 @@
 		"removeSanction": "Suprimir la sanción",
 		"removeSanctionDescription": "Suprimir la sanción. La sanción es completamente eliminada del historial del usuario.",
 		"byIp": "Banear por IPs",
-		"openAllMessage": "Ouvrir tout les messages"
+		"openAllMessage": "Abrir todos los mensajes"
 	},
 	"rules": {
 		"title": "Reglamento de eMush",

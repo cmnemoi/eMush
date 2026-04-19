@@ -1502,7 +1502,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>disease_contracted.description</source>
-        <target>Vómitos, tos, gripe y otras enfermedades...</target>
+        <target>Vómitos, tos, gripe y otros males...</target>
       </segment>
       <segment id="x1" state="translated">
         <source>disease_contracted_1.name</source>
@@ -1910,7 +1910,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>eden_biodiversity.description</source>
-        <target>Cantidad máxima de especias de plantas llevadas a Eden.</target>
+        <target>Cantidad máxima de especies de plantas llevadas a Eden.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>eden_biodiversity_1.name</source>

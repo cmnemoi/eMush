@@ -262,6 +262,12 @@ other {**Vuelve cuando estés limpio.**"}
         <target>Ya no puedes efectuar esta accíon hoy.</target>
       </segment>
     </unit>
+    <unit id="infect_cooldown">
+      <segment id="description" state="translated">
+        <source>infect_cooldown.description</source>
+        <target>Podrás volver a infectar a alguien otra vez en {cooldown} ciclos.</target>
+      </segment>
+    </unit>
     <unit id="transfer_no_spore">
       <segment id="description" state="translated">
         <source>transfer_no_spore.description</source>
@@ -698,7 +704,7 @@ other {**Vuelve cuando estés limpio.**"}
     <unit id="cannot_go_to_this_room_because_guardian">
       <segment id="description" state="translated">
         <source>cannot_go_to_this_room_because_guardian.description</source>
-        <target>No puedes entrar a esta sala porque hay un guardia en la sala.</target>
+        <target>No puedes entrar a esta sala porque hay un guardia presente en ella.</target>
       </segment>
     </unit>
     <unit id="cat_already_converted">
@@ -722,7 +728,7 @@ other {**Vuelve cuando estés limpio.**"}
     <unit id="eden_not_computed">
       <segment id="description" state="translated">
         <source>eden_not_computed.description</source>
-        <target>Las coordenadas del Edén aún no han sido calculadas.</target>
+        <target>Las coordenadas de Edén aún no han sido calculadas.</target>
       </segment>
     </unit>
     <unit id="link_with_sol_not_established">
@@ -884,7 +890,7 @@ other {**Vuelve cuando estés limpio.**"}
     <unit id="private_property_not_owner">
       <segment id="description" state="translated">
         <source>private_property_not_owner.description</source>
-        <target>El seguro biométrico en este objeto te impide utilizarlo. Su dueño aún está vivo.</target>
+        <target>El seguro biométrico en este objeto te impide utilizarlo. Su dueño aún está con vida.</target>
       </segment>
     </unit>
   </file>

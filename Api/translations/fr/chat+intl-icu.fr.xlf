@@ -31,7 +31,7 @@
       </segment>
       <segment id="teamObjectives.mushTutorialLink" state="translated">
         <source>tips.teamObjectives.mushTutorialLink</source>
-        <target>https://emushpedia.miraheze.org/wiki/Mush</target>
+        <target>https://fr.emushpedia.com/wiki/Mush</target>
       </segment>
       <segment id="characterObjectives.title" state="translated">
         <source>tips.characterObjectives.title</source>
@@ -65,11 +65,11 @@
       </segment>
       <segment id="externalResources.tutorialsLink" state="translated">
         <source>tips.externalResources.tutorialsLink</source>
-        <target>https://emushpedia.miraheze.org</target>
+        <target>https://fr.emushpedia.com</target>
       </segment>
       <segment id="externalResources.wikiLink" state="translated">
         <source>tips.externalResources.wikiLink</source>
-        <target>https://emushpedia.miraheze.org/</target>
+        <target>https://fr.emushpedia.com/</target>
       </segment>
       <segment id="missions.title" state="translated">
         <source>tips.missions.title</source>

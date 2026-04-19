@@ -247,6 +247,12 @@
         <target>infect_daily_limit.description</target>
       </segment>
     </unit>
+    <unit id="infect_cooldown">
+      <segment id="description" state="initial">
+        <source>infect_cooldown.description</source>
+        <target>infect_cooldown.description</target>
+      </segment>
+    </unit>
     <unit id="transfer_no_spore">
       <segment id="description" state="translated">
         <source>transfer_no_spore.description</source>

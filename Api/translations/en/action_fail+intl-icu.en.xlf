@@ -247,6 +247,12 @@
         <target>You can no longer carry out this action today.</target>
       </segment>
     </unit>
+    <unit id="infect_cooldown">
+      <segment id="description" state="translated">
+        <source>infect_cooldown.description</source>
+        <target>You will be able to infect again in {cooldown} cycles.</target>
+      </segment>
+    </unit>
     <unit id="transfer_no_spore">
       <segment id="description" state="translated">
         <source>transfer_no_spore.description</source>

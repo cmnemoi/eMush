@@ -1,3 +1,11 @@
+## [0.27.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.27.0...0.27.1) (2026-04-24)
+
+
+### Bug Fixes
+
+* new Crowdin translations ([0f3fed1](https://gitlab.com/eternaltwin/mush/mush/commit/0f3fed1063a16b9a8e166f0f9cf51bfea87b37e5))
+* Shower cannot break anymore ([c50188c](https://gitlab.com/eternaltwin/mush/mush/commit/c50188c4c3a4807eddee93118d823070bbaa157d))
+
 # [0.27.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.26.3...0.27.0) (2026-04-19)
 
 

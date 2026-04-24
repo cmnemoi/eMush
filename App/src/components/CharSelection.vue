@@ -72,7 +72,15 @@
                 <p class="choice">
                     {{ $t("charSelection.youChoose") }} <strong>{{ characterCompleteName(displayedCharacter) }}</strong>.
                 </p>
-                <a class="start" href="#" @click="selectCharacter(displayedCharacter)"><span>{{ $t("charSelection.startGame") }}</span></a>
+                <a class="start" href="#" @click="selectCharacter(displayedCharacter)">
+                    <img
+                        v-if="selectedLanguage && languages[selectedLanguage]"
+                        :src="languages[selectedLanguage].icon"
+                        :alt="languages[selectedLanguage].caption"
+                        class="flag-icon"
+                    />
+                    <span>{{ $t("charSelection.startGame") }}</span>
+                </a>
             </div>
         </div>
     </div>
@@ -395,6 +403,12 @@ export default defineComponent ({
             text-shadow: 0 0 5px black, 0 1px 2px black;
 
             transition: all .15s;
+            
+            .flag-icon {
+                margin-right: .5em;
+                margin-bottom: 4px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+            }
 
             span { margin-bottom: 5px; }
 

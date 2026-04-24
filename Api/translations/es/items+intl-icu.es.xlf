@@ -4,11 +4,11 @@
     <unit id="bacta">
       <segment id="name" state="translated">
         <source>bacta.name</source>
-        <target>Betapropyl</target>
+        <target>Japiyú</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>bacta.short_name</source>
-        <target>Betapropyl</target>
+        <target>Japiyú</target>
       </segment>
       <segment id="genre" state="translated">
         <source>bacta.gender</source>
@@ -30,11 +30,11 @@
     <unit id="betapropyl">
       <segment id="name" state="translated">
         <source>betapropyl.name</source>
-        <target>Pimp</target>
+        <target>Betapropyl</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>betapropyl.short_name</source>
-        <target>Pimp</target>
+        <target>Betapropyl</target>
       </segment>
       <segment id="genre" state="translated">
         <source>betapropyl.gender</source>
@@ -82,7 +82,7 @@
     <unit id="newke">
       <segment id="name" state="translated">
         <source>newke.name</source>
-        <target>Japiyú</target>
+        <target>Nuke</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>newke.short_name</source>
@@ -142,7 +142,7 @@
       </segment>
       <segment id="genre" state="translated">
         <source>pinq.gender</source>
-        <target>male</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>pinq.first_letter</source>
@@ -160,7 +160,7 @@
     <unit id="pymp">
       <segment id="name" state="translated">
         <source>pymp.name</source>
-        <target>Ontoy</target>
+        <target>Pimp</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>pymp.short_name</source>
@@ -172,7 +172,7 @@
       </segment>
       <segment id="first_letter" state="translated">
         <source>pymp.first_letter</source>
-        <target>vowel</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
         <source>pymp.description</source>
@@ -220,7 +220,7 @@
       </segment>
       <segment id="genre" state="translated">
         <source>soma.gender</source>
-        <target>male</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>soma.first_letter</source>
@@ -238,15 +238,15 @@
     <unit id="spyce">
       <segment id="name" state="translated">
         <source>spyce.name</source>
-        <target>Nuke</target>
+        <target>Ontoy</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>spyce.short_name</source>
-        <target>Nuke</target>
+        <target>Ontoy</target>
       </segment>
       <segment id="genre" state="translated">
         <source>spyce.gender</source>
-        <target>male</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>spyce.first_letter</source>

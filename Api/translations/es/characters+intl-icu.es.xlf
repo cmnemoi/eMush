@@ -368,7 +368,7 @@
       </segment>
       <segment id="employment" state="translated">
         <source>frieda.employment</source>
-        <target>***Profesión :*** Navegadora</target>
+        <target>***Profesión :*** Navegante</target>
       </segment>
       <segment id="bioAbstract" state="translated">
         <source>frieda.bioAbstract</source>

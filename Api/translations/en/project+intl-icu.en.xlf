@@ -160,7 +160,7 @@
       </segment>
       <segment id="pilgred.lore" state="translated">
         <source>pilgred.lore</source>
-        <target/>
+                <target/>
       </segment>
     </unit>
     <unit id="plasma_shield">
@@ -444,11 +444,11 @@
       </segment>
       <segment id="trash_load.description" state="translated">
         <source>trash_load.description</source>
-        <target>Generates 4 pieces of scrap metal and 4 of plastic scrap in Engine Room.</target>
+        <target>Generates 5 relatively useful items in the storages.</target>
       </segment>
       <segment id="trash_load.lore" state="translated">
         <source>trash_load.lore</source>
-        <target>Is the enemy too tenacious? Trash'em up good!</target>
+        <target>Most of the contents of your storage are useless in the current situation. Beach balls, spare clothes, tents, and sunscreen... You were all supposed to be awake once you arrived at your destination, after all. But by going through everything carefully, you should be able to find some things that are a bit more useful than you initially thought.</target>
       </segment>
     </unit>
     <unit id="food_retailer">

@@ -160,7 +160,7 @@
       </segment>
       <segment id="pilgred.lore" state="translated">
         <source>pilgred.lore</source>
-        <target/>
+                <target/>
       </segment>
     </unit>
     <unit id="plasma_shield">
@@ -444,11 +444,11 @@
       </segment>
       <segment id="trash_load.description" state="translated">
         <source>trash_load.description</source>
-        <target>Genera 4 piezas metálicas y 4 piezas plásticas en la Sala de motores.</target>
+        <target>Genera 5 objetos relativamente útiles en los almacenes.</target>
       </segment>
       <segment id="trash_load.lore" state="translated">
         <source>trash_load.lore</source>
-        <target>¡Reciclar cosas está de moda!</target>
+        <target>La mayoría de las cosas que se guardaron en los almacenes son inútiles en la situación actual. Pelotas de playa, ropa de repuesto, tiendas de campaña, protector solar... Después de todo, se suponía que estarían despiertos al llegar a su destino. Pero si revisas todo con atención, podrás encontrar algunas cosas más útiles de lo que pensabas.</target>
       </segment>
     </unit>
     <unit id="food_retailer">

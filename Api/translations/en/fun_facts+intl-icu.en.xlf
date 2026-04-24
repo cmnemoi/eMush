@@ -98,7 +98,7 @@
       </segment>
       <segment id="best_killer.description" state="translated">
         <source>best_killer.description</source>
-        <target>If they could have eaten his teammates, they might have done it. With salt on the side.</target>
+        <target>If they could have eaten their teammates, they might have done it. With salt on the side.</target>
       </segment>
     </unit>
     <unit id="most_talkative">
@@ -138,7 +138,7 @@
       </segment>
       <segment id="most_active.description" state="translated">
         <source>most_active.description</source>
-        <target>They never stops and honestly, we wonder what they take to keep going...</target>
+        <target>They never stop and honestly, we wonder what they take to keep going...</target>
       </segment>
     </unit>
     <unit id="best_eater">
@@ -168,7 +168,7 @@
       </segment>
       <segment id="worst_action_waster.description" state="translated">
         <source>worst_action_waster.description</source>
-        <target>They never wasted action points. That's because this guy actually understood the point of the game.</target>
+        <target>They never wasted action points. That's because this one actually understood the point of the game.</target>
       </segment>
     </unit>
     <unit id="best_sleeper">
@@ -188,7 +188,7 @@
       </segment>
       <segment id="dead_during_sleep.description" state="translated">
         <source>dead_during_sleep.description</source>
-        <target>Fire, asphyxiation, famine, betrayal, blind violence...? No, they died in his sleep.</target>
+        <target>Fire, asphyxiation, famine, betrayal, blind violence...? No, they died in their sleep.</target>
       </segment>
     </unit>
     <unit id="best_hacker">

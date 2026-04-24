@@ -482,7 +482,7 @@
       </segment>
       <segment id="splashproof.description" state="translated">
         <source>splashproof.description</source>
-        <target>La investigación sobre el Mush ha dado como resultado un nuevo mucus, ideal para marcar la diferencia.//:point: **Ducharte** no te hace perder **ningún** :hp:.//:beta: **Lavarse** cuesta 1 :pa: menos (no se acumula con el Jabón). //// Este cambio en la habilidad está en prueba :beta: beta: agradecemos su feedback en el foro de Eternaltwin y Discord.</target>
+        <target>La investigación sobre el Mush ha dado como resultado un nuevo mucus, ideal para marcar la diferencia.//:point: **Ducharte** no te hace perder **ningún** :hp:.</target>
       </segment>
     </unit>
     <unit id="infector">

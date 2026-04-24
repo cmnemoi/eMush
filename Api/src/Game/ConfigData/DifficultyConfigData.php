@@ -70,7 +70,6 @@ abstract class DifficultyConfigData
                     EquipmentEnum::SURGERY_PLOT => 12,
                     EquipmentEnum::THALASSO => 25,
                     EquipmentEnum::CAMERA_EQUIPMENT => 25,
-                    EquipmentEnum::SHOWER => 25,
                 ],
                 difficultyModes: [
                     DifficultyEnum::NORMAL => 1,

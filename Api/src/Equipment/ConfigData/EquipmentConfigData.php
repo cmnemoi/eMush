@@ -2743,7 +2743,7 @@ class EquipmentConfigData
         [
             'name' => 'thalasso_default',
             'equipmentName' => 'thalasso',
-            'breakableType' => BreakableTypeEnum::BREAKABLE,
+            'breakableType' => BreakableTypeEnum::NONE,
             'dismountedProducts' => ['plastic_scraps' => 1, 'thick_tube' => 1],
             'isPersonal' => false,
             'type' => 'equipment_config',
@@ -2963,7 +2963,7 @@ class EquipmentConfigData
         [
             'name' => 'shower_default',
             'equipmentName' => 'shower',
-            'breakableType' => BreakableTypeEnum::BREAKABLE,
+            'breakableType' => BreakableTypeEnum::NONE,
             'dismountedProducts' => ['plastic_scraps' => 1, 'thick_tube' => 1],
             'isPersonal' => false,
             'type' => 'equipment_config',

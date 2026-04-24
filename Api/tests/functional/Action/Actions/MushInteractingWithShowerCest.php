@@ -9,7 +9,6 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -36,14 +35,14 @@ final class MushInteractingWithShowerCest extends AbstractFunctionalTest
     public function shouldNotRemoveHealthPoints(FunctionalTester $I): void
     {
         $this->givenPlayerIsMush($I);
-        $this->givenABrokenShower($I);
+        $this->givenAShower($I);
 
         $this->whenPlayerExaminesShower($I);
 
         $this->thenPlayerShouldNotLoseHealthPoints($I);
     }
 
-    private function givenABrokenShower(FunctionalTester $I): void
+    private function givenAShower(FunctionalTester $I): void
     {
         /** @var GameEquipmentServiceInterface $gameEquipmentService */
         $gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -51,15 +50,6 @@ final class MushInteractingWithShowerCest extends AbstractFunctionalTest
             equipmentName: EquipmentEnum::SHOWER,
             equipmentHolder: $this->player->getPlace(),
             reasons: [],
-            time: new \DateTime(),
-        );
-
-        /** @var StatusServiceInterface $statusService */
-        $statusService = $I->grabService(StatusServiceInterface::class);
-        $statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::BROKEN,
-            holder: $this->shower,
-            tags: [],
             time: new \DateTime(),
         );
     }

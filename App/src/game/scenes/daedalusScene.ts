@@ -211,6 +211,7 @@ export default class DaedalusScene extends Phaser.Scene
     private starParticles: Array<Phaser.GameObjects.Particles.ParticleEmitter> = [];
     private hunterParticle: Phaser.GameObjects.Particles.ParticleEmitter | null = null;
     private background: Phaser.GameObjects.TileSprite | undefined;
+    private planetSprite: Phaser.GameObjects.TileSprite | undefined;
     private isTravelling= false;
     private attackingHunters = 0;
 
@@ -723,19 +724,26 @@ export default class DaedalusScene extends Phaser.Scene
         const planet = daedalus.inOrbitPlanet;
         if (planet !== null) {
             this.displayPlanet(planet);
+        } else if (this.planetSprite) {
+            this.planetSprite.destroy();
+            this.planetSprite = undefined;
         }
     }
 
     displayPlanet(inOrbitPlanet: Planet): void
     {
-        const planetSprite = this.add.tileSprite(
+        if (this.planetSprite) {
+            this.planetSprite.destroy();
+        }
+
+        this.planetSprite = this.add.tileSprite(
             this.game.scale.gameSize.width-(268/2),
             this.game.scale.gameSize.height-(191/2),
             268, 191,
             `planet_${inOrbitPlanet.imageId}`
         );
-        planetSprite.setScrollFactor(0, 0);
-        planetSprite.setDepth(3);
+        this.planetSprite.setScrollFactor(0, 0);
+        this.planetSprite.setDepth(3);
     }
 
     createHunterParticles(): void
@@ -923,6 +931,7 @@ export default class DaedalusScene extends Phaser.Scene
             // do not remove backgroud and star particles
             if (!(gameObject instanceof DecorationObject) &&
                 gameObject !== this.background &&
+                gameObject !== this.planetSprite &&
                 !(gameObject instanceof  Phaser.GameObjects.Particles.ParticleEmitter)
             ){
                 gameObject.destroy();

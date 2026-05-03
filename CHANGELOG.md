@@ -1,3 +1,16 @@
+# [0.28.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.27.1...0.28.0) (2026-05-03)
+
+
+### Bug Fixes
+
+* Prevent planet sprite duplication on scene refresh ([7ef7f92](https://gitlab.com/eternaltwin/mush/mush/commit/7ef7f9282bdc670e4d361314cc094cfdb48a6f75))
+* swap sanitize and format steps to prevent xss injection ([4234421](https://gitlab.com/eternaltwin/mush/mush/commit/42344216f00568b1b6c0ac0414cba2e7876a4344))
+
+
+### Features
+
+* Add flag icon on game start button ([05f1068](https://gitlab.com/eternaltwin/mush/mush/commit/05f1068bbe991185fe6d2863a8f543ff875efdb9))
+
 ## [0.27.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.27.0...0.27.1) (2026-04-24)
 
 

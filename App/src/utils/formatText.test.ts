@@ -33,7 +33,7 @@ describe('formatText', () => {
 
             const result = formatText(text).replace(/<img[^>]*>/g, "<img/>");
 
-            expect(result).to.equal(`Vous avez gagné 1 <img/><br>Vous avez gagné 1 <img/><br>Vous avez perdu 3 <img/><br>Vous avez perdu 3 <img/>`);
+            expect(result).to.equal(`Vous avez gagné 1 <img/><br />Vous avez gagné 1 <img/><br />Vous avez perdu 3 <img/><br />Vous avez perdu 3 <img/>`);
         });
         it('should not replace :does_not_exists:', () => {
             const text = `Quel est le sens de la vie :does_not_exists: ?`;
@@ -47,7 +47,7 @@ describe('formatText', () => {
 
             const result = formatText(text);
 
-            expect(result).to.equal(`Raluca a pris un Débris métallique.<br>Raluca a pris un Débris métallique.`);
+            expect(result).to.equal(`Raluca a pris un Débris métallique.<br />Raluca a pris un Débris métallique.`);
         });
         it('should replace 1 :pmo: by 1 image', () => {
             const text = "Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 :hp: OU + 1 :pmo: OU + 2:pm:.";
@@ -61,21 +61,21 @@ describe('formatText', () => {
 
             const result = formatText(text);
 
-            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules' target='_blank' rel='noopener noreferrer'>Règlement</a>");
+            expect(result).to.equal('<a href="https://emush.eternaltwin.org/rules" title="https://emush.eternaltwin.org/rules" target="_blank" rel="noopener noreferrer">Règlement</a>');
         });
         it('should replace [Règlement](https://emush.eternaltwin.org/(rules)) by a link (contains parenthesis)', () => {
             const text = "[Règlement](https://emush.eternaltwin.org/(rules))";
 
             const result = formatText(text);
 
-            expect(result).to.equal("<a href='https://emush.eternaltwin.org/(rules)' title='https://emush.eternaltwin.org/(rules)' target='_blank' rel='noopener noreferrer'>Règlement</a>");
+            expect(result).to.equal('<a href="https://emush.eternaltwin.org/(rules)" title="https://emush.eternaltwin.org/(rules)" target="_blank" rel="noopener noreferrer">Règlement</a>');
         });
         it('should replace [[Règlement](https://emush.eternaltwin.org/rules)] by a link (inside a [...] block)]', () => {
             const text = "[[Règlement](https://emush.eternaltwin.org/rules)]";
 
             const result = formatText(text);
 
-            expect(result).to.equal("[<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules' target='_blank' rel='noopener noreferrer'>Règlement</a>]");
+            expect(result).to.equal('[<a href="https://emush.eternaltwin.org/rules" title="https://emush.eternaltwin.org/rules" target="_blank" rel="noopener noreferrer">Règlement</a>]');
         });
         it('should not replace [Unknown](https://unknown.host.org) by a link', () => {
             const text = "[Unknown](https://unknown.host.org)";
@@ -89,14 +89,14 @@ describe('formatText', () => {
 
             const result = formatText(text);
 
-            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules' target='_blank' rel='noopener noreferrer'>https://emush.eternaltwin.org/rules</a>");
+            expect(result).to.equal('<a href="https://emush.eternaltwin.org/rules" title="https://emush.eternaltwin.org/rules" target="_blank" rel="noopener noreferrer">https://emush.eternaltwin.org/rules</a>');
         });
         it('should handle line breaks after a link', () => {
             const text = "https://emush.eternaltwin.org/rules//hello";
 
             const result = formatText(text);
 
-            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules' target='_blank' rel='noopener noreferrer'>https://emush.eternaltwin.org/rules</a><br>hello");
+            expect(result).to.equal('<a href="https://emush.eternaltwin.org/rules" title="https://emush.eternaltwin.org/rules" target="_blank" rel="noopener noreferrer">https://emush.eternaltwin.org/rules</a><br />hello');
         });
         it('should not replace https://unknown.host.org by a link', () => {
             const text = "https://unknown.host.org";
@@ -114,7 +114,7 @@ describe('formatText', () => {
 
             const result = formatText(text);
 
-            expect(result).to.equal(`<strong>Raluca</strong> a laché <em>un</em> <strong>Débris métallique</strong><br><strong>Raluca</strong> a pris <em>un</em> <strong>Débris métallique.</strong>`);
+            expect(result).to.equal(`<strong>Raluca</strong> a laché <em>un</em> <strong>Débris métallique</strong><br /><strong>Raluca</strong> a pris <em>un</em> <strong>Débris métallique.</strong>`);
         });
         it('should allow combination of bold and italic', () => {
             const text = "***INVENTAIRE***";

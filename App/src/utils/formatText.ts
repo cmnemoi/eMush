@@ -64,12 +64,7 @@ export function formatText(text: string|null): string {
         return "";
     }
 
-    let formattedText = sanitizeHtml(text, {
-        allowedTags: [ 'strong', 'em', 'a', 'br' ],
-        allowedAttributes: {
-            'a': [ 'href' ]
-        }
-    });
+    let formattedText = text;
 
     const markdownLinkRegex = getMarkdownLinkRegex();
     formattedText = formattedText.replace(/(?<!http:|https:)\/\//g, '<br>');
@@ -80,6 +75,14 @@ export function formatText(text: string|null): string {
     formattedText = formattedText.replaceAll(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     formattedText = formattedText.replaceAll(/\*(.*?)\*/g, '<em>$1</em>');
     formattedText = formattedText.replaceAll(/~~(.*?)~~/g, '<s>$1</s>');
+
+    formattedText = sanitizeHtml(formattedText, {
+        allowedTags: [ 'strong', 'em', 'a', 'br', 's', 'img' ],
+        allowedAttributes: {
+            'a': [ 'href', 'title', 'target', 'rel' ],
+            'img': [ 'src', 'alt', 'style' ]
+        }
+    });
 
     return formattedText;
 }

@@ -3014,7 +3014,7 @@ class EquipmentConfigData
             'name' => 'sofa_default',
             'equipmentName' => 'swedish_sofa',
             'breakableType' => BreakableTypeEnum::BREAKABLE,
-            'dismountedProducts' => ['plastic_scraps' => 1],
+            'dismountedProducts' => ['plastic_scraps' => 1, ItemEnum::THICK_TUBE => 1],
             'isPersonal' => false,
             'type' => 'equipment_config',
             'isStackable' => null,

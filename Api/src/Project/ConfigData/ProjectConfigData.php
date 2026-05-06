@@ -292,7 +292,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::TRASH_LOAD,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 18,
-                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::ROBOTICS_EXPERT],
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::SCRAPPER],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],

@@ -1474,5 +1474,11 @@
         <target>**{character}** s'approche de **{target_character}** et se met à suivre ses pas avec une précision militaire. Quiconque voudra lui faire du mal aura affaire à {character_gender, select, male {lui} female {elle} other {ellui}} !</target>
       </segment>
     </unit>
+    <unit id="check_jukebox_songs_success">
+      <segment id="check_jukebox_songs_success" state="translated">
+        <source>check_jukebox_songs_success</source>
+        <target>Les trois prochaines musiques sur la playlist sont **{song_1}**, **{song_2}** et **{song_3}**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

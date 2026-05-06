@@ -60,6 +60,10 @@ final class BiographyControllerCest
                             'type' => 'string',
                             'pattern' => '^\*\*\*Résumé :\*\*\* .+$',
                         ],
+                        'song' => [
+                            'type' => 'string',
+                            'pattern' => '^\*\*Chanson favorite :\*\* .+$',
+                        ],
                     ],
                     'additionalProperties' => false,
                 ],

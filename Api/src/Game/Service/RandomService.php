@@ -21,6 +21,8 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
+use Random\Engine\Mt19937;
+use Random\Randomizer;
 
 class RandomService implements RandomServiceInterface
 {
@@ -342,6 +344,15 @@ class RandomService implements RandomServiceInterface
         $availableBlueprints = $daedalus->getDaedalusConfig()->getRandomBlueprints()->withdrawElements($daedalus->getUniqueItems()->getStartingBlueprints());
 
         return new ArrayCollection($this->getRandomElementsFromProbaCollection($availableBlueprints, $amount));
+    }
+
+    public function getPseudoRandomInt(int $seed, int $min, int $max): int
+    {
+        $engine = new Mt19937($seed);
+        $randomizer = new Randomizer($engine);
+
+        // select a player from the list of players on the daedalus
+        return $randomizer->getInt($min, $max);
     }
 
     private function getPlanetSectorsToRevealProbaCollection(Planet $planet): ProbaCollection

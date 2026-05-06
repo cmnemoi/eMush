@@ -1953,5 +1953,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Vous permet de sélectionner ce membre d'équipage comme votre VIP actuel. Vous ne pouvez protéger qu'une seule personne à la fois.</target>
       </segment>
     </unit>
+    <unit id="check_jukebox_songs">
+      <segment id="name" state="translated">
+        <source>check_jukebox_songs.name</source>
+        <target>Regarder la playlist</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>check_jukebox_songs.description</source>
+        <target>Vous permet de voir les trois prochaines musiques sur la playlist. Peut-être que votre préférée passera bientôt ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

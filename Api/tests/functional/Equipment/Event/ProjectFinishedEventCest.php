@@ -280,7 +280,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
             ],
             [
                 'project' => ProjectName::BEAT_BOX->value,
-                'equipment' => 'blueprint',
+                'equipment' => 'jukebox_kit',
                 'quantity' => 1,
                 'creationPlaces' => [RoomEnum::NEXUS],
             ],

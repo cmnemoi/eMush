@@ -92,6 +92,7 @@ enum ActionEnum: string
     case RETRIEVE_FUEL_CHAMBER = 'retrieve_fuel_chamber';
     case RETRIEVE_OXYGEN = 'retrieve_oxygen';
     case CHECK_FUEL_CHAMBER_LEVEL = 'check_fuel_chamber_level';
+    case CHECK_JUKEBOX_SONGS = 'check_jukebox_songs';
     case COOK = 'cook';
     case COFFEE = 'coffee';
     case SELF_SURGERY = 'self_surgery';

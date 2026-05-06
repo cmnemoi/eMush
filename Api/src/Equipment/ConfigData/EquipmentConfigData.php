@@ -2604,6 +2604,7 @@ class EquipmentConfigData
                 'report_equipment',
                 'examine',
                 ActionEnum::SLIME_OBJECT->value,
+                ActionEnum::CHECK_JUKEBOX_SONGS->value,
             ],
             'mechanics' => [],
             'initStatuses' => [

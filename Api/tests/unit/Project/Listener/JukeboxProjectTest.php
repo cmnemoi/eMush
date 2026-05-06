@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\tests\unit\Project\Listener;
 
+use Doctrine\ORM\EntityManager;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\CycleHandler\JukeboxCycleHandler;
@@ -11,8 +12,9 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Equipment\Repository\InMemoryGameEquipmentRepository;
+use Mush\Equipment\Service\JukeboxService;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
+use Mush\Game\Service\RandomService;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Project\Enum\ProjectName;
@@ -20,7 +22,8 @@ use Mush\Project\Factory\ProjectFactory;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Factory\StatusFactory;
-use Mush\Tests\unit\Project\TestDoubles\FakePlayerHealthVariableEventService;
+use Mush\Tests\unit\Equipment\TestDoubles\FakePlayerMoralVariableEventService;
+use Mush\Tests\unit\TestDoubles\Service\StubTranslationService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -56,17 +59,20 @@ final class JukeboxProjectTest extends TestCase
 
     public function testShouldNotGiveMoralePointsIfJukeBoxDoesNotPlayPlayerMusic(): void
     {
-        [[$player], $daedalus] = $this->givenAPlayerWithTenMoralePoints([CharacterEnum::ROLAND, CharacterEnum::RALUCA]);
+        [[$player1, $player2], $daedalus] = $this->givenAPlayerWithTenMoralePoints([CharacterEnum::ROLAND, CharacterEnum::RALUCA]);
 
         $this->givenJukeboxProjectIsFinished($daedalus);
 
-        $jukebox = $this->givenAJukeboxEquipmentInPlayerRoom($player);
+        $jukebox = $this->givenAJukeboxEquipmentInPlayerRoom($player1);
 
-        $this->givenJukeBoxPlaysPlayerMusic($jukebox, $player);
+        $this->givenJukeBoxPlaysPlayerMusic($jukebox, $player1);
 
         $this->whenJukeboxWorksAtCycleChange($jukebox);
 
-        $this->thenThePlayerShouldHaveMoralePoints(10, $player);
+        $totalMoral = $player1->getMoralPoint() + $player2->getMoralPoint();
+
+        // 10 + 10 + 2 from the jukebox. If more, one player got moral when it should not
+        self::assertEquals(22, $totalMoral);
     }
 
     public function testShouldNotGiveMoralePointsIfJukeboxIsBroken(): void
@@ -150,10 +156,11 @@ final class JukeboxProjectTest extends TestCase
     private function whenJukeboxWorksAtCycleChange(GameEquipment $jukebox): void
     {
         $jukeboxCycleHandler = new JukeboxCycleHandler(
-            new FakePlayerHealthVariableEventService(),
+            new FakePlayerMoralVariableEventService(moraleGain: 2),
             new InMemoryGameEquipmentRepository(),
-            new FakeGetRandomElementsFromArrayService(),
             self::createStub(RoomLogServiceInterface::class),
+            new JukeboxService(new RandomService(self::createStub(EntityManager::class), new InMemoryGameEquipmentRepository())),
+            new StubTranslationService()
         );
         $jukeboxCycleHandler->handleNewCycle($jukebox, new \DateTime());
     }

@@ -4,6 +4,7 @@
 
         <div class="value" v-html="formatText(details.age)"/>
         <div class="value" v-html="formatText(details.employment)"/>
+        <div class="value" v-html="formatText(details.song)"/>
         <div class="value" v-html="formatText(details.abstract)"/>
 
         <div class="portrait-wrapper">
@@ -25,6 +26,7 @@ const props = defineProps<{
         age: string;
         employment: string;
         abstract: string;
+        song: string;
     }
 }>();
 

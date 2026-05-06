@@ -67,4 +67,6 @@ interface RandomServiceInterface
     public function getApprentonFromDaedalus(Daedalus $daedalus, int $amount): ArrayCollection;
 
     public function getBlueprintFromDaedalus(Daedalus $daedalus, int $amount): ArrayCollection;
+
+    public function getPseudoRandomInt(int $seed, int $min, int $max): int;
 }

@@ -13,6 +13,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
@@ -27,6 +28,7 @@ final class JukeboxCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $equipmentService;
+    private TranslationServiceInterface $translationService;
 
     public function _before(FunctionalTester $I)
     {
@@ -40,6 +42,7 @@ final class JukeboxCest extends AbstractFunctionalTest
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->translationService = $I->grabService(TranslationServiceInterface::class);
     }
 
     public function shouldGenerateAPublicLogWhenPlayingMusic(FunctionalTester $I): void
@@ -66,15 +69,6 @@ final class JukeboxCest extends AbstractFunctionalTest
         $this->thenJukeboxPlayedPublicLogForPlayerShouldBeGenerated(player: $this->chun, I: $I);
     }
 
-    public function shouldChangeTheSongAfterSecondPlayerJoinsDaedalus(FunctionalTester $I): void
-    {
-        $jukebox = $this->givenJukeboxInPlayerRoom($this->chun);
-        $this->givenJukeboxPlaysPlayerSong($jukebox, $this->chun);
-        $kuanTi = $this->whenKuanTiJoinsDaedalus($I);
-        $this->whenNewCycleIsTriggered();
-        $this->thenJukeboxPlayedPublicLogForPlayerShouldBeGenerated(player: $kuanTi, I: $I);
-    }
-
     private function givenJukeboxInPlayerRoom(Player $player): GameEquipment
     {
         return $this->equipmentService->createGameEquipmentFromName(
@@ -85,11 +79,6 @@ final class JukeboxCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenJukeboxPlaysPlayerSong(GameEquipment $jukebox, Player $player): void
-    {
-        $jukebox->updateSongWithPlayerFavorite($player);
-    }
-
     private function whenNewCycleIsTriggered(): void
     {
         $daedalusCycleEvent = new DaedalusCycleEvent(
@@ -98,11 +87,6 @@ final class JukeboxCest extends AbstractFunctionalTest
             new \DateTime(),
         );
         $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
-    }
-
-    private function whenKuanTiJoinsDaedalus(FunctionalTester $I): Player
-    {
-        return $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::KUAN_TI);
     }
 
     private function thenJukeboxPlayedPublicLogForPlayerShouldBeGenerated(Player $player, FunctionalTester $I): void
@@ -118,6 +102,8 @@ final class JukeboxCest extends AbstractFunctionalTest
             ]
         );
 
-        $I->assertEquals($roomLog->getParameters()['player'], $player->getLogName());
+        $song = $this->translationService->translate($player->getLogName() . '.song_name', [], 'characters', $player->getDaedalus()->getLanguage());
+
+        $I->assertEquals($roomLog->getParameters()['song_name'], $song);
     }
 }

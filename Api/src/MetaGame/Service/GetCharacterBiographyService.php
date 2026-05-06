@@ -18,6 +18,7 @@ final readonly class GetCharacterBiographyService
                 'age' => $this->translateBiographyElement($characterName, 'age', $language),
                 'employment' => $this->translateBiographyElement($characterName, 'employment', $language),
                 'abstract' => $this->translateBiographyElement($characterName, 'bioAbstract', $language),
+                'song' => $this->getSong($characterName, $language),
             ],
             'biography' => $this->parseBiography($this->translateBiographyElement($characterName, 'biography', $language)),
         ];
@@ -28,6 +29,19 @@ final readonly class GetCharacterBiographyService
         return $this->translationService->translate(
             key: "{$characterName}.{$key}",
             parameters: [],
+            domain: 'characters',
+            language: $language,
+        );
+    }
+
+    private function getSong(string $characterName, string $language): string
+    {
+        $songName = $this->translateBiographyElement($characterName, 'song_name', $language);
+        $songArtist = $this->translateBiographyElement($characterName, 'song_artist', $language);
+
+        return $this->translationService->translate(
+            key: 'biography.song',
+            parameters: ['song_name' => $songName, 'song_artist' => $songArtist],
             domain: 'characters',
             language: $language,
         );

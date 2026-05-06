@@ -90,7 +90,7 @@ abstract class SpawnEquipmentConfigData
             ),
             new SpawnEquipmentConfigDto(
                 name: '1_jukebox_blueprint_in_nexus',
-                equipmentName: 'jukebox_blueprint',
+                equipmentName: EquipmentEnum::JUKEBOX . '_kit',
                 placeName: RoomEnum::NEXUS,
                 quantity: 1,
             ),

@@ -1187,6 +1187,9 @@ class ActionsFixtures extends Fixture
         $protectAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PROTECT));
         $manager->persist($protectAction);
 
+        $checkSongs = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CHECK_JUKEBOX_SONGS));
+        $manager->persist($checkSongs);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1351,5 +1354,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::READ_SCHOOLBOOKS->value, $readSchoolbooksAction);
         $this->addReference(ActionEnum::USE_RESET_VACCINE->value, $useResetVaccineAction);
         $this->addReference(ActionEnum::PROTECT->value, $protectAction);
+        $this->addReference(ActionEnum::CHECK_JUKEBOX_SONGS->value, $checkSongs);
     }
 }

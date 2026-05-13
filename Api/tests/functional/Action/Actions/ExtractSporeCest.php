@@ -124,7 +124,7 @@ final class ExtractSporeCest extends AbstractFunctionalTest
 
         $this->whenKuanTiTriesToExtractSpore();
 
-        $this->thenActionShouldCostActionPoints(4, $I);
+        $this->thenActionShouldCostActionPoints(3, $I);
     }
 
     public function fertileShouldMakeTheActionFreeEvenWithConstipasporeSerum(FunctionalTester $I): void

@@ -574,7 +574,7 @@ abstract class ProjectConfigData
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
                 'activationRate' => 100,
                 'modifierConfigs' => [
-                    ModifierNameEnum::PLUS_2_ACTION_POINTS_ON_EXTRACT_SPORE,
+                    ModifierNameEnum::PLUS_1_ACTION_POINTS_ON_EXTRACT_SPORE,
                 ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],

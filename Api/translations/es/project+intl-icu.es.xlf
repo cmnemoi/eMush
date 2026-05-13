@@ -822,7 +822,7 @@
       </segment>
       <segment id="constipaspore_serum.description" state="translated">
         <source>constipaspore_serum.description</source>
-        <target>Aumenta en 2 :pa: el costo de creación de esporas.</target>
+        <target>Aumenta en 1 :pa: el costo de creación de esporas.</target>
       </segment>
       <segment id="constipaspore_serum.lore" state="translated">
         <source>constipaspore_serum.lore</source>

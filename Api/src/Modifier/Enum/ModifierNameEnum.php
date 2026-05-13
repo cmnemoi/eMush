@@ -139,7 +139,7 @@ abstract class ModifierNameEnum
     public const string TESLA_SUP2X_TURRET_MAX_CHARGES_MODIFIER = 'tesla_sup2x_turret_max_charges_modifier';
     public const string TURRET_CHARGES_PLUS_8 = 'turret_charges_+8';
     public const string TESLA_SUP2X_TURRET_CHARGES_MODIFIER = 'tesla_sup2x_turret_charges_modifier';
-    public const string PLUS_2_ACTION_POINTS_ON_EXTRACT_SPORE = 'plus_2_action_points_on_extract_spore';
+    public const string PLUS_1_ACTION_POINTS_ON_EXTRACT_SPORE = 'plus_1_action_points_on_extract_spore';
     public const string CONSTIPASPORE_SERUM_MODIFIER = 'constipaspore_serum_modifier';
     public const string MINUS_1_SPORE_ON_TAKE_SHOWER = 'minus_1_spore_on_take_shower';
     public const string SUPER_SOAPER_MODIFIER = 'super_soaper_modifier';

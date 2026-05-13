@@ -76,10 +76,10 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $this->givenKuanTiIsMush($I);
         $this->givenCompleteProject(ProjectName::CONSTIPASPORE_SERUM, $I);
 
-        $this->whenKuanTiExtractsASpore($I); // 2 AP base + 2 AP modified cost
+        $this->whenKuanTiExtractsASpore($I); // 2 AP base + 1 AP modified cost
 
-        $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 4, $I);
-        $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 2, $I);
+        $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 3, $I);
+        $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 1, $I);
     }
 
     public function shouldWasteActionPointSpentForMovement(FunctionalTester $I): void

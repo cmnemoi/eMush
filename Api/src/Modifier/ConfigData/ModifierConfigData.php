@@ -1993,7 +1993,7 @@ abstract class ModifierConfigData
                 mode: VariableModifierModeEnum::ADDITIVE,
             ),
             new VariableEventModifierConfigDto(
-                key: ModifierNameEnum::PLUS_2_ACTION_POINTS_ON_EXTRACT_SPORE,
+                key: ModifierNameEnum::PLUS_1_ACTION_POINTS_ON_EXTRACT_SPORE,
                 name: ModifierNameEnum::CONSTIPASPORE_SERUM_MODIFIER,
                 strategy: ModifierStrategyEnum::VARIABLE_MODIFIER,
                 modifierRange: 'player',
@@ -2004,7 +2004,7 @@ abstract class ModifierConfigData
                 tagConstraints: [
                     ActionEnum::EXTRACT_SPORE->value => ModifierRequirementEnum::ANY_TAGS,
                 ],
-                delta: 2,
+                delta: 1,
                 targetVariable: PlayerVariableEnum::ACTION_POINT,
                 mode: VariableModifierModeEnum::ADDITIVE,
             ),

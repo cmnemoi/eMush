@@ -6,6 +6,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\InventoryFull;
+use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Equipment\Entity\GameEquipment;
@@ -28,6 +29,9 @@ class RetrieveOxygen extends RetrieveAction
             'groups' => ['visibility'],
         ]));
         $metadata->addConstraint(new InventoryFull(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FULL_INVENTORY]));
+        $metadata->addConstraint(new PreMush([
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED]));
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

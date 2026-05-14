@@ -8,7 +8,9 @@
       </segment>
       <segment id="description" state="translated">
         <source>oxygen.description</source>
-        <target>Quantité d'**Oxygène (o²)** disponible dans le vaisseau. Pour refaire le plein, pensez à organiser des **Explorations** ou à vous occuper du **Jardin**, par exemple.</target>
+        <target>Quantité d'**Oxygène (o²)** disponible dans le vaisseau. Pour refaire le plein, pensez à organiser des **Explorations** ou à vous occuper du **Jardin**, par exemple.{hasSelectionBeenDone, select, 
+        false {//*Pour l'instant, le système de survie puise dans le module cryogénique pour empêcher les réserves du vaisseau de se vider trop rapidement. Il risque par contre de ne pas tenir très longtemps...*}
+        other {}} </target>
       </segment>
     </unit>
     <unit id="fuel">

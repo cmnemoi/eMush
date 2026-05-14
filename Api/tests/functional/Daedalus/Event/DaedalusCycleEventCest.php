@@ -47,6 +47,8 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldDecreaseOxygen(FunctionalTester $I): void
     {
+        // given we are post selection
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
         // given Daedalus has 10 oxygen
         $this->daedalus->setOxygen(10);
 
@@ -55,6 +57,20 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
         // then Daedalus has 7 oxygen (-1 base + 2*-1 per missing / broken oxygen tank)
         $I->assertEquals(7, $this->daedalus->getOxygen());
+    }
+
+    public function shouldNotDecreaseOxygenPreSelection(FunctionalTester $I): void
+    {
+        // given we are pre selection
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::STARTING);
+        // given Daedalus has 10 oxygen
+        $this->daedalus->setOxygen(20);
+
+        // when cycle change event is triggered
+        $this->whenANewCyclePasses();
+
+        // then Daedalus has still 20 oxygen
+        $I->assertEquals(20, $this->daedalus->getOxygen());
     }
 
     public function testOxygenBreakOnCycleChange(FunctionalTester $I)

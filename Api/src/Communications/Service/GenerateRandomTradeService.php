@@ -12,6 +12,7 @@ use Mush\Communications\Entity\TradeOption;
 use Mush\Communications\Enum\TradeEnum;
 use Mush\Communications\Repository\TradeConfigRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
 use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
 use Mush\Hunter\Entity\Hunter;
@@ -40,6 +41,7 @@ final readonly class GenerateRandomTradeService implements GenerateTradeInterfac
     {
         $tradeTypes = $this->getTradeTypesFromDaedalus($daedalus);
         $tradeTypes = $this->excludePilgredTradeIfFinished($daedalus, $tradeTypes);
+        $tradeTypes = $this->excludeOxygenTradeIfPreSelection($daedalus, $tradeTypes);
         $tradeTypes = $this->excludeProjectsRelatedTradeIfAllNeronProjectsAreFinished($daedalus, $tradeTypes);
 
         $tradeType = $this->getRandomElementsFromArray->execute(elements: $tradeTypes->toArray(), number: 1)->first() ?: null;
@@ -102,6 +104,11 @@ final readonly class GenerateRandomTradeService implements GenerateTradeInterfac
     private function excludePilgredTradeIfFinished(Daedalus $daedalus, Collection $tradeTypes): Collection
     {
         return $daedalus->getPilgred()->isFinished() ? $tradeTypes->filter(static fn (TradeEnum $tradeType) => $tradeType !== TradeEnum::PILGREDISSIM) : $tradeTypes;
+    }
+
+    private function excludeOxygenTradeIfPreSelection(Daedalus $daedalus, Collection $tradeTypes): Collection
+    {
+        return $daedalus->getGameStatus() === GameStatusEnum::STARTING ? $tradeTypes->filter(static fn (TradeEnum $tradeType) => $tradeType !== TradeEnum::GOOD_PROJECTIONS) : $tradeTypes;
     }
 
     private function excludeProjectsRelatedTradeIfAllNeronProjectsAreFinished(Daedalus $daedalus, Collection $tradeTypes): Collection

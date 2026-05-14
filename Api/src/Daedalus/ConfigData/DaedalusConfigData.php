@@ -15,7 +15,7 @@ class DaedalusConfigData
     public static array $dataArray = [
         [
             'name' => 'default',
-            'initOxygen' => 30,
+            'initOxygen' => 20,
             'initFuel' => 20,
             'initHull' => 100,
             'initShield' => 50,

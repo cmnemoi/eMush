@@ -417,6 +417,11 @@ class DaedalusService implements DaedalusServiceInterface
                 }
 
                 break;
+
+            case DaedalusVariableEnum::OXYGEN:
+                if ($daedalus->getGameStatus() === GameStatusEnum::STARTING && $newVariableValuePoint < 20) {
+                    $daedalus->setVariableValueByName(20, $variableName);
+                }
         }
 
         $this->persist($daedalus);

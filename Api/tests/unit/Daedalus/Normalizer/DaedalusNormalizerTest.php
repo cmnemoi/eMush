@@ -128,7 +128,7 @@ final class DaedalusNormalizerTest extends TestCase
             ->once();
         $this->translationService
             ->shouldReceive('translate')
-            ->with('oxygen.description', [], 'daedalus', LanguageEnum::FRENCH)
+            ->with('oxygen.description', ['hasSelectionBeenDone' => 'false'], 'daedalus', LanguageEnum::FRENCH)
             ->andReturn('translated two')
             ->once();
         $this->translationService

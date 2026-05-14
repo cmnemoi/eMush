@@ -7,6 +7,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Service\PlanetServiceInterface;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
@@ -137,6 +138,7 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $isVariableShield = $variable === DaedalusVariableEnum::SHIELD;
         $isPlasmaShieldDeactivated = $daedalus->isPlasmaShieldActive() === false;
         $plasmaShieldIsNotFinished = $daedalus->projectIsNotFinished(ProjectName::PLASMA_SHIELD);
+        $hasSelectionBeenDone = $daedalus->getGameStatus() === GameStatusEnum::CURRENT;
 
         if ($isVariableShield && $plasmaShieldIsNotFinished) {
             return null;
@@ -146,7 +148,12 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $maxValue = $gameVariable->getMaxValue();
         $quantity = $isVariableShield && $isPlasmaShieldDeactivated ? 0 : $gameVariable->getValue();
 
-        $descriptionTranslationParameters = $isVariableShield ? ['isPlasmaShieldDeactivated' => $isPlasmaShieldDeactivated ? 'true' : 'false'] : [];
+        $descriptionTranslationParameters = [];
+        match ($variable) {
+            DaedalusVariableEnum::SHIELD => $descriptionTranslationParameters['isPlasmaShieldDeactivated'] = $isPlasmaShieldDeactivated ? 'true' : 'false',
+            DaedalusVariableEnum::OXYGEN => $descriptionTranslationParameters['hasSelectionBeenDone'] = $hasSelectionBeenDone ? 'true' : 'false',
+            default => null
+        };
 
         return [
             'quantity' => $quantity,

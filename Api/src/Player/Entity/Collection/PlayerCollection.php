@@ -35,6 +35,11 @@ class PlayerCollection extends ArrayCollection
         return $this->filter(static fn (Player $player) => $player->isMush());
     }
 
+    public function getNonAlphaPlayer(): self
+    {
+        return $this->filter(static fn (Player $player) => $player->isAlphaMush() === false);
+    }
+
     public function getHumanPlayer(): self
     {
         return $this->filter(static fn (Player $player) => !$player->isMush());

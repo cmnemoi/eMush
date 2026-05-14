@@ -73,7 +73,7 @@
         "key": "list_default",
         "name": "list",
         "weight": 1,
-        "quantity": 20,
+        "quantity": 2,
         "modifierConfigs": []
     },
     {

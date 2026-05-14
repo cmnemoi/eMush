@@ -23,6 +23,7 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Listener\DaedalusInitEventSubscriber;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -205,13 +206,15 @@ final class PrintDocumentCest extends AbstractFunctionalTest
 
     public function shouldPrintLostResearchWithContent(FunctionalTester $I): void
     {
+        $this->givenDerekExist($I);
+
         $this->givenTabulatrixInRoom();
 
         $this->givenKuanTiIsAlphaMush();
 
         $initialEquipmentCount = $this->playerRoomEquipmentCount();
 
-        $this->whenXylophSendsLostResearchWithGuaranteedNegatives($I);
+        $this->whenXylophSendsLostResearch($I);
 
         $this->whenPlayerReadsTheDocument($I);
 
@@ -219,7 +222,8 @@ final class PrintDocumentCest extends AbstractFunctionalTest
 
         $this->thenTheLogShouldShowKuanTiWithUnknownResult($I);
 
-        $this->thenTheLogShouldShowTheOtherPlayerWithNegativeResult($I);
+        $this->thenTheLogShouldShowThePlayerWithNegativeResult($I, 'Chun');
+        $this->thenTheLogShouldShowThePlayerWithNegativeResult($I, 'Derek');
     }
 
     public function shouldReceiveThreeBlueprints(FunctionalTester $I): void
@@ -371,14 +375,14 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenXylophSendsLostResearchWithGuaranteedNegatives(FunctionalTester $I): void
+    private function whenXylophSendsLostResearch(FunctionalTester $I): void
     {
         $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::LIST->toString() . '_default']);
         $xylophEntry = new XylophEntry(
             xylophConfig: $config,
             daedalusId: $this->daedalus->getId(),
         );
-        $xylophEntry->setQuantity(100); // people with possible negative result have 100% chance of being negative
+        $xylophEntry->setQuantity(30); // every human should be selected
         $this->xylophRepository->save($xylophEntry);
 
         $this->decodeXylophDatabaseService->execute(
@@ -592,7 +596,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $I->assertTrue(str_contains($translatedLog, $searchedResult));
     }
 
-    private function thenTheLogShouldShowTheOtherPlayerWithNegativeResult(FunctionalTester $I): void
+    private function thenTheLogShouldShowThePlayerWithNegativeResult(FunctionalTester $I, string $playerName): void
     {
         $roomLogDto = new RoomLogDto(
             player: $this->player,
@@ -612,9 +616,9 @@ final class PrintDocumentCest extends AbstractFunctionalTest
             language: $roomLogDto->player->getLanguage(),
         );
 
-        $searchedResult = 'Sujet : Chun Etat : Négatif';
+        $searchedResult = "Sujet : {$playerName} Etat : Négatif";
 
-        $I->assertTrue(str_contains($translatedLog, $searchedResult));
+        $I->assertTrue(str_contains($translatedLog, $searchedResult), $translatedLog);
     }
 
     private function thenDaedalusShouldHaveBlueprintsOfAmount(int $quantity, FunctionalTester $I): void
@@ -665,5 +669,10 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         }
 
         return false;
+    }
+
+    private function givenDerekExist(FunctionalTester $I)
+    {
+        $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
     }
 }

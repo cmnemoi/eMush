@@ -22,10 +22,12 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceInterface
@@ -220,17 +222,23 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         $daedalus->getUniqueItems()->makeStartingBlueprintsUnique($selectedBlueprints->toArray());
     }
 
-    private function receiveLostResearch(Place $queue, int $negativePercent, array $tags)
+    private function receiveLostResearch(Place $queue, int $minNumberOfNegative, array $tags)
     {
+        // number of negative player range from quantity to quantity * 2, with -1 for 8 players or less
+        $numberOfNegative = $this->randomService->random($minNumberOfNegative, $minNumberOfNegative * 2);
+        if ($queue->getDaedalus()->getPlayers()->count() <= $queue->getDaedalus()->getGameConfig()->getMaxPlayer() / 2) {
+            --$numberOfNegative;
+        }
+
         $document = $this->queueDocumentOfName(ItemEnum::DOCUMENT, $queue, $tags);
         $this->statusService->createContentStatus(
-            content: $this->translatedList($queue->getDaedalus(), $negativePercent),
+            content: $this->translatedList($queue->getDaedalus(), $numberOfNegative),
             holder: $document,
             tags: $tags,
         );
     }
 
-    private function translatedList(Daedalus $daedalus, int $negativePercent): string
+    private function translatedList(Daedalus $daedalus, int $numberOfNegative): string
     {
         $players = $daedalus->getPlayers();
 
@@ -240,6 +248,18 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
             domain: 'event_log',
             language: $daedalus->getLanguage()
         );
+
+        // all players who are immune
+        $immunePlayers = $players->filter(static fn (Player $player) => $player->getCharacterConfig()->hasInitStatus(PlayerStatusEnum::IMMUNIZED));
+        // all players who are not immune and not alpha mush
+        $notImmunePlayers = $players->getAllWithoutInitStatus(PlayerStatusEnum::IMMUNIZED)->getNonAlphaPlayer();
+
+        // the selected negative players
+        if ($notImmunePlayers->count() <= $numberOfNegative) {
+            $negativePlayers = $notImmunePlayers;
+        } else {
+            $negativePlayers = new PlayerCollection($this->randomService->getRandomElements($notImmunePlayers->toArray(), $numberOfNegative));
+        }
 
         foreach ($players as $player) {
             $translatedPlayer = $this->translationService->translate(
@@ -253,7 +273,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
                 key: 'lost_research_sample',
                 parameters: [
                     'character' => $translatedPlayer,
-                    'is_negative' => $this->isNegativeResult($player, $negativePercent),
+                    'is_negative' => $immunePlayers->contains($player) || $negativePlayers->contains($player) ? 'true' : 'false',
                 ],
                 domain: 'event_log',
                 language: $daedalus->getLanguage()

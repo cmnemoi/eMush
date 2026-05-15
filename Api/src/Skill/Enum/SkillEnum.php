@@ -129,7 +129,6 @@ enum SkillEnum: string
             self::NINJA,
             self::PHAGOCYTE,
             self::PYROMANIAC,
-            self::RADIO_PIRACY,
             self::SABOTEUR,
             self::SLIMETRAP,
             self::SPLASHPROOF,

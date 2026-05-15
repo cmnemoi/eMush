@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\Daedalus\Service;
 
+use Codeception\Attribute\DataProvider;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Daedalus\Repository\InMemoryDaedalusRepository;
@@ -38,20 +39,20 @@ final class DifficultyServiceTest extends TestCase
     public function testShouldUpdateBothHunterAndIncidentPoints(): void
     {
         $this->givenDaedalusIsOnDay(1);
-        $this->givenDaedalusHasAlivePlayers(4);
+        $this->givenDaedalusHasAlivePlayers(16);
         $initialHunterPoints = $this->daedalus->getHunterPoints();
         $initialIncidentPoints = $this->daedalus->getIncidentPoints();
 
         $this->whenIUpdateDaedalusDifficulty();
 
         $this->thenHunterPointsShouldBeIncreasedBy(7, $initialHunterPoints);
-        $this->thenIncidentPointsShouldBeIncreasedBy(1, $initialIncidentPoints);
+        $this->thenIncidentPointsShouldBeIncreasedBy(3, $initialIncidentPoints);
     }
 
     public function testShouldIncreaseHunterPointsOnDay1(): void
     {
         $this->givenDaedalusIsOnDay(1);
-        $this->givenDaedalusHasAlivePlayers(4);
+        $this->givenDaedalusHasAlivePlayers(16);
         $initialHunterPoints = $this->daedalus->getHunterPoints();
 
         $this->whenIUpdateDaedalusDifficulty();
@@ -62,18 +63,18 @@ final class DifficultyServiceTest extends TestCase
     public function testShouldIncreaseHunterPointsOnDay5(): void
     {
         $this->givenDaedalusIsOnDay(5);
-        $this->givenDaedalusHasAlivePlayers(4);
+        $this->givenDaedalusHasAlivePlayers(16);
         $initialHunterPoints = $this->daedalus->getHunterPoints();
 
         $this->whenIUpdateDaedalusDifficulty();
 
-        $this->thenHunterPointsShouldBeIncreasedBy(11, $initialHunterPoints);
+        $this->thenHunterPointsShouldBeIncreasedBy(12, $initialHunterPoints);
     }
 
     public function testShouldIncreaseHunterPointsInHardMode(): void
     {
         $this->givenDaedalusIsOnDay(8);
-        $this->givenDaedalusHasAlivePlayers(4);
+        $this->givenDaedalusHasAlivePlayers(16);
         $initialHunterPoints = $this->daedalus->getHunterPoints();
 
         $this->whenIUpdateDaedalusDifficulty();
@@ -84,7 +85,7 @@ final class DifficultyServiceTest extends TestCase
     public function testShouldIncreaseHunterPointsInVeryHardMode(): void
     {
         $this->givenDaedalusIsOnDay(12);
-        $this->givenDaedalusHasAlivePlayers(4);
+        $this->givenDaedalusHasAlivePlayers(16);
         $initialHunterPoints = $this->daedalus->getHunterPoints();
 
         $this->whenIUpdateDaedalusDifficulty();
@@ -95,98 +96,109 @@ final class DifficultyServiceTest extends TestCase
     public function testShouldIncreaseHunterPointsWithActivityOverload(): void
     {
         $this->givenDaedalusIsOnDay(1);
-        $this->givenDaedalusHasAlivePlayers(4);
+        $this->givenDaedalusHasAlivePlayers(16);
         $this->givenDaedalusHasDailyActionPointsSpent(56);
         $initialHunterPoints = $this->daedalus->getHunterPoints();
 
         $this->whenIUpdateDaedalusDifficulty();
 
-        $this->thenHunterPointsShouldBeIncreasedBy(14, $initialHunterPoints);
+        $this->thenHunterPointsShouldBeIncreasedBy(7, $initialHunterPoints);
     }
 
-    public function testShouldIncreaseIncidentPointsByDayOnDay1(): void
+    /**
+     * @dataProvider provideShouldHaveXIncidentPointsForYDayCases
+     */
+    public function testShouldHaveXIncidentPointsForYDay(int $day, int $expectedIncrease): void
     {
-        $this->givenDaedalusIsOnDay(1);
-        $this->givenDaedalusHasAlivePlayers(4);
+        $this->givenDaedalusIsOnDay($day);
+        $this->givenDaedalusHasAlivePlayers(16);
         $initialIncidentPoints = $this->daedalus->getIncidentPoints();
 
         $this->whenIUpdateDaedalusDifficulty();
 
-        $this->thenIncidentPointsShouldBeIncreasedBy(1, $initialIncidentPoints);
+        $this->thenIncidentPointsShouldBeIncreasedBy($expectedIncrease, $initialIncidentPoints);
     }
 
-    public function testShouldIncreaseIncidentPointsByDayOnDay2(): void
+    public static function provideShouldHaveXIncidentPointsForYDayCases(): iterable
     {
-        $this->givenDaedalusIsOnDay(2);
-        $this->givenDaedalusHasAlivePlayers(4);
-        $initialIncidentPoints = $this->daedalus->getIncidentPoints();
-
-        $this->whenIUpdateDaedalusDifficulty();
-
-        $this->thenIncidentPointsShouldBeIncreasedBy(2, $initialIncidentPoints);
-    }
-
-    public function testShouldCapIncidentPointsAfterDay2(): void
-    {
-        $this->givenDaedalusIsOnDay(5);
-        $this->givenDaedalusHasAlivePlayers(4);
-        $initialIncidentPoints = $this->daedalus->getIncidentPoints();
-
-        $this->whenIUpdateDaedalusDifficulty();
-
-        $this->thenIncidentPointsShouldBeIncreasedBy(1, $initialIncidentPoints);
-    }
-
-    public function testShouldIncreaseIncidentPointsInHardMode(): void
-    {
-        $this->givenDaedalusIsOnDay(8);
-        $this->givenDaedalusHasAlivePlayers(4);
-        $initialIncidentPoints = $this->daedalus->getIncidentPoints();
-
-        $this->whenIUpdateDaedalusDifficulty();
-
-        $this->thenIncidentPointsShouldBeIncreasedBy(2, $initialIncidentPoints);
-    }
-
-    public function testShouldIncreaseIncidentPointsInHardModeDay10(): void
-    {
-        $this->givenDaedalusIsOnDay(10);
-        $this->givenDaedalusHasAlivePlayers(4);
-        $initialIncidentPoints = $this->daedalus->getIncidentPoints();
-
-        $this->whenIUpdateDaedalusDifficulty();
-
-        $this->thenIncidentPointsShouldBeIncreasedBy(4, $initialIncidentPoints);
-    }
-
-    public function testShouldIncreaseIncidentPointsInVeryHardMode(): void
-    {
-        $this->givenDaedalusIsOnDay(12);
-        $this->givenDaedalusHasAlivePlayers(4);
-        $initialIncidentPoints = $this->daedalus->getIncidentPoints();
-
-        $this->whenIUpdateDaedalusDifficulty();
-
-        $this->thenIncidentPointsShouldBeIncreasedBy(8, $initialIncidentPoints);
+        return [
+            'day 1' => [
+                1, 3,
+            ],
+            'day 2' => [
+                2, 3,
+            ],
+            'day 3' => [
+                3, 3,
+            ],
+            'day 4' => [
+                4, 4,
+            ],
+            'day 5' => [
+                5, 6,
+            ],
+            'day 6' => [
+                6, 7,
+            ],
+            'day 7' => [
+                7, 8,
+            ],
+            'day 8' => [
+                8, 9,
+            ],
+            'day 9' => [
+                9, 10,
+            ],
+            'day 10' => [
+                10, 11,
+            ],
+            'day 11' => [
+                11, 12,
+            ],
+            'day 12' => [
+                12, 13,
+            ],
+            'day 13' => [
+                13, 15,
+            ],
+            'day 14' => [
+                14, 17,
+            ],
+            'day 15' => [
+                15, 19,
+            ],
+            'day 16' => [
+                16, 21,
+            ],
+            'day 17' => [
+                17, 23,
+            ],
+            'day 18' => [
+                18, 25,
+            ],
+            'day 19' => [
+                19, 27,
+            ],
+        ];
     }
 
     public function testShouldIncreaseIncidentPointsWithActivityOverload(): void
     {
-        $this->givenDaedalusIsOnDay(1);
-        $this->givenDaedalusHasAlivePlayers(4);
-        $this->givenDaedalusHasDailyActionPointsSpent(42);
+        $this->givenDaedalusIsOnDay(9);
+        $this->givenDaedalusHasAlivePlayers(16);
+        $this->givenDaedalusHasDailyActionPointsSpent(168);
         $initialIncidentPoints = $this->daedalus->getIncidentPoints();
 
         $this->whenIUpdateDaedalusDifficulty();
 
-        $this->thenIncidentPointsShouldBeIncreasedBy(2, $initialIncidentPoints);
+        $this->thenIncidentPointsShouldBeIncreasedBy(15, $initialIncidentPoints);
     }
 
     public function testShouldNotUpdateIncidentPointsWhenDaedalusIsFilling(): void
     {
         $this->givenDaedalusIsFilling();
         $this->givenDaedalusIsOnDay(1);
-        $this->givenDaedalusHasAlivePlayers(4);
+        $this->givenDaedalusHasAlivePlayers(16);
         $initialIncidentPoints = $this->daedalus->getIncidentPoints();
         $initialHunterPoints = $this->daedalus->getHunterPoints();
 
@@ -204,13 +216,13 @@ final class DifficultyServiceTest extends TestCase
 
         $this->whenIUpdateDaedalusDifficulty();
 
-        $this->thenHunterPointsShouldBeIncreasedBy(7, $initialHunterPoints);
+        $this->thenHunterPointsShouldBeIncreasedBy(0, $initialHunterPoints);
     }
 
     public function testShouldCalculateActivityOverloadAs1WhenBelowThreshold(): void
     {
         $this->givenDaedalusIsOnDay(1);
-        $this->givenDaedalusHasAlivePlayers(4);
+        $this->givenDaedalusHasAlivePlayers(16);
         $this->givenDaedalusHasDailyActionPointsSpent(20);
         $initialHunterPoints = $this->daedalus->getHunterPoints();
         $initialIncidentPoints = $this->daedalus->getIncidentPoints();
@@ -218,27 +230,27 @@ final class DifficultyServiceTest extends TestCase
         $this->whenIUpdateDaedalusDifficulty();
 
         $this->thenHunterPointsShouldBeIncreasedBy(7, $initialHunterPoints);
-        $this->thenIncidentPointsShouldBeIncreasedBy(1, $initialIncidentPoints);
+        $this->thenIncidentPointsShouldBeIncreasedBy(3, $initialIncidentPoints);
     }
 
     public function testShouldCalculateActivityOverloadWithHighActivity(): void
     {
         $this->givenDaedalusIsOnDay(1);
-        $this->givenDaedalusHasAlivePlayers(2);
+        $this->givenDaedalusHasAlivePlayers(16);
         $this->givenDaedalusHasDailyActionPointsSpent(42);
         $initialHunterPoints = $this->daedalus->getHunterPoints();
         $initialIncidentPoints = $this->daedalus->getIncidentPoints();
 
         $this->whenIUpdateDaedalusDifficulty();
 
-        $this->thenHunterPointsShouldBeIncreasedBy(21, $initialHunterPoints);
+        $this->thenHunterPointsShouldBeIncreasedBy(7, $initialHunterPoints);
         $this->thenIncidentPointsShouldBeIncreasedBy(3, $initialIncidentPoints);
     }
 
     public function testShouldSaveDaedalusAfterUpdate(): void
     {
         $this->givenDaedalusIsOnDay(1);
-        $this->givenDaedalusHasAlivePlayers(4);
+        $this->givenDaedalusHasAlivePlayers(16);
 
         $this->whenIUpdateDaedalusDifficulty();
 
@@ -248,15 +260,15 @@ final class DifficultyServiceTest extends TestCase
     public function testShouldHandleComplexScenarioWithVeryHardModeAndActivityOverload(): void
     {
         $this->givenDaedalusIsOnDay(15);
-        $this->givenDaedalusHasAlivePlayers(3);
+        $this->givenDaedalusHasAlivePlayers(8);
         $this->givenDaedalusHasDailyActionPointsSpent(42);
         $initialHunterPoints = $this->daedalus->getHunterPoints();
         $initialIncidentPoints = $this->daedalus->getIncidentPoints();
 
         $this->whenIUpdateDaedalusDifficulty();
 
-        $this->thenHunterPointsShouldBeIncreasedBy(46, $initialHunterPoints);
-        $this->thenIncidentPointsShouldBeIncreasedBy(28, $initialIncidentPoints);
+        $this->thenHunterPointsShouldBeIncreasedBy(12, $initialHunterPoints);
+        $this->thenIncidentPointsShouldBeIncreasedBy(10, $initialIncidentPoints);
     }
 
     private function givenDaedalusIsInProgress(): void
@@ -268,8 +280,8 @@ final class DifficultyServiceTest extends TestCase
     {
         $this->daedalus->getGameConfig()->getDifficultyConfig()->setDifficultyModes([
             DifficultyEnum::NORMAL => 1,
-            DifficultyEnum::HARD => 8,
-            DifficultyEnum::VERY_HARD => 12,
+            DifficultyEnum::HARD => 5,
+            DifficultyEnum::VERY_HARD => 10,
         ]);
     }
 

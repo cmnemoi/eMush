@@ -39,13 +39,14 @@ final class DifficultyService implements DifficultyServiceInterface
             return;
         }
 
-        $pointsToAdd = $daedalus->getDay() <= 2 ? $daedalus->getDay() : 1;
+        $pointsToAdd = max($daedalus->getDay(), 3);
 
         if ($daedalus->isInHardMode()) {
-            $pointsToAdd += $this->getHardModeOverload($daedalus);
+            ++$pointsToAdd;
         }
         if ($daedalus->isInVeryHardMode()) {
-            $pointsToAdd += $this->getVeryHardModeOverload($daedalus);
+            ++$pointsToAdd;
+            $pointsToAdd += max(0, $daedalus->getDay() - 12);
         }
 
         $pointsToAdd = (int) round($pointsToAdd * $this->getActivityOverload($daedalus));
@@ -60,12 +61,11 @@ final class DifficultyService implements DifficultyServiceInterface
      */
     private function getActivityOverload(Daedalus $daedalus): float
     {
-        $threshold = 7 * $daedalus->getAlivePlayers()->count();
-        if ($threshold < 1) {
-            return 1;
-        }
+        $playerRatio = $daedalus->getPlayers()->count() / $daedalus->getGameConfig()->getMaxPlayer();
+        $threshold = 7 * $daedalus->getGameConfig()->getMaxPlayer();
+
         if ($daedalus->getDailyActionPointsSpent() <= $threshold) {
-            return 1;
+            return $playerRatio; // minimum is reduced for ships with less players
         }
 
         return $daedalus->getDailyActionPointsSpent() / $threshold;

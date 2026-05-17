@@ -867,45 +867,7 @@ other{**{target_character}** has been contaminated by a Mush raid during explora
     <unit id="jukebox_played">
       <segment id="jukebox_played" state="translated">
         <source>jukebox_played</source>
-        <target>During this cycle, you can listen to the famous {player, select,
-                    andie {**Audacity**}
-                    chao {**A Weekend In Blood**}
-                    chun {**Dutch Dawn**}
-                    derek {**Die Die My Lightning**}
-                    eleesha {**Take The Truth**}
-                    finola {**Return Of The Haze**}
-                    gioele {**Unleash The Party**}
-                    hua {**The Next Adventure**}
-                    ian {**Night Flowers**}
-                    janice {**Take The Time For Blossoms**}
-                    jin_su {**4th Symphony in Ut Major**}
-                    kuan_ti {**Star Walker : Infinite And Beyond OST**}
-                    paola {**Bad Requiem**}
-                    raluca {**Touching And Fading**}
-                    roland {**Victory Tab**}
-                    stephen {**To Whom The Rockets Tolls**}
-                    terrence {**Stoner And Sweeter**}
-                    other {**Al's Ballad**}
-                } played by {player, select,
-                    andie {**ShipSalt**}
-                    chao {**Steel Panzer Society**}
-                    chun {**Faded Happiness**}
-                    derek {**MetalliCorn**}
-                    eleesha {**Neil Washed**}
-                    finola {**Sweet Symphonies**}
-                    gioele {**Tree Pot**}
-                    hua {**Rustic Vines**}
-                    ian {**Rob Vivan**}
-                    janice {**Janice Popet**}
-                    jin_su {**Mozoven**}
-                    kuan_ti {**Jon Roger**}
-                    paola {**The Stoojazz**}
-                    raluca {**VOSTeX**}
-                    roland {**Hugh Schafting**}
-                    stephen {**Mario Leone**}
-                    terrence {**Old Crooks**}
-                    other {**Massive Expenditure**}
-                } !!!</target>
+        <target>During this cycle, you can listen to the famous {song_name} played by {song_artist} !!!</target>
       </segment>
     </unit>
     <unit id="player_fall_asleep">

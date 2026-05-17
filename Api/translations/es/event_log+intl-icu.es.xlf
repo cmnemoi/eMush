@@ -827,7 +827,7 @@
     <unit id="jukebox_played">
       <segment id="jukebox_played" state="translated">
         <source>jukebox_played</source>
-        <target>En este ciclo, se puede escuchar la famosa canción {song_ name} interpretada por {song_artist} !!!</target>
+        <target>En este ciclo, se puede escuchar la famosa canción {song_name} interpretada por {song_artist} !!!</target>
       </segment>
     </unit>
     <unit id="player_fall_asleep">

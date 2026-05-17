@@ -1,3 +1,24 @@
+# [0.29.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.28.0...0.29.0) (2026-05-17)
+
+
+### Bug Fixes
+
+* new Crowdin translations ([322a8c9](https://gitlab.com/eternaltwin/mush/mush/commit/322a8c9da9ca39036118ca1d99df13a151b21699))
+
+
+### Features
+
+* beat_box project give kit instead of blueprint. Players can see the next free songs with an action on the jukebox. Favorite song is visible in the bio page ([2c3eae5](https://gitlab.com/eternaltwin/mush/mush/commit/2c3eae5ce3502d2f78da52f9ef9f0ba1082d671b))
+* constipaspore serum reduce AP cost of spore  extraction by 1 instead of 2 ([87d9223](https://gitlab.com/eternaltwin/mush/mush/commit/87d922325fe28c8cb5fb1d4ed7e1f2864af14299))
+* dismantling sofa now provide a thick tube ([73e7c2e](https://gitlab.com/eternaltwin/mush/mush/commit/73e7c2ec182534f9e6fe28a6c3ddd702045c46da))
+* extinguish action has a dirty % and manual extinguish action has a highter dirty % ([ae97914](https://gitlab.com/eternaltwin/mush/mush/commit/ae979142ea54f8ea6ef65e5915e4a12b6e21a6e3))
+* finola list give chun and 2-4 names. One less for 8 players or less ship. ([006fc65](https://gitlab.com/eternaltwin/mush/mush/commit/006fc652d37be0dd1158d50f63c3f7f51a5b8ad8))
+* more incidents early in the game. Less incidents for ships with less players, dead players or inactive players. ([99fa715](https://gitlab.com/eternaltwin/mush/mush/commit/99fa7159ff27fbf615441516ee5522ebcb6e8e40))
+* oxygen start at 20. Can't go below that value until the selection ([811cfeb](https://gitlab.com/eternaltwin/mush/mush/commit/811cfeb919066a4a87ad8214afd056e6896fbd2b))
+* remove pheromodem and radio pirate temporary ([aeb5871](https://gitlab.com/eternaltwin/mush/mush/commit/aeb58714b01159b8a12cb1a1d838b653862a0e13))
+* trash load bonus skill changed from robotics to scrapper ([a83f09d](https://gitlab.com/eternaltwin/mush/mush/commit/a83f09d8d921aee6d65f058a9f9d78cd6559d268))
+* updated rules for suicide ([4bf95c0](https://gitlab.com/eternaltwin/mush/mush/commit/4bf95c0945dc01dd933e0b3bc6b4c199ddc80439))
+
 # [0.28.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.27.1...0.28.0) (2026-05-03)
 
 

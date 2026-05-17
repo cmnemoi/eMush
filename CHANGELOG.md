@@ -1,3 +1,10 @@
+## [0.29.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.29.0...0.29.1) (2026-05-17)
+
+
+### Bug Fixes
+
+* jukebox translation ([0bb34d6](https://gitlab.com/eternaltwin/mush/mush/commit/0bb34d67cab3ff43ee710742b8f0801d9cf5e57c))
+
 # [0.29.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.28.0...0.29.0) (2026-05-17)
 
 

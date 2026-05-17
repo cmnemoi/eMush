@@ -66,6 +66,7 @@ class ProjectRequirement
             ProjectRequirementType::MUSH_SAMPLE_IN_LABORATORY->value => $player->hasSampleAvailable(),
             ProjectRequirementType::FOOD_IN_LABORATORY->value => $player->canReachFood(),
             ProjectRequirementType::REBEL_BASE_DECODED->value => $rebelBases->hasRebelBaseByName(RebelBaseEnum::from($this->getTargetOrThrow())),
+            ProjectRequirementType::IMPOSSIBLE->value => false,
             default => throw new \LogicException("Unknown project requirement type: {$this->type}"),
         };
     }

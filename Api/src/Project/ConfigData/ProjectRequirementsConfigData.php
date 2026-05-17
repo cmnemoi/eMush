@@ -90,6 +90,10 @@ abstract class ProjectRequirementsConfigData
                 name: ProjectRequirementName::GAME_STARTED,
                 type: ProjectRequirementType::GAME_STARTED,
             ),
+            new ProjectRequirementConfigDto(
+                name: ProjectRequirementName::IMPOSSIBLE,
+                type: ProjectRequirementType::IMPOSSIBLE,
+            ),
         ];
     }
 

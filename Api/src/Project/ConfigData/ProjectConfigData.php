@@ -804,6 +804,7 @@ abstract class ProjectConfigData
                     ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_PLAYER_DEAD,
                     ProjectRequirementName::MUSH_GENOME_DISK_IN_LABORATORY,
+                    ProjectRequirementName::IMPOSSIBLE, // a requirement that always return false
                 ],
             ],
             [

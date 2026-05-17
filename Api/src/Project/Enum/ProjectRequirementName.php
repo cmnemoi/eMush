@@ -20,6 +20,7 @@ enum ProjectRequirementName: string
     case COFFEE_IN_LABORATORY = 'coffee_in_laboratory';
     case ERIDIANI_DECODED = 'eridiani_decoded';
     case GAME_STARTED = 'game_started';
+    case IMPOSSIBLE = 'impossible';
 
     public function toString(): string
     {

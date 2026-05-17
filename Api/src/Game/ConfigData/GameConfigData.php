@@ -447,6 +447,7 @@ class GameConfigData
                     ProjectName::TESLA_SUP2X,
                     ProjectName::ULTRA_HEALING_POMADE,
                     ProjectName::ZETA_WAVES,
+                    ProjectName::PHEROMODEM,
                 ],
                 'skillConfigs' => [
                     SkillEnum::ANONYMUSH,

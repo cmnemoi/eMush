@@ -1,3 +1,10 @@
+## [0.29.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.29.1...0.29.2) (2026-05-17)
+
+
+### Bug Fixes
+
+* pheromodem is impossible to do without breacking the game ([d8335f5](https://gitlab.com/eternaltwin/mush/mush/commit/d8335f56134e42fe7b8f8007a4e548c21d775381))
+
 ## [0.29.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.29.0...0.29.1) (2026-05-17)
 
 

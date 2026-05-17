@@ -1931,5 +1931,15 @@ Todos tus camaradas serán *notificados* y el anuncio permanecerá en la pestañ
         <target>Elige a este tripulante como tu VIP. Solo puedes resguardar una persona a la vez.</target>
       </segment>
     </unit>
+    <unit id="check_jukebox_songs">
+      <segment id="name" state="translated">
+        <source>check_jukebox_songs.name</source>
+        <target>Ver lista de reproducción</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>check_jukebox_songs.description</source>
+        <target>Te permite ver las próximas tres canciones de la lista de reproducción. ¿Quizás tu favorita suene pronto?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

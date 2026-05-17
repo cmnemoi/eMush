@@ -1234,5 +1234,11 @@ other {a}} **{equipment}** out of {character_gender, select,
         <target>**{character}** moves closer to **{target_character}** and starts shadowing their footsteps. Whoever will seek to harm **{target_character}** will need to get past {character_gender, select, male {him} female {her} other {them}}!</target>
       </segment>
     </unit>
+    <unit id="check_jukebox_songs_success">
+      <segment id="check_jukebox_songs_success" state="translated">
+        <source>check_jukebox_songs_success</source>
+        <target>The next three songs in the playlist are: **{song_1}**, **{song_2}** and **{song_3}**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

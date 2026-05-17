@@ -1050,7 +1050,7 @@
 			"spoilingHuman": "<strong>Human griefing</strong>: As a human, it is forbidden to seriously ruin the other players’ playing experience by committing deliberate and conscious actions threatening to impede the objective of the human side. In particular, killing another human without justification or consultation with your teammates is prohibited.",
 			"spoilingMush": "<strong>Mush griefing</strong>: As a Mush, it is forbidden to deliberately harm your own side, including but not limited to revealing the identity of the Mush, either yourself or the other Mush. However, there is an exception for a Mush healed by the serum. This player may choose to reveal, or not, the other Mushs once they have switched teams.",
 			"mushCooperation": "<strong>Cooperation between Mushs and humans</strong>: It is forbidden to cooperate with humans as Mush, and vice versa. Changing teams is also prohibited: a human must not willingly allow themselves to be infected or help a Mush destroy the ship. A Mush must not attempt to become human and must do everything in their power to avoid receiving the serum.",
-			"suicide": "<strong>Suicide</strong> : It is forbidden to voluntarily leave a game, either actively or passively, by exploiting the game's mechanisms."
+			"suicide": "<strong>Suicide</strong> : It is forbidden to voluntarily leave a game, either actively or passively, by exploiting the game's mechanisms.[old text, need translation on crowdin]"
 		},
 		"sanctionsAppeal": {
 			"title": "Sanctions and appeal",

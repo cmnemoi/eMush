@@ -6,9 +6,9 @@
         <source>oxygen.name</source>
         <target>Oxígeno en la nave [ {quantity}  / 32 ]</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>oxygen.description</source>
-        <target>Cantidad disponible de **Oxígeno (o²) ** en el Daedalus. Para abastecer la nave organiza **exploraciones** o trabaja en el **jardín**.</target>
+        <target>oxygen.description</target>
       </segment>
     </unit>
     <unit id="fuel">

@@ -6,9 +6,9 @@
         <source>oxygen.name</source>
         <target>Oxygen Level [ {quantity}/{maximum} ]</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>oxygen.description</source>
-        <target>Quantity of **Oxygen** available on the ship. To refill the ship, you could organize **expeditions** or work in the **Garden**.</target>
+        <target>oxygen.description</target>
       </segment>
     </unit>
     <unit id="fuel">

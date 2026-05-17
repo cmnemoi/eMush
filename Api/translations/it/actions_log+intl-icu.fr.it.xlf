@@ -979,5 +979,11 @@
         <target>protect_success</target>
       </segment>
     </unit>
+    <unit id="check_jukebox_songs_success">
+      <segment id="check_jukebox_songs_success" state="initial">
+        <source>check_jukebox_songs_success</source>
+        <target>check_jukebox_songs_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

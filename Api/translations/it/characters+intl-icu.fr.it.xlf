@@ -56,6 +56,14 @@
         <source>andie.tutorial</source>
         <target>andie.tutorial</target>
       </segment>
+      <segment id="song_name" state="initial">
+        <source>andie.song_name</source>
+        <target>andie.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>andie.song_artist</source>
+        <target>andie.song_artist</target>
+      </segment>
     </unit>
     <unit id="Chao">
       <segment id="name" state="translated">
@@ -101,6 +109,14 @@
       <segment id="tutorial" state="translated">
         <source>chao.tutorial</source>
         <target>chao.tutorial</target>
+      </segment>
+      <segment id="song_name" state="initial">
+        <source>chao.song_name</source>
+        <target>chao.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>chao.song_artist</source>
+        <target>chao.song_artist</target>
       </segment>
     </unit>
     <unit id="Chun">
@@ -148,6 +164,14 @@
         <source>chun.tutorial</source>
         <target>chun.tutorial</target>
       </segment>
+      <segment id="song_name" state="initial">
+        <source>chun.song_name</source>
+        <target>chun.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>chun.song_artist</source>
+        <target>chun.song_artist</target>
+      </segment>
     </unit>
     <unit id="Derek">
       <segment id="name" state="translated">
@@ -193,6 +217,14 @@
       <segment id="tips" state="translated">
         <source>derek.tutorial</source>
         <target>derek.tutorial</target>
+      </segment>
+      <segment id="song_name" state="initial">
+        <source>derek.song_name</source>
+        <target>derek.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>derek.song_artist</source>
+        <target>derek.song_artist</target>
       </segment>
     </unit>
     <unit id="Eleesha">
@@ -240,6 +272,14 @@
         <source>eleesha.tutorial</source>
         <target>eleesha.tutorial</target>
       </segment>
+      <segment id="song_name" state="initial">
+        <source>eleesha.song_name</source>
+        <target>eleesha.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>eleesha.song_artist</source>
+        <target>eleesha.song_artist</target>
+      </segment>
     </unit>
     <unit id="Finola">
       <segment id="name" state="translated">
@@ -285,6 +325,14 @@
       <segment id="tutorial" state="translated">
         <source>finola.tutorial</source>
         <target>finola.tutorial</target>
+      </segment>
+      <segment id="song_name" state="initial">
+        <source>finola.song_name</source>
+        <target>finola.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>finola.song_artist</source>
+        <target>finola.song_artist</target>
       </segment>
     </unit>
     <unit id="Frieda">
@@ -332,6 +380,14 @@
         <source>frieda.tutorial</source>
         <target>frieda.tutorial</target>
       </segment>
+      <segment id="song_name" state="initial">
+        <source>frieda.song_name</source>
+        <target>frieda.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>frieda.song_artist</source>
+        <target>frieda.song_artist</target>
+      </segment>
     </unit>
     <unit id="Gioele">
       <segment id="name" state="translated">
@@ -377,6 +433,14 @@
       <segment id="tutorial" state="translated">
         <source>gioele.tutorial</source>
         <target>gioele.tutorial</target>
+      </segment>
+      <segment id="song_name" state="initial">
+        <source>gioele.song_name</source>
+        <target>gioele.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>gioele.song_artist</source>
+        <target>gioele.song_artist</target>
       </segment>
     </unit>
     <unit id="Hua">
@@ -424,6 +488,14 @@
         <source>hua.tutorial</source>
         <target>hua.tutorial</target>
       </segment>
+      <segment id="song_name" state="initial">
+        <source>hua.song_name</source>
+        <target>hua.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>hua.song_artist</source>
+        <target>hua.song_artist</target>
+      </segment>
     </unit>
     <unit id="Ian">
       <segment id="name" state="translated">
@@ -469,6 +541,14 @@
       <segment id="tutorial" state="translated">
         <source>ian.tutorial</source>
         <target>ian.tutorial</target>
+      </segment>
+      <segment id="song_name" state="initial">
+        <source>ian.song_name</source>
+        <target>ian.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>ian.song_artist</source>
+        <target>ian.song_artist</target>
       </segment>
     </unit>
     <unit id="jin_su">
@@ -516,6 +596,14 @@
         <source>jin_su.tutorial</source>
         <target>jin_su.tutorial</target>
       </segment>
+      <segment id="song_name" state="initial">
+        <source>jin_su.song_name</source>
+        <target>jin_su.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>jin_su.song_artist</source>
+        <target>jin_su.song_artist</target>
+      </segment>
     </unit>
     <unit id="kuan_ti">
       <segment id="name" state="translated">
@@ -561,6 +649,14 @@
       <segment id="tutorial" state="translated">
         <source>kuan_ti.tutorial</source>
         <target>kuan_ti.tutorial</target>
+      </segment>
+      <segment id="song_name" state="initial">
+        <source>kuan_ti.song_name</source>
+        <target>kuan_ti.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>kuan_ti.song_artist</source>
+        <target>kuan_ti.song_artist</target>
       </segment>
     </unit>
     <unit id="Paola">
@@ -608,6 +704,14 @@
         <source>paola.tutorial</source>
         <target>paola.tutorial</target>
       </segment>
+      <segment id="song_name" state="initial">
+        <source>paola.song_name</source>
+        <target>paola.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>paola.song_artist</source>
+        <target>paola.song_artist</target>
+      </segment>
     </unit>
     <unit id="Raluca">
       <segment id="name" state="translated">
@@ -653,6 +757,14 @@
       <segment id="tutorial" state="translated">
         <source>raluca.tutorial</source>
         <target>raluca.tutorial</target>
+      </segment>
+      <segment id="song_name" state="initial">
+        <source>raluca.song_name</source>
+        <target>raluca.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>raluca.song_artist</source>
+        <target>raluca.song_artist</target>
       </segment>
     </unit>
     <unit id="Roland">
@@ -700,6 +812,14 @@
         <source>roland.tutorial</source>
         <target>roland.tutorial</target>
       </segment>
+      <segment id="song_name" state="initial">
+        <source>roland.song_name</source>
+        <target>roland.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>roland.song_artist</source>
+        <target>roland.song_artist</target>
+      </segment>
     </unit>
     <unit id="Stephen">
       <segment id="name" state="translated">
@@ -745,6 +865,14 @@
       <segment id="tutorial" state="translated">
         <source>stephen.tutorial</source>
         <target>stephen.tutorial</target>
+      </segment>
+      <segment id="song_name" state="initial">
+        <source>stephen.song_name</source>
+        <target>stephen.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>stephen.song_artist</source>
+        <target>stephen.song_artist</target>
       </segment>
     </unit>
     <unit id="Terrence">
@@ -792,6 +920,14 @@
         <source>terrence.tutorial</source>
         <target>terrence.tutorial</target>
       </segment>
+      <segment id="song_name" state="initial">
+        <source>terrence.song_name</source>
+        <target>terrence.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>terrence.song_artist</source>
+        <target>terrence.song_artist</target>
+      </segment>
     </unit>
     <unit id="janice">
       <segment id="name" state="translated">
@@ -838,6 +974,14 @@
         <source>janice.tutorial</source>
         <target>janice.tutorial</target>
       </segment>
+      <segment id="song_name" state="initial">
+        <source>janice.song_name</source>
+        <target>janice.song_name</target>
+      </segment>
+      <segment id="song_artist" state="initial">
+        <source>janice.song_artist</source>
+        <target>janice.song_artist</target>
+      </segment>
     </unit>
     <unit id="Someone">
       <segment id="name" state="translated">
@@ -853,6 +997,12 @@
       <segment id="name" state="translated">
         <source>mush.name</source>
         <target>mush.name</target>
+      </segment>
+    </unit>
+    <unit id="biography">
+      <segment id="song" state="initial">
+        <source>biography.song</source>
+        <target>biography.song</target>
       </segment>
     </unit>
   </file>

@@ -1929,5 +1929,15 @@ Or you simply need some fresh air.... or not.</target>
         <target>Pick this crewmember as your current VIP. You can only protect one person at a time.</target>
       </segment>
     </unit>
+    <unit id="check_jukebox_songs">
+      <segment id="name" state="translated">
+        <source>check_jukebox_songs.name</source>
+        <target>Check the playlist</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>check_jukebox_songs.description</source>
+        <target>Lets you see the next three songs in the playlist. Maybe your favorite will be playing soon?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -1897,5 +1897,15 @@
         <target>protect.description</target>
       </segment>
     </unit>
+    <unit id="check_jukebox_songs">
+      <segment id="name" state="initial">
+        <source>check_jukebox_songs.name</source>
+        <target>check_jukebox_songs.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>check_jukebox_songs.description</source>
+        <target>check_jukebox_songs.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

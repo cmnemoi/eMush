@@ -1169,5 +1169,11 @@ other {{quantity}}
         <target>**{character}** se acerca a **{target_character}** y comienza a seguir sus pasos y vigilar su espacio. ¡Quienquiera que intente hacerle daño a **{target_character}** tendrá que vérselas primero con {character_gender, select, male {el} female {ella} other {el}}!</target>
       </segment>
     </unit>
+    <unit id="check_jukebox_songs_success">
+      <segment id="check_jukebox_songs_success" state="translated">
+        <source>check_jukebox_songs_success</source>
+        <target>Las próximas tres canciones a reproducir son: **{song_1}**, **{song_2}** y **{song_3}**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

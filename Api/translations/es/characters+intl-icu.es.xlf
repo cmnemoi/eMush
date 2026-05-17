@@ -62,6 +62,14 @@
         <source>andie.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Andie_Graham</target>
       </segment>
+      <segment id="song_name" state="translated">
+        <source>andie.song_name</source>
+        <target>Audacity</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>andie.song_artist</source>
+        <target>ShipSalt</target>
+      </segment>
     </unit>
     <unit id="Chao">
       <segment id="name" state="translated">
@@ -114,6 +122,14 @@
       <segment id="tutorial" state="translated">
         <source>chao.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Wang_Chao</target>
+      </segment>
+      <segment id="song_name" state="translated">
+        <source>chao.song_name</source>
+        <target>A Weekend In Blood</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>chao.song_artist</source>
+        <target>Steel Panzer Society</target>
       </segment>
     </unit>
     <unit id="Chun">
@@ -174,6 +190,14 @@
         <source>chun.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Zhong_Chun</target>
       </segment>
+      <segment id="song_name" state="translated">
+        <source>chun.song_name</source>
+        <target>Dutch Dawn</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>chun.song_artist</source>
+        <target>Faded Happiness</target>
+      </segment>
     </unit>
     <unit id="Derek">
       <segment id="name" state="translated">
@@ -227,6 +251,14 @@
       <segment id="tips" state="translated">
         <source>derek.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Derek_Hogan</target>
+      </segment>
+      <segment id="song_name" state="translated">
+        <source>derek.song_name</source>
+        <target>Die Die My Lightning</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>derek.song_artist</source>
+        <target>MetalliCorn</target>
       </segment>
     </unit>
     <unit id="Eleesha">
@@ -289,6 +321,14 @@
         <source>eleesha.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Eleesha_Williams</target>
       </segment>
+      <segment id="song_name" state="translated">
+        <source>eleesha.song_name</source>
+        <target>Take The Truth</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>eleesha.song_artist</source>
+        <target>Neil Washed</target>
+      </segment>
     </unit>
     <unit id="Finola">
       <segment id="name" state="translated">
@@ -343,6 +383,14 @@
       <segment id="tutorial" state="translated">
         <source>finola.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Finola_Keegan</target>
+      </segment>
+      <segment id="song_name" state="translated">
+        <source>finola.song_name</source>
+        <target>Return Of The Haze</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>finola.song_artist</source>
+        <target>Sweet Symphonies</target>
       </segment>
     </unit>
     <unit id="Frieda">
@@ -400,6 +448,14 @@
         <source>frieda.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Frieda_Bergmann</target>
       </segment>
+      <segment id="song_name" state="translated">
+        <source>frieda.song_name</source>
+        <target>Al's Ballad</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>frieda.song_artist</source>
+        <target>Massive Expenditure</target>
+      </segment>
     </unit>
     <unit id="Gioele">
       <segment id="name" state="translated">
@@ -454,6 +510,14 @@
         <source>gioele.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Gioele_Rinaldo</target>
       </segment>
+      <segment id="song_name" state="translated">
+        <source>gioele.song_name</source>
+        <target>Unleash The Party</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>gioele.song_artist</source>
+        <target>Tree Pot</target>
+      </segment>
     </unit>
     <unit id="Hua">
       <segment id="name" state="translated">
@@ -507,6 +571,14 @@
       <segment id="tutorial" state="translated">
         <source>hua.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Jiang_Hua</target>
+      </segment>
+      <segment id="song_name" state="translated">
+        <source>hua.song_name</source>
+        <target>The Next Adventure</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>hua.song_artist</source>
+        <target>Rustic Vines</target>
       </segment>
     </unit>
     <unit id="Ian">
@@ -564,6 +636,14 @@
         <source>ian.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Ian_Soulton</target>
       </segment>
+      <segment id="song_name" state="translated">
+        <source>ian.song_name</source>
+        <target>Night Flowers</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>ian.song_artist</source>
+        <target>Rob Vivan</target>
+      </segment>
     </unit>
     <unit id="jin_su">
       <segment id="name" state="translated">
@@ -619,6 +699,14 @@
         <source>jin_su.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Kim_Jin_Su</target>
       </segment>
+      <segment id="song_name" state="translated">
+        <source>jin_su.song_name</source>
+        <target>4ème symphonie en Ut majeur</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>jin_su.song_artist</source>
+        <target>Mozoven</target>
+      </segment>
     </unit>
     <unit id="kuan_ti">
       <segment id="name" state="translated">
@@ -673,6 +761,14 @@
         <source>kuan_ti.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Lai_Kuan_Ti</target>
       </segment>
+      <segment id="song_name" state="translated">
+        <source>kuan_ti.song_name</source>
+        <target>Star Walker : Infinite And Beyond OST</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>kuan_ti.song_artist</source>
+        <target>Jon Roger</target>
+      </segment>
     </unit>
     <unit id="Paola">
       <segment id="name" state="translated">
@@ -725,6 +821,14 @@
       <segment id="tutorial" state="translated">
         <source>paola.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Paola_Rinaldo</target>
+      </segment>
+      <segment id="song_name" state="translated">
+        <source>paola.song_name</source>
+        <target>Bad Requiem</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>paola.song_artist</source>
+        <target>The Stoojazz</target>
       </segment>
     </unit>
     <unit id="Raluca">
@@ -784,6 +888,14 @@
         <source>raluca.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Raluca_Tomescu</target>
       </segment>
+      <segment id="song_name" state="translated">
+        <source>raluca.song_name</source>
+        <target>Touching And Fading</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>raluca.song_artist</source>
+        <target>VOSTeX</target>
+      </segment>
     </unit>
     <unit id="Roland">
       <segment id="name" state="translated">
@@ -837,6 +949,14 @@
       <segment id="tutorial" state="translated">
         <source>roland.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Roland_Zuccali</target>
+      </segment>
+      <segment id="song_name" state="translated">
+        <source>roland.song_name</source>
+        <target>Victory Tab</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>roland.song_artist</source>
+        <target>Hugh Schafting</target>
       </segment>
     </unit>
     <unit id="Stephen">
@@ -897,6 +1017,14 @@
         <source>stephen.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Stephen_Seagull</target>
       </segment>
+      <segment id="song_name" state="translated">
+        <source>stephen.song_name</source>
+        <target>To Whom The Rockets Tolls</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>stephen.song_artist</source>
+        <target>Mario Leone</target>
+      </segment>
     </unit>
     <unit id="Terrence">
       <segment id="name" state="translated">
@@ -953,6 +1081,14 @@
         <source>terrence.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Terrence_Archer</target>
       </segment>
+      <segment id="song_name" state="translated">
+        <source>terrence.song_name</source>
+        <target>Stoner And Sweeter</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>terrence.song_artist</source>
+        <target>Old Crooks</target>
+      </segment>
     </unit>
     <unit id="janice">
       <segment id="name" state="translated">
@@ -1008,6 +1144,14 @@
         <source>janice.tutorial</source>
         <target>https://www.mushpedia.com/wiki/Janice_Kent</target>
       </segment>
+      <segment id="song_name" state="translated">
+        <source>janice.song_name</source>
+        <target>Take The Time For Blossoms</target>
+      </segment>
+      <segment id="song_artist" state="translated">
+        <source>janice.song_artist</source>
+        <target>Janice Popet</target>
+      </segment>
     </unit>
     <unit id="Someone">
       <segment id="name" state="translated">
@@ -1023,6 +1167,12 @@
       <segment id="name" state="translated">
         <source>mush.name</source>
         <target>Mush</target>
+      </segment>
+    </unit>
+    <unit id="biography">
+      <segment id="song" state="translated">
+        <source>biography.song</source>
+        <target>**Canción favorita:** {song_name} de {song_artist}.</target>
       </segment>
     </unit>
   </file>

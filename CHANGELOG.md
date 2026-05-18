@@ -1,3 +1,10 @@
+## [0.29.3](https://gitlab.com/eternaltwin/mush/mush/compare/0.29.2...0.29.3) (2026-05-18)
+
+
+### Bug Fixes
+
+* xyloph configs update their wheight ([d1642cf](https://gitlab.com/eternaltwin/mush/mush/commit/d1642cf7e82e6f7189f4958934b34817cf93fb39))
+
 ## [0.29.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.29.1...0.29.2) (2026-05-17)
 
 

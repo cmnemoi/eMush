@@ -89,5 +89,6 @@ class XylophConfig
         $this->name = $xylophConfig->name;
         $this->weight = $xylophConfig->weight;
         $this->modifierConfigs = $xylophConfig->modifierConfigs;
+        $this->quantity = $xylophConfig->quantity;
     }
 }

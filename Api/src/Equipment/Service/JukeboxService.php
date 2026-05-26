@@ -21,7 +21,7 @@ class JukeboxService
 
         // select a player from the list of players on the daedalus
         $selection = $this->randomService->getPseudoRandomInt($seed, 0, $daedalus->getPlayers()->count() - 1);
-        $selectedPlayer = $daedalus->getPlayers()->get($selection);
+        $selectedPlayer = $daedalus->getPlayers()->getSortedBy('createdAt')->get($selection);
 
         if ($selectedPlayer instanceof Player) {
             return $selectedPlayer;

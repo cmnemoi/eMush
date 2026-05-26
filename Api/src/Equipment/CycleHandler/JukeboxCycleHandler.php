@@ -77,7 +77,7 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
         $language = $player->getDaedalus()->getLanguage();
 
         $songName = $this->translationService->translate($player->getLogName() . '.song_name', [], 'characters', $language);
-        $songArtist = $this->translationService->translate($player->getLogName() . '.song_name', [], 'characters', $language);
+        $songArtist = $this->translationService->translate($player->getLogName() . '.song_artist', [], 'characters', $language);
 
         $this->roomLogService->createLog(
             logKey: LogEnum::JUKEBOX_PLAYED,

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Game\ConfigData;
 
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\DifficultyEnum;
 
 /** @codeCoverageIgnore */
@@ -68,8 +69,8 @@ abstract class DifficultyConfigData
                     EquipmentEnum::MYCOSCAN => 12,
                     EquipmentEnum::TURRET_COMMAND => 12,
                     EquipmentEnum::SURGERY_PLOT => 12,
-                    EquipmentEnum::THALASSO => 25,
                     EquipmentEnum::CAMERA_EQUIPMENT => 25,
+                    ItemEnum::MYCO_ALARM => 25,
                 ],
                 difficultyModes: [
                     DifficultyEnum::NORMAL => 1,

@@ -6,7 +6,6 @@ namespace Mush\Game\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
-use Mush\Game\Enum\DifficultyEnum;
 
 final class DifficultyService implements DifficultyServiceInterface
 {
@@ -39,14 +38,18 @@ final class DifficultyService implements DifficultyServiceInterface
             return;
         }
 
-        $pointsToAdd = max($daedalus->getDay(), 3);
+        $pointsToAdd = match (true) {
+            $daedalus->getDay() < 4 => 2,
+            $daedalus->getDay() === 4 => 3,
+            default => 4
+        };
 
         if ($daedalus->isInHardMode()) {
-            ++$pointsToAdd;
+            $pointsToAdd += $daedalus->getDay() - 5;
         }
         if ($daedalus->isInVeryHardMode()) {
-            ++$pointsToAdd;
-            $pointsToAdd += max(0, $daedalus->getDay() - 12);
+            $pointsToAdd += $daedalus->getDay() - 5;
+            $pointsToAdd += $daedalus->getDay() - 10;
         }
 
         $pointsToAdd = (int) round($pointsToAdd * $this->getActivityOverload($daedalus));
@@ -69,15 +72,5 @@ final class DifficultyService implements DifficultyServiceInterface
         }
 
         return $daedalus->getDailyActionPointsSpent() / $threshold;
-    }
-
-    private function getHardModeOverload(Daedalus $daedalus): float
-    {
-        return 1 + $daedalus->getDay() - $daedalus->getGameConfig()->getDifficultyConfig()->getDifficultyModes()->get(DifficultyEnum::HARD);
-    }
-
-    private function getVeryHardModeOverload(Daedalus $daedalus): float
-    {
-        return 2 + $this->getHardModeOverload($daedalus) + $daedalus->getDay() - $daedalus->getGameConfig()->getDifficultyConfig()->getDifficultyModes()->get(DifficultyEnum::VERY_HARD);
     }
 }

@@ -46,7 +46,7 @@ final class DifficultyServiceTest extends TestCase
         $this->whenIUpdateDaedalusDifficulty();
 
         $this->thenHunterPointsShouldBeIncreasedBy(7, $initialHunterPoints);
-        $this->thenIncidentPointsShouldBeIncreasedBy(3, $initialIncidentPoints);
+        $this->thenIncidentPointsShouldBeIncreasedBy(2, $initialIncidentPoints);
     }
 
     public function testShouldIncreaseHunterPointsOnDay1(): void
@@ -123,37 +123,37 @@ final class DifficultyServiceTest extends TestCase
     {
         return [
             'day 1' => [
-                1, 3,
+                1, 2,
             ],
             'day 2' => [
-                2, 3,
+                2, 2,
             ],
             'day 3' => [
-                3, 3,
+                3, 2,
             ],
             'day 4' => [
-                4, 4,
+                4, 3,
             ],
             'day 5' => [
-                5, 6,
+                5, 4,
             ],
             'day 6' => [
-                6, 7,
+                6, 5,
             ],
             'day 7' => [
-                7, 8,
+                7, 6,
             ],
             'day 8' => [
-                8, 9,
+                8, 7,
             ],
             'day 9' => [
-                9, 10,
+                9, 8,
             ],
             'day 10' => [
-                10, 11,
+                10, 9,
             ],
             'day 11' => [
-                11, 12,
+                11, 11,
             ],
             'day 12' => [
                 12, 13,
@@ -191,7 +191,7 @@ final class DifficultyServiceTest extends TestCase
 
         $this->whenIUpdateDaedalusDifficulty();
 
-        $this->thenIncidentPointsShouldBeIncreasedBy(15, $initialIncidentPoints);
+        $this->thenIncidentPointsShouldBeIncreasedBy(12, $initialIncidentPoints);
     }
 
     public function testShouldNotUpdateIncidentPointsWhenDaedalusIsFilling(): void
@@ -230,7 +230,7 @@ final class DifficultyServiceTest extends TestCase
         $this->whenIUpdateDaedalusDifficulty();
 
         $this->thenHunterPointsShouldBeIncreasedBy(7, $initialHunterPoints);
-        $this->thenIncidentPointsShouldBeIncreasedBy(3, $initialIncidentPoints);
+        $this->thenIncidentPointsShouldBeIncreasedBy(2, $initialIncidentPoints);
     }
 
     public function testShouldCalculateActivityOverloadWithHighActivity(): void
@@ -244,7 +244,7 @@ final class DifficultyServiceTest extends TestCase
         $this->whenIUpdateDaedalusDifficulty();
 
         $this->thenHunterPointsShouldBeIncreasedBy(7, $initialHunterPoints);
-        $this->thenIncidentPointsShouldBeIncreasedBy(3, $initialIncidentPoints);
+        $this->thenIncidentPointsShouldBeIncreasedBy(2, $initialIncidentPoints);
     }
 
     public function testShouldSaveDaedalusAfterUpdate(): void

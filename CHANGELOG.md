@@ -1,3 +1,16 @@
+# [0.30.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.29.3...0.30.0) (2026-05-27)
+
+
+### Bug Fixes
+
+* jukebox log show the artist and the name of the song. The playlist do not change randomly ([e54e610](https://gitlab.com/eternaltwin/mush/mush/commit/e54e610d59d3eb716783ccc5feccb6dc429aec5b))
+* nerf incident points ([2581ae2](https://gitlab.com/eternaltwin/mush/mush/commit/2581ae2e3e71ce13832ad00952db98f99e1db48a))
+
+
+### Features
+
+* mycoalarms can now break at cycle change ([0cacab9](https://gitlab.com/eternaltwin/mush/mush/commit/0cacab938dc86784fea1a677a8006555e5f85c35))
+
 ## [0.29.3](https://gitlab.com/eternaltwin/mush/mush/compare/0.29.2...0.29.3) (2026-05-18)
 
 

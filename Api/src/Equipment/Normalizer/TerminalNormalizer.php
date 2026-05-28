@@ -622,6 +622,12 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
                 domain: 'terminal',
                 language: $daedalus->getLanguage()
             ),
+            'seeCommunications' => $this->translationService->translate(
+                key: $terminalKey . '.see_communications',
+                parameters: [],
+                domain: 'terminal',
+                language: $daedalus->getLanguage()
+            ),
         ];
 
         if ($link->isEstablished()) {
@@ -643,12 +649,6 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
                 );
             }
 
-            $infos['seeCommunications'] = $this->translationService->translate(
-                key: $terminalKey . '.see_communications',
-                parameters: [],
-                domain: 'terminal',
-                language: $daedalus->getLanguage()
-            );
             $infos['seeTrades'] = $this->translationService->translate(
                 key: $terminalKey . '.see_trades',
                 parameters: [],

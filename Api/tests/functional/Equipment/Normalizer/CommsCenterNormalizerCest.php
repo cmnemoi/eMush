@@ -112,6 +112,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
                 'neronUpdateStatus' => 'État de mise à jour : 9%',
                 'selectRebelBaseToDecode' => 'Choisissez une base rebelle pour pouvoir décoder son signal.',
                 'never' => 'Jamais !',
+                'seeCommunications' => 'Voir les communications',
             ],
             actual: $this->normalizedTerminal['infos']
         );
@@ -131,6 +132,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
                 'selectRebelBaseToDecode' => 'Choisissez une base rebelle pour pouvoir décoder son signal.',
                 'linkEstablished' => 'Connexion établie !',
                 'never' => 'Jamais !',
+                'seeCommunications' => 'Voir les communications',
             ],
             actual: $this->normalizedTerminal['infos']
         );

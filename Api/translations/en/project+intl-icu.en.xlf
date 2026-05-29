@@ -768,7 +768,7 @@
       </segment>
       <segment id="beat_box.description" state="translated">
         <source>beat_box.description</source>
-        <target>Makes a Jukebox Blueprint available in the Nexus. Lets you relax while listening to some good tunes...</target>
+        <target>Makes a Jukebox Kit available in the Nexus. Lets you relax while listening to some good tunes...</target>
       </segment>
       <segment id="beat_box.lore" state="translated">
         <source>beat_box.lore</source>

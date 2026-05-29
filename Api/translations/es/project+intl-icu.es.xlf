@@ -768,7 +768,7 @@
       </segment>
       <segment id="beat_box.description" state="translated">
         <source>beat_box.description</source>
-        <target>Genera un plano de Rockola disponible en el Nexus. La Rockola te permite relajarte un poco escuchando música.</target>
+        <target>Genera un Kit de Rockola disponible en el Nexus. La Rockola te permite relajarte un poco escuchando música.</target>
       </segment>
       <segment id="beat_box.lore" state="translated">
         <source>beat_box.lore</source>

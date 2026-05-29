@@ -6,9 +6,11 @@
         <source>oxygen.name</source>
         <target>Oxígeno en la nave [ {quantity}  / 32 ]</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>oxygen.description</source>
-        <target>oxygen.description</target>
+        <target>Cantidad de **oxígeno (O2)** disponible en la nave. Para reponerlo, considera organizar **expediciones** o atender las **plantas**, por ejemplo. {hasSelectionBeenDone, select, false {//*Actualmente, el sistema de soporte vital está utilizando el módulo criogénico para evitar que las reservas de la nave se agoten demasiado rápido. Sin embargo, puede que no dure por mucho tiempo...*}
+
+other {}}</target>
       </segment>
     </unit>
     <unit id="fuel">

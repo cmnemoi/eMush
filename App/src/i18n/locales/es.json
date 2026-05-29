@@ -543,7 +543,7 @@
 			"addMaturationTime": "Suprimir tiempos de maduración :",
 			"maturationTimeIndexToAdd": "Tiempo de maduración (en ciclos) a añadir :",
 			"maturationTimeValueToAdd": "Probabilidad del tiempo de maduración :",
-			"oxygen": "Oxígeno producido por día (oxígeno => probabilidad)",
+			"oxygen": "Oxígeno producido por día (cantidad de oxígeno => probabilidad)",
 			"baseAccuracy": "Probabilidad de acierto",
 			"baseDamageRange": "Daño (número de puntos de vida => probabilidad)",
 			"expeditionBonus": "Bonus de expedición",

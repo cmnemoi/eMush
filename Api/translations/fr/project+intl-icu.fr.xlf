@@ -768,7 +768,7 @@
       </segment>
       <segment id="beat_box.description" state="translated">
         <source>beat_box.description</source>
-        <target>Rend disponible un Plan du Jukebox au Nexus. Le Jukebox permet de se relaxer en écoutant de la musique.</target>
+        <target>Rend disponible un Jukebox en Kit au Nexus. Le Jukebox permet de se relaxer en écoutant de la musique.</target>
       </segment>
       <segment id="beat_box.lore" state="translated">
         <source>beat_box.lore</source>

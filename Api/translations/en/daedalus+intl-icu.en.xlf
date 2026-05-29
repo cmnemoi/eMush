@@ -6,9 +6,12 @@
         <source>oxygen.name</source>
         <target>Oxygen Level [ {quantity}/{maximum} ]</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>oxygen.description</source>
-        <target>oxygen.description</target>
+        <target>Quantity of **Oxygen (O2)** available in the ship. To replenish it, consider organizing **expeditions** or tending the **plants**, for example. {hasSelectionBeenDone, select,
+false {//*Currently, the life support system is drawing on the cryogenic module to prevent the ship's reserves from depleting too quickly. However, it may not last very long...*}
+
+other {}}</target>
       </segment>
     </unit>
     <unit id="fuel">

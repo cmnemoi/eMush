@@ -260,12 +260,12 @@ class Drone extends Npc
 
     private function cannotLand(): bool
     {
-        return $this->isNotPilot() || !$this->isInAPatrolShip() || $this->noLandActionAvailable();
+        return $this->isNotPilot() || !$this->isInAPatrolShip() || !$this->getPlace()->hasPatrolShip() || $this->noLandActionAvailable();
     }
 
     private function cannotShootHunter(): bool
     {
-        return $this->isNotPilot() || !$this->isInAPatrolShip() || $this->noAttackingHunters() || $this->noShootHunterActionAvailable();
+        return $this->isNotPilot() || !$this->isInAPatrolShip() || !$this->getPlace()->hasPatrolShip() || $this->noAttackingHunters() || $this->noShootHunterActionAvailable();
     }
 
     private function cannotTakeoff(): bool

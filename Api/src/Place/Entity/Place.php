@@ -285,6 +285,13 @@ class Place extends EquipmentHolderAbstract implements StatusHolderInterface, Vi
         return $patrolShip;
     }
 
+    public function hasPatrolShip(): bool
+    {
+        return $this->getEquipments()
+            ->filter(static fn (GameEquipment $equipment) => ($equipment instanceof SpaceShip))
+            ->count() > 0;
+    }
+
     public function setEquipments(ArrayCollection $equipments): static
     {
         $this->equipments = $equipments;

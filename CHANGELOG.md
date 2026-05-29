@@ -1,3 +1,12 @@
+## [0.30.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.30.0...0.30.1) (2026-05-29)
+
+
+### Bug Fixes
+
+* drones don't try to shoot if they don't have a patrolship ([0cfa1bc](https://gitlab.com/eternaltwin/mush/mush/commit/0cfa1bcc7248a24ea26df4cae5a92dd5c2139cf4))
+* new Crowdin translations ([5c64d33](https://gitlab.com/eternaltwin/mush/mush/commit/5c64d33cbaa6157e412e702fbfaaf01412d8f055))
+* Player can toggle to comms after validating all trades ([e929565](https://gitlab.com/eternaltwin/mush/mush/commit/e9295656269401c48ec1ba4584f2ae5b40ba9ba0))
+
 # [0.30.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.29.3...0.30.0) (2026-05-27)
 
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Player\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -138,8 +139,19 @@ final readonly class StatusEventSubscriber implements EventSubscriberInterface
         if ($player->isAlive()) {
             $this->markPlayerAsHuman($player);
         }
+        if ($event->doesNotHaveTag(ActionEnum::EXCHANGE_BODY->toString())) {
+            $this->sendVaccinatedNotification($player);
+        }
         $this->removePlayerSpores($player);
         $this->statusService->removeStatus(PlayerStatusEnum::IS_ANONYMOUS, $player, $event->getTags(), $event->getTime());
+    }
+
+    private function sendVaccinatedNotification(Player $player): void
+    {
+        $this->updatePlayerNotification->execute(
+            player: $player,
+            message: PlayerNotificationEnum::WELCOME_VACCINATED,
+        );
     }
 
     private function removePlayerSpores(Player $player): void

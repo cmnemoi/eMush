@@ -21,6 +21,7 @@ enum PlayerNotificationEnum: string
     case MISSION_SENT = 'mission_sent';
     case WELCOME_ON_BOARD = 'welcome_on_board';
     case WELCOME_MUSH = 'welcome_mush';
+    case WELCOME_VACCINATED = 'welcome_vaccinated';
     case ANNOUNCEMENT_RECEIVED = 'announcement_received';
     case ANNOUNCEMENT_CREATED = 'announcement_created';
     case EXCHANGE_BODY_MUSH = 'exchange_body_mush';
@@ -40,6 +41,7 @@ enum PlayerNotificationEnum: string
         return match ($this) {
             self::WELCOME_ON_BOARD => 'neron_eye.gif',
             self::WELCOME_MUSH => 'mush_stamp.png',
+            self::WELCOME_VACCINATED => 'vaccinated_stamp.png',
             self::CLUMSINESS_CAT => 'angry_cat.png',
             default => '',
         };

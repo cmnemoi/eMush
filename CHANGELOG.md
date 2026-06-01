@@ -1,3 +1,11 @@
+## [0.30.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.30.1...0.30.2) (2026-06-01)
+
+
+### Bug Fixes
+
+* changing random engine for the jukebox to improve reliability ([a1e895c](https://gitlab.com/eternaltwin/mush/mush/commit/a1e895cf7897f23ad094797060ba57c78ad5d159))
+* fixed discord URL ([ac48daa](https://gitlab.com/eternaltwin/mush/mush/commit/ac48daa8764ba30f668077b2bea689357d91678f))
+
 ## [0.30.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.30.0...0.30.1) (2026-05-29)
 
 

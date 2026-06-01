@@ -21,7 +21,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
-use Random\Engine\Mt19937;
+use Random\Engine\PcgOneseq128XslRr64;
 use Random\Randomizer;
 
 class RandomService implements RandomServiceInterface
@@ -348,7 +348,7 @@ class RandomService implements RandomServiceInterface
 
     public function getPseudoRandomInt(int $seed, int $min, int $max): int
     {
-        $engine = new Mt19937($seed);
+        $engine = new PcgOneseq128XslRr64($seed);
         $randomizer = new Randomizer($engine);
 
         // select a player from the list of players on the daedalus

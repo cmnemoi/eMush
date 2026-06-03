@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Daedalus\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -37,12 +39,12 @@ class CreateDaedalusCest
 {
     private DaedalusService $daedalusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->daedalusService = $I->grabService(DaedalusService::class);
     }
 
-    public function createDaedalusTest(FunctionalTester $I)
+    public function createDaedalusTest(FunctionalTester $I): void
     {
         // Lets create a Daedalus with 3 rooms, few random equipment.
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
@@ -185,7 +187,7 @@ class CreateDaedalusCest
         $I->assertCount(0, $daedalus->getHunterPool());
     }
 
-    public function patrolShipNamesTest(FunctionalTester $I)
+    public function patrolShipNamesTest(FunctionalTester $I): void
     {
         // Given a daedalus with 1 room with 2 patrol ships and 1 pasiphae inside
         $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);

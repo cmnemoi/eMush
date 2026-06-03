@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Disease\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -32,12 +34,12 @@ class NewDiseaseOnCycleCest
 {
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testNewCycleDisease(FunctionalTester $I)
+    public function testNewCycleDisease(FunctionalTester $I): void
     {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig
@@ -110,7 +112,7 @@ class NewDiseaseOnCycleCest
         ]);
     }
 
-    public function testNewCycleDiseaseLowMorale(FunctionalTester $I)
+    public function testNewCycleDiseaseLowMorale(FunctionalTester $I): void
     {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\api\User\User;
 
 use Mush\Tests\ApiTester;
@@ -10,7 +12,7 @@ class UserControllerCest
 {
     private string $url = 'users';
 
-    public function testGetNonExistingUser(ApiTester $I)
+    public function testGetNonExistingUser(ApiTester $I): void
     {
         $I->loginUser('default');
 
@@ -18,7 +20,7 @@ class UserControllerCest
         $I->seeResponseCodeIs(404);
     }
 
-    public function testGetExistingUser(ApiTester $I)
+    public function testGetExistingUser(ApiTester $I): void
     {
         $user = $I->loginUser('default');
         $I->sendGetRequest($this->url . '/' . $user->getUserId());
@@ -31,7 +33,7 @@ class UserControllerCest
         ]);
     }
 
-    public function getPaginatedUserList(ApiTester $I)
+    public function getPaginatedUserList(ApiTester $I): void
     {
         $I->loginUser(RoleEnum::ADMIN);
 

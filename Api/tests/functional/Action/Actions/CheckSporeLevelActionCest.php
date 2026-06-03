@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\CheckSporeLevel;
@@ -23,7 +25,7 @@ final class CheckSporeLevelActionCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -34,7 +36,7 @@ final class CheckSporeLevelActionCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
-    public function testCheckSporeLevel(FunctionalTester $I)
+    public function testCheckSporeLevel(FunctionalTester $I): void
     {
         // given kuan ti has 2 spores
         $this->kuanTi->setActionPoint(2)->setSpores(2);
@@ -66,7 +68,7 @@ final class CheckSporeLevelActionCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testCheckSporeDailyLimit(FunctionalTester $I)
+    public function testCheckSporeDailyLimit(FunctionalTester $I): void
     {
         // given the mycoscan is in the room
         $mycoscan = $this->createEquipment(EquipmentEnum::MYCOSCAN, $this->kuanTi->getPlace());

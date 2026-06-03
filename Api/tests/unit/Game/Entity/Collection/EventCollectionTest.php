@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Game\Entity\Collection;
 
 use Mush\Game\Entity\Collection\EventChain;
@@ -11,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class EventCollectionTest extends TestCase
 {
-    public function testMergeEventChains()
+    public function testMergeEventChains(): void
     {
         $event1 = new AbstractGameEvent([], new \DateTime());
         $event1->setPriority(-2);
@@ -41,7 +43,7 @@ final class EventCollectionTest extends TestCase
         self::assertSame($event5, $mergedCollection->next());
     }
 
-    public function testAddEvent()
+    public function testAddEvent(): void
     {
         $event1 = new AbstractGameEvent([], new \DateTime());
         $event1->setPriority(-2)->setEventName('event1');
@@ -87,7 +89,7 @@ final class EventCollectionTest extends TestCase
         self::assertSame($event5, $eventCollection->next());
     }
 
-    public function testGetInitialEvent()
+    public function testGetInitialEvent(): void
     {
         $event1 = new AbstractGameEvent([], new \DateTime());
         $event1->setPriority(-2);
@@ -111,7 +113,7 @@ final class EventCollectionTest extends TestCase
         self::assertSame($event4, $initialEvent);
     }
 
-    public function testUpdateInitialEvent()
+    public function testUpdateInitialEvent(): void
     {
         $event1 = new AbstractGameEvent([], new \DateTime());
         $event1->setPriority(-2)->setEventName('one');
@@ -145,7 +147,7 @@ final class EventCollectionTest extends TestCase
         self::assertSame($event5, $updatedEvents->next());
     }
 
-    public function testStopEvent()
+    public function testStopEvent(): void
     {
         $event1 = new AbstractGameEvent([], new \DateTime());
         $event1->setPriority(-2)->setEventName('one');

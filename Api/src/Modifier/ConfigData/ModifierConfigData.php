@@ -58,8 +58,7 @@ use Mush\Status\Event\StatusEvent;
 abstract class ModifierConfigData
 {
     private const string DUMMY_EVENT = ''; // used to create a modifier which does not listen to any event, but allows configuration
-    public static array $dataArray = [
-    ];
+    public static array $dataArray = [];
 
     /**
      * @return AbstractModifierConfigDto[]
@@ -1899,8 +1898,7 @@ abstract class ModifierConfigData
                 name: ModifierNameEnum::CAT_OWNER_MODIFIER . 'cat_loves_you',
                 strategy: ModifierStrategyEnum::VARIABLE_MODIFIER,
                 modifierRange: ModifierHolderClassEnum::PLAYER,
-                modifierActivationRequirements: [
-                ],
+                modifierActivationRequirements: [],
                 targetEvent: ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
                 priority: ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
                 applyWhenTargeted: false,
@@ -1918,8 +1916,7 @@ abstract class ModifierConfigData
                 name: ModifierNameEnum::CAT_OWNER_MODIFIER . 'cat_trust_you',
                 strategy: ModifierStrategyEnum::VARIABLE_MODIFIER,
                 modifierRange: ModifierHolderClassEnum::PLAYER,
-                modifierActivationRequirements: [
-                ],
+                modifierActivationRequirements: [],
                 targetEvent: ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
                 priority: ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
                 applyWhenTargeted: false,
@@ -1935,8 +1932,7 @@ abstract class ModifierConfigData
                 name: ModifierNameEnum::CAT_OWNER_MODIFIER . 'cat_death_sadness',
                 strategy: ModifierStrategyEnum::VARIABLE_MODIFIER,
                 modifierRange: ModifierHolderClassEnum::PLAYER,
-                modifierActivationRequirements: [
-                ],
+                modifierActivationRequirements: [],
                 targetEvent: VariableEventInterface::CHANGE_VARIABLE,
                 priority: ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
                 applyWhenTargeted: true,
@@ -2545,8 +2541,7 @@ abstract class ModifierConfigData
                 name: '',
                 strategy: ModifierStrategyEnum::ADD_EVENT,
                 modifierRange: 'daedalus',
-                modifierActivationRequirements: [
-                ],
+                modifierActivationRequirements: [],
                 targetEvent: 'daedalus.new.cycle',
                 priority: ModifierPriorityEnum::AFTER_INITIAL_EVENT,
                 applyWhenTargeted: true,
@@ -3585,8 +3580,7 @@ abstract class ModifierConfigData
                 name: null,
                 strategy: ModifierStrategyEnum::VARIABLE_MODIFIER,
                 modifierRange: ModifierHolderClassEnum::PLAYER,
-                modifierActivationRequirements: [
-                ],
+                modifierActivationRequirements: [],
                 targetEvent: ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
                 targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
                 priority: ModifierPriorityEnum::INITIAL_SET_VALUE,

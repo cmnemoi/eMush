@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Chat\Repository;
 
 use Mush\Chat\Entity\Channel;
@@ -34,7 +36,7 @@ final class ChannelPlayerRepositoryCest
     private PlayerInfo $playerInfo;
     private PlayerInfo $player2Info;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->channelRepository = $I->grabService(ChannelPlayerRepository::class);
 

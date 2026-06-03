@@ -29,7 +29,7 @@ final class BypassTerminalActionCest extends AbstractFunctionalTest
     private GameEquipment $biosTerminal;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -53,7 +53,7 @@ final class BypassTerminalActionCest extends AbstractFunctionalTest
         $this->addSkillToPlayer(SkillEnum::BYPASS, $I, $this->player);
     }
 
-    public function shouldBeAbleToAccessBiosWithBypass(FunctionalTester $I)
+    public function shouldBeAbleToAccessBiosWithBypass(FunctionalTester $I): void
     {
         $this->bypassTerminalAction->loadParameters(
             actionConfig: $this->bypassTerminalConfig,

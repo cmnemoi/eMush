@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\ActionResult\ActionResult;

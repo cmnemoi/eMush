@@ -163,7 +163,7 @@ final readonly class UseWeaponService
         );
     }
 
-    private function dispatchOtherWeaponEventEffects(WeaponEventConfig $weaponEventConfig, ActionResult $result, Weapon $weaponMechanic, array $tags)
+    private function dispatchOtherWeaponEventEffects(WeaponEventConfig $weaponEventConfig, ActionResult $result, Weapon $weaponMechanic, array $tags): void
     {
         $weaponEffectConfigs = $this->weaponEffectConfigRepository->findAllByWeaponEvent($weaponEventConfig);
         $damageSpread = $weaponMechanic->getDamageSpread();

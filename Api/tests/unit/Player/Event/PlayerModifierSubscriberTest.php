@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Player\Event;
 
 use Mockery;
@@ -58,7 +60,7 @@ final class PlayerModifierSubscriberTest extends TestCase
         \Mockery::close();
     }
 
-    public function testOnMovementPointModifier()
+    public function testOnMovementPointModifier(): void
     {
         $player = $this->createPlayer(0, 0, 0, 0, 0);
 
@@ -79,7 +81,7 @@ final class PlayerModifierSubscriberTest extends TestCase
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
 
-    public function testOnActionPointModifier()
+    public function testOnActionPointModifier(): void
     {
         $player = $this->createPlayer(0, 0, 0, 0, 0);
 
@@ -100,7 +102,7 @@ final class PlayerModifierSubscriberTest extends TestCase
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
 
-    public function testOnMoralPointModifier()
+    public function testOnMoralPointModifier(): void
     {
         $player = $this->createPlayer(0, 0, 0, 0, 0);
 
@@ -134,7 +136,7 @@ final class PlayerModifierSubscriberTest extends TestCase
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
 
-    public function testOnHealthPointModifier()
+    public function testOnHealthPointModifier(): void
     {
         $player = $this->createPlayer(0, 0, 0, 0, 0);
 
@@ -169,7 +171,7 @@ final class PlayerModifierSubscriberTest extends TestCase
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
 
-    public function testOnSatietyPointModifier()
+    public function testOnSatietyPointModifier(): void
     {
         $player = $this->createPlayer(0, 0, 0, 0, 0);
 
@@ -190,7 +192,7 @@ final class PlayerModifierSubscriberTest extends TestCase
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
 
-    public function testOnSporeModifier()
+    public function testOnSporeModifier(): void
     {
         $player = $this->createPlayer(0, 0, 0, 0, 0);
 
@@ -212,7 +214,7 @@ final class PlayerModifierSubscriberTest extends TestCase
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
 
-    public function testOnSporeModifierMush()
+    public function testOnSporeModifierMush(): void
     {
         $player = $this->createPlayer(0, 0, 0, 0, 0);
 
@@ -239,7 +241,7 @@ final class PlayerModifierSubscriberTest extends TestCase
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
 
-    public function testOnSporeModifierConversion()
+    public function testOnSporeModifierConversion(): void
     {
         $player = $this->createPlayer(0, 0, 0, 0, 0);
         $player->setVariableValueByName(PlayerVariableEnum::SPORE, 3);
@@ -261,7 +263,7 @@ final class PlayerModifierSubscriberTest extends TestCase
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
 
-    public function testOnSporeModifierRemoveSpore()
+    public function testOnSporeModifierRemoveSpore(): void
     {
         $player = $this->createPlayer(0, 0, 0, 0, 0);
 

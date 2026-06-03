@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Game\Service;
 
 use Mush\Game\Enum\CharacterEnum;
@@ -65,7 +67,7 @@ class TranslationService implements TranslationServiceInterface
 
                 $parameters = $this->getTranslateParameter(
                     $paramKey,
-                    $element,
+                    (string) $element,
                     $parameters,
                     $parameterTranslationMap,
                     $language

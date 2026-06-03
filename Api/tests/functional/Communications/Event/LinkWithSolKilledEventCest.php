@@ -79,7 +79,7 @@ final class LinkWithSolKilledEventCest extends AbstractFunctionalTest
         $linkWithSol->establish();
     }
 
-    private function thenIShouldSeeNeronAnnouncementInGeneralChannel(FunctionalTester $I)
+    private function thenIShouldSeeNeronAnnouncementInGeneralChannel(FunctionalTester $I): void
     {
         $I->seeInRepository(
             entity: Message::class,

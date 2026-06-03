@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
@@ -54,7 +56,7 @@ final class SearchActionTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecuteNoItem()
+    public function testExecuteNoItem(): void
     {
         $room = new Place();
 
@@ -70,7 +72,7 @@ final class SearchActionTest extends AbstractActionTest
         self::assertInstanceOf(Fail::class, $result);
     }
 
-    public function testExecuteNoHiddenItem()
+    public function testExecuteNoHiddenItem(): void
     {
         $room = new Place();
 
@@ -91,7 +93,7 @@ final class SearchActionTest extends AbstractActionTest
         self::assertInstanceOf(Fail::class, $result);
     }
 
-    public function testExecuteSuccess()
+    public function testExecuteSuccess(): void
     {
         // Success find
         $room = new Place();
@@ -127,7 +129,7 @@ final class SearchActionTest extends AbstractActionTest
         self::assertCount(0, $hiddenBy->getStatuses());
     }
 
-    public function testExecuteTwoHiddenItems()
+    public function testExecuteTwoHiddenItems(): void
     {
         // 2 hidden items
         $room = new Place();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Status\Event;
 
 use Mush\Game\Entity\GameVariable;

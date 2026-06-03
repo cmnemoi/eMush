@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
@@ -54,7 +56,7 @@ final class StrengthenActionTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecuteFail()
+    public function testExecuteFail(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -83,7 +85,7 @@ final class StrengthenActionTest extends AbstractActionTest
         self::assertInstanceOf(Fail::class, $result);
     }
 
-    public function testExecuteSuccess()
+    public function testExecuteSuccess(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();

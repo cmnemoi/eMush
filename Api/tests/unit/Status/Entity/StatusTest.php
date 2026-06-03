@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Status\Entity;
 
 use Mush\Equipment\Entity\GameEquipment;
@@ -18,7 +20,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class StatusTest extends TestCase
 {
-    public function testAddStatus()
+    public function testAddStatus(): void
     {
         $player = new Player();
 
@@ -39,7 +41,7 @@ final class StatusTest extends TestCase
         self::assertSame(0, $player->getStatuses()->count());
     }
 
-    public function testAddStatusWithTarget()
+    public function testAddStatusWithTarget(): void
     {
         $equipment = new GameEquipment(new Place());
 
@@ -61,7 +63,7 @@ final class StatusTest extends TestCase
         self::assertSame(0, $player->getStatuses()->count());
     }
 
-    public function testAddRoomStatus()
+    public function testAddRoomStatus(): void
     {
         $room = new Place();
 

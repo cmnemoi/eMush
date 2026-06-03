@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\MetaGame\Entity;
 
 use Mush\MetaGame\Entity\ModerationSanction;
@@ -11,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class ModerationSanctionTest extends TestCase
 {
-    public function testIsSanctionActive()
+    public function testIsSanctionActive(): void
     {
         $user = new User();
         $startSanction = new \DateTime('now');

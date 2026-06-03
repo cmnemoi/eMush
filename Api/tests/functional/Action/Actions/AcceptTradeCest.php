@@ -55,7 +55,7 @@ final class AcceptTradeCest extends AbstractFunctionalTest
 
     private GameEquipment $commsCenter;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -135,7 +135,7 @@ final class AcceptTradeCest extends AbstractFunctionalTest
         $this->givenPlayerIsCommsManager();
         $trade = $this->givenForestDealTrade(requiredHydropot: 1, offeredOxygen: 10);
 
-        $I->expectThrowable(GameException::class, function () use ($trade) {
+        $I->expectThrowable(GameException::class, function () use ($trade): void {
             $this->whenPlayerAcceptsTrade(tradeOptionId: $trade->getTradeOptions()->first()->getId());
         });
     }
@@ -226,7 +226,7 @@ final class AcceptTradeCest extends AbstractFunctionalTest
 
         $this->whenPlayerAcceptsTrade(tradeOptionId: $trade->getTradeOptions()->first()->getId());
 
-        $I->expectThrowable(new \RuntimeException("Hunter not found for id {$trade->getTransportId()}"), function () use ($trade) {
+        $I->expectThrowable(new \RuntimeException("Hunter not found for id {$trade->getTransportId()}"), function () use ($trade): void {
             $this->hunterRepository->findByIdOrThrow($trade->getTransportId());
         });
     }

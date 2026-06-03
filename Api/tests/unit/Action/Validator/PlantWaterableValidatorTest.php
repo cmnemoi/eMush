@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -42,7 +44,7 @@ final class PlantWaterableValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $itemConfig = new ItemConfig();
         $itemConfig->setBreakableType(BreakableTypeEnum::BREAKABLE);
@@ -82,7 +84,7 @@ final class PlantWaterableValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $target = new GameItem(new Place());
 

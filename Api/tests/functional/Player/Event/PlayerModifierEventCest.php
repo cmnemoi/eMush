@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Player\Event;
 
 use Mush\Game\Enum\EventEnum;
@@ -18,14 +20,14 @@ final class PlayerModifierEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testDispatchMoralChange(FunctionalTester $I)
+    public function testDispatchMoralChange(FunctionalTester $I): void
     {
         $this->player->setMoralPoint(7);
 
@@ -79,7 +81,7 @@ final class PlayerModifierEventCest extends AbstractFunctionalTest
         $I->assertFalse($this->player->hasStatus(PlayerStatusEnum::SUICIDAL));
     }
 
-    public function testDispatchSatietyChange(FunctionalTester $I)
+    public function testDispatchSatietyChange(FunctionalTester $I): void
     {
         $this->player->setSatiety(0);
 
@@ -118,7 +120,7 @@ final class PlayerModifierEventCest extends AbstractFunctionalTest
         $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::STARVING));
     }
 
-    public function testDispatchMushSatietyChange(FunctionalTester $I)
+    public function testDispatchMushSatietyChange(FunctionalTester $I): void
     {
         $this->player->setSatiety(0);
         $this->convertPlayerToMush($I, $this->player);
@@ -158,7 +160,7 @@ final class PlayerModifierEventCest extends AbstractFunctionalTest
         $I->assertFalse($this->player->hasStatus(PlayerStatusEnum::STARVING));
     }
 
-    private function callAnEventThatGivesMorale(int $morale)
+    private function callAnEventThatGivesMorale(int $morale): void
     {
         $playerEvent = new PlayerVariableEvent(
             $this->player,
@@ -171,7 +173,7 @@ final class PlayerModifierEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function callAnEventThatGivesSatiety(int $satiety)
+    private function callAnEventThatGivesSatiety(int $satiety): void
     {
         $playerEvent = new PlayerVariableEvent(
             $this->player,

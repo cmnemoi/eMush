@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\RemoveSpore;
@@ -25,7 +27,7 @@ final class RemoveSporeActionCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -35,7 +37,7 @@ final class RemoveSporeActionCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
-    public function testRemoveSpore(FunctionalTester $I)
+    public function testRemoveSpore(FunctionalTester $I): void
     {
         // given the item is in the room
         $extractor = $this->createEquipment(ToolItemEnum::SPORE_SUCKER, $this->player->getPlace());
@@ -84,7 +86,7 @@ final class RemoveSporeActionCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testRemoveSporeAsMush(FunctionalTester $I)
+    public function testRemoveSporeAsMush(FunctionalTester $I): void
     {
         // given the item is in the room
         $extractor = $this->createEquipment(ToolItemEnum::SPORE_SUCKER, $this->player->getPlace());

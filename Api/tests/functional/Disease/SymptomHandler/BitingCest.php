@@ -20,13 +20,13 @@ final class BitingCest extends AbstractFunctionalTest
 {
     private Biting $bitingSymptom;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->bitingSymptom = $I->grabService(Biting::class);
     }
 
-    public function testBitingDoNotThrowExceptionIfPlayerIsAlone(FunctionalTester $I)
+    public function testBitingDoNotThrowExceptionIfPlayerIsAlone(FunctionalTester $I): void
     {
         // given I have only one player in laboratory
         $this->player2->changePlace($this->daedalus->getPlaceByName(RoomEnum::SPACE));
@@ -50,7 +50,7 @@ final class BitingCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testBitingCorrectlyPrintsBittenPlayerName(FunctionalTester $I)
+    public function testBitingCorrectlyPrintsBittenPlayerName(FunctionalTester $I): void
     {
         // given I have two players in laboratory
         $I->assertEquals(2, $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)->getNumberOfPlayersAlive());

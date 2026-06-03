@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Modifier\Service\ModifierListenerService;
 
 use Mush\Player\Event\PlayerChangedPlaceEvent;

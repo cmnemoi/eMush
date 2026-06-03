@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Game\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
@@ -16,7 +18,7 @@ final class DaedalusCycleChangeCest extends AbstractFunctionalTest
 {
     private CycleServiceInterface $cycleService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->cycleService = $I->grabService(CycleServiceInterface::class);
@@ -41,7 +43,7 @@ final class DaedalusCycleChangeCest extends AbstractFunctionalTest
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
     }
 
-    public function testChangeManyCyclesSubscriber(FunctionalTester $I)
+    public function testChangeManyCyclesSubscriber(FunctionalTester $I): void
     {
         $now = new \DateTime();
         $lastCycle = (clone $now)->sub(new \DateInterval('PT151H')); // subtract 150 h (ie 50 cycles)

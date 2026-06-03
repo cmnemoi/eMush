@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\DTO;
 
 use Mush\Skill\Enum\SkillEnum;

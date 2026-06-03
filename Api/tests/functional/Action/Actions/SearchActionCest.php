@@ -34,7 +34,7 @@ final class SearchActionCest extends AbstractFunctionalTest
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -47,7 +47,7 @@ final class SearchActionCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function testSearch(FunctionalTester $I)
+    public function testSearch(FunctionalTester $I): void
     {
         $item = $this->givenHiddenEcholocator();
 
@@ -58,7 +58,7 @@ final class SearchActionCest extends AbstractFunctionalTest
         $this->thenItemShouldNotBeHidden($item, $I);
     }
 
-    public function testSearchSeveralHidenEquipments(FunctionalTester $I)
+    public function testSearchSeveralHidenEquipments(FunctionalTester $I): void
     {
         $item1 = $this->givenHiddenEcholocator();
         $item2 = $this->givenHiddenEcholocator();

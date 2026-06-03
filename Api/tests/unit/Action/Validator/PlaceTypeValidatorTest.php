@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -37,7 +39,7 @@ final class PlaceTypeValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $place = new Place();
         $place->setType(PlaceTypeEnum::ROOM);
@@ -58,7 +60,7 @@ final class PlaceTypeValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $place = new Place();
         $place->setType(PlaceTypeEnum::SPACE);

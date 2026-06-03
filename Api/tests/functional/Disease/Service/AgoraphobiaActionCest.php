@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Disease\Service;
 
 use Mush\Action\Actions\Move;
@@ -30,7 +32,7 @@ final class AgoraphobiaActionCest extends AbstractFunctionalTest
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -70,7 +72,7 @@ final class AgoraphobiaActionCest extends AbstractFunctionalTest
         $I->haveInRepository($this->door);
     }
 
-    public function testAgoraphobia(FunctionalTester $I)
+    public function testAgoraphobia(FunctionalTester $I): void
     {
         // when player executes search action
         $this->searchAction->loadParameters($this->searchConfig, $this->player, $this->player);
@@ -83,7 +85,7 @@ final class AgoraphobiaActionCest extends AbstractFunctionalTest
         $I->assertEquals(2, $this->player->getMovementPoint());
     }
 
-    public function testAgoraphobiaForMoveAction(FunctionalTester $I)
+    public function testAgoraphobiaForMoveAction(FunctionalTester $I): void
     {
         // when player executes move action
         $this->moveAction->loadParameters($this->moveConfig, $this->door, $this->player, $this->door);
@@ -95,7 +97,7 @@ final class AgoraphobiaActionCest extends AbstractFunctionalTest
         $I->assertEquals(0, $this->player->getMovementPoint());
     }
 
-    public function testAgoraphobiaForMoveActionWithConversion(FunctionalTester $I)
+    public function testAgoraphobiaForMoveActionWithConversion(FunctionalTester $I): void
     {
         // given player has 2 action point and 2 movement point
         $this->player->setActionPoint(2);

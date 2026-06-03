@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Daedalus\Event;
 
 use Mush\Action\Enum\ActionEnum;
@@ -31,7 +33,7 @@ final class LastPlayerKilledCest
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
     }
 
-    public function testLastPlayerKilled(FunctionalTester $I)
+    public function testLastPlayerKilled(FunctionalTester $I): void
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);

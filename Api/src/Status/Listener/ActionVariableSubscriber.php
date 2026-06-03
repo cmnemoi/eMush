@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Status\Listener;
 
 use Mush\Action\Enum\ActionVariableEnum;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\RoomLog\Repository;
 
 use Mush\Chat\Entity\Channel;
@@ -28,13 +30,13 @@ final class RoomLogRepositoryCest extends AbstractFunctionalTest
 {
     private RoomLogRepository $repository;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->repository = $I->grabService(RoomLogRepository::class);
     }
 
-    public function testRoomLogVisibility(FunctionalTester $I)
+    public function testRoomLogVisibility(FunctionalTester $I): void
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
@@ -104,7 +106,7 @@ final class RoomLogRepositoryCest extends AbstractFunctionalTest
         $I->assertCount(1, $logs);
     }
 
-    public function testRoomLogPlace(FunctionalTester $I)
+    public function testRoomLogPlace(FunctionalTester $I): void
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
@@ -167,7 +169,7 @@ final class RoomLogRepositoryCest extends AbstractFunctionalTest
         $I->assertCount(1, $logs);
     }
 
-    public function testPlayerCanSeeCurrentCycleRoomLogs(FunctionalTester $I)
+    public function testPlayerCanSeeCurrentCycleRoomLogs(FunctionalTester $I): void
     {
         // Given a player and a daedalus at day 2, cycle 2
         $entities = $this->createTestEntities($I);
@@ -184,7 +186,7 @@ final class RoomLogRepositoryCest extends AbstractFunctionalTest
         $I->assertCount(1, $logs);
     }
 
-    public function testPlayerCannotSeeOldRoomLogs(FunctionalTester $I)
+    public function testPlayerCannotSeeOldRoomLogs(FunctionalTester $I): void
     {
         // Given a player and a daedalus at day 2, cycle 2
         $entities = $this->createTestEntities($I);
@@ -201,7 +203,7 @@ final class RoomLogRepositoryCest extends AbstractFunctionalTest
         $I->assertEmpty($logs);
     }
 
-    public function testPlayerCanSeePreviousCycleRoomLogs(FunctionalTester $I)
+    public function testPlayerCanSeePreviousCycleRoomLogs(FunctionalTester $I): void
     {
         // Given a player and a daedalus at day 2, cycle 2
         $entities = $this->createTestEntities($I);
@@ -218,7 +220,7 @@ final class RoomLogRepositoryCest extends AbstractFunctionalTest
         $I->assertCount(1, $logs);
     }
 
-    public function testTrackerCanSeeOldRoomLogs(FunctionalTester $I)
+    public function testTrackerCanSeeOldRoomLogs(FunctionalTester $I): void
     {
         // Given a player with the tracker skill and a daedalus at day 2, cycle 8
         $entities = $this->createTestEntities($I);

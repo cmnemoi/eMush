@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\RoomLog\Normalizer;
 
 use Mush\Game\Service\DateProviderInterface;

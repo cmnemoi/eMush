@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -31,7 +33,7 @@ final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private ActionConfig $action;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -45,7 +47,7 @@ final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
     }
 
-    public function testHitSuccess(FunctionalTester $I)
+    public function testHitSuccess(FunctionalTester $I): void
     {
         $ration = new Ration();
         $ration

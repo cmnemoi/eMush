@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Modifier\Service;
 
 use Mockery;
@@ -59,7 +61,7 @@ final class EventCreationServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testGetPlayersTargetPlayer()
+    public function testGetPlayersTargetPlayer(): void
     {
         // Give the range is player1
         // Given the target of the event is player
@@ -120,7 +122,7 @@ final class EventCreationServiceTest extends TestCase
         self::assertSame($player1, $player);
     }
 
-    public function testGetPlayersTargetPlace()
+    public function testGetPlayersTargetPlace(): void
     {
         // Given the range is place1
         // Given player 1 and player 2 are in room
@@ -184,7 +186,7 @@ final class EventCreationServiceTest extends TestCase
         self::assertSame($player2, $player);
     }
 
-    public function testGetPlayersTargetDaedalus()
+    public function testGetPlayersTargetDaedalus(): void
     {
         // Given the range is daedalus
         // Given player1, player2 and player 3 are in this Daedalus
@@ -250,7 +252,7 @@ final class EventCreationServiceTest extends TestCase
         self::assertSame($player3, $player);
     }
 
-    public function testGetPlayersTargetPlaceRandom()
+    public function testGetPlayersTargetPlaceRandom(): void
     {
         // Given the range is place
         // Given player1 and player2 are in this Place
@@ -310,7 +312,7 @@ final class EventCreationServiceTest extends TestCase
         self::assertSame($player1, $player);
     }
 
-    public function testGetPlayersTargetPlaceExcludeProvider()
+    public function testGetPlayersTargetPlaceExcludeProvider(): void
     {
         // Given the range is place
         // Given player1 and player2 are in this Place
@@ -365,7 +367,7 @@ final class EventCreationServiceTest extends TestCase
         self::assertSame($player2, $player);
     }
 
-    public function testGetDaedalusTargetFromPlayer()
+    public function testGetDaedalusTargetFromPlayer(): void
     {
         // Given the range is player
         // Given the holder of tha modifier (player1) is in a daedalus
@@ -406,7 +408,7 @@ final class EventCreationServiceTest extends TestCase
         self::assertSame($daedalus, $result);
     }
 
-    public function testGetDaedalusTargetFromPlace()
+    public function testGetDaedalusTargetFromPlace(): void
     {
         // Given the range is place
         // Given the holder of that modifier (place1) is in a daedalus
@@ -444,7 +446,7 @@ final class EventCreationServiceTest extends TestCase
         self::assertSame($daedalus, $result);
     }
 
-    public function testGetDaedalusTargetFromDaedalus()
+    public function testGetDaedalusTargetFromDaedalus(): void
     {
         // Given the range is daedalus
         // Given the target of the event is daedalus

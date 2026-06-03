@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\api\Game\GameConfig;
 
 use Mush\Game\Entity\GameConfig;
@@ -12,12 +14,12 @@ class GameConfigControllerCest
     private string $url = 'game_configs';
     private GameConfig $gameConfig;
 
-    public function _before(ApiTester $I)
+    public function _before(ApiTester $I): void
     {
         $this->gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => 'default']);
     }
 
-    public function testGetNonExistingGameConfig(ApiTester $I)
+    public function testGetNonExistingGameConfig(ApiTester $I): void
     {
         $I->loginUser('default');
 
@@ -25,7 +27,7 @@ class GameConfigControllerCest
         $I->seeResponseCodeIs(404);
     }
 
-    public function testGetGameConfig(ApiTester $I)
+    public function testGetGameConfig(ApiTester $I): void
     {
         $I->loginUser('default');
 
@@ -39,7 +41,7 @@ class GameConfigControllerCest
         ]);
     }
 
-    public function testUpdateNonExistingGameConfig(ApiTester $I)
+    public function testUpdateNonExistingGameConfig(ApiTester $I): void
     {
         $I->loginUser('default');
 
@@ -47,7 +49,7 @@ class GameConfigControllerCest
         $I->seeResponseCodeIs(404);
     }
 
-    public function testUpdateGameConfigNotPermitted(ApiTester $I)
+    public function testUpdateGameConfigNotPermitted(ApiTester $I): void
     {
         $I->loginUser(RoleEnum::USER);
 
@@ -55,7 +57,7 @@ class GameConfigControllerCest
         $I->seeResponseCodeIs(403);
     }
 
-    public function testUpdateSucces(ApiTester $I)
+    public function testUpdateSucces(ApiTester $I): void
     {
         $I->loginUser(RoleEnum::ADMIN);
 

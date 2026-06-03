@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Hunter\Event;
 
 use Mush\Game\Entity\GameVariable;

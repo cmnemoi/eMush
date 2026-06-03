@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Daedalus\Service;
 
 use Mockery;
@@ -80,7 +82,7 @@ final class DaedalusIncidentServiceTest extends TestCase
             ->once();
     }
 
-    public function testShouldHandleTremorEventsInRoomWithAlivePlayers()
+    public function testShouldHandleTremorEventsInRoomWithAlivePlayers(): void
     {
         // given a Daedalus
         $daedalus = DaedalusFactory::createDaedalus();
@@ -101,7 +103,7 @@ final class DaedalusIncidentServiceTest extends TestCase
             ->once();
     }
 
-    public function testShouldHandleElectricArcEvents()
+    public function testShouldHandleElectricArcEvents(): void
     {
         // given a Daedalus
         $daedalus = DaedalusFactory::createDaedalus();

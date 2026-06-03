@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\LieDown;
@@ -23,7 +25,7 @@ final class LieDownCest extends AbstractFunctionalTest
     private ActionConfig $lieDownActionConfig;
     private GameEquipment $gameEquipment;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -31,7 +33,7 @@ final class LieDownCest extends AbstractFunctionalTest
         $this->lieDownActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::LIE_DOWN]);
     }
 
-    public function testCanLieDownOnBed(FunctionalTester $I)
+    public function testCanLieDownOnBed(FunctionalTester $I): void
     {
         $this->gameEquipment = $this->createEquipment(EquipmentEnum::BED, $this->player->getPlace());
 
@@ -40,7 +42,7 @@ final class LieDownCest extends AbstractFunctionalTest
         $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::LYING_DOWN));
     }
 
-    public function testCanLieDownOnSofa(FunctionalTester $I)
+    public function testCanLieDownOnSofa(FunctionalTester $I): void
     {
         $this->gameEquipment = $this->createEquipment(EquipmentEnum::SWEDISH_SOFA, $this->player->getPlace());
 
@@ -49,7 +51,7 @@ final class LieDownCest extends AbstractFunctionalTest
         $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::LYING_DOWN));
     }
 
-    public function testLieDownPrintsAPublicLog(FunctionalTester $I)
+    public function testLieDownPrintsAPublicLog(FunctionalTester $I): void
     {
         $this->gameEquipment = $this->createEquipment(EquipmentEnum::BED, $this->player->getPlace());
 
@@ -64,7 +66,7 @@ final class LieDownCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testLieDownLogIsPrivateWhenNinja(FunctionalTester $I)
+    public function testLieDownLogIsPrivateWhenNinja(FunctionalTester $I): void
     {
         $this->gameEquipment = $this->createEquipment(EquipmentEnum::BED, $this->player->getPlace());
         $this->createStatusOn(PlayerStatusEnum::IS_ANONYMOUS, $this->player);

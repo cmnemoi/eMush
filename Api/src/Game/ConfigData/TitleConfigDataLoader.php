@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Game\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;

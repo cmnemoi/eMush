@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
@@ -46,7 +48,7 @@ final class MoveActionTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecute()
+    public function testExecute(): void
     {
         $roomStart = new Place();
         $roomEnd = new Place();

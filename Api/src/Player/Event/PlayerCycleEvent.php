@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Player\Event;
 
 use Mush\Game\Event\AbstractGameEvent;

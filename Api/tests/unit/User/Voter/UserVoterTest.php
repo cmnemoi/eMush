@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\User\Voter;
 
 use Mockery;
@@ -40,7 +42,7 @@ final class UserVoterTest extends TestCase
         \Mockery::close();
     }
 
-    public function testCanEditRole()
+    public function testCanEditRole(): void
     {
         $loggedUser = new User();
         $loggedUser->setRoles([RoleEnum::ADMIN]);
@@ -130,7 +132,7 @@ final class UserVoterTest extends TestCase
         User $editedUser,
         User $user,
         $expectedVote
-    ) {
+    ): void {
         $token = new UsernamePasswordToken(
             $user,
             'credentials',

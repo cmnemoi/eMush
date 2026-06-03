@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Equipment\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -77,7 +79,7 @@ final class EquipmentNormalizerTest extends TestCase
         \Mockery::close();
     }
 
-    public function testEquipmentNormalizer()
+    public function testEquipmentNormalizer(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
@@ -133,7 +135,7 @@ final class EquipmentNormalizerTest extends TestCase
         self::assertSame($expected, $data);
     }
 
-    public function testItemNormalizer()
+    public function testItemNormalizer(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
@@ -191,7 +193,7 @@ final class EquipmentNormalizerTest extends TestCase
         self::assertSame($expected, $data);
     }
 
-    public function testBlueprintNormalizer()
+    public function testBlueprintNormalizer(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();

@@ -36,7 +36,7 @@ final class TrackerCest extends AbstractFunctionalTest
     private ActionConfig $moveActionConfig;
     private Move $moveAction;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

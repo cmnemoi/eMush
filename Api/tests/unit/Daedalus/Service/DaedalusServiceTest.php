@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Daedalus\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -134,7 +136,7 @@ final class DaedalusServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testCreateDaedalus()
+    public function testCreateDaedalus(): void
     {
         $roomConfig = new PlaceConfig();
 
@@ -196,7 +198,7 @@ final class DaedalusServiceTest extends TestCase
         self::assertSame('name', $daedalus->getDaedalusInfo()->getName());
     }
 
-    public function testStartDaedalus()
+    public function testStartDaedalus(): void
     {
         $gameConfig = new GameConfig();
         $daedalusConfig = new DaedalusConfig();
@@ -224,7 +226,7 @@ final class DaedalusServiceTest extends TestCase
         self::assertSame(2, $daedalus->getCycle());
     }
 
-    public function testFindAvailableCharacterForDaedalus()
+    public function testFindAvailableCharacterForDaedalus(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
 
@@ -246,7 +248,7 @@ final class DaedalusServiceTest extends TestCase
         self::assertCount(0, $result);
     }
 
-    public function testGetRandomAsphyxia()
+    public function testGetRandomAsphyxia(): void
     {
         $daedalus = new Daedalus();
         $gameConfig = new GameConfig();
@@ -313,7 +315,7 @@ final class DaedalusServiceTest extends TestCase
         self::assertCount(3, $threeCapsulePlayer->getEquipments());
     }
 
-    public function testChangeHull()
+    public function testChangeHull(): void
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setMaxHull(100)->setInitHull(10);
@@ -343,7 +345,7 @@ final class DaedalusServiceTest extends TestCase
         self::assertSame(20, $daedalus->getHull());
     }
 
-    public function testAttributeTitlesGivesTitle()
+    public function testAttributeTitlesGivesTitle(): void
     {
         $daedalus = new Daedalus();
 
@@ -355,7 +357,7 @@ final class DaedalusServiceTest extends TestCase
         $this->service->attributeTitles($daedalus, new \DateTime());
     }
 
-    public function testAttributeTitlesDoesNotReassignTitle()
+    public function testAttributeTitlesDoesNotReassignTitle(): void
     {
         $daedalus = new Daedalus();
 
@@ -367,7 +369,7 @@ final class DaedalusServiceTest extends TestCase
         $this->service->attributeTitles($daedalus, new \DateTime());
     }
 
-    public function testAttributeTitlesChangedTitleAttributionWhenIncorrect()
+    public function testAttributeTitlesChangedTitleAttributionWhenIncorrect(): void
     {
         $daedalus = new Daedalus();
 

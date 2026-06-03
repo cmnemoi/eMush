@@ -23,7 +23,7 @@ final class MushInteractingWithShowerCest extends AbstractFunctionalTest
     private Examine $action;
     private GameEquipment $shower;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

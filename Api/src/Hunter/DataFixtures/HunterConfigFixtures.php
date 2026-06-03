@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Hunter\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -25,7 +27,7 @@ use Mush\Status\Enum\HunterStatusEnum;
 
 class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Flirt;
@@ -28,7 +30,7 @@ final class FlirtActionCest extends AbstractFunctionalTest
     private Player $gioele;
     private Player $paola;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -149,7 +151,7 @@ final class FlirtActionCest extends AbstractFunctionalTest
         $this->thenDerekShouldHaveTriumph(0, $I);
     }
 
-    private function givenFreeLoveIs(bool $bool)
+    private function givenFreeLoveIs(bool $bool): void
     {
         $this->daedalus->getDaedalusConfig()->setFreeLove($bool);
     }
@@ -164,7 +166,7 @@ final class FlirtActionCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenATriesToFlirtWithB(Player $player, Player $target)
+    private function whenATriesToFlirtWithB(Player $player, Player $target): void
     {
         $this->flirtAction->loadParameters(
             actionConfig: $this->action,
@@ -174,7 +176,7 @@ final class FlirtActionCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenAFlirtsWithB(Player $player, Player $target)
+    private function whenAFlirtsWithB(Player $player, Player $target): void
     {
         $this->whenATriesToFlirtWithB($player, $target);
         $this->flirtAction->execute();

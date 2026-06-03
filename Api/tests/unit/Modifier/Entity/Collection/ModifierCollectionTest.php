@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Modifier\Entity\Collection;
 
 use Mush\Action\Enum\ActionEnum;
@@ -24,7 +26,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class ModifierCollectionTest extends TestCase
 {
-    public function testAddModifiers()
+    public function testAddModifiers(): void
     {
         $player = new Player();
         $modifierConfig = new VariableEventModifierConfig('unitTestVariableEventModifier');
@@ -42,7 +44,7 @@ final class ModifierCollectionTest extends TestCase
         self::assertCount(4, $newCollection);
     }
 
-    public function testGetModifierFromConfig()
+    public function testGetModifierFromConfig(): void
     {
         $player = new Player();
         $modifierConfig1 = new VariableEventModifierConfig('unitTestVariableEventModifier');
@@ -64,7 +66,7 @@ final class ModifierCollectionTest extends TestCase
         self::assertSame($modifier4, $result);
     }
 
-    public function testGetEventModifiersWithoutTags()
+    public function testGetEventModifiersWithoutTags(): void
     {
         $time = new \DateTime();
         $player = new Player();
@@ -115,7 +117,7 @@ final class ModifierCollectionTest extends TestCase
         self::assertNotContains($modifier4, $result);
     }
 
-    public function testGetEventModifiersWithTags()
+    public function testGetEventModifiersWithTags(): void
     {
         $time = new \DateTime();
         $player = new Player();

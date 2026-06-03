@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Daedalus\Event;
 
 use Mush\Chat\Entity\Message;
@@ -36,7 +38,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
@@ -73,7 +75,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $I->assertEquals(20, $this->daedalus->getOxygen());
     }
 
-    public function testOxygenBreakOnCycleChange(FunctionalTester $I)
+    public function testOxygenBreakOnCycleChange(FunctionalTester $I): void
     {
         // add a lot of incident points so that oxygen breaks
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -41,7 +43,7 @@ final class ShredActionTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecute()
+    public function testExecute(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();

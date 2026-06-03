@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests;
 
 use Mush\Player\Entity\Player;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Modifier\Service;
 
 use Mush\Disease\Enum\DiseaseEnum;
@@ -15,7 +17,7 @@ final class DiseaseModifierStackingCest extends AbstractFunctionalTest
 {
     private PlayerDiseaseServiceInterface $playerDiseaseService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

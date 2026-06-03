@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
@@ -54,7 +56,7 @@ final class ScrewTalkieActionTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecute()
+    public function testExecute(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -87,7 +89,7 @@ final class ScrewTalkieActionTest extends AbstractActionTest
         self::assertCount(1, $targetPlayer->getEquipments());
     }
 
-    public function testExecuteAlreadyBrokenTalkie()
+    public function testExecuteAlreadyBrokenTalkie(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();

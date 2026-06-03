@@ -344,7 +344,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenXylophSendsBlueprints(FunctionalTester $I)
+    private function whenXylophSendsBlueprints(FunctionalTester $I): void
     {
         $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::BLUEPRINTS->toString() . '_default']);
         $xylophEntry = new XylophEntry(
@@ -359,7 +359,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenXylophSendsBlueprintsOfAmount(int $quantity, FunctionalTester $I)
+    private function whenXylophSendsBlueprintsOfAmount(int $quantity, FunctionalTester $I): void
     {
         $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::BLUEPRINTS->toString() . '_default']);
         $xylophEntry = new XylophEntry(
@@ -671,7 +671,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         return false;
     }
 
-    private function givenDerekExist(FunctionalTester $I)
+    private function givenDerekExist(FunctionalTester $I): void
     {
         $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
     }

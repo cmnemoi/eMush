@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Status\Listener;
 
 use Mush\Game\Service\EventServiceInterface;
@@ -14,13 +16,13 @@ final class HunterCycleSubscriberCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testOnHunterCreation(FunctionalTester $I)
+    public function testOnHunterCreation(FunctionalTester $I): void
     {
         $poolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($poolEvent, HunterPoolEvent::UNPOOL_HUNTERS);

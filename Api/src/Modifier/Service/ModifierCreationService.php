@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Modifier\Service;
 
 use Mush\Game\Entity\VariableEventConfig;
@@ -44,7 +46,7 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         array $tags = [],
         \DateTime $time = new \DateTime(),
     ): void {
-        $this->modifierRepository->wrapInTransaction(function () use ($modifierConfig, $holder, $modifierProvider, $tags, $time) {
+        $this->modifierRepository->wrapInTransaction(function () use ($modifierConfig, $holder, $modifierProvider, $tags, $time): void {
             if ($this->holderAlreadyHasModifierFromThisProvider(
                 $holder,
                 $modifierConfig,

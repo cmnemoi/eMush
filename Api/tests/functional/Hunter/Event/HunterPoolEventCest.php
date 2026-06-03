@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Hunter\Event;
 
 use Mush\Alert\Entity\Alert;
@@ -22,7 +24,7 @@ final class HunterPoolEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);

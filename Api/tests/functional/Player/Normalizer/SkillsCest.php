@@ -18,7 +18,7 @@ final class SkillsCest extends AbstractFunctionalTest
     private CurrentPlayerNormalizer $normalizer;
     private array $normalizedPlayer;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->normalizer = $I->grabService(CurrentPlayerNormalizer::class);

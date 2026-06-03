@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Modifier\Entity\Config;
 
 use Mush\Action\Entity\ActionConfig;
@@ -24,7 +26,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class EventModifierConfigTest extends TestCase
 {
-    public function testDoModifierApplyTriggerModifier()
+    public function testDoModifierApplyTriggerModifier(): void
     {
         $modifier = new TriggerEventModifierConfig('unitTestTriggerEventModifier');
         $modifier
@@ -58,7 +60,7 @@ final class EventModifierConfigTest extends TestCase
         self::assertFalse($modifier->doModifierApplies($event));
     }
 
-    public function testDoModifierApplyVariableModifier()
+    public function testDoModifierApplyVariableModifier(): void
     {
         $modifier = new VariableEventModifierConfig('unitTestVariableEventModifier');
         $modifier
@@ -86,7 +88,7 @@ final class EventModifierConfigTest extends TestCase
         self::assertTrue($modifier->doModifierApplies($event));
     }
 
-    public function testGetPriority()
+    public function testGetPriority(): void
     {
         $modifier = new EventModifierConfig('unitTestVariableEventModifier');
         $modifier

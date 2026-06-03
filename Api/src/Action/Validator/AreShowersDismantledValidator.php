@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -11,7 +13,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class AreShowersDismantledValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
             throw new UnexpectedTypeException($value, AbstractAction::class);

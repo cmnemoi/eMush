@@ -108,14 +108,14 @@ final class DaedalusDeletedEventCest extends AbstractFunctionalTest
 
     private function thenLinkWithSolShouldBeDeleted(FunctionalTester $I): void
     {
-        $I->expectThrowable(\RuntimeException::class, function () {
+        $I->expectThrowable(\RuntimeException::class, function (): void {
             $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalus->getId());
         });
     }
 
     private function thenNeronVersionShouldBeDeleted(FunctionalTester $I): void
     {
-        $I->expectThrowable(\RuntimeException::class, function () {
+        $I->expectThrowable(\RuntimeException::class, function (): void {
             $this->neronVersionRepository->findByDaedalusIdOrThrow($this->daedalus->getId());
         });
     }

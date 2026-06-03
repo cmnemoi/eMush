@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Equipment\Service;
 
 use Mockery;
@@ -54,7 +56,7 @@ final class EquipmentEffectServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testGetConsumableEffect()
+    public function testGetConsumableEffect(): void
     {
         $daedalus = new Daedalus();
         $ration = new Ration();
@@ -100,7 +102,7 @@ final class EquipmentEffectServiceTest extends TestCase
         self::assertSame(2, $consumableEffect->getMoralPoint());
     }
 
-    public function testGetPlantEffect()
+    public function testGetPlantEffect(): void
     {
         $daedalus = new Daedalus();
         $plant = new Plant();

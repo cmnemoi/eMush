@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;

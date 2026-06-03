@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -42,7 +44,7 @@ final class CookActionCest extends AbstractFunctionalTest
     private GameEquipment $kitchen;
     private GameItem $ration;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::COOK]);
@@ -55,7 +57,7 @@ final class CookActionCest extends AbstractFunctionalTest
         $this->givenARationInRoom();
     }
 
-    public function testCanReach(FunctionalTester $I)
+    public function testCanReach(FunctionalTester $I): void
     {
         $room1 = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
         $room2 = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
@@ -84,7 +86,7 @@ final class CookActionCest extends AbstractFunctionalTest
         $I->assertTrue($this->cookAction->isVisible());
     }
 
-    public function testUsedTool(FunctionalTester $I)
+    public function testUsedTool(FunctionalTester $I): void
     {
         $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
@@ -102,7 +104,7 @@ final class CookActionCest extends AbstractFunctionalTest
         $I->assertTrue($this->cookAction->isVisible());
     }
 
-    public function testCookable(FunctionalTester $I)
+    public function testCookable(FunctionalTester $I): void
     {
         $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
 

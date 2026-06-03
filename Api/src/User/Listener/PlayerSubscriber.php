@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\User\Listener;
 
 use Mush\Player\Event\PlayerEvent;

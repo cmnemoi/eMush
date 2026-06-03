@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Alert\Normalizer;
 
 use Mockery;
@@ -54,7 +56,7 @@ final class AlertNormalizerTest extends TestCase
         \Mockery::close();
     }
 
-    public function testNormalizePariahStatus()
+    public function testNormalizePariahStatus(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
 
@@ -92,7 +94,7 @@ final class AlertNormalizerTest extends TestCase
         ], $normalized);
     }
 
-    public function testNormalizeHullAlert()
+    public function testNormalizeHullAlert(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
@@ -138,7 +140,7 @@ final class AlertNormalizerTest extends TestCase
         ], $normalized);
     }
 
-    public function testNormalizeFireAlert()
+    public function testNormalizeFireAlert(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();

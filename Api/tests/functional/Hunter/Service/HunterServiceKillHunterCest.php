@@ -23,7 +23,7 @@ final class HunterServiceKillHunterCest extends AbstractFunctionalTest
     private HunterService $hunterService;
     private Hunter $hunter;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);

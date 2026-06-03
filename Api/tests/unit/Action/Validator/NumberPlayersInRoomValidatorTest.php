@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -40,7 +42,7 @@ final class NumberPlayersInRoomValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $this->constraint->mode = 'greater_than';
         $this->constraint->number = 3;
@@ -75,7 +77,7 @@ final class NumberPlayersInRoomValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testTooFewPeople()
+    public function testTooFewPeople(): void
     {
         $this->constraint->mode = 'less_than';
         $this->constraint->number = 3;
@@ -98,7 +100,7 @@ final class NumberPlayersInRoomValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint, 'execute');
     }
 
-    public function testTooManyPeople()
+    public function testTooManyPeople(): void
     {
         $this->constraint->mode = 'greater_than';
         $this->constraint->number = 1;

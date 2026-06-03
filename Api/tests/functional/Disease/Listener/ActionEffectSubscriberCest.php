@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Disease\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -32,12 +34,12 @@ class ActionEffectSubscriberCest
 {
     private ActionEffectSubscriber $subscriber;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->subscriber = $I->grabService(ActionEffectSubscriber::class);
     }
 
-    public function testOnConsumeDelayedDisease(FunctionalTester $I)
+    public function testOnConsumeDelayedDisease(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -95,7 +97,7 @@ class ActionEffectSubscriberCest
         ]);
     }
 
-    public function testOnConsumeImmediatDisease(FunctionalTester $I)
+    public function testOnConsumeImmediatDisease(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -154,7 +156,7 @@ class ActionEffectSubscriberCest
         ]);
     }
 
-    public function testOnHealNonResistantDisease(FunctionalTester $I)
+    public function testOnHealNonResistantDisease(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -221,7 +223,7 @@ class ActionEffectSubscriberCest
         ]);
     }
 
-    public function testOnHealResistantDisease(FunctionalTester $I)
+    public function testOnHealResistantDisease(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);

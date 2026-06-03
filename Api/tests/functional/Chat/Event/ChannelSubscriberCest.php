@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Chat\Event;
 
 use Mush\Chat\Entity\Channel;
@@ -20,14 +22,14 @@ final class ChannelSubscriberCest extends AbstractFunctionalTest
 {
     private ChannelSubscriber $channelSubscriber;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->channelSubscriber = $I->grabService(ChannelSubscriber::class);
     }
 
-    public function testInvite(FunctionalTester $I)
+    public function testInvite(FunctionalTester $I): void
     {
         $privateChannel = new Channel();
         $privateChannel
@@ -49,7 +51,7 @@ final class ChannelSubscriberCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testLeave(FunctionalTester $I)
+    public function testLeave(FunctionalTester $I): void
     {
         $daedalusInfo = $this->daedalus->getDaedalusInfo();
         $playerInfo = $this->player->getPlayerInfo();

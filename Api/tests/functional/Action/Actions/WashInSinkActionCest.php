@@ -34,7 +34,7 @@ final class WashInSinkActionCest extends AbstractFunctionalTest
 
     private GameEquipment $kitchen;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -52,7 +52,7 @@ final class WashInSinkActionCest extends AbstractFunctionalTest
         );
     }
 
-    public function testHumanWashInSink(FunctionalTester $I)
+    public function testHumanWashInSink(FunctionalTester $I): void
     {
         // given Chun has 6 action points
         $this->chun->setActionPoint(6);

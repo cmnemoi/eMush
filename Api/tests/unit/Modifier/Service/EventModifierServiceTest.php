@@ -67,7 +67,7 @@ final class EventModifierServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testComputeAttemptIncrease()
+    public function testComputeAttemptIncrease(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -113,7 +113,7 @@ final class EventModifierServiceTest extends TestCase
         self::assertSame(50 * 1.25 ** 3, $modifiedEvent->getQuantity());
     }
 
-    public function testComputeAttemptIncreaseWrongAction()
+    public function testComputeAttemptIncreaseWrongAction(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -146,7 +146,7 @@ final class EventModifierServiceTest extends TestCase
         self::assertSame(50.0, $modifiedEvent->getQuantity());
     }
 
-    public function testApplyOneModifier()
+    public function testApplyOneModifier(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $room = new Place();
@@ -190,7 +190,7 @@ final class EventModifierServiceTest extends TestCase
         self::assertContains('testEventModifierConfig', $modifiedEvent->getTags());
     }
 
-    public function testModifierNonRelevantTargetEvent()
+    public function testModifierNonRelevantTargetEvent(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -223,7 +223,7 @@ final class EventModifierServiceTest extends TestCase
         self::assertSame($modifiedEvent, $event);
     }
 
-    public function testModifierNonRelevantTag()
+    public function testModifierNonRelevantTag(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -257,7 +257,7 @@ final class EventModifierServiceTest extends TestCase
         self::assertSame($modifiedEvent, $event);
     }
 
-    public function testModifierNonRelevantModifierRequirement()
+    public function testModifierNonRelevantModifierRequirement(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -292,7 +292,7 @@ final class EventModifierServiceTest extends TestCase
         self::assertSame($modifiedEvent, $event);
     }
 
-    public function testApplyTwoModifiers()
+    public function testApplyTwoModifiers(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();

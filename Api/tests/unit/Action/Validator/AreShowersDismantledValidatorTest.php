@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -40,7 +42,7 @@ final class AreShowersDismantledValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $daedalus = new Daedalus();
         $place = new Place();
@@ -66,7 +68,7 @@ final class AreShowersDismantledValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint, 'visibility');
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $daedalus = new Daedalus();
 

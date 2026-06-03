@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
@@ -56,7 +58,7 @@ final class ExpressCookActionTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecuteFruit()
+    public function testExecuteFruit(): void
     {
         // frozen fruit
         $room = new Place();
@@ -96,7 +98,7 @@ final class ExpressCookActionTest extends AbstractActionTest
         self::assertSame(10, $player->getActionPoint());
     }
 
-    public function testExecuteRation()
+    public function testExecuteRation(): void
     {
         // Standard Ration
         $daedalus = new Daedalus();

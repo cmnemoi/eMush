@@ -558,7 +558,7 @@ final class ContactXylophCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenPlayerShouldSeeXylophContactLog(XylophEnum $entry, FunctionalTester $I)
+    private function thenPlayerShouldSeeXylophContactLog(XylophEnum $entry, FunctionalTester $I): void
     {
         $I->assertNotEmpty(
             $this->roomLogService->getRoomLog($this->player)->filter(
@@ -567,7 +567,7 @@ final class ContactXylophCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenOtherPlayerShouldNotSeeXylophContactLog(XylophEnum $entry, FunctionalTester $I)
+    private function thenOtherPlayerShouldNotSeeXylophContactLog(XylophEnum $entry, FunctionalTester $I): void
     {
         $I->assertEmpty(
             $this->roomLogService->getRoomLog($this->player2)->filter(

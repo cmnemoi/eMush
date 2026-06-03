@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Build;
@@ -19,14 +21,14 @@ final class BuildGearCest extends AbstractFunctionalTest
     private Build $buildAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->buildAction = $I->grabService(Build::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
-    public function testBuildGear(FunctionalTester $I)
+    public function testBuildGear(FunctionalTester $I): void
     {
         $sniperHelmetBlueprint = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: 'sniper_helmet_blueprint',

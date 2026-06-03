@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Modifier\ModifierRequirementHandler;
 
 use Mush\Game\Service\RandomServiceInterface;

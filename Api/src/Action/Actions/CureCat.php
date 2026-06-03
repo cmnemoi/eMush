@@ -91,7 +91,7 @@ final class CureCat extends AttemptAction
         );
     }
 
-    private function destroySerum()
+    private function destroySerum(): void
     {
         $serum = $this->getPlayer()->getEquipmentByNameOrThrow(ToolItemEnum::RETRO_FUNGAL_SERUM);
 

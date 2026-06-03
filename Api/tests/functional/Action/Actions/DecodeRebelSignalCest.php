@@ -146,7 +146,7 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->givenRebelBaseIsContacting(RebelBaseEnum::KALADAAN, $I);
         $this->givenNonContactingRebelBase(RebelBaseEnum::WOLF, $I);
 
-        $I->expectThrowable(GameException::class, function () {
+        $I->expectThrowable(GameException::class, function (): void {
             $this->whenPlayerDecodesRebelSignal(RebelBaseEnum::WOLF);
         });
     }

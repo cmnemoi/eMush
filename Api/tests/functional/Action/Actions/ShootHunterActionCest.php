@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\ShootHunter;
@@ -50,7 +52,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private ChooseSkillUseCase $chooseSkillUseCase;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -96,7 +98,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $this->shootHunterAction = $I->grabService(ShootHunter::class);
     }
 
-    public function testCannotShootWithUnloadedWeapon(FunctionalTester $I)
+    public function testCannotShootWithUnloadedWeapon(FunctionalTester $I): void
     {
         /** @var ChargeStatus $status */
         $status = $this->turret->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
@@ -116,7 +118,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $I->assertNotNull($this->shootHunterAction->cannotExecuteReason());
     }
 
-    public function testCannotShootWithoutShootingEquipmentInRoom(FunctionalTester $I)
+    public function testCannotShootWithoutShootingEquipmentInRoom(FunctionalTester $I): void
     {
         $this->player1->setPlace($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $I->haveInRepository($this->player1);
@@ -134,7 +136,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $I->assertFalse($this->shootHunterAction->isVisible());
     }
 
-    public function testCannotShootIfPlayerCannotSeeSpaceBattle(FunctionalTester $I)
+    public function testCannotShootIfPlayerCannotSeeSpaceBattle(FunctionalTester $I): void
     {
         // spawn player and a turret in laboratory
         // even with a turret in the lab, player cannot see the space battle there
@@ -161,7 +163,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $I->assertFalse($this->shootHunterAction->isVisible());
     }
 
-    public function testShootHunterSuccess(FunctionalTester $I)
+    public function testShootHunterSuccess(FunctionalTester $I): void
     {
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
@@ -191,7 +193,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testShootHunterFail(FunctionalTester $I)
+    public function testShootHunterFail(FunctionalTester $I): void
     {
         $this->action->setSuccessRate(0);
 
@@ -223,7 +225,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testShootHunterWhenDeadOnlySeeDeathLog(FunctionalTester $I)
+    public function testShootHunterWhenDeadOnlySeeDeathLog(FunctionalTester $I): void
     {
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();

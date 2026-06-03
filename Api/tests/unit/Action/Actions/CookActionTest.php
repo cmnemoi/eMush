@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
@@ -58,7 +60,7 @@ final class CookActionTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecute()
+    public function testExecute(): void
     {
         // frozen fruit
         $room = new Place();
@@ -100,7 +102,7 @@ final class CookActionTest extends AbstractActionTest
         $room = new Place();
     }
 
-    public function testExecuteRation()
+    public function testExecuteRation(): void
     {
         $room = new Place();
 

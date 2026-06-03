@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\RoomLog\TestDoubles;
 
 use Mush\Game\Service\TranslationServiceInterface;

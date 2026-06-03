@@ -22,14 +22,14 @@ final class HunterCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private HunterServiceInterface $hunterService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->hunterService = $I->grabService(HunterServiceInterface::class);
     }
 
-    public function shouldGainTriumphOnShootingDownHunters(FunctionalTester $I)
+    public function shouldGainTriumphOnShootingDownHunters(FunctionalTester $I): void
     {
         $roland = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ROLAND);
         $this->givenHuntersSpawnOfAmount(30);

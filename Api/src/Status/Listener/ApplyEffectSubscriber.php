@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Status\Listener;
 
 use Mush\Action\Event\ApplyEffectEvent;
@@ -28,7 +30,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onConsume(ApplyEffectEvent $event)
+    public function onConsume(ApplyEffectEvent $event): void
     {
         $drug = $event->getParameter();
         $player = $event->getAuthor();

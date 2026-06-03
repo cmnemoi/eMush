@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
@@ -53,7 +55,7 @@ final class ExtinguishManuallyActionTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecuteFail()
+    public function testExecuteFail(): void
     {
         $room = new Place();
         $statusConfig = new StatusConfig();
@@ -83,7 +85,7 @@ final class ExtinguishManuallyActionTest extends AbstractActionTest
         self::assertCount(1, $room->getStatuses());
     }
 
-    public function testExecuteSuccess()
+    public function testExecuteSuccess(): void
     {
         $room = new Place();
         $fire = new Status($room, new StatusConfig());

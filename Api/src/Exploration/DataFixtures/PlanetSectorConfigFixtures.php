@@ -16,7 +16,7 @@ use Mush\Game\Entity\GameConfig;
 /** @codeCoverageIgnore */
 final class PlanetSectorConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);

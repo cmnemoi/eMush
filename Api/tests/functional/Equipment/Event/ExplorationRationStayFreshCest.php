@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Equipment\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;

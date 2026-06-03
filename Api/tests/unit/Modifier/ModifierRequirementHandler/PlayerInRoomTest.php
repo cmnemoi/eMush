@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Modifier\ModifierRequirementHandler;
 
 use Mush\Daedalus\Entity\Daedalus;
@@ -36,7 +38,7 @@ final class PlayerInRoomTest extends TestCase
         \Mockery::close();
     }
 
-    public function testPlayerInRoomActivationRequirementModifier()
+    public function testPlayerInRoomActivationRequirementModifier(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();

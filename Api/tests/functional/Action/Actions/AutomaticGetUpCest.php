@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Disassemble;
@@ -28,7 +30,7 @@ final class AutomaticGetUpCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusService $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -41,7 +43,7 @@ final class AutomaticGetUpCest extends AbstractFunctionalTest
         $this->disassembleAction = $I->grabService(Disassemble::class);
     }
 
-    public function testAutomaticGetUp(FunctionalTester $I)
+    public function testAutomaticGetUp(FunctionalTester $I): void
     {
         // given player is lying down
         $this->statusService->createStatusFromName(

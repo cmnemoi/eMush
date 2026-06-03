@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -98,7 +100,7 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecuteFail()
+    public function testExecuteFail(): void
     {
         $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
         $room = $player->getPlace();
@@ -166,7 +168,7 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         self::assertNotNull($player->getMedicalConditionByName(DiseaseEnum::SEPSIS->toString()), 'Player should get sepsis');
     }
 
-    public function testExecuteSuccess()
+    public function testExecuteSuccess(): void
     {
         $room = new Place();
         $player = $this->createPlayer(new Daedalus(), $room);
@@ -239,7 +241,7 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         self::assertNotInstanceOf(CriticalSuccess::class, $result);
     }
 
-    public function testExecuteCriticalSuccess()
+    public function testExecuteCriticalSuccess(): void
     {
         $room = new Place();
         $player = $this->createPlayer(new Daedalus(), $room);

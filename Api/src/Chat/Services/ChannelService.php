@@ -259,7 +259,7 @@ final class ChannelService implements ChannelServiceInterface
     public function addPlayer(PlayerInfo $playerInfo, Channel $channel): void
     {
         try {
-            $this->channelRepository->wrapInTransaction(function () use ($playerInfo, $channel) {
+            $this->channelRepository->wrapInTransaction(function () use ($playerInfo, $channel): void {
                 // Check if player is already in the channel
                 $existingChannelPlayer = $this->channelPlayerRepository->findByChannelAndPlayer($channel, $playerInfo);
                 if ($existingChannelPlayer) {

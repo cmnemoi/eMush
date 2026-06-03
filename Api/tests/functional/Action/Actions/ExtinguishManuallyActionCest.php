@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
@@ -26,7 +28,7 @@ final class ExtinguishManuallyActionCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -38,7 +40,7 @@ final class ExtinguishManuallyActionCest extends AbstractFunctionalTest
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
     }
 
-    public function testExtinguishManually(FunctionalTester $I)
+    public function testExtinguishManually(FunctionalTester $I): void
     {
         // given there is a fire  in the room
         $this->statusService->createStatusFromName(

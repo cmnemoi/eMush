@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Modifier\Service;
 
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;

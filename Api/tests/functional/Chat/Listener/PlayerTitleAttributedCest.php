@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Chat\Listener;
 
 use Mush\Chat\Services\ChannelServiceInterface;
@@ -17,14 +19,14 @@ final class PlayerTitleAttributedCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private ChannelServiceInterface $channelService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->channelService = $I->grabService(ChannelServiceInterface::class);
     }
 
-    public function testDispatchPlayerTitleAttributed(FunctionalTester $I)
+    public function testDispatchPlayerTitleAttributed(FunctionalTester $I): void
     {
         $publicChannel = $this->channelService->getPublicChannel($this->daedalus->getDaedalusInfo());
 

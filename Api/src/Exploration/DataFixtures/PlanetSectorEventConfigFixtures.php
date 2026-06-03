@@ -15,7 +15,7 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 /** @codeCoverageIgnore */
 final class PlanetSectorEventConfigFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         foreach (PlanetSectorEventConfigData::getAll() as $data) {
             $planetSectorEventConfig = PlanetSectorEventConfig::fromDto($data);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Service;
 
 use Mockery;
@@ -63,7 +65,7 @@ final class ActionServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testApplyCostToPlayerVariousPoints()
+    public function testApplyCostToPlayerVariousPoints(): void
     {
         // mixed cost
         $player = $this->createPlayer(5, 5, 5);
@@ -128,7 +130,7 @@ final class ActionServiceTest extends TestCase
         self::assertSame($player, $result);
     }
 
-    public function testApplyCostToPlayerSingleMovementConversion()
+    public function testApplyCostToPlayerSingleMovementConversion(): void
     {
         // mixed cost
         $player = $this->createPlayer(5, 0, 5);
@@ -251,7 +253,7 @@ final class ActionServiceTest extends TestCase
         self::assertSame($player, $result);
     }
 
-    public function testApplyCostToPlayerTwoMovementConversion()
+    public function testApplyCostToPlayerTwoMovementConversion(): void
     {
         // mixed cost
         $player = $this->createPlayer(5, 0, 5);
@@ -374,7 +376,7 @@ final class ActionServiceTest extends TestCase
         self::assertSame($player, $result);
     }
 
-    public function testGetActionModifiedActionVariablePercentage()
+    public function testGetActionModifiedActionVariablePercentage(): void
     {
         $player = $this->createPlayer(5, 5, 5);
 
@@ -443,7 +445,7 @@ final class ActionServiceTest extends TestCase
         self::assertSame(99, $result);
     }
 
-    public function testGetActionModifiedActionVariableMovementPoints()
+    public function testGetActionModifiedActionVariableMovementPoints(): void
     {
         $player = $this->createPlayer(5, 5, 5);
 
@@ -512,7 +514,7 @@ final class ActionServiceTest extends TestCase
         ));
     }
 
-    public function testGetActionModifiedActionVariableActionPointsNoConversion()
+    public function testGetActionModifiedActionVariableActionPointsNoConversion(): void
     {
         $player = $this->createPlayer(5, 5, 5);
 
@@ -559,7 +561,7 @@ final class ActionServiceTest extends TestCase
         ));
     }
 
-    public function testGetActionModifiedActionVariableActionPointsWithConversion()
+    public function testGetActionModifiedActionVariableActionPointsWithConversion(): void
     {
         $player = $this->createPlayer(5, 5, 5);
 

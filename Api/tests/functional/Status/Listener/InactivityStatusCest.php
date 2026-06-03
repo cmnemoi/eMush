@@ -36,7 +36,7 @@ final class InactivityStatusCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->playerCycleSubscriber = $I->grabService(PlayerCycleSubscriber::class);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Chat\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -66,7 +68,7 @@ final class MessageNormalizerTest extends TestCase
         \Mockery::close();
     }
 
-    public function testNormalizePlayerMessage()
+    public function testNormalizePlayerMessage(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
@@ -119,7 +121,7 @@ final class MessageNormalizerTest extends TestCase
         ], $normalizedData);
     }
 
-    public function testNormalizeNeronMessage()
+    public function testNormalizeNeronMessage(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
@@ -180,7 +182,7 @@ final class MessageNormalizerTest extends TestCase
         ], $normalizedData);
     }
 
-    public function testNormalizeNeronMessageWithChild()
+    public function testNormalizeNeronMessageWithChild(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
@@ -264,7 +266,7 @@ final class MessageNormalizerTest extends TestCase
         ], $normalizedData);
     }
 
-    public function testNormalizeParanoiacPlayerMessage()
+    public function testNormalizeParanoiacPlayerMessage(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Status\Strategy;
 
 use Mockery;
@@ -42,7 +44,7 @@ final class CycleDecrementTest extends TestCase
         \Mockery::close();
     }
 
-    public function testIncrement()
+    public function testIncrement(): void
     {
         $status = $this->createStatus();
         $time = new \DateTime();

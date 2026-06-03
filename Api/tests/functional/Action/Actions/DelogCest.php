@@ -41,7 +41,7 @@ final class DelogCest extends AbstractFunctionalTest
     private PlayerServiceInterface $playerService;
     private RoomLogServiceInterface $roomLogService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

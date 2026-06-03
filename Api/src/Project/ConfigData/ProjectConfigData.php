@@ -506,8 +506,7 @@ abstract class ProjectConfigData
                 'efficiency' => 12,
                 'bonusSkills' => [SkillEnum::BOTANIST, SkillEnum::ROBOTICS_EXPERT],
                 'activationRate' => 4,
-                'modifierConfigs' => [
-                ],
+                'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],

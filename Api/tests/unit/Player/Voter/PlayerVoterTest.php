@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Player\Voter;
 
 use Mush\Chat\Entity\Message;
@@ -44,7 +46,7 @@ final class PlayerVoterTest extends TestCase
         $this->testVote(PlayerVoter::PLAYER_VIEW, new Player(), $user, Voter::ACCESS_GRANTED);
     }
 
-    public function testCanCreate()
+    public function testCanCreate(): void
     {
         $user = new User();
         $player = new Player();
@@ -55,7 +57,7 @@ final class PlayerVoterTest extends TestCase
         $this->testVote(PlayerVoter::PLAYER_CREATE, null, $user, Voter::ACCESS_DENIED);
     }
 
-    public function testCanEnd()
+    public function testCanEnd(): void
     {
         $user = new User();
         $player = new Player();
@@ -76,7 +78,7 @@ final class PlayerVoterTest extends TestCase
         ?Player $player,
         User $user,
         $expectedVote
-    ) {
+    ): void {
         $token = new UsernamePasswordToken(
             $user,
             'credentials',

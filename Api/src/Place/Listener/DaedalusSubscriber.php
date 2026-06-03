@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Place\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;

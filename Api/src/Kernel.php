@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush;
 
 use Mush\Action\DependencyInjection\ActionPass;

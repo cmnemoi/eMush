@@ -26,7 +26,7 @@ final class ExitTerminalCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private GameEquipment $commandTerminal;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);

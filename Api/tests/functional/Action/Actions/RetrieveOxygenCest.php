@@ -28,7 +28,7 @@ final class RetrieveOxygenCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private GameEquipment $oxygenTank;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

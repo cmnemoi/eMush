@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -40,7 +42,7 @@ final class PreMushValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $daedalus = new Daedalus();
         $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
@@ -65,7 +67,7 @@ final class PreMushValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $daedalus = new Daedalus();
         $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());

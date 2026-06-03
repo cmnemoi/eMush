@@ -33,7 +33,7 @@ final class NeronDepressCest extends AbstractFunctionalTest
     private NeronDepress $neronDepress;
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::NERON_DEPRESS->value]);

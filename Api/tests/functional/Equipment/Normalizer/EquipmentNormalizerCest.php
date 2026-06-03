@@ -26,7 +26,7 @@ final class EquipmentNormalizerCest extends AbstractFunctionalTest
     private TranslationServiceInterface $translationService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -36,7 +36,7 @@ final class EquipmentNormalizerCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function shouldNormalizeBlueprintAsBlueprint(FunctionalTester $I)
+    public function shouldNormalizeBlueprintAsBlueprint(FunctionalTester $I): void
     {
         $blueprint = $this->createEquipment(EquipmentEnum::SWEDISH_SOFA . '_' . ItemEnum::BLUEPRINT, $this->player->getPlace());
 
@@ -76,7 +76,7 @@ final class EquipmentNormalizerCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNormalizeKitAsKit(FunctionalTester $I)
+    public function shouldNormalizeKitAsKit(FunctionalTester $I): void
     {
         $kit = $this->createEquipment(EquipmentEnum::SWEDISH_SOFA . '_' . ItemEnum::KIT, $this->player->getPlace());
 
@@ -111,7 +111,7 @@ final class EquipmentNormalizerCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNormalizeHeavyStatusForHeavyItem(FunctionalTester $I)
+    public function shouldNormalizeHeavyStatusForHeavyItem(FunctionalTester $I): void
     {
         $microwave = $this->createEquipment(ToolItemEnum::MICROWAVE, $this->player->getPlace());
 
@@ -135,7 +135,7 @@ final class EquipmentNormalizerCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNormalizeHeavyStatusForItemMadeHeavy(FunctionalTester $I)
+    public function shouldNormalizeHeavyStatusForItemMadeHeavy(FunctionalTester $I): void
     {
         $banana = $this->createEquipment(GameFruitEnum::BANANA, $this->player->getPlace());
 

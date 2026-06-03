@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Place\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -48,13 +50,13 @@ class RoomEventCest
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function testRoomEventOnNonRoomPlace(FunctionalTester $I)
+    public function testRoomEventOnNonRoomPlace(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -85,20 +87,20 @@ class RoomEventCest
 
         $I->expectThrowable(
             \LogicException::class,
-            function () use ($roomEvent) {
+            function () use ($roomEvent): void {
                 $this->eventService->callEvent($roomEvent, RoomEvent::TREMOR);
             }
         );
 
         $I->expectThrowable(
             \LogicException::class,
-            function () use ($roomEvent) {
+            function () use ($roomEvent): void {
                 $this->eventService->callEvent($roomEvent, RoomEvent::ELECTRIC_ARC);
             }
         );
     }
 
-    public function testNewFire(FunctionalTester $I)
+    public function testNewFire(FunctionalTester $I): void
     {
         $statusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::FIRE]);
 
@@ -159,7 +161,7 @@ class RoomEventCest
         ]);
     }
 
-    public function testTremor(FunctionalTester $I)
+    public function testTremor(FunctionalTester $I): void
     {
         $time = new \DateTime();
 
@@ -212,7 +214,7 @@ class RoomEventCest
         });
 
         // apply tremor on rooms with players
-        $rooms->map(function (Place $room) use ($time) {
+        $rooms->map(function (Place $room) use ($time): void {
             $roomEvent = new RoomEvent($room, [EventEnum::NEW_CYCLE, RoomEvent::TREMOR], $time);
             $this->eventService->callEvent($roomEvent, RoomEvent::TREMOR);
         });
@@ -230,7 +232,7 @@ class RoomEventCest
         ]);
     }
 
-    public function testElectricArc(FunctionalTester $I)
+    public function testElectricArc(FunctionalTester $I): void
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::BROKEN)
@@ -344,7 +346,7 @@ class RoomEventCest
         ]);
     }
 
-    public function testEquipmentBreak(FunctionalTester $I)
+    public function testEquipmentBreak(FunctionalTester $I): void
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::BROKEN)
@@ -461,7 +463,7 @@ class RoomEventCest
         ]);
     }
 
-    public function testDoorBreak(FunctionalTester $I)
+    public function testDoorBreak(FunctionalTester $I): void
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::BROKEN)

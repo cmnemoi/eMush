@@ -119,7 +119,7 @@ final class PlayerDiseaseService implements PlayerDiseaseServiceInterface
         return $disease;
     }
 
-    public function handleNewCycleForPlayer(Player $player, \DateTime $time)
+    public function handleNewCycleForPlayer(Player $player, \DateTime $time): void
     {
         // first, decrement a random active disease which heals at cycle change
         if ($player->hasActiveDiseaseHealingAtCycleChange()) {

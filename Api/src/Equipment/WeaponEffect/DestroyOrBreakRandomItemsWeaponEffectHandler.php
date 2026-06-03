@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\WeaponEffect;
 
 use Mush\Equipment\Entity\GameEquipment;

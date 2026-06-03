@@ -32,7 +32,7 @@ final class PlanetCest extends AbstractFunctionalTest
 
     private Player $frieda;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -51,7 +51,7 @@ final class PlanetCest extends AbstractFunctionalTest
         $this->givenPlayerFocusedOnAstroTerminal($this->frieda);
     }
 
-    public function shouldGainTriumphOnFriedaScan(FunctionalTester $I)
+    public function shouldGainTriumphOnFriedaScan(FunctionalTester $I): void
     {
         $this->whenPlayerScans($this->frieda, 5);
 
@@ -69,7 +69,7 @@ final class PlanetCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveTriumph($this->frieda, 12, $I);
     }
 
-    public function shouldNotGainTriumphOnFailure(FunctionalTester $I)
+    public function shouldNotGainTriumphOnFailure(FunctionalTester $I): void
     {
         $this->givenScanningAlwaysFails();
 
@@ -78,7 +78,7 @@ final class PlanetCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveTriumph($this->frieda, 0, $I);
     }
 
-    public function shouldNotGainTriumphOnSomeoneElseScan(FunctionalTester $I)
+    public function shouldNotGainTriumphOnSomeoneElseScan(FunctionalTester $I): void
     {
         $this->givenPlayerFocusedOnAstroTerminal($this->chun);
 

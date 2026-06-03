@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Place\Enum;
 
 use Doctrine\Common\Collections\ArrayCollection;

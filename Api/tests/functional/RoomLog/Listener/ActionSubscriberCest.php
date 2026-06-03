@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\RoomLog\Listener;
 
 use Mush\Action\Entity\ActionConfig;
@@ -26,12 +28,12 @@ class ActionSubscriberCest
 {
     private ActionSubscriber $actionSubscriber;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->actionSubscriber = $I->grabService(ActionSubscriber::class);
     }
 
-    public function testPostAction(FunctionalTester $I)
+    public function testPostAction(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);

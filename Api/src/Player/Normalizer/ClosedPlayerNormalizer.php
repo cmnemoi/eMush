@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Player\Normalizer;
 
 use Mush\Game\Service\CycleServiceInterface;

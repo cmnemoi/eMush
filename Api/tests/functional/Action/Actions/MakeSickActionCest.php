@@ -39,7 +39,7 @@ final class MakeSickActionCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::MAKE_SICK->value]);
@@ -51,7 +51,7 @@ final class MakeSickActionCest extends AbstractFunctionalTest
         $this->addSkillToPlayer(SkillEnum::BACTEROPHILIAC, $I, $this->player);
     }
 
-    public function testMakeSick(FunctionalTester $I)
+    public function testMakeSick(FunctionalTester $I): void
     {
         $this->givenMakeSickOnlyGivesFlu($I);
 

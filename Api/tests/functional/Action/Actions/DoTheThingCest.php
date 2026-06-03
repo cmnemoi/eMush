@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\DoTheThing;
@@ -38,7 +40,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
     private Player $derek;
     private Player $andie;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->doTheThingConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DO_THE_THING]);
@@ -56,21 +58,21 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->givenFreeLoveIs(false);
     }
 
-    public function shouldNotDTTIfPlayersSameGenderAndFreeLoveFalse(FunctionalTester $I)
+    public function shouldNotDTTIfPlayersSameGenderAndFreeLoveFalse(FunctionalTester $I): void
     {
         $this->whenATriesToDTTWithB($this->derek, $this->kuanTi);
 
         $this->thenActionShouldNotBeVisible($I);
     }
 
-    public function shouldNotDTTIfPlayersDidntFlirt(FunctionalTester $I)
+    public function shouldNotDTTIfPlayersDidntFlirt(FunctionalTester $I): void
     {
         $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);
 
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DO_THE_THING_NOT_INTERESTED, $I);
     }
 
-    public function shouldNotDTTIfPlayerLyingDown(FunctionalTester $I)
+    public function shouldNotDTTIfPlayerLyingDown(FunctionalTester $I): void
     {
         $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
 
@@ -81,7 +83,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DO_THE_THING_ASLEEP, $I);
     }
 
-    public function shouldNotDTTIfCameraPresent(FunctionalTester $I)
+    public function shouldNotDTTIfCameraPresent(FunctionalTester $I): void
     {
         $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
 
@@ -92,7 +94,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DO_THE_THING_CAMERA, $I);
     }
 
-    public function shouldNotDTTIfWitnessPresent(FunctionalTester $I)
+    public function shouldNotDTTIfWitnessPresent(FunctionalTester $I): void
     {
         $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
 
@@ -105,7 +107,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DO_THE_THING_WITNESS, $I);
     }
 
-    public function shouldNotDTTIfNoBed(FunctionalTester $I)
+    public function shouldNotDTTIfNoBed(FunctionalTester $I): void
     {
         $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
 
@@ -117,7 +119,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->thenActionShouldNotBeVisible($I);
     }
 
-    public function shouldDTTIfAllConditionsFilled(FunctionalTester $I)
+    public function shouldDTTIfAllConditionsFilled(FunctionalTester $I): void
     {
         $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
 
@@ -130,7 +132,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->thenActionShouldBeExecutable($I);
     }
 
-    public function canDTTOnASofa(FunctionalTester $I)
+    public function canDTTOnASofa(FunctionalTester $I): void
     {
         $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
 
@@ -143,7 +145,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->thenActionShouldBeExecutable($I);
     }
 
-    public function canDTTWithAndieAsFemaleWithFreeLoveFalse(FunctionalTester $I)
+    public function canDTTWithAndieAsFemaleWithFreeLoveFalse(FunctionalTester $I): void
     {
         $this->givenTargetHasFlirtedWithPlayer($this->andie, $this->chun);
 
@@ -156,7 +158,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->thenActionShouldBeExecutable($I);
     }
 
-    public function canDTTWithAndieAsMaleWithFreeLoveFalse(FunctionalTester $I)
+    public function canDTTWithAndieAsMaleWithFreeLoveFalse(FunctionalTester $I): void
     {
         $this->givenTargetHasFlirtedWithPlayer($this->andie, $this->kuanTi);
 
@@ -169,7 +171,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->thenActionShouldBeExecutable($I);
     }
 
-    public function canDTTSameGenderWithFreeLoveTrue(FunctionalTester $I)
+    public function canDTTSameGenderWithFreeLoveTrue(FunctionalTester $I): void
     {
         $this->givenFreeLoveIs(true);
 
@@ -184,7 +186,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->thenActionShouldBeExecutable($I);
     }
 
-    public function shouldNotDTTIfTargetAlreadyDoneToday(FunctionalTester $I)
+    public function shouldNotDTTIfTargetAlreadyDoneToday(FunctionalTester $I): void
     {
         $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
         $this->givenPlayerHasAlreadyDTTToday($this->kuanTi);
@@ -198,7 +200,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DO_THE_THING_ALREADY_DONE, $I);
     }
 
-    public function shouldNotDTTIfPlayerAlreadyDoneToday(FunctionalTester $I)
+    public function shouldNotDTTIfPlayerAlreadyDoneToday(FunctionalTester $I): void
     {
         $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
         $this->givenPlayerHasAlreadyDTTToday($this->chun);
@@ -212,7 +214,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DO_THE_THING_ALREADY_DONE, $I);
     }
 
-    public function shouldNotDTTOnASofaIfSofaBroken(FunctionalTester $I)
+    public function shouldNotDTTOnASofaIfSofaBroken(FunctionalTester $I): void
     {
         $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
 
@@ -222,7 +224,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->thenActionShouldNotBeVisible($I);
     }
 
-    public function shouldInfectPlayerIfTargetIsMushWithSpore(FunctionalTester $I)
+    public function shouldInfectPlayerIfTargetIsMushWithSpore(FunctionalTester $I): void
     {
         $this->givenPlayerIsMushWithSpores($this->kuanTi, 1);
 
@@ -244,7 +246,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         );
     }
 
-    public function mushPlayerShouldWasteSporeIfHumanPlayerImmune(FunctionalTester $I)
+    public function mushPlayerShouldWasteSporeIfHumanPlayerImmune(FunctionalTester $I): void
     {
         $this->givenPlayerIsMushWithSpores($this->kuanTi, 1);
         $this->givenChunIsImmune();
@@ -267,7 +269,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNotInfectPlayerIfMushTargetHasNoSpore(FunctionalTester $I)
+    public function shouldNotInfectPlayerIfMushTargetHasNoSpore(FunctionalTester $I): void
     {
         $this->givenPlayerIsMushWithSpores($this->kuanTi, 0);
 
@@ -289,7 +291,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         );
     }
 
-    public function noSporeChangeIfBothPlayersMush(FunctionalTester $I)
+    public function noSporeChangeIfBothPlayersMush(FunctionalTester $I): void
     {
         $this->givenPlayerIsMushWithSpores($this->andie, 1);
         $this->givenPlayerIsMushWithSpores($this->kuanTi, 0);
@@ -312,7 +314,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         );
     }
 
-    public function theDeadDoNotCountAsWitness(FunctionalTester $I)
+    public function theDeadDoNotCountAsWitness(FunctionalTester $I): void
     {
         $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
 
@@ -327,17 +329,17 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->thenActionShouldBeExecutable($I);
     }
 
-    private function givenFreeLoveIs(bool $bool)
+    private function givenFreeLoveIs(bool $bool): void
     {
         $this->daedalus->getDaedalusConfig()->setFreeLove($bool);
     }
 
-    private function givenTargetHasFlirtedWithPlayer(Player $target, Player $player)
+    private function givenTargetHasFlirtedWithPlayer(Player $target, Player $player): void
     {
         $target->setFlirts(new PlayerCollection([$player]));
     }
 
-    private function givenPlayerIsLyingDown(Player $player)
+    private function givenPlayerIsLyingDown(Player $player): void
     {
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::LYING_DOWN,
@@ -347,7 +349,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenChunIsImmune()
+    private function givenChunIsImmune(): void
     {
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::IMMUNIZED,
@@ -357,7 +359,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenPlayerIsMushWithSpores(Player $player, int $spores)
+    private function givenPlayerIsMushWithSpores(Player $player, int $spores): void
     {
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::MUSH,
@@ -368,7 +370,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $player->setSpores($spores);
     }
 
-    private function givenPlayerHasAlreadyDTTToday(Player $player)
+    private function givenPlayerHasAlreadyDTTToday(Player $player): void
     {
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::DID_THE_THING,
@@ -378,7 +380,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenCameraInRoom(Place $place)
+    private function givenCameraInRoom(Place $place): void
     {
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::CAMERA_EQUIPMENT,
@@ -388,7 +390,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenBedInRoom(Place $place)
+    private function givenBedInRoom(Place $place): void
     {
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::BED,
@@ -398,7 +400,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenSofaInRoom(Place $place)
+    private function givenSofaInRoom(Place $place): void
     {
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::SWEDISH_SOFA,
@@ -408,7 +410,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenBrokenSofaInRoom(Place $place)
+    private function givenBrokenSofaInRoom(Place $place): void
     {
         $sofa = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::SWEDISH_SOFA,
@@ -425,7 +427,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenPlayerIsIn(Player $player, string $place, FunctionalTester $I)
+    private function givenPlayerIsIn(Player $player, string $place, FunctionalTester $I): void
     {
         if ($this->daedalus->getPlaceByName($place) === null) {
             $placeConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => $place]);
@@ -439,7 +441,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $player->changePlace($this->daedalus->getPlaceByName($place));
     }
 
-    private function whenATriesToDTTWithB(Player $player, Player $target)
+    private function whenATriesToDTTWithB(Player $player, Player $target): void
     {
         $this->doTheThingAction->loadParameters(
             actionConfig: $this->doTheThingConfig,
@@ -467,7 +469,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $I->assertNull($this->doTheThingAction->cannotExecuteReason(), 'Action should be executable');
     }
 
-    private function thenPlayerHasSpore(Player $player, int $spores, FunctionalTester $I)
+    private function thenPlayerHasSpore(Player $player, int $spores, FunctionalTester $I): void
     {
         $I->assertEquals($player->getSpores(), $spores);
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Alert\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -70,7 +72,7 @@ final class AlertServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testNoOxygenAlert()
+    public function testNoOxygenAlert(): void
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setInitOxygen(15);
@@ -87,7 +89,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->oxygenAlert($daedalus);
     }
 
-    public function testOxygenAlert()
+    public function testOxygenAlert(): void
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setInitOxygen(8);
@@ -103,7 +105,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->oxygenAlert($daedalus);
     }
 
-    public function testSolveOxygenAlert()
+    public function testSolveOxygenAlert(): void
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setInitOxygen(9);
@@ -124,7 +126,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->oxygenAlert($daedalus);
     }
 
-    public function testNoHullAlert()
+    public function testNoHullAlert(): void
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setInitHull(95);
@@ -141,7 +143,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->hullAlert($daedalus);
     }
 
-    public function testHullAlert()
+    public function testHullAlert(): void
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setInitHull(20);
@@ -157,7 +159,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->hullAlert($daedalus);
     }
 
-    public function testSolveHullAlert()
+    public function testSolveHullAlert(): void
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setInitHull(90);
@@ -178,7 +180,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->hullAlert($daedalus);
     }
 
-    public function testGravityAlert()
+    public function testGravityAlert(): void
     {
         $daedalus = new Daedalus();
 
@@ -189,7 +191,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->gravityAlert($daedalus, AlertEnum::BREAK);
     }
 
-    public function testRepairGravityAlert()
+    public function testRepairGravityAlert(): void
     {
         $daedalus = new Daedalus();
 
@@ -208,7 +210,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->gravityAlert($daedalus, AlertEnum::REPAIR);
     }
 
-    public function testRebootGravityAlert()
+    public function testRebootGravityAlert(): void
     {
         $daedalus = new Daedalus();
 
@@ -227,7 +229,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->gravityAlert($daedalus, AlertEnum::GRAVITY_REBOOT);
     }
 
-    public function testBrokenEquipmentAlert()
+    public function testBrokenEquipmentAlert(): void
     {
         $daedalus = new Daedalus();
 
@@ -247,7 +249,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->handleEquipmentBreak($gameEquipment);
     }
 
-    public function testAddBrokenDoorAlert()
+    public function testAddBrokenDoorAlert(): void
     {
         $daedalus = new Daedalus();
 
@@ -277,7 +279,7 @@ final class AlertServiceTest extends TestCase
         self::assertCount(2, $alert->getAlertElements());
     }
 
-    public function testRepairEquipment()
+    public function testRepairEquipment(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $room = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
@@ -308,7 +310,7 @@ final class AlertServiceTest extends TestCase
         self::assertCount(1, $alert->getAlertElements());
     }
 
-    public function testRepairAllEquipment()
+    public function testRepairAllEquipment(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $room = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
@@ -336,7 +338,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->handleEquipmentRepair($gameEquipment);
     }
 
-    public function testFireStartAlert()
+    public function testFireStartAlert(): void
     {
         $daedalus = new Daedalus();
 
@@ -355,7 +357,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->handleFireStart($room);
     }
 
-    public function testStopFireEquipment()
+    public function testStopFireEquipment(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $room = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
@@ -385,7 +387,7 @@ final class AlertServiceTest extends TestCase
         self::assertCount(1, $alert->getAlertElements());
     }
 
-    public function testStopAllFire()
+    public function testStopAllFire(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $room = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
@@ -412,7 +414,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->handleFireStop($room);
     }
 
-    public function testSatietyAlertActivate()
+    public function testSatietyAlertActivate(): void
     {
         $characterConfig = new CharacterConfig();
         $characterConfig->setInitSatiety(-24);
@@ -445,7 +447,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->handleSatietyAlert($daedalus);
     }
 
-    public function testSatietyAlertAlreadyActive()
+    public function testSatietyAlertAlreadyActive(): void
     {
         $characterConfig = new CharacterConfig();
         $characterConfig->setInitSatiety(-24);
@@ -481,7 +483,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->handleSatietyAlert($daedalus);
     }
 
-    public function testSatietyAlertDeactivate()
+    public function testSatietyAlertDeactivate(): void
     {
         $characterConfig = new CharacterConfig();
         $characterConfig->setInitSatiety(-24);
@@ -518,7 +520,7 @@ final class AlertServiceTest extends TestCase
         $this->alertService->handleSatietyAlert($daedalus);
     }
 
-    public function getNoAlertTest()
+    public function getNoAlertTest(): void
     {
         $daedalus = new Daedalus();
 
@@ -535,7 +537,7 @@ final class AlertServiceTest extends TestCase
         self::assertSame(new ArrayCollection([$noAlert]), $alerts);
     }
 
-    public function getAlertsTest()
+    public function getAlertsTest(): void
     {
         $daedalus = new Daedalus();
 
@@ -554,7 +556,7 @@ final class AlertServiceTest extends TestCase
         self::assertSame(new ArrayCollection([$alert, $alert2]), $alerts);
     }
 
-    public function testFireNorReported()
+    public function testFireNorReported(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $room = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
@@ -583,7 +585,7 @@ final class AlertServiceTest extends TestCase
         self::assertFalse($this->alertService->isFireReported($room));
     }
 
-    public function testNotValidFire()
+    public function testNotValidFire(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $room = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
@@ -615,7 +617,7 @@ final class AlertServiceTest extends TestCase
         self::assertTrue($this->alertService->isFireReported($room));
     }
 
-    public function testValidEquipment()
+    public function testValidEquipment(): void
     {
         $daedalus = new Daedalus();
         $room = Place::createRoomByNameInDaedalus(RoomEnum::ALPHA_BAY, $daedalus);
@@ -645,7 +647,7 @@ final class AlertServiceTest extends TestCase
         self::assertFalse($this->alertService->isEquipmentReported($gameEquipment));
     }
 
-    public function testNotValidEquipment()
+    public function testNotValidEquipment(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $room = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
@@ -678,7 +680,7 @@ final class AlertServiceTest extends TestCase
         self::assertTrue($this->alertService->isEquipmentReported($gameEquipment));
     }
 
-    public function testDoNotCreateDuplicateFireAlertElement()
+    public function testDoNotCreateDuplicateFireAlertElement(): void
     {
         // GIVEN two distinct PHP objects representing the same Room (same id)
         $daedalus = new Daedalus();

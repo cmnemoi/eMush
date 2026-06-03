@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
@@ -83,7 +85,7 @@ class Cure extends AbstractAction
         $this->destroySerum($mushCured);
     }
 
-    private function destroySerum(bool $mushCured)
+    private function destroySerum(bool $mushCured): void
     {
         $serum = $this->getPlayer()->getEquipmentByNameOrThrow(ToolItemEnum::RETRO_FUNGAL_SERUM);
         $tags = $mushCured ? array_merge($this->getTags(), [self::PLAYER_VACCINATED]) : $this->getTags();

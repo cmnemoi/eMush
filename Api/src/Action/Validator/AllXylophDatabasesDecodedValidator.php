@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -12,7 +14,7 @@ final class AllXylophDatabasesDecodedValidator extends ConstraintValidator
 {
     public function __construct(private readonly XylophRepositoryInterface $xylophRepository) {}
 
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         $action = $value;
 

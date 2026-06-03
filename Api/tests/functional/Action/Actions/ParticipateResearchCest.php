@@ -289,7 +289,7 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         $this->thenActionIsExecutable($I);
     }
 
-    private function givenChunIsNotInLab()
+    private function givenChunIsNotInLab(): void
     {
         $laboratory = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
         if ($laboratory->isChunIn()) {

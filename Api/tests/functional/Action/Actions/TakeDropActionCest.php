@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -41,14 +43,14 @@ class TakeDropActionCest
     private Drop $dropAction;
     private Hide $hideAction;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->takeAction = $I->grabService(Take::class);
         $this->dropAction = $I->grabService(Drop::class);
         $this->hideAction = $I->grabService(Hide::class);
     }
 
-    public function testTakeDropItem(FunctionalTester $I)
+    public function testTakeDropItem(FunctionalTester $I): void
     {
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();
@@ -179,7 +181,7 @@ class TakeDropActionCest
         ]);
     }
 
-    public function testTakeDropHeavyItem(FunctionalTester $I)
+    public function testTakeDropHeavyItem(FunctionalTester $I): void
     {
         $burdenedStatusConfig = new StatusConfig();
         $burdenedStatusConfig
@@ -328,7 +330,7 @@ class TakeDropActionCest
         ]);
     }
 
-    public function testTakeHiddenItem(FunctionalTester $I)
+    public function testTakeHiddenItem(FunctionalTester $I): void
     {
         $hiddenConfig = new StatusConfig();
         $hiddenConfig
@@ -426,7 +428,7 @@ class TakeDropActionCest
         ]);
     }
 
-    public function testHideHeavyItemInInventory(FunctionalTester $I)
+    public function testHideHeavyItemInInventory(FunctionalTester $I): void
     {
         $hiddenStatusConfig = new StatusConfig();
         $hiddenStatusConfig

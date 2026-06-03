@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Daedalus\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -51,12 +53,12 @@ class LastPlayerCloseGameCest
 {
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testLastPlayerCloseGameSimpleCase(FunctionalTester $I)
+    public function testLastPlayerCloseGameSimpleCase(FunctionalTester $I): void
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
@@ -143,7 +145,7 @@ class LastPlayerCloseGameCest
         $I->dontSeeInRepository(Place::class);
     }
 
-    public function testLastPlayerCloseGameSeveralPlayers(FunctionalTester $I)
+    public function testLastPlayerCloseGameSeveralPlayers(FunctionalTester $I): void
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
@@ -250,7 +252,7 @@ class LastPlayerCloseGameCest
         $I->dontSeeInRepository(Place::class);
     }
 
-    public function testLastPlayerCloseGameCheckStatusRemoval(FunctionalTester $I)
+    public function testLastPlayerCloseGameCheckStatusRemoval(FunctionalTester $I): void
     {
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class);
@@ -370,7 +372,7 @@ class LastPlayerCloseGameCest
         $I->dontSeeInRepository(GameEquipment::class);
     }
 
-    public function testLastPlayerCloseGameCheckEquipmentRemoval(FunctionalTester $I)
+    public function testLastPlayerCloseGameCheckEquipmentRemoval(FunctionalTester $I): void
     {
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class);
@@ -467,7 +469,7 @@ class LastPlayerCloseGameCest
         $I->dontSeeInRepository(GameEquipment::class);
     }
 
-    public function testLastPlayerCloseGameCheckEquipmentRemovalWithOwner(FunctionalTester $I)
+    public function testLastPlayerCloseGameCheckEquipmentRemovalWithOwner(FunctionalTester $I): void
     {
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class);
@@ -571,7 +573,7 @@ class LastPlayerCloseGameCest
         $I->dontSeeInRepository(GameEquipment::class);
     }
 
-    public function testLastPlayerCloseGameCheckAlertRemoval(FunctionalTester $I)
+    public function testLastPlayerCloseGameCheckAlertRemoval(FunctionalTester $I): void
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
@@ -672,7 +674,7 @@ class LastPlayerCloseGameCest
         $I->dontSeeInRepository(AlertElement::class);
     }
 
-    public function testLastPlayerCloseGameCheckConsumableEffect(FunctionalTester $I)
+    public function testLastPlayerCloseGameCheckConsumableEffect(FunctionalTester $I): void
     {
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
@@ -782,7 +784,7 @@ class LastPlayerCloseGameCest
         $I->dontSeeInRepository(ConsumableDisease::class);
     }
 
-    public function testLastPlayerCloseGameCheckModifierRemoval(FunctionalTester $I)
+    public function testLastPlayerCloseGameCheckModifierRemoval(FunctionalTester $I): void
     {
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class);

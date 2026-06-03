@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
@@ -28,7 +30,7 @@ final class BoringSpeechActionCest extends AbstractFunctionalTest
     private PlayerServiceInterface $playerService;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -41,7 +43,7 @@ final class BoringSpeechActionCest extends AbstractFunctionalTest
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
     }
 
-    public function testBoringSpeech(FunctionalTester $I)
+    public function testBoringSpeech(FunctionalTester $I): void
     {
         $this->givenChunIsMotivator($I);
 

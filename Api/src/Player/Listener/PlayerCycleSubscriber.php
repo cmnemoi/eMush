@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Player\Listener;
 
 use Mush\Game\Enum\EventEnum;

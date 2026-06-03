@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Validator;
 
 final class Shredable extends ClassConstraint

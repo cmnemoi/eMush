@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\TryKube;
@@ -23,7 +25,7 @@ final class MovementPointConversionCest extends AbstractFunctionalTest
 
     private GameEquipment $kube;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -35,7 +37,7 @@ final class MovementPointConversionCest extends AbstractFunctionalTest
         $this->kube = $this->givenMadKubeInTheRoom();
     }
 
-    public function testBasicConversion(FunctionalTester $I)
+    public function testBasicConversion(FunctionalTester $I): void
     {
         $this->givenChunHasAP(1);
 
@@ -50,7 +52,7 @@ final class MovementPointConversionCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveMP(2, $I);
     }
 
-    public function testConversionWithIncreasedMovementCost(FunctionalTester $I)
+    public function testConversionWithIncreasedMovementCost(FunctionalTester $I): void
     {
         $this->givenChunHasAP(1);
 
@@ -65,7 +67,7 @@ final class MovementPointConversionCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveMP(1, $I);
     }
 
-    public function testSeveralConversionRequired(FunctionalTester $I)
+    public function testSeveralConversionRequired(FunctionalTester $I): void
     {
         $this->givenChunHasAP(2);
 
@@ -80,7 +82,7 @@ final class MovementPointConversionCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveMP(1, $I);
     }
 
-    public function testConversionImpossible(FunctionalTester $I)
+    public function testConversionImpossible(FunctionalTester $I): void
     {
         $this->givenChunHasAP(0);
 

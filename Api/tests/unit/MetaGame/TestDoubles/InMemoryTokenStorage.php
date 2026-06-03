@@ -17,7 +17,7 @@ final class InMemoryTokenStorage implements TokenStorageInterface
         return $this->token;
     }
 
-    public function setToken($token)
+    public function setToken($token): void
     {
         $this->token = $token;
     }

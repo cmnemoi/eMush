@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Disease\Entity\Collection;
 
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
@@ -14,7 +16,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class PlayerDiseaseCollectTest extends TestCase
 {
-    public function testGetActiveDisease()
+    public function testGetActiveDisease(): void
     {
         $activePlayerDisease = new PlayerDisease();
         $activePlayerDisease->setStatus(DiseaseStatusEnum::ACTIVE);
@@ -37,7 +39,7 @@ final class PlayerDiseaseCollectTest extends TestCase
         self::assertCount(1, $diseaseCollection->getActiveDiseases());
     }
 
-    public function testByDiseaseType()
+    public function testByDiseaseType(): void
     {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setType(MedicalConditionTypeEnum::DISEASE);

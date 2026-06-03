@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\RoomLog\Service;
 
 use Mush\Action\Event\ActionEvent;

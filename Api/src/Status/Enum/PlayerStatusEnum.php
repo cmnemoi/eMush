@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Status\Enum;
 
 use Mush\Game\Enum\TitleEnum;

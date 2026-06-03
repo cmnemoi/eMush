@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Modifier\Service;
 
 use Mockery;
@@ -52,7 +54,7 @@ final class ModifierRequirementServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testCheckRequirementsNotMet()
+    public function testCheckRequirementsNotMet(): void
     {
         // Given a player in a daedalus
         $daedalus = new Daedalus();
@@ -89,7 +91,7 @@ final class ModifierRequirementServiceTest extends TestCase
         self::assertEmpty($result);
     }
 
-    public function testCheckRequirementsMet()
+    public function testCheckRequirementsMet(): void
     {
         // Given a player in a daedalus
         $daedalus = new Daedalus();

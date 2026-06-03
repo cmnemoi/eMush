@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\ExpressCook;
@@ -26,7 +28,7 @@ final class ConsumeChargeOnActionCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -38,7 +40,7 @@ final class ConsumeChargeOnActionCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
-    public function testConsumeActionProviderCharge(FunctionalTester $I)
+    public function testConsumeActionProviderCharge(FunctionalTester $I): void
     {   // given chun have a microwave
         $microwave = $this->gameEquipmentService->createGameEquipmentFromName(
             ToolItemEnum::MICROWAVE,
@@ -72,7 +74,7 @@ final class ConsumeChargeOnActionCest extends AbstractFunctionalTest
         $I->assertEquals(3, $chargeStatus->getCharge());
     }
 
-    public function testConsumeChargeThroughModifier(FunctionalTester $I)
+    public function testConsumeChargeThroughModifier(FunctionalTester $I): void
     {   // given a microwave is in the room
         $microwave = $this->gameEquipmentService->createGameEquipmentFromName(
             ToolItemEnum::MICROWAVE,

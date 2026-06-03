@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Chat\Voter;
 
 use Mush\Chat\Entity\Channel;

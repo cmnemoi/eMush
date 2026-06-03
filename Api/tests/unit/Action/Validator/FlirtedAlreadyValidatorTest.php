@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -35,7 +37,7 @@ final class FlirtedAlreadyValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $player = new Player();
 
@@ -52,7 +54,7 @@ final class FlirtedAlreadyValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testTargetInitiatorValid()
+    public function testTargetInitiatorValid(): void
     {
         // Target player is expected to have flirted with player
         // This case is needed to be able to do the thing with target
@@ -76,7 +78,7 @@ final class FlirtedAlreadyValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $player = new Player();
 

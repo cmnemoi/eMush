@@ -30,7 +30,7 @@ final class DamageEquipmentService implements DamageEquipmentServiceInterface
         };
     }
 
-    private function break(GameEquipment $gameEquipment, string $visibility, array $tags, \DateTime $time)
+    private function break(GameEquipment $gameEquipment, string $visibility, array $tags, \DateTime $time): void
     {
         $this->statusService->createStatusFromName(
             statusName: EquipmentStatusEnum::BROKEN,
@@ -41,7 +41,7 @@ final class DamageEquipmentService implements DamageEquipmentServiceInterface
         );
     }
 
-    private function destroy(GameEquipment $gameEquipment, string $visibility, array $tags, \DateTime $time)
+    private function destroy(GameEquipment $gameEquipment, string $visibility, array $tags, \DateTime $time): void
     {
         $this->deleteEquipment->execute(
             gameEquipment: $gameEquipment,

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Disease\Listener;
 
 use Mush\Action\Event\ApplyEffectEvent;

@@ -41,7 +41,7 @@ final class GraftCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

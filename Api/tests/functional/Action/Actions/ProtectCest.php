@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Hit;
@@ -30,7 +32,7 @@ final class ProtectCest extends AbstractFunctionalTest
     private AddSkillToPlayerService $addSkillToPlayer;
     private PlayerServiceInterface $playerService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -44,7 +46,7 @@ final class ProtectCest extends AbstractFunctionalTest
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
     }
 
-    public function shouldGiveStatusAndRemoveOldOnes(FunctionalTester $I)
+    public function shouldGiveStatusAndRemoveOldOnes(FunctionalTester $I): void
     {
         $derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
         $this->givenChunHasBodyguardSkill();
@@ -62,7 +64,7 @@ final class ProtectCest extends AbstractFunctionalTest
         $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::BODYGUARD_VIP));
     }
 
-    public function shouldRemoveStatusIfUserDie(FunctionalTester $I)
+    public function shouldRemoveStatusIfUserDie(FunctionalTester $I): void
     {
         $this->givenChunHasBodyguardSkill();
 
@@ -72,7 +74,7 @@ final class ProtectCest extends AbstractFunctionalTest
         $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::BODYGUARD_VIP));
     }
 
-    public function shouldRemoveStatusIfVIPDie(FunctionalTester $I)
+    public function shouldRemoveStatusIfVIPDie(FunctionalTester $I): void
     {
         $this->givenChunHasBodyguardSkill();
 
@@ -82,7 +84,7 @@ final class ProtectCest extends AbstractFunctionalTest
         $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::BODYGUARD_USER));
     }
 
-    public function shouldIncreaseAPCostIfBodyguardInRoom(FunctionalTester $I)
+    public function shouldIncreaseAPCostIfBodyguardInRoom(FunctionalTester $I): void
     {
         $derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
 
@@ -97,7 +99,7 @@ final class ProtectCest extends AbstractFunctionalTest
         $I->assertEquals(5, $this->kuanTi->getActionPoint());
     }
 
-    public function shouldNotIncreaseAPCostIfBodyguardNotInRoom(FunctionalTester $I)
+    public function shouldNotIncreaseAPCostIfBodyguardNotInRoom(FunctionalTester $I): void
     {
         $derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
         $nexus = $this->createExtraPlace(RoomEnum::NEXUS, $I, $this->daedalus);

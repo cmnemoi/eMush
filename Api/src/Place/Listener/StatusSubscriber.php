@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Place\Listener;
 
 use Mush\Place\Entity\Place;
@@ -34,7 +36,7 @@ class StatusSubscriber implements EventSubscriberInterface
         };
     }
 
-    private function createFireAndMakeItDestroy(StatusEvent $event)
+    private function createFireAndMakeItDestroy(StatusEvent $event): void
     {
         $place = $event->getStatusHolder();
 

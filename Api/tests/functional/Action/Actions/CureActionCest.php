@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Cure;
@@ -27,7 +29,7 @@ final class CureActionCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RoomLogService $roomLogService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->cureConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CURE]);
@@ -106,7 +108,7 @@ final class CureActionCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveTriumph(0, $this->kuanTi, $I);
     }
 
-    private function givenChunHasSerumInInventory()
+    private function givenChunHasSerumInInventory(): void
     {
         $this->gameEquipmentService->createGameEquipmentFromName(
             ToolItemEnum::RETRO_FUNGAL_SERUM,
@@ -116,7 +118,7 @@ final class CureActionCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenKuanTiIsMush(FunctionalTester $I)
+    private function givenKuanTiIsMush(FunctionalTester $I): void
     {
         $this->convertPlayerToMush($I, $this->kuanTi);
     }
@@ -126,7 +128,7 @@ final class CureActionCest extends AbstractFunctionalTest
         $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CM_MUSH_VACCINATED)->setQuantity($quantity);
     }
 
-    private function whenIInoculateKuanTi()
+    private function whenIInoculateKuanTi(): void
     {
         $serum = $this->chun->getEquipmentByNameOrThrow(ToolItemEnum::RETRO_FUNGAL_SERUM);
         $this->cureAction->loadParameters(
@@ -138,34 +140,34 @@ final class CureActionCest extends AbstractFunctionalTest
         $this->cureAction->execute();
     }
 
-    private function kuanTiShouldNotBeMush(FunctionalTester $I)
+    private function kuanTiShouldNotBeMush(FunctionalTester $I): void
     {
         $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::MUSH));
     }
 
-    private function chunShouldNotHaveSerumInInventory(FunctionalTester $I)
+    private function chunShouldNotHaveSerumInInventory(FunctionalTester $I): void
     {
         $I->assertFalse(
             $this->chun->hasEquipmentByName(ToolItemEnum::RETRO_FUNGAL_SERUM)
         );
     }
 
-    private function givenKuanTiHasHumanSkills($I)
+    private function givenKuanTiHasHumanSkills($I): void
     {
         $this->addSkillToPlayer(SkillEnum::POLITICIAN, $I, $this->kuanTi);
     }
 
-    private function kuanTiShouldNotHaveAnySkills(FunctionalTester $I)
+    private function kuanTiShouldNotHaveAnySkills(FunctionalTester $I): void
     {
         $I->assertEmpty($this->kuanTi->getSkills()->toArray());
     }
 
-    private function kuanTiShouldHaveSkills(FunctionalTester $I)
+    private function kuanTiShouldHaveSkills(FunctionalTester $I): void
     {
         $I->assertNotEmpty($this->kuanTi->getSkills()->toArray());
     }
 
-    private function kuanTiShouldSeeTheLog(FunctionalTester $I)
+    private function kuanTiShouldSeeTheLog(FunctionalTester $I): void
     {
         $I->assertNotEmpty(
             $this->roomLogService->getRoomLog($this->kuanTi)->filter(

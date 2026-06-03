@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Player\ParamConverter;
 
 use Mush\Player\Entity\Dto\UpdatePersonalNotesTabsRequest;

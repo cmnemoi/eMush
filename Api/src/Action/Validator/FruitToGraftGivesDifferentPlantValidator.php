@@ -12,7 +12,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class FruitToGraftGivesDifferentPlantValidator extends ConstraintValidator
 {
-    public function validate(mixed $value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$value instanceof AbstractAction) {
             throw new UnexpectedTypeException($value, AbstractAction::class);

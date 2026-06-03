@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\BecomeAnonymous;
@@ -33,7 +35,7 @@ final class BecomeAnonymousCest extends AbstractFunctionalTest
 
     private GameItem $kubinus;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

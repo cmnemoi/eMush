@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Chat\Listener;
 
 use Mush\Action\Enum\ActionEnum;

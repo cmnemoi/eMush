@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Status\Listener;
 
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -25,14 +27,14 @@ final class ChangeHolderEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testDroppingOtherEquipmentWithBurdenedStatus(FunctionalTester $I)
+    public function testDroppingOtherEquipmentWithBurdenedStatus(FunctionalTester $I): void
     {
         $player = $this->player2;
 

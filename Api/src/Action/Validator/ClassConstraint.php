@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Validator;
 
 use Symfony\Component\Validator\Constraint;

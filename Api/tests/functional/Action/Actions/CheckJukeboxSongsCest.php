@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\CheckJukeboxSongs;
@@ -16,7 +18,7 @@ use Mush\Tests\FunctionalTester;
 /**
  * @internal
  */
-final class CheckjukeboxSongsCest extends AbstractFunctionalTest
+final class CheckJukeboxSongsCest extends AbstractFunctionalTest
 {
     private ActionConfig $checkJukeboxSongsActionConfig;
     private CheckJukeboxSongs $checkJukeboxSongs;
@@ -67,7 +69,7 @@ final class CheckjukeboxSongsCest extends AbstractFunctionalTest
         ]);
 
         // first two lists of song should be identical, last one should be different.
-        $I->assertEquals($list1->getParameters(), $list2->getParameters());
+        $I->assertEqualsCanonicalizing($list1->getParameters(), $list2->getParameters());
         $I->assertNotEquals($list1->getParameters(), $list3->getParameters());
     }
 

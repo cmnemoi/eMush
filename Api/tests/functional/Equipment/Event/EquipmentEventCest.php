@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Equipment\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -29,12 +31,12 @@ class EquipmentEventCest
 {
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testHeavyStatusOverflowingInventory(FunctionalTester $I)
+    public function testHeavyStatusOverflowingInventory(FunctionalTester $I): void
     {
         $heavyStatusConfig = new StatusConfig();
         $heavyStatusConfig

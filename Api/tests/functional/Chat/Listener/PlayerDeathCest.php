@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Chat\Listener;
 
 use Mush\Chat\Entity\Channel;
@@ -29,7 +31,7 @@ final class PlayerDeathCest extends AbstractFunctionalTest
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
     }
 
-    public function testDispatchPlayerDeath(FunctionalTester $I)
+    public function testDispatchPlayerDeath(FunctionalTester $I): void
     {
         $neron = $this->daedalus->getNeron();
         // given a private channel is created
@@ -61,7 +63,7 @@ final class PlayerDeathCest extends AbstractFunctionalTest
         $I->assertCount(0, $privateChannel->getParticipants());
     }
 
-    public function testNeronShouldNotAnnounceDeathIfBIOSOptionIsOff(FunctionalTester $I)
+    public function testNeronShouldNotAnnounceDeathIfBIOSOptionIsOff(FunctionalTester $I): void
     {
         $neron = $this->daedalus->getNeron();
 

@@ -34,7 +34,7 @@ final class InsertFuelChamberCest extends AbstractFunctionalTest
     private ActionConfig $insertFuelChamberActionConfig;
     private InsertFuelChamber $insertFuelChamberAction;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);

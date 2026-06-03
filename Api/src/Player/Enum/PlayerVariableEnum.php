@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Player\Enum;
 
 abstract class PlayerVariableEnum

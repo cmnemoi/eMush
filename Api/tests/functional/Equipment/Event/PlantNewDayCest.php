@@ -27,7 +27,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
@@ -40,7 +40,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
 
     // produce oxygen, fruit, log
 
-    public function healthyPlantShouldProduceOxygen(FunctionalTester $I)
+    public function healthyPlantShouldProduceOxygen(FunctionalTester $I): void
     {
         // given a banana tree
         $bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -73,7 +73,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $I->assertEquals(8, $this->daedalus->getOxygen());
     }
 
-    public function healthyPlantShouldProduceFruit(FunctionalTester $I)
+    public function healthyPlantShouldProduceFruit(FunctionalTester $I): void
     {
         // given a banana tree
         $bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -106,7 +106,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $I->assertTrue($this->chun->getPlace()->hasEquipmentByName(GameFruitEnum::BANANA), 'Plant should have produced a fruit');
     }
 
-    public function healthyPlantShouldProduceLog(FunctionalTester $I)
+    public function healthyPlantShouldProduceLog(FunctionalTester $I): void
     {
         // given a banana tree
         $bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -141,7 +141,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function thirstyPlantShouldProduceOxygen(FunctionalTester $I)
+    public function thirstyPlantShouldProduceOxygen(FunctionalTester $I): void
     {
         // given a banana tree
         $bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -182,7 +182,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $I->assertEquals(8, $this->daedalus->getOxygen());
     }
 
-    public function thirstyPlantShouldNotProduceFruit(FunctionalTester $I)
+    public function thirstyPlantShouldNotProduceFruit(FunctionalTester $I): void
     {
         // given a banana tree
         $bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -220,7 +220,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $I->assertFalse($this->chun->getPlace()->hasEquipmentByName(GameFruitEnum::BANANA));
     }
 
-    public function thirstyPlantShouldProduceNotLog(FunctionalTester $I)
+    public function thirstyPlantShouldProduceNotLog(FunctionalTester $I): void
     {
         // given a banana tree
         $bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -304,7 +304,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $I->assertEquals(7, $this->daedalus->getOxygen());
     }
 
-    public function dryPlantShouldNotProduceFruit(FunctionalTester $I)
+    public function dryPlantShouldNotProduceFruit(FunctionalTester $I): void
     {
         // given a banana tree
         $bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -342,7 +342,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $I->assertFalse($this->chun->getPlace()->hasEquipmentByName(GameFruitEnum::BANANA));
     }
 
-    public function dryPlantShouldNotProduceLog(FunctionalTester $I)
+    public function dryPlantShouldNotProduceLog(FunctionalTester $I): void
     {
         // given a banana tree
         $bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -410,7 +410,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $I->assertEquals(7, $this->daedalus->getOxygen());
     }
 
-    public function youngPlantShouldNotProduceFruit(FunctionalTester $I)
+    public function youngPlantShouldNotProduceFruit(FunctionalTester $I): void
     {
         // given a banana tree
         $bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -432,7 +432,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $I->assertFalse($this->chun->getPlace()->hasEquipmentByName(GameFruitEnum::BANANA));
     }
 
-    public function youngPlantShouldNotProduceLog(FunctionalTester $I)
+    public function youngPlantShouldNotProduceLog(FunctionalTester $I): void
     {
         // given a banana tree
         $bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -459,7 +459,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function youngPlantShouldGetMatureAtMaturationCycle(FunctionalTester $I)
+    public function youngPlantShouldGetMatureAtMaturationCycle(FunctionalTester $I): void
     {
         // given a banana tree
         $bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -512,7 +512,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $I->assertEquals(8, $this->daedalus->getOxygen(), 'Daedalus should have 8 oxygen (-3 base + 1 per healthy plant)');
     }
 
-    public function youngPlantShouldProduceFruitAtMaturationCycle(FunctionalTester $I)
+    public function youngPlantShouldProduceFruitAtMaturationCycle(FunctionalTester $I): void
     {
         // given a banana tree
         $bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -537,7 +537,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $I->assertTrue($this->chun->getPlace()->hasEquipmentByName(GameFruitEnum::BANANA), 'Plant should have produced a banana fruit');
     }
 
-    public function youngPlantShouldProduceLogAtMaturationCycle(FunctionalTester $I)
+    public function youngPlantShouldProduceLogAtMaturationCycle(FunctionalTester $I): void
     {
         // given a banana tree
         $bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(

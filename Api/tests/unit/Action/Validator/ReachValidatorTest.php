@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -47,7 +49,7 @@ final class ReachValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValidForPlayer()
+    public function testValidForPlayer(): void
     {
         $this->constraint->reach = ReachEnum::ROOM;
         $this->initValidator();
@@ -80,7 +82,7 @@ final class ReachValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testValidForEquipment()
+    public function testValidForEquipment(): void
     {
         $this->constraint->reach = ReachEnum::ROOM;
         $this->initValidator();
@@ -110,7 +112,7 @@ final class ReachValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValidForPlayer()
+    public function testNotValidForPlayer(): void
     {
         $this->constraint->reach = ReachEnum::ROOM;
         $this->initValidator($this->constraint->message);
@@ -140,7 +142,7 @@ final class ReachValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValidForEquipment()
+    public function testNotValidForEquipment(): void
     {
         $this->constraint->reach = ReachEnum::ROOM;
 
@@ -171,7 +173,7 @@ final class ReachValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testValidForInventory()
+    public function testValidForInventory(): void
     {
         $this->constraint->reach = ReachEnum::INVENTORY;
 
@@ -193,7 +195,7 @@ final class ReachValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValidForInventory()
+    public function testNotValidForInventory(): void
     {
         $this->constraint->reach = ReachEnum::INVENTORY;
 
@@ -214,7 +216,7 @@ final class ReachValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testValidForShelve()
+    public function testValidForShelve(): void
     {
         $this->constraint->reach = ReachEnum::SHELVE;
 
@@ -238,7 +240,7 @@ final class ReachValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValidForShelve()
+    public function testNotValidForShelve(): void
     {
         $this->constraint->reach = ReachEnum::SHELVE;
 

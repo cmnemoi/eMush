@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Status\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -483,7 +485,7 @@ class StatusService implements StatusServiceInterface
         return $attempt;
     }
 
-    private function throwIfWrongBreakableType(StatusConfig $statusConfig, StatusHolderInterface $holder)
+    private function throwIfWrongBreakableType(StatusConfig $statusConfig, StatusHolderInterface $holder): void
     {
         if ($statusConfig->getStatusName() !== EquipmentStatusEnum::BROKEN) {
             return;

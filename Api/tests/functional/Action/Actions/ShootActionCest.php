@@ -39,7 +39,7 @@ final class ShootActionCest extends AbstractFunctionalTest
     private GameItem $lizaroJungle;
     private GameItem $rocketLauncher;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -620,7 +620,7 @@ final class ShootActionCest extends AbstractFunctionalTest
         }
     }
 
-    private function givenKuanTiIsMush(FunctionalTester $I)
+    private function givenKuanTiIsMush(FunctionalTester $I): void
     {
         $this->convertPlayerToMush($I, $this->kuanTi);
     }

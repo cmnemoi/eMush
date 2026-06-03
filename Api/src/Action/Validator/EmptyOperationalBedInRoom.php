@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Validator;
 
 class EmptyOperationalBedInRoom extends ClassConstraint

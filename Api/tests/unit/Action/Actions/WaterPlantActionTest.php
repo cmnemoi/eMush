@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -50,7 +52,7 @@ final class WaterPlantActionTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecuteThirsty()
+    public function testExecuteThirsty(): void
     {
         $room = new Place();
 
@@ -83,7 +85,7 @@ final class WaterPlantActionTest extends AbstractActionTest
         self::assertCount(1, $room->getEquipments());
     }
 
-    public function testExecuteDried()
+    public function testExecuteDried(): void
     {
         $room = new Place();
 

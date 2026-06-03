@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Disease\Event;
 
 use Mush\Action\Enum\ActionTypeEnum;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\MetaGame\Service;
 
 use Mush\MetaGame\Repository\ModerationSanctionRepository;

@@ -31,7 +31,7 @@ final class MixRationSporeCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private GameItem $ration;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

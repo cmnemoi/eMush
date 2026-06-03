@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\Entity\Config\WeaponEffect;
 
 use Doctrine\ORM\Mapping as ORM;

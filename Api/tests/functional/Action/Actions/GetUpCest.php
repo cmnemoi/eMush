@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\GetUp;
@@ -20,7 +22,7 @@ final class GetUpCest extends AbstractFunctionalTest
     private GetUp $getUpAction;
     private ActionConfig $getUpActionConfig;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -28,7 +30,7 @@ final class GetUpCest extends AbstractFunctionalTest
         $this->getUpActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::GET_UP]);
     }
 
-    public function testCanGetUpWhenLyingDown(FunctionalTester $I)
+    public function testCanGetUpWhenLyingDown(FunctionalTester $I): void
     {
         $this->createStatusOn(PlayerStatusEnum::LYING_DOWN, $this->player);
 
@@ -37,7 +39,7 @@ final class GetUpCest extends AbstractFunctionalTest
         $I->assertTrue($this->player->doesNotHaveStatus(PlayerStatusEnum::LYING_DOWN));
     }
 
-    public function testGetUpPrintsAPublicLog(FunctionalTester $I)
+    public function testGetUpPrintsAPublicLog(FunctionalTester $I): void
     {
         $this->createStatusOn(PlayerStatusEnum::LYING_DOWN, $this->player);
 
@@ -52,7 +54,7 @@ final class GetUpCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testGetUpLogIsPrivateWhenNinja(FunctionalTester $I)
+    public function testGetUpLogIsPrivateWhenNinja(FunctionalTester $I): void
     {
         $this->createStatusOn(PlayerStatusEnum::LYING_DOWN, $this->player);
         $this->createStatusOn(PlayerStatusEnum::IS_ANONYMOUS, $this->player);

@@ -62,7 +62,7 @@ final class PavlovCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldCreateLogsWhenMoving(FunctionalTester $I)
+    public function shouldCreateLogsWhenMoving(FunctionalTester $I): void
     {
         $this->givenFrontCorridorExists($I);
 
@@ -71,7 +71,7 @@ final class PavlovCest extends AbstractFunctionalTest
         $this->thenISeeEnteredAndLeftRoomLogsInRepositories($I);
     }
 
-    public function shouldAnnoyCat(FunctionalTester $I)
+    public function shouldAnnoyCat(FunctionalTester $I): void
     {
         $this->annoyCat->setAnnoyCatChance(100);
 
@@ -82,7 +82,7 @@ final class PavlovCest extends AbstractFunctionalTest
         $this->thenISeeAnnoyedCatLogInRepository($I);
     }
 
-    public function shouldWalkOutOnAnnoyFailure(FunctionalTester $I)
+    public function shouldWalkOutOnAnnoyFailure(FunctionalTester $I): void
     {
         $this->annoyCat->setAnnoyCatChance(0);
         $this->givenFrontCorridorExists($I);
@@ -94,7 +94,7 @@ final class PavlovCest extends AbstractFunctionalTest
         $this->thenISeeEnteredAndLeftRoomLogsInRepositories($I);
     }
 
-    public function shouldPreferIcarusBayIfInOrbit(FunctionalTester $I)
+    public function shouldPreferIcarusBayIfInOrbit(FunctionalTester $I): void
     {
         // given Pavlov is in rear corridor
         $this->gameEquipmentService->moveEquipmentTo(
@@ -118,18 +118,18 @@ final class PavlovCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenFrontCorridorExists(FunctionalTester $I)
+    private function givenFrontCorridorExists(FunctionalTester $I): void
     {
         $frontCorridor = $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
         Door::createFromRooms($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY), $frontCorridor);
     }
 
-    private function whenPavlovActs()
+    private function whenPavlovActs(): void
     {
         $this->dogTasksHandler->execute($this->pavlov, new \DateTime());
     }
 
-    private function thenISeeEnteredAndLeftRoomLogsInRepositories(FunctionalTester $I)
+    private function thenISeeEnteredAndLeftRoomLogsInRepositories(FunctionalTester $I): void
     {
         $I->seeInRepository(
             entity: RoomLog::class,
@@ -150,7 +150,7 @@ final class PavlovCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenISeeAnnoyedCatLogInRepository(FunctionalTester $I)
+    private function thenISeeAnnoyedCatLogInRepository(FunctionalTester $I): void
     {
         $I->seeInRepository(
             entity: RoomLog::class,

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\ConfigData;
 
 use Mush\Equipment\Entity\Config\NpcConfig;
@@ -36,7 +38,7 @@ class NpcDataLoader extends EquipmentConfigDataLoader
         $this->entityManager->flush();
     }
 
-    protected function setNPCConfigAttributes(NpcConfig $equipmentConfig, array $equipmentConfigData)
+    protected function setNPCConfigAttributes(NpcConfig $equipmentConfig, array $equipmentConfigData): void
     {
         $equipmentConfig->setAiHandler($equipmentConfigData['AIHandler']);
     }

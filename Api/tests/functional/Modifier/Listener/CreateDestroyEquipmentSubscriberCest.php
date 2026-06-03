@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Modifier\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -171,7 +173,7 @@ class CreateDestroyEquipmentSubscriberCest
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
 
-    public function testCreateGearPlaceReach(FunctionalTester $I)
+    public function testCreateGearPlaceReach(FunctionalTester $I): void
     {
         $modifierConfig = new VariableEventModifierConfig('modifierShowerActionTest');
         $modifierConfig

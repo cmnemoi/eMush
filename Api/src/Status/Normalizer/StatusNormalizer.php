@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Status\Normalizer;
 
 use Mush\Game\Enum\VisibilityEnum;

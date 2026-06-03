@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Modifier\DependencyInjection;
 
 use Mush\Modifier\Service\ModifierRequirementHandlerService;

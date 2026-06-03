@@ -98,7 +98,7 @@ final class DiseaseCauseServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testSpoiledFoodHazardous()
+    public function testSpoiledFoodHazardous(): void
     {
         // setup
         $diseaseConfig = new DiseaseConfig();
@@ -136,7 +136,7 @@ final class DiseaseCauseServiceTest extends TestCase
         self::assertNotNull($player->getMedicalConditionByName(DiseaseEnum::FOOD_POISONING->toString())?->getId());
     }
 
-    public function testConsumableWithDiseases()
+    public function testConsumableWithDiseases(): void
     {
         $modifierConfig1 = DirectModifierConfig::fromDto(ModifierConfigData::getByName('direct_modifier_player_-1_max_healthPoint'));
         $modifierConfig2 = EventModifierConfig::fromDto(ModifierConfigData::getByName('vomiting_consume'));
@@ -178,7 +178,7 @@ final class DiseaseCauseServiceTest extends TestCase
         self::assertNotNull($player->getMedicalConditionByName(DiseaseEnum::FOOD_POISONING->toString())?->getId());
     }
 
-    public function testConsumableWithCures()
+    public function testConsumableWithCures(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
 
@@ -220,7 +220,7 @@ final class DiseaseCauseServiceTest extends TestCase
         self::assertNull($player->getMedicalConditionByName($diseaseName)?->getId(), 'Player should not have the disease');
     }
 
-    public function testHandleDiseaseForCause()
+    public function testHandleDiseaseForCause(): void
     {
         // given food poisoning disease cause
         $diseaseConfig = new DiseaseConfig();

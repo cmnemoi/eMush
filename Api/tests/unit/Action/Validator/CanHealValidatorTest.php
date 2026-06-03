@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -45,7 +47,7 @@ final class CanHealValidatorTest extends TestCase
     }
 
     // should be valid
-    public function testInMedlabPlayerLowHealth()
+    public function testInMedlabPlayerLowHealth(): void
     {
         $medlab = new Place();
         $medlab->setName(RoomEnum::MEDLAB);
@@ -75,7 +77,7 @@ final class CanHealValidatorTest extends TestCase
     }
 
     // should be valid
-    public function testInMedlabPlayerWithDisease()
+    public function testInMedlabPlayerWithDisease(): void
     {
         $medlab = new Place();
         $medlab->setName(RoomEnum::MEDLAB);
@@ -117,7 +119,7 @@ final class CanHealValidatorTest extends TestCase
     }
 
     // should be not valid
-    public function testInMedlabHealthyPlayer()
+    public function testInMedlabHealthyPlayer(): void
     {
         $medlab = new Place();
         $medlab->setName(RoomEnum::MEDLAB);
@@ -147,7 +149,7 @@ final class CanHealValidatorTest extends TestCase
     }
 
     // valid
-    public function testMedikitPlayerLowHealth()
+    public function testMedikitPlayerLowHealth(): void
     {
         $room = new Place();
         $room->setName(RoomEnum::BRAVO_BAY);
@@ -180,7 +182,7 @@ final class CanHealValidatorTest extends TestCase
     }
 
     // should be not valid
-    public function testMedikitSelfHeal()
+    public function testMedikitSelfHeal(): void
     {
         $constraint = new CanHeal();
         $constraint->target = CanHeal::PLAYER;
@@ -217,7 +219,7 @@ final class CanHealValidatorTest extends TestCase
     }
 
     // not valid
-    public function testMedikitPlayerWithDisease()
+    public function testMedikitPlayerWithDisease(): void
     {
         $room = new Place();
         $room->setName(RoomEnum::BRAVO_BAY);
@@ -262,7 +264,7 @@ final class CanHealValidatorTest extends TestCase
     }
 
     // not valid
-    public function testMedikitHealthyTarget()
+    public function testMedikitHealthyTarget(): void
     {
         $room = new Place();
         $room->setName(RoomEnum::BRAVO_BAY);
@@ -294,7 +296,7 @@ final class CanHealValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testNotValidLackMedicalSupplies()
+    public function testNotValidLackMedicalSupplies(): void
     {
         $medlab = new Place();
         $medlab->setName(RoomEnum::MEDLAB);

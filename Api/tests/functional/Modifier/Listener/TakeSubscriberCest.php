@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Modifier\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -34,12 +36,12 @@ class TakeSubscriberCest
 {
     private Take $takeAction;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->takeAction = $I->grabService(Take::class);
     }
 
-    public function testTakeGearWithPlayerReach(FunctionalTester $I)
+    public function testTakeGearWithPlayerReach(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -112,7 +114,7 @@ class TakeSubscriberCest
         $I->assertEquals($player->getModifiers()->first()->getModifierConfig(), $modifierConfig);
     }
 
-    public function testTakeGearCharged(FunctionalTester $I)
+    public function testTakeGearCharged(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -198,7 +200,7 @@ class TakeSubscriberCest
         $I->assertEquals($player->getModifiers()->first()->getUsedCharge(), $status);
     }
 
-    public function testTakeGearIrrelevantCharged(FunctionalTester $I)
+    public function testTakeGearIrrelevantCharged(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -282,7 +284,7 @@ class TakeSubscriberCest
         $I->assertEquals($player->getModifiers()->first()->getUsedCharge(), null);
     }
 
-    public function testTakeGearDaedalusReach(FunctionalTester $I)
+    public function testTakeGearDaedalusReach(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);

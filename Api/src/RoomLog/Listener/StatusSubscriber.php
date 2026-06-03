@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\RoomLog\Listener;
 
 use Mush\Action\Enum\ActionEnum;
@@ -188,14 +190,14 @@ class StatusSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function handleMushStatusRemoved(StatusEvent $event)
+    private function handleMushStatusRemoved(StatusEvent $event): void
     {
         if ($event->hasTag(ActionEnum::CURE->value)) {
             $this->handlePlayerVaccinated($event);
         }
     }
 
-    private function handlePlayerVaccinated(StatusEvent $event)
+    private function handlePlayerVaccinated(StatusEvent $event): void
     {
         $player = $event->getPlayerStatusHolder();
         $this->roomLogService->createLog(
@@ -209,7 +211,7 @@ class StatusSubscriber implements EventSubscriberInterface
         );
     }
 
-    private function handleLyingDownStatusRemoved(StatusEvent $event)
+    private function handleLyingDownStatusRemoved(StatusEvent $event): void
     {
         if ($event->hasTag(StatusEventLogEnum::GET_UP_BED_BROKEN)) {
             $player = $event->getPlayerStatusHolder();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Chat\Validator;
 
 use Mush\Chat\Entity\Dto\CreateMessage;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Alert\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -40,13 +42,13 @@ class StatusSubscriberCest
     private StatusSubscriber $statusSubscriber;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->statusSubscriber = $I->grabService(StatusSubscriber::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function testBreakGravitySimulator(FunctionalTester $I)
+    public function testBreakGravitySimulator(FunctionalTester $I): void
     {
         $statusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
         $noGravityConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => DaedalusStatusEnum::NO_GRAVITY]);
@@ -112,7 +114,7 @@ class StatusSubscriberCest
         $I->assertTrue($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY));
     }
 
-    public function testFixGravitySimulator(FunctionalTester $I)
+    public function testFixGravitySimulator(FunctionalTester $I): void
     {
         $statusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
         $noGravityConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => DaedalusStatusEnum::NO_GRAVITY]);
@@ -206,7 +208,7 @@ class StatusSubscriberCest
         $I->assertFalse($daedalus->hasStatus(DaedalusStatusEnum::NO_GRAVITY));
     }
 
-    public function testBreakEquipment(FunctionalTester $I)
+    public function testBreakEquipment(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -268,7 +270,7 @@ class StatusSubscriberCest
         $I->seeInRepository(AlertElement::class, ['equipment' => $gameEquipment]);
     }
 
-    public function testBreakDoor(FunctionalTester $I)
+    public function testBreakDoor(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -327,7 +329,7 @@ class StatusSubscriberCest
         $I->seeInRepository(AlertElement::class, ['equipment' => $gameEquipment]);
     }
 
-    public function testFixEquipment(FunctionalTester $I)
+    public function testFixEquipment(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -395,7 +397,7 @@ class StatusSubscriberCest
         $I->dontSeeInRepository(Alert::class, ['daedalus' => $daedalus, 'name' => AlertEnum::NO_GRAVITY]);
     }
 
-    public function testBreakItem(FunctionalTester $I)
+    public function testBreakItem(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);

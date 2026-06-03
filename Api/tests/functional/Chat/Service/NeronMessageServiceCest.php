@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Chat\Service;
 
 use Mush\Chat\Entity\Message;
@@ -15,13 +17,13 @@ final class NeronMessageServiceCest extends AbstractFunctionalTest
 {
     private NeronMessageService $neronMessageService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->neronMessageService = $I->grabService(NeronMessageService::class);
     }
 
-    public function testCreateNewFireMessage(FunctionalTester $I)
+    public function testCreateNewFireMessage(FunctionalTester $I): void
     {
         $neron = $this->daedalus->getNeron();
 

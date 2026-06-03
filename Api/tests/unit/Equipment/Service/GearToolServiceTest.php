@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Equipment\Service;
 
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -37,7 +39,7 @@ final class GearToolServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testGetEquipmentOnReach()
+    public function testGetEquipmentOnReach(): void
     {
         $room = new Place();
         $player = new Player();
@@ -69,7 +71,7 @@ final class GearToolServiceTest extends TestCase
         self::assertSame($gameItem2, $items->first());
     }
 
-    public function testGetEquipmentsOnReachByName()
+    public function testGetEquipmentsOnReachByName(): void
     {
         $item = new ItemConfig();
         $item->setEquipmentName(ItemEnum::METAL_SCRAPS);

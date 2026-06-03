@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Alert\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;

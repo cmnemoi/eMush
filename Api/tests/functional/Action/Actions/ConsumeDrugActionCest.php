@@ -40,7 +40,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private ConsumableDiseaseServiceInterface $consumableDiseaseService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->consumeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CONSUME_DRUG]);

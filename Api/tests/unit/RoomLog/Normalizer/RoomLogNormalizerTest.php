@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\RoomLog\Normalizer;
 
 use Mush\Daedalus\Entity\Daedalus;

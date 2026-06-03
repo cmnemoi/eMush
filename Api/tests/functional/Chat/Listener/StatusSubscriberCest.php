@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Chat\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -41,13 +43,13 @@ class StatusSubscriberCest
     private EventServiceInterface $eventService;
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
     }
 
-    public function testCommsCenterBreak(FunctionalTester $I)
+    public function testCommsCenterBreak(FunctionalTester $I): void
     {
         $statusConfig = new StatusConfig();
         $statusConfig

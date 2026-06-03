@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Status\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -62,7 +64,7 @@ final class CycleEventCest extends AbstractFunctionalTest
     private DaedalusCycleSubscriber $daedalusPlaceCycleSubscriber;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->cycleSubscriber = $I->grabService(StatusCycleSubscriber::class);
@@ -81,7 +83,7 @@ final class CycleEventCest extends AbstractFunctionalTest
     }
 
     // tests
-    public function testChargeStatusCycleSubscriber(FunctionalTester $I)
+    public function testChargeStatusCycleSubscriber(FunctionalTester $I): void
     {
         // Cycle Increment
         $statusConfig = new ChargeStatusConfig();
@@ -611,7 +613,7 @@ final class CycleEventCest extends AbstractFunctionalTest
         $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->kuanTi);
     }
 
-    private function givenConditionsForCoffeeMachineToAlwaysCharge(FunctionalTester $I)
+    private function givenConditionsForCoffeeMachineToAlwaysCharge(FunctionalTester $I): void
     {
         $this->daedalus->setDay(2);
         $this->daedalus->getGameConfig()->getDifficultyConfig()->setEquipmentBreakRateDistribution([]);

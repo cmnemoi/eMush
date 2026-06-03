@@ -37,7 +37,7 @@ final class AlertNormalizerCest extends AbstractFunctionalTest
 
     private Place $laboratory;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

@@ -775,7 +775,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $this->chun->setMovementPoint($MP);
     }
 
-    private function givenGravitySimulatorIsBroken()
+    private function givenGravitySimulatorIsBroken(): void
     {
         $gravitySimulator = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::GRAVITY_SIMULATOR,

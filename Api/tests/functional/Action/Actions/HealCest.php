@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Heal;
@@ -38,7 +40,7 @@ final class HealCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->healConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::HEAL]);
@@ -56,7 +58,7 @@ final class HealCest extends AbstractFunctionalTest
         $this->players->map(static fn (Player $player) => $player->changePlace($medlab));
     }
 
-    public function testHeal(FunctionalTester $I)
+    public function testHeal(FunctionalTester $I): void
     {
         $this->givenKuanTiHasHealthPoints(1);
 
@@ -73,7 +75,7 @@ final class HealCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testMedikitHeal(FunctionalTester $I)
+    public function testMedikitHeal(FunctionalTester $I): void
     {
         // given players are in the laboratory
         $place = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);

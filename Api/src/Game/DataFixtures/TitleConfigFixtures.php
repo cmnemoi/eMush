@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Game\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -12,7 +14,7 @@ use Mush\Game\Enum\TitleEnum;
 
 class TitleConfigFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);

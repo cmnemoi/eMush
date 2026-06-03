@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Hunter\Listener;
 
 use Mush\Daedalus\Entity\Daedalus;
@@ -26,7 +28,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
@@ -35,7 +37,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $this->daedalus->getGameConfig()->getDifficultyConfig()->setHullFireDamageRate(0);
     }
 
-    public function testMakeHunterShoot(FunctionalTester $I)
+    public function testMakeHunterShoot(FunctionalTester $I): void
     {
         $this->daedalus->setHunterPoints(10); // spawn a single hunter
         $poolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
@@ -64,7 +66,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $I->assertNotEquals($initHull, $this->daedalus->getHull());
     }
 
-    public function testHunterCannotShootTwoConsecutiveCycles(FunctionalTester $I)
+    public function testHunterCannotShootTwoConsecutiveCycles(FunctionalTester $I): void
     {
         $this->daedalus->setHunterPoints(10); // spawn a single hunter
         $poolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());

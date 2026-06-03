@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Hunter\Event;
 
 use Mush\Action\Enum\ActionEnum;

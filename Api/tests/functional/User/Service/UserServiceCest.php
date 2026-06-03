@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\User\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
@@ -17,12 +19,12 @@ class UserServiceCest
 {
     private UserService $userService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->userService = $I->grabService(UserService::class);
     }
 
-    public function testPersist(FunctionalTester $I)
+    public function testPersist(FunctionalTester $I): void
     {
         $user = new User();
         $user
@@ -34,7 +36,7 @@ class UserServiceCest
         $I->seeInRepository(User::class, ['username' => 'Breut']);
     }
 
-    public function testFindById(FunctionalTester $I)
+    public function testFindById(FunctionalTester $I): void
     {
         /** @var User $user1 */
         $user1 = $I->have(User::class, ['username' => 'Breut', 'userId' => 'userId1']);
@@ -51,31 +53,28 @@ class UserServiceCest
         $I->assertNull($result);
     }
 
-    public function testFindByUserId(FunctionalTester $I)
+    public function testFindByUserId(FunctionalTester $I): void
     {
         /** @var User $user1 */
         $user1 = $I->have(User::class, ['username' => 'Breut', 'userId' => 'userId1']);
-
-        /** @var User $user2 */
-        $user2 = $I->have(User::class, ['username' => 'Evian', 'userId' => 'userId2']);
 
         $result = $this->userService->findUserByUserId('userId1');
         $I->assertEquals($user1, $result);
         $I->assertEquals('userId1', $result->getUserId());
         $I->assertEquals('Breut', $result->getUsername());
 
-        $result = $this->userService->findUserByUserId($user2->getId());
+        $result = $this->userService->findUserByUserId('otherId');
         $I->assertNull($result);
     }
 
-    public function testCreateUser(FunctionalTester $I)
+    public function testCreateUser(FunctionalTester $I): void
     {
         $this->userService->createUser('userId1', 'Breut');
 
         $I->seeInRepository(User::class, ['username' => 'Breut']);
     }
 
-    public function testFindByUserDaedaluses(FunctionalTester $I)
+    public function testFindByUserDaedaluses(FunctionalTester $I): void
     {
         /** @var User $user1 */
         $user1 = $I->have(User::class, ['username' => 'Breut', 'userId' => 'userId1']);

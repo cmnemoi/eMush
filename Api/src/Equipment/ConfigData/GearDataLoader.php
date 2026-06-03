@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -50,7 +52,7 @@ class GearDataLoader extends MechanicsDataLoader
         $this->entityManager->flush();
     }
 
-    private function setGearModifierConfigs(Gear $gear, array $gearData)
+    private function setGearModifierConfigs(Gear $gear, array $gearData): void
     {
         $modifierConfigs = [];
         foreach ($gearData['modifierConfigs'] as $modifierConfigName) {

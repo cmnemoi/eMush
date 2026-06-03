@@ -26,7 +26,7 @@ final class ExplorationProbaCollectionsCest extends AbstractExplorationTester
         $this->randomService = $I->grabService(RandomService::class);
     }
 
-    public function testEcholocatorMultipliesHydrocarbonSectorVisitOdds(FunctionalTester $I)
+    public function testEcholocatorMultipliesHydrocarbonSectorVisitOdds(FunctionalTester $I): void
     {
         $planet = $this->createPlanet([PlanetSectorEnum::HYDROCARBON, PlanetSectorEnum::OXYGEN], $I);
 
@@ -51,7 +51,7 @@ final class ExplorationProbaCollectionsCest extends AbstractExplorationTester
         );
     }
 
-    public function testThermosensorMultipliesLifeformSectorsVisitOdds(FunctionalTester $I)
+    public function testThermosensorMultipliesLifeformSectorsVisitOdds(FunctionalTester $I): void
     {
         $planet = $this->createPlanet([
             PlanetSectorEnum::INSECT,
@@ -94,7 +94,7 @@ final class ExplorationProbaCollectionsCest extends AbstractExplorationTester
         );
     }
 
-    public function testEvilCompassMultipliesEvilSectorsVisitOdds(FunctionalTester $I)
+    public function testEvilCompassMultipliesEvilSectorsVisitOdds(FunctionalTester $I): void
     {
         $planet = $this->createPlanet([
             PlanetSectorEnum::MANKAROG,
@@ -128,7 +128,7 @@ final class ExplorationProbaCollectionsCest extends AbstractExplorationTester
         );
     }
 
-    public function testCompassDoesNotMultiplyEvilSectorsVisitOdds(FunctionalTester $I)
+    public function testCompassDoesNotMultiplyEvilSectorsVisitOdds(FunctionalTester $I): void
     {
         $planet = $this->createPlanet([
             PlanetSectorEnum::MANKAROG,
@@ -162,7 +162,7 @@ final class ExplorationProbaCollectionsCest extends AbstractExplorationTester
         );
     }
 
-    public function testCompassPreventsAgainEvent(FunctionalTester $I)
+    public function testCompassPreventsAgainEvent(FunctionalTester $I): void
     {
         $planet = $this->createPlanet([PlanetSectorEnum::FOREST, PlanetSectorEnum::OXYGEN], $I);
         $forest = $planet->getSectorByNameOrThrow(PlanetSectorEnum::FOREST);
@@ -188,7 +188,7 @@ final class ExplorationProbaCollectionsCest extends AbstractExplorationTester
         );
     }
 
-    public function testEvilCompassDoesNotPreventAgainEvent(FunctionalTester $I)
+    public function testEvilCompassDoesNotPreventAgainEvent(FunctionalTester $I): void
     {
         $planet = $this->createPlanet([PlanetSectorEnum::FOREST, PlanetSectorEnum::OXYGEN], $I);
         $forest = $planet->getSectorByNameOrThrow(PlanetSectorEnum::FOREST);

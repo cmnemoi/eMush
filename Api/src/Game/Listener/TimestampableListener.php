@@ -20,7 +20,7 @@ use Mush\Game\Entity\TimestampableCancelInterface;
 #[AsDoctrineListener(event: Events::onFlush)]
 final class TimestampableListener extends \Gedmo\Timestampable\TimestampableListener
 {
-    protected function updateField($object, $eventAdapter, $meta, $field)
+    protected function updateField($object, $eventAdapter, $meta, $field): void
     {
         /** @var TimestampableAdapter $eventAdapter */
         $eventAdapter = $eventAdapter;

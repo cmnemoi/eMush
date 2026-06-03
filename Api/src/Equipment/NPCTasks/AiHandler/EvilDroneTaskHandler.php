@@ -100,7 +100,7 @@ class EvilDroneTaskHandler extends AbstractAiHandler
         );
     }
 
-    private function moveDroneRandomly(Drone $NPC, \DateTime $time)
+    private function moveDroneRandomly(Drone $NPC, \DateTime $time): void
     {
         $oldPlace = $NPC->getPlace();
         $nextPlace = $this->findRandomAdjacentRoom($NPC);
@@ -145,7 +145,7 @@ class EvilDroneTaskHandler extends AbstractAiHandler
         );
     }
 
-    private function handleMoveTowardTarget(Drone $NPC, StatusHolderInterface $target, \DateTime $time)
+    private function handleMoveTowardTarget(Drone $NPC, StatusHolderInterface $target, \DateTime $time): void
     {
         $destination = $target->getPlace();
         $charges = $this->getMoveCharges($NPC);

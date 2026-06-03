@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Disease\Normalizer;
 
 use Mush\Disease\Entity\Config\DiseaseConfig;

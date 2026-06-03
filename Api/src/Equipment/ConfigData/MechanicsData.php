@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
@@ -582,7 +584,7 @@ class MechanicsData
             'actionPoints' => [1 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [1 => 1],
-            'satiety' => 1.0,
+            'satiety' => 1,
             'extraEffects' => [],
             'isPerishable' => true,
             'actions' => [
@@ -601,7 +603,7 @@ class MechanicsData
             'actionPoints' => [1 => 90, 2 => 9, 3 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 1.0,
+            'satiety' => 1,
             'extraEffects' => ['extra_pa_gain' => 50],
             'isPerishable' => true,
             'actions' => [
@@ -620,7 +622,7 @@ class MechanicsData
             'actionPoints' => [1 => 90, 2 => 9, 3 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 1.0,
+            'satiety' => 1,
             'extraEffects' => ['extra_pa_gain' => 50],
             'isPerishable' => true,
             'actions' => [
@@ -639,7 +641,7 @@ class MechanicsData
             'actionPoints' => [1 => 90, 2 => 9, 3 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 1.0,
+            'satiety' => 1,
             'extraEffects' => ['extra_pa_gain' => 50],
             'isPerishable' => true,
             'actions' => [
@@ -658,7 +660,7 @@ class MechanicsData
             'actionPoints' => [1 => 90, 2 => 9, 3 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 1.0,
+            'satiety' => 1,
             'extraEffects' => ['extra_pa_gain' => 50],
             'isPerishable' => true,
             'actions' => [
@@ -677,7 +679,7 @@ class MechanicsData
             'actionPoints' => [1 => 90, 2 => 9, 3 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 1.0,
+            'satiety' => 1,
             'extraEffects' => ['extra_pa_gain' => 50],
             'isPerishable' => true,
             'actions' => [
@@ -696,7 +698,7 @@ class MechanicsData
             'actionPoints' => [1 => 90, 2 => 9, 3 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 1.0,
+            'satiety' => 1,
             'extraEffects' => ['extra_pa_gain' => 50],
             'isPerishable' => true,
             'actions' => [
@@ -715,7 +717,7 @@ class MechanicsData
             'actionPoints' => [1 => 90, 2 => 9, 3 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 1.0,
+            'satiety' => 1,
             'extraEffects' => ['extra_pa_gain' => 50],
             'isPerishable' => true,
             'actions' => [
@@ -734,7 +736,7 @@ class MechanicsData
             'actionPoints' => [1 => 90, 2 => 9, 3 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 1.0,
+            'satiety' => 1,
             'extraEffects' => ['extra_pa_gain' => 50],
             'isPerishable' => true,
             'actions' => [
@@ -753,7 +755,7 @@ class MechanicsData
             'actionPoints' => [1 => 90, 2 => 9, 3 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 1.0,
+            'satiety' => 1,
             'extraEffects' => ['extra_pa_gain' => 50],
             'isPerishable' => true,
             'actions' => [
@@ -772,7 +774,7 @@ class MechanicsData
             'actionPoints' => [1 => 90, 2 => 9, 3 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 1.0,
+            'satiety' => 1,
             'extraEffects' => ['extra_pa_gain' => 50],
             'isPerishable' => true,
             'actions' => [
@@ -791,7 +793,7 @@ class MechanicsData
             'actionPoints' => [1 => 90, 2 => 9, 3 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 1.0,
+            'satiety' => 1,
             'extraEffects' => ['extra_pa_gain' => 50],
             'isPerishable' => true,
             'actions' => [
@@ -810,7 +812,7 @@ class MechanicsData
             'actionPoints' => [1 => 90, 2 => 9, 3 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 1.0,
+            'satiety' => 1,
             'extraEffects' => ['extra_pa_gain' => 50],
             'isPerishable' => true,
             'actions' => [
@@ -829,7 +831,7 @@ class MechanicsData
             'actionPoints' => [3 => 1],
             'movementPoints' => [0 => 0],
             'healthPoints' => [1 => 1],
-            'satiety' => 1.0,
+            'satiety' => 1,
             'extraEffects' => [],
             'isPerishable' => true,
             'actions' => [
@@ -847,7 +849,7 @@ class MechanicsData
             'actionPoints' => [4 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 4.0,
+            'satiety' => 4,
             'extraEffects' => [],
             'isPerishable' => false,
             'actions' => [
@@ -863,7 +865,7 @@ class MechanicsData
             'actionPoints' => [4 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 4.0,
+            'satiety' => 4,
             'extraEffects' => [],
             'isPerishable' => true,
             'actions' => [
@@ -879,7 +881,7 @@ class MechanicsData
             'actionPoints' => [4 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 4.0,
+            'satiety' => 4,
             'extraEffects' => [],
             'isPerishable' => true,
             'actions' => [
@@ -895,7 +897,7 @@ class MechanicsData
             'actionPoints' => [2 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 0.0,
+            'satiety' => 0,
             'extraEffects' => [],
             'isPerishable' => true,
             'actions' => [
@@ -911,7 +913,7 @@ class MechanicsData
             'actionPoints' => [0 => 1],
             'movementPoints' => [8 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 0.0,
+            'satiety' => 0,
             'extraEffects' => [],
             'isPerishable' => false,
             'actions' => [
@@ -927,7 +929,7 @@ class MechanicsData
             'actionPoints' => [8 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 8.0,
+            'satiety' => 8,
             'extraEffects' => [],
             'isPerishable' => false,
             'actions' => [
@@ -943,7 +945,7 @@ class MechanicsData
             'actionPoints' => [6 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 16.0,
+            'satiety' => 16,
             'extraEffects' => [],
             'isPerishable' => false,
             'actions' => [
@@ -959,7 +961,7 @@ class MechanicsData
             'actionPoints' => [10 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 5.0,
+            'satiety' => 5,
             'extraEffects' => ['break_door' => 55],
             'isPerishable' => false,
             'actions' => [
@@ -975,7 +977,7 @@ class MechanicsData
             'actionPoints' => [8 => 1],
             'movementPoints' => [0 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 8.0,
+            'satiety' => 8,
             'extraEffects' => [],
             'isPerishable' => false,
             'actions' => [
@@ -991,7 +993,7 @@ class MechanicsData
             'actionPoints' => [8 => 1],
             'movementPoints' => [4 => 1],
             'healthPoints' => [0 => 1],
-            'satiety' => 6.0,
+            'satiety' => 6,
             'extraEffects' => [],
             'isPerishable' => false,
             'actions' => [
@@ -1195,9 +1197,9 @@ class MechanicsData
                 WeaponEventEnum::KNIFE_SHOOTER_DROP_WEAPON->value => 3,
                 WeaponEventEnum::KNIFE_SHOOTER_MINUS_2_AP->value => 1,
             ],
-            'baseAccuracy' => 60.0,
+            'baseAccuracy' => 60,
             'baseDamageRange' => [],
-            'expeditionBonus' => 1.0,
+            'expeditionBonus' => 1,
             'actions' => [
                 ActionEnum::ATTACK->value,
             ],
@@ -1214,9 +1216,9 @@ class MechanicsData
             'failedEventKeys' => [
                 WeaponEventEnum::GRENADE_FAILURE_PLACEHOLDER->value => 1,
             ],
-            'baseAccuracy' => 100.0,
+            'baseAccuracy' => 100,
             'baseDamageRange' => [],
-            'expeditionBonus' => 3.0,
+            'expeditionBonus' => 3,
             'actions' => [
                 ActionEnum::THROW_GRENADE->value,
             ],
@@ -1322,7 +1324,7 @@ class MechanicsData
                 WeaponEventEnum::ROCKET_LAUNCHER_FUMBLE_6_ITEMS_BACKFIRE_ROCKETTED->value => 3,
                 WeaponEventEnum::ROCKET_LAUNCHER_FUMBLE_8_SPLASH_50_PERCENT_4_ITEMS->value => 3,
             ],
-            'baseAccuracy' => 50.0,
+            'baseAccuracy' => 50,
             'baseDamageRange' => [],
             'expeditionBonus' => 3,
             'actions' => [

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\ShootHunter;
@@ -38,7 +40,7 @@ final class SkillPointCest extends AbstractFunctionalTest
 
     private GameEquipment $turret;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -82,7 +84,7 @@ final class SkillPointCest extends AbstractFunctionalTest
         $this->shootHunterAction = $I->grabService(ShootHunter::class);
     }
 
-    public function testShootWithGunmanSkillPoints(FunctionalTester $I)
+    public function testShootWithGunmanSkillPoints(FunctionalTester $I): void
     {
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();

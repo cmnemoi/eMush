@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\User\Validator;
 
 use Mush\Player\Entity\Dto\PlayerCreateRequest;

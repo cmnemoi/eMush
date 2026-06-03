@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Hunter\ConfigData;
 
 use Mush\Equipment\Enum\GameRationEnum;

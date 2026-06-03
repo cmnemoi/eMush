@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\PlayDynarcade;
@@ -30,7 +32,7 @@ final class PlayDynarcadeCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -41,7 +43,7 @@ final class PlayDynarcadeCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function testCannotExecuteActionIfEquipmentBroken(FunctionalTester $I)
+    public function testCannotExecuteActionIfEquipmentBroken(FunctionalTester $I): void
     {
         $this->givenThereIsADynarcadeInTheRoom();
 
@@ -52,7 +54,7 @@ final class PlayDynarcadeCest extends AbstractFunctionalTest
         $I->assertEquals(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $this->playDynarcadeAction->cannotExecuteReason());
     }
 
-    public function testSuccessAction(FunctionalTester $I)
+    public function testSuccessAction(FunctionalTester $I): void
     {
         $this->givenThereIsADynarcadeInTheRoom();
 
@@ -78,7 +80,7 @@ final class PlayDynarcadeCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testFailAction(FunctionalTester $I)
+    public function testFailAction(FunctionalTester $I): void
     {
         $this->givenThereIsADynarcadeInTheRoom();
 
@@ -104,7 +106,7 @@ final class PlayDynarcadeCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testFailActionGrowthCoeff(FunctionalTester $I)
+    public function testFailActionGrowthCoeff(FunctionalTester $I): void
     {
         $this->givenThereIsADynarcadeInTheRoom();
 

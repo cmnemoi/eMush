@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Alert\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -39,14 +41,14 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
     private ReportEquipment $reportAction;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->reportAction = $I->grabService(ReportEquipment::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function testRemoveFireAndAddItAgain(FunctionalTester $I)
+    public function testRemoveFireAndAddItAgain(FunctionalTester $I): void
     {
         $statusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => StatusEnum::FIRE]);
 
@@ -116,7 +118,7 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
         $I->dontSeeInRepository(AlertElement::class, ['place' => $room2]);
     }
 
-    public function testAddFireAndInRoomWithBrokenEquipment(FunctionalTester $I)
+    public function testAddFireAndInRoomWithBrokenEquipment(FunctionalTester $I): void
     {
         $reportAction = $action = new ActionConfig();
         $reportAction

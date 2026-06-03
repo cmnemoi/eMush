@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Mockery;
@@ -47,7 +49,7 @@ final class UpdateTalkieActionTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecuteRation()
+    public function testExecuteRation(): void
     {
         // Standard Ration
         $daedalus = new Daedalus();

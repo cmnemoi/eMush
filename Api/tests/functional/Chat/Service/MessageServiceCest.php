@@ -24,7 +24,7 @@ final class MessageServiceCest extends AbstractFunctionalTest
     private MessageServiceInterface $messageService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->messageService = $I->grabService(MessageServiceInterface::class);
@@ -117,7 +117,7 @@ final class MessageServiceCest extends AbstractFunctionalTest
             ->setDaedalus($this->player->getDaedalus()->getDaedalusInfo());
         $I->haveInRepository($privateChannel);
 
-        $I->expectThrowable(new \InvalidArgumentException('Cannot post in private channel if not inside'), function () use ($privateChannel) {
+        $I->expectThrowable(new \InvalidArgumentException('Cannot post in private channel if not inside'), function () use ($privateChannel): void {
             $this->messageService->createPlayerMessage(
                 player: $this->player,
                 createMessage: new CreateMessage()->setChannel($privateChannel)->setMessage('Hello, World!'),

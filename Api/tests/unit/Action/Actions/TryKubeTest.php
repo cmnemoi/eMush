@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -54,7 +56,7 @@ final class TryKubeTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testUnsuccessful()
+    public function testUnsuccessful(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -78,7 +80,7 @@ final class TryKubeTest extends AbstractActionTest
         self::assertInstanceOf(Success::class, $result);
     }
 
-    public function testSuccessful()
+    public function testSuccessful(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();

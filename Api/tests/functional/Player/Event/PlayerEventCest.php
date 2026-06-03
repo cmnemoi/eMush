@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Player\Event;
 
 use Mush\Action\Enum\ActionEnum;
@@ -48,7 +50,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function testDispatchPlayerDeath(FunctionalTester $I)
+    public function testDispatchPlayerDeath(FunctionalTester $I): void
     {
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::DEMORALIZED,
@@ -92,7 +94,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testDispatchPlayerKill(FunctionalTester $I)
+    public function testDispatchPlayerKill(FunctionalTester $I): void
     {
         $this->daedalus->setDay(89);
         $this->daedalus->setCycle(5);
@@ -137,7 +139,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
         );
     }
 
-    public function testDispatchPlayerDeathMush(FunctionalTester $I)
+    public function testDispatchPlayerDeathMush(FunctionalTester $I): void
     {
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::MUSH,
@@ -179,7 +181,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testDispatchInfection(FunctionalTester $I)
+    public function testDispatchInfection(FunctionalTester $I): void
     {
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig
@@ -244,7 +246,7 @@ final class PlayerEventCest extends AbstractFunctionalTest
         $I->assertEquals($room, $this->player->getPlace());
     }
 
-    public function testDispatchConversion(FunctionalTester $I)
+    public function testDispatchConversion(FunctionalTester $I): void
     {
         $room = $this->player->getPlace();
 

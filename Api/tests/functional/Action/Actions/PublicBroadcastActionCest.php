@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\PublicBroadcast;
@@ -26,7 +28,7 @@ final class PublicBroadcastActionCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -51,7 +53,7 @@ final class PublicBroadcastActionCest extends AbstractFunctionalTest
         );
     }
 
-    public function testPublicBroadcast(FunctionalTester $I)
+    public function testPublicBroadcast(FunctionalTester $I): void
     {
         // given both player have 1 moral
         $this->player1->setMoralPoint(1);
@@ -78,7 +80,7 @@ final class PublicBroadcastActionCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testPublicBroadcastAlreadyWatched(FunctionalTester $I)
+    public function testPublicBroadcastAlreadyWatched(FunctionalTester $I): void
     {
         // given both player have 1 moral
         $this->player1->setMoralPoint(1);

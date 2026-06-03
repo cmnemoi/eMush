@@ -81,7 +81,7 @@ final class RoomLogServiceTest extends TestCase
         $this->repository->clear();
     }
 
-    public function testPersist()
+    public function testPersist(): void
     {
         // given a room log
         $log = new RoomLog();
@@ -93,7 +93,7 @@ final class RoomLogServiceTest extends TestCase
         self::assertSame($log, $this->repository->findById($persistedLog->getId()));
     }
 
-    public function testCreateSimpleLog()
+    public function testCreateSimpleLog(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
 
@@ -130,7 +130,7 @@ final class RoomLogServiceTest extends TestCase
         self::assertSame(2, $log->getDay());
     }
 
-    public function testCreateLogWithParameters()
+    public function testCreateLogWithParameters(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $daedalus->setCycle(4);
@@ -177,7 +177,7 @@ final class RoomLogServiceTest extends TestCase
         self::assertSame(2, $log->getDay());
     }
 
-    public function testCreateSecretLog()
+    public function testCreateSecretLog(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $daedalus->setCycle(4);
@@ -222,7 +222,7 @@ final class RoomLogServiceTest extends TestCase
         self::assertSame(2, $log->getDay());
     }
 
-    public function testCreateSecretRevealedLog()
+    public function testCreateSecretRevealedLog(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $daedalus->setCycle(4);
@@ -277,7 +277,7 @@ final class RoomLogServiceTest extends TestCase
         self::assertSame(2, $log->getDay());
     }
 
-    public function testCreateCovertRevealedLog()
+    public function testCreateCovertRevealedLog(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $daedalus->setCycle(4);
@@ -325,7 +325,7 @@ final class RoomLogServiceTest extends TestCase
         self::assertSame(2, $log->getDay());
     }
 
-    public function testCreateCovertItemCameraLog()
+    public function testCreateCovertItemCameraLog(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $daedalus->setCycle(4);
@@ -372,7 +372,7 @@ final class RoomLogServiceTest extends TestCase
         self::assertSame(2, $log->getDay());
     }
 
-    public function testCreateActionSuccessLog()
+    public function testCreateActionSuccessLog(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $daedalus->setCycle(4);
@@ -404,7 +404,7 @@ final class RoomLogServiceTest extends TestCase
         self::assertSame(2, $log->getDay());
     }
 
-    public function testCreateActionFailLog()
+    public function testCreateActionFailLog(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $daedalus->setCycle(4);
@@ -437,7 +437,7 @@ final class RoomLogServiceTest extends TestCase
         self::assertSame(2, $log->getDay());
     }
 
-    public function testCreateActionWithParameterLog()
+    public function testCreateActionWithParameterLog(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $daedalus->setCycle(4);
@@ -475,7 +475,7 @@ final class RoomLogServiceTest extends TestCase
         self::assertSame(2, $log->getDay());
     }
 
-    public function testGetLogs()
+    public function testGetLogs(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $daedalus->setDay(1);
@@ -517,7 +517,7 @@ final class RoomLogServiceTest extends TestCase
         self::assertContains('logKey2', $logs->map(static fn (RoomLog $roomLog) => $roomLog->getLog())->toArray());
     }
 
-    public function testCreateSecretLogDeadPlayerInRoom()
+    public function testCreateSecretLogDeadPlayerInRoom(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $daedalus->setCycle(4);
@@ -572,7 +572,7 @@ final class RoomLogServiceTest extends TestCase
         self::assertSame(2, $log->getDay());
     }
 
-    public function testMarkAllRoomLogsAsReadForPlayer()
+    public function testMarkAllRoomLogsAsReadForPlayer(): void
     {
         // given a player
         $daedalus = DaedalusFactory::createDaedalus();
@@ -585,7 +585,7 @@ final class RoomLogServiceTest extends TestCase
         $this->service->markAllRoomLogsAsReadForPlayer($player);
 
         // then all player room logs should be marked as read
-        $roomLogs->map(function (RoomLog $roomLog) use ($player) {
+        $roomLogs->map(function (RoomLog $roomLog) use ($player): void {
             $this->assertTrue($roomLog->isReadBy($player));
         });
     }
@@ -603,7 +603,7 @@ final class RoomLogServiceTest extends TestCase
         $this->service->markRoomLogAsReadForPlayer($roomLogs->get(0), $player);
 
         // then all player room logs should be marked as read
-        $roomLogs->map(function (RoomLog $roomLog) use ($player) {
+        $roomLogs->map(function (RoomLog $roomLog) use ($player): void {
             $this->assertTrue($roomLog->isReadBy($player));
         });
     }

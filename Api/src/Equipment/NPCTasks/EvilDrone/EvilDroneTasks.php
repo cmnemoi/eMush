@@ -32,7 +32,7 @@ class EvilDroneTasks
     /**
      * @psalm-suppress ArgumentTypeCoercion
      */
-    public function executeTask(Drone $npc, StatusHolderInterface $target, \DateTime $time = new \DateTime())
+    public function executeTask(Drone $npc, StatusHolderInterface $target, \DateTime $time = new \DateTime()): void
     {
         match (true) {
             $this->targetIsDeadPlayer($target) => $this->taskRecycleBody($npc, $target, $time),
@@ -49,7 +49,7 @@ class EvilDroneTasks
         );
     }
 
-    public function executeIdleTask(Drone $npc, \DateTime $time = new \DateTime())
+    public function executeIdleTask(Drone $npc, \DateTime $time = new \DateTime()): void
     {
         $placeEquipments = $npc->getPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() !== ItemEnum::EVIL_DRONE);
 
@@ -92,7 +92,7 @@ class EvilDroneTasks
         return $target->getName() === EquipmentEnum::NERON_CORE;
     }
 
-    private function taskRecycleBody(Drone $npc, Player $player, \DateTime $time)
+    private function taskRecycleBody(Drone $npc, Player $player, \DateTime $time): void
     {
         $this->roomLogService->createLog(
             logKey: 'evil_drone.recycle',
@@ -118,7 +118,7 @@ class EvilDroneTasks
         $npc->addDataToMemory($player->getLogName(), 'recycled');
     }
 
-    private function createObjectFellLog(GameEquipment $item, Drone $npc, \DateTime $time)
+    private function createObjectFellLog(GameEquipment $item, Drone $npc, \DateTime $time): void
     {
         $this->roomLogService->createLog(
             logKey: 'object_fell',
@@ -130,7 +130,7 @@ class EvilDroneTasks
         );
     }
 
-    private function taskFlirt(Drone $npc, Player $player, \DateTime $time)
+    private function taskFlirt(Drone $npc, Player $player, \DateTime $time): void
     {
         $this->roomLogService->createLog(
             logKey: 'evil_drone.flirt',
@@ -144,7 +144,7 @@ class EvilDroneTasks
         $npc->addDataToMemory($player->getLogName(), 'flirted');
     }
 
-    private function taskConspire(Drone $npc, GameEquipment $neron, \DateTime $time)
+    private function taskConspire(Drone $npc, GameEquipment $neron, \DateTime $time): void
     {
         $randomPlayer = $this->randomService->getAlivePlayerInDaedalus($neron->getDaedalus());
 

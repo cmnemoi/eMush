@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Daedalus\Service;
 
 use Mush\Action\Actions\Hit;

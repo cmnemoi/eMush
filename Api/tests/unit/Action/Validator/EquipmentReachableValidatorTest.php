@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -46,7 +48,7 @@ final class EquipmentReachableValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $action = \Mockery::mock(AbstractAction::class);
         $action
@@ -64,7 +66,7 @@ final class EquipmentReachableValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $action = \Mockery::mock(AbstractAction::class);
         $action

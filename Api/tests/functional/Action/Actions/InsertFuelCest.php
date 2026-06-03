@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\InsertFuel;
@@ -31,7 +33,7 @@ final class InsertFuelCest extends AbstractFunctionalTest
 
     private ActionConfig $actionConfig;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -44,7 +46,7 @@ final class InsertFuelCest extends AbstractFunctionalTest
         $this->insertFuelAction = $I->grabService(InsertFuel::class);
     }
 
-    public function testInsertFuel(FunctionalTester $I)
+    public function testInsertFuel(FunctionalTester $I): void
     {
         // Given the initial fuel
         $initFuel = $this->player->getDaedalus()->getFuel();
@@ -97,7 +99,7 @@ final class InsertFuelCest extends AbstractFunctionalTest
         );
     }
 
-    public function testInsertFuelBrokenTank(FunctionalTester $I)
+    public function testInsertFuelBrokenTank(FunctionalTester $I): void
     {
         // Given the initial fuel
         $initFuel = $this->player->getDaedalus()->getFuel();

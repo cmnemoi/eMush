@@ -54,7 +54,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private CreateHunterService $createHunter;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->createExtraRooms($I, $this->daedalus);

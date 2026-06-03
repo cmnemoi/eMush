@@ -44,7 +44,7 @@ final class LandActionCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->createExtraRooms($I, $this->daedalus);
@@ -80,7 +80,7 @@ final class LandActionCest extends AbstractFunctionalTest
         $this->landAction = $I->grabService(Land::class);
     }
 
-    public function testLandCriticalSuccess(FunctionalTester $I)
+    public function testLandCriticalSuccess(FunctionalTester $I): void
     {
         $this->action->setCriticalRate(100);
         $I->haveInRepository($this->action);
@@ -133,7 +133,7 @@ final class LandActionCest extends AbstractFunctionalTest
         $I->assertFalse($this->landAction->isVisible());
     }
 
-    public function testLandFail(FunctionalTester $I)
+    public function testLandFail(FunctionalTester $I): void
     {
         $this->action->setCriticalRate(0);
         $I->haveInRepository($this->action);

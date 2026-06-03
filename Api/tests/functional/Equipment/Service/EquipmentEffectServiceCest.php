@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Equipment\Service;
 
 use Mush\Action\Enum\ExtraEffectEnum;
@@ -14,12 +16,12 @@ class EquipmentEffectServiceCest
 {
     private EquipmentEffectService $equipmentEffectService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->equipmentEffectService = $I->grabService(EquipmentEffectService::class);
     }
 
-    public function testCreateBananaEffect(FunctionalTester $I)
+    public function testCreateBananaEffect(FunctionalTester $I): void
     {
         $banana = $this->createBananaConfig();
         $I->haveInRepository($banana);
@@ -35,7 +37,7 @@ class EquipmentEffectServiceCest
         $I->assertEquals(1, $bananaEffect->getMoralPoint());
     }
 
-    public function testCreateRandomEffect(FunctionalTester $I)
+    public function testCreateRandomEffect(FunctionalTester $I): void
     {
         $rationEffect = new Ration();
         $rationEffect
@@ -61,7 +63,7 @@ class EquipmentEffectServiceCest
         $I->assertEquals($consumableEffect, $existingEffect);
     }
 
-    public function testCreateAlienFruitEffect(FunctionalTester $I)
+    public function testCreateAlienFruitEffect(FunctionalTester $I): void
     {
         $alienFruit = $this->createAlienFruitConfig('plant');
         $I->haveInRepository($alienFruit);

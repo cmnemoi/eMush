@@ -454,7 +454,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $I->assertNull($this->daedalus->getExploration());
     }
 
-    private function createExploration(FunctionalTester $I)
+    private function createExploration(FunctionalTester $I): void
     {
         // given there is Icarus Bay on this Daedalus
         $icarusBay = $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
@@ -518,7 +518,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         );
     }
 
-    private function createExplorationWithRope(FunctionalTester $I)
+    private function createExplorationWithRope(FunctionalTester $I): void
     {
         // given there is Icarus Bay on this Daedalus
         $icarusBay = $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);

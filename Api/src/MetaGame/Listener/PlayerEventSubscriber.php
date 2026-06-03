@@ -19,7 +19,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onEndPlayer(PlayerEvent $event)
+    public function onEndPlayer(PlayerEvent $event): void
     {
         $this->moderationService->triggerUserBans($event->getPlayer()->getUser());
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Game\Command;
 
 use Mush\Daedalus\Service\DaedalusServiceInterface;

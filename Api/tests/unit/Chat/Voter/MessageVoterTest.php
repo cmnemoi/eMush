@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Chat\Voter;
 
 use Mockery;
@@ -66,7 +68,7 @@ final class MessageVoterTest extends TestCase
         $this->testVote(MessageVoter::VIEW, new Message(), $user, Voter::ACCESS_GRANTED);
     }
 
-    public function testCanCreateInPublicChannel()
+    public function testCanCreateInPublicChannel(): void
     {
         $user = new User();
         $channel = new Channel();
@@ -100,7 +102,7 @@ final class MessageVoterTest extends TestCase
         $this->testVote(MessageVoter::CREATE, $message, $user, Voter::ACCESS_DENIED);
     }
 
-    public function testCanCreateInPrivateChannel()
+    public function testCanCreateInPrivateChannel(): void
     {
         $user = new User();
         $channel = new Channel();
@@ -156,7 +158,7 @@ final class MessageVoterTest extends TestCase
         Message $message,
         User $user,
         $expectedVote
-    ) {
+    ): void {
         $token = new UsernamePasswordToken(
             $user,
             'credentials',

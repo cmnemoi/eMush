@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Exploration\Entity;
 
 use Mush\Daedalus\Factory\DaedalusFactory;

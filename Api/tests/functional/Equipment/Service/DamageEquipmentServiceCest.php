@@ -20,7 +20,7 @@ final class DamageEquipmentServiceCest extends AbstractFunctionalTest
 
     private GameItem $plantEquipment;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -28,7 +28,7 @@ final class DamageEquipmentServiceCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentService::class);
     }
 
-    public function shouldNotCreateHydropotWhenAPlantIsDestroyedByOtherMeansThanFire(FunctionalTester $I)
+    public function shouldNotCreateHydropotWhenAPlantIsDestroyedByOtherMeansThanFire(FunctionalTester $I): void
     {
         $this->givenAPlantInRoom();
 

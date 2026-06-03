@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Daedalus\Event;
 
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
@@ -24,7 +26,7 @@ final class DaedalusVariableEventCest extends AbstractFunctionalTest
     private GameEquipment $tank1;
     private GameEquipment $tank2;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
@@ -35,7 +37,7 @@ final class DaedalusVariableEventCest extends AbstractFunctionalTest
         $this->tank2 = $this->gameEquipmentService->createGameEquipmentFromName(EquipmentEnum::OXYGEN_TANK, $this->player->getPlace(), ['test'], new \DateTime());
     }
 
-    public function shouldLoseOneOxygenWithFunctionalTanks(FunctionalTester $I)
+    public function shouldLoseOneOxygenWithFunctionalTanks(FunctionalTester $I): void
     {
         $this->daedalus->setOxygen(32);
 
@@ -52,7 +54,7 @@ final class DaedalusVariableEventCest extends AbstractFunctionalTest
         $I->assertEquals(31, $this->daedalus->getOxygen());
     }
 
-    public function shouldLoseThreeOxygenWithFunctionalTanksIfNotNewCycle(FunctionalTester $I)
+    public function shouldLoseThreeOxygenWithFunctionalTanksIfNotNewCycle(FunctionalTester $I): void
     {
         $this->daedalus->setOxygen(32);
 
@@ -69,7 +71,7 @@ final class DaedalusVariableEventCest extends AbstractFunctionalTest
         $I->assertEquals(29, $this->daedalus->getOxygen());
     }
 
-    public function shouldLoseThreeOxygenWithBrokenTanks(FunctionalTester $I)
+    public function shouldLoseThreeOxygenWithBrokenTanks(FunctionalTester $I): void
     {
         $this->daedalus->setOxygen(32);
 
@@ -88,7 +90,7 @@ final class DaedalusVariableEventCest extends AbstractFunctionalTest
         $I->assertEquals(29, $this->daedalus->getOxygen());
     }
 
-    private function givenTheTanksAreBroken()
+    private function givenTheTanksAreBroken(): void
     {
         $this->damageEquipmentService->execute($this->tank1);
         $this->damageEquipmentService->execute($this->tank2);

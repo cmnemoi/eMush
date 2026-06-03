@@ -23,7 +23,7 @@ final class BecomeGeniusCest extends AbstractFunctionalTest
     private BecomeGenius $becomeGenius;
     private ChooseSkillUseCase $chooseSkillUseCase;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

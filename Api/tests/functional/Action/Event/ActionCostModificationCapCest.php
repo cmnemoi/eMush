@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Event;
 
 use Mush\Action\Actions\Shower;
@@ -25,7 +27,7 @@ final class ActionCostModificationCapCest extends AbstractFunctionalTest
     private Shower $showerAction;
     private ActionConfig $action;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

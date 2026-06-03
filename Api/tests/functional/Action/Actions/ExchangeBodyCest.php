@@ -53,7 +53,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     private User $oldMushUser;
     private User $oldHumanUser;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::EXCHANGE_BODY]);

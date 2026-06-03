@@ -16,7 +16,7 @@ final class DiseaseSubscriberCest extends AbstractFunctionalTest
 {
     private PlayerDiseaseServiceInterface $playerDiseaseService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

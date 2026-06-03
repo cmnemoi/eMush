@@ -21,7 +21,7 @@ final class StarvingStatusCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

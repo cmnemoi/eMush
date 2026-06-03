@@ -22,7 +22,7 @@ final class ChannelControllerCest extends AbstractFunctionalTest
     private ChannelServiceInterface $channelService;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

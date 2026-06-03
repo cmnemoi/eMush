@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Daedalus\Validator;
 
 use Mush\Daedalus\Factory\DaedalusFactory;
@@ -33,7 +35,7 @@ final class FullDaedalusTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $constraint = new FullDaedalus();
         $daedalus = DaedalusFactory::createDaedalus();
@@ -45,7 +47,7 @@ final class FullDaedalusTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $constraint = new FullDaedalus();
         $daedalus = DaedalusFactory::createDaedalus();

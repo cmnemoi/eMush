@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -41,7 +43,7 @@ final class SelfHealCest extends AbstractFunctionalTest
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->selfHealConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SELF_HEAL]);
@@ -50,7 +52,7 @@ final class SelfHealCest extends AbstractFunctionalTest
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
     }
 
-    public function testSelfHeal(FunctionalTester $I)
+    public function testSelfHeal(FunctionalTester $I): void
     {
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         $I->flushToDatabase();

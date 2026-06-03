@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -52,7 +54,7 @@ final class PublicBroadcastActionTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecuteAlreadyWatched()
+    public function testExecuteAlreadyWatched(): void
     {
         $daedalus = new Daedalus();
 
@@ -83,7 +85,7 @@ final class PublicBroadcastActionTest extends AbstractActionTest
         self::assertInstanceOf(Success::class, $result);
     }
 
-    public function testExecute()
+    public function testExecute(): void
     {
         $daedalus = new Daedalus();
 

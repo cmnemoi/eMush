@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Service;
 
 use Mockery;
@@ -51,7 +53,7 @@ final class ActionSideEffectsServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testHandleActionSideEffect()
+    public function testHandleActionSideEffect(): void
     {
         $action = new ActionConfig();
         $room = new Place();
@@ -70,7 +72,7 @@ final class ActionSideEffectsServiceTest extends TestCase
         self::assertCount(0, $player->getStatuses());
     }
 
-    public function testHandleActionSideEffectAlreadyDirty()
+    public function testHandleActionSideEffectAlreadyDirty(): void
     {
         $action = new ActionConfig();
         $room = new Place();

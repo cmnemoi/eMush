@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Disease\Service;
 
 use Mockery;
@@ -77,7 +79,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         $this->playerDiseaseRepository->clear();
     }
 
-    public function testCreateDiseaseFromNameAndWithArgumentsDelay()
+    public function testCreateDiseaseFromNameAndWithArgumentsDelay(): void
     {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setDiseaseName('name');
@@ -107,7 +109,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         self::assertSame(DiseaseStatusEnum::INCUBATING, $savedDisease->getStatus());
     }
 
-    public function testCreateDiseaseFromNameAndWithoutDelay()
+    public function testCreateDiseaseFromNameAndWithoutDelay(): void
     {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setDiseaseName('name');
@@ -138,7 +140,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         self::assertSame(DiseaseStatusEnum::ACTIVE, $savedDisease->getStatus());
     }
 
-    public function testHandleNewCycleIncubatedDiseaseAppear()
+    public function testHandleNewCycleIncubatedDiseaseAppear(): void
     {
         $daedalus = new Daedalus();
         $player = PlayerFactory::createPlayer();
@@ -162,7 +164,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         self::assertSame(DiseaseStatusEnum::ACTIVE, $savedDisease->getStatus());
     }
 
-    public function testHandleNewCycleIncubatedDiseaseAppearAndOverrodeDisease()
+    public function testHandleNewCycleIncubatedDiseaseAppearAndOverrodeDisease(): void
     {
         $daedalus = new Daedalus();
         $player = PlayerFactory::createPlayer();
@@ -214,7 +216,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         self::assertSame(DiseaseStatusEnum::ACTIVE, $savedDisease->getStatus());
     }
 
-    public function testHealDisease()
+    public function testHealDisease(): void
     {
         $daedalus = new Daedalus();
         $player = PlayerFactory::createPlayer();
@@ -235,7 +237,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         self::assertNull($savedDisease);
     }
 
-    public function testTreatDisease()
+    public function testTreatDisease(): void
     {
         $daedalus = new Daedalus();
         $player = PlayerFactory::createPlayer();

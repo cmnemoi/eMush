@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Exploration\Service;
 
 use Doctrine\ORM\EntityManager;

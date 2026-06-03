@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Game\Service;
 
 use Mockery;
@@ -70,7 +72,7 @@ final class EventServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testCallNoModifier()
+    public function testCallNoModifier(): void
     {
         $event = new AbstractGameEvent(['test'], new \DateTime());
 
@@ -102,7 +104,7 @@ final class EventServiceTest extends TestCase
         $this->service->callEvent($event, 'eventName');
     }
 
-    public function testPreviewNoModifier()
+    public function testPreviewNoModifier(): void
     {
         $time = new \DateTime();
         $event = new AbstractGameEvent(['test'], $time);
@@ -122,7 +124,7 @@ final class EventServiceTest extends TestCase
         self::assertSame($time, $newEvent->getTime());
     }
 
-    public function testCallTriggerModifier()
+    public function testCallTriggerModifier(): void
     {
         $time = new \DateTime();
         $daedalus = new Daedalus();
@@ -224,7 +226,7 @@ final class EventServiceTest extends TestCase
         $this->service->callEvent($event, 'eventName');
     }
 
-    public function testPreviewTriggerModifier()
+    public function testPreviewTriggerModifier(): void
     {
         $time = new \DateTime();
         $daedalus = new Daedalus();
@@ -259,7 +261,7 @@ final class EventServiceTest extends TestCase
         self::assertSame($event, $newEvent);
     }
 
-    public function testCallVariableModifier()
+    public function testCallVariableModifier(): void
     {
         $time = new \DateTime();
         $daedalus = new Daedalus();
@@ -334,7 +336,7 @@ final class EventServiceTest extends TestCase
         $this->service->callEvent($event, 'eventName');
     }
 
-    public function testPreviewVariableModifier()
+    public function testPreviewVariableModifier(): void
     {
         $time = new \DateTime();
         $daedalus = new Daedalus();
@@ -375,7 +377,7 @@ final class EventServiceTest extends TestCase
         self::assertSame($modifiedEvent, $newEvent);
     }
 
-    public function testPreventEvent()
+    public function testPreventEvent(): void
     {
         $time = new \DateTime();
         $daedalus = new Daedalus();
@@ -432,7 +434,7 @@ final class EventServiceTest extends TestCase
         $this->service->callEvent($event, 'eventName');
     }
 
-    public function testReturnEventPreventedReason()
+    public function testReturnEventPreventedReason(): void
     {
         $time = new \DateTime();
         $daedalus = new Daedalus();

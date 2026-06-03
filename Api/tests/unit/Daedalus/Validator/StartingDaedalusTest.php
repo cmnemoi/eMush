@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Daedalus\Validator;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -45,7 +47,7 @@ final class StartingDaedalusTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $constraint = new StartingDaedalus();
         $daedalus = new Daedalus();
@@ -63,7 +65,7 @@ final class StartingDaedalusTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $constraint = new StartingDaedalus();
         $daedalus = new Daedalus();

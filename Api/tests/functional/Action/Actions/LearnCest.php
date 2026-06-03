@@ -47,7 +47,7 @@ final class LearnCest extends AbstractFunctionalTest
     {
         $this->givenChunHasSkill(SkillEnum::TECHNICIAN, $I);
 
-        $I->expectThrowable(GameException::class, function () {
+        $I->expectThrowable(GameException::class, function (): void {
             $this->whenChunLearnsSkill(SkillEnum::TECHNICIAN);
         });
     }
@@ -58,7 +58,7 @@ final class LearnCest extends AbstractFunctionalTest
 
         $this->givenKuanTiOnPlanet();
 
-        $I->expectThrowable(GameException::class, function () {
+        $I->expectThrowable(GameException::class, function (): void {
             $this->whenChunLearnsSkill(SkillEnum::TECHNICIAN);
         });
     }
@@ -67,7 +67,7 @@ final class LearnCest extends AbstractFunctionalTest
     {
         $this->givenKuanTiHasAnonymousSkill($I);
 
-        $I->expectThrowable(GameException::class, function () {
+        $I->expectThrowable(GameException::class, function (): void {
             $this->whenChunLearnsSkill(SkillEnum::ANONYMUSH);
         });
     }

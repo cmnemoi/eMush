@@ -38,7 +38,7 @@ final class SabotageCest extends AbstractFunctionalTest
     private GameItem $blaster;
     private GameEquipment $camera;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);

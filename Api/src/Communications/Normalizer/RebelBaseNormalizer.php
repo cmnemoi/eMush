@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Communications\Normalizer;
 
 use Mush\Communications\Entity\RebelBase;

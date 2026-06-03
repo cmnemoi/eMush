@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Daedalus\Service;
 
 use Mockery;
@@ -54,7 +56,7 @@ final class DaedalusWidgetServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testgetMinimap()
+    public function testgetMinimap(): void
     {
         $room = new Place();
         $room->setName(RoomEnum::LABORATORY);
@@ -97,7 +99,7 @@ final class DaedalusWidgetServiceTest extends TestCase
         self::assertSame(1, $minimap[RoomEnum::BRIDGE]['players_count']);
     }
 
-    public function testgetMinimapNoTracker()
+    public function testgetMinimapNoTracker(): void
     {
         $room = new Place();
         $room->setName(RoomEnum::LABORATORY);
@@ -134,7 +136,7 @@ final class DaedalusWidgetServiceTest extends TestCase
         self::assertEmpty($minimap);
     }
 
-    public function testGetMinimapWithReportedFires()
+    public function testGetMinimapWithReportedFires(): void
     {
         $room = new Place();
         $room->setName(RoomEnum::LABORATORY);

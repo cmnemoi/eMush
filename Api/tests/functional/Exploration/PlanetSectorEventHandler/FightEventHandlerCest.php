@@ -320,7 +320,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $this->thenExpeditionStrengthShouldBe(3, $explorationLog, $I);
     }
 
-    private function givenNoAccidentWhenLanding(FunctionalTester $I)
+    private function givenNoAccidentWhenLanding(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::PILOT, $I, $this->chun);
     }
@@ -351,7 +351,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         );
     }
 
-    private function givenPlayerHasAGrenade(Player $player)
+    private function givenPlayerHasAGrenade(Player $player): void
     {
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::GRENADE,
@@ -361,7 +361,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         );
     }
 
-    private function givenPlayerHasAKnife(Player $player)
+    private function givenPlayerHasAKnife(Player $player): void
     {
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::KNIFE,
@@ -371,7 +371,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         );
     }
 
-    private function givenPlayerHasArmor(Player $player)
+    private function givenPlayerHasArmor(Player $player): void
     {
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: GearItemEnum::PLASTENITE_ARMOR,
@@ -381,7 +381,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         );
     }
 
-    private function givenPlayerHasHealth(int $health, Player $player)
+    private function givenPlayerHasHealth(int $health, Player $player): void
     {
         $player->setHealthPoint($health);
     }
@@ -475,12 +475,12 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         return $event;
     }
 
-    private function givenEventGuaranteesADisease(PlanetSectorEvent $event)
+    private function givenEventGuaranteesADisease(PlanetSectorEvent $event): void
     {
         $event->getConfig()->setOutputQuantity([100 => 1]);
     }
 
-    private function givenCentauriIsDecoded(FunctionalTester $I)
+    private function givenCentauriIsDecoded(FunctionalTester $I): void
     {
         $centauriConfig = $I->grabEntityFromRepository(RebelBaseConfig::class, ['name' => RebelBaseEnum::SIRIUS]);
         $centauriRebelBase = new RebelBase(config: $centauriConfig, daedalusId: $this->daedalus->getId());
@@ -498,17 +498,17 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         return $this->fightEventHandler->handle($event);
     }
 
-    private function thenExpeditionStrengthShouldBe(int $expectedStrength, ExplorationLog $explorationLog, FunctionalTester $I)
+    private function thenExpeditionStrengthShouldBe(int $expectedStrength, ExplorationLog $explorationLog, FunctionalTester $I): void
     {
         $I->assertEquals($expectedStrength, $explorationLog->getParameters()['expedition_strength']);
     }
 
-    private function thenPlayerShouldHaveGrenades(int $expectedCount, Player $player, FunctionalTester $I)
+    private function thenPlayerShouldHaveGrenades(int $expectedCount, Player $player, FunctionalTester $I): void
     {
         $I->assertCount($expectedCount, $player->getEquipments()->filter(static fn ($equipment) => $equipment->getName() === ItemEnum::GRENADE));
     }
 
-    private function thenPlayerShouldHaveGrenadierPendingStatistic(int $expectedCount, Player $player, FunctionalTester $I)
+    private function thenPlayerShouldHaveGrenadierPendingStatistic(int $expectedCount, Player $player, FunctionalTester $I): void
     {
         $I->assertEquals($expectedCount, $this->pendingStatisticRepository->findByNameUserIdAndClosedDaedalusIdOrNull(
             name: StatisticEnum::GRENADIER,
@@ -517,12 +517,12 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         )?->getCount());
     }
 
-    private function thenPlayerShouldHaveHealthPoints(int $expectedCount, Player $player, FunctionalTester $I)
+    private function thenPlayerShouldHaveHealthPoints(int $expectedCount, Player $player, FunctionalTester $I): void
     {
         $I->assertEquals($expectedCount, $player->getHealthPoint());
     }
 
-    private function thenThereShouldBeRoomLogForPlayerWithHealthLoss(int $expectedCount, Player $player, FunctionalTester $I)
+    private function thenThereShouldBeRoomLogForPlayerWithHealthLoss(int $expectedCount, Player $player, FunctionalTester $I): void
     {
         $log = $I->grabEntityFromRepository(
             entity: RoomLog::class,
@@ -536,12 +536,12 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $I->assertEquals($expectedCount, $log->getParameters()['quantity']);
     }
 
-    private function thenPlayerIsDead(Player $player, FunctionalTester $I)
+    private function thenPlayerIsDead(Player $player, FunctionalTester $I): void
     {
         $I->assertFalse($player->isAlive());
     }
 
-    private function thenThereShouldBeRoomLogForPlayerWithDeathCauseCombat(Player $player, FunctionalTester $I)
+    private function thenThereShouldBeRoomLogForPlayerWithDeathCauseCombat(Player $player, FunctionalTester $I): void
     {
         $log = $I->grabEntityFromRepository(
             entity: RoomLog::class,
@@ -555,7 +555,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $I->assertEquals(EndCauseEnum::EXPLORATION_COMBAT, $log->getParameters()['end_cause']);
     }
 
-    private function thenThereShouldBeRoomLogForPlayerWithDeathCauseMankarog(Player $player, FunctionalTester $I)
+    private function thenThereShouldBeRoomLogForPlayerWithDeathCauseMankarog(Player $player, FunctionalTester $I): void
     {
         $log = $I->grabEntityFromRepository(
             entity: RoomLog::class,
@@ -569,12 +569,12 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $I->assertEquals(EndCauseEnum::MANKAROG, $log->getParameters()['end_cause']);
     }
 
-    private function thenPlayerHasDisease(Player $player, FunctionalTester $I)
+    private function thenPlayerHasDisease(Player $player, FunctionalTester $I): void
     {
         $I->assertCount(1, $player->getMedicalConditions());
     }
 
-    private function thenThereShouldBeRoomLogForPlayerDiseaseCauseFight(Player $player, FunctionalTester $I)
+    private function thenThereShouldBeRoomLogForPlayerDiseaseCauseFight(Player $player, FunctionalTester $I): void
     {
         $I->seeInRepository(
             entity: RoomLog::class,

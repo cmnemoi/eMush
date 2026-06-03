@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
@@ -224,7 +226,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenPlayerIsIn(Place $place)
+    private function givenPlayerIsIn(Place $place): void
     {
         $this->player->setPlace($place);
     }

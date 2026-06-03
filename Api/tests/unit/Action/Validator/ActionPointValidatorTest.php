@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mockery;
@@ -44,7 +46,7 @@ final class ActionPointValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $characterConfig = new CharacterConfig();
         $characterConfig
@@ -74,7 +76,7 @@ final class ActionPointValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $characterConfig = new CharacterConfig();
         $characterConfig

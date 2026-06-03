@@ -48,7 +48,7 @@ final class RejectMissionCest extends AbstractFunctionalTest
 
         $this->givenMissionHasBeenRejected();
 
-        $I->expectThrowable(GameException::class, function () {
+        $I->expectThrowable(GameException::class, function (): void {
             $this->whenKuanTiRejectsTheMission();
         });
     }
@@ -57,7 +57,7 @@ final class RejectMissionCest extends AbstractFunctionalTest
     {
         $this->givenKuanTiSendsAMissionToChun($I);
 
-        $I->expectThrowable(GameException::class, function () {
+        $I->expectThrowable(GameException::class, function (): void {
             $this->whenChunRejectsKuanTiMission();
         });
     }

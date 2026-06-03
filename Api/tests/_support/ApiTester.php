@@ -50,7 +50,7 @@ class ApiTester extends Actor
         return $user;
     }
 
-    public function sendGetRequest(string $url, array $params = [], bool $debug = false)
+    public function sendGetRequest(string $url, array $params = [], bool $debug = false): void
     {
         if ($debug) {
             $url .= '?XDEBUG_SESSION_START=PHPSTORM';
@@ -59,7 +59,7 @@ class ApiTester extends Actor
         $this->sendGet($url, $params);
     }
 
-    public function sendPutRequest(string $url, array $params = [], bool $debug = false)
+    public function sendPutRequest(string $url, array $params = [], bool $debug = false): void
     {
         if ($debug) {
             $url .= '?XDEBUG_SESSION_START=PHPSTORM';
@@ -70,7 +70,7 @@ class ApiTester extends Actor
         $this->sendPut($url, $params);
     }
 
-    public function sendPostRequest(string $url, array $params = [], bool $debug = false)
+    public function sendPostRequest(string $url, array $params = [], bool $debug = false): void
     {
         if ($debug) {
             $url .= '?XDEBUG_SESSION_START=PHPSTORM';

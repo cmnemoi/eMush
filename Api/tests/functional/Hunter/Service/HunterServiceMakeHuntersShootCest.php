@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Hunter\Service;
 
 use Mush\Chat\Entity\Channel;
@@ -55,7 +57,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
     private ChargeStatus $pasiphaeArmorStatus;
     private Hunter $hunter;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->createHunter = $I->grabService(CreateHunterService::class);
@@ -103,14 +105,14 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->haveInRepository($this->hunter);
     }
 
-    public function testUnpoolHunters(FunctionalTester $I)
+    public function testUnpoolHunters(FunctionalTester $I): void
     {
         $this->hunterService->unpoolHunters($this->daedalus, [], new \DateTime());
         $I->assertCount(1, $this->daedalus->getHuntersAroundDaedalus());
         $I->assertCount(0, $this->daedalus->getHunterPool());
     }
 
-    public function testUnpoolHuntersSpawnMaxAsteroidPerWave(FunctionalTester $I)
+    public function testUnpoolHuntersSpawnMaxAsteroidPerWave(FunctionalTester $I): void
     {
         // given only asteroids can spawn
         $this->daedalus->getGameConfig()->setHunterConfigs(
@@ -131,7 +133,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->assertCount($maxAsteroidsPerWave, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::ASTEROID));
     }
 
-    public function testMakeHuntersShootDaedalus(FunctionalTester $I)
+    public function testMakeHuntersShootDaedalus(FunctionalTester $I): void
     {
         // given hunter has a 0% chance to target any other target (default, so do nothing)
 
@@ -145,7 +147,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         );
     }
 
-    public function testMakeHuntersShootPatrolShip(FunctionalTester $I)
+    public function testMakeHuntersShootPatrolShip(FunctionalTester $I): void
     {
         // given hunter targets a patrol ship
         $target = new HunterTarget($this->hunter);
@@ -173,7 +175,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         );
     }
 
-    public function testMakeHuntersShootPlayer(FunctionalTester $I)
+    public function testMakeHuntersShootPlayer(FunctionalTester $I): void
     {
         // given hunter targets a player
         $target = new HunterTarget($this->hunter);
@@ -215,7 +217,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         );
     }
 
-    public function testMakeHuntersShootHunter(FunctionalTester $I)
+    public function testMakeHuntersShootHunter(FunctionalTester $I): void
     {
         // given hunter targets a hunter
         $target = new HunterTarget($this->hunter);
@@ -290,7 +292,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->assertFalse($this->player2->isAlive());
     }
 
-    public function testMakeHuntersShootTransport(FunctionalTester $I)
+    public function testMakeHuntersShootTransport(FunctionalTester $I): void
     {
         // given a transport is spawned
         $this->createHunter->execute(HunterEnum::TRANSPORT, $this->daedalus->getId());
@@ -367,7 +369,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->assertIsEmpty($daedalus->getHuntersAroundDaedalus()); // asteroid should be destroyed
     }
 
-    public function testMakeHuntersShootAsteroidNotFullHealth(FunctionalTester $I)
+    public function testMakeHuntersShootAsteroidNotFullHealth(FunctionalTester $I): void
     {
         $daedalus = $this->getDaedalusForAsteroidTest($I);
 
@@ -408,7 +410,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         );
     }
 
-    public function testMakeHuntersShootAsteroidNotDestroyedIfCantShoot(FunctionalTester $I)
+    public function testMakeHuntersShootAsteroidNotDestroyedIfCantShoot(FunctionalTester $I): void
     {
         $daedalus = $this->getDaedalusForAsteroidTest($I);
 

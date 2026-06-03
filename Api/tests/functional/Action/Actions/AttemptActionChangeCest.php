@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Disassemble;
@@ -33,7 +35,7 @@ final class AttemptActionChangeCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -56,7 +58,7 @@ final class AttemptActionChangeCest extends AbstractFunctionalTest
         $this->disassembleConfig->setSuccessRate(0);
     }
 
-    public function testChangeAttemptAction(FunctionalTester $I)
+    public function testChangeAttemptAction(FunctionalTester $I): void
     {
         $this->givenRepairActionIsLoaded();
 
@@ -91,7 +93,7 @@ final class AttemptActionChangeCest extends AbstractFunctionalTest
         $I->assertEquals(2, $attemptStatus->getCharge());
     }
 
-    public function testSuccessRateIsCorrectlyCapped(FunctionalTester $I)
+    public function testSuccessRateIsCorrectlyCapped(FunctionalTester $I): void
     {
         $this->givenRepairActionIsLoaded();
 
@@ -116,7 +118,7 @@ final class AttemptActionChangeCest extends AbstractFunctionalTest
         $I->assertEquals(99, $this->repairAction->getSuccessRate());
     }
 
-    public function testNormalizeAnotherAction(FunctionalTester $I)
+    public function testNormalizeAnotherAction(FunctionalTester $I): void
     {
         $this->givenRepairActionIsLoaded();
 

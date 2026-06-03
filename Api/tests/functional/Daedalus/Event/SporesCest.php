@@ -20,7 +20,7 @@ final class SporesCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
@@ -29,7 +29,7 @@ final class SporesCest extends AbstractFunctionalTest
         $this->givenPlayerIsMush();
     }
 
-    public function shouldResetSporesOnNewDay(FunctionalTester $I)
+    public function shouldResetSporesOnNewDay(FunctionalTester $I): void
     {
         $this->whenANewDayPasses();
 

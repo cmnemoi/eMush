@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Status\Strategy;
 
 use Mockery;
@@ -41,7 +43,7 @@ final class DailyDecrementTest extends TestCase
         \Mockery::close();
     }
 
-    public function testDecrement()
+    public function testDecrement(): void
     {
         $status = $this->createStatus();
         $time = new \DateTime();

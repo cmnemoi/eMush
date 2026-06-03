@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\User\Entity;
 
 use Mush\MetaGame\Entity\ModerationSanction;
@@ -12,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class UserTest extends TestCase
 {
-    public function testUserNotBannedOtherSanction()
+    public function testUserNotBannedOtherSanction(): void
     {
         $user = new User();
         $startSanction = new \DateTime('now');
@@ -30,7 +32,7 @@ final class UserTest extends TestCase
         self::assertFalse($user->isBanned());
     }
 
-    public function testIsUserBannedTemporary()
+    public function testIsUserBannedTemporary(): void
     {
         $user = new User();
         $startSanction = new \DateTime('now');

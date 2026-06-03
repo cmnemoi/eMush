@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\Listener;
 
 use Mush\Action\Enum\ActionEnum;
@@ -41,7 +43,7 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onConsume(ApplyEffectEvent $consumeEvent)
+    public function onConsume(ApplyEffectEvent $consumeEvent): void
     {
         $player = $consumeEvent->getAuthor();
         $ration = $consumeEvent->getParameter();

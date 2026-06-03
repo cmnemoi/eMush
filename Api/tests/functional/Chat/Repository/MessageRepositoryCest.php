@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Chat\Repository;
 
 use Mush\Chat\Entity\Channel;
@@ -21,12 +23,12 @@ class MessageRepositoryCest
 {
     private MessageRepository $messageRepository;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->messageRepository = $I->grabService(MessageRepository::class);
     }
 
-    public function testFindByChannel(FunctionalTester $I)
+    public function testFindByChannel(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -133,7 +135,7 @@ class MessageRepositoryCest
         $I->assertEmpty($result);
     }
 
-    public function testFindByChannelCheckDuplicateThreadAnswers(FunctionalTester $I)
+    public function testFindByChannelCheckDuplicateThreadAnswers(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);

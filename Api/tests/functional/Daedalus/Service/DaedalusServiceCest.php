@@ -432,12 +432,12 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         $this->daedalus->getDaedalusConfig()->setChaolaToggle($toggle);
     }
 
-    private function whenISetAvailableCharacters()
+    private function whenISetAvailableCharacters(): void
     {
         $this->daedalusService->setAvailableCharacters($this->daedalus);
     }
 
-    private function thenEachListHasDifferentCharacters(array $lists, FunctionalTester $I)
+    private function thenEachListHasDifferentCharacters(array $lists, FunctionalTester $I): void
     {
         $identical = true;
         for ($i = 0; $i < \count($lists); ++$i) {
@@ -448,21 +448,21 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         $I->assertFalse($identical);
     }
 
-    private function thenTheFollowingCharactersAreAvailable(array $characterList, FunctionalTester $I)
+    private function thenTheFollowingCharactersAreAvailable(array $characterList, FunctionalTester $I): void
     {
         foreach ($characterList as $character) {
             $I->assertContains($this->daedalus->getGameConfig()->getCharactersConfig()->getByNameOrThrow($character), $this->daedalus->getAvailableCharacters(), $character . ' not available!');
         }
     }
 
-    private function thenTheFollowingCharactersAreNotAvailable(array $characterList, FunctionalTester $I)
+    private function thenTheFollowingCharactersAreNotAvailable(array $characterList, FunctionalTester $I): void
     {
         foreach ($characterList as $character) {
             $I->assertNotContains($this->daedalus->getGameConfig()->getCharactersConfig()->getByNameOrThrow($character), $this->daedalus->getAvailableCharacters(), $character . ' available!');
         }
     }
 
-    private function thenOneRandomPairIsAvailable(FunctionalTester $I)
+    private function thenOneRandomPairIsAvailable(FunctionalTester $I): void
     {
         if ($this->daedalus->getAvailableCharacters()->contains($this->daedalus->getGameConfig()->getCharactersConfig()->getByNameOrThrow(CharacterEnum::FINOLA))) {
             $this->thenTheFollowingCharactersAreAvailable([CharacterEnum::CHAO], $I);
@@ -473,7 +473,7 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         }
     }
 
-    private function thenTwoOfTheFollowingAvailableAtRandom(array $characterList, FunctionalTester $I)
+    private function thenTwoOfTheFollowingAvailableAtRandom(array $characterList, FunctionalTester $I): void
     {
         $absentCharacters = $this->daedalus->getAvailableCharacters()->filter(static fn (CharacterConfig $character) => \in_array($character->getName(), $characterList, true));
 

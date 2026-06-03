@@ -29,7 +29,7 @@ final class ToggleNeronInhibitionCest extends AbstractFunctionalTest
     private ToggleNeronInhibition $toggleNeronInhibition;
     private GameEquipment $biosTerminal;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TOGGLE_NERON_INHIBITION]);

@@ -19,7 +19,7 @@ final class MessageModifierServiceCest extends AbstractFunctionalTest
 {
     private MessageModifierService $messageModifierService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Status\Listener;
 
 use Mush\Action\Actions\Repair;
@@ -24,7 +26,7 @@ final class RepairScrewedTalkieCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->repairConfig = $I->grabEntityFromRepository(ActionConfig::class, [
@@ -37,7 +39,7 @@ final class RepairScrewedTalkieCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function testRepairTalkieRemovesBrokenAndScrewedStatus(FunctionalTester $I)
+    public function testRepairTalkieRemovesBrokenAndScrewedStatus(FunctionalTester $I): void
     {
         // given Chun has a talkie
         $talkie = $this->gameEquipmentService->createGameEquipmentFromName(

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Equipment\CycleHandler;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -71,7 +73,7 @@ final class RationCycleHandlerTest extends TestCase
         \Mockery::close();
     }
 
-    public function testNewDayFrozen()
+    public function testNewDayFrozen(): void
     {
         $fruit = new ItemConfig();
 
@@ -98,7 +100,7 @@ final class RationCycleHandlerTest extends TestCase
         self::assertCount(1, $gameFruit->getStatuses());
     }
 
-    public function testNewDayFresh()
+    public function testNewDayFresh(): void
     {
         $fruit = new ItemConfig();
 
@@ -121,7 +123,7 @@ final class RationCycleHandlerTest extends TestCase
         self::assertCount(0, $gameFruit->getStatuses());
     }
 
-    public function testNewDayUnstable()
+    public function testNewDayUnstable(): void
     {
         $fruit = new ItemConfig();
 
@@ -147,7 +149,7 @@ final class RationCycleHandlerTest extends TestCase
         $this->rationCycleHandler->handleNewDay($gameFruit, new \DateTime());
     }
 
-    public function testNewDayHazardous()
+    public function testNewDayHazardous(): void
     {
         $fruit = new ItemConfig();
 
@@ -175,7 +177,7 @@ final class RationCycleHandlerTest extends TestCase
         self::assertCount(1, $gameFruit->getStatuses());
     }
 
-    public function testNewDayDecomposing()
+    public function testNewDayDecomposing(): void
     {
         $fruit = new ItemConfig();
 
@@ -200,7 +202,7 @@ final class RationCycleHandlerTest extends TestCase
         self::assertCount(1, $gameFruit->getStatuses());
     }
 
-    public function testNewDayDecomposingWithBiosOptionOnDecomposing()
+    public function testNewDayDecomposingWithBiosOptionOnDecomposing(): void
     {
         $this->daedalus->getDaedalusInfo()->getNeron()->changeFoodDestructionOption(NeronFoodDestructionEnum::DECOMPOSING);
         $fruit = new ItemConfig();

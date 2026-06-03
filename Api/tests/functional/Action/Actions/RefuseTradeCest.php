@@ -217,7 +217,7 @@ final class RefuseTradeCest extends AbstractFunctionalTest
 
     private function thenTransportShouldBeDeleted(FunctionalTester $I): void
     {
-        $I->expectThrowable(new \RuntimeException("Hunter not found for id {$this->trade->getTransportId()}"), function () {
+        $I->expectThrowable(new \RuntimeException("Hunter not found for id {$this->trade->getTransportId()}"), function (): void {
             $this->hunterRepository->findByIdOrThrow($this->trade->getTransportId());
         });
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Alert\Listener;
 
 use Mush\Action\Enum\ActionEnum;
@@ -27,12 +29,12 @@ class FireStatusSubscriberCest
 {
     private StatusSubscriber $statusSubscriber;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->statusSubscriber = $I->grabService(StatusSubscriber::class);
     }
 
-    public function testStartFire(FunctionalTester $I)
+    public function testStartFire(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -73,7 +75,7 @@ class FireStatusSubscriberCest
         $I->seeInRepository(AlertElement::class, ['place' => $room]);
     }
 
-    public function testStopFire(FunctionalTester $I)
+    public function testStopFire(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);

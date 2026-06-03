@@ -20,7 +20,7 @@ final class DiseaseStatisticCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);

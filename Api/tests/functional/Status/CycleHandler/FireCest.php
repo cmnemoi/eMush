@@ -26,7 +26,7 @@ final class FireCest extends AbstractFunctionalTest
 
     private Status $fireStatus;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -36,7 +36,7 @@ final class FireCest extends AbstractFunctionalTest
     }
 
     #[DataProvider('plantProvider')]
-    public function shouldCreateHydropotWhenAnyPlantIsDestroyedByFire(FunctionalTester $I, Example $example)
+    public function shouldCreateHydropotWhenAnyPlantIsDestroyedByFire(FunctionalTester $I, Example $example): void
     {
         $this->givenItemInRoom($example[0]);
         $this->givenFireInRoom();

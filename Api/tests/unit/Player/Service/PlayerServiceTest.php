@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Player\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -98,7 +100,7 @@ final class PlayerServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testCreatePlayer()
+    public function testCreatePlayer(): void
     {
         $user = new User();
         $gameConfig = new GameConfig();
@@ -147,7 +149,7 @@ final class PlayerServiceTest extends TestCase
         self::assertCount(1, $savedPlayer->getPersonalNotes()->getTabs());
     }
 
-    public function testkillPlayer()
+    public function testkillPlayer(): void
     {
         $gameConfig = new GameConfig();
         $room = new Place();
@@ -192,7 +194,7 @@ final class PlayerServiceTest extends TestCase
         self::assertTrue($savedPlayer->isDead());
     }
 
-    public function testEndPlayer()
+    public function testEndPlayer(): void
     {
         $user = new User();
 

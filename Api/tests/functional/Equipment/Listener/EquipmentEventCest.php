@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Equipment\Listener;
 
 use Mush\Action\Enum\ActionEnum;
@@ -28,12 +30,12 @@ class EquipmentEventCest
 {
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testDispatchEquipmentCreated(FunctionalTester $I)
+    public function testDispatchEquipmentCreated(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -139,7 +141,7 @@ class EquipmentEventCest
         ]);
     }
 
-    public function testDispatchEquipmentDestroyed(FunctionalTester $I)
+    public function testDispatchEquipmentDestroyed(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);

@@ -23,7 +23,7 @@ final class DeterminedCest extends AbstractFunctionalTest
     private ChooseSkillUseCase $chooseSkillUseCase;
     private ActionResult $actionResult;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

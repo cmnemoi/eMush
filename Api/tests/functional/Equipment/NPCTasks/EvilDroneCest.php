@@ -37,7 +37,7 @@ final class EvilDroneCest extends AbstractFunctionalTest
 
     private Door $door;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -60,7 +60,7 @@ final class EvilDroneCest extends AbstractFunctionalTest
         );
     }
 
-    public function evilDroneShouldDoIdleTask(FunctionalTester $I)
+    public function evilDroneShouldDoIdleTask(FunctionalTester $I): void
     {
         // given drone can't have a target
         $this->evilDroneTaskHandler->setDoNothing(100);
@@ -72,7 +72,7 @@ final class EvilDroneCest extends AbstractFunctionalTest
         $I->seeInRepository(RoomLog::class, ['place' => $this->corridor->getLogName(), 'log' => 'evil_drone.clean']);
     }
 
-    public function evilDroneShouldConspireWithNeron(FunctionalTester $I)
+    public function evilDroneShouldConspireWithNeron(FunctionalTester $I): void
     {
         // given drone can't be idle
         $this->evilDroneTaskHandler->setDoNothing(0);
@@ -87,7 +87,7 @@ final class EvilDroneCest extends AbstractFunctionalTest
         $I->seeInRepository(RoomLog::class, ['place' => $this->nexus->getLogName(), 'log' => 'evil_drone.conspire']);
     }
 
-    public function evilDroneShouldNotBeStuckInInfiniteLoopIfSheCantMoveTowardTarget(FunctionalTester $I)
+    public function evilDroneShouldNotBeStuckInInfiniteLoopIfSheCantMoveTowardTarget(FunctionalTester $I): void
     {
         // given drone can't be idle
         $this->evilDroneTaskHandler->setDoNothing(0);
@@ -106,7 +106,7 @@ final class EvilDroneCest extends AbstractFunctionalTest
         $I->assertNotTrue($this->evilDrone->getPlace()->getId() === $this->chun->getPlace()->getId());
     }
 
-    public function evilDroneShouldFlirtWithPlayer(FunctionalTester $I)
+    public function evilDroneShouldFlirtWithPlayer(FunctionalTester $I): void
     {
         // given drone can't be idle
         $this->evilDroneTaskHandler->setDoNothing(0);
@@ -124,7 +124,7 @@ final class EvilDroneCest extends AbstractFunctionalTest
         $I->assertEquals('flirted', $this->evilDrone->getStringFromMemory('chun'));
     }
 
-    public function evilDroneShouldRecyclePlayer(FunctionalTester $I)
+    public function evilDroneShouldRecyclePlayer(FunctionalTester $I): void
     {
         // given drone can't be idle
         $this->evilDroneTaskHandler->setDoNothing(0);
@@ -145,7 +145,7 @@ final class EvilDroneCest extends AbstractFunctionalTest
         $I->assertEquals('recycled', $this->evilDrone->getStringFromMemory('chun'));
     }
 
-    public function evilDroneShouldNotTryToRecyclePlayerInSpace(FunctionalTester $I)
+    public function evilDroneShouldNotTryToRecyclePlayerInSpace(FunctionalTester $I): void
     {
         // given drone can't be idle
         $this->evilDroneTaskHandler->setDoNothing(0);
@@ -164,7 +164,7 @@ final class EvilDroneCest extends AbstractFunctionalTest
         $I->assertFalse($this->evilDrone->hasStatus(EquipmentStatusEnum::EVIL_DRONE_TARGET));
     }
 
-    public function evilDroneShouldNotTargetPlayersTooFar(FunctionalTester $I)
+    public function evilDroneShouldNotTargetPlayersTooFar(FunctionalTester $I): void
     {
         // given drone can't be idle
         $this->evilDroneTaskHandler->setDoNothing(0);
@@ -181,7 +181,7 @@ final class EvilDroneCest extends AbstractFunctionalTest
         $I->assertFalse($this->evilDrone->hasStatus(EquipmentStatusEnum::EVIL_DRONE_TARGET));
     }
 
-    public function evilDroneShouldDoNothingWhenNotInARoom(FunctionalTester $I)
+    public function evilDroneShouldDoNothingWhenNotInARoom(FunctionalTester $I): void
     {
         // given drone can't be idle
         $this->evilDroneTaskHandler->setDoNothing(0);

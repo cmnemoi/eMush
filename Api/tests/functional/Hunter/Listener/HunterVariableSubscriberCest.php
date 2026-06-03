@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Hunter\Listener;
 
 use Mush\Action\Enum\ActionEnum;
@@ -19,14 +21,14 @@ final class HunterVariableSubscriberCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private HunterVariableSubscriber $hunterVariableSubscriber;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->hunterVariableSubscriber = $I->grabService(HunterVariableSubscriber::class);
     }
 
-    public function testOnChangeVariableKillHunter(FunctionalTester $I)
+    public function testOnChangeVariableKillHunter(FunctionalTester $I): void
     {
         $space = $this->daedalus->getSpace();
 

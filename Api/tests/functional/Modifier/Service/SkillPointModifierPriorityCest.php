@@ -141,7 +141,7 @@ final class SkillPointModifierPriorityCest extends AbstractFunctionalTest
         $participateAction->execute();
     }
 
-    private function thenPlayerShouldHaveSkillPointsOfAmount(int $expectedQuantity, SkillPointsEnum $skillPoint, FunctionalTester $I)
+    private function thenPlayerShouldHaveSkillPointsOfAmount(int $expectedQuantity, SkillPointsEnum $skillPoint, FunctionalTester $I): void
     {
         $skillPointStatus = $this->player->getChargeStatusByNameOrThrow($skillPoint->toString());
         $skillPointQuantity = $skillPointStatus->getCharge();
@@ -152,7 +152,7 @@ final class SkillPointModifierPriorityCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenPlayerShouldHaveITPointsOfAmount(int $expectedQuantity, FunctionalTester $I)
+    private function thenPlayerShouldHaveITPointsOfAmount(int $expectedQuantity, FunctionalTester $I): void
     {
         $computerPoints = $this->player->getChargeStatusByName(SkillPointsEnum::COMPUTER_POINTS->toString())?->getCharge();
         $I->assertEquals(

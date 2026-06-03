@@ -28,7 +28,7 @@ final class TogglePlasmaShieldCest extends AbstractFunctionalTest
     private TogglePlasmaShield $togglePlasmaShield;
     private GameEquipment $biosTerminal;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TOGGLE_PLASMA_SHIELD]);

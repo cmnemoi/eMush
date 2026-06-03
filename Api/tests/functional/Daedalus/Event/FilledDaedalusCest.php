@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Daedalus\Event;
 
 use Mush\Daedalus\Event\DaedalusEvent;
@@ -110,7 +112,7 @@ final class FilledDaedalusCest extends AbstractFunctionalTest
         $I->assertEquals(0, $numberOfSpore);
     }
 
-    private function givenDaedalusIsFull($I)
+    private function givenDaedalusIsFull($I): void
     {
         // is starting
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::STARTING);
@@ -133,7 +135,7 @@ final class FilledDaedalusCest extends AbstractFunctionalTest
         $this->eventService->callEvent($event, DaedalusEvent::FULL_DAEDALUS);
     }
 
-    private function shouldSpawnMushSample(FunctionalTester $I)
+    private function shouldSpawnMushSample(FunctionalTester $I): void
     {
         $roomWithMushSample = $this->daedalus
             ->getRooms()

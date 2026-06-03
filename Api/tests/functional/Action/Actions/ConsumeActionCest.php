@@ -49,7 +49,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
 
     private Player $contaminator;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -65,7 +65,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $this->convertPlayerToMush($I, $this->contaminator);
     }
 
-    public function testConsume(FunctionalTester $I)
+    public function testConsume(FunctionalTester $I): void
     {
         // given kuan ti has those values
         $this->kuanTi
@@ -88,7 +88,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::STARVING), 'Kuan Ti should not have the starving status');
     }
 
-    public function testConsumeWithNegativeSatiety(FunctionalTester $I)
+    public function testConsumeWithNegativeSatiety(FunctionalTester $I): void
     {
         // given kuan ti has those values
         $this->kuanTi
@@ -112,7 +112,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::STARVING), 'Kuan Ti should not have the starving status');
     }
 
-    public function testMushConsume(FunctionalTester $I)
+    public function testMushConsume(FunctionalTester $I): void
     {
         $this->givenKuanTiIsMush();
         $this->kuanTi

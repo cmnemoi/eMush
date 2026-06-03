@@ -32,7 +32,7 @@ final class WhisperCest extends AbstractFunctionalTest
     private ChannelRepository $channelRepository;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

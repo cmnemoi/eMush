@@ -31,7 +31,7 @@ final class ChangeNeronCrewLockCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private GameEquipment $biosTerminal;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

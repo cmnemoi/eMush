@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\Helper\Factories;
 
 // here you can define custom actions
@@ -14,7 +16,7 @@ use Mush\Game\Enum\GameConfigEnum;
 
 class EquipmentFactory extends Module
 {
-    public function _beforeSuite($settings = [])
+    public function _beforeSuite($settings = []): void
     {
         $factory = $this->getModule('DataFactory');
 

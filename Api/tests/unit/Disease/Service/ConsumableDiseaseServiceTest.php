@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Disease\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -63,7 +65,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testCreateConsumableDiseasesWithPredefinedDiseases()
+    public function testCreateConsumableDiseasesWithPredefinedDiseases(): void
     {
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
@@ -95,7 +97,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
         self::assertCount(2, $consumableDisease->getDiseases());
     }
 
-    public function testCreateConsumableDiseasesWithMultiplePossibleDiseases()
+    public function testCreateConsumableDiseasesWithMultiplePossibleDiseases(): void
     {
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
@@ -204,7 +206,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
         self::assertCount(1, $consumableDisease->getCures());
     }
 
-    public function testCreateConsumableDiseasesWithDelay()
+    public function testCreateConsumableDiseasesWithDelay(): void
     {
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
@@ -301,7 +303,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
         self::assertSame(8, $disease->getDelayLength());
     }
 
-    public function testCreateConsumableDiseasesWithoutDelay()
+    public function testCreateConsumableDiseasesWithoutDelay(): void
     {
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();
@@ -387,7 +389,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
         self::assertSame(0, $disease->getDelayLength());
     }
 
-    public function testCreateConsumableCure()
+    public function testCreateConsumableCure(): void
     {
         $gameConfig = new GameConfig();
         $daedalus = new Daedalus();

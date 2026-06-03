@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Place\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -49,7 +51,7 @@ final class PlaceNormalizerTest extends TestCase
         \Mockery::close();
     }
 
-    public function testRoomNormalizer()
+    public function testRoomNormalizer(): void
     {
         $room = $this->createMock(Place::class);
 
@@ -81,7 +83,7 @@ final class PlaceNormalizerTest extends TestCase
         self::assertSame($expected, $data);
     }
 
-    public function testRoomWithDoorsNormalizer()
+    public function testRoomWithDoorsNormalizer(): void
     {
         $otherRoom = new Place();
         $otherRoom->setName(RoomEnum::LABORATORY);
@@ -126,7 +128,7 @@ final class PlaceNormalizerTest extends TestCase
         self::assertSame($expected, $data);
     }
 
-    public function testRoomWithItemsNonStackedNormalizer()
+    public function testRoomWithItemsNonStackedNormalizer(): void
     {
         $room = $this->createMock(Place::class);
 
@@ -167,7 +169,7 @@ final class PlaceNormalizerTest extends TestCase
         self::assertSame($expected, $data);
     }
 
-    public function testRoomWithItemsStackedNormalizer()
+    public function testRoomWithItemsStackedNormalizer(): void
     {
         $room = $this->createMock(Place::class);
 
@@ -210,7 +212,7 @@ final class PlaceNormalizerTest extends TestCase
         self::assertSame($expected, $data);
     }
 
-    public function testRoomWithItemsStackedDifferentStatusNormalizer()
+    public function testRoomWithItemsStackedDifferentStatusNormalizer(): void
     {
         $room = $this->createMock(Place::class);
 
@@ -258,7 +260,7 @@ final class PlaceNormalizerTest extends TestCase
         self::assertSame($expected, $data);
     }
 
-    public function testDoorsAreNotNormalizedAsEquipment()
+    public function testDoorsAreNotNormalizedAsEquipment(): void
     {
         // Create two rooms
         $room1 = new Place();

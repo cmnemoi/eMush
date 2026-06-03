@@ -63,7 +63,7 @@ final class DiseaseMessageServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testDeafPlayer()
+    public function testDeafPlayer(): void
     {
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -76,7 +76,7 @@ final class DiseaseMessageServiceTest extends TestCase
         self::assertSame('SOME MESSAGE', $modifiedMessage->getMessage());
     }
 
-    public function testCoprolaliaPlayerNoTrigger()
+    public function testCoprolaliaPlayerNoTrigger(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
@@ -99,7 +99,7 @@ final class DiseaseMessageServiceTest extends TestCase
         self::assertSame($message, $modifiedMessage);
     }
 
-    public function testCoprolaliaPlayerTriggerReplace()
+    public function testCoprolaliaPlayerTriggerReplace(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
@@ -143,7 +143,7 @@ final class DiseaseMessageServiceTest extends TestCase
         self::assertSame([], $modifiedMessage->getTranslationParameters());
     }
 
-    public function testCoprolaliaPlayerTriggerPre()
+    public function testCoprolaliaPlayerTriggerPre(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
@@ -188,7 +188,7 @@ final class DiseaseMessageServiceTest extends TestCase
         self::assertSame([], $modifiedMessage->getTranslationParameters());
     }
 
-    public function testParanoiaPlayerTriggerReplaceAware()
+    public function testParanoiaPlayerTriggerReplaceAware(): void
     {
         $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
 
@@ -223,7 +223,7 @@ final class DiseaseMessageServiceTest extends TestCase
         self::assertSame([], $modifiedMessage->getTranslationParameters());
     }
 
-    public function testParanoiaPlayerTriggerReplaceNotAware()
+    public function testParanoiaPlayerTriggerReplaceNotAware(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
@@ -272,7 +272,7 @@ final class DiseaseMessageServiceTest extends TestCase
         );
     }
 
-    public function testParanoiaPlayerTriggerAccuse()
+    public function testParanoiaPlayerTriggerAccuse(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);

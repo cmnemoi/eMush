@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Disease\Normalizer;
 
 use Mockery;
@@ -51,7 +53,7 @@ final class DiseaseNormalizerTest extends TestCase
         \Mockery::close();
     }
 
-    public function testNormalize()
+    public function testNormalize(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
@@ -90,7 +92,7 @@ final class DiseaseNormalizerTest extends TestCase
         ], $normalized);
     }
 
-    public function testNormalizeWithEffectModifier()
+    public function testNormalizeWithEffectModifier(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();
@@ -145,7 +147,7 @@ final class DiseaseNormalizerTest extends TestCase
         ], $normalized);
     }
 
-    public function testNormalizeWithSymptom()
+    public function testNormalizeWithSymptom(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Game\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -57,7 +59,7 @@ final class RandomServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testRandom()
+    public function testRandom(): void
     {
         for ($i = 1; $i <= 50; ++$i) {
             self::assertGreaterThan(-1, $this->service->random(0, 10));
@@ -67,7 +69,7 @@ final class RandomServiceTest extends TestCase
         self::assertSame(10, $this->service->random(10, 10));
     }
 
-    public function testRandomPercent()
+    public function testRandomPercent(): void
     {
         for ($i = 1; $i <= 50; ++$i) {
             self::assertGreaterThan(0, $this->service->randomPercent());
@@ -76,14 +78,14 @@ final class RandomServiceTest extends TestCase
         self::assertIsInt($this->service->randomPercent());
     }
 
-    public function testIsSuccessfull()
+    public function testIsSuccessfull(): void
     {
         self::assertIsBool($this->service->isSuccessful(50));
         self::assertTrue($this->service->isSuccessful(100));
         self::assertFalse($this->service->isSuccessful(0));
     }
 
-    public function testGetRandomPlayer()
+    public function testGetRandomPlayer(): void
     {
         $playerCollection = new PlayerCollection();
 
@@ -96,7 +98,7 @@ final class RandomServiceTest extends TestCase
         self::assertSame($player1, $this->service->getRandomPlayer($playerCollection));
     }
 
-    public function testGetPlayerInRoom()
+    public function testGetPlayerInRoom(): void
     {
         $room = new Place();
         $player1 = new Player();
@@ -114,7 +116,7 @@ final class RandomServiceTest extends TestCase
         self::assertInstanceOf(Player::class, $this->service->getPlayerInRoom($room));
     }
 
-    public function testGetAlivePlayerInDaedalus()
+    public function testGetAlivePlayerInDaedalus(): void
     {
         $player1 = new Player();
         $player1Info = new PlayerInfo($player1, new User(), new CharacterConfig());
@@ -135,7 +137,7 @@ final class RandomServiceTest extends TestCase
         }
     }
 
-    public function testGetItemInRoom()
+    public function testGetItemInRoom(): void
     {
         $room = new Place();
         $equipment = new GameEquipment($room);
@@ -150,7 +152,7 @@ final class RandomServiceTest extends TestCase
         }
     }
 
-    public function testGetRandomElements()
+    public function testGetRandomElements(): void
     {
         $players = ['player1'];
         self::assertSame(['player1'], $this->service->getRandomElements($players));
@@ -161,7 +163,7 @@ final class RandomServiceTest extends TestCase
         self::assertContains('player2', $result);
     }
 
-    public function testGetSingleRandomElementFromProbaArray()
+    public function testGetSingleRandomElementFromProbaArray(): void
     {
         $players = new ProbaCollection(['player1' => 1]);
         self::assertSame('player1', $this->service->getSingleRandomElementFromProbaCollection($players));
@@ -170,7 +172,7 @@ final class RandomServiceTest extends TestCase
         self::assertSame('player1', $this->service->getSingleRandomElementFromProbaCollection($players));
     }
 
-    public function testGetRandomElementsFromProbaArray()
+    public function testGetRandomElementsFromProbaArray(): void
     {
         $players = new ProbaCollection(['player1' => 1]);
         self::assertSame(['player1'], $this->service->getRandomElementsFromProbaCollection($players, 1));
@@ -183,7 +185,7 @@ final class RandomServiceTest extends TestCase
         }
     }
 
-    public function testGetActionOutputWithCritical()
+    public function testGetActionOutputWithCritical(): void
     {
         // critical Fail
         $output = $this->service->outputCriticalChances(100, 100, 0);
@@ -202,7 +204,7 @@ final class RandomServiceTest extends TestCase
         self::assertSame($output, ActionOutputEnum::CRITICAL_SUCCESS);
     }
 
-    public function testGetRandomDaedalusEquipmentFromProbaArray()
+    public function testGetRandomDaedalusEquipmentFromProbaArray(): void
     {
         $difficultyConfig = DifficultyConfig::fromDto(DifficultyConfigData::getByName('default'));
         $difficultyConfig->setEquipmentBreakRateDistribution(['equipment' => 1]);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Daedalus\ParamConverter;
 
 use Mush\Daedalus\Entity\Dto\DaedalusCreateRequest;

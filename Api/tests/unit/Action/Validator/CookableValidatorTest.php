@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -41,7 +43,7 @@ final class CookableValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $itemConfig = new ItemConfig();
         $itemConfig->setEquipmentName(GameRationEnum::STANDARD_RATION);
@@ -70,7 +72,7 @@ final class CookableValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $itemConfig = new ItemConfig();
         $itemConfig->setEquipmentName('toto');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Mush\Action\Actions\UseBandage;
@@ -41,7 +43,7 @@ final class UseBandageTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecute()
+    public function testExecute(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();

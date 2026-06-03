@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -39,7 +41,7 @@ final class HasDiseasesValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValidDisease()
+    public function testValidDisease(): void
     {
         $this->constraint->isEmpty = true;
         $this->constraint->target = HasDiseases::PLAYER;
@@ -59,7 +61,7 @@ final class HasDiseasesValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testInvalidDisease()
+    public function testInvalidDisease(): void
     {
         $this->constraint->isEmpty = true;
         $this->constraint->target = HasDiseases::PLAYER;
@@ -88,7 +90,7 @@ final class HasDiseasesValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testValidNoDisease()
+    public function testValidNoDisease(): void
     {
         $this->constraint->isEmpty = false;
         $this->constraint->target = HasDiseases::PLAYER;
@@ -114,7 +116,7 @@ final class HasDiseasesValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testInvalidNoDisease()
+    public function testInvalidNoDisease(): void
     {
         $this->constraint->isEmpty = false;
         $this->constraint->target = HasDiseases::PLAYER;
@@ -136,7 +138,7 @@ final class HasDiseasesValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testValidWithType()
+    public function testValidWithType(): void
     {
         $this->constraint->isEmpty = true;
         $this->constraint->target = HasDiseases::PLAYER;
@@ -163,7 +165,7 @@ final class HasDiseasesValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testInvalidWithType()
+    public function testInvalidWithType(): void
     {
         $this->constraint->isEmpty = true;
         $this->constraint->target = HasDiseases::PLAYER;
@@ -192,7 +194,7 @@ final class HasDiseasesValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testValidWithTarget()
+    public function testValidWithTarget(): void
     {
         $this->constraint->isEmpty = true;
 

@@ -78,7 +78,7 @@ final class OpportunistCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveActionPoints(0, $I);
     }
 
-    private function givenChunWasConvertedToMush($I)
+    private function givenChunWasConvertedToMush($I): void
     {
         $this->convertPlayerToMush($I, $this->chun);
     }
@@ -98,27 +98,27 @@ final class OpportunistCest extends AbstractFunctionalTest
         $this->player2->setActionPoint($actionPoints);
     }
 
-    private function whenChunReceivesNeronManagerTitle()
+    private function whenChunReceivesNeronManagerTitle(): void
     {
         $this->whenPlayerReceivesTitle($this->chun, TitleEnum::NERON_MANAGER);
     }
 
-    private function whenChunLosesCommanderTitle()
+    private function whenChunLosesCommanderTitle(): void
     {
         $this->whenPlayerLosesCommanderTitle($this->chun);
     }
 
-    private function whenKuanTiReceivesCommanderTitle()
+    private function whenKuanTiReceivesCommanderTitle(): void
     {
         $this->whenPlayerReceivesTitle($this->kuanTi, TitleEnum::COMMANDER);
     }
 
-    private function whenChunReceivesCommanderTitle()
+    private function whenChunReceivesCommanderTitle(): void
     {
         $this->whenPlayerReceivesTitle($this->chun, TitleEnum::COMMANDER);
     }
 
-    private function whenPlayerLosesCommanderTitle(Player $player)
+    private function whenPlayerLosesCommanderTitle(Player $player): void
     {
         $playerEvent = new PlayerEvent(
             $player,
@@ -128,7 +128,7 @@ final class OpportunistCest extends AbstractFunctionalTest
         $this->eventService->callEvent($playerEvent, PlayerEvent::TITLE_REMOVED);
     }
 
-    private function whenPlayerReceivesTitle(Player $player, string $title)
+    private function whenPlayerReceivesTitle(Player $player, string $title): void
     {
         $playerEvent = new PlayerEvent(
             $player,

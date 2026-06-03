@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Hit;
@@ -38,7 +40,7 @@ final class HitActionCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private AddSkillToPlayerService $addSkillToPlayer;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -55,7 +57,7 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->givenHitDamageIs([1, 1]);
     }
 
-    public function testHitSuccess(FunctionalTester $I)
+    public function testHitSuccess(FunctionalTester $I): void
     {
         $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
         $this->action->setSuccessRate(101);
@@ -77,7 +79,7 @@ final class HitActionCest extends AbstractFunctionalTest
         );
     }
 
-    public function testHitFail(FunctionalTester $I)
+    public function testHitFail(FunctionalTester $I): void
     {
         $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_FAILED_HIT->toString());
         $this->action->setSuccessRate(0);
@@ -99,7 +101,7 @@ final class HitActionCest extends AbstractFunctionalTest
         );
     }
 
-    public function testHitArmor(FunctionalTester $I)
+    public function testHitArmor(FunctionalTester $I): void
     {
         $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
         $this->action->setSuccessRate(100);
@@ -137,7 +139,7 @@ final class HitActionCest extends AbstractFunctionalTest
         );
     }
 
-    public function testHitCriticalSuccess(FunctionalTester $I)
+    public function testHitCriticalSuccess(FunctionalTester $I): void
     {
         $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_TARGET_BURST_NOSE_TARGET_10_PERCENTS->toString());
         $this->action->setSuccessRate(100);

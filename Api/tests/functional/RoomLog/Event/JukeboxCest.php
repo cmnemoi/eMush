@@ -30,7 +30,7 @@ final class JukeboxCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $equipmentService;
     private TranslationServiceInterface $translationService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->daedalus = $this->createDaedalus($I);
         $this->chun = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::CHUN);

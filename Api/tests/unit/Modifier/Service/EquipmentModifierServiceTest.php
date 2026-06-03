@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Modifier\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -50,7 +52,7 @@ final class EquipmentModifierServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testGearCreatedDaedalusRange()
+    public function testGearCreatedDaedalusRange(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -86,7 +88,7 @@ final class EquipmentModifierServiceTest extends TestCase
         $this->service->gearCreated($gameEquipment, [], $date);
     }
 
-    public function testGearCreatedDaedalusRangePlayerInventory()
+    public function testGearCreatedDaedalusRangePlayerInventory(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -128,7 +130,7 @@ final class EquipmentModifierServiceTest extends TestCase
         $this->service->gearCreated($gameEquipment, [], $date);
     }
 
-    public function testGearCreatedTwoModifiers()
+    public function testGearCreatedTwoModifiers(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -176,7 +178,7 @@ final class EquipmentModifierServiceTest extends TestCase
         $this->service->gearCreated($gameEquipment, [], $date);
     }
 
-    public function testGearDestroyed()
+    public function testGearDestroyed(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -220,7 +222,7 @@ final class EquipmentModifierServiceTest extends TestCase
         $this->service->gearDestroyed($gameEquipment, [], $date);
     }
 
-    public function testTakeGearWithDaedalusRange()
+    public function testTakeGearWithDaedalusRange(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -258,7 +260,7 @@ final class EquipmentModifierServiceTest extends TestCase
         $this->service->takeEquipment($gameEquipment, $player, [], $date);
     }
 
-    public function testTakeGearWithPlayerRange()
+    public function testTakeGearWithPlayerRange(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -296,7 +298,7 @@ final class EquipmentModifierServiceTest extends TestCase
         $this->service->takeEquipment($gameEquipment, $player, [], $date);
     }
 
-    public function testDropGearDaedalusRange()
+    public function testDropGearDaedalusRange(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -331,7 +333,7 @@ final class EquipmentModifierServiceTest extends TestCase
         $this->service->dropEquipment($gameEquipment, $player, [], $date);
     }
 
-    public function testDropGear()
+    public function testDropGear(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();

@@ -44,7 +44,7 @@ final class MoveCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private AddSkillToPlayerService $addSkillToPlayer;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Player\Validator;
 
 use Mockery;
@@ -44,7 +46,7 @@ final class UniqueCharacterTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $constraint = new UniqueCharacter();
         $playerRequest = new PlayerCreateRequest();
@@ -71,7 +73,7 @@ final class UniqueCharacterTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $constraint = new UniqueCharacter();
         $playerRequest = new PlayerCreateRequest();

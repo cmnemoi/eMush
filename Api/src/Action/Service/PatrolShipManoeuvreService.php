@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Service;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
@@ -231,7 +233,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
         return $daedalus->getPlaceByNameOrThrow($placeName);
     }
 
-    private function removeTarget(SpaceShip $patrolShip, Daedalus $daedalus)
+    private function removeTarget(SpaceShip $patrolShip, Daedalus $daedalus): void
     {
         $targets = $this->hunterTargetRepository->findAllByPatrolShip($patrolShip);
 

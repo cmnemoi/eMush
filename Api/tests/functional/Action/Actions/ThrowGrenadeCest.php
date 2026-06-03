@@ -45,7 +45,7 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
 
     private GameItem $grenade;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

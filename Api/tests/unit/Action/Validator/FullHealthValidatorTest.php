@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mockery;
@@ -43,7 +45,7 @@ final class FullHealthValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $this->constraint->target = GameVariableLevel::TARGET_PLAYER;
         $this->constraint->checkMode = GameVariableLevel::IS_MAX;
@@ -70,7 +72,7 @@ final class FullHealthValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $this->constraint->target = GameVariableLevel::TARGET_PLAYER;
         $this->constraint->checkMode = GameVariableLevel::IS_MAX;

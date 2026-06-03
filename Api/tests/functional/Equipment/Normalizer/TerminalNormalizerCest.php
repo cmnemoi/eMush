@@ -468,7 +468,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->thenRequiremententsShouldContainOnly($I, $normalizedTerminal, $this->isAnyMushDeadText);
     }
 
-    public function testShouldNormalizeItemsInLaboratoryAndInPlayerInventory(FunctionalTester $I)
+    public function testShouldNormalizeItemsInLaboratoryAndInPlayerInventory(FunctionalTester $I): void
     {
         $terminal = $this->givenLabTerminal();
 
@@ -487,7 +487,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->thenNormalizedItemsNamesShouldBe($I, $normalizedTerminal, array_merge($kuanTiItemsNames, $labItemsNames));
     }
 
-    public function testShouldNotNormalizeEquipmentInTheLab(FunctionalTester $I)
+    public function testShouldNotNormalizeEquipmentInTheLab(FunctionalTester $I): void
     {
         $terminal = $this->givenLabTerminal();
 
@@ -502,7 +502,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->thenNormalizedItemsShouldBeEmpty($I, $normalizedTerminal);
     }
 
-    public function testShouldNormalizeHiddenItemsInLab(FunctionalTester $I)
+    public function testShouldNormalizeHiddenItemsInLab(FunctionalTester $I): void
     {
         $this->givenItemIsHidden(ItemEnum::BLASTER);
 
@@ -541,7 +541,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertEmpty($items);
     }
 
-    public function testWhenNoRequirementIsMetThenShouldOnlySeeAnabolicsAndNarcoticsProject(FunctionalTester $I)
+    public function testWhenNoRequirementIsMetThenShouldOnlySeeAnabolicsAndNarcoticsProject(FunctionalTester $I): void
     {
         $this->givenChunIsNotInLab();
 
@@ -557,7 +557,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testWhenChunIsPresentShouldAddNewProjects(FunctionalTester $I)
+    public function testWhenChunIsPresentShouldAddNewProjects(FunctionalTester $I): void
     {
         $this->givenChunIsInLab();
 
@@ -632,7 +632,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testWhenMedkitIsInLabShouldAddNewProject(FunctionalTester $I)
+    public function testWhenMedkitIsInLabShouldAddNewProject(FunctionalTester $I): void
     {
         $this->givenChunIsNotInLab();
 
@@ -650,7 +650,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testWhenMedkitIsInPlayerInventoryShouldAlsoAddNewProject(FunctionalTester $I)
+    public function testWhenMedkitIsInPlayerInventoryShouldAlsoAddNewProject(FunctionalTester $I): void
     {
         $this->givenChunIsNotInLab();
 
@@ -669,7 +669,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testWhenMedkitIsInOtherPlayerInventoryShouldNotAddNewProject(FunctionalTester $I)
+    public function testWhenMedkitIsInOtherPlayerInventoryShouldNotAddNewProject(FunctionalTester $I): void
     {
         $this->givenChunIsInLab();
 
@@ -688,7 +688,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testWhenSchrodingerIsInPlayerInventoryShouldAddNewProject(FunctionalTester $I)
+    public function testWhenSchrodingerIsInPlayerInventoryShouldAddNewProject(FunctionalTester $I): void
     {
         $this->givenChunIsNotInLab();
 
@@ -707,7 +707,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testWhenSchrodingerIsInLabShouldNotAddNewProject(FunctionalTester $I)
+    public function testWhenSchrodingerIsInLabShouldNotAddNewProject(FunctionalTester $I): void
     {
         $this->givenChunIsNotInLab();
 
@@ -740,7 +740,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
     }
 
-    private function givenItemIsHidden($itemName)
+    private function givenItemIsHidden($itemName): void
     {
         $blaster = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: $itemName,
@@ -756,7 +756,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenChunHasItemsInInventory($itemsNames)
+    private function givenChunHasItemsInInventory($itemsNames): void
     {
         foreach ($itemsNames as $itemName) {
             $this->gameEquipmentService->createGameEquipmentFromName(
@@ -768,7 +768,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         }
     }
 
-    private function givenKuanTiHasItemsInInventory($itemsNames)
+    private function givenKuanTiHasItemsInInventory($itemsNames): void
     {
         foreach ($itemsNames as $itemName) {
             $this->gameEquipmentService->createGameEquipmentFromName(
@@ -780,7 +780,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         }
     }
 
-    private function givenLabHasEquipment($equipmentNames)
+    private function givenLabHasEquipment($equipmentNames): void
     {
         foreach ($equipmentNames as $equipmentName) {
             $this->gameEquipmentService->createGameEquipmentFromName(
@@ -802,7 +802,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenChunIsNotInLab()
+    private function givenChunIsNotInLab(): void
     {
         $laboratory = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
         if ($laboratory->isChunIn()) {
@@ -812,7 +812,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->chun->setPlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::PLANET));
     }
 
-    private function givenKuanTiIsFocusedInResearchLab($terminal)
+    private function givenKuanTiIsFocusedInResearchLab($terminal): void
     {
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::FOCUSED,
@@ -823,7 +823,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenChunIsInLab()
+    private function givenChunIsInLab(): void
     {
         $this->chun->setPlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
         if (!$this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY)->isChunIn()) {
@@ -831,7 +831,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         }
     }
 
-    private function givenAMushIsDead($I)
+    private function givenAMushIsDead($I): void
     {
         $this->convertPlayerToMush($I, $this->chun);
         $this->playerService->killPlayer(
@@ -856,7 +856,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         return $this->terminalNormalizer->normalize($terminal, format: null, context: ['currentPlayer' => $this->kuanTi]);
     }
 
-    private function thenNormalizedItemsNamesShouldBe($I, $normalizedTerminal, $expectedItemsNames)
+    private function thenNormalizedItemsNamesShouldBe($I, $normalizedTerminal, $expectedItemsNames): void
     {
         $items = $normalizedTerminal['items'];
         $I->assertEquals(
@@ -865,26 +865,26 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenRequirementsAreEmpty($I, $normalizedTerminal)
+    private function thenRequirementsAreEmpty($I, $normalizedTerminal): void
     {
         $requirements = $normalizedTerminal['infos']['requirements'];
         $I->assertEmpty($requirements);
     }
 
-    private function thenRequiremententsShouldContainOnly(FunctionalTester $I, $normalizedTerminal, $expectedRequirement)
+    private function thenRequiremententsShouldContainOnly(FunctionalTester $I, $normalizedTerminal, $expectedRequirement): void
     {
         $requirements = $normalizedTerminal['infos']['requirements'];
         $I->assertContains($expectedRequirement, $requirements);
         $I->assertCount(1, $requirements);
     }
 
-    private function thenNormalizedItemsShouldBeEmpty($I, $normalizedTerminal)
+    private function thenNormalizedItemsShouldBeEmpty($I, $normalizedTerminal): void
     {
         $items = $normalizedTerminal['items'];
         $I->assertEmpty($items);
     }
 
-    private function thenProjectsShouldBe(FunctionalTester $I, $normalizedTerminal, $expectedProjects)
+    private function thenProjectsShouldBe(FunctionalTester $I, $normalizedTerminal, $expectedProjects): void
     {
         $projects = $normalizedTerminal['projects'];
         $actualProjectsNames = array_map(static fn ($project) => $project['key'], $projects);

@@ -543,8 +543,7 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::MAINTENANCE_CREW,
-                actionConfigs: [
-                ],
+                actionConfigs: [],
                 statusConfigs: [
                     SkillPointsEnum::ONE_ENGINEER_POINTS_MAX_2->value . '_default',
                     SkillPointsEnum::ONE_GARDEN_POINTS_MAX_2->value . '_default',

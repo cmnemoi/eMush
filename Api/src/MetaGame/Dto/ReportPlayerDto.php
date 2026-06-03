@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\MetaGame\Dto;
 
 use Symfony\Component\Validator\Constraints as Assert;

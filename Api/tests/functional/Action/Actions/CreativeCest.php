@@ -26,7 +26,7 @@ final class CreativeCest extends AbstractFunctionalTest
     private Hit $hit;
     private ChooseSkillUseCase $chooseSkillUseCase;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::HIT]);

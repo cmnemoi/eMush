@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mockery;
@@ -55,7 +57,7 @@ final class IsReportedValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValidFire()
+    public function testValidFire(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -93,7 +95,7 @@ final class IsReportedValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testNotValidFire()
+    public function testNotValidFire(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -138,7 +140,7 @@ final class IsReportedValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testValidEquipment()
+    public function testValidEquipment(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();
@@ -177,7 +179,7 @@ final class IsReportedValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testNotValidEquipment()
+    public function testNotValidEquipment(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();

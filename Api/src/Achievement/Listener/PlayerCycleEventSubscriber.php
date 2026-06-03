@@ -21,7 +21,7 @@ final class PlayerCycleEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onPlayerNewCycle(PlayerCycleEvent $event)
+    public function onPlayerNewCycle(PlayerCycleEvent $event): void
     {
         $player = $event->getPlayer();
         $character = $player->isMush() ? CharacterEnum::MUSH : $player->getName();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -41,7 +43,7 @@ final class HasEquipmentValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValidForEquipment()
+    public function testValidForEquipment(): void
     {
         $this->constraint->reach = ReachEnum::ROOM;
         $this->constraint->equipments = [EquipmentEnum::CAMERA_EQUIPMENT];
@@ -70,7 +72,7 @@ final class HasEquipmentValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValidForEquipment()
+    public function testNotValidForEquipment(): void
     {
         $this->constraint->reach = ReachEnum::ROOM;
         $this->constraint->equipments = [EquipmentEnum::CAMERA_EQUIPMENT];
@@ -98,7 +100,7 @@ final class HasEquipmentValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testValidForAnyEquipment()
+    public function testValidForAnyEquipment(): void
     {
         $this->constraint->reach = ReachEnum::ROOM;
         $this->constraint->equipments = [EquipmentEnum::CAMERA_EQUIPMENT, EquipmentEnum::ANTENNA];
@@ -128,7 +130,7 @@ final class HasEquipmentValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testValidForAllEquipment()
+    public function testValidForAllEquipment(): void
     {
         $this->constraint->reach = ReachEnum::ROOM;
         $this->constraint->equipments = [EquipmentEnum::CAMERA_EQUIPMENT, EquipmentEnum::ANTENNA];
@@ -159,7 +161,7 @@ final class HasEquipmentValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValidForAllEquipment()
+    public function testNotValidForAllEquipment(): void
     {
         $this->constraint->reach = ReachEnum::ROOM;
         $this->constraint->equipments = [EquipmentEnum::CAMERA_EQUIPMENT, EquipmentEnum::ANTENNA];
@@ -187,7 +189,7 @@ final class HasEquipmentValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testNotValidForTargetParameter()
+    public function testNotValidForTargetParameter(): void
     {
         $this->constraint->reach = ReachEnum::INVENTORY;
         $this->constraint->equipments = [ItemEnum::ITRACKIE];

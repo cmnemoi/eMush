@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Service;
 
 use Mush\Action\Actions\Search;
@@ -16,7 +18,7 @@ final class ActionServiceCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private Search $searchAction;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -24,7 +26,7 @@ final class ActionServiceCest extends AbstractFunctionalTest
         $this->searchAction = $I->grabService(Search::class);
     }
 
-    public function testApplyCostToPlayer(FunctionalTester $I)
+    public function testApplyCostToPlayer(FunctionalTester $I): void
     {
         $this->player->setActionPoint(2);
 
@@ -37,7 +39,7 @@ final class ActionServiceCest extends AbstractFunctionalTest
         $I->assertEquals(1, $this->player->getActionPoint());
     }
 
-    public function testApplyCostToPlayerFreeAction(FunctionalTester $I)
+    public function testApplyCostToPlayerFreeAction(FunctionalTester $I): void
     {
         $this->player->setActionPoint(2);
 

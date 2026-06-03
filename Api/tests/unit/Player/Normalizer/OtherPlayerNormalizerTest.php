@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Player\Normalizer;
 
 use Mockery;
@@ -51,7 +53,7 @@ final class OtherPlayerNormalizerTest extends TestCase
         \Mockery::close();
     }
 
-    public function testNormalizer()
+    public function testNormalizer(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
 

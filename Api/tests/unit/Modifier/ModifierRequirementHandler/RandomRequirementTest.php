@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Modifier\ModifierRequirementHandler;
 
 use Mockery;
@@ -41,7 +43,7 @@ final class RandomRequirementTest extends TestCase
         \Mockery::close();
     }
 
-    public function testRandomActivationRequirementModifier()
+    public function testRandomActivationRequirementModifier(): void
     {
         $daedalus = new Daedalus();
         $room = new Place();

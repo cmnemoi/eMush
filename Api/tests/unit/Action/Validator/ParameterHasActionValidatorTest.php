@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -54,7 +56,7 @@ final class ParameterHasActionValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $actionConfig = new ActionConfig();
         $actionConfig
@@ -93,7 +95,7 @@ final class ParameterHasActionValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $actionConfig = new ActionConfig();
         $actionConfig
@@ -131,7 +133,7 @@ final class ParameterHasActionValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testValidTool()
+    public function testValidTool(): void
     {
         $place = new Place();
 
@@ -174,7 +176,7 @@ final class ParameterHasActionValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValidTool()
+    public function testNotValidTool(): void
     {
         $place = new Place();
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\tests\functional\Daedalus\Normalizer;
 
 use Mush\Daedalus\Entity\DaedalusProjectsStatistics;
@@ -155,15 +157,15 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
 
         $I->assertEqualsCanonicalizing(
             expected: [
-                [
+                'commander' => [
                     'title' => 'Les Commandants',
                     'characterKeys' => ['kuan_ti'],
                 ],
-                [
+                'neron_manager' => [
                     'title' => 'Les Administrateurs NERON',
                     'characterKeys' => ['kuan_ti'],
                 ],
-                [
+                'com_manager' => [
                     'title' => 'Les Responsables des Communications',
                     'characterKeys' => ['kuan_ti', 'chun'],
                 ],

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Place\Service;
 
 use Mush\Daedalus\Entity\Daedalus;

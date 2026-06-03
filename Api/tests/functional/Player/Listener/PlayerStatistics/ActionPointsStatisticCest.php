@@ -44,7 +44,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
     private Move $move;
     private ActionConfig $moveConfig;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
@@ -139,7 +139,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 2, $I);
     }
 
-    public function shouldNotIncrementStatisticsOnFreeAction(FunctionalTester $I)
+    public function shouldNotIncrementStatisticsOnFreeAction(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::OBSERVANT, $I, $this->kuanTi);
 

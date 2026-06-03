@@ -35,7 +35,7 @@ final class StatusRepositoryCest extends AbstractFunctionalTest
         $this->statusRepository = $I->grabService(StatusRepositoryInterface::class);
     }
 
-    public function testFindByCriteria(FunctionalTester $I)
+    public function testFindByCriteria(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -132,7 +132,7 @@ final class StatusRepositoryCest extends AbstractFunctionalTest
         $I->assertCount(0, $result);
     }
 
-    public function testFindByName(FunctionalTester $I)
+    public function testFindByName(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);

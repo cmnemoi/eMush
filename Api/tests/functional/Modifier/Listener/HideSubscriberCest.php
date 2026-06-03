@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Modifier\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -35,12 +37,12 @@ class HideSubscriberCest
 {
     private Hide $hideAction;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->hideAction = $I->grabService(Hide::class);
     }
 
-    public function testHideGearWithPlayerReach(FunctionalTester $I)
+    public function testHideGearWithPlayerReach(FunctionalTester $I): void
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setName('hide_test')->setStatusName(EquipmentStatusEnum::HIDDEN);
@@ -129,7 +131,7 @@ class HideSubscriberCest
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
 
-    public function testHideGearBroken(FunctionalTester $I)
+    public function testHideGearBroken(FunctionalTester $I): void
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setName('hide_test')->setStatusName(EquipmentStatusEnum::HIDDEN);
@@ -220,7 +222,7 @@ class HideSubscriberCest
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
 
-    public function testGearRoomReach(FunctionalTester $I)
+    public function testGearRoomReach(FunctionalTester $I): void
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setName('hide_test')->setStatusName(EquipmentStatusEnum::HIDDEN);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\ReportEquipment;
@@ -38,7 +40,7 @@ final class ReportActionCest extends AbstractFunctionalTest
 
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -55,7 +57,7 @@ final class ReportActionCest extends AbstractFunctionalTest
         $this->daedalusIncidentService = $I->grabService(DaedalusIncidentServiceInterface::class);
     }
 
-    public function testReportEquipment(FunctionalTester $I)
+    public function testReportEquipment(FunctionalTester $I): void
     {
         // given there is a distiller in the room
         $tank = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -93,7 +95,7 @@ final class ReportActionCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testReportFire(FunctionalTester $I)
+    public function testReportFire(FunctionalTester $I): void
     {
         // given there is a fire  in the room
         $status = $this->statusService->createStatusFromName(

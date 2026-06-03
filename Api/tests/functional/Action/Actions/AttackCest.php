@@ -36,7 +36,7 @@ final class AttackCest extends AbstractFunctionalTest
 
     private GameItem $knife;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -212,7 +212,7 @@ final class AttackCest extends AbstractFunctionalTest
         );
     }
 
-    public function chefsKnifeShouldHaveHigherAccuracy(FunctionalTester $I)
+    public function chefsKnifeShouldHaveHigherAccuracy(FunctionalTester $I): void
     {
         $chefsKnife = $this->givenChunHasAChefsKnife();
         $chefsKnife->getWeaponMechanicOrThrow()->setBaseAccuracy(60);
@@ -293,7 +293,7 @@ final class AttackCest extends AbstractFunctionalTest
         $this->attack->execute();
     }
 
-    private function givenKuanTiIsMush(FunctionalTester $I)
+    private function givenKuanTiIsMush(FunctionalTester $I): void
     {
         $this->convertPlayerToMush($I, $this->kuanTi);
     }

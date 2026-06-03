@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Game\Command;
 
 use Symfony\Component\Console\Attribute\AsCommand;

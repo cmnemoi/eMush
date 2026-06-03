@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\Enum;
 
 use Mush\Equipment\Entity\Mechanics\Blueprint;

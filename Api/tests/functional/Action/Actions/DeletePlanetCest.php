@@ -36,7 +36,7 @@ final class DeletePlanetCest extends AbstractFunctionalTest
     private PlanetServiceInterface $planetService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->deletePlanetConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DELETE_PLANET]);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Disease\Listener;
 
 use Mush\Action\Actions\Consume;
@@ -35,7 +37,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
 
     private Move $move;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
@@ -54,7 +56,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         );
     }
 
-    public function testBreakoutsSymptom(FunctionalTester $I)
+    public function testBreakoutsSymptom(FunctionalTester $I): void
     {
         $this->givenPlayerHasDisease(DiseaseEnum::SKIN_INFLAMMATION->toString());
 
@@ -69,7 +71,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         $this->thenISeeTheFollowingLogInPlayerRoom(SymptomEnum::BREAKOUTS, $I);
     }
 
-    public function testCatAllergySymptom(FunctionalTester $I)
+    public function testCatAllergySymptom(FunctionalTester $I): void
     {
         $this->player->setHealthPoint(10);
 
@@ -98,7 +100,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         $this->thenISeeTheFollowingLogInPlayerRoom(SymptomEnum::CAT_ALLERGY, $I);
     }
 
-    public function testDroolingSymptom(FunctionalTester $I)
+    public function testDroolingSymptom(FunctionalTester $I): void
     {
         $this->givenPlayerHasDisease(DiseaseEnum::SPACE_RABIES->toString());
 
@@ -113,7 +115,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         $this->thenISeeTheFollowingLogInPlayerRoom(SymptomEnum::DROOLING, $I);
     }
 
-    public function testFoamingMouthSymptom(FunctionalTester $I)
+    public function testFoamingMouthSymptom(FunctionalTester $I): void
     {
         $this->givenPlayerHasDisease(DiseaseEnum::SPACE_RABIES->toString());
 
@@ -128,7 +130,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         $this->thenISeeTheFollowingLogInPlayerRoom(SymptomEnum::FOAMING_MOUTH, $I);
     }
 
-    public function testCatSneezingSymptom(FunctionalTester $I)
+    public function testCatSneezingSymptom(FunctionalTester $I): void
     {
         $this->givenPlayerHasDisease(DiseaseEnum::CAT_ALLERGY->toString());
 
@@ -146,7 +148,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         $this->thenISeeTheFollowingLogInPlayerRoom(SymptomEnum::SNEEZING, $I);
     }
 
-    public function testMushSneezingSymptom(FunctionalTester $I)
+    public function testMushSneezingSymptom(FunctionalTester $I): void
     {
         $this->givenPlayerHasDisease(DiseaseEnum::MUSH_ALLERGY->toString());
 
@@ -166,7 +168,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         $this->thenISeeTheFollowingLogInPlayerRoom(SymptomEnum::SNEEZING, $I);
     }
 
-    public function testVomitingOnConsumeSymptom(FunctionalTester $I)
+    public function testVomitingOnConsumeSymptom(FunctionalTester $I): void
     {
         $this->givenPlayerHasDisease(DiseaseEnum::FOOD_POISONING->toString());
 
@@ -186,7 +188,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         $this->thenISeeTheFollowingLogInPlayerRoom(SymptomEnum::VOMITING, $I);
     }
 
-    public function testVomitingOnMoveSymptom(FunctionalTester $I)
+    public function testVomitingOnMoveSymptom(FunctionalTester $I): void
     {
         $this->givenPlayerHasDisease(DiseaseEnum::SLIGHT_NAUSEA->toString());
 
@@ -200,7 +202,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         $this->thenISeeTheFollowingLogInPlayerRoom(SymptomEnum::VOMITING, $I);
     }
 
-    public function testFearOfCatsSymptom(FunctionalTester $I)
+    public function testFearOfCatsSymptom(FunctionalTester $I): void
     {
         $this->givenPlayerHasDisease(DisorderEnum::AILUROPHOBIA->toString());
 
@@ -220,7 +222,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         $this->thenPlayerIsBackInLab($I);
     }
 
-    public function testPsychoticAttackSymptomNeedsTarget(FunctionalTester $I)
+    public function testPsychoticAttackSymptomNeedsTarget(FunctionalTester $I): void
     {
         $this->givenPlayerHasDisease(DisorderEnum::PSYCHOTIC_EPISODE->toString());
         // given a blaster in hand
@@ -239,7 +241,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         $this->thenNothingHappens(SymptomEnum::PSYCHOTIC_ATTACKS, $I);
     }
 
-    public function testPsychoticAttackSymptomNeedsWeapon(FunctionalTester $I)
+    public function testPsychoticAttackSymptomNeedsWeapon(FunctionalTester $I): void
     {
         $this->givenPlayerHasDisease(DisorderEnum::PSYCHOTIC_EPISODE->toString());
         // given a target in room
@@ -258,7 +260,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         $this->thenNothingHappens(SymptomEnum::PSYCHOTIC_ATTACKS, $I);
     }
 
-    public function testPsychoticAttackSymptom(FunctionalTester $I)
+    public function testPsychoticAttackSymptom(FunctionalTester $I): void
     {
         $this->givenPlayerHasDisease(DisorderEnum::PSYCHOTIC_EPISODE->toString());
         // given a blaster
@@ -299,7 +301,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenISeeTheFollowingLogInPlayerRoom(string $logKey, FunctionalTester $I)
+    private function thenISeeTheFollowingLogInPlayerRoom(string $logKey, FunctionalTester $I): void
     {
         $I->seeInRepository(
             RoomLog::class,
@@ -312,7 +314,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenModeratorsSeeTheFollowingLogInPlayerRoom(string $logKey, FunctionalTester $I)
+    private function thenModeratorsSeeTheFollowingLogInPlayerRoom(string $logKey, FunctionalTester $I): void
     {
         $I->seeInRepository(
             RoomLog::class,
@@ -325,7 +327,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenNothingHappens(string $logKey, FunctionalTester $I)
+    private function thenNothingHappens(string $logKey, FunctionalTester $I): void
     {
         $I->dontSeeInRepository(
             RoomLog::class,
@@ -338,7 +340,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenISeeTheFollowingLogInMedlab(string $logKey, FunctionalTester $I)
+    private function thenISeeTheFollowingLogInMedlab(string $logKey, FunctionalTester $I): void
     {
         $I->seeInRepository(
             RoomLog::class,
@@ -351,12 +353,12 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenPlayerIsBackInLab(FunctionalTester $I)
+    private function thenPlayerIsBackInLab(FunctionalTester $I): void
     {
         $I->assertTrue($this->player->getPlace()->getName() === RoomEnum::LABORATORY);
     }
 
-    private function thenPlayerHasShotAtPlayer2(FunctionalTester $I)
+    private function thenPlayerHasShotAtPlayer2(FunctionalTester $I): void
     {
         $I->seeInRepository(
             RoomLog::class,

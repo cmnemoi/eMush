@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Chat\Repository;
 
 use Mush\Chat\Entity\Channel;
@@ -26,12 +28,12 @@ final class ChannelRepositoryCest
 {
     private ChannelRepository $channelRepository;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->channelRepository = $I->grabService(ChannelRepository::class);
     }
 
-    public function testFindPlayerChannels(FunctionalTester $I)
+    public function testFindPlayerChannels(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -99,7 +101,7 @@ final class ChannelRepositoryCest
         $I->assertContains($publicChannel, $channels);
     }
 
-    public function testFindPlayerChannelsPrivateOnly(FunctionalTester $I)
+    public function testFindPlayerChannelsPrivateOnly(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -183,7 +185,7 @@ final class ChannelRepositoryCest
         $I->assertContains($privateChannel, $privateChannels);
     }
 
-    public function testFindPlayerChannelsMultipleDaedalus(FunctionalTester $I)
+    public function testFindPlayerChannelsMultipleDaedalus(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);

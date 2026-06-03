@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -34,7 +36,7 @@ final class MaxLengthConstraintValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValidWhenLessThanLimit()
+    public function testValidWhenLessThanLimit(): void
     {
         $this->constraint->parameterName = 'announcement';
         $this->constraint->maxLength = 4096;
@@ -51,7 +53,7 @@ final class MaxLengthConstraintValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testValidWhenEqualLimit()
+    public function testValidWhenEqualLimit(): void
     {
         $this->constraint->parameterName = 'content';
         $this->constraint->maxLength = 100;
@@ -65,7 +67,7 @@ final class MaxLengthConstraintValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testValidWhenParameterNameDoesNotExist()
+    public function testValidWhenParameterNameDoesNotExist(): void
     {
         $this->constraint->parameterName = 'nonexistent';
         $this->constraint->maxLength = 100;
@@ -82,7 +84,7 @@ final class MaxLengthConstraintValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testValidWhenParametersIsNull()
+    public function testValidWhenParametersIsNull(): void
     {
         $this->constraint->parameterName = 'announcement';
         $this->constraint->maxLength = 100;
@@ -99,7 +101,7 @@ final class MaxLengthConstraintValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValidWhenTextExceedsLimit()
+    public function testNotValidWhenTextExceedsLimit(): void
     {
         $this->constraint->parameterName = 'announcement';
         $this->constraint->maxLength = 10;

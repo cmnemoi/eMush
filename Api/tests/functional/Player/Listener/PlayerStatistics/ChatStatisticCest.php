@@ -21,7 +21,7 @@ final class ChatStatisticCest extends AbstractFunctionalTest
     private ChannelServiceInterface $channelService;
     private MessageServiceInterface $messageService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->channelService = $I->grabService(ChannelServiceInterface::class);

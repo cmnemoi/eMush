@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Disease\Enum;
 
 // every injury in this enum can be given randomly by weapons. Be careful

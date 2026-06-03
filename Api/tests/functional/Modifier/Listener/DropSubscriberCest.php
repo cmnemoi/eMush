@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Modifier\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -33,12 +35,12 @@ class DropSubscriberCest
 {
     private Drop $dropAction;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->dropAction = $I->grabService(Drop::class);
     }
 
-    public function testDropGearWithPlayerReach(FunctionalTester $I)
+    public function testDropGearWithPlayerReach(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -116,7 +118,7 @@ class DropSubscriberCest
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
 
-    public function testDropGearBroken(FunctionalTester $I)
+    public function testDropGearBroken(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -196,7 +198,7 @@ class DropSubscriberCest
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
 
-    public function testDropGearRoomReach(FunctionalTester $I)
+    public function testDropGearRoomReach(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -280,7 +282,7 @@ class DropSubscriberCest
         $I->assertEquals($room->getModifiers()->count(), 1);
     }
 
-    public function testDropGearWithOtherGear(FunctionalTester $I)
+    public function testDropGearWithOtherGear(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -384,7 +386,7 @@ class DropSubscriberCest
         $I->assertEquals($room->getModifiers()->count(), 0);
     }
 
-    public function testDropOneOfTwoSameGear(FunctionalTester $I)
+    public function testDropOneOfTwoSameGear(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);

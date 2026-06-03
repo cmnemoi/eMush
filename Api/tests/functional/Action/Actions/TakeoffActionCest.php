@@ -57,7 +57,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
     private Player $terrence;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -137,7 +137,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $I->assertEquals(null, $this->takeoffAction->cannotExecuteReason());
     }
 
-    public function testTakeoffCriticalSuccess(FunctionalTester $I)
+    public function testTakeoffCriticalSuccess(FunctionalTester $I): void
     {
         $this->action->setCriticalRate(100);
         $I->haveInRepository($this->action);

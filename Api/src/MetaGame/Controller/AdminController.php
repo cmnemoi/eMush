@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\MetaGame\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;

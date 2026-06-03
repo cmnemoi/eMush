@@ -42,13 +42,13 @@ final class CreatePlayerServiceCest extends AbstractFunctionalTest
 {
     private PlayerService $playerService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->playerService = $I->grabService(PlayerService::class);
     }
 
-    public function createPlayerTest(FunctionalTester $I)
+    public function createPlayerTest(FunctionalTester $I): void
     {
         $neron = new Neron();
         $neron->setIsInhibited(true);

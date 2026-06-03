@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\MetaGame\Entity\Poll;
 
 use Doctrine\Common\Collections\ArrayCollection;

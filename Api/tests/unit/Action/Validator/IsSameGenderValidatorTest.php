@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -44,7 +46,7 @@ final class IsSameGenderValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testAlwaysValid()
+    public function testAlwaysValid(): void
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setFreeLove(false);
@@ -87,7 +89,7 @@ final class IsSameGenderValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testNoFreeLoveNotValid()
+    public function testNoFreeLoveNotValid(): void
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setFreeLove(false);
@@ -130,7 +132,7 @@ final class IsSameGenderValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint, 'visibility');
     }
 
-    public function testFreeLoveValid()
+    public function testFreeLoveValid(): void
     {
         $daedalusConfig = new DaedalusConfig();
         $daedalusConfig->setFreeLove(true);

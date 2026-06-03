@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Modifier\Event;
 
 use Mush\Equipment\Entity\GameEquipment;

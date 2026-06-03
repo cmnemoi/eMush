@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Player\Service;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;

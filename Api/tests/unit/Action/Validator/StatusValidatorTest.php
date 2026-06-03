@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -41,7 +43,7 @@ final class StatusValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValidParameter()
+    public function testValidParameter(): void
     {
         $this->constraint->target = HasStatus::PARAMETER;
 
@@ -70,7 +72,7 @@ final class StatusValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValidParameter()
+    public function testNotValidParameter(): void
     {
         $this->constraint->target = HasStatus::PARAMETER;
 
@@ -100,7 +102,7 @@ final class StatusValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testValidForPlayer()
+    public function testValidForPlayer(): void
     {
         $this->constraint->target = HasStatus::PLAYER;
 
@@ -129,7 +131,7 @@ final class StatusValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValidForPlayer()
+    public function testNotValidForPlayer(): void
     {
         $this->constraint->target = HasStatus::PLAYER;
 
@@ -159,7 +161,7 @@ final class StatusValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testValidForPlayerRoom()
+    public function testValidForPlayerRoom(): void
     {
         $this->constraint->target = HasStatus::PLAYER_ROOM;
 
@@ -191,7 +193,7 @@ final class StatusValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValidForPlayerRoom()
+    public function testNotValidForPlayerRoom(): void
     {
         $this->constraint->target = HasStatus::PLAYER_ROOM;
 
@@ -225,7 +227,7 @@ final class StatusValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testInverseSide()
+    public function testInverseSide(): void
     {
         $this->constraint->target = HasStatus::PLAYER;
 

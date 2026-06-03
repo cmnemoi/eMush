@@ -28,7 +28,7 @@ final class PremonitionCest extends AbstractFunctionalTest
     private Flirt $flirt;
     private Search $search;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::PREMONITION]);

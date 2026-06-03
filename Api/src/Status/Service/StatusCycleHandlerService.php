@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Status\Service;
 
 use Mush\Status\CycleHandler\AbstractStatusCycleHandler;

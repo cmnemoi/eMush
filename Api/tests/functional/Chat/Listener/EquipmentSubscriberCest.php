@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Chat\Listener;
 
 use Mush\Chat\Entity\Message;
@@ -25,7 +27,7 @@ final class EquipmentSubscriberCest extends AbstractFunctionalTest
     private EventService $eventService;
     private GameItem $schrodinger;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -34,7 +36,7 @@ final class EquipmentSubscriberCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventService::class);
     }
 
-    public function ifSchrodingerGetsDestroyedNeronShouldSpeak(FunctionalTester $I)
+    public function ifSchrodingerGetsDestroyedNeronShouldSpeak(FunctionalTester $I): void
     {
         $this->givenCatIsInShelf($I);
         $this->whenCatIsDestroyed();

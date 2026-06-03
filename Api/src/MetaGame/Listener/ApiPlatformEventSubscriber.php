@@ -22,7 +22,7 @@ final class ApiPlatformEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onPostWrite(ViewEvent $event)
+    public function onPostWrite(ViewEvent $event): void
     {
         $news = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();

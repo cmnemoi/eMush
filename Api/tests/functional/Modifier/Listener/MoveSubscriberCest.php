@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Modifier\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -49,7 +51,7 @@ class MoveSubscriberCest
     private Player $player;
     private Door $door;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->moveAction = $I->grabService(Move::class);
 
@@ -117,7 +119,7 @@ class MoveSubscriberCest
         $I->haveInRepository($this->player);
     }
 
-    public function testMoveWithStatusWithPlaceModifier(FunctionalTester $I)
+    public function testMoveWithStatusWithPlaceModifier(FunctionalTester $I): void
     {
         // Given the player has a status with modifierConfig with ROOM reach
         $modifierConfigPlace = new VariableEventModifierConfig('testModifierShower2');
@@ -162,7 +164,7 @@ class MoveSubscriberCest
         $I->assertCount(1, $this->destinationRoom->getModifiers());
     }
 
-    public function testMoveWithEquipmentWithPlaceModifier(FunctionalTester $I)
+    public function testMoveWithEquipmentWithPlaceModifier(FunctionalTester $I): void
     {
         // Given the player has a gear with an irrelevant reach
         $modifierConfigPlayerReach = new VariableEventModifierConfig('testModifierShower');
@@ -250,7 +252,7 @@ class MoveSubscriberCest
         $I->assertCount(1, $this->player->getModifiers());
     }
 
-    public function testMoveWithEquipmentHoldingCreatingModifierFromStatus(FunctionalTester $I)
+    public function testMoveWithEquipmentHoldingCreatingModifierFromStatus(FunctionalTester $I): void
     {
         // Given the player has an equipment
         /** @var EquipmentConfig $equipmentConfig */

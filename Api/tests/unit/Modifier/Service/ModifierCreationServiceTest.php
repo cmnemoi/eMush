@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Modifier\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -70,7 +72,7 @@ final class ModifierCreationServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testPersist()
+    public function testPersist(): void
     {
         $playerModifier = new GameModifier(new Player(), new VariableEventModifierConfig('unitTestVariableEventModifier'));
 
@@ -82,7 +84,7 @@ final class ModifierCreationServiceTest extends TestCase
         );
     }
 
-    public function testDelete()
+    public function testDelete(): void
     {
         $playerModifier = new GameModifier(new Player(), new VariableEventModifierConfig('unitTestVariableEventModifier'));
         $this->modifierRepository->save($playerModifier);
@@ -92,7 +94,7 @@ final class ModifierCreationServiceTest extends TestCase
         self::assertNull($this->modifierRepository->findByName($playerModifier->getModifierConfig()->getName()));
     }
 
-    public function testCreateDaedalusEventModifier()
+    public function testCreateDaedalusEventModifier(): void
     {
         $daedalus = new Daedalus();
 
@@ -114,7 +116,7 @@ final class ModifierCreationServiceTest extends TestCase
         );
     }
 
-    public function testCreatePlaceEventModifier()
+    public function testCreatePlaceEventModifier(): void
     {
         // create a place GameModifier
         $room = new Place();
@@ -135,7 +137,7 @@ final class ModifierCreationServiceTest extends TestCase
         );
     }
 
-    public function testCreatePlayerEventModifier()
+    public function testCreatePlayerEventModifier(): void
     {
         // create a player GameModifier
         $player = new Player();
@@ -156,7 +158,7 @@ final class ModifierCreationServiceTest extends TestCase
         );
     }
 
-    public function testCreatePlayerEventModifierWithCharge()
+    public function testCreatePlayerEventModifierWithCharge(): void
     {
         // create a player GameModifier with charge
         $player = new Player();
@@ -181,7 +183,7 @@ final class ModifierCreationServiceTest extends TestCase
         );
     }
 
-    public function testCreateEquipmentEventModifier()
+    public function testCreateEquipmentEventModifier(): void
     {
         // create an equipment GameModifier
         $equipment = new GameEquipment(new Place());
@@ -202,7 +204,7 @@ final class ModifierCreationServiceTest extends TestCase
         );
     }
 
-    public function testDeleteEventModifier()
+    public function testDeleteEventModifier(): void
     {
         $daedalus = new Daedalus();
         $player = new Player();
@@ -225,7 +227,7 @@ final class ModifierCreationServiceTest extends TestCase
         self::assertNull($this->modifierRepository->findByName($modifierConfig->getName()));
     }
 
-    public function testCreateDirectModifier()
+    public function testCreateDirectModifier(): void
     {
         $daedalus = new Daedalus();
         $daedalus->setDaedalusVariables(new DaedalusConfig());
@@ -272,7 +274,7 @@ final class ModifierCreationServiceTest extends TestCase
         );
     }
 
-    public function testDeleteDirectModifierReverse()
+    public function testDeleteDirectModifierReverse(): void
     {
         $daedalus = new Daedalus();
         $daedalus->setDaedalusVariables(new DaedalusConfig());
@@ -317,7 +319,7 @@ final class ModifierCreationServiceTest extends TestCase
         );
     }
 
-    public function testDeleteDirectModifierNoReverse()
+    public function testDeleteDirectModifierNoReverse(): void
     {
         $daedalus = new Daedalus();
 

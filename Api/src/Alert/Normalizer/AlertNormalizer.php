@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Alert\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;

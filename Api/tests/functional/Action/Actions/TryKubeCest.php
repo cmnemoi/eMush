@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\TryKube;
@@ -26,7 +28,7 @@ final class TryKubeCest extends AbstractFunctionalTest
     private TryKube $tryKube;
     private GameItem $madKube;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -37,7 +39,7 @@ final class TryKubeCest extends AbstractFunctionalTest
         $this->madKube = $this->givenMadKubeInTheRoom();
     }
 
-    public function shouldBeExecutable(FunctionalTester $I)
+    public function shouldBeExecutable(FunctionalTester $I): void
     {
         $this->whenPlayerTriesToTryTheKube();
 
@@ -45,7 +47,7 @@ final class TryKubeCest extends AbstractFunctionalTest
         $I->assertNull($this->tryKube->cannotExecuteReason());
     }
 
-    public function testTryTheKube(FunctionalTester $I)
+    public function testTryTheKube(FunctionalTester $I): void
     {
         $initialActionPoints = $this->player->getActionPoint();
         $this->whenPlayerTriesTheKube();
@@ -63,7 +65,7 @@ final class TryKubeCest extends AbstractFunctionalTest
         $I->assertEquals(1, $this->player->getPlayerInfo()->getStatistics()->getKubeUsed());
     }
 
-    public function shouldSolveTheKube(FunctionalTester $I)
+    public function shouldSolveTheKube(FunctionalTester $I): void
     {
         $this->whenPlayerSolvesTheKube();
 
@@ -71,7 +73,7 @@ final class TryKubeCest extends AbstractFunctionalTest
         $I->assertEquals(5, $this->player->getTriumph());
     }
 
-    public function shouldNotGiveExtraGloryWhenSolvingTheKubeAgain(FunctionalTester $I)
+    public function shouldNotGiveExtraGloryWhenSolvingTheKubeAgain(FunctionalTester $I): void
     {
         $this->whenPlayerSolvesTheKube();
         $this->whenPlayerSolvesTheKube();
@@ -79,7 +81,7 @@ final class TryKubeCest extends AbstractFunctionalTest
         $I->assertEquals(5, $this->player->getTriumph());
     }
 
-    public function shouldNotGiveGloryToOtherPlayersThanTheSolver(FunctionalTester $I)
+    public function shouldNotGiveGloryToOtherPlayersThanTheSolver(FunctionalTester $I): void
     {
         $this->whenPlayerSolvesTheKube();
 
@@ -87,7 +89,7 @@ final class TryKubeCest extends AbstractFunctionalTest
         $I->assertEquals(0, $this->player2->getTriumph());
     }
 
-    public function shouldNotGiveGloryToFirstSolversWhenAnotherPlayerSolvesTheKube(FunctionalTester $I)
+    public function shouldNotGiveGloryToFirstSolversWhenAnotherPlayerSolvesTheKube(FunctionalTester $I): void
     {
         $this->whenPlayerSolvesTheKube();
 

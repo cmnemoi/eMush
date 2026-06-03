@@ -18,7 +18,7 @@ final class MyceliumSpiritCest extends AbstractFunctionalTest
 {
     private PlayerServiceInterface $playerService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);

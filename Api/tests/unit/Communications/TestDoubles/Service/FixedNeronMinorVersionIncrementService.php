@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Communications\TestDoubles\Service;
 
 use Mush\Communications\Service\NeronMinorVersionIncrementServiceInterface;

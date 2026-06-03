@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
@@ -287,7 +289,7 @@ class DoTheThing extends AbstractAction
         );
     }
 
-    private function infect(Player $mush, Player $target)
+    private function infect(Player $mush, Player $target): void
     {
         $sporeNumber = $mush->getVariableValueByName(PlayerVariableEnum::SPORE);
         if ($sporeNumber > 0) {

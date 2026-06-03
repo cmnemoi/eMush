@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -40,7 +42,7 @@ final class MechanicValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $documentMechanic = new Document();
 
@@ -64,7 +66,7 @@ final class MechanicValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $itemConfig = new ItemConfig();
 

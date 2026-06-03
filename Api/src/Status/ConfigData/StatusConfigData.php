@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Status\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;

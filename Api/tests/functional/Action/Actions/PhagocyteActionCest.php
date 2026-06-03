@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Phagocyte;
@@ -20,7 +22,7 @@ final class PhagocyteActionCest extends AbstractFunctionalTest
     private Phagocyte $phagocyteAction;
     private ActionConfig $actionConfig;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -28,7 +30,7 @@ final class PhagocyteActionCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::PHAGOCYTE]);
     }
 
-    public function testPhagocyteWithOneSpore(FunctionalTester $I)
+    public function testPhagocyteWithOneSpore(FunctionalTester $I): void
     {
         // given Chun is mush
         $this->convertPlayerToMush($I, $this->player);

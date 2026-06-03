@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Chat\Listener;
 
 use Mush\Action\Actions\Drop;
@@ -38,7 +40,7 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
     private PlayerServiceInterface $playerService;
     private Channel $privateChannel;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -101,7 +103,7 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
     }
 
     // This test aims to reproduce a bug reported by users
-    public function testPirateThenDieThenDropTalkie(FunctionalTester $I)
+    public function testPirateThenDieThenDropTalkie(FunctionalTester $I): void
     {
         $pirateActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SCREW_TALKIE]);
         $dropActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DROP]);
@@ -159,7 +161,7 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testPirateThenMoveThenDieThenDropTalkie(FunctionalTester $I)
+    public function testPirateThenMoveThenDieThenDropTalkie(FunctionalTester $I): void
     {
         $pirateActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SCREW_TALKIE]);
         $dropActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DROP]);
@@ -251,7 +253,7 @@ final class PiratedPrivateChannelParticipantsCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testPirate(FunctionalTester $I)
+    public function testPirate(FunctionalTester $I): void
     {
         $pirateActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SCREW_TALKIE]);
         $moveActionEntity = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOVE]);

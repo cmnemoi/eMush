@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Equipment\Listener;
 
 use Mush\Equipment\Entity\GameItem;
@@ -30,7 +32,7 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $equipmentService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -41,7 +43,7 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         $this->givenThereIsAGardenInDaedalus($I);
     }
 
-    public function youngPlantShouldGrowByOneCycle(FunctionalTester $I)
+    public function youngPlantShouldGrowByOneCycle(FunctionalTester $I): void
     {
         $bananaTree = $this->givenABananaTreeWithMaturationCycleInPlace(RoomEnum::HYDROPONIC_GARDEN, 1, $I);
 
@@ -50,7 +52,7 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         $this->thenBananaTreeShouldBe(2, $bananaTree, $I);
     }
 
-    public function youngPlantShouldLoseYoungStatusWhenMaturationTimeIsReached(FunctionalTester $I)
+    public function youngPlantShouldLoseYoungStatusWhenMaturationTimeIsReached(FunctionalTester $I): void
     {
         $bananaTree = $this->givenABananaTreeWithMaturationCycleInPlace(RoomEnum::HYDROPONIC_GARDEN, 31, $I);
 
@@ -68,7 +70,7 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         );
     }
 
-    public function testYoungPlantDayChange(FunctionalTester $I)
+    public function testYoungPlantDayChange(FunctionalTester $I): void
     {
         $bananaTree = $this->givenABananaTreeWithMaturationCycleInPlace(RoomEnum::HYDROPONIC_GARDEN, 1, $I);
 
@@ -77,7 +79,7 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         $this->thenTheresNoBananaInRoom($bananaTree->getPlace(), $I);
     }
 
-    public function testAlmostMaturePlantDayChange(FunctionalTester $I)
+    public function testAlmostMaturePlantDayChange(FunctionalTester $I): void
     {
         $bananaTree = $this->givenABananaTreeWithMaturationCycleInPlace(RoomEnum::HYDROPONIC_GARDEN, 31, $I);
 
@@ -97,7 +99,7 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         $this->thenThereIsABananaInRoom($bananaTree->getPlace(), $I);
     }
 
-    public function testDiseasedPlantDayChange(FunctionalTester $I)
+    public function testDiseasedPlantDayChange(FunctionalTester $I): void
     {
         $bananaTree = $this->givenAMatureBananaTreeInPlace(RoomEnum::HYDROPONIC_GARDEN, $I);
         $this->createStatusOn(EquipmentStatusEnum::PLANT_DISEASED, $bananaTree);
@@ -107,7 +109,7 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         $this->thenTheresNoBananaInRoom($bananaTree->getPlace(), $I);
     }
 
-    public function testThirstyPlantDayChange(FunctionalTester $I)
+    public function testThirstyPlantDayChange(FunctionalTester $I): void
     {
         $bananaTree = $this->givenAMatureBananaTreeInPlace(RoomEnum::HYDROPONIC_GARDEN, $I);
         $this->createStatusOn(EquipmentStatusEnum::PLANT_THIRSTY, $bananaTree);
@@ -120,7 +122,7 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         $I->assertTrue($bananaTree->hasStatus(EquipmentStatusEnum::PLANT_DRY));
     }
 
-    public function testDryPlantDayChange(FunctionalTester $I)
+    public function testDryPlantDayChange(FunctionalTester $I): void
     {
         $bananaTree = $this->givenAMatureBananaTreeInPlace(RoomEnum::HYDROPONIC_GARDEN, $I);
         $this->createStatusOn(EquipmentStatusEnum::PLANT_DRY, $bananaTree);
@@ -132,7 +134,7 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         $I->assertTrue($bananaTree->getPlace()->hasEquipmentByName(ItemEnum::HYDROPOT));
     }
 
-    public function testHealthyPlantDayChange(FunctionalTester $I)
+    public function testHealthyPlantDayChange(FunctionalTester $I): void
     {
         $bananaTree = $this->givenAMatureBananaTreeInPlace(RoomEnum::HYDROPONIC_GARDEN, $I);
 
@@ -165,7 +167,7 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         $this->thenBananaTreeShouldBe(2, $bananaTree, $I);
     }
 
-    public function testPlantCycleChangeDisease(FunctionalTester $I)
+    public function testPlantCycleChangeDisease(FunctionalTester $I): void
     {
         $bananaTree = $this->givenAMatureBananaTreeInPlace(RoomEnum::HYDROPONIC_GARDEN, $I);
 
@@ -177,7 +179,7 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         $I->assertTrue($bananaTree->hasStatus(EquipmentStatusEnum::PLANT_DISEASED));
     }
 
-    public function shouldNotMakePlantSickIfInGardenWithNanoLadybugs(FunctionalTester $I)
+    public function shouldNotMakePlantSickIfInGardenWithNanoLadybugs(FunctionalTester $I): void
     {
         $bananaTree = $this->givenAMatureBananaTreeInPlace(RoomEnum::HYDROPONIC_GARDEN, $I);
 
@@ -191,7 +193,7 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
         $I->assertFalse($bananaTree->hasStatus(EquipmentStatusEnum::PLANT_DISEASED));
     }
 
-    public function shouldMakePlantSickOutsideOfGardenWithNanoLadybugs(FunctionalTester $I)
+    public function shouldMakePlantSickOutsideOfGardenWithNanoLadybugs(FunctionalTester $I): void
     {
         $bananaTree = $this->givenAMatureBananaTreeInPlace(RoomEnum::LABORATORY, $I);
 

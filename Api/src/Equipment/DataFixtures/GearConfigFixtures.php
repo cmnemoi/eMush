@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\DataFixtures;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -42,7 +44,7 @@ class GearConfigFixtures extends BlueprintConfigFixtures implements DependentFix
         ];
     }
 
-    private function setGearModifierConfigs(Gear $gear, array $gearData, ObjectManager $manager)
+    private function setGearModifierConfigs(Gear $gear, array $gearData, ObjectManager $manager): void
     {
         $modifierConfigs = [];
         foreach ($gearData['modifierConfigs'] as $modifierConfigName) {

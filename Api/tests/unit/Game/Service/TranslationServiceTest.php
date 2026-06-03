@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Game\Service;
 
 use Mockery;
@@ -46,7 +48,7 @@ final class TranslationServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testGetSimpleTranslationParameters()
+    public function testGetSimpleTranslationParameters(): void
     {
         // test simple parameter
         $this->translator->shouldReceive('trans')
@@ -56,7 +58,7 @@ final class TranslationServiceTest extends TestCase
         $this->translationService->translate('key', ['quantity' => 1], 'domain', LanguageEnum::FRENCH);
     }
 
-    public function testGetCharacterTranslationParameters()
+    public function testGetCharacterTranslationParameters(): void
     {
         // test character parameter
         $this->translator
@@ -74,7 +76,7 @@ final class TranslationServiceTest extends TestCase
         $this->translationService->translate('key', ['character' => CharacterEnum::PAOLA], 'someOtherDomain', LanguageEnum::FRENCH);
     }
 
-    public function testGetTargetCharacterTranslationParameters()
+    public function testGetTargetCharacterTranslationParameters(): void
     {
         // test targetPlayer parameter
         $this->translator
@@ -89,7 +91,7 @@ final class TranslationServiceTest extends TestCase
         $this->translationService->translate('key', ['target_character' => CharacterEnum::PAOLA], 'someOtherDomain', LanguageEnum::FRENCH);
     }
 
-    public function testGetTargetEquipmentTranslationParameters()
+    public function testGetTargetEquipmentTranslationParameters(): void
     {
         // test targetEquipment parameter
 
@@ -170,7 +172,7 @@ final class TranslationServiceTest extends TestCase
         $this->thenTargetPlaceParametersAreGenerated();
     }
 
-    public function testGetTranslationParameters()
+    public function testGetTranslationParameters(): void
     {
         $this->translator
             ->shouldReceive('trans')
@@ -262,7 +264,7 @@ final class TranslationServiceTest extends TestCase
         $this->translationService->translate('key', $initialParameters, 'domain', LanguageEnum::FRENCH);
     }
 
-    public function testGetTranslationParametersCoprolaliaMessage()
+    public function testGetTranslationParametersCoprolaliaMessage(): void
     {
         $initParameters = [
             LogDeclinationEnum::VERSION => 1,

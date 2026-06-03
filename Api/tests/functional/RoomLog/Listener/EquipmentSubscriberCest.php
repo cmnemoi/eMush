@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\RoomLog\Listener;
 
 use Mush\Daedalus\Entity\Daedalus;
@@ -24,12 +26,12 @@ class EquipmentSubscriberCest
 {
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testCreateNewFruit(FunctionalTester $I)
+    public function testCreateNewFruit(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);

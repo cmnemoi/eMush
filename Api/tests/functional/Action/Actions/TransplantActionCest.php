@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
@@ -28,7 +30,7 @@ final class TransplantActionCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, [
@@ -39,7 +41,7 @@ final class TransplantActionCest extends AbstractFunctionalTest
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
     }
 
-    public function testTransplant(FunctionalTester $I)
+    public function testTransplant(FunctionalTester $I): void
     {
         $ian = $this->givenIanPlayerWithHydropot($I);
 

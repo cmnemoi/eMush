@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Status\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -33,14 +35,14 @@ class DayEventCest
     private StatusCycleSubscriber $cycleSubscriber;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->cycleSubscriber = $I->grabService(StatusCycleSubscriber::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     // tests
-    public function testChargeStatusDaySubscriber(FunctionalTester $I)
+    public function testChargeStatusDaySubscriber(FunctionalTester $I): void
     {
         // Day Increment
         $daedalus = new Daedalus();

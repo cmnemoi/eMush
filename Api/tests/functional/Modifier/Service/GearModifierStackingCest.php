@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Modifier\Service;
 
 use Mush\Action\Actions\Drop;
@@ -33,7 +35,7 @@ final class GearModifierStackingCest extends AbstractFunctionalTest
 
     private GameItem $scooter;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

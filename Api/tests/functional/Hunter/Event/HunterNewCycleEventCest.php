@@ -31,7 +31,7 @@ final class HunterNewCycleEventCest extends AbstractFunctionalTest
     private HunterServiceInterface $hunterService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -163,7 +163,7 @@ final class HunterNewCycleEventCest extends AbstractFunctionalTest
         // then the transport should be deleted
         $I->expectThrowable(
             new \RuntimeException("Hunter not found for id {$transportId}"),
-            function () use ($transportId) {
+            function () use ($transportId): void {
                 $this->hunterRepository->findByIdOrThrow($transportId);
             }
         );

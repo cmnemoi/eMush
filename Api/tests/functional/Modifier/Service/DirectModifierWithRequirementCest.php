@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Modifier\Service;
 
 use Mush\Game\Entity\VariableEventConfig;

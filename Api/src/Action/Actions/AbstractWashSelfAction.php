@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
@@ -78,7 +80,7 @@ abstract class AbstractWashSelfAction extends AbstractAction
         }
     }
 
-    private function handleWaterDamage()
+    private function handleWaterDamage(): void
     {
         $damageProbaCollection = new ProbaCollection([
             3 => 1,

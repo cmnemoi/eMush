@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Game\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -69,7 +71,7 @@ final class CycleServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testGetCycleTimezone()
+    public function testGetCycleTimezone(): void
     {
         $timeZone = 'Europe/Paris';
 
@@ -93,7 +95,7 @@ final class CycleServiceTest extends TestCase
         self::assertSame(4, $this->service->getInDayCycleFromDate(new \DateTime('2020-10-10 01:45:00.0 Europe/Paris'), $daedalus));
     }
 
-    public function testHandleDaedalusAndExplorationCycleChanges()
+    public function testHandleDaedalusAndExplorationCycleChanges(): void
     {
         $timeZone = 'Europe/Paris';
 
@@ -161,7 +163,7 @@ final class CycleServiceTest extends TestCase
         self::assertSame(31, $this->service->handleDaedalusAndExplorationCycleChanges(new \DateTime("2020-11-09 00:30:00.0 {$timeZone}"), $daedalus)->daedalusCyclesElapsed);
     }
 
-    public function testDateChange()
+    public function testDateChange(): void
     {
         $timeZone = 'Europe/Paris';
 
@@ -234,7 +236,7 @@ final class CycleServiceTest extends TestCase
         self::assertSame(2, $this->service->handleDaedalusAndExplorationCycleChanges(new \DateTime("2020-10-25 05:31:00.0 {$timeZone}"), $daedalus)->daedalusCyclesElapsed);
     }
 
-    public function testStandbyDaedalus()
+    public function testStandbyDaedalus(): void
     {
         $timeZone = 'Europe/Paris';
 
@@ -261,7 +263,7 @@ final class CycleServiceTest extends TestCase
         self::assertSame(0, $this->service->handleDaedalusAndExplorationCycleChanges(new \DateTime("2020-10-09 23:31:00.0 {$timeZone}"), $daedalus)->daedalusCyclesElapsed);
     }
 
-    public function testGetDaedalusStartingCycleDate()
+    public function testGetDaedalusStartingCycleDate(): void
     {
         $timeZone = 'Europe/Paris';
         // Simple ship

@@ -29,7 +29,7 @@ final class PlayerSubscriberCest extends AbstractFunctionalTest
     private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

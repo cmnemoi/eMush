@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\ConfigData;
 
 use Mush\Equipment\Entity\Mechanics\Ration;
@@ -29,7 +31,7 @@ class RationDataLoader extends MechanicsDataLoader
         $this->entityManager->flush();
     }
 
-    protected function setRationAttributes(Ration $ration, array $rationData)
+    protected function setRationAttributes(Ration $ration, array $rationData): void
     {
         $ration
             ->setName($rationData['name'])

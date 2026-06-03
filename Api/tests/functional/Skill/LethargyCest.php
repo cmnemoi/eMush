@@ -352,7 +352,7 @@ final class LethargyCest extends AbstractFunctionalTest
         $this->convertPlayerToMush($I, $this->jinSu);
     }
 
-    private function whenChunInoculatesKuanTi(FunctionalTester $I)
+    private function whenChunInoculatesKuanTi(FunctionalTester $I): void
     {
         $cureConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CURE]);
         $cureAction = $I->grabService(Cure::class);

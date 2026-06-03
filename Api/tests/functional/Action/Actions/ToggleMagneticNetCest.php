@@ -28,7 +28,7 @@ final class ToggleMagneticNetCest extends AbstractFunctionalTest
     private ToggleMagneticNet $toggleMagneticNet;
     private GameEquipment $biosTerminal;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TOGGLE_MAGNETIC_NET]);

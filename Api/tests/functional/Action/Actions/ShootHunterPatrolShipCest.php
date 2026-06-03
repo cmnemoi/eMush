@@ -41,7 +41,7 @@ final class ShootHunterPatrolShipCest extends AbstractFunctionalTest
     private RebelBaseRepositoryInterface $rebelBaseRepository;
     private DecodeRebelSignalService $decodeRebelBase;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

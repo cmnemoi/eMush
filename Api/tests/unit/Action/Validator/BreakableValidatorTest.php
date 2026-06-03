@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -38,7 +40,7 @@ final class BreakableValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $itemConfig = new ItemConfig();
         $itemConfig->setBreakableType(BreakableTypeEnum::BREAKABLE);
@@ -56,7 +58,7 @@ final class BreakableValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $itemConfig = new ItemConfig();
         $itemConfig->setBreakableType(BreakableTypeEnum::NONE);

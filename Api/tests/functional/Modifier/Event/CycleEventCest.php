@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Modifier\Event;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;
@@ -32,7 +34,7 @@ final class CycleEventCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private RoomLogRepository $roomLogRepository;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
@@ -43,7 +45,7 @@ final class CycleEventCest extends AbstractFunctionalTest
         $this->roomLogRepository = $I->grabService(RoomLogRepository::class);
     }
 
-    public function testLieDownStatus(FunctionalTester $I)
+    public function testLieDownStatus(FunctionalTester $I): void
     {
         // given player is lying down
         $this->statusService->createStatusFromName(

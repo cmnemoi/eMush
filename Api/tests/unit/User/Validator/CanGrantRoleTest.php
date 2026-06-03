@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\User\Validator;
 
 use Mockery;
@@ -46,7 +48,7 @@ final class CanGrantRoleTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $constraint = new CanGrantRole();
 
@@ -61,7 +63,7 @@ final class CanGrantRoleTest extends TestCase
         $this->validator->validate($roles, $constraint);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $constraint = new CanGrantRole();
         $this->initValidator('You cannot grant this role');

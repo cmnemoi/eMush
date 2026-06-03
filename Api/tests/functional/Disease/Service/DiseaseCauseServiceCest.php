@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Disease\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -40,7 +42,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private ConsumableDiseaseServiceInterface $consumableDiseaseService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->diseaseCauseService = $I->grabService(DiseaseCauseServiceInterface::class);
@@ -49,7 +51,7 @@ final class DiseaseCauseServiceCest extends AbstractFunctionalTest
         $this->consumableDiseaseService = $I->grabService(ConsumableDiseaseServiceInterface::class);
     }
 
-    public function testAddADiseaseFromCause(FunctionalTester $I)
+    public function testAddADiseaseFromCause(FunctionalTester $I): void
     {
         $diseaseConfig = new DiseaseConfig();
         $diseaseConfig

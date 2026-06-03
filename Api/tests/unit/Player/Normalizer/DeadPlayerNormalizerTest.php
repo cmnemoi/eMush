@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Player\Normalizer;
 
 use Mockery;
@@ -49,7 +51,7 @@ final class DeadPlayerNormalizerTest extends TestCase
         \Mockery::close();
     }
 
-    public function testNormalizer()
+    public function testNormalizer(): void
     {
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();

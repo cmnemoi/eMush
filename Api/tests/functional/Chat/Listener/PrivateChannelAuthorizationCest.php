@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Chat\Listener;
 
 use Mush\Action\Actions\Drop;
@@ -425,13 +427,13 @@ final class PrivateChannelAuthorizationCest extends AbstractFunctionalTest
 
     private function thenOnlyKuanTiShouldBeInPrivateChannel(FunctionalTester $I): void
     {
-        $I->assertEqualsCanonicalizing(
-            [$this->kuanTi->getLogName()],
+        $I->assertCount(1, $this->privateChannel->getParticipants()->toArray(), 'Only Kuan Ti should be in the private channel');
+        $I->assertContains(
+            $this->kuanTi->getLogName(),
             array_map(
                 static fn (ChannelPlayer $channelPlayer) => $channelPlayer->getParticipant()->getPlayer()->getLogName(),
                 $this->privateChannel->getParticipants()->toArray()
-            ),
-            'Only Kuan Ti should be in the private channel'
+            )
         );
     }
 

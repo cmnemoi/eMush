@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Alert\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -33,13 +35,13 @@ class EquipmentSubscriberCest
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function testDestroyBrokenEquipment(FunctionalTester $I)
+    public function testDestroyBrokenEquipment(FunctionalTester $I): void
     {
         $statusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
         $noGravityConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => DaedalusStatusEnum::NO_GRAVITY]);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Chat\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -37,12 +39,12 @@ class PlayerContaminationCest
 {
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testDispatchInfection(FunctionalTester $I)
+    public function testDispatchInfection(FunctionalTester $I): void
     {
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig
@@ -143,7 +145,7 @@ class PlayerContaminationCest
         $I->assertCount(0, $mushChannel->getParticipants());
     }
 
-    public function testDispatchContamination(FunctionalTester $I)
+    public function testDispatchContamination(FunctionalTester $I): void
     {
         $mushStatusConfig = new ChargeStatusConfig();
         $mushStatusConfig

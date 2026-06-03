@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Take;
@@ -25,7 +27,7 @@ final class CannotTakeHeavyItemCest extends AbstractFunctionalTest
     private Take $takeAction;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -35,7 +37,7 @@ final class CannotTakeHeavyItemCest extends AbstractFunctionalTest
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
     }
 
-    public function testCannotTakeHeavyItemDueToModifier(FunctionalTester $I)
+    public function testCannotTakeHeavyItemDueToModifier(FunctionalTester $I): void
     {
         // given player has the broken shoulder
         $this->playerDiseaseService->createDiseaseFromName(
@@ -61,7 +63,7 @@ final class CannotTakeHeavyItemCest extends AbstractFunctionalTest
         $I->assertEquals($this->takeAction->cannotExecuteReason(), ActionImpossibleCauseEnum::SYMPTOMS_ARE_PREVENTING_ACTION);
     }
 
-    public function testDropHeavyItem(FunctionalTester $I)
+    public function testDropHeavyItem(FunctionalTester $I): void
     {
         $equipment = $this->createEquipment(
             equipmentName: ToolItemEnum::SUPERFREEZER,

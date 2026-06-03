@@ -38,7 +38,7 @@ final class InfectCest extends AbstractFunctionalTest
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private PlayerDiseaseService $playerDiseaseService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

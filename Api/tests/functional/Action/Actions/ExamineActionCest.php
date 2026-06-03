@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Examine;
@@ -22,7 +24,7 @@ final class ExamineActionCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -32,7 +34,7 @@ final class ExamineActionCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
-    public function testExamineEquipment(FunctionalTester $I)
+    public function testExamineEquipment(FunctionalTester $I): void
     {
         // given there is a distiller in the room
         $distiller = $this->gameEquipmentService->createGameEquipmentFromName(

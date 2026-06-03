@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Disease\SymptomHandler;
 
 use Mush\Player\Entity\Player;

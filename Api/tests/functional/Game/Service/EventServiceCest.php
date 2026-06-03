@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Game\Service;
 
 use Mush\Action\Entity\ActionConfig;
@@ -27,14 +29,14 @@ final class EventServiceCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function testIsInfiniteLoopCallEventAvoided(FunctionalTester $I)
+    public function testIsInfiniteLoopCallEventAvoided(FunctionalTester $I): void
     {
         $variableEventConfig = new VariableEventConfig();
         $variableEventConfig
@@ -67,7 +69,7 @@ final class EventServiceCest extends AbstractFunctionalTest
         $I->assertEquals($hullInitial - 8, $this->daedalus->getHull());
     }
 
-    public function testIsInfiniteLoopCallEventAvoidedBis(FunctionalTester $I)
+    public function testIsInfiniteLoopCallEventAvoidedBis(FunctionalTester $I): void
     {
         $variableEventConfig = new VariableEventConfig();
         $variableEventConfig

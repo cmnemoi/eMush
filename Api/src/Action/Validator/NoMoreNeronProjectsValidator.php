@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -9,7 +11,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class NoMoreNeronProjectsValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         $action = $value;
 

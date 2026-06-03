@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
@@ -193,7 +195,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I)
+    private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
     {
         $I->assertEquals(
             expected: $message,

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -41,7 +43,7 @@ final class OxygenValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValidRetrieve()
+    public function testValidRetrieve(): void
     {
         $this->constraint->target = GameVariableLevel::DAEDALUS;
         $this->constraint->checkMode = GameVariableLevel::IS_MIN;
@@ -72,7 +74,7 @@ final class OxygenValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValidRetrieve()
+    public function testNotValidRetrieve(): void
     {
         $this->constraint->target = GameVariableLevel::DAEDALUS;
         $this->constraint->checkMode = GameVariableLevel::IS_MIN;
@@ -103,7 +105,7 @@ final class OxygenValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testValidInsert()
+    public function testValidInsert(): void
     {
         $this->constraint->target = GameVariableLevel::DAEDALUS;
         $this->constraint->checkMode = GameVariableLevel::IS_MAX;
@@ -139,7 +141,7 @@ final class OxygenValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValidInsert()
+    public function testNotValidInsert(): void
     {
         $this->constraint->target = GameVariableLevel::DAEDALUS;
         $this->constraint->checkMode = GameVariableLevel::IS_MAX;

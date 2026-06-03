@@ -256,13 +256,13 @@ final class DeletePlayerSkillServiceCest extends AbstractFunctionalTest
         $participateAction->execute();
     }
 
-    private function thenKuanTiShouldHaveNoITPoints(FunctionalTester $I)
+    private function thenKuanTiShouldHaveNoITPoints(FunctionalTester $I): void
     {
         $computerPointsStatus = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::COMPUTER_POINTS->toString());
         $I->assertNull($computerPointsStatus, 'Computer points charge status exists.');
     }
 
-    private function thenKuanTiShouldHaveMaxITPointsOfAmount(int $expectedQuantity, FunctionalTester $I)
+    private function thenKuanTiShouldHaveMaxITPointsOfAmount(int $expectedQuantity, FunctionalTester $I): void
     {
         $computerPointsMaxQuantity = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::COMPUTER_POINTS->toString())?->getMaxChargeOrThrow();
         $I->assertEquals(
@@ -272,7 +272,7 @@ final class DeletePlayerSkillServiceCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenKuanTiShouldHaveITPointsOfAmount(int $expectedQuantity, FunctionalTester $I)
+    private function thenKuanTiShouldHaveITPointsOfAmount(int $expectedQuantity, FunctionalTester $I): void
     {
         $computerPointsQuantity = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::COMPUTER_POINTS->toString())?->getCharge();
         $I->assertEquals(
@@ -282,7 +282,7 @@ final class DeletePlayerSkillServiceCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenKuanTiShouldHaveNoMaintenanceCrewPoints(FunctionalTester $I)
+    private function thenKuanTiShouldHaveNoMaintenanceCrewPoints(FunctionalTester $I): void
     {
         $techPointsStatus = $this->kuanTi->getChargeStatusByName(SkillPointsEnum::ENGINEER_POINTS->toString());
         $I->assertNull($techPointsStatus, 'Tech points charge status exists.');

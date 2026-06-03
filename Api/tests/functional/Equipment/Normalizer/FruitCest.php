@@ -30,7 +30,7 @@ final class FruitCest extends AbstractFunctionalTest
     private DecodeRebelSignalService $decodeRebelBase;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

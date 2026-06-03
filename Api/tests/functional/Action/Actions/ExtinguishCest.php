@@ -36,7 +36,7 @@ final class ExtinguishCest extends AbstractFunctionalTest
 
     private GameItem $extinguisher;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

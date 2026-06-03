@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -54,7 +56,7 @@ final class HyperfreezeActionTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecuteFruit()
+    public function testExecuteFruit(): void
     {
         // fruit
         $room = new Place();
@@ -97,7 +99,7 @@ final class HyperfreezeActionTest extends AbstractActionTest
         self::assertCount(0, $player->getStatuses());
     }
 
-    public function testExecuteSteak()
+    public function testExecuteSteak(): void
     {
         // Alien Steak
         $room = new Place();

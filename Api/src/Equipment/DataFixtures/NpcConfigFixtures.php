@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\DataFixtures;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -55,7 +57,7 @@ class NpcConfigFixtures extends EquipmentConfigFixtures implements DependentFixt
         ];
     }
 
-    protected function setNPCConfigAttributes(NpcConfig $equipmentConfig, array $equipmentConfigData)
+    protected function setNPCConfigAttributes(NpcConfig $equipmentConfig, array $equipmentConfigData): void
     {
         $equipmentConfig->setAiHandler($equipmentConfigData['AIHandler']);
     }

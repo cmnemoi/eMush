@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Place\ConfigData;
 
 use Mush\Equipment\Enum\GameDrugEnum;

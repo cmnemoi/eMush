@@ -44,7 +44,7 @@ final class PrintZeListCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private GameEquipment $tabulatrix;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

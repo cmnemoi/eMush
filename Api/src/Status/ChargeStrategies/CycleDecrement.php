@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Status\ChargeStrategies;
 
 use Mush\Game\Enum\VisibilityEnum;

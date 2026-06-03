@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -40,7 +42,7 @@ final class BuildActionCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->buildConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::BUILD]);
@@ -49,7 +51,7 @@ final class BuildActionCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
-    public function testCanReach(FunctionalTester $I)
+    public function testCanReach(FunctionalTester $I): void
     {
         $room1 = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
         $room2 = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
@@ -75,7 +77,7 @@ final class BuildActionCest extends AbstractFunctionalTest
         $I->assertTrue($this->buildAction->isVisible());
     }
 
-    public function testIsBlueprint(FunctionalTester $I)
+    public function testIsBlueprint(FunctionalTester $I): void
     {
         $room = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
 

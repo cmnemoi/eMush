@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Place\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -63,7 +65,7 @@ final class PlaceServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testCreateRoom()
+    public function testCreateRoom(): void
     {
         $daedalus = new Daedalus();
 

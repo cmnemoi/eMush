@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Mush\Action\Actions\MotivationalSpeech;
@@ -40,7 +42,7 @@ final class MotivationalSpeechActionTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecute()
+    public function testExecute(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
 

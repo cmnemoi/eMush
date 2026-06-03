@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Equipment\Repository;
 
 use Mush\Daedalus\Entity\Daedalus;
@@ -20,12 +22,12 @@ final class GameEquipmentRepositoryCest
 {
     private GameEquipmentRepository $repository;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->repository = $I->grabService(GameEquipmentRepository::class);
     }
 
-    public function testFindByDaedalus(FunctionalTester $I)
+    public function testFindByDaedalus(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, ['maxItemInInventory' => 1]);
@@ -109,7 +111,7 @@ final class GameEquipmentRepositoryCest
         $I->assertEmpty($result);
     }
 
-    public function testFindByBreakable(FunctionalTester $I)
+    public function testFindByBreakable(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -157,7 +159,7 @@ final class GameEquipmentRepositoryCest
         $I->assertContains($unbreakableItem, $result);
     }
 
-    public function testFindByPersonal(FunctionalTester $I)
+    public function testFindByPersonal(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -205,7 +207,7 @@ final class GameEquipmentRepositoryCest
         $I->assertContains($nonPersonalItem, $result);
     }
 
-    public function testFindByInstanceOf(FunctionalTester $I)
+    public function testFindByInstanceOf(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -271,7 +273,7 @@ final class GameEquipmentRepositoryCest
         $I->assertContains($door, $result);
     }
 
-    public function testFindByNotInstanceOf(FunctionalTester $I)
+    public function testFindByNotInstanceOf(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);
@@ -338,7 +340,7 @@ final class GameEquipmentRepositoryCest
         $I->assertContains($gameEquipment, $result);
     }
 
-    public function testFindByNameAndDaedalus(FunctionalTester $I)
+    public function testFindByNameAndDaedalus(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class);

@@ -99,7 +99,7 @@ final class ChannelServiceTest extends TestCase
         $this->thenPublicChannelShouldBeInRepository($daedalus->getDaedalusInfo(), $publicChannel);
     }
 
-    public function testCreatePrivateChannel()
+    public function testCreatePrivateChannel(): void
     {
         // given a player in a Daedalus
         $daedalus = DaedalusFactory::createDaedalus();
@@ -118,7 +118,7 @@ final class ChannelServiceTest extends TestCase
         self::assertSame($privateChannel, $channel);
     }
 
-    public function testInvitePlayerToChannel()
+    public function testInvitePlayerToChannel(): void
     {
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -133,7 +133,7 @@ final class ChannelServiceTest extends TestCase
         self::assertSame($channel, $this->service->invitePlayer($player, $channel));
     }
 
-    public function testExitChannel()
+    public function testExitChannel(): void
     {
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -148,7 +148,7 @@ final class ChannelServiceTest extends TestCase
         self::assertTrue($this->service->exitChannel($player, $channel));
     }
 
-    public function testCanPlayerCommunicateWithTalkie()
+    public function testCanPlayerCommunicateWithTalkie(): void
     {
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -165,7 +165,7 @@ final class ChannelServiceTest extends TestCase
         self::assertTrue($canPlayerCommunicate);
     }
 
-    public function testPlayerCannotCommunicate()
+    public function testPlayerCannotCommunicate(): void
     {
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -182,7 +182,7 @@ final class ChannelServiceTest extends TestCase
         self::assertFalse($canPlayerCommunicate);
     }
 
-    public function testPlayerCanCommunicateOnBridge()
+    public function testPlayerCanCommunicateOnBridge(): void
     {
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -196,7 +196,7 @@ final class ChannelServiceTest extends TestCase
         self::assertTrue($canPlayerCommunicate);
     }
 
-    public function testPlayerCanCommunicateWithBrainSync()
+    public function testPlayerCanCommunicateWithBrainSync(): void
     {
         $player = new Player();
         $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
@@ -231,7 +231,7 @@ final class ChannelServiceTest extends TestCase
         $this->thenPlayerShouldBeAbleToWhisper($canWhisper);
     }
 
-    public function testPlayerCanWhisperInChannelThroughOtherPlayer()
+    public function testPlayerCanWhisperInChannelThroughOtherPlayer(): void
     {
         $channel = new Channel();
         $place = Place::createNull();
@@ -281,7 +281,7 @@ final class ChannelServiceTest extends TestCase
         $this->thenPlayerShouldNotBeAbleToWhisper($canWhisper);
     }
 
-    public function testPlayerCanWhisper()
+    public function testPlayerCanWhisper(): void
     {
         $place = Place::createNull();
 
@@ -300,7 +300,7 @@ final class ChannelServiceTest extends TestCase
         self::assertFalse($this->service->canPlayerWhisper($player, $player3));
     }
 
-    public function testUpdatePlayerPrivateChannelPlayerDoNotLeaveChannel()
+    public function testUpdatePlayerPrivateChannelPlayerDoNotLeaveChannel(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
 
@@ -360,7 +360,7 @@ final class ChannelServiceTest extends TestCase
         // Assertions are handled by mock expectations
     }
 
-    public function testUpdatePlayerPrivateChannelPlayerLeaveChannel()
+    public function testUpdatePlayerPrivateChannelPlayerLeaveChannel(): void
     {
         $channel = new Channel();
         $channel->setScope(ChannelScopeEnum::PRIVATE);
@@ -545,7 +545,7 @@ final class ChannelServiceTest extends TestCase
         $this->thenPlayerShouldHaveChannels($channels, 0);
     }
 
-    public function testAddPlayer()
+    public function testAddPlayer(): void
     {
         $daedalus = DaedalusFactory::createDaedalus();
         $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);

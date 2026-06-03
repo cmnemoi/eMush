@@ -55,7 +55,7 @@ final class CommanderOrderCest extends AbstractFunctionalTest
 
         $this->givenKuanTiIsInFrontCorridorWithoutMeansOfCommunication($I);
 
-        $I->expectThrowable(GameException::class, function () {
+        $I->expectThrowable(GameException::class, function (): void {
             $this->whenChunOrderAMissionToKuanTi();
         });
     }

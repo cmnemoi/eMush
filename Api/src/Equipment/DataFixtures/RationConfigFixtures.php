@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\DataFixtures;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -34,7 +36,7 @@ class RationConfigFixtures extends BlueprintConfigFixtures implements DependentF
         ];
     }
 
-    protected function setRationAttributes(Ration $ration, array $rationData)
+    protected function setRationAttributes(Ration $ration, array $rationData): void
     {
         $ration
             ->setName($rationData['name'])

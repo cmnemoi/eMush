@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Daedalus\Event;
 
 use Mush\Chat\Entity\Channel;
@@ -35,13 +37,13 @@ class DaedalusDestroyedOnEndDayCest
     private EventServiceInterface $eventService;
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
     }
 
-    public function testDestroyDaedalus(FunctionalTester $I)
+    public function testDestroyDaedalus(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);

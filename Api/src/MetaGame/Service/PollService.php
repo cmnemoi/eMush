@@ -63,14 +63,14 @@ class PollService
         return $vote;
     }
 
-    public function removeVotes(Poll $poll, User $user)
+    public function removeVotes(Poll $poll, User $user): void
     {
         $poll->removeVotesForUser($user);
         $this->entityManager->persist($poll);
         $this->entityManager->flush();
     }
 
-    public function closePoll(Poll $poll)
+    public function closePoll(Poll $poll): void
     {
         $poll->close();
         $this->entityManager->persist($poll);

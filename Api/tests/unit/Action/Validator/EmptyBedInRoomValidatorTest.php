@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -42,7 +44,7 @@ final class EmptyBedInRoomValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $room = new Place();
 
@@ -62,7 +64,7 @@ final class EmptyBedInRoomValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testNotValidBedNotEmpty()
+    public function testNotValidBedNotEmpty(): void
     {
         $room = new Place();
 
@@ -88,7 +90,7 @@ final class EmptyBedInRoomValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint, 'execute');
     }
 
-    public function testNotValidNoBed()
+    public function testNotValidNoBed(): void
     {
         $room = new Place();
 

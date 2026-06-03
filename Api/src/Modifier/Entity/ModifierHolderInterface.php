@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Modifier\Entity;
 
 use Mush\Daedalus\Entity\Daedalus;

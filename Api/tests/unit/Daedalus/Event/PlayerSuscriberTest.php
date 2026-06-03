@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Daedalus\Event;
 
 use Mockery;
@@ -55,7 +57,7 @@ final class PlayerSuscriberTest extends TestCase
         \Mockery::close();
     }
 
-    public function testOnDaedalusDestruction()
+    public function testOnDaedalusDestruction(): void
     {
         $gameConfig = new GameConfig();
         $daedalusConfig = new DaedalusConfig();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Service;
 
 use Doctrine\ORM\EntityManagerInterface;

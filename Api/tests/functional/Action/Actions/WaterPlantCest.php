@@ -30,7 +30,7 @@ final class WaterPlantCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -42,7 +42,7 @@ final class WaterPlantCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function botanistShouldNotConsumeActionPoints(FunctionalTester $I)
+    public function botanistShouldNotConsumeActionPoints(FunctionalTester $I): void
     {
         $this->givenPlayerIsABotanist($I);
 
@@ -55,7 +55,7 @@ final class WaterPlantCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveTenActionPoints($I);
     }
 
-    public function botanistShouldConsumeOneBotanistPoints(FunctionalTester $I)
+    public function botanistShouldConsumeOneBotanistPoints(FunctionalTester $I): void
     {
         $this->givenPlayerIsABotanist($I);
 

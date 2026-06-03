@@ -24,7 +24,7 @@ final class InsertOxygenCest extends AbstractFunctionalTest
 
     private ActionConfig $actionConfig;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -37,7 +37,7 @@ final class InsertOxygenCest extends AbstractFunctionalTest
         $this->insertOxygenAction = $I->grabService(InsertOxygen::class);
     }
 
-    public function testInsertOxygen(FunctionalTester $I)
+    public function testInsertOxygen(FunctionalTester $I): void
     {
         // Given Daedalus has 3 oxygen
         $this->daedalus->setOxygen(3);

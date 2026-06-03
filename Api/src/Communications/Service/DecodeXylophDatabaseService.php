@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Communications\Service;
 
 use Mush\Communications\Entity\XylophEntry;
@@ -85,7 +87,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         $this->markXylophDatabaseDecoded($xylophEntry);
     }
 
-    private function markXylophDatabaseDecoded(XylophEntry $xylophEntry)
+    private function markXylophDatabaseDecoded(XylophEntry $xylophEntry): void
     {
         $xylophEntry->unlockDatabase();
         $this->xylophRepository->save($xylophEntry);
@@ -198,12 +200,12 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         $this->printDocumentService->execute($tabulatrix, $tags);
     }
 
-    private function receiveChefBook(Place $queue, array $tags)
+    private function receiveChefBook(Place $queue, array $tags): void
     {
         $this->queueDocumentOfName('apprentron_chef', $queue, $tags);
     }
 
-    private function receiveMageBooks(Place $queue, int $quantity, array $tags)
+    private function receiveMageBooks(Place $queue, int $quantity, array $tags): void
     {
         $mageBookNames = $this->randomService->getApprentonFromDaedalus($queue->getDaedalus(), $quantity);
         foreach ($mageBookNames as $mageBook) {
@@ -211,7 +213,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         }
     }
 
-    private function receiveBlueprints(Place $queue, int $quantity, array $tags)
+    private function receiveBlueprints(Place $queue, int $quantity, array $tags): void
     {
         $daedalus = $queue->getDaedalus();
         $selectedBlueprints = $this->randomService->getBlueprintFromDaedalus($daedalus, $quantity);
@@ -222,7 +224,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         $daedalus->getUniqueItems()->makeStartingBlueprintsUnique($selectedBlueprints->toArray());
     }
 
-    private function receiveLostResearch(Place $queue, int $minNumberOfNegative, array $tags)
+    private function receiveLostResearch(Place $queue, int $minNumberOfNegative, array $tags): void
     {
         // number of negative player range from quantity to quantity * 2, with -1 for 8 players or less
         $numberOfNegative = $this->randomService->random($minNumberOfNegative, $minNumberOfNegative * 2);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\MetaGame\Normalizer;
 
 use Mush\MetaGame\Entity\News;

@@ -30,7 +30,7 @@ final class MassGgedonCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 

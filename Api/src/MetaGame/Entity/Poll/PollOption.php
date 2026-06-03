@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\MetaGame\Entity\Poll;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -48,7 +50,7 @@ class PollOption
         return $this->votes;
     }
 
-    public function addVote(Vote $vote)
+    public function addVote(Vote $vote): void
     {
         $this->votes->add($vote);
     }
@@ -76,7 +78,7 @@ class PollOption
         return $votes->first();
     }
 
-    public function removeVote(Vote $vote)
+    public function removeVote(Vote $vote): void
     {
         $this->votes->removeElement($vote);
     }

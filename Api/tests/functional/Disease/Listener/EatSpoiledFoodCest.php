@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Disease\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -36,12 +38,12 @@ class EatSpoiledFoodCest
 {
     private Consume $consumeAction;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         $this->consumeAction = $I->grabService(Consume::class);
     }
 
-    public function testConsume(FunctionalTester $I)
+    public function testConsume(FunctionalTester $I): void
     {
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
 

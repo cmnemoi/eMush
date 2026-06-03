@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Chat\Services;
 
 use Doctrine\Common\Collections\Collection;

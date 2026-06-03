@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\MetaGame\Service;
 
 use Doctrine\ORM\EntityManager;
@@ -57,7 +59,7 @@ final class ModerationServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testBan()
+    public function testBan(): void
     {
         $user = UserFactory::createUser();
 
@@ -77,7 +79,7 @@ final class ModerationServiceTest extends TestCase
         self::assertTrue($user->isBanned());
     }
 
-    public function testPermanentBan()
+    public function testPermanentBan(): void
     {
         $user = UserFactory::createUser();
 

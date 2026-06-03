@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -45,7 +47,7 @@ final class ForceGetUpCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
@@ -56,7 +58,7 @@ final class ForceGetUpCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function testForceGetUp(FunctionalTester $I)
+    public function testForceGetUp(FunctionalTester $I): void
     {
         $statusConfig = new StatusConfig();
         $statusConfig

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Player\Entity\Dto;
 
 use Mush\Daedalus\Entity\Daedalus;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
@@ -37,7 +39,7 @@ final class MushSporeValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $this->constraint->target = GameVariableLevel::PLAYER;
         $this->constraint->checkMode = GameVariableLevel::IS_MIN;
@@ -59,7 +61,7 @@ final class MushSporeValidatorTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testNotValid()
+    public function testNotValid(): void
     {
         $this->constraint->target = GameVariableLevel::PLAYER;
         $this->constraint->checkMode = GameVariableLevel::IS_MIN;

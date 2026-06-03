@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Action\Actions;
 
 use Mush\Action\Actions\Ungag;
@@ -43,7 +45,7 @@ final class UngagActionTest extends AbstractActionTest
         \Mockery::close();
     }
 
-    public function testExecute()
+    public function testExecute(): void
     {
         $room = new Place();
         $daedalus = new Daedalus();

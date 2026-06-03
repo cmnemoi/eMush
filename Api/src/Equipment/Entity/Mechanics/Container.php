@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\Entity\Mechanics;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -79,7 +81,7 @@ class Container extends EquipmentMechanic
         throw new \RuntimeException("Container {$this->getName()} does not contain {$searchedId}.");
     }
 
-    private function generateId(string $item, string $quantity): string
+    private function generateId(string $item, int $quantity): string
     {
         return $item . '_' . $quantity;
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\Listener;
 
 use Mush\Daedalus\Service\GetHolidayForDaedalusService;
@@ -60,8 +62,7 @@ class PlaceInitSubscriber implements EventSubscriberInterface
                 && $equipmentConfig->getEquipmentName() === EquipmentEnum::PATROL_SHIP
             ) {
                 /** @var string $patrolShipName */
-                $patrolShipName = current($patrolShipNames);
-                next($patrolShipNames);
+                $patrolShipName = array_shift($patrolShipNames);
             } else {
                 $patrolShipName = null;
             }

@@ -49,7 +49,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
-    public function _before(FunctionalTester $I)
+    public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->createExtraPlace(RoomEnum::ALPHA_BAY, $I, $this->daedalus);
@@ -411,7 +411,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $I->assertFalse($this->player->hasStatus(PlayerStatusEnum::STARVING));
     }
 
-    public function testDispatchEquipmentBroken(FunctionalTester $I)
+    public function testDispatchEquipmentBroken(FunctionalTester $I): void
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(EquipmentStatusEnum::BROKEN)
@@ -479,7 +479,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testAlreadyHaveStatus(FunctionalTester $I)
+    public function testAlreadyHaveStatus(FunctionalTester $I): void
     {
         $statusConfig = new StatusConfig();
         $statusConfig->setStatusName(StatusEnum::FIRE)

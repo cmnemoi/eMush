@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Equipment\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -79,7 +81,7 @@ final class GameEquipmentServiceTest extends TestCase
         \Mockery::close();
     }
 
-    public function testCreateBasicItem()
+    public function testCreateBasicItem(): void
     {
         $daedalus = new Daedalus();
         $place = new Place();
@@ -105,7 +107,7 @@ final class GameEquipmentServiceTest extends TestCase
         self::assertSame('some Name', $gameItem->getName());
     }
 
-    public function testCreateBasicEquipment()
+    public function testCreateBasicEquipment(): void
     {
         $daedalus = new Daedalus();
         $place = new Place();
@@ -131,7 +133,7 @@ final class GameEquipmentServiceTest extends TestCase
         self::assertSame('equipment Name', $gameEquipment->getName());
     }
 
-    public function testCreatePlant()
+    public function testCreatePlant(): void
     {
         $daedalus = new Daedalus();
         $place = new Place();
@@ -177,7 +179,7 @@ final class GameEquipmentServiceTest extends TestCase
         self::assertSame('some plant', $gameItem->getName());
     }
 
-    public function testCreateDocument()
+    public function testCreateDocument(): void
     {
         $daedalus = new Daedalus();
         $place = new Place();

@@ -420,7 +420,6 @@ class GameConfigData
                     ProjectName::QUANTUM_SENSORS,
                     ProjectName::PATROLSHIP_EXTRA_AMMO,
                     ProjectName::NOISE_REDUCER,
-                    ProjectName::APERO_KITCHEN,
                     ProjectName::FLOOR_HEATING,
                     ProjectName::PARASITE_ELIM,
                     ProjectName::OXY_MORE,

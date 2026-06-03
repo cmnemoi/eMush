@@ -8,11 +8,18 @@ use Mush\Action\Actions\Hyperfreeze;
 use Mush\Action\Actions\Take;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Alert\Entity\Alert;
+use Mush\Alert\Entity\AlertElement;
+use Mush\Alert\Enum\AlertEnum;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Enum\RoomEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -137,6 +144,15 @@ final class EquipmentSubscriberCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveNoHiddenItems($I);
     }
 
+    public function shouldTransformBrokenEquipmentNotThrowUniqueConstraintViolation(FunctionalTester $I): void
+    {
+        $planetScanner = $this->givenBrokenPlanetScannerInLaboratory($I);
+        $quantumSensors = $this->whenQuantumSensorsProjectIsFinished($I);
+        $this->thenQuantumSensorsPlanetScannerIsInLaboratory($I, $quantumSensors);
+        $this->thenQuantumSensorsPlanetScannerIsBroken($I, $quantumSensors);
+        $this->thenQuantumSensorsPlanetScannerHasAlert($I, $quantumSensors);
+    }
+
     private function givenPlayerHasSuperfreezer(): void
     {
         $this->superfreezer = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -236,5 +252,51 @@ final class EquipmentSubscriberCest extends AbstractFunctionalTest
         foreach ($this->player->getEquipments() as $playerItem) {
             $I->assertFalse($playerItem->hasStatus(EquipmentStatusEnum::HIDDEN));
         }
+    }
+
+    private function givenBrokenPlanetScannerInLaboratory(FunctionalTester $I): GameEquipment
+    {
+        $planetScanner = $this->createEquipment(
+            EquipmentEnum::PLANET_SCANNER,
+            $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY)
+        );
+        $this->breakEquipment($planetScanner);
+
+        return $planetScanner;
+    }
+
+    private function whenQuantumSensorsProjectIsFinished(FunctionalTester $I): GameEquipment
+    {
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::QUANTUM_SENSORS),
+            author: $this->chun,
+            I: $I,
+        );
+
+        return $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)->getEquipmentByName(
+            EquipmentEnum::QUANTUM_SENSORS_PLANET_SCANNER
+        );
+    }
+
+    private function thenQuantumSensorsPlanetScannerIsInLaboratory(FunctionalTester $I, GameEquipment $planetScanner): void
+    {
+        $I->assertNotNull($planetScanner);
+    }
+
+    private function thenQuantumSensorsPlanetScannerIsBroken(FunctionalTester $I, GameEquipment $planetScanner): void
+    {
+        $I->assertTrue($planetScanner->hasStatus(EquipmentStatusEnum::BROKEN));
+    }
+
+    private function thenQuantumSensorsPlanetScannerHasAlert(FunctionalTester $I, GameEquipment $planetScanner): void
+    {
+        $alertElements = $I->grabEntitiesFromRepository(
+            AlertElement::class,
+            [
+                'alert' => $I->grabEntityFromRepository(Alert::class, ['name' => AlertEnum::BROKEN_EQUIPMENTS]),
+                'equipment' => $planetScanner,
+            ]
+        );
+        $I->assertCount(1, $alertElements);
     }
 }

@@ -51,7 +51,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     public function onEquipmentTransform(TransformEquipmentEvent $event): void
     {
-        $newEquipment = $event->getGameEquipment();
         $oldEquipment = $event->getEquipmentFrom();
 
         if ($oldEquipment->isBroken()) {
@@ -62,7 +61,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
             }
 
             $alertElement = $this->alertService->getAlertEquipmentElement($alert, $oldEquipment);
-            $alertElement->setEquipment($newEquipment);
+            $this->alertService->deleteAlertElement($alertElement);
         }
     }
 }

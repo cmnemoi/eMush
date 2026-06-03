@@ -1,3 +1,10 @@
+## [0.30.3](https://gitlab.com/eternaltwin/mush/mush/compare/0.30.2...0.30.3) (2026-06-03)
+
+
+### Bug Fixes
+
+* Transforming a broken equipment does not duplicate the alert anymore ([88d9424](https://gitlab.com/eternaltwin/mush/mush/commit/88d9424f9ef9b237e519f1a2fe854fdf09f88eb1))
+
 ## [0.30.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.30.1...0.30.2) (2026-06-01)
 
 

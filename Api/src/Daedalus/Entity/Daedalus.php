@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Communications\Collection\RebelBaseCollection;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\ValueObject\GameDate;
@@ -31,29 +30,34 @@ use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Entity\ModifierHolderTrait;
 use Mush\Place\Collection\PlaceCollection;
 use Mush\Place\Entity\Place;
-use Mush\Place\Enum\PlaceTypeEnum;
-use Mush\Place\Enum\RoomEnum;
+use Mush\Place\Entity\PlaceHolderInterface;
+use Mush\Place\Trait\PlaceHolderTrait;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerHolderInterface;
+use Mush\Player\Trait\PlayerHolderTrait;
 use Mush\Project\Collection\ProjectCollection;
 use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectHolderInterface;
 use Mush\Project\Enum\ProjectName;
-use Mush\Project\Exception\DaedalusShouldHaveProjectException;
+use Mush\Project\Trait\ProjectHolderTrait;
 use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Enum\DaedalusStatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]
 #[ORM\Table(name: 'daedalus')]
-class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, StatusHolderInterface
+class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, StatusHolderInterface, PlayerHolderInterface, ProjectHolderInterface, PlaceHolderInterface
 {
     use ModifierHolderTrait;
+    use PlaceHolderTrait;
+    use PlayerHolderTrait;
+    use ProjectHolderTrait;
     use TargetStatusTrait;
     use TimestampableEntity;
 
@@ -159,138 +163,23 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return new PlayerCollection($this->players->toArray());
     }
 
-    public function setPlayers(Collection $players): static
+    public function setPlayerHolder(Player $player): static
     {
-        $this->players = $players;
+        $player->setDaedalus($this);
 
         return $this;
     }
 
-    public function addPlayer(Player $player): static
+    public function getPlaces(): PlaceCollection
     {
-        if (!$this->getPlayers()->contains($player)) {
-            $this->players->add($player);
+        return new PlaceCollection($this->places->toArray());
+    }
 
-            $player->setDaedalus($this);
-        }
+    public function setPlaceHolder(Place $place): static
+    {
+        $place->setDaedalus($this);
 
         return $this;
-    }
-
-    public function removePlayer(Player $player): static
-    {
-        $this->players->removeElement($player);
-
-        return $this;
-    }
-
-    public function getAlivePlayers(): PlayerCollection
-    {
-        return $this->getPlayers()->getPlayerAlive();
-    }
-
-    public function getPlayerByName(string $name): ?Player
-    {
-        return $this->getPlayers()->getPlayerByName($name);
-    }
-
-    public function getPlayerByNameOrThrow(string $name): Player
-    {
-        $player = $this->getPlayers()->getPlayerByName($name);
-        if (!$player) {
-            throw new \RuntimeException("Daedalus should have a player named {$name}");
-        }
-
-        return $player;
-    }
-
-    public function getAlivePlayerByNameOrThrow(string $name): Player
-    {
-        $player = $this->getAlivePlayers()->getPlayerByName($name);
-        if (!$player) {
-            throw new \RuntimeException("Daedalus should have an alive player named {$name}");
-        }
-
-        return $player;
-    }
-
-    public function getHumanPlayers(): PlayerCollection
-    {
-        return $this->getPlayers()->getHumanPlayer();
-    }
-
-    public function getMushPlayers(): PlayerCollection
-    {
-        return $this->getPlayers()->getMushPlayer();
-    }
-
-    public function getVisibleResearchProjectsForPlayer(Player $player, RebelBaseCollection $rebelBases): ProjectCollection
-    {
-        return $this
-            ->getResearchProjects()
-            ->filter(static fn (Project $project) => $project->isNotFinished())
-            ->filter(static fn (Project $project) => $project->isVisibleFor($player, $rebelBases));
-    }
-
-    public function getPlaces(): Collection
-    {
-        return $this->places;
-    }
-
-    public function getRooms(): PlaceCollection
-    {
-        return new PlaceCollection($this->getPlaces()->filter(static fn (Place $place) => $place->getType() === PlaceTypeEnum::ROOM)->toArray());
-    }
-
-    public function getSpace(): Place
-    {
-        $space = $this->getPlaces()->filter(static fn (Place $place) => $place->getName() === RoomEnum::SPACE)->first();
-        if (!$space) {
-            throw new \RuntimeException('Daedalus should have a place named Space');
-        }
-
-        return $space;
-    }
-
-    public function getTabulatrixQueue(): Place
-    {
-        $queue = $this->getPlaces()
-            ->filter(static fn (Place $place) => $place->getName() === RoomEnum::TABULATRIX_QUEUE)->first();
-        if (!$queue) {
-            throw new \RuntimeException('Daedalus should have a place named TabulatrixQueue');
-        }
-
-        return $queue;
-    }
-
-    /**
-     * @throws \RuntimeException if no planet place have been found
-     */
-    public function getPlanetPlace(): Place
-    {
-        $planetPlace = $this->getPlaces()->filter(static fn (Place $place) => $place->getName() === RoomEnum::PLANET)->first();
-        if (!$planetPlace) {
-            throw new \RuntimeException('Daedalus should have a planet place');
-        }
-
-        return $planetPlace;
-    }
-
-    public function getPlaceByName(string $name): ?Place
-    {
-        $place = $this->getPlaces()->filter(static fn (Place $place) => $place->getName() === $name)->first();
-
-        return $place === false ? null : $place;
-    }
-
-    public function getPlaceByNameOrThrow(string $name): Place
-    {
-        $place = $this->getPlaceByName($name);
-        if (!$place) {
-            throw new \RuntimeException("Daedalus should have a place named {$name}");
-        }
-
-        return $place;
     }
 
     public function getStatusHolderByNameOrThrow(string $name): StatusHolderInterface
@@ -312,37 +201,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         // handle equipments and hunters maybe? they're also statusholders. implement if and when needed
 
         throw new \RuntimeException("Daedalus should have a statusHolder named {$name}");
-    }
-
-    /** @return Collection<array-key, Place> */
-    public function getStorages(): Collection
-    {
-        return $this->getPlaces()->filter(static fn (Place $place) => \in_array($place->getName(), RoomEnum::getStorages(), true));
-    }
-
-    public function setPlaces(Collection $places): static
-    {
-        $this->places = $places;
-
-        return $this;
-    }
-
-    public function addPlace(Place $place): static
-    {
-        if (!$this->getPlaces()->contains($place)) {
-            $this->places->add($place);
-
-            $place->setDaedalus($this);
-        }
-
-        return $this;
-    }
-
-    public function removePlace(Place $place): static
-    {
-        $this->places->removeElement($place);
-
-        return $this;
     }
 
     public function getAllModifiers(): ModifierCollection
@@ -782,85 +640,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->exploration !== null;
     }
 
-    public function getLostPlayers(): PlayerCollection
+    public function getProjects(): ProjectCollection
     {
-        return $this->getPlayers()->getPlayerAlive()->filter(static fn (Player $player) => $player->hasStatus(PlayerStatusEnum::LOST));
-    }
-
-    public function getAllAvailableProjects(): Collection
-    {
-        return $this->projects->filter(static fn (Project $project) => $project->isAvailable());
-    }
-
-    public function getAvailableNeronProjects(): Collection
-    {
-        return $this->projects->filter(static fn (Project $project) => $project->isAvailableNeronProject());
-    }
-
-    public function getResearchProjects(): ProjectCollection
-    {
-        return new ProjectCollection($this->projects->filter(static fn (Project $project) => $project->isResearchProject())->toArray());
-    }
-
-    public function getProposedNeronProjects(): ProjectCollection
-    {
-        return new ProjectCollection($this->projects->filter(static fn (Project $project) => $project->isProposedNeronProject())->toArray());
-    }
-
-    public function hasProposedNeronProjects(): bool
-    {
-        return $this->getProposedNeronProjects()->count() > 0;
-    }
-
-    public function getFinishedNeronProjects(): Collection
-    {
-        return $this->projects->filter(static fn (Project $project) => $project->isFinishedNeronProject());
-    }
-
-    public function getFinishedResearchProjects(): Collection
-    {
-        return $this->getResearchProjects()->filter(static fn (Project $project) => $project->isFinished());
-    }
-
-    public function getAdvancedNeronProjects(): ProjectCollection
-    {
-        return (new ProjectCollection($this->projects->toArray()))->getAdvancedNeronProjects();
-    }
-
-    public function getAdvancedResearchProjects(): ProjectCollection
-    {
-        return (new ProjectCollection($this->projects->toArray()))->getAdvancedResearchProjects();
-    }
-
-    public function addProject(Project $project): static
-    {
-        if ($this->projects->contains($project)) {
-            return $this;
-        }
-
-        $this->projects->add($project);
-
-        return $this;
-    }
-
-    public function getProjectByName(ProjectName $projectName): Project
-    {
-        $project = $this->projects->filter(static fn (Project $project) => $project->getName() === $projectName->value)->first();
-        if (!$project) {
-            throw new DaedalusShouldHaveProjectException($projectName);
-        }
-
-        return $project;
-    }
-
-    public function hasProject(ProjectName $projectName): bool
-    {
-        return $this->projects->exists(static fn ($key, Project $project) => $project->getName() === $projectName->value);
-    }
-
-    public function hasFinishedProject(ProjectName $projectName): bool
-    {
-        return $this->getProjectByName($projectName)->isFinished();
+        return new ProjectCollection($this->projects->toArray());
     }
 
     public function projectIsNotFinished(ProjectName $projectName): bool
@@ -937,11 +719,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getDaedalusConfig()->getNumberOfProjectsByBatch();
     }
 
-    public function getAlivePlayersInSpaceBattle(): Collection
-    {
-        return $this->getPlayers()->getPlayerAlive()->filter(static fn (Player $player) => $player->isInSpaceBattle());
-    }
-
     public function getNumberOfFiresKilledByAutoWateringProject(): int
     {
         return $this->getChargeStatusByName(DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES)?->getCharge() ?? 0;
@@ -967,11 +744,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return new SkillConfigCollection($this->getGameConfig()->getMushSkillConfigs()->toArray());
     }
 
-    public function getAlivePlayersWithMeansOfCommunication(): PlayerCollection
-    {
-        return $this->getAlivePlayers()->filter(static fn (Player $player) => $player->hasMeansOfCommunication());
-    }
-
     public function getDaysElapsedSinceCreation(): int
     {
         return $this->getCreatedAtOrThrow()->diff(new \DateTime('now'))->days;
@@ -980,16 +752,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function getPlace(): Place
     {
         throw new \RuntimeException('Daedalus does not implement getPlace method');
-    }
-
-    public function getCurrentPariah(): Player
-    {
-        return $this->getAlivePlayers()->getPlayerWithStatusOrThrow(PlayerStatusEnum::PARIAH);
-    }
-
-    public function hasAPariah(): bool
-    {
-        return $this->getAlivePlayers()->hasPlayerWithStatus(PlayerStatusEnum::PARIAH);
     }
 
     public function isExplorationChangingCycle(): bool

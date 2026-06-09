@@ -28,12 +28,12 @@ use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\EquipmentHolderAbstract;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Trait\EquipmentHolderTrait;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
 use Mush\Game\Entity\Collection\GameVariableCollection;
@@ -87,8 +87,9 @@ use Mush\User\Entity\User;
  * @SuppressWarnings(PHPMD.ExcessiveClassLength)
  */
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
-class Player extends EquipmentHolderAbstract implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface
+class Player implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface
 {
+    use EquipmentHolderTrait;
     use ModifierHolderTrait;
     use TargetStatusTrait;
     use TimestampableEntity;
@@ -256,7 +257,10 @@ class Player extends EquipmentHolderAbstract implements StatusHolderInterface, V
     public function setPlace(Place $place): static
     {
         $this->place = $place;
-        $place->addPlayer($this);
+
+        if (!$this->place->getPlayers()->contains($this)) {
+            $place->addPlayer($this);
+        }
 
         return $this;
     }

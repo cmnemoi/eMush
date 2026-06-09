@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\Daedalus\Normalizer;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
@@ -19,8 +18,10 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Entity\HunterCollection;
+use Mush\Place\Collection\PlaceCollection;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Project\Collection\ProjectCollection;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Factory\ProjectFactory;
 use PHPUnit\Framework\TestCase;
@@ -79,11 +80,11 @@ final class DaedalusNormalizerTest extends TestCase
         $daedalus->shouldReceive('getLanguage')->andReturn(LanguageEnum::FRENCH);
         $daedalus->shouldReceive('getPilgred')->andReturn(ProjectFactory::createPilgredProject());
         $daedalus->shouldReceive('hasFinishedProject')->with(ProjectName::PLASMA_SHIELD)->andReturn(false);
-        $daedalus->shouldReceive('getFinishedNeronProjects')->andReturn(new ArrayCollection());
-        $daedalus->shouldReceive('getFinishedResearchProjects')->andReturn(new ArrayCollection());
+        $daedalus->shouldReceive('getFinishedNeronProjects')->andReturn(new ProjectCollection());
+        $daedalus->shouldReceive('getFinishedResearchProjects')->andReturn(new ProjectCollection());
         $daedalus->makePartial();
-        $daedalus->setPlayers(new ArrayCollection());
-        $daedalus->setPlaces(new ArrayCollection());
+        $daedalus->setPlayers(new PlayerCollection());
+        $daedalus->setPlaces(new PlaceCollection());
 
         $gameConfig = new GameConfig();
         $localizationConfig = new LocalizationConfig();

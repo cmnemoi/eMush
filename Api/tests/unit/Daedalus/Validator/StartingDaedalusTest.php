@@ -14,8 +14,8 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\GameConfigService;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Player;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -53,7 +53,7 @@ final class StartingDaedalusTest extends TestCase
         $daedalus = new Daedalus();
         $this->initValidator();
 
-        $daedalus->setPlayers(new ArrayCollection([new Player()]));
+        $daedalus->setPlayers(new PlayerCollection());
 
         $gameConfig = new GameConfig();
         $gameConfig->setCharactersConfig(new ArrayCollection([new CharacterConfig(), new CharacterConfig()]));

@@ -9,6 +9,9 @@ use Doctrine\Common\Collections\Collection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
 
+/**
+ * Interface for entities manipulating a collection of `GameEquipment`.
+ */
 interface EquipmentHolderInterface
 {
     /**

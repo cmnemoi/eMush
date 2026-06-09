@@ -2,12 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Mush\Equipment\Entity;
+namespace Mush\Equipment\Trait;
 
 use Doctrine\Common\Collections\Collection;
+use Mush\Equipment\Entity\EquipmentHolderInterface;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 
-abstract class EquipmentHolderAbstract implements EquipmentHolderInterface
+/**
+ * Trait for entities manipulating a collection of `GameEquipment`.
+ *
+ * The using entity should still implement the `getEquipments()` methods.
+ *
+ * @mixin EquipmentHolderInterface
+ */
+trait EquipmentHolderTrait
 {
+    /** @return Collection<array-key, GameItem> */
     public function getItems(): Collection
     {
         /** @var Collection<array-key, GameItem> $items */
@@ -52,6 +63,7 @@ abstract class EquipmentHolderAbstract implements EquipmentHolderInterface
         return !$this->hasOperationalEquipmentByName($name);
     }
 
+    /** @return Collection<array-key, GameEquipment> */
     public function getEquipmentsByNames(array $names): Collection
     {
         return $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => \in_array($gameEquipment->getName(), $names, true));
@@ -62,6 +74,7 @@ abstract class EquipmentHolderAbstract implements EquipmentHolderInterface
         return !$this->getEquipmentsByNames($names)->isEmpty();
     }
 
+    /** @return Collection<array-key, GameEquipment> */
     public function getOperationalEquipmentsByNames(array $names): Collection
     {
         return $this->getEquipmentsByNames($names)->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational());

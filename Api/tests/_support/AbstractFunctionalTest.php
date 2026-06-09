@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Tests;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\NoResultException;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Enum\ChannelScopeEnum;
@@ -25,6 +24,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Place\Collection\PlaceCollection;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
@@ -151,7 +151,7 @@ class AbstractFunctionalTest
         return $players;
     }
 
-    protected function createPlaces(FunctionalTester $I, Daedalus $daedalus): ArrayCollection
+    protected function createPlaces(FunctionalTester $I, Daedalus $daedalus): PlaceCollection
     {
         /** @var PlaceConfig $laboratoryConfig */
         $laboratoryConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::LABORATORY]);
@@ -187,7 +187,7 @@ class AbstractFunctionalTest
             ->setDaedalus($daedalus);
         $I->haveInRepository($planetDepths);
 
-        return new ArrayCollection([$laboratory, $space, $planet, $planetDepths]);
+        return new PlaceCollection([$laboratory, $space, $planet, $planetDepths]);
     }
 
     protected function createExtraPlace(string $placeName, FunctionalTester $I, Daedalus $daedalus): Place

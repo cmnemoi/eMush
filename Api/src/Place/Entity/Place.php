@@ -8,17 +8,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\EquipmentHolderAbstract;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\SpaceShip;
+use Mush\Equipment\Trait\EquipmentHolderTrait;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
@@ -32,6 +31,8 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Repository\PlaceRepository;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerHolderInterface;
+use Mush\Player\Trait\PlayerHolderTrait;
 use Mush\Player\ValueObject\PlayerHighlightTargetInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -47,9 +48,11 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 #[ORM\Entity(repositoryClass: PlaceRepository::class)]
 #[ORM\Table(name: 'room')]
-class Place extends EquipmentHolderAbstract implements StatusHolderInterface, VisibleStatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface, ActionProviderInterface, PlayerHighlightTargetInterface
+class Place implements StatusHolderInterface, VisibleStatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface, ActionProviderInterface, PlayerHighlightTargetInterface, PlayerHolderInterface
 {
+    use EquipmentHolderTrait;
     use ModifierHolderTrait;
+    use PlayerHolderTrait;
     use TargetStatusTrait;
     use TimestampableEntity;
 
@@ -191,73 +194,12 @@ class Place extends EquipmentHolderAbstract implements StatusHolderInterface, Vi
 
     public function getPlayers(): PlayerCollection
     {
-        if (!$this->players instanceof PlayerCollection) {
-            $this->players = new PlayerCollection($this->players->toArray());
-        }
-
-        return $this->players;
+        return new PlayerCollection($this->players->toArray());
     }
 
-    public function getPlayerByName(string $name): Player
+    public function setPlayerHolder(Player $player): static
     {
-        return $this->getPlayers()->getPlayerByName($name) ?: Player::createNull();
-    }
-
-    public function getAlivePlayersExcept(Player $player): PlayerCollection
-    {
-        return $this->getAlivePlayers()->getAllExcept($player);
-    }
-
-    public function getAlivePlayers(): PlayerCollection
-    {
-        return $this->getPlayers()->getPlayerAlive();
-    }
-
-    /** /!\ Do not use this method if you want the number of players ALIVE ! Use `$place->getNumberOfPlayersAlive()` instead. /!\ */
-    public function getNumberPlayers(): int
-    {
-        if (!$this->players instanceof PlayerCollection) {
-            $this->players = new PlayerCollection($this->players->toArray());
-        }
-
-        return $this->players->count();
-    }
-
-    public function getNumberOfPlayersAlive(): int
-    {
-        if (!$this->players instanceof PlayerCollection) {
-            $this->players = new PlayerCollection($this->players->toArray());
-        }
-
-        return $this->players->getPlayerAlive()->count();
-    }
-
-    public function setPlayers(ArrayCollection $players): static
-    {
-        $this->players = $players;
-
-        return $this;
-    }
-
-    /**
-     * @return static
-     */
-    public function addPlayer(Player $player): self
-    {
-        if (!$this->getPlayers()->contains($player)) {
-            $this->players->add($player);
-            $player->setPlace($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return static
-     */
-    public function removePlayer(Player $player): self
-    {
-        $this->players->removeElement($player);
+        $player->setPlace($this);
 
         return $this;
     }

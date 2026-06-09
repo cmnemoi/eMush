@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\Game\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -19,6 +18,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\RandomService;
+use Mush\Place\Collection\PlaceCollection;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -214,7 +214,7 @@ final class RandomServiceTest extends TestCase
         $daedalus = new Daedalus();
 
         $room = new Place();
-        $daedalus->setPlaces(new ArrayCollection([$room]));
+        $daedalus->setPlaces(new PlaceCollection([$room]));
         $equipment = new GameEquipment($room);
 
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());

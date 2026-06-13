@@ -7,7 +7,7 @@ parameters:
     container.dumper.inline_factories: true
 
 imports:
-    - { resource: ./api_platform/api_filters.yaml }
+    - { resource: ./api_filters.yaml }
     - { resource: ../src/Daedalus/config/services.yaml }
     - { resource: ../src/Game/config/services.yaml }
     - { resource: ../src/Equipment/config/services.yaml }
@@ -40,12 +40,14 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
 
+    Gedmo\Mapping\Driver\AttributeReader: ~
+
     gedmo.listener.timestampable:
         class: Mush\Game\Listener\TimestampableListener
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [ setAnnotationReader, [ '@annotation_reader' ] ]
+            - [ setAnnotationReader, [ '@Gedmo\Mapping\Driver\AttributeReader' ] ]
 
     Mush\MetaGame\Service\JwtDecorator:
         decorates: 'api_platform.openapi.factory'

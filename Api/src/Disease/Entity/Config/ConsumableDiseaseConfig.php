@@ -4,12 +4,38 @@ declare(strict_types=1);
 
 namespace Mush\Disease\Entity\Config;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['consumable_disease_config_read']],
+    denormalizationContext: ['groups' => ['consumable_disease_config_write']],
+    paginationItemsPerPage: 25,
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_consummable_config')]
 class ConsumableDiseaseConfig
@@ -17,37 +43,47 @@ class ConsumableDiseaseConfig
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['consumable_disease_config_read'])]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[Groups(['consumable_disease_config_read', 'consumable_disease_config_write'])]
     private string $name;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['consumable_disease_config_read', 'consumable_disease_config_write'])]
     private string $causeName;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['consumable_disease_config_read', 'consumable_disease_config_write'])]
     private array $diseasesName = [];
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['consumable_disease_config_read', 'consumable_disease_config_write'])]
     private array $curesName = [];
 
     // Store the chance (value) for the disease to appear (key)
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['consumable_disease_config_read', 'consumable_disease_config_write'])]
     private array $diseasesChances;
 
     // Store the chance (value) for the disease to appear (key)
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['consumable_disease_config_read', 'consumable_disease_config_write'])]
     private array $curesChances;
 
     // Store the min delay (value) for the disease to appear (key)
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['consumable_disease_config_read', 'consumable_disease_config_write'])]
     private array $diseasesDelayMin;
 
     // Store the max delay (value) for the disease to appear (key)
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['consumable_disease_config_read', 'consumable_disease_config_write'])]
     private array $diseasesDelayLength;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['consumable_disease_config_read', 'consumable_disease_config_write'])]
     private array $effectNumber;
 
     #[ORM\OneToMany(targetEntity: ConsumableDiseaseAttribute::class, mappedBy: 'consumableDiseaseConfig', cascade: ['persist'])]

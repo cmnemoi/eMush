@@ -4,13 +4,30 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Player\Entity\ClosedPlayer;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['closed_exploration_read']],
+    paginationItemsPerPage: 25,
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_ADMIN") or (is_granted("ROLE_USER") and (is_granted("DAEDALUS_IS_FINISHED", object) or is_granted("IS_AN_EXPLORATOR", object) or is_granted("IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED", object)))',
+        ),
+    ],
+)]
 #[ORM\Entity]
 class ClosedExploration
 {
@@ -19,6 +36,7 @@ class ClosedExploration
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['closed_exploration_read'])]
     private int $id;
 
     #[ORM\OneToOne(targetEntity: Exploration::class, mappedBy: 'closedExploration')]
@@ -28,16 +46,20 @@ class ClosedExploration
     private DaedalusInfo $daedalusInfo;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['closed_exploration_read'])]
     private array $planetName = [];
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    #[Groups(['closed_exploration_read'])]
     private array $exploredSectorKeys = [];
 
     #[ORM\OneToMany(targetEntity: ExplorationLog::class, mappedBy: 'closedExploration')]
     #[ORM\OrderBy(['createdAt' => 'DESC'])]
+    #[Groups(['closed_exploration_read'])]
     private Collection $logs;
 
     #[ORM\ManyToMany(targetEntity: ClosedPlayer::class, inversedBy: 'closedExplorations')]
+    #[Groups(['closed_exploration_read'])]
     private Collection $closedExplorators;
 
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
@@ -123,5 +145,17 @@ class ClosedExploration
         $this->exploration->getDaedalus()->setExploration(null);
         $this->exploration = null;
         $this->isExplorationFinished = true;
+    }
+
+    #[Groups(['closed_exploration_read'])]
+    public function getCreatedAt(): ?\DateTime
+    {
+        return $this->createdAt;
+    }
+
+    #[Groups(['closed_exploration_read'])]
+    public function getUpdatedAt(): ?\DateTime
+    {
+        return $this->updatedAt;
     }
 }

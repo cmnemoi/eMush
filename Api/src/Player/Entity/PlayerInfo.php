@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Player\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\PlayerStatistics;
@@ -12,7 +15,17 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\User\Entity\User;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_MODERATOR")',
+    normalizationContext: ['groups' => ['player_info_read']],
+    operations: [
+        new GetCollection(filters: ['default.order_filter', 'moderationPlayerInfo.search_filter', 'moderationPlayerInfo.boolean_filter']),
+        new Get(security: 'is_granted("ROLE_MODERATOR")'),
+    ],
+)]
 #[ORM\Entity(repositoryClass: PlayerInfoRepository::class)]
 #[ORM\UniqueConstraint(
     columns: ['user_id', 'character_config_id', 'player_id']
@@ -21,6 +34,7 @@ class PlayerInfo
 {
     use TimestampableEntity;
 
+    #[Groups(['player_info_read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
@@ -29,12 +43,15 @@ class PlayerInfo
     #[ORM\OneToOne(inversedBy: 'playerInfo', targetEntity: Player::class, cascade: ['ALL'])]
     private ?Player $player;
 
+    #[Groups(['player_info_read'])]
     #[ORM\ManyToOne(targetEntity: User::class)]
     private User $user;
 
+    #[Groups(['player_info_read'])]
     #[ORM\Column(type: 'string', nullable: false)]
     private string $gameStatus;
 
+    #[Groups(['player_info_read'])]
     #[ORM\ManyToOne(targetEntity: CharacterConfig::class)]
     private CharacterConfig $characterConfig;
 
@@ -137,6 +154,7 @@ class PlayerInfo
         return $this->playerStatistics;
     }
 
+    #[Groups(['player_info_read'])]
     public function getDaedalusId(): int
     {
         if ($this->player) {

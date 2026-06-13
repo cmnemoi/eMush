@@ -48,6 +48,7 @@ final class ClosedExplorationNormalizer implements NormalizerInterface, Normaliz
         $closedExploration = $object;
 
         $context[self::ALREADY_CALLED] = true;
+        $context['groups'] = array_merge($context['groups'] ?? [], ['closed_exploration_read']);
 
         /** @var array $normalizedClosedExploration */
         $normalizedClosedExploration = $this->normalizer->normalize($closedExploration, $format, $context);

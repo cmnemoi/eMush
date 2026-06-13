@@ -51,6 +51,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         $daedalus = $object;
 
         $context[self::ALREADY_CALLED] = true;
+        $context['groups'] = array_merge($context['groups'] ?? [], ['closed_daedalus_read']);
 
         $normalizedDaedalus = $this->normalizer->normalize($object, $format, $context);
 

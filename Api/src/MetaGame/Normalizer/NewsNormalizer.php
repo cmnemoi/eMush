@@ -43,6 +43,7 @@ class NewsNormalizer implements NormalizerInterface, NormalizerAwareInterface
         $news = $object;
 
         $context[self::ALREADY_CALLED] = true;
+        $context['groups'] = array_merge($context['groups'] ?? [], ['news_read']);
 
         $normalizedNews = $this->normalizer->normalize($news, $format, $context);
 

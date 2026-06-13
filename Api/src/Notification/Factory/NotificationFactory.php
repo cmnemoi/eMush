@@ -29,7 +29,7 @@ abstract class NotificationFactory
 
         $message = $message->withData(array_merge($message->getData(), ['priority' => WebPushNotification::URGENCY_NORMAL]));
 
-        return new WebPushNotification()->withPayload($message->toString())->withTTL(3 * 60 * 60)->withUrgency(WebPushNotification::URGENCY_NORMAL);
+        return (new WebPushNotification())->withPayload($message->toString())->withTTL(3 * 60 * 60)->withUrgency(WebPushNotification::URGENCY_NORMAL);
     }
 
     private static function createUrgentForUser(NotificationEnum $name, User $user, string $language, array $translationParameters, Translate $translate): WebPushNotification
@@ -40,7 +40,7 @@ abstract class NotificationFactory
 
         $message = $message->withData(array_merge($message->getData(), ['priority' => WebPushNotification::URGENCY_HIGH]));
 
-        return new WebPushNotification()->withPayload($message->toString())->withTTL(30 * 60)->withUrgency(WebPushNotification::URGENCY_HIGH);
+        return (new WebPushNotification())->withPayload($message->toString())->withTTL(30 * 60)->withUrgency(WebPushNotification::URGENCY_HIGH);
     }
 
     private static function createMessageForUser(NotificationEnum $name, User $user, string $language, array $translationParameters, Translate $translate): WebPushMessage
@@ -57,7 +57,7 @@ abstract class NotificationFactory
             ->withData(['link' => '/'])
             ->withTag($name->toString())
             ->withLang($language)
-            ->withTimestamp(new \DateTime()->getTimestamp() * 1_000)
+            ->withTimestamp((new \DateTime())->getTimestamp() * 1_000)
             ->interactionRequired();
     }
 

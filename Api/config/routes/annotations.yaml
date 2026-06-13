@@ -4,35 +4,35 @@ notification:
     prefix: /api/v1
 daedalus:
     resource: ../../src/Daedalus/Controller/
-    type: annotation
+    type: attribute
     prefix: /api/v1
 player:
     resource: ../../src/Player/Controller/
-    type: annotation
+    type: attribute
     prefix: /api/v1
 user:
     resource: ../../src/User/Controller/
-    type: annotation
+    type: attribute
     prefix: /api/v1
 oauth:
     resource: ../../src/User/Controller/LoginController.php
-    type: annotation
+    type: attribute
     prefix: /oauth
 action:
     resource: ../../src/Action/Controller/
-    type: annotation
+    type: attribute
     prefix: /api/v1
 room-log:
     resource: ../../src/RoomLog/Controller/
-    type: annotation
+    type: attribute
     prefix: /api/v1
 communication:
     resource: ../../src/Chat/Controller/
-    type: annotation
+    type: attribute
     prefix: /api/v1
 alert:
     resource: ../../src/Alert/Controller/
-    type: annotation
+    type: attribute
     prefix: /api/v1
 achievement:
     resource: ../../src/Achievement/Controller/
@@ -40,12 +40,19 @@ achievement:
     prefix: /api/v1
 metagame:
     resource: ../../src/MetaGame/Controller/
-    type: annotation
+    type: attribute
     prefix: /api/v1
+
+swagger_redirect:
+    path: /swagger
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        path: /api/v1/docs
+        permanent: true
 
 api_login_check:
     path: /api/login_check
 
 kernel:
     resource: ../../src/Kernel.php
-    type: annotation
+    type: attribute

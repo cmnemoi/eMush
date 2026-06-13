@@ -4,17 +4,36 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Entity\Mechanics;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    paginationItemsPerPage: 25,
+    normalizationContext: ['groups' => ['ration_read']],
+    denormalizationContext: ['groups' => ['ration_write']],
+    operations: [
+        new GetCollection(filters: ['default.search_filter', 'default.order_filter']),
+        new Post(security: 'is_granted("ROLE_ADMIN")'),
+        new Get(security: 'is_granted("ROLE_ADMIN")'),
+        new Put(security: 'is_granted("ROLE_ADMIN")'),
+    ],
+)]
 #[ORM\Entity]
 class Ration extends EquipmentMechanic
 {
+    #[Groups(['ration_read', 'ration_write'])]
     #[ORM\Column(type: 'integer', nullable: true)]
     protected ?int $satiety = null;
 
+    #[Groups(['ration_read', 'ration_write'])]
     #[ORM\Column(type: 'boolean', nullable: false)]
     protected bool $isPerishable = true;
 
@@ -23,19 +42,24 @@ class Ration extends EquipmentMechanic
      *
      * @see ProbaCollection
      */
+    #[Groups(['ration_read', 'ration_write'])]
     #[ORM\Column(type: 'array', nullable: false)]
     private array $moralPoints;
 
+    #[Groups(['ration_read', 'ration_write'])]
     #[ORM\Column(type: 'array', nullable: false)]
     private array $actionPoints;
 
+    #[Groups(['ration_read', 'ration_write'])]
     #[ORM\Column(type: 'array', nullable: false)]
     private array $movementPoints;
 
+    #[Groups(['ration_read', 'ration_write'])]
     #[ORM\Column(type: 'array', nullable: false)]
     private array $healthPoints;
 
     /** Store any extra effect the food has as key with the chance to get it as value */
+    #[Groups(['ration_read', 'ration_write'])]
     #[ORM\Column(type: 'array', nullable: false)]
     private array $extraEffects;
 

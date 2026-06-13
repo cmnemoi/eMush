@@ -4,14 +4,40 @@ declare(strict_types=1);
 
 namespace Mush\Game\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Game\ConfigData\DifficultyConfigDto;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'config_difficulty')]
+#[ApiResource(
+    paginationItemsPerPage: 25,
+    normalizationContext: ['groups' => ['difficulty_config_read']],
+    denormalizationContext: ['groups' => ['difficulty_config_write']],
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 class DifficultyConfig
 {
     use TimestampableEntity;
@@ -19,60 +45,78 @@ class DifficultyConfig
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['difficulty_config_read'])]
     private int $id;
 
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private string $name;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private int $equipmentBreakRate = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private int $doorBreakRate = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private int $equipmentFireBreakRate = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private int $startingFireRate = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private int $propagatingFireRate = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $maximumAllowedSpreadingFires = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private int $hullFireDamageRate = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private int $tremorRate = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private int $electricArcRate = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private int $metalPlateRate = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private int $panicCrisisRate = 0;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private array $firePlayerDamage = [];
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private array $fireHullDamage = [];
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private array $electricArcPlayerDamage = [];
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private array $tremorPlayerDamage = [];
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private array $metalPlatePlayerDamage = [];
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private array $panicCrisisPlayerDamage = [];
 
     #[ORM\Column(type: 'integer', nullable: false)]

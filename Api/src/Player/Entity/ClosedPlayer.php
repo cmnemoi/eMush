@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Player\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,7 +19,21 @@ use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\ValueObject\TriumphGain;
 use Mush\User\Entity\User;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['closed_player_read']],
+    paginationItemsPerPage: 25,
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter', 'closedPlayer.order_filter', 'closedPlayer.search_filter'],
+            security: 'is_granted("ROLE_USER")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_USER") and is_granted("DAEDALUS_IS_FINISHED", object)',
+        ),
+    ],
+)]
 #[ORM\Entity]
 class ClosedPlayer implements SanctionEvidenceInterface
 {
@@ -25,33 +42,41 @@ class ClosedPlayer implements SanctionEvidenceInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['closed_player_read'])]
     private int $id;
 
     #[ORM\OneToOne(mappedBy: 'closedPlayer', targetEntity: PlayerInfo::class)]
     private PlayerInfo $playerInfo;
 
     #[ORM\ManyToOne(targetEntity: ClosedDaedalus::class, inversedBy: 'players')]
+    #[Groups(['closed_player_read'])]
     private ClosedDaedalus $closedDaedalus;
 
     #[ORM\Column(type: 'string', length: 512, nullable: true)]
+    #[Groups(['closed_player_read'])]
     private ?string $message = null;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['closed_player_read'])]
     private string $endCause = EndCauseEnum::NO_INFIRMERIE;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['closed_player_read'])]
     private int $dayDeath = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['closed_player_read'])]
     private int $cycleDeath = 0;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $triumph = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['closed_player_read'])]
     private int $likes = 0;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
+    #[Groups(['closed_player_read'])]
     private bool $isMush = false;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
@@ -106,6 +131,7 @@ class ClosedPlayer implements SanctionEvidenceInterface
         return $this;
     }
 
+    #[Groups(['closed_player_read'])]
     public function getLanguage(): string
     {
         return $this->getClosedDaedalus()->getLanguage();
@@ -252,21 +278,25 @@ class ClosedPlayer implements SanctionEvidenceInterface
         return $this->playerInfo->isAlive();
     }
 
+    #[Groups(['closed_player_read'])]
     public function getCharacterKey(): string
     {
         return $this->playerInfo->getCharacterConfig()->getCharacterName();
     }
 
+    #[Groups(['closed_player_read'])]
     public function getUserId(): string
     {
         return $this->playerInfo->getUser()->getUserId();
     }
 
+    #[Groups(['closed_player_read'])]
     public function getUsername(): string
     {
         return $this->playerInfo->getUser()->getUsername();
     }
 
+    #[Groups(['closed_player_read'])]
     public function getClosedDaedalusId(): int
     {
         return $this->closedDaedalus->getId();

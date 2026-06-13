@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Modifier\Entity\Config;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,6 +19,7 @@ use Mush\Modifier\Dto\TriggerEventModifierConfigDto;
 use Mush\Modifier\Entity\Collection\ModifierActivationRequirementCollection;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * One of the modifier type
@@ -25,19 +31,43 @@ use Mush\Modifier\Enum\ModifierStrategyEnum;
  * targetFilters: filters to apply when selecting the target of the event. Currently 2 filters EXCLUDE_PROVIDER and SINGLE_RANDOM
  * eventTargetRequirements: allow to filter targets of the event according to various condition (name, hasStatus...)
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['modifier_config_read']],
+    denormalizationContext: ['groups' => ['modifier_config_write']],
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_USER")',
+    operations: [
+        new GetCollection(
+            security: 'is_granted("ROLE_MODERATOR")',
+            filters: ['default.search_filter', 'default.order_filter'],
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_MODERATOR")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 #[ORM\Entity]
 class TriggerEventModifierConfig extends EventModifierConfig
 {
     #[ORM\ManyToOne(targetEntity: AbstractEventConfig::class)]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     protected AbstractEventConfig $triggeredEvent;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     protected string $visibility = VisibilityEnum::PUBLIC;
 
     #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
     protected Collection $eventTargetRequirements;
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     private array $targetFilters = [];
 
     public function __construct(string $name)

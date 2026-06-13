@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Mush\Notification\Controller;
 
-use FOS\RestBundle\Controller\Annotations\Post;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Notification\Command\NotifyUserCommand;
 use Mush\Notification\Command\SubscribeUserCommand;
 use Mush\Notification\Command\UnsubscribeUserCommand;
 use Mush\Notification\Enum\NotificationEnum;
 use Mush\User\Service\TokenServiceInterface;
-use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,8 +31,7 @@ final readonly class NotificationController
     /**
      * Subscribe to Push Notifications.
      */
-    #[Post('/subscribe')]
-    #[Security(name: 'Bearer')]
+    #[Route('/subscribe', methods: ['POST'])]
     #[OA\RequestBody(
         description: 'Push notification subscription payload',
         required: true,
@@ -57,8 +54,7 @@ final readonly class NotificationController
         return new JsonResponse(['detail' => 'Subscribed to notifications successfully'], Response::HTTP_OK);
     }
 
-    #[Post(path: '/unsubscribe')]
-    #[Security(name: 'Bearer')]
+    #[Route(path: '/unsubscribe', methods: ['POST'])]
     #[OA\RequestBody(
         required: true,
         content: new OA\JsonContent(
@@ -76,8 +72,7 @@ final readonly class NotificationController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
-    #[Post(path: '/notify', name: 'app_notify')]
-    #[Security(name: 'Bearer')]
+    #[Route(path: '/notify', name: 'app_notify', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function notify(#[MapQueryParameter] NotificationEnum $notification = NotificationEnum::INACTIVITY): JsonResponse
     {

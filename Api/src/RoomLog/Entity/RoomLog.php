@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\RoomLog\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,12 +21,23 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    paginationEnabled: false,
+    normalizationContext: ['groups' => ['room_log_read', 'moderation_read']],
+    denormalizationContext: ['groups' => ['room_log_write']],
+    operations: [
+        new GetCollection(security: 'is_granted("ROLE_MODERATOR")', filters: ['room_log.search_filter', 'date.order_filter', 'default.date_filter']),
+        new Get(security: 'is_granted("ROLE_MODERATOR")'),
+    ],
+)]
 #[ORM\Entity(repositoryClass: RoomLogRepository::class)]
 class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
 {
     use TimestampableEntity;
 
+    #[Groups(['room_log_read', 'moderation_read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]

@@ -176,21 +176,21 @@ final class FindUserPastCyclesCountQueryCest extends AbstractFunctionalTest
     private function givenPlayerSurvivedExactlyOneCycle(FunctionalTester $I): void
     {
         $oneCycle = $this->daedalus->getDaedalusConfig()->getCycleLength();
-        $this->closedPlayer->setFinishedAt($this->player->getCreatedAt()->add(new \DateInterval('PT' . $oneCycle . 'M')));
+        $this->closedPlayer->setFinishedAt($this->closedPlayer->getCreatedAt()->add(new \DateInterval('PT' . $oneCycle . 'M')));
         $I->haveInRepository($this->closedPlayer);
     }
 
     private function givenPlayerSurvivedExactlyTwoCycles(FunctionalTester $I): void
     {
         $oneCycle = $this->daedalus->getDaedalusConfig()->getCycleLength();
-        $this->closedPlayer->setFinishedAt($this->player->getCreatedAt()->add(new \DateInterval('PT' . (2 * $oneCycle) . 'M')));
+        $this->closedPlayer->setFinishedAt($this->closedPlayer->getCreatedAt()->add(new \DateInterval('PT' . (2 * $oneCycle) . 'M')));
         $I->haveInRepository($this->closedPlayer);
     }
 
     private function givenPlayerSurvivedIncompleteCycle(FunctionalTester $I): void
     {
         $oneCycle = $this->daedalus->getDaedalusConfig()->getCycleLength();
-        $this->closedPlayer->setFinishedAt($this->player->getCreatedAt()->add(new \DateInterval('PT' . ($oneCycle - 1) . 'M')));
+        $this->closedPlayer->setFinishedAt($this->closedPlayer->getCreatedAt()->add(new \DateInterval('PT' . ($oneCycle - 1) . 'M')));
         $I->haveInRepository($this->closedPlayer);
     }
 
@@ -198,28 +198,28 @@ final class FindUserPastCyclesCountQueryCest extends AbstractFunctionalTest
     {
         $oneCycle = $this->daedalus->getDaedalusConfig()->getCycleLength();
         $oneCycleMinusOneMinute = $oneCycle - 1;
-        $this->closedPlayer->setFinishedAt($this->player->getCreatedAt()->add(new \DateInterval('PT' . ($oneCycle + $oneCycleMinusOneMinute) . 'M')));
+        $this->closedPlayer->setFinishedAt($this->closedPlayer->getCreatedAt()->add(new \DateInterval('PT' . ($oneCycle + $oneCycleMinusOneMinute) . 'M')));
         $I->haveInRepository($this->closedPlayer);
     }
 
     private function givenPlayerSurvivedOneMinuteBeforeCycle(FunctionalTester $I): void
     {
         $oneCycle = $this->daedalus->getDaedalusConfig()->getCycleLength();
-        $this->closedPlayer->setFinishedAt($this->player->getCreatedAt()->add(new \DateInterval('PT' . ($oneCycle - 1) . 'M')));
+        $this->closedPlayer->setFinishedAt($this->closedPlayer->getCreatedAt()->add(new \DateInterval('PT' . ($oneCycle - 1) . 'M')));
         $I->haveInRepository($this->closedPlayer);
     }
 
     private function givenPlayerSurvivedOneMinuteAfterCycle(FunctionalTester $I): void
     {
         $oneCycle = $this->daedalus->getDaedalusConfig()->getCycleLength();
-        $this->closedPlayer->setFinishedAt($this->player->getCreatedAt()->add(new \DateInterval('PT' . ($oneCycle + 1) . 'M')));
+        $this->closedPlayer->setFinishedAt($this->closedPlayer->getCreatedAt()->add(new \DateInterval('PT' . ($oneCycle + 1) . 'M')));
         $I->haveInRepository($this->closedPlayer);
     }
 
     private function givenPlayerSurvivedExactNumberOfCycles(FunctionalTester $I, int $cycles): void
     {
         $oneCycle = $this->daedalus->getDaedalusConfig()->getCycleLength();
-        $this->closedPlayer->setFinishedAt($this->player->getCreatedAt()->add(new \DateInterval('PT' . ($cycles * $oneCycle) . 'M')));
+        $this->closedPlayer->setFinishedAt($this->closedPlayer->getCreatedAt()->add(new \DateInterval('PT' . ($cycles * $oneCycle) . 'M')));
         $I->haveInRepository($this->closedPlayer);
     }
 

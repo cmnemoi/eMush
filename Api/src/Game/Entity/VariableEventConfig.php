@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Game\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
@@ -26,6 +31,27 @@ use Mush\Status\Event\ChargeStatusEvent;
  * variableHolderClass: the name of the class on which the event will be applied (should be a variableHolderInterface)
  * quantity: the amount of point modified
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['event_config_read']],
+    denormalizationContext: ['groups' => ['event_config_write']],
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_USER")',
+    operations: [
+        new GetCollection(
+            security: 'is_granted("ROLE_MODERATOR")',
+            filters: ['default.search_filter', 'default.order_filter'],
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_MODERATOR")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 #[ORM\Entity]
 class VariableEventConfig extends AbstractEventConfig
 {

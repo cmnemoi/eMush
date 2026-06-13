@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Chat\Controller;
 
-use FOS\RestBundle\Context\Context;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\View\View;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\Dto\CreateMessage;
 use Mush\Chat\Entity\Message;
@@ -25,22 +22,16 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\UseCase\GetUserCurrentPlayerUseCase;
 use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
-use Nelmio\ApiDocBundle\Annotation\Security;
-use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/**
- * Class UsersController.
- *
- * @Route(path="/channel")
- */
+#[Route('/channel')]
 class ChannelController extends AbstractGameController
 {
     private const int TIME_LIMIT = 48;
@@ -62,14 +53,9 @@ class ChannelController extends AbstractGameController
 
     /**
      * Create a channel.
-     *
-     * @OA\Tag(name="Channel")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="")
      */
-    public function createChannelAction(): View
+    #[Route('', methods: ['POST'])]
+    public function createChannelAction(): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -81,7 +67,7 @@ class ChannelController extends AbstractGameController
         $player = $this->getUserPlayer($user);
 
         if (!$player->isAlive()) {
-            return $this->view(['canCreate' => false], 200);
+            return $this->json(['canCreate' => false], 200);
         }
 
         $daedalus = $player->getDaedalus();
@@ -91,31 +77,19 @@ class ChannelController extends AbstractGameController
         $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
         if (!$this->canCreateChannel->isSatisfied($player)) {
-            return $this->view(['error' => 'cannot create new channels'], 422);
+            return $this->json(['error' => 'cannot create new channels'], 422);
         }
-
-        $context = new Context();
-        $context
-            ->setAttribute('currentPlayer', $player);
 
         $channel = $this->channelService->createPrivateChannel($player);
 
-        $view = $this->view($channel, 201);
-        $view->setContext($context);
-
-        return $view;
+        return $this->json($channel, 201, [], ['currentPlayer' => $player]);
     }
 
     /**
      * Check if a new private channel can be created.
-     *
-     * @OA\Tag(name="Channel")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Get(path="/canCreatePrivate")
      */
-    public function canCreateChannelAction(): View
+    #[Route('/canCreatePrivate', methods: ['GET'])]
+    public function canCreateChannelAction(): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -127,7 +101,7 @@ class ChannelController extends AbstractGameController
         $player = $this->getUserPlayer($user);
 
         if (!$player->isAlive()) {
-            return $this->view(['canCreate' => false], 200);
+            return $this->json(['canCreate' => false], 200);
         }
 
         $daedalus = $player->getDaedalus();
@@ -144,19 +118,14 @@ class ChannelController extends AbstractGameController
             ];
         }
 
-        return $this->view($canCreate, 201);
+        return $this->json($canCreate, 201);
     }
 
     /**
      * Get the channels.
-     *
-     * @OA\Tag(name="Channel")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Get(path="")
      */
-    public function getChannelsActions(): View
+    #[Route('', methods: ['GET'])]
+    public function getChannelsActions(): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -167,28 +136,16 @@ class ChannelController extends AbstractGameController
         $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
         $player = $this->getUserPlayer($user);
 
-        $daedalus = $player->getDaedalus();
-
         $channels = $this->channelService->getPlayerChannels($player);
-        $context = new Context();
-        $context->setAttribute('currentPlayer', $player);
 
-        $view = $this->view($channels, 200);
-        $view->setContext($context);
-
-        return $view;
+        return $this->json($channels, 200, [], ['currentPlayer' => $player]);
     }
 
     /**
      * Get the pirated channels.
-     *
-     * @OA\Tag(name="channel")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Get (path="/pirated")")
      */
-    public function getPiratedChannelsActions(): View
+    #[Route('/pirated', methods: ['GET'])]
+    public function getPiratedChannelsActions(): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -198,56 +155,23 @@ class ChannelController extends AbstractGameController
         $user = $this->getUser();
         $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
         $player = $this->getUserPlayer($user);
-
-        $daedalus = $player->getDaedalus();
 
         $piratedPlayer = $this->channelService->getPiratedPlayer($player);
 
         if ($piratedPlayer !== null) {
             $channels = $this->channelService->getPiratedChannels($piratedPlayer);
 
-            $context = new Context();
-            $context
-                ->setAttribute('currentPlayer', $player)
-                ->setAttribute('piratedPlayer', $piratedPlayer);
-
-            $view = $this->view($channels, 200);
-            $view->setContext($context);
-
-            return $view;
+            return $this->json($channels, 200, [], ['currentPlayer' => $player, 'piratedPlayer' => $piratedPlayer]);
         }
 
-        return $this->view([], Response::HTTP_NO_CONTENT);
+        return $this->json([], Response::HTTP_NO_CONTENT);
     }
 
     /**
      * Invite player to a channel.
-     *
-     *    @OA\RequestBody (
-     *      description="Input data format",
-     *
-     *      @OA\MediaType(
-     *          mediaType="application/json",
-     *
-     *          @OA\Schema(
-     *              type="object",
-     *
-     *              @OA\Property(
-     *                  type="int",
-     *                  property="player",
-     *                  description="id of the player to invite"
-     *              )
-     *          )
-     *      )
-     *    )
-     *
-     * @OA\Tag(name="Channel")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/{channel}/invite")
      */
-    public function inviteAction(Request $request, Channel $channel): View
+    #[Route('/{channel}/invite', methods: ['POST'])]
+    public function inviteAction(Request $request, Channel $channel): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -259,7 +183,7 @@ class ChannelController extends AbstractGameController
 
         $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
 
-        $invited = $request->get('player');
+        $invited = $request->getPayload()->get('player');
 
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
@@ -268,76 +192,73 @@ class ChannelController extends AbstractGameController
         }
         $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
-        if (!($invitedPlayer = $this->playerService->findById($invited))) {
-            return $this->view(['error' => 'player not found'], 404);
+        if ($invited === null) {
+            return $this->json(['error' => 'player not found'], 404);
+        }
+
+        if (!($invitedPlayer = $this->playerService->findById((int) $invited))) {
+            return $this->json(['error' => 'player not found'], 404);
         }
 
         if ($invitedPlayer->getDaedalus() !== $daedalus) {
-            return $this->view(['error' => 'player is not from this daedalus'], 422);
+            return $this->json(['error' => 'player is not from this daedalus'], 422);
         }
 
         if (!$this->canCreateChannel->isSatisfied($invitedPlayer)) {
-            return $this->view(['error' => 'player cannot open a new channel'], 422);
+            return $this->json(['error' => 'player cannot open a new channel'], 422);
         }
 
         if ($channel->isPlayerParticipant($invitedPlayer->getPlayerInfo())) {
-            return $this->view(['error' => 'player is already in the channel'], 422);
+            return $this->json(['error' => 'player is already in the channel'], 422);
         }
 
         $channel = $this->channelService->invitePlayer($invitedPlayer, $channel);
 
-        $context = new Context();
-        $context->setAttribute('currentPlayer', $playerInfo?->getPlayer());
-
-        $view = $this->view($channel, 200);
-        $view->setContext($context);
-
-        return $view;
+        return $this->json($channel, 200, [], ['currentPlayer' => $playerInfo?->getPlayer()]);
     }
 
     /**
      * Get invitable player to the channel.
-     *
-     * @OA\Tag(name="Channel")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Get(path="/{channel}/invite")
      */
-    public function getInvitablePlayerAction(Request $request, Channel $channel): View
+    #[Route('/{channel}/invite', methods: ['GET'])]
+    public function getInvitablePlayerAction(Request $request, Channel $channel): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
         }
 
+        $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
+
         /** @var User $user */
         $user = $this->getUser();
-        $playerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($user);
 
-        $this->denyAccessUnlessGranted(ChannelVoter::VIEW, $channel);
+        $playerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($user);
+        if ($playerInfo === null) {
+            return $this->json(['error' => 'player not found'], 422);
+        }
+
+        $playerInfo = $playerInfo->getPlayer();
+        if ($playerInfo === null) {
+            return $this->json(['error' => 'player not found'], 422);
+        }
 
         /** @var Daedalus $daedalus */
         $daedalus = $channel->getDaedalusInfo()->getDaedalus();
-        if ($daedalus !== $playerInfo?->getPlayer()->getDaedalus()) {
-            return $this->view(['error' => 'player is not from this daedalus'], 422);
+        if ($daedalus !== $playerInfo->getDaedalus()) {
+            return $this->json(['error' => 'player is not from this daedalus'], 422);
         }
 
-        return $this->view(
-            $this->channelService->getInvitablePlayersToPrivateChannel($channel, $playerInfo?->getPlayer()),
+        return $this->json(
+            $this->channelService->getInvitablePlayersToPrivateChannel($channel, $playerInfo),
             200
         );
     }
 
     /**
-     * exit a channel.
-     *
-     * @OA\Tag(name="Channel")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/{channel}/exit")
+     * Exit a channel.
      */
-    public function exitAction(Channel $channel): View
+    #[Route('/{channel}/exit', methods: ['POST'])]
+    public function exitAction(Channel $channel): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -350,7 +271,7 @@ class ChannelController extends AbstractGameController
         $player = $this->getUserPlayer($user);
 
         if ($channel->getDaedalusInfo()->getDaedalus() !== $player->getDaedalus()) {
-            return $this->view(['error' => 'player is not from this daedalus'], 422);
+            return $this->json(['error' => 'player is not from this daedalus'], 422);
         }
 
         $daedalus = $player->getDaedalus();
@@ -361,59 +282,14 @@ class ChannelController extends AbstractGameController
 
         $this->channelService->exitChannel($player, $channel);
 
-        return $this->view(null, 200);
+        return $this->json(null, 200);
     }
 
     /**
      * Create a message in the channel.
-     *
-     * @OA\Tag(name="Channel")
-     *
-     *    @OA\RequestBody (
-     *      description="Input data format",
-     *
-     *      @OA\MediaType(
-     *          mediaType="application/json",
-     *
-     *          @OA\Schema(
-     *              type="object",
-     *
-     *              @OA\Property(
-     *                  type="integer",
-     *                  property="parent",
-     *                  description="The parent message"
-     *              ),
-     *              @OA\Property(
-     *                  type="string",
-     *                  property="message",
-     *                  description="The message"
-     *              ),
-     *              @OA\Property(
-     *                  type="integer",
-     *                  property="playerId",
-     *                  description="The player id"
-     *              ),
-     *              @OA\Property(
-     *                  type="boolean",
-     *                  property="isPirated",
-     *                  description="If the message is written from a pirated channel or not"
-     *              ),
-     *              @OA\Property(
-     *                  type="string",
-     *                  property="timeLimit",
-     *                  description="The time limit"
-     *             )
-     *          )
-     *      )
-     *    )
-     *
-     * @ParamConverter("messageCreate", converter="MessageCreateParamConverter")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/{channel}/message")
      */
-    public function createMessageAction(CreateMessage $messageCreate, Channel $channel): View
+    #[Route('/{channel}/message', methods: ['POST'])]
+    public function createMessageAction(CreateMessage $messageCreate, Channel $channel): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -431,12 +307,12 @@ class ChannelController extends AbstractGameController
         $this->denyAccessUnlessGranted(ChannelVoter::POST, $channel);
 
         if (\count($violations = $this->validator->validate($messageCreate))) {
-            return $this->view($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
+            return $this->json($violations, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $parentMessage = $messageCreate->getParent();
         if ($parentMessage && $parentMessage->getChannel() !== $channel) {
-            return $this->view(['error' => 'invalid parent message'], 422);
+            return $this->json(['error' => 'invalid parent message'], 422);
         }
 
         /** @var User $user */
@@ -451,25 +327,14 @@ class ChannelController extends AbstractGameController
 
         $messages = $this->messageService->getChannelMessages($userPlayer, $channel, $messageCreate->getTimeLimit());
 
-        $context = new Context();
-        $context->setAttribute('currentPlayer', $userPlayer);
-
-        $view = $this->view($messages, 200);
-        $view->setContext($context);
-
-        return $view;
+        return $this->json($messages, 200, [], ['currentPlayer' => $userPlayer]);
     }
 
     /**
      * Get channel messages.
-     *
-     * @OA\Tag(name="Channel")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Get (path="/{channel}/message")
      */
-    public function getMessages(Request $request, Channel $channel): View
+    #[Route('/{channel}/message', methods: ['GET'])]
+    public function getMessages(Request $request, Channel $channel): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -485,40 +350,22 @@ class ChannelController extends AbstractGameController
         $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
         $player = $this->getUserPlayer($user);
 
-        if ($channel->getDaedalusInfo()->getDaedalus() !== $player?->getDaedalus()) {
-            return $this->view(['error' => 'player is not from this daedalus'], 422);
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $player->getDaedalus()) {
+            return $this->json(['error' => 'player is not from this daedalus'], 422);
         }
 
-        $timeLimit = new \DateInterval(\sprintf('PT%dH', $request->get('timeLimit', self::TIME_LIMIT)));
+        $timeLimit = new \DateInterval(\sprintf('PT%dH', $request->query->getInt('timeLimit', self::TIME_LIMIT)));
 
         $messages = $this->messageService->getChannelMessages($player, $channel, $timeLimit);
 
-        $context = new Context();
-        $context->setAttribute('currentPlayer', $player);
-
-        $view = $this->view($messages, 200);
-        $view->setContext($context);
-
-        return $view;
+        return $this->json($messages, 200, [], ['currentPlayer' => $player]);
     }
 
     /**
      * Mark a message as read.
-     *
-     * @OA\Tag(name="Channel")
-     *
-     * @OA\Parameter(
-     *      name="id",
-     *      in="path",
-     *      description="The message id",
-     *      required=true
-     * )
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Patch (path="/read-message/{id}", requirements={"id"="\d+"})
      */
-    public function readMessageAction(Message $message): View
+    #[Route('/read-message/{id}', requirements: ['id' => '\d+'], methods: ['PATCH'])]
+    public function readMessageAction(Message $message): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -531,31 +378,19 @@ class ChannelController extends AbstractGameController
 
         $channel = $message->getChannel();
         if ($channel->getDaedalusInfo()->getDaedalus() !== $player->getDaedalus()) {
-            return $this->view(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
+            return $this->json(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
         }
 
         $this->messageService->markMessageAsReadForPlayer($message, $player);
 
-        return $this->view(['detail' => 'Message marked as read successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'Message marked as read successfully'], Response::HTTP_OK);
     }
 
     /**
      * Put a message in favorites.
-     *
-     * @OA\Tag(name="Channel")
-     *
-     * @OA\Parameter(
-     *      name="id",
-     *      in="path",
-     *      description="The message id",
-     *      required=true
-     * )
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post (path="/favorite-message/{id}", requirements={"id"="\d+"})
      */
-    public function favoriteMessageAction(Message $message): View
+    #[Route('/favorite-message/{id}', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function favoriteMessageAction(Message $message): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -567,32 +402,20 @@ class ChannelController extends AbstractGameController
         $player = $this->getUserPlayer($user);
 
         $channel = $message->getChannel();
-        if ($channel->getDaedalusInfo()->getDaedalus() !== $player?->getDaedalus()) {
-            return $this->view(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $player->getDaedalus()) {
+            return $this->json(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
         }
 
         $this->messageService->putMessageInFavoritesForPlayer($message, $player);
 
-        return $this->view(['detail' => 'Message marked as favorites successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'Message marked as favorites successfully'], Response::HTTP_OK);
     }
 
     /**
      * Remove a message from favorites.
-     *
-     * @OA\Tag(name="Channel")
-     *
-     * @OA\Parameter(
-     *      name="id",
-     *      in="path",
-     *      description="The message id",
-     *      required=true
-     * )
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Delete (path="/unfavorite-message/{id}", requirements={"id"="\d+"})
      */
-    public function unfavoriteMessageAction(Message $message): View
+    #[Route('/unfavorite-message/{id}', requirements: ['id' => '\d+'], methods: ['DELETE'])]
+    public function unfavoriteMessageAction(Message $message): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -604,25 +427,20 @@ class ChannelController extends AbstractGameController
         $player = $this->getUserPlayer($user);
 
         $channel = $message->getChannel();
-        if ($channel->getDaedalusInfo()->getDaedalus() !== $player?->getDaedalus()) {
-            return $this->view(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
+        if ($channel->getDaedalusInfo()->getDaedalus() !== $player->getDaedalus()) {
+            return $this->json(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
         }
 
         $this->messageService->removeMessageFromFavoritesForPlayer($message, $player);
 
-        return $this->view(['detail' => 'Message removed from favorites successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'Message removed from favorites successfully'], Response::HTTP_OK);
     }
 
     /**
      * Get player favorites channel.
-     *
-     * @OA\Tag(name="Channel")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Get(path="/favorites")
      */
-    public function getFavoritesChannelAction(): View
+    #[Route('/favorites', methods: ['GET'])]
+    public function getFavoritesChannelAction(): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -633,34 +451,20 @@ class ChannelController extends AbstractGameController
         $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
         $player = $this->getUserPlayer($user);
 
-        $daedalus = $player->getDaedalus();
-
         if ($player->getFavoriteMessages()->isEmpty() || !$this->channelService->canPlayerCommunicate($player)) {
-            return $this->view(null, Response::HTTP_NO_CONTENT);
+            return $this->json(null, Response::HTTP_NO_CONTENT);
         }
 
         $favoritesChannel = $this->channelService->getPublicChannel($player->getDaedalusInfo());
 
-        $context = new Context();
-        $context->setAttribute('currentPlayer', $player);
-        $context->setAttribute('favorite', true);
-
-        $view = $this->view($favoritesChannel, Response::HTTP_OK);
-        $view->setContext($context);
-
-        return $view;
+        return $this->json($favoritesChannel, Response::HTTP_OK, [], ['currentPlayer' => $player, 'favorite' => true]);
     }
 
     /**
      * Get favorites channel messages.
-     *
-     * @OA\Tag(name="Channel")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Get (path="/favorites/messages")
      */
-    public function getFavoritesChannelMessages(): View
+    #[Route('/favorites/messages', methods: ['GET'])]
+    public function getFavoritesChannelMessages(): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -671,28 +475,14 @@ class ChannelController extends AbstractGameController
         $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
         $player = $this->getUserPlayer($user);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $player->getDaedalus();
-
-        $context = new Context();
-        $context->setAttribute('currentPlayer', $player);
-
-        $view = $this->view($this->messageService->getPlayerFavoritesChannelMessages($player), Response::HTTP_OK);
-        $view->setContext($context);
-
-        return $view;
+        return $this->json($this->messageService->getPlayerFavoritesChannelMessages($player), Response::HTTP_OK, [], ['currentPlayer' => $player]);
     }
 
     /**
      * Mark a channel as read.
-     *
-     * @OA\Tag(name="Channel")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Patch (path="/{id}/read", requirements={"id"="\d+"})
      */
-    public function markChannelAsReadForPlayerAction(Channel $channel): View
+    #[Route('/{id}/read', requirements: ['id' => '\d+'], methods: ['PATCH'])]
+    public function markChannelAsReadForPlayerAction(Channel $channel): JsonResponse
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -702,7 +492,7 @@ class ChannelController extends AbstractGameController
 
         $this->channelService->markChannelAsReadForPlayer($channel, $player);
 
-        return $this->view(['detail' => 'Channel marked as read successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'Channel marked as read successfully'], Response::HTTP_OK);
     }
 
     private function getUserPlayer(User $user): Player

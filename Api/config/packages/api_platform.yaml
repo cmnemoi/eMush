@@ -1,20 +1,28 @@
 api_platform:
-    version: '1.0.0'
     mapping:
         paths:
-            - '%kernel.project_dir%/config/api_platform/resources' # yaml or xml directory configuration
+            - '%kernel.project_dir%/src/Action/Entity'
+            - '%kernel.project_dir%/src/Chat/Entity'
+            - '%kernel.project_dir%/src/Daedalus/Entity'
+            - '%kernel.project_dir%/src/Disease/Entity'
+            - '%kernel.project_dir%/src/Equipment/Entity'
+            - '%kernel.project_dir%/src/Exploration/Entity'
+            - '%kernel.project_dir%/src/Game/Entity'
+            - '%kernel.project_dir%/src/Hunter/Entity'
+            - '%kernel.project_dir%/src/MetaGame/Entity'
+            - '%kernel.project_dir%/src/Modifier/Entity'
+            - '%kernel.project_dir%/src/Place/Entity'
+            - '%kernel.project_dir%/src/Player/Entity'
+            - '%kernel.project_dir%/src/RoomLog/Entity'
+            - '%kernel.project_dir%/src/Status/Entity'
+            - '%kernel.project_dir%/src/Triumph/Entity'
+            - '%kernel.project_dir%/src/User/Entity'
+    validator:
+        legacy_query_parameter_validation: false
     patch_formats:
         json: ['application/merge-patch+json']
-    swagger:
-        versions: [3]
-        api_keys:
-            Bearer:
-                name: Authorization
-                type: header
     defaults:
         pagination_client_enabled: true
         pagination_client_items_per_page: true
-    collection:
-        pagination:
-            enabled_parameter_name: pagination
-            items_per_page_parameter_name: itemsPerPage
+        pagination_enabled_parameter_name: pagination
+        pagination_items_per_page_parameter_name: itemsPerPage

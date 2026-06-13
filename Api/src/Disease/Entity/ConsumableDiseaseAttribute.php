@@ -4,10 +4,27 @@ declare(strict_types=1);
 
 namespace Mush\Disease\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['consumable_disease_attribute_read']],
+    denormalizationContext: ['groups' => ['consumable_disease_attribute_write']],
+    paginationItemsPerPage: 25,
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+        ),
+        new Get(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_consummable_attribute')]
 class ConsumableDiseaseAttribute
@@ -15,21 +32,27 @@ class ConsumableDiseaseAttribute
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['consumable_disease_attribute_read'])]
     private ?int $id;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['consumable_disease_attribute_read', 'consumable_disease_attribute_write'])]
     private string $disease;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['consumable_disease_attribute_read', 'consumable_disease_attribute_write'])]
     private string $type = MedicalConditionTypeEnum::DISEASE;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['consumable_disease_attribute_read', 'consumable_disease_attribute_write'])]
     private int $rate = 100;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['consumable_disease_attribute_read', 'consumable_disease_attribute_write'])]
     private int $delayMin = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['consumable_disease_attribute_read', 'consumable_disease_attribute_write'])]
     private int $delayLength = 0;
 
     #[ORM\ManyToOne(targetEntity: ConsumableDisease::class, inversedBy: 'diseaseAttributes')]

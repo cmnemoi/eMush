@@ -10,6 +10,10 @@ security:
             pattern:  ^/oauth
             stateless: true
 
+        api_docs:
+            pattern: ^/api/v1/docs
+            security: false
+
         api:
             pattern:   ^/api
             stateless: true

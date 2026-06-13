@@ -4,12 +4,29 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\User\Entity\User;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    paginationItemsPerPage: 25,
+    normalizationContext: ['groups' => ['moderation_sanction_read']],
+    operations: [
+        new GetCollection(
+            security: 'is_granted("ROLE_MODERATOR")',
+            filters: ['adminSanction.order_filter', 'adminSanction.date_filter', 'adminSanction.search_filter', 'moderationSanction.boolean_filter'],
+        ),
+        new Get(
+            security: 'is_granted("ROLE_MODERATOR")',
+        ),
+    ],
+)]
 #[ORM\Entity]
 #[ORM\Table(name: 'moderationSanction')]
 class ModerationSanction
@@ -19,6 +36,7 @@ class ModerationSanction
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['moderation_sanction_read'])]
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'moderationSanctions')]
@@ -28,24 +46,30 @@ class ModerationSanction
     private ?PlayerInfo $player;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[Groups(['moderation_sanction_read'])]
     private string $moderationAction;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[Groups(['moderation_sanction_read'])]
     private string $reason;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(['moderation_sanction_read'])]
     private ?string $message;
 
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $isVisibleByUser = false;
 
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    #[Groups(['moderation_sanction_read'])]
     private bool $isReport = false;
 
     #[ORM\Column(type: 'datetime', nullable: false)]
+    #[Groups(['moderation_sanction_read'])]
     private \DateTime $startDate;
 
     #[ORM\Column(type: 'datetime', nullable: false)]
+    #[Groups(['moderation_sanction_read'])]
     private \DateTime $endDate;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
@@ -91,11 +115,13 @@ class ModerationSanction
         return $this->user;
     }
 
+    #[Groups(['moderation_sanction_read'])]
     public function getUsername(): string
     {
         return $this->user->getUsername();
     }
 
+    #[Groups(['moderation_sanction_read'])]
     public function getUserId(): string
     {
         return $this->user->getUserId();
@@ -113,11 +139,13 @@ class ModerationSanction
         return $this->player;
     }
 
+    #[Groups(['moderation_sanction_read'])]
     public function getPlayerId(): ?int
     {
         return $this->player?->getId();
     }
 
+    #[Groups(['moderation_sanction_read'])]
     public function getPlayerName(): ?string
     {
         return $this->player?->getName();
@@ -183,6 +211,7 @@ class ModerationSanction
         return $this;
     }
 
+    #[Groups(['moderation_sanction_read'])]
     public function getIsActive(): bool
     {
         $currentTime = new \DateTime();
@@ -215,11 +244,13 @@ class ModerationSanction
         return $this->author;
     }
 
+    #[Groups(['moderation_sanction_read'])]
     public function getAuthorName(): string
     {
         return $this->author->getUsername();
     }
 
+    #[Groups(['moderation_sanction_read'])]
     public function getAuthorId(): string
     {
         return $this->author->getUserId();
@@ -241,6 +272,7 @@ class ModerationSanction
         return $this->sanctionEvidence;
     }
 
+    #[Groups(['moderation_sanction_read'])]
     public function getSanctionEvidenceArray(): ?array
     {
         return $this->sanctionEvidence?->getEvidenceAsArray();

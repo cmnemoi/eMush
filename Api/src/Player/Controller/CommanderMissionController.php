@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Player\Controller;
 
-use FOS\RestBundle\View\View;
 use Mush\Game\Controller\AbstractGameController;
 use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Entity\CommanderMission;
@@ -13,11 +12,11 @@ use Mush\Player\UseCase\ToggleMissionCompletionUseCase;
 use Mush\Player\Voter\PlayerVoter;
 use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
-use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Attributes as OA;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 final class CommanderMissionController extends AbstractGameController
 {
@@ -39,9 +38,8 @@ final class CommanderMissionController extends AbstractGameController
         description: 'The mission id',
         schema: new OA\Schema(type: 'integer')
     )]
-    #[Security(name: 'Bearer')]
     #[Route('/player/toggle-mission-completion/{id}', methods: ['PUT'])]
-    public function toggleMissionCompletionEndpoint(CommanderMission $mission): View
+    public function toggleMissionCompletionEndpoint(CommanderMission $mission): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -51,7 +49,7 @@ final class CommanderMissionController extends AbstractGameController
 
         $this->toggleMissionCompletion->execute($mission);
 
-        return $this->view($mission, Response::HTTP_OK);
+        return $this->json($mission, Response::HTTP_OK);
     }
 
     #[OA\Tag(name: 'Player')]
@@ -61,9 +59,8 @@ final class CommanderMissionController extends AbstractGameController
         description: 'The mission id',
         schema: new OA\Schema(type: 'integer')
     )]
-    #[Security(name: 'Bearer')]
     #[Route('/player/mark-mission-as-read/{id}', methods: ['PUT'])]
-    public function markMissionAsReadEndpoint(CommanderMission $mission): View
+    public function markMissionAsReadEndpoint(CommanderMission $mission): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -73,11 +70,16 @@ final class CommanderMissionController extends AbstractGameController
 
         $this->markMissionAsRead->execute($mission);
 
-        return $this->view($mission, Response::HTTP_OK);
+        return $this->json($mission, Response::HTTP_OK);
     }
 
     private function getUserOrThrow(): User
     {
-        return $this->getUser() instanceof User ? $this->getUser() : throw new HttpException(Response::HTTP_UNAUTHORIZED, 'You should be logged in to access this endpoint.');
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'You should be logged in to access this endpoint.');
+        }
+
+        return $user;
     }
 }

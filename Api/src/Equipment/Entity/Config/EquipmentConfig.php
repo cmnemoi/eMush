@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Entity\Config;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,6 +26,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Config\StatusConfig;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
@@ -31,35 +38,56 @@ use Mush\Status\Entity\Config\StatusConfig;
     'space_ship_config' => SpaceShipConfig::class,
     'npc_config' => NpcConfig::class,
 ])]
+#[ApiResource(
+    normalizationContext: ['groups' => ['equipment_config_read']],
+    denormalizationContext: ['groups' => ['equipment_config_write']],
+    paginationItemsPerPage: 25,
+    operations: [
+        new GetCollection(security: 'is_granted("ROLE_ADMIN")', filters: ['default.search_filter', 'default.order_filter']),
+        new Post(security: 'is_granted("ROLE_ADMIN")'),
+        new Get(security: 'is_granted("ROLE_ADMIN")'),
+        new Put(security: 'is_granted("ROLE_ADMIN")'),
+        new Delete(security: 'is_granted("ROLE_ADMIN")'),
+    ],
+)]
 class EquipmentConfig
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['equipment_config_read'])]
     private int $id;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[Groups(['equipment_config_read', 'equipment_config_write'])]
     private string $name;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['equipment_config_read', 'equipment_config_write'])]
     private string $equipmentName;
 
     #[ORM\ManyToMany(targetEntity: EquipmentMechanic::class)]
+    #[Groups(['equipment_config_read', 'equipment_config_write'])]
     private Collection $mechanics;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false, enumType: BreakableTypeEnum::class, options: ['default' => BreakableTypeEnum::NONE])]
+    #[Groups(['equipment_config_read', 'equipment_config_write'])]
     private BreakableTypeEnum $breakableType = BreakableTypeEnum::NONE;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['equipment_config_read', 'equipment_config_write'])]
     private array $dismountedProducts = [];
 
     #[ORM\ManyToMany(targetEntity: ActionConfig::class)]
+    #[Groups(['equipment_config_read', 'equipment_config_write'])]
     private Collection $actionConfigs;
 
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
+    #[Groups(['equipment_config_read', 'equipment_config_write'])]
     private Collection $initStatuses;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
+    #[Groups(['equipment_config_read', 'equipment_config_write'])]
     private bool $isPersonal = false;
 
     #[ORM\OneToMany(mappedBy: 'equipment', targetEntity: GameEquipment::class, cascade: ['remove'])]

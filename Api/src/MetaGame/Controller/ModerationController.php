@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Controller;
 
-use FOS\RestBundle\Context\Context;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\View\View;
 use Mush\Chat\Entity\Message;
 use Mush\Daedalus\Entity\ComManagerAnnouncement;
 use Mush\MetaGame\Dto\ReportPlayerDto;
@@ -23,21 +19,17 @@ use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\UseCase\GetUserCurrentPlayerUseCase;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\User\Entity\User;
-use Nelmio\ApiDocBundle\Annotation\Security;
-use OpenApi\Annotations as OA;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/**
- * Class ModerationController.
- *
- * @Route(path="/moderation")
- */
-final class ModerationController extends AbstractFOSRestController
+#[Route('/moderation')]
+final class ModerationController extends AbstractController
 {
     public function __construct(
         private GetUserCurrentPlayerUseCase $getUserCurrentPlayerUseCase,
@@ -49,69 +41,14 @@ final class ModerationController extends AbstractFOSRestController
 
     /**
      * Ban an user.
-     *
-     * @OA\Parameter(
-     *      name="id",
-     *      in="path",
-     *      description="The user id",
-     *
-     *       @OA\Schema(type="string")
-     * )
-     *
-     *  @OA\Parameter(
-     *       name="reason",
-     *       in="query",
-     *       description="Reason for banning the user",
-     *
-     *       @OA\Schema(type="string")
-     *  )
-     *
-     *  @OA\Parameter(
-     *       name="adminMessage",
-     *       in="query",
-     *       description="Message for the banned user",
-     *
-     *       @OA\Schema(type="string", nullable=true)
-     *  )
-     *
-     *  @OA\Parameter(
-     *       name="startDate",
-     *       in="query",
-     *       description="Start date of the ban",
-     *
-     *       @OA\Schema(type="string", format="date", nullable=true)
-     *  )
-     *
-     *  @OA\Parameter(
-     *       name="duration",
-     *       in="query",
-     *       description="Duration of the ban",
-     *
-     *       @OA\Schema(type="string", format="string", nullable=true)
-     *  )
-     *
-     *  @OA\Parameter(
-     *       name="byIp",
-     *       in="query",
-     *       description="Whether we should also ban the user's IPs",
-     *
-     *       @OA\Schema(type="boolean")
-     *  )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/ban-user/{id}")
-     *
-     * @Rest\View()
      */
-    public function banUser(User $user, Request $request): View
+    #[Route('/ban-user/{id}', methods: ['POST'])]
+    public function banUser(User $user, Request $request): JsonResponse
     {
         $this->denyAccessIfNotModerator();
 
-        $durationString = $request->get('duration');
-        if ($durationString !== null && $durationString !== '') {
+        $durationString = $request->query->getString('duration');
+        if ($durationString !== '') {
             $duration = new \DateInterval($durationString);
         } else {
             $duration = null;
@@ -123,72 +60,25 @@ final class ModerationController extends AbstractFOSRestController
         $this->moderationService->banUser(
             user: $user,
             author: $sanctionAuthor,
-            reason: $request->get('reason'),
-            message: $request->get('adminMessage', null),
+            reason: $request->query->getString('reason'),
+            message: $request->query->getString('adminMessage') ?: null,
             duration: $duration,
-            byIp: $request->get('byIp') === 'true'
+            byIp: $request->query->get('byIp') === 'true'
         );
 
-        return $this->view(['detail' => 'User banned successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'User banned successfully'], Response::HTTP_OK);
     }
 
     /**
      * Warn a user.
-     *
-     * @OA\Parameter(
-     *      name="id",
-     *      in="path",
-     *      description="The user id",
-     *
-     *       @OA\Schema(type="string")
-     * )
-     *
-     *  @OA\Parameter(
-     *       name="reason",
-     *       in="query",
-     *       description="Reason for the warning",
-     *
-     *       @OA\Schema(type="string")
-     *  )
-     *
-     *  @OA\Parameter(
-     *       name="adminMessage",
-     *       in="query",
-     *       description="Message for the user",
-     *
-     *       @OA\Schema(type="string")
-     *  )
-     *
-     *  @OA\Parameter(
-     *       name="startDate",
-     *       in="query",
-     *       description="Start date of the warning",
-     *
-     *       @OA\Schema(type="string", format="date", nullable=true)
-     *  )
-     *
-     *  @OA\Parameter(
-     *       name="duration",
-     *       in="query",
-     *       description="Duration of the warning",
-     *
-     *       @OA\Schema(type="string", format="string", nullable=true)
-     *  )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/warn-user/{id}")
-     *
-     * @Rest\View()
      */
-    public function warnUser(User $user, Request $request): View
+    #[Route('/warn-user/{id}', methods: ['POST'])]
+    public function warnUser(User $user, Request $request): JsonResponse
     {
         $this->denyAccessIfNotModerator();
 
-        $durationString = $request->get('duration');
-        if ($durationString !== null && $durationString !== '') {
+        $durationString = $request->query->getString('duration');
+        if ($durationString !== '') {
             $duration = new \DateInterval($durationString);
         } else {
             $duration = null;
@@ -200,88 +90,35 @@ final class ModerationController extends AbstractFOSRestController
         $this->moderationService->warnUser(
             user: $user,
             author: $sanctionAuthor,
-            reason: $request->get('reason'),
-            message: $request->get('adminMessage', ''),
+            reason: $request->query->getString('reason'),
+            message: $request->query->getString('adminMessage'),
             duration: $duration,
         );
 
-        return $this->view(['detail' => 'User warn successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'User warn successfully'], Response::HTTP_OK);
     }
 
     /**
      * Return a player data adapted for Moderation view.
-     *
-     * @OA\Parameter(
-     *      name="id",
-     *      in="path",
-     *      description="The player id",
-     *
-     *       @OA\Schema(type="string")
-     * )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Get(path="/view-player/{id}")
-     *
-     * @Rest\View()
      */
-    public function getModerationViewPlayer(PlayerInfo $playerInfo): View
+    #[Route('/view-player/{id}', methods: ['GET'])]
+    public function getModerationViewPlayer(PlayerInfo $playerInfo): JsonResponse
     {
         $this->denyAccessIfNotModerator();
 
-        $context = new Context();
-        $context->setAttribute('groups', ['moderation_view']);
-        $context->setAttribute('user', $this->getUser());
-
-        $view = $this->view($playerInfo, Response::HTTP_OK);
-        $view->setContext($context);
-
-        return $view;
+        return $this->json($playerInfo, Response::HTTP_OK, [], ['groups' => ['moderation_view'], 'user' => $this->getUser()]);
     }
 
     /**
      * Quarantine a player.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The player id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="reason",
-     *     in="query",
-     *     description="Reason for quarantine",
-     *
-     *     @OA\Schema(type="string")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="adminMessage",
-     *     in="query",
-     *     description="moderation message",
-     *
-     *     @OA\Schema(type="string", nullable=true)
-     * )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/quarantine-player/{id}")
-     *
-     * @Rest\View()
      */
-    public function quarantinePlayer(Player $player, Request $request): View
+    #[Route('/quarantine-player/{id}', methods: ['POST'])]
+    public function quarantinePlayer(Player $player, Request $request): JsonResponse
     {
         $this->denyAccessIfNotModerator();
 
         if (!$player->isAlive()) {
-            return $this->view(['error' => 'Player is already dead'], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return $this->json(['error' => 'Player is already dead'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         /** @var User $sanctionAuthor */
@@ -290,51 +127,18 @@ final class ModerationController extends AbstractFOSRestController
         $this->moderationService->quarantinePlayer(
             player: $player,
             author: $sanctionAuthor,
-            reason: $request->get('reason'),
-            message: $request->get(
-                'adminMessage'
-            )
+            reason: $request->query->getString('reason'),
+            message: $request->query->getString('adminMessage') ?: null
         );
 
-        return $this->view(['detail' => 'Player quarantined successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'Player quarantined successfully'], Response::HTTP_OK);
     }
 
     /**
      * Edit closed player message with a NERON warning.
-     *
-     * @OA\Parameter(
-     *      name="id",
-     *      in="path",
-     *      description="The closed player id",
-     *
-     *      @OA\Schema(type="string")
-     * )
-     *
-     * @OA\Parameter(
-     *      name="reason",
-     *      in="query",
-     *      description="Reason for the message edition",
-     *
-     *      @OA\Schema(type="string", nullable=true)
-     * )
-     *
-     * @OA\Parameter(
-     *      name="adminMessage",
-     *      in="query",
-     *      description="moderation message",
-     *
-     *      @OA\Schema(type="string", nullable=true)
-     * )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/edit-closed-player-end-message/{id}")
-     *
-     * @Rest\View()
      */
-    public function editEndMessage(ClosedPlayer $closedPlayer, Request $request): View
+    #[Route('/edit-closed-player-end-message/{id}', methods: ['POST'])]
+    public function editEndMessage(ClosedPlayer $closedPlayer, Request $request): JsonResponse
     {
         $this->denyAccessIfNotModerator();
 
@@ -344,49 +148,18 @@ final class ModerationController extends AbstractFOSRestController
         $this->moderationService->editClosedPlayerMessage(
             $closedPlayer,
             $sanctionAuthor,
-            $request->get('reason'),
-            $request->get('adminMessage', null),
+            $request->query->getString('reason'),
+            $request->query->getString('adminMessage') ?: null,
         );
 
-        return $this->view(['detail' => 'End message edited successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'End message edited successfully'], Response::HTTP_OK);
     }
 
     /**
      * Hide closed player end message.
-     *
-     * @OA\Parameter(
-     *      name="id",
-     *      in="path",
-     *      description="The closed player id",
-     *
-     *      @OA\Schema(type="string")
-     * )
-     *
-     * @OA\Parameter(
-     *      name="reason",
-     *      in="query",
-     *      description="Reason for the message removal",
-     *
-     *      @OA\Schema(type="string", nullable=true)
-     * )
-     *
-     * @OA\Parameter(
-     *      name="adminMessage",
-     *      in="query",
-     *      description="Moderation message",
-     *
-     *      @OA\Schema(type="string", nullable=true)
-     *  )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/hide-closed-player-end-message/{id}")
-     *
-     * @Rest\View()
      */
-    public function hideEndMessage(ClosedPlayer $closedPlayer, Request $request): View
+    #[Route('/hide-closed-player-end-message/{id}', methods: ['POST'])]
+    public function hideEndMessage(ClosedPlayer $closedPlayer, Request $request): JsonResponse
     {
         $this->denyAccessIfNotModerator();
 
@@ -396,49 +169,18 @@ final class ModerationController extends AbstractFOSRestController
         $this->moderationService->hideClosedPlayerEndMessage(
             $closedPlayer,
             $sanctionAuthor,
-            $request->get('reason'),
-            $request->get('message', null),
+            $request->query->getString('reason'),
+            $request->query->getString('message') ?: null,
         );
 
-        return $this->view(['detail' => 'End message hidden successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'End message hidden successfully'], Response::HTTP_OK);
     }
 
     /**
      * Replace a message in the chat by a moderation message.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The message id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="reason",
-     *     in="query",
-     *     description="Reason for the message deletion",
-     *
-     *     @OA\Schema(type="string")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="adminMessage",
-     *     in="query",
-     *     description="Moderation message",
-     *
-     *     @OA\Schema(type="string", nullable=true)
-     * )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/delete-message/{id}")
-     *
-     * @Rest\View()
      */
-    public function deleteMessage(Message $message, Request $request): View
+    #[Route('/delete-message/{id}', methods: ['POST'])]
+    public function deleteMessage(Message $message, Request $request): JsonResponse
     {
         $this->denyAccessIfNotModerator();
 
@@ -448,176 +190,70 @@ final class ModerationController extends AbstractFOSRestController
         $this->moderationService->deleteMessage(
             $message,
             $sanctionAuthor,
-            $request->get('reason'),
-            $request->get('adminMessage', null),
+            $request->query->getString('reason'),
+            $request->query->getString('adminMessage') ?: null,
         );
 
-        return $this->view(['detail' => 'message deleted successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'message deleted successfully'], Response::HTTP_OK);
     }
 
     /**
      * Suspend a sanction by setting its date to now.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The sanction id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Patch(path="/suspend-sanction/{id}")
-     *
-     * @Rest\View()
      */
-    public function suspendSanction(ModerationSanction $moderationSanction): View
+    #[Route('/suspend-sanction/{id}', methods: ['PATCH'])]
+    public function suspendSanction(ModerationSanction $moderationSanction): JsonResponse
     {
         $this->denyAccessIfNotModerator();
 
         $this->moderationService->suspendSanction($moderationSanction);
 
-        return $this->view(['detail' => 'sanction suspended successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'sanction suspended successfully'], Response::HTTP_OK);
     }
 
     /**
      * remove a sanction.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The sanction id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/remove-sanction/{id}")
-     *
-     * @Rest\View()
      */
-    public function removeSanction(ModerationSanction $moderationSanction): View
+    #[Route('/remove-sanction/{id}', methods: ['POST'])]
+    public function removeSanction(ModerationSanction $moderationSanction): JsonResponse
     {
         $this->denyAccessIfNotModerator();
 
         $this->moderationService->removeSanction($moderationSanction);
 
-        return $this->view(['detail' => 'sanction deleted successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'sanction deleted successfully'], Response::HTTP_OK);
     }
 
-    /**
-     * Report an end message that needs moderation action.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The closed player id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="reason",
-     *     in="query",
-     *     description="Reason for the report",
-     *
-     *     @OA\Schema(type="string")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="adminMessage",
-     *     in="query",
-     *     description="Message of the user",
-     *
-     *     @OA\Schema(type="string", nullable=true)
-     * )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/report-closed-player/{id}")
-     *
-     * @Rest\View()
-     */
+    #[Route('/report-closed-player/{id}', methods: ['POST'])]
     public function reportClosedPlayer(
         ClosedPlayer $closedPlayer,
         Request $request
-    ): View {
+    ): JsonResponse {
         /** @var User $reportAuthor */
         $reportAuthor = $this->getUser();
 
         $this->moderationService->reportPlayer(
             player: $closedPlayer->getPlayerInfo(),
             author: $reportAuthor,
-            reason: $request->get('reason'),
+            reason: $request->query->getString('reason'),
             sanctionEvidence: $closedPlayer,
-            message: $request->get('adminMessage'),
+            message: $request->query->getString('adminMessage') ?: null,
         );
 
-        return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
     }
 
-    /**
-     * Report a message that needs moderation action.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The message id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="reason",
-     *     in="query",
-     *     description="Reason for the report",
-     *
-     *     @OA\Schema(type="string")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="player",
-     *     in="query",
-     *     description="the player id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="adminMessage",
-     *     in="query",
-     *     description="Message of the user",
-     *
-     *     @OA\Schema(type="string", nullable=true)
-     * )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/report-message/{id}")
-     *
-     * @Rest\View()
-     */
+    #[Route('/report-message/{id}', methods: ['POST'])]
     public function reportMessage(
         Message $message,
         Request $request
-    ): View {
-        $reportPlayerDto = new ReportPlayerDto()
-            ->setPlayerId((int) $request->get('player'))
-            ->setReason($request->get('reason'))
-            ->setAdminMessage($request->get('adminMessage', ''));
+    ): JsonResponse {
+        $reportPlayerDto = (new ReportPlayerDto())
+            ->setPlayerId((int) $request->query->get('player'))
+            ->setReason($request->query->getString('reason'))
+            ->setAdminMessage($request->query->getString('adminMessage'));
         $violations = $this->validator->validate($reportPlayerDto);
         if (\count($violations)) {
-            return $this->view(['errors' => $violations], Response::HTTP_BAD_REQUEST);
+            return $this->json(['errors' => $violations], Response::HTTP_BAD_REQUEST);
         }
 
         /** @var User $reportAuthor */
@@ -634,229 +270,80 @@ final class ModerationController extends AbstractFOSRestController
             message: $reportPlayerDto->getAdminMessage(),
         );
 
-        return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
     }
 
-    /**
-     * Report a log that needs moderation action.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The message id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="reason",
-     *     in="query",
-     *     description="Reason for the report",
-     *
-     *     @OA\Schema(type="string")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="player",
-     *     in="query",
-     *     description="the player id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="adminMessage",
-     *     in="query",
-     *     description="Message of the user",
-     *
-     *     @OA\Schema(type="string", nullable=true)
-     * )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/report-log/{id}")
-     *
-     * @Rest\View()
-     */
+    #[Route('/report-log/{id}', methods: ['POST'])]
     public function reportLog(
         RoomLog $roomLog,
         Request $request
-    ): View {
+    ): JsonResponse {
         /** @var User $reportAuthor */
         $reportAuthor = $this->getUser();
 
         /** @var Player $player */
-        $player = $this->playerRepository->find($request->get('player'));
+        $player = $this->playerRepository->find($request->query->getInt('player'));
 
         $this->moderationService->reportPlayer(
             player: $player->getPlayerInfo(),
             author: $reportAuthor,
-            reason: $request->get('reason'),
+            reason: $request->query->getString('reason'),
             sanctionEvidence: $roomLog,
-            message: $request->get('adminMessage'),
+            message: $request->query->getString('adminMessage') ?: null,
         );
 
-        return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
     }
 
-    /**
-     * Report a commander mission that needs moderation action.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The message id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="reason",
-     *     in="query",
-     *     description="Reason for the report",
-     *
-     *     @OA\Schema(type="string")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="player",
-     *     in="query",
-     *     description="the player id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="adminMessage",
-     *     in="query",
-     *     description="Message of the user",
-     *
-     *     @OA\Schema(type="string", nullable=true)
-     * )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/report-commander-mission/{id}")
-     *
-     * @Rest\View()
-     */
+    #[Route('/report-commander-mission/{id}', methods: ['POST'])]
     public function reportCommanderMissionEndpoint(
         CommanderMission $commanderMission,
         Request $request
-    ): View {
+    ): JsonResponse {
         /** @var User $reportAuthor */
         $reportAuthor = $this->getUser();
 
         /** @var Player $player */
-        $player = $this->playerRepository->find($request->get('player'));
+        $player = $this->playerRepository->find($request->query->getInt('player'));
 
         $this->moderationService->reportPlayer(
             player: $player->getPlayerInfo(),
             author: $reportAuthor,
-            reason: $request->get('reason'),
+            reason: $request->query->getString('reason'),
             sanctionEvidence: $commanderMission,
-            message: $request->get('adminMessage'),
+            message: $request->query->getString('adminMessage') ?: null,
         );
 
-        return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
     }
 
-    /**
-     * Report a comms manager announcement that needs moderation action.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The message id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="reason",
-     *     in="query",
-     *     description="Reason for the report",
-     *
-     *     @OA\Schema(type="string")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="player",
-     *     in="query",
-     *     description="the player id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="adminMessage",
-     *     in="query",
-     *     description="Message of the user",
-     *
-     *     @OA\Schema(type="string", nullable=true)
-     * )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/report-com-manager-announcement/{id}")
-     *
-     * @Rest\View()
-     */
+    #[Route('/report-com-manager-announcement/{id}', methods: ['POST'])]
     public function reportComManagerAnnouncementEndpoint(
         ComManagerAnnouncement $comManagerAnnouncement,
         Request $request
-    ): View {
+    ): JsonResponse {
         /** @var User $reportAuthor */
         $reportAuthor = $this->getUser();
 
         /** @var Player $player */
-        $player = $this->playerRepository->find($request->get('player'));
+        $player = $this->playerRepository->find($request->query->getInt('player'));
 
         $this->moderationService->reportPlayer(
             player: $player->getPlayerInfo(),
             author: $reportAuthor,
-            reason: $request->get('reason'),
+            reason: $request->query->getString('reason'),
             sanctionEvidence: $comManagerAnnouncement,
-            message: $request->get('adminMessage'),
+            message: $request->query->getString('adminMessage') ?: null,
         );
 
-        return $this->view(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'Complaint sent successfully'], Response::HTTP_OK);
     }
 
     /**
      * archive a report.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The sanction id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Parameter(
-     *     name="isAbusive",
-     *     in="query",
-     *     description="Is the report abusive",
-     *
-     *     @OA\Schema(type="boolean")
-     * )
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Patch(path="/archive-report/{id}")
-     *
-     * @Rest\View()
      */
-    public function archiveReport(ModerationSanction $moderationSanction, Request $request): View
+    #[Route('/archive-report/{id}', methods: ['PATCH'])]
+    public function archiveReport(ModerationSanction $moderationSanction, Request $request): JsonResponse
     {
         $this->denyAccessIfNotModerator();
 
@@ -864,29 +351,24 @@ final class ModerationController extends AbstractFOSRestController
             throw new HttpException(Response::HTTP_FORBIDDEN, 'Only sanction with report action can be archived');
         }
 
-        $isAbusive = $request->get('isAbusive') === 'true';
+        $isAbusive = $request->query->get('isAbusive') === 'true';
 
         $this->moderationService->archiveReport($moderationSanction, $isAbusive);
 
-        return $this->view(['detail' => 'report archived'], Response::HTTP_OK);
+        return $this->json(['detail' => 'report archived'], Response::HTTP_OK);
     }
 
     /**
      * Get reportable players for a Daedalus.
-     *
-     * @OA\Tag(name="Moderation")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Get(path="/reportable")
      */
-    public function getReportablePlayerAction(): View
+    #[Route('/reportable', methods: ['GET'])]
+    public function getReportablePlayerAction(): JsonResponse
     {
         $userPlayer = $this->getUserCurrentPlayerUseCase->execute($this->getRequestUser());
 
         $daedalus = $userPlayer->getDaedalus();
 
-        return $this->view(
+        return $this->json(
             $daedalus->getPlayers()->getAllExcept($userPlayer),
             Response::HTTP_OK
         );
@@ -894,25 +376,10 @@ final class ModerationController extends AbstractFOSRestController
 
     /**
      * Get user active sanctions.
-     *
-     * @OA\Parameter(
-     *      name="id",
-     *      in="path",
-     *      description="The user id",
-     *
-     *       @OA\Schema(type="string")
-     * )
-     *
-     * @OA\Tag(name="moderationSanction")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Get(path="/{id}/active-bans-and-warnings")
-     *
-     * @Rest\View()
      */
+    #[Route('/{id}/active-bans-and-warnings', methods: ['GET'])]
     #[IsGranted('IS_REQUEST_USER', subject: 'user', message: 'You cannot access other player\'s sanctions!')]
-    public function getUserActiveBansAndWarnings(User $user): View
+    public function getUserActiveBansAndWarnings(User $user): JsonResponse
     {
         $warnings = $this->moderationSanctionRepository->findUserAllActiveWarnings($user);
         $ban = $this->moderationSanctionRepository->findUserActiveBan($user);
@@ -921,7 +388,7 @@ final class ModerationController extends AbstractFOSRestController
             $warnings->add($ban);
         }
 
-        return $this->view($warnings->toArray(), Response::HTTP_OK);
+        return $this->json($warnings->toArray(), Response::HTTP_OK);
     }
 
     private function denyAccessIfNotModerator(): void

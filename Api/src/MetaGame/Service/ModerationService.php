@@ -295,7 +295,7 @@ final class ModerationService implements ModerationServiceInterface
         $banNotYetTriggered = $this->moderationSanctionRepository->findAllBansNotYetTriggeredForUser($user);
         foreach ($banNotYetTriggered as $sanction) {
             $duration = $sanction->getBanLength();
-            $date = $duration === null ? new \DateTime('99999/12/31') : new \DateTime()->add($duration);
+            $date = $duration === null ? new \DateTime('99999/12/31') : (new \DateTime())->add($duration);
             $sanction->setEndDate($date);
             $sanction->setModerationAction(ModerationSanctionEnum::BAN_USER);
             $this->moderationSanctionRepository->save($sanction);

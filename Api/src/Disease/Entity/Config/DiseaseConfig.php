@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Disease\Entity\Config;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Dto\DiseaseConfigDto;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
@@ -12,6 +17,26 @@ use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_config')]
+#[ApiResource(
+    paginationItemsPerPage: 25,
+    normalizationContext: ['groups' => ['disease_config_read']],
+    denormalizationContext: ['groups' => ['disease_config_write']],
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 class DiseaseConfig implements LogParameterInterface
 {
     #[ORM\Id]

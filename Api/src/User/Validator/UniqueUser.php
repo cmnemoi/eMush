@@ -6,9 +6,7 @@ namespace Mush\User\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class UniqueUser extends Constraint
 {
     public const USER_IS_ALREADY_ON_DAEDALUS = 'user_is_already_on_daedalus';

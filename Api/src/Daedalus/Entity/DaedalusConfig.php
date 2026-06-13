@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Daedalus\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,7 +16,28 @@ use Mush\Daedalus\Enum\CharacterSetEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Place\Entity\PlaceConfig;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['daedalus_config_read']],
+    denormalizationContext: ['groups' => ['daedalus_config_write']],
+    paginationItemsPerPage: 25,
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 #[ORM\Entity]
 #[ORM\Table(name: 'config_daedalus')]
 class DaedalusConfig
@@ -19,21 +45,27 @@ class DaedalusConfig
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['daedalus_config_read'])]
     private int $id;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false, options: ['default' => ''])]
+    #[Groups(['daedalus_config_read', 'daedalus_config_write'])]
     private string $name;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['daedalus_config_read', 'daedalus_config_write'])]
     private int $initOxygen = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['daedalus_config_read', 'daedalus_config_write'])]
     private int $initFuel = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['daedalus_config_read', 'daedalus_config_write'])]
     private int $initHull = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['daedalus_config_read', 'daedalus_config_write'])]
     private int $initShield = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
@@ -43,15 +75,19 @@ class DaedalusConfig
     private int $initCombustionChamberFuel = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['daedalus_config_read', 'daedalus_config_write'])]
     private int $maxOxygen = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['daedalus_config_read', 'daedalus_config_write'])]
     private int $maxFuel = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['daedalus_config_read', 'daedalus_config_write'])]
     private int $maxHull = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['daedalus_config_read', 'daedalus_config_write'])]
     private int $maxShield = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
@@ -61,21 +97,27 @@ class DaedalusConfig
     private array $startingApprentrons = [];
 
     #[ORM\ManyToMany(targetEntity: RandomItemPlaces::class)]
+    #[Groups(['daedalus_config_read', 'daedalus_config_write'])]
     private Collection $randomItemPlaces;
 
     #[ORM\ManyToMany(targetEntity: PlaceConfig::class)]
+    #[Groups(['daedalus_config_read', 'daedalus_config_write'])]
     private Collection $placeConfigs;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['daedalus_config_read', 'daedalus_config_write'])]
     private int $dailySporeNb = 4;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['daedalus_config_read', 'daedalus_config_write'])]
     private int $nbMush = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['daedalus_config_read', 'daedalus_config_write'])]
     private int $cyclePerGameDay = 8;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['daedalus_config_read', 'daedalus_config_write'])]
     private int $cycleLength = 0; // in minutes
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]

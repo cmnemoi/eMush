@@ -12,11 +12,11 @@ final readonly class ChooseSkillDto
 {
     public function __construct(public SkillEnum $skill, public Player $player) {}
 
-    public static function createFromRequest(Request $request): self
+    public static function createFromRequest(Request $request, Player $player): self
     {
         return new self(
-            SkillEnum::from((string) $request->request->get('skill')),
-            $request->attributes->get('player')
+            SkillEnum::from((string) $request->getPayload()->get('skill')),
+            $player
         );
     }
 

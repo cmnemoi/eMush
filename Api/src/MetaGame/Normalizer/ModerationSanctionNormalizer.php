@@ -51,6 +51,7 @@ final class ModerationSanctionNormalizer implements NormalizerInterface, Normali
         /** @var ModerationSanction $moderationSanction */
         $moderationSanction = $object;
         $context[self::ALREADY_CALLED] = true;
+        $context['groups'] = array_merge($context['groups'] ?? [], ['moderation_sanction_read']);
 
         /** @var ?User $requestUser */
         // If user is not logged in, they cannot access player infos

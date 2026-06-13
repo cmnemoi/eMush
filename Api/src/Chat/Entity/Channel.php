@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Chat\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,9 +17,24 @@ use Mush\Player\Entity\CommanderMission;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'communication_channel')]
+#[ApiResource(
+    normalizationContext: ['groups' => ['channel_read', 'moderation_read']],
+    denormalizationContext: ['groups' => ['channel_write']],
+    paginationEnabled: false,
+    operations: [
+        new GetCollection(
+            security: 'is_granted("ROLE_MODERATOR")',
+            filters: ['channel.search_filter', 'date.order_filter'],
+        ),
+        new Get(
+            security: 'is_granted("ROLE_MODERATOR")',
+        ),
+    ],
+)]
 class Channel
 {
     use TimestampableEntity;
@@ -28,21 +46,27 @@ class Channel
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['channel_read', 'moderation_read'])]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['channel_read', 'moderation_read'])]
     private string $scope = ChannelScopeEnum::PUBLIC;
 
     #[ORM\ManyToOne(targetEntity: DaedalusInfo::class)]
+    #[Groups(['channel_read', 'moderation_read'])]
     private DaedalusInfo $daedalusInfo;
 
     #[ORM\OneToMany(mappedBy: 'channel', targetEntity: ChannelPlayer::class)]
+    #[Groups(['channel_read', 'moderation_read'])]
     private Collection $participants;
 
     #[ORM\OneToMany(mappedBy: 'channel', targetEntity: ChannelPlayer::class)]
+    #[Groups(['channel_read', 'moderation_read'])]
     private Collection $allTimeParticipants;
 
     #[ORM\OneToMany(mappedBy: 'channel', targetEntity: Message::class, cascade: ['remove'])]
+    #[Groups(['channel_read', 'moderation_read'])]
     private Collection $messages;
 
     public function __construct()
@@ -228,6 +252,12 @@ class Channel
         }
 
         return $count;
+    }
+
+    #[Groups(['channel_read', 'moderation_read'])]
+    public function getCreatedAt(): ?\DateTime
+    {
+        return $this->createdAt;
     }
 
     private function addAllTimeParticipant(ChannelPlayer $channelPlayer): self

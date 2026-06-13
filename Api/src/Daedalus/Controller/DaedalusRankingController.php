@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Mush\Daedalus\Controller;
 
-use FOS\RestBundle\Controller\Annotations\Get;
 use Mush\Daedalus\Query\GetDaedalusRankingQuery;
 use Mush\Daedalus\Query\GetDaedalusRankingQueryHandler;
-use Nelmio\ApiDocBundle\Attribute\Security;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\MapQueryString;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[OA\Tag(name: 'Daedalus')]
-#[Security(name: 'Bearer')]
 final class DaedalusRankingController extends AbstractController
 {
     public function __construct(
@@ -52,7 +50,7 @@ final class DaedalusRankingController extends AbstractController
         required: false,
         example: 'cycles_survived',
     )]
-    #[Get(path: '/daedaluses/ranking')]
+    #[Route('/daedaluses/ranking', methods: ['GET'])]
     public function __invoke(#[MapQueryString] GetDaedalusRankingQuery $daedalusRankingQuery): JsonResponse
     {
         $results = $this->handler->execute($daedalusRankingQuery);

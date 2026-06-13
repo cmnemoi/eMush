@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace Mush\Modifier\Entity\Config;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierActivationRequirementCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class storing the various information needed to create and apply Modifiers.
@@ -18,6 +24,26 @@ use Mush\Modifier\Entity\Collection\ModifierActivationRequirementCollection;
  * modifierRange: the class that will hold the GameModifier entity (create modifier) (player, daedalus, place or gameEquipment)
  * modifierActivationRequirements: requirements that need to be fulfilled for the modifier to activate
  */
+#[ApiResource(
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_USER")',
+    normalizationContext: ['groups' => ['modifier_config_read']],
+    operations: [
+        new GetCollection(
+            security: 'is_granted("ROLE_MODERATOR")',
+            filters: ['default.search_filter', 'default.order_filter'],
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_MODERATOR")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
@@ -30,12 +56,15 @@ use Mush\Modifier\Entity\Collection\ModifierActivationRequirementCollection;
 abstract class AbstractModifierConfig
 {
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     protected string $name;
 
     #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     protected ?string $modifierName = null;
 
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     protected ?string $modifierStrategy = '';
 
     #[ORM\Column(type: 'string', nullable: false)]

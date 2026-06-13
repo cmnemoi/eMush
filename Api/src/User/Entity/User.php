@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Mush\User\Entity;
 
 use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,7 +21,27 @@ use Mush\Player\Entity\Player;
 use Mush\User\Enum\RoleEnum;
 use Mush\User\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    shortName: 'Users',
+    description: 'eMush Users',
+    normalizationContext: ['groups' => ['user_read']],
+    denormalizationContext: ['groups' => ['user_write']],
+    paginationItemsPerPage: 25,
+    operations: [
+        new GetCollection(
+            filters: ['user.search_filter', 'user.order_filter'],
+            security: 'is_granted("ROLE_MODERATOR")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_USER") or object == user',
+        ),
+        new Patch(
+            security: 'is_granted("ROLE_MODERATOR") and is_granted("EDIT_USER_ROLE", object)',
+        ),
+    ],
+)]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
 class User implements UserInterface
@@ -296,6 +320,12 @@ class User implements UserInterface
     public function getCycleCounts(): CycleCounts
     {
         return $this->pendingStatistics->getCycleCounts();
+    }
+
+    #[Groups(['user_read'])]
+    public function getCreatedAt(): ?\DateTime
+    {
+        return $this->createdAt;
     }
 
     // deprecated

@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Action\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
@@ -15,29 +20,54 @@ use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'action')]
+#[ApiResource(
+    normalizationContext: ['groups' => ['action_read']],
+    denormalizationContext: ['groups' => ['action_write']],
+    paginationItemsPerPage: 25,
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 class ActionConfig implements GameVariableHolderInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['action_read'])]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[Groups(['action_read', 'action_write'])]
     private string $name;
 
     #[ORM\Column(type: 'string', nullable: false, enumType: ActionEnum::class)]
+    #[Groups(['action_read', 'action_write'])]
     private ActionEnum $actionName;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['action_read', 'action_write'])]
     private array $types = [];
 
     #[ORM\Column(type: 'string', nullable: false, enumType: ActionHolderEnum::class, options: ['default' => ActionHolderEnum::NULL])]
+    #[Groups(['action_read', 'action_write'])]
     private ActionHolderEnum $displayHolder;
 
     #[ORM\Column(type: 'string', nullable: false, enumType: ActionRangeEnum::class, options: ['default' => ActionRangeEnum::NULL])]
+    #[Groups(['action_read', 'action_write'])]
     private ActionRangeEnum $range;
 
     #[ORM\Column(type: 'array', nullable: false)]
@@ -193,6 +223,7 @@ class ActionConfig implements GameVariableHolderInterface
         return $this->actionVariables->hasVariable($variableName);
     }
 
+    #[Groups(['action_read', 'action_write'])]
     public function getActionVariablesArray(): array
     {
         return $this->actionVariables->getVariablesAsArray();

@@ -4,25 +4,18 @@ declare(strict_types=1);
 
 namespace Mush\User\Controller;
 
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Post;
-use FOS\RestBundle\Controller\Annotations\Route;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Mush\User\Service\LoginService;
-use OpenApi\Annotations as OA;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * Class LoginController.
- *
- * @Route(path="")
- */
-class LoginController extends AbstractFOSRestController
+#[Route('')]
+class LoginController extends AbstractController
 {
     private const int ONE_WEEK = 604_800;
 
@@ -39,43 +32,22 @@ class LoginController extends AbstractFOSRestController
 
     /**
      * Login.
-     *
-     * @OA\RequestBody (
-     *      description="Input data format",
-     *
-     * @OA\MediaType (
-     *             mediaType="application/json",
-     *
-     * @OA\Schema (
-     *              type="object",
-     *
-     * @OA\Property (
-     *                     property="username",
-     *                     description="The user username",
-     *                     type="string",
-     *                 ),
-     *             )
-     *         )
-     *     )
-     *
-     * @OA\Tag (name="Login")
-     *
-     * @Post (name="username_login", path="/token")
      */
+    #[Route('/token', name: 'username_login', methods: ['POST'])]
     public function tokenAction(Request $request): Response
     {
-        $code = $request->get('code');
+        $code = $request->getPayload()->get('code');
 
         if (empty($code)) {
             throw new UnauthorizedHttpException('Bad credentials');
         }
 
-        $user = $this->loginService->login($code, $request->getClientIp());
+        $user = $this->loginService->login((string) $code, $request->getClientIp() ?? '');
 
         $token = $this->jwtManager->create($user);
 
         // Set JWT token in httpOnly cookie
-        $response = new Response(json_encode(['success' => true]));
+        $response = new Response((string) json_encode(['success' => true]));
         $response->headers->setCookie(
             $this->createSecureCookie('access_token', $token, maxAge: self::ONE_WEEK)
         );
@@ -84,20 +56,18 @@ class LoginController extends AbstractFOSRestController
         return $response;
     }
 
-    /**
-     * @Get(name="callback", path="/callback")
-     */
+    #[Route('/callback', name: 'callback', methods: ['GET'])]
     public function callbackAction(Request $request): RedirectResponse
     {
-        $code = $request->get('code');
-        $encodedState = $request->get('state');
+        $code = $request->query->get('code');
+        $encodedState = $request->query->get('state');
 
         if (!$encodedState) {
             throw new UnauthorizedHttpException('Bad credentials: missing state parameter (CSRF protection)');
         }
 
-        $stateData = $this->loginService->decodeOAuthState($encodedState);
-        $token = $this->loginService->verifyCode($code);
+        $stateData = $this->loginService->decodeOAuthState((string) $encodedState);
+        $token = $this->loginService->verifyCode((string) $code);
         $callbackUrl = $this->loginService->buildFrontendCallbackUrl(
             $stateData['redirect'],
             $token,
@@ -107,13 +77,11 @@ class LoginController extends AbstractFOSRestController
         return $this->redirect($callbackUrl);
     }
 
-    /**
-     * @Get(name="redirect_login", path="/authorize")
-     */
+    #[Route('/authorize', name: 'redirect_login', methods: ['GET'])]
     public function redirectAction(Request $request): Response
     {
-        $csrfState = $request->get('state');
-        $frontendRedirectUri = $request->get('redirect_uri');
+        $csrfState = $request->query->get('state');
+        $frontendRedirectUri = $request->query->get('redirect_uri');
 
         if (!$csrfState) {
             throw new UnauthorizedHttpException('Bad credentials: missing state parameter (CSRF protection)');
@@ -123,7 +91,7 @@ class LoginController extends AbstractFOSRestController
             throw new UnauthorizedHttpException('Bad credentials: missing redirect_uri');
         }
 
-        $encodedState = $this->loginService->encodeOAuthState($csrfState, $frontendRedirectUri);
+        $encodedState = $this->loginService->encodeOAuthState((string) $csrfState, (string) $frontendRedirectUri);
         $authorizationUri = $this->loginService->getAuthorizationUri('base', $encodedState);
 
         return $this->redirect($authorizationUri);
@@ -131,14 +99,11 @@ class LoginController extends AbstractFOSRestController
 
     /**
      * Logout.
-     *
-     * @OA\Tag (name="Login")
-     *
-     * @Post (name="logout", path="/logout")
      */
+    #[Route('/logout', name: 'logout', methods: ['POST'])]
     public function logoutAction(): Response
     {
-        $response = new Response(json_encode(['success' => true]));
+        $response = new Response((string) json_encode(['success' => true]));
 
         // Clear the JWT cookie by setting it expired
         $response->headers->setCookie($this->createExpiredCookie('access_token'));

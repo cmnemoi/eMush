@@ -11,26 +11,33 @@ use Mush\Equipment\Entity\SpaceShip;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 class SpaceShipConfig extends EquipmentConfig
 {
     #[ORM\Column(type: 'array', nullable: true, options: ['default' => '[]'])]
+    #[Groups(['patrol_ship_read', 'patrol_ship_write'])]
     private array $collectScrapNumber = [];
 
     #[ORM\Column(type: 'array', nullable: true, options: ['default' => '[]'])]
+    #[Groups(['patrol_ship_read', 'patrol_ship_write'])]
     private array $collectScrapPatrolShipDamage = [];
 
     #[ORM\Column(type: 'array', nullable: true, options: ['default' => '[]'])]
+    #[Groups(['patrol_ship_read', 'patrol_ship_write'])]
     private array $collectScrapPlayerDamage = [];
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    #[Groups(['patrol_ship_read', 'patrol_ship_write'])]
     private array $failedManoeuvreDaedalusDamage = [];
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    #[Groups(['patrol_ship_read', 'patrol_ship_write'])]
     private array $failedManoeuvrePatrolShipDamage = [];
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    #[Groups(['patrol_ship_read', 'patrol_ship_write'])]
     private array $failedManoeuvrePlayerDamage = [];
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]

@@ -4,22 +4,15 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Controller;
 
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\View\View;
 use Mush\MetaGame\UseCase\ResetRulesAcceptanceForAllUsersUseCase;
-use Nelmio\ApiDocBundle\Annotation\Security;
-use OpenApi\Annotations as OA;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-/**
- * Class for actions that can be performed by admins.
- *
- * @Route(path="/admin/actions/reset-rules-acceptance")
- */
-final class ResetRulesAcceptanceController extends AbstractFOSRestController
+#[Route('/admin/actions/reset-rules-acceptance')]
+final class ResetRulesAcceptanceController extends AbstractController
 {
     public function __construct(
         private ResetRulesAcceptanceForAllUsersUseCase $resetRulesAcceptanceForAllUsersUseCase
@@ -29,18 +22,13 @@ final class ResetRulesAcceptanceController extends AbstractFOSRestController
 
     /**
      * Reset rules acceptance for all users.
-     *
-     * @OA\Tag(name="Admin")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Put(path="")
      */
     #[IsGranted('ROLE_ADMIN')]
-    public function resetRulesAcceptanceEndpoint(): View
+    #[Route('', methods: ['PUT'])]
+    public function resetRulesAcceptanceEndpoint(): JsonResponse
     {
         $this->resetRulesAcceptanceForAllUsersUseCase->execute();
 
-        return $this->view(['detail' => 'Rules acceptance status successfully reset for all users.'], Response::HTTP_OK);
+        return $this->json(['detail' => 'Rules acceptance status successfully reset for all users.'], Response::HTTP_OK);
     }
 }

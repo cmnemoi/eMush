@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Game\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -30,9 +35,31 @@ use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Triumph\Entity\TriumphConfig;
 use Mush\Triumph\Entity\TriumphConfigCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: GameConfigRepository::class)]
 #[ORM\Table(name: 'config_game')]
+#[ApiResource(
+    normalizationContext: ['groups' => ['game_config_read']],
+    denormalizationContext: ['groups' => ['game_config_write']],
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_USER")',
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_USER")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 class GameConfig
 {
     use TimestampableEntity;
@@ -40,42 +67,54 @@ class GameConfig
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['game_config_read'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: DaedalusConfig::class)]
+    #[Groups(['game_config_read', 'game_config_write'])]
     private DaedalusConfig $daedalusConfig;
 
     #[ORM\ManyToMany(targetEntity: CharacterConfig::class)]
+    #[Groups(['game_config_write'])]
     private Collection $charactersConfig;
 
     #[ORM\ManyToMany(targetEntity: EquipmentConfig::class)]
+    #[Groups(['game_config_write'])]
     private Collection $equipmentsConfig;
 
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
+    #[Groups(['game_config_write'])]
     private Collection $statusConfigs;
 
     #[ORM\ManyToMany(targetEntity: TriumphConfig::class)]
+    #[Groups(['game_config_write'])]
     private Collection $triumphConfig;
 
     #[ORM\ManyToMany(targetEntity: DiseaseCauseConfig::class)]
+    #[Groups(['game_config_write'])]
     private Collection $diseaseCauseConfig;
 
     #[ORM\ManyToMany(targetEntity: DiseaseConfig::class)]
+    #[Groups(['game_config_write'])]
     private Collection $diseaseConfig;
 
     #[ORM\ManyToMany(targetEntity: ConsumableDiseaseConfig::class)]
+    #[Groups(['game_config_write'])]
     private Collection $consumableDiseaseConfig;
 
     #[ORM\ManyToOne(targetEntity: DifficultyConfig::class)]
+    #[Groups(['game_config_read', 'game_config_write'])]
     private DifficultyConfig $difficultyConfig;
 
     #[ORM\ManyToMany(targetEntity: HunterConfig::class)]
+    #[Groups(['game_config_write'])]
     private Collection $hunterConfigs;
 
     #[ORM\ManyToMany(targetEntity: PlanetSectorConfig::class)]
     private Collection $planetSectorConfigs;
 
     #[ORM\ManyToMany(targetEntity: TitleConfig::class)]
+    #[Groups(['game_config_write'])]
     private Collection $titleConfigs;
 
     #[ORM\ManyToMany(targetEntity: ProjectConfig::class)]
@@ -94,9 +133,11 @@ class GameConfig
     private Collection $tradeConfigs;
 
     #[ORM\Column(type: 'json', nullable: false, options: ['default' => '[]'])]
+    #[Groups(['game_config_read', 'game_config_write'])]
     private array $specialOptions = [];
 
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
+    #[Groups(['game_config_read', 'game_config_write'])]
     private string $name;
 
     public function __construct()

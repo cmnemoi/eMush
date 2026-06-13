@@ -59,6 +59,7 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
 
         $context[self::ALREADY_CALLED] = true;
         $context['language'] = $closedPlayer->getLanguage();
+        $context['groups'] = array_merge($context['groups'] ?? [], ['closed_player_read']);
 
         /** @var array $data */
         $data = $this->normalizer->normalize($object, $format, $context);

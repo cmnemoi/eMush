@@ -4,10 +4,34 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Entity\Mechanics;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 
 #[ORM\Entity]
+#[ApiResource(
+    paginationItemsPerPage: 25,
+    normalizationContext: ['groups' => ['document_read']],
+    denormalizationContext: ['groups' => ['document_write']],
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 class Document extends Tool
 {
     #[ORM\Column(type: 'text', nullable: false, options: ['default' => ''])]

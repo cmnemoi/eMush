@@ -4,14 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Controller;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\Annotations\Post;
-use FOS\RestBundle\View\View;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
+use Mush\Alert\Entity\Collection\AlertElementCollection;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Chat\Services\NeronMessageServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
@@ -25,21 +20,16 @@ use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
-use Nelmio\ApiDocBundle\Annotation\Security;
-use Nelmio\ApiDocBundle\Attribute\Security as NelmioSecurity;
-use OpenApi\Annotations as OA;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-/**
- * Class AdminController.
- *
- * @Route(path="/admin")
- */
-class AdminController extends AbstractFOSRestController
+#[Route('/admin')]
+class AdminController extends AbstractController
 {
     use ErrorHandlerTrait;
 
@@ -71,28 +61,13 @@ class AdminController extends AbstractFOSRestController
 
     /**
      * Add newly added rooms to a Daedalus after an update.
-     *
-     * @OA\Parameter(
-     *      name="id",
-     *      in="path",
-     *      description="The daedalus id",
-     *
-     *       @OA\Schema(type="string")
-     * )
-     *
-     * @OA\Tag(name="Admin")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/add-new-rooms-to-daedalus/{id}")
-     *
-     * @Rest\View()
      */
-    public function addNewRoomsToDaedalus(Request $request): View
+    #[Route('/add-new-rooms-to-daedalus/{id}', methods: ['POST'])]
+    public function addNewRoomsToDaedalus(Request $request): JsonResponse
     {
         $this->denyAccessIfNotAdmin();
 
-        $daedalusId = (int) $request->get('id');
+        $daedalusId = (int) $request->query->get('id');
         $daedalus = $this->daedalusService->findById($daedalusId);
         if (!$daedalus) {
             throw new HttpException(Response::HTTP_NOT_FOUND, 'Daedalus not found');
@@ -114,33 +89,18 @@ class AdminController extends AbstractFOSRestController
             $daedalus->addPlace($place);
         }
 
-        return $this->view('Rooms added successfully', Response::HTTP_OK);
+        return $this->json('Rooms added successfully', Response::HTTP_OK);
     }
 
     /**
      * Close (archive) a player so their user can join another game.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The player to close id",
-     *
-     *     @OA\Schema(type="string")
-     * )
-     *
-     * @OA\Tag(name="Admin")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/close-player/{id}")
-     *
-     * @Rest\View()
      */
-    public function closePlayer(Request $request): View
+    #[Route('/close-player/{id}', methods: ['POST'])]
+    public function closePlayer(Request $request): JsonResponse
     {
         $this->denyAccessIfNotAdmin();
 
-        $playerId = (int) $request->get('id');
+        $playerId = (int) $request->query->get('id');
         $playerToClose = $this->playerService->findById($playerId);
         if (!$playerToClose instanceof Player) {
             throw new HttpException(Response::HTTP_NOT_FOUND, 'Player to close not found');
@@ -149,37 +109,20 @@ class AdminController extends AbstractFOSRestController
             throw new HttpException(Response::HTTP_BAD_REQUEST, 'Player to close is still alive');
         }
 
-        if ($this->playerService->endPlayer($playerToClose, '', [])) {
-            return $this->view('Player closed successfully', Response::HTTP_OK);
-        }
+        $this->playerService->endPlayer($playerToClose, '', []);
 
-        throw new \Exception('impossible to close player');
+        return $this->json('Player closed successfully', Response::HTTP_OK);
     }
 
     /**
      * Delete Daedalus duplicated alert elements.
-     *
-     * @OA\Parameter(
-     *      name="id",
-     *      in="path",
-     *      description="The daedalus id",
-     *
-     *       @OA\Schema(type="string")
-     * )
-     *
-     * @OA\Tag(name="Admin")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/delete-daedalus-duplicated-alert-elements/{id}")
-     *
-     * @Rest\View()
      */
-    public function deleteDaedalusDuplicatedAlertElements(Request $request): View
+    #[Route('/delete-daedalus-duplicated-alert-elements/{id}', methods: ['POST'])]
+    public function deleteDaedalusDuplicatedAlertElements(Request $request): JsonResponse
     {
         $this->denyAccessIfNotAdmin();
 
-        $daedalusId = (int) $request->get('id');
+        $daedalusId = (int) $request->query->get('id');
         $daedalus = $this->daedalusService->findById($daedalusId);
         if (!$daedalus) {
             throw new HttpException(Response::HTTP_NOT_FOUND, 'Daedalus not found');
@@ -217,19 +160,14 @@ class AdminController extends AbstractFOSRestController
             }
         }
 
-        return $this->view("{$numberOfElementsDeleted} alert elements deleted successfully", Response::HTTP_OK);
+        return $this->json("{$numberOfElementsDeleted} alert elements deleted successfully", Response::HTTP_OK);
     }
 
     /**
      * Close all players after a Super Nova.
-     *
-     * @OA\Tag(name="Admin")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/close-all-players")
      */
-    public function closeAllPlayers(): View
+    #[Route('/close-all-players', methods: ['POST'])]
+    public function closeAllPlayers(): JsonResponse
     {
         $this->denyAccessIfNotAdmin();
 
@@ -240,7 +178,7 @@ class AdminController extends AbstractFOSRestController
 
         foreach ($players as $player) {
             if ($player->isAlive()) {
-                return $this->view('Some players are still alive', Response::HTTP_BAD_REQUEST);
+                return $this->json('Some players are still alive', Response::HTTP_BAD_REQUEST);
             }
 
             try {
@@ -251,119 +189,70 @@ class AdminController extends AbstractFOSRestController
             }
         }
 
-        return $this->view("{$nbPlayersClosed} / {$nbPlayersToClose} players closed successfully", Response::HTTP_OK);
+        return $this->json("{$nbPlayersClosed} / {$nbPlayersToClose} players closed successfully", Response::HTTP_OK);
     }
 
     /**
      * Get maintenance status.
-     *
-     * @OA\Tag(name="Admin")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Get(path="/maintenance")
      */
-    public function getMaintenanceStatus(): View
+    #[Route('/maintenance', methods: ['GET'])]
+    public function getMaintenanceStatus(): JsonResponse
     {
         $isGameInMaintenance = $this->adminService->isGameInMaintenance();
 
-        return $this->view(['gameInMaintenance' => $isGameInMaintenance], Response::HTTP_OK);
+        return $this->json(['gameInMaintenance' => $isGameInMaintenance], Response::HTTP_OK);
     }
 
     /**
      * Put the game in maintenance mode.
-     *
-     * @OA\Tag(name="Admin")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/maintenance")
      */
-    public function putGameInMaintenance(): View
+    #[Route('/maintenance', methods: ['POST'])]
+    public function putGameInMaintenance(): JsonResponse
     {
         $this->denyAccessIfNotAdmin();
 
         if ($this->adminService->isGameInMaintenance()) {
-            return $this->view('Game is already in maintenance', Response::HTTP_BAD_REQUEST);
+            return $this->json('Game is already in maintenance', Response::HTTP_BAD_REQUEST);
         }
 
         $this->adminService->putGameInMaintenance();
 
-        return $this->view('Game put in maintenance successfully', Response::HTTP_OK);
+        return $this->json('Game put in maintenance successfully', Response::HTTP_OK);
     }
 
     /**
      * Remove the game from maintenance mode.
-     *
-     * @OA\Tag(name="Admin")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Delete(path="/maintenance")
      */
-    public function removeGameFromMaintenance(): View
+    #[Route('/maintenance', methods: ['DELETE'])]
+    public function removeGameFromMaintenance(): JsonResponse
     {
         $this->denyAccessIfNotAdmin();
 
         if (!$this->adminService->isGameInMaintenance()) {
-            return $this->view('Game is not in maintenance', Response::HTTP_BAD_REQUEST);
+            return $this->json('Game is not in maintenance', Response::HTTP_BAD_REQUEST);
         }
 
         $this->adminService->removeGameFromMaintenance();
 
-        return $this->view('Game removed from maintenance successfully', Response::HTTP_OK);
+        return $this->json('Game removed from maintenance successfully', Response::HTTP_OK);
     }
 
     /**
      * Send a NERON announcement to all non-finished Daedaluses.
-     *
-     * @OA\RequestBody (
-     *      description="Input data format",
-     *
-     *      @OA\MediaType(
-     *          mediaType="application/json",
-     *
-     *          @OA\Schema(
-     *              type="object",
-     *
-     *              @OA\Property(
-     *                  type="string",
-     *                  property="announcement",
-     *                  description="The announcement to send",
-     *              ),
-     *
-     *          ),
-     *
-     *          @OA\Schema(
-     *             type="object",
-     *
-     *            @OA\Property(
-     *               type="string",
-     *               property="language",
-     *               description="The language of the announcement",
-     *           ),
-     *      )
-     *    )
-     * )
-     *
-     * @OA\Tag(name="Admin")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/neron-announcement")
      */
-    public function sendNeronAnnouncementToDaedaluses(Request $request): View
+    #[Route('/neron-announcement', methods: ['POST'])]
+    public function sendNeronAnnouncementToDaedaluses(Request $request): JsonResponse
     {
         $this->denyAccessIfNotAdmin();
 
         $requestContent = json_decode($request->getContent(), true);
 
         if (!\array_key_exists('announcement', $requestContent)) {
-            return $this->view('Announcement content is missing', Response::HTTP_BAD_REQUEST);
+            return $this->json('Announcement content is missing', Response::HTTP_BAD_REQUEST);
         }
 
         if (!\array_key_exists('language', $requestContent)) {
-            return $this->view('Annoucement language is missing', Response::HTTP_BAD_REQUEST);
+            return $this->json('Annoucement language is missing', Response::HTTP_BAD_REQUEST);
         }
 
         $announcement = $requestContent['announcement'];
@@ -379,32 +268,31 @@ class AdminController extends AbstractFOSRestController
             );
         }
 
-        return $this->view([
+        return $this->json([
             'message' => "Announcement sent successfully to {$daedaluses->count()} Daedaluses",
             'announcement' => $announcement,
         ], Response::HTTP_CREATED);
     }
 
     #[IsGranted('ROLE_MODERATOR')]
-    #[Post(path: '/neron-announcement-targeted')]
-    #[NelmioSecurity(name: 'Bearer')]
-    public function sendNeronAnnouncementToASingleDaedalus(Request $request): View
+    #[Route('/neron-announcement-targeted', methods: ['POST'])]
+    public function sendNeronAnnouncementToASingleDaedalus(Request $request): JsonResponse
     {
         $requestContent = json_decode($request->getContent(), true);
 
         if (!\array_key_exists('announcement', $requestContent)) {
-            return $this->view('Announcement content is missing', Response::HTTP_BAD_REQUEST);
+            return $this->json('Announcement content is missing', Response::HTTP_BAD_REQUEST);
         }
 
         if (!\array_key_exists('shipId', $requestContent)) {
-            return $this->view('Ship Id is missing', Response::HTTP_BAD_REQUEST);
+            return $this->json('Ship Id is missing', Response::HTTP_BAD_REQUEST);
         }
 
         $shipId = $requestContent['shipId'];
         $daedalus = $this->daedalusService->findById($shipId);
 
         if ($daedalus === null) {
-            return $this->view("Daedalus doesn't exist", Response::HTTP_BAD_REQUEST);
+            return $this->json("Daedalus doesn't exist", Response::HTTP_BAD_REQUEST);
         }
 
         $announcement = $requestContent['announcement'];
@@ -416,7 +304,7 @@ class AdminController extends AbstractFOSRestController
             dateTime: new \DateTime()
         );
 
-        return $this->view([
+        return $this->json([
             'message' => 'Announcement sent successfully.',
             'announcement' => $announcement,
         ], Response::HTTP_CREATED);
@@ -424,46 +312,37 @@ class AdminController extends AbstractFOSRestController
 
     /**
      * Closes an exploration.
-     *
-     * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The exploration id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Tag(name="Admin")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Patch(path="/close-exploration/{id}")
      */
-    public function closeExploration(Exploration $exploration): View
+    #[Route('/close-exploration/{id}', methods: ['PATCH'])]
+    public function closeExploration(Exploration $exploration): JsonResponse
     {
         $this->denyAccessIfNotAdmin();
 
         $this->explorationService->closeExploration($exploration, reasons: []);
 
-        return $this->view('Exploration closed successfully', Response::HTTP_OK);
+        return $this->json('Exploration closed successfully', Response::HTTP_OK);
     }
 
     private function alertElementHaveSameEquipmentOrPlace(AlertElement $element1, AlertElement $element2): bool
     {
-        if ($element1->getEquipment() && $element2->getEquipment()) {
-            return $element1->getEquipment()->getId() === $element2->getEquipment()->getId();
+        $eq1 = $element1->getEquipment();
+        $eq2 = $element2->getEquipment();
+        if ($eq1 !== null && $eq2 !== null) {
+            return $eq1->getId() === $eq2->getId();
         }
 
-        if ($element1->getPlace() && $element2->getPlace()) {
-            return $element1->getPlace()->getId() === $element2->getPlace()->getId();
+        $pl1 = $element1->getPlace();
+        $pl2 = $element2->getPlace();
+        if ($pl1 !== null && $pl2 !== null) {
+            return $pl1->getId() === $pl2->getId();
         }
 
         return false;
     }
 
-    private function getPotentiallyDuplicatedAlertElements(Collection $alertElements): Collection
+    private function getPotentiallyDuplicatedAlertElements(AlertElementCollection $alertElements): AlertElementCollection
     {
-        $examined = new ArrayCollection();
+        $examined = new AlertElementCollection();
 
         foreach ($alertElements as $element) {
             if ($element->getEquipment() || $element->getPlace()) {
@@ -474,7 +353,7 @@ class AdminController extends AbstractFOSRestController
         return $examined;
     }
 
-    private function removeElement(Collection $collection, $element): Collection
+    private function removeElement(AlertElementCollection $collection, $element): AlertElementCollection
     {
         $collection->removeElement($element);
 

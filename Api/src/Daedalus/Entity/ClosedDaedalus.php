@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Daedalus\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -12,7 +15,21 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\EndCauseEnum;
+use Symfony\Component\Serializer\Attribute\Groups;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['closed_daedalus_read']],
+    paginationItemsPerPage: 25,
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter', 'closedDaedalus.order_filter', 'languageClosedDaedalus.search_filter'],
+            security: 'is_granted("ROLE_USER")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_USER") and is_granted("DAEDALUS_IS_FINISHED", object)',
+        ),
+    ],
+)]
 #[ORM\Entity]
 #[ORM\Table(name: 'daedalus_closed')]
 class ClosedDaedalus
@@ -22,36 +39,45 @@ class ClosedDaedalus
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['closed_daedalus_read'])]
     private int $id;
 
     #[ORM\OneToOne(inversedBy: 'closedDaedalus', targetEntity: DaedalusInfo::class)]
     private DaedalusInfo $daedalusInfo;
 
     #[ORM\OneToMany(mappedBy: 'closedDaedalus', targetEntity: ClosedPlayer::class)]
+    #[Groups(['closed_daedalus_read'])]
     private Collection $players;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['closed_daedalus_read'])]
     private string $endCause = EndCauseEnum::STILL_LIVING;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['closed_daedalus_read'])]
     private int $endDay = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['closed_daedalus_read'])]
     private int $endCycle = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['closed_daedalus_read'])]
     private int $numberOfHuntersKilled = 0;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTime $finishedAt = null;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => -1])]
+    #[Groups(['closed_daedalus_read'])]
     private int $humanTriumphSum = -1;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => -1])]
+    #[Groups(['closed_daedalus_read'])]
     private int $mushTriumphSum = -1;
 
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    #[Groups(['closed_daedalus_read'])]
     private bool $isCheater = false;
 
     public function __construct()

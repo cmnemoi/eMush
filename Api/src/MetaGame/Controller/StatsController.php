@@ -4,25 +4,19 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Controller;
 
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\Controller\Annotations\Post;
-use FOS\RestBundle\View\View;
 use Mush\MetaGame\Service\StatsServiceInterface;
 use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\User\Entity\User;
-use Nelmio\ApiDocBundle\Attribute\Security as NelmioSecurity;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-/**
- * Class for actions that can be performed by admins.
- *
- * @Route(path="/stats")
- */
-final class StatsController extends AbstractFOSRestController
+#[Route('/stats')]
+final class StatsController extends AbstractController
 {
     public function __construct(
         private readonly StatsServiceInterface $statsService,
@@ -30,79 +24,72 @@ final class StatsController extends AbstractFOSRestController
     ) {}
 
     #[IsGranted('ROLE_MODERATOR')]
-    #[Post(path: '/skills')]
-    #[NelmioSecurity(name: 'Bearer')]
-    public function getSkillCount(Request $request): View
+    #[Route('/skills', methods: ['POST'])]
+    public function getSkillCount(Request $request): JsonResponse
     {
-        $skillName = $request->get('skillName');
-        $result = $this->statsService->getPlayerSkillCount(SkillEnum::from($skillName));
+        $skillName = $request->getPayload()->get('skillName');
+        $result = $this->statsService->getPlayerSkillCount(SkillEnum::from((string) $skillName));
 
-        return $this->view($result, Response::HTTP_OK);
+        return $this->json($result, Response::HTTP_OK);
     }
 
     #[IsGranted('ROLE_MODERATOR')]
-    #[Post(path: '/skills/list')]
-    #[NelmioSecurity(name: 'Bearer')]
-    public function getSkillList(): View
+    #[Route('/skills/list', methods: ['POST'])]
+    public function getSkillList(): JsonResponse
     {
         $result = $this->statsService->getSkillList();
 
-        return $this->view($result, Response::HTTP_OK);
+        return $this->json($result, Response::HTTP_OK);
     }
 
     #[IsGranted('ROLE_MODERATOR')]
-    #[Post(path: '/characters/list')]
-    #[NelmioSecurity(name: 'Bearer')]
-    public function getCharacterList(): View
+    #[Route('/characters/list', methods: ['POST'])]
+    public function getCharacterList(): JsonResponse
     {
         $result = $this->statsService->getCharacterList();
 
-        return $this->view($result, Response::HTTP_OK);
+        return $this->json($result, Response::HTTP_OK);
     }
 
     #[IsGranted('ROLE_MODERATOR')]
-    #[Post(path: '/skills/all')]
-    #[NelmioSecurity(name: 'Bearer')]
-    public function getAllSkillCount(): View
+    #[Route('/skills/all', methods: ['POST'])]
+    public function getAllSkillCount(): JsonResponse
     {
         $result = $this->statsService->getAllSkillCount();
 
-        return $this->view($result, Response::HTTP_OK);
+        return $this->json($result, Response::HTTP_OK);
     }
 
     #[IsGranted('ROLE_MODERATOR')]
-    #[Post(path: '/skills/characters')]
-    #[NelmioSecurity(name: 'Bearer')]
-    public function getSkillByCharacter(Request $request): View
+    #[Route('/skills/characters', methods: ['POST'])]
+    public function getSkillByCharacter(Request $request): JsonResponse
     {
-        $result = $this->statsService->getSkillByCharacter($request->get('characterName'));
+        $result = $this->statsService->getSkillByCharacter((string) $request->getPayload()->get('characterName'));
 
-        return $this->view($result, Response::HTTP_OK);
+        return $this->json($result, Response::HTTP_OK);
     }
 
     #[IsGranted('ROLE_MODERATOR')]
-    #[Post(path: '/explorations/fights')]
-    #[NelmioSecurity(name: 'Bearer')]
-    public function getExploFightData(Request $request): View
+    #[Route('/explorations/fights', methods: ['POST'])]
+    public function getExploFightData(Request $request): JsonResponse
     {
-        $result = $this->statsService->getExploFightData($request->get('daedalusId', 0));
+        $result = $this->statsService->getExploFightData((int) $request->getPayload()->get('daedalusId', 0));
 
-        return $this->view($result, Response::HTTP_OK);
+        return $this->json($result, Response::HTTP_OK);
     }
 
     #[IsGranted('ROLE_MODERATOR')]
-    #[Post(path: '/mush')]
-    #[NelmioSecurity(name: 'Bearer')]
-    public function getMushtData(Request $request): View
+    #[Route('/mush', methods: ['POST'])]
+    public function getMushtData(Request $request): JsonResponse
     {
         /** @var User $user */
         $user = $this->getUser();
         if ($user->isInGame()) {
             $result = "Can't request this data if in game.";
         } else {
-            $result = $this->statsService->getMushData($request->get('first', 0), $request->get('last', 0));
+            $result = $this->statsService->getMushData((int) $request->getPayload()->get('first', 0), (int) $request->getPayload()->get('last', 0));
         }
 
-        return $this->view($result, Response::HTTP_OK);
+        return $this->json($result, Response::HTTP_OK);
     }
 }

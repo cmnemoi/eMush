@@ -1,7 +1,0 @@
-Mush\Equipment\Entity\EquipmentMechanic:
-  properties:
-    name:
-      - NotBlank: ~
-      - Type: string
-    mechanics:
-      - Type: array

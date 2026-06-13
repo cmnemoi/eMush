@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Modifier\Entity\Config;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
@@ -11,6 +16,7 @@ use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Dto\EventModifierConfigDto;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class storing the various information needed to create and apply an eventModifier.
@@ -24,18 +30,34 @@ use Mush\Modifier\Enum\ModifierRequirementEnum;
  * ex: ['tag1' => 'none_tags', 'tag2' => 'none_tags'] means only apply if event do NOT have tag1 NOR tag2
  */
 #[ORM\Entity]
+#[ApiResource(
+    security: 'is_granted("ROLE_USER")',
+    normalizationContext: ['groups' => ['modifier_config_read']],
+    denormalizationContext: ['groups' => ['modifier_config_write']],
+    paginationItemsPerPage: 25,
+    operations: [
+        new GetCollection(security: 'is_granted("ROLE_MODERATOR")', filters: ['default.search_filter', 'default.order_filter']),
+        new Post(security: 'is_granted("ROLE_ADMIN")'),
+        new Get(security: 'is_granted("ROLE_MODERATOR")'),
+        new Put(security: 'is_granted("ROLE_ADMIN")'),
+    ],
+)]
 class EventModifierConfig extends AbstractModifierConfig
 {
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     protected string $targetEvent;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     protected string $priority = ModifierPriorityEnum::BEFORE_INITIAL_EVENT;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     protected bool $applyWhenTargeted = false;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     protected array $tagConstraints = [];
 
     public static function fromDto(EventModifierConfigDto $eventModifierConfigDto, ?self $config = null): self

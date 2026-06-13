@@ -6,9 +6,7 @@ namespace Mush\Daedalus\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class UniqueName extends Constraint
 {
     public const DAEDALUS_NAME_ALREADY_USED = 'daedalus_name_already_used';

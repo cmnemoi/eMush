@@ -7,27 +7,28 @@ namespace Mush\Daedalus\ParamConverter;
 use Mush\Daedalus\Entity\Dto\DaedalusCreateRequest;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Repository\GameConfigRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
+use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class DaedalusCreateRequestConverter implements ParamConverterInterface
+class DaedalusCreateRequestConverter implements ValueResolverInterface
 {
-    private GameConfigRepository $gameConfigRepository;
-
     public function __construct(
-        GameConfigRepository $gameConfigRepository
-    ) {
-        $this->gameConfigRepository = $gameConfigRepository;
-    }
+        private GameConfigRepository $gameConfigRepository
+    ) {}
 
-    public function apply(Request $request, ParamConverter $configuration)
+    public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
-        $name = $request->request->get('name');
-        $language = $request->request->get('language');
+        if ($argument->getType() !== DaedalusCreateRequest::class) {
+            return [];
+        }
+
+        $payload = $request->getPayload();
+        $name = $payload->get('name');
+        $language = $payload->get('language');
         $config = null;
 
-        if (($configId = $request->request->get('config')) !== null) {
+        if (($configId = $payload->get('config')) !== null) {
             /** @var GameConfig $config */
             $config = $this->gameConfigRepository->find((int) $configId);
         }
@@ -38,13 +39,6 @@ class DaedalusCreateRequestConverter implements ParamConverterInterface
             ->setConfig($config)
             ->setLanguage((string) $language);
 
-        $request->attributes->set($configuration->getName(), $daedalusRequest);
-
-        return true;
-    }
-
-    public function supports(ParamConverter $configuration)
-    {
-        return DaedalusCreateRequest::class === $configuration->getClass();
+        return [$daedalusRequest];
     }
 }

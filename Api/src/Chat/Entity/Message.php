@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Chat\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,7 +17,22 @@ use Mush\Game\Entity\TimestampableCancelInterface;
 use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    paginationEnabled: false,
+    normalizationContext: ['groups' => ['message_read', 'moderation_read']],
+    denormalizationContext: ['groups' => ['message_write']],
+    operations: [
+        new GetCollection(
+            security: 'is_granted("ROLE_MODERATOR")',
+            filters: ['message.search_filter', 'date.order_filter', 'default.date_filter'],
+        ),
+        new Get(
+            security: 'is_granted("ROLE_MODERATOR")',
+        ),
+    ],
+)]
 #[ORM\Entity]
 class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
 {
@@ -23,6 +41,7 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['message_read', 'moderation_read'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: PlayerInfo::class)]

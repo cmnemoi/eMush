@@ -137,7 +137,7 @@ class Subscription implements SubscriptionInterface
 
     public function expiresAt(): ?\DateTimeInterface
     {
-        return $this->expirationTime === null ? null : new \DateTimeImmutable()->setTimestamp($this->expirationTime);
+        return $this->expirationTime === null ? null : (new \DateTimeImmutable())->setTimestamp($this->expirationTime);
     }
 
     public function getEndpoint(): string

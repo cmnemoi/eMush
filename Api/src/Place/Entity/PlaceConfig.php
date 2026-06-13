@@ -4,12 +4,37 @@ declare(strict_types=1);
 
 namespace Mush\Place\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Place\Enum\PlaceTypeEnum;
 
 /**
  * @ORM\Entity()
  */
+#[ApiResource(
+    paginationItemsPerPage: 25,
+    normalizationContext: ['groups' => ['place_config_read']],
+    denormalizationContext: ['groups' => ['place_config_write']],
+    operations: [
+        new GetCollection(
+            security: 'is_granted("ROLE_ADMIN")',
+            filters: ['default.search_filter', 'default.order_filter'],
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 #[ORM\Entity]
 class PlaceConfig
 {

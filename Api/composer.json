@@ -8,7 +8,7 @@
     "ext-intl": "*",
     "ext-openssl": "*",
     "ext-protobuf": "*",
-    "cmnemoi/api-platform-core": "2.7.19",
+    "api-platform/core": "^3.0",
     "composer/package-versions-deprecated": "^1.11.99.5",
     "doctrine/annotations": "^2.0.1",
     "doctrine/doctrine-bundle": "^2.12",
@@ -17,11 +17,9 @@
     "doctrine/orm": "^2.19.3",
     "eternaltwin/etwin": "^0.10",
     "eternaltwin/oauth-client": "^1.0",
-    "friendsofsymfony/rest-bundle": "^3.6",
     "gedmo/doctrine-extensions": "^3.15",
     "lcobucci/jwt": "^5.5",
     "lexik/jwt-authentication-bundle": "^2.20.3",
-    "nelmio/api-doc-bundle": "^4.25.2",
     "nelmio/cors-bundle": "^2.4",
     "open-telemetry/api": "^1.0",
     "open-telemetry/context": "^1.0",
@@ -30,7 +28,6 @@
     "open-telemetry/sem-conv": "^1.27",
     "phpdocumentor/reflection-docblock": "^5.4",
     "phpstan/phpdoc-parser": "^1.28",
-    "sensio/framework-extra-bundle": "^6.2.10",
     "spomky-labs/web-push-bundle": "^3.1",
     "symfony/asset": "6.4.*",
     "symfony/console": "6.4.*",
@@ -55,7 +52,8 @@
     "symfony/validator": "6.4.*",
     "symfony/yaml": "6.4.*",
     "twig/extra-bundle": "^3.8",
-    "twig/twig": "^3.8"
+    "twig/twig": "^3.8",
+    "zircote/swagger-php": "^5.4"
   },
   "require-dev": {
     "codeception/codeception": "^5.1.2",
@@ -68,7 +66,8 @@
     "friendsofphp/php-cs-fixer": "^3.53",
     "minishlink/web-push": "^9.0",
     "mockery/mockery": "^1.6.11",
-    "phpmd/phpmd": "^2.15",
+    "pdepend/pdepend": "3.x-dev",
+    "phpmd/phpmd": "3.x-dev",
     "squizlabs/php_codesniffer": "^3.9.1",
     "vimeo/psalm": "^6.12.1",
     "weirdan/doctrine-psalm-plugin": "^2.10.0"
@@ -148,6 +147,7 @@
     "load-fixtures": [
       "php bin/console doctrine:database:create --env=test --if-not-exists",
       "php bin/console doctrine:schema:drop --full-database --env=test -f",
+      "php bin/console doctrine:query:sql --env=test 'CREATE EXTENSION IF NOT EXISTS pg_trgm'",
       "php bin/console doctrine:schema:update --complete --env=test -f",
       "php bin/console doctrine:fixtures:load --env=test -n --verbose"
     ],

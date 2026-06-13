@@ -1,6 +1,0 @@
-Mush\Equipment\Entity\Mechanics\Plant:
-  properties:
-    maturationTime:
-      - Type: array
-    oxygen:
-      - Type: array

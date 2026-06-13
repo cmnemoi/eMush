@@ -5,6 +5,20 @@
     "amphp/byte-stream": {
         "version": "v1.8.0"
     },
+    "api-platform/core": {
+        "version": "3.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "3.3",
+            "ref": "74b45ac570c57eb1fbe56c984091a9ff87e18bab"
+        },
+        "files": [
+            "config/packages/api_platform.yaml",
+            "config/routes/api_platform.yaml",
+            "src/ApiResource/.gitignore"
+        ]
+    },
     "behat/gherkin": {
         "version": "v4.6.2"
     },
@@ -193,18 +207,6 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.1"
     },
-    "friendsofsymfony/rest-bundle": {
-        "version": "2.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "2.2",
-            "ref": "cad41ef93d6150067ae2bb3c7fd729492dff6f0a"
-        },
-        "files": [
-            "config/packages/fos_rest.yaml"
-        ]
-    },
     "gedmo/doctrine-extensions": {
         "version": "v3.0.0"
     },
@@ -258,19 +260,6 @@
     },
     "namshi/jose": {
         "version": "7.2.3"
-    },
-    "nelmio/api-doc-bundle": {
-        "version": "3.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "3.0",
-            "ref": "c8e0c38e1a280ab9e37587a8fa32b251d5bc1c94"
-        },
-        "files": [
-            "config/packages/nelmio_api_doc.yaml",
-            "config/routes/nelmio_api_doc.yaml"
-        ]
     },
     "nelmio/cors-bundle": {
         "version": "1.5",
@@ -435,18 +424,6 @@
     },
     "sebastian/version": {
         "version": "3.0.2"
-    },
-    "sensio/framework-extra-bundle": {
-        "version": "6.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "5.2",
-            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
-        },
-        "files": [
-            "config/packages/sensio_framework_extra.yaml"
-        ]
     },
     "spomky-labs/web-push-bundle": {
         "version": "3.1.2"
@@ -779,14 +756,5 @@
     },
     "weirdan/doctrine-psalm-plugin": {
         "version": "1.1.0"
-    },
-    "willdurand/jsonp-callback-validator": {
-        "version": "v1.1.0"
-    },
-    "willdurand/negotiation": {
-        "version": "v2.3.1"
-    },
-    "zircote/swagger-php": {
-        "version": "3.1.0"
     }
 }

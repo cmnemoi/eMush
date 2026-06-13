@@ -4,13 +4,40 @@ declare(strict_types=1);
 
 namespace Mush\Status\Entity\Config;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['status_config_read']],
+    denormalizationContext: ['groups' => ['status_config_write']],
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_MODERATOR")',
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+            security: 'is_granted("ROLE_MODERATOR")',
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_MODERATOR")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
@@ -24,21 +51,27 @@ class StatusConfig
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['status_config_read'])]
     protected int $id;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[Groups(['status_config_read', 'status_config_write'])]
     protected string $name = '';
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['status_config_read', 'status_config_write'])]
     protected string $statusName = '';
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['status_config_read', 'status_config_write'])]
     protected string $visibility = VisibilityEnum::PUBLIC;
 
     #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
+    #[Groups(['status_config_read', 'status_config_write'])]
     private Collection $modifierConfigs;
 
     #[ORM\ManyToMany(targetEntity: ActionConfig::class)]
+    #[Groups(['status_config_read', 'status_config_write'])]
     private Collection $actionConfigs;
 
     public function __construct()

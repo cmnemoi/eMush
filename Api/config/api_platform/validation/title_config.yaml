@@ -1,8 +1,0 @@
-Mush\Game\Entity\TitleConfig:
-  properties:
-    name:
-      - NotBlank: ~
-      - Type: string
-    priority:
-      - NotBlank: ~
-      - Type: array

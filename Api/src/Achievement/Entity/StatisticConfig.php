@@ -40,7 +40,7 @@ class StatisticConfig
 
     public static function fromDto(StatisticConfigDto $dto): self
     {
-        return new self($dto->name, $dto->strategy, $dto->isRare)->setupId();
+        return (new self($dto->name, $dto->strategy, $dto->isRare))->setupId();
     }
 
     public function getId(): int

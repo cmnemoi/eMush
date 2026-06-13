@@ -7,34 +7,33 @@ namespace Mush\Player\ParamConverter;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Player\Entity\Dto\PlayerCreateRequest;
 use Mush\User\Service\UserServiceInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
+use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class PlayerCreateRequestConverter implements ParamConverterInterface
+class PlayerCreateRequestConverter implements ValueResolverInterface
 {
-    private DaedalusServiceInterface $daedalusService;
-    private UserServiceInterface $userService;
-
     public function __construct(
-        DaedalusServiceInterface $daedalusService,
-        UserServiceInterface $userService
-    ) {
-        $this->daedalusService = $daedalusService;
-        $this->userService = $userService;
-    }
+        private DaedalusServiceInterface $daedalusService,
+        private UserServiceInterface $userService
+    ) {}
 
-    public function apply(Request $request, ParamConverter $configuration)
+    public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
-        $user = null;
-        $daedalus = null;
-        $character = $request->request->get('character');
+        if ($argument->getType() !== PlayerCreateRequest::class) {
+            return [];
+        }
 
-        if (($daedalusId = $request->request->get('daedalus')) !== null) {
+        $daedalus = null;
+        $user = null;
+        $payload = $request->getPayload();
+        $character = $payload->get('character');
+
+        if (($daedalusId = $payload->get('daedalus')) !== null) {
             $daedalus = $this->daedalusService->findById((int) $daedalusId);
         }
 
-        if (($userId = $request->request->get('user')) !== null) {
+        if (($userId = $payload->get('user')) !== null) {
             $user = $this->userService->findUserByUserId((string) $userId);
         }
 
@@ -44,13 +43,6 @@ class PlayerCreateRequestConverter implements ParamConverterInterface
             ->setDaedalus($daedalus)
             ->setUser($user);
 
-        $request->attributes->set($configuration->getName(), $playerRequest);
-
-        return true;
-    }
-
-    public function supports(ParamConverter $configuration)
-    {
-        return PlayerCreateRequest::class === $configuration->getClass();
+        return [$playerRequest];
     }
 }

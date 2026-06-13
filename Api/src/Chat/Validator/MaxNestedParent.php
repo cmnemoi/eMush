@@ -6,9 +6,7 @@ namespace Mush\Chat\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 class MaxNestedParent extends Constraint
 {
     public const MAXIMUM_NESTED_MESSAGE_ERROR = 'maximum_nested_message_error';

@@ -6,36 +6,32 @@ namespace Mush\Chat\ParamConverter;
 
 use Mush\Chat\Entity\Dto\CreateMessage;
 use Mush\Chat\Services\MessageServiceInterface;
-use Mush\Player\Service\PlayerServiceInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
+use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class MessageCreateParamConverter implements ParamConverterInterface
+class MessageCreateParamConverter implements ValueResolverInterface
 {
     private const int TIME_LIMIT = 48;
 
-    private MessageServiceInterface $messageService;
-    private PlayerServiceInterface $playerService;
-
     public function __construct(
-        MessageServiceInterface $messageService,
-        PlayerServiceInterface $playerService
-    ) {
-        $this->messageService = $messageService;
-        $this->playerService = $playerService;
-    }
+        private MessageServiceInterface $messageService
+    ) {}
 
-    public function apply(Request $request, ParamConverter $configuration)
+    public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
-        $message = $request->request->get('message');
-        $parent = $request->request->get('parent');
-        $pirated = $request->request->get('isPirated');
-        $playerId = $request->request->get('playerId');
-        $timeLimit = (int) $request->request->get('timeLimit', self::TIME_LIMIT);
+        if ($argument->getType() !== CreateMessage::class) {
+            return [];
+        }
 
-        $messageCreate = new CreateMessage();
+        $payload = $request->getPayload();
+        $message = $payload->get('message');
+        $parent = $payload->get('parent');
+        $pirated = $payload->get('isPirated');
+        $playerId = $payload->get('playerId');
+        $timeLimit = (int) $payload->get('timeLimit', self::TIME_LIMIT);
+
         $parentMessage = null;
         if ($parent) {
             $parentMessage = $this->messageService->getMessageById((int) $parent);
@@ -44,6 +40,7 @@ class MessageCreateParamConverter implements ParamConverterInterface
             }
         }
 
+        $messageCreate = new CreateMessage();
         $messageCreate
             ->setParent($parentMessage)
             ->setPlayerId((int) $playerId)
@@ -51,13 +48,6 @@ class MessageCreateParamConverter implements ParamConverterInterface
             ->setTimeLimit(new \DateInterval(\sprintf('PT%dH', $timeLimit)))
             ->setPirated((bool) $pirated);
 
-        $request->attributes->set($configuration->getName(), $messageCreate);
-
-        return true;
-    }
-
-    public function supports(ParamConverter $configuration)
-    {
-        return CreateMessage::class === $configuration->getClass();
+        return [$messageCreate];
     }
 }

@@ -4,18 +4,32 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Entity\Poll;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\User\Entity\User;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    paginationItemsPerPage: 25,
+    normalizationContext: ['groups' => ['poll_read']],
+    denormalizationContext: ['groups' => ['poll_write']],
+    operations: [
+        new Get(security: 'is_granted("ROLE_USER")'),
+        new Put(security: 'is_granted("ROLE_ADMIN")'),
+    ],
+)]
 #[ORM\Entity]
 #[ORM\Table(name: 'poll')]
 class Poll
 {
     use TimestampableEntity;
 
+    #[Groups(['poll_read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]

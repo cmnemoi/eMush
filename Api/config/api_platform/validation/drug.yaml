@@ -1,4 +1,0 @@
-Mush\Equipment\Entity\Mechanics\Drug:
-  properties:
-    isPerishable:
-      - Type: boolean

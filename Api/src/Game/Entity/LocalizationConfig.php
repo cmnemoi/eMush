@@ -4,11 +4,30 @@ declare(strict_types=1);
 
 namespace Mush\Game\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'config_localization')]
+#[ApiResource(
+    normalizationContext: ['groups' => ['localization_config_read']],
+    denormalizationContext: ['groups' => ['localization_config_write']],
+    paginationItemsPerPage: 25,
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(),
+    ],
+)]
 class LocalizationConfig
 {
     use TimestampableEntity;
@@ -16,15 +35,19 @@ class LocalizationConfig
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['localization_config_read'])]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
+    #[Groups(['localization_config_read', 'localization_config_write'])]
     private string $name;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[Groups(['localization_config_read', 'localization_config_write'])]
     private string $timeZone;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    #[Groups(['localization_config_read', 'localization_config_write'])]
     private string $language;
 
     public function getId(): ?int

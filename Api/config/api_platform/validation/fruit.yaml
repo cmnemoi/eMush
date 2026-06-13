@@ -1,5 +1,0 @@
-Mush\Equipment\Entity\Mechanics\Fruit:
-  properties:
-    plantName:
-      - NotBlank: ~
-      - Type: string

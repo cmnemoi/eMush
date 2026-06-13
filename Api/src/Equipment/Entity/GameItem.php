@@ -32,7 +32,7 @@ class GameItem extends GameEquipment
 
     public static function createNull(): self
     {
-        return new self(Place::createNull())->setName('');
+        return (new self(Place::createNull()))->setName('');
     }
 
     public function getHolder(): EquipmentHolderInterface

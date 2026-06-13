@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Mush\Game\Controller;
 
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\View\View;
 use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\User\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class AbstractGameController extends AbstractFOSRestController
+abstract class AbstractGameController extends AbstractController
 {
     protected AdminServiceInterface $adminService;
 
@@ -19,10 +19,10 @@ abstract class AbstractGameController extends AbstractFOSRestController
         $this->adminService = $adminService;
     }
 
-    protected function denyAccessIfGameInMaintenance(): ?View
+    protected function denyAccessIfGameInMaintenance(): ?JsonResponse
     {
         if ($this->adminService->isGameInMaintenance()) {
-            return View::create(['detail' => 'gameInMaintenance'], Response::HTTP_SERVICE_UNAVAILABLE);
+            return $this->json(['detail' => 'gameInMaintenance'], Response::HTTP_SERVICE_UNAVAILABLE);
         }
 
         return null;

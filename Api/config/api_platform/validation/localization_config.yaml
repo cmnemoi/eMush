@@ -1,8 +1,0 @@
-Mush\Game\Entity\LocalizationConfig:
-  properties:
-    timeZone:
-      - NotBlank: ~
-      - Type: string
-    language:
-      - NotBlank: ~
-      - Type: string

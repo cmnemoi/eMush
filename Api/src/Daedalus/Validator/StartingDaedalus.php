@@ -6,9 +6,7 @@ namespace Mush\Daedalus\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD)]
 class StartingDaedalus extends Constraint
 {
     public const STARTING_DAEDALUS_ERROR = 'starting_daedalus_error';

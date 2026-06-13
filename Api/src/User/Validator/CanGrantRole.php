@@ -6,9 +6,7 @@ namespace Mush\User\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD)]
 class CanGrantRole extends Constraint
 {
     public const CANNOT_GRANT_ROLE = 'cannot_grant_role';

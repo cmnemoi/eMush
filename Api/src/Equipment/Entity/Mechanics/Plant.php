@@ -4,20 +4,40 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Entity\Mechanics;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    paginationItemsPerPage: 25,
+    normalizationContext: ['groups' => ['plant_read']],
+    denormalizationContext: ['groups' => ['plant_write']],
+    operations: [
+        new GetCollection(filters: ['default.search_filter', 'default.order_filter']),
+        new Post(security: 'is_granted("ROLE_ADMIN")'),
+        new Get(security: 'is_granted("ROLE_ADMIN")'),
+        new Put(security: 'is_granted("ROLE_ADMIN")'),
+    ],
+)]
 #[ORM\Entity]
 class Plant extends EquipmentMechanic
 {
+    #[Groups(['plant_read', 'plant_write'])]
     #[ORM\Column(type: 'string', nullable: false)]
     private string $fruitName;
 
+    #[Groups(['plant_read', 'plant_write'])]
     #[ORM\Column(type: 'array', nullable: false)]
     private array $maturationTime;
 
+    #[Groups(['plant_read', 'plant_write'])]
     #[ORM\Column(type: 'array', nullable: false)]
     private array $oxygen;
 

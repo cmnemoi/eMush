@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Achievement\Controller;
 
-use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Post;
 use Mush\Achievement\Command\UpdateUserStatisticCommand;
 use Mush\Achievement\Query\GetUserAchievementsQuery;
 use Mush\Achievement\Query\GetUserStatisticsQuery;
@@ -20,6 +18,7 @@ use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[OA\Tag(name: 'Achievement')]
@@ -28,7 +27,7 @@ final class AchievementController extends AbstractController
 {
     public function __construct(private MessageBusInterface $queryBus, private MessageBusInterface $commandBus, private PublishPendingStatisticsService $publishPendingStatisticsService) {}
 
-    #[Get(path: '/statistics')]
+    #[Route('/statistics', methods: ['GET'])]
     public function getUserStatisticsEndpoint(#[MapQueryString] GetUserStatisticsQuery $query): JsonResponse
     {
         $statistics = $this->queryBus->dispatch($query)->last(HandledStamp::class)?->getResult();
@@ -36,7 +35,7 @@ final class AchievementController extends AbstractController
         return $this->json($statistics, status: Response::HTTP_OK, context: $query->toNormalizationContext());
     }
 
-    #[Get(path: '/achievements')]
+    #[Route('/achievements', methods: ['GET'])]
     public function getUserAchievementsEndpoint(#[MapQueryString] GetUserAchievementsQuery $query): JsonResponse
     {
         $achievements = $this->queryBus->dispatch($query)->last(HandledStamp::class)?->getResult();
@@ -44,7 +43,7 @@ final class AchievementController extends AbstractController
         return $this->json($achievements, status: Response::HTTP_OK, context: $query->toNormalizationContext());
     }
 
-    #[Post(path: '/statistics/update')]
+    #[Route('/statistics/update', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function incrementUserAchievementEndpoint(#[MapRequestPayload] UpdateUserStatisticCommand $command): JsonResponse
     {
@@ -56,7 +55,7 @@ final class AchievementController extends AbstractController
         );
     }
 
-    #[Post(path: '/statistics/deliver/{daedalus}')]
+    #[Route('/statistics/deliver/{daedalus}', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function deliverPendingStatistics(ClosedDaedalus $daedalus): JsonResponse
     {

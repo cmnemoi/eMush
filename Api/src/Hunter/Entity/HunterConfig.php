@@ -4,67 +4,110 @@ declare(strict_types=1);
 
 namespace Mush\Hunter\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Status\Entity\Config\StatusConfig;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'hunter_config')]
+#[ApiResource(
+    normalizationContext: ['groups' => ['hunter_config_read']],
+    denormalizationContext: ['groups' => ['hunter_config_write']],
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_ADMIN")',
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 class HunterConfig
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['hunter_config_read'])]
     private int $id;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false, unique: true, options: ['default' => ''])]
+    #[Groups(['hunter_config_read', 'hunter_config_write'])]
     private string $name = '';
 
     #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => ''])]
+    #[Groups(['hunter_config_read', 'hunter_config_write'])]
     private string $hunterName = '';
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['hunter_config_read', 'hunter_config_write'])]
     private int $initialHealth = 0;
 
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
+    #[Groups(['hunter_config_write'])]
     private Collection $initialStatuses;
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    #[Groups(['hunter_config_read', 'hunter_config_write'])]
     private array $damageRange = [];
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['hunter_config_read', 'hunter_config_write'])]
     private int $hitChance = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['hunter_config_read', 'hunter_config_write'])]
     private int $dodgeChance = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['hunter_config_read', 'hunter_config_write'])]
     private int $drawCost = 0;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['hunter_config_read', 'hunter_config_write'])]
     private ?int $maxPerWave = null;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['hunter_config_read', 'hunter_config_write'])]
     private int $drawWeight = 0;
 
     #[ORM\Column(type: 'integer', length: 255, nullable: false, options: ['default' => 0])]
+    #[Groups(['hunter_config_read', 'hunter_config_write'])]
     private int $spawnDifficulty = 0;
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    #[Groups(['hunter_config_read', 'hunter_config_write'])]
     private array $scrapDropTable = [];
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    #[Groups(['hunter_config_read', 'hunter_config_write'])]
     private array $numberOfDroppedScrap = [];
 
     #[ORM\Column(type: 'array', nullable: true, options: ['default' => 'a:0:{}'])]
     private ?array $targetProbabilities = [];
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['hunter_config_read', 'hunter_config_write'])]
     private int $bonusAfterFailedShot = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['hunter_config_read', 'hunter_config_write'])]
     private int $numberOfActionsPerCycle = 0;
 
     public function __construct()

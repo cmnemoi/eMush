@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Player\Entity\Config;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,35 +20,64 @@ use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Status\Entity\Config\StatusConfig;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'character_config')]
+#[ApiResource(
+    normalizationContext: ['groups' => ['character_config_read']],
+    denormalizationContext: ['groups' => ['character_config_write']],
+    paginationItemsPerPage: 25,
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 class CharacterConfig
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['character_config_read', 'player_info_read'])]
     private int $id;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[Groups(['character_config_read', 'character_config_write', 'player_info_read'])]
     private string $name;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['character_config_read', 'character_config_write', 'player_info_read'])]
     private string $characterName;
 
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private Collection $initStatuses;
 
     #[ORM\ManyToMany(targetEntity: ActionConfig::class)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private Collection $actionConfigs;
 
     #[ORM\ManyToMany(targetEntity: SkillConfig::class)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private Collection $skillConfigs;
 
     #[ORM\ManyToMany(targetEntity: ItemConfig::class)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private Collection $startingItems;
 
     #[ORM\ManyToMany(targetEntity: DiseaseConfig::class)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private Collection $initDiseases;
 
     #[ORM\Column(type: 'integer', nullable: false)]

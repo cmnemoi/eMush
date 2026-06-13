@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Mush\Daedalus\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -49,9 +53,27 @@ use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]
 #[ORM\Table(name: 'daedalus')]
+#[ApiResource(
+    paginationItemsPerPage: 25,
+    normalizationContext: ['groups' => ['daedalus_read']],
+    denormalizationContext: ['groups' => ['daedalus_write']],
+    operations: [
+        new GetCollection(
+            filters: ['daedalus.search_filter', 'default.order_filter'],
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, StatusHolderInterface, PlayerHolderInterface, ProjectHolderInterface, PlaceHolderInterface
 {
     use ModifierHolderTrait;
@@ -64,6 +86,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['daedalus_read'])]
     private int $id;
 
     #[ORM\OneToOne(mappedBy: 'daedalus', targetEntity: DaedalusInfo::class)]
@@ -85,9 +108,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     private Collection $statuses;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['daedalus_read'])]
     private int $day = 1;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['daedalus_read'])]
     private int $cycle = 1;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -100,6 +125,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     private ?\DateTime $cycleStartedAt = null;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
+    #[Groups(['daedalus_read'])]
     private bool $isCycleChange = false;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
@@ -575,6 +601,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->daedalusInfo->getGameConfig();
     }
 
+    #[Groups(['daedalus_read'])]
     public function getGameStatus(): string
     {
         return $this->daedalusInfo->getGameStatus();
@@ -585,6 +612,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return \in_array($this->getGameStatus(), [GameStatusEnum::STANDBY, GameStatusEnum::STARTING], true);
     }
 
+    #[Groups(['daedalus_read', 'daedalus_write'])]
     public function getName(): string
     {
         return $this->daedalusInfo->getName();
@@ -800,6 +828,12 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         }
 
         return $this;
+    }
+
+    #[Groups(['daedalus_read'])]
+    public function getUpdatedAt(): ?\DateTime
+    {
+        return $this->updatedAt;
     }
 
     private function getCreatedAtOrThrow(): \DateTime

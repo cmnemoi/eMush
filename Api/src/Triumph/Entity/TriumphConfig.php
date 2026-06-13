@@ -4,13 +4,39 @@ declare(strict_types=1);
 
 namespace Mush\Triumph\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Triumph\Dto\TriumphConfigDto;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Enum\TriumphScope;
 use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Enum\TriumphVisibility;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['triumph_config_read']],
+    denormalizationContext: ['groups' => ['triumph_config_write']],
+    paginationItemsPerPage: 25,
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 #[ORM\Entity]
 #[ORM\Table(name: 'triumph_config')]
 class TriumphConfig
@@ -18,24 +44,31 @@ class TriumphConfig
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['triumph_config_read'])]
     private int $id;
 
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
+    #[Groups(['triumph_config_read', 'triumph_config_write'])]
     private string $key;
 
     #[ORM\Column(type: 'string', nullable: false, enumType: TriumphEnum::class, options: ['default' => TriumphEnum::NONE])]
+    #[Groups(['triumph_config_read', 'triumph_config_write'])]
     private TriumphEnum $name;
 
     #[ORM\Column(type: 'string', nullable: false, enumType: TriumphScope::class, options: ['default' => TriumphScope::NONE])]
+    #[Groups(['triumph_config_read', 'triumph_config_write'])]
     private TriumphScope $scope;
 
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
+    #[Groups(['triumph_config_read', 'triumph_config_write'])]
     private string $targetedEvent;
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    #[Groups(['triumph_config_read', 'triumph_config_write'])]
     private array $targetedEventExpectedTags;
 
     #[ORM\Column(type: 'string', nullable: false, enumType: TriumphTarget::class, options: ['default' => TriumphTarget::NONE])]
+    #[Groups(['triumph_config_read', 'triumph_config_write'])]
     private TriumphTarget $targetSetting;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]

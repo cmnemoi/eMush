@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Controller;
 
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\Annotations\Post;
-use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Disease\Entity\PlayerDisease;
@@ -31,24 +27,20 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Service\StatusServiceInterface;
-use Nelmio\ApiDocBundle\Annotation\Security;
-use Nelmio\ApiDocBundle\Attribute\Security as NelmioSecurity;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
- * Class for actions that can be performed by admins.
- *
- * @Route(path="/admin/actions")
- *
  * @OA\Tag(name="Admin")
  */
-final class AdminActionsController extends AbstractFOSRestController
+#[Route('/admin/actions')]
+final class AdminActionsController extends AbstractController
 {
     public function __construct(
         private readonly CreateProjectFromConfigForDaedalusUseCase $createProjectFromConfigForDaedalusUseCase,
@@ -65,13 +57,10 @@ final class AdminActionsController extends AbstractFOSRestController
 
     /**
      * Create all projects for on-going Daedaluses.
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/create-all-projects-for-on-going-daedaluses")
      */
     #[IsGranted('ROLE_ADMIN')]
-    public function createAllProjectsForDaedalusesEndpoint(): View
+    #[Route('/create-all-projects-for-on-going-daedaluses', methods: ['POST'])]
+    public function createAllProjectsForDaedalusesEndpoint(): JsonResponse
     {
         /** @var array<int, Daedalus> $onGoingDaedaluses */
         $onGoingDaedaluses = $this->daedalusRepository->findNonFinishedDaedaluses();
@@ -83,18 +72,15 @@ final class AdminActionsController extends AbstractFOSRestController
             }
         }
 
-        return $this->view(['detail' => 'Projects created successfully.'], Response::HTTP_CREATED);
+        return $this->json(['detail' => 'Projects created successfully.'], Response::HTTP_CREATED);
     }
 
     /**
      * Create pieces of equipment for all on-going Daedaluses.
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/create-equipment-for-on-going-daedaluses")
      */
     #[IsGranted('ROLE_ADMIN')]
-    public function createEquipmentForDaedalusesEndpoint(Request $request): View
+    #[Route('/create-equipment-for-on-going-daedaluses', methods: ['POST'])]
+    public function createEquipmentForDaedalusesEndpoint(Request $request): JsonResponse
     {
         $dto = new CreateEquipmentForDaedalusesDto(...$request->toArray());
 
@@ -112,7 +98,7 @@ final class AdminActionsController extends AbstractFOSRestController
             );
         }
 
-        return $this->view(
+        return $this->json(
             ['detail' => "{$dto->quantity} {$dto->equipmentName} created successfully in {$dto->place} for {$count} Daedaluses."],
             Response::HTTP_CREATED
         );
@@ -120,16 +106,16 @@ final class AdminActionsController extends AbstractFOSRestController
 
     /**
      * Create pieces of equipment for a given Daedalus.
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/create-equipment-for-daedalus")
      */
     #[IsGranted('ROLE_ADMIN')]
-    public function createEquipmentForDaedalusEndpoint(Request $request): View
+    #[Route('/create-equipment-for-daedalus', methods: ['POST'])]
+    public function createEquipmentForDaedalusEndpoint(Request $request): JsonResponse
     {
         $dto = new CreateEquipmentForDaedalusDto(...$request->toArray());
         $daedalus = $this->daedalusRepository->find($dto->daedalus);
+        if ($daedalus === null) {
+            return $this->json(['error' => 'Daedalus not found'], Response::HTTP_NOT_FOUND);
+        }
 
         $this->gameEquipmentService->createGameEquipmentsFromName(
             equipmentName: $dto->equipmentName,
@@ -139,7 +125,7 @@ final class AdminActionsController extends AbstractFOSRestController
             quantity: $dto->quantity,
         );
 
-        return $this->view(
+        return $this->json(
             ['detail' => "{$dto->quantity} {$dto->equipmentName} created successfully in {$dto->place} for Daedalus {$daedalus->getId()}."],
             Response::HTTP_CREATED
         );
@@ -147,13 +133,10 @@ final class AdminActionsController extends AbstractFOSRestController
 
     /**
      * Create all players init statuses for on-going Daedaluses.
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/create-all-players-init-statuses")
      */
     #[IsGranted('ROLE_ADMIN')]
-    public function createAllPlayersInitStatusesEndpoint(): View
+    #[Route('/create-all-players-init-statuses', methods: ['POST'])]
+    public function createAllPlayersInitStatusesEndpoint(): JsonResponse
     {
         $ongoingDaedaluses = $this->daedalusRepository->findNonFinishedDaedaluses();
 
@@ -175,34 +158,30 @@ final class AdminActionsController extends AbstractFOSRestController
             }
         }
 
-        return $this->view(['detail' => 'All init statuses created successfully.'], Response::HTTP_CREATED);
+        return $this->json(['detail' => 'All init statuses created successfully.'], Response::HTTP_CREATED);
     }
 
     /**
      * Delete all statuses with a given name.
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Delete(path="/delete-all-statuses-by-name/{name}", requirements={"name"="^[a-zA-Z_]+$"})
      */
     #[IsGranted('ROLE_ADMIN')]
-    public function deleteAllStatusesByNameEndpoint(string $name): View
+    #[Route('/delete-all-statuses-by-name/{name}', requirements: ['name' => '^[a-zA-Z_]+$'], methods: ['DELETE'])]
+    public function deleteAllStatusesByNameEndpoint(string $name): JsonResponse
     {
         $this->statusService->deleteAllStatusesByName($name);
 
-        return $this->view(['detail' => "All statuses with name {$name} deleted successfully."], Response::HTTP_OK);
+        return $this->json(['detail' => "All statuses with name {$name} deleted successfully."], Response::HTTP_OK);
     }
 
-    /**
-     * Creates a status for holder on daedalus id.
-     */
     #[IsGranted('ROLE_ADMIN')]
-    #[Post(path: '/create-status-for-holder-on-daedalus')]
-    #[NelmioSecurity(name: 'Bearer')]
-    public function createStatusForHolderOnDaedalusEndpoint(Request $request): View
+    #[Route('/create-status-for-holder-on-daedalus', methods: ['POST'])]
+    public function createStatusForHolderOnDaedalusEndpoint(Request $request): JsonResponse
     {
         $dto = new CreateStatusForHolderOnDaedalusDto(...$request->toArray());
         $daedalus = $this->daedalusRepository->find($dto->daedalus);
+        if ($daedalus === null) {
+            return $this->json(['error' => 'Daedalus not found'], Response::HTTP_NOT_FOUND);
+        }
         $holder = $daedalus->getStatusHolderByNameOrThrow($dto->holder);
 
         $this->statusService->createStatusFromName(
@@ -212,18 +191,15 @@ final class AdminActionsController extends AbstractFOSRestController
             new \DateTime()
         );
 
-        return $this->view(['detail' => "Status with name {$dto->statusName} successfully created on {$dto->holder}"], Response::HTTP_OK);
+        return $this->json(['detail' => "Status with name {$dto->statusName} successfully created on {$dto->holder}"], Response::HTTP_OK);
     }
 
     /**
      * Delete all skills with a given name.
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Delete(path="/delete-all-skills-by-name/{name}", requirements={"name"="^[a-zA-Z_]+$"})
      */
     #[IsGranted('ROLE_ADMIN')]
-    public function deleteAllSkillsByNameEndpoint(string $name): View
+    #[Route('/delete-all-skills-by-name/{name}', requirements: ['name' => '^[a-zA-Z_]+$'], methods: ['DELETE'])]
+    public function deleteAllSkillsByNameEndpoint(string $name): JsonResponse
     {
         $skill = SkillEnum::from($name);
 
@@ -234,55 +210,52 @@ final class AdminActionsController extends AbstractFOSRestController
             }
         }
 
-        return $this->view(['detail' => "All statuses with name {$name} deleted successfully."], Response::HTTP_OK);
+        return $this->json(['detail' => "All statuses with name {$name} deleted successfully."], Response::HTTP_OK);
     }
 
     /**
      * Propose new Neron projects for on-going Daedaluses.
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Put(path="/propose-new-neron-projects-for-on-going-daedaluses")
      */
     #[IsGranted('ROLE_ADMIN')]
-    public function proposeNewNeronProjectsForDaedalusesEndpoint(): View
+    #[Route('/propose-new-neron-projects-for-on-going-daedaluses', methods: ['PUT'])]
+    public function proposeNewNeronProjectsForDaedalusesEndpoint(): JsonResponse
     {
         /** @var Daedalus $daedalus */
         foreach ($this->daedalusRepository->findNonFinishedDaedaluses() as $daedalus) {
             $this->proposeNewNeronProjectsUseCase->execute($daedalus, $daedalus->getNumberOfProjectsByBatch());
         }
 
-        return $this->view(['detail' => 'Neron projects proposed successfully.'], Response::HTTP_OK);
+        return $this->json(['detail' => 'Neron projects proposed successfully.'], Response::HTTP_OK);
     }
 
     /**
      * Finish project for a given Daedalus.
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/finish-project-for-daedalus")
      */
     #[IsGranted('ROLE_ADMIN')]
-    public function finishProjectForDaedalusEndpoint(Request $request): View
+    #[Route('/finish-project-for-daedalus', methods: ['POST'])]
+    public function finishProjectForDaedalusEndpoint(Request $request): JsonResponse
     {
         $dto = new CreateProjectForDaedalusDto(...$request->toArray());
         $daedalus = $this->daedalusRepository->find($dto->daedalus);
-        $project = $daedalus->getProjectByName(ProjectName::tryFrom($dto->projectName));
+        if ($daedalus === null) {
+            return $this->json(['error' => 'Daedalus not found'], Response::HTTP_NOT_FOUND);
+        }
+        $projectName = ProjectName::tryFrom($dto->projectName);
+        if ($projectName === null) {
+            return $this->json(['error' => "Unknown project '{$dto->projectName}'"], Response::HTTP_NOT_FOUND);
+        }
+        $project = $daedalus->getProjectByName($projectName);
 
         $this->finishProjectService->execute($project);
 
-        return $this->view(
+        return $this->json(
             ['detail' => "{$dto->projectName} created successfully for Daedalus {$daedalus->getId()}."],
             Response::HTTP_CREATED
         );
     }
 
-    /**
-     * Mark a Daedalus as cheater.
-     */
     #[IsGranted('ROLE_ADMIN')]
-    #[Post(path: '/mark-daedalus-as-cheater')]
-    #[NelmioSecurity(name: 'Bearer')]
+    #[Route('/mark-daedalus-as-cheater', methods: ['POST'])]
     public function markDaedalusAsCheaterEndpoint(#[MapRequestPayload] MarkDaedalusAsCheaterCommand $markDaedalusAsCheater): JsonResponse
     {
         $this->handler->execute($markDaedalusAsCheater);
@@ -290,12 +263,8 @@ final class AdminActionsController extends AbstractFOSRestController
         return $this->json(['detail' => "Closed daedalus {$markDaedalusAsCheater->closedDaedalusId} marked as cheater successfully."], Response::HTTP_OK);
     }
 
-    /**
-     * Remove A disease.
-     */
     #[IsGranted('ROLE_ADMIN')]
-    #[Post(path: '/kill-disease/{disease}')]
-    #[NelmioSecurity(name: 'Bearer')]
+    #[Route('/kill-disease/{disease}', methods: ['POST'])]
     public function killDisease(PlayerDisease $disease): JsonResponse
     {
         $this->playerDiseaseService->removePlayerDisease($disease, ['ADMIN ACTION'], new \DateTime(), VisibilityEnum::HIDDEN);

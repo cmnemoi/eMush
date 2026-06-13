@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Action\Controller;
 
-use FOS\RestBundle\Context\Context;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\View\View;
 use Mush\Action\Entity\ActionResult\Error;
 use Mush\Action\Entity\Dto\ActionRequest;
 use Mush\Action\Service\ActionStrategyServiceInterface;
@@ -15,11 +12,11 @@ use Mush\Game\Service\CycleServiceInterface;
 use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\User\Entity\User;
-use Nelmio\ApiDocBundle\Annotation\Security;
-use OpenApi\Annotations as OA;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -42,94 +39,9 @@ class ActionController extends AbstractGameController
 
     /**
      * Perform an action.
-     *
-     * @OA\RequestBody (
-     *      description="Input data format",
-     *
-     *      @OA\MediaType(
-     *          mediaType="application/json",
-     *
-     *          @OA\Schema(
-     *              type="object",
-     *
-     *              @OA\Property(
-     *                  property="action",
-     *                  description="The action id to perform",
-     *                  type="integer",
-     *              ),
-     *              @OA\Property(
-     *                  property="parameters",
-     *                  description="Informations to execute the action",
-     *                  type="object",
-     *                  @OA\Property(
-     *                      property="target",
-     *                      description="The target of the action",
-     *                      type="object",
-     *                          @OA\Property(
-     *                              property="door",
-     *                              description="The id of the door targeted",
-     *                              type="integer",
-     *                          ),
-     *                          @OA\Property(
-     *                              property="item",
-     *                              description="The id of the item targeted",
-     *                              type="integer",
-     *                          ),
-     *                          @OA\Property(
-     *                              property="player",
-     *                              description="The id of the player targeted",
-     *                              type="integer",
-     *                          ),
-     *                          @OA\Property(
-     *                              property="hunter",
-     *                              description="The id of the hunter targeted",
-     *                              type="integer",
-     *                          )
-     *                  ),
-     *                  @OA\Property(
-     *                      property="content",
-     *                      description="A message written by the user",
-     *                      type="string",
-     *                  ),
-     *                  @OA\Property(
-     *                      property="actionProvider",
-     *                      description="The actionProvider",
-     *                      type="object",
-     *                          @OA\Property(
-     *                              property="equipment",
-     *                              description="The id of the equipment provider",
-     *                              type="integer",
-     *                          ),
-     *                          @OA\Property(
-     *                              property="status",
-     *                              description="The id of the status provider",
-     *                              type="integer",
-     *                          ),
-     *                          @OA\Property(
-     *                              property="player",
-     *                              description="The id of the player provider",
-     *                              type="integer",
-     *                          ),
-     *                          @OA\Property(
-     *                              property="place",
-     *                              description="The id of the place provider",
-     *                              type="integer",
-     *                          )
-     *                  )
-     *              )
-     *          )
-     *      )
-     *   )
-     *
-     * @OA\Tag(name="Player")
-     *
-     * @Security(name="Bearer")
-     *
-     * @ParamConverter("actionRequest", converter="fos_rest.request_body")
-     *
-     * @Rest\Post(path="/player/{id}/action")
      */
-    public function executeActionAction(Player $player, ActionRequest $actionRequest): View
+    #[Route('/player/{id}/action', methods: ['POST'])]
+    public function executeActionAction(Player $player, #[MapRequestPayload] ActionRequest $actionRequest): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
             return $maintenanceView;
@@ -152,26 +64,19 @@ class ActionController extends AbstractGameController
             $result = $this->actionStrategyService->executeAction(
                 $player,
                 $actionRequest->getAction(),
-                $actionRequest->getParams()
+                $actionRequest->getParams() ?? []
             );
         } catch (\InvalidArgumentException $exception) {
-            return $this->view($this->view(['error' => $exception->getMessage()], 422));
+            return $this->json(['error' => $exception->getMessage()], 422);
         }
 
         if ($result instanceof Error) {
-            $view = $this->view(['error' => $result->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
-        } else {
-            $view = $this->view([
-                'actionResult' => $result->getName(),
-                'actionDetails' => $result->getDetails(),
-            ]);
+            return $this->json(['error' => $result->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY, [], ['currentPlayer' => $player]);
         }
 
-        $context = new Context();
-        $context->setAttribute('currentPlayer', $player);
-
-        $view->setContext($context);
-
-        return $view;
+        return $this->json([
+            'actionResult' => $result->getName(),
+            'actionDetails' => $result->getDetails(),
+        ], Response::HTTP_OK, [], ['currentPlayer' => $player]);
     }
 }

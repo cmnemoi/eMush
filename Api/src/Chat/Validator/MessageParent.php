@@ -6,9 +6,7 @@ namespace Mush\Chat\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class MessageParent extends Constraint
 {
     public const PARENT_CANNOT_BE_SET = 'parent_cannot_be_set';

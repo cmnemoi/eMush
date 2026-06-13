@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Modifier\Entity\Config;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,6 +26,27 @@ use Mush\Modifier\Enum\ModifierStrategyEnum;
  * revertOnRemove: is the contrary effect dispatched when the modifier is removed
  */
 #[ORM\Entity]
+#[ApiResource(
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_USER")',
+    normalizationContext: ['groups' => ['modifier_config_read']],
+    denormalizationContext: ['groups' => ['modifier_config_write']],
+    operations: [
+        new GetCollection(
+            security: 'is_granted("ROLE_MODERATOR")',
+            filters: ['default.search_filter', 'default.order_filter'],
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_MODERATOR")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 class DirectModifierConfig extends AbstractModifierConfig
 {
     #[ORM\ManyToOne(targetEntity: AbstractEventConfig::class)]

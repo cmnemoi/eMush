@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,6 +29,7 @@ use Mush\Equipment\Entity\Mechanics\Plumbing;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Weapon;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
@@ -45,18 +51,42 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
     'tool' => Tool::class,
     'weapon' => Weapon::class,
 ])]
+#[ApiResource(
+    normalizationContext: ['groups' => ['equipment_mechanic_read']],
+    denormalizationContext: ['groups' => ['equipment_mechanic_write']],
+    paginationItemsPerPage: 25,
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 abstract class EquipmentMechanic
 {
+    #[Groups(['equipment_mechanic_read', 'equipment_mechanic_write'])]
     protected array $mechanics = [];
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['equipment_mechanic_read'])]
     private int $id;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[Groups(['equipment_mechanic_read', 'equipment_mechanic_write'])]
     private string $name;
 
     #[ORM\ManyToMany(targetEntity: ActionConfig::class)]
+    #[Groups(['equipment_mechanic_read', 'equipment_mechanic_write'])]
     private Collection $actions;
 
     public function __construct()

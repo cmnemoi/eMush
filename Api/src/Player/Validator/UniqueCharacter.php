@@ -6,9 +6,7 @@ namespace Mush\Player\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class UniqueCharacter extends Constraint
 {
     public const CHARACTER_IS_NOT_UNIQUE_ERROR = 'character_is_not_unique_error';

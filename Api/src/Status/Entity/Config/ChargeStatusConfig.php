@@ -4,29 +4,58 @@ declare(strict_types=1);
 
 namespace Mush\Status\Entity\Config;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
+#[ApiResource(
+    normalizationContext: ['groups' => ['status_config_read']],
+    denormalizationContext: ['groups' => ['status_config_write']],
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_MODERATOR")',
+    operations: [
+        new GetCollection(
+            security: 'is_granted("ROLE_MODERATOR")',
+            filters: ['default.search_filter', 'default.order_filter'],
+        ),
+        new Get(
+            security: 'is_granted("ROLE_MODERATOR")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 class ChargeStatusConfig extends StatusConfig
 {
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['status_config_read', 'status_config_write'])]
     private string $chargeVisibility = VisibilityEnum::PUBLIC;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['status_config_read', 'status_config_write'])]
     private string $chargeStrategy = ChargeStrategyTypeEnum::NONE;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['status_config_read', 'status_config_write'])]
     private ?int $maxCharge = null;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['status_config_read', 'status_config_write'])]
     private int $startCharge = 0;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['status_config_read', 'status_config_write'])]
     private array $dischargeStrategies = [ChargeStrategyTypeEnum::NONE];
 
     #[ORM\Column(type: 'boolean', nullable: false)]
+    #[Groups(['status_config_read', 'status_config_write'])]
     private bool $autoRemove = false;
 
     /**

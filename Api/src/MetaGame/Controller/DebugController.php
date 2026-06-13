@@ -4,24 +4,17 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Controller;
 
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\User\Entity\User;
-use Nelmio\ApiDocBundle\Annotation\Security;
-use OpenApi\Annotations as OA;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * Class DebugController for debug endpoints.
- *
- * @Route(path="/admin/debug")
- */
-final class DebugController extends AbstractFOSRestController
+#[Route('/admin/debug')]
+final class DebugController extends AbstractController
 {
     private CycleServiceInterface $cycleService;
 
@@ -32,32 +25,19 @@ final class DebugController extends AbstractFOSRestController
 
     /**
      * Force cycle change for a locked-up Daedalus.
-     *
-     * * @OA\Parameter(
-     *     name="id",
-     *     in="path",
-     *     description="The daedalus id",
-     *
-     *     @OA\Schema(type="integer")
-     * )
-     *
-     * @OA\Tag (name="Admin")
-     *
-     * @Security (name="Bearer")
-     *
-     * @Rest\Post(path="/unlock-daedalus/{id}", requirements={"id"="\d+"})
      */
-    public function forceLockedDaedalusCycleChange(Daedalus $daedalus): View
+    #[Route('/unlock-daedalus/{id}', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function forceLockedDaedalusCycleChange(Daedalus $daedalus): JsonResponse
     {
         $this->denyAccessIfNotAdmin();
 
         if (!$daedalus->isDaedalusOrExplorationChangingCycle()) {
-            return $this->view(['error' => 'Daedalus is not on cycle change'], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return $this->json(['error' => 'Daedalus is not on cycle change'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
-        return $this->view(['detail' => 'Daedalus cycle change triggered successfully'], Response::HTTP_OK);
+        return $this->json(['detail' => 'Daedalus cycle change triggered successfully'], Response::HTTP_OK);
     }
 
     private function denyAccessIfNotAdmin(): void

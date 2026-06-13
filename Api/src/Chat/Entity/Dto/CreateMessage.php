@@ -11,16 +11,10 @@ use Mush\Chat\Validator\MessageParent;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Class CreateMessage.
- *
- * @MessageParent()
- */
+#[MessageParent]
 class CreateMessage
 {
-    /**
-     * @MaxNestedParent
-     */
+    #[MaxNestedParent]
     private ?Message $parent = null;
 
     private Channel $channel;

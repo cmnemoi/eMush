@@ -4,9 +4,36 @@ declare(strict_types=1);
 
 namespace Mush\Modifier\Entity\Config;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_MODERATOR")',
+    normalizationContext: ['groups' => ['modifier_activation_requirement_read']],
+    denormalizationContext: ['groups' => ['modifier_activation_requirement_write']],
+    operations: [
+        new GetCollection(
+            security: 'is_granted("ROLE_MODERATOR")',
+            filters: ['default.search_filter', 'default.order_filter'],
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_MODERATOR")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 #[ORM\Entity]
 #[ORM\Table(name: 'modifier_activation_requirement')]
 class ModifierActivationRequirement
@@ -14,18 +41,23 @@ class ModifierActivationRequirement
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['modifier_activation_requirement_read'])]
     private int $id;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[Groups(['modifier_activation_requirement_read', 'modifier_activation_requirement_write'])]
     private string $name;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['modifier_activation_requirement_read', 'modifier_activation_requirement_write'])]
     private string $activationRequirementName;
 
     #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(['modifier_activation_requirement_read', 'modifier_activation_requirement_write'])]
     private ?string $activationRequirement = null;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['modifier_activation_requirement_read', 'modifier_activation_requirement_write'])]
     private int $value = 100;
 
     public function __construct(string $activationRequirementName)

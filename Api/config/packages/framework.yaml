@@ -1,6 +1,7 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
     secret: '%env(APP_SECRET)%'
+    annotations: false
     #csrf_protection: true
     #http_method_override: true
 
@@ -15,10 +16,5 @@ framework:
     #fragments: true
     php_errors:
         log: true
-
-    serializer:
-        enable_annotations: false
-        mapping:
-            paths: ['%kernel.project_dir%/config/api_platform/serialization']
 
     trusted_headers: ['x-forwarded-for', 'forwarded']

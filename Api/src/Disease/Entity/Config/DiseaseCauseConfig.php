@@ -4,12 +4,36 @@ declare(strict_types=1);
 
 namespace Mush\Disease\Entity\Config;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Dto\DiseaseCauseConfigDto;
 use Mush\Game\Entity\Collection\ProbaCollection;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_cause_config')]
+#[ApiResource(
+    paginationItemsPerPage: 25,
+    normalizationContext: ['groups' => ['disease_cause_config_read']],
+    denormalizationContext: ['groups' => ['disease_cause_config_write']],
+    operations: [
+        new GetCollection(
+            filters: ['default.search_filter', 'default.order_filter'],
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 class DiseaseCauseConfig
 {
     #[ORM\Id]

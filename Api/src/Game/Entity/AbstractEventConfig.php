@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Game\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\Config\WeaponEffect\BreakWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\DestroyOrBreakRandomItemsWeaponEffectConfig;
@@ -21,6 +26,7 @@ use Mush\Equipment\Entity\Config\WeaponEffect\SplashInjuryWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\SplashRandomWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEventConfig;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class storing the various information needed to create events.
@@ -48,17 +54,32 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
     'break_random_items_weapon_effect_config' => DestroyOrBreakRandomItemsWeaponEffectConfig::class,
     'splash_random_weapon_effect_config' => SplashRandomWeaponEffectConfig::class,
 ])]
+#[ApiResource(
+    security: 'is_granted("ROLE_USER")',
+    normalizationContext: ['groups' => ['event_config_read']],
+    denormalizationContext: ['groups' => ['event_config_write']],
+    paginationItemsPerPage: 25,
+    operations: [
+        new GetCollection(security: 'is_granted("ROLE_MODERATOR")', filters: ['default.search_filter', 'default.order_filter']),
+        new Post(security: 'is_granted("ROLE_ADMIN")'),
+        new Get(security: 'is_granted("ROLE_MODERATOR")'),
+        new Put(security: 'is_granted("ROLE_ADMIN")'),
+    ],
+)]
 abstract class AbstractEventConfig
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['event_config_read'])]
     protected int $id;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[Groups(['event_config_read', 'event_config_write'])]
     protected string $name;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['event_config_read', 'event_config_write'])]
     protected string $eventName;
 
     public function __construct(string $name = '', string $eventName = '')

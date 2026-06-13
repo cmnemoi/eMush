@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Modifier\Entity\Config;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\Event\AbstractGameEvent;
@@ -26,6 +31,27 @@ use Mush\Player\Enum\PlayerVariableEnum;
  *
  * By default, additive modifier priority : -120 / multiplicative modifier priority : -140
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['modifier_config_read']],
+    denormalizationContext: ['groups' => ['modifier_config_write']],
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_USER")',
+    operations: [
+        new GetCollection(
+            security: 'is_granted("ROLE_MODERATOR")',
+            filters: ['default.search_filter', 'default.order_filter'],
+        ),
+        new Post(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+        new Get(
+            security: 'is_granted("ROLE_MODERATOR")',
+        ),
+        new Put(
+            security: 'is_granted("ROLE_ADMIN")',
+        ),
+    ],
+)]
 #[ORM\Entity]
 class VariableEventModifierConfig extends EventModifierConfig
 {

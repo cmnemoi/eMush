@@ -140,7 +140,27 @@ abstract class CharacterEnum
 
     public static function gender(string $character): string
     {
-        return self::isMale($character) ? 'male' : 'female';
+        return match ($character) {
+            self::ANDIE => 'non-binary',
+            self::CHAO => 'male',
+            self::CHUN => 'female',
+            self::DEREK => 'male',
+            self::ELEESHA => 'female',
+            self::FINOLA => 'female',
+            self::FRIEDA => 'female',
+            self::GIOELE => 'male',
+            self::HUA => 'female',
+            self::IAN => 'male',
+            self::JANICE => 'female',
+            self::JIN_SU => 'male',
+            self::KUAN_TI => 'male',
+            self::PAOLA => 'female',
+            self::RALUCA => 'female',
+            self::ROLAND => 'male',
+            self::STEPHEN => 'male',
+            self::TERRENCE => 'male',
+            default => throw new \RuntimeException("No gender for character {$character}"),
+        };
     }
 
     public static function chaolaPair(): array

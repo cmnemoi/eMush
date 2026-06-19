@@ -27,7 +27,7 @@ final class SkillNormalizerCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // needed so that the character is gendered male
-        $this->player->getCharacterConfig()->setCharacterName(CharacterEnum::SOMEONE);
+        $this->player->getCharacterConfig()->setCharacterName(CharacterEnum::CHAO);
     }
 
     public function shouldNormalizeHumanSkill(FunctionalTester $I): void

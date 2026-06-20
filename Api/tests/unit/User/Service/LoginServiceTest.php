@@ -38,6 +38,7 @@ final class LoginServiceTest extends TestCase
             admin: 'admin_user_id',
             appEnv: 'test',
             appSecret: 'test_secret',
+            frontendCallback: 'https://frontend.test/callback',
             userService: $userService,
             jwtEncoder: $jwtEncoder,
         );
@@ -46,9 +47,8 @@ final class LoginServiceTest extends TestCase
     public function testShouldEncodeOAuthStateCorrectly(): void
     {
         $csrfState = 'random_csrf_token_123';
-        $frontendRedirectUri = 'https://frontend.test/callback';
 
-        $encodedState = $this->loginService->encodeOAuthState($csrfState, $frontendRedirectUri);
+        $encodedState = $this->loginService->encodeOAuthState($csrfState);
 
         $decoded = base64_decode($encodedState, true);
         self::assertIsString($decoded);
@@ -56,24 +56,19 @@ final class LoginServiceTest extends TestCase
         $stateData = json_decode($decoded, true);
         self::assertIsArray($stateData);
         self::assertArrayHasKey('csrf', $stateData);
-        self::assertArrayHasKey('redirect', $stateData);
         self::assertEquals($csrfState, $stateData['csrf']);
-        self::assertEquals($frontendRedirectUri, $stateData['redirect']);
     }
 
     public function testShouldDecodeOAuthStateCorrectly(): void
     {
         $csrfState = 'random_csrf_token_123';
-        $frontendRedirectUri = 'https://frontend.test/callback';
-        $encodedState = base64_encode(json_encode(['csrf' => $csrfState, 'redirect' => $frontendRedirectUri]));
+        $encodedState = base64_encode(json_encode(['csrf' => $csrfState]));
 
         $decodedState = $this->loginService->decodeOAuthState($encodedState);
 
         self::assertIsArray($decodedState);
         self::assertArrayHasKey('csrf', $decodedState);
-        self::assertArrayHasKey('redirect', $decodedState);
         self::assertEquals($csrfState, $decodedState['csrf']);
-        self::assertEquals($frontendRedirectUri, $decodedState['redirect']);
     }
 
     public function testShouldThrowExceptionWhenDecodingInvalidBase64(): void
@@ -99,37 +94,26 @@ final class LoginServiceTest extends TestCase
         $this->loginService->decodeOAuthState($invalidState);
     }
 
-    public function testShouldThrowExceptionWhenDecodingStateMissingRedirect(): void
-    {
-        $this->expectException(UnauthorizedHttpException::class);
-
-        $invalidState = base64_encode(json_encode(['csrf' => 'token']));
-        $this->loginService->decodeOAuthState($invalidState);
-    }
-
     public function testShouldBuildFrontendCallbackUrlCorrectly(): void
     {
-        $frontendRedirectUri = 'https://frontend.test/callback';
         $token = 'jwt_token_123';
         $csrfState = 'csrf_token_456';
 
-        $callbackUrl = $this->loginService->buildFrontendCallbackUrl($frontendRedirectUri, $token, $csrfState);
+        $callbackUrl = $this->loginService->buildFrontendCallbackUrl($token, $csrfState);
 
-        self::assertStringContainsString($frontendRedirectUri, $callbackUrl);
+        self::assertStringContainsString('https://frontend.test/callback/token', $callbackUrl);
         self::assertStringContainsString('code=' . $token, $callbackUrl);
         self::assertStringContainsString('state=' . $csrfState, $callbackUrl);
-        self::assertEquals($frontendRedirectUri . '?code=' . $token . '&state=' . $csrfState, $callbackUrl);
+        self::assertEquals('https://frontend.test/callback/token?code=' . $token . '&state=' . $csrfState, $callbackUrl);
     }
 
     public function testShouldEncodeAndDecodeOAuthStateSymmetrically(): void
     {
         $originalCsrf = 'test_csrf_token';
-        $originalRedirect = 'https://frontend.test/auth/callback';
 
-        $encoded = $this->loginService->encodeOAuthState($originalCsrf, $originalRedirect);
+        $encoded = $this->loginService->encodeOAuthState($originalCsrf);
         $decoded = $this->loginService->decodeOAuthState($encoded);
 
         self::assertEquals($originalCsrf, $decoded['csrf']);
-        self::assertEquals($originalRedirect, $decoded['redirect']);
     }
 }

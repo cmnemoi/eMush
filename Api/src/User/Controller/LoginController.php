@@ -69,7 +69,6 @@ class LoginController extends AbstractController
         $stateData = $this->loginService->decodeOAuthState((string) $encodedState);
         $token = $this->loginService->verifyCode((string) $code);
         $callbackUrl = $this->loginService->buildFrontendCallbackUrl(
-            $stateData['redirect'],
             $token,
             $stateData['csrf']
         );
@@ -81,17 +80,11 @@ class LoginController extends AbstractController
     public function redirectAction(Request $request): Response
     {
         $csrfState = $request->query->get('state');
-        $frontendRedirectUri = $request->query->get('redirect_uri');
-
         if (!$csrfState) {
             throw new UnauthorizedHttpException('Bad credentials: missing state parameter (CSRF protection)');
         }
 
-        if (!$frontendRedirectUri) {
-            throw new UnauthorizedHttpException('Bad credentials: missing redirect_uri');
-        }
-
-        $encodedState = $this->loginService->encodeOAuthState((string) $csrfState, (string) $frontendRedirectUri);
+        $encodedState = $this->loginService->encodeOAuthState((string) $csrfState);
         $authorizationUri = $this->loginService->getAuthorizationUri('base', $encodedState);
 
         return $this->redirect($authorizationUri);

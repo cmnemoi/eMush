@@ -11,7 +11,6 @@ const OAUTH_URL = import.meta.env.VITE_APP_OAUTH_URL;
 
 const authorizationUrl = urlJoin(OAUTH_URL, "authorize");
 const tokenUrl = urlJoin(OAUTH_URL, "token");
-const callBackUrl = urlJoin(import.meta.env.VITE_APP_URL as string, "token");
 const userEndPoint = urlJoin(API_URL, "users");
 const pollEndPoint = urlJoin(API_URL, "poll");
 
@@ -36,7 +35,6 @@ const UserService = {
         const state = TokenService.generateOAuthState();
 
         const params = new URLSearchParams();
-        params.set('redirect_uri', callBackUrl);
         params.set('state', state);
 
         global.window.location.href = decodeURIComponent(authorizationUrl + '?'+ params.toString());

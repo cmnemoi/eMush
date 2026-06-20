@@ -32,6 +32,7 @@ services:
       '%env(ADMIN)%',
       '%env(APP_ENV)%',
       '%env(APP_SECRET)%',
+      '%env(EXTERNAL_URI)%',
     ]
 
   Mush\User\Repository\UserRepositoryInterface: '@Mush\User\Repository\UserRepository'

@@ -25,6 +25,7 @@ class LoginService
     private string $appEnv;
     private string $etwinUri;
     private string $appSecret;
+    private string $frontendCallback;
 
     public function __construct(
         string $etwinUri,
@@ -36,6 +37,7 @@ class LoginService
         string $admin,
         string $appEnv,
         string $appSecret,
+        string $frontendCallback,
         UserServiceInterface $userService,
         JWTEncoderInterface $jwtEncoder,
     ) {
@@ -45,6 +47,7 @@ class LoginService
         $this->admin = $admin;
         $this->appEnv = $appEnv;
         $this->appSecret = $appSecret;
+        $this->frontendCallback = $frontendCallback;
         $this->oauthClient = new RfcOauthClient(
             $authorizeUri,
             $tokenUri,
@@ -145,9 +148,9 @@ class LoginService
         return (string) $this->oauthClient->getAuthorizationUri($scope, $csrfState);
     }
 
-    public function encodeOAuthState(string $csrfState, string $frontendRedirectUri): string
+    public function encodeOAuthState(string $csrfState): string
     {
-        $json = json_encode(['csrf' => $csrfState, 'redirect' => $frontendRedirectUri]);
+        $json = json_encode(['csrf' => $csrfState]);
         if (!$json) {
             throw new \RuntimeException('Failed to encode OAuth state');
         }
@@ -156,7 +159,7 @@ class LoginService
     }
 
     /**
-     * @return array{csrf: string, redirect: string}
+     * @return array{csrf: string}
      */
     public function decodeOAuthState(string $encodedState): array
     {
@@ -170,23 +173,18 @@ class LoginService
         if (
             !\is_array($stateData)
             || !isset($stateData['csrf'])
-            || !isset($stateData['redirect'])
             || !\is_string($stateData['csrf'])
-            || !\is_string($stateData['redirect'])
         ) {
             throw new UnauthorizedHttpException('Bad credentials: invalid state parameter');
         }
 
-        return [
-            'csrf' => $stateData['csrf'],
-            'redirect' => $stateData['redirect'],
-        ];
+        return ['csrf' => $stateData['csrf']];
     }
 
-    public function buildFrontendCallbackUrl(string $frontendRedirectUri, string $token, string $csrfState): string
+    public function buildFrontendCallbackUrl(string $token, string $csrfState): string
     {
         $parameters = http_build_query(['code' => $token, 'state' => $csrfState]);
 
-        return $frontendRedirectUri . '?' . $parameters;
+        return rtrim($this->frontendCallback, '/') . '/token?' . $parameters;
     }
 }

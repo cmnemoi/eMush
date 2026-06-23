@@ -443,7 +443,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         // given intelligent life has only fight event
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::INTELLIGENT,
-            events: [PlanetSectorEvent::FIGHT_12 => 1]
+            events: [PlanetSectorEvent::FIGHT_ALIEN => 1]
         );
 
         // given exploration is created
@@ -468,8 +468,8 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
                 'planetSectorName' => 'Vie intelligente',
                 'eventName' => 'Combat',
-                'eventDescription' => 'Un être étrange s\'approche de vous et lance de grands cris aigus qui vous cassent les oreilles. Il va falloir le faire taire.',
-                'eventOutcome' => 'Vous affrontez une créature.////Force Créature : 12////Force Équipe : 2////L\'équipe subit 10 points de dégâts.',
+                'eventDescription' => 'Un être étrange s\'approche de vous et lance de grands cris aigus qui vous cassent les oreilles. Il va falloir le faire taire.////Les tirs de blasters fusent de toutes parts, et il devient vite évident que vous êtes en mauvaise posture. Vous vous repliez en désordre en tentant de fuir, traînant vos blessés sous une pluie de rayons colorés.',
+                'eventOutcome' => 'Vous affrontez une créature. ////Force Créature : 12//Force Équipe : 2//L\'équipe subit 10 points de dégâts.//',
             ],
             actual: $normalizedExplorationLog,
         );
@@ -481,7 +481,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $intelligentSector = $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::INTELLIGENT,
             events: [
-                PlanetSectorEvent::FIGHT_12 => PHP_INT_MAX - 1,
+                PlanetSectorEvent::FIGHT_ALIEN => PHP_INT_MAX - 1,
                 PlanetSectorEvent::PROVISION_2 => 1,
             ]
         );
@@ -539,7 +539,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         // then intelligent sector events still have the same probabilities
         $I->assertEquals(
             expected: [
-                PlanetSectorEvent::FIGHT_12 => PHP_INT_MAX - 1,
+                PlanetSectorEvent::FIGHT_ALIEN => PHP_INT_MAX - 1,
                 PlanetSectorEvent::PROVISION_2 => 1,
             ],
             actual: $intelligentSector->getExplorationEvents()->toArray(),
@@ -576,8 +576,8 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
                 'planetSectorName' => 'Vie intelligente',
                 'eventName' => 'Combat',
-                'eventDescription' => 'Un être étrange s\'approche de vous et lance de grands cris aigus qui vous cassent les oreilles. Il va falloir le faire taire.',
-                'eventOutcome' => 'Vous affrontez une créature.////Force Créature : 1////Force Équipe : 2////Créature décède.',
+                'eventDescription' => 'Un être étrange s\'approche de vous et lance de grands cris aigus qui vous cassent les oreilles. Il va falloir le faire taire.////Pris de vitesse, l\'être n\'a même pas le temps de comprendre ce qui lui arrive. Quand son corps s\'affaisse enfin dans la poussière, vous découvrez sur lui un artefact qui pourrait vous être bien utile.',
+                'eventOutcome' => 'Vous affrontez une créature. ////Force Créature : 0//Force Équipe : 2//Vous récupérez 1 Steak alien.//L\'équipe subit 0 points de dégâts.//',
             ],
             actual: $normalizedExplorationLog,
         );
@@ -589,7 +589,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::INTELLIGENT,
             events: [
-                PlanetSectorEvent::FIGHT_12 => PHP_INT_MAX - 1,
+                PlanetSectorEvent::FIGHT_ALIEN => PHP_INT_MAX - 1,
                 PlanetSectorEvent::PROVISION_2 => 1,
             ]
         );

@@ -99,8 +99,8 @@ final class StatsService implements StatsServiceInterface
         $dmgTaken = array_sum($resultProcessed['dmgTaken']) / \count($resultProcessed['dmgTaken']);
 
         $resultText = '';
-        $resultText .= \sprintf('The average creature strenght is %f.//', $creaturePower);
-        $resultText .= \sprintf('The average crew strenght is %f.//', $crewPower);
+        $resultText .= \sprintf('The average creature strength is %f.//', $creaturePower);
+        $resultText .= \sprintf('The average crew strength is %f.//', $crewPower);
         $resultText .= \sprintf('The average damage taken is %f.//', $dmgTaken);
 
         return $resultText;

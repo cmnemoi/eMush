@@ -11,6 +11,8 @@ use Mush\Communications\Entity\RebelBaseConfig;
 use Mush\Communications\Enum\RebelBaseEnum;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Communications\Service\DecodeRebelSignalService;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -22,6 +24,7 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\PlanetSectorEventHandler\Fight;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -236,6 +239,38 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $this->thenThereShouldBeRoomLogForPlayerWithHealthLoss(11, $this->chun, $I);
     }
 
+    public function testFightGiveRewardWhenWon(FunctionalTester $I): void
+    {
+        $this->givenNoAccidentWhenLanding($I);
+
+        $blaster = $this->givenPlayerHasABlaster($this->chun);
+
+        $blaster->getWeaponMechanicOrThrow()->setExpeditionBonus(999);
+
+        $exploration = $this->givenASoloExpeditionToARuminantSector($this->chun, $I);
+
+        $event = $this->givenExpeditionFightsChabChab($exploration, $I);
+
+        $this->whenIHandleTheEvent($event);
+
+        $I->assertTrue($this->chun->getDaedalus()->getPlaceByNameOrThrow(RoomEnum::PLANET)->hasEquipmentByName(GameRationEnum::ALIEN_STEAK));
+    }
+
+    public function testFightGiveNoRewardWhenLoss(FunctionalTester $I): void
+    {
+        $this->givenNoAccidentWhenLanding($I);
+
+        $this->givenPlayerHasHealth(14, $this->chun);
+
+        $exploration = $this->givenASoloExpeditionToARuminantSector($this->chun, $I);
+
+        $event = $this->givenExpeditionFightsChabChab($exploration, $I);
+
+        $this->whenIHandleTheEvent($event);
+
+        $I->assertFalse($this->chun->getDaedalus()->getPlaceByNameOrThrow(RoomEnum::PLANET)->hasEquipmentByName(GameRationEnum::ALIEN_STEAK));
+    }
+
     public function testFightEventPlayerDeathCauseIsExplorationCombat(FunctionalTester $I): void
     {
         $this->givenNoAccidentWhenLanding($I);
@@ -287,23 +322,6 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $this->thenThereShouldBeRoomLogForPlayerWithDeathCauseMankarog($this->chun, $I);
     }
 
-    public function testFightEventGivesDisease(FunctionalTester $I): void
-    {
-        $this->givenNoAccidentWhenLanding($I);
-
-        $exploration = $this->givenASoloExpeditionToAnIntelligentLifeSector($this->chun, $I);
-
-        $event = $this->givenExpeditionFightsCreatureOfStrength2($exploration, $I);
-
-        $this->givenEventGuaranteesADisease($event);
-
-        $this->whenIHandleTheEvent($event);
-
-        $this->thenPlayerHasDisease($this->chun, $I);
-
-        $this->thenThereShouldBeRoomLogForPlayerDiseaseCauseFight($this->chun, $I);
-    }
-
     public function testFightEventExpeditionStrengthIsImprovedByCentauriBase(FunctionalTester $I): void
     {
         $this->givenCentauriIsDecoded($I);
@@ -341,9 +359,9 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         return $raluca;
     }
 
-    private function givenPlayerHasABlaster(Player $player): void
+    private function givenPlayerHasABlaster(Player $player): GameEquipment
     {
-        $this->gameEquipmentService->createGameEquipmentFromName(
+        return $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::BLASTER,
             equipmentHolder: $player,
             reasons: [],
@@ -407,6 +425,14 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         );
     }
 
+    private function givenASoloExpeditionToARuminantSector(Player $player, FunctionalTester $I): Exploration
+    {
+        return $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::RUMINANT], $I),
+            explorators: new PlayerCollection([$player])
+        );
+    }
+
     private function givenASoloExpeditionToMankarogSector(Player $player, FunctionalTester $I): Exploration
     {
         return $this->createExploration(
@@ -426,8 +452,21 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     private function givenExpeditionFightsCreatureOfStrength12(Exploration $exploration, FunctionalTester $I): PlanetSectorEvent
     {
         /** @var PlanetSectorEventConfig $fightEventConfig */
-        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_alien']);
         $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $intelligentLifePlanetSector,
+            config: $fightEventConfig,
+        );
+
+        return $event;
+    }
+
+    private function givenExpeditionFightsChabChab(Exploration $exploration, FunctionalTester $I): PlanetSectorEvent
+    {
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::FIGHT_CHABCHAB]);
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::RUMINANT)->first();
         $event = new PlanetSectorEvent(
             planetSector: $intelligentLifePlanetSector,
             config: $fightEventConfig,
@@ -439,7 +478,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     private function givenExpeditionFightsCreatureOfStrength32(Exploration $exploration, FunctionalTester $I): PlanetSectorEvent
     {
         /** @var PlanetSectorEventConfig $fightEventConfig */
-        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_' . Fight::MANKAROG_STRENGTH]);
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::FIGHT_MANKAROG]);
         $wreckPlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::WRECK)->first();
         $event = new PlanetSectorEvent(
             planetSector: $wreckPlanetSector,
@@ -452,7 +491,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     private function givenExpeditionFightsMankarog(Exploration $exploration, FunctionalTester $I): PlanetSectorEvent
     {
         /** @var PlanetSectorEventConfig $fightEventConfig */
-        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_alien']);
         $wreckPlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::MANKAROG)->first();
         $event = new PlanetSectorEvent(
             planetSector: $wreckPlanetSector,
@@ -473,11 +512,6 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         );
 
         return $event;
-    }
-
-    private function givenEventGuaranteesADisease(PlanetSectorEvent $event): void
-    {
-        $event->getConfig()->setOutputQuantity([100 => 1]);
     }
 
     private function givenCentauriIsDecoded(FunctionalTester $I): void

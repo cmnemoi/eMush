@@ -76,6 +76,7 @@ class ItemEnum
     public const string MAGEBOOK_GENERIC = 'magebook_generic';
     public const string BLUEPRINT_DAEDALUS = 'blueprint_daedalus';
     public const string BLUEPRINT_GENERIC = 'blueprint_generic';
+    public const string ARTEFACT_GENERIC = 'artefact_generic';
 
     public static function getArtefacts(): ArrayCollection
     {

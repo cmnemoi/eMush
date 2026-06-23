@@ -387,7 +387,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>fight.description</source>
-        <target>Te enfrentas a una criatura////Fuerza de la Criatura: {creature_strenght}//Fuerza del Equipo: {expedition_strenght}//{damage, select, 0 {El equipo mata a la Criatura.} 1 {El equipo recibe {damage} punto de daño.} other {El equipo recibe {damage} puntos de daño.}}</target>
+        <target>Te enfrentas a una criatura////Fuerza de la Criatura: {creature_strength}//Fuerza del Equipo: {expedition_strength}//{damage, select, 0 {El equipo mata a la Criatura.} 1 {El equipo recibe {damage} punto de daño.} other {El equipo recibe {damage} puntos de daño.}}</target>
       </segment>
       <segment id="intelligent_description" state="translated">
         <source>fight.intelligent_description</source>

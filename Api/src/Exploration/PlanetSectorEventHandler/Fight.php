@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
@@ -34,9 +35,11 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 
-final class Fight extends AbstractPlanetSectorEventHandler
+final class Fight extends AbstractLootItemsEventHandler
 {
-    public const MANKAROG_STRENGTH = 32;
+    public const int MANKAROG_STRENGTH = 32;
+
+    private const int DISEASE_CHANCE = 5;
 
     private DiseaseCauseServiceInterface $diseaseCauseService;
     private RoomLogServiceInterface $roomLogService;
@@ -49,9 +52,10 @@ final class Fight extends AbstractPlanetSectorEventHandler
         TranslationServiceInterface $translationService,
         DeleteEquipmentServiceInterface $deleteEquipmentService,
         DiseaseCauseServiceInterface $diseaseCauseService,
-        RoomLogServiceInterface $roomLogService
+        RoomLogServiceInterface $roomLogService,
+        GameEquipmentServiceInterface $gameEquipmentService,
     ) {
-        parent::__construct($entityManager, $eventService, $randomService, $translationService);
+        parent::__construct($entityManager, $eventService, $randomService, $translationService, $gameEquipmentService);
         $this->deleteEquipmentService = $deleteEquipmentService;
         $this->diseaseCauseService = $diseaseCauseService;
         $this->roomLogService = $roomLogService;
@@ -67,6 +71,7 @@ final class Fight extends AbstractPlanetSectorEventHandler
         $exploration = $event->getExploration();
         $planetSector = $event->getPlanetSector();
 
+        // we check if fight is replaced
         if ($exploration->hasAnActiveDiplomat()) {
             $event->addTag(SkillEnum::DIPLOMAT->toString());
 
@@ -78,36 +83,53 @@ final class Fight extends AbstractPlanetSectorEventHandler
             return $this->dispatchNonFightEvent($event);
         }
 
-        $creatureStrength = $this->drawEventOutputQuantity($event->getOutputTable());
+        // we get the values that we will use
+        $creatureStrength = (int) $event->getConfig()->hasTag(PlanetSectorEventTagEnum::RANDOM_FIGHT)
+            ? $this->randomService->getRandomElement(PlanetSectorEventTagEnum::getRandomFightPower())
+            : $event->getConfig()->getFightStrength();
+
         $expeditionStrength = $this->getExpeditionStrength($event);
         $damage = max(0, $creatureStrength - $expeditionStrength);
 
+        // we handle grenade here
         $damageWithoutGrenades = $creatureStrength - $this->getExpeditionStrength($event, includeGrenades: false);
         if ($damageWithoutGrenades > 0) {
             $this->removeGrenadesFromFighters($event, $damageWithoutGrenades);
         }
 
-        $logParameters = $this->getLogParameters($event);
-        $logParameters['creature_strength'] = $creatureStrength;
-        $logParameters['expedition_strength'] = $expeditionStrength;
-        $logParameters['damage'] = $damage;
-
-        if ($damage === 0) {
-            $event->addTag(PlanetSectorEvent::FIGHT_WON);
-
-            return $this->createExplorationLog($event, $logParameters);
-        }
+        // we get the % to win
+        $winChance = $this->getWinChance($creatureStrength, $expeditionStrength);
 
         // if we are fighting a Mankarog, add an event tag to shame the dead players with a special death cause
-        if (
-            $planetSector->getName() === PlanetSectorEnum::MANKAROG
-            || $creatureStrength >= self::MANKAROG_STRENGTH
-        ) {
+        if ($creatureStrength >= self::MANKAROG_STRENGTH) {
             $event->addTag(EndCauseEnum::MANKAROG);
         }
 
+        // we handle damage and disease
         $this->inflictDamageToExplorators($event, $damage);
         $this->giveDiseaseToExplorators($event);
+
+        // handle win and loss
+        if ($this->randomService->isSuccessful($winChance)) {
+            // make the items in the case the crew win
+            $rewards = $this->createRandomItemsFromEvent($event);
+            $logParameters = $this->getLogParameters($event);
+
+            $event->addTag(PlanetSectorEvent::FIGHT_WON);
+
+            $logParameters['result'] = 'victory';
+            $logParameters['reward'] = $this->getRewardName($event->getReward(), $event->getDaedalus()->getLanguage(), $rewards->count() > 1);
+            $logParameters['reward_amount'] = $rewards->count();
+        } else {
+            $logParameters = $this->getLogParameters($event);
+            $logParameters['result'] = 'loss';
+        }
+
+        // get the last few parameters
+        $logParameters['fight'] = $this->getFightDescription($event->getPlanetSector()->getName(), $winChance, $logParameters['result'], $event->getDaedalus()->getLanguage());
+        $logParameters['creature_strength'] = $creatureStrength;
+        $logParameters['expedition_strength'] = $expeditionStrength;
+        $logParameters['damage'] = $damage;
 
         return $this->createExplorationLog($event, $logParameters);
     }
@@ -212,12 +234,11 @@ final class Fight extends AbstractPlanetSectorEventHandler
 
     private function giveDiseaseToExplorators(PlanetSectorEvent $event): void
     {
-        $diseaseChance = (int) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputQuantity());
         $fighters = $event->getExploration()->getNotLostActiveExplorators();
 
         /** @var Player $explorator */
         foreach ($fighters as $explorator) {
-            if ($this->randomService->isSuccessful($diseaseChance)) {
+            if ($this->randomService->isSuccessful(self::DISEASE_CHANCE)) {
                 $disease = $this->diseaseCauseService->handleDiseaseForCause(DiseaseCauseEnum::ALIEN_FIGHT, $explorator, 0, 0, $event->getTime());
                 $this->roomLogService->createLog(
                     LogEnum::DISEASE_BY_ALIEN_FIGHT,
@@ -290,5 +311,43 @@ final class Fight extends AbstractPlanetSectorEventHandler
             $event->getVisibility()
         );
         $this->eventService->callEvent($planetSectorEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
+    }
+
+    private function getWinChance(int $creatureStrength, int $expeditionStrength): int
+    {
+        $threshold = $creatureStrength / 2;
+
+        if ($expeditionStrength < $threshold) {
+            return 0;
+        }
+
+        // % is zero if less than half the creature strength and increase linearly until it reach 100 when reaching the creature strength
+        return (int) floor(min(max($expeditionStrength - $threshold + 1, 0) / ($creatureStrength - $threshold + 1), 1) * 100);
+    }
+
+    private function getRewardName(string $name, string $language, bool $plural): string
+    {
+        return $this->translationService->translate(
+            $plural ? $name . '.plural_name' : $name . '.name',
+            [],
+            'items',
+            $language
+        );
+    }
+
+    private function getFightDescription(string $sectorName, int $winChance, string $result, string $language): string
+    {
+        $suffix = match (true) {
+            $winChance === 0 => 'low',
+            $winChance === 100 => 'high',
+            default => 'mid'
+        };
+
+        return $this->translationService->translate(
+            'fight.' . $sectorName . '_' . $suffix,
+            ['result' => $result],
+            'planet_sector_event',
+            $language
+        );
     }
 }

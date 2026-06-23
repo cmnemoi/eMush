@@ -715,7 +715,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // given only fight event can happen in intelligent sector
         $this->givenOnlyThisEventCanHappenInSector(
-            event: PlanetSectorEvent::FIGHT_8,
+            event: PlanetSectorEvent::FIGHT_CHABCHAB,
             sector: PlanetSectorEnum::INTELLIGENT,
         );
 
@@ -741,7 +741,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // given only fight event can happen in intelligent sector
         $this->givenOnlyThisEventCanHappenInSector(
-            event: PlanetSectorEvent::FIGHT_8,
+            event: PlanetSectorEvent::FIGHT_CHABCHAB,
             sector: PlanetSectorEnum::INTELLIGENT,
         );
 
@@ -771,7 +771,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::INTELLIGENT,
             events: [
-                PlanetSectorEvent::FIGHT_8 => PHP_INT_MAX - 1,
+                PlanetSectorEvent::FIGHT_ALIEN => PHP_INT_MAX - 1,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ]
         );
@@ -804,7 +804,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // given only fight event can happen in intelligent sector of strength 8
         $this->givenOnlyThisEventCanHappenInSector(
-            event: PlanetSectorEvent::FIGHT_8,
+            event: PlanetSectorEvent::FIGHT_CHABCHAB,
             sector: PlanetSectorEnum::INTELLIGENT,
         );
 
@@ -832,7 +832,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // given only fight event can happen in intelligent sector of strength 8
         $this->givenOnlyThisEventCanHappenInSector(
-            event: PlanetSectorEvent::FIGHT_8,
+            event: PlanetSectorEvent::FIGHT_CHABCHAB,
             sector: PlanetSectorEnum::INTELLIGENT,
         );
 
@@ -926,7 +926,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::INSECT,
             events: [
-                PlanetSectorEvent::FIGHT_15 => PHP_INT_MAX - 2,
+                PlanetSectorEvent::FIGHT_ZOMBIES => PHP_INT_MAX - 2,
                 PlanetSectorEvent::PROVISION_1 => 1,
                 PlanetSectorEvent::ACCIDENT_3_5 => 1,
             ]
@@ -965,7 +965,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             sectorName: PlanetSectorEnum::RUINS,
             events: [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 1,
-                PlanetSectorEvent::FIGHT_15 => PHP_INT_MAX - 1,
+                PlanetSectorEvent::FIGHT_ZOMBIES => PHP_INT_MAX - 1,
             ]
         );
 
@@ -1925,7 +1925,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
 
         $this->givenOnlyThisEventCanHappenInSector(
-            event: PlanetSectorEvent::FIGHT_12,
+            event: PlanetSectorEvent::FIGHT_ALIEN,
             sector: PlanetSectorEnum::INTELLIGENT,
         );
 

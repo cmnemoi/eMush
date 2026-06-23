@@ -23,12 +23,13 @@ class GameFruitEnum
     public const FILANDRA = 'filandra';
     public const JUMPKIN = 'jumpkin';
 
-    /**
-     * @return string[]
-     */
-    public static function getAll(): array
+    // generic items : DO NOT GIVE CONFIG
+    public const string FRUIT_GENERIC = 'fruit_generic';
+    public const string ALIEN_FRUIT_GENERIC = 'alien_fruit_generic';
+
+    public static function getAll(): ArrayCollection
     {
-        return [
+        return new ArrayCollection([
             self::BANANA,
             self::CREEPNUT,
             self::MEZTINE,
@@ -43,7 +44,7 @@ class GameFruitEnum
             self::CALEBOOT,
             self::FILANDRA,
             self::JUMPKIN,
-        ];
+        ]);
     }
 
     public static function getGamePlant(string $fruitName): string

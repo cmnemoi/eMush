@@ -18,6 +18,7 @@ final readonly class PlanetSectorEventConfigDto
         public string $eventName,
         public array $outputQuantity = [],
         public array $outputTable = [],
-        public string $tag = PlanetSectorEventTagEnum::NEUTRAL,
+        public array $tags = [PlanetSectorEventTagEnum::NEUTRAL],
+        public int $fightStrength = 0,
     ) {}
 }

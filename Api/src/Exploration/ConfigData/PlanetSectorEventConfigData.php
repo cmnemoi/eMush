@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\ConfigData;
 
+use Mush\Equipment\Enum\GameFruitEnum;
+use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEventTagEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 
@@ -24,7 +27,7 @@ final class PlanetSectorEventConfigData
                     4 => 1,
                     5 => 1,
                 ],
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::DISASTER_3_5,
@@ -34,110 +37,99 @@ final class PlanetSectorEventConfigData
                     4 => 1,
                     5 => 1,
                 ],
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::NOTHING_TO_REPORT,
                 eventName: PlanetSectorEvent::NOTHING_TO_REPORT,
-                tag: PlanetSectorEventTagEnum::NEUTRAL,
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::NOTHING_TO_REPORT_NEGATIVE,
                 eventName: PlanetSectorEvent::NOTHING_TO_REPORT,
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::TIRED_2,
                 eventName: PlanetSectorEvent::TIRED,
                 outputTable: [2 => 1],
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::OXYGEN_8,
                 eventName: PlanetSectorEvent::OXYGEN,
                 outputTable: [8 => 1],
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::OXYGEN_16,
                 eventName: PlanetSectorEvent::OXYGEN,
                 outputTable: [16 => 1],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::OXYGEN_24,
                 eventName: PlanetSectorEvent::OXYGEN,
                 outputTable: [24 => 1],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::FUEL_1,
                 eventName: PlanetSectorEvent::FUEL,
                 outputTable: [1 => 1],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::FUEL_2,
                 eventName: PlanetSectorEvent::FUEL,
                 outputTable: [2 => 1],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::FUEL_3,
                 eventName: PlanetSectorEvent::FUEL,
                 outputTable: [3 => 1],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::FUEL_3_NEGATIVE,
                 eventName: PlanetSectorEvent::FUEL,
                 outputTable: [3 => 1],
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::FUEL_4,
                 eventName: PlanetSectorEvent::FUEL,
                 outputTable: [4 => 1],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::FUEL_5,
                 eventName: PlanetSectorEvent::FUEL,
                 outputTable: [5 => 1],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::FUEL_6,
                 eventName: PlanetSectorEvent::FUEL,
                 outputTable: [6 => 1],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::ARTEFACT,
                 eventName: PlanetSectorEvent::ARTEFACT,
                 outputQuantity: [1 => 1],
-                outputTable: [
-                    'alien_bottle_opener' => 1,
-                    'alien_holographic_tv' => 1,
-                    'invertebrate_shell' => 1,
-                    'jar_of_alien_oil' => 1,
-                    'magellan_liquid_map' => 1,
-                    'printed_circuit_jelly' => 1,
-                    'rolling_boulder' => 1,
-                    'starmap_fragment' => 1,
-                    'water_stick' => 1,
-                ],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                outputTable: [ItemEnum::ARTEFACT_GENERIC => 1],
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::KILL_RANDOM,
                 eventName: PlanetSectorEvent::KILL_RANDOM,
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::KILL_ALL,
                 eventName: PlanetSectorEvent::KILL_ALL,
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::PROVISION_1,
@@ -146,7 +138,7 @@ final class PlanetSectorEventConfigData
                 outputTable: [
                     'alien_steak' => 1,
                 ],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::PROVISION_2,
@@ -155,7 +147,7 @@ final class PlanetSectorEventConfigData
                 outputTable: [
                     'alien_steak' => 1,
                 ],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::PROVISION_3,
@@ -164,7 +156,7 @@ final class PlanetSectorEventConfigData
                 outputTable: [
                     'alien_steak' => 1,
                 ],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::PROVISION_4,
@@ -173,128 +165,97 @@ final class PlanetSectorEventConfigData
                 outputTable: [
                     'alien_steak' => 1,
                 ],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
-                name: PlanetSectorEvent::FIGHT_8,
+                name: PlanetSectorEvent::FIGHT_CHABCHAB,
                 eventName: PlanetSectorEvent::FIGHT,
-                outputQuantity: [5 => 1], // disease chance
-                outputTable: [8 => 1], // creature strength
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                outputQuantity: [3 => 1, 4 => 1, 5 => 1], // loot amount
+                outputTable: [GameRationEnum::ALIEN_STEAK => 1], // loot
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
+                fightStrength: 8
             ),
             new PlanetSectorEventConfigDto(
-                name: PlanetSectorEvent::FIGHT_10,
+                name: PlanetSectorEvent::FIGHT_INSECT,
                 eventName: PlanetSectorEvent::FIGHT,
-                outputQuantity: [5 => 1],
-                outputTable: [10 => 1],
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                outputQuantity: [1 => 1], // loot amount
+                outputTable: [GameFruitEnum::ALIEN_FRUIT_GENERIC => 1], // loot
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
+                fightStrength: 10
             ),
             new PlanetSectorEventConfigDto(
-                name: PlanetSectorEvent::FIGHT_12,
+                name: PlanetSectorEvent::FIGHT_PREDATOR,
                 eventName: PlanetSectorEvent::FIGHT,
-                outputQuantity: [5 => 1],
-                outputTable: [12 => 1],
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                outputQuantity: [1 => 1], // loot amount
+                outputTable: [GameRationEnum::ALIEN_STEAK => 1], // loot
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
+                fightStrength: 12
             ),
             new PlanetSectorEventConfigDto(
-                name: PlanetSectorEvent::FIGHT_15,
+                name: PlanetSectorEvent::FIGHT_ALIEN,
                 eventName: PlanetSectorEvent::FIGHT,
-                outputQuantity: [5 => 1],
-                outputTable: [15 => 1],
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                outputQuantity: [1 => 1], // loot amount
+                outputTable: [ItemEnum::ARTEFACT_GENERIC => 4, ItemEnum::BLASTER => 1], // loot
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
+                fightStrength: 12
             ),
             new PlanetSectorEventConfigDto(
-                name: PlanetSectorEvent::FIGHT_18,
+                name: PlanetSectorEvent::FIGHT_ZOMBIES,
                 eventName: PlanetSectorEvent::FIGHT,
-                outputQuantity: [5 => 1],
-                outputTable: [18 => 1],
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                outputQuantity: [1 => 2, 2 => 1], // loot amount
+                outputTable: [ItemEnum::ARTEFACT_GENERIC => 1], // loot
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
+                fightStrength: 15
             ),
             new PlanetSectorEventConfigDto(
-                name: PlanetSectorEvent::FIGHT_32,
+                name: PlanetSectorEvent::FIGHT_MINDBLENDER,
                 eventName: PlanetSectorEvent::FIGHT,
-                outputQuantity: [5 => 1],
-                outputTable: [32 => 1],
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                outputQuantity: [1 => 1], // loot amount
+                outputTable: [ItemEnum::STARMAP_FRAGMENT => 1], // loot
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
+                fightStrength: 18
             ),
             new PlanetSectorEventConfigDto(
-                name: PlanetSectorEvent::FIGHT_8_10_12_15_18_32,
+                name: PlanetSectorEvent::FIGHT_MANKAROG,
                 eventName: PlanetSectorEvent::FIGHT,
-                outputQuantity: [5 => 1],
-                outputTable: [
-                    8 => 1,
-                    10 => 1,
-                    12 => 1,
-                    15 => 1,
-                    18 => 1,
-                    32 => 1,
-                ],
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                outputQuantity: [3 => 1], // loot amount
+                outputTable: [ItemEnum::ARTEFACT_GENERIC => 1], // loot
+                tags: [PlanetSectorEventTagEnum::NEGATIVE, PlanetSectorEventTagEnum::REWARD_STARMAP_33], // Since we can't associate an amount to a specific reward, we use a special tag to do the 33% to get a starmap shard
+                fightStrength: 32
+            ),
+            new PlanetSectorEventConfigDto(
+                name: PlanetSectorEvent::FIGHT_WRECK,
+                eventName: PlanetSectorEvent::FIGHT,
+                outputQuantity: [1 => 1],
+                outputTable: [ItemEnum::BLASTER => 1], // loot
+                tags: [PlanetSectorEventTagEnum::NEGATIVE, PlanetSectorEventTagEnum::RANDOM_FIGHT],
+                fightStrength: 0 // random
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::HARVEST_1,
                 eventName: PlanetSectorEvent::HARVEST,
                 outputQuantity: [1 => 1],
-                outputTable: [
-                    'creepnut' => 1,
-                    'meztine' => 1,
-                    'guntiflop' => 1,
-                    'ploshmina' => 1,
-                    'precati' => 1,
-                    'bottine' => 1,
-                    'fragilane' => 1,
-                    'anemole' => 1,
-                    'peniraft' => 1,
-                    'kubinus' => 1,
-                    'caleboot' => 1,
-                    'filandra' => 1,
-                ],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                outputTable: [GameFruitEnum::ALIEN_FRUIT_GENERIC => 1],
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::HARVEST_2,
                 eventName: PlanetSectorEvent::HARVEST,
                 outputQuantity: [2 => 1],
-                outputTable: [
-                    'creepnut' => 1,
-                    'meztine' => 1,
-                    'guntiflop' => 1,
-                    'ploshmina' => 1,
-                    'precati' => 1,
-                    'bottine' => 1,
-                    'fragilane' => 1,
-                    'anemole' => 1,
-                    'peniraft' => 1,
-                    'kubinus' => 1,
-                    'caleboot' => 1,
-                    'filandra' => 1,
-                ],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                outputTable: [GameFruitEnum::ALIEN_FRUIT_GENERIC => 1],
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::HARVEST_3,
                 eventName: PlanetSectorEvent::HARVEST,
                 outputQuantity: [3 => 1],
-                outputTable: [
-                    'creepnut' => 1,
-                    'meztine' => 1,
-                    'guntiflop' => 1,
-                    'ploshmina' => 1,
-                    'precati' => 1,
-                    'bottine' => 1,
-                    'fragilane' => 1,
-                    'anemole' => 1,
-                    'peniraft' => 1,
-                    'kubinus' => 1,
-                    'caleboot' => 1,
-                    'filandra' => 1,
-                ],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                outputTable: [GameFruitEnum::ALIEN_FRUIT_GENERIC => 1],
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::DISEASE,
                 eventName: PlanetSectorEvent::DISEASE,
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::STARMAP,
@@ -303,43 +264,41 @@ final class PlanetSectorEventConfigData
                 outputTable: [
                     'starmap_fragment' => 1,
                 ],
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::MUSH_TRAP,
                 eventName: PlanetSectorEvent::MUSH_TRAP,
                 outputQuantity: [50 => 1], // odds (percentage)
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::AGAIN,
                 eventName: PlanetSectorEvent::AGAIN,
-                tag: PlanetSectorEventTagEnum::NEUTRAL,
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::ITEM_LOST,
                 eventName: PlanetSectorEvent::ITEM_LOST,
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::BACK,
                 eventName: PlanetSectorEvent::BACK,
-                tag: PlanetSectorEventTagEnum::NEUTRAL,
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::PLAYER_LOST,
                 eventName: PlanetSectorEvent::PLAYER_LOST,
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::FIND_LOST,
                 eventName: PlanetSectorEvent::FIND_LOST,
-                tag: PlanetSectorEventTagEnum::POSITIVE,
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::KILL_LOST,
                 eventName: PlanetSectorEvent::KILL_LOST,
-                tag: PlanetSectorEventTagEnum::NEGATIVE,
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
         ];
     }

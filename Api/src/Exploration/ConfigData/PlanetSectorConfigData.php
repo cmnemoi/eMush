@@ -118,7 +118,7 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::PROVISION_4 => 4,
                 PlanetSectorEvent::PROVISION_2 => 3,
                 PlanetSectorEvent::ACCIDENT_3_5 => 2,
-                PlanetSectorEvent::FIGHT_8 => 1,
+                PlanetSectorEvent::FIGHT_CHABCHAB => 1,
             ],
         ],
         [
@@ -129,7 +129,7 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 6,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                PlanetSectorEvent::FIGHT_12 => 4,
+                PlanetSectorEvent::FIGHT_PREDATOR => 4,
                 PlanetSectorEvent::ACCIDENT_3_5 => 3,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 2,
                 PlanetSectorEvent::PROVISION_3 => 1,
@@ -143,7 +143,7 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                PlanetSectorEvent::FIGHT_12 => 4,
+                PlanetSectorEvent::FIGHT_ALIEN => 4,
                 PlanetSectorEvent::PROVISION_2 => 3,
                 PlanetSectorEvent::ARTEFACT => 2,
                 PlanetSectorEvent::ITEM_LOST => 1,
@@ -160,7 +160,7 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::ACCIDENT_3_5 => 4,
                 PlanetSectorEvent::DISEASE => 3,
                 PlanetSectorEvent::PROVISION_1 => 2,
-                PlanetSectorEvent::FIGHT_10 => 1,
+                PlanetSectorEvent::FIGHT_INSECT => 1,
             ],
         ],
         [
@@ -172,7 +172,7 @@ final class PlanetSectorConfigData
             'maxPerPlanet' => 1,
             'explorationEvents' => [
                 PlanetSectorEvent::KILL_RANDOM => 4,
-                PlanetSectorEvent::FIGHT_32 => 3,
+                PlanetSectorEvent::FIGHT_MANKAROG => 3,
                 PlanetSectorEvent::BACK => 2,
                 PlanetSectorEvent::ARTEFACT => 1,
             ],
@@ -283,7 +283,7 @@ final class PlanetSectorConfigData
             'explorationEvents' => [
                 PlanetSectorEvent::ARTEFACT => 4,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 3,
-                PlanetSectorEvent::FIGHT_15 => 2,
+                PlanetSectorEvent::FIGHT_ZOMBIES => 2,
                 PlanetSectorEvent::ACCIDENT_3_5 => 1,
             ],
         ],
@@ -298,7 +298,7 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::ARTEFACT => 4,
                 PlanetSectorEvent::FUEL_3 => 3,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 2,
-                PlanetSectorEvent::FIGHT_8_10_12_15_18_32 => 1,
+                PlanetSectorEvent::FIGHT_WRECK => 1,
             ],
         ],
         [
@@ -337,7 +337,7 @@ final class PlanetSectorConfigData
             'explorationEvents' => [
                 PlanetSectorEvent::MUSH_TRAP => 4,
                 PlanetSectorEvent::STARMAP => 3,
-                PlanetSectorEvent::FIGHT_18 => 2,
+                PlanetSectorEvent::FIGHT_MINDBLENDER => 2,
                 PlanetSectorEvent::PLAYER_LOST => 1,
             ],
         ],

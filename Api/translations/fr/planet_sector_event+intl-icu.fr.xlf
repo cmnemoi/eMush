@@ -401,39 +401,135 @@
       </segment>
       <segment id="description" state="translated">
         <source>fight.description</source>
-        <target>Vous affrontez une créature.////Force Créature : {creature_strength}////Force Équipe : {expedition_strength}////{damage, select, 0 {Créature décède.} other {L'équipe subit {damage} points de dégâts.}}</target>
+        <target>Vous affrontez une créature. ////Force Créature : {creature_strength}//Force Équipe : {expedition_strength}{result, select, victory{//Vous récupérez {reward_amount} {reward}.} other{}}//L'équipe subit {damage} points de dégâts.//{bonus_loot_thanks_to_skill}{bonus_loot_thanks_to_items}</target>
       </segment>
       <segment id="intelligent_description" state="translated">
         <source>fight.intelligent_description</source>
-        <target>Un être étrange s'approche de vous et lance de grands cris aigus qui vous cassent les oreilles. Il va falloir le faire taire.</target>
+        <target>Un être étrange s'approche de vous et lance de grands cris aigus qui vous cassent les oreilles. Il va falloir le faire taire.////{fight}</target>
+      </segment>
+      <segment id="intelligent_low" state="translated">
+      <source>fight.intelligent_low</source>
+        <target>Les tirs de blasters fusent de toutes parts, et il devient vite évident que vous êtes en mauvaise posture. Vous vous repliez en désordre en tentant de fuir, traînant vos blessés sous une pluie de rayons colorés.</target>
+      </segment>
+      <segment id="intelligent_mid" state="translated">
+      <source>fight.intelligent_mid</source>
+        <target>L'affrontement tourne rapidement en une escarmouche brutale et confuse. Vous tenez bon de justesse, assez pour forcer la silhouette à rompre le contact, mais vous en ressortez sérieusement amochés. {result, select, victory {Dans la bataille, elle a laissé tomber un objet étrange que vous arrivez à récupérer.} other{}}</target>
+      </segment>
+      <segment id="intelligent_high" state="translated">
+      <source>fight.intelligent_high</source>
+        <target>Pris de vitesse, l'être n'a même pas le temps de comprendre ce qui lui arrive. Quand son corps s'affaisse enfin dans la poussière, vous découvrez sur lui un artefact qui pourrait vous être bien utile.</target>
       </segment>
       <segment id="ruminant_description" state="translated">
         <source>fight.ruminant_description</source>
-        <target>Alors que vous tentiez d'approcher discrètement d'un Chab Chab, vous êtes rapidement encerclés par ses congénères… Il va falloir lutter pour votre survie !</target>
+        <target>Alors que vous tentiez d'approcher discrètement d'un Chab Chab, vous êtes rapidement encerclés par ses congénères… Il va falloir lutter pour votre survie !////{fight}</target>
+      </segment>
+      <segment id="ruminant_low" state="translated">
+      <source>fight.ruminant_low</source>
+        <target>Qui aurait pu deviner que ces ruminants puissent être aussi redoutables ? Avec quelques traces de sabots en plus, et quelques dents en moins, vous déguerpissez dès que possible.</target>
+      </segment>
+      <segment id="ruminant_mid" state="translated">
+      <source>fight.ruminant_mid</source>
+        <target>La bataille a été plus acharnée que prévu… Après une mêlée confuse, vous parvenez finalement à les disperser. {result, select, victory {Seul un Chab Chab malingre y est resté. Piétiné par ses congénères ou tombé sous vos coup ? Peu importe, de la viande reste de la viande.} other{}}</target>
+      </segment>
+      <segment id="ruminant_high" state="translated">
+      <source>fight.ruminant_high</source>
+        <target>Après avoir aisément abattu l'un des plus gros spécimens, le reste du troupeau n'a pas attendu pour s'enfuir dans une cacophonie de sabots et de meuglements. Ce seront les cuistots qui seront contents !</target>
       </segment>
       <segment id="predator_description" state="translated">
         <source>fight.predator_description</source>
-        <target>Vous vous sentez épiés. Un Écorcheur hostile et affamé vous guette... Votre équipe commence à fuir mais la créature se jette sur vous !</target>
+        <target>Vous vous sentez épiés. Un Écorcheur hostile et affamé vous guette... Votre équipe commence à fuir mais la créature se jette sur vous !////{fight}</target>
+      </segment>
+      <segment id="predator_low" state="translated">
+      <source>fight.predator_low</source>
+        <target>Crocs, griffes, et une vitesse terrifiante : ce prédateur traverse vos rangs comme une lame chaude dans du beurre. Vous parvenez à le repousser à grand renfort de coups désespérés, et il finit par s'éloigner dans la nuit, à peine essoufflé.</target>
+      </segment>
+      <segment id="predator_mid" state="translated">
+      <source>fight.predator_mid</source>
+        <target>La mêlée est sauvage et brève : ensanglantée et blessée, la bête finit par renoncer et s'éclipse en boitant dans les fourrés. Votre groupe est tout autant marqué par l'expérience. {result, select, victory {Dans sa fuite, la créature a abandonné les restes encore frais d'une précédente proie.} other{}}</target>
+      </segment>
+      <segment id="predator_high" state="translated">
+      <source>fight.predator_high</source>
+        <target>La créature bondit... et retombe net, fauchée en plein vol par la puissance de vos attaques. Plus de peur que de mal, rien qui n'inquiéterait l'équipage du Daedalus ! Ses cuissots feront un morceau de choix pour célébrer cette victoire comme il se doit.</target>
       </segment>
       <segment id="insect_description" state="translated">
         <source>fight.insect_description</source>
-        <target>Alors que vous marchez au pied d'une crevasse vous observez avec horreur un Carapanse en émerger... Il va falloir vous défendre !</target>
+        <target>Alors que vous marchez au pied d'une crevasse vous observez avec horreur un Carapanse en émerger... Il va falloir vous défendre !////{fight}</target>
+      </segment>
+      <segment id="insect_low" state="translated">
+      <source>fight.insect_low</source>
+        <target>La créature s'avère bien plus rapide que sa taille ne le laisse croire. Mandibules claquantes et carapace impossible à percer, vous battez en retraite dès qu'il est clair que vous n'avez aucune chance de l'emporter.</target>
+      </segment>
+      <segment id="insect_mid" state="translated">
+      <source>fight.insect_mid</source>
+        <target>Le combat tourne vite à l'empoignade confuse. Vous parvenez tout juste à faire reculer la bestiole, non sans y laisser quelques lambeaux de combinaison et de profondes entailles. {result, select, victory {Dans la cohue, vous remarquez un fruit alien dépassant de la crevasse.} other{}}</target>
+      </segment>
+      <segment id="insect_high" state="translated">
+      <source>fight.insect_high</source>
+        <target>Quelques coups bien placés dans les jointures de la carapace vous permettent d'aisément éliminer cette forme de vie. En inspectant la crevasse, vous trouvez un nid rudimentaire, et un fruit ! Plus qu'à espérer qu'il ne soit pas rempli d'oeufs...</target>
       </segment>
       <segment id="mankarog_description" state="translated">
         <source>fight.mankarog_description</source>
-        <target>Une ombre gigantesque se dresse tout à coup au-dessus de l'expédition... Et ce n'est pas un nuage...</target>
+        <target>Une ombre gigantesque se dresse tout à coup au-dessus de l'expédition... Et ce n'est pas un nuage...////{fight}</target>
+      </segment>
+      <segment id="mankarog_low" state="translated">
+      <source>fight.mankarog_low</source>
+        <target>Dès les premiers échanges, il devient évident que ce combat ressemble davantage à une catastrophe naturelle. Chacune de vos attaques paraît dérisoire face à cette masse vivante, et chaque mouvement du Mankarog balaie l'expédition comme un fétu de paille. Quand vous parvenez enfin à vous arracher à ce massacre, vous êtes brisés, hébétés, et de toute évidence, vaincus.</target>
+      </segment>
+      <segment id="mankarog_mid" state="translated">
+      <source>fight.mankarog_mid</source>
+        <target>À force d'acharnement, vous parvenez enfin à faire reculer ce titan de quelques pas. C'est à peine suffisant pour vous enfuir : le sol tremble encore, les gravats pleuvent, et l'expédition ressort de l'affrontement en piteux état. Quand le Mankarog se détourne enfin, vous comprenez surtout que vous venez de survivre à l'impossible. {result, select, victory {Dans le chaos qu'il laisse derrière lui, quelque chose d'intéressant attire votre regard.} other{}}</target>
+      </segment>
+      <segment id="mankarog_high" state="translated">
+      <source>fight.mankarog_high</source>
+        <target>Un frisson parcourt l'Univers tout entier alors que vous accomplissez l'impossible. Dans un fracas de montagne qui s'effondre, le Mankarog s'abat sur le sol de toute sa masse, inerte. Les artefacts que vous récupérez dans sa tanière ne sont rien comparés aux légendes qui raconteront cette aventure.</target>
       </segment>
       <segment id="ruins_description" state="translated">
         <source>fight.ruins_description</source>
-        <target>Alors que vous fouillez la cité en ruine, vous ne prenez pas garde à la horde de Zombies aliens qui entoure votre position... C'est une attaque surprise !</target>
+        <target>Alors que vous fouillez la cité en ruine, vous ne prenez pas garde à la horde de Zombies aliens qui entoure votre position... C'est une attaque surprise !////{fight}</target>
+      </segment>
+      <segment id="ruins_low" state="translated">
+      <source>fight.ruins_low</source>
+        <target>Les macabés vous tombent dessus de toutes parts dans un déferlement de hurlements et de membres décharnés. Très vite, vous vous essoufflez et le combat tourne au carnage. Quand vous parvenez enfin à vous extraire des ruines, vous ne pouvez qu'observer vos blessures avec inquiétude.</target>
+      </segment>
+      <segment id="ruins_mid" state="translated">
+      <source>fight.ruins_mid</source>
+        <target>Les silhouettes titubantes avancent sans relâche, et pour chaque cadavre que vous renvoyez au sol, deux autres semblent déjà se redresser. Votre groupe finit par se replier, exsangue et couvert d'un ichor noirâtre, tandis que la horde continue d'errer dans les ruines. {result, select, victory {Au cours du repli, quelque chose au sol attire votre regard...} other{}}</target>
+      </segment>
+      <segment id="ruins_high" state="translated">
+      <source>fight.ruins_high</source>
+        <target>Armement adéquat, formation serrée, position défendable : bientôt, les derniers corps retombent entre les gravats de la cité en ruine. En fouillant les décombres et les bâtisses éventrées, vous finissez par mettre la main sur de quoi rentabiliser l'expédition.</target>
       </segment>
       <segment id="wreck_description" state="translated">
         <source>fight.wreck_description</source>
-        <target>Apparemment le conducteur de l'appareil est toujours en vie ! Et manifestement, il n'a pas l'air de vous considérer comme son sauveur...</target>
+        <target>Apparemment le conducteur de l'appareil est toujours en vie ! Et manifestement, il n'a pas l'air de vous considérer comme son sauveur...////{fight}</target>
+      </segment>
+      <segment id="wreck_low" state="translated">
+      <source>fight.wreck_low</source>
+        <target>À peine avez-vous compris que l'épave n'était pas vide que quelque chose vous tombe dessus. L'attaque est brutale, précise, et vous force à battre en retraite dans la confusion. Vous quittez les lieux avec plus de blessures et de questions que de réponses.</target>
+      </segment>
+      <segment id="wreck_mid" state="translated">
+      <source>fight.wreck_mid</source>
+        <target>Le duel s'éternise dans les coursives éventrées de l'appareil. À force de coups échangés, vous parvenez finalement à repousser le pilote hors de votre portée, sans pour autant réussir à l'abattre. {result, select, victory {Durant l'échange, vous tombez sur un arsenal ravagé par le crash.} other{}}</target>
+      </segment>
+      <segment id="wreck_high" state="translated">
+      <source>fight.wreck_high</source>
+        <target>Quelques instants suffisent pour renverser la situation. Quand l'entité s'effondre enfin entre les tôles tordues de l'épave, le silence qui suit suffit à vous confirmer votre victoire. À ses côtés repose le blaster alien qui faisait feu sur vous il y a quelques instants.</target>
       </segment>
       <segment id="cristal_field_description" state="translated">
         <source>fight.cristal_field_description</source>
-        <target>Les champs sont déserts... Un hululement sinistre vous assourdit... Un Torceur ! Nul mot pour décrire cette créature venue d'un monde sans lumière ni chaleur. Aux armes !</target>
+        <target>Les champs sont déserts... Un hululement sinistre vous assourdit... Un Torceur ! Nul mot pour décrire cette créature venue d'un monde sans lumière ni chaleur. Aux armes !////{fight}</target>
+      </segment>
+      <segment id="cristal_field_low" state="translated">
+      <source>fight.cristal_field_low</source>
+        <target>La créature se glisse dans vos esprits avant même que vous puissiez saisir votre équipement. Vos hurlements couvrent tout le reste : certains frappent dans le vide, d'autres s'effondrent à genoux, incapables de distinguer le sol du ciel. Quand vous quittez enfin les lieux, c'est au prix d'avoir laissé une part de vous-même au milieu des cristalites.</target>
+      </segment>
+      <segment id="cristal_field_mid" state="translated">
+      <source>fight.cristal_field_mid</source>
+        <target>Les champs de cristaux se mettent à vibrer et à résonner, les couleurs se brisent, et vos propres gestes vous semblent soudain dictés par une force extérieure. Alors que vous supposez le pire, vous arrivez à tenir bon assez longtemps pour contraindre la présence à se replier, sans jamais savoir si vous l'avez blessée ou seulement contrariée. {result, select, victory {Là où elle flottait un instant plus tôt, un éclat cristallin particulier demeure suspendu entre les cristaux.} other{}}</target>
+      </segment>
+      <segment id="cristal_field_high" state="translated">
+      <source>fight.cristal_field_high</source>
+        <target>Face à l'esprit indomptable de l'Humanité, l'horreur vacille. À force de volonté et de violence, vous parvenez à faire plier l'abomination, qui se déchire dans un hurlement impossible avant de se dissoudre entre les cristalites. Quand les vibrations cessent enfin, les cristaux s'écartent autour d'un morceau de carte stellaire, comme s'il vous attendait depuis toujours.</target>
       </segment>
     </unit>
     <unit id="provision">

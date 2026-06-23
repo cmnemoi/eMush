@@ -173,7 +173,7 @@ final class ExplorationEventCest extends AbstractExplorationTester
 
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::MANKAROG,
-            events: [PlanetSectorEvent::FIGHT_32 => 1],
+            events: [PlanetSectorEvent::FIGHT_MANKAROG => 1],
         );
 
         $this->equipmentService->createGameEquipmentFromName(
@@ -200,7 +200,7 @@ final class ExplorationEventCest extends AbstractExplorationTester
 
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::INSECT,
-            events: [PlanetSectorEvent::FIGHT_10 => 1],
+            events: [PlanetSectorEvent::FIGHT_INSECT => 1],
         );
 
         $this->equipmentService->createGameEquipmentFromName(

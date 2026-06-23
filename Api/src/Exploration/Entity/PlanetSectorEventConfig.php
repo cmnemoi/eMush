@@ -19,8 +19,11 @@ class PlanetSectorEventConfig extends AbstractEventConfig
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $outputTable = [];
 
-    #[ORM\Column(type: 'string', nullable: false, options: ['default' => PlanetSectorEventTagEnum::NEUTRAL])]
-    private string $tag = PlanetSectorEventTagEnum::NEUTRAL;
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $tags = [PlanetSectorEventTagEnum::NEUTRAL];
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $fightStrength = 0;
 
     public function getOutputQuantity(): ProbaCollection
     {
@@ -54,26 +57,31 @@ class PlanetSectorEventConfig extends AbstractEventConfig
         return $this;
     }
 
-    public function getTag(): string
+    public function getTags(): array
     {
-        return $this->tag;
+        return $this->tags;
     }
 
-    public function setTag(string $tag): self
+    public function setTags(array $tags): self
     {
-        $this->tag = $tag;
+        $this->tags = $tags;
 
         return $this;
     }
 
+    public function hasTag(string $tag): bool
+    {
+        return \in_array($tag, $this->tags, true);
+    }
+
     public function isPositive(): bool
     {
-        return $this->tag === PlanetSectorEventTagEnum::POSITIVE;
+        return $this->hasTag(PlanetSectorEventTagEnum::POSITIVE);
     }
 
     public function isNegative(): bool
     {
-        return $this->tag === PlanetSectorEventTagEnum::NEGATIVE;
+        return $this->hasTag(PlanetSectorEventTagEnum::NEGATIVE);
     }
 
     public static function fromDto(PlanetSectorEventConfigDto $dto): self
@@ -100,6 +108,18 @@ class PlanetSectorEventConfig extends AbstractEventConfig
 
             $this->{$setterMethod}($property->getValue($dto));
         }
+
+        return $this;
+    }
+
+    public function getFightStrength(): int
+    {
+        return $this->fightStrength;
+    }
+
+    public function setFightStrength(int $fightStrength): static
+    {
+        $this->fightStrength = $fightStrength;
 
         return $this;
     }

@@ -21,6 +21,7 @@ use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\DroneNicknameEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -440,6 +441,9 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
             ItemEnum::MAGEBOOK_STARTING => $this->randomService->getApprentonFromDaedalus($daedalus, 1),
             ItemEnum::BLUEPRINT_GENERIC => $this->findAllConfigNameByMechanicAndDaedalus(EquipmentMechanicEnum::BLUEPRINT, $daedalus),
             ItemEnum::BLUEPRINT_DAEDALUS => $this->randomService->getBlueprintFromDaedalus($daedalus, 1),
+            ItemEnum::ARTEFACT_GENERIC => ItemEnum::getArtefacts(),
+            GameFruitEnum::FRUIT_GENERIC => GameFruitEnum::getAll(),
+            GameFruitEnum::ALIEN_FRUIT_GENERIC => GameFruitEnum::getAlienFruits(),
             default => null
         };
 

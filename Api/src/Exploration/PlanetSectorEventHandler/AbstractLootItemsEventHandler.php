@@ -7,7 +7,11 @@ namespace Mush\Exploration\PlanetSectorEventHandler;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\GameFruitEnum;
+use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Exploration\Enum\PlanetSectorEventTagEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -38,11 +42,18 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
      */
     protected function createRandomItemsFromEvent(PlanetSectorEvent $event): ArrayCollection
     {
+        if ($event->getConfig()->hasTag(PlanetSectorEventTagEnum::REWARD_STARMAP_33) && $this->randomService->isSuccessful(33)) {
+            return $this->handleStarmapShard($event);
+        }
+
+        $itemToCreate = (string) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputTable());
+        $event->setReward($itemToCreate);
+
         $numberOfItemsToCreate = $this->getNumberOfItemsToCreate($event);
+
         $createdItems = new ArrayCollection();
 
         for ($i = 0; $i < $numberOfItemsToCreate; ++$i) {
-            $itemToCreate = (string) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputTable());
             $finder = $this->randomService->getRandomPlayer($event->getExploration()->getNotLostActiveExplorators());
 
             $tags = $event->getTags();
@@ -108,6 +119,22 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
         ) : '';
     }
 
+    private function handleStarmapShard(PlanetSectorEvent $event): ArrayCollection
+    {
+        $finder = $this->randomService->getRandomPlayer($event->getExploration()->getNotLostActiveExplorators());
+        $tags = $event->getTags();
+        $tags[] = LogEnum::FOUND_ITEM_IN_EXPLORATION;
+
+        return new ArrayCollection([$this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::STARMAP_FRAGMENT,
+            equipmentHolder: $event->getExploration()->getDaedalus()->getPlanetPlace(),
+            reasons: $tags,
+            time: $event->getTime(),
+            visibility: VisibilityEnum::PUBLIC,
+            author: $finder
+        )]);
+    }
+
     private function getNumberOfItemsToCreate(PlanetSectorEvent $event): int
     {
         $numberOfItemsToCreate = (int) $this->randomService->getSingleRandomElementFromProbaCollection($event->getOutputQuantity());
@@ -119,9 +146,9 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
     {
         $exploration = $event->getExploration();
 
-        return match ($event->getName()) {
-            PlanetSectorEvent::PROVISION => $exploration->getNumberOfActiveSurvivalists(),
-            PlanetSectorEvent::HARVEST => $exploration->getNumberOfActiveBotanists(),
+        return match ($event->getReward()) {
+            GameRationEnum::ALIEN_STEAK => $exploration->getNumberOfActiveSurvivalists(),
+            GameFruitEnum::ALIEN_FRUIT_GENERIC => $exploration->getNumberOfActiveBotanists(),
             default => 0,
         };
     }
@@ -130,17 +157,17 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
     {
         $exploration = $event->getExploration();
 
-        return match ($event->getName()) {
-            PlanetSectorEvent::PROVISION => $exploration->getNumberOfChefsKnives(),
+        return match ($event->getReward()) {
+            GameRationEnum::ALIEN_STEAK => $exploration->getNumberOfChefsKnives(),
             default => 0,
         };
     }
 
     private function getBonusSkillFromEvent(PlanetSectorEvent $event): SkillEnum
     {
-        return match ($event->getName()) {
-            PlanetSectorEvent::PROVISION => SkillEnum::SURVIVALIST,
-            PlanetSectorEvent::HARVEST => SkillEnum::BOTANIST,
+        return match ($event->getReward()) {
+            GameRationEnum::ALIEN_STEAK => SkillEnum::SURVIVALIST,
+            GameFruitEnum::ALIEN_FRUIT_GENERIC => SkillEnum::BOTANIST,
             default => SkillEnum::NULL,
         };
     }

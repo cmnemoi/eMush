@@ -25,13 +25,14 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
     public const string DISASTER_3_5 = 'disaster_3_5';
     public const string DISEASE = 'disease';
     public const string FIGHT = 'fight';
-    public const string FIGHT_8 = 'fight_8';
-    public const string FIGHT_10 = 'fight_10';
-    public const string FIGHT_12 = 'fight_12';
-    public const string FIGHT_15 = 'fight_15';
-    public const string FIGHT_18 = 'fight_18';
-    public const string FIGHT_32 = 'fight_32';
-    public const string FIGHT_8_10_12_15_18_32 = 'fight_8_10_12_15_18_32';
+    public const string FIGHT_CHABCHAB = 'fight_chabchab';
+    public const string FIGHT_INSECT = 'fight_insect';
+    public const string FIGHT_PREDATOR = 'fight_predator';
+    public const string FIGHT_ALIEN = 'fight_alien';
+    public const string FIGHT_ZOMBIES = 'fight_zombies';
+    public const string FIGHT_MINDBLENDER = 'fight_mindblender';
+    public const string FIGHT_MANKAROG = 'fight_mankarog';
+    public const string FIGHT_WRECK = 'fight_wreck';
     public const string FIGHT_WON = 'fight_won';
     public const string FIND_LOST = 'find_lost';
     public const string FUEL = 'fuel';
@@ -73,6 +74,7 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
     private string $visibility;
     private PlanetSector $planetSector;
     private PlanetSectorEventConfig $config;
+    private string $reward = '';
 
     public function __construct(
         PlanetSector $planetSector,
@@ -175,13 +177,14 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
             self::ACCIDENT_3_5,
             self::DISASTER_3_5,
             self::DISEASE,
-            self::FIGHT_8,
-            self::FIGHT_10,
-            self::FIGHT_12,
-            self::FIGHT_15,
-            self::FIGHT_18,
-            self::FIGHT_32,
-            self::FIGHT_8_10_12_15_18_32,
+            self::FIGHT_CHABCHAB,
+            self::FIGHT_INSECT,
+            self::FIGHT_PREDATOR,
+            self::FIGHT_ALIEN,
+            self::FIGHT_ZOMBIES,
+            self::FIGHT_MINDBLENDER,
+            self::FIGHT_MANKAROG,
+            self::FIGHT_WRECK,
             self::ITEM_LOST,
             self::KILL_ALL,
             self::KILL_LOST,
@@ -190,5 +193,17 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
             self::PLAYER_LOST,
             self::TIRED_2,
         ]))->contains($eventKey);
+    }
+
+    public function setReward(string $reward): static
+    {
+        $this->reward = $reward;
+
+        return $this;
+    }
+
+    public function getReward(): string
+    {
+        return $this->reward;
     }
 }

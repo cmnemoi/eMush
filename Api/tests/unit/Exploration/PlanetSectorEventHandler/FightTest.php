@@ -13,6 +13,7 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetName;
@@ -70,6 +71,9 @@ final class FightTest extends TestCase
     /** @var Mockery\Spy|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
+    /** @var GameEquipmentServiceInterface|Mockery\Spy */
+    private GameEquipmentServiceInterface $gameEquipmentService;
+
     /** @before */
     protected function setUp(): void
     {
@@ -80,6 +84,7 @@ final class FightTest extends TestCase
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->roomLogService = \Mockery::spy(RoomLogServiceInterface::class);
         $this->translationService = \Mockery::spy(TranslationServiceInterface::class);
+        $this->gameEquipmentService = \Mockery::spy(GameEquipmentServiceInterface::class);
 
         $this->fightEventHandler = new Fight(
             $this->entityManager,
@@ -89,6 +94,7 @@ final class FightTest extends TestCase
             $this->deleteEquipmentService,
             $this->diseaseCauseService,
             $this->roomLogService,
+            $this->gameEquipmentService
         );
     }
 
@@ -109,12 +115,6 @@ final class FightTest extends TestCase
 
         // Given universe is in a state in which everything works properly
         $this->setupRandomService();
-
-        // Given universe is in a state in which the explorator gets a disease
-        $this->randomService->shouldReceive('isSuccessful')
-            ->once()
-            ->with(self::DISEASE_CHANCE)
-            ->andReturn(true);
 
         // Then the disease cause service should be called to create a disease for the explorator
         $disease = self::createStub(PlayerDisease::class);
@@ -167,7 +167,9 @@ final class FightTest extends TestCase
     private function getExplorator(): Player
     {
         $daedalus = new Daedalus();
-        new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
+        $localisationConfig = new LocalizationConfig();
+        $localisationConfig->setLanguage('test');
+        new DaedalusInfo($daedalus, new GameConfig(), $localisationConfig);
 
         $player = self::createStub(Player::class);
         $player->method('getDaedalus')->willReturn($daedalus);
@@ -185,9 +187,9 @@ final class FightTest extends TestCase
     private function getFightPlanetSectorEvent(PlanetSector $planetSector): PlanetSectorEvent
     {
         $planetSectorEventConfig = new PlanetSectorEventConfig();
-        $planetSectorEventConfig->setName(PlanetSectorEvent::FIGHT . '_12');
+        $planetSectorEventConfig->setName(PlanetSectorEvent::FIGHT_ALIEN);
         $planetSectorEventConfig->setEventName(PlanetSectorEvent::FIGHT);
-        $planetSectorEventConfig->setOutputQuantity([self::DISEASE_CHANCE => 1]);
+        $planetSectorEventConfig->setFightStrength(12);
         $planetSectorEventConfig->setOutputTable([12 => 1]);
 
         return new PlanetSectorEvent($planetSector, $planetSectorEventConfig);
@@ -195,16 +197,17 @@ final class FightTest extends TestCase
 
     private function setupRandomService(): void
     {
-        $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->once()
-            ->andReturn(12);
-
-        $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')
-            ->once()
-            ->andReturn(self::DISEASE_CHANCE);
-
         $this->randomService->shouldReceive('getRandomPlayer')
             ->times(11) // one call per damage point
             ->andReturn($this->getExplorator());
+
+        $this->randomService->shouldReceive('isSuccessful')
+            ->once()
+            ->with(self::DISEASE_CHANCE)
+            ->andReturn(true);
+
+        $this->randomService->shouldReceive('isSuccessful')
+            ->once()
+            ->andReturn(false);
     }
 }

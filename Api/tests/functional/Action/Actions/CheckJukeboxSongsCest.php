@@ -69,7 +69,7 @@ final class CheckJukeboxSongsCest extends AbstractFunctionalTest
         ]);
 
         // first two lists of song should be identical, last one should be different.
-        $I->assertEqualsCanonicalizing($list1->getParameters(), $list2->getParameters());
+        $I->assertEquals($list1->getParameters(), $list2->getParameters());
         $I->assertNotEquals($list1->getParameters(), $list3->getParameters());
     }
 

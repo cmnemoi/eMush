@@ -335,9 +335,9 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 10,
             'maxPerPlanet' => 1,
             'explorationEvents' => [
-                PlanetSectorEvent::MUSH_TRAP => 4,
+                PlanetSectorEvent::MUSH_TRAP => 3,
                 PlanetSectorEvent::STARMAP => 3,
-                PlanetSectorEvent::FIGHT_MINDBLENDER => 2,
+                PlanetSectorEvent::FIGHT_MINDBLENDER => 3,
                 PlanetSectorEvent::PLAYER_LOST => 1,
             ],
         ],

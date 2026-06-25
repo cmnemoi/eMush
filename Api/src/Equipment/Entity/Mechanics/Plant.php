@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -48,12 +49,31 @@ class Plant extends EquipmentMechanic
         $this->oxygen = [];
     }
 
+    #[Groups(['plant_read'])]
+    public function getId(): int
+    {
+        return parent::getId();
+    }
+
+    #[Groups(['plant_read', 'plant_write'])]
+    public function getName(): string
+    {
+        return parent::getName();
+    }
+
+    #[Groups(['plant_read', 'plant_write'])]
     public function getMechanics(): array
     {
         $mechanics = parent::getMechanics();
         $mechanics[] = EquipmentMechanicEnum::PLANT;
 
         return $mechanics;
+    }
+
+    #[Groups(['plant_read', 'plant_write'])]
+    public function getActions(): Collection
+    {
+        return parent::getActions();
     }
 
     public function getFruitName(): string

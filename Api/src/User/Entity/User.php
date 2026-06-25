@@ -52,13 +52,16 @@ class User implements UserInterface
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     #[ApiProperty(identifier: false)]
+    #[Groups(['player_info_read', 'user_read'])]
     private int $id;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
     #[ApiProperty(identifier: true)]
+    #[Groups(['player_info_read', 'user_read'])]
     private string $userId;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['player_info_read', 'user_read', 'user_write'])]
     private string $username;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
@@ -71,6 +74,7 @@ class User implements UserInterface
     private ?\DateTime $nonceExpiryDate = null;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['player_info_read', 'user_read', 'user_write'])]
     private array $roles = [RoleEnum::USER];
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: ModerationSanction::class)]
@@ -210,6 +214,7 @@ class User implements UserInterface
         return $this->userId;
     }
 
+    #[Groups(['user_read'])]
     public function isBanned(): bool
     {
         return $this->getModerationSanctions()->isBanned();

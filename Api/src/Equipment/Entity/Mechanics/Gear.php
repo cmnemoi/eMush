@@ -43,6 +43,7 @@ class Gear extends EquipmentMechanic
     #[Groups(['gear_read', 'gear_write'])]
     private Collection $modifierConfigs;
 
+    #[Groups(['gear_read', 'gear_write'])]
     public function getMechanics(): array
     {
         $mechanics = parent::getMechanics();
@@ -75,5 +76,23 @@ class Gear extends EquipmentMechanic
         return $this->modifierConfigs->filter(
             static fn (AbstractModifierConfig $modifierConfig) => $modifierConfig->getModifierName() === $modifierName
         )->count() > 0;
+    }
+
+    #[Groups(['gear_read'])]
+    public function getId(): int
+    {
+        return parent::getId();
+    }
+
+    #[Groups(['gear_read', 'gear_write'])]
+    public function getName(): string
+    {
+        return parent::getName();
+    }
+
+    #[Groups(['gear_read', 'gear_write'])]
+    public function getActions(): Collection
+    {
+        return parent::getActions();
     }
 }

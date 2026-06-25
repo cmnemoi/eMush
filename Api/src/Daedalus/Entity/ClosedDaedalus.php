@@ -123,9 +123,22 @@ class ClosedDaedalus
         return $this;
     }
 
+    #[Groups(['closed_daedalus_read'])]
     public function getLanguage(): string
     {
         return $this->daedalusInfo->getLanguage();
+    }
+
+    #[Groups(['closed_daedalus_read'])]
+    public function getDaysSurvived(): int
+    {
+        return $this->endDay;
+    }
+
+    #[Groups(['closed_daedalus_read'])]
+    public function getCyclesSurvived(): int
+    {
+        return $this->endCycle;
     }
 
     public function getEndCycle(): int

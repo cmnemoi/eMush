@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -73,12 +74,31 @@ class Ration extends EquipmentMechanic
         $this->extraEffects = [];
     }
 
+    #[Groups(['ration_read'])]
+    public function getId(): int
+    {
+        return parent::getId();
+    }
+
+    #[Groups(['ration_read', 'ration_write'])]
+    public function getName(): string
+    {
+        return parent::getName();
+    }
+
+    #[Groups(['ration_read', 'ration_write'])]
     public function getMechanics(): array
     {
         $mechanics = parent::getMechanics();
         $mechanics[] = EquipmentMechanicEnum::RATION;
 
         return $mechanics;
+    }
+
+    #[Groups(['ration_read', 'ration_write'])]
+    public function getActions(): Collection
+    {
+        return parent::getActions();
     }
 
     public function getActionPoints(): ProbaCollection

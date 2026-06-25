@@ -19,6 +19,7 @@ use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * One of the modifier type
@@ -56,12 +57,15 @@ use Mush\Player\Enum\PlayerVariableEnum;
 class VariableEventModifierConfig extends EventModifierConfig
 {
     #[ORM\Column(type: 'float', nullable: false)]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     private float $delta = 0;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     private string $targetVariable;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     private string $mode = VariableModifierModeEnum::ADDITIVE;
 
     public function __construct($name)

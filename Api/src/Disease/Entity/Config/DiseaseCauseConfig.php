@@ -12,6 +12,7 @@ use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Dto\DiseaseCauseConfigDto;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_cause_config')]
@@ -39,15 +40,19 @@ class DiseaseCauseConfig
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['disease_cause_config_read'])]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[Groups(['disease_cause_config_read', 'disease_cause_config_write'])]
     private string $name;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['disease_cause_config_read', 'disease_cause_config_write'])]
     private string $causeName;
 
     #[ORM\Column(type: 'array')]
+    #[Groups(['disease_cause_config_read', 'disease_cause_config_write'])]
     private array $diseases;
 
     public function __construct()

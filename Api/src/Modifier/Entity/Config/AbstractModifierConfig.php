@@ -68,14 +68,17 @@ abstract class AbstractModifierConfig
     protected ?string $modifierStrategy = '';
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     protected string $modifierRange;
 
     #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     protected Collection $modifierActivationRequirements;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['modifier_config_read'])]
     protected int $id;
 
     public function __construct(string $name)

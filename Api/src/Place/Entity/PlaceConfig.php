@@ -11,6 +11,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Place\Enum\PlaceTypeEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity()
@@ -41,24 +42,31 @@ class PlaceConfig
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['place_config_read'])]
     private int $id;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[Groups(['place_config_read', 'place_config_write'])]
     private string $name;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['place_config_read', 'place_config_write'])]
     private string $placeName;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['place_config_read', 'place_config_write'])]
     private string $type = PlaceTypeEnum::ROOM;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['place_config_read', 'place_config_write'])]
     private array $doors = [];
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['place_config_read', 'place_config_write'])]
     private array $items = [];
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['place_config_read', 'place_config_write'])]
     private array $equipments = [];
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]

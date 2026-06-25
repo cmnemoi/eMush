@@ -120,24 +120,30 @@ class DifficultyConfig
     private array $panicCrisisPlayerDamage = [];
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private int $plantDiseaseRate = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private int $cycleDiseaseRate = 0;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $equipmentBreakRateDistribution = [];
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private array $difficultyModes = [];
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private int $hunterSpawnRate = 0;
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private array $hunterSafeCycles = [];
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private int $startingHuntersNumberOfTruceCycles = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
@@ -150,6 +156,7 @@ class DifficultyConfig
     private int $maxTransportSpawnRate = 0;
 
     #[ORM\Column(type: 'json', nullable: false, options: ['default' => '[]'])]
+    #[Groups(['difficulty_config_read', 'difficulty_config_write'])]
     private array $randomSpores = [];
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 50])]

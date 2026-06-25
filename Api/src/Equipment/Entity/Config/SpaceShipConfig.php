@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Entity\Config;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
@@ -167,5 +168,23 @@ class SpaceShipConfig extends EquipmentConfig
         $this->numberOfExplorationSteps = $numberOfExplorationSteps;
 
         return $this;
+    }
+
+    #[Groups(['patrol_ship_read'])]
+    public function getId(): int
+    {
+        return parent::getId();
+    }
+
+    #[Groups(['patrol_ship_read', 'patrol_ship_write'])]
+    public function getName(): string
+    {
+        return parent::getName();
+    }
+
+    #[Groups(['patrol_ship_read', 'patrol_ship_write'])]
+    public function getMechanics(): Collection
+    {
+        return parent::getMechanics();
     }
 }

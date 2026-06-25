@@ -16,6 +16,7 @@ use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Modifier\Dto\DirectModifierConfigDto;
 use Mush\Modifier\Entity\Collection\ModifierActivationRequirementCollection;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class storing the various information needed to apply a directModifier.
@@ -50,15 +51,18 @@ use Mush\Modifier\Enum\ModifierStrategyEnum;
 class DirectModifierConfig extends AbstractModifierConfig
 {
     #[ORM\ManyToOne(targetEntity: AbstractEventConfig::class)]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     protected AbstractEventConfig $triggeredEvent;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     protected bool $revertOnRemove = false;
 
     #[ORM\ManyToMany(targetEntity: ModifierActivationRequirement::class)]
     protected Collection $eventActivationRequirements;
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    #[Groups(['modifier_config_read', 'modifier_config_write'])]
     private array $targetFilters = [];
 
     public function __construct($name)

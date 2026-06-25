@@ -9,9 +9,11 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -81,5 +83,59 @@ class ItemConfig extends EquipmentConfig
     public function getLogKey(): string
     {
         return LogParameterKeyEnum::ITEM;
+    }
+
+    #[Groups(['item_config_read'])]
+    public function getId(): int
+    {
+        return parent::getId();
+    }
+
+    #[Groups(['item_config_read', 'item_config_write'])]
+    public function getName(): string
+    {
+        return parent::getName();
+    }
+
+    #[Groups(['item_config_read', 'item_config_write'])]
+    public function getEquipmentName(): string
+    {
+        return parent::getEquipmentName();
+    }
+
+    #[Groups(['item_config_read', 'item_config_write'])]
+    public function getMechanics(): Collection
+    {
+        return parent::getMechanics();
+    }
+
+    #[Groups(['item_config_read', 'item_config_write'])]
+    public function getBreakableType(): BreakableTypeEnum
+    {
+        return parent::getBreakableType();
+    }
+
+    #[Groups(['item_config_read', 'item_config_write'])]
+    public function getDismountedProducts(): array
+    {
+        return parent::getDismountedProducts();
+    }
+
+    #[Groups(['item_config_read', 'item_config_write'])]
+    public function getActionConfigs(): Collection
+    {
+        return parent::getActionConfigs();
+    }
+
+    #[Groups(['item_config_read', 'item_config_write'])]
+    public function getInitStatuses(): Collection
+    {
+        return parent::getInitStatuses();
+    }
+
+    #[Groups(['item_config_read', 'item_config_write'])]
+    public function getIsPersonal(): bool
+    {
+        return parent::getIsPersonal();
     }
 }

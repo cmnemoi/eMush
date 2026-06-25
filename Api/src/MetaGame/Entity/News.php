@@ -166,6 +166,7 @@ class News
         $this->publicationDate = $publicationDate;
     }
 
+    #[Groups(['news_read'])]
     public function getIsPublished(): bool
     {
         return $this->publicationDate < new \DateTime();

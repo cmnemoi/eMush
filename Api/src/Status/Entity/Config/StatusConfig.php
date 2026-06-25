@@ -7,6 +7,7 @@ namespace Mush\Status\Entity\Config;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,6 +15,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Hunter\Entity\HunterConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -37,6 +39,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("ROLE_ADMIN")',
         ),
     ],
+)]
+#[ApiResource(
+    uriTemplate: '/hunter_configs/{hunterConfigId}/initial_statuses',
+    uriVariables: [
+        'hunterConfigId' => new Link(fromClass: HunterConfig::class, fromProperty: 'initialStatuses'),
+    ],
+    normalizationContext: ['groups' => ['status_config_read']],
+    security: 'is_granted("ROLE_ADMIN")',
+    operations: [new GetCollection()],
 )]
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]

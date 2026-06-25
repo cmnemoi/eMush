@@ -390,4 +390,16 @@ class ClosedPlayer implements SanctionEvidenceInterface
     {
         return $this->playerInfo->getName();
     }
+
+    #[Groups(['closed_player_read'])]
+    public function getDaysSurvived(): int
+    {
+        return $this->dayDeath;
+    }
+
+    #[Groups(['closed_player_read'])]
+    public function getCyclesSurvived(): int
+    {
+        return $this->cycleDeath;
+    }
 }

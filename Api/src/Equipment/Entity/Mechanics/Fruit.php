@@ -9,21 +9,22 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ApiResource(
-    normalizationContext: ['groups' => ['fruit_read']],
-    denormalizationContext: ['groups' => ['fruit_write']],
-    paginationItemsPerPage: 25,
     operations: [
         new GetCollection(filters: ['default.search_filter', 'default.order_filter']),
         new Post(security: 'is_granted("ROLE_ADMIN")'),
         new Get(security: 'is_granted("ROLE_ADMIN")'),
         new Put(security: 'is_granted("ROLE_ADMIN")'),
     ],
+    normalizationContext: ['groups' => ['fruit_read']],
+    denormalizationContext: ['groups' => ['fruit_write']],
+    paginationItemsPerPage: 25,
 )]
 class Fruit extends Ration
 {
@@ -31,6 +32,7 @@ class Fruit extends Ration
     #[Groups(['fruit_read', 'fruit_write'])]
     private string $plantName;
 
+    #[Groups(['fruit_read', 'fruit_write'])]
     public function getMechanics(): array
     {
         $mechanics = parent::getMechanics();
@@ -49,5 +51,23 @@ class Fruit extends Ration
         $this->plantName = $plantName;
 
         return $this;
+    }
+
+    #[Groups(['fruit_read'])]
+    public function getId(): int
+    {
+        return parent::getId();
+    }
+
+    #[Groups(['fruit_read', 'fruit_write'])]
+    public function getName(): string
+    {
+        return parent::getName();
+    }
+
+    #[Groups(['fruit_read', 'fruit_write'])]
+    public function getActions(): Collection
+    {
+        return parent::getActions();
     }
 }

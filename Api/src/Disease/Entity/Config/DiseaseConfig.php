@@ -14,6 +14,7 @@ use Mush\Disease\Dto\DiseaseConfigDto;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_config')]
@@ -42,18 +43,23 @@ class DiseaseConfig implements LogParameterInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[Groups(['disease_config_read'])]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['disease_config_read', 'disease_config_write'])]
     private string $diseaseName;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['disease_config_read', 'disease_config_write'])]
     private string $name;
 
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => MedicalConditionTypeEnum::DISEASE])]
+    #[Groups(['disease_config_read', 'disease_config_write'])]
     private string $type = MedicalConditionTypeEnum::DISEASE;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['disease_config_read', 'disease_config_write'])]
     private array $modifierConfigs = [];
 
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]

@@ -9,8 +9,10 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ApiResource(
@@ -32,11 +34,30 @@ class Drug extends Ration
         $this->isPerishable = false;
     }
 
+    #[Groups(['drug_read'])]
+    public function getId(): int
+    {
+        return parent::getId();
+    }
+
+    #[Groups(['drug_read', 'drug_write'])]
+    public function getName(): string
+    {
+        return parent::getName();
+    }
+
+    #[Groups(['drug_read', 'drug_write'])]
     public function getMechanics(): array
     {
         $mechanics = parent::getMechanics();
         $mechanics[] = EquipmentMechanicEnum::DRUG;
 
         return $mechanics;
+    }
+
+    #[Groups(['drug_read', 'drug_write'])]
+    public function getActions(): Collection
+    {
+        return parent::getActions();
     }
 }

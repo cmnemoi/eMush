@@ -9,14 +9,16 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ApiResource(
-    paginationItemsPerPage: 25,
     normalizationContext: ['groups' => ['document_read']],
     denormalizationContext: ['groups' => ['document_write']],
+    paginationItemsPerPage: 25,
     operations: [
         new GetCollection(
             filters: ['default.search_filter', 'default.order_filter'],
@@ -35,14 +37,18 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 class Document extends Tool
 {
     #[ORM\Column(type: 'text', nullable: false, options: ['default' => ''])]
+    #[Groups(['document_read', 'document_write'])]
     private string $content = '';
 
     #[ORM\Column(type: 'boolean', nullable: false)]
+    #[Groups(['document_read', 'document_write'])]
     private bool $isTranslated = false;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
+    #[Groups(['document_read', 'document_write'])]
     private bool $canShred = false;
 
+    #[Groups(['document_read'])]
     public function getMechanics(): array
     {
         $mechanics = parent::getMechanics();
@@ -85,5 +91,23 @@ class Document extends Tool
         $this->canShred = $canShred;
 
         return $this;
+    }
+
+    #[Groups(['document_read'])]
+    public function getId(): int
+    {
+        return parent::getId();
+    }
+
+    #[Groups(['document_read', 'document_write'])]
+    public function getName(): string
+    {
+        return parent::getName();
+    }
+
+    #[Groups(['document_read', 'document_write'])]
+    public function getActions(): Collection
+    {
+        return parent::getActions();
     }
 }

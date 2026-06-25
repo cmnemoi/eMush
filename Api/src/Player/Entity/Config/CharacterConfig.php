@@ -81,39 +81,50 @@ class CharacterConfig
     private Collection $initDiseases;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private int $maxNumberPrivateChannel = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private int $maxHealthPoint = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private int $maxMoralPoint = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private int $maxActionPoint = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private int $maxMovementPoint = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private int $maxItemInInventory = 0;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $maxDiscoverablePlanets = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private int $initHealthPoint = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private int $initMoralPoint = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private int $initSatiety = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private int $initActionPoint = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['character_config_read', 'character_config_write'])]
     private int $initMovementPoint = 0;
 
     public function __construct()

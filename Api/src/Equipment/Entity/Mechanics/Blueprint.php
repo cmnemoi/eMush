@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -46,6 +47,7 @@ class Blueprint extends Tool
     #[Groups(['blueprint_read', 'blueprint_write'])]
     private array $ingredients = [];
 
+    #[Groups(['blueprint_read', 'blueprint_write'])]
     public function getMechanics(): array
     {
         $mechanics = parent::getMechanics();
@@ -81,5 +83,23 @@ class Blueprint extends Tool
         $this->ingredients = $ingredients;
 
         return $this;
+    }
+
+    #[Groups(['blueprint_read'])]
+    public function getId(): int
+    {
+        return parent::getId();
+    }
+
+    #[Groups(['blueprint_read', 'blueprint_write'])]
+    public function getName(): string
+    {
+        return parent::getName();
+    }
+
+    #[Groups(['blueprint_read', 'blueprint_write'])]
+    public function getActions(): Collection
+    {
+        return parent::getActions();
     }
 }

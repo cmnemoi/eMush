@@ -22,6 +22,7 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Event\ChargeStatusEvent;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class storing the various information needed to create a variableEvent.
@@ -56,12 +57,15 @@ use Mush\Status\Event\ChargeStatusEvent;
 class VariableEventConfig extends AbstractEventConfig
 {
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['event_config_read', 'event_config_write'])]
     private int $quantity = 0;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['event_config_read', 'event_config_write'])]
     private string $targetVariable;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Groups(['event_config_read', 'event_config_write'])]
     private string $variableHolderClass;
 
     public function buildName(): static

@@ -9,10 +9,12 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ApiResource(
@@ -38,5 +40,29 @@ class DroneConfig extends NpcConfig
     public function getLogKey(): string
     {
         return LogParameterKeyEnum::DRONE;
+    }
+
+    #[Groups(['item_config_read'])]
+    public function getId(): int
+    {
+        return parent::getId();
+    }
+
+    #[Groups(['item_config_read', 'item_config_write'])]
+    public function getName(): string
+    {
+        return parent::getName();
+    }
+
+    #[Groups(['item_config_read', 'item_config_write'])]
+    public function getMechanics(): Collection
+    {
+        return parent::getMechanics();
+    }
+
+    #[Groups(['item_config_read', 'item_config_write'])]
+    public function getActionConfigs(): Collection
+    {
+        return parent::getActionConfigs();
     }
 }

@@ -9,10 +9,12 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\ValueObject\DamageSpread;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
     normalizationContext: ['groups' => ['weapon_read']],
@@ -37,21 +39,27 @@ use Mush\Game\Entity\Collection\ProbaCollection;
 class Weapon extends Tool
 {
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['weapon_read', 'weapon_write'])]
     private int $baseAccuracy = 0;
 
     #[ORM\Column(type: 'array', nullable: false)]
+    #[Groups(['weapon_read', 'weapon_write'])]
     private array $baseDamageRange;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    #[Groups(['weapon_read', 'weapon_write'])]
     private int $expeditionBonus = 0;
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    #[Groups(['weapon_read', 'weapon_write'])]
     private array $successfulEventKeys = [];
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    #[Groups(['weapon_read', 'weapon_write'])]
     private array $failedEventKeys = [];
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    #[Groups(['weapon_read', 'weapon_write'])]
     private array $damageSpread = [];
 
     public function __construct()
@@ -85,6 +93,7 @@ class Weapon extends Tool
         $this->damageSpread = $configData['damageSpread'];
     }
 
+    #[Groups(['weapon_read', 'weapon_write'])]
     public function getMechanics(): array
     {
         $mechanics = parent::getMechanics();
@@ -163,5 +172,23 @@ class Weapon extends Tool
         $this->damageSpread = $damageSpread;
 
         return $this;
+    }
+
+    #[Groups(['weapon_read'])]
+    public function getId(): int
+    {
+        return parent::getId();
+    }
+
+    #[Groups(['weapon_read', 'weapon_write'])]
+    public function getName(): string
+    {
+        return parent::getName();
+    }
+
+    #[Groups(['weapon_read'])]
+    public function getActions(): Collection
+    {
+        return parent::getActions();
     }
 }

@@ -72,15 +72,19 @@ class TriumphConfig
     private TriumphTarget $targetSetting;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['triumph_config_read', 'triumph_config_write'])]
     private int $quantity;
 
     #[ORM\Column(type: 'string', nullable: false, enumType: TriumphVisibility::class, options: ['default' => TriumphVisibility::NONE])]
+    #[Groups(['triumph_config_read', 'triumph_config_write'])]
     private TriumphVisibility $visibility;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['triumph_config_read', 'triumph_config_write'])]
     private int $regressiveFactor;
 
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    #[Groups(['triumph_config_read', 'triumph_config_write'])]
     private bool $registerWhenZero;
 
     private function __construct(

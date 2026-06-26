@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
@@ -34,10 +35,16 @@ final class CheckJukeboxSongsCest extends AbstractFunctionalTest
             'actionName' => ActionEnum::CHECK_JUKEBOX_SONGS,
         ]);
         $this->checkJukeboxSongs = $I->grabService(CheckJukeboxSongs::class);
+
+        $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
+        $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ANDIE);
+        $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::CHAO);
+        $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::FINOLA);
     }
 
     public function shouldPrintListOfSong(FunctionalTester $I): void
     {
+        $this->daedalus->setCycle(4);
         // we check the songs 2 times, add one cycle then check again.
         $this->whenPlayerChecksSongs();
 
@@ -57,7 +64,7 @@ final class CheckJukeboxSongsCest extends AbstractFunctionalTest
             'id' => $list1->getId() + 2,
         ]);
 
-        $this->daedalus->setCycle($this->daedalus->getCycle() + 1);
+        $this->daedalus->setCycle(5);
 
         $this->whenPlayerChecksSongs();
 

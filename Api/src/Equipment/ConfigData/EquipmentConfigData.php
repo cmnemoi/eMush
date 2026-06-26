@@ -4524,6 +4524,32 @@ class EquipmentConfigData
             'mechanics' => [],
             'initStatuses' => [],
         ],
+        [
+            'name' => 'alien_blaster_default',
+            'equipmentName' => ItemEnum::ALIEN_BLASTER,
+            'breakableType' => BreakableTypeEnum::BREAKABLE,
+            'dismountedProducts' => ['metal_scraps' => 1],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => true,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+                'disassemble_percent_25_cost_3',
+                'repair_percent_25',
+                'sabotage_percent_25',
+                ActionEnum::SLIME_OBJECT->value,
+                ActionEnum::REINFORCE->value,
+            ],
+            'mechanics' => [
+                'weapon_blaster_default',
+            ],
+            'initStatuses' => [
+                'electric_charges_blaster_default',
+            ],
+        ],
     ];
 
     public static function getByEquipmentName(string $name): array

@@ -403,7 +403,7 @@ export default defineComponent ({
             text-shadow: 0 0 5px black, 0 1px 2px black;
 
             transition: all .15s;
-            
+
             .flag-icon {
                 margin-right: .5em;
                 margin-bottom: 4px;

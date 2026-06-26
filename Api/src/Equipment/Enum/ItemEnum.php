@@ -30,6 +30,7 @@ class ItemEnum
     public const string KNIFE = 'knife';
     public const string BLASTER = 'blaster';
     public const string SECURITY_BLASTER = 'security_blaster';
+    public const string ALIEN_BLASTER = 'alien_blaster';
     public const string NATAMY_RIFLE = 'natamy_rifle';
     public const string GRENADE = 'grenade';
     public const string ROCKET_LAUNCHER = 'rocket_launcher';
@@ -99,6 +100,7 @@ class ItemEnum
             self::KNIFE,
             self::BLASTER,
             self::SECURITY_BLASTER,
+            self::ALIEN_BLASTER,
             self::NATAMY_RIFLE,
             self::GRENADE,
             self::ROCKET_LAUNCHER,
@@ -145,6 +147,15 @@ class ItemEnum
             self::TRACKER,
             self::ITRACKIE,
             self::ITRACKIE_2,
+        ]);
+    }
+
+    public static function getBlasters(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::BLASTER,
+            self::SECURITY_BLASTER,
+            self::ALIEN_BLASTER,
         ]);
     }
 }

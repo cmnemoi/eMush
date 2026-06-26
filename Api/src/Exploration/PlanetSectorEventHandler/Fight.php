@@ -152,7 +152,7 @@ final class Fight extends AbstractLootItemsEventHandler
                 /** @var ?Weapon $weaponMechanic */
                 $weaponMechanic = $weapon->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON);
                 $expeditionStrength += $weaponMechanic?->getExpeditionBonus() ?? 0;
-                if (($weapon->getName() === ItemEnum::BLASTER || $weapon->getName() === ItemEnum::SECURITY_BLASTER)
+                if (\in_array($weapon->getName(), ItemEnum::getBlasters()->toArray(), true)
                 && $weapon->getDaedalus()->hasModifierByModifierName(ModifierNameEnum::CENTAURI_REBEL_BASE_MODIFIER)) {
                     $expeditionStrength += (int) $weapon->getDaedalus()->getModifiers()->getByModifierNameOrThrow(ModifierNameEnum::CENTAURI_REBEL_BASE_MODIFIER)->getVariableModifierConfigOrThrow()->getDelta();
                 }

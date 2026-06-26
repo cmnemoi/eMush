@@ -131,6 +131,7 @@ const ROCKET_LAUNCHER = "rocket_launcher";
 const CHEFS_KNIFE = "chefs_knife";
 const LUCKY_LIZARO = "lucky_lizaro";
 const SECURITY_BLASTER = "security_blaster";
+const ALIEN_BLASTER = "alien_blaster";
 
 // food
 const COFFEE = "coffee";
@@ -364,6 +365,9 @@ export const itemEnum: {[index: string]: any} = {
     },
     [SECURITY_BLASTER]: {
         'image': getImgUrl('items/security_blaster.png')
+    },
+    [ALIEN_BLASTER]: {
+        'image': getImgUrl('items/alien_blaster.png')
     },
     [HACKER_KIT]: {
         'image': getImgUrl('items/hacker_kit.jpg')

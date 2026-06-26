@@ -195,7 +195,7 @@ final class PlanetSectorEventConfigData
                 name: PlanetSectorEvent::FIGHT_ALIEN,
                 eventName: PlanetSectorEvent::FIGHT,
                 outputQuantity: [1 => 1], // loot amount
-                outputTable: [ItemEnum::ARTEFACT_GENERIC => 4, ItemEnum::BLASTER => 1], // loot
+                outputTable: [ItemEnum::ARTEFACT_GENERIC => 4, ItemEnum::ALIEN_BLASTER => 1], // loot
                 tags: [PlanetSectorEventTagEnum::NEGATIVE],
                 fightStrength: 12
             ),
@@ -227,7 +227,7 @@ final class PlanetSectorEventConfigData
                 name: PlanetSectorEvent::FIGHT_WRECK,
                 eventName: PlanetSectorEvent::FIGHT,
                 outputQuantity: [1 => 1],
-                outputTable: [ItemEnum::BLASTER => 1], // loot
+                outputTable: [ItemEnum::ALIEN_BLASTER => 1], // loot
                 tags: [PlanetSectorEventTagEnum::NEGATIVE, PlanetSectorEventTagEnum::RANDOM_FIGHT],
                 fightStrength: 0 // random
             ),

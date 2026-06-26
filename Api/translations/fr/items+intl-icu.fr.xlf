@@ -2358,6 +2358,36 @@ Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire
         <target>Un blaster tout sauf standard. Son propriétaire en a pris grand soin et l'a amélioré au fil des années.//Expédition : + 2 à la force de votre équipe en cas de combat.//Un vieux blaster offert aux fantassins des Forces de Défense de Sol. Après des années de bidouillage, il est désormais encore plus redoutable que les modèles récents.</target>
       </segment>
     </unit>
+    <unit id="alien_blaster">
+      <segment id="name" state="translated">
+        <source>alien_blaster.name</source>
+        <target>Blaster Alien</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>alien_blaster.short_name</source>
+        <target>Blaster Alien</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>alien_blaster.plural_name</source>
+        <target>Blasters Aliens</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>alien_blaster.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>alien_blaster.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>alien_blaster.description</source>
+        <target>La preuve que le nombre de tentacules importe peu : nous ne sommes jamais vraiment si différents.//Expédition : + 1 à la force de votre équipe en cas de combat.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>alien_blaster.examine</source>
+        <target>La preuve que le nombre de tentacules importe peu : nous ne sommes jamais vraiment si différents.//Expédition : + 1 à la force de votre équipe en cas de combat.//Un pistolet blaster modèle "Zorluble" d'après la gravure, à moins que ce ne soit le nom de l'ancien propriétaire.</target>
+      </segment>
+    </unit>
     <unit id="natamy_rifle">
       <segment id="name" state="translated">
         <source>natamy_rifle.name</source>

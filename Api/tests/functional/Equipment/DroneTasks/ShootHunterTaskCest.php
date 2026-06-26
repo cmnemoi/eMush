@@ -112,7 +112,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
 
         $this->givenOneAttackingHunter();
 
-        $this->givenPatrolShipAlwaysHits();
+        $this->givenPatrolShipAlwaysHitsAndDealOneDamage();
 
         $this->givenPatrolShipDealsOnePointOfDamage();
 
@@ -141,6 +141,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
                 inPlayerRoom: false,
             ),
             I: $I,
+            expectedLogs: 2
         );
     }
 
@@ -152,7 +153,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
 
         $this->givenHunterHasOneHealthPoint();
 
-        $this->givenPatrolShipAlwaysHits();
+        $this->givenPatrolShipAlwaysHitsAndDealOneDamage();
 
         $this->givenPatrolShipDealsOnePointOfDamage();
 
@@ -176,11 +177,11 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
 
         $this->givenOneAttackingHunter();
 
-        $this->givenPatrolShipAlwaysHits();
+        $this->givenPatrolShipAlwaysHitsAndDealOneDamage();
 
         $this->whenIExecuteShootHunterTask();
 
-        $this->thenPatrolShipShouldHaveCharges(9, $I);
+        $this->thenPatrolShipShouldHaveCharges(8, $I);
     }
 
     public function shouldConsumeOnePatrolShipChargeOnFailedShot(FunctionalTester $I): void
@@ -308,9 +309,10 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function givenPatrolShipAlwaysHits(): void
+    private function givenPatrolShipAlwaysHitsAndDealOneDamage(): void
     {
         $this->patrolShip->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
+        $this->patrolShip->getWeaponMechanicOrThrow()->setBaseDamageRange([1 => 1]);
     }
 
     private function givenPatrolShipDealsOnePointOfDamage(): void

@@ -208,6 +208,8 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
     public function testMoveDaedalusActionSuccessDestroyAllPatrolShipsInSpaceBattle(FunctionalTester $I): void
     {
+        $this->createExtraPlace(RoomEnum::ALPHA_BAY_2, $I, $this->daedalus); // need a place to land to make sure the test doesn't fail
+
         // given a patrol ship is in space battle
         $pasiphaePlace = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
         $pasiphaeConfig = $I->grabEntityFromRepository(SpaceShipConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
@@ -218,6 +220,8 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
+
+        $this->createStatusOn(EquipmentStatusEnum::PATROL_SHIP_ARMOR, $pasiphae);
 
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
@@ -231,6 +235,42 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         // then the patrol ship is destroyed
         $I->dontSeeInRepository(
             entity: GameEquipment::class,
+            params: ['name' => EquipmentEnum::PASIPHAE]
+        );
+    }
+
+    public function testMoveDaedalusActionSuccessDoNotDestroyPatrolShipIfPilotedByDrone(FunctionalTester $I): void
+    {
+        $alphaBay2 = $this->createExtraPlace(RoomEnum::ALPHA_BAY_2, $I, $this->daedalus); // need a place to land
+
+        // given a patrol ship is in space battle
+        $pasiphaePlace = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
+        $pasiphaeConfig = $I->grabEntityFromRepository(SpaceShipConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphae = new SpaceShip($pasiphaePlace);
+        $pasiphae
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
+            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
+            ->setName(EquipmentEnum::PASIPHAE)
+            ->setEquipment($pasiphaeConfig);
+        $I->haveInRepository($pasiphae);
+
+        $this->createStatusOn(EquipmentStatusEnum::PATROL_SHIP_ARMOR, $pasiphae);
+
+        $drone = $this->createEquipment(ItemEnum::SUPPORT_DRONE, $pasiphaePlace);
+        $this->createStatusOn(EquipmentStatusEnum::PILOT_DRONE_UPGRADE, $drone);
+
+        // when player moves daedalus
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->moveDaedalusAction->execute();
+
+        // then the patrol ship is destroyed
+        $I->seeInRepository(
+            entity: SpaceShip::class,
             params: ['name' => EquipmentEnum::PASIPHAE]
         );
     }

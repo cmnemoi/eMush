@@ -32,27 +32,31 @@ class ShootHunterTask extends AbstractDroneTask
 
     protected function applyEffect(Drone $drone, \DateTime $time): void
     {
-        if ($drone->cannotApplyTask($this)) {
-            $this->taskNotApplicable = true;
+        for ($i = 0; $i < 2; ++$i) {
+            if ($drone->cannotApplyTask($this)) {
+                if ($i === 0) {
+                    $this->taskNotApplicable = true; // can't shoot and land in the same cycle
+                }
 
-            return;
+                return;
+            }
+
+            $patrolShip = $drone->getPilotedPatrolShip();
+            $this->removeOneChargeToPatrolShip($patrolShip, $time);
+
+            $successRate = $drone->getShootHunterSuccessRate();
+            if ($this->d100Roll->isAFailure($successRate)) {
+                $this->statusService->createOrIncrementChargeStatus(
+                    name: EquipmentStatusEnum::DRONE_SHOOT_HUNTER_FAILED_ATTEMPTS,
+                    holder: $drone,
+                    time: $time,
+                );
+
+                return;
+            }
+
+            $this->handleShootDamage($drone, $time);
         }
-
-        $patrolShip = $drone->getPilotedPatrolShip();
-        $this->removeOneChargeToPatrolShip($patrolShip, $time);
-
-        $successRate = $drone->getShootHunterSuccessRate();
-        if ($this->d100Roll->isAFailure($successRate)) {
-            $this->statusService->createOrIncrementChargeStatus(
-                name: EquipmentStatusEnum::DRONE_SHOOT_HUNTER_FAILED_ATTEMPTS,
-                holder: $drone,
-                time: $time,
-            );
-
-            return;
-        }
-
-        $this->handleShootDamage($drone, $time);
     }
 
     private function handleShootDamage(Drone $drone, \DateTime $time): void
@@ -84,10 +88,9 @@ class ShootHunterTask extends AbstractDroneTask
 
     private function getRandomHunterFrom(Daedalus $daedalus): Hunter
     {
-        $attackingHunters = $daedalus->getAttackingHunters()->toArray();
+        $hunter = $daedalus->getAttackingHunters()->getAllHuntersSortedBy('id')->first();
 
-        $hunter = $this->randomService->getRandomElement($attackingHunters);
-        if (!$hunter) {
+        if (!$hunter instanceof Hunter) {
             throw new \RuntimeException('There should be at least one attacking hunter if ShootHunterTask is applicable');
         }
 

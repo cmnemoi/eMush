@@ -36,6 +36,14 @@ trait EquipmentHolderTrait
         return $equipment->isEmpty() ? null : $equipment->first();
     }
 
+    public function getEquipmentByNameAndStatus(string $name, string $statusName): ?GameEquipment
+    {
+        $equipment = $this->getEquipmentsByNames([$name]);
+        $equipment = $equipment->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->hasStatus($statusName));
+
+        return $equipment->isEmpty() ? null : $equipment->first();
+    }
+
     public function hasEquipmentByName(string $name): bool
     {
         return $this->getEquipmentByName($name) !== null;

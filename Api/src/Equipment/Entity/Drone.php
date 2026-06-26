@@ -153,6 +153,7 @@ class Drone extends Npc
                     $gameEquipment instanceof SpaceShip
                     && $gameEquipment->getName() === EquipmentEnum::PATROL_SHIP
                     && $gameEquipment->isOperational()
+                    && $gameEquipment->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->getCharge() > 4
                 )
             )
             ->toArray();
@@ -306,6 +307,7 @@ class Drone extends Npc
                 && $gameEquipment->getName() === EquipmentEnum::PATROL_SHIP
                 && $gameEquipment->isOperational()
                 && $gameEquipment->hasActionByName(ActionEnum::TAKEOFF)
+                && $gameEquipment->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->getCharge() > 4
             )
         );
 

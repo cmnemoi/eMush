@@ -340,10 +340,15 @@ final class MoveTaskTest extends TestCase
 
     private function givenOperationalPatrolShipIn(Place $room): GameEquipment
     {
-        return GameEquipmentFactory::createPatrolShipByNameForHolder(
+        $ship = GameEquipmentFactory::createPatrolShipByNameForHolder(
             EquipmentEnum::PATROL_SHIP,
             $room
         );
+
+        $status = StatusFactory::createChargeStatusWithName(EquipmentStatusEnum::ELECTRIC_CHARGES, $ship);
+        $status->setCharge(10);
+
+        return $ship;
     }
 
     private function givenBrokenEquipmentIn(Place $room): void

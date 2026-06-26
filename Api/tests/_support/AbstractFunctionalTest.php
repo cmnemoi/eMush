@@ -261,16 +261,19 @@ class AbstractFunctionalTest
         $eventService->callEvent($projectEvent, ProjectEvent::PROJECT_FINISHED);
     }
 
-    protected function ISeeTranslatedRoomLogInRepository(string $expectedRoomLog, RoomLogDto $actualRoomLogDto, FunctionalTester $I): void
+    protected function ISeeTranslatedRoomLogInRepository(string $expectedRoomLog, RoomLogDto $actualRoomLogDto, FunctionalTester $I, int $expectedLogs = 1): void
     {
         try {
-            $roomLog = $I->grabEntityFromRepository(
+            $roomLogs = $I->grabEntitiesFromRepository(
                 entity: RoomLog::class,
                 params: $actualRoomLogDto->toArray(),
             );
         } catch (NoResultException $e) {
             $I->fail("Room log {$actualRoomLogDto->log} not found!");
         }
+
+        $I->assertCount($expectedLogs, $roomLogs);
+        $roomLog = $roomLogs[0];
 
         /** @var TranslationServiceInterface $translationService */
         $translationService = $I->grabService(TranslationServiceInterface::class);

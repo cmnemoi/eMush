@@ -7,12 +7,14 @@ namespace Mush\Equipment\NPCTasks\Drone;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\SpaceShip;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\DroneMovedEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Service\FindNextRoomTowardsConditionService;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -122,7 +124,7 @@ class MoveTask extends AbstractDroneTask
     private function findNextRoomToOperationalPatrolShip(Drone $drone): ?Place
     {
         return $this->findNextRoomTowardsCondition->execute($drone->getPlace(), static fn (Place $room) => $room->getEquipments()->filter(
-            static fn (GameEquipment $gameEquipment) => $gameEquipment instanceof SpaceShip && $gameEquipment->isOperational()
+            static fn (GameEquipment $gameEquipment) => $gameEquipment instanceof SpaceShip && $gameEquipment->getName() === EquipmentEnum::PATROL_SHIP && $gameEquipment->isOperational() && $gameEquipment->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES)->getCharge() > 4
         )->count() > 0);
     }
 

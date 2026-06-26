@@ -22,6 +22,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DaedalusEventSubscriber implements EventSubscriberInterface
@@ -65,6 +66,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         if ($daedalus->isMagneticNetActive()) {
             $this->makePatrolShipsInBattleLand($event);
         } else {
+            $this->makePatrolShipsWithDronesInBattleLand($event);
             $this->destroyPatrolShipsInBattle($event);
         }
 
@@ -128,6 +130,27 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
                 tags: $event->getTags(),
                 time: $event->getTime()
             );
+        }
+    }
+
+    private function makePatrolShipsWithDronesInBattleLand(DaedalusEvent $event): void
+    {
+        $patrolShipsInSpaceBattle = $this->getPatrolShipsInBattleFromDaedalus($event->getDaedalus());
+
+        foreach ($patrolShipsInSpaceBattle as $patrolShip) {
+            $place = $patrolShip->getPlace();
+            if ($place->getEquipmentByNameAndStatus(ItemEnum::SUPPORT_DRONE, EquipmentStatusEnum::PILOT_DRONE_UPGRADE)) {
+                // if no alive pilot (dead, drone...), create a dummy one : it won't be used anyway
+                $patrolShipPilot = $patrolShip->getPlace()->getAlivePlayers()->first() ?: Player::createNull();
+
+                $this->patrolShipManoeuvreService->handleLand(
+                    patrolShip: $patrolShip,
+                    pilot: $patrolShipPilot,
+                    actionResult: new CriticalSuccess(), // Magnetic net landing never hurt the patrol ship
+                    tags: $event->getTags(),
+                    time: $event->getTime()
+                );
+            }
         }
     }
 

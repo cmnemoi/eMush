@@ -555,6 +555,9 @@ abstract class SkillConfigData
                 actionConfigs: [
                     ActionEnum::PROTECT,
                 ],
+                modifierConfigs: [
+                    ModifierNameEnum::GUARDIAN_MINUS_1AP_COST,
+                ],
             ),
             new SkillConfigDto(
                 name: SkillEnum::INFANTRYMAN,

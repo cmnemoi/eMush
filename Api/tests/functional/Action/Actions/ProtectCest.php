@@ -15,6 +15,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
+use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -30,6 +31,7 @@ final class ProtectCest extends AbstractFunctionalTest
     private Protect $protectAction;
     private ActionConfig $protectConfig;
     private AddSkillToPlayerService $addSkillToPlayer;
+    private DeletePlayerSkillService $deletePlayerSkillService;
     private PlayerServiceInterface $playerService;
 
     public function _before(FunctionalTester $I): void
@@ -43,6 +45,7 @@ final class ProtectCest extends AbstractFunctionalTest
         $this->protectAction = $I->grabService(Protect::class);
 
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
+        $this->deletePlayerSkillService = $I->grabService(DeletePlayerSkillService::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
     }
 
@@ -61,6 +64,17 @@ final class ProtectCest extends AbstractFunctionalTest
         $I->assertTrue($this->chun->hasStatus(PlayerStatusEnum::BODYGUARD_USER));
         $I->assertTrue($derek->hasStatus(PlayerStatusEnum::BODYGUARD_VIP));
 
+        $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::BODYGUARD_VIP));
+    }
+
+    public function shouldRemoveBothStatusIfSkillIsLost(FunctionalTester $I): void
+    {
+        $this->givenChunHasBodyguardSkill();
+
+        $this->whenChunProtectPlayer($this->kuanTi);
+        $this->deletePlayerSkillService->execute(SkillEnum::BODYGUARD, $this->chun);
+
+        $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::BODYGUARD_USER));
         $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::BODYGUARD_VIP));
     }
 

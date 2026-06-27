@@ -68,6 +68,7 @@ export enum EmoteHumanSkillEnum {
     TORTURER = 'sk_torturer',
     UNCONCERNED = 'sk_unconcerned',
     WRESTLER = 'sk_wrestler',
+    BODYGUARD = 'bodyguard',
 }
 
 export const EmoteHumanSkillAliases: { [index: string]: string } = {
@@ -144,7 +145,8 @@ export const EmoteHumanSkillIcons: {[index: string]: {img: string; max_height: s
     [EmoteHumanSkillEnum.SURVIVAL]: { img: getImgUrl('skills/human/survival.png'), max_height: "1.2em" },
     [EmoteHumanSkillEnum.TORTURER]: { img: getImgUrl('skills/human/torturer.png'), max_height: "1.2em" },
     [EmoteHumanSkillEnum.UNCONCERNED]: { img: getImgUrl('skills/human/unconcerned.png'), max_height: "1.2em" },
-    [EmoteHumanSkillEnum.WRESTLER]: { img: getImgUrl('skills/human/wrestler.png'), max_height: "1.2em" }
+    [EmoteHumanSkillEnum.WRESTLER]: { img: getImgUrl('skills/human/wrestler.png'), max_height: "1.2em" },
+    [EmoteHumanSkillEnum.BODYGUARD]: { img: getImgUrl('skills/human/bodyguard.png'), max_height: "1.2em" }
 };
 
 export enum EmoteMushSkillEnum {

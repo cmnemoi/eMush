@@ -2146,6 +2146,22 @@ abstract class ModifierConfigData
                 targetVariable: ActionVariableEnum::PERCENTAGE_SUCCESS,
                 mode: VariableModifierModeEnum::MULTIPLICATIVE,
             ),
+            new VariableEventModifierConfigDto(
+                key: ModifierNameEnum::GUARDIAN_MINUS_1AP_COST,
+                name: ModifierNameEnum::GUARDIAN_MINUS_1AP_COST,
+                strategy: ModifierStrategyEnum::VARIABLE_MODIFIER,
+                modifierRange: ModifierHolderClassEnum::PLAYER,
+                modifierActivationRequirements: [],
+                targetEvent: ActionVariableEvent::APPLY_COST,
+                priority: ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+                applyWhenTargeted: false,
+                tagConstraints: [
+                    ActionEnum::GUARD->value => ModifierRequirementEnum::ANY_TAGS,
+                ],
+                delta: -1,
+                targetVariable: PlayerVariableEnum::ACTION_POINT,
+                mode: VariableModifierModeEnum::ADDITIVE,
+            ),
             new TriggerEventModifierConfigDto(
                 key: 'modifier_for_player_set_-1healthPoint_on_new_cycle',
                 name: null,

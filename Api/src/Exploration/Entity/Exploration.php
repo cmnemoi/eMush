@@ -13,6 +13,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
+use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillEnum;
@@ -131,13 +132,28 @@ class Exploration
      */
     public function getActiveExplorators(): PlayerCollection
     {
-        if ($this->planet->hasSectorByName(PlanetSectorEnum::OXYGEN)) {
+        if ($this->hasOxygen()) {
             return $this->getAliveExplorators();
         }
 
         return $this->getAliveExplorators()->filter(
             static fn (Player $explorator) => $explorator->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT)
         );
+    }
+
+    public function hasOxygen(): bool
+    {
+        return $this->planet->hasSectorByName(PlanetSectorEnum::OXYGEN);
+    }
+
+    public function getOneActiveExplorator(): Player
+    {
+        $explorator = $this->getActiveExplorators()->first();
+        if ($explorator instanceof Player) {
+            return $explorator;
+        }
+
+        throw new \Exception('Should have at least one active explorer');
     }
 
     public function getAliveExplorators(): PlayerCollection
@@ -402,5 +418,21 @@ class Exploration
         $this->lastVisitAt = $lastVisitAt->add(new \DateInterval('PT' . $this->getCycleLength() . 'M'));
 
         return $this->lastVisitAt;
+    }
+
+    public function getReasonToCloseExploration(): ?string
+    {
+        $allNonLostExploratorsAreDead = $this->getNotLostActiveExplorators()->isEmpty();
+        $allExplorationStepsDone = $this->getCycle() >= $this->getNumberOfSectionsToVisit() + 1;
+        $allSectorsVisited = $this->getPlanet()->getUnvisitedSectors()->isEmpty();
+
+        if ($allNonLostExploratorsAreDead) {
+            return ExplorationEvent::ALL_EXPLORATORS_ARE_DEAD;
+        }
+        if ($allExplorationStepsDone || $allSectorsVisited) {
+            return ExplorationEvent::ALL_SECTORS_VISITED;
+        }
+
+        return null;
     }
 }

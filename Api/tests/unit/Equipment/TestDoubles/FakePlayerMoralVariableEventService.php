@@ -30,6 +30,11 @@ final class FakePlayerMoralVariableEventService implements EventServiceInterface
         return null;
     }
 
+    public function computeExplorationEventModifications(AbstractGameEvent $event, string $name): ?AbstractGameEvent
+    {
+        return null;
+    }
+
     public function eventCancelReason(AbstractGameEvent $event, string $name): ?string
     {
         return null;

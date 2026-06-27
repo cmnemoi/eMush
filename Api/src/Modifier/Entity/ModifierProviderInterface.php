@@ -22,7 +22,7 @@ interface ModifierProviderInterface
 {
     public function getUsedCharge(string $actionName): ?ChargeStatus;
 
-    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum;
+    public function getOperationalStatus(string $actionName, ?string $strategy = null): ActionProviderOperationalStateEnum;
 
     public function getAllModifierConfigs(): ArrayCollection;
 

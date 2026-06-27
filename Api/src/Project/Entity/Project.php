@@ -390,7 +390,7 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
         return null;
     }
 
-    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
+    public function getOperationalStatus(string $actionName, ?string $strategy = null): ActionProviderOperationalStateEnum
     {
         if ($this->progress !== 100) {
             return ActionProviderOperationalStateEnum::UNFINISHED;

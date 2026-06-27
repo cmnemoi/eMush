@@ -523,15 +523,15 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             params: ['planetSectorName' => PlanetSectorEnum::INTELLIGENT],
         );
 
-        // then exploration log is normalized as expected : provision event as Chun has a white flag which prevents the fight event
+        // then exploration log is normalized as expected : nothing happened event as Chun has a white flag which prevents the fight event
         $I->assertEquals(
             expected: [
                 'id' => $explorationLog->getId(),
                 'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
                 'planetSectorName' => 'Vie intelligente',
-                'eventName' => 'Provision',
-                'eventDescription' => 'Alors que l\'expédition progresse tranquillement vous tombez nez à nez avec un être étrange. Impossible de communiquer avec lui mais avant de partir, il vous donne un sac qui contient du gibier alien.',
-                'eventOutcome' => 'Vous gagnez 2 Steaks aliens.////Probabilité de combat annulée par Drapeau blanc',
+                'eventName' => 'Rien à signaler',
+                'eventDescription' => 'Un grand cri résonne. Un moment de panique. Puis plus rien…',
+                'eventOutcome' => 'La zone est explorée, rien à signaler.////Probabilité de combat annulée par Drapeau blanc',
             ],
             actual: $normalizedExplorationLog,
         );
@@ -626,9 +626,9 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'id' => $explorationLog->getId(),
                 'planetSectorKey' => PlanetSectorEnum::INTELLIGENT,
                 'planetSectorName' => 'Vie intelligente',
-                'eventName' => 'Provision',
-                'eventDescription' => 'Alors que l\'expédition progresse tranquillement vous tombez nez à nez avec un être étrange. Impossible de communiquer avec lui mais avant de partir, il vous donne un sac qui contient du gibier alien.',
-                'eventOutcome' => 'Vous gagnez 2 Steaks aliens.////Probabilité de combat annulée car l\'expédition dispose de la compétence : Diplomatie',
+                'eventName' => 'Rien à signaler',
+                'eventDescription' => 'Un grand cri résonne. Un moment de panique. Puis plus rien…',
+                'eventOutcome' => 'La zone est explorée, rien à signaler.////Probabilité de combat annulée car l\'expédition dispose de la compétence : Diplomatie',
             ],
             actual: $normalizedExplorationLog,
         );

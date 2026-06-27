@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Exploration\PlanetSectorEventHandler;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Entity\Collection\ProbaCollection;
@@ -73,26 +72,8 @@ abstract class AbstractPlanetSectorEventHandler
     protected function getLogParameters(PlanetSectorEvent $event): array
     {
         $logParameters = [];
-        $logParameters['fight_prevented_by_item'] = null;
-        $logParameters['fight_prevented_by_skill'] = null;
         $logParameters['death_prevented_by_skill'] = null;
 
-        if ($event->hasTag(SkillEnum::DIPLOMAT->toString())) {
-            $logParameters['fight_prevented_by_skill'] = '////' . $this->translationService->translate(
-                key: 'fight_prevented_by_skill',
-                parameters: ['skill' => SkillEnum::DIPLOMAT->toString(), 'character_gender' => 'other'],
-                domain: 'planet_sector_event',
-                language: $event->getExploration()->getDaedalus()->getLanguage()
-            );
-        }
-        if ($event->hasTag(ItemEnum::WHITE_FLAG)) {
-            $logParameters['fight_prevented_by_item'] = '////' . $this->translationService->translate(
-                key: 'fight_prevented_by_item',
-                parameters: ['item' => ItemEnum::WHITE_FLAG],
-                domain: 'planet_sector_event',
-                language: $event->getExploration()->getDaedalus()->getLanguage()
-            );
-        }
         if ($event->hasTag(SkillEnum::TRACKER->toString())) {
             $logParameters['death_prevented_by_skill'] = '////' . $this->translationService->translate(
                 key: 'death_prevented_by_skill',

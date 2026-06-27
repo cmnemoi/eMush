@@ -21,6 +21,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\WeaponEventType;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
+use Mush\Exploration\Event\ExplorationSelectionEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\ConfigData\EventConfigData;
 use Mush\Game\Enum\ActionOutputEnum;
@@ -34,8 +35,10 @@ use Mush\Hunter\Event\HunterEvent;
 use Mush\Modifier\Dto\AbstractModifierConfigDto;
 use Mush\Modifier\Dto\DirectModifierConfigDto;
 use Mush\Modifier\Dto\EventModifierConfigDto;
+use Mush\Modifier\Dto\ExplorationEventModifierConfigDto;
 use Mush\Modifier\Dto\TriggerEventModifierConfigDto;
 use Mush\Modifier\Dto\VariableEventModifierConfigDto;
+use Mush\Modifier\Entity\Config\ExplorationEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
@@ -3622,6 +3625,38 @@ abstract class ModifierConfigData
                 delta: 0,
                 targetVariable: PlayerVariableEnum::ACTION_POINT,
                 mode: VariableModifierModeEnum::SET_VALUE,
+            ),
+            new ExplorationEventModifierConfigDto(
+                key: ModifierNameEnum::DIPLOMAT_REMOVE_FIGHT,
+                name: ModifierNameEnum::DIPLOMAT_REMOVE_FIGHT,
+                strategy: ModifierStrategyEnum::EXPLORATION_SECTOR_SELECTION_MODIFIER,
+                modifierRange: ModifierHolderClassEnum::PLACE,
+                modifierActivationRequirements: [],
+                targetEvent: ExplorationSelectionEvent::SECTOR_SELECTION,
+                priority: ModifierPriorityEnum::EXPLORATION_DIPLOMAT,
+                tagConstraints: [],
+                action: ExplorationEventModifierConfig::REPLACE,
+                criteria: ExplorationEventModifierConfig::EVENT_NAME,
+                eventToRemove: PlanetSectorEvent::FIGHT,
+                eventToAdd: PlanetSectorEvent::NOTHING_TO_REPORT_FIGHT,
+                weight: null
+            ),
+            new ExplorationEventModifierConfigDto(
+                key: ModifierNameEnum::WHITEFLAG_REMOVE_FIGHT,
+                name: ModifierNameEnum::WHITEFLAG_REMOVE_FIGHT,
+                strategy: ModifierStrategyEnum::EXPLORATION_SECTOR_SELECTION_MODIFIER,
+                modifierRange: ModifierHolderClassEnum::PLACE,
+                modifierActivationRequirements: [],
+                targetEvent: ExplorationSelectionEvent::SECTOR_SELECTION,
+                priority: ModifierPriorityEnum::EXPLORATION_DIPLOMAT,
+                tagConstraints: [
+                    PlanetSectorEnum::INTELLIGENT => ModifierRequirementEnum::ANY_TAGS,
+                ],
+                action: ExplorationEventModifierConfig::REPLACE,
+                criteria: ExplorationEventModifierConfig::EVENT_NAME,
+                eventToRemove: PlanetSectorEvent::FIGHT,
+                eventToAdd: PlanetSectorEvent::NOTHING_TO_REPORT_FIGHT,
+                weight: null
             ),
         ];
     }

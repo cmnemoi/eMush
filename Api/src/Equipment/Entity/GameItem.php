@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Mush\Equipment\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -145,5 +147,26 @@ class GameItem extends GameEquipment
     public function shouldBeNormalizedAsEquipment(): bool
     {
         return \in_array($this->getName(), [ItemEnum::SUPPORT_DRONE], true);
+    }
+
+    public function getOperationalStatus(string $actionName, ?string $strategy = null): ActionProviderOperationalStateEnum
+    {
+        $holder = $this->getHolder();
+        if ($strategy === ModifierStrategyEnum::EXPLORATION_SECTOR_SELECTION_MODIFIER && $holder instanceof Player) {
+            if ($holder->isActivelyExploring() === false) {
+                return ActionProviderOperationalStateEnum::DEACTIVATED;
+            }
+        }
+
+        if ($this->isBroken() && $this->isActionProvidedByMechanic($actionName)) {
+            return ActionProviderOperationalStateEnum::BROKEN;
+        }
+
+        $charge = $this->getUsedCharge($actionName);
+        if ($charge !== null && !$charge->isCharged()) {
+            return ActionProviderOperationalStateEnum::DISCHARGED;
+        }
+
+        return ActionProviderOperationalStateEnum::OPERATIONAL;
     }
 }

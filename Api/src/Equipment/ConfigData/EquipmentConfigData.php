@@ -136,7 +136,7 @@ class EquipmentConfigData
                 'hide',
                 'examine',
             ],
-            'mechanics' => [],
+            'mechanics' => ['gear_white_flag_default'],
             'initStatuses' => [],
         ],
         [

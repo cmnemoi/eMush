@@ -24,7 +24,12 @@ abstract class ModifierPriorityEnum
     public const string INITIAL_EVENT = 'initialEventPriority';
     public const string AFTER_INITIAL_EVENT = 'afterInitialEvent';
 
+    // exploration only
+    public const string EXPLORATION_DIPLOMAT = 'explorationDiplomat';
+
     public const array PRIORITY_MAP = [
+        self::EXPLORATION_DIPLOMAT => -500,
+
         self::BEFORE_INITIAL_EVENT => -100,
         self::PREVENT_EVENT => -50,
         self::INITIAL_SET_VALUE => -20,
@@ -55,6 +60,10 @@ abstract class ModifierPriorityEnum
         self::INITIAL_EVENT,
     ];
     public const array POST_MODIFICATION = [self::AFTER_INITIAL_EVENT];
+
+    public const array EXPLORATION_MODIFICATIONS = [
+        self::EXPLORATION_DIPLOMAT,
+    ];
 
     public static function getPriorityAsInteger(string $priority): int
     {

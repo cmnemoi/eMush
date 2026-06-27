@@ -120,7 +120,7 @@ class GameModifier
             return true;
         }
 
-        $operationalStatus = $this->modifierProvider->getModifierProvider()->getOperationalStatus($modifierName);
+        $operationalStatus = $this->modifierProvider->getModifierProvider()->getOperationalStatus($modifierName, $this->getModifierConfig()->getModifierStrategy());
 
         return $operationalStatus === ActionProviderOperationalStateEnum::OPERATIONAL;
     }

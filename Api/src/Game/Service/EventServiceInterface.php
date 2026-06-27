@@ -13,5 +13,7 @@ interface EventServiceInterface
 
     public function computeEventModifications(AbstractGameEvent $event, string $name): ?AbstractGameEvent;
 
+    public function computeExplorationEventModifications(AbstractGameEvent $event, string $name): ?AbstractGameEvent;
+
     public function eventCancelReason(AbstractGameEvent $event, string $name): ?string;
 }

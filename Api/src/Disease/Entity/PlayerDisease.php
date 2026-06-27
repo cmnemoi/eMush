@@ -14,6 +14,7 @@ use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\ModifierProviderInterface;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 
@@ -192,9 +193,13 @@ class PlayerDisease implements ModifierProviderInterface
         return null;
     }
 
-    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
+    public function getOperationalStatus(string $actionName, ?string $strategy = null): ActionProviderOperationalStateEnum
     {
         if ($this->isActive()) {
+            if ($strategy === ModifierStrategyEnum::EXPLORATION_SECTOR_SELECTION_MODIFIER) {
+                return $this->player->isActivelyExploring() ? ActionProviderOperationalStateEnum::OPERATIONAL : ActionProviderOperationalStateEnum::DEACTIVATED;
+            }
+
             return ActionProviderOperationalStateEnum::OPERATIONAL;
         }
 

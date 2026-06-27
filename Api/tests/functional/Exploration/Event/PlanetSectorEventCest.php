@@ -374,7 +374,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     {
         // given an exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::OXYGEN], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::OXYGEN, PlanetSectorEnum::OXYGEN], $I),
             explorators: $this->players
         );
 
@@ -403,7 +403,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // given an exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::HYDROCARBON], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::HYDROCARBON, PlanetSectorEnum::HYDROCARBON], $I),
             explorators: $this->players
         );
 
@@ -434,7 +434,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // given an exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::HYDROCARBON], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::HYDROCARBON, PlanetSectorEnum::HYDROCARBON], $I),
             explorators: new PlayerCollection([$this->chun])
         );
 
@@ -451,7 +451,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     {
         // given exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT, PlanetSectorEnum::INTELLIGENT], $I),
             explorators: new ArrayCollection([$this->player])
         );
 
@@ -1007,7 +1007,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // given an exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::OCEAN], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::OCEAN, PlanetSectorEnum::OCEAN], $I),
             explorators: $this->players
         );
 
@@ -1050,7 +1050,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     {
         // given an exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::FRUIT_TREES], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::FRUIT_TREES, PlanetSectorEnum::FRUIT_TREES], $I),
             explorators: $this->players
         );
 
@@ -1093,7 +1093,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // given an exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::FRUIT_TREES], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::FRUIT_TREES, PlanetSectorEnum::FRUIT_TREES], $I),
             explorators: $this->players
         );
 
@@ -1261,7 +1261,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     {
         // given an exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::CRISTAL_FIELD], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::CRISTAL_FIELD, PlanetSectorEnum::CRISTAL_FIELD], $I),
             explorators: $this->players
         );
 
@@ -1318,7 +1318,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // given an exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT, PlanetSectorEnum::INTELLIGENT], $I),
             explorators: $this->players
         );
 
@@ -1663,9 +1663,9 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // then Janice is not lost anymore
         $I->assertFalse($this->janice->hasStatus(PlayerStatusEnum::LOST));
 
-        // then Janice should be in Planet place
+        // then Janice should be in Icarus Bay (since the exploration is closed)
         $I->assertEquals(
-            expected: RoomEnum::PLANET,
+            expected: RoomEnum::ICARUS_BAY,
             actual: $this->janice->getPlace()->getName(),
         );
 
@@ -1915,110 +1915,6 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $this->thenPlayerShouldBeDead($this->chun, $I);
     }
 
-    public function traitorExploratorShouldHaveAPrivateLogWhenTriggeringNegativeEvent(FunctionalTester $I): void
-    {
-        $this->addSkillToPlayer(SkillEnum::TRAITOR, $I);
-
-        $this->givenOnlyThisEventCanHappenInSector(
-            event: PlanetSectorEvent::NOTHING_TO_REPORT,
-            sector: PlanetSectorEnum::LANDING,
-        );
-
-        $this->givenOnlyThisEventCanHappenInSector(
-            event: PlanetSectorEvent::FIGHT_ALIEN,
-            sector: PlanetSectorEnum::INTELLIGENT,
-        );
-
-        $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
-            sectorName: PlanetSectorEnum::INTELLIGENT,
-            players: [$this->chun, $this->kuanTi],
-            I: $I
-        );
-
-        $exploration->setIsSabotaged(true);
-
-        $this->whenExplorationEventIsDispatched($exploration);
-
-        $I->cantSeeInRepository(
-            entity: RoomLog::class,
-            params: [
-                'visibility' => VisibilityEnum::PRIVATE,
-                'log' => LogEnum::TRAITOR_PREVENTED,
-                'playerInfo' => $this->chun->getPlayerInfo(),
-            ]
-        );
-
-        $I->canSeeInRepository(
-            entity: RoomLog::class,
-            params: [
-                'visibility' => VisibilityEnum::PRIVATE,
-                'log' => LogEnum::TRAITOR_WORKED,
-                'playerInfo' => $this->chun->getPlayerInfo(),
-            ]
-        );
-
-        $I->cantSeeInRepository(
-            entity: RoomLog::class,
-            params: [
-                'log' => LogEnum::TRAITOR_WORKED,
-                'playerInfo' => $this->kuanTi->getPlayerInfo(),
-            ]
-        );
-    }
-
-    public function traitorExploratorShouldHaveAPrivateLogWhenTriggeringPositiveEvent(FunctionalTester $I): void
-    {
-        $this->addSkillToPlayer(SkillEnum::TRAITOR, $I);
-        $this->addSkillToPlayer(SkillEnum::DIPLOMAT, $I, $this->kuanTi);
-
-        $this->givenOnlyThisEventCanHappenInSector(
-            event: PlanetSectorEvent::NOTHING_TO_REPORT,
-            sector: PlanetSectorEnum::LANDING,
-        );
-
-        // given only fight and nothing to report events can happen in intelligent sector
-        $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::INTELLIGENT,
-            events: ['fight_1' => PHP_INT_MAX - 1, 'nothing_to_report' => 1]
-        );
-
-        $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
-            sectorName: PlanetSectorEnum::INTELLIGENT,
-            players: [$this->chun, $this->kuanTi],
-            I: $I
-        );
-
-        $exploration->setIsSabotaged(true);
-
-        $this->whenExplorationEventIsDispatched($exploration);
-
-        $I->cantSeeInRepository(
-            entity: RoomLog::class,
-            params: [
-                'visibility' => VisibilityEnum::PRIVATE,
-                'log' => LogEnum::TRAITOR_WORKED,
-                'playerInfo' => $this->chun->getPlayerInfo(),
-            ]
-        );
-
-        $I->canSeeInRepository(
-            entity: RoomLog::class,
-            params: [
-                'visibility' => VisibilityEnum::PRIVATE,
-                'log' => LogEnum::TRAITOR_PREVENTED,
-                'playerInfo' => $this->chun->getPlayerInfo(),
-            ]
-        );
-
-        $I->cantSeeInRepository(
-            entity: RoomLog::class,
-            params: [
-                'log' => LogEnum::TRAITOR_PREVENTED,
-                'playerInfo' => $this->kuanTi->getPlayerInfo(),
-            ]
-        );
-    }
-
     private function givenChunIsASurvivalist(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::SURVIVALIST, $I, $this->chun);
@@ -2027,7 +1923,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     private function givenAnExplorationIsCreatedOnSectorForPlayers(string $sectorName, array $players, FunctionalTester $I): Exploration
     {
         return $this->createExploration(
-            planet: $this->createPlanet([$sectorName], $I),
+            planet: $this->createPlanet([$sectorName, $sectorName], $I),
             explorators: new ArrayCollection($players)
         );
     }

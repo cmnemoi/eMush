@@ -12,4 +12,5 @@ abstract class ModifierStrategyEnum
     public const string PREVENT_EVENT = 'prevent_event';
     public const string SYMPTOM_MODIFIER = 'symptom_modifier';
     public const string DIRECT_MODIFIER = 'direct_modifier';
+    public const string EXPLORATION_SECTOR_SELECTION_MODIFIER = 'exploration_sector_selection_modifier';
 }

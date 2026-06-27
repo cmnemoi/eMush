@@ -17,6 +17,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Modifier\Entity\ModifierProviderInterface;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -270,8 +271,15 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
         return null;
     }
 
-    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
+    public function getOperationalStatus(string $actionName, ?string $strategy = null): ActionProviderOperationalStateEnum
     {
+        $owner = $this->getOwner();
+        if ($strategy === ModifierStrategyEnum::EXPLORATION_SECTOR_SELECTION_MODIFIER && $owner instanceof Player) {
+            if ($owner->isActivelyExploring() === false) {
+                return ActionProviderOperationalStateEnum::DEACTIVATED;
+            }
+        }
+
         return ActionProviderOperationalStateEnum::OPERATIONAL;
     }
 

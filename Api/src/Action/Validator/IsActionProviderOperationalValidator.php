@@ -38,7 +38,7 @@ class IsActionProviderOperationalValidator extends ConstraintValidator
         /** @var ActionConfig $actionConfig */
         $actionConfig = $value->getActionConfig();
 
-        $operationalStatus = $actionProvider->getOperationalStatus($actionConfig->getActionName()->value);
+        $operationalStatus = $actionProvider->getOperationalStatus($actionConfig->getActionName()->value, null);
 
         if ($operationalStatus !== ActionProviderOperationalStateEnum::OPERATIONAL) {
             $message = $this->getViolationMessage(

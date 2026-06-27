@@ -14,10 +14,12 @@ use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Dto\AbstractModifierConfigDto;
 use Mush\Modifier\Dto\DirectModifierConfigDto;
 use Mush\Modifier\Dto\EventModifierConfigDto;
+use Mush\Modifier\Dto\ExplorationEventModifierConfigDto;
 use Mush\Modifier\Dto\TriggerEventModifierConfigDto;
 use Mush\Modifier\Dto\VariableEventModifierConfigDto;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
+use Mush\Modifier\Entity\Config\ExplorationEventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
@@ -35,6 +37,7 @@ final class ModifierConfigFixtures extends Fixture implements DependentFixtureIn
             $config = match (true) {
                 $modifierConfigDto instanceof TriggerEventModifierConfigDto => $this->loadTriggeredEventModifierConfig($modifierConfigDto),
                 $modifierConfigDto instanceof VariableEventModifierConfigDto => $this->loadVariableEventModifierConfig($modifierConfigDto),
+                $modifierConfigDto instanceof ExplorationEventModifierConfigDto => $this->loadExplorationEventModifierConfig($modifierConfigDto),
                 $modifierConfigDto instanceof EventModifierConfigDto => $this->loadEventModifierConfig($modifierConfigDto),
                 $modifierConfigDto instanceof DirectModifierConfigDto => $this->loadDirectModifierConfig($modifierConfigDto),
                 default => null
@@ -106,6 +109,14 @@ final class ModifierConfigFixtures extends Fixture implements DependentFixtureIn
     {
         $config = VariableEventModifierConfig::fromDtoChild($variableEventModifierConfigDto);
         $config->setModifierActivationRequirements($this->getModifierConfigActivationRequirements($variableEventModifierConfigDto->modifierActivationRequirements));
+
+        return $config;
+    }
+
+    private function loadExplorationEventModifierConfig(ExplorationEventModifierConfigDto $explorationEventModifierConfigDto): ExplorationEventModifierConfig
+    {
+        $config = ExplorationEventModifierConfig::fromDtoChild($explorationEventModifierConfigDto);
+        $config->setModifierActivationRequirements($this->getModifierConfigActivationRequirements($explorationEventModifierConfigDto->modifierActivationRequirements));
 
         return $config;
     }

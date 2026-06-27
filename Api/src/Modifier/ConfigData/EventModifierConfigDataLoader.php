@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Modifier\ConfigData;
 
 use Mush\Modifier\Dto\EventModifierConfigDto;
+use Mush\Modifier\Dto\ExplorationEventModifierConfigDto;
 use Mush\Modifier\Dto\TriggerEventModifierConfigDto;
 use Mush\Modifier\Dto\VariableEventModifierConfigDto;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
@@ -19,7 +20,8 @@ class EventModifierConfigDataLoader extends ModifierConfigDataLoader
         foreach (ModifierConfigData::getAll() as $modifierConfigDataDto) {
             if (!$modifierConfigDataDto instanceof EventModifierConfigDto
                 || $modifierConfigDataDto instanceof TriggerEventModifierConfigDto
-                || $modifierConfigDataDto instanceof VariableEventModifierConfigDto) {
+                || $modifierConfigDataDto instanceof VariableEventModifierConfigDto
+                || $modifierConfigDataDto instanceof ExplorationEventModifierConfigDto) {
                 continue;
             }
 

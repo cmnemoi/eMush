@@ -492,7 +492,7 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
         return $this === $player->getPlace();
     }
 
-    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
+    public function getOperationalStatus(string $actionName, ?string $strategy = null): ActionProviderOperationalStateEnum
     {
         $charge = $this->getUsedCharge($actionName);
         if ($charge !== null && !$charge->isCharged()) {

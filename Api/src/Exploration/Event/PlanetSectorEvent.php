@@ -55,6 +55,7 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
     public const string PLAYER_LOST = 'player_lost';
     public const string NOTHING_TO_REPORT = 'nothing_to_report';
     public const string NOTHING_TO_REPORT_NEGATIVE = 'nothing_to_report_negative';
+    public const string NOTHING_TO_REPORT_FIGHT = 'nothing_to_report_fight';
     public const string OXYGEN = 'oxygen';
     public const string OXYGEN_8 = 'oxygen_8';
     public const string OXYGEN_16 = 'oxygen_16';

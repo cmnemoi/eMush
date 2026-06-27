@@ -116,7 +116,7 @@
         <target>{quantity, plural,
   one {Todos los miembros del equipo sufren # punto de daño.}
   other {Todos los miembros del equipo sufren # puntos de daño.}
-  }{fight_prevented_by_item}{skill_reduced_damage_for_player}{fight_prevented_by_skill}</target>
+  }{skill_reduced_damage_for_player}</target>
       </segment>
       <segment id="landing_description" state="translated">
         <source>tired.landing_description</source>
@@ -155,7 +155,7 @@
       <segment id="description" state="translated">
         <source>accident.description</source>
         <target>Un miembro del equipo sufre de {min_quantity} a {max_quantity} Puntos de Daño.{rope_worked, select, true {////Esquivado porque {character} posee el objeto: Cuerda} other {}}
-{fight_prevented_by_item}{skill_reduced_damage_for_player}{fight_prevented_by_skill}</target>
+{skill_reduced_damage_for_player}</target>
       </segment>
       <segment id="predator_description" state="translated">
         <source>accident.predator_description</source>
@@ -205,7 +205,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>disaster.description</source>
-        <target>Todos los miembros del equipo sufren de {min_quantity} a {max_quantity} Puntos de daño.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>Todos los miembros del equipo sufren de {min_quantity} a {max_quantity} Puntos de daño.</target>
       </segment>
       <segment id="landing_description" state="translated">
         <source>disaster.landing_description</source>
@@ -219,7 +219,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>oxygen.description</source>
-        <target>Ganas {quantity} unidades de O².{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>Ganas {quantity} unidades de O².</target>
       </segment>
       <segment id="oxygen_description" state="translated">
         <source>oxygen.oxygen_description</source>
@@ -238,7 +238,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>fuel.description</source>
-        <target>Ganas {quantity} unidades de Combustible. {has_drill, select, true {////Duplicado porque la expedición posee el objeto: Taladro.} other {}}{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>Ganas {quantity} unidades de Combustible. {has_drill, select, true {////Duplicado porque la expedición posee el objeto: Taladro.} other {}}</target>
       </segment>
       <segment id="hydrocarbon_description" state="translated">
         <source>fuel.hydrocarbon_description</source>
@@ -277,7 +277,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>artefact.description</source>
-        <target>Encuentras un artefacto. {used_babel_module, select, true {////+100% porque la expedición posee el objeto: Módulo Babel.} other {}}{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>Encuentras un artefacto. {used_babel_module, select, true {////+100% porque la expedición posee el objeto: Módulo Babel.} other {}}</target>
       </segment>
       <segment id="intelligent_description" state="translated">
         <source>artefact.intelligent_description</source>
@@ -355,7 +355,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>kill_random.description</source>
-        <target>Un miembro del equipo ha muerto.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>Un miembro del equipo ha muerto.</target>
       </segment>
       <segment id="seismic_activity_description" state="translated">
         <source>kill_random.seismic_activity_description</source>
@@ -373,7 +373,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>kill_all.description</source>
-        <target>Todos los miembros del equipo han muerto.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>Todos los miembros del equipo han muerto.</target>
       </segment>
       <segment id="volcanic_activity_description" state="translated">
         <source>kill_all.volcanic_activity_description</source>
@@ -429,7 +429,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>provision.description</source>
-        <target>Ganas {quantity, plural, one {# {equipment}} other {# {equipment_plural_name}}}.{fight_prevented_by_item}{bonus_loot_thanks_to_skill}{bonus_loot_thanks_to_items}{fight_prevented_by_skill}</target>
+        <target>Ganas {quantity, plural, one {# {equipment}} other {# {equipment_plural_name}}}.{bonus_loot_thanks_to_skill}{bonus_loot_thanks_to_items}</target>
       </segment>
       <segment id="ruminant_description" state="translated">
         <source>provision.ruminant_description</source>
@@ -463,7 +463,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>harvest.description</source>
-        <target>Ganas {quantity, plural, one {# Fruto Alien} other {# Frutos Alien}}.{fight_prevented_by_item}{bonus_loot_thanks_to_skill}{fight_prevented_by_skill}</target>
+        <target>Ganas {quantity, plural, one {# Fruto Alien} other {# Frutos Alien}}.{bonus_loot_thanks_to_skill}</target>
       </segment>
       <segment id="forest_description" state="translated">
         <source>harvest.forest_description</source>
@@ -501,7 +501,7 @@
       <segment id="description" state="translated">
         <source>disease.description</source>
         <target>Un miembro del equipo se enferma.
-{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+</target>
       </segment>
       <segment id="forest_description" state="translated">
         <source>disease.forest_description</source>
@@ -523,7 +523,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>starmap.description</source>
-        <target>Encuentras 1 Fragmento de mapa estelar de Cristalita.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>Encuentras 1 Fragmento de mapa estelar de Cristalita.</target>
       </segment>
       <segment id="cristal_field_description" state="translated">
         <source>starmap.cristal_field_description</source>
@@ -537,7 +537,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>mush_trap.description</source>
-        <target>Todos los miembros del equipo corren el riesgo de contraer una infección Mush.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>Todos los miembros del equipo corren el riesgo de contraer una infección Mush.</target>
       </segment>
       <segment id="cristal_field_description" state="translated">
         <source>mush_trap.cristal_field_description</source>
@@ -551,7 +551,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>again.description</source>
-        <target>La exploración de la zona fue infructuosa. Pero aún quedan cosas por descubrir...{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>La exploración de la zona fue infructuosa. Pero aún quedan cosas por descubrir...</target>
       </segment>
       <segment id="desert_description" state="translated">
         <source>again.desert_description</source>
@@ -577,7 +577,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>item_lost.description</source>
-        <target>Un objeto de un miembro del equipo se pierde.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>Un objeto de un miembro del equipo se pierde.</target>
       </segment>
       <segment id="intelligent_description" state="translated">
         <source>item_lost.intelligent_description</source>
@@ -595,7 +595,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>back.description</source>
-        <target>Abandonas la expedición en curso.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>Abandonas la expedición en curso.</target>
       </segment>
       <segment id="seismic_activity_description" state="translated">
         <source>back.seismic_activity_description</source>
@@ -617,7 +617,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>player_lost.description</source>
-        <target>Un miembro del equipo se pierde.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>Un miembro del equipo se pierde.</target>
       </segment>
       <segment id="cristal_field_description" state="translated">
         <source>player_lost.cristal_field_description</source>
@@ -643,7 +643,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>find_lost.description</source>
-        <target>¡Un compañero perdido es encontrado!{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>¡Un compañero perdido es encontrado!</target>
       </segment>
       <segment id="lost_description" state="translated">
         <source>find_lost.lost_description</source>
@@ -663,7 +663,7 @@ other {{version, select,
       </segment>
       <segment id="description" state="translated">
         <source>kill_lost.description</source>
-        <target>Un miembro perdido del equipo muere.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>Un miembro perdido del equipo muere.</target>
       </segment>
       <segment id="lost_description" state="translated">
         <source>kill_lost.lost_description</source>

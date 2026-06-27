@@ -315,7 +315,7 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return $this->isInAPatrolShip() || $this->isInSpace();
     }
 
-    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
+    public function getOperationalStatus(string $actionName, ?string $strategy = null): ActionProviderOperationalStateEnum
     {
         if ($this->isBroken() && $this->isActionProvidedByMechanic($actionName)) {
             return ActionProviderOperationalStateEnum::BROKEN;
@@ -726,7 +726,7 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return $this->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
     }
 
-    private function isActionProvidedByMechanic(string $actionName): bool
+    protected function isActionProvidedByMechanic(string $actionName): bool
     {
         $toolProvidesAction = $this->getToolMechanicOrNull()?->hasAction(ActionEnum::from($actionName));
         $gearProvidesAction = $this->getGearMechanicOrNull()?->hasModifierConfigByModifierName($actionName);

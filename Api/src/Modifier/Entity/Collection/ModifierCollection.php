@@ -9,6 +9,7 @@ use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
+use Mush\Modifier\Entity\Config\ExplorationEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierProviderInterface;
 
@@ -52,6 +53,15 @@ class ModifierCollection extends ArrayCollection
     {
         return $this->filter(static fn (GameModifier $modifier) => (
             ($modifierConfig = $modifier->getModifierConfig()) instanceof EventModifierConfig
+            && \in_array($modifierConfig->getPriority(), $priorities, true)
+            && $modifierConfig->doModifierApplies($event)
+        ));
+    }
+
+    public function getExplorationEventModifiers(AbstractGameEvent $event, array $priorities): self
+    {
+        return $this->filter(static fn (GameModifier $modifier) => (
+            ($modifierConfig = $modifier->getModifierConfig()) instanceof ExplorationEventModifierConfig
             && \in_array($modifierConfig->getPriority(), $priorities, true)
             && $modifierConfig->doModifierApplies($event)
         ));

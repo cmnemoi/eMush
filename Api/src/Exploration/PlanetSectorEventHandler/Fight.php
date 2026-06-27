@@ -16,11 +16,8 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\ExplorationLog;
-use Mush\Exploration\Entity\PlanetSectorEventConfig;
-use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Enum\PlanetSectorEventTagEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
-use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -68,21 +65,6 @@ final class Fight extends AbstractLootItemsEventHandler
 
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
-        $exploration = $event->getExploration();
-        $planetSector = $event->getPlanetSector();
-
-        // we check if fight is replaced
-        if ($exploration->hasAnActiveDiplomat()) {
-            $event->addTag(SkillEnum::DIPLOMAT->toString());
-
-            return $this->dispatchNonFightEvent($event);
-        }
-        if ($planetSector->isIntelligentSector() && $exploration->hasAWhiteFlag()) {
-            $event->addTag(ItemEnum::WHITE_FLAG);
-
-            return $this->dispatchNonFightEvent($event);
-        }
-
         // we get the values that we will use
         $creatureStrength = (int) $event->getConfig()->hasTag(PlanetSectorEventTagEnum::RANDOM_FIGHT)
             ? $this->randomService->getRandomElement(PlanetSectorEventTagEnum::getRandomFightPower())
@@ -254,63 +236,6 @@ final class Fight extends AbstractLootItemsEventHandler
                 );
             }
         }
-    }
-
-    private function dispatchNonFightEvent(PlanetSectorEvent $event): ExplorationLog
-    {
-        $exploration = $event->getExploration();
-        $newPlanetSectorEvents = $this->getPlanetSectorEventsWithoutFightOne($event);
-        $eventConfigToDispatch = $this->drawPlanetSectorEventConfigToDispatch($newPlanetSectorEvents);
-
-        $this->dispatchPlanetSectorEvent($eventConfigToDispatch, $event);
-
-        // this is set *after* dispatching the new event, so it isn't passed down to it
-        $event->addTag(PlanetSectorEventTagEnum::PREVENTED);
-
-        return new ExplorationLog($exploration->getClosedExploration());
-    }
-
-    private function getPlanetSectorEventsWithoutFightOne(PlanetSectorEvent $event): ProbaCollection
-    {
-        $sectorEvents = clone $event->getPlanetSector()->getExplorationEvents();
-        $sectorEvents->remove($event->getKey());
-
-        if ($event->getExploration()->hasAFunctionalBabelModule() && $event->getPlanetSector()->getName() === PlanetSectorEnum::INTELLIGENT) {
-            $newProbability = $sectorEvents->getElementProbability(PlanetSectorEvent::ARTEFACT) * 2;
-            $sectorEvents->setElementProbability(PlanetSectorEvent::ARTEFACT, $newProbability);
-        }
-
-        return $sectorEvents;
-    }
-
-    private function drawPlanetSectorEventConfigToDispatch(ProbaCollection $events): PlanetSectorEventConfig
-    {
-        $newEventKey = (string) $this->randomService->getSingleRandomElementFromProbaCollection($events);
-
-        return $this->getPlanetSectorEventConfigByKey($newEventKey);
-    }
-
-    private function getPlanetSectorEventConfigByKey(string $key): PlanetSectorEventConfig
-    {
-        /** @var ?PlanetSectorEventConfig $eventConfig */
-        $eventConfig = $this->entityManager->getRepository(PlanetSectorEventConfig::class)->findOneByName($key);
-        if (!$eventConfig) {
-            throw new \RuntimeException('PlanetSectorEventConfig not found for event ' . $key);
-        }
-
-        return $eventConfig;
-    }
-
-    private function dispatchPlanetSectorEvent(PlanetSectorEventConfig $eventConfig, PlanetSectorEvent $event): void
-    {
-        $planetSectorEvent = new PlanetSectorEvent(
-            $event->getPlanetSector(),
-            $eventConfig,
-            $event->getTags(),
-            $event->getTime(),
-            $event->getVisibility()
-        );
-        $this->eventService->callEvent($planetSectorEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
     }
 
     private function getWinChance(int $creatureStrength, int $expeditionStrength): int

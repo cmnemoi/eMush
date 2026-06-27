@@ -97,7 +97,7 @@ class XylophEntry implements ModifierProviderInterface
         return null;
     }
 
-    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
+    public function getOperationalStatus(string $actionName, ?string $strategy = null): ActionProviderOperationalStateEnum
     {
         if ($this->isDecoded()) {
             return ActionProviderOperationalStateEnum::OPERATIONAL;

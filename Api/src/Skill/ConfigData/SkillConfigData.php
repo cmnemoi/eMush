@@ -118,6 +118,9 @@ abstract class SkillConfigData
                 actionConfigs: [
                     ActionEnum::CEASEFIRE,
                 ],
+                modifierConfigs: [
+                    ModifierNameEnum::DIPLOMAT_REMOVE_FIGHT,
+                ]
             ),
             new SkillConfigDto(
                 name: SkillEnum::DISHEARTENING_CONTACT,
@@ -362,6 +365,9 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::POLYVALENT,
+                modifierConfigs: [
+                    ModifierNameEnum::DIPLOMAT_REMOVE_FIGHT,
+                ]
             ),
             new SkillConfigDto(
                 name: SkillEnum::PRESENTIMENT,

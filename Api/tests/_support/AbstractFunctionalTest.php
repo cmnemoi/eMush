@@ -41,6 +41,7 @@ use Mush\Project\Event\ProjectEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
+use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -361,9 +362,9 @@ class AbstractFunctionalTest
         );
     }
 
-    protected function createStatusOn(string $status, StatusHolderInterface $statusHolder): void
+    protected function createStatusOn(string $status, StatusHolderInterface $statusHolder): Status
     {
-        $this->statusService->createStatusFromName(
+        return $this->statusService->createStatusFromName(
             $status,
             $statusHolder,
             ['test'],

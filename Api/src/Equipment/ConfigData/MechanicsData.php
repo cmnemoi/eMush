@@ -2151,6 +2151,14 @@ class MechanicsData
                 ActionEnum::LIE_DOWN_IN_SHIP->value,
             ],
         ],
+        [
+            'name' => 'gear_white_flag_default',
+            'type' => 'gear',
+            'actions' => [],
+            'modifierConfigs' => [
+                'whiteflag_remove_fight',
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

@@ -49,6 +49,7 @@ use Mush\Game\ConfigData\VariableEventConfigDataLoader;
 use Mush\Hunter\ConfigData\HunterConfigDataLoader;
 use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\EventModifierConfigDataLoader;
+use Mush\Modifier\ConfigData\ExplorationEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
 use Mush\Modifier\ConfigData\TriggerEventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\VariableEventModifierConfigDataLoader;
@@ -76,6 +77,7 @@ class ConfigDataLoaderService
         TriggerEventModifierConfigDataLoader $triggerEventModifierConfigDataLoader,
         DirectModifierConfigDataLoader $directModifierConfigDataLoader,
         VariableEventConfigDataLoader $variableEventConfigDataLoader,
+        ExplorationEventModifierConfigDataLoader $explorationEventModifierConfigDataLoader,
         PlanetSectorEventConfigDataLoader $planetSectorEventConfigDataLoader,
         ActionDataLoader $actionDataLoader,
         ChargeStatusConfigDataLoader $chargeStatusConfigDataLoader,
@@ -134,6 +136,7 @@ class ConfigDataLoaderService
                 $modifierActivationRequirementDataLoader,
                 $eventModifierConfigDataLoader,
                 $variableEventModifierConfigDataLoader,
+                $explorationEventModifierConfigDataLoader,
                 $planetSectorEventConfigDataLoader,
                 $triggerEventModifierConfigDataLoader,
                 $directModifierConfigDataLoader,

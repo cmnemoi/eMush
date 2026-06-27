@@ -52,6 +52,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     'trigger_event_modifier_config' => TriggerEventModifierConfig::class,
     'variable_event_modifier_config' => VariableEventModifierConfig::class,
     'direct_modifier_config' => DirectModifierConfig::class,
+    'exploration_event_modifier_config' => ExplorationEventModifierConfig::class,
 ])]
 abstract class AbstractModifierConfig
 {

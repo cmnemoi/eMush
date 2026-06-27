@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\PlanetSectorEventHandler;
 
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Project\Enum\ProjectName;
@@ -25,6 +26,34 @@ final class NothingToReport extends AbstractPlanetSectorEventHandler
         $logParameters['version'] = $this->randomService->random(1, self::NUMBER_OF_VERSIONS);
 
         return $this->createExplorationLog($event, $logParameters);
+    }
+
+    protected function getLogParameters(PlanetSectorEvent $event): array
+    {
+        $logParameters = parent::getLogParameters($event);
+        $logParameters['fight_prevented_by_item'] = null;
+        $logParameters['fight_prevented_by_skill'] = null;
+
+        if ($event->getConfig()->getName() === PlanetSectorEvent::NOTHING_TO_REPORT_FIGHT) {
+            if ($event->getExploration()->hasAnActiveDiplomat()) {
+                $logParameters['fight_prevented_by_skill'] = '////' . $this->translationService->translate(
+                    key: 'fight_prevented_by_skill',
+                    parameters: ['skill' => SkillEnum::DIPLOMAT->toString(), 'character_gender' => 'other'],
+                    domain: 'planet_sector_event',
+                    language: $event->getExploration()->getDaedalus()->getLanguage()
+                );
+            }
+            if ($event->getExploration()->hasAWhiteFlag()) {
+                $logParameters['fight_prevented_by_item'] = '////' . $this->translationService->translate(
+                    key: 'fight_prevented_by_item',
+                    parameters: ['item' => ItemEnum::WHITE_FLAG],
+                    domain: 'planet_sector_event',
+                    language: $event->getExploration()->getDaedalus()->getLanguage()
+                );
+            }
+        }
+
+        return $logParameters;
     }
 
     private function getAlwaysSuccessfulThanksToSkillLogParameter(PlanetSectorEvent $event): ?string

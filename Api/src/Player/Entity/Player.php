@@ -50,6 +50,7 @@ use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Entity\ModifierHolderTrait;
 use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -1008,6 +1009,15 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->exploration !== null || $this->hasStatus(PlayerStatusEnum::LOST);
     }
 
+    public function isActivelyExploring(): bool
+    {
+        if ($this->exploration === null || $this->hasStatus(PlayerStatusEnum::LOST)) {
+            return false;
+        }
+
+        return $this->exploration->hasOxygen() || ($this->exploration->hasOxygen() === false && $this->hasOperationalEquipmentByName(GearItemEnum::SPACESUIT));
+    }
+
     /** @return Collection<int, Message> */
     public function getFavoriteMessages(): Collection
     {
@@ -1032,8 +1042,11 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->getEfficiencyForProject($project)->max === 0;
     }
 
-    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
+    public function getOperationalStatus(string $actionName, ?string $strategy = null): ActionProviderOperationalStateEnum
     {
+        if ($strategy === ModifierStrategyEnum::EXPLORATION_SECTOR_SELECTION_MODIFIER && $this->isActivelyExploring() === false) {
+            return ActionProviderOperationalStateEnum::DEACTIVATED;
+        }
         $charge = $this->getUsedCharge($actionName);
         if ($charge !== null && !$charge->isCharged()) {
             return ActionProviderOperationalStateEnum::DISCHARGED;

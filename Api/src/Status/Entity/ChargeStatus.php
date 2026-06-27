@@ -11,7 +11,9 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -135,8 +137,15 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
         return null;
     }
 
-    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
+    public function getOperationalStatus(string $actionName, ?string $strategy = null): ActionProviderOperationalStateEnum
     {
+        $owner = $this->getOwner();
+        if ($strategy === ModifierStrategyEnum::EXPLORATION_SECTOR_SELECTION_MODIFIER && $owner instanceof Player) {
+            if ($owner->isActivelyExploring() === false) {
+                return ActionProviderOperationalStateEnum::DEACTIVATED;
+            }
+        }
+
         if ($this->hasDischargeStrategy($actionName) && !$this->isCharged()) {
             return ActionProviderOperationalStateEnum::DISCHARGED;
         }

@@ -15,6 +15,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\ModifierProviderInterface;
+use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Skill\ConfigData\SkillConfigData;
@@ -127,8 +128,12 @@ class Skill implements ActionProviderInterface, ModifierProviderInterface
         return null;
     }
 
-    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
+    public function getOperationalStatus(string $actionName, ?string $strategy = null): ActionProviderOperationalStateEnum
     {
+        if ($strategy === ModifierStrategyEnum::EXPLORATION_SECTOR_SELECTION_MODIFIER && $this->player->isActivelyExploring() === false) {
+            ActionProviderOperationalStateEnum::DEACTIVATED;
+        }
+
         return ActionProviderOperationalStateEnum::OPERATIONAL;
     }
 

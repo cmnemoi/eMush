@@ -49,6 +49,10 @@ final class PlanetSectorEventConfigData
                 tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
             new PlanetSectorEventConfigDto(
+                name: PlanetSectorEvent::NOTHING_TO_REPORT_FIGHT,
+                eventName: PlanetSectorEvent::NOTHING_TO_REPORT,
+            ),
+            new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::TIRED_2,
                 eventName: PlanetSectorEvent::TIRED,
                 outputTable: [2 => 1],

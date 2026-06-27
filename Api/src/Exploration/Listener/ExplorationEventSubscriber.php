@@ -40,8 +40,6 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         $exploration->incrementCycle();
         $this->explorationService->selectNextSectorIfAble($exploration);
         $this->explorationService->persist([$exploration]);
-
-        $this->closeExplorationIfNeeded($exploration);
     }
 
     public function onExplorationNewCycle(ExplorationEvent $event): void
@@ -57,20 +55,5 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         $exploration->incrementCycle();
         $this->explorationService->selectNextSectorIfAble($exploration);
         $this->explorationService->persist([$exploration]);
-
-        $this->closeExplorationIfNeeded($exploration);
-    }
-
-    private function closeExplorationIfNeeded(Exploration $exploration): void
-    {
-        $allNonLostExploratorsAreDead = $exploration->getNotLostActiveExplorators()->isEmpty();
-        $allExplorationStepsDone = $exploration->getCycle() >= $exploration->getNumberOfSectionsToVisit() + 1;
-        $allSectorsVisited = $exploration->getPlanet()->getUnvisitedSectors()->isEmpty();
-
-        if ($allNonLostExploratorsAreDead) {
-            $this->explorationService->closeExploration($exploration, [ExplorationEvent::ALL_EXPLORATORS_ARE_DEAD]);
-        } elseif ($allExplorationStepsDone || $allSectorsVisited) {
-            $this->explorationService->closeExploration($exploration, [ExplorationEvent::ALL_SECTORS_VISITED]);
-        }
     }
 }

@@ -8,7 +8,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>nothing_to_report.description</source>
-        <target>The zone has been explored, nothing to report.{always_successful_thanks_to_skill}{fight_prevented_by_item}</target>
+        <target>The zone has been explored, nothing to report.{always_successful_thanks_to_skill}{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="landing_description" state="translated">
         <source>nothing_to_report.landing_description</source>
@@ -109,7 +109,7 @@
         <target>{quantity, plural,
         one {All team members sustain # point of damage.}
         other {All team members sustain # points of damage}
-        }{fight_prevented_by_item}{skill_reduced_damage_for_player}{fight_prevented_by_skill}</target>
+        }{skill_reduced_damage_for_player}</target>
       </segment>
       <segment id="landing_description" state="translated">
         <source>tired.landing_description</source>
@@ -147,7 +147,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>accident.description</source>
-        <target>A team member sustains {min_quantity} to {max_quantity} points of damage.{rope_worked, select, true {////Dodged Rope} other {}}{fight_prevented_by_item}{skill_reduced_damage_for_player}{fight_prevented_by_skill}</target>
+        <target>A team member sustains {min_quantity} to {max_quantity} points of damage.{rope_worked, select, true {////Dodged Rope} other {}}{skill_reduced_damage_for_player}</target>
       </segment>
       <segment id="predator_description" state="translated">
         <source>accident.predator_description</source>
@@ -197,7 +197,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>disaster.description</source>
-        <target>All team members have sustained {min_quantity} to {max_quantity} points of damage.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>All team members have sustained {min_quantity} to {max_quantity} points of damage.</target>
       </segment>
       <segment id="landing_description" state="translated">
         <source>disaster.landing_description</source>
@@ -211,7 +211,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>oxygen.description</source>
-        <target>You have gained {quantity} units of O².{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>You have gained {quantity} units of O².</target>
       </segment>
       <segment id="oxygen_description" state="translated">
         <source>oxygen.oxygen_description</source>
@@ -230,7 +230,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>fuel.description</source>
-        <target>You have earned {quantity} units of Fuel.{has_drill, select, true {////This has been increased by x2 because the expedition team has the Drill} other {}}{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>You have earned {quantity} units of Fuel.{has_drill, select, true {////This has been increased by x2 because the expedition team has the Drill} other {}}</target>
       </segment>
       <segment id="hydrocarbon_description" state="translated">
         <source>fuel.hydrocarbon_description</source>
@@ -269,7 +269,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>artefact.description</source>
-        <target>You have found an artefact. {used_babel_module, select, true {////+100% Babel Module} other {}}{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>You have found an artefact. {used_babel_module, select, true {////+100% Babel Module} other {}}</target>
       </segment>
       <segment id="intelligent_description" state="translated">
         <source>artefact.intelligent_description</source>
@@ -351,7 +351,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>kill_random.description</source>
-        <target>A team member has died.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>A team member has died.</target>
       </segment>
       <segment id="seismic_activity_description" state="translated">
         <source>kill_random.seismic_activity_description</source>
@@ -369,7 +369,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>kill_all.description</source>
-        <target>All team members have died.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>All team members have died.</target>
       </segment>
       <segment id="volcanic_activity_description" state="translated">
         <source>kill_all.volcanic_activity_description</source>
@@ -425,7 +425,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>provision.description</source>
-        <target>You have earned {quantity, plural, one {# {equipment}} other {# {equipment_plural_name}}}.{fight_prevented_by_item}{bonus_loot_thanks_to_skill}{bonus_loot_thanks_to_items}{fight_prevented_by_skill}</target>
+        <target>You have earned {quantity, plural, one {# {equipment}} other {# {equipment_plural_name}}}.{bonus_loot_thanks_to_skill}{bonus_loot_thanks_to_items}</target>
       </segment>
       <segment id="ruminant_description" state="translated">
         <source>provision.ruminant_description</source>
@@ -459,7 +459,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>harvest.description</source>
-        <target>You have earned {quantity, plural, one {# Alien fruit} other {# Alien fruits}}.{fight_prevented_by_item}{bonus_loot_thanks_to_skill}{fight_prevented_by_skill}</target>
+        <target>You have earned {quantity, plural, one {# Alien fruit} other {# Alien fruits}}.{bonus_loot_thanks_to_skill}</target>
       </segment>
       <segment id="forest_description" state="translated">
         <source>harvest.forest_description</source>
@@ -493,7 +493,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>disease.description</source>
-        <target>A member of the team has fallen ill.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>A member of the team has fallen ill.</target>
       </segment>
       <segment id="forest_description" state="translated">
         <source>disease.forest_description</source>
@@ -515,7 +515,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>starmap.description</source>
-        <target>You find 1 fragment of the Cristalite Starmap.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>You find 1 fragment of the Cristalite Starmap.</target>
       </segment>
       <segment id="cristal_field_description" state="translated">
         <source>starmap.cristal_field_description</source>
@@ -529,7 +529,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>mush_trap.description</source>
-        <target>All team members risk becoming infected by the Mush.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>All team members risk becoming infected by the Mush.</target>
       </segment>
       <segment id="cristal_field_description" state="translated">
         <source>mush_trap.cristal_field_description</source>
@@ -543,7 +543,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>again.description</source>
-        <target>Zone exploration failure. There are still things to be discovered...{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>Zone exploration failure. There are still things to be discovered...</target>
       </segment>
       <segment id="desert_description" state="translated">
         <source>again.desert_description</source>
@@ -572,7 +572,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>item_lost.description</source>
-        <target>An object belonging to one of the crew has been lost.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>An object belonging to one of the crew has been lost.</target>
       </segment>
       <segment id="intelligent_description" state="translated">
         <source>item_lost.intelligent_description</source>
@@ -593,7 +593,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>back.description</source>
-        <target>You abandon the current expedition.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>You abandon the current expedition.</target>
       </segment>
       <segment id="seismic_activity_description" state="translated">
         <source>back.seismic_activity_description</source>
@@ -615,7 +615,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>player_lost.description</source>
-        <target>A team member has gotten lost.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>A team member has gotten lost.</target>
       </segment>
       <segment id="cristal_field_description" state="translated">
         <source>player_lost.cristal_field_description</source>
@@ -641,7 +641,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>find_lost.description</source>
-        <target>A lost teammate has been found!{fight_prevented_by_item}{fight_prevented_by_skill}{death_prevented_by_skill}</target>
+        <target>A lost teammate has been found!{death_prevented_by_skill}</target>
       </segment>
       <segment id="lost_description" state="translated">
         <source>find_lost.lost_description</source>
@@ -661,7 +661,7 @@ other {{version, select,
       </segment>
       <segment id="description" state="translated">
         <source>kill_lost.description</source>
-        <target>A lost team member dies.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>A lost team member dies.</target>
       </segment>
       <segment id="lost_description" state="translated">
         <source>kill_lost.lost_description</source>

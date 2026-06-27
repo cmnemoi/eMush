@@ -15,6 +15,7 @@ use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
+use Mush\Exploration\Event\ExplorationSelectionEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Service\EventServiceInterface;
@@ -135,11 +136,23 @@ final class ExplorationService implements ExplorationServiceInterface
         }
         $this->eventService->callEvent($planetSectorEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
 
+        $reason = $exploration->getReasonToCloseExploration();
+        if ($reason !== null) {
+            $this->closeExploration($exploration, [$reason]);
+        }
+
         return $exploration;
     }
 
     public function dispatchExplorationEvent(Exploration $exploration, \DateTime $time = new \DateTime()): Exploration
     {
+        $reason = $exploration->getReasonToCloseExploration();
+        if ($reason !== null) {
+            $this->closeExploration($exploration, [$reason]);
+
+            return $exploration;
+        }
+
         $closedExploration = $exploration->getClosedExploration();
         $sector = $exploration->getNextSectorOrThrow();
 
@@ -155,6 +168,11 @@ final class ExplorationService implements ExplorationServiceInterface
             time: $time,
         );
         $this->eventService->callEvent($event, PlanetSectorEvent::PLANET_SECTOR_EVENT);
+
+        $reason = $exploration->getReasonToCloseExploration();
+        if (!$exploration->isFinished() && $reason !== null) {
+            $this->closeExploration($exploration, [$reason]);
+        }
 
         return $exploration;
     }
@@ -228,16 +246,33 @@ final class ExplorationService implements ExplorationServiceInterface
             $newProbability = $sectorEvents->getElementProbability(PlanetSectorEvent::ARTEFACT) * 2;
             $sectorEvents->setElementProbability(PlanetSectorEvent::ARTEFACT, $newProbability);
         }
-        if ($exploration->isSabotaged()) {
-            /** @var string $eventKey */
-            foreach ($sectorEvents->getKeys() as $eventKey) {
-                if (!$this->findPlanetSectorEventConfigByName($eventKey)->isNegative()) {
-                    $sectorEvents->remove($eventKey);
+
+        $event = new ExplorationSelectionEvent(
+            $exploration,
+            $sectorEvents,
+            [$sector->getName()],
+            new \DateTime(),
+            $exploration->getOneActiveExplorator()
+        );
+
+        $event = $this->eventService->computeExplorationEventModifications($event, ExplorationSelectionEvent::SECTOR_SELECTION);
+
+        if ($event instanceof ExplorationSelectionEvent) {
+            $sectorEvents = $event->getPlanetSectorEvents();
+
+            if ($exploration->isSabotaged()) {
+                /** @var string $eventKey */
+                foreach ($sectorEvents->getKeys() as $eventKey) {
+                    if (!$this->findPlanetSectorEventConfigByName($eventKey)->isNegative()) {
+                        $sectorEvents->remove($eventKey);
+                    }
                 }
             }
+
+            return $sectorEvents;
         }
 
-        return $sectorEvents;
+        throw new \Exception('Exploration selection event was prevented');
     }
 
     public function selectNextSectorFromAlreadyVisitedSectors(Exploration $exploration): Exploration

@@ -78,6 +78,23 @@ class EventService implements EventServiceInterface
     /**
      * @throws \Exception
      */
+    public function computeExplorationEventModifications(AbstractGameEvent $event, string $name): ?AbstractGameEvent
+    {
+        $event->setEventName($name);
+
+        $events = $this->applyModifiers($event, ModifierPriorityEnum::EXPLORATION_MODIFICATIONS);
+        $initialEvent = $events->getInitialEvent();
+
+        if ($initialEvent !== null) {
+            $initialEvent->setIsModified(true);
+        }
+
+        return $initialEvent;
+    }
+
+    /**
+     * @throws \Exception
+     */
     public function eventCancelReason(AbstractGameEvent $event, string $name): ?string
     {
         $event->setEventName($name);

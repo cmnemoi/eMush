@@ -1,5 +1,9 @@
 <template>
-    <TabContainer id="mush-tab" :channel="channel" :new-message-allowed = "newMessagesAllowed">
+    <TabContainer
+        id="mush-tab"
+        :channel="channel"
+        :new-message-allowed="newMessagesAllowed"
+        :class="{ 'no-select': !isPlayerMush }">
         <section class="unit">
             <Message
                 v-for="(message, id) in messages"
@@ -31,9 +35,16 @@ export default defineComponent ({
         ...mapGetters('communication', [
             'messages'
         ]),
+        ...mapGetters('player', [
+            'player'
+        ]),
         newMessagesAllowed(): boolean | undefined
         {
             return this.channel?.newMessageAllowed;
+        },
+        isPlayerMush(): boolean | undefined
+        {
+            return this.player?.isMush;
         }
     },
     methods: {
@@ -136,6 +147,10 @@ export default defineComponent ({
 #mush-tab {
     .unit {
         padding: 5px 0;
+    }
+
+    &.no-select {
+        user-select: none;
     }
 
     :deep(.chat-input .submit-button) { //change the submit button color

@@ -3594,6 +3594,17 @@ abstract class ModifierConfigData
                 applyWhenTargeted: true,
                 tagConstraints: [],
             ),
+            new EventModifierConfigDto(
+                key: MessageModificationEnum::SCRAMBLED_MUSH_CHAT_FOR_HUMANS,
+                name: MessageModificationEnum::SCRAMBLED_MUSH_CHAT_FOR_HUMANS,
+                strategy: ModifierStrategyEnum::MESSAGE_MODIFIER,
+                modifierRange: ModifierHolderClassEnum::PLAYER,
+                modifierActivationRequirements: [],
+                targetEvent: MessageEvent::READ_MESSAGE,
+                priority: ModifierPriorityEnum::AFTER_OVERRIDE_VALUE_PRIORITY,
+                applyWhenTargeted: true,
+                tagConstraints: [],
+            ),
             new VariableEventModifierConfigDto(
                 key: 'modifier_+10aim_on_action_attack_on_chef_knife',
                 name: null,

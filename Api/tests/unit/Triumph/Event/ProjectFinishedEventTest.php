@@ -215,7 +215,6 @@ final class ProjectFinishedEventTest extends TestCase
             ProjectName::MERIDON_SCRAMBLER->toString() => [ProjectName::MERIDON_SCRAMBLER],
             ProjectName::MUSH_HUNTER_ZC16H->toString() => [ProjectName::MUSH_HUNTER_ZC16H],
             ProjectName::MUSH_LANGUAGE->toString() => [ProjectName::MUSH_LANGUAGE],
-            ProjectName::MUSH_LANGUAGE->toString() => [ProjectName::MUSH_LANGUAGE],
             ProjectName::MUSH_RACES->toString() => [ProjectName::MUSH_RACES],
             ProjectName::MUSH_REPRODUCTIVE_SYSTEM->toString() => [ProjectName::MUSH_REPRODUCTIVE_SYSTEM],
             ProjectName::MUSHICIDE_SOAP->toString() => [ProjectName::MUSHICIDE_SOAP],

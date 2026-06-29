@@ -47,6 +47,7 @@ final class MessageModifierService implements MessageModifierServiceInterface
             MessageModificationEnum::DEAF_LISTEN => $message->setMessage($this->applyDeafListenEffect()),
             MessageModificationEnum::DEAF_SPEAK => $message->setMessage($this->applyDeafSpeakEffect($messageContent)),
             MessageModificationEnum::PATULINE_SCRAMBLER_MODIFICATION => $this->applyPatulineScramblerEffect($message),
+            MessageModificationEnum::SCRAMBLED_MUSH_CHAT_FOR_HUMANS => $this->scrambleMushChatIfHuman($message, $player),
             default => $message,
         };
     }
@@ -103,6 +104,31 @@ final class MessageModifierService implements MessageModifierServiceInterface
     {
         // if message is not in Mush channel or is a system message, do nothing
         if ($message->isNotInMushChannel() || $message->isSystemMessage()) {
+            return $message;
+        }
+
+        // generate a random string
+        $randomString = $this->generateRandomString($this->randomService->random(1, 100));
+
+        // replace the message with the random string
+        $message->setMessage($randomString);
+
+        return $message;
+    }
+
+    private function scrambleMushChatIfHuman(Message $message, ?Player $player): Message
+    {
+        // if message is outside Mush channel, do nothing
+        if ($message->isNotInMushChannel()) {
+            return $message;
+        }
+
+        if ($player === null) {
+            throw new \LogicException('Player reading Mush channel messages should be determined');
+        }
+
+        // if player is Mush, do nothing
+        if ($player->isMush()) {
             return $message;
         }
 

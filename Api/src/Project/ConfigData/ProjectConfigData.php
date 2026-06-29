@@ -796,14 +796,15 @@ abstract class ProjectConfigData
                 'efficiency' => 3,
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
                 'activationRate' => 100,
-                'modifierConfigs' => [],
+                'modifierConfigs' => [
+                    MessageModificationEnum::SCRAMBLED_MUSH_CHAT_FOR_HUMANS,
+                ],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
                     ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_PLAYER_DEAD,
                     ProjectRequirementName::MUSH_GENOME_DISK_IN_LABORATORY,
-                    ProjectRequirementName::IMPOSSIBLE, // a requirement that always return false
                 ],
             ],
             [

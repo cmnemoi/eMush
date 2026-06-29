@@ -53,10 +53,6 @@ class MessageNormalizer implements NormalizerInterface
         $language = $currentPlayer->getLanguage();
         $translationParameters = $message->getTranslationParameters();
 
-        if ($currentPlayer->isHuman() && $message->isInMushChannel()) {
-            $translationParameters = $this->scrambleCharacterNames($translationParameters);
-        }
-
         if ($message->isNeronMessage()) {
             return $this->translationService->translate(
                 $message->getMessage(),
@@ -80,6 +76,7 @@ class MessageNormalizer implements NormalizerInterface
     private function translatedMessageAuthor(Message $message, Player $currentPlayer): array
     {
         $author = $this->messageAuthor($message, $currentPlayer);
+
         if (!$author) {
             return [
                 'key' => null,
@@ -103,8 +100,11 @@ class MessageNormalizer implements NormalizerInterface
         if ($message->getNeron()) {
             return CharacterEnum::NERON;
         }
+        if ($currentPlayer->isHuman() && $message->isInMushChannel()) {
+            return null;
+        }
         if ($message->getAuthor()) {
-            return $currentPlayer->isHuman() && $message->isInMushChannel() ? CharacterEnum::MUSH : $message->getAuthorAsPlayerOrThrow()->getLogName();
+            return $message->getAuthorAsPlayerOrThrow()->getLogName();
         }
 
         return null;
@@ -129,27 +129,6 @@ class MessageNormalizer implements NormalizerInterface
         }
 
         return $this->translationService->translate('message_date.less_minute', [], 'chat', $language);
-    }
-
-    private function scrambleCharacterNames(array $translationParameters): array
-    {
-        if (\array_key_exists('character', $translationParameters)) {
-            $translationParameters['character'] = $this->getRubbishName($translationParameters['character']);
-        }
-        if (\array_key_exists('target_character', $translationParameters)) {
-            $translationParameters['target_character'] = $this->getRubbishName($translationParameters['target_character']);
-        }
-
-        return $translationParameters;
-    }
-
-    private function getRubbishName(string $originalName): string
-    {
-        do {
-            $scrambled = $this->randomString->generate(minLength: 3, maxLength: 8);
-        } while ($scrambled === $originalName);
-
-        return $scrambled;
     }
 
     private function message(mixed $object): Message

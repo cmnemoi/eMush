@@ -12,4 +12,5 @@ abstract class MessageModificationEnum
     public const string COPROLALIA_MESSAGES = 'coprolalia_messages';
     public const string DEAF_SPEAK = 'deaf_speak';
     public const string PATULINE_SCRAMBLER_MODIFICATION = 'patuline_scrambler_modification';
+    public const string SCRAMBLED_MUSH_CHAT_FOR_HUMANS = 'scrambled_mush_chat_for_humans';
 }

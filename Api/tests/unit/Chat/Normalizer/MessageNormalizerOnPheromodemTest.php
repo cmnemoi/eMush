@@ -61,13 +61,13 @@ final class MessageNormalizerOnPheromodemTest extends TestCase
         $this->statusService->clearRepository();
     }
 
-    public function testHumanShouldSeeAllMessagesAsWrittenByMush(): void
+    public function testHumanShouldSeeAllMessagesWithNoAuthor(): void
     {
         $message = $this->givenMushChannelMessageWritenBy($this->mush);
 
         $normalizedMessage = $this->whenNormalizingMessageFor($message, $this->human);
 
-        $this->thenMessageCharacterShouldBe($normalizedMessage, 'mush', 'Mush');
+        $this->thenThereShouldBeNoMessageAuthor($normalizedMessage);
     }
 
     public function testMushShouldSeeAllMessagesAsWrittenByTheirAuthor(): void
@@ -79,13 +79,13 @@ final class MessageNormalizerOnPheromodemTest extends TestCase
         $this->thenMessageCharacterShouldBe($normalizedMessage, 'derek', 'Derek');
     }
 
-    public function testSystemMessageCharactersShouldBeScrambledForHuman(): void
+    public function testHumanShouldSeeSystemMessagesAsWrittenWithNoAuthor(): void
     {
         $message = $this->givenMushChannelSystemMessage();
 
         $normalizedMessage = $this->whenNormalizingMessageFor($message, $this->human);
 
-        $this->thenMessageShouldNotContainNames($normalizedMessage, ['derek', 'paola']);
+        $this->thenThereShouldBeNoMessageAuthor($normalizedMessage);
     }
 
     public function testSystemMessageCharactersShouldNotBeScrambledForMush(): void
@@ -201,12 +201,10 @@ final class MessageNormalizerOnPheromodemTest extends TestCase
         self::assertEquals($expectedValue, $normalizedMessage['character']['value']);
     }
 
-    private function thenMessageShouldNotContainNames(array $normalizedMessage, array $names): void
+    private function thenThereShouldBeNoMessageAuthor(array $normalizedMessage): void
     {
-        $messageText = $normalizedMessage['message'];
-        foreach ($names as $name) {
-            self::assertStringNotContainsString($name, $messageText);
-        }
+        self::assertNull($normalizedMessage['character']['key']);
+        self::assertNull($normalizedMessage['character']['value']);
     }
 
     private function thenMessageShouldContainNames(array $normalizedMessage, array $names): void

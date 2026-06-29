@@ -114,6 +114,53 @@ final class MessageModifierServiceCest extends AbstractFunctionalTest
         $I->assertEquals('ÇA VA PÉTER!', $message->getMessage());
     }
 
+    public function shouldScrambleMushChannelForHuman(FunctionalTester $I): void
+    {
+        // given a message
+        $message = new Message();
+        $message
+            ->setChannel($this->mushChannel)
+            ->setAuthor($this->chun->getPlayerInfo())
+            ->setMessage('Hello, World!')
+            ->setDay(1)->setCycle(1);
+        $I->haveInRepository($message);
+
+        // when applying pheromodem effects
+        $message = $this->messageModifierService->applyModifierEffects(
+            message: $message,
+            player: $this->chun,
+            effectName: MessageModificationEnum::SCRAMBLED_MUSH_CHAT_FOR_HUMANS
+        );
+
+        // then I should have the message modified
+        $I->assertNotEquals('Hello, World!', $message->getMessage());
+    }
+
+    public function shouldNotScrambleMushChannelForMush(FunctionalTester $I): void
+    {
+        // given a message
+        $message = new Message();
+        $message
+            ->setChannel($this->mushChannel)
+            ->setAuthor($this->chun->getPlayerInfo())
+            ->setMessage('Hello, World!')
+            ->setDay(1)->setCycle(1);
+        $I->haveInRepository($message);
+
+        // given reader is Mush
+        $this->convertPlayerToMush($I, $this->kuanTi);
+
+        // when applying pheromodem effects
+        $message = $this->messageModifierService->applyModifierEffects(
+            message: $message,
+            player: $this->kuanTi,
+            effectName: MessageModificationEnum::SCRAMBLED_MUSH_CHAT_FOR_HUMANS
+        );
+
+        // then I should not have the message modified
+        $I->assertEquals('Hello, World!', $message->getMessage());
+    }
+
     private function applyModifierEffectsProvider(): array
     {
         return [
@@ -134,6 +181,9 @@ final class MessageModifierServiceCest extends AbstractFunctionalTest
             ],
             [
                 'effectName' => MessageModificationEnum::PATULINE_SCRAMBLER_MODIFICATION,
+            ],
+            [
+                'effectName' => MessageModificationEnum::SCRAMBLED_MUSH_CHAT_FOR_HUMANS,
             ],
         ];
     }

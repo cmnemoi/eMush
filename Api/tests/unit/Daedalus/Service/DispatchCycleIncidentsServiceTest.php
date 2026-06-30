@@ -264,24 +264,6 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->thenEquipmentShouldBeBroken($door, 'Door should be broken');
     }
 
-    public function testShouldNotBreakDoorIfNotBreakable(): void
-    {
-        // Given
-        $daedalus = $this->givenADaedalus();
-        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
-        $this->givenBricBrocProjectExists($daedalus);
-        $this->givenDaedalusHasIncidentPoints($daedalus, 3);
-        $this->givenRandomFloatIsZero();
-        $this->givenSelectedIncidentIs(CycleIncidentEnum::DOOR_BLOCKED);
-        $door = $this->givenDoorBetweenLaboratoryAndFrontCorridor($daedalus);
-
-        // When
-        $this->whenDispatchingCycleIncidents($daedalus);
-
-        // Then
-        $this->eventService->shouldNotHaveReceived('callEvent');
-    }
-
     public function testShouldNotBreakDoorIfAllDoorsAreBroken(): void
     {
         // Given

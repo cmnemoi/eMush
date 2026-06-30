@@ -248,6 +248,6 @@ final class DispatchCycleIncidentsService
 
         $daedalusDoors = $this->gameEquipmentRepository->findByCriteria($criteria);
 
-        return array_filter($daedalusDoors, static fn (Door $door) => $door->isBreakable() && !$door->isBroken());
+        return array_filter($daedalusDoors, static fn (Door $door) => !$door->isBroken());
     }
 }

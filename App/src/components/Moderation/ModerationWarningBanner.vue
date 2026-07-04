@@ -1,54 +1,49 @@
 <template>
     <div class="sanction-banner-container" v-if="userSanctions.length > 0">
-        <div class="sanction-banner" v-for="(sanction, index) in (showAll ? userSanctions : userSanctions.slice(0, 1))" :key="index">
-            <h1 class="banner-title">
-                {{ getTranslatedSanctionType(sanction) }} {{ $t('moderation.sanction.until') }} {{ sanction.endDateGivenLocale(currentLocale) }}
-            </h1>
-            <p class="banner-content">
-                <span>{{ $t('moderation.reason.'+ sanction.reason) }}</span>
-                <br><br>
-                <span>{{ sanction.message }}</span>
-            </p>
-            <button v-if="index === 0" class="button-toggle-show-all" @click="showAll = !showAll">
-                {{ showAll ? $t('moderation.reduce') : $t('moderation.showAll') + ' (' + userSanctions.length + ')' }}
+        <div class="sanction-banner">
+            <div class="sanction-list">
+                <template v-for="(sanction, index) in sanctions.slice(0, reduced ? 1 : sanctions.length)" :key="index">
+                    <h1 class="sanction-title">
+                        {{ getTranslatedSanctionType(sanction) }} {{ $t('moderation.sanction.until') }} {{ sanction.endDateGivenLocale(locale) }}
+                    </h1>
+                    <div class="sanction-reason">
+                        {{$t('moderation.sanction.reason')}}: {{ $t(`moderation.reason.${sanction.reason}`) }}
+                    </div>
+                    <p v-if="!reduced" class="sanction-content">
+                        <span>{{ sanction.message }}</span>
+                    </p>
+                </template>
+            </div>
+            <button class="button-toggle-show-all" @click="reduced = !reduced">
+                {{ reduced ? $t('moderation.showAll') + ' (' + sanctions.length + ')' : $t('moderation.reduce') }}
             </button>
         </div>
     </div>
-    <div class="dummy_space" v-if="userSanctions.length > 0" />
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { ModerationSanction } from "@/entities/ModerationSanction";
-import { defineComponent } from "vue";
+import { computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
-export default defineComponent({
-    name: 'ModerationSanctionBanner',
-    props: {
-        userSanctions: {
-            type: Array as () => ModerationSanction[],
-            default: [] as ModerationSanction[],
-            required: true
-        }
-    },
-    data() {
-        return {
-            showAll: true
-        };
-    },
-    computed: {
-        bannerHeight() {
-            return this.showAll ? 'auto' : '10%'; // Limite la hauteur à 10% si showAll est false
-        },
-        currentLocale() {
-            return this.$i18n.locale;
-        }
-    },
-    methods: {
-        getTranslatedSanctionType(sanction: ModerationSanction) {
-            return sanction.isWarning ? this.$t('moderation.sanction.warning') : this.$t('moderation.player.banned');
-        }
+const props = defineProps<{ userSanctions: ModerationSanction[] }>();
+const { t, locale } = useI18n();
+const reduced = ref(true);
+
+// Display bans first and sort by endDate
+const sanctions = computed(() => [...props.userSanctions].sort((s1, s2) => {
+    if (s1.isWarning && !s2.isWarning) {
+        return 1;
     }
-});
+    if (!s1.isWarning && s2.isWarning) {
+        return -1;
+    }
+    return s1.endDate > s2.endDate ? -1 : 1;
+}));
+
+function getTranslatedSanctionType(sanction: ModerationSanction) {
+    return sanction.isWarning ? t('moderation.sanction.warning') : t('moderation.player.banned');
+}
 </script>
 
 
@@ -65,18 +60,6 @@ export default defineComponent({
     z-index: 10;
 }
 
-.dummy_space {
-    position: sticky;
-    bottom: 0;
-    width: 100%;
-    height: 50px;
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: flex-end;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
 .sanction-banner {
     background-color: #f05b76;
     color: black;
@@ -86,19 +69,26 @@ export default defineComponent({
     width: 100%;
 }
 
-.banner-title {
+.sanction-list {
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.sanction-title {
     margin: 0;
     font-size: 18px;
 }
 
-.banner-content {
-    margin-top: 5px;
-    margin-bottom: 5px;
+.sanction-reason {
+    margin-top: 3px;
+    font-weight: bold;
+    font-style: italic;
 }
 
-.banner-content span {
-    margin-right: 10px;
+.sanction-content {
+    margin-top: 3px;
 }
+
 .button-toggle-show-all {
     color: #4d4d4d;
     margin-left: auto;

@@ -805,7 +805,7 @@
 		"problem": "Hubo un problema procesando tu solicitud.",
 		"reportToDevs": "Por favor reporta este error a los desarrolladores, con detalles de cómo sucedió.",
 		"title": "ERROR",
-		"You have been banned!": "A la luz de tus acciones, un moderador te ha baneado. Si crees que se trata de un error, por favor abre un ticket en el <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Discord de Eternaltwin</a>.",
+		"You have been banned!": "A la luz de tus acciones, un moderador te ha baneado.<br><br>Si crees que se trata de un error, por favor abre un ticket en el <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Discord de Eternaltwin</a>.",
 		"notFound": "La página que buscas no se puede encontrar. Debe de ser materia oscura, un Mush u otra explicación descabellada... Lo sentimos :)"
 	},
 	"metaSeo": {

@@ -7,9 +7,11 @@ namespace Mush\Triumph\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Game\Entity\GameConfig;
 use Mush\Triumph\Dto\TriumphConfigDto;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Enum\TriumphScope;
@@ -18,9 +20,6 @@ use Mush\Triumph\Enum\TriumphVisibility;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    normalizationContext: ['groups' => ['triumph_config_read']],
-    denormalizationContext: ['groups' => ['triumph_config_write']],
-    paginationItemsPerPage: 25,
     operations: [
         new GetCollection(
             filters: ['default.search_filter', 'default.order_filter'],
@@ -36,6 +35,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("ROLE_ADMIN")',
         ),
     ],
+    normalizationContext: ['groups' => ['triumph_config_read']],
+    denormalizationContext: ['groups' => ['triumph_config_write']],
+    paginationItemsPerPage: 25,
+)]
+#[ApiResource(
+    uriTemplate: '/game_configs/{gameConfigId}/triumph_configs',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'gameConfigId' => new Link(fromProperty: 'triumphConfig', fromClass: GameConfig::class),
+    ],
+    normalizationContext: ['groups' => ['triumph_config_read']],
+    security: 'is_granted("ROLE_USER")',
 )]
 #[ORM\Entity]
 #[ORM\Table(name: 'triumph_config')]

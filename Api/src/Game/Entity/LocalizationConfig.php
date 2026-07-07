@@ -10,6 +10,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
@@ -28,6 +29,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Get(),
     ],
 )]
+#[UniqueEntity(fields: ['name'], errorPath: 'name')]
 class LocalizationConfig
 {
     use TimestampableEntity;

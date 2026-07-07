@@ -10,6 +10,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
@@ -32,6 +33,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ),
     ],
 )]
+#[UniqueEntity(fields: ['name'], errorPath: 'name')]
 #[ORM\Entity]
 #[ORM\Table(name: 'title_config')]
 class TitleConfig

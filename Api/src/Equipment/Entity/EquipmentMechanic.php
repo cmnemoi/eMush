@@ -7,6 +7,7 @@ namespace Mush\Equipment\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,6 +15,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Container;
@@ -29,6 +31,7 @@ use Mush\Equipment\Entity\Mechanics\Plumbing;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Weapon;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
@@ -52,13 +55,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
     'weapon' => Weapon::class,
 ])]
 #[ApiResource(
-    normalizationContext: ['groups' => ['equipment_mechanic_read']],
-    denormalizationContext: ['groups' => ['equipment_mechanic_write']],
-    paginationItemsPerPage: 25,
     operations: [
         new GetCollection(
-            filters: ['default.search_filter', 'default.order_filter'],
             security: 'is_granted("ROLE_ADMIN")',
+            filters: ['default.search_filter', 'default.order_filter'],
         ),
         new Post(
             security: 'is_granted("ROLE_ADMIN")',
@@ -70,7 +70,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("ROLE_ADMIN")',
         ),
     ],
+    normalizationContext: ['groups' => ['equipment_mechanic_read']],
+    denormalizationContext: ['groups' => ['equipment_mechanic_write']],
+    paginationItemsPerPage: 25,
 )]
+#[ApiResource(
+    uriTemplate: '/equipment_configs/{equipmentConfigId}/mechanics',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'equipmentConfigId' => new Link(fromProperty: 'mechanics', fromClass: EquipmentConfig::class),
+    ],
+    normalizationContext: ['groups' => ['equipment_mechanic_read']],
+    security: 'is_granted("ROLE_ADMIN")',
+)]
+#[UniqueEntity(fields: ['name'], entityClass: EquipmentMechanic::class, errorPath: 'name')]
 abstract class EquipmentMechanic
 {
     #[Groups(['equipment_mechanic_read', 'equipment_mechanic_write'])]

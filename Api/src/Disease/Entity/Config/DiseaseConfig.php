@@ -7,11 +7,14 @@ namespace Mush\Disease\Entity\Config;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Dto\DiseaseConfigDto;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
+use Mush\Game\Entity\GameConfig;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -19,13 +22,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_config')]
 #[ApiResource(
-    paginationItemsPerPage: 25,
-    normalizationContext: ['groups' => ['disease_config_read']],
-    denormalizationContext: ['groups' => ['disease_config_write']],
     operations: [
         new GetCollection(
-            filters: ['default.search_filter', 'default.order_filter'],
             security: 'is_granted("ROLE_ADMIN")',
+            filters: ['default.search_filter', 'default.order_filter'],
         ),
         new Post(
             security: 'is_granted("ROLE_ADMIN")',
@@ -37,6 +37,27 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("ROLE_ADMIN")',
         ),
     ],
+    normalizationContext: ['groups' => ['disease_config_read']],
+    denormalizationContext: ['groups' => ['disease_config_write']],
+    paginationItemsPerPage: 25,
+)]
+#[ApiResource(
+    uriTemplate: '/game_configs/{gameConfigId}/disease_configs',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'gameConfigId' => new Link(fromProperty: 'diseaseConfig', fromClass: GameConfig::class),
+    ],
+    normalizationContext: ['groups' => ['disease_config_read']],
+    security: 'is_granted("ROLE_USER")',
+)]
+#[ApiResource(
+    uriTemplate: '/character_configs/{characterConfigId}/init_diseases',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'characterConfigId' => new Link(fromProperty: 'initDiseases', fromClass: CharacterConfig::class),
+    ],
+    normalizationContext: ['groups' => ['disease_config_read']],
+    security: 'is_granted("ROLE_ADMIN")',
 )]
 class DiseaseConfig implements LogParameterInterface
 {

@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Status\Entity\Config\StatusConfig;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
@@ -39,6 +40,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ),
     ],
 )]
+#[UniqueEntity(fields: ['name'], errorPath: 'name')]
 class HunterConfig
 {
     #[ORM\Id]

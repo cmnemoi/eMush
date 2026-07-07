@@ -14,20 +14,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    normalizationContext: ['groups' => ['status_config_read']],
-    denormalizationContext: ['groups' => ['status_config_write']],
-    paginationItemsPerPage: 25,
-    security: 'is_granted("ROLE_MODERATOR")',
     operations: [
         new GetCollection(
-            filters: ['default.search_filter', 'default.order_filter'],
             security: 'is_granted("ROLE_MODERATOR")',
+            filters: ['default.search_filter', 'default.order_filter'],
         ),
         new Post(
             security: 'is_granted("ROLE_ADMIN")',
@@ -39,16 +39,48 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("ROLE_ADMIN")',
         ),
     ],
+    normalizationContext: ['groups' => ['status_config_read']],
+    denormalizationContext: ['groups' => ['status_config_write']],
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_MODERATOR")',
 )]
 #[ApiResource(
     uriTemplate: '/hunter_configs/{hunterConfigId}/initial_statuses',
+    operations: [new GetCollection()],
     uriVariables: [
-        'hunterConfigId' => new Link(fromClass: HunterConfig::class, fromProperty: 'initialStatuses'),
+        'hunterConfigId' => new Link(fromProperty: 'initialStatuses', fromClass: HunterConfig::class),
     ],
     normalizationContext: ['groups' => ['status_config_read']],
     security: 'is_granted("ROLE_ADMIN")',
-    operations: [new GetCollection()],
 )]
+#[ApiResource(
+    uriTemplate: '/game_configs/{gameConfigId}/status_configs',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'gameConfigId' => new Link(fromProperty: 'statusConfigs', fromClass: GameConfig::class),
+    ],
+    normalizationContext: ['groups' => ['status_config_read']],
+    security: 'is_granted("ROLE_USER")',
+)]
+#[ApiResource(
+    uriTemplate: '/character_configs/{characterConfigId}/init_statuses',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'characterConfigId' => new Link(fromProperty: 'initStatuses', fromClass: CharacterConfig::class),
+    ],
+    normalizationContext: ['groups' => ['status_config_read']],
+    security: 'is_granted("ROLE_ADMIN")',
+)]
+#[ApiResource(
+    uriTemplate: '/equipment_configs/{equipmentConfigId}/init_statuses',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'equipmentConfigId' => new Link(fromProperty: 'initStatuses', fromClass: EquipmentConfig::class),
+    ],
+    normalizationContext: ['groups' => ['status_config_read']],
+    security: 'is_granted("ROLE_ADMIN")',
+)]
+#[UniqueEntity(fields: ['name'], entityClass: StatusConfig::class, errorPath: 'name')]
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]

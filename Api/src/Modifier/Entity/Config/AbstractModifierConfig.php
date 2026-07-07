@@ -7,13 +7,17 @@ namespace Mush\Modifier\Entity\Config;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierActivationRequirementCollection;
+use Mush\Status\Entity\Config\StatusConfig;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -25,9 +29,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * modifierActivationRequirements: requirements that need to be fulfilled for the modifier to activate
  */
 #[ApiResource(
-    paginationItemsPerPage: 25,
-    security: 'is_granted("ROLE_USER")',
-    normalizationContext: ['groups' => ['modifier_config_read']],
     operations: [
         new GetCollection(
             security: 'is_granted("ROLE_MODERATOR")',
@@ -43,7 +44,29 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("ROLE_ADMIN")',
         ),
     ],
+    normalizationContext: ['groups' => ['modifier_config_read']],
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_USER")',
 )]
+#[ApiResource(
+    uriTemplate: '/gears/{gearId}/modifier_configs',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'gearId' => new Link(fromProperty: 'modifierConfigs', fromClass: Gear::class),
+    ],
+    normalizationContext: ['groups' => ['modifier_config_read']],
+    security: 'is_granted("ROLE_ADMIN")',
+)]
+#[ApiResource(
+    uriTemplate: '/status_configs/{statusConfigId}/modifier_configs',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'statusConfigId' => new Link(fromProperty: 'modifierConfigs', fromClass: StatusConfig::class),
+    ],
+    normalizationContext: ['groups' => ['modifier_config_read']],
+    security: 'is_granted("ROLE_MODERATOR")',
+)]
+#[UniqueEntity(fields: ['name'], entityClass: AbstractModifierConfig::class, errorPath: 'name')]
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]

@@ -7,6 +7,7 @@ namespace Mush\Equipment\Entity\Config;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\Collection;
@@ -14,14 +15,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\BreakableTypeEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ApiResource(
-    normalizationContext: ['groups' => ['item_config_read']],
-    denormalizationContext: ['groups' => ['item_config_write']],
-    paginationItemsPerPage: 25,
     operations: [
         new GetCollection(
             filters: ['default.search_filter', 'default.order_filter'],
@@ -36,6 +35,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("ROLE_ADMIN")',
         ),
     ],
+    normalizationContext: ['groups' => ['item_config_read']],
+    denormalizationContext: ['groups' => ['item_config_write']],
+    paginationItemsPerPage: 25,
+)]
+#[ApiResource(
+    uriTemplate: '/character_configs/{characterConfigId}/starting_items',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'characterConfigId' => new Link(fromProperty: 'startingItems', fromClass: CharacterConfig::class),
+    ],
+    normalizationContext: ['groups' => ['item_config_read']],
+    security: 'is_granted("ROLE_ADMIN")',
 )]
 class ItemConfig extends EquipmentConfig
 {

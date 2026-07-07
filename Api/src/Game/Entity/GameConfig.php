@@ -35,6 +35,7 @@ use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Triumph\Entity\TriumphConfig;
 use Mush\Triumph\Entity\TriumphConfigCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: GameConfigRepository::class)]
@@ -60,6 +61,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ),
     ],
 )]
+#[UniqueEntity(fields: ['name'], errorPath: 'name')]
 class GameConfig
 {
     use TimestampableEntity;

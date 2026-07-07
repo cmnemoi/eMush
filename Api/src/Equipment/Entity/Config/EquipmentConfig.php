@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,10 +23,12 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Config\StatusConfig;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
@@ -39,9 +42,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
     'npc_config' => NpcConfig::class,
 ])]
 #[ApiResource(
-    normalizationContext: ['groups' => ['equipment_config_read']],
-    denormalizationContext: ['groups' => ['equipment_config_write']],
-    paginationItemsPerPage: 25,
     operations: [
         new GetCollection(security: 'is_granted("ROLE_ADMIN")', filters: ['default.search_filter', 'default.order_filter']),
         new Post(security: 'is_granted("ROLE_ADMIN")'),
@@ -49,7 +49,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Put(security: 'is_granted("ROLE_ADMIN")'),
         new Delete(security: 'is_granted("ROLE_ADMIN")'),
     ],
+    normalizationContext: ['groups' => ['equipment_config_read']],
+    denormalizationContext: ['groups' => ['equipment_config_write']],
+    paginationItemsPerPage: 25,
 )]
+#[ApiResource(
+    uriTemplate: '/game_configs/{gameConfigId}/equipments_configs',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'gameConfigId' => new Link(fromProperty: 'equipmentsConfig', fromClass: GameConfig::class),
+    ],
+    normalizationContext: ['groups' => ['equipment_config_read']],
+    security: 'is_granted("ROLE_USER")',
+)]
+#[UniqueEntity(fields: ['name'], entityClass: EquipmentConfig::class, errorPath: 'name')]
 class EquipmentConfig
 {
     #[ORM\Id]

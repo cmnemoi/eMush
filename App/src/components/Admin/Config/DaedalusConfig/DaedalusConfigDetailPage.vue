@@ -165,8 +165,12 @@ export default defineComponent({
             newDaedalusConfig.id = null;
             GameConfigService.createDaedalusConfig(newDaedalusConfig)
                 .then((res: DaedalusConfig | null) => {
-                    const newDaedalusConfigUrl = urlJoin(import.meta.env.VITE_APP_URL + "/config/daedalus-config", String(res?.id));
-                    window.location.href = newDaedalusConfigUrl;
+                    window.location.href = urlJoin(import.meta.env.VITE_APP_URL + "/config/daedalus-config", String(res?.id));
+                })
+                .catch((error) => {
+                    if (error?.response?.data?.violations) {
+                        this.errors = handleErrors(error.response.data.violations);
+                    }
                 });
         },
         update(): void {

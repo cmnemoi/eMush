@@ -7,19 +7,19 @@ namespace Mush\Disease\Entity\Config;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Dto\DiseaseCauseConfigDto;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Mush\Game\Entity\GameConfig;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_cause_config')]
 #[ApiResource(
-    paginationItemsPerPage: 25,
-    normalizationContext: ['groups' => ['disease_cause_config_read']],
-    denormalizationContext: ['groups' => ['disease_cause_config_write']],
     operations: [
         new GetCollection(
             filters: ['default.search_filter', 'default.order_filter'],
@@ -34,7 +34,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("ROLE_ADMIN")',
         ),
     ],
+    normalizationContext: ['groups' => ['disease_cause_config_read']],
+    denormalizationContext: ['groups' => ['disease_cause_config_write']],
+    paginationItemsPerPage: 25,
 )]
+#[ApiResource(
+    uriTemplate: '/game_configs/{gameConfigId}/disease_cause_configs',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'gameConfigId' => new Link(fromProperty: 'diseaseCauseConfig', fromClass: GameConfig::class),
+    ],
+    normalizationContext: ['groups' => ['disease_cause_config_read']],
+    security: 'is_granted("ROLE_USER")',
+)]
+#[UniqueEntity(fields: ['name'], errorPath: 'name')]
 class DiseaseCauseConfig
 {
     #[ORM\Id]

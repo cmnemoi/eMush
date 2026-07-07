@@ -7,21 +7,31 @@ namespace Mush\Daedalus\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    paginationItemsPerPage: 25,
-    normalizationContext: ['groups' => ['random_item_place_read']],
-    denormalizationContext: ['groups' => ['random_item_place_write']],
     operations: [
-        new GetCollection(filters: ['default.search_filter', 'default.order_filter'], security: 'is_granted("ROLE_ADMIN")'),
+        new GetCollection(security: 'is_granted("ROLE_ADMIN")', filters: ['default.search_filter', 'default.order_filter']),
         new Post(security: 'is_granted("ROLE_ADMIN")'),
         new Get(security: 'is_granted("ROLE_ADMIN")'),
         new Put(security: 'is_granted("ROLE_ADMIN")'),
     ],
+    normalizationContext: ['groups' => ['random_item_place_read']],
+    denormalizationContext: ['groups' => ['random_item_place_write']],
+    paginationItemsPerPage: 25,
+)]
+#[ApiResource(
+    uriTemplate: '/daedalus_configs/{daedalusConfigId}/random_item_places',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'daedalusConfigId' => new Link(fromProperty: 'randomItemPlaces', fromClass: DaedalusConfig::class),
+    ],
+    normalizationContext: ['groups' => ['random_item_place_read']],
+    security: 'is_granted("ROLE_ADMIN")',
 )]
 #[ORM\Entity]
 class RandomItemPlaces

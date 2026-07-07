@@ -7,17 +7,15 @@ namespace Mush\Modifier\Entity\Config;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    paginationItemsPerPage: 25,
-    security: 'is_granted("ROLE_MODERATOR")',
-    normalizationContext: ['groups' => ['modifier_activation_requirement_read']],
-    denormalizationContext: ['groups' => ['modifier_activation_requirement_write']],
     operations: [
         new GetCollection(
             security: 'is_granted("ROLE_MODERATOR")',
@@ -33,7 +31,30 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("ROLE_ADMIN")',
         ),
     ],
+    normalizationContext: ['groups' => ['modifier_activation_requirement_read']],
+    denormalizationContext: ['groups' => ['modifier_activation_requirement_write']],
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_MODERATOR")',
 )]
+#[ApiResource(
+    uriTemplate: '/direct_modifier_configs/{directModifierConfigId}/modifier_activation_requirements',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'directModifierConfigId' => new Link(fromProperty: 'modifierActivationRequirements', fromClass: DirectModifierConfig::class),
+    ],
+    normalizationContext: ['groups' => ['modifier_activation_requirement_read']],
+    security: 'is_granted("ROLE_MODERATOR")',
+)]
+#[ApiResource(
+    uriTemplate: '/modifier_configs/{modifierConfigId}/modifier_activation_requirements',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'modifierConfigId' => new Link(fromProperty: 'modifierActivationRequirements', fromClass: AbstractModifierConfig::class),
+    ],
+    normalizationContext: ['groups' => ['modifier_activation_requirement_read']],
+    security: 'is_granted("ROLE_MODERATOR")',
+)]
+#[UniqueEntity(fields: ['name'], errorPath: 'name')]
 #[ORM\Entity]
 #[ORM\Table(name: 'modifier_activation_requirement')]
 class ModifierActivationRequirement

@@ -211,8 +211,11 @@ export default defineComponent({
 
             // @ts-ignore
             GameConfigService.createEquipmentConfig(newEquipmentConfig).then((res: EquipmentConfig | null) => {
-                const newEquipmentConfigUrl = urlJoin(import.meta.env.VITE_APP_URL + '/config/equipment-config', String(res?.id));
-                window.location.href = newEquipmentConfigUrl;
+                window.location.href = urlJoin(import.meta.env.VITE_APP_URL + '/config/equipment-config', String(res?.id));
+            }).catch((error) => {
+                if (error?.response?.data?.violations) {
+                    this.errors = handleErrors(error.response.data.violations);
+                }
             });
         },
         update(): void {

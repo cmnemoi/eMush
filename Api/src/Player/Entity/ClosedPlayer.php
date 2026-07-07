@@ -7,6 +7,7 @@ namespace Mush\Player\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,17 +23,26 @@ use Mush\User\Entity\User;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    normalizationContext: ['groups' => ['closed_player_read']],
-    paginationItemsPerPage: 25,
     operations: [
         new GetCollection(
-            filters: ['default.search_filter', 'default.order_filter', 'closedPlayer.order_filter', 'closedPlayer.search_filter'],
             security: 'is_granted("ROLE_USER")',
+            filters: ['default.search_filter', 'default.order_filter', 'closedPlayer.order_filter', 'closedPlayer.search_filter'],
         ),
         new Get(
             security: 'is_granted("ROLE_USER") and is_granted("DAEDALUS_IS_FINISHED", object)',
         ),
     ],
+    normalizationContext: ['groups' => ['closed_player_read']],
+    paginationItemsPerPage: 25,
+)]
+#[ApiResource(
+    uriTemplate: '/closed_daedaluses/{closedDaedalusId}/players',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'closedDaedalusId' => new Link(fromProperty: 'players', fromClass: ClosedDaedalus::class),
+    ],
+    normalizationContext: ['groups' => ['closed_player_read']],
+    security: 'is_granted("ROLE_USER")',
 )]
 #[ORM\Entity]
 class ClosedPlayer implements SanctionEvidenceInterface

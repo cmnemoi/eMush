@@ -7,6 +7,7 @@ namespace Mush\Game\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,18 +15,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Game\ConfigData\DifficultyConfigDto;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'config_difficulty')]
 #[ApiResource(
-    paginationItemsPerPage: 25,
-    normalizationContext: ['groups' => ['difficulty_config_read']],
-    denormalizationContext: ['groups' => ['difficulty_config_write']],
     operations: [
         new GetCollection(
-            filters: ['default.search_filter', 'default.order_filter'],
             security: 'is_granted("ROLE_ADMIN")',
+            filters: ['default.search_filter', 'default.order_filter'],
         ),
         new Post(
             security: 'is_granted("ROLE_ADMIN")',
@@ -37,7 +36,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("ROLE_ADMIN")',
         ),
     ],
+    normalizationContext: ['groups' => ['difficulty_config_read']],
+    denormalizationContext: ['groups' => ['difficulty_config_write']],
+    paginationItemsPerPage: 25,
 )]
+#[ApiResource(
+    uriTemplate: '/game_configs/{gameConfigId}/difficulty_config',
+    operations: [new Get()],
+    uriVariables: [
+        'gameConfigId' => new Link(fromProperty: 'difficultyConfig', fromClass: GameConfig::class),
+    ],
+    normalizationContext: ['groups' => ['difficulty_config_read']],
+    security: 'is_granted("ROLE_USER")',
+)]
+#[UniqueEntity(fields: ['name'], errorPath: 'name')]
 class DifficultyConfig
 {
     use TimestampableEntity;

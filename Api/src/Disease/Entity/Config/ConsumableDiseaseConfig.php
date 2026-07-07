@@ -7,6 +7,7 @@ namespace Mush\Disease\Entity\Config;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,16 +15,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Mush\Game\Entity\GameConfig;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    normalizationContext: ['groups' => ['consumable_disease_config_read']],
-    denormalizationContext: ['groups' => ['consumable_disease_config_write']],
-    paginationItemsPerPage: 25,
     operations: [
         new GetCollection(
-            filters: ['default.search_filter', 'default.order_filter'],
             security: 'is_granted("ROLE_ADMIN")',
+            filters: ['default.search_filter', 'default.order_filter'],
         ),
         new Post(
             security: 'is_granted("ROLE_ADMIN")',
@@ -35,7 +35,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("ROLE_ADMIN")',
         ),
     ],
+    normalizationContext: ['groups' => ['consumable_disease_config_read']],
+    denormalizationContext: ['groups' => ['consumable_disease_config_write']],
+    paginationItemsPerPage: 25,
 )]
+#[ApiResource(
+    uriTemplate: '/game_configs/{gameConfigId}/consumable_disease_configs',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'gameConfigId' => new Link(fromProperty: 'consumableDiseaseConfig', fromClass: GameConfig::class),
+    ],
+    normalizationContext: ['groups' => ['consumable_disease_config_read']],
+    security: 'is_granted("ROLE_USER")',
+)]
+#[UniqueEntity(fields: ['name'], errorPath: 'name')]
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_consummable_config')]
 class ConsumableDiseaseConfig

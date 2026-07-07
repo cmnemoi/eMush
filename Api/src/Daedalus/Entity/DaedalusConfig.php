@@ -7,6 +7,7 @@ namespace Mush\Daedalus\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -15,17 +16,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Enum\CharacterSetEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\PlaceConfig;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    normalizationContext: ['groups' => ['daedalus_config_read']],
-    denormalizationContext: ['groups' => ['daedalus_config_write']],
-    paginationItemsPerPage: 25,
     operations: [
         new GetCollection(
-            filters: ['default.search_filter', 'default.order_filter'],
             security: 'is_granted("ROLE_ADMIN")',
+            filters: ['default.search_filter', 'default.order_filter'],
         ),
         new Post(
             security: 'is_granted("ROLE_ADMIN")',
@@ -37,7 +37,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("ROLE_ADMIN")',
         ),
     ],
+    normalizationContext: ['groups' => ['daedalus_config_read']],
+    denormalizationContext: ['groups' => ['daedalus_config_write']],
+    paginationItemsPerPage: 25,
 )]
+#[ApiResource(
+    uriTemplate: '/game_configs/{gameConfigId}/daedalus_config',
+    operations: [new Get()],
+    uriVariables: [
+        'gameConfigId' => new Link(fromProperty: 'daedalusConfig', fromClass: GameConfig::class),
+    ],
+    normalizationContext: ['groups' => ['daedalus_config_read']],
+    security: 'is_granted("ROLE_USER")',
+)]
+#[UniqueEntity(fields: ['name'], errorPath: 'name')]
 #[ORM\Entity]
 #[ORM\Table(name: 'config_daedalus')]
 class DaedalusConfig

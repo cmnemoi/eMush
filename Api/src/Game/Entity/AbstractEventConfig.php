@@ -7,6 +7,7 @@ namespace Mush\Game\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
@@ -26,6 +27,8 @@ use Mush\Equipment\Entity\Config\WeaponEffect\SplashInjuryWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\SplashRandomWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEventConfig;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
+use Mush\Modifier\Entity\Config\DirectModifierConfig;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -55,17 +58,27 @@ use Symfony\Component\Serializer\Annotation\Groups;
     'splash_random_weapon_effect_config' => SplashRandomWeaponEffectConfig::class,
 ])]
 #[ApiResource(
-    security: 'is_granted("ROLE_USER")',
-    normalizationContext: ['groups' => ['event_config_read']],
-    denormalizationContext: ['groups' => ['event_config_write']],
-    paginationItemsPerPage: 25,
     operations: [
         new GetCollection(security: 'is_granted("ROLE_MODERATOR")', filters: ['default.search_filter', 'default.order_filter']),
         new Post(security: 'is_granted("ROLE_ADMIN")'),
         new Get(security: 'is_granted("ROLE_MODERATOR")'),
         new Put(security: 'is_granted("ROLE_ADMIN")'),
     ],
+    normalizationContext: ['groups' => ['event_config_read']],
+    denormalizationContext: ['groups' => ['event_config_write']],
+    paginationItemsPerPage: 25,
+    security: 'is_granted("ROLE_USER")',
 )]
+#[ApiResource(
+    uriTemplate: '/direct_modifier_configs/{directModifierConfigId}/triggered_event',
+    operations: [new Get()],
+    uriVariables: [
+        'directModifierConfigId' => new Link(fromProperty: 'triggeredEvent', fromClass: DirectModifierConfig::class),
+    ],
+    normalizationContext: ['groups' => ['event_config_read']],
+    security: 'is_granted("ROLE_MODERATOR")',
+)]
+#[UniqueEntity(fields: ['name'], entityClass: AbstractEventConfig::class, errorPath: 'name')]
 abstract class AbstractEventConfig
 {
     #[ORM\Id]

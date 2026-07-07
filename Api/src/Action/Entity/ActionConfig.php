@@ -7,6 +7,7 @@ namespace Mush\Action\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,23 +16,24 @@ use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'action')]
 #[ApiResource(
-    normalizationContext: ['groups' => ['action_read']],
-    denormalizationContext: ['groups' => ['action_write']],
-    paginationItemsPerPage: 25,
     operations: [
         new GetCollection(
-            filters: ['default.search_filter', 'default.order_filter'],
             security: 'is_granted("ROLE_ADMIN")',
+            filters: ['default.search_filter', 'default.order_filter'],
         ),
         new Post(
             security: 'is_granted("ROLE_ADMIN")',
@@ -41,7 +43,38 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("ROLE_ADMIN")',
         ),
     ],
+    normalizationContext: ['groups' => ['action_read']],
+    denormalizationContext: ['groups' => ['action_write']],
+    paginationItemsPerPage: 25,
 )]
+#[ApiResource(
+    uriTemplate: '/character_configs/{characterConfigId}/action_configs',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'characterConfigId' => new Link(fromClass: CharacterConfig::class, fromProperty: 'actionConfigs'),
+    ],
+    normalizationContext: ['groups' => ['action_read']],
+    security: 'is_granted("ROLE_ADMIN")',
+)]
+#[ApiResource(
+    uriTemplate: '/equipment_configs/{equipmentConfigId}/action_configs',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'equipmentConfigId' => new Link(fromClass: EquipmentConfig::class, fromProperty: 'actionConfigs'),
+    ],
+    normalizationContext: ['groups' => ['action_read']],
+    security: 'is_granted("ROLE_ADMIN")',
+)]
+#[ApiResource(
+    uriTemplate: '/mechanics/{mechanicId}/actions',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'mechanicId' => new Link(fromClass: EquipmentMechanic::class, fromProperty: 'actions'),
+    ],
+    normalizationContext: ['groups' => ['action_read']],
+    security: 'is_granted("ROLE_ADMIN")',
+)]
+#[UniqueEntity(fields: ['name'], errorPath: 'name')]
 class ActionConfig implements GameVariableHolderInterface
 {
     #[ORM\Id]

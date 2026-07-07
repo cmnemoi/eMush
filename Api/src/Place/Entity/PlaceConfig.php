@@ -7,19 +7,19 @@ namespace Mush\Place\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Place\Enum\PlaceTypeEnum;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity()
  */
 #[ApiResource(
-    paginationItemsPerPage: 25,
-    normalizationContext: ['groups' => ['place_config_read']],
-    denormalizationContext: ['groups' => ['place_config_write']],
     operations: [
         new GetCollection(
             security: 'is_granted("ROLE_ADMIN")',
@@ -35,7 +35,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("ROLE_ADMIN")',
         ),
     ],
+    normalizationContext: ['groups' => ['place_config_read']],
+    denormalizationContext: ['groups' => ['place_config_write']],
+    paginationItemsPerPage: 25,
 )]
+#[ApiResource(
+    uriTemplate: '/daedalus_configs/{daedalusConfigId}/place_configs',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'daedalusConfigId' => new Link(fromProperty: 'placeConfigs', fromClass: DaedalusConfig::class),
+    ],
+    normalizationContext: ['groups' => ['place_config_read']],
+    security: 'is_granted("ROLE_ADMIN")',
+)]
+#[UniqueEntity(fields: ['name'], errorPath: 'name')]
 #[ORM\Entity]
 class PlaceConfig
 {

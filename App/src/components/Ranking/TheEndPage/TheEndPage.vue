@@ -1,0 +1,404 @@
+<template>
+    <ModerationActionPopup
+        :moderation-dialog-visible="moderationDialogVisible"
+        :action="currentAction"
+        @close="closeModerationDialog"
+        @submit-sanction="applySanction"
+    />
+    <ReportPopup
+        :report-dialog-visible="reportPopupVisible"
+        :select-player="false"
+        @close=closeReportDialog
+        @submit-report=submitReport
+    />
+    <PlayerHistoryPopup/>
+    <div class="container" v-if="closedDaedalus">
+        <div class="ending-screen">
+            <img
+                :src="getEndCauseConfig(closedDaedalus.endCause).img"
+                :alt="$t(getEndCauseConfig(closedDaedalus.endCause).short_name)">
+        </div>
+
+        <div class="cheater-banner" v-if="closedDaedalus?.isCheater">
+            <img :src="getImgUrl('ui_icons/noob.png')" alt="Cheater">
+            {{ $t("theEnd.cheaterMessage") }}
+        </div>
+
+        <template v-if="players.length > 0">
+            <h2>{{ $t("theEnd.headliner") }}</h2>
+            <GoldPlayer
+                :player="players[0]"
+                @open-hide-dialog="openHideDialog"
+                @open-edit-dialog="openEditDialog"
+                @open-report-dialog="openReportDialog"
+                @show-history="showPlayerDetailedHistory"
+            />
+        </template>
+
+        <template v-if="players.length > 1">
+            <h2>{{ $t('theEnd.mainRoles') }}</h2>
+            <div class="section">
+                <MainPlayer
+                    v-for="(player, index) in players.slice(1, 7)"
+                    :key="index"
+                    :player="player"
+                    :index="index"
+                    @open-hide-dialog="openHideDialog"
+                    @open-edit-dialog="openEditDialog"
+                    @open-report-dialog="openReportDialog"
+                    @show-history="showPlayerDetailedHistory"
+                />
+            </div>
+        </template>
+
+        <template v-if="players.length > 7">
+            <h2>{{ $t('theEnd.extraPlayers') }}</h2>
+            <div class="section">
+                <ExtraPlayer
+                    v-for="(player, key) in players.slice(7)"
+                    :key="key"
+                    :player="player"
+                    @open-hide-dialog="openHideDialog"
+                    @open-edit-dialog="openEditDialog"
+                    @open-report-dialog="openReportDialog"
+                    @show-history="showPlayerDetailedHistory"
+                />
+            </div>
+        </template>
+
+        <h2>{{ closedDaedalus.statistics.title }}</h2>
+        <div class="ship">
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th v-for="statistic in closedDaedalus.statistics.lines" :key="statistic.name">
+                            {{ statistic.name }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td v-for="statistic in closedDaedalus.statistics.lines" :key="statistic.name">
+                            {{ statistic.value }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="progress">
+                <div v-for="projectType in projectTypes" :key="projectType">
+                    <p>{{ closedDaedalus.projects[projectType].title }}</p>
+                    <div class="wrappedContent">
+                        <DaedalusProjectCard
+                            v-for="projectLine in closedDaedalus.projects[projectType].lines"
+                            :key="projectLine.key"
+                            :project="projectLine"
+                            :display-project-type="false"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="roles">
+                <div v-for="(titleHolder) in closedDaedalus.titleHolders" :key="titleHolder.title">
+                    <p>{{ titleHolder.title }}</p>
+                    <div class="wrappedContent">
+                        <ul>
+                            <CharacterSignature
+                                v-for="characterKey in titleHolder.characterKeys"
+                                :key="characterKey"
+                                :character-key="characterKey"
+                            />
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="honors" v-if="closedDaedalus.funFacts.length > 0">
+                <div v-for="(funFact, name) in closedDaedalus.funFacts" :key="name">
+                    <p>
+                        <Tippy>
+                            {{ funFact.title }}
+                            <template #content>
+                                <h1>{{ funFact.title }}</h1>
+                                <p>{{ funFact.description }}</p>
+                            </template>
+                        </Tippy>
+                    </p>
+                    <ul>
+                        <CharacterSignature :character-key="funFact.characterKey"/>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <router-link class="back" :to="{}">
+            <span @click="$router.go(-1)">{{ $t('util.goBack') }}</span>
+        </router-link>
+    </div>
+</template>
+
+<script setup lang="ts">
+import urlJoin from "url-join";
+import { onBeforeMount, ref } from "vue";
+import { useRoute } from "vue-router";
+import { useStore } from "vuex";
+import { handleErrors } from "@/utils/apiValidationErrors";
+import { ClosedDaedalus } from "@/entities/ClosedDaedalus";
+import { ClosedPlayer } from "@/entities/ClosedPlayer";
+import ApiService from "@/services/api.service";
+import DaedalusService from "@/services/daedalus.service";
+import ModerationService from "@/services/moderation.service";
+import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
+import { getImgUrl } from "@/utils/getImgUrl";
+import ReportPopup from "@/components/Moderation/ReportPopup.vue";
+import PlayerHistoryPopup from "@/components/Ranking/PlayerHistoryPopup.vue";
+import DaedalusProjectCard from "@/components/Game/DaedalusProjectCard.vue";
+import CharacterSignature from "@/components/Game/CharacterSignature.vue";
+import { getEndCauseConfig } from "@/enums/endcause.enum";
+import GoldPlayer from "@/components/Ranking/TheEndPage/GoldPlayer.vue";
+import MainPlayer from "@/components/Ranking/TheEndPage/MainPlayer.vue";
+import ExtraPlayer from "@/components/Ranking/TheEndPage/ExtraPlayer.vue";
+
+const route = useRoute();
+const store = useStore();
+
+const closedDaedalus = ref<ClosedDaedalus | null>(null);
+const players = ref<ClosedPlayer[]>([]);
+const moderationDialogVisible = ref(false);
+const reportPopupVisible = ref(false);
+const currentAction = ref<{ key: string, value: string }>({ key: "", value: "" });
+const currentPlayer = ref<ClosedPlayer | null>(null);
+const projectTypes = ['researchProjects', 'neronProjects', 'pilgredProjects'] as const;
+const errors = ref<any>({});
+function showPlayerDetailedHistory(player: ClosedPlayer) {
+    store.dispatch('popup/openPlayerHistoryPopUp', {
+        playerName: player.getCharacterCompleteName(),
+        gains: player.triumphGains,
+        highlights: player.highlights
+    });
+}
+
+// Report
+function openReportDialog(player: ClosedPlayer) {
+    currentPlayer.value = player;
+    reportPopupVisible.value = true;
+    window.scrollTo({ top: 0 });
+}
+function closeReportDialog() {
+    reportPopupVisible.value = false;
+}
+function submitReport(params: URLSearchParams) {
+    if (currentPlayer.value === null) {
+        return;
+    }
+    store.dispatch('moderation/reportClosedPlayer', { closedPlayerId: currentPlayer.value.id, params });
+    reportPopupVisible.value = false;
+}
+
+// Moderation
+function openModerationDialog(action: { key: string, value: string }, player: ClosedPlayer) {
+    currentAction.value = action;
+    currentPlayer.value = player;
+    moderationDialogVisible.value = true;
+}
+function openEditDialog(player: ClosedPlayer) {
+    openModerationDialog({ key: 'moderation.sanction.delete_end_message', value: 'delete_end_message' }, player);
+}
+function openHideDialog(player: ClosedPlayer) {
+    openModerationDialog({ key: 'moderation.sanction.hide_end_message', value: 'hide_end_message' }, player);
+}
+function closeModerationDialog() {
+    moderationDialogVisible.value = false;
+}
+async function applySanction(params: any) {
+    if (currentPlayer.value === null || currentPlayer.value.id === null) return;
+
+    if (currentAction.value.value === 'hide_end_message') {
+        await ModerationService.hideClosedPlayerEndMessage(currentPlayer.value.id, params);
+    } else if (currentAction.value.value === 'delete_end_message') {
+        await ModerationService.editClosedPlayerEndMessage(currentPlayer.value.id, params);
+    }
+    moderationDialogVisible.value = false;
+    await loadData();
+}
+
+// Data fetching
+async function loadData() {
+    const closedDaedalusId = String(route.params.closedDaedalusId);
+
+    try {
+        closedDaedalus.value = await DaedalusService.loadClosedDaedalus(Number(closedDaedalusId));
+        const result = await ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'closed_daedaluses', closedDaedalusId, 'players'));
+        players.value = result.data['hydra:member'].map((datum: any) => new ClosedPlayer().load(datum));
+        players.value.sort((a: ClosedPlayer, b: ClosedPlayer) => (b.score ?? 0) - (a.score ?? 0));
+    } catch (error: any) {
+        if (error.response?.data?.violations) {
+            errors.value = handleErrors(error.response.data.violations);
+        }
+    }
+}
+onBeforeMount(() => {
+    loadData();
+});
+</script>
+
+<style lang="scss" scoped>
+
+.container {
+    max-width: 785px;
+    width: 100%;
+    margin: 0 auto;
+    align-items: center;
+}
+
+p {
+    margin: 0;
+}
+
+.cheater-banner {
+    margin: 10px 10px 20px 10px;
+    padding: 10px 15px;
+    border: 1px solid $red;
+    background-color: #222b6b;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 3px;
+    flex-direction: row;
+}
+
+.ending-screen {
+    width: 100%;
+    overflow: hidden;
+    align-items: center;
+}
+
+h2 {
+    margin-top: 2em;
+    font-size: 1rem;
+    font-weight: normal;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.section {
+    flex-flow: row wrap;
+    justify-content: center;
+    max-width: 785px;
+    align-self: center;
+}
+
+.ship {
+    align-self: stretch;
+    margin: 0 0.5rem;
+}
+
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    background-color: #222b6b;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 1em;
+}
+
+.stats-table th, .stats-table td {
+    padding: 0.75em;
+    border-bottom: 1px dotted #0f0f43;
+    font-weight: bold;
+}
+
+.stats-table th {
+    opacity: 0.6;
+    font-size: 0.9em;
+}
+
+.stats-table td {
+    font-size: 1.4rem;
+}
+
+.progress, .roles, .honors {
+    margin-bottom: 20px;
+
+    & > div {
+        flex-direction: row;
+        background-color: #222b6b;
+        padding: 0.5em;
+
+        &:not(:last-child) {
+            border-bottom: 1px dotted #0f0f43;
+        }
+
+        p {
+            width: 20%;
+            min-width: 20%;
+            max-width: 156px;
+            margin: auto 0;
+            padding: .8em;
+            opacity: .6;
+            font-size: .9em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .wrappedContent {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        li {
+            margin: .1em .6em;
+            display: flex;
+            align-items: center;
+
+            img {
+                margin-right: 0.4em;
+            }
+        }
+    }
+}
+
+.progress div li, img {
+    margin: .1em;
+}
+
+a.back {
+    @include button-style;
+
+    & {
+        width: 85%;
+        max-width: 300px;
+        margin: auto;
+        margin-top: 1em;
+    }
+}
+
+@media only screen and (max-width: $breakpoint-mobile-l) {
+
+    .stats {
+        flex-direction: column;
+
+        div p:first-child {
+            border-bottom: none;
+        }
+
+        div:not(:last-child) {
+            margin-bottom: .6em;
+            border-bottom: 1px solid #0f0f43;
+        }
+    }
+
+    .progress, .roles, .honors {
+        & > div {
+            flex-direction: column;
+
+            p {
+                width: 100%;
+                max-width: none;
+                padding-bottom: 0;
+                text-align: left;
+            }
+        }
+    }
+}
+
+</style>

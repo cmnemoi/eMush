@@ -28,7 +28,7 @@ import NewsPage from "@/components/NewsPage.vue";
 import NotFoundPage from "@/components/NotFoundPage.vue";
 import RankingPage from "@/components/Ranking/RankingPage.vue";
 import ShipRanking from "@/components/Ranking/ShipRanking.vue";
-import TheEndPage from "@/components/Ranking/TheEndPage.vue";
+import TheEndPage from "@/components/Ranking/TheEndPage/TheEndPage.vue";
 import Rules from "@/components/Rules.vue";
 import Token from "@/components/Token.vue";
 import UserPage from "@/components/User/UserPage.vue";

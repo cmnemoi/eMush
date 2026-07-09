@@ -1,26 +1,28 @@
 import { toArray } from "@/utils/toArray";
+import { characterEnum } from "@/enums/character";
+import { formatText } from "@/utils/formatText";
 
 export class ClosedPlayer {
-    public iri: string|null;
-    public id: number|null;
-    public message: string|null;
-    public endCause: string|null;
-    public dayDeath: integer|null;
-    public cycleDeath: integer|null;
+    public iri: string | null;
+    public id: number | null;
+    public message: string | null;
+    public endCause: string | null;
+    public dayDeath: integer | null;
+    public cycleDeath: integer | null;
     public likes: integer;
-    public isMush: boolean|null;
-    public characterKey: string|null;
-    public userId: string|null;
-    public username: string|null;
-    public closedDaedalusId: integer|null;
-    public daysSurvived: integer|null;
-    public cyclesSurvived: integer|null;
-    public triumph: integer|null;
-    public score: integer|null;
-    public rank: integer|null;
-    public language: string|null;
-    public messageIsHidden: boolean|null;
-    public messageIsEdited: boolean|null;
+    public isMush: boolean | null;
+    public characterKey: string | null;
+    public userId: string | null;
+    public username: string | null;
+    public closedDaedalusId: integer | null;
+    public daysSurvived: integer | null;
+    public cyclesSurvived: integer | null;
+    public triumph: integer | null;
+    public score: integer | null;
+    public rank: integer | null;
+    public language: string | null;
+    public messageIsHidden: boolean | null;
+    public messageIsEdited: boolean | null;
     public messageHasBeenModerated: boolean = false;
     public hasBadEndCause!: boolean;
     public triumphGains: string[] = [];
@@ -48,7 +50,8 @@ export class ClosedPlayer {
         this.messageIsHidden = null;
         this.messageIsEdited = null;
     }
-    load(object :any): ClosedPlayer {
+
+    load(object: any): ClosedPlayer {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;
@@ -70,7 +73,7 @@ export class ClosedPlayer {
             this.messageIsHidden = object.messageIsHidden;
             this.messageIsEdited = object.messageIsEdited;
             this.messageHasBeenModerated = (this.messageIsEdited || this.messageIsHidden) ?? false;
-            this.hasBadEndCause = ['sol_return', 'eden'].includes(this.endCause ?? '') ? false : true;
+            this.hasBadEndCause = !['sol_return', 'eden'].includes(this.endCause ?? '');
             this.score = this.triumph ?? this.cyclesSurvived;
             if (object.triumphGains) {
                 toArray(object.triumphGains).forEach((triumphGainObject: string) => {
@@ -85,8 +88,9 @@ export class ClosedPlayer {
         }
         return this;
     }
+
     jsonEncode(): object {
-        const data : any = {
+        return {
             'id': this.id,
             'message': this.message,
             'endCause': this.endCause,
@@ -108,15 +112,33 @@ export class ClosedPlayer {
             'messageHasBeenModerated': this.messageHasBeenModerated,
             'hasBadEndCause': this.hasBadEndCause
         };
-
-        return data;
     }
-    decode(jsonString : string): ClosedPlayer {
+
+    decode(jsonString: string): ClosedPlayer {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);
         }
 
         return this;
+    }
+
+    getCharacterCompleteName() {
+        if (this.characterKey === null) return;
+        return characterEnum[this.characterKey].completeName;
+    }
+
+    getCharacterBody() {
+        if (this.characterKey === null) return;
+        return characterEnum[this.characterKey].body;
+    }
+
+    getCharacterPortrait() {
+        if (this.characterKey === null) return;
+        return characterEnum[this.characterKey].portrait;
+    }
+
+    getFormattedMessage() {
+        return `« ${formatText(this.message)} »`;
     }
 }

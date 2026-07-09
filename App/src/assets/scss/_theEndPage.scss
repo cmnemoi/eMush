@@ -1,0 +1,120 @@
+// Shared styles for the player cards on TheEndPage.vue
+
+%player-card {
+    position: relative;
+    z-index: 2;
+
+    &::after { //background with fadeout
+        content:"";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -99;
+    }
+
+    & > div {
+        padding: .6rem;
+        flex: 1;
+    }
+}
+
+%player-avatar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: fit-content;
+    height: fit-content;
+    padding: .6rem;
+    opacity: .6;
+    mask-image: radial-gradient(ellipse 100% 100%, black 30%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+%player-likes {
+    color: white;
+    font-weight: bold;
+    padding: .2em .4em;
+    margin: 0 .1em;
+    background: rgba(17,84,165,0.5);
+    border-radius: 4px;
+    font-size: .9rem;
+    white-space: pre;
+
+    .img { margin-top: -0.25em; }
+}
+
+%player-dude {
+    flex-direction: row;
+    align-items: center;
+
+    .body {
+        width: fit-content;
+        height: fit-content;
+        margin-right: .8em;
+    }
+
+    .char-name {
+        margin: 0.1em 0;
+        font-size: 1.6rem;
+        font-weight: 400;
+    }
+
+    p { margin: 0; }
+
+    .pseudo {
+        padding: .2rem .4rem;
+        margin: 0 .1em;
+        background: rgba(17,84,165,0.5);
+        border-radius: 4px;
+        font-size: 1.2rem;
+        color: white;
+    }
+
+    .report {
+        position: absolute;
+        right: 7px;
+        top: 7px;
+        cursor: pointer;
+    }
+}
+
+%player-triumph {
+    display: block;
+    position: relative;
+
+    .score {
+        margin: 0;
+        color: #1be0fb;
+        float: left;
+        font-weight: bold;
+        text-shadow: 0 0 3px black;
+
+        &.mush { color: #ff4059; }
+    }
+
+    .nova { margin: 1em 0; }
+
+    ul {
+        display: initial;
+        float: left;
+        margin-bottom: 1em;
+        list-style: disc inside url("/src/assets/images/ui_icons/point.png");
+    }
+
+    button {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        padding: .6em;
+        background: rgba(17,84,165,0.5);
+        border-radius: 4px;
+
+        transition: all .15s;
+
+        &:hover, &:focus, &:active {
+            background: rgba(17, 84, 165, 1);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .15);
+        }
+    }
+}

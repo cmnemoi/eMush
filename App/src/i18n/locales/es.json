@@ -74,8 +74,12 @@
 			"pioupiouz": {
 				"name": "PiouPiouZ",
 				"description": "Se \"plurtchan\", explotan, se dilatan, se transforman, avanzan en línea recta sin pensar y ¡solo tú puedes llevarlos a la salida salvadora! (disponible solo en francés)"
-			}
-		}
+			},
+      "croquemonster": {
+        "name": "CroqueMonster",
+        "description": "¡Conviértete en el director de una agencia de monstruos y aterroriza a los niños de todo el mundo!"
+      }
+    }
 	},
 	"util": {
 		"prev": "Pagina anterior",

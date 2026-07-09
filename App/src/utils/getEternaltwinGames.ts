@@ -16,6 +16,7 @@ export const getEternaltwinGames = (): EternaltwinGame[] => {
         { key: 'mybrute', link: 'https://mybrute.eternaltwin.org/', icon: 'https://mybrute.eternaltwin.org/favicon.ico' },
         { key: 'myhordes', link: 'https://myhordes.eu/', icon: 'https://myhordes.eu/build/favicon/favicon.ico' },
         { key: 'neoparc', link: 'https://neoparc.eternaltwin.org/', icon: 'https://neoparc.eternaltwin.org/favicon.ico' },
-        { key: 'pioupiouz', link: 'https://pioupiouz.eternaltwin.org/', icon: 'https://pioupiouz.eternaltwin.org/gfx/favicon.ico' }
+        { key: 'pioupiouz', link: 'https://pioupiouz.eternaltwin.org/', icon: 'https://pioupiouz.eternaltwin.org/gfx/favicon.ico' },
+        { key: 'croquemonster', link: 'https://croquemonster.eternaltwin.org/', icon: 'https://croquemonster.eternaltwin.org/favicon.png' }
     ];
 };

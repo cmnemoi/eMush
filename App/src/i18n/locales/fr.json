@@ -74,7 +74,11 @@
 			"pioupiouz": {
 				"name": "PiouPiouZ",
 				"description": "Ils se \"plurtchent\", ils explosent, ils se dilatent, ils se transforment, ils avancent tout droit sans réfléchir et seul vous pouvez les amener à la sortie salvatrice !"
-			}
+			},
+      "croquemonster": {
+        "name": "CroqueMonster",
+        "description":  "Devenez le directeur d'une agence de monstres et terrifiez les enfants du monde entier !"
+      }
 		}
 	},
 	"util": {

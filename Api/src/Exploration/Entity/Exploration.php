@@ -51,6 +51,12 @@ class Exploration
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $cycle = 0;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $startDay = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $startCycle = 0;
+
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $isChangingCycle = false;
 
@@ -70,9 +76,12 @@ class Exploration
 
         $this->explorators = new ArrayCollection();
 
+        $daedalus = $this->planet->getDaedalus();
+        $this->startDay = $daedalus->getDay();
+        $this->startCycle = $daedalus->getCycle();
+
         $this->closedExploration = new ClosedExploration($this);
 
-        $daedalus = $this->planet->getDaedalus();
         $daedalus->setExploration($this);
     }
 
@@ -225,6 +234,26 @@ class Exploration
     public function incrementCycle(): void
     {
         ++$this->cycle;
+    }
+
+    public function getStartDay(): int
+    {
+        return $this->startDay;
+    }
+
+    public function setStartDay(int $startDay): void
+    {
+        $this->startDay = $startDay;
+    }
+
+    public function getStartCycle(): int
+    {
+        return $this->startCycle;
+    }
+
+    public function setStartCycle(int $startCycle): void
+    {
+        $this->startCycle = $startCycle;
     }
 
     public function isChangingCycle(): bool

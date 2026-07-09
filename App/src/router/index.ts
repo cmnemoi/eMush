@@ -319,7 +319,7 @@ const routes: RouteRecord[] = [
         component: NewsPage
     },
     {
-        path: "/expPerma/:id",
+        path: "/expPerma/:uuid",
         name: "ClosedExpeditionPanel",
         component: ClosedExpeditionPanel
     },

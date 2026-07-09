@@ -15,9 +15,12 @@ type ClosedExplorationData = {
 
 export class ClosedExploration {
     public id!: number;
+    public uuid!: string;
     public iri!: string;
     public createdAt!: Date;
     public updatedAt!: Date;
+    public startDay!: number;
+    public startCycle!: number;
     public planet!: string;
     public explorators!: ClosedExplorator[];
     public sectors!: string[];
@@ -27,9 +30,12 @@ export class ClosedExploration {
     public load(object: ClosedExplorationData): ClosedExploration {
         if (object) {
             this.id = object.id;
+            this.uuid = object.uuid;
             this.iri = object['@id'];
             this.createdAt = object.createdAt;
             this.updatedAt = object.updatedAt;
+            this.startDay = object.startDay;
+            this.startCycle = object.startCycle;
             this.planet = object.planetName;
             this.explorators = object.closedExplorators.map((player) => new ClosedExplorator().load(player));
             this.sectors = object.exploredSectorKeys;

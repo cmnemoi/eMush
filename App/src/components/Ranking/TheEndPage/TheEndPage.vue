@@ -5,13 +5,16 @@
         @close="closeModerationDialog"
         @submit-sanction="applySanction"
     />
+
     <ReportPopup
         :report-dialog-visible="reportPopupVisible"
         :select-player="false"
         @close=closeReportDialog
         @submit-report=submitReport
     />
+
     <PlayerHistoryPopup/>
+
     <div class="container" v-if="closedDaedalus">
         <div class="ending-screen">
             <img
@@ -98,7 +101,67 @@
                     </div>
                 </div>
             </div>
-            <div class="roles">
+
+            <h2>{{ $t('theEnd.explorations') }}</h2>
+            <div class="explorations">
+                <table class="explorations-table">
+                    <thead>
+                        <tr>
+                            <th class="no-wrap"><img :src="getImgUrl('comms/calendar.png')" alt="calendar" /></th>
+                            <th class="no-wrap"><img :src="getImgUrl('ui_icons/planet.png')" alt="planet" /></th>
+                            <th><img :src="getImgUrl('in_game.png')" alt="crew" /></th>
+                            <th><img :src="getImgUrl('astro/unknown.png')" alt="sectors" /></th>
+                            <th class="no-wrap"><img :src="getImgUrl('notes.gif')" alt="logs" /></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(exploration, i) in closedDaedalus.explorations" :key="i">
+                            <td class="no-wrap">
+                                <span class="normal">
+                                    {{ $t('game.communications.day') }} {{ exploration.startDay ? exploration.startDay : "?" }}
+                                    -
+                                    {{ $t('game.communications.cycle') }} {{ exploration.startCycle ? exploration.startCycle : "?" }}
+                                </span>
+                                <span class="shrink">{{ exploration.startDay ? exploration.startDay : "?" }}-{{ exploration.startCycle ? exploration.startCycle : "?" }}</span>
+                            </td>
+                            <td class="no-wrap"  v-html="formatText(`**${exploration.planet}**`)"/>
+                            <td>
+                                <img
+                                    v-for="(explorator, j) in exploration.explorators"
+                                    :key="j"
+                                    :src="getImgUrl(`char/body/${explorator.logName}.png`)"
+                                    :alt="explorator.logName"
+                                    class="normal"
+                                />
+                                <img
+                                    v-for="(explorator, j) in exploration.explorators"
+                                    :key="j"
+                                    :src="getImgUrl(`char/head/${explorator.logName}.png`)"
+                                    :alt="explorator.logName"
+                                    class="shrink"
+                                />
+                            </td>
+                            <td>
+                                <img
+                                    class="sector"
+                                    v-for="(sector, j) in exploration.sectors"
+                                    :key="j"
+                                    :src="getImgUrl(`astro/${sector}.png`)"
+                                    :alt="sector"
+                                />
+                            </td>
+                            <td class="no-wrap">
+                                <router-link class="logs" :to="{ name: 'ClosedExpeditionPanel', params: { uuid: exploration.uuid } }">
+                                    <img :src="getImgUrl('ui_icons/right.png')" :alt="$t('theEnd.explorations.logs')" />
+                                </router-link>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>{{ $t('theEnd.titles') }}</h2>
+            <div class="titles">
                 <div v-for="(titleHolder) in closedDaedalus.titleHolders" :key="titleHolder.title">
                     <p>{{ titleHolder.title }}</p>
                     <div class="wrappedContent">
@@ -112,6 +175,8 @@
                     </div>
                 </div>
             </div>
+
+            <h2>{{ $t('theEnd.funFacts') }}</h2>
             <div class="honors" v-if="closedDaedalus.funFacts.length > 0">
                 <div v-for="(funFact, name) in closedDaedalus.funFacts" :key="name">
                     <p>
@@ -157,6 +222,7 @@ import { getEndCauseConfig } from "@/enums/endcause.enum";
 import GoldPlayer from "@/components/Ranking/TheEndPage/GoldPlayer.vue";
 import MainPlayer from "@/components/Ranking/TheEndPage/MainPlayer.vue";
 import ExtraPlayer from "@/components/Ranking/TheEndPage/ExtraPlayer.vue";
+import { formatText } from "@/utils/formatText";
 
 const route = useRoute();
 const store = useStore();
@@ -273,7 +339,6 @@ p {
 }
 
 h2 {
-    margin-top: 2em;
     font-size: 1rem;
     font-weight: normal;
     text-transform: uppercase;
@@ -300,25 +365,70 @@ h2 {
     border-radius: 3px;
     overflow: hidden;
     margin-bottom: 1em;
+
+    th, td {
+        padding: 0.75em;
+        border-bottom: 1px dotted #0f0f43;
+        font-weight: bold;
+    }
+
+    th {
+        opacity: 0.6;
+        font-size: 0.9em;
+    }
+
+    td {
+        font-size: 1.4rem;
+    }
 }
 
-.stats-table th, .stats-table td {
-    padding: 0.75em;
-    border-bottom: 1px dotted #0f0f43;
-    font-weight: bold;
+.explorations-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #222b6b;
+    border-radius: 3px;
+    overflow: hidden;
+
+    th, td {
+        padding: 0.75em 0.5em;
+        border-bottom: 1px dotted #0f0f43;
+        text-align: center;
+        font-size:0.8em;
+
+        &.no-wrap {
+            white-space: nowrap;
+            width: 1%;
+        }
+    }
+
+    th:nth-child(4) > img {
+        max-height: 1.7em;
+    }
+
+    span {
+        display: inline-flex;
+        gap: 3px;
+        white-space: nowrap;
+    }
+
+    .logs {
+        @include button-style();
+        padding: 2px 2px 0;
+    }
+
+    .normal { display: initial; }
+    .shrink { display: none; }
+    .sector { max-height: 2.8em; }
+
+    @media only screen and (max-width: $breakpoint-desktop-s) {
+        .sector { max-height: 1.7em; }
+        .normal { display: none; }
+        .shrink { display: initial; }
+    }
 }
 
-.stats-table th {
-    opacity: 0.6;
-    font-size: 0.9em;
-}
-
-.stats-table td {
-    font-size: 1.4rem;
-}
-
-.progress, .roles, .honors {
-    margin-bottom: 20px;
+.progress, .titles, .honors, .explorations {
+    margin-bottom: 15px;
 
     & > div {
         flex-direction: row;
@@ -389,7 +499,7 @@ a.back {
         }
     }
 
-    .progress, .roles, .honors {
+    .progress, .titles, .honors {
         & > div {
             flex-direction: column;
 

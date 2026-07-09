@@ -17,6 +17,7 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\ExplorationSelectionEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Exploration\Repository\ClosedExplorationRepository;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -31,17 +32,20 @@ final class ExplorationService implements ExplorationServiceInterface
     private EventServiceInterface $eventService;
     private PlanetServiceInterface $planetService;
     private RandomServiceInterface $randomService;
+    private ClosedExplorationRepository $closedExplorationRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         EventServiceInterface $eventService,
         PlanetServiceInterface $planetService,
-        RandomServiceInterface $randomService
+        RandomServiceInterface $randomService,
+        ClosedExplorationRepository $closedExplorationRepository
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
         $this->planetService = $planetService;
         $this->randomService = $randomService;
+        $this->closedExplorationRepository = $closedExplorationRepository;
     }
 
     public function createExploration(PlayerCollection $players, GameEquipment $explorationShip, int $numberOfSectorsToVisit, array $reasons): Exploration
@@ -59,6 +63,7 @@ final class ExplorationService implements ExplorationServiceInterface
 
         $exploration = new Exploration($planet);
         $exploration->setExplorators($players);
+        $exploration->getClosedExploration()->setUuid($this->closedExplorationRepository->generateUniqueUuid());
         $exploration->getClosedExploration()->setClosedExplorators($players->map(static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer())->toArray());
         $exploration->setNumberOfSectionsToVisit($numberOfSectorsToVisit + $exploration->countSkillExtendingExploration());
 
@@ -191,6 +196,8 @@ final class ExplorationService implements ExplorationServiceInterface
         $dummyExploration = new Exploration($planet);
         $dummyExploration->setCreatedAt($closedExploration->getCreatedAt());
         $dummyExploration->setUpdatedAt($closedExploration->getUpdatedAt());
+        $dummyExploration->setStartDay($closedExploration->getStartDay());
+        $dummyExploration->setStartCycle($closedExploration->getStartCycle());
         $dummyExploration->instantiateLastVisitAt();
 
         /** @var array<int, Player> $explorators */

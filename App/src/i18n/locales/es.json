@@ -175,6 +175,9 @@
 			"suicide": "¡Suicidio con estilo!",
 			"patrol_ship_explosion": "¡Una maniobra fallida!"
 		},
+    "explorations": "Exploraciones",
+    "titles": "Títulos",
+    "funFacts": "Datos Curiosos",
 		"historyAndTriumph": "Historial y Gloria",
 		"historyAndTriumphDescription": "Clic aquí para conocer el historial y la gloria de **{character}**.",
 		"triumph": "Gloria",

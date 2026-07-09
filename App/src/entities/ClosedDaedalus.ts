@@ -1,6 +1,7 @@
 import { ClosedPlayer, ClosedPlayerData } from "@/entities/ClosedPlayer";
 import { DaedalusProject } from "./Daedalus";
 import { EndCauseEnum } from "@/enums/endcause.enum";
+import { ClosedExploration } from "@/entities/ClosedExploration";
 
 type DaedalusStatistics = {
     title: string;
@@ -58,6 +59,7 @@ export class ClosedDaedalus {
     public players: ClosedPlayer[]|null;
     public statistics!: DaedalusStatistics;
     public projects!: ClosedDaedalusProjects;
+    public explorations: ClosedExploration[];
     public titleHolders!: TitleHolder[];
     public funFacts!: FunFact[];
     public humanTriumphSum: integer|null;
@@ -71,6 +73,7 @@ export class ClosedDaedalus {
         this.endDay = null;
         this.endCycle = null;
         this.players = [];
+        this.explorations = [];
         this.titleHolders = [];
         this.funFacts = [];
         this.humanTriumphSum = null;
@@ -85,13 +88,11 @@ export class ClosedDaedalus {
             this.endCycle = object.endCycle;
             this.statistics = object.statistics;
             this.projects = object.projects;
+            this.explorations = object.closedExplorations
+                .map((e: object) => (new ClosedExploration()).load(e))
+                .sort((a: ClosedExploration, b: ClosedExploration) => a.createdAt > b.createdAt ? 1 : -1);
             if (typeof object.players !== 'undefined') {
-                const players: ClosedPlayer[] = [];
-                object.players.forEach((playerData) => {
-                    const player = (new ClosedPlayer()).load(playerData);
-                    players.push(player);
-                });
-                this.players = players;
+                this.players = object.players.map((p: object) => (new ClosedPlayer()).load(p));
             }
             this.titleHolders = object.titleHolders;
             this.funFacts = object.funFacts;
@@ -112,6 +113,7 @@ export class ClosedDaedalus {
             'players': players,
             'statistics': this.statistics,
             'projects': this.projects,
+            'closedExplorations': this.explorations,
             'titleHolders': this.titleHolders,
             'funFacts': this.funFacts,
             'isCheater': this.isCheater,

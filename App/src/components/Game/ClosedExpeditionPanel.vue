@@ -75,13 +75,13 @@ export default defineComponent ({
     },
     methods: {
         getImgUrl,
-        getClosedExplorationById: async(id: number): Promise<ClosedExploration| null> => {
+        getClosedExplorationByUuid: async(uuid: string): Promise<ClosedExploration| null> => {
             store.dispatch('gameConfig/setLoading', { loading: true });
             const apiBaseUrl = import.meta.env.VITE_APP_API_URL;
             if (!apiBaseUrl) {
                 throw new Error('VITE_APP_API_URL is undefined');
             }
-            const closedExplorationData = await ApiService.get(urlJoin(apiBaseUrl, 'closed_explorations', String(id))).then((response) => {
+            const closedExplorationData = await ApiService.get(urlJoin(apiBaseUrl, 'closed_explorations', uuid)).then((response) => {
                 return response.data;
             }).catch((error) => {
                 store.dispatch('error/setError', { error });
@@ -106,8 +106,8 @@ export default defineComponent ({
         formatText
     },
     beforeMount() {
-        const id = Number(this.$route.params.id);
-        this.getClosedExplorationById(id)
+        const uuid = String(this.$route.params.uuid);
+        this.getClosedExplorationByUuid(uuid)
             .then((closedExploration: ClosedExploration | null) => {
                 if (closedExploration) {
                     this.closedExploration = closedExploration;

@@ -74,6 +74,8 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
             expected: [
                 'createdAt' => $this->exploration->getCreatedAt(),
                 'updatedAt' => $this->exploration->getLastVisitAtOrThrow(),
+                'startDay' => $this->exploration->getStartDay(),
+                'startCycle' => $this->exploration->getStartCycle(),
                 'cycleLength' => 10,
                 'planet' => [
                     'id' => $this->planet->getId(),
@@ -162,6 +164,8 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
             expected: [
                 'createdAt' => $dummyExploration->getCreatedAt(),
                 'updatedAt' => $dummyExploration->getLastVisitAtOrThrow(),
+                'startDay' => $closedExploration->getStartDay(),
+                'startCycle' => $closedExploration->getStartCycle(),
                 'cycleLength' => 10,
                 'planet' => [
                     'id' => $this->planet->getId(),

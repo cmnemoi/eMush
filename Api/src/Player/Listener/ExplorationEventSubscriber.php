@@ -100,7 +100,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
 
     private function translatedExplorationLink(ClosedExploration $closedExploration): string
     {
-        $explorationUrl = \sprintf('/expPerma/%d', $closedExploration->getId());
+        $explorationUrl = \sprintf('/expPerma/%s', $closedExploration->getUuid());
         $explorationArchive = $this->translationService->translate(
             key: 'exploration_archive',
             parameters: [],

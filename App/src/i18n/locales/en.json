@@ -175,6 +175,9 @@
 			"suicide": "Suicide with panache!",
 			"patrol_ship_explosion": "A failed maneuver!"
 		},
+    "explorations": "Explorations",
+    "titles": "Titles",
+    "funFacts": "Fun Facts",
 		"historyAndTriumph": "History and Glory",
 		"historyAndTriumphDescription": "Click here the history and the glory of **{character}**.",
 		"triumph": "Glory",

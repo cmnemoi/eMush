@@ -18,17 +18,17 @@ use Mush\Player\Enum\EndCauseEnum;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ApiResource(
-    normalizationContext: ['groups' => ['closed_daedalus_read']],
-    paginationItemsPerPage: 25,
     operations: [
         new GetCollection(
-            filters: ['default.search_filter', 'default.order_filter', 'closedDaedalus.order_filter', 'languageClosedDaedalus.search_filter'],
             security: 'is_granted("ROLE_USER")',
+            filters: ['default.search_filter', 'default.order_filter', 'closedDaedalus.order_filter', 'languageClosedDaedalus.search_filter'],
         ),
         new Get(
             security: 'is_granted("ROLE_USER") and is_granted("DAEDALUS_IS_FINISHED", object)',
         ),
     ],
+    normalizationContext: ['groups' => ['closed_daedalus_read']],
+    paginationItemsPerPage: 25,
 )]
 #[ORM\Entity]
 #[ORM\Table(name: 'daedalus_closed')]
@@ -109,6 +109,12 @@ class ClosedDaedalus
         }
 
         return $this;
+    }
+
+    #[Groups(['closed_daedalus_read'])]
+    public function getClosedExplorations(): Collection
+    {
+        return $this->daedalusInfo->getClosedExplorations();
     }
 
     public function getDaedalusInfo(): DaedalusInfo

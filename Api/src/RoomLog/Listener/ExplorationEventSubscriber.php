@@ -40,7 +40,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         $exploration = $event->getExploration();
         $explorators = $exploration->getExplorators();
 
-        $explorationUrl = '/expPerma/' . $exploration->getClosedExploration()->getId();
+        $explorationUrl = '/expPerma/' . $exploration->getClosedExploration()->getUuid();
         $here = $this->translateService->translate(
             key: 'here',
             parameters: [],
@@ -73,7 +73,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                     type: 'event_log',
                     player: $explorator,
                     parameters: [
-                        'exploration_link' => "<a href='{$explorationUrl}'>" . strtoupper($here) . '</a>',
+                        'exploration_link' => "<a href='{$explorationUrl}' target='_blank'>" . strtoupper($here) . '</a>',
                     ],
                     dateTime: $event->getTime(),
                 );
@@ -87,7 +87,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
                     type: 'event_log',
                     player: $explorator,
                     parameters: [
-                        'exploration_link' => "<a href='{$explorationUrl}'>" . strtoupper($here) . '</a>',
+                        'exploration_link' => "<a href='{$explorationUrl}' target='_blank'>" . strtoupper($here) . '</a>',
                     ],
                     dateTime: $event->getTime(),
                 );

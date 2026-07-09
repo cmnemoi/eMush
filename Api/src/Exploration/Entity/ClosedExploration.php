@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Exploration\Entity;
 
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -14,19 +15,20 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Player\Entity\ClosedPlayer;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Uid\Uuid;
 
 #[ApiResource(
-    normalizationContext: ['groups' => ['closed_exploration_read']],
-    paginationItemsPerPage: 25,
     operations: [
         new GetCollection(
-            filters: ['default.search_filter', 'default.order_filter'],
             security: 'is_granted("ROLE_ADMIN")',
+            filters: ['default.search_filter', 'default.order_filter'],
         ),
         new Get(
             security: 'is_granted("ROLE_ADMIN") or (is_granted("ROLE_USER") and (is_granted("DAEDALUS_IS_FINISHED", object) or is_granted("IS_AN_EXPLORATOR", object) or is_granted("IS_IN_DAEDALUS_AND_EXPLORATION_IS_FINISHED", object)))',
         ),
     ],
+    normalizationContext: ['groups' => ['closed_exploration_read']],
+    paginationItemsPerPage: 25,
 )]
 #[ORM\Entity]
 class ClosedExploration
@@ -36,8 +38,14 @@ class ClosedExploration
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[ApiProperty(identifier: false)]
     #[Groups(['closed_exploration_read'])]
     private int $id;
+
+    #[ORM\Column(type: 'string', length: 36, unique: true)]
+    #[ApiProperty(identifier: true)]
+    #[Groups(['closed_exploration_read'])]
+    private string $uuid;
 
     #[ORM\OneToOne(targetEntity: Exploration::class, mappedBy: 'closedExploration')]
     private ?Exploration $exploration;
@@ -48,6 +56,14 @@ class ClosedExploration
     #[ORM\Column(type: 'array', nullable: false)]
     #[Groups(['closed_exploration_read'])]
     private array $planetName = [];
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['closed_exploration_read'])]
+    private int $startDay = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    #[Groups(['closed_exploration_read'])]
+    private int $startCycle = 0;
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     #[Groups(['closed_exploration_read'])]
@@ -70,12 +86,25 @@ class ClosedExploration
         $this->exploration = $exploration;
         $this->daedalusInfo = $exploration->getDaedalus()->getDaedalusInfo();
         $this->planetName = $exploration->getPlanet()->getName()->toArray();
+        $this->startDay = $exploration->getStartDay();
+        $this->startCycle = $exploration->getStartCycle();
         $this->logs = new ArrayCollection();
+        $this->uuid = Uuid::v4()->toRfc4122();
     }
 
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getUuid(): string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(string $uuid): void
+    {
+        $this->uuid = $uuid;
     }
 
     public function getExploration(): ?Exploration
@@ -91,6 +120,16 @@ class ClosedExploration
     public function getPlanetName(): array
     {
         return $this->planetName;
+    }
+
+    public function getStartDay(): int
+    {
+        return $this->startDay;
+    }
+
+    public function getStartCycle(): int
+    {
+        return $this->startCycle;
     }
 
     public function getExploredSectorKeys(): array

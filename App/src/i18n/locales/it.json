@@ -175,6 +175,9 @@
 			"suicide": "Suicidé avec panache !",
 			"patrol_ship_explosion": "Manœuvre ratée !"
 		},
+    "explorations": "Explorations",
+    "titles": "Titres",
+    "funFacts": "Faits Marquants",
 		"historyAndTriumph": "Historique et Triomphe",
 		"historyAndTriumphDescription": "Cliquez ici pour connaître l'historique et le triomphe de **{character}**.",
 		"triumph": "Triomphe",

@@ -27,6 +27,8 @@ type ExplorationData = {
 export class Exploration {
     public createdAt!: Date;
     public updatedAt!: Date;
+    public startDay!: number;
+    public startCycle!: number;
     public planet!: Planet;
     public explorators!: Explorator[];
     public logs!: ExplorationLogs[];
@@ -38,6 +40,8 @@ export class Exploration {
         if (object) {
             this.createdAt = object.createdAt;
             this.updatedAt = object.updatedAt;
+            this.startDay = object.startDay;
+            this.startCycle = object.startCycle;
             this.planet = (new Planet()).load(object.planet);
             this.explorators = object.explorators.map((explorator: Parameters<Explorator["load"]>[0]) => (new Explorator()).load(explorator));
             this.logs = object.logs;

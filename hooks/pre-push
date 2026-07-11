@@ -32,7 +32,7 @@ run_local_commands() {
 
     cd Api
     vendor/bin/php-cs-fixer check --diff || return 1
-    vendor/bin/phpcs --standard=PSR1 src tests -p -n --ignore=src/*/DataFixtures/*,src/*/ConfigData/* || return 1
+    vendor/bin/phpcs --standard=PSR1 src tests -p -n || return 1
     vendor/bin/psalm || return 1
     vendor/bin/phpmd analyze src --format text --ruleset phpmd.xml --exclude "src/*/DataFixtures/*" --exclude "src/*/ConfigData/*" --ignore-errors-on-exit --ignore-violations-on-exit || return 1
     cd ..
@@ -47,7 +47,7 @@ run_docker_commands() {
     check_containers_are_launched || return 1
 
     docker compose -f docker/docker-compose.yml exec -T -u dev mush-php vendor/bin/php-cs-fixer check --diff || return 1
-    docker compose -f docker/docker-compose.yml exec -T -u dev mush-php vendor/bin/phpcs --standard=PSR1 src tests -p -n --ignore=src/*/DataFixtures/*,src/*/ConfigData/* || return 1
+    docker compose -f docker/docker-compose.yml exec -T -u dev mush-php vendor/bin/phpcs --standard=PSR1 src tests -p -n || return 1
     docker compose -f docker/docker-compose.yml exec -T -u dev mush-php vendor/bin/psalm || return 1
     docker compose -f docker/docker-compose.yml exec -T -u dev mush-php vendor/bin/phpmd analyze src --format text --ruleset phpmd.xml --exclude "src/*/DataFixtures/*" --exclude "src/*/ConfigData/*" --ignore-errors-on-exit --ignore-violations-on-exit || return 1
     docker compose -f docker/docker-compose.yml exec -T -u node mush-front yarn lint --no-fix || return 1

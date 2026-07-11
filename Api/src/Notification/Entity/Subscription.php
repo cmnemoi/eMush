@@ -180,34 +180,75 @@ class Subscription implements SubscriptionInterface
     /**
      * @param array<string, mixed> $input
      */
-    private static function createFromAssociativeArray(array $input): self
+    private static function extractEndpoint(array $input): string
     {
         \array_key_exists('endpoint', $input) || throw new OperationException('Invalid input');
         \is_string($input['endpoint']) || throw new OperationException('Invalid input');
 
-        $object = new self($input['endpoint']);
-        if (\array_key_exists('supportedContentEncodings', $input)) {
-            $encodings = $input['supportedContentEncodings'];
-            \is_array($encodings) || throw new OperationException('Invalid input');
-            array_walk($encodings, static function (mixed $item): void {
-                \is_string($item) || throw new OperationException('Invalid input');
-            });
-            $object->withContentEncodings($encodings);
+        return $input['endpoint'];
+    }
+
+    /**
+     * @param array<string, mixed> $input
+     */
+    private static function applySupportedContentEncodings(array $input, self $object): void
+    {
+        if (!\array_key_exists('supportedContentEncodings', $input)) {
+            return;
         }
-        if (\array_key_exists('expirationTime', $input)) {
-            $input['expirationTime'] === null || \is_int($input['expirationTime']) || throw new OperationException(
-                'Invalid input'
-            );
-            $object->setExpirationTime($input['expirationTime']);
+
+        $encodings = $input['supportedContentEncodings'];
+        \is_array($encodings) || throw new OperationException('Invalid input');
+        array_walk($encodings, static function (mixed $item): void {
+            \is_string($item) || throw new OperationException('Invalid input');
+        });
+
+        $object->withContentEncodings($encodings);
+    }
+
+    /**
+     * @param array<string, mixed> $input
+     */
+    private static function applyExpirationTime(array $input, self $object): void
+    {
+        if (!\array_key_exists('expirationTime', $input)) {
+            return;
         }
-        if (\array_key_exists('keys', $input)) {
-            \is_array($input['keys']) || throw new OperationException('Invalid input');
-            foreach ($input['keys'] as $k => $v) {
-                \is_string($k) || throw new OperationException('Invalid key name');
-                \is_string($v) || throw new OperationException('Invalid key value');
-                $object->setKey($k, $v);
-            }
+
+        $input['expirationTime'] === null || \is_int($input['expirationTime']) || throw new OperationException(
+            'Invalid input'
+        );
+
+        $object->setExpirationTime($input['expirationTime']);
+    }
+
+    /**
+     * @param array<string, mixed> $input
+     */
+    private static function applyKeys(array $input, self $object): void
+    {
+        if (!\array_key_exists('keys', $input)) {
+            return;
         }
+
+        \is_array($input['keys']) || throw new OperationException('Invalid input');
+        foreach ($input['keys'] as $k => $v) {
+            \is_string($k) || throw new OperationException('Invalid key name');
+            \is_string($v) || throw new OperationException('Invalid key value');
+            $object->setKey($k, $v);
+        }
+    }
+
+    /**
+     * @param array<string, mixed> $input
+     */
+    private static function createFromAssociativeArray(array $input): self
+    {
+        $object = new self(self::extractEndpoint($input));
+
+        self::applySupportedContentEncodings($input, $object);
+        self::applyExpirationTime($input, $object);
+        self::applyKeys($input, $object);
 
         return $object;
     }

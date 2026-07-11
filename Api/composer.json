@@ -152,7 +152,7 @@
       "php bin/console doctrine:fixtures:load --env=test -n --verbose"
     ],
     "phpmd": "php vendor/bin/phpmd analyze src --format text --ruleset phpmd.xml --exclude '*DataFixtures*' --exclude '*ConfigData*' --ignore-errors-on-exit",
-    "phpcs": "php vendor/bin/phpcs --standard=PSR1 src tests -p -n --ignore=src/*/DataFixtures/*,src/*/ConfigData/*",
+    "phpcs": "php vendor/bin/phpcs --standard=PSR1 src tests -p -n",
     "psalm": "php vendor/bin/psalm",
     "psalm:clear-cache": "vendor/bin/psalm --clear-cache",
     "reset": [

@@ -50,4 +50,16 @@ enum TradeEnum: string
             self::HUMAN_VS_TREE,
         ];
     }
+
+    /**
+     * @return TradeEnum[]
+     */
+    public static function getHumanTrades(): array
+    {
+        return [
+            self::HUMAN_VS_FUEL,
+            self::HUMAN_VS_OXY,
+            self::HUMAN_VS_TREE,
+        ];
+    }
 }

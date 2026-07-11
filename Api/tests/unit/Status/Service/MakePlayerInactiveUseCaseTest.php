@@ -50,19 +50,6 @@ final class MakePlayerInactiveUseCaseTest extends TestCase
         $this->thenPlayerShouldHaveInactiveStatus($player);
     }
 
-    public function testShouldNotCreateInactiveStatusIfPlayerDoesNotHaveAllTheirActionPoints(): void
-    {
-        $player = $this->givenAPlayer();
-
-        $this->givenUserLastActivityIsFrom($player, new \DateTime('-1 day'));
-
-        $this->givenPlayerDoesNotHaveAllTheirActionPoints($player);
-
-        $this->whenIMakePlayerInactive($player);
-
-        $this->thenPlayerShouldNotHaveInactiveStatus($player);
-    }
-
     public function testShouldNotCreateInactiveStatusIfPlayerLastActionIsNotFromYesterday(): void
     {
         $player = $this->givenAPlayer();
@@ -114,11 +101,6 @@ final class MakePlayerInactiveUseCaseTest extends TestCase
     private function givenPlayerHasAllTheirActionPoints(Player $player): void
     {
         $player->setActionPoint($player->getCharacterConfig()->getMaxActionPoint());
-    }
-
-    private function givenPlayerDoesNotHaveAllTheirActionPoints(Player $player): void
-    {
-        $player->setActionPoint(0);
     }
 
     private function givenUserLastActivityIsFrom(Player $player, \DateTime $date): void

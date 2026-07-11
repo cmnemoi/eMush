@@ -14,10 +14,7 @@ final class MakePlayerActiveService
 
     public function execute(Player $player): void
     {
-        if ($player->getUser()->lastActivityFromYesterdayOrLater()) {
-            return;
-        }
-        if ($player->isActive()) {
+        if ($player->getUser()->lastActivityBefore('-1 day') || $player->isActive()) {
             return;
         }
 

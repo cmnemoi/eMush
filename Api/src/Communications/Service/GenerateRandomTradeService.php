@@ -10,7 +10,6 @@ use Mush\Communications\Entity\TradeAsset;
 use Mush\Communications\Entity\TradeConfig;
 use Mush\Communications\Entity\TradeOption;
 use Mush\Communications\Enum\TradeEnum;
-use Mush\Communications\Repository\TradeConfigRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
@@ -22,38 +21,39 @@ final readonly class GenerateRandomTradeService implements GenerateTradeInterfac
     public function __construct(
         private GetRandomIntegerServiceInterface $getRandomInteger,
         private GetRandomElementsFromArrayServiceInterface $getRandomElementsFromArray,
-        private TradeConfigRepositoryInterface $tradeConfigRepository,
     ) {}
 
-    public function execute(Hunter $transport): Trade
+    public function execute(Hunter $transport, array $forcedTradeTypes = []): Trade
     {
-        $tradeType = $this->getRandomTradeType($transport->getDaedalus());
-        $tradeOptions = $this->generateTradeOptions($tradeType, $transport->getId());
+        $tradeConfig = $this->getRandomTradeConfig($transport->getDaedalus(), $forcedTradeTypes);
+        $tradeOptions = $this->generateTradeOptions($tradeConfig);
 
         return new Trade(
-            name: $tradeType,
+            name: $tradeConfig->getName(),
             tradeOptions: $tradeOptions,
             transportId: $transport->getId()
         );
     }
 
-    private function getRandomTradeType(Daedalus $daedalus): TradeEnum
+    private function getRandomTradeConfig(Daedalus $daedalus, array $forcedTradeTypes = []): TradeConfig
     {
-        $tradeTypes = $this->getTradeTypesFromDaedalus($daedalus);
-        $tradeTypes = $this->excludePilgredTradeIfFinished($daedalus, $tradeTypes);
-        $tradeTypes = $this->excludeOxygenTradeIfPreSelection($daedalus, $tradeTypes);
-        $tradeTypes = $this->excludeProjectsRelatedTradeIfAllNeronProjectsAreFinished($daedalus, $tradeTypes);
+        $tradeConfigs = $this->getTradeTypesFromDaedalus($daedalus);
+        if ($forcedTradeTypes !== []) {
+            $tradeConfigs = $tradeConfigs->filter(static fn (TradeConfig $tradeConfig) => \in_array($tradeConfig->getName(), $forcedTradeTypes, true));
+        }
+        $tradeConfigs = $this->excludePilgredTradeIfFinished($daedalus, $tradeConfigs);
+        $tradeConfigs = $this->excludeOxygenTradeIfPreSelection($daedalus, $tradeConfigs);
+        $tradeConfigs = $this->excludeProjectsRelatedTradeIfAllNeronProjectsAreFinished($daedalus, $tradeConfigs);
 
-        $tradeType = $this->getRandomElementsFromArray->execute(elements: $tradeTypes->toArray(), number: 1)->first() ?: null;
+        $tradeConfig = $this->getRandomElementsFromArray->execute(elements: $tradeConfigs->toArray(), number: 1)->first() ?: null;
 
-        $this->throwIfTradeDoesNotExist($tradeType);
+        $this->throwIfTradeDoesNotExist($tradeConfig);
 
-        return $tradeType;
+        return $tradeConfig;
     }
 
-    private function generateTradeOptions(TradeEnum $tradeType, int $transportId): array
+    private function generateTradeOptions(TradeConfig $tradeConfig): array
     {
-        $tradeConfig = $this->tradeConfigRepository->findOneByNameAndTransportIdOrThrow($tradeType, $transportId);
         $tradeOptions = [];
 
         foreach ($tradeConfig->getTradeOptionConfigs() as $tradeOptionConfig) {
@@ -95,32 +95,29 @@ final readonly class GenerateRandomTradeService implements GenerateTradeInterfac
 
     private function getTradeTypesFromDaedalus(Daedalus $daedalus): Collection
     {
-        return $daedalus
-            ->getGameConfig()
-            ->getTradeConfigs()
-            ->map(static fn (TradeConfig $tradeConfig) => $tradeConfig->getName());
+        return $daedalus->getGameConfig()->getTradeConfigs();
     }
 
-    private function excludePilgredTradeIfFinished(Daedalus $daedalus, Collection $tradeTypes): Collection
+    private function excludePilgredTradeIfFinished(Daedalus $daedalus, Collection $tradeConfigs): Collection
     {
-        return $daedalus->getPilgred()->isFinished() ? $tradeTypes->filter(static fn (TradeEnum $tradeType) => $tradeType !== TradeEnum::PILGREDISSIM) : $tradeTypes;
+        return $daedalus->getPilgred()->isFinished() ? $tradeConfigs->filter(static fn (TradeConfig $tradeConfig) => $tradeConfig->getName() !== TradeEnum::PILGREDISSIM) : $tradeConfigs;
     }
 
-    private function excludeOxygenTradeIfPreSelection(Daedalus $daedalus, Collection $tradeTypes): Collection
+    private function excludeOxygenTradeIfPreSelection(Daedalus $daedalus, Collection $tradeConfigs): Collection
     {
-        return $daedalus->getGameStatus() === GameStatusEnum::STARTING ? $tradeTypes->filter(static fn (TradeEnum $tradeType) => $tradeType !== TradeEnum::GOOD_PROJECTIONS) : $tradeTypes;
+        return $daedalus->getGameStatus() === GameStatusEnum::STARTING ? $tradeConfigs->filter(static fn (TradeConfig $tradeConfig) => $tradeConfig->getName() !== TradeEnum::GOOD_PROJECTIONS) : $tradeConfigs;
     }
 
-    private function excludeProjectsRelatedTradeIfAllNeronProjectsAreFinished(Daedalus $daedalus, Collection $tradeTypes): Collection
+    private function excludeProjectsRelatedTradeIfAllNeronProjectsAreFinished(Daedalus $daedalus, Collection $tradeConfigs): Collection
     {
-        return $daedalus->getAvailableNeronProjects()->isEmpty() ? $tradeTypes->filter(
-            static fn (TradeEnum $tradeType) => !\in_array($tradeType, [TradeEnum::GOOD_PROJECTIONS, TradeEnum::TECHNO_REWRITE], true)
-        ) : $tradeTypes;
+        return $daedalus->getAvailableNeronProjects()->isEmpty() ? $tradeConfigs->filter(
+            static fn (TradeConfig $tradeConfig) => !\in_array($tradeConfig->getName(), [TradeEnum::GOOD_PROJECTIONS, TradeEnum::TECHNO_REWRITE], true)
+        ) : $tradeConfigs;
     }
 
-    private function throwIfTradeDoesNotExist(?TradeEnum $tradeType): void
+    private function throwIfTradeDoesNotExist(?TradeConfig $tradeConfig): void
     {
-        if (!$tradeType) {
+        if (!$tradeConfig) {
             throw new \RuntimeException('No trade found');
         }
     }

@@ -9,5 +9,5 @@ use Mush\Hunter\Entity\Hunter;
 
 interface GenerateTradeInterface
 {
-    public function execute(Hunter $transport): Trade;
+    public function execute(Hunter $transport, array $forcedTradeTypes = []): Trade;
 }

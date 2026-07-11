@@ -23,13 +23,13 @@ final readonly class CreateTransportTradeService
         private TradeRepositoryInterface $tradeRepository,
     ) {}
 
-    public function execute(int $transportId, \DateTime $time): void
+    public function execute(int $transportId, \DateTime $time, array $forcedTradeTypes = []): void
     {
         $hunter = $this->hunterRepository->findByIdOrThrow($transportId);
 
         $this->throwIfHunterIsNotATransport($hunter);
 
-        $trade = $this->generateTrade->execute($hunter);
+        $trade = $this->generateTrade->execute($hunter, $forcedTradeTypes);
         $this->tradeRepository->save($trade);
 
         $this->eventService->callEvent(

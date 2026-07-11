@@ -23,7 +23,6 @@ use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Project\Entity\Project;
 use Mush\Project\Factory\ProjectFactory;
-use Mush\Tests\unit\Communications\TestDoubles\Repository\InMemoryTradeConfigRepository;
 use Mush\Tests\unit\Hunter\TestDoubles\InMemoryHunterRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -35,7 +34,6 @@ final class GenerateRandomTradeServiceTest extends TestCase
     private GenerateTradeInterface $generateRandomTrade;
     private GetRandomIntegerServiceInterface $getRandomInteger;
     private GetRandomElementsFromArrayServiceInterface $getRandomElementsFromArray;
-    private InMemoryTradeConfigRepository $tradeConfigRepository;
 
     private Daedalus $daedalus;
 
@@ -43,12 +41,7 @@ final class GenerateRandomTradeServiceTest extends TestCase
     {
         $this->getRandomInteger = new GetRandomIntegerService();
         $this->getRandomElementsFromArray = new FakeGetRandomElementsFromArrayService();
-        $this->tradeConfigRepository = new InMemoryTradeConfigRepository();
         $this->daedalus = DaedalusFactory::createDaedalus();
-
-        foreach ($this->daedalus->getGameConfig()->getTradeConfigs() as $tradeConfig) {
-            $this->tradeConfigRepository->save($tradeConfig);
-        }
 
         ProjectFactory::createPilgredProjectForDaedalus($this->daedalus);
         ProjectFactory::createHeatLampProjectForDaedalus($this->daedalus);
@@ -56,7 +49,6 @@ final class GenerateRandomTradeServiceTest extends TestCase
         $this->generateRandomTrade = new GenerateRandomTradeService(
             $this->getRandomInteger,
             $this->getRandomElementsFromArray,
-            $this->tradeConfigRepository,
         );
     }
 
@@ -118,7 +110,6 @@ final class GenerateRandomTradeServiceTest extends TestCase
             $this->getRandomInteger,
             // fake random to always get the pilgredissim trade from the list
             new GetRandomElementsFromArrayService(new FakeGetRandomIntegerService(1)),
-            $this->tradeConfigRepository,
         );
         $trade = $generateRandomTrade->execute($transport);
 
@@ -143,7 +134,6 @@ final class GenerateRandomTradeServiceTest extends TestCase
             $this->getRandomInteger,
             // fake random to always get the good projections trade from the list
             new GetRandomElementsFromArrayService(new FakeGetRandomIntegerService(1)),
-            $this->tradeConfigRepository,
         );
         $trade = $generateRandomTrade->execute($transport);
 
@@ -168,7 +158,6 @@ final class GenerateRandomTradeServiceTest extends TestCase
             $this->getRandomInteger,
             // fake random to always get techno rewrite trade from the list
             new GetRandomElementsFromArrayService(new FakeGetRandomIntegerService(2)),
-            $this->tradeConfigRepository,
         );
         $trade = $generateRandomTrade->execute($transport);
 

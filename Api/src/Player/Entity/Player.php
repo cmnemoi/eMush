@@ -769,11 +769,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this;
     }
 
-    public function hasSpentActionPoints(): bool
-    {
-        return $this->getActionPoint() < $this->getCharacterConfig()->getMaxActionPoint();
-    }
-
     public function getMovementPoint(): int
     {
         return $this->playerVariables->getValueByName(PlayerVariableEnum::MOVEMENT_POINT);

@@ -47,8 +47,6 @@ final class InactivityStatusCest extends AbstractFunctionalTest
 
     public function shouldBeCreatedAtCycleChange(FunctionalTester $I): void
     {
-        $this->givenPlayerHasAllTheirActionPoints();
-
         $this->givenUserLastActivityIsFrom(new \DateTime('-1 day'));
 
         $this->whenANewCycleIsTriggered();
@@ -58,8 +56,6 @@ final class InactivityStatusCest extends AbstractFunctionalTest
 
     public function shouldPrintAPublicLogWhenCreated(FunctionalTester $I): void
     {
-        $this->givenPlayerHasAllTheirActionPoints();
-
         $this->givenUserLastActivityIsFrom(new \DateTime('-1 day'));
 
         $this->whenANewCycleIsTriggered();
@@ -69,8 +65,6 @@ final class InactivityStatusCest extends AbstractFunctionalTest
 
     public function shouldBeRemovedAfterAnAction(FunctionalTester $I): void
     {
-        $this->givenPlayerHasAllTheirActionPoints();
-
         $this->givenUserLastActivityIsFrom(new \DateTime());
 
         $this->givenPlayerHasInactiveStatus();
@@ -82,8 +76,6 @@ final class InactivityStatusCest extends AbstractFunctionalTest
 
     public function shouldPrintAPublicLogWhenDeleted(FunctionalTester $I): void
     {
-        $this->givenPlayerHasAllTheirActionPoints();
-
         $this->givenPlayerHasInactiveStatus();
 
         $this->givenUserLastActivityIsFrom(new \DateTime());
@@ -137,11 +129,6 @@ final class InactivityStatusCest extends AbstractFunctionalTest
             static fn (string $plant) => ['plant' => $plant],
             GamePlantEnum::getAll()
         );
-    }
-
-    private function givenPlayerHasAllTheirActionPoints(): void
-    {
-        $this->player->setActionPoint($this->player->getCharacterConfig()->getMaxActionPoint());
     }
 
     private function givenPlayerHasInactiveStatus(): void

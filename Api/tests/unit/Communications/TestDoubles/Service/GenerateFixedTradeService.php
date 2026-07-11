@@ -17,7 +17,7 @@ final class GenerateFixedTradeService implements GenerateTradeInterface
 {
     private ?Trade $predefinedTrade = null;
 
-    public function execute(Hunter $transport): Trade
+    public function execute(Hunter $transport, array $forcedTradeTypes = []): Trade
     {
         if ($this->predefinedTrade !== null) {
             return $this->predefinedTrade;

@@ -289,14 +289,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function lastActivityFromYesterdayOrLater(): bool
+    /**
+     * Return `True` if the user's last activity was before the given delta.
+     *
+     * @throws \DateMalformedStringException
+     */
+    public function lastActivityBefore(string $delta): bool
     {
-        return $this->lastActivityAt <= new \DateTime('-1 day');
-    }
-
-    public function lastActivityFromTwoDaysAgoOrLater(): bool
-    {
-        return $this->lastActivityAt <= new \DateTime('-2 days');
+        return $this->lastActivityAt <= new \DateTime($delta);
     }
 
     public function getHashedIps(): array

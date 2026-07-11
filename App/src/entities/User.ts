@@ -1,5 +1,14 @@
 import { is_granted, UserRole } from "@/enums/user_role.enum";
 
+type UserData = {
+    id?: number;
+    userId?: string;
+    username?: string;
+    playerInfo?: number;
+    roles?: UserRole[];
+    hasAcceptedRules?: boolean;
+};
+
 export class User {
     public id : number|null;
     public userId : string|null;
@@ -15,7 +24,7 @@ export class User {
         this.playerInfo = null;
         this.roles = [];
     }
-    load(object: any): User {
+    load(object: UserData): User {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.userId = object.userId;

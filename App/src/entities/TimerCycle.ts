@@ -1,3 +1,9 @@
+type TimerCycleData = {
+    timerCycle?: string | null;
+    name?: string | null;
+    description?: string | null;
+};
+
 export class TimerCycle {
 
     public name: string|null;
@@ -9,7 +15,7 @@ export class TimerCycle {
         this.name = null;
         this.description =null;
     }
-    load(object :any): TimerCycle {
+    load(object :TimerCycleData): TimerCycle {
         if (object) {
             this.timerCycle = object.timerCycle ? new Date(object.timerCycle) : null;
             this.name = object.name;

@@ -121,7 +121,6 @@
 
 <script lang="ts">
 import { ComManagerAnnouncementElement, CommanderMission } from "@/entities/Channel";
-import { ComManagerAnnouncement } from "@/entities/Channel";
 import TabContainer from "@/components/Game/Communications/TabContainer.vue";
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";

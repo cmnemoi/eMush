@@ -4,8 +4,8 @@ import { createAchievementsModule } from "./store";
 import { Achievement, Gender, Statistic } from "./models";
 
 describe("Achievements Store", () => {
-    let store: Store<Record<string, any>>;
-    const fetchUserStatistics: (userId: string, language: string, gender: Gender) => Promise<Statistic[]> = async (userId: string, language: string, gender: Gender) => {
+    let store: Store<Record<string, unknown>>;
+    const fetchUserStatistics: (userId: string, language: string, gender: Gender) => Promise<Statistic[]> = async (_userId: string, _language: string, _gender: Gender) => {
         return Promise.resolve([{
             key: "test_statistic",
             name: "Test Statistic",
@@ -15,7 +15,7 @@ describe("Achievements Store", () => {
             isRare: false
         }]);
     };
-    const fetchUserAchievements: (userId: string, language: string, gender: Gender) => Promise<Achievement[]> = async (userId: string, language: string, gender: Gender) => {
+    const fetchUserAchievements: (userId: string, language: string, gender: Gender) => Promise<Achievement[]> = async (_userId: string, _language: string, _gender: Gender) => {
         return Promise.resolve([{
             key: "test_achievement_1",
             name: "Test Achievement 1",

@@ -40,6 +40,8 @@ import store from "@/store";
 import { createRouter, createWebHistory } from "vue-router";
 import StatsExplorationsPage from "@/components/Stats/StatsExplorationsPage.vue";
 import StatsMushPage from "@/components/Stats/StatsMushPage.vue";
+import type { Component } from "vue";
+import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
 
 interface RouteMeta {
     authorize?: UserRole[];
@@ -48,11 +50,11 @@ interface RouteMeta {
 interface RouteRecord {
     path: string;
     name: string;
-    component: any;
+    component: Component;
     meta?: RouteMeta;
     redirect?: { name: string } | string;
     children?: RouteRecord[];
-    beforeEnter?: (_to: any, _from: any, next: any) => void;
+    beforeEnter?: (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext) => void;
 }
 
 const routes: RouteRecord[] = [
@@ -347,7 +349,7 @@ const router = createRouter({
     history: createWebHistory(),
     // @ts-ignore
     routes,
-    scrollBehavior(to, from, savedPosition) {
+    scrollBehavior(_to, _from, _savedPosition) {
         return { top: 0 };
     }
 });

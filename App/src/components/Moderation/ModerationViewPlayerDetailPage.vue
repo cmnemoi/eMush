@@ -336,6 +336,7 @@ import { ModerationSanction } from "@/entities/ModerationSanction";
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import router from "@/router";
 import { ModerationChannel } from "@/entities/ModerationChannel";
+import { RoomLog } from "@/entities/RoomLog";
 
 interface PrivateChannel {
     id: number,
@@ -372,13 +373,13 @@ interface ModerationViewPlayerData {
     mushChannelMessages: MessageEntity[],
     publicChannelMessages: MessageEntity[],
     player: ModerationViewPlayer | null,
-    playerLogs: any,
+    playerLogs: { day: number, cycle: number, roomLogs: RoomLog[] }[] | null,
     privateChannels: PrivateChannel[],
-    errors: any,
+    errors: {[key: string]: string[]},
     moderationDialogVisible: boolean,
     currentAction: { key: string, value: string },
     showDetailPopup: boolean,
-    selectedSanction: any,
+    selectedSanction: ModerationSanction,
     ignoreNoise : boolean,
 }
 
@@ -457,7 +458,7 @@ export default defineComponent({
                 }
             ],
             showDetailPopup: false,
-            selectedSanction: {},
+            selectedSanction: new ModerationSanction(),
             ignoreNoise : true
         };
     },
@@ -470,7 +471,7 @@ export default defineComponent({
         closeModerationDialog() {
             this.moderationDialogVisible = false;
         },
-        showSanctionDetails(sanction: any) {
+        showSanctionDetails(sanction: ModerationSanction) {
             this.selectedSanction = sanction;
             this.showDetailPopup = true;
         },
@@ -583,7 +584,7 @@ export default defineComponent({
             }
         },
         async loadPlayerReports() {
-            const params: any = {
+            const params: { header: Record<string, string>; params: Record<string, unknown>; paramsSerializer: typeof qs.stringify } = {
                 header: {
                     'accept': 'application/ld+json'
                 },
@@ -604,7 +605,7 @@ export default defineComponent({
                 .then((result) => {
                     return result.data;
                 })
-                .then((remoteRowData: any) => {
+                .then((remoteRowData: { 'hydra:member': object[]; 'hydra:totalItems': number }) => {
                     this.playerReports = remoteRowData['hydra:member'].map((reportData: object) => {
                         return (new ModerationSanction()).load(reportData);
                     });
@@ -665,7 +666,7 @@ export default defineComponent({
                 throw error;
             }
         },
-        async goToSanctionEvidence(sanction: any)
+        async goToSanctionEvidence(sanction: ModerationSanction)
         {
             const sanctionEvidence = sanction.sanctionEvidence;
             const evidenceClass = sanctionEvidence.className;

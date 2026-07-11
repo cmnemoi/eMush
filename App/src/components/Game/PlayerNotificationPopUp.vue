@@ -14,7 +14,6 @@
 
 <script lang="ts">
 import PopUp from "@/components/Utils/PopUp.vue";
-import { Player } from "@/entities/Player";
 import { formatText } from "@/utils/formatText";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { defineComponent } from "vue";

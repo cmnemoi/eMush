@@ -3,6 +3,7 @@ import { TimerCycle } from "@/entities/TimerCycle";
 import { GameCalendar } from "@/entities/GameCalendar";
 import { Planet } from "@/entities/Planet";
 import { DaedalusExploration } from "./DaedalusExploration";
+import { Minimap } from "@/entities/Minimap";
 import { toArray } from "@/utils/toArray";
 
 export type DaedalusProject = {
@@ -20,6 +21,30 @@ export type DaedalusProjects = {
     researchProjects: DaedalusProject[];
 }
 
+type DaedalusData = {
+    id?: number;
+    oxygen?: Parameters<QuantityPoint["load"]>[0];
+    fuel?: Parameters<QuantityPoint["load"]>[0];
+    hull?: Parameters<QuantityPoint["load"]>[0];
+    shield?: Parameters<QuantityPoint["load"]>[0];
+    timer?: Parameters<TimerCycle["load"]>[0];
+    calendar?: Parameters<GameCalendar["load"]>[0];
+    cryogenizedPlayers?: number;
+    humanPlayerAlive?: number;
+    humanPlayerDead?: number;
+    mushPlayerAlive?: number;
+    mushPlayerDead?: number;
+    crewPlayer?: Parameters<QuantityPoint["load"]>[0];
+    inOrbitPlanet?: Parameters<Planet["load"]>[0];
+    isDaedalusTravelling?: boolean;
+    attackingHunters?: number;
+    // NB: assigned directly to `this.exploration` (typed DaedalusExploration|null) below without
+    // calling DaedalusExploration.load(), unlike the sibling fields above (oxygen/fuel/hull/...) —
+    // likely a pre-existing inconsistency, kept as-is to avoid changing runtime behavior.
+    onGoingExploration?: Parameters<DaedalusExploration["load"]>[0];
+    projects?: DaedalusProjects;
+};
+
 export class Daedalus {
     public id: number|null;
     public oxygen: QuantityPoint|null;
@@ -34,7 +59,7 @@ export class Daedalus {
     public mushPlayerAlive: number;
     public mushPlayerDead: number;
     public crewPlayer: QuantityPoint | null;
-    public minimap: any;
+    public minimap: Minimap|null;
     public inOrbitPlanet: Planet|null;
     public isDaedalusTravelling: boolean;
     public attackingHunters: number;
@@ -61,7 +86,7 @@ export class Daedalus {
         this.attackingHunters = 0;
         this.exploration = null;
     }
-    load(object :any): Daedalus {
+    load(object : DaedalusData): Daedalus {
         if (typeof object !== "undefined") {
             this.id = object.id;
             if (typeof object.oxygen !== 'undefined') {

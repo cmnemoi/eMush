@@ -1,14 +1,15 @@
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
+import { AxiosResponse } from "axios";
 
 const API_URL = import.meta.env.VITE_APP_API_URL as string;
 const ADMIN_ACTIONS_ENDPOINT = urlJoin(API_URL, "admin/actions");
 
 const AdminActionsService = {
-    createProjectsForOnGoingDaedaluses: async(): Promise<any> => {
+    createProjectsForOnGoingDaedaluses: async(): Promise<AxiosResponse> => {
         return await ApiService.post(ADMIN_ACTIONS_ENDPOINT + '/create-all-projects-for-on-going-daedaluses');
     },
-    createEquipmentForOnGoingDaedaluses: async(equipmentName: string, quantity: integer, place: string): Promise<any> => {
+    createEquipmentForOnGoingDaedaluses: async(equipmentName: string, quantity: integer, place: string): Promise<AxiosResponse> => {
         return await ApiService.post(
             urlJoin(ADMIN_ACTIONS_ENDPOINT, 'create-equipment-for-on-going-daedaluses'),
             {
@@ -18,7 +19,7 @@ const AdminActionsService = {
             }
         );
     },
-    createEquipmentForDaedalus: async(equipmentName: string, quantity: integer, place: string, daedalus: integer): Promise<any> => {
+    createEquipmentForDaedalus: async(equipmentName: string, quantity: integer, place: string, daedalus: integer): Promise<AxiosResponse> => {
         return await ApiService.post(
             urlJoin(ADMIN_ACTIONS_ENDPOINT, 'create-equipment-for-daedalus'),
             {
@@ -29,13 +30,13 @@ const AdminActionsService = {
             }
         );
     },
-    createPlayersAllInitStatusesForOnGoingDaedaluses: async(): Promise<any> => {
+    createPlayersAllInitStatusesForOnGoingDaedaluses: async(): Promise<AxiosResponse> => {
         return await ApiService.post(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'create-all-players-init-statuses'));
     },
-    deleteAllStatusesByName: async(statusName: string): Promise<any> => {
+    deleteAllStatusesByName: async(statusName: string): Promise<AxiosResponse> => {
         return await ApiService.delete(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'delete-all-statuses-by-name', statusName));
     },
-    createStatusForHolderOnDaedalus: async(statusName: string, holder: string, daedalus: integer): Promise<any> => {
+    createStatusForHolderOnDaedalus: async(statusName: string, holder: string, daedalus: integer): Promise<AxiosResponse> => {
         return await ApiService.post(
             urlJoin(ADMIN_ACTIONS_ENDPOINT, 'create-status-for-holder-on-daedalus'),
             {
@@ -45,21 +46,21 @@ const AdminActionsService = {
             }
         );
     },
-    deleteAllSkillsByName: async(skillName: string): Promise<any> => {
+    deleteAllSkillsByName: async(skillName: string): Promise<AxiosResponse> => {
         return await ApiService.delete(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'delete-all-skills-by-name', skillName));
     },
-    proposeNewNeronProjectsForOnGoingDaedaluses: async(): Promise<any> => {
+    proposeNewNeronProjectsForOnGoingDaedaluses: async(): Promise<AxiosResponse> => {
         return await ApiService.put(ADMIN_ACTIONS_ENDPOINT + '/propose-new-neron-projects-for-on-going-daedaluses');
     },
-    resetRulesAcceptanceForAllUsers: async(): Promise<any> => {
+    resetRulesAcceptanceForAllUsers: async(): Promise<AxiosResponse> => {
         return await ApiService.put(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'reset-rules-acceptance'));
     },
-    markDaedalusAsCheater: async(closedDaedalusId: integer): Promise<any> => {
+    markDaedalusAsCheater: async(closedDaedalusId: integer): Promise<AxiosResponse> => {
         return await ApiService.post(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'mark-daedalus-as-cheater'), {
             closedDaedalusId: closedDaedalusId
         });
     },
-    finishProjectForDaedalus: async(projectName: string, daedalus: integer): Promise<any> => {
+    finishProjectForDaedalus: async(projectName: string, daedalus: integer): Promise<AxiosResponse> => {
         return await ApiService.post(
             urlJoin(ADMIN_ACTIONS_ENDPOINT, 'finish-project-for-daedalus'),
             {

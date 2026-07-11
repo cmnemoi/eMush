@@ -777,16 +777,16 @@ export default class DaedalusScene extends Phaser.Scene
         );
 
 
-        const grpY: any[] = [];
+        const grpY: number[] = [];
         const getNextY = () => {
             if(!grpY.length){
                 const center = minSpawnY + Math.random() * (maxSpawnY- minSpawnY);
                 grpY.push(center - 30, center, center + 30);
             }
-            return grpY.pop();
+            return grpY.pop() as number;
         };
 
-        const grpX: any[] = [];
+        const grpX: number[] = [];
         const getNextX = () => {
             if(!grpX.length){
                 const formation = Math.random();
@@ -798,7 +798,7 @@ export default class DaedalusScene extends Phaser.Scene
                     grpX.push(gameSize.width + 10, gameSize.width + 10, gameSize.width + 10);
                 }
             }
-            return grpX.pop();
+            return grpX.pop() as number;
         };
 
         const hunterEmitter = this.add.particles(0,0, 'hunter', {

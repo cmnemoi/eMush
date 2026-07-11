@@ -1,4 +1,10 @@
-import { Character } from "./Character";
+import { Character, CharacterData } from "./Character";
+
+export type ChannelParticipantData = {
+    id?: number;
+    character?: CharacterData;
+    joinedAt?: string;
+};
 
 export class ChannelParticipant {
     public id: number|null;
@@ -11,7 +17,7 @@ export class ChannelParticipant {
         this.joinedAt = new Date();
     }
 
-    load(object : any): ChannelParticipant {
+    load(object : ChannelParticipantData): ChannelParticipant {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.character = (new Character()).load(object.character);

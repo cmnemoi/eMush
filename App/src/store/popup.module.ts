@@ -24,7 +24,16 @@ type PlayerNotificationPopUp = {
     isOpen: boolean;
 }
 
-const state = {
+interface PopupModuleState {
+    newRulesPopUp: BasicPopUp;
+    skillSelectionPopUp: BasicPopUp;
+    learnSkillPopUp: BasicPopUp;
+    playerNotificationPopUp: PlayerNotificationPopUp;
+    playerHistoryPopUp: PlayerHistoryPopUpData;
+    userMenu: BasicPopUp;
+}
+
+const state: PopupModuleState = {
     newRulesPopUp: {
         isOpen: false
     },
@@ -52,28 +61,28 @@ const state = {
     }
 };
 
-const getters: GetterTree<any, any> = {
-    newRulesPopUp: (state: any): BasicPopUp => {
+const getters: GetterTree<PopupModuleState, PopupModuleState> = {
+    newRulesPopUp: (state): BasicPopUp => {
         return state.newRulesPopUp;
     },
-    skillSelectionPopUp: (state: any): BasicPopUp => {
+    skillSelectionPopUp: (state): BasicPopUp => {
         return state.skillSelectionPopUp;
     },
-    learnSkillPopUp: (state: any): BasicPopUp => {
+    learnSkillPopUp: (state): BasicPopUp => {
         return state.learnSkillPopUp;
     },
-    playerNotificationPopUp: (state: any): PlayerNotificationPopUp => {
+    playerNotificationPopUp: (state): PlayerNotificationPopUp => {
         return state.playerNotificationPopUp;
     },
-    playerHistoryPopUp: (state: any): PlayerHistoryPopUpData => {
+    playerHistoryPopUp: (state): PlayerHistoryPopUpData => {
         return state.playerHistoryPopUp;
     },
-    userMenu: (state: any): BasicPopUp => {
+    userMenu: (state): BasicPopUp => {
         return state.userMenu;
     }
 };
 
-const mutations: MutationTree<any> = {
+const mutations: MutationTree<PopupModuleState> = {
     openNewRulesPopUp(state) {
         state.newRulesPopUp.isOpen = true;
     },
@@ -126,7 +135,7 @@ const mutations: MutationTree<any> = {
     }
 };
 
-const actions: ActionTree<any, any> = {
+const actions: ActionTree<PopupModuleState, PopupModuleState> = {
     openNewRulesPopUp({ commit }) {
         commit('openNewRulesPopUp');
     },

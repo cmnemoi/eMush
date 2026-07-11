@@ -37,7 +37,7 @@ import { mapGetters } from "vuex";
 
 interface UserDetailData {
     user: User | null,
-    errors: any,
+    errors: {[key: string]: string[]},
     rolesOption: object[],
 }
 

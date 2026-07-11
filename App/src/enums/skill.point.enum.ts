@@ -38,7 +38,7 @@ export enum SkillPointEnum {
     PLIERS = 'pliers',
 }
 
-export const skillPointEnum: {[index: string]: any} = {
+export const skillPointEnum: {[index: string]: {icon: string}} = {
     [SkillPointEnum.COMPUTER]: {
         'icon': getImgUrl('ui_icons/action_points/pa_comp.png')
     },

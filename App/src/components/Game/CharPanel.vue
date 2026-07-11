@@ -69,7 +69,7 @@
                 </div>
                 <ActionTabs
                     v-if="actionTabs"
-                    v-model:activeTab="activeTab"
+                    v-model:active-tab="activeTab"
                     :target-actions-mush="targetActionsMush"
                     :target-actions-admin="targetActionsAdmin"
                 />

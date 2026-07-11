@@ -1,3 +1,13 @@
+type RebelBaseData = {
+    key?: string;
+    name?: string;
+    hoverName?: string;
+    description?: string;
+    signal?: string;
+    isContacting?: boolean;
+    isLost?: boolean;
+};
+
 export class RebelBase {
     public key!: string;
     public name!: string;
@@ -12,7 +22,7 @@ export class RebelBase {
         this.isLost = false;
     }
 
-    load(object: any): RebelBase {
+    load(object: RebelBaseData): RebelBase {
         if (object) {
             this.key = object.key;
             this.name = object.name;
@@ -27,7 +37,7 @@ export class RebelBase {
     jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode(jsonString: any): RebelBase {
+    decode(jsonString: string): RebelBase {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);

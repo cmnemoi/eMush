@@ -118,14 +118,14 @@ import { removeItem } from "@/utils/misc";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
-import { ModifierConfig } from "@/entities/Config/ModifierConfig";
+import { ModifierConfig, ModifierConfigData } from "@/entities/Config/ModifierConfig";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
-import { ActionConfig } from "@/entities/Config/ActionConfig";
+import { ActionConfig, ActionConfigData } from "@/entities/Config/ActionConfig";
 
 interface StatusConfigState {
     statusConfig: null|StatusConfig
-    errors: any
+    errors: {[key: string]: string[]}
 }
 
 export default defineComponent({
@@ -180,13 +180,13 @@ export default defineComponent({
                         ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'status_configs', String(this.statusConfig.id), 'modifier_configs'))
                             .then((result) => {
                                 const modifierConfigs: ModifierConfig[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
+                                result.data['hydra:member'].forEach((datum: ModifierConfigData) => {
                                     const currentModifierConfig = (new ModifierConfig()).load(datum);
                                     modifierConfigs.push(currentModifierConfig);
                                 });
 
                                 const actionConfigs: ActionConfig[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
+                                result.data['hydra:member'].forEach((datum: ActionConfigData) => {
                                     const currentActionConfig = (new ActionConfig()).load(datum);
                                     actionConfigs.push(currentActionConfig);
                                 });
@@ -212,26 +212,26 @@ export default defineComponent({
                     }
                 });
         },
-        selectNewChildModifier(selectedId: any) {
+        selectNewChildModifier(selectedId: number) {
             GameConfigService.loadModifierConfig(selectedId).then((res) => {
                 if (res && this.statusConfig && this.statusConfig.modifierConfigs) {
                     this.statusConfig.modifierConfigs.push(res);
                 }
             });
         },
-        removeChildModifier(child: any) {
+        removeChildModifier(child: ModifierConfig) {
             if (this.statusConfig && this.statusConfig.modifierConfigs) {
                 this.statusConfig.modifierConfigs = removeItem(this.statusConfig.modifierConfigs, child);
             }
         },
-        selectNewChildAction(selectedId: any) {
+        selectNewChildAction(selectedId: number) {
             GameConfigService.loadActionConfig(selectedId).then((res) => {
                 if (res && this.statusConfig && this.statusConfig.actionConfigs) {
                     this.statusConfig.actionConfigs.push(res);
                 }
             });
         },
-        removeChildAction(child: any) {
+        removeChildAction(child: ActionConfig) {
             if (this.statusConfig && this.statusConfig.actionConfigs) {
                 this.statusConfig.actionConfigs = removeItem(this.statusConfig.actionConfigs, child);
             }
@@ -244,7 +244,7 @@ export default defineComponent({
             ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'status_configs', statusConfigId, 'modifier_configs'))
                 .then((result) => {
                     const modifierConfigs : ModifierConfig[] = [];
-                    result.data['hydra:member'].forEach((datum: any) => {
+                    result.data['hydra:member'].forEach((datum: ModifierConfigData) => {
                         const currentModifierConfig = (new ModifierConfig()).load(datum);
                         modifierConfigs.push(currentModifierConfig);
                     });

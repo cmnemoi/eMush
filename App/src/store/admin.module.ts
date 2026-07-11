@@ -1,21 +1,27 @@
 import AdminService from "@/services/admin.service";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
+import { AxiosResponse } from "axios";
 
-const state = {
+interface AdminState {
+    gameInMaintenance: boolean;
+    isLoading: boolean;
+}
+
+const state: AdminState = {
     gameInMaintenance: false,
     isLoading: false
 };
 
-const getters: GetterTree<any, any> = {
-    gameInMaintenance: (state: any): boolean => {
+const getters: GetterTree<AdminState, AdminState> = {
+    gameInMaintenance: (state): boolean => {
         return state.gameInMaintenance;
     },
-    isLoading: (state: any): boolean => {
+    isLoading: (state): boolean => {
         return state.isLoading;
     }
 };
 
-const actions: ActionTree<any, any> = {
+const actions: ActionTree<AdminState, AdminState> = {
     displayLoading({ commit }): void {
         commit('setLoading', true);
     },
@@ -24,7 +30,7 @@ const actions: ActionTree<any, any> = {
     },
     async loadGameMaintenanceStatus({ commit }): Promise<boolean> {
         try {
-            const gameInMaintenance: boolean = await AdminService.getMaintenanceStatus().then((response: any) => {
+            const gameInMaintenance: boolean = await AdminService.getMaintenanceStatus().then((response: AxiosResponse<{ gameInMaintenance: boolean }>) => {
                 return response.data?.gameInMaintenance;
             });
             commit('setMaintenanceStatus', gameInMaintenance);
@@ -36,11 +42,11 @@ const actions: ActionTree<any, any> = {
     }
 };
 
-const mutations: MutationTree<any> = {
-    setMaintenanceStatus(state: any, status: boolean): void {
+const mutations: MutationTree<AdminState> = {
+    setMaintenanceStatus(state, status: boolean): void {
         state.gameInMaintenance = status;
     },
-    setLoading(state: any, newValue: boolean): void {
+    setLoading(state, newValue: boolean): void {
         state.isLoading = newValue;
     }
 };

@@ -1,3 +1,9 @@
+type AdvanceDaedalusStatusData = {
+    key?: string;
+    text?: string;
+    type?: string;
+};
+
 export class AdvanceDaedalusStatus {
 
     static readonly FAIL = "fail";
@@ -6,7 +12,7 @@ export class AdvanceDaedalusStatus {
     public text!: string;
     public type!: string;
 
-    public load(object: any): AdvanceDaedalusStatus {
+    public load(object: AdvanceDaedalusStatusData): AdvanceDaedalusStatus {
         if (object) {
             this.key = object.key;
             this.text = object.text;
@@ -19,7 +25,7 @@ export class AdvanceDaedalusStatus {
         return JSON.stringify(this);
     }
 
-    public decode(jsonString: any): AdvanceDaedalusStatus {
+    public decode(jsonString: string): AdvanceDaedalusStatus {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);

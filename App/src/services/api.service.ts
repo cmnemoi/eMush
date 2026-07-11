@@ -1,32 +1,8 @@
-import axios, { AxiosPromise, AxiosResponse } from 'axios';
+import axios, { AxiosPromise, AxiosResponse, AxiosRequestConfig } from 'axios';
 import { uuid } from 'vue3-uuid';
 import store from '../store';
 
-export type SuccessReponse = {
-    config: any;
-    data: {
-        detail: string;
-    },
-    headers: any;
-    request: any;
-    status: integer;
-    statusText: string;
-};
-
-export type ErrorResponse = {
-    config: any;
-    data: {
-        class: string|null;
-        detail: string;
-        status: integer;
-        title: string;
-        trace: string|null;
-    },
-    headers: any;
-    request: any;
-    status: integer;
-    statusText: string;
-};
+export type SuccessReponse = AxiosResponse<{ detail: string }>;
 
 const ApiService = {
     _errorInterceptor: 0,
@@ -36,22 +12,22 @@ const ApiService = {
         axios.defaults.withCredentials = true;
     },
 
-    get(resource: string, params?: Record<string, unknown>): Promise<AxiosResponse> {
+    get(resource: string, config?: AxiosRequestConfig): Promise<AxiosResponse> {
         this.addCorrelationId();
-        return axios.get(resource, params);
+        return axios.get(resource, config);
     },
 
-    post(resource: string, data?: Record<string, unknown>, options?: Record<string, unknown>): Promise<AxiosResponse> {
+    post<T>(resource: string, data?: T, options?: AxiosRequestConfig): Promise<AxiosResponse> {
         this.addCorrelationId();
         return axios.post(resource, data, options);
     },
 
-    put(resource: string, data?: any): Promise<AxiosResponse> {
+    put<T>(resource: string, data?: T): Promise<AxiosResponse> {
         this.addCorrelationId();
         return axios.put(resource, data);
     },
 
-    patch(resource: string, data?: any, config?: any): Promise<AxiosResponse> {
+    patch<T>(resource: string, data?: T, _config?: AxiosRequestConfig): Promise<AxiosResponse> {
         this.addCorrelationId();
         return axios.patch(resource, data, { headers: { 'Content-Type' : 'application/merge-patch+json' } });
     },
@@ -98,7 +74,7 @@ const ApiService = {
      *    - username
      *    - password
      **/
-    customRequest(data: Record<string, unknown>): AxiosPromise<any> {
+    customRequest<T>(data: AxiosRequestConfig): AxiosPromise<T> {
         return axios(data);
     },
 

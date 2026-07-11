@@ -1,5 +1,4 @@
 import { getImgUrl } from "@/utils/getImgUrl";
-import { EmoteCharacterEnum } from "@/enums/emotes/characters.enum";
 
 
 export enum EmoteAstroEnum {

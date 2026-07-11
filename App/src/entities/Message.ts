@@ -1,5 +1,14 @@
 import { Character } from "@/entities/Character";
 
+type MessageData = {
+    id?: number;
+    message?: string;
+    character?: Parameters<Character["load"]>[0];
+    child: Array<Parameters<Message["load"]>[0]>;
+    date?: string;
+    isUnread?: boolean;
+};
+
 export class Message {
     public id!: number;
     public message : string|null;
@@ -17,13 +26,13 @@ export class Message {
         this.date = null;
     }
 
-    load(object: any): Message {
+    load(object: MessageData): Message {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.message = object.message;
             this.character = this.character.load(object.character);
             this.children = [];
-            object.child.forEach((childMessageData: any) => {
+            object.child.forEach((childMessageData: Parameters<Message["load"]>[0]) => {
                 const childMessage = (new Message()).load(childMessageData);
                 this.children.push(childMessage);
             });

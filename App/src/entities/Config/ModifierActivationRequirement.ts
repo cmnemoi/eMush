@@ -1,3 +1,12 @@
+export type ModifierActivationRequirementData = {
+    "@id"?: string;
+    id?: number;
+    name?: string;
+    activationRequirementName?: string;
+    activationRequirement?: string;
+    value?: number;
+};
+
 export class ModifierActivationRequirement {
     public iri: string|null;
     public id: number|null;
@@ -14,7 +23,7 @@ export class ModifierActivationRequirement {
         this.activationRequirement = null;
         this.value = null;
     }
-    load(object:any) : ModifierActivationRequirement {
+    load(object: ModifierActivationRequirementData) : ModifierActivationRequirement {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;
@@ -25,7 +34,7 @@ export class ModifierActivationRequirement {
         }
         return this;
     }
-    jsonEncode() : any {
+    jsonEncode() : object {
         return {
             'id': this.id,
             'name': this.name,

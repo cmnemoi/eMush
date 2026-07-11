@@ -1,5 +1,10 @@
 import { QuantityPoint } from "@/entities/QuantityPoint";
 
+type SkillPointData = {
+    key?: string;
+    quantityPoint?: QuantityPoint;
+};
+
 export class SkillPoint {
     public key : string|null;
     public charge: QuantityPoint|null;
@@ -9,7 +14,7 @@ export class SkillPoint {
         this.charge = null;
     }
 
-    load(object: any): SkillPoint {
+    load(object: SkillPointData): SkillPoint {
         if (typeof object !== "undefined") {
             this.key = object.key;
             if (object.quantityPoint) {
@@ -21,7 +26,7 @@ export class SkillPoint {
     jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode(jsonString: any): SkillPoint {
+    decode(jsonString: string): SkillPoint {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);

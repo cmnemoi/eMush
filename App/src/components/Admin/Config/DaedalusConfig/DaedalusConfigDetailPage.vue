@@ -131,8 +131,8 @@ import GameConfigService from "@/services/game_config.service";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import Input from "@/components/Utils/Input.vue";
 import { DaedalusConfig } from "@/entities/Config/DaedalusConfig";
-import { RandomItemPlaces } from "@/entities/Config/RandomItemPlaces";
-import { PlaceConfig } from "@/entities/Config/PlaceConfig";
+import { RandomItemPlaces, RandomItemPlacesData } from "@/entities/Config/RandomItemPlaces";
+import { PlaceConfig, PlaceConfigData } from "@/entities/Config/PlaceConfig";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
@@ -141,7 +141,7 @@ import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 
 interface DaedalusConfigState {
     daedalusConfig: null|DaedalusConfig
-    errors: any
+    errors: {[key: string]: string[]}
 }
 
 export default defineComponent({
@@ -185,7 +185,7 @@ export default defineComponent({
                         ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'daedalus_configs', String(this.daedalusConfig.id), 'random_item_places?pagination=false'))
                             .then((result) => {
                                 const randomItemPlaces: RandomItemPlaces[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
+                                result.data['hydra:member'].forEach((datum: RandomItemPlacesData) => {
                                     const currentRandomItemPlace = (new RandomItemPlaces()).load(datum);
                                     randomItemPlaces.push(currentRandomItemPlace);
                                 });
@@ -196,7 +196,7 @@ export default defineComponent({
                         ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'daedalus_configs', String(this.daedalusConfig.id), 'place_configs?pagination=false'))
                             .then((result) => {
                                 const placeConfigs: PlaceConfig[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
+                                result.data['hydra:member'].forEach((datum: PlaceConfigData) => {
                                     const currentPlaceConfig = (new PlaceConfig()).load(datum);
                                     placeConfigs.push(currentPlaceConfig);
                                 });
@@ -227,7 +227,7 @@ export default defineComponent({
                 }
             });
         },
-        removePlaceConfig(child: any): void {
+        removePlaceConfig(child: PlaceConfig): void {
             if (this.daedalusConfig && this.daedalusConfig.placeConfigs) {
                 this.daedalusConfig.placeConfigs = removeItem(this.daedalusConfig.placeConfigs, child);
             }
@@ -239,7 +239,7 @@ export default defineComponent({
                 }
             });
         },
-        removeRandomItemPlacePool(child: any): void {
+        removeRandomItemPlacePool(child: RandomItemPlaces): void {
             if (this.daedalusConfig && this.daedalusConfig.randomItemPlaces) {
                 this.daedalusConfig.randomItemPlaces = removeItem(this.daedalusConfig.randomItemPlaces, child);
             }
@@ -252,7 +252,7 @@ export default defineComponent({
             ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'daedalus_configs', daedalusConfigId, 'random_item_places?pagination=false'))
                 .then((result) => {
                     const randomItemPlaces: RandomItemPlaces[] = [];
-                    result.data['hydra:member'].forEach((datum: any) => {
+                    result.data['hydra:member'].forEach((datum: RandomItemPlacesData) => {
                         const currentRandomItemPlace = (new RandomItemPlaces()).load(datum);
                         randomItemPlaces.push(currentRandomItemPlace);
                     });
@@ -263,7 +263,7 @@ export default defineComponent({
             ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'daedalus_configs', daedalusConfigId, 'place_configs?pagination=false'))
                 .then((result) => {
                     const placeConfigs : PlaceConfig[] = [];
-                    result.data['hydra:member'].forEach((datum: any) => {
+                    result.data['hydra:member'].forEach((datum: PlaceConfigData) => {
                         const currentPlaceConfig = (new PlaceConfig()).load(datum);
                         placeConfigs.push(currentPlaceConfig);
                     });

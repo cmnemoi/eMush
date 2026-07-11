@@ -1,3 +1,10 @@
+export type RandomItemPlacesData = {
+    "@id"?: string;
+    id?: number;
+    name?: string;
+    places?: Array<string>;
+    items?: Array<string>;
+};
 
 export class RandomItemPlaces {
     public iri: string|null;
@@ -13,7 +20,7 @@ export class RandomItemPlaces {
         this.places = [];
         this.items = [];
     }
-    load(object:any) : RandomItemPlaces {
+    load(object: RandomItemPlacesData) : RandomItemPlaces {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;

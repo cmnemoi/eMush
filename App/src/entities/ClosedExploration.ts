@@ -1,5 +1,17 @@
 import { ExplorationLogs } from "@/entities/ExplorationLogs";
-import { ClosedExplorator } from "./ClosedExplorator";
+import { ClosedExplorator, ClosedExploratorData } from "./ClosedExplorator";
+
+type ClosedExplorationData = {
+    id?: number;
+    "@id"?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    planetName?: string;
+    closedExplorators?: ClosedExploratorData[];
+    exploredSectorKeys?: string[];
+    logs?: ExplorationLogs[];
+    tips?: string;
+};
 
 export class ClosedExploration {
     public id!: number;
@@ -12,14 +24,14 @@ export class ClosedExploration {
     public logs!: ExplorationLogs[];
     public tips!: string;
 
-    public load(object: any): ClosedExploration {
+    public load(object: ClosedExplorationData): ClosedExploration {
         if (object) {
             this.id = object.id;
             this.iri = object['@id'];
             this.createdAt = object.createdAt;
             this.updatedAt = object.updatedAt;
             this.planet = object.planetName;
-            this.explorators = object.closedExplorators.map((player: any) => new ClosedExplorator().load(player));
+            this.explorators = object.closedExplorators.map((player) => new ClosedExplorator().load(player));
             this.sectors = object.exploredSectorKeys;
             this.logs = object.logs;
             this.tips = object.tips;

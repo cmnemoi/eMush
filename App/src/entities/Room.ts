@@ -44,6 +44,18 @@ export const PhaserRooms = [
     'pasiphae'
 ];
 
+type RoomData = {
+    id?: number;
+    key?: string;
+    name?: string;
+    type?: string;
+    items?: Array<Item>;
+    doors?: Array<Door>;
+    players?: Array<Player>;
+    equipments?: Array<Equipment>;
+    statuses?: Array<Status>;
+};
+
 export class Room {
     public id: number|null;
     public key: string;
@@ -69,30 +81,30 @@ export class Room {
         this.type = null;
         this.hunters = [];
     }
-    load(object: any): Room {
+    load(object: RoomData): Room {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.key = object.key;
             this.name = object.name;
             this.type = object.type;
-            object.items.forEach((itemObject: any) => {
+            object.items.forEach((itemObject: Item) => {
                 const item = (new Item).load(itemObject);
                 this.items.push(item);
             });
-            object.doors.forEach((doorObject: any) => {
+            object.doors.forEach((doorObject: Door) => {
                 const door = (new Door).load(doorObject);
                 this.doors.push(door);
             });
-            object.players.forEach((playerObject: any) => {
+            object.players.forEach((playerObject: Player) => {
                 const player = (new Player).load(playerObject);
                 this.players.push(player);
             });
 
-            object.equipments.forEach((equipmentObject:any) => {
+            object.equipments.forEach((equipmentObject: Equipment) => {
                 const equipment = (new Equipment()).load(equipmentObject);
                 this.equipments.push(equipment);
             });
-            object.statuses.forEach((statusObject:any) => {
+            object.statuses.forEach((statusObject: Status) => {
                 const status = (new Status()).load(statusObject);
                 this.statuses.push(status);
 

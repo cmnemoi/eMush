@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, Transition } from 'vue';
+import { defineComponent } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import { getEternaltwinGames } from '@/utils/getEternaltwinGames';
 import { Tippy } from 'vue-tippy';

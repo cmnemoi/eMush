@@ -7,7 +7,7 @@
 
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
+import { ref, onMounted, nextTick } from 'vue';
 import { Player } from '@/entities/Player';
 
 interface Props {

@@ -7,6 +7,7 @@ import { ChannelType } from "@/enums/communication.enum";
 import ApiService from "@/services/api.service";
 import { AxiosResponse } from "axios";
 import urlJoin from "url-join";
+import { toArray } from "@/utils/toArray";
 
 const API_URL = import.meta.env.VITE_APP_API_URL as string;
 
@@ -19,11 +20,11 @@ const TIPS_CHANNEL_ENDPOINT = urlJoin(API_URL, "channel/tips");
 const FAVORITES_CHANNEL_ENDPOINT = urlJoin(API_URL, "channel/favorites");
 const PLAYER_ENDPOINT = urlJoin(API_URL, "player");
 
-// If there is only one element found, the API returns an object instead of an array.
-// We need to handle this case to avoid not being able to load the channels / messages.
-function toArray(data: any): any[] {
-    return Array.isArray(data) ? data : Object.values(data);
-}
+type RoomLogGroup = {
+    day: string;
+    cycle: string;
+    roomLogs: RoomLog[];
+};
 
 const CommunicationService = {
     loadAlivePlayerChannels: async(): Promise<Channel[]> => {
@@ -53,7 +54,7 @@ const CommunicationService = {
         const channels: Channel[] = [];
 
         if (channelsData.data) {
-            toArray(channelsData.data).forEach((data: any) => {
+            toArray(channelsData.data).forEach((data) => {
                 channels.push((new Channel()).load(data));
             });
         }
@@ -67,7 +68,7 @@ const CommunicationService = {
         }
 
         if (piratedChannelsData.data) {
-            toArray(piratedChannelsData.data).forEach((data: any) => {
+            toArray(piratedChannelsData.data).forEach((data) => {
                 channels.push((new Channel()).load(data));
             });
         }
@@ -104,7 +105,7 @@ const CommunicationService = {
         }
 
         if (channelsData.data) {
-            toArray(channelsData.data).forEach((data: any) => {
+            toArray(channelsData.data).forEach((data) => {
                 channels.push((new Channel()).load(data));
             });
         }
@@ -122,7 +123,7 @@ const CommunicationService = {
 
         const players: ContactablePlayer[] = [];
         if (playersData.data) {
-            toArray(playersData.data).forEach((data: any) => {
+            toArray(playersData.data).forEach((data) => {
                 players.push((new ContactablePlayer()).load(data));
             });
         }
@@ -133,7 +134,7 @@ const CommunicationService = {
         return ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/exit');
     },
 
-    loadMessages: async (channel: Channel, timeLimit: integer = 48): Promise<Array<Message|Record<string, unknown>>> => {
+    loadMessages: async (channel: Channel, timeLimit: integer = 48): Promise<Array<Message|RoomLogGroup>> => {
         if (channel.scope === ChannelType.TIPS) {
             return [];
         } else if (channel.scope === ChannelType.ROOM_LOG) {
@@ -144,16 +145,16 @@ const CommunicationService = {
             return await CommunicationService.loadChannelMessages(channel, timeLimit);
         }
 
-        async function loadRoomLogs(): Promise<Record<string, unknown>[]> {
+        async function loadRoomLogs(): Promise<RoomLogGroup[]> {
             const result = await ApiService.get(ROOM_LOGS_ENDPOINT);
 
-            const logs: Record<string, unknown>[] = [];
+            const logs: RoomLogGroup[] = [];
             if (result.data) {
                 const days = result.data;
                 Object.keys(days).map((day) => {
                     Object.keys(days[day]).map((cycle) => {
                         const roomLogs: RoomLog[] = [];
-                        days[day][cycle].forEach((value: any) => {
+                        days[day][cycle].forEach((value) => {
                             const roomLog = (new RoomLog()).load(value);
                             roomLogs.push(roomLog);
                         });
@@ -177,7 +178,7 @@ const CommunicationService = {
 
             const messages: Message[] = [];
             if (messagesData.data) {
-                toArray(messagesData.data).forEach((data: any) => {
+                toArray(messagesData.data).forEach((data) => {
                     messages.push((new Message()).load(data));
                 });
             }
@@ -194,7 +195,7 @@ const CommunicationService = {
 
         const messages: Message[] = [];
         if (messagesData.data) {
-            toArray(messagesData.data).forEach((data: any) => {
+            toArray(messagesData.data).forEach((data) => {
                 messages.push((new Message()).load(data));
             });
         }
@@ -206,7 +207,7 @@ const CommunicationService = {
 
         const players : ContactablePlayer[] = [];
         if (playersData.data) {
-            toArray(playersData.data).forEach((data: any) => {
+            toArray(playersData.data).forEach((data) => {
                 players.push((new ContactablePlayer()).load(data));
             });
         }
@@ -259,7 +260,7 @@ const CommunicationService = {
 
         const messages: Message[] = [];
         if (messagesData.data) {
-            toArray(messagesData.data).forEach((data: any) => {
+            toArray(messagesData.data).forEach((data) => {
                 messages.push((new Message()).load(data));
             });
         }

@@ -189,7 +189,7 @@ export default defineComponent ({
         formatMessage(value: string): string {
             return formatText(value.toString());
         },
-        deleteMessage(params: any) {
+        deleteMessage(params: URLSearchParams) {
             if (this.message.id === null) {
                 return;
             }

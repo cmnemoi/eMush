@@ -98,7 +98,7 @@ export enum SkillEnum {
     INFANTRYMAN = 'infantryman',
 }
 
-export const SkillIconRecord: {[index: string]: any} = {
+export const SkillIconRecord: {[index: string]: {icon: string}} = {
     [SkillEnum.ANONYMUSH]: {
         'icon': getImgUrl('skills/mush/anonymous.png')
     },

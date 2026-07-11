@@ -138,12 +138,12 @@ import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 import GameConfigService from "@/services/game_config.service";
 import HunterConfigService from "@/services/hunter.config.service";
 import { HunterConfig } from "@/entities/Config/HunterConfig";
-import { StatusConfig } from "@/entities/Config/StatusConfig";
+import { StatusConfig, StatusConfigData } from "@/entities/Config/StatusConfig";
 
 
 interface HunterConfigState {
     hunterConfig: null|HunterConfig
-    errors: any
+    errors: {[key: string]: string[]}
 }
 
 export default defineComponent({
@@ -171,7 +171,7 @@ export default defineComponent({
                 ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'hunter_configs', String(this.hunterConfig.id), 'initial_statuses'))
                     .then((result) => {
                         const initialStatuses: StatusConfig[] = [];
-                        result.data['hydra:member'].forEach((datum: any) => {
+                        result.data['hydra:member'].forEach((datum: StatusConfigData) => {
                             initialStatuses.push((new StatusConfig()).load(datum));
                         });
 
@@ -206,7 +206,7 @@ export default defineComponent({
                     ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'hunter_configs', String(this.hunterConfig.id), 'initial_statuses'))
                         .then((result) => {
                             const initialStatuses: StatusConfig[] = [];
-                            result.data['hydra:member'].forEach((datum: any) => {
+                            result.data['hydra:member'].forEach((datum: StatusConfigData) => {
                                 initialStatuses.push((new StatusConfig()).load(datum));
                             });
 
@@ -243,7 +243,7 @@ export default defineComponent({
             }
             this.hunterConfig.damageRange.delete(key);
         },
-        addScrapDrop(tuple: any[]): void {
+        addScrapDrop(tuple: [string, number]): void {
             if (this.hunterConfig === null || this.hunterConfig.scrapDropTable === null) {
                 return;
             }
@@ -278,7 +278,7 @@ export default defineComponent({
                 }
             });
         },
-        removeStatusConfig(statusConfig: any){
+        removeStatusConfig(statusConfig: StatusConfig){
             if (this.hunterConfig && this.hunterConfig.initialStatuses){
                 this.hunterConfig.initialStatuses = removeItem(this.hunterConfig.initialStatuses, statusConfig);
             }
@@ -291,7 +291,7 @@ export default defineComponent({
             ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'hunter_configs', String(hunterConfigId), 'initial_statuses'))
                 .then((result) => {
                     const initialStatuses: StatusConfig[] = [];
-                    result.data['hydra:member'].forEach((datum: any) => {
+                    result.data['hydra:member'].forEach((datum: StatusConfigData) => {
                         initialStatuses.push((new StatusConfig()).load(datum));
                     });
 

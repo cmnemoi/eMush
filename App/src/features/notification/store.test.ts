@@ -9,7 +9,7 @@ import { LocalStorageServiceInterface } from "@/shared/local.storage.service";
 import { NotificationServiceInterface } from "./notification.service";
 
 describe("Notification Store", () => {
-    let store: Store<Record<string, any>>;
+    let store: Store<Record<string, unknown>>;
     let localStorageService: LocalStorageServiceInterface;
     let notificationService: NotificationServiceInterface;
     beforeEach(() => {

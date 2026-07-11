@@ -1,10 +1,17 @@
+type PollOptionData = {
+    id?: number;
+    name?: string;
+    votes?: number;
+    voted?: boolean;
+};
+
 export class PollOption {
     public id!: number;
     public name!: string;
     public votes!: number;
     public voted!: boolean;
 
-    public load(object: any): PollOption {
+    public load(object: PollOptionData): PollOption {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.name = object.name;

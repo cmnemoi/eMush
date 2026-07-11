@@ -1,3 +1,9 @@
+type LocalizationConfigData = {
+    name?: string;
+    timeZone?: string;
+    language?: string;
+};
+
 export class LocalizationConfig {
     public name: string | null;
     public timeZone: string|null;
@@ -8,7 +14,7 @@ export class LocalizationConfig {
         this.timeZone = null;
         this.language = null;
     }
-    load(object:any) : LocalizationConfig {
+    load(object:LocalizationConfigData) : LocalizationConfig {
         if (typeof object !== "undefined") {
             this.name = object.name;
             this.timeZone = object.timeZone;

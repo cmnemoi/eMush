@@ -8,7 +8,7 @@ export type AchievementsState = {
     selectedGender: Gender;
 };
 
-export function createAchievementsModule(gateway: AchievementsGateway): Module<AchievementsState, Record<string, any>> {
+export function createAchievementsModule(gateway: AchievementsGateway): Module<AchievementsState, AchievementsState> {
     return {
         namespaced: true,
         state: (): AchievementsState => ({

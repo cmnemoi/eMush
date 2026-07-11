@@ -1,4 +1,5 @@
 import ApiService from "@/services/api.service";
+import { Header } from "@/components/Utils/Datatable/Datatable.vue";
 import qs from "qs";
 
 interface DataTableMixin {
@@ -14,12 +15,12 @@ interface DataTableMixin {
     pageSizeOptions: Array<{ label: string; value: number }>;
     filter: string;
     loading: boolean;
-    rowData: Array<any>;
+    rowData: Array<Record<string, unknown>>;
     loadData(this: DataTableMixin): void;
-    sortTable(this: DataTableMixin, selectedField: any): void;
+    sortTable(this: DataTableMixin, selectedField: Header): void;
     updateFilter(this: DataTableMixin): void;
     paginationClick(this: DataTableMixin, page: number): void;
-    getLoadDataParameters(this: DataTableMixin): Record<string, any>;
+    getLoadDataParameters(this: DataTableMixin): Record<string, unknown>;
 }
 
 export default {
@@ -45,7 +46,7 @@ export default {
         };
     },
     methods: {
-        sortTable(this: DataTableMixin, selectedField: any): void {
+        sortTable(this: DataTableMixin, selectedField: Header): void {
             if (!selectedField.sortable) {
                 return;
             }
@@ -65,8 +66,8 @@ export default {
             this.pagination.currentPage = page;
             this.loadData();
         },
-        getLoadDataParameters(this: DataTableMixin): Record<string, any> {
-            const params: Record<string, any> = {};
+        getLoadDataParameters(this: DataTableMixin): Record<string, unknown> {
+            const params: Record<string, unknown> = {};
             if (this.pagination.currentPage) {
                 params['page'] = this.pagination.currentPage;
             }
@@ -83,7 +84,7 @@ export default {
         },
         loadData(this: DataTableMixin) {
             this.loading = true;
-            const params: any = {
+            const params: Record<string, unknown> = {
                 header: { 'accept': 'application/ld+json' },
                 params: this.getLoadDataParameters(),
                 paramsSerializer: qs.stringify
@@ -92,7 +93,7 @@ export default {
                 .then((result) => {
                     return result.data;
                 })
-                .then((remoteRowData: any) => {
+                .then((remoteRowData: { 'hydra:member': Array<Record<string, unknown>>; 'hydra:totalItems': number }) => {
                     this.rowData = remoteRowData['hydra:member'];
                     this.pagination.totalItem = remoteRowData['hydra:totalItems'];
                     this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;

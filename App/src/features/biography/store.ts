@@ -11,7 +11,7 @@ export type LoadBioPayload = {
 
 export function createCharacterBiographyModule(
     loadCharacterBiography: (characterName: string, language: string) => Promise<string>
-): Module<BiographyState, any> {
+): Module<BiographyState, BiographyState> {
     return {
         namespaced: true,
         state: () => ({

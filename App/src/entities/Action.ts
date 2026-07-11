@@ -5,6 +5,27 @@ type ActionProvider = {
     class: string;
 };
 
+export type ActionData = {
+    "@id"?: string;
+    id?: number;
+    key?: string;
+    canExecute?: boolean;
+    name?: string;
+    description?: string;
+    actionPointCost?: number;
+    movementPointCost?: number;
+    // NB: matches the field actually read below (moralPointCost, no "e") — likely a pre-existing
+    // typo vs. the class's moralePointCost, kept as-is here to avoid changing runtime behavior.
+    moralPointCost?: number;
+    successRate?: number;
+    confirmation?: string;
+    skillPointCosts?: Array<string>;
+    actionProvider?: ActionProvider;
+    isMushAction?: boolean;
+    isAdminAction?: boolean;
+    baseVisibility?: string;
+};
+
 export class Action {
     public iri: string|null;
     public id: number|null;
@@ -38,7 +59,7 @@ export class Action {
         this.skillPointCosts = [];
         this.baseVisibility = null;
     }
-    load(object:any) : Action {
+    load(object: ActionData) : Action {
         if (typeof object !== "undefined") {
             this.iri = object["@id"];
             this.id = object.id;

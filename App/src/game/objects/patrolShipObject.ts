@@ -31,7 +31,7 @@ export default class PatrolShipObject extends EquipmentObject {
         this.initCoordinates = new CartesianCoordinates(this.x, this.y);
     }
 
-    update(time: number, delta: number):void
+    update(_time: number, _delta: number):void
     {
         this.flyAnimation();
     }

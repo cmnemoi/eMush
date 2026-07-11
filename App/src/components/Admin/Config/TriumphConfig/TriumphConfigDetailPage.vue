@@ -46,7 +46,7 @@ import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 
 interface TriumphConfigState {
     triumphConfig: null|TriumphConfig
-    errors: any
+    errors: {[key: string]: string[]}
 }
 
 export default defineComponent({

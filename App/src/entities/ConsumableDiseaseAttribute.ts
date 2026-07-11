@@ -1,3 +1,13 @@
+type ConsumableDiseaseAttributeData = {
+    "@id"?: string;
+    id?: integer;
+    disease?: string;
+    type?: string;
+    rate?: integer;
+    delayMin?: integer;
+    delayLength?: integer;
+};
+
 export class ConsumableDiseaseAttribute {
     public iri: string|null;
     public id: integer|null;
@@ -18,7 +28,7 @@ export class ConsumableDiseaseAttribute {
         this.delayLength = null;
 
     }
-    load(object:any) : ConsumableDiseaseAttribute {
+    load(object: ConsumableDiseaseAttributeData) : ConsumableDiseaseAttribute {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;
@@ -31,7 +41,7 @@ export class ConsumableDiseaseAttribute {
         return this;
     }
     jsonEncode() : object {
-        const data: any = {
+        const data: object = {
             'id': this.id,
             'disease': this.disease,
             'type': this.type,

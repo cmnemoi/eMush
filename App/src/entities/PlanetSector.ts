@@ -1,3 +1,14 @@
+type PlanetSectorData = {
+    id?: number;
+    updatedAt?: string | null;
+    key?: string;
+    name?: string;
+    description?: string;
+    isVisited?: boolean;
+    isRevealed?: boolean;
+    isNextSector?: boolean;
+};
+
 export class PlanetSector {
     public id!: number;
     public updatedAt!: string | null;
@@ -8,7 +19,7 @@ export class PlanetSector {
     public isRevealed!: boolean;
     public isNextSector!: boolean | undefined;
 
-    public load(object: any): PlanetSector {
+    public load(object: PlanetSectorData): PlanetSector {
         if (object) {
             this.id = object.id;
             this.updatedAt = object.updatedAt;
@@ -26,7 +37,7 @@ export class PlanetSector {
         return JSON.stringify(this);
     }
 
-    public decode(jsonString: any): PlanetSector {
+    public decode(jsonString: string): PlanetSector {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);

@@ -1,3 +1,12 @@
+type GameCalendarData = {
+    day?: number;
+    cycle?: number;
+    name?: string;
+    description?: string;
+    dayName?: string;
+    cycleName?: string;
+};
+
 export class GameCalendar {
     public name: string|null;
     public description: string|null;
@@ -15,7 +24,7 @@ export class GameCalendar {
         this.dayName = null;
         this.cycleName = null;
     }
-    load(object :any): GameCalendar {
+    load(object : GameCalendarData): GameCalendar {
         if (typeof object !== "undefined") {
             this.day = object.day;
             this.cycle = object.cycle;

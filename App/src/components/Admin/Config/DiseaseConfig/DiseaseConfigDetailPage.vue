@@ -97,7 +97,7 @@ import { defineComponent } from "vue";
 import GameConfigService from "@/services/game_config.service";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
-import { ModifierConfig } from "@/entities/Config/ModifierConfig";
+import { ModifierConfig, ModifierConfigData } from "@/entities/Config/ModifierConfig";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import Input from "@/components/Utils/Input.vue";
@@ -108,7 +108,7 @@ import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
 
 interface DiseaseConfigState {
     diseaseConfig: null|DiseaseConfig
-    errors: any,
+    errors: {[key: string]: string[]},
     disease: string,
 }
 
@@ -166,7 +166,7 @@ export default defineComponent({
                         ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'disease_configs', String(this.diseaseConfig.id), 'modifier_configs'))
                             .then((result) => {
                                 const modifierConfigs : ModifierConfig[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
+                                result.data['hydra:member'].forEach((datum: ModifierConfigData) => {
                                     const modifierConfig = (new ModifierConfig()).load(datum);
                                     modifierConfigs.push(modifierConfig);
                                 });
@@ -200,14 +200,14 @@ export default defineComponent({
                 this.diseaseConfig.override = removeItem(this.diseaseConfig.override, disease);
             }
         },
-        selectNewModifierConfig(selectedId: any) {
+        selectNewModifierConfig(selectedId: number) {
             GameConfigService.loadModifierConfig(selectedId).then((res) => {
                 if (res && this.diseaseConfig && this.diseaseConfig.modifierConfigs) {
                     this.diseaseConfig.modifierConfigs.push(res);
                 }
             });
         },
-        removeModifierConfig(child: any) {
+        removeModifierConfig(child: ModifierConfig) {
             if (this.diseaseConfig && this.diseaseConfig.modifierConfigs) {
                 this.diseaseConfig.modifierConfigs = removeItem(this.diseaseConfig.modifierConfigs, child);
             }
@@ -222,7 +222,7 @@ export default defineComponent({
                 ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'disease_configs', diseaseConfigId, 'modifier_configs'))
                     .then((result) => {
                         const modifierConfigs : ModifierConfig[] = [];
-                        result.data['hydra:member'].forEach((datum: any) => {
+                        result.data['hydra:member'].forEach((datum: ModifierConfigData) => {
                             const currentModifierConfig = (new ModifierConfig()).load(datum);
                             modifierConfigs.push(currentModifierConfig);
                         });

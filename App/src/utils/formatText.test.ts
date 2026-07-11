@@ -1,7 +1,4 @@
-import sinon from 'sinon';
-
-import * as formatTextModule from './formatText';
-import { describe, it, beforeEach, afterEach, expect } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { formatText } from './formatText';
 
 describe('formatText', () => {

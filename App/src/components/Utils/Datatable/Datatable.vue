@@ -61,7 +61,7 @@ export interface Header {
     name: string | null,
     emote: string | null,
     sortable: boolean | null,
-    image: any | null,
+    image: string | null,
 }
 
 export default defineComponent ({
@@ -129,7 +129,7 @@ export default defineComponent ({
         paginationClick(page: number) {
             this.$emit('pagination-click', page);
         },
-        onRowClick(row: any) {
+        onRowClick(row: unknown) {
             this.$emit('row-click', row);
         },
         sortClassname(field: Header) {

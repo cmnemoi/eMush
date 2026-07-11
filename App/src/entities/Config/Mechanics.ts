@@ -1,6 +1,41 @@
 import { Action } from '@/entities/Action';
 import { ModifierConfig } from '@/entities/Config/ModifierConfig';
 
+export type MechanicsData = {
+    "@id"?: string;
+    id?: number;
+    "@type"?: string;
+    name?: string;
+    mechanics?: Array<string>;
+    actions?: Array<Parameters<Action["load"]>[0]>;
+    craftedEquipmentName?: string;
+    ingredients?: Record<string, number>;
+    skill?: string;
+    content?: string;
+    isTranslated?: boolean;
+    canShred?: boolean;
+    plantName?: string;
+    modifierConfigs: Array<Parameters<ModifierConfig["load"]>[0]>;
+    fruitName?: string;
+    maturationTime?: Record<string, number>;
+    oxygen?: Record<string, number>;
+    isPerishable?: boolean;
+    satiety?: number;
+    moralPoints?: Record<string, number>;
+    actionPoints?: Record<string, number>;
+    movementPoints?: Record<string, number>;
+    healthPoints?: Record<string, number>;
+    extraEffects?: Record<string, number>;
+    baseAccuracy?: number;
+    criticalSuccessRate?: number;
+    criticalFailRate?: number;
+    oneShotRate?: number;
+    expeditionBonus?: number;
+    baseDamageRange?: Record<string, number>;
+};
+
+type MechanicsEncoded = Record<string, unknown>;
+
 export class Mechanics {
     public iri: string|null;
     public id: number|null;
@@ -67,7 +102,7 @@ export class Mechanics {
         this.oneShotRate = null;
     }
 
-    load(object:any) : Mechanics {
+    load(object: MechanicsData) : Mechanics {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;
@@ -78,7 +113,7 @@ export class Mechanics {
 
         if (typeof object.actions !== 'undefined') {
             const actions : Action[] = [];
-            object.actions.forEach((actionData: any) => {
+            object.actions.forEach((actionData: Parameters<Action["load"]>[0]) => {
                 const action = (new Action()).load(actionData);
                 actions.push(action);
             });
@@ -101,7 +136,7 @@ export class Mechanics {
         const actions : string[] = [];
         this.actions?.forEach(action => (typeof action.iri === 'string' ? actions.push(action.iri) : null));
 
-        const data: any = {
+        const data: MechanicsEncoded = {
             'id': this.id,
             'name': this.name,
             'mechanics': this.mechanics,
@@ -129,7 +164,7 @@ export class Mechanics {
         return this;
     }
 
-    private addBlueprintAttributes(object: any){
+    private addBlueprintAttributes(object: MechanicsData){
         if(!this.mechanics?.includes("blueprint")) return;
 
         if (typeof object.ingredients !== 'undefined') {
@@ -142,7 +177,7 @@ export class Mechanics {
         this.equipment = object.craftedEquipmentName;
     }
 
-    private encodeBlueprintAttributes(data: any){
+    private encodeBlueprintAttributes(data: MechanicsEncoded){
         if(!this.mechanics?.includes("blueprint")) return;
 
         const ingredients : object = {};
@@ -155,19 +190,19 @@ export class Mechanics {
         data.ingredients = ingredients;
     }
 
-    private encodeBookAttributes(data: any){
+    private encodeBookAttributes(data: MechanicsEncoded){
         if(!this.mechanics?.includes("book")) return;
 
         data.skill = this.skill;
     }
 
-    private addBookAttributes(object: any){
+    private addBookAttributes(object: MechanicsData){
         if(!this.mechanics?.includes("book")) return;
 
         this.skill = object.skill;
     }
 
-    private addDocumentAttributes(object: any){
+    private addDocumentAttributes(object: MechanicsData){
         if(!this.mechanics?.includes("document")) return;
 
         this.content = object.content;
@@ -175,7 +210,7 @@ export class Mechanics {
         this.canShred = object.canShred;
     }
 
-    private encodeDocumentAttributes(data: any){
+    private encodeDocumentAttributes(data: MechanicsEncoded){
         if(!this.mechanics?.includes("document")) return;
 
         data.content = this.content;
@@ -183,29 +218,29 @@ export class Mechanics {
         data.canShred = this.canShred;
     }
 
-    private addFruitAttributes(object: any){
+    private addFruitAttributes(object: MechanicsData){
         if(!this.mechanics?.includes("fruit"))return;
 
         this.plantName = object.plantName;
     }
 
-    private encodeFruitAttributes(data: any){
+    private encodeFruitAttributes(data: MechanicsEncoded){
         if(!this.mechanics?.includes("fruit"))return;
 
         data.plantName = this.plantName;
     }
 
-    private addGearAttributes(object: any){
+    private addGearAttributes(object: MechanicsData){
         if(!this.mechanics?.includes("gear")) return;
 
         this.modifierConfigs = [];
-        object.modifierConfigs.forEach((modifierConfigData: any) => {
+        object.modifierConfigs.forEach((modifierConfigData: Parameters<ModifierConfig["load"]>[0]) => {
             const modifierConfig = (new ModifierConfig()).load(modifierConfigData);
             this.modifierConfigs?.push(modifierConfig);
         });
     }
 
-    private encodeGearAttributes(data: any){
+    private encodeGearAttributes(data: MechanicsEncoded){
         if(!this.mechanics?.includes("gear")) return;
 
         const modifierConfigs : string[] = [];
@@ -213,7 +248,7 @@ export class Mechanics {
         data.modifierConfigs = modifierConfigs;
     }
 
-    private addPlantAttributes(object: any){
+    private addPlantAttributes(object: MechanicsData){
         if(!this.mechanics?.includes("plant"))return;
 
         this.fruit = object.fruitName;
@@ -235,7 +270,7 @@ export class Mechanics {
         }
     }
 
-    private encodePlantAttributes(data: any){
+    private encodePlantAttributes(data: MechanicsEncoded){
         if(!this.mechanics?.includes("plant"))return;
 
         const maturationTime : object = {};
@@ -255,7 +290,7 @@ export class Mechanics {
         data.healthPoints = healthPoints;
     }
 
-    private addRationAttributes(object: any){
+    private addRationAttributes(object: MechanicsData){
         if(!this.mechanics?.includes("ration")) return;
 
         this.isPerishable = object.isPerishable;
@@ -297,7 +332,7 @@ export class Mechanics {
         }
     }
 
-    private encodeRationAttributes(data: any){
+    private encodeRationAttributes(data: MechanicsEncoded){
         if(!this.mechanics?.includes("ration")) return;
 
         const moralPoints : object = {};
@@ -339,7 +374,7 @@ export class Mechanics {
         data.extraEffects = extraEffects;
     }
 
-    private addWeaponAttributes(object: any){
+    private addWeaponAttributes(object: MechanicsData){
         if(!this.mechanics?.includes("weapon")) return;
 
         this.baseAccuracy = object.baseAccuracy;
@@ -357,7 +392,7 @@ export class Mechanics {
         }
     }
 
-    private encodeWeaponAttributes(data: any){
+    private encodeWeaponAttributes(data: MechanicsEncoded){
         if(!this.mechanics?.includes("weapon")) return;
 
         const baseDamageRange : object = {};

@@ -1,12 +1,24 @@
 import PlayerService from "@/services/player.service";
-import { ActionTree, GetterTree, MutationTree } from "vuex";
+import { ActionTree, Commit, Dispatch, GetterTree, MutationTree } from "vuex";
 import { Player } from "@/entities/Player";
 import { Item } from "@/entities/Item";
 import { ConfirmPopup } from "@/entities/ConfirmPopup";
 import store from ".";
 import { User } from "@/entities/User";
+import { AxiosError } from "axios";
 
-const state =  {
+interface PlayerModuleState {
+    loading: boolean;
+    player: Player | null;
+    selectedItem: Item | null;
+    confirmPopup: ConfirmPopup;
+    displayMushSkills: boolean;
+    playerChanged: boolean;
+    commanderOrderPanelOpen: boolean;
+    comManagerAnnouncementPanelOpen: boolean;
+}
+
+const state: PlayerModuleState =  {
     loading: false,
     player: null,
     selectedItem: null,
@@ -17,34 +29,34 @@ const state =  {
     comManagerAnnouncementPanelOpen: false
 };
 
-const getters: GetterTree<any, any> = {
-    isLoading: (state: any): boolean => {
+const getters: GetterTree<PlayerModuleState, PlayerModuleState> = {
+    isLoading: (state): boolean => {
         return state.loading;
     },
-    player: (state: any): Player|null => {
+    player: (state): Player|null => {
         return state.player;
     },
-    selectedItem: (state: any): Item|null => {
+    selectedItem: (state): Item|null => {
         return state.selectedItem;
     },
-    confirmPopup: (state: any): ConfirmPopup => {
+    confirmPopup: (state): ConfirmPopup => {
         return state.confirmPopup;
     },
-    displayMushSkills: (state: any): boolean => {
+    displayMushSkills: (state): boolean => {
         return state.displayMushSkills;
     },
-    playerChanged: (state: any): boolean => {
+    playerChanged: (state): boolean => {
         return state.playerChanged;
     },
-    commanderOrderPanelOpen: (state: any): boolean => {
+    commanderOrderPanelOpen: (state): boolean => {
         return state.commanderOrderPanelOpen;
     },
-    comManagerAnnouncementPanelOpen: (state: any): boolean => {
+    comManagerAnnouncementPanelOpen: (state): boolean => {
         return state.comManagerAnnouncementPanelOpen;
     }
 };
 
-const actions: ActionTree<any, any> = {
+const actions: ActionTree<PlayerModuleState, PlayerModuleState> = {
     storePlayer({ commit }, { player }) {
         commit('updatePlayer', player);
     },
@@ -113,7 +125,7 @@ const actions: ActionTree<any, any> = {
         }
     },
     async reloadPlayer({ state, dispatch }) {
-        return await dispatch("loadPlayer", { playerId: state.player.id });
+        return await dispatch("loadPlayer", { playerId: state.player!.id });
     },
     async clearPlayer({ commit }) {
         commit("clearPlayer");
@@ -164,19 +176,19 @@ const actions: ActionTree<any, any> = {
     }
 };
 
-const mutations : MutationTree<any> = {
-    setLoading(state: any, newValue: boolean): void {
+const mutations : MutationTree<PlayerModuleState> = {
+    setLoading(state, newValue: boolean): void {
         state.loading = newValue;
     },
-    updatePlayer(state: any, player: Player): void {
+    updatePlayer(state, player: Player): void {
         state.player = player;
         state.loading = false;
     },
-    clearPlayer(state: any): void
+    clearPlayer(state): void
     {
         state.player = null;
     },
-    errorUpdatePlayer(state: any): void {
+    errorUpdatePlayer(state): void {
         state.loading = false;
     },
     setSelectedItem(state, target: Item | null) {
@@ -248,7 +260,7 @@ export const player = {
     mutations
 };
 
-async function executePlayerLoad(dispatch: any, commit: any, playerId: number): Promise<boolean> {
+async function executePlayerLoad(dispatch: Dispatch, commit: Commit, playerId: number): Promise<boolean> {
     const playerIsNull = store.getters['player/player'] === null;
     const currentPlayer = store.getters['player/player'];
 
@@ -259,7 +271,7 @@ async function executePlayerLoad(dispatch: any, commit: any, playerId: number): 
     return true;
 }
 
-async function loadAlertsForCurrentPlayer(dispatch: any, playerIsNull: boolean, currentPlayer: Player): Promise<void> {
+async function loadAlertsForCurrentPlayer(dispatch: Dispatch, playerIsNull: boolean, currentPlayer: Player): Promise<void> {
     if (playerIsNull) {
         return Promise.resolve();
     }
@@ -269,7 +281,7 @@ async function loadAlertsForCurrentPlayer(dispatch: any, playerIsNull: boolean, 
     return dispatch("daedalus/loadAlerts", { daedalus: currentPlayer.daedalus }, { root: true });
 }
 
-async function loadAlertsIfNeeded(dispatch: any, player: Player | null, playerIsNull: boolean): Promise<void> {
+async function loadAlertsIfNeeded(dispatch: Dispatch, player: Player | null, playerIsNull: boolean): Promise<void> {
     if (!playerIsNull) {
         return Promise.resolve();
     }
@@ -279,7 +291,7 @@ async function loadAlertsIfNeeded(dispatch: any, player: Player | null, playerIs
     return dispatch("daedalus/loadAlerts", { daedalus: player.daedalus }, { root: true });
 }
 
-async function loadPlayerData(dispatch: any, commit: any, playerId: number, playerIsNull: boolean): Promise<void> {
+async function loadPlayerData(dispatch: Dispatch, commit: Commit, playerId: number, playerIsNull: boolean): Promise<void> {
     const player = await PlayerService.loadPlayer(playerId);
     if (player === null) {
         return;
@@ -302,7 +314,7 @@ function validatePlayerMatch(player: Player | null, playerId: number): void {
     }
 }
 
-async function loadPlayerDependencies(dispatch: any, player: Player | null, playerIsNull: boolean): Promise<void> {
+async function loadPlayerDependencies(dispatch: Dispatch, player: Player | null, playerIsNull: boolean): Promise<void> {
     await Promise.all([
         loadAlertsIfNeeded(dispatch, player, playerIsNull),
         dispatch("daedalus/loadMinimap", { player }, { root: true }),
@@ -310,18 +322,18 @@ async function loadPlayerDependencies(dispatch: any, player: Player | null, play
     ]);
 }
 
-async function loadOptionalPlayerData(dispatch: any, player: Player | null): Promise<void> {
+async function loadOptionalPlayerData(dispatch: Dispatch, player: Player | null): Promise<void> {
     if (player?.spaceBattle) {
         await dispatch("room/loadSpaceBattle", { spaceBattle: player?.spaceBattle }, { root: true });
     }
 }
 
-async function updatePlayerInterface(dispatch: any, commit: any): Promise<void> {
+async function updatePlayerInterface(dispatch: Dispatch, commit: Commit): Promise<void> {
     await dispatch("room/updateSelectedItemPile", null, { root: true });
     commit('updateSelectedItem');
 }
 
-async function handlePlayerLoadError(dispatch: any, commit: any, e: any, isRetry: boolean, playerId: number, state: any): Promise<boolean> {
+async function handlePlayerLoadError(dispatch: Dispatch, commit: Commit, e: AxiosError, isRetry: boolean, playerId: number, state: PlayerModuleState): Promise<boolean> {
     if (shouldRetryPlayerLoad(isRetry, state)) {
         return await retryPlayerLoad(dispatch, commit, playerId);
     }
@@ -333,11 +345,11 @@ async function handlePlayerLoadError(dispatch: any, commit: any, e: any, isRetry
     return false;
 }
 
-function shouldRetryPlayerLoad(isRetry: boolean, state: any): boolean {
+function shouldRetryPlayerLoad(isRetry: boolean, state: PlayerModuleState): boolean {
     return !isRetry && !state.playerChanged;
 }
 
-async function retryPlayerLoad(dispatch: any, commit: any, playerId: number): Promise<boolean> {
+async function retryPlayerLoad(dispatch: Dispatch, commit: Commit, _playerId: number): Promise<boolean> {
     try {
         console.warn('Player load failed, attempting retry with fresh user info');
         await preparePlayerRetry(dispatch);
@@ -352,13 +364,13 @@ async function retryPlayerLoad(dispatch: any, commit: any, playerId: number): Pr
     }
 }
 
-async function preparePlayerRetry(dispatch: any): Promise<void> {
+async function preparePlayerRetry(dispatch: Dispatch): Promise<void> {
     await dispatch("player/togglePlayerChanged", null, { root: true });
     await dispatch("player/clearPlayer", null, { root: true });
     await dispatch("error/clearError", null, { root: true });
 }
 
-async function finalizePlayerLoad(dispatch: any, commit: any): Promise<void> {
+async function finalizePlayerLoad(dispatch: Dispatch, commit: Commit): Promise<void> {
     await dispatch("popup/openPlayerNotificationPopUp", { player: store.getters["player/player"] }, { root: true });
     commit('setLoading', false);
 }

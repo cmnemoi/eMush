@@ -41,7 +41,6 @@ import ErrorList from "@/components/Utils/ErrorList.vue";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import store from "@/store";
 import { GameConfig } from "@/entities/Config/GameConfig";
-import qs from "qs";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import { LocalizationConfig } from "@/entities/Config/LocalizationConfig";
@@ -69,26 +68,18 @@ export default defineComponent({
     methods: {
         loadData() {
             this.loading = true;
-            const params: any = {
-                header: {
-                    'accept': 'application/ld+json'
-                },
-                params: {},
-                paramsSerializer: qs.stringify
-            };
-
             ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+ 'game_configs'))
                 .then((result) => {
                     return result.data;
                 })
-                .then((remoteRowData: any) => {
+                .then((remoteRowData: { 'hydra:member': GameConfig[] }) => {
                     this.configs = remoteRowData['hydra:member'];
                 });
             ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+ 'localization_configs'))
                 .then((result) => {
                     return result.data;
                 })
-                .then((remoteRowData: any) => {
+                .then((remoteRowData: { 'hydra:member': LocalizationConfig[] }) => {
                     this.languages = remoteRowData['hydra:member'];
                     this.loading = false;
                 });

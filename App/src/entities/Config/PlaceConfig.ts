@@ -1,4 +1,13 @@
-import { GameConfig } from "@/entities/Config/GameConfig";
+export type PlaceConfigData = {
+    "@id"?: string;
+    id?: number;
+    name?: string;
+    placeName?: string;
+    type?: string;
+    doors?: Array<string>;
+    items?: Array<string>;
+    equipments?: Array<string>;
+};
 
 export class PlaceConfig {
     public iri: string|null;
@@ -20,7 +29,7 @@ export class PlaceConfig {
         this.items = [];
         this.equipments = [];
     }
-    load(object:any) : PlaceConfig {
+    load(object: PlaceConfigData) : PlaceConfig {
         if (typeof object !== "undefined") {
             this.iri = object["@id"];
             this.id = object.id;

@@ -1,9 +1,15 @@
+type ContactablePlayerData = {
+    id?: number;
+    key?: string;
+    name?: string;
+};
+
 export class ContactablePlayer {
     id!: number;
     key!: string;
     name!: string;
 
-    public load(object: any): ContactablePlayer {
+    public load(object: ContactablePlayerData): ContactablePlayer {
         if (object) {
             this.id = object.id;
             this.key = object.key;

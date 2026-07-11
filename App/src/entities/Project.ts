@@ -1,12 +1,26 @@
 import { ActionEnum } from "@/enums/action.enum";
 import { Action } from "./Action";
-import { arrayBuffer } from "stream/consumers";
 
 export type BonusSkill = {
     key: string;
     name: string;
     description: string;
 }
+
+type ProjectData = {
+    id?: integer;
+    key?: string;
+    name?: string;
+    description?: string;
+    lore?: string;
+    progress?: string;
+    efficiency?: string;
+    efficiencyTooltipHeader?: string;
+    efficiencyTooltipText?: string;
+    bonusSkills?: BonusSkill[];
+    isLastAdvancedProject?: boolean;
+    actions?: Array<Action>;
+};
 
 export class Project {
     public id!: integer;
@@ -23,7 +37,7 @@ export class Project {
     public repairPilgredAction: Action|null = null;
     public participateAction: Action|null = null;
 
-    load(object :any): Project {
+    load(object :ProjectData): Project {
         if (object) {
             this.id = object.id;
             this.key = object.key;
@@ -36,9 +50,9 @@ export class Project {
             this.efficiencyTooltipText = object.efficiencyTooltipText;
             this.bonusSkills = object.bonusSkills;
             this.isLastAdvancedProject = object.isLastAdvancedProject;
-            const repairPilgredActionData = object.actions.filter((action: any) => action.key === ActionEnum.REPAIR_PILGRED)[0];
-            const participateActionData = object.actions.filter((action: any) => action.key === ActionEnum.PARTICIPATE)[0];
-            const participateResearchActionData = object.actions.filter((action: any) => action.key === ActionEnum.PARTICIPATE_RESEARCH)[0];
+            const repairPilgredActionData = object.actions.filter((action: Action) => action.key === ActionEnum.REPAIR_PILGRED)[0];
+            const participateActionData = object.actions.filter((action: Action) => action.key === ActionEnum.PARTICIPATE)[0];
+            const participateResearchActionData = object.actions.filter((action: Action) => action.key === ActionEnum.PARTICIPATE_RESEARCH)[0];
             if (repairPilgredActionData) {
                 this.repairPilgredAction = (new Action()).load(repairPilgredActionData);
             }

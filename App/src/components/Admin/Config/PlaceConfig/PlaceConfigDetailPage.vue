@@ -61,7 +61,7 @@ import urlJoin from "url-join";
 
 interface PlaceConfigState {
     placeConfig: null|PlaceConfig
-    errors: any
+    errors: {[key: string]: string[]}
 }
 
 export default defineComponent({

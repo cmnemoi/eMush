@@ -1,4 +1,19 @@
-import * as string_decoder from "node:string_decoder";
+type ModerationSanctionData = {
+    id?: number;
+    moderationAction?: string;
+    reason?: string;
+    message?: string;
+    isActive?: boolean;
+    startDate?: string;
+    endDate?: string;
+    authorName?: string;
+    authorId?: string;
+    playerId?: number;
+    playerName?: string;
+    userId?: string;
+    username?: string;
+    sanctionEvidenceArray?: Parameters<SanctionEvidence["load"]>[0];
+};
 
 export class ModerationSanction {
     public id!: number;
@@ -17,7 +32,7 @@ export class ModerationSanction {
     public startDate!: Date;
     public endDate!: Date;
 
-    public load(object: any): ModerationSanction {
+    public load(object: ModerationSanctionData): ModerationSanction {
         if (object) {
             this.id = object.id;
             this.moderationAction = object.moderationAction;
@@ -72,6 +87,15 @@ export class ModerationSanction {
     }
 }
 
+type SanctionEvidenceData = {
+    className?: string;
+    id?: number;
+    message?: string;
+    day?: number;
+    cycle?: number;
+    date?: string;
+};
+
 export class SanctionEvidence {
     public className: string = '';
     public id: number = 0;
@@ -80,7 +104,7 @@ export class SanctionEvidence {
     public cycle: number = 0;
     public date: Date = new Date();
 
-    public load(object: any): SanctionEvidence {
+    public load(object: SanctionEvidenceData): SanctionEvidence {
         if (object) {
             this.className = object.className;
             this.id = object.id;
@@ -93,7 +117,7 @@ export class SanctionEvidence {
     }
 
     jsonEncode() : object {
-        const data: any = {
+        const data: object = {
             'id': this.id,
             'className': this.className,
             'message': this.message,

@@ -5,6 +5,16 @@ export type ActopiPlayer = {
     icon: string;
     color: HexColor;
 };
+type MinimapData = {
+    name?: string;
+    actopi?: Array<ActopiPlayer>;
+    broken_count?: number;
+    broken_doors?: Array<string>;
+    broken_equipments?: Array<string>;
+    fire?: boolean;
+    players_count?: number;
+};
+
 export class Minimap {
     public actopi: Array<ActopiPlayer> = [];
     public broken_count = 0;
@@ -17,7 +27,7 @@ export class Minimap {
     constructor() {
         this.name = 'undefined';
     }
-    load(object : any) : Minimap {
+    load(object : MinimapData) : Minimap {
         if (typeof object !== "undefined") {
             this.name = object.name;
             this.actopi = object.actopi;

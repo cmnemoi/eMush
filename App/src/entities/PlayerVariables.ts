@@ -1,3 +1,12 @@
+type PlayerVariablesData = {
+    healthPoint?: integer;
+    moralPoint?: integer;
+    actionPoint?: integer;
+    movementPoint?: integer;
+    satiety?: integer;
+    spores?: integer;
+};
+
 export class PlayerVariables {
     public healthPoint!: integer;
     public moralPoint!: integer;
@@ -6,7 +15,7 @@ export class PlayerVariables {
     public satiety!: integer;
     public spores!: integer;
 
-    public load(object: any): PlayerVariables {
+    public load(object: PlayerVariablesData): PlayerVariables {
         if (object) {
             this.healthPoint = object.healthPoint;
             this.moralPoint = object.moralPoint;

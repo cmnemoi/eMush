@@ -4,8 +4,6 @@ import { Player } from "@/entities/Player";
 import ApiService from "@/services/api.service";
 import store from "@/store/index";
 import urlJoin from "url-join";
-import { AxiosResponse } from "axios";
-import Tab from "@/components/Game/Communications/Tab.vue";
 import { PersonalNotes, PersonalNotesTab } from "@/entities/PersonalNotes";
 
 type AvailableSkill = {

@@ -211,7 +211,7 @@ import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 
 interface DifficultyConfigState {
     difficultyConfig: null|DifficultyConfig
-    errors: any
+    errors: {[key: string]: string[]}
 }
 
 export default defineComponent({
@@ -324,7 +324,7 @@ export default defineComponent({
                 this.difficultyConfig.panicCrisisPlayerDamage.delete(index);
             }
         },
-        addNewDifficultyModes(tuple: any[]): void {
+        addNewDifficultyModes(tuple: [string, number]): void {
             const index = tuple[0];
             const value = tuple[1];
             if (this.difficultyConfig && this.difficultyConfig.difficultyModes) {
@@ -336,7 +336,7 @@ export default defineComponent({
                 this.difficultyConfig.difficultyModes.delete(index);
             }
         },
-        addNewRandomSporesOption(tuple: any[]): void {
+        addNewRandomSporesOption(tuple: [number, number]): void {
             const index = tuple[0];
             const value = tuple[1];
             if (this.difficultyConfig && this.difficultyConfig.randomSpores) {

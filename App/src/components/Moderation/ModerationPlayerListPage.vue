@@ -81,11 +81,12 @@
 </template>
 
 <script lang="ts">
-import Datatable from "@/components/Utils/Datatable/Datatable.vue";
+import Datatable, { Header } from "@/components/Utils/Datatable/Datatable.vue";
 import DropList from "@/components/Utils/DropList.vue";
 import { characterEnum } from "@/enums/character";
 import AdminService from "@/services/admin.service";
 import ModerationService from "@/services/moderation.service";
+import { PlayerInfo } from "@/entities/PlayerInfo";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import qs from "qs";
@@ -170,7 +171,7 @@ export default defineComponent({
         },
         loadData() {
             this.loading = true;
-            const params: any = {
+            const params: { params: Record<string, unknown>; paramsSerializer: typeof qs.stringify } = {
                 params: {},
                 paramsSerializer: qs.stringify
             };
@@ -212,7 +213,7 @@ export default defineComponent({
                     }
                     return result.data;
                 })
-                .then((remoteRowData: any) => {
+                .then((remoteRowData: { 'hydra:member': PlayerInfo[]; 'hydra:totalItems': number }) => {
                     this.rowData = remoteRowData['hydra:member'];
 
                     // if all items are null, set totalItem to 0
@@ -242,14 +243,14 @@ export default defineComponent({
                     this.loadData();
                     return result.data;
                 })
-                .then((remoteRowData: any) => {
+                .then((remoteRowData: { 'hydra:member': PlayerInfo[]; 'hydra:totalItems': number }) => {
                     this.rowData = remoteRowData['hydra:member'];
                     this.pagination.totalItem = remoteRowData['hydra:totalItems'];
                     this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
                     this.loading = false;
                 });
         },
-        sortTable(selectedField: any): void {
+        sortTable(selectedField: Header): void {
             if (!selectedField.sortable) {
                 return;
             }

@@ -1,3 +1,14 @@
+type SpaceBattlePatrolShipData = {
+    id?: number;
+    key?: string;
+    name?: string;
+    armor?: integer | null;
+    charges?: integer | null;
+    pilot?: string | null;
+    drone?: boolean;
+    isBroken?: boolean;
+};
+
 export class SpaceBattlePatrolShip {
     public id!: number;
     public key!: string;
@@ -14,7 +25,7 @@ export class SpaceBattlePatrolShip {
         this.pilot = null;
     }
 
-    public load(object: any): SpaceBattlePatrolShip {
+    public load(object: SpaceBattlePatrolShipData): SpaceBattlePatrolShip {
         if (object) {
             this.id = object.id;
             this.key = object.key;

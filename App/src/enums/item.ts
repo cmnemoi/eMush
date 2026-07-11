@@ -164,7 +164,7 @@ const SUPER_SOAPER = "super_soaper";
 
 const SWEDISH_SOFA = "swedish_sofa";
 
-export const itemEnum: {[index: string]: any} = {
+export const itemEnum: {[index: string]: {image: string}} = {
     [ALIEN_BOTTLE_OPENER]: {
         'image': getImgUrl('items/alien_can_opener.jpg')
     },

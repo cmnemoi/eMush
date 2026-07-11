@@ -73,7 +73,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { ref } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 import PersonalNotesTabs from "@/components/Game/PersonalNotes/PersonalNotesTabs.vue";
 import { PersonalNotes, PersonalNotesTab } from "@/entities/PersonalNotes";

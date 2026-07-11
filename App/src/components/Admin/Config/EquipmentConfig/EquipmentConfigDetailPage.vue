@@ -169,16 +169,16 @@ import { removeItem } from "@/utils/misc";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
-import { ActionConfig } from "@/entities/Config/ActionConfig";
-import { StatusConfig } from "@/entities/Config/StatusConfig";
-import { Mechanics } from "@/entities/Config/Mechanics";
+import { ActionConfig, ActionConfigData } from "@/entities/Config/ActionConfig";
+import { StatusConfig, StatusConfigData } from "@/entities/Config/StatusConfig";
+import { Mechanics, MechanicsData } from "@/entities/Config/Mechanics";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
 import MapManager from "@/components/Utils/MapManager.vue";
 
 interface EquipmentConfigState {
     equipmentConfig: null|EquipmentConfig
-    errors: any,
+    errors: {[key: string]: string[]},
     breakableType: Array<string>
     products: Array<string>,
     productToAdd: string
@@ -231,7 +231,7 @@ export default defineComponent({
                         ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'equipment_configs', String(this.equipmentConfig.id), 'action_configs'))
                             .then((result) => {
                                 const actions: ActionConfig[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
+                                result.data['hydra:member'].forEach((datum: ActionConfigData) => {
                                     const currentActionConfig = (new ActionConfigConfig()).load(datum);
                                     actions.push(currentActionConfig);
                                 });
@@ -242,7 +242,7 @@ export default defineComponent({
                         ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'equipment_configs', String(this.equipmentConfig.id), 'init_statuses'))
                             .then((result) => {
                                 const statuses: StatusConfig[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
+                                result.data['hydra:member'].forEach((datum: StatusConfigData) => {
                                     const currentStatus = (new StatusConfig()).load(datum);
                                     statuses.push(currentStatus);
                                 });
@@ -253,7 +253,7 @@ export default defineComponent({
                         ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'equipment_configs', String(this.equipmentConfig.id), 'mechanics'))
                             .then((result) => {
                                 const mechanics: Mechanics[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
+                                result.data['hydra:member'].forEach((datum: MechanicsData) => {
                                     const currentMechanics = (new Mechanics()).load(datum);
                                     equipmentConfig.push(currentMechanics);
                                 });
@@ -299,38 +299,38 @@ export default defineComponent({
                 }
             }
         },
-        selectNewActionConfig(selectedId: any) {
+        selectNewActionConfig(selectedId: number) {
             ActionConfigService.loadActionConfig(selectedId).then((res) => {
                 if (res && this.equipmentConfig && this.equipmentConfig.actions) {
                     this.equipmentConfig.actions.push(res);
                 }
             });
         },
-        removeActionConfig(child: any) {
+        removeActionConfig(child: ActionConfig) {
             if (this.equipmentConfig && this.equipmentConfig.actions) {
                 this.equipmentConfig.actions = removeItem(this.equipmentConfig.actions, child);
             }
         },
-        selectNewInitStatuses(selectedId: any) {
+        selectNewInitStatuses(selectedId: number) {
             GameConfigService.loadStatusConfig(selectedId).then((res) => {
                 if (res && this.equipmentConfig && this.equipmentConfig.initStatuses) {
                     this.equipmentConfig.initStatuses.push(res);
                 }
             });
         },
-        removeInitStatuses(child: any) {
+        removeInitStatuses(child: StatusConfig) {
             if (this.equipmentConfig && this.equipmentConfig.initStatuses) {
                 this.equipmentConfig.initStatuses = removeItem(this.equipmentConfig.initStatuses, child);
             }
         },
-        selectNewMechanics(selectedId: any) {
+        selectNewMechanics(selectedId: number) {
             GameConfigService.loadMechanics(selectedId).then((res) => {
                 if (res && this.equipmentConfig && this.equipmentConfig.mechanics) {
                     this.equipmentConfig.mechanics.push(res);
                 }
             });
         },
-        removeMechanics(child: any) {
+        removeMechanics(child: Mechanics) {
             if (this.equipmentConfig && this.equipmentConfig.mechanics) {
                 this.equipmentConfig.mechanics = removeItem(this.equipmentConfig.mechanics, child);
             }
@@ -422,7 +422,7 @@ export default defineComponent({
             ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'equipment_configs', equipmentConfigId, 'action_configs'))
                 .then((result) => {
                     const actions : ActionConfig[] = [];
-                    result.data['hydra:member'].forEach((datum: any) => {
+                    result.data['hydra:member'].forEach((datum: ActionConfigData) => {
                         const currentActionConfig = (new ActionConfig()).load(datum);
                         actions.push(currentActionConfig);
                     });
@@ -433,7 +433,7 @@ export default defineComponent({
             ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'equipment_configs', equipmentConfigId, 'init_statuses'))
                 .then((result) => {
                     const initStatuses : StatusConfig[] = [];
-                    result.data['hydra:member'].forEach((datum: any) => {
+                    result.data['hydra:member'].forEach((datum: StatusConfigData) => {
                         const currentStatusConfig = (new StatusConfig()).load(datum);
                         initStatuses.push(currentStatusConfig);
                     });
@@ -444,7 +444,7 @@ export default defineComponent({
             ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'equipment_configs', equipmentConfigId, 'mechanics'))
                 .then((result) => {
                     const mechanics : Mechanics[] = [];
-                    result.data['hydra:member'].forEach((datum: any) => {
+                    result.data['hydra:member'].forEach((datum: MechanicsData) => {
                         const currentMechanics = (new Mechanics()).load(datum);
                         mechanics.push(currentMechanics);
                     });

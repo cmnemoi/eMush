@@ -9,7 +9,15 @@ import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
 import { Player } from "@/entities/Player";
 import { ModerationSanction } from "@/entities/ModerationSanction";
 import { ContactablePlayer } from "@/entities/ContactablePlayer";
-import { ModerationChannel, ChannelScope, ModerationChannelParticipant } from "@/entities/ModerationChannel";
+import { ModerationChannel, ChannelScope } from "@/entities/ModerationChannel";
+import { AxiosResponse, AxiosRequestConfig } from "axios";
+import { toArray } from "@/utils/toArray";
+
+type RoomLogGroup = {
+    day: string;
+    cycle: string;
+    roomLogs: RoomLog[];
+};
 
 const API_URL = import.meta.env.VITE_APP_API_URL as string;
 
@@ -19,12 +27,8 @@ const MODERATION_ENDPOINT = urlJoin(API_URL, "moderation");
 const PLAYER_INFO_ENDPOINT = urlJoin(API_URL, "player_infos");
 const ROOM_LOG_ENDPOINT = urlJoin(API_URL, "room_logs");
 
-function toArray(data: any): any[] {
-    return Array.isArray(data) ? data : Object.values(data);
-}
-
 const ModerationService = {
-    applySanctionToPlayer: async(player: Player, sanctionName: string, params: URLSearchParams): Promise<any> => {
+    applySanctionToPlayer: async(player: Player, sanctionName: string, params: URLSearchParams): Promise<void> => {
         if (sanctionName === 'quarantine_player' || sanctionName === 'quarantine_ban') {
             ModerationService.quarantinePlayer(player.id, params)
                 .then(() => {
@@ -53,14 +57,14 @@ const ModerationService = {
                 });
         }
     },
-    banUser: async(userId: integer, params: URLSearchParams): Promise<any> => {
+    banUser: async(userId: integer, params: URLSearchParams): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(MODERATION_ENDPOINT + '/ban-user/' + userId+ '?' + params.toString());
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    banAllUsers: async(params: { userUuids: string[], reason: string, message: string, durationDays: number | null, byIp: boolean }): Promise<any> => {
+    banAllUsers: async(params: { userUuids: string[], reason: string, message: string, durationDays: number | null, byIp: boolean }): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(MODERATION_ENDPOINT + '/ban-all-users', params);
         await store.dispatch('gameConfig/setLoading', { loading: false });
@@ -89,7 +93,7 @@ const ModerationService = {
 
         return messages;
     },
-    getModerationViewPlayer: async(playerId: number): Promise<any> => {
+    getModerationViewPlayer: async(playerId: number): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.get(MODERATION_ENDPOINT + '/view-player/' + playerId);
         await store.dispatch('gameConfig/setLoading', { loading: false });
@@ -99,7 +103,7 @@ const ModerationService = {
     getPlayerDaedalusChannelByScope: async(player: ModerationViewPlayer, scope: ChannelScope): Promise<ModerationChannel> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const channels = await ApiService.get(`${CHANNEL_ENDPOINT}?daedalusInfo.id=${player.daedalusId}&scope=${scope}`).then((response) => {
-            return response.data['hydra:member'].map((channelData: any) => {
+            return response.data['hydra:member'].map((channelData) => {
                 return {
                     id: channelData.id,
                     scope: channelData.scope,
@@ -116,7 +120,7 @@ const ModerationService = {
     getPlayerPrivateChannels: async(player: ModerationViewPlayer): Promise<ModerationChannel[]> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const channels = await ApiService.get(`${CHANNEL_ENDPOINT}?pagination=false&scope=private&allTimeParticipants.participant.id=${player.id}`).then((response) => {
-            return response.data['hydra:member'].map((channelData: any) => {
+            return response.data['hydra:member'].map((channelData) => {
                 return {
                     id: channelData.id,
                     scope: channelData.scope,
@@ -131,7 +135,7 @@ const ModerationService = {
 
         return channels;
     },
-    getPlayerInfoList: async(params: Record<string, unknown> | undefined): Promise<any> => {
+    getPlayerInfoList: async(params: AxiosRequestConfig | undefined): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
 
         const response = await ApiService.get(PLAYER_INFO_ENDPOINT, params);
@@ -155,7 +159,7 @@ const ModerationService = {
         place?: string,
         daedalusId?: string,
         ignoreNoise : boolean = false
-    ): Promise<any> => {
+    ): Promise<{ data: RoomLogGroup[] }> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const queryParameters = `pagination=false`
             + (playerId ? `&playerInfo.id=${playerId}` : '')
@@ -168,7 +172,7 @@ const ModerationService = {
         const response = await ApiService.get(`${ROOM_LOG_ENDPOINT}?${queryParameters}`);
 
         const roomLogs: RoomLog[] = [];
-        response.data['hydra:member'].forEach((logData: any) => {
+        response.data['hydra:member'].forEach((logData) => {
             const roomLog = (new RoomLog()).load(logData);
             if(ignoreNoise == false || roomLog.canBeHidden == false)
             {
@@ -178,7 +182,7 @@ const ModerationService = {
 
         const days = new Set(roomLogs.map((log) => log.day));
 
-        const logs: Record<string, unknown>[] = [];
+        const logs: RoomLogGroup[] = [];
         days.forEach((day) => {
             const cycles = new Set(roomLogs.filter((log) => log.day === day).map((log) => log.cycle));
             cycles.forEach((cycle) => {
@@ -195,84 +199,84 @@ const ModerationService = {
 
         return { "data": logs };
     },
-    editClosedPlayerEndMessage: async(playerId: number, params: URLSearchParams): Promise<any> => {
+    editClosedPlayerEndMessage: async(playerId: number, params: URLSearchParams): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(MODERATION_ENDPOINT + '/edit-closed-player-end-message/' + playerId+ '?' + params.toString());
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    hideClosedPlayerEndMessage: async(playerId: number, params: URLSearchParams): Promise<any> => {
+    hideClosedPlayerEndMessage: async(playerId: number, params: URLSearchParams): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(MODERATION_ENDPOINT + '/hide-closed-player-end-message/' + playerId+ '?' + params.toString());
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    deleteMessage: async(messageId: number, params: URLSearchParams): Promise<any> => {
+    deleteMessage: async(messageId: number, params: URLSearchParams): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(MODERATION_ENDPOINT + '/delete-message/' + messageId+ '?' + params.toString());
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    quarantinePlayer: async(playerId: number, params: URLSearchParams): Promise<any> => {
+    quarantinePlayer: async(playerId: number, params: URLSearchParams): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(MODERATION_ENDPOINT + '/quarantine-player/' + playerId + '?' + params.toString());
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    warnUser: async(userId: number, params: URLSearchParams): Promise<any> => {
+    warnUser: async(userId: number, params: URLSearchParams): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(MODERATION_ENDPOINT + '/warn-user/' + userId + '?' + params.toString());
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    suspendSanction: async(sanctionId: number): Promise<any> => {
+    suspendSanction: async(sanctionId: number): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.patch(MODERATION_ENDPOINT + '/suspend-sanction/' + sanctionId);
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    removeSanction: async(sanctionId: number): Promise<any> => {
+    removeSanction: async(sanctionId: number): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(MODERATION_ENDPOINT + '/remove-sanction/' + sanctionId);
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    reportClosedPlayer: async(playerId: number, params: URLSearchParams): Promise<any> => {
+    reportClosedPlayer: async(playerId: number, params: URLSearchParams): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(MODERATION_ENDPOINT + '/report-closed-player/' + playerId + '?' + params.toString());
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    reportMessage: async(messageId: number, params: URLSearchParams): Promise<any> => {
+    reportMessage: async(messageId: number, params: URLSearchParams): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(MODERATION_ENDPOINT + '/report-message/' + messageId + '?' + params.toString());
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    reportLog: async(logId: number, params: URLSearchParams): Promise<any> => {
+    reportLog: async(logId: number, params: URLSearchParams): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(MODERATION_ENDPOINT + '/report-log/' + logId + '?' + params.toString());
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    reportCommanderMission: async(missionId: number, params: URLSearchParams): Promise<any> => {
+    reportCommanderMission: async(missionId: number, params: URLSearchParams): Promise<AxiosResponse> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(urlJoin(MODERATION_ENDPOINT, 'report-commander-mission', String(missionId)) + '?' + params.toString());
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    reportComManagerAnnouncement: async(announcementId: number, params: URLSearchParams): Promise<any> => {
+    reportComManagerAnnouncement: async(announcementId: number, params: URLSearchParams): Promise<AxiosResponse> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(urlJoin(MODERATION_ENDPOINT, 'report-com-manager-announcement', String(announcementId)) + '?' + params.toString());
         store.dispatch('gameConfig/setLoading', { loading: false });
@@ -284,13 +288,13 @@ const ModerationService = {
 
         const players: ContactablePlayer[] = [];
         if (playersData.data) {
-            toArray(playersData.data).forEach((data: any) => {
+            toArray(playersData.data).forEach((data) => {
                 players.push((new ContactablePlayer()).load(data));
             });
         }
         return players;
     },
-    archiveReport: async(sanctionId: number, params: URLSearchParams): Promise<any> => {
+    archiveReport: async(sanctionId: number, params: URLSearchParams): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.patch(MODERATION_ENDPOINT + '/archive-report/' + sanctionId + '?' + params.toString());
         await store.dispatch('gameConfig/setLoading', { loading: false });
@@ -310,7 +314,7 @@ const ModerationService = {
             return [];
         });
 
-        const sanctions = response.map((sanctionData: any) => {
+        const sanctions = response.map((sanctionData) => {
             return (new ModerationSanction()).load(sanctionData);
         });
         await store.dispatch('gameConfig/setLoading', { loading: false });

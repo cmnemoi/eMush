@@ -5,6 +5,7 @@ import urlJoin from "url-join";
 import { Minimap } from "@/entities/Minimap";
 import { ClosedDaedalus } from "@/entities/ClosedDaedalus";
 import store from "@/store";
+import { AxiosResponse } from "axios";
 
 const DAEDALUS_ALERTS_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "alert");
 const DAEDALUS_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "daedaluses");
@@ -21,7 +22,7 @@ const DaedalusService = {
 
         const alerts: Alert[] = [];
         if (alertsData.data) {
-            alertsData.data.forEach((data: any) => {
+            alertsData.data.forEach((data) => {
                 alerts.push((new Alert()).load(data));
             });
         }
@@ -33,13 +34,13 @@ const DaedalusService = {
 
         const minimap: Minimap[] = [];
         if (minimapData.data) {
-            Object.values(minimapData.data).forEach((data: any) => {
+            Object.values(minimapData.data).forEach((data) => {
                 minimap.push((new Minimap()).load(data));
             });
         }
         return minimap;
     },
-    createDaedalus: async (name: string, config: string, language: string): Promise<any> => {
+    createDaedalus: async (name: string, config: string, language: string): Promise<AxiosResponse> => {
         return ApiService.post(CREATE_DAEDALUS_ENDPOINT, {
             'config' : config,
             'name' : name,
@@ -58,21 +59,21 @@ const DaedalusService = {
 
         return closedDaedalus;
     },
-    destroyDaedalus: async (daedalusId: integer): Promise<any> => {
+    destroyDaedalus: async (daedalusId: integer): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = ApiService.post(DESTROY_DAEDALUS_ENDPOINT + '/' + daedalusId);
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    destroyAllDaedaluses: async (): Promise<any> => {
+    destroyAllDaedaluses: async (): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = ApiService.post(DESTROY_ALL_DAEDALUS_ENDPOINT);
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
     },
-    createAPlanet: async (daedalusId: integer): Promise<any> => {
+    createAPlanet: async (daedalusId: integer): Promise<AxiosResponse> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = ApiService.post(CREATE_PLANET_ENDPOINT + '/' + daedalusId);
         await store.dispatch('gameConfig/setLoading', { loading: false });

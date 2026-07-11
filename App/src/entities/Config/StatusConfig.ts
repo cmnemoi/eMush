@@ -1,6 +1,38 @@
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import { ActionConfig } from "@/entities/Config/ActionConfig";
 
+export type StatusConfigData = {
+    "@id"?: string;
+    "@type"?: string;
+    id?: number;
+    name?: string;
+    statusName?: string;
+    visibility?: string;
+    modifierConfigs?: Array<Parameters<ModifierConfig["load"]>[0]>;
+    actionConfigs?: Array<Parameters<ActionConfig["load"]>[0]>;
+    chargeVisibility?: string;
+    chargeStrategy?: string;
+    dischargeStrategies?: string[];
+    maxCharge?: number;
+    startCharge?: number;
+    autoRemove?: boolean;
+};
+
+type StatusConfigEncoded = {
+    id: number|null;
+    name: string|null;
+    statusName: string|null;
+    visibility: string|null;
+    modifierConfigs: string[];
+    actionConfigs: string[];
+    chargeVisibility?: string|null;
+    chargeStrategy?: string|null;
+    dischargeStrategies?: string[]|null;
+    maxCharge?: number|null;
+    startCharge?: number|null;
+    autoRemove?: boolean|null;
+};
+
 export class StatusConfig {
     public iri: string|null;
     public configType: string|null;
@@ -33,7 +65,7 @@ export class StatusConfig {
         this.modifierConfigs = null;
         this.actionConfigs = null;
     }
-    load(object:any) : StatusConfig {
+    load(object: StatusConfigData) : StatusConfig {
         if (typeof object !== "undefined") {
             this.iri = object["@id"];
             this.id = object.id;
@@ -42,7 +74,7 @@ export class StatusConfig {
             this.visibility = object.visibility;
             if (typeof object.modifierConfigs !== 'undefined') {
                 const modifierConfigs : ModifierConfig[] = [];
-                object.modifierConfigs.forEach((modifierConfigData: any) => {
+                object.modifierConfigs.forEach((modifierConfigData: Parameters<ModifierConfig["load"]>[0]) => {
                     const modifierConfig = (new ModifierConfig()).load(modifierConfigData);
                     modifierConfigs.push(modifierConfig);
                 });
@@ -50,7 +82,7 @@ export class StatusConfig {
             }
             if (typeof object.actionConfigs !== 'undefined') {
                 const actionConfigs : ActionConfig[] = [];
-                object.actionConfigs.forEach((actionConfigData: any) => {
+                object.actionConfigs.forEach((actionConfigData: Parameters<ActionConfig["load"]>[0]) => {
                     const actionConfig = (new ActionConfig()).load(actionConfigData);
                     actionConfigs.push(actionConfig);
                 });
@@ -68,13 +100,13 @@ export class StatusConfig {
         }
         return this;
     }
-    jsonEncode() : any {
+    jsonEncode() : StatusConfigEncoded {
         const modifierConfigs : string[] = [];
         this.modifierConfigs?.forEach(modifierConfig => (typeof modifierConfig.iri === 'string' ? modifierConfigs.push(modifierConfig.iri) : null));
 
         const actionConfigs : string[] = [];
         this.actionConfigs?.forEach(actionConfig => (typeof actionConfig.iri === 'string' ? actionConfigs.push(actionConfig.iri) : null));
-        const data : any = {
+        const data : StatusConfigEncoded = {
             'id': this.id,
             'name': this.name,
             'statusName': this.statusName,

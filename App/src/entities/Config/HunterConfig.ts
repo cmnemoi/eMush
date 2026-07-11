@@ -1,4 +1,24 @@
-import { StatusConfig } from "./StatusConfig";
+import { StatusConfig, StatusConfigData } from "./StatusConfig";
+
+type HunterConfigData = {
+    "@id"?: string;
+    id?: number;
+    name?: string;
+    hunterName?: string;
+    initialHealth?: number;
+    damageRange?: Map<number, number>;
+    hitChance?: number;
+    dodgeChance?: number;
+    drawCost?: number;
+    maxPerWave?: number;
+    drawWeight?: number;
+    spawnDifficulty?: number;
+    initialStatuses?: StatusConfigData[];
+    scrapDropTable?: Map<string, integer>;
+    numberOfDroppedScrap?: Map<integer, integer>;
+    bonusAfterFailedShot?: number;
+    numberOfActionsPerCycle?: number;
+};
 
 export class HunterConfig {
     public iri: string|null;
@@ -38,7 +58,7 @@ export class HunterConfig {
         this.bonusAfterFailedShot = null;
         this.numberOfActionsPerCycle = null;
     }
-    load(object:any) : HunterConfig {
+    load(object:HunterConfigData) : HunterConfig {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object['id'];
@@ -62,7 +82,7 @@ export class HunterConfig {
             }
             if (typeof object.initialStatuses !== "undefined") {
                 const initialStatuses : StatusConfig[] = [];
-                object.initialStatuses.forEach((initialStatusesData: any) => {
+                object.initialStatuses.forEach((initialStatusesData) => {
                     const statusConfig = (new StatusConfig()).load(initialStatusesData);
                     initialStatuses.push(statusConfig);
                 });
@@ -85,7 +105,7 @@ export class HunterConfig {
         }
         return this;
     }
-    jsonEncode() : any {
+    jsonEncode() : object {
         const damageRange : object = {};
         this.damageRange?.forEach((value, key) => {
             // @ts-ignore

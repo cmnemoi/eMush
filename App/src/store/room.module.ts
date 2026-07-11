@@ -7,7 +7,15 @@ import { Hunter } from "@/entities/Hunter";
 import { SpaceBattle } from "@/entities/SpaceBattle";
 import { Action } from "@/entities/Action";
 
-const state =  {
+interface RoomModuleState {
+    loading: boolean;
+    room: Room | null;
+    inventoryOpen: boolean;
+    selectedTarget: Player | Equipment | Hunter | Item | null;
+    spaceBattle: SpaceBattle | null;
+}
+
+const state: RoomModuleState =  {
     loading: false,
     room: null,
     inventoryOpen: false,
@@ -15,7 +23,7 @@ const state =  {
     spaceBattle: null
 };
 
-const getters: GetterTree<any, any> = {
+const getters: GetterTree<RoomModuleState, RoomModuleState> = {
     isInventoryOpen: (state) => {
         return state.inventoryOpen;
     },
@@ -60,7 +68,7 @@ const getters: GetterTree<any, any> = {
     }
 };
 
-const actions: ActionTree<any, any> = {
+const actions: ActionTree<RoomModuleState, RoomModuleState> = {
     openInventory({ commit } ) {
         commit('openInventory');
     },
@@ -73,8 +81,10 @@ const actions: ActionTree<any, any> = {
     loadSpaceBattle({ commit }, { spaceBattle }) {
         commit('setSpaceBattle', spaceBattle);
     },
+    // NOTE: dead code left over from a copy/paste of player.module.ts — `state.player` does not
+    // exist on RoomModuleState and this action is never dispatched anywhere in the codebase.
     async reloadPlayer({ state, dispatch }) {
-        return dispatch("loadPlayer", { playerId: state.player.id });
+        return dispatch("loadPlayer", { playerId: (state as unknown as { player: { id: number } }).player.id });
     },
     setLoading({ commit }, { loading }) {
         commit('setLoading', loading);
@@ -90,7 +100,7 @@ const actions: ActionTree<any, any> = {
     }
 };
 
-const mutations : MutationTree<any> = {
+const mutations : MutationTree<RoomModuleState> = {
     setLoading(state, newValue) {
         state.loading = newValue;
     },

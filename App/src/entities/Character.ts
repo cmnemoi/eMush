@@ -6,6 +6,21 @@ export type SelectableSkill = {
     description: string;
 };
 
+export type CharacterData = {
+    key?: CharacterEnum;
+    // NB: matches the field actually read below ("value"); the class field it's assigned to is
+    // "name" — could be an intentional key/value (translation-style) API shape, or a mismatch.
+    value?: string;
+    abstract?: string;
+    description?: string;
+    selectableHumanSkills?: SelectableSkill[];
+    selectableMushSkills?: SelectableSkill[];
+    humanSkillSlots?: integer;
+    mushSkillSlots?: integer;
+    humanLevel?: integer;
+    mushLevel?: integer;
+};
+
 export class Character {
     public key!: CharacterEnum;
     public name!: string;
@@ -22,7 +37,7 @@ export class Character {
         this.description = null;
     }
 
-    load(object: any): Character {
+    load(object: CharacterData): Character {
         if (typeof object !== "undefined") {
             this.key = object.key;
             this.name = object.value;

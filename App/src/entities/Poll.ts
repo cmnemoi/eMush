@@ -1,5 +1,17 @@
 import { PollOption } from "./PollOption";
 
+export type PollData = {
+    "@id"?: string;
+    id?: number;
+    title?: string;
+    voteCount?: number;
+    canVote?: boolean;
+    remainingVotes?: number;
+    voted?: boolean;
+    isClosed?: boolean;
+    options?: Array<PollOption>;
+};
+
 export class Poll {
     public iri: string|null;
     public id!: number;
@@ -17,7 +29,7 @@ export class Poll {
         this.iri = null;
     }
 
-    public load(object: any): Poll {
+    public load(object: PollData): Poll {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.title = object.title;
@@ -29,7 +41,7 @@ export class Poll {
             this.iri = object["@id"];
 
             this.options = [];
-            object.options.forEach((optionObject: any) => {
+            object.options.forEach((optionObject: PollOption) => {
                 this.options.push((new PollOption).load(optionObject));
             });
         }

@@ -30,7 +30,7 @@ export default class EquipmentObject extends InteractObject {
         this.equipment = equipment;
 
         //If this is clicked then:
-        this.on('pointerdown', (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) => {
+        this.on('pointerdown', (_pointer: Phaser.Input.Pointer, _localX: number, _localY: number, _event: Phaser.Types.Input.EventData) => {
             store.dispatch('room/selectTarget', { target: this.equipment });
         });
 

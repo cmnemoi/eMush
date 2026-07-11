@@ -17,7 +17,7 @@ export function createSettingsModule(
     dependencies: {
         localStorageService: LocalStorageServiceInterface,
     }
-): Module<SettingsState, Record<string, any>> {
+): Module<SettingsState, SettingsState> {
     const { localStorageService } = dependencies;
     return {
         namespaced: true,

@@ -5,7 +5,16 @@ import { Alert } from "@/entities/Alerts";
 import { Minimap } from "@/entities/Minimap";
 import store from ".";
 
-const state =  {
+interface DaedalusModuleState {
+    daedalus: Daedalus | null;
+    alerts: Alert[];
+    loadingAlerts: boolean;
+    minimap: Minimap[];
+    isMinimapAvailable: boolean;
+    loadingMinimap: boolean;
+}
+
+const state: DaedalusModuleState =  {
     daedalus: null,
     alerts: [],
     loadingAlerts: false,
@@ -14,28 +23,28 @@ const state =  {
     loadingMinimap: false
 };
 
-const getters: GetterTree<any, any> = {
-    daedalus: (state: any): Daedalus|null => {
+const getters: GetterTree<DaedalusModuleState, DaedalusModuleState> = {
+    daedalus: (state): Daedalus|null => {
         return state.daedalus;
     },
-    alerts: (state: any): Alert[] => {
+    alerts: (state): Alert[] => {
         return state.alerts;
     },
-    loadingAlerts: (state: any): boolean => {
+    loadingAlerts: (state): boolean => {
         return state.loadingAlerts;
     },
-    minimap: (state: any): Minimap[] => {
+    minimap: (state): Minimap[] => {
         return state.minimap;
     },
-    isMinimapAvailable: (state: any): boolean => {
+    isMinimapAvailable: (state): boolean => {
         return state.isMinimapAvailable;
     },
-    loadingMinimap: (state: any): boolean => {
+    loadingMinimap: (state): boolean => {
         return state.loadingMinimap;
     }
 };
 
-const actions: ActionTree<any, any> = {
+const actions: ActionTree<DaedalusModuleState, DaedalusModuleState> = {
     async loadAlerts({ commit, state }, { daedalus }) {
         commit('updateDaedalus', daedalus);
         commit('setLoadingAlerts', true);
@@ -72,18 +81,18 @@ const actions: ActionTree<any, any> = {
     }
 };
 
-const mutations: MutationTree<any> = {
-    updateDaedalus(state: any, daedalus: Daedalus): void {
+const mutations: MutationTree<DaedalusModuleState> = {
+    updateDaedalus(state, daedalus: Daedalus): void {
         state.daedalus = daedalus;
     },
-    updateAlerts(state: any, alerts: Alert[]): void {
+    updateAlerts(state, alerts: Alert[]): void {
         state.alerts = alerts;
         state.loadingAlerts = false;
     },
-    setLoadingAlerts(state: any, newValue: boolean): void {
+    setLoadingAlerts(state, newValue: boolean): void {
         state.loadingAlerts = newValue;
     },
-    updateMinimap(state: any, minimap: Minimap[]): void
+    updateMinimap(state, minimap: Minimap[]): void
     {
         state.minimap = minimap;
         if (minimap.length > 0) {
@@ -93,14 +102,14 @@ const mutations: MutationTree<any> = {
         }
         state.loadingMinimap = false;
     },
-    setIsMinimapAvailable(state: any, newValue: boolean): void
+    setIsMinimapAvailable(state, newValue: boolean): void
     {
         state.isMinimapAvailable = newValue;
     },
-    setLoadingMinimap(state: any, newValue: boolean): void {
+    setLoadingMinimap(state, newValue: boolean): void {
         state.loadingMinimap = newValue;
     },
-    clearDaedalus(state: any): void {
+    clearDaedalus(state): void {
         state.alerts = [];
         state.minimap = [];
         state.isMinimapAvailable = false;

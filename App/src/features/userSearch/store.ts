@@ -8,7 +8,7 @@ export type UserSearchState = {
 
 export function createUserSearchModule(
     searchUsers: (username: string, limit: number) => Promise<UserSearchResult[]>
-): Module<UserSearchState, Record<string, any>> {
+): Module<UserSearchState, UserSearchState> {
     return {
         namespaced: true,
         state: (): UserSearchState => ({

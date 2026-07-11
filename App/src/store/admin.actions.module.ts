@@ -3,17 +3,21 @@ import { ActionTree, GetterTree, MutationTree } from "vuex";
 import store from ".";
 import { SuccessReponse } from "@/services/api.service";
 
-const state = {
+interface AdminActionsState {
+    isLoading: boolean;
+}
+
+const state: AdminActionsState = {
     isLoading: false
 };
 
-const getters: GetterTree<any, any> = {
-    isLoading: (state: any): boolean => {
+const getters: GetterTree<AdminActionsState, AdminActionsState> = {
+    isLoading: (state): boolean => {
         return state.isLoading;
     }
 };
 
-const actions: ActionTree<any, any> = {
+const actions: ActionTree<AdminActionsState, AdminActionsState> = {
     displayLoading({ commit }): void {
         commit('setLoading', true);
     },
@@ -154,8 +158,8 @@ const actions: ActionTree<any, any> = {
     }
 };
 
-const mutations: MutationTree<any> = {
-    setLoading(state: any, newValue: boolean): void {
+const mutations: MutationTree<AdminActionsState> = {
+    setLoading(state, newValue: boolean): void {
         state.isLoading = newValue;
     }
 };

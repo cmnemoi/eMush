@@ -1,6 +1,48 @@
 import { AdvanceDaedalusStatus } from "@/entities/AdvanceDaedalusStatus";
 import { Planet } from "./Planet";
 
+type KeyNamePair = { key: string, name: string };
+
+type TerminalInfosData = {
+    requirements?: string[];
+    difficulty?: string;
+    advanceDaedalusStatus?: AdvanceDaedalusStatus;
+    orientation?: string;
+    planets?: Array<Planet>;
+    maxDiscoverablePlanets?: number;
+    inOrbit?: string;
+    availableCpuPriorities?: KeyNamePair[];
+    currentCpuPriority?: string;
+    pilgredIsFinished?: boolean;
+    pilgredFinishedDescription?: string;
+    noProposedNeronProjects?: boolean;
+    noProposedNeronProjectsDescription?: string;
+    crewLocks?: KeyNamePair[];
+    currentCrewLock?: string;
+    foodDestructionOptions?: KeyNamePair[];
+    currentFoodDestructionOption?: string;
+    plasmaShieldToggles?: KeyNamePair[];
+    isPlasmaShieldActive?: boolean;
+    magneticNetToggles?: KeyNamePair[];
+    isMagneticNetActive?: boolean;
+    neronInhibitionToggles?: KeyNamePair[];
+    isNeronInhibited?: boolean;
+    nothingToCompute?: string;
+    edenComputed?: string;
+    linkStrength?: string;
+    linkEstablished?: string;
+    neronUpdateStatus?: string;
+    selectRebelBaseToDecode?: string;
+    cannotTradeUnderAttack?: boolean;
+    never?: string;
+    seeCommunications?: string;
+    seeTrades?: string;
+    areVocodedAnnouncementsActive?: boolean;
+    vocodedAnnouncementsToggles?: KeyNamePair[];
+    areDeathAnnouncementsActive?: boolean;
+    deathAnnouncementsToggles?: KeyNamePair[];
+};
+
 export class TerminalInfos {
     public requirements: string[];
     public difficulty: string|null;
@@ -52,13 +94,13 @@ export class TerminalInfos {
         this.currentCpuPriority = null;
     }
 
-    public load(object: any): TerminalInfos {
+    public load(object: TerminalInfosData): TerminalInfos {
         if (object) {
             this.requirements = object.requirements;
             this.difficulty = object.difficulty;
             this.advanceDaedalusStatus = new AdvanceDaedalusStatus().load(object.advanceDaedalusStatus);
             this.daedalusOrientation = object.orientation;
-            this.planets = object.planets?.map((planet: any) => new Planet().load(planet));
+            this.planets = object.planets?.map((planet: Planet) => new Planet().load(planet));
             this.maxDiscoverablePlanets = object.maxDiscoverablePlanets;
             this.inOrbit = object.inOrbit;
             this.availableCpuPriorities = object.availableCpuPriorities;
@@ -99,7 +141,7 @@ export class TerminalInfos {
         return JSON.stringify(this);
     }
 
-    public decode(jsonString: any): TerminalInfos {
+    public decode(jsonString: string): TerminalInfos {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);

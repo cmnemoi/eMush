@@ -42,7 +42,7 @@ import urlJoin from "url-join";
 
 interface DiseaseCauseConfigState {
     diseaseCauseConfig: null|DiseaseCauseConfig
-    errors: any
+    errors: {[key: string]: string[]}
 }
 
 export default defineComponent({
@@ -107,7 +107,7 @@ export default defineComponent({
                     }
                 });
         },
-        addDisease(tuple: any): void {
+        addDisease(tuple: [string, number]): void {
             const index = tuple[0];
             const value = tuple[1];
             if (this.diseaseCauseConfig && this.diseaseCauseConfig.diseases) {

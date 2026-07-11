@@ -1,10 +1,17 @@
+type DaedalusExplorationData = {
+    title?: string;
+    planet?: string;
+    explorators?: string;
+    estimatedDuration?: string;
+};
+
 export class DaedalusExploration {
     public title!: string;
     public planet!: string;
     public explorators!: string;
     public estimatedDuration!: string;
 
-    public load(object: any): DaedalusExploration {
+    public load(object: DaedalusExplorationData): DaedalusExploration {
         if (object) {
             this.title = object.title;
             this.planet = object.planet;

@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from "vue";
+import { defineComponent, PropType } from "vue";
 import { EmoteTabConfig } from "@/components/Game/Emote/EmoteConfig";
 
 export default defineComponent({

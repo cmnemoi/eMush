@@ -88,9 +88,9 @@ export default defineComponent ({
         isItemSelected: function(item: Item): boolean {
             return this.selectedItem instanceof Item && this.selectedItem.id === item.id;
         },
-        ScrollIcons(event: any) {
+        ScrollIcons(event: WheelEvent) {
             event.preventDefault();
-            event.currentTarget.scrollLeft += event.deltaY * 0.28;
+            (event.currentTarget as HTMLElement).scrollLeft += event.deltaY * 0.28;
         },
         isHidden(item: Item): boolean {
             return item.statuses.some(status => status.key === StatusItemNameEnum.HIDDEN) && !this.hideStatusesOnItem;

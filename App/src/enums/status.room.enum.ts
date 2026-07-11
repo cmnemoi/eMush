@@ -5,7 +5,7 @@ export enum StatusRoomNameEnum {
     MUSH_TRAPPED = "mush_trapped",
 }
 
-export const statusRoomEnum: {[index: string]: any} = {
+export const statusRoomEnum: {[index: string]: {icon: string}} = {
     [StatusRoomNameEnum.FIRE]: {
         'icon': getImgUrl('alerts/fire.png')
     },

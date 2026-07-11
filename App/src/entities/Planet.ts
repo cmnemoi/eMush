@@ -3,6 +3,16 @@ import { getImgUrl } from "@/utils/getImgUrl";
 import { Action } from "@/entities/Action";
 import { PlanetSector } from "@/entities/PlanetSector";
 
+type PlanetData = {
+    id?: number;
+    imageId?: number;
+    name?: string | null;
+    orientation?: string | null;
+    distance?: number | null;
+    sectors?: PlanetSector[] | null;
+    actions?: Array<Action>;
+};
+
 export class Planet {
     public id!: number;
     public imageId!: number;
@@ -12,7 +22,7 @@ export class Planet {
     public sectors: PlanetSector[]|null = null;
     public actions: Action[] = [];
 
-    public load(object: any): Planet {
+    public load(object: PlanetData): Planet {
         if (object) {
             this.id = object.id;
             this.imageId = object.imageId;
@@ -21,7 +31,7 @@ export class Planet {
             this.distance = object.distance || null;
             this.sectors = object.sectors || null;
             if (typeof object.actions !== 'undefined') {
-                object.actions.forEach((actionObject: any) => {
+                object.actions.forEach((actionObject: Action) => {
                     const action = (new Action()).load(actionObject);
                     this.actions.push(action);
                 });
@@ -34,7 +44,7 @@ export class Planet {
         return JSON.stringify(this);
     }
 
-    public decode(jsonString: any): Planet {
+    public decode(jsonString: string): Planet {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);

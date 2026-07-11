@@ -5,7 +5,7 @@ import { createStore, Store } from "vuex";
 import { createSettingsModule } from "./store";
 
 describe("Settings store", () => {
-    let store: Store<Record<string, any>>;
+    let store: Store<Record<string, unknown>>;
     let localStorageService: LocalStorageServiceInterface;
     beforeEach(() => {
         localStorageService = new FakeLocalStorageService();

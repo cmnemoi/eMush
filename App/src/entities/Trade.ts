@@ -5,13 +5,20 @@ export type TradeOption = {
     tradeConditionsAreNotMet: string;
 }
 
+type TradeData = {
+    id?: number;
+    description?: string;
+    options?: TradeOption[];
+    image?: string;
+};
+
 export class Trade {
     public id!: number;
     public description!: string;
     public options!: TradeOption[];
     public image!: string;
 
-    public load(object: any): Trade {
+    public load(object: TradeData): Trade {
         this.id = object.id;
         this.description = object.description;
         this.options = object.options;
@@ -24,7 +31,7 @@ export class Trade {
         return JSON.stringify(this);
     }
 
-    public decode(jsonString: any): Trade {
+    public decode(jsonString: string): Trade {
         return JSON.parse(jsonString);
     }
 }

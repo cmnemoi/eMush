@@ -59,7 +59,7 @@ export default defineComponent ({
     methods: {
         getImgUrl,
         async getNews() {
-            const params: any = {
+            const params: { header: Record<string, string>; params: Record<string, unknown>; paramsSerializer: typeof qs.stringify } = {
                 header: {
                     'accept': 'application/ld+json'
                 },

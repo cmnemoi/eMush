@@ -1,6 +1,46 @@
-import { Action } from "@/entities/Action";
-import { StatusConfig } from "@/entities/Config/StatusConfig";
-import { Mechanics } from "@/entities/Config/Mechanics";
+import { Action, ActionData } from "@/entities/Action";
+import { StatusConfig, StatusConfigData } from "@/entities/Config/StatusConfig";
+import { Mechanics, MechanicsData } from "@/entities/Config/Mechanics";
+
+export type EquipmentConfigData = {
+    "@id"?: string;
+    "@type"?: string;
+    id?: number;
+    name?: string;
+    equipmentName?: string;
+    breakableType?: string;
+    isPersonal?: boolean;
+    actions?: ActionData[];
+    initStatuses?: StatusConfigData[];
+    mechanics?: MechanicsData[];
+    dismountedProducts?: Map<string, number>;
+    isStackable?: boolean;
+    collectScrapNumber?: Map<integer, integer>;
+    collectScrapPatrolShipDamage?: Map<integer, integer>;
+    collectScrapPlayerDamage?: Map<integer, integer>;
+    failedManoeuvreDaedalusDamage?: Map<integer, integer>;
+    failedManoeuvrePatrolShipDamage?: Map<integer, integer>;
+    failedManoeuvrePlayerDamage?: Map<integer, integer>;
+};
+
+type EquipmentConfigJson = {
+    id: number | null;
+    name: string | null;
+    equipmentName: string | null;
+    initStatuses: string[];
+    mechanics: string[];
+    breakableType: string | null;
+    actions: string[];
+    dismountedProducts: object;
+    isPersonal: boolean | null;
+    isStackable?: boolean | null;
+    collectScrapNumber?: object;
+    collectScrapPatrolShipDamage?: object;
+    collectScrapPlayerDamage?: object;
+    failedManoeuvreDaedalusDamage?: object;
+    failedManoeuvrePlayerDamage?: object;
+    failedManoeuvrePatrolShipDamage?: object;
+};
 
 export class EquipmentConfig {
     public iri: string|null;
@@ -42,7 +82,7 @@ export class EquipmentConfig {
         this.failedManoeuvrePatrolShipDamage = new Map();
         this.failedManoeuvrePlayerDamage = new Map();
     }
-    load(object:any) : EquipmentConfig {
+    load(object:EquipmentConfigData) : EquipmentConfig {
         if (typeof object !== "undefined") {
             this.iri = object["@id"];
             this.id = object.id;
@@ -52,7 +92,7 @@ export class EquipmentConfig {
             this.isPersonal = object.isPersonal;
             if (typeof object.actions !== 'undefined') {
                 const actions : Action[] = [];
-                object.actions.forEach((actionData: any) => {
+                object.actions.forEach((actionData) => {
                     const action = (new Action()).load(actionData);
                     actions.push(action);
                 });
@@ -60,7 +100,7 @@ export class EquipmentConfig {
             }
             if (typeof object.initStatuses !== 'undefined') {
                 const initStatuses : StatusConfig[] = [];
-                object.initStatuses.forEach((statusData: any) => {
+                object.initStatuses.forEach((statusData) => {
                     const status = (new StatusConfig()).load(statusData);
                     initStatuses.push(status);
                 });
@@ -68,7 +108,7 @@ export class EquipmentConfig {
             }
             if (typeof object.mechanics !== 'undefined') {
                 const mechanics : Mechanics[] = [];
-                object.mechanics.forEach((mechanicsData: any) => {
+                object.mechanics.forEach((mechanicsData) => {
                     const mechanic = (new Mechanics()).load(mechanicsData);
                     mechanics.push(mechanic);
                 });
@@ -105,7 +145,7 @@ export class EquipmentConfig {
             // @ts-ignore
             dismountedProducts[key] = value;
         });
-        const data : any = {
+        const data : EquipmentConfigJson = {
             'id': this.id,
             'name': this.name,
             'equipmentName': this.equipmentName,
@@ -131,7 +171,7 @@ export class EquipmentConfig {
         return this;
     }
 
-    private addPatrolShipAttributes(object: any){
+    private addPatrolShipAttributes(object: EquipmentConfigData){
         if(!this.equipmentType?.includes("patrol_ship")) return;
 
         if (typeof object.collectScrapNumber !== 'undefined') {
@@ -178,7 +218,7 @@ export class EquipmentConfig {
         }
     }
 
-    private encodePatrolShipAttributes(data: any) {
+    private encodePatrolShipAttributes(data: EquipmentConfigJson) {
         if(!this.equipmentType?.includes("patrol_ship")) return;
 
         const collectScrapNumber : object = {};

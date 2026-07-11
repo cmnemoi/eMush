@@ -1,9 +1,15 @@
+export type ClosedExploratorData = {
+    id?: integer;
+    logName?: string;
+    isAlive?: boolean;
+};
+
 export class ClosedExplorator {
     public id!: integer;
     public logName!: string;
     public isAlive!: boolean;
 
-    public load(object: any): ClosedExplorator {
+    public load(object: ClosedExploratorData): ClosedExplorator {
         if (object) {
             this.id = object.id;
             this.logName = object.logName;

@@ -1,3 +1,14 @@
+type StatusData = {
+    id?: number;
+    key?: string;
+    name?: string;
+    charge?: number;
+    description?: string;
+    isPrivate?: boolean;
+    target?: { "key" : string, "id" : number } | null;
+    type?: string;
+};
+
 export class Status {
     public id! : number;
     public key! : string;
@@ -17,7 +28,7 @@ export class Status {
         this.diseaseType = null;
     }
 
-    load(object: any): Status {
+    load(object: StatusData): Status {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.key = object.key;
@@ -36,7 +47,7 @@ export class Status {
     jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode(jsonString: any): Status {
+    decode(jsonString: string): Status {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);

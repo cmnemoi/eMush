@@ -99,7 +99,7 @@ import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 
 interface ConsumableDiseaseConfigState {
     consumableDiseaseConfig: null|ConsumableDiseaseConfig
-    errors: any,
+    errors: {[key: string]: string[]},
 }
 
 export default defineComponent({
@@ -166,7 +166,7 @@ export default defineComponent({
                     }
                 });
         },
-        addCuresName(tuple: any[]): void {
+        addCuresName(tuple: [string, number]): void {
             const index = tuple[0];
             const value = tuple[1];
             if (this.consumableDiseaseConfig && this.consumableDiseaseConfig.curesName) {
@@ -178,7 +178,7 @@ export default defineComponent({
                 this.consumableDiseaseConfig.curesName.delete(index);
             }
         },
-        addDiseasesName(tuple: any[]): void {
+        addDiseasesName(tuple: [string, number]): void {
             const index = tuple[0];
             const value = tuple[1];
             if (this.consumableDiseaseConfig && this.consumableDiseaseConfig.diseasesName) {
@@ -190,7 +190,7 @@ export default defineComponent({
                 this.consumableDiseaseConfig.diseasesName.delete(index);
             }
         },
-        addDiseasesChances(tuple: any[]): void {
+        addDiseasesChances(tuple: [number, number]): void {
             const index = tuple[0];
             const value = tuple[1];
             if (this.consumableDiseaseConfig && this.consumableDiseaseConfig.diseasesChances) {
@@ -202,7 +202,7 @@ export default defineComponent({
                 this.consumableDiseaseConfig.diseasesChances.delete(index);
             }
         },
-        addCuresChances(tuple: any[]): void {
+        addCuresChances(tuple: [number, number]): void {
             const index = tuple[0];
             const value = tuple[1];
             if (this.consumableDiseaseConfig && this.consumableDiseaseConfig.curesChances) {
@@ -214,7 +214,7 @@ export default defineComponent({
                 this.consumableDiseaseConfig.curesChances.delete(index);
             }
         },
-        addDiseasesDelayMin(tuple: any[]): void {
+        addDiseasesDelayMin(tuple: [number, number]): void {
             const index = tuple[0];
             const value = tuple[1];
             if (this.consumableDiseaseConfig && this.consumableDiseaseConfig.diseasesDelayMin) {
@@ -226,7 +226,7 @@ export default defineComponent({
                 this.consumableDiseaseConfig.diseasesDelayMin.delete(index);
             }
         },
-        addDiseasesDelayLength(tuple: any[]): void {
+        addDiseasesDelayLength(tuple: [number, number]): void {
             const index = tuple[0];
             const value = tuple[1];
             if (this.consumableDiseaseConfig && this.consumableDiseaseConfig.diseasesDelayLength) {
@@ -238,7 +238,7 @@ export default defineComponent({
                 this.consumableDiseaseConfig.diseasesDelayLength.delete(index);
             }
         },
-        addEffectNumber(tuple: any[]): void {
+        addEffectNumber(tuple: [number, number]): void {
             const index = tuple[0];
             const value = tuple[1];
             if (this.consumableDiseaseConfig && this.consumableDiseaseConfig.effectNumber) {

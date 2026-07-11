@@ -8,7 +8,11 @@ type Toast = {
     type: ToastType;
 }
 
-const state = {
+interface ToastModuleState {
+    toast: Toast;
+}
+
+const state: ToastModuleState = {
     toast: {
         isOpen: false,
         title: '',
@@ -16,7 +20,7 @@ const state = {
     }
 };
 
-const getters: GetterTree<any, any> = {
+const getters: GetterTree<ToastModuleState, ToastModuleState> = {
     toast(state): Toast {
         return state.toast;
     },
@@ -31,7 +35,7 @@ const getters: GetterTree<any, any> = {
     }
 };
 
-const mutations: MutationTree<any> = {
+const mutations: MutationTree<ToastModuleState> = {
     openToast(state, payload: { type: ToastType, title: string }) {
         state.toast.isOpen = true;
         state.toast.type = payload.type;
@@ -42,7 +46,7 @@ const mutations: MutationTree<any> = {
     }
 };
 
-const actions: ActionTree<any, any> = {
+const actions: ActionTree<ToastModuleState, ToastModuleState> = {
     openErrorToast({ commit }, title: string) {
         commit('openToast', { type: 'error', title });
     },

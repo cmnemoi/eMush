@@ -1,5 +1,17 @@
-import { ActionVariables } from "@/entities/Config/ActionVariables";
-import { toHandlers } from "vue";
+import { ActionVariables, ActionVariablesData } from "@/entities/Config/ActionVariables";
+
+export type ActionConfigData = {
+    iri?: string;
+    id?: number;
+    name?: string;
+    actionName?: string;
+    types?: string[];
+    // NB: matches the field actually read below ("displayHolder"/"range"); assigned onto
+    // this.target / this.scope — a deliberate API-to-domain field rename, not a typo.
+    displayHolder?: string;
+    range?: string;
+    actionVariablesArray?: ActionVariablesData;
+};
 
 export class ActionConfig {
     public iri: string|null;
@@ -21,7 +33,7 @@ export class ActionConfig {
         this.scope = null;
         this.actionVariablesArray = null;
     }
-    load(object:any) : ActionConfig {
+    load(object:ActionConfigData) : ActionConfig {
         if (typeof object !== "undefined") {
             this.iri = object.iri;
             this.id = object.id;

@@ -7,6 +7,17 @@ import {
     HunterRankEnum
 } from "@/enums/hunter.enum";
 
+type HunterData = {
+    id?: number;
+    key?: HunterKeyEnum;
+    name?: string;
+    description?: string;
+    health?: integer;
+    charges?: integer;
+    actions: Array<Parameters<Action["load"]>[0]>;
+    transportImage?: HunterImageKeyEnum;
+};
+
 export class Hunter {
     public id!: number;
     public key!: HunterKeyEnum;
@@ -23,7 +34,7 @@ export class Hunter {
         this.transportImage = null;
     }
 
-    public load(object: any): Hunter {
+    public load(object: HunterData): Hunter {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.key = object.key;
@@ -31,7 +42,7 @@ export class Hunter {
             this.description = object.description;
             this.health = object.health;
             this.charges = object.charges;
-            object.actions.forEach((actionObject: any) => {
+            object.actions.forEach((actionObject: Parameters<Action["load"]>[0]) => {
                 this.actions.push((new Action).load(actionObject));
             });
             this.transportImage = object.transportImage;

@@ -2,17 +2,21 @@ import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { LocaleService } from "@/services/locale.service";
 import { i18n } from "@/main";
 
-const state = {
+interface LocaleModuleState {
+    locale: string;
+}
+
+const state: LocaleModuleState = {
     locale: LocaleService.getLocale() || 'en'
 };
 
-const mutations: MutationTree<any> = {
+const mutations: MutationTree<LocaleModuleState> = {
     setLocale(state, locale: string) {
         state.locale = locale;
     }
 };
 
-const actions: ActionTree<any, any> = {
+const actions: ActionTree<LocaleModuleState, LocaleModuleState> = {
     updateLocale({ commit }, locale: string) {
         i18n.global.locale = locale;
         LocaleService.saveLocale(locale);
@@ -20,7 +24,7 @@ const actions: ActionTree<any, any> = {
     }
 };
 
-const getters: GetterTree<any, any> = {
+const getters: GetterTree<LocaleModuleState, LocaleModuleState> = {
     currentLocale: state => state.locale
 };
 

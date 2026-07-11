@@ -1,8 +1,30 @@
-import { Action } from "@/entities/Action";
-import { StatusConfig } from "@/entities/Config/StatusConfig";
-import { EquipmentConfig } from "@/entities/Config/EquipmentConfig";
-import { DiseaseConfig } from "@/entities/Config/DiseaseConfig";
+import { Action, ActionData } from "@/entities/Action";
+import { StatusConfig, StatusConfigData } from "@/entities/Config/StatusConfig";
+import { EquipmentConfig, EquipmentConfigData } from "@/entities/Config/EquipmentConfig";
+import { DiseaseConfig, DiseaseConfigData } from "@/entities/Config/DiseaseConfig";
 
+export type CharacterConfigData = {
+    "@id"?: string;
+    id?: number;
+    name?: string;
+    characterName?: string;
+    skills?: Array<string>;
+    initHealthPoint?: number;
+    maxHealthPoint?: number;
+    initMoralPoint?: number;
+    maxMoralPoint?: number;
+    initSatiety?: number;
+    initActionPoint?: number;
+    maxActionPoint?: number;
+    initMovementPoint?: number;
+    maxMovementPoint?: number;
+    maxItemInInventory?: number;
+    maxNumberPrivateChannel?: number;
+    actions?: ActionData[];
+    initStatuses?: StatusConfigData[];
+    startingItems?: EquipmentConfigData[];
+    initDiseases?: DiseaseConfigData[];
+};
 
 export class CharacterConfig {
     public iri: string|null;
@@ -48,7 +70,7 @@ export class CharacterConfig {
         this.maxItemInInventory = null;
         this.maxNumberPrivateChannel = null;
     }
-    load(object:any) : CharacterConfig {
+    load(object:CharacterConfigData) : CharacterConfig {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;
@@ -68,7 +90,7 @@ export class CharacterConfig {
             this.maxNumberPrivateChannel = object.maxNumberPrivateChannel;
             if (typeof object.actions !== 'undefined') {
                 const actions : Action[] = [];
-                object.actions.forEach((actionData: any) => {
+                object.actions.forEach((actionData) => {
                     const action = (new Action()).load(actionData);
                     actions.push(action);
                 });
@@ -76,7 +98,7 @@ export class CharacterConfig {
             }
             if (typeof object.initStatuses !== 'undefined') {
                 const initStatuses : StatusConfig[] = [];
-                object.initStatuses.forEach((initStatusData: any) => {
+                object.initStatuses.forEach((initStatusData) => {
                     const statusConfig = (new StatusConfig()).load(initStatusData);
                     initStatuses.push(statusConfig);
                 });
@@ -84,7 +106,7 @@ export class CharacterConfig {
             }
             if (typeof object.startingItems !== 'undefined') {
                 const startingItems : EquipmentConfig[] = [];
-                object.startingItems.forEach((startingItemData: any) => {
+                object.startingItems.forEach((startingItemData) => {
                     const equipmentConfig = (new EquipmentConfig()).load(startingItemData);
                     startingItems.push(equipmentConfig);
                 });
@@ -92,7 +114,7 @@ export class CharacterConfig {
             }
             if (typeof object.initDiseases !== 'undefined') {
                 const initDiseases : DiseaseConfig[] = [];
-                object.initDiseases.forEach((initDiseaseData: any) => {
+                object.initDiseases.forEach((initDiseaseData) => {
                     const diseaseConfig = (new DiseaseConfig()).load(initDiseaseData);
                     initDiseases.push(diseaseConfig);
                 });
@@ -101,7 +123,7 @@ export class CharacterConfig {
         }
         return this;
     }
-    jsonEncode() : any {
+    jsonEncode() : object {
         const actions : string[] = [];
         this.actions?.forEach(action => (typeof action.iri === 'string' ? actions.push(action.iri) : null));
         const initStatuses : string[] = [];
@@ -110,7 +132,7 @@ export class CharacterConfig {
         this.startingItems?.forEach(equipmentConfig => (typeof equipmentConfig.iri === 'string' ? startingItems.push(equipmentConfig.iri) : null));
         const initDiseases : string[] = [];
         this.initDiseases?.forEach(diseaseConfig => (typeof diseaseConfig.iri === 'string' ? initDiseases.push(diseaseConfig.iri) : null));
-        const data: any = {
+        const data = {
             'id': this.id,
             'name': this.name,
             'characterName': this.characterName,

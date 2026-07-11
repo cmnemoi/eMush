@@ -52,7 +52,7 @@ export default class DoorObject extends DoorGroundObject {
         tileset: Phaser.Tilemaps.Tileset,
         name: string,
         isFlipped: { x: boolean, y: boolean },
-        isAnimationYoyo: boolean
+        _isAnimationYoyo: boolean
     ) {
         this.setTexture('door_object', this.tiledFrame);
         this.flipX = isFlipped.x;

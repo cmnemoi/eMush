@@ -11,6 +11,19 @@ type ExplorationUiElements = {
     finished: string;
 };
 
+type ExplorationData = {
+    createdAt?: Date;
+    updatedAt?: Date;
+    planet?: Parameters<Planet["load"]>[0];
+    explorators: Array<Parameters<Explorator["load"]>[0]>;
+    logs?: ExplorationLogs[];
+    // NB: matches the field actually read below (estimated_duration, snake_case) — likely a
+    // pre-existing mismatch vs. the class's camelCase estimatedDuration field.
+    estimated_duration?: number;
+    timer?: Parameters<TimerCycle["load"]>[0];
+    uiElements?: ExplorationUiElements;
+};
+
 export class Exploration {
     public createdAt!: Date;
     public updatedAt!: Date;
@@ -21,12 +34,12 @@ export class Exploration {
     public timer!: TimerCycle;
     public uiElements!: ExplorationUiElements;
 
-    public load(object: any): Exploration {
+    public load(object: ExplorationData): Exploration {
         if (object) {
             this.createdAt = object.createdAt;
             this.updatedAt = object.updatedAt;
             this.planet = (new Planet()).load(object.planet);
-            this.explorators = object.explorators.map((explorator: any) => (new Explorator()).load(explorator));
+            this.explorators = object.explorators.map((explorator: Parameters<Explorator["load"]>[0]) => (new Explorator()).load(explorator));
             this.logs = object.logs;
             this.estimatedDuration = object.estimated_duration;
             this.timer = (new TimerCycle()).load(object.timer);

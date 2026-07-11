@@ -1,4 +1,21 @@
-import { ModifierConfig } from "@/entities/Config/ModifierConfig";
+import { ModifierConfig, ModifierConfigData } from "@/entities/Config/ModifierConfig";
+
+export type DiseaseConfigData = {
+    "@id"?: string;
+    id?: number;
+    diseaseName?: string;
+    name?: string;
+    type?: string;
+    resistance?: number;
+    delayMin?: number;
+    delayLength?: number;
+    diseasePointMin?: number;
+    diseasePointLength?: number;
+    override?: Array<string>;
+    // NB: matches the field actually read below ("modifierConfig", singular) — assigned onto
+    // this.modifierConfigs (plural). Likely a pre-existing typo/mismatch, kept as-is here.
+    modifierConfig?: ModifierConfigData[];
+};
 
 export class DiseaseConfig {
     public iri: string|null;
@@ -28,7 +45,7 @@ export class DiseaseConfig {
         this.diseasePointLength = null;
         this.override = [];
     }
-    load(object:any) : DiseaseConfig {
+    load(object:DiseaseConfigData) : DiseaseConfig {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;
@@ -44,7 +61,7 @@ export class DiseaseConfig {
         }
         if (typeof object.modifierConfig !== 'undefined') {
             const modifierConfigs : ModifierConfig[] = [];
-            object.modifierConfig.forEach((modifierConfigData: any) => {
+            object.modifierConfig.forEach((modifierConfigData) => {
                 const modifierConfig = (new ModifierConfig()).load(modifierConfigData);
                 modifierConfigs.push(modifierConfig);
             });

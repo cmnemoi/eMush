@@ -1,6 +1,26 @@
 import { ModifierActivationRequirement } from "@/entities/Config/ModifierActivationRequirement";
 import { EventConfig } from "@/entities/Config/EventConfig";
 
+export type ModifierConfigData = {
+    "@id"?: string;
+    "@type"?: string;
+    id?: number;
+    name?: string;
+    modifierName?: string;
+    delta?: number;
+    targetVariable?: string;
+    targetEvent?: string;
+    modifierRange?: string;
+    reverseOnRemove?: boolean;
+    applyOnTarget?: boolean;
+    triggeredEvent?: Parameters<EventConfig["load"]>[0];
+    mode?: string;
+    priority?: number;
+    strategy?: string;
+    tagConstraints?: Record<string, string>;
+    targetFilters?: Record<string, string>;
+};
+
 export class ModifierConfig {
     public iri: string|null;
     public id: number|null;
@@ -43,7 +63,7 @@ export class ModifierConfig {
         this.modifierStrategy = null;
         this.priority = null;
     }
-    load(object:any) : ModifierConfig {
+    load(object: ModifierConfigData) : ModifierConfig {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.type = object['@type'];
@@ -80,7 +100,7 @@ export class ModifierConfig {
         }
         return this;
     }
-    jsonEncode() : any {
+    jsonEncode() : object {
         const modifierActivationRequirements : string[] = [];
         this.modifierActivationRequirements?.forEach(modifierActivationRequirement => (typeof modifierActivationRequirement.iri === 'string' ? modifierActivationRequirements.push(modifierActivationRequirement.iri) : null));
 

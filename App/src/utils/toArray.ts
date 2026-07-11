@@ -1,3 +1,3 @@
-export function toArray(data: Array<any> | object): any[] {
+export function toArray<T>(data: Array<T> | Record<string, T>): T[] {
     return Array.isArray(data) ? data : Object.values(data);
 }

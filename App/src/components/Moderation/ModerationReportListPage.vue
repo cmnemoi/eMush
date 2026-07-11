@@ -93,7 +93,7 @@
 
 <script lang="ts">
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
-import Datatable from "@/components/Utils/Datatable/Datatable.vue";
+import Datatable, { Header } from "@/components/Utils/Datatable/Datatable.vue";
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import { ModerationSanction } from "@/entities/ModerationSanction";
 import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
@@ -314,7 +314,7 @@ export default defineComponent({
             this.loading = true;
             this.rowData = [];
 
-            const params: any = {
+            const params: { header: Record<string, string>; params: Record<string, unknown>; paramsSerializer: typeof qs.stringify } = {
                 header: {
                     'accept': 'application/ld+json'
                 },
@@ -352,7 +352,7 @@ export default defineComponent({
                 this.loading = false;
             }
         },
-        sortTable(selectedField: any): void {
+        sortTable(selectedField: Header): void {
             if (!selectedField.sortable) {
                 return;
             }
@@ -371,7 +371,7 @@ export default defineComponent({
             this.sortField = selectedField.key;
             this.loadData();
         },
-        showSanctionDetails(sanction: any) {
+        showSanctionDetails(sanction: ModerationSanction) {
             this.selectedSanction = sanction;
             this.showDetailPopup = true;
         },
@@ -389,7 +389,7 @@ export default defineComponent({
                 throw error;
             }
         },
-        async goToSanctionEvidence(sanction: any)
+        async goToSanctionEvidence(sanction: ModerationSanction)
         {
             const sanctionEvidence = sanction.sanctionEvidence;
             const evidenceClass = sanctionEvidence.className;

@@ -1,5 +1,14 @@
 import { Player } from "./Player";
 
+type SpaceBattleTurretData = {
+    id?: number;
+    key?: string;
+    name?: string;
+    charges?: integer;
+    occupiers?: Array<string>;
+    isBroken?: boolean;
+};
+
 export class SpaceBattleTurret {
     private turretOrders: Map<string, integer> = new Map<string, integer>([
         ['rear_bravo_turret', 1],
@@ -22,7 +31,7 @@ export class SpaceBattleTurret {
         this.occupiers = [];
     }
 
-    public load(object: any): SpaceBattleTurret {
+    public load(object: SpaceBattleTurretData): SpaceBattleTurret {
         if (object) {
             this.id = object.id;
             this.key = object.key;

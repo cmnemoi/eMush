@@ -1,4 +1,4 @@
-import { ClosedPlayer } from "@/entities/ClosedPlayer";
+import { ClosedPlayer, ClosedPlayerData } from "@/entities/ClosedPlayer";
 import { DaedalusProject } from "./Daedalus";
 import { EndCauseEnum } from "@/enums/endcause.enum";
 
@@ -33,6 +33,22 @@ type FunFact = {
     characterKey: string;
 }
 
+type ClosedDaedalusData = {
+    "@id"?: string;
+    id?: number;
+    endCause?: EndCauseEnum;
+    endDay?: integer;
+    endCycle?: integer;
+    statistics?: DaedalusStatistics;
+    projects?: ClosedDaedalusProjects;
+    players?: ClosedPlayerData[];
+    titleHolders?: TitleHolder[];
+    funFacts?: FunFact[];
+    humanTriumphSum?: integer;
+    mushTriumphSum?: integer;
+    isCheater?: boolean;
+};
+
 export class ClosedDaedalus {
     public iri: string|null;
     public id: number|null;
@@ -60,7 +76,7 @@ export class ClosedDaedalus {
         this.humanTriumphSum = null;
         this.mushTriumphSum = null;
     }
-    load(object :any): ClosedDaedalus {
+    load(object :ClosedDaedalusData): ClosedDaedalus {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;
@@ -71,7 +87,7 @@ export class ClosedDaedalus {
             this.projects = object.projects;
             if (typeof object.players !== 'undefined') {
                 const players: ClosedPlayer[] = [];
-                object.players.forEach((playerData: any) => {
+                object.players.forEach((playerData) => {
                     const player = (new ClosedPlayer()).load(playerData);
                     players.push(player);
                 });
@@ -88,7 +104,7 @@ export class ClosedDaedalus {
     jsonEncode(): object {
         const players : string[] = [];
         this.players?.forEach(player => (typeof player.iri === 'string' ? players.push(player.iri) : null));
-        const data : any = {
+        const data = {
             'id': this.id,
             'endCause': this.endCause,
             'endDay': this.endDay,

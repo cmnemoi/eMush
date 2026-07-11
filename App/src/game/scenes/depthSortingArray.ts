@@ -1,7 +1,5 @@
-import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
 import { IsometricCoordinates } from "@/game/types";
-import IsometricGeom from "@/game/scenes/isometricGeom";
 import DecorationObject from "@/game/objects/decorationObject";
 
 

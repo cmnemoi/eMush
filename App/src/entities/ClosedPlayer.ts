@@ -2,6 +2,31 @@ import { toArray } from "@/utils/toArray";
 import { characterEnum } from "@/enums/character";
 import { formatText } from "@/utils/formatText";
 
+export type ClosedPlayerData = {
+    "@id"?: string;
+    id?: number;
+    message?: string;
+    endCause?: string;
+    dayDeath?: integer;
+    cycleDeath?: integer;
+    likes?: integer;
+    isMush?: boolean;
+    characterKey?: string;
+    userId?: string;
+    username?: string;
+    closedDaedalusId?: integer;
+    daysSurvived?: integer;
+    cyclesSurvived?: integer;
+    triumph?: integer;
+    rank?: integer;
+    language?: string;
+    messageIsHidden?: boolean;
+    messageIsEdited?: boolean;
+    triumphGains?: string[];
+    // NB: read here but assigned to this.highlights (deliberate rename), not a mismatch bug.
+    playerHighlights?: string[];
+};
+
 export class ClosedPlayer {
     public iri: string | null;
     public id: number | null;
@@ -51,7 +76,7 @@ export class ClosedPlayer {
         this.messageIsEdited = null;
     }
 
-    load(object: any): ClosedPlayer {
+    load(object: ClosedPlayerData): ClosedPlayer {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;

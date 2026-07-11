@@ -1,3 +1,34 @@
+type TerminalSectionTitlesData = {
+    orientate_daedalus?: string;
+    move_daedalus?: string;
+    general_informations?: string;
+    pilgred?: string;
+    orientation?: string;
+    distance?: string;
+    cpu_priority_name?: string;
+    cpu_priority_description?: string;
+    food_destruction_option_name?: string;
+    food_destruction_option_description?: string;
+    crew_lock_name?: string;
+    crew_lock_description?: string;
+    plasma_shield_name?: string;
+    plasma_shield_description?: string;
+    magnetic_net_name?: string;
+    magnetic_net_description?: string;
+    neron_inhibition_name?: string;
+    neron_inhibition_description?: string;
+    to_a_new_eden_title?: string;
+    to_a_new_eden_description?: string;
+    contact?: string;
+    neron_version?: string;
+    rebel_bases_network?: string;
+    xyloph_db?: string;
+    vocoded_announcements_name?: string;
+    vocoded_announcements_description?: string;
+    death_announcements_name?: string;
+    death_announcements_description?: string;
+};
+
 export class TerminalSectionTitles {
     public orientateDaedalus: string|null = null;
     public moveDaedalus: string|null = null;
@@ -28,7 +59,7 @@ export class TerminalSectionTitles {
     public deathAnnouncementName: string|null = null;
     public deathAnnouncementDescription: string|null = null;
 
-    public load(object: any): TerminalSectionTitles {
+    public load(object: TerminalSectionTitlesData): TerminalSectionTitles {
         if (object) {
             this.orientateDaedalus = object['orientate_daedalus'];
             this.moveDaedalus = object['move_daedalus'];
@@ -66,7 +97,7 @@ export class TerminalSectionTitles {
         return JSON.stringify(this);
     }
 
-    public decode(jsonString: any): TerminalSectionTitles {
+    public decode(jsonString: string): TerminalSectionTitles {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);

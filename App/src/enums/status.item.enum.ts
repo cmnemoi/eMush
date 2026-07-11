@@ -20,7 +20,7 @@ export enum StatusItemNameEnum {
     PRIVATE_PROPERTY = "private_propety",
 }
 
-export const statusItemEnum: {[index: string]: any} = {
+export const statusItemEnum: {[index: string]: {icon: string}} = {
     [StatusItemNameEnum.ALIEN_ARTEFACT]: {
         'icon': getImgUrl('status/artefact.png')
     },

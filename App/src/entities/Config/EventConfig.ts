@@ -1,3 +1,14 @@
+type EventConfigData = {
+    "@id"?: string;
+    "@type"?: string;
+    id?: number;
+    name?: string;
+    eventName?: string;
+    quantity?: number;
+    targetVariable?: string;
+    variableHolderClass?: string;
+};
+
 export class EventConfig {
     public iri: string|null;
     public id: number|null;
@@ -18,7 +29,7 @@ export class EventConfig {
         this.targetVariable = null;
         this.variableHolderClass = null;
     }
-    load(object:any) : EventConfig {
+    load(object:EventConfigData) : EventConfig {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.type = object['@type'];
@@ -31,7 +42,7 @@ export class EventConfig {
         }
         return this;
     }
-    jsonEncode() : any {
+    jsonEncode() : object {
         return {
             'id': this.id,
             'name': this.name,

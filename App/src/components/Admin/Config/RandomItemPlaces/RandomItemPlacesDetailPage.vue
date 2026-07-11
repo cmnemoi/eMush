@@ -40,7 +40,7 @@ import urlJoin from "url-join";
 
 interface RandomItemPlacesState {
     randomItemPlaces: null|RandomItemPlaces
-    errors: any
+    errors: {[key: string]: string[]}
 }
 
 export default defineComponent({

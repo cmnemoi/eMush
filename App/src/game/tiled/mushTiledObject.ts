@@ -294,7 +294,7 @@ export default class MushTiledObject {
 
     // This function extract the tileset corresponding to a given gid
     // (is gid comprised between first gid of this tileset and the first gid of next tileset)
-    getTileset(tilesets: any): any
+    getTileset(tilesets: Phaser.Tilemaps.Tileset[]): Phaser.Tilemaps.Tileset
     {
         let chosenTileset = tilesets[0];
         const gid = this.tiledObj.gid;

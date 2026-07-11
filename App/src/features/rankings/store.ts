@@ -8,7 +8,7 @@ export type DaedalusRankingState = {
 
 export function createDaedalusRankingModule(
     loadDaedalusRanking: (language: string, page: number, itemsPerPage: number, sort: string) => Promise<RankingDaedalus>
-): Module<DaedalusRankingState, Record<string, any>> {
+): Module<DaedalusRankingState, DaedalusRankingState> {
     return {
         namespaced: true,
         state: (): DaedalusRankingState => ({

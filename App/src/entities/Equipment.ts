@@ -1,6 +1,16 @@
 import { Action } from "@/entities/Action";
 import { Status } from "@/entities/Status";
 
+export type EquipmentData = {
+    id?: number;
+    key?: string;
+    name?: string;
+    description?: string;
+    isBroken?: boolean;
+    actions: Array<Parameters<Action["load"]>[0]>;
+    statuses: Array<Parameters<Status["load"]>[0]>;
+};
+
 export class Equipment {
     public id: number;
     public key!: string;
@@ -18,7 +28,7 @@ export class Equipment {
         this.description = null;
         this.isBroken = false;
     }
-    load(object :any): Equipment {
+    load(object : EquipmentData): Equipment {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.key = object.key;
@@ -26,11 +36,11 @@ export class Equipment {
             this.description = object.description;
             this.isBroken = object.isBroken;
 
-            object.actions.forEach((actionObject: any) => {
+            object.actions.forEach((actionObject: Parameters<Action["load"]>[0]) => {
                 this.actions.push((new Action).load(actionObject));
             });
 
-            object.statuses.forEach((statusObject : any) => {
+            object.statuses.forEach((statusObject: Parameters<Status["load"]>[0]) => {
                 const status = (new Status()).load(statusObject);
                 this.statuses.push(status);
             });

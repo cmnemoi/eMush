@@ -12,8 +12,7 @@ const HunterConfigService = {
     createHunterConfig: async(hunterConfig: HunterConfig): Promise<HunterConfig | null> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
 
-        const hunterConfigRecord: Record<string, any> = hunterConfig.jsonEncode();
-        const hunterConfigData = await ApiService.post(HUNTER_CONFIG_ENDPOINT, hunterConfigRecord)
+                const hunterConfigData = await ApiService.post(HUNTER_CONFIG_ENDPOINT, hunterConfig.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if (hunterConfigData.data) {

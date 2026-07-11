@@ -1,3 +1,14 @@
+export type ActionVariablesData = {
+    actionPoint?: number;
+    movementPoint?: number;
+    moralPoint?: number;
+    percentageInjury?: number;
+    percentageDirtiness?: number;
+    percentageSuccess?: number;
+    percentageCritical?: number;
+    isSuperDirty?: boolean;
+};
+
 export class ActionVariables {
     public actionPoint: number|null;
     public movementPoint: number|null;
@@ -18,7 +29,7 @@ export class ActionVariables {
         this.percentageCritical = null;
         this.isSuperDirty = null;
     }
-    load(object:any) : ActionVariables {
+    load(object:ActionVariablesData) : ActionVariables {
         if (typeof object !== "undefined") {
             this.actionPoint = object.actionPoint;
             this.movementPoint = object['movementPoint'];

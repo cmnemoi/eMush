@@ -209,7 +209,7 @@ interface SanctionListData {
     reasonFilter: string,
     isActiveFilter: boolean,
     showModal: boolean,
-    selectedSanction: any
+    selectedSanction: ModerationSanction
 }
 
 export default defineComponent({
@@ -294,7 +294,7 @@ export default defineComponent({
             reasonFilter: '',
             isActiveFilter: false,
             showDetailPopup: false,
-            selectedSanction: {}
+            selectedSanction: new ModerationSanction()
         };
     },
     methods: {
@@ -325,7 +325,7 @@ export default defineComponent({
         },
         loadData() {
             this.loading = true;
-            const params: any = {
+            const params: { header: Record<string, string>; params: Record<string, unknown>; paramsSerializer: typeof qs.stringify } = {
                 header: {
                     'accept': 'application/ld+json'
                 },
@@ -364,7 +364,7 @@ export default defineComponent({
                 .then((result) => {
                     return result.data;
                 })
-                .then((remoteRowData: any) => {
+                .then((remoteRowData: { 'hydra:member': object[]; 'hydra:totalItems': number }) => {
                     this.rowData = remoteRowData['hydra:member'].map((reportData: object) => {
                         return (new ModerationSanction()).load(reportData);
                     });
@@ -380,7 +380,7 @@ export default defineComponent({
                 .then((result) => {
                     return result.data;
                 })
-                .then((remoteRowData: any) => {
+                .then((remoteRowData: { 'hydra:member': object[]; 'hydra:totalItems': number }) => {
                     this.reportRowData = remoteRowData['hydra:member'].map((reportData: object) => {
                         return (new ModerationSanction()).load(reportData);
                     });
@@ -390,7 +390,7 @@ export default defineComponent({
                 });
 
         },
-        sortTable(selectedField: any): void {
+        sortTable(selectedField: { key: string; name: string; sortable?: boolean; slot?: boolean }): void {
             if (!selectedField.sortable) {
                 return;
             }
@@ -409,7 +409,7 @@ export default defineComponent({
             this.sortField = selectedField.key;
             this.loadData();
         },
-        showSanctionDetails(sanction: any) {
+        showSanctionDetails(sanction: ModerationSanction) {
             this.selectedSanction = sanction;
             this.showDetailPopup = true;
         },

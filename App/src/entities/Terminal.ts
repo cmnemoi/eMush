@@ -7,6 +7,23 @@ import { Item } from "./Item";
 import { RebelBase } from "@/entities/RebelBase";
 import { XylophEntry } from "@/entities/XylophEntry";
 import { Trade } from "@/entities/Trade";
+
+type TerminalData = {
+    id?: number;
+    key?: string;
+    name?: string;
+    tips?: string;
+    items?: Item[];
+    actions?: Array<Action>;
+    sectionTitles?: TerminalSectionTitles;
+    infos?: TerminalInfos;
+    buttons?: TerminalButtons;
+    projects?: Array<Project>;
+    rebelBases?: Array<RebelBase>;
+    xylophEntries?: Array<XylophEntry>;
+    trades?: Array<Trade>;
+};
+
 export class Terminal {
     public id!: number;
     public key!: string;
@@ -22,7 +39,7 @@ export class Terminal {
     public xylophEntries: XylophEntry[] = [];
     public trades: Trade[] = [];
 
-    public load(object: any): Terminal {
+    public load(object: TerminalData): Terminal {
         if (object) {
             this.id = object.id;
             this.key = object.key;
@@ -30,7 +47,7 @@ export class Terminal {
             this.tips = object.tips;
             this.items = object.items;
             if (typeof object.actions !== 'undefined') {
-                object.actions.forEach((actionObject: any) => {
+                object.actions.forEach((actionObject: Action) => {
                     const action = (new Action()).load(actionObject);
                     this.actions.push(action);
                 });
@@ -38,10 +55,10 @@ export class Terminal {
             this.sectionTitles = new TerminalSectionTitles().load(object.sectionTitles);
             this.infos = new TerminalInfos().load(object.infos);
             this.buttons = new TerminalButtons().load(object.buttons);
-            this.projects = object.projects?.map((project: any) => new Project().load(project));
-            this.rebelBases = object.rebelBases?.map((rebelBase: any) => new RebelBase().load(rebelBase));
-            this.xylophEntries = object.xylophEntries?.map((xylophEntry: any) => new XylophEntry().load(xylophEntry));
-            this.trades = object.trades?.map((trade: any) => new Trade().load(trade));
+            this.projects = object.projects?.map((project: Project) => new Project().load(project));
+            this.rebelBases = object.rebelBases?.map((rebelBase: RebelBase) => new RebelBase().load(rebelBase));
+            this.xylophEntries = object.xylophEntries?.map((xylophEntry: XylophEntry) => new XylophEntry().load(xylophEntry));
+            this.trades = object.trades?.map((trade: Trade) => new Trade().load(trade));
         }
         return this;
     }
@@ -50,7 +67,7 @@ export class Terminal {
         return JSON.stringify(this);
     }
 
-    public decode(jsonString: any): Terminal {
+    public decode(jsonString: string): Terminal {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);

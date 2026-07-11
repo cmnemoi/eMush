@@ -43,7 +43,7 @@ export enum StatusPlayerNameEnum {
     MANKIND_ONLY_HOPE_STATUS = 'mankind_only_hope_status'
 };
 
-export const statusPlayerEnum: {[index: string]: any} = {
+export const statusPlayerEnum: {[index: string]: {icon: string}} = {
     [StatusPlayerNameEnum.STARVING]: {
         'icon': getImgUrl('status/starving.png')
     },

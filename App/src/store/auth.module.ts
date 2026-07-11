@@ -51,7 +51,7 @@ const getters = {
     }
 };
 
-const actions: ActionTree<any, any> = {
+const actions: ActionTree<AuthState, AuthState> = {
     redirectToRegister({ commit }): Promise<void> {
         commit('resetUserInfo');
         return UserService.redirectToRegister();
@@ -83,7 +83,7 @@ const actions: ActionTree<any, any> = {
             commit('setUserInfo', userInfo);
             commit('setAuthenticated', true);
             return userInfo;
-        } catch (e) {
+        } catch {
             commit('setAuthenticated', false);
             return null;
         } finally {
@@ -102,7 +102,7 @@ const actions: ActionTree<any, any> = {
                 commit('setAuthenticated', false);
             }
             return userInfo;
-        } catch (e) {
+        } catch {
             commit('setAuthenticated', false);
             return null;
         } finally {

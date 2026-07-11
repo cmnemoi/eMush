@@ -144,6 +144,7 @@ import { handleErrors } from "@/utils/apiValidationErrors";
 import { ClosedDaedalus } from "@/entities/ClosedDaedalus";
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import ApiService from "@/services/api.service";
+import { AxiosError } from "axios";
 import DaedalusService from "@/services/daedalus.service";
 import ModerationService from "@/services/moderation.service";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
@@ -167,7 +168,7 @@ const reportPopupVisible = ref(false);
 const currentAction = ref<{ key: string, value: string }>({ key: "", value: "" });
 const currentPlayer = ref<ClosedPlayer | null>(null);
 const projectTypes = ['researchProjects', 'neronProjects', 'pilgredProjects'] as const;
-const errors = ref<any>({});
+const errors = ref<{[key: string]: string[]}>({});
 function showPlayerDetailedHistory(player: ClosedPlayer) {
     store.dispatch('popup/openPlayerHistoryPopUp', {
         playerName: player.getCharacterCompleteName(),
@@ -208,7 +209,7 @@ function openHideDialog(player: ClosedPlayer) {
 function closeModerationDialog() {
     moderationDialogVisible.value = false;
 }
-async function applySanction(params: any) {
+async function applySanction(params: URLSearchParams) {
     if (currentPlayer.value === null || currentPlayer.value.id === null) return;
 
     if (currentAction.value.value === 'hide_end_message') {
@@ -227,11 +228,12 @@ async function loadData() {
     try {
         closedDaedalus.value = await DaedalusService.loadClosedDaedalus(Number(closedDaedalusId));
         const result = await ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL + 'closed_daedaluses', closedDaedalusId, 'players'));
-        players.value = result.data['hydra:member'].map((datum: any) => new ClosedPlayer().load(datum));
+        players.value = result.data['hydra:member'].map((datum: object) => new ClosedPlayer().load(datum));
         players.value.sort((a: ClosedPlayer, b: ClosedPlayer) => (b.score ?? 0) - (a.score ?? 0));
-    } catch (error: any) {
-        if (error.response?.data?.violations) {
-            errors.value = handleErrors(error.response.data.violations);
+    } catch (error) {
+        const axiosError = error as AxiosError<{ violations: { propertyPath: string, message: string }[] }>;
+        if (axiosError.response?.data?.violations) {
+            errors.value = handleErrors(axiosError.response.data.violations);
         }
     }
 }

@@ -1,3 +1,12 @@
+type AlertData = {
+    key?: string;
+    prefix?: string;
+    name?: string;
+    description?: string;
+    reports?: Array<string>;
+    lostPlayer?: string;
+};
+
 export class Alert {
     public key!: string;
     public prefix!: string;
@@ -11,7 +20,7 @@ export class Alert {
         this.description = null;
         this.reports = [];
     }
-    load(object : any) : Alert {
+    load(object : AlertData) : Alert {
         if (typeof object !== "undefined") {
             this.key = object.key;
             this.prefix = object.prefix;

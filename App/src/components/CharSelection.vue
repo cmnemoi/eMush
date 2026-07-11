@@ -97,6 +97,7 @@ import { gameLocales } from "@/i18n";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { formatText } from "@/utils/formatText";
 import { SkillIconRecord } from "@/enums/skill.enum";
+import { Daedalus } from "@/entities/Daedalus";
 import GoToCharacterBiographyButton from "@/components/Game/GoToCharacterBiographyButton.vue";
 
 type SelectableCharacter = {
@@ -130,11 +131,11 @@ export default defineComponent ({
             loading: false,
             daedalusId: -1,
             characters: Array<SelectableCharacter>(),
-            daedaluses: Array<any>(),
+            daedaluses: Array<Daedalus>(),
             daedalusName: '',
             hoveredCharacter: null as SelectableCharacter | null,
             selectedCharacter: null as SelectableCharacter | null,
-            error: null as any,
+            error: null as string | null,
             languages: gameLocales,
             selectedLanguage: ''
         };

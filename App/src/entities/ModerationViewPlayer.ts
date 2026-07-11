@@ -1,7 +1,3 @@
-import { Character } from "./Character";
-import { PlayerVariables } from "./PlayerVariables";
-import { Status } from "@/entities/Status";
-
 interface ShortUser {
     id: number;
     userId: string;
@@ -9,6 +5,18 @@ interface ShortUser {
     isBanned: boolean;
     isInGame: boolean;
 }
+
+type ModerationViewPlayerData = {
+    id?: number;
+    daedalusId?: number;
+    user?: ShortUser;
+    character?: { characterName: string, characterValue: string };
+    isMush?: boolean;
+    isAlive?: boolean;
+    cycleStartedAt?: string;
+    daedalusDay?: number;
+    daedalusCycle?: number;
+};
 
 export class ModerationViewPlayer {
     public id!: number;
@@ -26,7 +34,7 @@ export class ModerationViewPlayer {
         this.cycleStartedAt = null;
     }
 
-    public load(object: any): ModerationViewPlayer {
+    public load(object: ModerationViewPlayerData): ModerationViewPlayer {
         if (object) {
             this.id = object.id;
             this.daedalusId = object.daedalusId;

@@ -1,5 +1,21 @@
 import { Poll } from "./Poll";
 
+type NewsData = {
+    "@id"?: string;
+    id?: number;
+    frenchTitle?: string;
+    englishTitle?: string;
+    spanishTitle?: string;
+    frenchContent?: string;
+    englishContent?: string;
+    spanishContent?: string;
+    updatedAt?: string;
+    publicationDate?: string;
+    isPinned?: boolean;
+    isPublished?: boolean;
+    poll?: Poll;
+};
+
 export class News {
     public iri: string|null;
     public id: number|null;
@@ -32,7 +48,7 @@ export class News {
         this.hidden = true;
         this.poll = null;
     }
-    load(object: any): News {
+    load(object: NewsData): News {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;
@@ -66,8 +82,7 @@ export class News {
 
         return this;
     }
-    toRecord(): Record<string, any> {
-
+    toRecord() {
         return {
             id: this.id,
             frenchTitle: this.frenchTitle,

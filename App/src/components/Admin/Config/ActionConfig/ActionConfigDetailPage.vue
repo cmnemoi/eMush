@@ -115,7 +115,7 @@ import urlJoin from "url-join";
 
 interface ActionConfigState {
     actionConfig: null|ActionConfig
-    errors: any
+    errors: {[key: string]: string[]}
 }
 
 export default defineComponent({

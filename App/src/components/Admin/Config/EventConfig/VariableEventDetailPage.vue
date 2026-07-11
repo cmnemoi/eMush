@@ -54,7 +54,7 @@ import { EventConfig } from "@/entities/Config/EventConfig";
 
 interface EventConfigState {
     eventConfig: null|EventConfig
-    errors: any
+    errors: {[key: string]: string[]}
 }
 
 export default defineComponent({

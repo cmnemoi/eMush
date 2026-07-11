@@ -1,6 +1,18 @@
 import { Character } from "@/entities/Character";
 import { toArray } from "@/utils/toArray";
 
+type DeadPlayerInfoData = {
+    id?: number;
+    deathDay?: integer;
+    deathCycle?: integer;
+    likes?: integer;
+    endCause?: { key?: string; name?: string; shortName?: string; description?: string };
+    character?: { key?: string; value?: string };
+    players?: Array<Parameters<DeadPlayerInfo["load"]>[0]>;
+    triumphGains?: Array<string> | Record<string, string>;
+    playerHighlights?: string[];
+};
+
 export class DeadPlayerInfo {
     public id!: number;
     public character!: Character;
@@ -23,7 +35,7 @@ export class DeadPlayerInfo {
         this.players = [];
     }
 
-    load(object : any): DeadPlayerInfo {
+    load(object : DeadPlayerInfoData): DeadPlayerInfo {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.deathDay = object.deathDay;
@@ -43,7 +55,7 @@ export class DeadPlayerInfo {
             }
 
             if (typeof object.players !== 'undefined') {
-                object.players.forEach((deadPlayerObject: any) => {
+                object.players.forEach((deadPlayerObject: Parameters<DeadPlayerInfo["load"]>[0]) => {
                     const deadPlayer = (new DeadPlayerInfo()).load(deadPlayerObject);
                     this.players.push(deadPlayer);
                 });

@@ -4,7 +4,7 @@
             v-if="actionTabs"
             :target-actions-mush="targetActionsMush"
             :target-actions-admin="targetActionsAdmin"
-            v-model:activeTab="activeTab"
+            v-model:active-tab="activeTab"
         />
         <div class="action-list">
             <ActionButton

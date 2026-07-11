@@ -1,10 +1,17 @@
+type XylophEntryData = {
+    key?: string;
+    name?: string;
+    description?: string;
+    isDecoded?: boolean;
+};
+
 export class XylophEntry {
     public key!: string;
     public name!: string;
     public description!: string;
     public isDecoded!: boolean;
 
-    public load(object: any): XylophEntry {
+    public load(object: XylophEntryData): XylophEntry {
         if (object) {
             this.key = object.key;
             this.name = object.name;

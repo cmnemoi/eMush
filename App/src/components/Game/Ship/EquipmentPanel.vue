@@ -15,7 +15,7 @@
 <script lang="ts">
 import ActionPanel from "@/components/Game/Ship/ActionPanel.vue";
 import Statuses from "@/components/Utils/Statuses.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import { Equipment } from "@/entities/Equipment";
 import { defineComponent } from "vue";
 

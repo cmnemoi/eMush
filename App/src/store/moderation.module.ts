@@ -1,26 +1,30 @@
 import { ModerationSanction } from "@/entities/ModerationSanction";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import ModerationService from "@/services/moderation.service";
-import { Player } from "@/entities/Player";
 import { SuccessReponse } from "@/services/api.service";
 import store from ".";
 import { ContactablePlayer } from "@/entities/ContactablePlayer";
 
-const state = {
-    userSanctions: [] as ModerationSanction[],
-    reportablePlayers : [] as Player[]
+interface ModerationModuleState {
+    userSanctions: ModerationSanction[];
+    reportablePlayers: ContactablePlayer[];
+}
+
+const state: ModerationModuleState = {
+    userSanctions: [],
+    reportablePlayers: []
 };
 
-const getters: GetterTree<any, any> = {
-    userSanctions: (state: any): ModerationSanction[] => {
+const getters: GetterTree<ModerationModuleState, ModerationModuleState> = {
+    userSanctions: (state): ModerationSanction[] => {
         return state.userSanctions;
     },
-    getReportablePlayers: (state: any): ContactablePlayer[] => {
+    getReportablePlayers: (state): ContactablePlayer[] => {
         return state.reportablePlayers;
     }
 };
 
-const actions: ActionTree<any, any> = {
+const actions: ActionTree<ModerationModuleState, ModerationModuleState> = {
     async loadReportablePlayers({ commit }) {
         commit('player/setLoading', true, { root: true });
         const reportablePlayers = await ModerationService.loadReportablePlayers();
@@ -105,11 +109,11 @@ const actions: ActionTree<any, any> = {
     }
 };
 
-const mutations: MutationTree<any> = {
-    setUserSanctions(state: any, sanctions: ModerationSanction[]): void {
+const mutations: MutationTree<ModerationModuleState> = {
+    setUserSanctions(state, sanctions: ModerationSanction[]): void {
         state.userSanctions = sanctions;
     },
-    setReportablePlayers(state: any, { reportablePlayers }): void {
+    setReportablePlayers(state, { reportablePlayers }): void {
         state.reportablePlayers = reportablePlayers;
     }
 };

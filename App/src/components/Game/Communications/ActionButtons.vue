@@ -21,7 +21,13 @@ import { getImgUrl } from "@/utils/getImgUrl";
 import { defineComponent } from "vue";
 import { Tippy } from "vue-tippy";
 
-const availableActions: {[index: string]: any} = {
+interface CommunicationAction {
+    icon: string;
+    wording: string;
+    description: string;
+}
+
+const availableActions: {[index: string]: CommunicationAction} = {
     favorite: { icon: getImgUrl('comms/fav.png'), wording: 'game.communications.bookmark', description: 'game.communications.bookmarkDescription' },
     unfavorite: { icon: getImgUrl('comms/unfav.png'), wording: 'game.communications.unbookmark', description: 'game.communications.unbookmarkDescription' },
     invite: { icon: getImgUrl('comms/invite.png'), wording: 'game.communications.invite', description: 'game.communications.inviteDescription' },
@@ -42,7 +48,7 @@ export default defineComponent ({
     },
     computed: {
         action() {
-            return (actionType: string) => availableActions[actionType] || {};
+            return (actionType: string) => availableActions[actionType] || {} as CommunicationAction;
         }
     },
     emits: [

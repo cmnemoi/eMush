@@ -4,7 +4,7 @@ import { Player } from "@/entities/Player";
 import PhaserNavMeshPlugin from "phaser-navmesh";
 
 
-function launch(containerId: any, player: Player): Phaser.Game {
+function launch(containerId: string | HTMLElement, player: Player): Phaser.Game {
     const game = new Phaser.Game({
         type: Phaser.WEBGL,
         width: 424,

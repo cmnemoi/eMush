@@ -933,7 +933,6 @@ const playerRoom = computed((): Room => {
 });
 
 const roomName = ref('' as string);
-const playersInRoom = ref('' as string);
 const me = ref({
     left: 0 as number,
     top: 0 as number
@@ -1019,7 +1018,7 @@ const placePlayersInRoom = (room: Minimap): PlayersPoints[] => {
     return playersPointsArray;
 };
 
-const findNonOverlappingPosition = (roomCoord: any, existingPositions: {left: number, top: number}[], size: number): {left: number, top: number} => {
+const findNonOverlappingPosition = (roomCoord: (typeof RoomsEnum)[string], existingPositions: {left: number, top: number}[], size: number): {left: number, top: number} => {
     let attempts = 0;
     let placed = false;
     let left = 0, top = 0;

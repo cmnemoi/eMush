@@ -1,3 +1,12 @@
+type ExplorationLogsData = {
+    id?: number;
+    planetSectorKey?: string;
+    planetSectorName?: string;
+    eventName?: string;
+    eventDescription?: string;
+    eventOutcome?: string;
+};
+
 export class ExplorationLogs {
     public id!: number;
     public planetSectorKey!: string;
@@ -6,7 +15,7 @@ export class ExplorationLogs {
     public eventDescription!: string;
     public eventOutcome!: string;
 
-    public load(object: any): ExplorationLogs {
+    public load(object: ExplorationLogsData): ExplorationLogs {
         if (object) {
             this.id = object.id;
             this.planetSectorKey = object.planetSectorKey;

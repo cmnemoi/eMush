@@ -1,5 +1,5 @@
 export function handleErrors(errors: { propertyPath: string, message: string }[]): {[key: string]: string[]} {
-    const result : any = {};
+    const result : {[key: string]: string[]} = {};
     errors.forEach((datum : { propertyPath: string, message: string }) => {
         if (datum.propertyPath !== undefined) {
             if (result[datum.propertyPath] === undefined) {

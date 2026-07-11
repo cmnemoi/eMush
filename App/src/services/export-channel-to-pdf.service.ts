@@ -11,8 +11,6 @@ const page = {
 };
 
 async function createChannelCanvas(chatbox: HTMLElement): Promise<HTMLCanvasElement> {
-    const imgWidth = page.pageWidth * page.sizeReduction;
-
     const originalStyle = {
         height: chatbox.style.height,
         maxHeight: chatbox.style.maxHeight,

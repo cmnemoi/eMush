@@ -94,7 +94,6 @@ import Input from "@/components/Utils/Input.vue";
 import NewsService from "@/services/news.service";
 import { News } from "@/entities/News";
 import { handleErrors } from "@/utils/apiValidationErrors";
-import { mapActions } from "vuex";
 import UserService from "@/services/user.service";
 import { Poll } from "@/entities/Poll";
 
@@ -105,7 +104,7 @@ interface PollOption {
 
 interface NewsData {
     news: News | null,
-    errors: any,
+    errors: {[key: string]: string[]},
     pollTitle : string,
     pollOptions : Array<PollOption>,
     poll : boolean,
@@ -143,8 +142,8 @@ export default defineComponent({
                     .then((result) => {
                         this.news.poll = result;
                     })
-                    .catch((error: any) => {
-                        this.errors = handleErrors(error);
+                    .catch((error) => {
+                        this.errors = handleErrors(error as { propertyPath: string, message: string }[]);
                     });
             }
 
@@ -154,8 +153,8 @@ export default defineComponent({
                     this.news = result;
                     this.errors = {};
                 })
-                .catch((error: any) => {
-                    this.errors = handleErrors(error);
+                .catch((error) => {
+                    this.errors = handleErrors(error as { propertyPath: string, message: string }[]);
                 });
         },
         update(): void {
@@ -172,8 +171,8 @@ export default defineComponent({
                     this.news = result;
                     this.errors = {};
                 })
-                .catch((error: any) => {
-                    this.errors = handleErrors(error);
+                .catch((error) => {
+                    this.errors = handleErrors(error as { propertyPath: string, message: string }[]);
                 });
         },
         newPoll(): void {
@@ -185,7 +184,7 @@ export default defineComponent({
 
             this.pollOptions.push(o);
         },
-        removePollOption(option : any): void {
+        removePollOption(option : PollOption): void {
             const optionIndex = this.pollOptions.indexOf(option);
             if (optionIndex !== -1)
             {
@@ -210,8 +209,8 @@ export default defineComponent({
             .then((result: News | null) => {
                 this.news = result;
             })
-            .catch((error: any) => {
-                this.errors = handleErrors(error);
+            .catch((error) => {
+                this.errors = handleErrors(error as { propertyPath: string, message: string }[]);
             });
 
     }

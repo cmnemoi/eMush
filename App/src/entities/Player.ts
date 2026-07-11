@@ -29,6 +29,32 @@ export type PlayerNotification = {
     image: string;
 };
 
+type PlayerData = {
+    id?: number;
+    gameStatus?: string;
+    character?: Character;
+    actionPoint?: QuantityPoint;
+    movementPoint?: QuantityPoint;
+    healthPoint?: QuantityPoint;
+    moralPoint?: QuantityPoint;
+    triumph?: QuantityPoint;
+    personalNotes?: PersonalNotes;
+    daedalus?: Daedalus;
+    room?: Room;
+    spaceBattle?: SpaceBattle | null;
+    terminal?: Terminal;
+    items?: Array<Item>;
+    actions?: Array<Action>;
+    statuses?: Array<Status>;
+    diseases?: Array<Status>;
+    titles?: Array<NameDescObject>;
+    exploration?: Exploration;
+    skills?: Array<Skill>;
+    skillPoints?: Array<SkillPoint>;
+    notification?: PlayerNotification;
+    isMush?: boolean;
+};
+
 export class Player {
     public id!: number;
     public gameStatus: string|null;
@@ -84,7 +110,7 @@ export class Player {
         this.notification = null;
     }
 
-    public load(object: any): Player {
+    public load(object: PlayerData): Player {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.gameStatus = object.gameStatus;
@@ -123,31 +149,31 @@ export class Player {
                 this.terminal = (new Terminal()).load(object.terminal);
             }
             if (typeof object.items !== 'undefined') {
-                object.items.forEach((itemObject: any) => {
+                object.items.forEach((itemObject: Item) => {
                     const item = (new Item).load(itemObject);
                     this.items.push(item);
                 });
             }
             if (typeof object.actions !== 'undefined') {
-                object.actions.forEach((actionObject: any) => {
+                object.actions.forEach((actionObject: Action) => {
                     const action = (new Action()).load(actionObject);
                     this.actions.push(action);
                 });
             }
             if (typeof object.statuses !== 'undefined') {
-                object.statuses.forEach((statusObject: any) => {
+                object.statuses.forEach((statusObject: Status) => {
                     const status = (new Status()).load(statusObject);
                     this.statuses.push(status);
                 });
             }
             if (typeof object.diseases !== 'undefined') {
-                object.diseases.forEach((statusObject:any) => {
+                object.diseases.forEach((statusObject: Status) => {
                     const status = (new Status()).load(statusObject);
                     this.diseases.push(status);
                 });
             }
             if (object.titles) {
-                object.titles.forEach((titleObject:any) => {
+                object.titles.forEach((titleObject: NameDescObject) => {
                     const title = (new NameDescObject()).load(titleObject);
                     this.titles.push(title);
                 });
@@ -156,7 +182,7 @@ export class Player {
                 this.exploration = (new Exploration()).load(object.exploration);
             }
             if (object.skills) {
-                object.skills.forEach((skillObject: any) => {
+                object.skills.forEach((skillObject: Skill) => {
                     this.skills.push(skillObject);
                 });
                 this.humanSkills = this.skills.filter((skill: Skill) => {
@@ -167,7 +193,7 @@ export class Player {
                 });
             }
             if (object.skillPoints) {
-                object.skillPoints.forEach((skillPointObject: any) => {
+                object.skillPoints.forEach((skillPointObject: SkillPoint) => {
                     const point = (new SkillPoint()).load(skillPointObject);
                     this.skillPoints.push(point);
                 });

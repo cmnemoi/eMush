@@ -6,8 +6,7 @@ import {
     applySelectedTextFormatting,
     clearSelectedTextFormattingLogic,
     insertTextAtPositionLogic,
-    TextSelection,
-    FormatOperationResult
+    TextSelection
 } from './richTextFormatter';
 import { FormattingType } from '@/components/Game/Communications/Messages/RichTextEditor/RichTextEditorConfig';
 

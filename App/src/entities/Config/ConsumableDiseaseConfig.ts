@@ -1,3 +1,17 @@
+export type ConsumableDiseaseConfigData = {
+    "@id"?: string;
+    id?: number;
+    name?: string;
+    causeName?: string;
+    diseasesName?: Map<string, integer>;
+    curesName?: Map<string, integer>;
+    diseasesChances?: Map<integer, integer>;
+    curesChances?: Map<integer, integer>;
+    diseasesDelayMin?: Map<integer, integer>;
+    diseasesDelayLength?: Map<integer, integer>;
+    effectNumber?: Map<integer, integer>;
+};
+
 export class ConsumableDiseaseConfig {
     public iri: string|null;
     public id: number|null;
@@ -24,7 +38,7 @@ export class ConsumableDiseaseConfig {
         this.diseasesDelayLength = new Map();
         this.effectNumber = new Map();
     }
-    load(object:any) : ConsumableDiseaseConfig {
+    load(object:ConsumableDiseaseConfigData) : ConsumableDiseaseConfig {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;
@@ -41,7 +55,7 @@ export class ConsumableDiseaseConfig {
         return this;
     }
     jsonEncode() : object {
-        const data: any = {
+        const data = {
             'id': this.id,
             'name': this.name,
             'causeName': this.causeName
@@ -64,20 +78,20 @@ export class ConsumableDiseaseConfig {
 
         return this;
     }
-    private loadMapAttribute(object: any, attributeName: string, map: Map<any, number> | null) {
+    private loadMapAttribute<K>(object: Record<string, unknown>, attributeName: string, map: Map<K, number> | null) {
         if (map === null) {
             return;
         }
 
         if (typeof object[attributeName] !== 'undefined') {
-            for (const [key, value] of Object.entries(object[attributeName])) {
+            for (const [key, value] of Object.entries(object[attributeName] as Record<string, unknown>)) {
                 if (typeof key === 'string' && typeof value === 'number') {
-                    map.set(key, value);
+                    map.set(key as unknown as K, value);
                 }
             }
         }
     }
-    private encodeMapAttribute(data: any, attributeName: string, map: Map<any, number> | null) {
+    private encodeMapAttribute<K>(data: Record<string, unknown>, attributeName: string, map: Map<K, number> | null) {
         if (map === null) {
             return;
         }

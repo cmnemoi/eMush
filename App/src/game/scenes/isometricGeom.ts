@@ -1,10 +1,5 @@
 import * as Phaser from "phaser";
-import Vector2 = Phaser.Math.Vector2;
-import DaedalusScene from "@/game/scenes/daedalusScene";
 import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
-import { Door as DoorEntity } from "@/entities/Door";
-
-import InteractObject from "@/game/objects/interactObject";
 
 
 //this shape is a polygon (in cartesian coordinates) that fit a rectangle in isometric frame

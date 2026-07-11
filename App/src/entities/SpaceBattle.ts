@@ -3,6 +3,11 @@ import { Hunter } from "./Hunter";
 import { SpaceBattlePatrolShip } from "./SpaceBattlePatrolShip";
 import { SpaceBattleTurret } from "./SpaceBattleTurret";
 
+type SpaceBattleData = {
+    hunters?: Array<Hunter> | Record<string, Hunter>;
+    patrolShips?: Array<SpaceBattlePatrolShip> | Record<string, SpaceBattlePatrolShip>;
+    turrets?: Array<SpaceBattleTurret> | Record<string, SpaceBattleTurret>;
+};
 
 export class SpaceBattle {
     public hunters: Array<Hunter>;
@@ -15,7 +20,7 @@ export class SpaceBattle {
         this.turrets = [];
     }
 
-    public load(object: any): SpaceBattle {
+    public load(object: SpaceBattleData): SpaceBattle {
         if (typeof object === "undefined") {
             return this;
         }
@@ -24,19 +29,19 @@ export class SpaceBattle {
         this.turrets = [];
 
         if (typeof object.hunters !== "undefined") {
-            toArray(object.hunters).forEach((hunter: any) => {
+            toArray(object.hunters).forEach((hunter: Hunter) => {
                 this.hunters.push(new Hunter().load(hunter));
             });
         }
 
         if (typeof object.patrolShips !== "undefined") {
-            toArray(object.patrolShips).forEach((patrolShip: any) => {
+            toArray(object.patrolShips).forEach((patrolShip: SpaceBattlePatrolShip) => {
                 this.patrolShips.push(new SpaceBattlePatrolShip().load(patrolShip));
             });
         }
 
         if (typeof object.turrets !== "undefined") {
-            toArray(object.turrets).forEach((turret: any) => {
+            toArray(object.turrets).forEach((turret: SpaceBattleTurret) => {
                 this.turrets.push(new SpaceBattleTurret().load(turret));
             });
             // sort turrets by their name instead of their id so they are always displayed in the same order

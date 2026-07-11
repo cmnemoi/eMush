@@ -45,7 +45,7 @@ export default class CharacterObject extends InteractObject {
         this.applyEquipmentInteraction();
 
         //If this is clicked then:
-        this.on('pointerdown', (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: any) => {
+        this.on('pointerdown', (_pointer: Phaser.Input.Pointer, _localX: number, _localY: number, _event: Phaser.Types.Input.EventData) => {
             store.dispatch('room/selectTarget', { target: this.player });
         });
 
@@ -94,7 +94,7 @@ export default class CharacterObject extends InteractObject {
         this.navMesh = (<DaedalusScene>this.scene).navMeshGrid;
     }
 
-    applyTexture(tileset: Phaser.Tilemaps.Tileset, name: string) {
+    applyTexture(_tileset: Phaser.Tilemaps.Tileset, _name: string) {
         this.setTexture('character', this.tiledFrame);
     }
 

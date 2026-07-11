@@ -5,6 +5,20 @@
 <script lang="ts">
 import { defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
+interface RufflePlayerElement extends HTMLElement {
+    ruffle(): {
+        load(options: { url: string; autoplay: string; unmuteOverlay: string } | string): void;
+    };
+}
+
+interface RuffleInstance {
+    createPlayer(): RufflePlayerElement;
+}
+
+interface RuffleGlobal {
+    newest?: () => RuffleInstance;
+}
+
 export default defineComponent({
     name: 'RuffleContent',
     props: {
@@ -23,10 +37,10 @@ export default defineComponent({
     },
     setup(props: { swfUrl: string; width: number; height: number }) {
         const containerRef = ref<HTMLDivElement | null>(null);
-        const rufflePlayerElement = ref<any | null>(null);
+        const rufflePlayerElement = ref<RufflePlayerElement | null>(null);
 
         const mountPlayer = (): void => {
-            const ruffleGlobal = (window as any).RufflePlayer;
+            const ruffleGlobal = (window as unknown as { RufflePlayer?: RuffleGlobal }).RufflePlayer;
             if (!ruffleGlobal || typeof ruffleGlobal.newest !== 'function') {
                 return;
             }

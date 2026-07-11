@@ -1,4 +1,4 @@
-import { ChannelParticipant } from "./ChannelParticipant";
+import { ChannelParticipant, ChannelParticipantData } from "./ChannelParticipant";
 import { ChannelType } from "@/enums/communication.enum";
 
 export type CommanderMission = {
@@ -57,6 +57,20 @@ type Tips = {
     }
 }
 
+type ChannelData = {
+    id?: number;
+    createdAt?: string;
+    scope?: ChannelType;
+    newMessageAllowed?: boolean;
+    piratedPlayer?: number | null;
+    participants?: ChannelParticipantData[];
+    name?: string;
+    description?: string;
+    numberOfNewMessages?: integer;
+    tips?: Tips;
+    flashing?: boolean;
+};
+
 export class Channel {
 
     static get MESSAGE_LIMIT() {
@@ -82,7 +96,7 @@ export class Channel {
         this.participants = [];
     }
 
-    load(object : any) : Channel {
+    load(object : ChannelData) : Channel {
         if (object) {
             this.id = object.id;
             this.createdAt = new Date(object.createdAt);
@@ -90,7 +104,7 @@ export class Channel {
             this.newMessageAllowed = object.newMessageAllowed;
             this.piratedPlayer = object.piratedPlayer;
             if (object.participants) {
-                object.participants.forEach((itemObject: any) => {
+                object.participants.forEach((itemObject) => {
                     const participant = (new ChannelParticipant()).load(itemObject);
                     this.participants.push(participant);
                 });

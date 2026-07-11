@@ -5,7 +5,23 @@ import { ChannelType } from "@/enums/communication.enum";
 import CommunicationService from "@/services/communication.service";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
-const state =  {
+interface CommunicationState {
+    currentChannel: Channel;
+    invitablePlayerMenuOpen: boolean;
+    invitablePlayers: ContactablePlayer[];
+    invitationChannel: Channel | null;
+    channels: Channel[];
+    loadingChannels: boolean;
+    loadingByChannelId: Record<string, boolean>;
+    messagesByChannelId: Record<string, Message[]>;
+    typedMessage: Record<string, string>;
+    readMessageMutex: boolean;
+    currentChannelNumberOfNewMessages: number;
+    timeLimit: number;
+    contactablePlayers: ContactablePlayer[];
+}
+
+const state: CommunicationState =  {
     currentChannel: new Channel(),
     invitablePlayerMenuOpen: false,
     invitablePlayers: [],
@@ -21,7 +37,7 @@ const state =  {
     contactablePlayers: []
 };
 
-const getters: GetterTree<any, any> = {
+const getters: GetterTree<CommunicationState, CommunicationState> = {
     loading(state) {
         return state.loadingByChannelId[state.currentChannel.referenceId] || false;
     },
@@ -69,7 +85,7 @@ const getters: GetterTree<any, any> = {
     }
 };
 
-const actions: ActionTree<any, any> = {
+const actions: ActionTree<CommunicationState, CommunicationState> = {
     async changeChannel({ commit, dispatch, state }, { channel }) {
         if (state.loadingChannels) { return; }
 
@@ -191,7 +207,7 @@ const actions: ActionTree<any, any> = {
         }
     },
 
-    async leavePrivateChannel({ getters, commit, dispatch }, channel) {
+    async leavePrivateChannel({ commit, dispatch }, channel) {
         commit('setLoadingOfChannels', true);
         try {
             await CommunicationService.leaveChannel(channel);
@@ -304,49 +320,49 @@ const actions: ActionTree<any, any> = {
     }
 };
 
-const mutations: MutationTree<any> = {
-    setLoadingOfChannels(state: any, newStatus: boolean): void {
+const mutations: MutationTree<CommunicationState> = {
+    setLoadingOfChannels(state, newStatus: boolean): void {
         state.loadingChannels = newStatus;
     },
 
-    setLoadingForChannel(state: any, { channel, newStatus }): void {
+    setLoadingForChannel(state, { channel, newStatus }): void {
         if (!channel) return;
         state.loadingByChannelId[channel.referenceId] = newStatus;
     },
 
-    setCurrentChannel(state: any, channel: Channel | null): void {
-        state.currentChannel = channel;
+    setCurrentChannel(state, channel: Channel | null): void {
+        state.currentChannel = channel as Channel;
         state.invitablePlayerMenuOpen = false;
         state.invitablePlayers = [];
         state.invitationChannel = null;
     },
 
-    setChannels(state: any, channels: Channel[]): void {
+    setChannels(state, channels: Channel[]): void {
         state.channels = channels;
     },
 
-    removeChannel(state: any, channel: Channel): void {
+    removeChannel(state, channel: Channel): void {
         state.channels = state.channels.filter(({ referenceId }: {referenceId: number}) => referenceId !== channel.referenceId);
         delete state.loadingByChannelId[channel.referenceId];
         delete state.messagesByChannelId[channel.referenceId];
         delete state.typedMessage[channel.referenceId];
     },
 
-    invitablePlayerMenu(state: any, { isOpen, channel }): void {
+    invitablePlayerMenu(state, { isOpen, channel }): void {
         state.invitablePlayerMenuOpen = isOpen;
         state.invitationChannel = channel;
     },
 
-    setInvitablePlayers(state: any, { invitablePlayers }): void {
+    setInvitablePlayers(state, { invitablePlayers }): void {
         state.invitablePlayers = invitablePlayers;
     },
 
-    setChannelMessages(state: any, { channel, messages }): void {
+    setChannelMessages(state, { channel, messages }): void {
         if (!channel) return;
         state.messagesByChannelId[channel.referenceId] = messages;
     },
 
-    setTypedMessage(state: any, message: string): void {
+    setTypedMessage(state, message: string): void {
         state.typedMessage = {
             ...state.typedMessage,
             [state.currentChannel.referenceId]: message
@@ -366,21 +382,21 @@ const mutations: MutationTree<any> = {
         state.typedMessage = {};
     },
 
-    setReadMessageMutex(state: any, mutex: boolean): void {
+    setReadMessageMutex(state, mutex: boolean): void {
         state.readMessageMutex = mutex;
     },
 
-    setCurrentChannelNumberOfNewMessages(state: any, { channel, numberOfNewMessages }): void {
+    setCurrentChannelNumberOfNewMessages(state, { channel, numberOfNewMessages }): void {
         if (channel.referenceId === state.currentChannel.referenceId) {
             state.currentChannel.numberOfNewMessages = Math.max(0, numberOfNewMessages);
         }
     },
 
-    setTimeLimit(state: any, timeLimit: number): void {
+    setTimeLimit(state, timeLimit: number): void {
         state.timeLimit = timeLimit;
     },
 
-    setContactablePlayers(state: any, contactablePlayers: ContactablePlayer[]): void {
+    setContactablePlayers(state, contactablePlayers: ContactablePlayer[]): void {
         state.contactablePlayers = contactablePlayers;
     }
 };

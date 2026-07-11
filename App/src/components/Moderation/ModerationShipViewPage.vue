@@ -100,6 +100,23 @@ import { fr } from "date-fns/locale";
 import ModerationService from "@/services/moderation.service";
 import { mapGetters } from "vuex";
 import { characterEnum } from "@/enums/character";
+import { PlayerInfo } from "@/entities/PlayerInfo";
+import { RoomLog } from "@/entities/RoomLog";
+
+interface FieldConfig {
+    key: string;
+    name: string;
+    subkey?: string;
+    image?: string;
+    sortable?: boolean;
+    slot?: boolean;
+}
+
+interface CycleRoomLog {
+    day: number;
+    cycle: number;
+    roomLogs: RoomLog[];
+}
 
 interface ModerationShipView {
     filters: {
@@ -128,9 +145,9 @@ interface ModerationShipView {
             endDate: string,
         }
     },
-    logs: any,
+    logs: CycleRoomLog[] | null,
     ignoreNoise : boolean,
-    fields : any,
+    fields : FieldConfig[],
     pagination: {
         currentPage: number,
         pageSize: number,
@@ -138,7 +155,7 @@ interface ModerationShipView {
         totalPage: number
     },
 
-    rowData: any,
+    rowData: PlayerInfo[],
     sortField: string,
     sortDirection: string,
     loading: boolean,
@@ -233,7 +250,7 @@ export default defineComponent({
         },
 
         loadPlayersData() {
-            const params: any = {
+            const params: { params: Record<string, unknown>; paramsSerializer: typeof qs.stringify } = {
                 params: {},
                 paramsSerializer: qs.stringify
             };
@@ -255,7 +272,7 @@ export default defineComponent({
                     }
                     return result.data;
                 })
-                .then((remoteRowData: any) => {
+                .then((remoteRowData: { 'hydra:member': PlayerInfo[]; 'hydra:totalItems': number }) => {
                     this.rowData = remoteRowData['hydra:member'];
                     this.pagination.totalItem = remoteRowData['hydra:totalItems'];
                     this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
@@ -312,14 +329,14 @@ export default defineComponent({
                     this.loadData();
                     return result.data;
                 })
-                .then((remoteRowData: any) => {
+                .then((remoteRowData: { 'hydra:member': PlayerInfo[]; 'hydra:totalItems': number }) => {
                     this.rowData = remoteRowData['hydra:member'];
                     this.pagination.totalItem = remoteRowData['hydra:totalItems'];
                     this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
                     this.loading = false;
                 });
         },
-        sortTable(selectedField: any): void {
+        sortTable(selectedField: FieldConfig): void {
             if (!selectedField.sortable) {
                 return;
             }

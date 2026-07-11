@@ -1,6 +1,10 @@
 import { Action } from "@/entities/Action";
 import { Status } from "@/entities/Status";
-import { Equipment } from "@/entities/Equipment";
+import { Equipment, EquipmentData } from "@/entities/Equipment";
+
+type DoorData = EquipmentData & {
+    direction?: string;
+};
 
 export class Door extends Equipment {
     public direction: string|null;
@@ -10,7 +14,7 @@ export class Door extends Equipment {
 
         this.direction = null;
     }
-    load(object : any) : Door {
+    load(object : DoorData) : Door {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.key = object.key;
@@ -18,11 +22,11 @@ export class Door extends Equipment {
             this.direction = object.direction;
             this.isBroken = object.isBroken;
 
-            object.actions.forEach((actionObject : any) => {
+            object.actions.forEach((actionObject : Parameters<Action["load"]>[0]) => {
                 this.actions.push((new Action).load(actionObject));
             });
 
-            object.statuses.forEach((statusObject : any) => {
+            object.statuses.forEach((statusObject : Parameters<Status["load"]>[0]) => {
                 const status = (new Status()).load(statusObject);
                 this.statuses.push(status);
             });

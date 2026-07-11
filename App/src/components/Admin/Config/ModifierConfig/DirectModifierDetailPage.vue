@@ -92,7 +92,7 @@ import { handleErrors } from "@/utils/apiValidationErrors";
 import { ModifierConfig } from "@/entities/Config/ModifierConfig";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
-import { ModifierActivationRequirement } from "@/entities/Config/ModifierActivationRequirement";
+import { ModifierActivationRequirement, ModifierActivationRequirementData } from "@/entities/Config/ModifierActivationRequirement";
 import Input from "@/components/Utils/Input.vue";
 import { removeItem } from "@/utils/misc";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
@@ -103,7 +103,7 @@ import MapManager from "@/components/Utils/MapManager.vue";
 
 interface ModifierConfigState {
     modifierConfig: null|ModifierConfig
-    errors: any
+    errors: {[key: string]: string[]}
 }
 
 export default defineComponent({
@@ -159,7 +159,7 @@ export default defineComponent({
                         ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'modifier_configs', String(this.modifierConfig.id), 'modifier_activation_requirements'))
                             .then((result) => {
                                 const modifierActivationRequirements : ModifierActivationRequirement[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
+                                result.data['hydra:member'].forEach((datum: ModifierActivationRequirementData) => {
                                     const currentCondition = (new ModifierActivationRequirement()).load(datum);
                                     modifierActivationRequirements.push(currentCondition);
                                 });
@@ -183,14 +183,14 @@ export default defineComponent({
                     }
                 });
         },
-        selectNewChild(selectedId: any) {
+        selectNewChild(selectedId: number) {
             GameConfigService.loadModifierActivationRequirement(selectedId).then((res) => {
                 if (res && this.modifierConfig && this.modifierConfig.modifierActivationRequirements) {
                     this.modifierConfig.modifierActivationRequirements.push(res);
                 }
             });
         },
-        removeChild(child: any) {
+        removeChild(child: ModifierActivationRequirement) {
             if (this.modifierConfig && this.modifierConfig.modifierActivationRequirements) {
                 this.modifierConfig.modifierActivationRequirements = removeItem(this.modifierConfig.modifierActivationRequirements, child);
             }
@@ -211,7 +211,7 @@ export default defineComponent({
                 ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'direct_modifier_configs', modifierConfigId, 'modifier_activation_requirements'))
                     .then((result) => {
                         const modifierActivationRequirements : ModifierActivationRequirement[] = [];
-                        result.data['hydra:member'].forEach((datum: any) => {
+                        result.data['hydra:member'].forEach((datum: ModifierActivationRequirementData) => {
                             const currentRequirement = (new ModifierActivationRequirement()).load(datum);
                             modifierActivationRequirements.push(currentRequirement);
                         });
@@ -223,7 +223,7 @@ export default defineComponent({
                 ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'direct_modifier_configs', modifierConfigId, 'event_target_requirements'))
                     .then((result) => {
                         const targetEventRequirements : ModifierActivationRequirement[] = [];
-                        result.data['hydra:member'].forEach((datum: any) => {
+                        result.data['hydra:member'].forEach((datum: ModifierActivationRequirementData) => {
                             const currentRequirement = (new ModifierActivationRequirement()).load(datum);
                             targetEventRequirements.push(currentRequirement);
                         });

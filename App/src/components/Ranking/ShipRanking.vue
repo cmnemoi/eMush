@@ -128,7 +128,7 @@ export default defineComponent({
         getImgUrl,
         async loadData() {
             this.loading = true;
-            const params: any = {
+            const params: { header: Record<string, string>; params: Record<string, unknown>; paramsSerializer: typeof qs.stringify } = {
                 header: {
                     'accept': 'application/ld+json'
                 },
@@ -160,7 +160,7 @@ export default defineComponent({
             this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
             this.loading = false;
         },
-        sortTable(selectedField: any): void {
+        sortTable(selectedField: { key: string; name: string; sortable?: boolean; slot?: boolean }): void {
             if (!selectedField.sortable) {
                 return;
             }

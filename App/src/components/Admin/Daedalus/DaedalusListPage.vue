@@ -181,7 +181,7 @@ export default defineComponent({
                 this.loadData();
             });
         },
-        daedalusIsFinished(daedalus: any) {
+        daedalusIsFinished(daedalus: { gameStatus: string }) {
             return daedalus.gameStatus === 'finished' || daedalus.gameStatus === 'closed';
         },
         deleteDaedalusDuplicatedAlertElements(id: number) {

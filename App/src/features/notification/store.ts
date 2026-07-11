@@ -14,7 +14,7 @@ export function createNotificationsModule(
         notificationService: NotificationServiceInterface;
         translate: (key: string, params: Record<string, unknown>) => string;
     }
-): Module<NotificationState, Record<string, any>> {
+): Module<NotificationState, NotificationState> {
     const { localStorageService, notificationService, translate } = dependencies;
 
     return {

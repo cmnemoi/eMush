@@ -1,3 +1,11 @@
+export type DiseaseCauseConfigData = {
+    "@id"?: string;
+    id?: number;
+    name?: string;
+    causeName?: string;
+    diseases?: Map<string, integer>;
+};
+
 export class DiseaseCauseConfig {
     public iri: string|null;
     public id: number|null;
@@ -12,7 +20,7 @@ export class DiseaseCauseConfig {
         this.causeName = null;
         this.diseases = new Map();
     }
-    load(object:any) : DiseaseCauseConfig {
+    load(object:DiseaseCauseConfigData) : DiseaseCauseConfig {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;

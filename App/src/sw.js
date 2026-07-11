@@ -16,23 +16,23 @@ self.addEventListener('push', event => {
         const notification = event.data.json();
         sendNotificationToAllClients(notification);
         event.waitUntil(
-            checkIfAnyClientIsActive().then(hasActiveClient => {
+            checkIfAnyClientIsActive().then(_hasActiveClient => {
                 if (notification.options.data.priority === 'high') {
                     return self.registration.showNotification(notification.title || '', notification.options || {});
                 }
             })
         );
-    } catch (error) {
+    } catch {
         try {
             const notification = event.data.text();
             event.waitUntil(
-                checkIfAnyClientIsActive().then(hasActiveClient => {
+                checkIfAnyClientIsActive().then(_hasActiveClient => {
                     if (notification.options.data.priority === 'high') {
                         return self.registration.showNotification('Notification', { body: notification });
                     }
                 })
             );
-        } catch (error) {
+        } catch {
             event.waitUntil(
                 checkIfAnyClientIsActive().then(hasActiveClient => {
                     if (!hasActiveClient) {

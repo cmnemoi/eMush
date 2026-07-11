@@ -2,6 +2,19 @@ export type RoomLogTable = {
     entry: string[];
 };
 
+type RoomLogData = {
+    id?: integer;
+    log?: string;
+    visibility?: string;
+    date?: string;
+    place?: string;
+    day?: integer;
+    cycle?: integer;
+    isUnread?: boolean;
+    tableLog?: RoomLogTable[];
+    canBeHidden?: boolean;
+};
+
 export class RoomLog {
     public id!: integer;
     public message : string|null;
@@ -24,7 +37,7 @@ export class RoomLog {
         this.tableLog = [];
         this.canBeHidden = false;
     }
-    load(object: any): RoomLog {
+    load(object: RoomLogData): RoomLog {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.message = object.log;

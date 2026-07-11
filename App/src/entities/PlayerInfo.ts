@@ -1,6 +1,14 @@
 import { User } from "./User";
 import { CharacterConfig } from "./Config/CharacterConfig";
 
+type PlayerInfoData = {
+    id?: number;
+    gameStatus?: string;
+    user?: User;
+    character?: CharacterConfig;
+    daedalusId?: number;
+};
+
 export class PlayerInfo {
     public id: number|null;
     public user: User|null;
@@ -16,7 +24,7 @@ export class PlayerInfo {
         this.daedalusId = null;
     }
 
-    load(object : any): PlayerInfo {
+    load(object : PlayerInfoData): PlayerInfo {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.gameStatus = object.gameStatus;

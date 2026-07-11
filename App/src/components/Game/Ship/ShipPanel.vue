@@ -58,12 +58,11 @@ import Statuses from "@/components/Utils/Statuses.vue";
 import TextualInterface from "@/components/Game/Ship/TextualInterface.vue";
 import { Room } from "@/entities/Room";
 import { Player } from "@/entities/Player";
-import { mapActions, mapState, mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import PhaserShip from "@/components/Game/Ship/PhaserShip.vue";
 import { defineComponent } from "vue";
 import SpaceBattleView from "@/components/Game/SpaceBattleView.vue";
 import { Hunter } from "@/entities/Hunter";
-import { player } from "@/store/player.module";
 import PersonalNotesButton from "@/components/Game/PersonalNotes/PersonalNotesButton.vue";
 import PersonalNotes from "@/components/Game/PersonalNotes/PersonalNotes.vue";
 

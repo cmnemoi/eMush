@@ -264,9 +264,9 @@ import { defineComponent } from "vue";
 import ActionService from "@/services/action.service";
 import GameConfigService from "@/services/game_config.service";
 import ApiService from "@/services/api.service";
-import { Action } from "@/entities/Action";
+import { Action, ActionData } from "@/entities/Action";
 import { Mechanics } from "@/entities/Config/Mechanics";
-import { ModifierConfig } from "@/entities/Config/ModifierConfig";
+import { ModifierConfig, ModifierConfigData } from "@/entities/Config/ModifierConfig";
 import { handleErrors } from "@/utils/apiValidationErrors";
 import ChildCollectionManager from "@/components/Utils/ChildcollectionManager.vue";
 import Input from "@/components/Utils/Input.vue";
@@ -278,7 +278,7 @@ import { removeItem } from "@/utils/misc";
 
 interface MechanicsState {
     mechanics: null|Mechanics
-    errors: any,
+    errors: {[key: string]: string[]},
     ingredients: string[],
     ingredientToAdd: string,
 }
@@ -340,7 +340,7 @@ export default defineComponent({
                         ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'mechanics', String(this.mechanics.id), 'actions'))
                             .then((result) => {
                                 const actions : Action[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
+                                result.data['hydra:member'].forEach((datum: ActionData) => {
                                     const currentAction = (new Action()).load(datum);
                                     actions.push(currentAction);
                                 });
@@ -351,7 +351,7 @@ export default defineComponent({
                         ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'gears', String(this.mechanics.id), 'modifier_configs'))
                             .then((result) => {
                                 const modifierConfigs : ModifierConfig[] = [];
-                                result.data['hydra:member'].forEach((datum: any) => {
+                                result.data['hydra:member'].forEach((datum: ModifierConfigData) => {
                                     const currentModifierConfig = (new ModifierConfig()).load(datum);
                                     modifierConfigs.push(currentModifierConfig);
                                 });
@@ -375,26 +375,26 @@ export default defineComponent({
                     }
                 });
         },
-        selectNewAction(selectedId: any) {
+        selectNewAction(selectedId: number) {
             ActionService.loadAction(selectedId).then((res) => {
                 if (res && this.mechanics && this.mechanics.actions) {
                     this.mechanics.actions.push(res);
                 }
             });
         },
-        removeAction(child: any) {
+        removeAction(child: Action) {
             if (this.mechanics && this.mechanics.actions) {
                 this.mechanics.actions = removeItem(this.mechanics.actions, child);
             }
         },
-        selectNewModifierConfig(selectedId: any) {
+        selectNewModifierConfig(selectedId: number) {
             GameConfigService.loadModifierConfig(selectedId).then((res) => {
                 if (res && this.mechanics && this.mechanics.modifierConfigs) {
                     this.mechanics.modifierConfigs.push(res);
                 }
             });
         },
-        removeModifierConfig(child: any) {
+        removeModifierConfig(child: ModifierConfig) {
             if (this.mechanics && this.mechanics.modifierConfigs) {
                 this.mechanics.modifierConfigs = removeItem(this.mechanics.modifierConfigs, child);
             }
@@ -493,7 +493,7 @@ export default defineComponent({
                 this.mechanics.movementPoints.delete(index);
             }
         },
-        addExtraEffects(tuple: any): void {
+        addExtraEffects(tuple: [string, number]): void {
             const index = tuple[0];
             const value = tuple[1];
             if (this.mechanics && this.mechanics.extraEffects) {
@@ -526,7 +526,7 @@ export default defineComponent({
                 ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'mechanics', String(mechanicsId), 'actions'))
                     .then((result) => {
                         const actions : Action[] = [];
-                        result.data['hydra:member'].forEach((datum: any) => {
+                        result.data['hydra:member'].forEach((datum: ActionData) => {
                             const currentAction = (new Action()).load(datum);
                             actions.push(currentAction);
                         });
@@ -538,7 +538,7 @@ export default defineComponent({
                     ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'gears', String(mechanicsId), 'modifier_configs'))
                         .then((result) => {
                             const modifierConfigs : ModifierConfig[] = [];
-                            result.data['hydra:member'].forEach((datum: any) => {
+                            result.data['hydra:member'].forEach((datum: ModifierConfigData) => {
                                 const currentModifierConfig = (new ModifierConfig()).load(datum);
                                 modifierConfigs.push(currentModifierConfig);
                             });

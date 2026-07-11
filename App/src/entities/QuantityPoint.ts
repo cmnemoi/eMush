@@ -1,4 +1,11 @@
 
+type QuantityPointData = {
+    name?: string;
+    description?: string | null;
+    quantity?: number;
+    max?: number;
+};
+
 export class QuantityPoint {
     public name!: string;
     public description: string|null;
@@ -8,7 +15,7 @@ export class QuantityPoint {
     constructor() {
         this.description = null;
     }
-    load(object: any): QuantityPoint {
+    load(object: QuantityPointData): QuantityPoint {
         if (typeof object !== "undefined") {
             this.name = object.name;
             this.description = object.description;

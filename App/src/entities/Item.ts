@@ -1,4 +1,9 @@
-import { Equipment } from "@/entities/Equipment";
+import { Equipment, EquipmentData } from "@/entities/Equipment";
+
+type ItemData = EquipmentData & {
+    number?: number;
+    effects?: { title?: string; effects?: string[] };
+};
 
 export class Item extends Equipment {
     public number: number;
@@ -11,7 +16,7 @@ export class Item extends Equipment {
         this.effectTitle = '';
         this.effects = [];
     }
-    load(object: any): Item {
+    load(object: ItemData): Item {
         super.load(object);
         if (typeof object !== "undefined") {
             this.number = object.number;

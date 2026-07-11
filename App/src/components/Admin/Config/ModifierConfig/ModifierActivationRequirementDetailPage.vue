@@ -45,7 +45,7 @@ import urlJoin from "url-join";
 
 interface ModifierActivationRequirementState {
     modifierActivationRequirement: null|ModifierActivationRequirement
-    errors: any
+    errors: {[key: string]: string[]}
 }
 
 export default defineComponent({

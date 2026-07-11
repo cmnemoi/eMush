@@ -1,3 +1,34 @@
+export type DifficultyConfigData = {
+    "@id"?: string;
+    id?: number;
+    name?: string;
+    equipmentBreakRate?: number;
+    doorBreakRate?: number;
+    equipmentFireBreakRate?: number;
+    startingFireRate?: number;
+    propagatingFireRate?: number;
+    hullFireDamageRate?: number;
+    tremorRate?: number;
+    electricArcRate?: number;
+    metalPlateRate?: number;
+    panicCrisisRate?: number;
+    firePlayerDamage?: Map<integer, integer>;
+    fireHullDamage?: Map<integer, integer>;
+    electricArcPlayerDamage?: Map<integer, integer>;
+    tremorPlayerDamage?: Map<integer, integer>;
+    metalPlatePlayerDamage?: Map<integer, integer>;
+    panicCrisisPlayerDamage?: Map<integer, integer>;
+    plantDiseaseRate?: number;
+    cycleDiseaseRate?: number;
+    difficultyModes?: Map<string, integer>;
+    hunterSpawnRate?: integer;
+    hunterSafeCycles?: integer[];
+    // NB: matches the field actually read below ("startingHuntersNumberOfTruceCycles"); assigned
+    // onto this.startingHuntersTruceCycles — a deliberate API-to-domain field rename, not a typo.
+    startingHuntersNumberOfTruceCycles?: integer;
+    randomSpores?: Map<integer, integer>;
+};
+
 export class DifficultyConfig {
     public iri: string|null;
     public id: number|null;
@@ -54,7 +85,7 @@ export class DifficultyConfig {
         this.startingHuntersTruceCycles = null;
         this.randomSpores = new Map<integer, integer>();
     }
-    load(object:any) : DifficultyConfig {
+    load(object:DifficultyConfigData) : DifficultyConfig {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;
@@ -86,7 +117,7 @@ export class DifficultyConfig {
         return this;
     }
     jsonEncode() : object {
-        const data: any = {
+        const data = {
             'id': this.id,
             'name': this.name,
             'equipmentBreakRate': this.equipmentBreakRate,
@@ -126,19 +157,19 @@ export class DifficultyConfig {
         return this;
     }
 
-    private loadMapAttribute(object: any, attributeName: string, map: Map<any, number>|null) {
+    private loadMapAttribute<K>(object: Record<string, unknown>, attributeName: string, map: Map<K, number>|null) {
         if (map === null) {
             return;
         }
         if (typeof object[attributeName] !== 'undefined') {
-            for (const [key, value] of Object.entries(object[attributeName])) {
+            for (const [key, value] of Object.entries(object[attributeName] as Record<string, unknown>)) {
                 if (typeof key === 'string' && typeof value === 'number') {
-                    map.set(key, value);
+                    map.set(key as unknown as K, value);
                 }
             }
         }
     }
-    private encodeMapAttribute(data: any, attributeName: string, map: Map<any, number>|null) {
+    private encodeMapAttribute<K>(data: Record<string, unknown>, attributeName: string, map: Map<K, number>|null) {
         if (map === null) {
             return;
         }

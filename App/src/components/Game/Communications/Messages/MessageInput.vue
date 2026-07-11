@@ -68,7 +68,7 @@ export default defineComponent ({
             required: false
         }
     },
-    data(): any {
+    data(): { text: string; showRichEditor: boolean; maxLength: number } {
         return {
             text: this.typedMessage,
             showRichEditor: false,

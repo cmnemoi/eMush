@@ -105,7 +105,6 @@ export default class DoorGroundObject extends InteractObject {
 
             // If the door is broken propose the repair action
         } else {
-            const door = this.door;
             store.dispatch('room/selectTarget', { target: this.door });
         }
     }

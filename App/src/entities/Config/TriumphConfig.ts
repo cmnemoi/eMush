@@ -1,3 +1,12 @@
+export type TriumphConfigData = {
+    "@id"?: string;
+    id?: number;
+    name?: string;
+    quantity?: number;
+    isAllCrew?: boolean;
+    scope?: string;
+};
+
 export class TriumphConfig {
     public iri: string|null;
     public id: number|null;
@@ -14,7 +23,7 @@ export class TriumphConfig {
         this.isAllCrew = null;
         this.team = null;
     }
-    load(object:any) : TriumphConfig {
+    load(object: TriumphConfigData) : TriumphConfig {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;

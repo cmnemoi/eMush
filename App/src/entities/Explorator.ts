@@ -1,5 +1,14 @@
 import { characterEnum } from "@/enums/character";
 
+type ExploratorData = {
+    key?: string;
+    name?: string;
+    healthPoints?: number;
+    isDead?: boolean;
+    isLost?: boolean;
+    isStuck?: boolean;
+};
+
 export class Explorator {
     public key!: string;
     public name!: string;
@@ -8,7 +17,7 @@ export class Explorator {
     public isLost!: boolean;
     public isStuck!: boolean;
 
-    public load(object: any): Explorator {
+    public load(object: ExploratorData): Explorator {
         if (object) {
             this.key = object.key;
             this.name = object.name;

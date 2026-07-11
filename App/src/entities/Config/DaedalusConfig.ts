@@ -1,6 +1,25 @@
-import { PlaceConfig } from "@/entities/Config/PlaceConfig";
-import { RandomItemPlaces } from "@/entities/Config/RandomItemPlaces";
+import { PlaceConfig, PlaceConfigData } from "@/entities/Config/PlaceConfig";
+import { RandomItemPlaces, RandomItemPlacesData } from "@/entities/Config/RandomItemPlaces";
 
+export type DaedalusConfigData = {
+    "@id"?: string;
+    id?: number;
+    name?: string;
+    initOxygen?: number;
+    initFuel?: number;
+    initHull?: number;
+    initShield?: number;
+    dailySporeNb?: number;
+    maxOxygen?: number;
+    maxFuel?: number;
+    maxHull?: number;
+    maxShield?: number;
+    nbMush?: number;
+    cyclePerGameDay?: number;
+    cycleLength?: number;
+    randomItemPlaces?: RandomItemPlacesData[];
+    placeConfigs?: PlaceConfigData[];
+};
 
 export class DaedalusConfig {
     public iri: string|null;
@@ -40,7 +59,7 @@ export class DaedalusConfig {
         this.cyclePerGameDay = null;
         this.cycleLength = null;
     }
-    load(object:any) : DaedalusConfig {
+    load(object:DaedalusConfigData) : DaedalusConfig {
         if (typeof object !== "undefined") {
             this.iri = object['@id'];
             this.id = object.id;

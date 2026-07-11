@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2022",
     "module": "ESNext",
+    "ignoreDeprecations": "6.0",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,

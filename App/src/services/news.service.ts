@@ -52,7 +52,7 @@ const NewsService = {
         store.dispatch('gameConfig/setLoading', { loading: true });
 
         await ApiService.get(NEWS_ENDPOINT).then((response) => {
-            news = response.data['hydra:member'].map((newsData: Record<string, any>) => {
+            news = response.data['hydra:member'].map((newsData) => {
                 return (new News()).load(newsData);
             });
         }).finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
@@ -64,7 +64,11 @@ const NewsService = {
         let news: News[] = [];
         store.dispatch('gameConfig/setLoading', { loading: true });
 
-        const params: any = {
+        const params: {
+            header: Record<string, string>;
+            params: Record<string, unknown>;
+            paramsSerializer: typeof qs.stringify;
+        } = {
             header: {
                 'accept': 'application/ld+json'
             },
@@ -77,7 +81,7 @@ const NewsService = {
         qs.stringify(params.params['order'] = { ['news.publicationDate']: 'ASC' });
 
         await ApiService.get(NEWS_ENDPOINT, { params }).then((response) => {
-            news = response.data['hydra:member'].map((newsData: Record<string, any>) => {
+            news = response.data['hydra:member'].map((newsData) => {
                 return (new News()).load(newsData);
             });
         }).finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));

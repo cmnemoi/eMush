@@ -121,7 +121,7 @@ export default class DroneObject extends EquipmentObject {
         });
     }
 
-    private onTweenComplete(target: { x: number; y: number }, time: number): void {
+    private onTweenComplete(target: { x: number; y: number }, _time: number): void {
         this.gridX = target.x;
         this.gridY = target.y;
         this.initCoordinates.x = this.x;

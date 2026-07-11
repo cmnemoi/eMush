@@ -1,3 +1,9 @@
+type NameDescObjectData = {
+    id?: string;
+    name?: string;
+    description?: string;
+};
+
 export class NameDescObject {
     public id: string;
     public name : string|null;
@@ -9,7 +15,7 @@ export class NameDescObject {
         this.description = null;
     }
 
-    load(object: any): NameDescObject {
+    load(object: NameDescObjectData): NameDescObject {
         if (typeof object !== "undefined") {
             this.id = object.id;
             this.name = object.name;
@@ -20,7 +26,7 @@ export class NameDescObject {
     jsonEncode(): string {
         return JSON.stringify(this);
     }
-    decode(jsonString: any): NameDescObject {
+    decode(jsonString: string): NameDescObject {
         if (jsonString) {
             const object = JSON.parse(jsonString);
             this.load(object);

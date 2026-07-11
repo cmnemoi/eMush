@@ -113,8 +113,7 @@ const GameConfigService = {
             throw new Error('Mechanics type is not defined');
         }
 
-        const modifierConfigRecord: Record<string, any> = modifierConfig.jsonEncode();
-        const modifierConfigData = await ApiService.post(MODIFIER_CONFIG_ENDPOINTS.get(modifierType) + '', modifierConfigRecord)
+                const modifierConfigData = await ApiService.post(MODIFIER_CONFIG_ENDPOINTS.get(modifierType) + '', modifierConfig.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if (modifierConfigData.data) {
@@ -164,9 +163,8 @@ const GameConfigService = {
 
     createModifierActivationRequirement: async(modifierRequirement: ModifierActivationRequirement): Promise<ModifierActivationRequirement | null> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const modifierRequirementRecord: Record<string, any> = modifierRequirement.jsonEncode();
 
-        const modifierRequirementData = await ApiService.post(MODIFIER_REQUIREMENT_ENDPOINT, modifierRequirementRecord)
+        const modifierRequirementData = await ApiService.post(MODIFIER_REQUIREMENT_ENDPOINT, modifierRequirement.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if (modifierRequirementData.data) {
@@ -209,9 +207,8 @@ const GameConfigService = {
 
     createStatusConfig: async(statusConfig: StatusConfig): Promise<StatusConfig | null> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const statusConfigRecord: Record<string, any> = statusConfig.jsonEncode();
 
-        const statusConfigData = await ApiService.post(CONFIG_STATUS_ENDPOINT, statusConfigRecord)
+        const statusConfigData = await ApiService.post(CONFIG_STATUS_ENDPOINT, statusConfig.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if (statusConfigData.data) {
@@ -254,9 +251,8 @@ const GameConfigService = {
 
     createActionConfig: async(actionConfig: ActionConfig): Promise<ActionConfig | null> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const actionConfigRecord : Record<string, any> = actionConfig.jsonEncode();
 
-        const actionConfigData = await ApiService.post(ACTION_CONFIG_ENDPOINT, actionConfigRecord)
+        const actionConfigData = await ApiService.post(ACTION_CONFIG_ENDPOINT, actionConfig.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if(actionConfigData.data) {
@@ -298,9 +294,8 @@ const GameConfigService = {
 
     createDaedalusConfig: async(daedalusConfig: DaedalusConfig): Promise<DaedalusConfig | null> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const daedalusConfigRecord: Record<string, any> = daedalusConfig.jsonEncode();
 
-        const daedalusConfigData = await ApiService.post(CONFIG_DAEDALUS_CONFIG_ENDPOINT, daedalusConfigRecord)
+        const daedalusConfigData = await ApiService.post(CONFIG_DAEDALUS_CONFIG_ENDPOINT, daedalusConfig.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if (daedalusConfigData.data) {
@@ -372,9 +367,8 @@ const GameConfigService = {
 
     createCharacterConfig: async(characterConfig: CharacterConfig): Promise<CharacterConfig | null> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const characterConfigRecord: Record<string, any> = characterConfig.jsonEncode();
 
-        const characterConfigData = await ApiService.post(CHARACTER_CONFIG_ENDPOINT, characterConfigRecord)
+        const characterConfigData = await ApiService.post(CHARACTER_CONFIG_ENDPOINT, characterConfig.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if (characterConfigData.data) {
@@ -417,9 +411,8 @@ const GameConfigService = {
 
     createEquipmentConfig: async(equipmentConfig: EquipmentConfig): Promise<EquipmentConfig | null> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const characterConfigRecord : Record<string, any> = equipmentConfig.jsonEncode();
 
-        const equipmentConfigData = await ApiService.post(EQUIPMENT_CONFIG_ENDPOINT, characterConfigRecord)
+        const equipmentConfigData = await ApiService.post(EQUIPMENT_CONFIG_ENDPOINT, equipmentConfig.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if(equipmentConfigData.data) {
@@ -462,9 +455,8 @@ const GameConfigService = {
 
     createDiseaseConfig: async (diseaseConfig: DiseaseConfig): Promise<DiseaseConfig | null> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const diseaseConfigRecord: Record<string, any> = diseaseConfig.jsonEncode();
 
-        const diseaseConfigData = await ApiService.post(DISEASE_CONFIG_ENDPOINT, diseaseConfigRecord)
+        const diseaseConfigData = await ApiService.post(DISEASE_CONFIG_ENDPOINT, diseaseConfig.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if (diseaseConfigData.data) {
@@ -511,8 +503,7 @@ const GameConfigService = {
             throw new Error('Mechanics type is not defined');
         }
 
-        const mechanicsRecord: Record<string, any> = mechanics.jsonEncode();
-        const mechanicsData = await ApiService.post(MECHANICS_ENDPOINTS.get(mechanicsType) + '', mechanicsRecord)
+                const mechanicsData = await ApiService.post(MECHANICS_ENDPOINTS.get(mechanicsType) + '', mechanics.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if (mechanicsData.data) {
@@ -555,9 +546,8 @@ const GameConfigService = {
 
     createPlaceConfig: async (placeConfig: PlaceConfig): Promise<PlaceConfig | null> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const placeConfigRecord: Record<string, any> = placeConfig.jsonEncode();
 
-        const placeConfigData = await ApiService.post(PLACE_CONFIG_ENDPOINT, placeConfigRecord)
+        const placeConfigData = await ApiService.post(PLACE_CONFIG_ENDPOINT, placeConfig.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if (placeConfigData.data) {
@@ -600,9 +590,8 @@ const GameConfigService = {
 
     createRandomItemPlaces: async (randomItemPlaces: RandomItemPlaces): Promise<RandomItemPlaces | null> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const randomItemPlacesRecord: Record<string, any> = randomItemPlaces.jsonEncode();
 
-        const randomItemPlacesData = await ApiService.post(RANDOM_ITEM_PLACES_ENDPOINT, randomItemPlacesRecord)
+        const randomItemPlacesData = await ApiService.post(RANDOM_ITEM_PLACES_ENDPOINT, randomItemPlaces.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if (randomItemPlacesData.data) {
@@ -645,9 +634,8 @@ const GameConfigService = {
 
     createConsumableDiseaseConfig: async(consumableDiseaseConfig: ConsumableDiseaseConfig): Promise<ConsumableDiseaseConfig | null> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const consumableDiseaseRecord : Record<string, any> = consumableDiseaseConfig.jsonEncode();
 
-        const consumableDiseaseConfigData = await ApiService.post(CONSUMABLE_DISEASE_CONFIG_ENDPOINT, consumableDiseaseRecord)
+        const consumableDiseaseConfigData = await ApiService.post(CONSUMABLE_DISEASE_CONFIG_ENDPOINT, consumableDiseaseConfig.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if (consumableDiseaseConfigData.data) {
@@ -720,9 +708,8 @@ const GameConfigService = {
 
     createDiseaseCauseConfig: async(diseaseCauseConfig: DiseaseCauseConfig): Promise<DiseaseCauseConfig | null> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const diseaseCauseRecord : Record<string, any> = diseaseCauseConfig.jsonEncode();
 
-        const diseaseCauseConfigData = await ApiService.post(DISEASE_CAUSE_CONFIG_ENDPOINT, diseaseCauseRecord)
+        const diseaseCauseConfigData = await ApiService.post(DISEASE_CAUSE_CONFIG_ENDPOINT, diseaseCauseConfig.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if (diseaseCauseConfigData.data) {
@@ -765,9 +752,8 @@ const GameConfigService = {
 
     createTriumphConfig: async(triumphConfig: TriumphConfig): Promise<TriumphConfig | null> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const triumphConfigRecord : Record<string, any> = triumphConfig.jsonEncode();
 
-        const triumphConfigData = await ApiService.post(TRIUMPH_CONFIG_ENDPOINT, triumphConfigRecord)
+        const triumphConfigData = await ApiService.post(TRIUMPH_CONFIG_ENDPOINT, triumphConfig.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         await store.dispatch('gameConfig/setLoading', { loading: false });
@@ -816,8 +802,7 @@ const GameConfigService = {
             throw new Error('eventConfig type is not defined');
         }
 
-        const eventConfigRecord: Record<string, any> = eventConfig.jsonEncode();
-        const eventConfigData = await ApiService.post(EVENT_CONFIG_ENDPOINTS.get(eventType) + '', eventConfigRecord)
+                const eventConfigData = await ApiService.post(EVENT_CONFIG_ENDPOINTS.get(eventType) + '', eventConfig.jsonEncode())
             .finally(() => (store.dispatch('gameConfig/setLoading', { loading: false })));
 
         if (eventConfigData.data) {

@@ -18,6 +18,8 @@ class CharacterConfigData
         'self_heal',
         'flirt',
         'do_the_thing',
+        'bond',
+        'relax',
         'auto_destroy',
         'suicide',
         'kill_player',

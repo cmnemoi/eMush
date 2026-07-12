@@ -5,27 +5,20 @@ declare(strict_types=1);
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
-use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\EmptyOperationalBedInRoom;
-use Mush\Action\Validator\FlirtedAlready;
+use Mush\Action\Validator\BondedAlready;
+use Mush\Action\Validator\EmptyPlaceToSit;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasStatus;
-use Mush\Action\Validator\IsSameGender;
 use Mush\Action\Validator\NumberPlayersAliveInRoom;
 use Mush\Action\Validator\Reach;
-use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
-use Mush\Disease\Entity\PlayerDisease;
-use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -34,19 +27,14 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class DoTheThing extends AbstractAction
+class Relax extends AbstractAction
 {
-    public const PREGNANCY_RATE = 8;
-    public const STD_TRANSMISSION_RATE = 5;
-    public const TOO_PASSIONATE_ACT_RATE = 5;
-
-    protected ActionEnum $name = ActionEnum::DO_THE_THING;
+    protected ActionEnum $name = ActionEnum::RELAX;
 
     private DiseaseCauseServiceInterface $diseaseCauseService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
@@ -79,10 +67,9 @@ class DoTheThing extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new IsSameGender(['groups' => ['visibility']]));
-        $metadata->addConstraint(new EmptyOperationalBedInRoom(['groups' => ['visibility']]));
-        $metadata->addConstraint(new FlirtedAlready([
-            'groups' => ['visibility'],
+        $metadata->addConstraint(new EmptyPlaceToSit(['groups' => ['visibility']]));
+        $metadata->addConstraint(new BondedAlready([
+            'groups' => ['execute'],
             'expectedValue' => true,
             'initiator' => false,
             'message' => ActionImpossibleCauseEnum::DO_THE_THING_NOT_INTERESTED,
@@ -92,7 +79,7 @@ class DoTheThing extends AbstractAction
             'contain' => false,
             'target' => HasStatus::PARAMETER,
             'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::DO_THE_THING_ASLEEP,
+            'message' => ActionImpossibleCauseEnum::RELAX_ASLEEP,
         ]));
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::DID_THE_THING,
@@ -114,13 +101,13 @@ class DoTheThing extends AbstractAction
             'contains' => false,
             'checkIfOperational' => true,
             'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::DO_THE_THING_CAMERA,
+            'message' => ActionImpossibleCauseEnum::RELAX_CAMERA,
         ]));
         $metadata->addConstraint(new NumberPlayersAliveInRoom([
             'mode' => NumberPlayersAliveInRoom::GREATER_THAN,
             'number' => 2,
             'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::DO_THE_THING_WITNESS,
+            'message' => ActionImpossibleCauseEnum::RELAX_WITNESS,
         ]));
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::INACTIVE,
@@ -143,21 +130,6 @@ class DoTheThing extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        $actIsTooPassionate = $this->randomService->isSuccessful(self::TOO_PASSIONATE_ACT_RATE);
-        $sofaInRoom = $this->player->getPlace()->getEquipmentByName(EquipmentEnum::SWEDISH_SOFA);
-
-        if ($actIsTooPassionate && $sofaInRoom) {
-            $this->statusService->createStatusFromName(
-                statusName: EquipmentStatusEnum::BROKEN,
-                holder: $sofaInRoom,
-                tags: $this->getActionConfig()->getActionTags(),
-                time: new \DateTime(),
-                visibility: VisibilityEnum::PUBLIC,
-            );
-
-            return new Fail();
-        }
-
         return new Success();
     }
 
@@ -180,45 +152,14 @@ class DoTheThing extends AbstractAction
             $this->infect($target, $player);
         }
 
-        // may become pregnant
-        $this->checkForPregnancy($player, $target);
-
-        // may transmit an STD
-        $transmitStd = $this->randomService->isSuccessful(self::STD_TRANSMISSION_RATE);
-        if ($transmitStd) {
-            $playerStds = $this->getPlayerStds($player);
-            $parameterStds = $this->getPlayerStds($target);
-
-            if ($playerStds->count() > 0) {
-                $this->transmitStd($playerStds, $target);
-            } elseif ($parameterStds->count() > 0) {
-                $this->transmitStd($parameterStds, $player);
-            }
-        }
-
         // add did_the_thing status until the end of the day
         $this->addDidTheThingStatus($player);
         $this->addDidTheThingStatus($target);
-    }
 
-    private function checkForPregnancy(Player $player, Player $target): void
-    {
-        if (!$this->randomService->isSuccessful(self::PREGNANCY_RATE)) {
-            return;
+        // add target as a bonded player if not already the case. (To allow Raluca to be flirted with)
+        if ($player->hasBondeddWith($target) === false) {
+            $player->addBond($target);
         }
-
-        // if characters are same sex, stop
-        if (CharacterEnum::isMale($player->getName()) === CharacterEnum::isMale($target->getName())) {
-            return;
-        }
-
-        if ($player->hasStatus(PlayerStatusEnum::PREGNANT) || $target->hasStatus(PlayerStatusEnum::PREGNANT)) {
-            return;
-        }
-
-        $femalePlayer = CharacterEnum::isMale($player->getName()) ? $target : $player;
-        $malePlayer = CharacterEnum::isMale($player->getName()) ? $player : $target;
-        $this->addPregnantStatus($femalePlayer, $malePlayer);
     }
 
     private function addMoralPoints(Player $player, int $moralePoints): void
@@ -261,29 +202,6 @@ class DoTheThing extends AbstractAction
         );
     }
 
-    private function addPregnantStatus(Player $mother, Player $father): void
-    {
-        $this->statusService->createStatusFromName(
-            PlayerStatusEnum::PREGNANT,
-            $mother,
-            $this->getActionConfig()->getActionTags(),
-            new \DateTime(),
-            null,
-            VisibilityEnum::PRIVATE
-        );
-    }
-
-    private function getPlayerStds(Player $player): PlayerDiseaseCollection
-    {
-        $sexDiseaseCauseConfig = $this->diseaseCauseService->findCauseConfigByDaedalus(DiseaseCauseEnum::SEX, $player->getDaedalus());
-
-        $stds = array_keys($sexDiseaseCauseConfig->getDiseases()->toArray());
-
-        return $player->getMedicalConditions()->getActiveDiseases()->filter(
-            static function ($disease) use ($stds) { return \in_array($disease->getDiseaseConfig()->getDiseaseName(), $stds, true); }
-        );
-    }
-
     private function infect(Player $mush, Player $target): void
     {
         $sporeNumber = $mush->getVariableValueByName(PlayerVariableEnum::SPORE);
@@ -306,28 +224,5 @@ class DoTheThing extends AbstractAction
             $this->eventService->callEvent($removeSporeEvent, VariableEventInterface::CHANGE_VARIABLE);
             $this->eventService->callEvent($addSporesEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
-    }
-
-    private function transmitStd(PlayerDiseaseCollection $stds, Player $target): void
-    {
-        /** @var PlayerDisease $std */
-        $std = $this->randomService->getRandomElement($stds->toArray());
-
-        $this->createDiseaseBySexLog($target, $std->getName());
-
-        $this->playerDiseaseService->createDiseaseFromName($std->getName(), $target, $this->getActionConfig()->getActionTags());
-    }
-
-    private function createDiseaseBySexLog(Player $player, string $disease): void
-    {
-        $this->roomLogService->createLog(
-            'disease_by_sex',
-            $player->getPlace(),
-            VisibilityEnum::PRIVATE,
-            'event_log',
-            $player,
-            ['disease' => $disease],
-            new \DateTime()
-        );
     }
 }

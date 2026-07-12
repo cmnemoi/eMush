@@ -271,7 +271,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>first_time.description</source>
-        <target>Vous ne l'avez jamais fait. Votre première fois remontera votre moral à fond.</target>
+        <target>Le premier moment intime que vous passerez avec quelqu'un remontra votre moral à fond.</target>
       </segment>
     </unit>
     <unit id="focused">

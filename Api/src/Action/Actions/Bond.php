@@ -10,8 +10,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\BondedAlready;
-use Mush\Action\Validator\FlirtedAlready;
-use Mush\Action\Validator\ForbiddenLove;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
@@ -24,9 +22,9 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class Flirt extends AbstractAction
+class Bond extends AbstractAction
 {
-    protected ActionEnum $name = ActionEnum::FLIRT;
+    protected ActionEnum $name = ActionEnum::BOND;
 
     private PlayerServiceInterface $playerService;
 
@@ -48,9 +46,6 @@ class Flirt extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        // verify that both players are already bonded
-        $metadata->addConstraint(new BondedAlready(['groups' => ['visibility'], 'expectedValue' => true, 'initiator' => false]));
-        $metadata->addConstraint(new BondedAlready(['groups' => ['visibility'], 'expectedValue' => true, 'initiator' => true]));
         $metadata->addConstraint(new HasStatus([
             'status' => PlayerStatusEnum::ANTISOCIAL,
             'contain' => false,
@@ -58,8 +53,7 @@ class Flirt extends AbstractAction
             'groups' => ['execute'],
             'message' => ActionImpossibleCauseEnum::FLIRT_ANTISOCIAL,
         ]));
-        $metadata->addConstraint(new ForbiddenLove(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FLIRT_SAME_FAMILY]));
-        $metadata->addConstraint(new FlirtedAlready(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::FLIRT_ALREADY_FLIRTED]));
+        $metadata->addConstraint(new BondedAlready(['groups' => ['visibility']]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
@@ -78,7 +72,7 @@ class Flirt extends AbstractAction
         /** @var Player $target */
         $target = $this->target;
 
-        $this->player->addFlirt($target);
+        $this->player->addBond($target);
 
         $this->playerService->persist($this->player);
     }

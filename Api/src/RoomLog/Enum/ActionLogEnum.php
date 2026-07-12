@@ -20,6 +20,7 @@ abstract class ActionLogEnum
     public const string COOK_SUCCESS = 'cook_success';
     public const string DISPENSE_SUCCESS = 'dispense_success';
     public const string DO_THE_THING_SUCCESS = 'do_the_thing_success';
+    public const string RELAX_SUCCESS = 'relax_success';
     public const string DO_THE_THING_BREAKS_SOFA = 'do_the_thing_breaks_sofa';
     public const string DROP = 'drop';
     public const string EXPRESS_COOK_SUCCESS = 'express_cook_success';
@@ -27,6 +28,7 @@ abstract class ActionLogEnum
     public const string EXTINGUISH_FAIL = 'extinguish_fail';
     public const string EXTRACT_SPORE_SUCCESS = 'extract_spore_success';
     public const string FLIRT_SUCCESS = 'flirt_success';
+    public const string BOND_SUCCESS = 'flirt_success';
     public const string GAG_SUCCESS = 'gag_success';
     public const string GET_UP = 'get_up';
     public const string HEAL_SUCCESS = 'heal_success';
@@ -333,9 +335,17 @@ abstract class ActionLogEnum
             ActionOutputEnum::SUCCESS => self::FLIRT_SUCCESS,
         ],
 
+        ActionEnum::BOND->value => [
+            ActionOutputEnum::SUCCESS => self::BOND_SUCCESS,
+        ],
+
         ActionEnum::DO_THE_THING->value => [
             ActionOutputEnum::SUCCESS => self::DO_THE_THING_SUCCESS,
             ActionOutputEnum::FAIL => self::DO_THE_THING_BREAKS_SOFA,
+        ],
+
+        ActionEnum::RELAX->value => [
+            ActionOutputEnum::SUCCESS => self::RELAX_SUCCESS,
         ],
 
         ActionEnum::CHECK_SPORE_LEVEL->value => [

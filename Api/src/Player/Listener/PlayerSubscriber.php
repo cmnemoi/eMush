@@ -155,9 +155,6 @@ final class PlayerSubscriber implements EventSubscriberInterface
     private function removeMoraleToOtherPlayers(Player $player): void
     {
         $quantity = 1;
-        if ($player->hasStatus(PlayerStatusEnum::PREGNANT)) {
-            ++$quantity;
-        }
         if ($player->hasStatus(PlayerStatusEnum::MANKIND_ONLY_HOPE_STATUS)) {
             $quantity += 2;
         }

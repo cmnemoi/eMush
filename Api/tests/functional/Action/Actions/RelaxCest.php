@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Action\Actions;
 
-use Mush\Action\Actions\DoTheThing;
+use Mush\Action\Actions\Relax;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
@@ -28,10 +28,10 @@ use Mush\Tests\FunctionalTester;
 /**
  * @internal
  */
-final class DoTheThingCest extends AbstractFunctionalTest
+final class RelaxCest extends AbstractFunctionalTest
 {
-    private ActionConfig $doTheThingConfig;
-    private DoTheThing $doTheThingAction;
+    private ActionConfig $relaxConfig;
+    private Relax $relaxAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
@@ -43,8 +43,8 @@ final class DoTheThingCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-        $this->doTheThingConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DO_THE_THING]);
-        $this->doTheThingAction = $I->grabService(DoTheThing::class);
+        $this->relaxConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::RELAX]);
+        $this->relaxAction = $I->grabService(Relax::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -56,125 +56,137 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->players->add($this->andie);
     }
 
-    public function shouldNotDTTIfPlayersDidntFlirt(FunctionalTester $I): void
+    public function shouldNotRelaxIfPlayersDidntBond(FunctionalTester $I): void
     {
         $this->givenPlayerIsIn($this->chun, RoomEnum::FRONT_CORRIDOR, $I);
         $this->givenPlayerIsIn($this->kuanTi, RoomEnum::FRONT_CORRIDOR, $I);
         $this->givenBedInRoom($this->kuanTi->getPlace());
 
-        $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);
+        $this->whenATriesToRelaxWithB($this->chun, $this->kuanTi);
 
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DO_THE_THING_NOT_INTERESTED, $I);
     }
 
-    public function shouldNotDTTIfPlayerLyingDown(FunctionalTester $I): void
+    public function shouldNotRelaxIfPlayerLyingDown(FunctionalTester $I): void
     {
-        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
+        $this->givenTargetHasBondedWithPlayer($this->kuanTi, $this->chun);
 
         $this->givenPlayerIsLyingDown($this->kuanTi);
 
-        $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);
+        $this->whenATriesToRelaxWithB($this->chun, $this->kuanTi);
 
-        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DO_THE_THING_ASLEEP, $I);
+        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::RELAX_ASLEEP, $I);
     }
 
-    public function shouldNotDTTIfCameraPresent(FunctionalTester $I): void
+    public function shouldNotRelaxIfCameraPresent(FunctionalTester $I): void
     {
-        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
+        $this->givenTargetHasBondedWithPlayer($this->kuanTi, $this->chun);
 
         $this->givenCameraInRoom($this->chun->getPlace());
 
-        $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);
+        $this->whenATriesToRelaxWithB($this->chun, $this->kuanTi);
 
-        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DO_THE_THING_CAMERA, $I);
+        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::RELAX_CAMERA, $I);
     }
 
-    public function shouldNotDTTIfWitnessPresent(FunctionalTester $I): void
+    public function shouldNotRelaxIfWitnessPresent(FunctionalTester $I): void
     {
-        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
+        $this->givenTargetHasBondedWithPlayer($this->kuanTi, $this->chun);
 
         $this->givenPlayerIsIn($this->chun, RoomEnum::FRONT_CORRIDOR, $I);
         $this->givenPlayerIsIn($this->kuanTi, RoomEnum::FRONT_CORRIDOR, $I);
         $this->givenPlayerIsIn($this->derek, RoomEnum::FRONT_CORRIDOR, $I);
 
-        $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);
+        $this->whenATriesToRelaxWithB($this->chun, $this->kuanTi);
 
-        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DO_THE_THING_WITNESS, $I);
+        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::RELAX_WITNESS, $I);
     }
 
-    public function shouldNotDTTIfNoBed(FunctionalTester $I): void
+    public function shouldNotRelaxIfNoBed(FunctionalTester $I): void
     {
-        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
+        $this->givenTargetHasBondedWithPlayer($this->kuanTi, $this->chun);
 
         $this->givenPlayerIsIn($this->chun, RoomEnum::FRONT_CORRIDOR, $I);
         $this->givenPlayerIsIn($this->kuanTi, RoomEnum::FRONT_CORRIDOR, $I);
 
-        $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);
+        $this->whenATriesToRelaxWithB($this->chun, $this->kuanTi);
 
         $this->thenActionShouldNotBeVisible($I);
     }
 
-    public function shouldDTTIfAllConditionsFilled(FunctionalTester $I): void
+    public function shouldRelaxInRefectory(FunctionalTester $I): void
     {
-        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
+        $this->givenTargetHasBondedWithPlayer($this->kuanTi, $this->chun);
+
+        $this->givenPlayerIsIn($this->chun, RoomEnum::REFECTORY, $I);
+        $this->givenPlayerIsIn($this->kuanTi, RoomEnum::REFECTORY, $I);
+
+        $this->whenATriesToRelaxWithB($this->chun, $this->kuanTi);
+
+        $this->thenActionShouldBeExecutable($I);
+    }
+
+    public function shouldRelaxIfAllConditionsFilled(FunctionalTester $I): void
+    {
+        $this->givenTargetHasBondedWithPlayer($this->kuanTi, $this->chun);
 
         $this->givenPlayerIsIn($this->chun, RoomEnum::MEDLAB, $I);
         $this->givenPlayerIsIn($this->kuanTi, RoomEnum::MEDLAB, $I);
 
         $this->givenBedInRoom($this->chun->getPlace());
 
-        $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);
+        $this->whenATriesToRelaxWithB($this->chun, $this->kuanTi);
         $this->thenActionShouldBeExecutable($I);
     }
 
-    public function canDTTOnASofa(FunctionalTester $I): void
+    public function canRelaxOnASofa(FunctionalTester $I): void
     {
-        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
+        $this->givenTargetHasBondedWithPlayer($this->kuanTi, $this->chun);
 
         $this->givenPlayerIsIn($this->chun, RoomEnum::MEDLAB, $I);
         $this->givenPlayerIsIn($this->kuanTi, RoomEnum::MEDLAB, $I);
 
         $this->givenSofaInRoom($this->chun->getPlace());
 
-        $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);
+        $this->whenATriesToRelaxWithB($this->chun, $this->kuanTi);
         $this->thenActionShouldBeExecutable($I);
     }
 
-    public function shouldNotDTTIfTargetAlreadyDoneToday(FunctionalTester $I): void
+    public function shouldNotRelaxIfTargetAlreadyDoneToday(FunctionalTester $I): void
     {
-        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
-        $this->givenPlayerHasAlreadyDTTToday($this->kuanTi);
+        $this->givenTargetHasBondedWithPlayer($this->kuanTi, $this->chun);
+        $this->givenPlayerHasAlreadyRelaxToday($this->kuanTi);
 
         $this->givenPlayerIsIn($this->chun, RoomEnum::MEDLAB, $I);
         $this->givenPlayerIsIn($this->kuanTi, RoomEnum::MEDLAB, $I);
 
         $this->givenBedInRoom($this->chun->getPlace());
 
-        $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);
+        $this->whenATriesToRelaxWithB($this->chun, $this->kuanTi);
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DO_THE_THING_ALREADY_DONE, $I);
     }
 
-    public function shouldNotDTTIfPlayerAlreadyDoneToday(FunctionalTester $I): void
+    public function shouldNotRelaxIfPlayerAlreadyDoneToday(FunctionalTester $I): void
     {
-        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
-        $this->givenPlayerHasAlreadyDTTToday($this->chun);
+        $this->givenTargetHasBondedWithPlayer($this->kuanTi, $this->chun);
+        $this->givenPlayerHasAlreadyRelaxToday($this->chun);
 
         $this->givenPlayerIsIn($this->chun, RoomEnum::MEDLAB, $I);
         $this->givenPlayerIsIn($this->kuanTi, RoomEnum::MEDLAB, $I);
 
         $this->givenBedInRoom($this->chun->getPlace());
 
-        $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);
+        $this->whenATriesToRelaxWithB($this->chun, $this->kuanTi);
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DO_THE_THING_ALREADY_DONE, $I);
     }
 
-    public function shouldNotDTTOnASofaIfSofaBroken(FunctionalTester $I): void
+    public function shouldNotRelaxOnASofaIfSofaBroken(FunctionalTester $I): void
     {
-        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
+        $this->givenTargetHasBondedWithPlayer($this->kuanTi, $this->chun);
 
         $this->givenBrokenSofaInRoom($this->chun->getPlace());
 
-        $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);
+        $this->whenATriesToRelaxWithB($this->chun, $this->kuanTi);
         $this->thenActionShouldNotBeVisible($I);
     }
 
@@ -186,10 +198,10 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->givenPlayerIsIn($this->kuanTi, RoomEnum::MEDLAB, $I);
         $this->givenBedInRoom($this->andie->getPlace());
 
-        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->andie);
+        $this->givenTargetHasBondedWithPlayer($this->kuanTi, $this->andie);
 
-        $this->whenATriesToDTTWithB($this->andie, $this->kuanTi);
-        $this->doTheThingAction->execute();
+        $this->whenATriesToRelaxWithB($this->andie, $this->kuanTi);
+        $this->relaxAction->execute();
 
         $this->thenPlayerHasSpore($this->andie, 1, $I);
         $this->thenPlayerHasSpore($this->kuanTi, 0, $I);
@@ -209,10 +221,10 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->givenPlayerIsIn($this->kuanTi, RoomEnum::MEDLAB, $I);
         $this->givenBedInRoom($this->chun->getPlace());
 
-        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
+        $this->givenTargetHasBondedWithPlayer($this->kuanTi, $this->chun);
 
-        $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);
-        $this->doTheThingAction->execute();
+        $this->whenATriesToRelaxWithB($this->chun, $this->kuanTi);
+        $this->relaxAction->execute();
 
         $this->thenPlayerHasSpore($this->chun, 0, $I);
         $this->thenPlayerHasSpore($this->kuanTi, 0, $I);
@@ -231,10 +243,10 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->givenPlayerIsIn($this->kuanTi, RoomEnum::MEDLAB, $I);
         $this->givenBedInRoom($this->andie->getPlace());
 
-        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->andie);
+        $this->givenTargetHasBondedWithPlayer($this->kuanTi, $this->andie);
 
-        $this->whenATriesToDTTWithB($this->andie, $this->kuanTi);
-        $this->doTheThingAction->execute();
+        $this->whenATriesToRelaxWithB($this->andie, $this->kuanTi);
+        $this->relaxAction->execute();
 
         $this->thenPlayerHasSpore($this->andie, 0, $I);
         $this->thenPlayerHasSpore($this->kuanTi, 0, $I);
@@ -254,10 +266,10 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->givenPlayerIsIn($this->kuanTi, RoomEnum::MEDLAB, $I);
         $this->givenBedInRoom($this->andie->getPlace());
 
-        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->andie);
+        $this->givenTargetHasBondedWithPlayer($this->kuanTi, $this->andie);
 
-        $this->whenATriesToDTTWithB($this->andie, $this->kuanTi);
-        $this->doTheThingAction->execute();
+        $this->whenATriesToRelaxWithB($this->andie, $this->kuanTi);
+        $this->relaxAction->execute();
 
         $this->thenPlayerHasSpore($this->andie, 1, $I);
         $this->thenPlayerHasSpore($this->kuanTi, 0, $I);
@@ -270,7 +282,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
 
     public function theDeadDoNotCountAsWitness(FunctionalTester $I): void
     {
-        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
+        $this->givenTargetHasBondedWithPlayer($this->kuanTi, $this->chun);
 
         $this->givenPlayerIsIn($this->chun, RoomEnum::MEDLAB, $I);
         $this->givenPlayerIsIn($this->kuanTi, RoomEnum::MEDLAB, $I);
@@ -279,13 +291,13 @@ final class DoTheThingCest extends AbstractFunctionalTest
 
         $this->derek->kill();
 
-        $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);
+        $this->whenATriesToRelaxWithB($this->chun, $this->kuanTi);
         $this->thenActionShouldBeExecutable($I);
     }
 
-    private function givenTargetHasFlirtedWithPlayer(Player $target, Player $player): void
+    private function givenTargetHasBondedWithPlayer(Player $target, Player $player): void
     {
-        $target->setFlirts(new PlayerCollection([$player]));
+        $target->setBonds(new PlayerCollection([$player]));
     }
 
     private function givenPlayerIsLyingDown(Player $player): void
@@ -319,7 +331,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $player->setSpores($spores);
     }
 
-    private function givenPlayerHasAlreadyDTTToday(Player $player): void
+    private function givenPlayerHasAlreadyRelaxToday(Player $player): void
     {
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::DID_THE_THING,
@@ -390,10 +402,10 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $player->changePlace($this->daedalus->getPlaceByName($place));
     }
 
-    private function whenATriesToDTTWithB(Player $player, Player $target): void
+    private function whenATriesToRelaxWithB(Player $player, Player $target): void
     {
-        $this->doTheThingAction->loadParameters(
-            actionConfig: $this->doTheThingConfig,
+        $this->relaxAction->loadParameters(
+            actionConfig: $this->relaxConfig,
             actionProvider: $player,
             player: $player,
             target: $target
@@ -402,20 +414,20 @@ final class DoTheThingCest extends AbstractFunctionalTest
 
     private function thenActionShouldNotBeVisible(FunctionalTester $I): void
     {
-        $I->assertFalse($this->doTheThingAction->isVisible());
+        $I->assertFalse($this->relaxAction->isVisible());
     }
 
     private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
     {
         $I->assertEquals(
             expected: $message,
-            actual: $this->doTheThingAction->cannotExecuteReason(),
+            actual: $this->relaxAction->cannotExecuteReason(),
         );
     }
 
     private function thenActionShouldBeExecutable(FunctionalTester $I): void
     {
-        $I->assertNull($this->doTheThingAction->cannotExecuteReason(), 'Action should be executable');
+        $I->assertNull($this->relaxAction->cannotExecuteReason(), 'Action should be executable');
     }
 
     private function thenPlayerHasSpore(Player $player, int $spores, FunctionalTester $I): void

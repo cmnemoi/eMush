@@ -22,6 +22,7 @@ class MushMessageEnum
     public const PLAYER_INFECTION_LOGS = [
         ActionEnum::INFECT->value => self::INFECT_ACTION,
         ActionEnum::DO_THE_THING->value => self::INFECT_STD,
+        ActionEnum::RELAX->value => self::INFECT_STD,
         PlaceStatusEnum::MUSH_TRAPPED->value => self::INFECT_TRAP,
         PlanetSectorEvent::MUSH_TRAP => self::INFECT_MUSH_RAID,
         ActionEnum::CONSUME->value => self::INFECT_TRAPPED_RATION,

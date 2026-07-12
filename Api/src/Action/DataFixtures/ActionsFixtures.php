@@ -585,6 +585,9 @@ class ActionsFixtures extends Fixture
 
         $manager->persist($flirtAction);
 
+        $bondAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::BOND));
+        $manager->persist($bondAction);
+
         $doTheThingAction = new ActionConfig();
         $doTheThingAction
             ->setName(ActionEnum::DO_THE_THING->value)
@@ -597,6 +600,9 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC);
 
         $manager->persist($doTheThingAction);
+
+        $relaxAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::RELAX));
+        $manager->persist($relaxAction);
 
         $removeSporeAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REMOVE_SPORE));
         $manager->persist($removeSporeAction);
@@ -1357,5 +1363,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::USE_RESET_VACCINE->value, $useResetVaccineAction);
         $this->addReference(ActionEnum::PROTECT->value, $protectAction);
         $this->addReference(ActionEnum::CHECK_JUKEBOX_SONGS->value, $checkSongs);
+        $this->addReference(ActionEnum::BOND->value, $bondAction);
+        $this->addReference(ActionEnum::RELAX->value, $relaxAction);
     }
 }

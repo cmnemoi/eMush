@@ -140,22 +140,6 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveMoralPoint($I, $mushPlayer, 10);
     }
 
-    public function testOtherPlayersLoseTwoMoraleOnDeathPregnant(FunctionalTester $I): void
-    {
-        /** @var Player $player */
-        $player = $this->player1;
-
-        /** @var Player $player2 */
-        $player2 = $this->player2;
-        $player2->setMoralPoint(10);
-
-        $this->createStatusOn(PlayerStatusEnum::PREGNANT, $this->player);
-
-        $this->whenPlayerIsKilledWithEndCause($player, EndCauseEnum::INJURY);
-
-        $this->thenPlayerShouldHaveMoralPoint($I, $player2, 8);
-    }
-
     public function testOtherPlayersLoseThreeMoraleOnDeathMankindLastHope(FunctionalTester $I): void
     {
         /** @var Player $player */
@@ -170,23 +154,6 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $this->whenPlayerIsKilledWithEndCause($player, EndCauseEnum::INJURY);
 
         $this->thenPlayerShouldHaveMoralPoint($I, $player2, 7);
-    }
-
-    public function testOtherPlayersLoseFourMoraleOnDeathPregnantMOH(FunctionalTester $I): void
-    {
-        /** @var Player $player */
-        $player = $this->player1;
-
-        /** @var Player $player2 */
-        $player2 = $this->player2;
-        $player2->setMoralPoint(10);
-
-        $this->createStatusOn(PlayerStatusEnum::PREGNANT, $this->player);
-        $this->createStatusOn(PlayerStatusEnum::MANKIND_ONLY_HOPE_STATUS, $this->player);
-
-        $this->whenPlayerIsKilledWithEndCause($player, EndCauseEnum::INJURY);
-
-        $this->thenPlayerShouldHaveMoralPoint($I, $player2, 6);
     }
 
     public function testDeathEffectOnItems(FunctionalTester $I): void

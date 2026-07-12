@@ -163,7 +163,7 @@
     <unit id="do_the_thing_already_done">
       <segment id="description" state="translated">
         <source>do_the_thing_already_done.description</source>
-        <target>Vous l'avez déjà fait aujourd'hui.</target>
+        <target>Vous avez déjà passer du temps avec quelqu'un aujourd'hui.</target>
       </segment>
     </unit>
     <unit id="do_the_thing_camera">
@@ -188,6 +188,24 @@
       <segment id="description" state="translated">
         <source>do_the_thing_not_interested.description</source>
         <target>Cette personne n'a jamais montré la moindre attention à votre égard...</target>
+      </segment>
+    </unit>
+    <unit id="relax_camera">
+      <segment id="description" state="translated">
+        <source>do_the_thing_camera.description</source>
+        <target>Impossible de se détendre quand NERON vous surveille.</target>
+      </segment>
+    </unit>
+    <unit id="relax_witness">
+      <segment id="description" state="translated">
+        <source>do_the_thing_witness.description</source>
+        <target>Vous n'avez pas besoin d'un public.</target>
+      </segment>
+    </unit>
+    <unit id="relax_asleep">
+      <segment id="description" state="translated">
+        <source>do_the_thing_asleep.description</source>
+        <target>Cette personne est endormie, difficile de réellement passer du temps ensemble dans ces conditions.</target>
       </segment>
     </unit>
     <unit id="flirt_already_flirted">

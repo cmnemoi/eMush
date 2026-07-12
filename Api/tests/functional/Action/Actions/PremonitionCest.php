@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Action\Actions;
 
-use Mush\Action\Actions\Flirt;
+use Mush\Action\Actions\Bond;
 use Mush\Action\Actions\Premonition;
 use Mush\Action\Actions\Search;
 use Mush\Action\Entity\ActionConfig;
@@ -25,7 +25,7 @@ final class PremonitionCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private Premonition $premonition;
 
-    private Flirt $flirt;
+    private Bond $bond;
     private Search $search;
 
     public function _before(FunctionalTester $I): void
@@ -34,7 +34,7 @@ final class PremonitionCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::PREMONITION]);
         $this->premonition = $I->grabService(Premonition::class);
 
-        $this->flirt = $I->grabService(Flirt::class);
+        $this->bond = $I->grabService(Bond::class);
         $this->search = $I->grabService(Search::class);
 
         $this->addSkillToPlayer(SkillEnum::PRESENTIMENT, $I);
@@ -64,12 +64,12 @@ final class PremonitionCest extends AbstractFunctionalTest
     public function shouldCreatePrivateLogForPlayerWithTargetPlayerLastAction(FunctionalTester $I): void
     {
         $this->givenKuanTiExecutedSearchAction($I);
-        $this->givenKuanTiExecutedFlirtAction($I);
+        $this->givenKuanTiExecutedBondtAction($I);
 
         $this->whenChunUsesPremonitionOnKuanTi();
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: 'Vous vous concentrez... Votre tête tourne... Vous revoyez **Kuan Ti** faire quelque chose... Sa dernière action est **Fleureter**.',
+            expectedRoomLog: 'Vous vous concentrez... Votre tête tourne... Vous revoyez **Kuan Ti** faire quelque chose... Sa dernière action est **Briser la glace**.',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->chun,
                 log: LogEnum::PREMONITION_ACTION,
@@ -110,16 +110,16 @@ final class PremonitionCest extends AbstractFunctionalTest
         $this->search->execute();
     }
 
-    private function givenKuanTiExecutedFlirtAction(FunctionalTester $I): void
+    private function givenKuanTiExecutedBondtAction(FunctionalTester $I): void
     {
-        $actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::FLIRT]);
-        $this->flirt->loadParameters(
+        $actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::BOND]);
+        $this->bond->loadParameters(
             actionConfig: $actionConfig,
             actionProvider: $this->kuanTi,
             player: $this->kuanTi,
             target: $this->chun,
         );
-        $this->flirt->execute();
+        $this->bond->execute();
     }
 
     private function whenChunTriesToUsePremonitionOnKuanTi(): void

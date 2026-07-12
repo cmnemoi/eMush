@@ -131,6 +131,18 @@
         <target>**{character}** et **{target_character}** éteignent la lumière et des bruits étranges se produisent... Quelques minutes plus tard, ils rallument. Ils ont un air satisfait. *Le sofa ne peut pas en dire autant...*</target>
       </segment>
     </unit>
+    <unit id="relax_success">
+      <segment id="relax_success" state="translated">
+        <source>relax_success</source>
+        <target>**{character}** et **{target_character}** éteignent la lumière et des bruits étranges se produisent... {target_character_gender, select, 
+          female {{character_gender, select,
+            female {Quelques minutes plus tard, elles rallument. Elles ont un air satisfait.}
+            other {Quelques minutes plus tard, ils rallument. Ils ont un air satisfait.}
+          }}
+          other {Quelques minutes plus tard, ils rallument. Ils ont un air satisfait.}
+        }</target>
+      </segment>
+    </unit>
     <unit id="drop">
       <segment id="drop" state="translated">
         <source>drop</source>
@@ -157,6 +169,16 @@
     <unit id="flirt_success">
       <segment id="flirt_success" state="translated">
         <source>flirt_success</source>
+        <target>{character_gender, select,
+                    male {**{character}** semble intéressé par **{target_character}**. Ce regard qu'il lui lance ne trompera personne sur ses intentions.}
+                    female {**{character}** a l'air intéressée par **{target_character}**, ce papillonnement de sourcil est tout à fait révélateur de ses pensées secrètes.}
+                    other {invalid gender input for {character}}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="bond_success">
+      <segment id="bond_success" state="translated">
+        <source>bond_success</source>
         <target>{character_gender, select,
                     male {**{character}** semble intéressé par **{target_character}**. Ce regard qu'il lui lance ne trompera personne sur ses intentions.}
                     female {**{character}** a l'air intéressée par **{target_character}**, ce papillonnement de sourcil est tout à fait révélateur de ses pensées secrètes.}

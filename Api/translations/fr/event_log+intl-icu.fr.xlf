@@ -535,7 +535,7 @@
         <target>{target_character_gender, select,
         male {**{target_character}** a été contaminé}
         female {**{target_character}** a été contaminée}
-        other {**{target_character}** a été contaminé.e}} en le faisant avec **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+        other {**{target_character}** a été contaminé.e}} en passant du temps avec **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_cat">

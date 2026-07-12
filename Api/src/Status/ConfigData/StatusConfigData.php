@@ -547,7 +547,7 @@ abstract class StatusConfigData
         [
             'name' => 'pregnant_default',
             'statusName' => 'pregnant',
-            'visibility' => 'public',
+            'visibility' => 'private',
             'type' => 'status_config',
             'chargeVisibility' => null,
             'chargeStrategy' => 'none',

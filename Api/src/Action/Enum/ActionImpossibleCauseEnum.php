@@ -34,6 +34,9 @@ abstract class ActionImpossibleCauseEnum
     public const string DO_THE_THING_CAMERA = 'do_the_thing_camera';
     public const string DO_THE_THING_WITNESS = 'do_the_thing_witness';
     public const string DO_THE_THING_ASLEEP = 'do_the_thing_asleep';
+    public const string RELAX_CAMERA = 'relax_camera';
+    public const string RELAX_WITNESS = 'relax_witness';
+    public const string RELAX_ASLEEP = 'relax_asleep';
     public const string DO_THE_THING_NO_BED = 'do_the_thing_no_bed';
     public const string DO_THE_THING_NOT_INTERESTED = 'do_the_thing_not_interested';
     public const string FLIRT_ALREADY_FLIRTED = 'flirt_already_flirted';

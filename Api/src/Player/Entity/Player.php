@@ -128,6 +128,10 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     #[ORM\JoinTable(name: 'player_player_flirts')]
     private Collection $flirts;
 
+    #[ORM\ManyToMany(targetEntity: self::class, cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\JoinTable(name: 'player_player_bonds')]
+    private Collection $bonds;
+
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: ModifierHolder::class, cascade: ['REMOVE'])]
     private Collection $modifiers;
 
@@ -175,6 +179,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         $this->statuses = new ArrayCollection();
         $this->medicalConditions = new PlayerDiseaseCollection();
         $this->flirts = new PlayerCollection();
+        $this->bonds = new PlayerCollection();
         $this->modifiers = new ModifierCollection();
         $this->skills = new ArrayCollection();
         $this->planets = new ArrayCollection();
@@ -555,6 +560,25 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function hasFlirtedWith(self $playerTarget): bool
     {
         return $this->flirts->contains($playerTarget);
+    }
+
+    public function hasBondeddWith(self $playerTarget): bool
+    {
+        return $this->bonds->contains($playerTarget);
+    }
+
+    public function setBonds(Collection $bonds): static
+    {
+        $this->bonds = $bonds;
+
+        return $this;
+    }
+
+    public function addBond(self $playerBond): static
+    {
+        $this->bonds->add($playerBond);
+
+        return $this;
     }
 
     public function addSkill(Skill $skill): static

@@ -639,6 +639,12 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $reportFireAction */
         $reportFireAction = $this->getReference(ActionEnum::REPORT_FIRE->value);
 
+        /** @var ActionConfig $reportFireAction */
+        $bondAction = $this->getReference(ActionEnum::BOND->value);
+
+        /** @var ActionConfig $reportFireAction */
+        $relaxAction = $this->getReference(ActionEnum::RELAX->value);
+
         /** @var ArrayCollection<array-key, ActionConfig> $defaultActions */
         $defaultActions = new ArrayCollection([
             $hitAction,
@@ -666,6 +672,8 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $comManagerAnnouncementAction,
             $whisperAction,
             $reportFireAction,
+            $bondAction,
+            $relaxAction,
         ]);
 
         $characterConfig = new CharacterConfig();

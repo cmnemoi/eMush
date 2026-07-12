@@ -124,12 +124,14 @@ enum ActionEnum: string
     // Permanent Player Actions
     case UNGAG = 'ungag';
     case FLIRT = 'flirt';
+    case BOND = 'bond';
     case GET_UP = 'get_up';
     case GUARD = 'guard';
     case HIT = 'hit';
     case WHISPER = 'whisper';
     case REPORT_FIRE = 'report_fire';
     case DO_THE_THING = 'do_the_thing';
+    case RELAX = 'relax';
     case CONVERT_ACTION_TO_MOVEMENT = 'convert_action_to_movement';
     case ACCEPT_MISSION = 'accept_mission';
     case REJECT_MISSION = 'reject_mission';

@@ -8,7 +8,12 @@
         <p v-html="formatText(requirement)"></p>
     </div>
     <div class="inventory-container">
-        <Inventory :items="terminal.items" :min-slot="0" />
+        <Inventory
+            :items="terminal.items"
+            :min-slot="0"
+            :selected-item="selectedItem"
+            @select="toggleItemSelection"
+        />
     </div>
     <div class="project-container">
         <ResearchCard
@@ -21,9 +26,11 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapActions, mapGetters } from "vuex";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { formatText } from "@/utils/formatText";
 import { Terminal } from "@/entities/Terminal";
+import { Item } from "@/entities/Item";
 import Inventory from "@/components/Game/Inventory.vue";
 import ResearchCard from "./ResearchCard.vue";
 
@@ -37,6 +44,24 @@ export default defineComponent({
         terminal: {
             type: Terminal,
             required: true
+        }
+    },
+    computed: {
+        ...mapGetters('player', [
+            'selectedItem'
+        ])
+    },
+    methods: {
+        ...mapActions({
+            'selectTarget': 'player/selectTarget'
+        }),
+        // Route selection to the player's actions-card, like selecting an item in the inventory
+        toggleItemSelection(target: Item | null): void {
+            if (this.selectedItem === target) {
+                this.selectTarget({ target: null });
+            } else {
+                this.selectTarget({ target: target });
+            }
         }
     },
     setup() {
@@ -73,6 +98,12 @@ export default defineComponent({
     padding: 0.5em 0.25em;
     width: 100%;
     background-color: #9fe8fc;
+
+    // Restore the inventory's horizontal scroll, otherwise clipped by
+    // the `.terminal div { overflow: hidden }` rule below when there are many items.
+    :deep(.inventory) {
+        overflow-x: auto;
+    }
 }
 
 .project-container {

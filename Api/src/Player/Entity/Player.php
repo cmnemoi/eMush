@@ -345,15 +345,15 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function canReachEquipmentByName(string $gameEquipmentName): bool
     {
-        return $this->hasEquipmentByName($gameEquipmentName) || $this->getPlace()->hasEquipmentByName($gameEquipmentName);
+        return $this->hasEquipmentByName($gameEquipmentName)
+            || $this->getPlace()->hasEquipmentVisibleByNameForPlayer($gameEquipmentName, $this);
     }
 
     public function canReachFood(): bool
     {
         $playerFood = $this->items->filter(static fn (GameItem $item) => $item->isARation());
-        $placeFood = $this->getPlace()->getEquipments()->filter(static fn (GameEquipment $equipment) => $equipment->isARation());
 
-        return $playerFood->count() > 0 || $placeFood->count() > 0;
+        return $playerFood->count() > 0 || $this->getPlace()->hasVisibleRationForPlayer($this);
     }
 
     public function hasSampleAvailable(): bool

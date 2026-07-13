@@ -28,6 +28,7 @@ use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Enum\HunterEnum;
+use Mush\Place\Normalizer\PlaceNormalizer;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -44,6 +45,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         private readonly GameEquipmentServiceInterface $gameEquipmentService,
         private readonly LinkWithSolRepositoryInterface $linkWithSolRepository,
         private readonly NeronVersionRepositoryInterface $neronVersionRepository,
+        private readonly PlaceNormalizer $placeNormalizer,
         private readonly PlanetServiceInterface $planetService,
         private readonly RebelBaseRepositoryInterface $rebelBaseRepository,
         private readonly TranslationServiceInterface $translationService,
@@ -198,16 +200,15 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
 
-        $playerItems = $currentPlayer->getEquipments();
-        $placeItems = $terminal->getPlace()->getNonPersonalItems();
-
-        $allItems = array_merge($playerItems->toArray(), $placeItems->toArray());
-        $normalizedItems = [];
-        foreach ($allItems as $item) {
-            $normalizedItems[] = $this->normalizer->normalize($item, $format, $context);
-        }
-
-        return $normalizedItems;
+        // Display the same items as the room's inventory (same filters, grouping and sorting),
+        // plus the items in the player's own inventory.
+        return $this->placeNormalizer->normalizeReachableItems(
+            $terminal->getPlace(),
+            $currentPlayer->getEquipments(),
+            $currentPlayer,
+            $format,
+            $context,
+        );
     }
 
     private function getNormalizedTerminalButtons(GameEquipment $terminal): array

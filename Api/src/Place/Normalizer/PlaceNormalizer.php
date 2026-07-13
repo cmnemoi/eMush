@@ -81,23 +81,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         );
 
         // Split equipments between items and equipments, do not normalize doors
-        $partition = $room
-            ->getEquipments()
-            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getClassName() !== Door::class)
-            ->partition(
-                static fn ($_, GameEquipment $gameEquipment) => !$gameEquipment->shouldBeNormalizedAsItem()
-                || ($gameEquipment instanceof GameItem && $gameEquipment->shouldBeNormalizedAsEquipment())
-            );
-
-        /** @var Collection<array-key, GameEquipment> $equipments */
-        $equipments = $partition[0];
-
-        /** @var Collection<array-key, GameItem> $items */
-        $items = $partition[1];
-
-        // If there are multiple sofas in the same room, allow them to be displayed in the shelf
-        $items = $this->handleMultipleInstanceEquipments($room, $equipments, $items);
-        $items = $this->putContaminatedItemsOnTop($items);
+        [$equipments, $items] = $this->partitionItemsAndEquipments($room->getEquipments());
 
         $normalizedEquipments = $this->normalizeEquipments(
             $currentPlayer,
@@ -105,7 +89,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             $format,
             $context
         );
-        $normalizedItems = $this->normalizeItems($items, $currentPlayer, $format, $context);
+        $normalizedItems = $this->buildNormalizedItems($room, $equipments, $items, $currentPlayer, $format, $context);
 
         $language = $room->getDaedalus()->getLanguage();
 
@@ -122,6 +106,28 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             'equipments' => !$currentPlayerIsFocused ? $normalizedEquipments : [],
             'type' => $room->getType(),
         ];
+    }
+
+    /**
+     * Normalizes the items a player can reach from a room, using the exact same
+     * filtering, grouping and sorting rules as the room inventory.
+     *
+     * @param Collection<array-key, GameEquipment> $additionalEquipments extra equipments to include on top of the room's ones (e.g. the player's inventory)
+     */
+    public function normalizeReachableItems(
+        Place $room,
+        Collection $additionalEquipments,
+        Player $currentPlayer,
+        ?string $format,
+        array $context
+    ): array {
+        $allEquipments = new ArrayCollection(
+            array_merge($room->getEquipments()->toArray(), $additionalEquipments->toArray())
+        );
+
+        [$equipments, $items] = $this->partitionItemsAndEquipments($allEquipments);
+
+        return $this->buildNormalizedItems($room, $equipments, $items, $currentPlayer, $format, $context);
     }
 
     private function normalizePlayers(Place $room, Player $currentPlayer, ?string $format, array $context): array
@@ -203,6 +209,55 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         }
 
         return $normalizedEquipments;
+    }
+
+    /**
+     * Splits a collection of equipments between equipments and items, ignoring doors.
+     *
+     * @param Collection<array-key, GameEquipment> $equipments
+     *
+     * @return array{0: Collection<array-key, GameEquipment>, 1: Collection<array-key, GameItem>}
+     */
+    private function partitionItemsAndEquipments(Collection $equipments): array
+    {
+        $partitioned = $equipments
+            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getClassName() !== Door::class)
+            ->partition(
+                static fn ($_, GameEquipment $gameEquipment) => !$gameEquipment->shouldBeNormalizedAsItem()
+                || ($gameEquipment instanceof GameItem && $gameEquipment->shouldBeNormalizedAsEquipment())
+            );
+
+        /** @var Collection<array-key, GameItem> $items */
+        $items = new ArrayCollection(
+            $partitioned[1]
+                ->filter(static fn (GameEquipment $gameEquipment): bool => $gameEquipment instanceof GameItem)
+                ->toArray()
+        );
+
+        return [$partitioned[0], $items];
+    }
+
+    /**
+     * Applies the shelf-display rules (multiple instances, contaminated on top) and normalizes items.
+     *
+     * @param Collection<array-key, GameEquipment> $equipments
+     * @param Collection<array-key, GameItem>      $items
+     *
+     * @throws \Exception
+     */
+    private function buildNormalizedItems(
+        Place $room,
+        Collection $equipments,
+        Collection $items,
+        Player $currentPlayer,
+        ?string $format,
+        array $context
+    ): array {
+        // If there are multiple sofas in the same room, allow them to be displayed in the shelf
+        $items = $this->handleMultipleInstanceEquipments($room, $equipments, $items);
+        $items = $this->putContaminatedItemsOnTop($items);
+
+        return $this->normalizeItems($items, $currentPlayer, $format, $context);
     }
 
     /**

@@ -45,7 +45,7 @@ export class Terminal {
             this.key = object.key;
             this.name = object.name;
             this.tips = object.tips;
-            this.items = object.items;
+            this.items = object.items?.map(item => new Item().load(item)) ?? [];
             if (typeof object.actions !== 'undefined') {
                 object.actions.forEach((actionObject: Action) => {
                     const action = (new Action()).load(actionObject);

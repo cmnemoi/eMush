@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Communications\Entity\NeronVersion;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
@@ -484,7 +485,14 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
 
         $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
 
-        $this->thenNormalizedItemsNamesShouldBe($I, $normalizedTerminal, array_merge($kuanTiItemsNames, $labItemsNames));
+        // The two fuel capsules (one in the inventory, one on the floor) are stackable and thus grouped together,
+        // like they would be in the room's inventory.
+        $this->thenNormalizedItemsNamesShouldBe($I, $normalizedTerminal, [
+            ItemEnum::ITRACKIE,
+            ItemEnum::FUEL_CAPSULE,
+            ItemEnum::BLASTER,
+            ItemEnum::MUSH_SAMPLE,
+        ]);
     }
 
     public function testShouldNotNormalizeEquipmentInTheLab(FunctionalTester $I): void
@@ -502,7 +510,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->thenNormalizedItemsShouldBeEmpty($I, $normalizedTerminal);
     }
 
-    public function testShouldNormalizeHiddenItemsInLab(FunctionalTester $I): void
+    public function testShouldNotNormalizeHiddenItemsInLab(FunctionalTester $I): void
     {
         $this->givenItemIsHidden(ItemEnum::BLASTER);
 
@@ -516,12 +524,30 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
 
         $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
 
-        $items = $normalizedTerminal['items'];
-
-        $I->assertNotEmpty($items);
+        // Hidden items are not visible to the player, just like in the room's inventory.
+        $this->thenNormalizedItemsShouldBeEmpty($I, $normalizedTerminal);
     }
 
-    public function shouldNotNormalizePlacePersonalItems(FunctionalTester $I): void
+    public function shouldNotNormalizeOtherPlayersPersonalItemsOnTheFloor(FunctionalTester $I): void
+    {
+        $terminal = $this->givenLabTerminal();
+
+        $this->givenChunHasItemsInInventory([ItemEnum::WALKIE_TALKIE]);
+
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $this->chun->getEquipmentByNameOrThrow(ItemEnum::WALKIE_TALKIE),
+            newHolder: $terminal->getPlace(),
+        );
+
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+
+        // Another player's personal item lying on the floor is not visible, just like in the room's inventory.
+        $this->thenNormalizedItemsShouldBeEmpty($I, $normalizedTerminal);
+    }
+
+    public function shouldNormalizeOwnPersonalItemsOnTheFloor(FunctionalTester $I): void
     {
         $terminal = $this->givenLabTerminal();
 
@@ -536,9 +562,91 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
 
         $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
 
-        $items = $normalizedTerminal['items'];
+        // The player still sees their own personal item lying on the floor, just like in the room's inventory.
+        $this->thenNormalizedItemsNamesShouldBe($I, $normalizedTerminal, [ItemEnum::WALKIE_TALKIE]);
+    }
 
-        $I->assertEmpty($items);
+    public function testHiddenMushSampleShouldNotUnlockResearchRequiringMushSample(FunctionalTester $I): void
+    {
+        $this->givenChunIsNotInLab();
+
+        // A mush sample hidden by Chun, so KuanTi (the viewer) cannot see it
+        $mushSample = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::MUSH_SAMPLE,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime()
+        );
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::HIDDEN,
+            holder: $mushSample,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->chun,
+        );
+
+        $terminal = $this->givenLabTerminal();
+
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+
+        // The hidden mush sample does not count for KuanTi, so research requiring it stays locked.
+        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+            ProjectName::ANABOLICS,
+            ProjectName::NARCOTICS_DISTILLER,
+        ]);
+    }
+
+    public function testHiddenFoodShouldNotUnlockResearchRequiringFood(FunctionalTester $I): void
+    {
+        $this->givenChunIsNotInLab();
+
+        // A mush sample hidden by KuanTi themselves, so it stays visible to them
+        $mushSample = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::MUSH_SAMPLE,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime()
+        );
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::HIDDEN,
+            holder: $mushSample,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->kuanTi,
+        );
+
+        // A coffee hidden by Chun, so KuanTi cannot see it
+        $coffee = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameRationEnum::COFFEE,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime()
+        );
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::HIDDEN,
+            holder: $coffee,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->chun,
+        );
+
+        $terminal = $this->givenLabTerminal();
+
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+
+        // Mush sample is visible (KuanTi hid it) so the mush-sample research unlocks,
+        // but food is hidden to KuanTi so CONSTIPASPORE_SERUM (which also needs food) stays locked.
+        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+            ProjectName::ANABOLICS,
+            ProjectName::ANTISPORE_GAS,
+            ProjectName::MYCOALARM,
+            ProjectName::NARCOTICS_DISTILLER,
+            ProjectName::SPORE_SUCKER,
+        ]);
     }
 
     public function testWhenNoRequirementIsMetThenShouldOnlySeeAnabolicsAndNarcoticsProject(FunctionalTester $I): void
@@ -859,9 +967,9 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     private function thenNormalizedItemsNamesShouldBe($I, $normalizedTerminal, $expectedItemsNames): void
     {
         $items = $normalizedTerminal['items'];
-        $I->assertEquals(
-            array_map(static fn ($item) => $item['key'], $items),
-            $expectedItemsNames
+        $I->assertEqualsCanonicalizing(
+            $expectedItemsNames,
+            array_map(static fn ($item) => $item['key'], $items)
         );
     }
 

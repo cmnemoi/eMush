@@ -270,6 +270,42 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
             ->isEmpty();
     }
 
+    /**
+     * Returns true if the place contains at least one equipment with the given name
+     * that is visible to the given player (not hidden, or hidden by that player).
+     */
+    public function hasEquipmentVisibleByNameForPlayer(string $name, Player $player): bool
+    {
+        return !$this
+            ->getEquipmentsByNames([$name])
+            ->filter(static function (GameEquipment $gameEquipment) use ($player): bool {
+                $hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN);
+
+                return !$hiddenStatus || $hiddenStatus->getTarget() === $player;
+            })
+            ->isEmpty();
+    }
+
+    /**
+     * Returns true if the place contains at least one ration visible to the given player.
+     *
+     * This means any ration, not only the "standard ration" item.
+     */
+    public function hasVisibleRationForPlayer(Player $player): bool
+    {
+        return !$this
+            ->getEquipments()
+            ->filter(static function (GameEquipment $gameEquipment) use ($player): bool {
+                if (!$gameEquipment->isARation()) {
+                    return false;
+                }
+                $hiddenStatus = $gameEquipment->getStatusByName(EquipmentStatusEnum::HIDDEN);
+
+                return !$hiddenStatus || $hiddenStatus->getTarget() === $player;
+            })
+            ->isEmpty();
+    }
+
     public function getEquipmentByNameOrThrow(string $name): GameEquipment
     {
         $equipment = $this->getEquipmentByName($name);
@@ -278,11 +314,6 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
         }
 
         return $equipment;
-    }
-
-    public function getNonPersonalItems(): Collection
-    {
-        return $this->getItems()->filter(static fn (GameItem $gameItem) => $gameItem->isPersonal() === false);
     }
 
     /**

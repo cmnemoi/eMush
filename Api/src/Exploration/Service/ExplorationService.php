@@ -232,6 +232,9 @@ final class ExplorationService implements ExplorationServiceInterface
         // do not roll a next sector if the planet is fully explored or the exploration is about to close
         if ($exploration->getPlanet()->getUnvisitedSectors()->isEmpty() || $exploration->getCycle() >= $exploration->getNumberOfSectionsToVisit() + 1) {
             $exploration->setNextSector(null);
+        } // if a sector has already been selected through other means, don't select another one
+        elseif ($exploration->getIgnoreNextSectorSelection()) {
+            $exploration->setIgnoreNextSectorSelection(false);
         } else {
             /** @var PlanetSector $sector */
             $sector = $this->randomService->getRandomPlanetSectorsToVisit($planet, 1)->first();

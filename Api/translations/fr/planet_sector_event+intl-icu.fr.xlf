@@ -792,5 +792,19 @@ other {{version, select,
         other {Vous avez trouvé {character} derrière un rocher ! Malheureusement, il ne bouge plus du tout. D'ailleurs, il n'a pas l'air de respirer non plus. A tous les coups, les gars du labo vont vous dire qu'il est mort…}}</target>
       </segment>
     </unit>
+    <unit id="new_sector">
+      <segment id="name" state="translated">
+        <source>new_sector.name</source>
+        <target>Nouveau secteur</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>new_sector.description</source>
+        <target>Nouveau secteur ajouté sur la planète.</target>
+      </segment>
+      <segment id="intelligent_description" state="translated">
+        <source>new_sector.intelligent_description</source>
+        <target>Après une série de signes de main maladroits, la créature finit par inscrire quelque chose sur votre carte. Un petit détour semble de rigueur.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

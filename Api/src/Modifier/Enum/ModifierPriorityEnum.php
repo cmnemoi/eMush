@@ -26,8 +26,10 @@ abstract class ModifierPriorityEnum
 
     // exploration only
     public const string EXPLORATION_DIPLOMAT = 'explorationDiplomat';
+    public const string BEFORE_EXPLORATION_DIPLOMAT = 'beforExplorationDiplomat';
 
     public const array PRIORITY_MAP = [
+        self::BEFORE_EXPLORATION_DIPLOMAT => -501,
         self::EXPLORATION_DIPLOMAT => -500,
 
         self::BEFORE_INITIAL_EVENT => -100,
@@ -62,6 +64,7 @@ abstract class ModifierPriorityEnum
     public const array POST_MODIFICATION = [self::AFTER_INITIAL_EVENT];
 
     public const array EXPLORATION_MODIFICATIONS = [
+        self::BEFORE_EXPLORATION_DIPLOMAT,
         self::EXPLORATION_DIPLOMAT,
     ];
 

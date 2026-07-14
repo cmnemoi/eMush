@@ -3653,20 +3653,37 @@ abstract class ModifierConfigData
                 weight: null
             ),
             new ExplorationEventModifierConfigDto(
-                key: ModifierNameEnum::WHITEFLAG_REMOVE_FIGHT,
-                name: ModifierNameEnum::WHITEFLAG_REMOVE_FIGHT,
+                key: ModifierNameEnum::DIPLOMAT_REPLACE_FIGHT,
+                name: ModifierNameEnum::DIPLOMAT_REPLACE_FIGHT,
                 strategy: ModifierStrategyEnum::EXPLORATION_SECTOR_SELECTION_MODIFIER,
                 modifierRange: ModifierHolderClassEnum::PLACE,
                 modifierActivationRequirements: [],
                 targetEvent: ExplorationSelectionEvent::SECTOR_SELECTION,
-                priority: ModifierPriorityEnum::EXPLORATION_DIPLOMAT,
+                priority: ModifierPriorityEnum::BEFORE_EXPLORATION_DIPLOMAT,
                 tagConstraints: [
                     PlanetSectorEnum::INTELLIGENT => ModifierRequirementEnum::ANY_TAGS,
                 ],
                 action: ExplorationEventModifierConfig::REPLACE,
-                criteria: ExplorationEventModifierConfig::EVENT_NAME,
-                eventToRemove: PlanetSectorEvent::FIGHT,
-                eventToAdd: PlanetSectorEvent::NOTHING_TO_REPORT_FIGHT,
+                criteria: ExplorationEventModifierConfig::NAME,
+                eventToRemove: PlanetSectorEvent::FIGHT_ALIEN,
+                eventToAdd: PlanetSectorEvent::NEW_SECTOR,
+                weight: null
+            ),
+            new ExplorationEventModifierConfigDto(
+                key: ModifierNameEnum::WHITEFLAG_REPLACE_FIGHT,
+                name: ModifierNameEnum::WHITEFLAG_REPLACE_FIGHT,
+                strategy: ModifierStrategyEnum::EXPLORATION_SECTOR_SELECTION_MODIFIER,
+                modifierRange: ModifierHolderClassEnum::PLACE,
+                modifierActivationRequirements: [],
+                targetEvent: ExplorationSelectionEvent::SECTOR_SELECTION,
+                priority: ModifierPriorityEnum::BEFORE_EXPLORATION_DIPLOMAT,
+                tagConstraints: [
+                    PlanetSectorEnum::INTELLIGENT => ModifierRequirementEnum::ANY_TAGS,
+                ],
+                action: ExplorationEventModifierConfig::REPLACE,
+                criteria: ExplorationEventModifierConfig::NAME,
+                eventToRemove: PlanetSectorEvent::FIGHT_ALIEN,
+                eventToAdd: PlanetSectorEvent::NEW_SECTOR,
                 weight: null
             ),
         ];

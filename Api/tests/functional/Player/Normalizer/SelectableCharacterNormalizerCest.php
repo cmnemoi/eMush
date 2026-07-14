@@ -54,7 +54,7 @@ final class SelectableCharacterNormalizerCest extends AbstractFunctionalTest
                 [
                     'key' => 'diplomat',
                     'name' => 'Diplomatie',
-                    'description' => 'Un bon diplomate sait comment entrer en contact avec les races extra-terrestres.//:point: Empêche l\'évènement **Combat** lors des rencontres extra-terrestres.//:point: Peut déclarer un cessez-le-feu une fois par partie. Le cessez-le-feu dure **3** cycles.//:point: Ouvre de nouvelles possibilités d\'échanges commerciaux.',
+                    'description' => 'Un bon diplomate sait comment entrer en contact avec les races extra-terrestres.//:point: Remplace l\'évènement **Combat** par l\'évenement **Nouveau Secteur** sur les secteurs **Vie Intelligente**.//:point: Remplace l\'évènement **Combat** par l\'évenement **Rien à signaler** sur les autres secteurs.//:point: Peut déclarer un cessez-le-feu une fois par partie. Le cessez-le-feu dure **3** cycles.//:point: Ouvre de nouvelles possibilités d\'échanges commerciaux.',
                 ],
             ],
             'level' => 1,

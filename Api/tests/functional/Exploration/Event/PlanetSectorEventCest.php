@@ -611,7 +611,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         }
     }
 
-    public function testFightEventIsPreventedByWhiteFlag(FunctionalTester $I): void
+    public function testFightEventIsReplacedByWhiteFlag(FunctionalTester $I): void
     {
         // given an exploration is created
         $exploration = $this->createExploration(
@@ -622,7 +622,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // given only fight and nothing to report events can happen in intelligent sector
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::INTELLIGENT,
-            events: ['fight_1' => PHP_INT_MAX - 1, 'nothing_to_report' => 1]
+            events: [PlanetSectorEvent::FIGHT_ALIEN => 1]
         );
 
         // given Chun has a white flag
@@ -637,10 +637,10 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $this->explorationService->dispatchExplorationEvent($exploration);
 
         // then the fight event is not dispatched
-        $I->dontSeeInRepository(
+        $I->seeInRepository(
             entity: ExplorationLog::class,
             params: [
-                'eventName' => PlanetSectorEvent::FIGHT,
+                'eventName' => PlanetSectorEvent::NEW_SECTOR,
             ]
         );
     }
@@ -649,14 +649,14 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     {
         // given an exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::MANKAROG], $I),
             explorators: $this->players
         );
 
         // given only fight and nothing to report events can happen in intelligent sector
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::INTELLIGENT,
-            events: ['fight_1' => PHP_INT_MAX - 1, 'nothing_to_report' => 1]
+            sectorName: PlanetSectorEnum::MANKAROG,
+            events: [PlanetSectorEvent::FIGHT_MANKAROG => 1]
         );
 
         // given Chun is a diplomat
@@ -1913,6 +1913,50 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $this->whenExplorationEventIsDispatched($exploration);
 
         $this->thenPlayerShouldBeDead($this->chun, $I);
+    }
+
+    public function testNewSectorEvent(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given only new sector event can happen in intelligent sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: [PlanetSectorEvent::NEW_SECTOR => 1]
+        );
+
+        // when new sector event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then I should see 1 unrevealed sector on the planet
+        $I->assertEquals(1, $exploration->getPlanet()->getUnrevealedSectors()->count());
+    }
+
+    public function testDiplomatReplaceFightWithNewSectorEvent(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given only new sector event can happen in intelligent sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: [PlanetSectorEvent::FIGHT_ALIEN => 1]
+        );
+
+        $this->addSkillToPlayer(SkillEnum::DIPLOMAT, $I, $this->player);
+
+        // when new sector event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then I should see 1 unrevealed sector on the planet
+        $I->assertEquals(1, $exploration->getPlanet()->getUnrevealedSectors()->count());
     }
 
     private function givenChunIsASurvivalist(FunctionalTester $I): void

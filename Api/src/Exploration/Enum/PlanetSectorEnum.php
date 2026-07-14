@@ -92,4 +92,14 @@ final class PlanetSectorEnum
             self::LOST,
         ]);
     }
+
+    public static function getSectorsThatCanBeFoundInExploration(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::HYDROCARBON,
+            self::RUINS,
+            self::WRECK,
+            self::CRISTAL_FIELD,
+        ]);
+    }
 }

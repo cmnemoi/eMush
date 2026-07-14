@@ -53,6 +53,7 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
     public const string KILL_RANDOM = 'kill_random';
     public const string MUSH_TRAP = 'mush_trap';
     public const string PLAYER_LOST = 'player_lost';
+    public const string NEW_SECTOR = 'new_sector';
     public const string NOTHING_TO_REPORT = 'nothing_to_report';
     public const string NOTHING_TO_REPORT_NEGATIVE = 'nothing_to_report_negative';
     public const string NOTHING_TO_REPORT_FIGHT = 'nothing_to_report_fight';

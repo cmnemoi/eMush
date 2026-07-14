@@ -170,6 +170,7 @@ abstract class ModifierNameEnum
     public const string TRAIL_REDUCER_MODIFIER = 'trail_reducer_modifier';
     public const string INCREASE_AGGRESSIVE_ACTION_IF_PROTECTED_BY_2_AP = 'increase_aggressive_action_if_protected_by_2_AP';
     public const string DIPLOMAT_REMOVE_FIGHT = 'diplomat_remove_fight';
-    public const string WHITEFLAG_REMOVE_FIGHT = 'whiteflag_remove_fight';
+    public const string DIPLOMAT_REPLACE_FIGHT = 'diplomat_replace_fight';
+    public const string WHITEFLAG_REPLACE_FIGHT = 'whiteflag_replace_fight';
     public const string GUARDIAN_MINUS_1AP_COST = 'guardian_minus_1ap_cost';
 }

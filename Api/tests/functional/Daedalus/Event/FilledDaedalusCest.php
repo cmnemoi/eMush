@@ -53,7 +53,6 @@ final class FilledDaedalusCest extends AbstractFunctionalTest
         }
 
         $numberOfMush = $this->daedalus->getGameConfig()->getDaedalusConfig()->getNbMush();
-        dump(\count($this->daedalus->getPlayers()));
 
         // start the game
         $event = new DaedalusEvent(

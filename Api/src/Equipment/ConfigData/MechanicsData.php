@@ -2156,7 +2156,7 @@ class MechanicsData
             'type' => 'gear',
             'actions' => [],
             'modifierConfigs' => [
-                'whiteflag_remove_fight',
+                'whiteflag_replace_fight',
             ],
         ],
     ];

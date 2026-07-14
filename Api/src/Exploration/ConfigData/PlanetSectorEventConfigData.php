@@ -304,6 +304,10 @@ final class PlanetSectorEventConfigData
                 eventName: PlanetSectorEvent::KILL_LOST,
                 tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
+            new PlanetSectorEventConfigDto(
+                name: PlanetSectorEvent::NEW_SECTOR,
+                eventName: PlanetSectorEvent::NEW_SECTOR,
+            ),
         ];
     }
 }

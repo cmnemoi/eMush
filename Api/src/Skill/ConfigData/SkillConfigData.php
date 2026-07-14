@@ -120,6 +120,7 @@ abstract class SkillConfigData
                 ],
                 modifierConfigs: [
                     ModifierNameEnum::DIPLOMAT_REMOVE_FIGHT,
+                    ModifierNameEnum::DIPLOMAT_REPLACE_FIGHT,
                 ]
             ),
             new SkillConfigDto(
@@ -367,6 +368,7 @@ abstract class SkillConfigData
                 name: SkillEnum::POLYVALENT,
                 modifierConfigs: [
                     ModifierNameEnum::DIPLOMAT_REMOVE_FIGHT,
+                    ModifierNameEnum::DIPLOMAT_REPLACE_FIGHT,
                 ]
             ),
             new SkillConfigDto(

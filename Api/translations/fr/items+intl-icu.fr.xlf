@@ -1321,11 +1321,11 @@ Paradoxalement, les expéditions interplanétaires peuvent parfois s'avérer ext
       </segment>
       <segment id="description" state="translated">
         <source>white_flag.description</source>
-        <target>Le drapeau blanc est un symbole universel de paix... ou presque.//Expédition : Annule les chances de combat dans un secteur "Vie Intelligente".</target>
+        <target>Le drapeau blanc est un symbole universel de paix... ou presque.//Expédition : Remplace l'évènement **Combat** par l'évenement **Nouveau Secteur** sur les secteurs **Vie Intelligente**.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>white_flag.examine</source>
-        <target>Le drapeau blanc est un symbole universel de paix... ou presque.//Expédition : Annule les chances de combat dans un secteur "Vie Intelligente".//
+        <target>Le drapeau blanc est un symbole universel de paix... ou presque.//Expédition : Remplace l'évènement **Combat** par l'évenement **Nouveau Secteur** sur les secteurs **Vie Intelligente**.//
 Le drapeau blanc a été institué symbole international des peuples en demande de pourparlers en 2030 par l'ONU, de fait sa signification est très répandue et c'est donc un bon moyen de dire "nous venons en paix". Suite à quelques soucis anecdotiques, rapports à des vrais faux drapeaux blancs qui auraient provoqué des meurtres de dignitaires, sa portée reste toutefois limitée et la seule bonne foi d'un corps expéditionnaire ne suffira pas forcément à leur acquérir des facilités diplomatiques.</target>
       </segment>
     </unit>

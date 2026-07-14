@@ -74,7 +74,6 @@ final class ModerationServiceTest extends TestCase
             duration: new \DateInterval('P3D')
         );
 
-        dump($this->moderationSanctionRepository->findAllBansNotYetTriggeredForAll());
         self::assertCount(1, $user->getModerationSanctions());
         self::assertTrue($user->isBanned());
     }

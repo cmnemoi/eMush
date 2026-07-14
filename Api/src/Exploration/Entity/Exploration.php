@@ -33,7 +33,7 @@ class Exploration
     #[ORM\OneToOne(targetEntity: ClosedExploration::class, inversedBy: 'exploration', cascade: ['persist'])]
     private ClosedExploration $closedExploration;
 
-    #[ORM\OneToOne(targetEntity: Planet::class)]
+    #[ORM\OneToOne(targetEntity: Planet::class, cascade: ['persist'])]
     private Planet $planet;
 
     #[ORM\OneToMany(targetEntity: Player::class, mappedBy: 'exploration')]
@@ -68,6 +68,9 @@ class Exploration
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTime $lastVisitAt = null;
+
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $ignoreNextSectorSelection = false;
 
     public function __construct(Planet $planet)
     {
@@ -463,5 +466,17 @@ class Exploration
         }
 
         return null;
+    }
+
+    public function getIgnoreNextSectorSelection(): bool
+    {
+        return $this->ignoreNextSectorSelection;
+    }
+
+    public function setIgnoreNextSectorSelection(bool $ignoreNextSectorSelection): static
+    {
+        $this->ignoreNextSectorSelection = $ignoreNextSectorSelection;
+
+        return $this;
     }
 }

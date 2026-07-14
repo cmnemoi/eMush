@@ -71,6 +71,12 @@ class ItemEnum
     public const string SHIP_BLANKET = 'ship_blanket';
     public const string SCHOOLBOOKS = 'schoolbooks';
     public const string RESET_VACCINE = 'reset_vaccine';
+    public const string TREASURE_HUNT_TABLET = 'treasure_hunt_tablet';
+    public const string TREASURE_HUNT_DEVICE = 'treasure_hunt_device';
+    public const string TREASURE_HUNT_PET = 'treasure_hunt_pet';
+    public const string TREASURE_HUNT_SPACE_CHICKEN = 'treasure_hunt_space_chicken';
+    public const string TREASURE_HUNT_CHEST_CLOSED = 'treasure_hunt_chest_closed';
+    public const string TREASURE_HUNT_CHEST_OPENED = 'treasure_hunt_chest_opened';
 
     // generic items : DO NOT GIVE CONFIG
     public const string MAGEBOOK_STARTING = 'magebook_starting';

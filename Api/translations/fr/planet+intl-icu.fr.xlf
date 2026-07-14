@@ -479,6 +479,26 @@
                 other {}}</target>
       </segment>
     </unit>
+    <unit id="treasure_hunt_pet">
+      <segment id="name" state="translated">
+        <source>treasure_hunt_pet.name</source>
+        <target>Treasure Hunt Pet</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>treasure_hunt_pet.description</source>
+        <target>TODO</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_ship">
+      <segment id="name" state="translated">
+        <source>treasure_hunt_ship.name</source>
+        <target>Treasure Hunt Ship</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>treasure_hunt_ship.description</source>
+        <target>TODO</target>
+      </segment>
+    </unit>
     <unit id="next_sector">
       <segment id="name" state="translated">
         <source>next_sector</source>

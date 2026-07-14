@@ -2183,6 +2183,162 @@ The myco-alarm detects high concentrations of mycotoxine. If the Mush decides to
 The extra-terrestrials that left this must have used it for something... Maybe by analyzing it you can learn more about them...</target>
       </segment>
     </unit>
+    <unit id="treasure_hunt_tablet">
+      <segment id="name" state="translated">
+        <source>treasure_hunt_tablet.name</source>
+        <target>Alien Tablet</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>treasure_hunt_tablet.short_name</source>
+        <target>Alien Tablet</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>treasure_hunt_tablet.gender</source>
+        <target>female</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>treasure_hunt_tablet.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>treasure_hunt_tablet.description</source>
+        <target>TODO</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>treasure_hunt_tablet.examine</source>
+        <target>TODO</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_device">
+      <segment id="name" state="translated">
+        <source>treasure_hunt_device.name</source>
+        <target>Alien Device</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>treasure_hunt_device.short_name</source>
+        <target>Alien Device</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>treasure_hunt_device.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>treasure_hunt_device.first_letter</source>
+        <target>vowel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>treasure_hunt_device.description</source>
+        <target>TODO</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>treasure_hunt_device.examine</source>
+        <target>TODO</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_pet">
+      <segment id="name" state="translated">
+        <source>treasure_hunt_pet.name</source>
+        <target>Alien Pet</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>treasure_hunt_pet.short_name</source>
+        <target>Alien Pet</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>treasure_hunt_pet.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>treasure_hunt_pet.first_letter</source>
+        <target>vowel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>treasure_hunt_pet.description</source>
+        <target>TODO</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>treasure_hunt_pet.examine</source>
+        <target>TODO</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_space_chicken">
+      <segment id="name" state="translated">
+        <source>treasure_hunt_space_chicken.name</source>
+        <target>Space Chicken</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>treasure_hunt_space_chicken.short_name</source>
+        <target>Space Chicken</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>treasure_hunt_space_chicken.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>treasure_hunt_space_chicken.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>treasure_hunt_space_chicken.description</source>
+        <target>TODO</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>treasure_hunt_space_chicken.examine</source>
+        <target>TODO</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_chest_closed">
+      <segment id="name" state="translated">
+        <source>treasure_hunt_chest_closed.name</source>
+        <target>Closed Treasure Chest</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>treasure_hunt_chest_closed.short_name</source>
+        <target>Closed Treasure Chest</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>treasure_hunt_chest_closed.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>treasure_hunt_chest_closed.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>treasure_hunt_chest_closed.description</source>
+        <target>TODO</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>treasure_hunt_chest_closed.examine</source>
+        <target>TODO</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_chest_opened">
+      <segment id="name" state="translated">
+        <source>treasure_hunt_chest_opened.name</source>
+        <target>Opened Treasure Chest</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>treasure_hunt_chest_opened.short_name</source>
+        <target>Opened Treasure Chest</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>treasure_hunt_chest_opened.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>treasure_hunt_chest_opened.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>treasure_hunt_chest_opened.description</source>
+        <target>TODO</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>treasure_hunt_chest_opened.examine</source>
+        <target>TODO</target>
+      </segment>
+    </unit>
     <unit id="water_stick">
       <segment id="name" state="translated">
         <source>water_stick.name</source>

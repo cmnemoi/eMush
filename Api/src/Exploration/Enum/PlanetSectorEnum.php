@@ -31,6 +31,8 @@ final class PlanetSectorEnum
     public const string SEISMIC_ACTIVITY = 'seismic_activity';
     public const string STRONG_WIND = 'strong_wind';
     public const string SWAMP = 'swamp';
+    public const string TREASURE_HUNT_PET = 'treasure_hunt_pet';
+    public const string TREASURE_HUNT_SHIP = 'treasure_hunt_ship';
     public const string UNKNOWN = 'unknown';
     public const string VOLCANIC_ACTIVITY = 'volcanic_activity';
     public const string WRECK = 'wreck';

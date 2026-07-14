@@ -164,6 +164,13 @@ const SUPER_SOAPER = "super_soaper";
 
 const SWEDISH_SOFA = "swedish_sofa";
 
+const TREASURE_HUNT_TABLET = "treasure_hunt_tablet";
+const TREASURE_HUNT_DEVICE = "treasure_hunt_device";
+const TREASURE_HUNT_PET = "treasure_hunt_pet";
+const TREASURE_HUNT_SPACE_CHICKEN = "treasure_hunt_space_chicken";
+const TREASURE_HUNT_CHEST_CLOSED = "treasure_hunt_chest_closed";
+const TREASURE_HUNT_CHEST_OPENED = "treasure_hunt_chest_opened";
+
 export const itemEnum: {[index: string]: {image: string}} = {
     [ALIEN_BOTTLE_OPENER]: {
         'image': getImgUrl('items/alien_can_opener.jpg')
@@ -593,5 +600,23 @@ export const itemEnum: {[index: string]: {image: string}} = {
     },
     [RESET_VACCINE]:{
         'image': getImgUrl('items/reset_vaccine.png')
+    },
+    [TREASURE_HUNT_TABLET]: {
+        'image': getImgUrl('items/treasure_hunt_tablet.png')
+    },
+    [TREASURE_HUNT_DEVICE]: {
+        'image': getImgUrl('items/treasure_hunt_device.png')
+    },
+    [TREASURE_HUNT_PET]: {
+        'image': getImgUrl('items/treasure_hunt_pet.png')
+    },
+    [TREASURE_HUNT_SPACE_CHICKEN]: {
+        'image': getImgUrl('items/treasure_hunt_space_chicken.png')
+    },
+    [TREASURE_HUNT_CHEST_CLOSED]: {
+        'image': getImgUrl('items/treasure_hunt_chest_closed.png')
+    },
+    [TREASURE_HUNT_CHEST_OPENED]: {
+        'image': getImgUrl('items/treasure_hunt_chest_opened.png')
     }
 };

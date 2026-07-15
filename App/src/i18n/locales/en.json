@@ -590,8 +590,7 @@
 			"gear": "Gear",
 			"plant": "Plants",
 			"ration": "Food",
-			"weapon": "Weapons",
-			"patrolShip": "Patrol ships"
+			"weapon": "Weapons"
 		},
 		"buttons": {
 			"add": "Add",

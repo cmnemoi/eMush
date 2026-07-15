@@ -17,7 +17,7 @@ final readonly class DamageSpread
 
     public static function fromArray(array $damageSpread): self
     {
-        return new self($damageSpread[0], $damageSpread[1]);
+        return new self($damageSpread[0] ?? 0, $damageSpread[1] ?? 0);
     }
 
     public function equals(self $damageSpread): bool

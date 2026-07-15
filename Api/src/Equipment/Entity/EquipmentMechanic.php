@@ -55,6 +55,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     'weapon' => Weapon::class,
 ])]
 #[ApiResource(
+    shortName: 'Mechanic',
     operations: [
         new GetCollection(
             security: 'is_granted("ROLE_ADMIN")',
@@ -75,6 +76,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     paginationItemsPerPage: 25,
 )]
 #[ApiResource(
+    shortName: 'Mechanic',
     uriTemplate: '/equipment_configs/{equipmentConfigId}/mechanics',
     operations: [new GetCollection()],
     uriVariables: [

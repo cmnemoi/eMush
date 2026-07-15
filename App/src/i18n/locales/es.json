@@ -590,8 +590,7 @@
 			"gear": "Herramientas",
 			"plant": "Plantas",
 			"ration": "Consumibles",
-			"weapon": "Armas",
-			"patrolShip": "Patrulleros"
+			"weapon": "Armas"
 		},
 		"buttons": {
 			"add": "Añadir",

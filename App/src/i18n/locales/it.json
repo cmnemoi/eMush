@@ -590,8 +590,7 @@
 			"gear": "Outils",
 			"plant": "Plantes",
 			"ration": "Nourriture",
-			"weapon": "Armes",
-			"patrolShip": "Patrouilleurs"
+			"weapon": "Armes"
 		},
 		"buttons": {
 			"add": "Ajouter",

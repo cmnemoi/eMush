@@ -19,6 +19,7 @@ class MushActionFixtures extends Fixture
     public const FAKE_DISEASE = 'fake.disease';
     public const SCREW_TALKIE = 'screw.talkie';
     public const CONVERT_CAT = 'convert.cat';
+    public const CONVERT_CHICKEN = 'convert.chicken';
     public const GO_BERSERK = 'go_berserk';
 
     public function load(ObjectManager $manager): void
@@ -71,6 +72,9 @@ class MushActionFixtures extends Fixture
         $convertCatAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CONVERT_CAT));
         $manager->persist($convertCatAction);
 
+        $convertChickenAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CONVERT_CHICKEN));
+        $manager->persist($convertChickenAction);
+
         $goBerserkAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::GO_BERSERK));
         $manager->persist($goBerserkAction);
 
@@ -98,6 +102,7 @@ class MushActionFixtures extends Fixture
         $this->addReference(ActionEnum::TRAP_CLOSET->value, $trapClosetAction);
         $this->addReference(ActionEnum::EXCHANGE_BODY->value, $exchangeBoodyAction);
         $this->addReference(ActionEnum::CONVERT_CAT->value, $convertCatAction);
+        $this->addReference(ActionEnum::CONVERT_CHICKEN->value, $convertChickenAction);
         $this->addReference(ActionEnum::GO_BERSERK->value, $goBerserkAction);
         $this->addReference(ActionEnum::REMOVE_CAMERA_NIMBLE_FINGERS->value, $removeCameraNimbleFingersAction);
         $this->addReference(ActionEnum::INSTALL_CAMERA_NIMBLE_FINGERS->value, $installCameraNimbleFingersAction);

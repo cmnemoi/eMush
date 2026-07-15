@@ -44,7 +44,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     public function onPreAction(ActionEvent $event): void
     {
         match ($event->getActionName()) {
-            ActionEnum::MOVE => $this->tryToCreateCatNoises($event),
+            ActionEnum::MOVE => $this->tryToCreatePetNoises($event),
             ActionEnum::TAKEOFF => $this->createTakeoffActionLog($event),
             default => null,
         };
@@ -55,7 +55,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         $actionLog = $this->roomLogService->createLogFromActionEvent($event);
 
         if ($actionLog?->isPublicOrRevealed()) {
-            $this->tryToCreateCatNoises($event);
+            $this->tryToCreatePetNoises($event);
         }
 
         if ($event->getActionName()->isDetectedByMycoAlarm()) {
@@ -69,7 +69,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         match ($event->getActionName()) {
             ActionEnum::LAND => $this->createLandActionLog($event),
-            ActionEnum::MOVE => $this->tryToCreateCatNoises($event),
+            ActionEnum::MOVE => $this->tryToCreatePetNoises($event),
             ActionEnum::CONSUME, ActionEnum::CONSUME_DRUG => $this->handleMushConsumeLog($event),
             default => null,
         };
@@ -77,6 +77,12 @@ final class ActionSubscriber implements EventSubscriberInterface
         $this->handlePlayerWakeUpLog($event);
         $this->handleContentLog($event);
         $this->handleMycoAlarmLog($event);
+    }
+
+    private function tryToCreatePetNoises(ActionEvent $event): void
+    {
+        $this->tryToCreateCatNoises($event);
+        $this->tryToCreateChickenNoises($event);
     }
 
     private function createMushConsumeLog(Player $player, string $log = LogEnum::CONSUME_MUSH): void
@@ -229,6 +235,13 @@ final class ActionSubscriber implements EventSubscriberInterface
         }
     }
 
+    private function tryToCreateChickenNoises(ActionEvent $event): void
+    {
+        if ($this->shotAtChickenAndFailed($event) || $this->cureChickenAndFailed($event)) {
+            $this->createChickenSquawkLog($event);
+        }
+    }
+
     private function shotAtCatAndFailed(ActionEvent $event): bool
     {
         return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && $event->getActionResultOrThrow()->isAFail();
@@ -242,6 +255,21 @@ final class ActionSubscriber implements EventSubscriberInterface
     private function cureCatAndFailed(ActionEvent $event): bool
     {
         return $event->getActionConfig()->getActionName() === ActionEnum::CURE_CAT && $event->getActionResultOrThrow()->isAFail();
+    }
+
+    private function shotAtChickenAndFailed(ActionEvent $event): bool
+    {
+        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CHICKEN && $event->getActionResultOrThrow()->isAFail();
+    }
+
+    private function shotAtChickenAndSucceeded(ActionEvent $event): bool
+    {
+        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CHICKEN && $event->getActionResultOrThrow()->isASuccess();
+    }
+
+    private function cureChickenAndFailed(ActionEvent $event): bool
+    {
+        return $event->getActionConfig()->getActionName() === ActionEnum::CURE_CHICKEN && $event->getActionResultOrThrow()->isAFail();
     }
 
     private function schrodingerInRoomOrPlayerInventory(ActionEvent $event): bool
@@ -302,6 +330,19 @@ final class ActionSubscriber implements EventSubscriberInterface
         );
     }
 
+    private function createChickenSquawkLog(ActionEvent $event): void
+    {
+        $this->roomLogService->createLog(
+            LogEnum::CHICKEN_SQUAWK,
+            $event->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'event_log',
+            $event->getAuthor(),
+            [LogParameterKeyEnum::ITEM => ItemEnum::TREASURE_HUNT_SPACE_CHICKEN],
+            $event->getTime()
+        );
+    }
+
     private function improvePlayerStatisticBasedOnLog(ActionEvent $event, ?RoomLog $actionLog): void
     {
         $action = $event->getActionName();
@@ -320,7 +361,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if ($action === ActionEnum::CONVERT_CAT) {
+        if ($action === ActionEnum::CONVERT_CAT || $action === ActionEnum::CONVERT_CHICKEN) {
             $statistic->incrementStealthActionsTaken();
 
             return;

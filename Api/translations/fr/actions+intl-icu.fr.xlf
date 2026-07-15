@@ -1602,6 +1602,36 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet de câliner "amoureusement" Schrödinger et d'en faire un agent du Mush.</target>
       </segment>
     </unit>
+    <unit id="take_chicken">
+      <segment id="name" state="translated">
+        <source>take_chicken.name</source>
+        <target>Prendre</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>take_chicken.description</source>
+        <target>Soulevez cette volaille et placez-le dans votre inventaire.</target>
+      </segment>
+    </unit>
+    <unit id="cure_chicken">
+      <segment id="name" state="translated">
+        <source>cure_chicken.name</source>
+        <target>Vacciner</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>cure_chicken.description</source>
+        <target>Le vaccin anti-Mush injecte un rétro-fongique puissant qui annule tous les effets du Mush sur un sujet infecté.//Ce volatile-là bat des ailes, picore et vous fait comprendre par tous les moyens à sa disposition qu'il ne veut pas que cette aiguille s'approche de lui.</target>
+      </segment>
+    </unit>
+    <unit id="convert_chicken">
+      <segment id="name" state="translated">
+        <source>convert_chicken.name</source>
+        <target>Becquée Infectieuse</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>convert_chicken.description</source>
+        <target>Permet de contaminer discrètement la poule avec une spore et d'en faire un agent du Mush. </target>
+      </segment>
+    </unit>
     <unit id="torture">
       <segment id="name" state="translated">
         <source>torture.name</source>
@@ -1716,6 +1746,16 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>shoot_cat.description</source>
+        <target>Tirer sur quelqu'un pour le blesser, le tuer ou plus si affinité. Attention, jeux de mains, jeux de vilains !</target>
+      </segment>
+    </unit>
+    <unit id="shoot_chicken">
+      <segment id="name" state="translated">
+        <source>shoot_chicken.name</source>
+        <target>Tirer : {equipment}</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>shoot_chicken.description</source>
         <target>Tirer sur quelqu'un pour le blesser, le tuer ou plus si affinité. Attention, jeux de mains, jeux de vilains !</target>
       </segment>
     </unit>

@@ -113,6 +113,9 @@ class ActionsFixtures extends Fixture
     public const string PET_CAT = 'pet_cat';
     public const string CURE_CAT = 'cure_cat';
     public const string SHOOT_CAT = 'shoot_cat';
+    public const string TAKE_CHICKEN = 'take_chicken';
+    public const string CURE_CHICKEN = 'cure_chicken';
+    public const string SHOOT_CHICKEN = 'shoot_chicken';
     public const string OPEN_CONTAINER_COST_0 = 'open_container_cost_0';
     public const string CHECK_ROSTER = 'check_roster';
 
@@ -1103,6 +1106,15 @@ class ActionsFixtures extends Fixture
         $shootCat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_CAT));
         $manager->persist($shootCat);
 
+        $takeChicken = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TAKE_CHICKEN));
+        $manager->persist($takeChicken);
+
+        $cureChicken = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CURE_CHICKEN));
+        $manager->persist($cureChicken);
+
+        $shootChicken = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_CHICKEN));
+        $manager->persist($shootChicken);
+
         $torture = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TORTURE));
         $manager->persist($torture);
 
@@ -1334,6 +1346,9 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::PET_CAT->value, $petCat);
         $this->addReference(ActionEnum::CURE_CAT->value, $cureCat);
         $this->addReference(ActionEnum::SHOOT_CAT->value, $shootCat);
+        $this->addReference(ActionEnum::TAKE_CHICKEN->value, $takeChicken);
+        $this->addReference(ActionEnum::CURE_CHICKEN->value, $cureChicken);
+        $this->addReference(ActionEnum::SHOOT_CHICKEN->value, $shootChicken);
         $this->addReference(ActionEnum::TORTURE->value, $torture);
         $this->addReference(ActionEnum::DAUNT->value, $daunt);
         $this->addReference(ActionEnum::GEN_METAL->value, $genMetal);

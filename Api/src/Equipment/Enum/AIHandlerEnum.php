@@ -11,4 +11,5 @@ enum AIHandlerEnum: string
     case DRONE = 'drone';
     case PAVLOV = 'pavlov';
     case DRONE_EVIL = 'drone_evil';
+    case CHICKEN = 'chicken';
 }

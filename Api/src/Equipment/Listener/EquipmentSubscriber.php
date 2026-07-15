@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\EquipmentInitEvent;
@@ -16,7 +17,9 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
@@ -24,15 +27,18 @@ class EquipmentSubscriber implements EventSubscriberInterface
     private GameEquipmentServiceInterface $gameEquipmentService;
     private EventServiceInterface $eventService;
     private DeleteEquipmentServiceInterface $deleteEquipmentService;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
         EventServiceInterface $eventService,
-        DeleteEquipmentServiceInterface $deleteEquipmentService
+        DeleteEquipmentServiceInterface $deleteEquipmentService,
+        StatusServiceInterface $statusService
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->eventService = $eventService;
         $this->deleteEquipmentService = $deleteEquipmentService;
+        $this->statusService = $statusService;
     }
 
     public static function getSubscribedEvents(): array
@@ -83,6 +89,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
         $this->createHydropotIfPlantIsDestroyedByFire($event);
+        $this->createAlienSteakIfChickenIsKilled($event);
 
         $this->eventService->callEvent($event, EquipmentEvent::EQUIPMENT_DELETE);
     }
@@ -166,5 +173,29 @@ class EquipmentSubscriber implements EventSubscriberInterface
             reasons: [],
             time: new \DateTime(),
         );
+    }
+
+    private function createAlienSteakIfChickenIsKilled(EquipmentEvent $event): void
+    {
+        $gameEquipment = $event->getGameEquipment();
+        if (!$gameEquipment->isSpaceChicken()) {
+            return;
+        }
+
+        $steak = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameRationEnum::ALIEN_STEAK,
+            equipmentHolder: $gameEquipment->getPlace(),
+            reasons: $event->getTags(),
+            time: $event->getTime(),
+        );
+
+        if ($event->hasTag(EquipmentStatusEnum::CHICKEN_INFECTED)) {
+            $this->statusService->createOrIncrementChargeStatus(
+                name: EquipmentStatusEnum::CONTAMINATED,
+                holder: $steak,
+                tags: $event->getTags(),
+                time: $event->getTime(),
+            );
+        }
     }
 }

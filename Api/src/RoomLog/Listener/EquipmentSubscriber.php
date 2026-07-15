@@ -47,6 +47,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         EndCauseEnum::ASPHYXIA => LogEnum::OXY_LOW_USE_CAPSULE,
         PlanetSectorEvent::ITEM_LOST => LogEnum::LOST_ITEM_IN_EXPLORATION,
         ActionEnum::SHOOT_CAT->value => LogEnum::CAT_SHOT_DEAD,
+        ActionEnum::SHOOT_CHICKEN->value => LogEnum::CHICKEN_SHOT_DEAD,
         ActionEnum::ATTACK->value => LogEnum::EQUIPMENT_DESTROYED,
         ActionEnum::SHOOT->value => LogEnum::EQUIPMENT_DESTROYED,
         ActionEnum::THROW_GRENADE->value => LogEnum::EQUIPMENT_DESTROYED,

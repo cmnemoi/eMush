@@ -93,6 +93,8 @@ abstract class LogEnum
     public const string CAT_MEOW = 'cat_meow';
     public const string CAT_HISS = 'cat_hiss';
     public const string CAT_SHOT_DEAD = 'cat_shot_dead';
+    public const string CHICKEN_SHOT_DEAD = 'chicken_shot_dead';
+    public const string CHICKEN_SQUAWK = 'chicken_squawk';
     public const string TORTURER_ACTIONS = 'torturer_actions';
     public const string LETHARGY_WORKED = 'lethargy_worked';
     public const string RESEARCH_COMPLETED = 'research_completed';

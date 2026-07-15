@@ -1143,6 +1143,7 @@ class MechanicsData
             'actions' => [
                 ActionEnum::SHOOT->value,
                 ActionEnum::SHOOT_CAT->value,
+                ActionEnum::SHOOT_CHICKEN->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1173,6 +1174,7 @@ class MechanicsData
             'actions' => [
                 ActionEnum::SHOOT->value,
                 ActionEnum::SHOOT_CAT->value,
+                ActionEnum::SHOOT_CHICKEN->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1249,6 +1251,7 @@ class MechanicsData
             'actions' => [
                 ActionEnum::SHOOT,
                 ActionEnum::SHOOT_CAT,
+                ActionEnum::SHOOT_CHICKEN,
             ],
             'modifierConfigs' => [],
         ],
@@ -1277,6 +1280,7 @@ class MechanicsData
             'actions' => [
                 ActionEnum::SHOOT,
                 ActionEnum::SHOOT_CAT,
+                ActionEnum::SHOOT_CHICKEN,
             ],
             'modifierConfigs' => [],
         ],
@@ -1305,6 +1309,7 @@ class MechanicsData
             'actions' => [
                 ActionEnum::SHOOT,
                 ActionEnum::SHOOT_CAT,
+                ActionEnum::SHOOT_CHICKEN,
             ],
             'modifierConfigs' => [],
         ],

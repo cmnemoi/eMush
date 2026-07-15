@@ -1824,12 +1824,15 @@ class EquipmentConfigData
             'isStackable' => false,
             'actions' => [
                 'examine',
+                'drop',
+                'take_chicken',
+                'convert_chicken',
             ],
             'mechanics' => [],
             'initStatuses' => [
                 'alien_artefact_default',
             ],
-            'AIHandler' => AIHandlerEnum::NOTHING,
+            'AIHandler' => AIHandlerEnum::CHICKEN,
         ],
         [
             'name' => ItemEnum::TREASURE_HUNT_CHEST_CLOSED . '_default',
@@ -1900,6 +1903,7 @@ class EquipmentConfigData
                 'examine',
                 'cure',
                 'cure_cat',
+                'cure_chicken',
             ],
             'mechanics' => [],
             'initStatuses' => [],

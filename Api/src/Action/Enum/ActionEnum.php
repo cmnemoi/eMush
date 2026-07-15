@@ -42,6 +42,7 @@ enum ActionEnum: string
     case SABOTAGE = 'sabotage';
     case GO_BERSERK = 'go_berserk';
     case CONVERT_CAT = 'convert_cat';
+    case CONVERT_CHICKEN = 'convert_chicken';
 
     // Item-enabled actions
     case READ_DOCUMENT = 'read_document';
@@ -80,6 +81,9 @@ enum ActionEnum: string
     case PET_CAT = 'pet_cat';
     case SHOOT_CAT = 'shoot_cat';
     case CURE_CAT = 'cure_cat';
+    case TAKE_CHICKEN = 'take_chicken';
+    case SHOOT_CHICKEN = 'shoot_chicken';
+    case CURE_CHICKEN = 'cure_chicken';
     case OPEN_CONTAINER = 'open_container';
     case PLAY_WITH_DOG = 'play_with_dog';
     case LIE_DOWN_IN_SHIP = 'lie_down_in_ship';
@@ -238,6 +242,7 @@ enum ActionEnum: string
     {
         return \in_array($this, [
             self::CONVERT_CAT,
+            self::CONVERT_CHICKEN,
             self::EXCHANGE_BODY,
             self::GIVE_NIGHTMARE,
             self::GO_BERSERK,

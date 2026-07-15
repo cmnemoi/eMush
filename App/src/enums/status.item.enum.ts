@@ -17,6 +17,7 @@ export enum StatusItemNameEnum {
     DECOMPOSING = "decomposing",
     CONTAMINATED = "contaminated",
     CAT_INFECTED = "cat_infected",
+    CHICKEN_INFECTED = "chicken_infected",
     PRIVATE_PROPERTY = "private_propety",
 }
 
@@ -65,10 +66,14 @@ export const statusItemEnum: {[index: string]: {icon: string}} = {
     },
     [StatusItemNameEnum.CAT_INFECTED]: {
         'icon': getImgUrl('status/mush.png')
+    },
+    [StatusItemNameEnum.CHICKEN_INFECTED]: {
+        'icon': getImgUrl('status/mush.png')
     }
 };
 export const StatusItemPriorityEnum: {[index: string]: number} = {
     [StatusItemNameEnum.CAT_INFECTED]: 1,
+    [StatusItemNameEnum.CHICKEN_INFECTED]: 1,
     [StatusItemNameEnum.CONTAMINATED]: 2,
     [StatusItemNameEnum.HIDDEN]: 3,
     [StatusItemNameEnum.BROKEN]: 4,

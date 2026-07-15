@@ -99,6 +99,7 @@ export const EmoteStatusAliases: { [index: string]: string } = {
     ['mush']: EmoteStatusEnum.MUSH,
     ['contaminated']: EmoteStatusEnum.MUSH,
     ['cat_infected']: EmoteStatusEnum.MUSH,
+    ['chicken_infected']: EmoteStatusEnum.MUSH,
     ['pacifist']: EmoteStatusEnum.PACIFIST,
     ['pregnant']: EmoteStatusEnum.PREGNANT,
     ['plant_diseased']: EmoteStatusEnum.PLANT_DISEASED,

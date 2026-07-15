@@ -129,11 +129,6 @@ class GameItem extends GameEquipment
         throw new \LogicException('Cannot determine if item is critical if it is not held by a player');
     }
 
-    public function isSchrodinger(): bool
-    {
-        return $this->getName() === ItemEnum::SCHRODINGER;
-    }
-
     public function isAnInactiveCamera(): bool
     {
         return $this->getName() === ItemEnum::CAMERA_ITEM;

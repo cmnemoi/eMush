@@ -51,6 +51,9 @@ final class ActionEventSubscriber implements EventSubscriberInterface
 
             $playerModifierEvent->setAuthor($trapper);
             $playerModifierEvent->addTag(PlaceStatusEnum::MUSH_TRAPPED->value);
+            if ($place->hasStatus(PlaceStatusEnum::CHICKEN_TRAPPED->value)) {
+                $playerModifierEvent->addTag(PlaceStatusEnum::CHICKEN_TRAPPED->value);
+            }
 
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }

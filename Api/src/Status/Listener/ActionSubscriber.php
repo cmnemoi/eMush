@@ -49,6 +49,12 @@ final readonly class ActionSubscriber implements EventSubscriberInterface
                 tags: $event->getTags(),
                 time: $event->getTime()
             );
+            $this->statusService->removeStatus(
+                statusName: PlaceStatusEnum::CHICKEN_TRAPPED->value,
+                holder: $event->getPlace(),
+                tags: $event->getTags(),
+                time: $event->getTime()
+            );
         }
 
         if ($event->shouldTriggerAttemptHandling()) {

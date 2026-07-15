@@ -9,6 +9,7 @@ enum PlaceStatusEnum: string
     case CEASEFIRE = 'ceasefire';
     case DELOGGED = 'delogged';
     case MUSH_TRAPPED = 'mush_trapped';
+    case CHICKEN_TRAPPED = 'chicken_trapped';
     case SELECTED_FOR_ELECTROCUTION = 'selected_for_electrocution';
     case SELECTED_FOR_JOLT = 'selected_for_jolt';
     case SELECTED_FOR_FIRE = 'selected_for_fire';

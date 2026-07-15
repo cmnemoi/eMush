@@ -94,7 +94,10 @@ class PlayerSubscriber implements EventSubscriberInterface
             $params['item'] = ItemEnum::SCHRODINGER;
             $params[$mush->getLogKey()] = $mush->getLogName();
         }
-
+        if ($key === MushMessageEnum::INFECT_TRAP && $event->hasTag(PlaceStatusEnum::CHICKEN_TRAPPED->value)) {
+            $key = MushMessageEnum::INFECT_TRAP_CHICKEN;
+            $params['item'] = ItemEnum::TREASURE_HUNT_SPACE_CHICKEN;
+        }
         $daedalusInfo = $player->getDaedalusInfo();
 
         /** @var Channel $mushChannel */

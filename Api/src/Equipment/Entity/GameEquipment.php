@@ -686,6 +686,11 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return $this->getName() === ItemEnum::SCHRODINGER;
     }
 
+    public function isSpaceChicken(): bool
+    {
+        return $this->getName() === ItemEnum::TREASURE_HUNT_SPACE_CHICKEN;
+    }
+
     public function isSofa(): bool
     {
         return $this->getName() === EquipmentEnum::SWEDISH_SOFA;

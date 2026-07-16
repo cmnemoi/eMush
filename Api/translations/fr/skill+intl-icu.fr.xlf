@@ -748,7 +748,7 @@
       </segment>
       <segment id="traitor.description" state="translated">
         <source>traitor.description</source>
-        <target>Vous avez développé un sens pour attirer les ennuis. Tiens un Mankarog... Et si on le chatouillait pour voir...//:beta: Vous savez **quel secteur sera visité en prochain** en expédition.//:beta: Vous pouvez **saboter** un secteur par expédition pour garantir un évènement néfaste.</target>
+        <target>Vous avez développé un sens pour attirer les ennuis. Tiens un Mankarog... Et si on le chatouillait pour voir...//:point: Vous savez **quel secteur sera visité en prochain** en expédition.//:point: Vous pouvez **saboter** un secteur par expédition pour garantir un évènement néfaste.//:point: Garentit l'obtention d'un piège mush en cas de sabotage sur une cristalite.</target>
       </segment>
     </unit>
     <unit id="cold_blooded">

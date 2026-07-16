@@ -29,7 +29,7 @@ class EquipmentConfigData
                 'hide',
                 'examine',
             ],
-            'mechanics' => [],
+            'mechanics' => ['gear_quadrimetric_compass_default'],
             'initStatuses' => [],
         ],
         [
@@ -83,7 +83,7 @@ class EquipmentConfigData
                 'hide',
                 'examine',
             ],
-            'mechanics' => [],
+            'mechanics' => ['gear_babel_module_default'],
             'initStatuses' => [],
         ],
         [

@@ -1493,7 +1493,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         $I->assertEquals(expected: 'Perdu', actual: $normalizedExplorationLog['planetSectorName']);
         $I->assertEquals(expected: 'Retrouvaille', actual: $normalizedExplorationLog['eventName']);
-        $I->assertEquals(expected: 'Un équipier perdu est retrouvé !////Probabilité de mort annulée car l\'expédition dispose de la compétence : Traqueur', actual: $normalizedExplorationLog['eventOutcome']);
+        $I->assertEquals(expected: 'Un équipier perdu est retrouvé !', actual: $normalizedExplorationLog['eventOutcome']);
         $I->assertContains(
             needle: $normalizedExplorationLog['eventDescription'],
             haystack: [$firstVersion, $secondVersion],

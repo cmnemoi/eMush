@@ -487,6 +487,9 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::TRACKER,
+                modifierConfigs: [
+                    ModifierNameEnum::TRACKER_REMOVE_KILL_LOST,
+                ]
             ),
             new SkillConfigDto(
                 name: SkillEnum::TRAITOR,

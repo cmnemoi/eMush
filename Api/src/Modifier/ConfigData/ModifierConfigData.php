@@ -3686,6 +3686,53 @@ abstract class ModifierConfigData
                 eventToAdd: PlanetSectorEvent::NEW_SECTOR,
                 weight: null
             ),
+            new ExplorationEventModifierConfigDto(
+                key: ModifierNameEnum::COMPASS_REMOVE_AGAIN,
+                name: ModifierNameEnum::COMPASS_REMOVE_AGAIN,
+                strategy: ModifierStrategyEnum::EXPLORATION_SECTOR_SELECTION_MODIFIER,
+                modifierRange: ModifierHolderClassEnum::PLACE,
+                modifierActivationRequirements: [],
+                targetEvent: ExplorationSelectionEvent::SECTOR_SELECTION,
+                priority: ModifierPriorityEnum::EXPLORATION_DIPLOMAT,
+                tagConstraints: [],
+                action: ExplorationEventModifierConfig::REMOVE,
+                criteria: ExplorationEventModifierConfig::EVENT_NAME,
+                eventToRemove: PlanetSectorEvent::AGAIN,
+                eventToAdd: null,
+                weight: null
+            ),
+            new ExplorationEventModifierConfigDto(
+                key: ModifierNameEnum::BABEL_DOUBLE_ARTEFACT,
+                name: ModifierNameEnum::BABEL_DOUBLE_ARTEFACT,
+                strategy: ModifierStrategyEnum::EXPLORATION_SECTOR_SELECTION_MODIFIER,
+                modifierRange: ModifierHolderClassEnum::PLACE,
+                modifierActivationRequirements: [],
+                targetEvent: ExplorationSelectionEvent::SECTOR_SELECTION,
+                priority: ModifierPriorityEnum::EXPLORATION_DIPLOMAT,
+                tagConstraints: [
+                    PlanetSectorEnum::INTELLIGENT => ModifierRequirementEnum::ANY_TAGS,
+                ],
+                action: ExplorationEventModifierConfig::REPLACE,
+                criteria: ExplorationEventModifierConfig::EVENT_NAME,
+                eventToRemove: PlanetSectorEvent::ARTEFACT,
+                eventToAdd: PlanetSectorEvent::ARTEFACT,
+                weight: 4
+            ),
+            new ExplorationEventModifierConfigDto(
+                key: ModifierNameEnum::TRACKER_REMOVE_KILL_LOST,
+                name: ModifierNameEnum::TRACKER_REMOVE_KILL_LOST,
+                strategy: ModifierStrategyEnum::EXPLORATION_SECTOR_SELECTION_MODIFIER,
+                modifierRange: ModifierHolderClassEnum::PLACE,
+                modifierActivationRequirements: [],
+                targetEvent: ExplorationSelectionEvent::SECTOR_SELECTION,
+                priority: ModifierPriorityEnum::EXPLORATION_DIPLOMAT,
+                tagConstraints: [],
+                action: ExplorationEventModifierConfig::REMOVE,
+                criteria: ExplorationEventModifierConfig::EVENT_NAME,
+                eventToRemove: PlanetSectorEvent::KILL_LOST,
+                eventToAdd: null,
+                weight: null
+            ),
         ];
     }
 

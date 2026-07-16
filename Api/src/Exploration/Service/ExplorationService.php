@@ -249,14 +249,6 @@ final class ExplorationService implements ExplorationServiceInterface
     {
         $sectorEvents = clone $sector->getExplorationEvents();
 
-        if ($exploration->hasAFunctionalCompass()) {
-            $sectorEvents->remove(PlanetSectorEvent::AGAIN);
-        }
-        if ($exploration->hasAFunctionalBabelModule() && $sector->getName() === PlanetSectorEnum::INTELLIGENT) {
-            $newProbability = $sectorEvents->getElementProbability(PlanetSectorEvent::ARTEFACT) * 2;
-            $sectorEvents->setElementProbability(PlanetSectorEvent::ARTEFACT, $newProbability);
-        }
-
         $event = new ExplorationSelectionEvent(
             $exploration,
             $sectorEvents,
@@ -271,12 +263,21 @@ final class ExplorationService implements ExplorationServiceInterface
             $sectorEvents = $event->getPlanetSectorEvents();
 
             if ($exploration->isSabotaged()) {
-                /** @var string $eventKey */
-                foreach ($sectorEvents->getKeys() as $eventKey) {
-                    if (!$this->findPlanetSectorEventConfigByName($eventKey)->isNegative()) {
-                        $sectorEvents->remove($eventKey);
+                if ($sector->getName() !== PlanetSectorEnum::CRISTAL_FIELD) {
+                    /** @var string $eventKey */
+                    foreach ($sectorEvents->getKeys() as $eventKey) {
+                        if (!$this->findPlanetSectorEventConfigByName($eventKey)->isNegative()) {
+                            $sectorEvents->remove($eventKey);
+                        }
                     }
+                } else {
+                    $sectorEvents = new ProbaCollection([PlanetSectorEvent::MUSH_TRAP => 1]);
                 }
+            }
+
+            // if after removing all negative event we don't have any, add a nothing to report.
+            if ($sectorEvents->isEmpty()) {
+                $sectorEvents->setElementProbability(PlanetSectorEvent::NOTHING_TO_REPORT, 1);
             }
 
             return $sectorEvents;

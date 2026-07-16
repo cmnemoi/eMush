@@ -128,8 +128,8 @@ final class ExplorationSelectionEventCest extends AbstractExplorationTester
         // when we trigger the selection event
         $collection = $this->explorationService->getPlanetSectorEventProbaCollection($this->sector, $this->exploration);
 
-        // then we have a collection with the event removed
-        $I->assertEquals([], $collection->toArray());
+        // then we have a collection with the event removed (nothing to report is given by default if no event is possible)
+        $I->assertEquals(['nothing_to_report' => 1], $collection->toArray());
     }
 
     public function explorationModifierShouldAddEvent(FunctionalTester $I): void

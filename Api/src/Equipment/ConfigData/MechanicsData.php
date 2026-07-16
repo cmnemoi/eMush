@@ -2159,6 +2159,22 @@ class MechanicsData
                 'whiteflag_replace_fight',
             ],
         ],
+        [
+            'name' => 'gear_quadrimetric_compass_default',
+            'type' => 'gear',
+            'actions' => [],
+            'modifierConfigs' => [
+                ModifierNameEnum::COMPASS_REMOVE_AGAIN,
+            ],
+        ],
+        [
+            'name' => 'gear_babel_module_default',
+            'type' => 'gear',
+            'actions' => [],
+            'modifierConfigs' => [
+                ModifierNameEnum::BABEL_DOUBLE_ARTEFACT,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

@@ -16,6 +16,7 @@ use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Modifier\Service\ModifierCreationService;
+use Mush\Modifier\Service\ModifierListenerService\SkillModifierService;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Normalizer\CurrentPlayerNormalizer;
@@ -72,6 +73,7 @@ final class CurrentPlayerNormalizerTest extends TestCase
             playerRepository: self::createStub(PlayerRepositoryInterface::class),
             skillConfigRepository: $skillConfigRepository,
             statusService: new FakeStatusService(),
+            skillModifierService: self::createStub(SkillModifierService::class),
         );
 
         $this->player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());

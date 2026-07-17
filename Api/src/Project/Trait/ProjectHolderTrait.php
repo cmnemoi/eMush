@@ -105,4 +105,9 @@ trait ProjectHolderTrait
     {
         return $this->getProjects()->getAdvancedNeronProjects();
     }
+
+    public function getAllFinishedProjects(): ProjectCollection
+    {
+        return $this->getProjects()->filter(static fn (Project $project) => $project->isFinished());
+    }
 }

@@ -10,6 +10,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Exception\GameException;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
+use Mush\Modifier\Service\ModifierListenerService\SkillModifierService;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\InMemoryPlayerRepository;
@@ -113,6 +114,7 @@ final class AddSkillToPlayerServiceTest extends TestCase
             $this->playerRepository,
             $this->skillConfigRepository,
             new FakeStatusService(),
+            self::createStub(SkillModifierService::class),
         );
         $service->execute(skill: $skill, player: $this->player);
     }

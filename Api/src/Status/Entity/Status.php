@@ -112,6 +112,56 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
         throw new \LogicException('There should always be a target on a status target');
     }
 
+    public function getDaedalusOrThrow(): Daedalus
+    {
+        if ($this->owner === null) {
+            throw new \LogicException("This status should be deleted, id : {$this->getId()}");
+        }
+
+        if ($player = $this->owner->getPlayer()) {
+            return $player->getDaedalus();
+        }
+        if ($equipment = $this->owner->getGameEquipment()) {
+            return $equipment->getDaedalus();
+        }
+        if ($place = $this->owner->getPlace()) {
+            return $place->getDaedalus();
+        }
+        if ($hunter = $this->owner->getHunter()) {
+            return $hunter->getDaedalus();
+        }
+        if ($daedalus = $this->owner->getDaedalus()) {
+            return $daedalus;
+        }
+
+        throw new \LogicException('There should always be a target on a status target');
+    }
+
+    public function getPlaceOrThrow(): Place
+    {
+        if ($this->owner === null) {
+            throw new \LogicException("This status should be deleted, id : {$this->getId()}");
+        }
+
+        if ($player = $this->owner->getPlayer()) {
+            return $player->getPlace();
+        }
+        if ($equipment = $this->owner->getGameEquipment()) {
+            return $equipment->getPlace();
+        }
+        if ($place = $this->owner->getPlace()) {
+            return $place;
+        }
+        if ($hunter = $this->owner->getHunter()) {
+            return $hunter->getPlace();
+        }
+        if ($daedalus = $this->owner->getDaedalus()) {
+            throw new \LogicException('Daedalus don\'t have place');
+        }
+
+        throw new \LogicException('There should always be a target on a status target');
+    }
+
     public function getVisibleOwner(): VisibleStatusHolderInterface
     {
         $owner = $this->getOwner();
@@ -128,6 +178,13 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
         $owner = $this->getOwner();
 
         return $owner instanceof Player ? $owner : throw new \RuntimeException("Status {$this->getName()} owner is not a Player, but {$owner->getClassName()}");
+    }
+
+    public function getEquipmentOwnerOrThrow(): GameEquipment
+    {
+        $owner = $this->getOwner();
+
+        return $owner instanceof GameEquipment ? $owner : throw new \RuntimeException("Status {$this->getName()} owner is not an Equipment, but {$owner->getClassName()}");
     }
 
     public function setTargetOwner(StatusTarget $owner): self

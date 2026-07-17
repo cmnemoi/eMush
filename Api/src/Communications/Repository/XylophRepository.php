@@ -48,6 +48,17 @@ final class XylophRepository extends ServiceEntityRepository implements XylophRe
         );
     }
 
+    /**
+     * @return XylophEntry[]
+     */
+    public function findAllDecodedByDaedalusId(int $daedalusId): array
+    {
+        return array_map(
+            fn (XylophEntry $xylophEntry) => $this->hydrate($xylophEntry),
+            $this->findBy(['daedalus' => $daedalusId, 'isDecoded' => true])
+        );
+    }
+
     public function findByDaedalusIdAndNameOrThrow(int $daedalusId, string $name): XylophEntry
     {
         $queryBuilder = $this->createQueryBuilder('xyloph_entry')

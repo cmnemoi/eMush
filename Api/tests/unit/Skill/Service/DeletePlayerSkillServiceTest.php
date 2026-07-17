@@ -11,6 +11,7 @@ use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Factory\GameModifierFactory;
 use Mush\Modifier\Service\FakeModifierCreationService;
+use Mush\Modifier\Service\ModifierListenerService\SkillModifierService;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\InMemoryPlayerRepository;
@@ -50,6 +51,7 @@ final class DeletePlayerSkillServiceTest extends TestCase
             $this->modifierCreationService,
             $this->skillRepository,
             $this->statusService,
+            new SkillModifierService($this->modifierCreationService)
         );
     }
 

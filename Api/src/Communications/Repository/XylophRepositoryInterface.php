@@ -20,6 +20,11 @@ interface XylophRepositoryInterface
      */
     public function findAllUndecodedByDaedalusId(int $daedalusId): array;
 
+    /**
+     * @return XylophEntry[]
+     */
+    public function findAllDecodedByDaedalusId(int $daedalusId): array;
+
     public function findByDaedalusIdAndNameOrThrow(int $daedalusId, string $name): XylophEntry;
 
     public function areAllXylophDatabasesDecoded(int $daedalusId): bool;

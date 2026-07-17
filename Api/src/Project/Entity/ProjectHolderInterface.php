@@ -46,4 +46,6 @@ interface ProjectHolderInterface
     public function getFinishedNeronProjects(): ProjectCollection;
 
     public function getAdvancedNeronProjects(): ProjectCollection;
+
+    public function getAllFinishedProjects(): ProjectCollection;
 }

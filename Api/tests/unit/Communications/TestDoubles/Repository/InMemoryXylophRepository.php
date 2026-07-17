@@ -45,6 +45,18 @@ final class InMemoryXylophRepository implements XylophRepositoryInterface
         return $result;
     }
 
+    public function findAllDecodedByDaedalusId(int $daedalusId): array
+    {
+        $result = [];
+        foreach ($this->xylophEntries as $xylophEntry) {
+            if ($xylophEntry->getDaedalusId() === $daedalusId && $xylophEntry->isDecoded()) {
+                $result[] = $xylophEntry;
+            }
+        }
+
+        return $result;
+    }
+
     public function findByDaedalusIdAndNameOrThrow(int $daedalusId, string $name): XylophEntry
     {
         foreach ($this->xylophEntries as $xylophEntry) {

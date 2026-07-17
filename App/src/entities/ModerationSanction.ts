@@ -6,28 +6,44 @@ type ModerationSanctionData = {
     isActive?: boolean;
     startDate?: string;
     endDate?: string;
-    authorName?: string;
-    authorId?: string;
-    playerId?: number;
-    playerName?: string;
-    userId?: string;
-    username?: string;
+    user?: SanctionActorData;
+    author?: SanctionActorData;
     sanctionEvidenceArray?: Parameters<SanctionEvidence["load"]>[0];
 };
 
+type SanctionActorData = {
+    id: string;
+    username: string;
+    playerId: number | null;
+    playerName: string | null;
+};
+
+export class SanctionActor {
+    public id: string = '';
+    public username: string = '';
+    public playerId: number | null = null;
+    public playerName: string | null = null;
+
+    public load(object?: SanctionActorData): SanctionActor {
+        if (object) {
+            this.id = object.id;
+            this.username = object.username;
+            this.playerId = object.playerId;
+            this.playerName = object.playerName;
+        }
+        return this;
+    }
+}
+
 export class ModerationSanction {
     public id!: number;
-    public userId!: string;
-    public username!: string;
+    public user!: SanctionActor;
     public moderationAction!: string;
     public reason!: string;
     public message: string|null = null;
     public isActive!: boolean;
-    public authorName!: string;
-    public authorId!: string;
+    public author!: SanctionActor;
     public isWarning!: boolean;
-    public playerId!: number;
-    public playerName!: string;
     public sanctionEvidence!: SanctionEvidence;
     public startDate!: Date;
     public endDate!: Date;
@@ -41,12 +57,8 @@ export class ModerationSanction {
             this.isActive = object.isActive;
             this.startDate = new Date(object.startDate);
             this.endDate = new Date(object.endDate);
-            this.authorName = object.authorName;
-            this.authorId = object.authorId;
-            this.playerId = object.playerId;
-            this.playerName = object.playerName;
-            this.userId = object.userId;
-            this.username = object.username;
+            this.user = new SanctionActor().load(object.user);
+            this.author = new SanctionActor().load(object.author);
             this.isWarning = object.moderationAction === 'warning';
             this.sanctionEvidence = new SanctionEvidence().load(object.sanctionEvidenceArray);
         }

@@ -25,13 +25,7 @@
             <span class="timestamp">{{ roomLog?.date }}</span>
         </p>
         <div class="actions" v-if="roomLogChannel" @click.stop>
-            <Tippy tag="span" @click="openReportDialog">
-                <img :src="getImgUrl('comms/alert.png')" alt="Report message">
-                <template #content>
-                    <h1>{{ $t('moderation.report.name')}}</h1>
-                    <p>{{ $t('moderation.report.description') }}</p>
-                </template>
-            </Tippy>
+            <ReportButton @click="openReportDialog" />
         </div>
     </section>
 </template>
@@ -41,13 +35,12 @@ import { formatText } from "@/utils/formatText";
 import { RoomLog } from "@/entities/RoomLog";
 import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
-import { getImgUrl } from "@/utils/getImgUrl";
 import ReportPopup from "@/components/Moderation/ReportPopup.vue";
-import { Tippy } from "vue-tippy";
+import ReportButton from "@/components/Moderation/ReportButton.vue";
 
 export default defineComponent ({
     name: "Log",
-    components: { Tippy, ReportPopup },
+    components: { ReportButton, ReportPopup },
     data() {
         return {
             reportPopupVisible: false,
@@ -79,7 +72,6 @@ export default defineComponent ({
             reportRoomLog: 'moderation/reportRoomLog'
         }),
         formatText,
-        getImgUrl,
         async read(roomLog: RoomLog) {
             if (!roomLog.isUnread) {
                 return;

@@ -75,6 +75,9 @@ class ModerationSanction
     #[ORM\ManyToOne(targetEntity: User::class)]
     private User $author;
 
+    #[ORM\ManyToOne(targetEntity: PlayerInfo::class)]
+    private ?PlayerInfo $authorPlayer = null;
+
     #[ORM\OneToOne(mappedBy: 'moderationSanction', targetEntity: SanctionEvidence::class, cascade: ['ALL'])]
     private ?SanctionEvidence $sanctionEvidence;
 
@@ -115,13 +118,11 @@ class ModerationSanction
         return $this->user;
     }
 
-    #[Groups(['moderation_sanction_read'])]
     public function getUsername(): string
     {
         return $this->user->getUsername();
     }
 
-    #[Groups(['moderation_sanction_read'])]
     public function getUserId(): string
     {
         return $this->user->getUserId();
@@ -139,13 +140,11 @@ class ModerationSanction
         return $this->player;
     }
 
-    #[Groups(['moderation_sanction_read'])]
     public function getPlayerId(): ?int
     {
         return $this->player?->getId();
     }
 
-    #[Groups(['moderation_sanction_read'])]
     public function getPlayerName(): ?string
     {
         return $this->player?->getName();
@@ -244,16 +243,26 @@ class ModerationSanction
         return $this->author;
     }
 
-    #[Groups(['moderation_sanction_read'])]
     public function getAuthorName(): string
     {
         return $this->author->getUsername();
     }
 
-    #[Groups(['moderation_sanction_read'])]
     public function getAuthorId(): string
     {
         return $this->author->getUserId();
+    }
+
+    public function setAuthorPlayer(?PlayerInfo $authorPlayer): self
+    {
+        $this->authorPlayer = $authorPlayer;
+
+        return $this;
+    }
+
+    public function getAuthorPlayer(): ?PlayerInfo
+    {
+        return $this->authorPlayer;
     }
 
     public function setEvidence(?SanctionEvidence $sanctionEvidence): static

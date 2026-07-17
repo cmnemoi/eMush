@@ -70,7 +70,40 @@ final class ModerationSanctionNormalizer implements NormalizerInterface, Normali
             return null;
         }
 
-        return $this->normalizer->normalize($moderationSanction, $format, $context);
+        $normalized = $this->normalizer->normalize($moderationSanction, $format, $context);
+
+        if (!\is_array($normalized)) {
+            return $normalized;
+        }
+
+        $isReport = $moderationSanction->getIsReport();
+        $reportedPlayerInfo = $isReport ? $moderationSanction->getPlayer() : null;
+        $authorPlayerInfo = $isReport ? $moderationSanction->getAuthorPlayer() : null;
+
+        // Fallback to retrieve the author's player info using the author's user
+        // and the reported player info. This is done to handle earlier reports
+        // where the author's player info is not directly available.
+        if ($authorPlayerInfo === null && $isReport && $reportedPlayerInfo !== null) {
+            $authorPlayerInfo = $this->playerInfoRepository->findPlayerInfoInSameGameOrNull(
+                $moderationSanction->getAuthor(),
+                $reportedPlayerInfo
+            );
+        }
+
+        $normalized['user'] = [
+            'id' => $moderationSanction->getUser()->getUserId(),
+            'username' => $moderationSanction->getUser()->getUsername(),
+            'playerId' => $reportedPlayerInfo?->getId(),
+            'playerName' => $reportedPlayerInfo?->getName(),
+        ];
+        $normalized['author'] = [
+            'id' => $moderationSanction->getAuthor()->getUserId(),
+            'username' => $moderationSanction->getAuthor()->getUsername(),
+            'playerId' => $authorPlayerInfo?->getId(),
+            'playerName' => $authorPlayerInfo?->getName(),
+        ];
+
+        return $normalized;
     }
 
     private function appNotInDev(): bool

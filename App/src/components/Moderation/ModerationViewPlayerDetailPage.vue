@@ -20,26 +20,66 @@
             :pagination="reportPagination"
             @pagination-click="paginationClick"
         >
+
+            <template #header-authorName>
+                {{ $t('moderation.table.complainant') }}
+            </template>
+            <template #row-authorName="report">
+                <ModerationActorCell :actor="report.author" />
+            </template>
+
+            <template #header-reason>
+                {{ $t('moderation.table.reason') }}
+            </template>
+            <template #row-reason="report">
+                {{ $t(`moderation.reason.${report.reason}`) }}
+            </template>
+
+            <template #header-message>
+                {{ $t('moderation.table.reporterMessage') }}
+            </template>
+            <template #row-message="report">
+                <div class="left">
+                    <span>{{ report.message }}</span>
+                </div>
+            </template>
+
             <template #header-evidence>
-                {{ $t('moderation.sanctionDetail.evidence') }}
+                {{ $t('moderation.table.evidence') }}
             </template>
             <template #row-evidence="report">
-                {{ report.sanctionEvidence.message }}
-                <button
-                    class="action-button"
-                    @click="goToSanctionEvidence(report)">
+                <div class="left">
+                    <span>{{ report.sanctionEvidence.message }}</span>
+                </div>
+            </template>
+
+            <template #header-context>
+                {{ $t('moderation.table.context') }}
+            </template>
+            <template #row-context="report">
+                <span>{{ $t(`moderation.context.${report.sanctionEvidence.className}`) }}</span>
+                <button class="action-button" @click="goToSanctionEvidence(report)">
                     {{ $t('moderation.report.seeContext') }}
                 </button>
             </template>
+
+            <template #header-startDate>
+                {{ $t('moderation.table.reportDate') }}
+            </template>
+            <template #row-startDate="report">
+                {{ formatModerationDate(report.startDate, currentLocale, $t) }}
+            </template>
+
             <template #header-actions>
-                Actions
+                {{ $t('moderation.table.actions') }}
             </template>
             <template #row-actions="report">
-                <DropList class="align-right">
-                    <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.report') }}</button>
-                    <button class="action-button" @click="archiveReport(report.id)">{{ $t('moderation.actions.archive') }}</button>
-                    <button class="action-button" @click="closeReport(report.id)">{{ $t('moderation.actions.close') }}</button>
-                </DropList>
+                <ModerationRowActions
+                    :sanction="report"
+                    go-to-user
+                    sanction-list
+                    @detail="showSanctionDetails"
+                />
             </template>
         </Datatable>
 
@@ -331,12 +371,13 @@ import qs from "qs";
 import ApiService from "@/services/api.service";
 import urlJoin from "url-join";
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
-import DropList from "@/components/Utils/DropList.vue";
+import ModerationActorCell from "@/components/Moderation/ModerationDatatable/ModerationActorCell.vue";
+import ModerationRowActions from "@/components/Moderation/ModerationDatatable/ModerationRowActions.vue";
 import { ModerationSanction } from "@/entities/ModerationSanction";
-import { ClosedPlayer } from "@/entities/ClosedPlayer";
-import router from "@/router";
 import { ModerationChannel } from "@/entities/ModerationChannel";
 import { RoomLog } from "@/entities/RoomLog";
+import { formatModerationDate } from "@/utils/moderation/formatModerationDate";
+import { goToClosedShip } from "@/utils/moderation/sanctionEvidenceNavigation";
 
 interface PrivateChannel {
     id: number,
@@ -386,7 +427,8 @@ interface ModerationViewPlayerData {
 export default defineComponent({
     name: "ModerationViewPlayerDetail",
     components: {
-        DropList,
+        ModerationActorCell,
+        ModerationRowActions: ModerationRowActions,
         SanctionDetailPage,
         Datatable,
         Log,
@@ -438,21 +480,44 @@ export default defineComponent({
             },
             reportFields: [
                 {
+                    key: 'authorName',
+                    name: 'moderation.table.complainant',
+                    slot:true,
+                    sortable: true
+                },
+                {
+                    key: 'startDate',
+                    name: 'moderation.table.reportDate',
+                    slot: true,
+                    sortable: true
+                },
+                {
                     key: 'reason',
-                    name: 'moderation.sanctionReason'
+                    name: 'moderation.table.reason',
+                    slot: true,
+                    sortable: true
                 },
                 {
                     key: 'message',
-                    name: 'moderation.report.playerMessage'
+                    name: 'moderation.table.reporterMessage',
+                    slot: true,
+                    sortable: false
                 },
                 {
                     key: 'evidence',
-                    name: 'moderation.sanctionDetail.evidence',
-                    slot: true
+                    name: 'moderation.table.evidence',
+                    slot: true,
+                    sortable: false
+                },
+                {
+                    key: 'context',
+                    name: 'moderation.table.context',
+                    slot: true,
+                    sortable: false
                 },
                 {
                     key: 'actions',
-                    name: 'Actions',
+                    name: 'moderation.table.actions',
                     sortable: false,
                     slot: true
                 }
@@ -462,8 +527,14 @@ export default defineComponent({
             ignoreNoise : true
         };
     },
+    computed: {
+        currentLocale() {
+            return this.$i18n.locale;
+        }
+    },
     emits: ['close'],
     methods: {
+        formatModerationDate,
         openModerationDialog(moderationAction: { key: string, value: string }) {
             this.currentAction = moderationAction;
             this.moderationDialogVisible = true;
@@ -489,28 +560,6 @@ export default defineComponent({
                 });
 
             this.moderationDialogVisible = false;
-        },
-        archiveReport(sanctionId) {
-            const params = new URLSearchParams();
-            params.append('isAbusive', false);
-
-            ModerationService.archiveReport(sanctionId, params)
-                .catch((error) => {
-                    console.error(error);
-                });
-            this.$emit('close');
-            this.loadData();
-        },
-        closeReport(sanctionId) {
-            const params = new URLSearchParams();
-            params.append('isAbusive', true);
-
-            ModerationService.archiveReport(sanctionId, params)
-                .catch((error) => {
-                    console.error(error);
-                });
-            this.$emit('close');
-            this.loadData();
         },
         closeDetailAndUpdate() {
             this.showDetailPopup = false;
@@ -652,19 +701,8 @@ export default defineComponent({
             }
         },
         paginationClick(page: number) {
-            this.pagination.currentPage = page;
+            this.reportPagination.currentPage = page;
             this.loadData();
-        },
-        getClosedDaedalusId(closedPlayerId: number): Promise<number>
-        {
-            const closedPlayer = new ClosedPlayer();
-            try {
-                const result = ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'closed_players', String(closedPlayerId)));
-                closedPlayer.load(result.data);
-                return closedPlayer.closedDaedalusId;
-            } catch (error) {
-                throw error;
-            }
         },
         async goToSanctionEvidence(sanction: ModerationSanction)
         {
@@ -704,8 +742,7 @@ export default defineComponent({
                 });
 
             } else if (evidenceClass === 'closedPlayer') {
-                const closedDaedalusId = this.getClosedDaedalusId(sanctionEvidence.id);
-                router.push({ name: 'TheEnd', params: { closedDaedalusId } });
+                await goToClosedShip(sanctionEvidence.id);
             }
         },
         openAllMessages(channel : MessageEntity[])
@@ -722,6 +759,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+:deep(th), :deep(td) {
+    text-align: center !important;
+
+    .action-button {
+        width: 100%;
+        @include button-style();
+    }
+
+    .left {
+        text-align: left !important;
+    }
+}
+
 .logs-container, .messages-container {
     position: relative;
     width: 100%;

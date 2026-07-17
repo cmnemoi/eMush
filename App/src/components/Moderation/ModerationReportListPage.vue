@@ -20,66 +20,78 @@
             Daedalus
         </template>
         <template #row-daedalusId="report">
-            {{ getDaedalusId(report.playerId) }}
+            <router-link
+                v-if="getDaedalusId(playerInfo, report.user.playerId)"
+                :to="{ name: 'ModerationShipView', params: { daedalusId: getDaedalusId(playerInfo, report.user.playerId) } }"
+                class="action-button"
+            >
+                {{ getDaedalusId(playerInfo, report.user.playerId) }}
+            </router-link>
         </template>
 
         <template #header-authorName>
-            {{ $t('moderation.sanction.author') }}
+            {{ $t('moderation.table.complainant') }}
         </template>
         <template #row-authorName="report">
-            <Tippy>
-                {{ report.authorName }}
-                <template #content>
-                    <h1 v-html="report.authorId" />
-                </template>
-            </Tippy>
+            <ModerationActorCell
+                :actor="report.author"
+                :status="{ isAlive: getPlayerStatus(playerInfo, report.author.playerId), isMush: getPlayerMush(playerInfo, report.author.playerId) }"
+            />
         </template>
 
         <template #header-username>
-            {{ $t('moderation.sanction.target') }}
+            {{ $t('moderation.table.target') }}
         </template>
         <template #row-username="report">
-            <img :src="getCharacterBodyFromKey(report?.playerName)" alt="Character Image" style="max-width: 16px;" />
-            {{ report.username }}
-            <div v-if="getPlayerStatus(report.playerId)" class="alive">
-                {{ $t('moderation.sanction.alive') }}
-            </div>
-            <div v-if="getPlayerMush(report.playerId)" class="isMush">
-                MUSH
-            </div>
+            <ModerationActorCell
+                :actor="report.user"
+                :status="{ isAlive: getPlayerStatus(playerInfo, report.user.playerId), isMush: getPlayerMush(playerInfo, report.user.playerId) }"
+            />
         </template>
 
         <template #header-reason>
-            {{ $t('moderation.sanction.reason') }}
+            {{ $t('moderation.table.reason') }}
         </template>
         <template #row-reason="report">
-            {{  getReasonTranslation(report.reason) }}
+            {{ $t(`moderation.reason.${report.reason}`) }}
         </template>
 
-        <template #header-evidence>
-            {{ $t('moderation.sanctionDetail.message') }}
+        <template #header-message>
+            {{ $t('moderation.table.reporterMessage') }}
         </template>
-        <template #row-evidence="report">
-            {{ report.message }}
+        <template #row-message="report">
+            <div class="left">
+                <span>{{ report.message }}</span>
+            </div>
+        </template>
+
+        <template #header-context>
+            {{ $t('moderation.table.context') }}
+        </template>
+        <template #row-context="report">
+            <span>{{ $t(`moderation.context.${report.sanctionEvidence.className}`) }}</span>
+            <button class="action-button" @click="goToReportEvidence(report)">
+                {{ $t('moderation.report.seeContext') }}
+            </button>
         </template>
 
         <template #header-startDate>
-            {{ $t('moderation.sanction.date') }}
+            {{ $t('moderation.table.reportDate') }}
         </template>
         <template #row-startDate="report">
-            {{ formatDate(report.startDate) }}
+            {{ formatModerationDate(report.startDate, currentLocale, $t) }}
         </template>
 
         <template #header-actions>
-            {{ $t('moderation.sanction.actions') }}
+            {{ $t('moderation.table.actions') }}
         </template>
         <template #row-actions="report">
-            <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.report') }}</button>
-            <button
-                class="action-button"
-                @click="goToSanctionEvidence(report)">
-                {{ $t('moderation.report.seeContext') }}
-            </button>
+            <ModerationRowActions
+                :sanction="report"
+                go-to-player
+                sanction-list
+                @detail="showSanctionDetails"
+            />
         </template>
 
     </Datatable>
@@ -92,20 +104,21 @@
 </template>
 
 <script lang="ts">
+import ModerationActorCell from "@/components/Moderation/ModerationDatatable/ModerationActorCell.vue";
+import ModerationRowActions from "@/components/Moderation/ModerationDatatable/ModerationRowActions.vue";
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
 import Datatable, { Header } from "@/components/Utils/Datatable/Datatable.vue";
-import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import { ModerationSanction } from "@/entities/ModerationSanction";
 import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
-import { characterEnum } from "@/enums/character";
 import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
-import router from "@/router";
 import ApiService from "@/services/api.service";
-import ModerationService from "@/services/moderation.service";
 import qs from "qs";
 import urlJoin from "url-join";
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
+import { formatModerationDate } from "@/utils/moderation/formatModerationDate";
+import { getDaedalusId, getPlayerMush, getPlayerStatus, loadPlayerInfo } from "@/utils/moderation/playerStatusLookup";
+import { goToReportEvidence } from "@/utils/moderation/sanctionEvidenceNavigation";
 
 interface SanctionListData {
     userId: string,
@@ -128,8 +141,10 @@ interface SanctionListData {
 }
 
 export default defineComponent({
-    name: "SanctionListPage",
+    name: "ModerationReportListPage",
     components: {
+        ModerationActorCell,
+        ModerationRowActions: ModerationRowActions,
         Datatable,
         SanctionDetailPage
     },
@@ -160,38 +175,44 @@ export default defineComponent({
                     sortable: false
                 },
                 {
+                    key: 'startDate',
+                    name: 'moderation.table.reportDate',
+                    slot: true,
+                    sortable: true
+                },
+                {
                     key: 'authorName',
-                    name: 'moderation.sanctionDetail.author',
+                    name: 'moderation.table.complainant',
                     slot:true,
                     sortable: true
                 },
                 {
                     key: 'username',
-                    name: 'admin.user.username',
+                    name: 'moderation.table.target',
                     slot:true,
                     sortable: false
                 },
                 {
                     key: 'reason',
-                    name: 'moderation.sanctionReason',
+                    name: 'moderation.table.reason',
                     slot: true,
                     sortable: true
                 },
                 {
-                    key: 'evidence',
-                    name: 'moderation.sanctionDetail.evidence',
+                    key: 'message',
+                    name: 'moderation.table.reporterMessage',
                     slot: true,
                     sortable: false
                 },
                 {
-                    key: 'startDate',
-                    name: 'moderation.sanctionDetail.date',
+                    key: 'context',
+                    name: 'moderation.table.context',
                     slot: true,
-                    sortable: true
+                    sortable: false
                 },
                 {
                     key: 'actions',
-                    name: 'Actions',
+                    name: 'moderation.table.actions',
                     sortable: false,
                     slot: true
                 }
@@ -222,89 +243,20 @@ export default defineComponent({
         };
     },
     methods: {
-        getDaedalusId(playerId: number) {
-            const player = this.playerInfo.find(player => player.id === playerId);
-            if(player) {
-                return player.daedalusId;
-            } else {
-                return null;
-            }
-        },
-        getPlayerStatus(playerId: number) {
-            const player = this.playerInfo.find(player => player.id === playerId);
-            if(player) {
-                return player.isAlive;
-            } else {
-                return null;
-            }
-        },
-        getPlayerMush(playerId: number) {
-            const player = this.playerInfo.find(player => player.id === playerId);
-            if(player) {
-                return player.isMush;
-            } else {
-                return null;
-            }
-        },
-        async loadPlayerInfo(playerId: number) {
-            if (!this.playerInfo.find(player => player.id === playerId)) {
-                try {
-                    const response = await ModerationService.getModerationViewPlayer(playerId);
-                    this.playerInfo.push(new ModerationViewPlayer().load(response.data));
-                } catch (error) {
-                    console.error(error);
-                }
-            }
-        },
-        getCharacterBodyFromKey(characterKey: string) {
-            return characterEnum[characterKey].body;
-        },
-        getReasonTranslation(reason) {
-            const reasonObj = moderationReasons.find(item => item.value === reason);
-            return reasonObj ? this.$t(reasonObj.key) : reason;
-        },
-        formatDate(date: string): string {
-            const currentDate = new Date();
-            const reportDate = new Date(date);
-
-            // if today or yesterday, special format
-            if(currentDate.toDateString() === reportDate.toDateString()) {
-                return `${this.$t('moderation.sanctionDetail.today')} ${this.$t('moderation.sanctionDetail.to')} ${reportDate.toLocaleTimeString(this.currentLocale, { hour: "numeric", minute: "numeric" })}`;
-            }
-
-            if(new Date(currentDate.setDate(currentDate.getDate() - 1)).toDateString() === reportDate.toDateString()) {
-                return `${this.$t('moderation.sanctionDetail.yesterday')} ${this.$t('moderation.sanctionDetail.to')} ${reportDate.toLocaleTimeString(this.currentLocale, { hour: "numeric", minute: "numeric" })}`;
-            }
-
-            return reportDate.toLocaleDateString(this.currentLocale, { month: "long", day: "numeric", hour: "numeric", minute: "numeric" });
-        },
-        closeDetailAndUpdate() {
-            this.showDetailPopup = false;
-            this.loadData();
-        },
+        formatModerationDate,
+        getDaedalusId,
+        getPlayerStatus,
+        getPlayerMush,
+        goToReportEvidence,
         moderationReasons() {
             return moderationReasons;
         },
         moderationSanctionTypes() {
             return moderationSanctionTypes;
         },
-        removeSanction(sanctionId: number) {
-            ModerationService.removeSanction(sanctionId)
-                .then(() => {
-                    this.loadData();
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        },
-        suspendSanction(sanctionId: number) {
-            ModerationService.suspendSanction(sanctionId)
-                .then(() => {
-                    this.loadData();
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+        closeDetailAndUpdate() {
+            this.showDetailPopup = false;
+            this.loadData();
         },
         closeDetailPopUp() {
             this.showDetailPopup = false;
@@ -340,7 +292,8 @@ export default defineComponent({
                 for (const reportData of remoteRowData['hydra:member']) {
                     if (reportData) {
                         const moderationSanction = new ModerationSanction().load(reportData);
-                        await this.loadPlayerInfo(reportData.playerId);
+                        await loadPlayerInfo(this.playerInfo, reportData.user?.playerId);
+                        await loadPlayerInfo(this.playerInfo, reportData.author?.playerId);
                         this.rowData.push(moderationSanction);
                     }
                 }
@@ -378,33 +331,6 @@ export default defineComponent({
         paginationClick(page: number) {
             this.pagination.currentPage = page;
             this.loadData();
-        },
-        async getClosedDaedalusId(closedPlayerId: number): Promise<number>
-        {
-            try {
-                const result = await ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'closed_players', String(closedPlayerId)));
-                const closedPlayer = (new ClosedPlayer()).load(result.data);
-                return closedPlayer.closedDaedalusId;
-            } catch (error) {
-                throw error;
-            }
-        },
-        async goToSanctionEvidence(sanction: ModerationSanction)
-        {
-            const sanctionEvidence = sanction.sanctionEvidence;
-            const evidenceClass = sanctionEvidence.className;
-
-            if (
-                evidenceClass === 'message' ||
-                evidenceClass === 'roomLog' ||
-                evidenceClass === 'commanderMission' ||
-                evidenceClass === 'comManagerAnnouncement'
-            ) {
-                router.push({ name: 'ModerationViewPlayerDetail', params: { playerId: sanction.playerId } });
-            } else if (evidenceClass === 'closedPlayer') {
-                const closedDaedalusId = await this.getClosedDaedalusId(sanctionEvidence.id);
-                router.push({ name: 'TheEnd', params: { closedDaedalusId } });
-            }
         }
     },
     beforeMount() {
@@ -414,19 +340,24 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .sanction_filter_options {
+:deep(th), :deep(td) {
+    text-align: center !important;
+
+    .left {
+        text-align: left !important;
+    }
+}
+
+.action-button {
+    width: 100%;
+
+    @include button-style();
+}
+.sanction_filter_options {
     display: flex;
     flex-grow: 1;
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
-  }
-
-  .alive {
-    color:red;
-  }
-
-  .isMush {
-    color: pink;
-  }
+}
 </style>

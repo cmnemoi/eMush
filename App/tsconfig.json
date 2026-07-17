@@ -39,8 +39,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx",
-    "../../../.cache/JetBrains/PhpStorm2021.1/javascript/typings/mocha/8.2.2/node_modules/@types/mocha/index.d.ts"
+    "tests/**/*.tsx"
   ],
   "exclude": [
     "node_modules"

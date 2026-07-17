@@ -13,5 +13,7 @@ interface PlayerInfoRepositoryInterface
 
     public function findOneByUserAndGameStatusOrNull(User $user, string $gameStatus): ?PlayerInfo;
 
+    public function findPlayerInfoInSameGameOrNull(User $author, PlayerInfo $targetPlayerInfo): ?PlayerInfo;
+
     public function save(PlayerInfo $playerInfo): void;
 }

@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import TipsTab from "@/components/Game/Communications/TipsTab.vue";
+import TipsTab from "@/components/Game/Communications/TipsTab/TipsTab.vue";
 import RoomEventsTab from "@/components/Game/Communications/RoomEventsTab.vue";
 import FavouritesTab from "@/components/Game/Communications/FavouritesTab.vue";
 import DiscussionTab from "@/components/Game/Communications/DiscussionTab.vue";

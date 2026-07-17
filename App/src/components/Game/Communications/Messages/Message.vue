@@ -13,7 +13,7 @@
     />
     <div
         v-if="isRoot && !isSystemMessage"
-        ref="message"
+        ref="messageElement"
         :class="isNeronMessage ? 'message main-message neron' : 'message main-message'"
         @click="$emit('reply')"
         @mouseover="read(message);mouseOver = true"
@@ -23,7 +23,7 @@
             <img :src="characterPortrait" alt="Character image">
         </div>
         <p :class="['text', { unread: message.isUnread, read: !message.isUnread }]">
-            <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
+            <span class="author">{{ message.character.name }} :</span><span v-html="formatText(message.message.toString())" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
         <div class="actions" @click.stop>
@@ -40,19 +40,19 @@
     </div>
     <div
         v-if="isRoot && isSystemMessage"
-        ref="message"
+        ref="messageElement"
         class="log"
         @click="$emit('reply')"
         @mouseover="read(message)"
     >
         <p :class="['text', { unread: message.isUnread }]">
-            <span v-html="formatMessage(message.message)" />
+            <span v-html="formatText(message.message.toString())" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
     </div>
     <div
         v-else-if="!isRoot"
-        ref="message"
+        ref="messageElement"
         :class="isHidden ? 'message child-message hidden' : 'message child-message'"
         @click="$emit('reply')"
         @mouseover="read(message);mouseOver = true"
@@ -60,7 +60,7 @@
     >
         <p :class="['text', { unread: message.isUnread }]">
             <img class="character-head" :src="characterPortrait" alt="Character portrait">
-            <span class="author">{{ message.character.name }} :</span><span v-html="formatMessage(message.message)" />
+            <span class="author">{{ message.character.name }} :</span><span v-html="formatText(message.message.toString())" />
             <span class="timestamp">{{ message.date }}</span>
         </p>
         <div class="actions" @click.stop>
@@ -77,7 +77,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import ActionButtons from "@/components/Game/Communications/ActionButtons.vue";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 import ReportPopup from "@/components/Moderation/ReportPopup.vue";
@@ -85,166 +85,133 @@ import { Message } from "@/entities/Message";
 import { CharacterEnum, characterEnum } from "@/enums/character";
 import ModerationService from "@/services/moderation.service";
 import { formatText } from "@/utils/formatText";
-import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
-import { fr } from 'date-fns/locale';
-import { defineComponent } from "vue";
-import { mapActions, mapGetters } from "vuex";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
+import { useReportHandlers } from "@/utils/moderation/useReportHandlers";
 
-export default defineComponent ({
-    name: "Message",
-    components: {
-        ActionButtons,
-        ModerationActionPopup,
-        ReportPopup
-    },
-    data() {
-        return {
-            moderationDialogVisible: false,
-            reportPopupVisible: false,
-            mouseOver: false
-        };
-    },
-    props: {
-        message: {
-            type: Message,
-            required: true
-        },
-        isRoot: {
-            type: Boolean,
-            default: false
-        },
-        isReplyable: {
-            type: Boolean,
-            default: false
-        },
-        adminMode: {
-            type: Boolean,
-            default: false
+const props = withDefaults(defineProps<{
+    message: Message,
+    isRoot: boolean,
+    isReplyable?: boolean,
+    adminMode?: boolean
+}>(), {
+    isRoot: false,
+    isReplyable: false,
+    adminMode: false
+});
+
+defineEmits<{ click: [],  report: [], reply: [] }>();
+
+const store = useStore();
+const messageElement = ref<HTMLElement | null>(null);
+const mouseOver = ref(false);
+
+const channel = computed(() => store.getters['communication/currentChannel']);
+const player = computed(() => store.getters['player/player']);
+
+// Message characteristic
+const characterPortrait = computed((): string | null => {
+    if (props.message.character.key !== null) {
+        const images = characterEnum[props.message.character.key];
+        return props.isRoot ? images.body : images.head;
+    }
+    return null;
+});
+const isNeronMessage = computed((): boolean => {
+    return props.message.character.key === CharacterEnum.NERON;
+});
+const isSystemMessage = computed((): boolean => {
+    return props.message.character.key === null;
+});
+const isHidden = computed((): boolean => {
+    return props.message.isHidden;
+});
+const isPlayerAlive = computed((): boolean => {
+    if (!player.value) {
+        return false;
+    }
+    return !['finished'].includes(player.value.gameStatus);
+});
+const actions = computed((): Array<string> => {
+    const actions = [];
+    if (isPlayerAlive.value) {
+        if (channel.value.supportsReplies()) {
+            actions.push('reply');
         }
-    },
-    emits: [
-        'click',
-        'report',
-        'reply'
-    ],
-    computed: {
-        ...mapGetters({
-            channel: 'communication/currentChannel',
-            player: 'player/player',
-            readMessageMutex: 'communication/readMessageMutex'
-        }),
-        characterPortrait: function (): string | null {
-            if (this.message.character.key !== null) {
-                const images = characterEnum[this.message.character.key];
-                return this.isRoot ? images.body : images.head;
-            }
-            return null;
-        },
-        isNeronMessage: function (): boolean {
-            return this.message.character.key === CharacterEnum.NERON;
-        },
-        isSystemMessage: function (): boolean {
-            return this.message.character.key === null;
-        },
-        isHidden: function (): boolean {
-            return this.message.isHidden;
-        },
-        isPlayerAlive: function (): boolean {
-            if (!this.player) {
-                return false;
-            }
-            return !['finished'].includes(this.player.gameStatus);
-        },
-        actions: function (): Array<string> {
-            const actions = [];
-            if (this.isPlayerAlive) {
-                if (this.channel.supportsReplies()) {
-                    actions.push('reply');
-                }
-                if (this.channel.supportsFavorite()) {
-                    this.channel.isFavorite() ? actions.push('unfavorite') : actions.push('favorite');
-                }
-            }
-            if (this.adminMode) {
-                actions.push('delete');
-            }
-
-            actions.push('report');
-            return actions;
+        if (channel.value.supportsFavorite()) {
+            channel.value.isFavorite() ? actions.push('unfavorite') : actions.push('favorite');
         }
-    },
-    methods: {
-        ...mapActions({
-            acquireReadMessageMutex: 'communication/acquireReadMessageMutex',
-            favoriteMessage: 'communication/favoriteMessage',
-            readMessage: 'communication/readMessage',
-            releaseReadMessageMutex: 'communication/releaseReadMessageMutex',
-            unfavoriteMessage: 'communication/unfavoriteMessage',
-            loadReportablePlayers: 'moderation/loadReportablePlayers',
-            reportMessage: 'moderation/reportMessage'
-        }),
-        formatDate: (date: Date): string => {
-            return formatDistanceToNow(date, { locale : fr });
-        },
-        formatMessage(value: string): string {
-            return formatText(value.toString());
-        },
-        deleteMessage(params: URLSearchParams) {
-            if (this.message.id === null) {
-                return;
-            }
-            ModerationService.deleteMessage(this.message.id, params);
-            this.moderationDialogVisible = false;
-        },
-        openModerationDialog() {
-            this.moderationDialogVisible = true;
-        },
-        closeModerationDialog() {
-            this.moderationDialogVisible = false;
-        },
-        openReportDialog() {
-            this.reportPopupVisible = true;
-            this.loadReportablePlayers();
-        },
-        closeReportDialog() {
-            this.reportPopupVisible = false;
-        },
-        scrollIntoView: function(): void {
-            const element = this.$refs.message as HTMLElement;
-            // scrollIntoView() might take a `container: 'nearest'` options later, but it is not yet widely supported
-            // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView#browser_compatibility
-            // Without it the method scrolls every scrollable, so we need to scroll the main window back
-            const { scrollX, scrollY } = window;
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            window.scroll(scrollX, scrollY);
-        },
-        async submitComplaint(params: URLSearchParams) {
-            await this.reportMessage({ messageId: this.message.id, params: params });
-            this.reportPopupVisible = false;
-        },
-        async read(message: Message) {
-            if (this.adminMode) return;
+    }
+    if (props.adminMode) {
+        actions.push('delete');
+    }
 
-            if (!message.isUnread) {
-                return;
-            }
+    actions.push('report');
+    return actions;
+});
 
-            await this.acquireReadMessageMutex();
+// Mark as read
+const read = async (message: Message): Promise<void> => {
+    if (props.adminMode) return;
 
-            try {
-                if (message.isUnread) {
-                    await this.readMessage(message);
-                }
-            } finally {
-                await this.releaseReadMessageMutex();
-            }
-        },
-        async favorite(message: Message) {
-            await this.favoriteMessage(message);
-        },
-        async unfavorite(message: Message) {
-            await this.unfavoriteMessage(message);
+    if (!message.isUnread) {
+        return;
+    }
+
+    await store.dispatch('communication/acquireReadMessageMutex');
+
+    try {
+        if (message.isUnread) {
+            await store.dispatch('communication/readMessage', message);
         }
+    } finally {
+        await store.dispatch('communication/releaseReadMessageMutex');
+    }
+};
+
+// Favorite
+const favorite = async (message: Message): Promise<void> => {
+    await store.dispatch('communication/favoriteMessage', message);
+};
+const unfavorite = async (message: Message): Promise<void> => {
+    await store.dispatch('communication/unfavoriteMessage', message);
+};
+
+// Moderation
+const moderationDialogVisible = ref(false);
+const deleteMessage = (params: URLSearchParams): void => {
+    if (props.message.id === null) {
+        return;
+    }
+    ModerationService.deleteMessage(props.message.id, params);
+    moderationDialogVisible.value = false;
+};
+const openModerationDialog = (): void => {
+    moderationDialogVisible.value = true;
+};
+const closeModerationDialog = (): void => {
+    moderationDialogVisible.value = false;
+};
+
+// Report
+const { visible: reportPopupVisible, open: openReportDialogWith, close: closeReportDialog, submit: submitComplaint } = useReportHandlers();
+const openReportDialog = (): void => {
+    store.dispatch('moderation/loadReportablePlayers');
+    openReportDialogWith(async (params) => {
+        await store.dispatch('moderation/reportMessage', { messageId: props.message.id, params });
+    });
+};
+
+defineExpose({
+    message: computed(() => props.message),
+    scrollIntoView: () => {
+        const element = messageElement.value as HTMLElement;
+        // scrollIntoView() might take a `container: 'nearest'` options later, but it is not yet widely supported
+        // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView#browser_compatibility
+        // Without it the method scrolls every scrollable, so we need to scroll the main window back
+        const { scrollX, scrollY } = window;
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.scroll(scrollX, scrollY);
     }
 });
 </script>

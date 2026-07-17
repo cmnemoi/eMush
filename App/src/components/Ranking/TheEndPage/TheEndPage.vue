@@ -214,6 +214,7 @@ import DaedalusService from "@/services/daedalus.service";
 import ModerationService from "@/services/moderation.service";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { useReportHandlers } from "@/utils/moderation/useReportHandlers";
 import ReportPopup from "@/components/Moderation/ReportPopup.vue";
 import PlayerHistoryPopup from "@/components/Ranking/PlayerHistoryPopup.vue";
 import DaedalusProjectCard from "@/components/Game/DaedalusProjectCard.vue";
@@ -230,7 +231,6 @@ const store = useStore();
 const closedDaedalus = ref<ClosedDaedalus | null>(null);
 const players = ref<ClosedPlayer[]>([]);
 const moderationDialogVisible = ref(false);
-const reportPopupVisible = ref(false);
 const currentAction = ref<{ key: string, value: string }>({ key: "", value: "" });
 const currentPlayer = ref<ClosedPlayer | null>(null);
 const projectTypes = ['researchProjects', 'neronProjects', 'pilgredProjects'] as const;
@@ -244,20 +244,12 @@ function showPlayerDetailedHistory(player: ClosedPlayer) {
 }
 
 // Report
+const { visible: reportPopupVisible, open: openReportDialogWith, close: closeReportDialog, submit: submitReport } = useReportHandlers();
 function openReportDialog(player: ClosedPlayer) {
-    currentPlayer.value = player;
-    reportPopupVisible.value = true;
     window.scrollTo({ top: 0 });
-}
-function closeReportDialog() {
-    reportPopupVisible.value = false;
-}
-function submitReport(params: URLSearchParams) {
-    if (currentPlayer.value === null) {
-        return;
-    }
-    store.dispatch('moderation/reportClosedPlayer', { closedPlayerId: currentPlayer.value.id, params });
-    reportPopupVisible.value = false;
+    openReportDialogWith(async (params) => {
+        await store.dispatch('moderation/reportClosedPlayer', { closedPlayerId: player.id, params });
+    });
 }
 
 // Moderation

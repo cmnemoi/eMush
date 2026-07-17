@@ -57,6 +57,12 @@ type Tips = {
     }
 }
 
+export type Missions = Tips['missions'];
+export type Announcement = Tips['announcement'];
+export type TeamObjectives = Tips['teamObjectives'];
+export type CharacterObjectives = Tips['characterObjectives'];
+export type ExternalResources = Tips['externalResources'];
+
 type ChannelData = {
     id?: number;
     createdAt?: string;

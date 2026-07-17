@@ -75,10 +75,10 @@
 				"name": "PiouPiouZ",
 				"description": "Ils se \"plurtchent\", ils explosent, ils se dilatent, ils se transforment, ils avancent tout droit sans réfléchir et seul vous pouvez les amener à la sortie salvatrice ! (available only in french)"
 			},
-      "croquemonster": {
-        "name": "CroqueMonster",
-        "description": "Become the director of a monster agency and terrify children around the world!"
-      }
+			"croquemonster": {
+				"name": "CroqueMonster",
+				"description": "Become the director of a monster agency and terrify children around the world!"
+			}
 		}
 	},
 	"util": {
@@ -894,7 +894,6 @@
 		"sanction": {
 			"id": "Number",
 			"author": "Author",
-			"target": "Target",
 			"reason": "Reason",
 			"evidence": "Complained message",
 			"date": "Date",
@@ -919,8 +918,19 @@
 			"report_abusive": "Abusive complaint",
 			"report_processed": "Complaint processed",
 			"alive": "ALIVE",
-			"name": "Sanction",
 			"showMore": "Display"
+		},
+		"type": {
+			"report": "Complaint",
+			"report_abusive": "Complaint (abusive)",
+      "report_processed": "Complaint (archived)",
+			"ban_user": "Ban",
+			"ban_user_pending": "Ban (pending)",
+			"quarantine_player": "Quarantine",
+			"warning": "Warning",
+			"delete_message": "Message deletion",
+			"delete_end_message": "End message deletion",
+			"hide_end_message": "End message hiding"
 		},
 		"reason": {
 			"multi_account": "Multiaccount",
@@ -936,6 +946,13 @@
 			"leaking_private_information": "Leaking private information",
 			"allReasons": "All reasons"
 		},
+		"context": {
+			"commanderMission": "Commander mission",
+			"comManagerAnnouncement": "General announcement",
+			"message": "Chat message",
+			"roomLog": "Room event",
+			"closedPlayer": "End of ship"
+		},
 		"durations": {
 			"permanent": "Permanent",
 			"1_day": "1 day",
@@ -949,22 +966,44 @@
 			"3_month": "3 months"
 		},
 		"sanctionDetail": {
-			"sanction": "Sanction details",
-			"report": "Complaint details",
-			"user": "Username:",
+			"sanction": {
+				"title": "Sanction details",
+				"author": "Moderator",
+				"message": "Moderator's message:",
+				"startDate": "Sanction start:",
+				"endDate": "Sanction end:"
+			},
+			"report": {
+				"title": "Complaint details",
+				"author": "Complainant",
+				"message": "Complainant's message:",
+				"startDate": "Complaint date:"
+			},
+			"user": "User",
+			"username": "Username:",
 			"player": "Character played:",
-			"endDate": "Sanction end:",
-			"startDate": "Sanction start:",
-			"reportDate": "Complaint date:",
-			"date": "Date : ",
-			"author": "Moderator:",
-			"message": "Message :",
 			"sanctionType": "Sanction type:",
 			"reason": "Reason:",
+			"context": "Context:",
+			"date": "Date:",
 			"evidence": "Reported message:",
 			"today": "Today",
 			"yesterday": "Yesterday",
 			"to": "at"
+		},
+		"table": {
+			"moderator": "Moderator",
+			"complainant": "Complainant",
+			"target": "Target",
+			"reason": "Reason",
+			"reporterMessage": "Complainant's message",
+			"moderatorMessage": "Moderator's message",
+			"context": "Context",
+			"reportDate": "Date",
+			"sanctionStartDate": "Start",
+			"sanctionEndDate": "End",
+			"actions": "Actions",
+			"type": "Sanction"
 		},
 		"report": {
 			"name": "Report",
@@ -980,7 +1019,6 @@
 			"comManagerAnnouncement": "General announcement"
 		},
 		"actions": {
-			"name": "Actions",
 			"suspend": "Suspend the sanction",
 			"delete": "Delete the sanction",
 			"archive": "Archive complaint",
@@ -1000,6 +1038,7 @@
 		"isSanctionActive": "Active sanctions",
 		"sanctionType": "Sanction type",
 		"sanctionReason": "Reason",
+			"sanctionId": "Number",
 		"adminMessage": "Moderation message",
 		"startDate": "Start date",
 		"endDate": "End date",
@@ -1016,6 +1055,7 @@
 		"loadPrivateChannels": "Load private channels",
 		"loadPublicChannel": "Load public channel",
 		"logs": "Logs",
+			"ignoreNoise": "Ignore noise",
 		"mushChannel": "Mush channel",
 		"nothingToDisplay": "Nothing to display.",
 		"privateChannel": "Private channel",

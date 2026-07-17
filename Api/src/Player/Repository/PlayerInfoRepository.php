@@ -60,6 +60,31 @@ final class PlayerInfoRepository extends ServiceEntityRepository implements Play
         ]);
     }
 
+    public function findPlayerInfoInSameGameOrNull(User $author, PlayerInfo $targetPlayerInfo): ?PlayerInfo
+    {
+        $qb = $this->createQueryBuilder('player_info');
+
+        if ($targetPlayerInfo->getPlayer() !== null) {
+            $qb
+                ->join('player_info.player', 'player')
+                ->where($qb->expr()->eq('player_info.user', ':user'))
+                ->andWhere($qb->expr()->eq('player.daedalus', ':daedalus'))
+                ->setParameter('user', $author)
+                ->setParameter('daedalus', $targetPlayerInfo->getPlayer()->getDaedalus()->getId());
+        } else {
+            $qb
+                ->join('player_info.closedPlayer', 'closed_player')
+                ->where($qb->expr()->eq('player_info.user', ':user'))
+                ->andWhere($qb->expr()->eq('closed_player.closedDaedalus', ':closed_daedalus'))
+                ->setParameter('user', $author)
+                ->setParameter('closed_daedalus', $targetPlayerInfo->getClosedPlayer()->getClosedDaedalus()->getId());
+        }
+
+        $playerInfo = $qb->getQuery()->getOneOrNullResult();
+
+        return $playerInfo instanceof PlayerInfo ? $playerInfo : null;
+    }
+
     public function save(PlayerInfo $playerInfo): void
     {
         $this->getEntityManager()->persist($playerInfo);

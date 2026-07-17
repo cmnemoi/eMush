@@ -11,7 +11,7 @@ type MessageData = {
 
 export class Message {
     public id!: number;
-    public message : string|null;
+    public message : string;
     public character : Character;
     public children : Array<Message>;
     public date : string|null;
@@ -20,7 +20,7 @@ export class Message {
     public nbChildrenToDisplay = 2;
 
     constructor() {
-        this.message = null;
+        this.message = "";
         this.character = new Character();
         this.children = [];
         this.date = null;

@@ -75,11 +75,11 @@
 				"name": "PiouPiouZ",
 				"description": "Se \"plurtchan\", explotan, se dilatan, se transforman, avanzan en línea recta sin pensar y ¡solo tú puedes llevarlos a la salida salvadora! (disponible solo en francés)"
 			},
-      "croquemonster": {
-        "name": "CroqueMonster",
-        "description": "¡Conviértete en el director de una agencia de monstruos y aterroriza a los niños de todo el mundo!"
-      }
-    }
+			"croquemonster": {
+				"name": "CroqueMonster",
+				"description": "¡Conviértete en el director de una agencia de monstruos y aterroriza a los niños de todo el mundo!"
+			}
+		}
 	},
 	"util": {
 		"prev": "Pagina anterior",
@@ -894,7 +894,6 @@
 		"sanction": {
 			"id": "Número",
 			"author": "Autor",
-			"target": "Objetivo",
 			"reason": "Razón",
 			"evidence": "Mensaje denunciado",
 			"date": "Fecha",
@@ -919,8 +918,19 @@
 			"report_abusive": "Denuncia Abusiva",
 			"report_processed": "Denuncia manejada",
 			"alive": "EN VIDA",
-			"name": "Sanción",
 			"showMore": "Mostrar"
+		},
+		"type": {
+			"report": "Denuncia",
+			"report_abusive": "Denuncia (abusiva)",
+      "report_processed": "Denuncia (archivada)",
+			"ban_user": "Baneo",
+			"ban_user_pending": "Baneo (pendiente)",
+			"quarantine_player": "Cuarentena",
+			"warning": "Advertencia",
+			"delete_message": "Eliminación de mensaje",
+			"delete_end_message": "Eliminación de mensaje de fin de partida",
+			"hide_end_message": "Ocultación de mensaje de fin de partida"
 		},
 		"reason": {
 			"multi_account": "Multicuenta",
@@ -936,6 +946,13 @@
 			"leaking_private_information": "Difusión de información personal",
 			"allReasons": "Todas las razones"
 		},
+		"context": {
+			"commanderMission": "Misión del comandante",
+			"comManagerAnnouncement": "Anuncio general",
+			"message": "Mensaje de chat",
+			"roomLog": "Evento de la sala",
+			"closedPlayer": "Fin de la nave"
+		},
 		"durations": {
 			"permanent": "Permanente",
 			"1_day": "1 día",
@@ -949,22 +966,44 @@
 			"3_month": "3 meses"
 		},
 		"sanctionDetail": {
-			"sanction": "Detalles de la sanción",
-			"report": "Detalles",
-			"user": "Nombre de usuario",
-			"player": "Personaje jugado :",
-			"endDate": "Fin de la sanción",
-			"startDate": "Inicio de la sanción",
-			"reportDate": "Fecha de la denuncia",
-			"date": "Fecha",
-			"author": "Autor",
-			"message": "Mensaje",
-			"sanctionType": "Tipo de sanción",
-			"reason": "Razón",
-			"evidence": "Mensaje reportado",
+			"sanction": {
+				"title": "Detalles de la sanción",
+				"author": "Moderador",
+				"message": "Mensaje del moderador:",
+				"startDate": "Inicio de la sanción:",
+				"endDate": "Fin de la sanción:"
+			},
+			"report": {
+				"title": "Detalles de la denuncia",
+				"author": "Denunciante",
+				"message": "Mensaje del denunciante:",
+				"startDate": "Fecha de la denuncia:"
+			},
+			"user": "Usuario",
+			"username": "Nombre de usuario:",
+			"player": "Personaje jugado:",
+			"sanctionType": "Tipo de sanción:",
+			"reason": "Razón:",
+			"context": "Contexto:",
+			"date": "Fecha:",
+			"evidence": "Mensaje reportado:",
 			"today": "Hoy",
 			"yesterday": "Ayer",
 			"to": "hasta"
+		},
+		"table": {
+			"moderator": "Moderador",
+			"complainant": "Denunciante",
+			"target": "Objetivo",
+			"reason": "Razón",
+			"reporterMessage": "Mensaje del denunciante",
+			"moderatorMessage": "Mensaje del moderador",
+			"context": "Contexto",
+			"reportDate": "Fecha",
+			"sanctionStartDate": "Inicio",
+			"sanctionEndDate": "Fin",
+			"actions": "Acciones",
+			"type": "Sanción"
 		},
 		"report": {
 			"name": "Denuncia",
@@ -980,7 +1019,6 @@
 			"comManagerAnnouncement": "Anuncio general"
 		},
 		"actions": {
-			"name": "Acciones",
 			"suspend": "Suspender la sanción",
 			"delete": "Suprimir la sanción",
 			"archive": "Archivar la denuncia",
@@ -1000,6 +1038,7 @@
 		"isSanctionActive": "Sanciones activas",
 		"sanctionType": "Tipo de sanción",
 		"sanctionReason": "Razón",
+			"sanctionId": "Número",
 		"adminMessage": "Mensaje de la moderación",
 		"startDate": "Fecha de inicio",
 		"endDate": "Fecha de fin",
@@ -1016,6 +1055,7 @@
 		"loadPrivateChannels": "Cargar los canales privados",
 		"loadPublicChannel": "Cargar el canal público",
 		"logs": "Logs",
+			"ignoreNoise": "Ignorar ruido",
 		"mushChannel": "Canal Mush",
 		"nothingToDisplay": "Nada para mostrar.",
 		"privateChannel": "Canal privado",

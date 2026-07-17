@@ -17,13 +17,7 @@
                         </span>
                     </p>
                 </div>
-                <Tippy class="report" tag="span" @click="$emit('openReportDialog', player)">
-                    <img :src="getImgUrl('comms/alert.png')" alt="Report message">
-                    <template #content>
-                        <h1>{{ $t('moderation.report.name')}}</h1>
-                        <p>{{ $t('moderation.report.description') }}</p>
-                    </template>
-                </Tippy>
+                <ReportButton class="report" @click="$emit('openReportDialog', player)" />
             </div>
             <p class="epitaph" v-if="player.message">
                 <PlayerMessage
@@ -70,6 +64,7 @@ import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { formatText } from "@/utils/formatText";
 import PlayerMessage from "@/components/Ranking/TheEndPage/PlayerMessage.vue";
+import ReportButton from "@/components/Moderation/ReportButton.vue";
 import { Tippy } from "vue-tippy";
 
 defineProps<{

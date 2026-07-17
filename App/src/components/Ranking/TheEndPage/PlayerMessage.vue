@@ -25,18 +25,13 @@
             <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
         </template>
     </Tippy>
-    <Tippy tag="span" v-if="!player.messageHasBeenModerated" @click="$emit('openReportDialog', player)">
-        <img :src="getImgUrl('comms/alert.png')" alt="Report message">
-        <template #content>
-            <h1>{{ $t('moderation.report.name')}}</h1>
-            <p>{{ $t('moderation.report.description') }}</p>
-        </template>
-    </Tippy>
+    <ReportButton v-if="!player.messageHasBeenModerated" @click="$emit('openReportDialog', player)" />
 </template>
 
 <script setup lang="ts">
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import { getImgUrl } from "@/utils/getImgUrl";
+import ReportButton from "@/components/Moderation/ReportButton.vue";
 
 defineProps<{
     player: ClosedPlayer

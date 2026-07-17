@@ -36,6 +36,25 @@ final class InMemoryPlayerInfoRepository implements PlayerInfoRepositoryInterfac
         return null;
     }
 
+    public function findPlayerInfoInSameGameOrNull(User $author, PlayerInfo $targetPlayerInfo): ?PlayerInfo
+    {
+        $targetIsLive = $targetPlayerInfo->getPlayer() !== null;
+
+        foreach ($this->playerInfos as $playerInfo) {
+            if ($playerInfo->getUser()->getUserId() !== $author->getUserId()) {
+                continue;
+            }
+            if (($playerInfo->getPlayer() !== null) !== $targetIsLive) {
+                continue;
+            }
+            if ($playerInfo->getDaedalusId() === $targetPlayerInfo->getDaedalusId()) {
+                return $playerInfo;
+            }
+        }
+
+        return null;
+    }
+
     public function save(PlayerInfo $playerInfo): void
     {
         $this->playerInfos[] = $playerInfo;

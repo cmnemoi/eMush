@@ -50,8 +50,8 @@ export default defineComponent ({
     transition: all 0.3s;
 
     .modal-box {
-        min-width: 400px;
-        max-width: 80%;
+        min-width: 350px;
+        max-width: 90%;
         max-height: 80%;
         position: absolute;
         top: 50%;
@@ -100,13 +100,5 @@ export default defineComponent ({
     transition: all 0.15s;
 
     &:hover, &:focus, &:active { color: white; }
-}
-
-@media screen and (max-width: $breakpoint-desktop-m) {
-    .modal-background {
-        .modal-box {
-            min-width: 320px;
-        }
-    }
 }
 </style>

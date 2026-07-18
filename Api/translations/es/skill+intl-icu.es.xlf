@@ -68,9 +68,7 @@
     <unit id="robotics_expert">
       <segment id="robotics_expert.name" state="translated">
         <source>robotics_expert.name</source>
-        <target>{character_gender, select,
-        female {Ing. Robótica}
-        other {Ing. Robótico}}</target>
+        <target>Ing. En robótica</target>
       </segment>
       <segment id="robotics_expert.description" state="translated">
         <source>robotics_expert.description</source>

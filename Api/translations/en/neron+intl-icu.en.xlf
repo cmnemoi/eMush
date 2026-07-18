@@ -408,7 +408,7 @@ EVERYWHERE ACTIVATE DRY CLEANING}
         <target>{neronMood, select,
                     neutral {Alert! **Fire** reported by **{character}** !}
                     crazy {Alert !! ALEEEErt ME burning! Hyyaaaaaah !! [KZz] Aler.. [KZz]* Alert : fire reported by **{character}**.*}
-                    uninhibited {Kudos to **{character}**, who was brave enough to report a **fire** despite that drawing attention to their embarrassing inability to deal with it themselves. *Could you maybe* help them? {version, select,
+                    uninhibited {Kudos to **{character}**, who was brave enough to report a **fire** despite that drawing attention to their embarrassing inability to deal with it themself. *Could you maybe* help them? {version, select,
                         1 {}
                         2 {... Before the fire takes other pieces out the game...}
                         3 {It's in your interest, the smoke is toxic...}

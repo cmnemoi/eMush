@@ -7,7 +7,7 @@
         <target>{version, select,
     1 {**{character}** desenfunda y dispara sobre **{target_character}**.}
     2 {Sin más ni más, **{character}** saca su arma y dispara sobre **{target_character}**, una, dos, tres veces...}
-    3 {**{character}** hace una secuencia de movimientos de puño y dispara sobre **{target_character}**... quien cae {target_character_gender, select, female {abatida} other {abatido}} en pocos segundos.}
+    3 {**{character}** hace una secuencia de movimientos de puño y dispara sobre **{target_character}**... quien cae al piso en pocos segundos.}
     4 {**{character}** gira súbitamente y dispara sobre **{target_character}**.}
     other {**{target_character}** recibe un tiro certero de **{character}**.}
 }</target>
@@ -42,7 +42,7 @@ other {**{character}** ha disparado sobre **{target_character}**, pero no fue ca
     <unit id="blaster_shooter_plus_1_damage_target_damaged_ears">
       <segment id="blaster_shooter_plus_1_damage_target_damaged_ears" state="translated">
         <source>blaster_shooter_plus_1_damage_target_damaged_ears</source>
-        <target>Que resuene el rugido de los blasters: solo los supervivientes hablarán de ello. **{character}** está bien {target_character_gender, select, female {posicionada} other {posicionado}} para saberlo. **{target_character}** pierde el sentido de la audición.</target>
+        <target>Que resuene el rugido de los blasters: solo los supervivientes hablarán de ello. **{character}** se posiciona cerca de **{target_character}** y le hace perder el sentido de la audición con un disparo.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma">
@@ -72,7 +72,7 @@ other {**{character}** ha disparado sobre **{target_character}**, pero no fue ca
     <unit id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury">
       <segment id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury" state="translated">
         <source>blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury</source>
-        <target>El truco de magia de **{character}** definitivamente es un fracaso, accidentalmente vuelve su arma contra sí {character_gender, select, female {misma} other {mismo}}.</target>
+        <target>El truco de magia de **{character}** definitivamente es un fracaso y termina disparándose accidentalmente.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_minus_1_ap_break_weapon">
@@ -187,7 +187,7 @@ other {**{character}** ha disparado sobre **{target_character}**, pero no fue ca
         <source>knife_successful_hit_10_haemorrhage</source>
         <target>{version, select,
   1 {Con mucha destreza, el cuchillo de **{character}**, hace un gran tajo a **{target_character}**...}
-  2 {Sin poder esquivar, **{target_character}** cae {target_character_gender, select, female {ensangrentada} other {ensangrentado}}...}
+  2 {Sin poder esquivar, **{target_character}** cae desangrandose...}
   3 {El rostro de **{target_character}** se tuerce cuando **{character}** le retira el cuchillo que acaba de clavarle.}
   other {Los duelos de arma blanca raramente terminan bien, **{character}** atraviesa con su arma a **{target_character}**...}
 }</target>
@@ -278,11 +278,7 @@ other {**{character}** ha disparado sobre **{target_character}**, pero no fue ca
                 female{la} 
                 male{le} 
                 other {le}
-                } amenaza con su cuchillo. Demasiado rápido, demasiado preciso, demasiado... **{character}** hace un esfuerzo sobre-humano pero termina {character_gender, select, 
-                female{abrumada y mareada} 
-                male{abrumado y mareado} 
-                other {abrumade y mareade}
-                }</target>
+                } amenaza con su cuchillo. Demasiado rápido, demasiado preciso, demasiado... **{character}** hace un esfuerzo sobre-humano pero termina mareandose...</target>
       </segment>
     </unit>
     <unit id="old_faithful_successful_shot">
@@ -572,7 +568,7 @@ other {"invalid version number"}
     <unit id="rocket_launcher_fumble_6_items">
       <segment id="rocket_launcher_fumble_6_items" state="translated">
         <source>rocket_launcher_fumble_6_items</source>
-        <target>Una migraña toma por sorpresa a **{character}**, haciendo que su disparo falle sin elegancia. **{target_character}** puede sentirse {target_character, select, female {agradecida} other {agradecido}} por eso.</target>
+        <target>Una migraña toma por sorpresa a **{character}**, haciendo que su disparo falle sin elegancia. **{target_character}** debería agradecerle por eso.</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_fumble_6_items_backfire_rocketted">

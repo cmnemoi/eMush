@@ -179,6 +179,16 @@
         <target>Algo ha... cambiado. Te sientes diferente.////Una calma serenidad te ha invadido. Quieres *compartirla* con tus compañeros...////Camarada, ¡**eres un agente de Mush**!////Puedes completar tu misión con éxito de dos maneras: ¡convirtiendo a todos en Mush o destruyendo la nave!////Comenzarás tu misión con **{quantity}** :triumph_mush:.</target>
       </segment>
     </unit>
+    <unit id="welcome_vaccinated">
+      <segment state="translated">
+        <source>welcome_vaccinated.title</source>
+        <target>De vuelta al bando humano.</target>
+      </segment>
+      <segment state="translated">
+        <source>welcome_vaccinated.description</source>
+        <target>Algo ha... cambiado. Te sientes diferente.//// Tu mente se está aclarando... está menos confusa. Los colores parecen más vibrantes. Te han vacunado con el antídoto retrofúngico.////**¡Ya no eres parte de los Mush!**////Ahora, tus objetivos son sobrevivir, eliminar a los Mush restantes a bordo, reparar el PILGRED para regresar a Sol o encontrar un nuevo Edén.////*¿Quedan Mush a bordo? Depende de ti decidir si los recuerdas o no.*</target>
+      </segment>
+    </unit>
     <unit id="welcome_on_board">
       <segment state="translated">
         <source>welcome_on_board.title</source>

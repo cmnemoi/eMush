@@ -38,7 +38,7 @@
     <unit id="return_to_sol">
       <segment id="return_to_sol.name" state="translated">
         <source>return_to_sol.name</source>
-        <target>Volver a Sol</target>
+        <target>Retorno a Sol</target>
       </segment>
       <segment id="return_to_sol.log" state="translated">
         <source>return_to_sol.log</source>
@@ -48,7 +48,7 @@
     <unit id="sol_mush_intruder">
       <segment id="sol_mush_intruder.name" state="translated">
         <source>sol_mush_intruder.name</source>
-        <target>Volver a Sol infiltrado</target>
+        <target>Retorno a Sol infiltrado</target>
       </segment>
       <segment id="sol_mush_intruder.log" state="translated">
         <source>sol_mush_intruder.log</source>
@@ -310,11 +310,11 @@
     <unit id="eden_mush_invasion">
       <segment id="eden_mush_invasion.name" state="translated">
         <source>eden_mush_invasion.name</source>
-        <target>Invasión del Edén</target>
+        <target>Invasión de Edén</target>
       </segment>
       <segment id="eden_mush_invasion.log" state="translated">
         <source>eden_mush_invasion.log</source>
-        <target>¡Has ganado {quantity} :triumph_mush: al invadir el Edén siendo Mush!</target>
+        <target>¡Has ganado {quantity} :triumph_mush: al invadir Edén siendo Mush!</target>
       </segment>
     </unit>
     <unit id="eden_mush_intruder">
@@ -593,7 +593,7 @@ Después de ganar más de {regressiveFactor}, esto será menos frecuente.</targe
     <unit id="eden_cat">
       <segment id="eden_cat.name" state="translated">
         <source>eden_cat.name</source>
-        <target>Amante felino</target>
+        <target>Paraíso felino</target>
       </segment>
       <segment id="eden_cat.log" state="translated">
         <source>eden_cat.log</source>
@@ -747,7 +747,7 @@ Después de ganar más de {regressiveFactor}, esto será menos frecuente.</targe
       </segment>
       <segment id="cm_mush_vaccinated.log" state="translated">
         <source>cm_mush_vaccinated.log</source>
-        <target>Has ganado {quantity} :triumph: por curar a un Mush.</target>
+        <target>¡Has ganado {quantity} :triumph: por vacunar a un Mush!</target>
       </segment>
     </unit>
     <unit id="cm_repair_object">
@@ -843,7 +843,7 @@ Después de ganar más de {regressiveFactor}, esto será menos frecuente.</targe
       </segment>
       <segment id="lover.log" state="translated">
         <source>lover.log</source>
-        <target>¡Has ganado {quantity} :triumph: al flirtear con éxito mutuamente como Derek!</target>
+        <target>¡Has ganado {quantity} :triumph: al coquetear con éxito mutuamente como Derek!</target>
       </segment>
       <segment id="lover.personal_description" state="translated">
         <source>lover.personal_description</source>

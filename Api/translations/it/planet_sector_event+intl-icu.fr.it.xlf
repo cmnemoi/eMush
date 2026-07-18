@@ -364,33 +364,129 @@
         <source>fight.intelligent_description</source>
         <target>fight.intelligent_description</target>
       </segment>
-      <segment id="ruminant_description" state="translated">
+      <segment id="intelligent_low" state="initial">
+        <source>fight.intelligent_low</source>
+        <target>fight.intelligent_low</target>
+      </segment>
+      <segment id="intelligent_mid" state="initial">
+        <source>fight.intelligent_mid</source>
+        <target>fight.intelligent_mid</target>
+      </segment>
+      <segment id="intelligent_high" state="initial">
+        <source>fight.intelligent_high</source>
+        <target>fight.intelligent_high</target>
+      </segment>
+      <segment id="ruminant_description" state="initial">
         <source>fight.ruminant_description</source>
         <target>fight.ruminant_description</target>
       </segment>
-      <segment id="predator_description" state="translated">
+      <segment id="ruminant_low" state="initial">
+        <source>fight.ruminant_low</source>
+        <target>fight.ruminant_low</target>
+      </segment>
+      <segment id="ruminant_mid" state="initial">
+        <source>fight.ruminant_mid</source>
+        <target>fight.ruminant_mid</target>
+      </segment>
+      <segment id="ruminant_high" state="initial">
+        <source>fight.ruminant_high</source>
+        <target>fight.ruminant_high</target>
+      </segment>
+      <segment id="predator_description" state="initial">
         <source>fight.predator_description</source>
         <target>fight.predator_description</target>
       </segment>
-      <segment id="insect_description" state="translated">
+      <segment id="predator_low" state="initial">
+        <source>fight.predator_low</source>
+        <target>fight.predator_low</target>
+      </segment>
+      <segment id="predator_mid" state="initial">
+        <source>fight.predator_mid</source>
+        <target>fight.predator_mid</target>
+      </segment>
+      <segment id="predator_high" state="initial">
+        <source>fight.predator_high</source>
+        <target>fight.predator_high</target>
+      </segment>
+      <segment id="insect_description" state="initial">
         <source>fight.insect_description</source>
         <target>fight.insect_description</target>
       </segment>
-      <segment id="mankarog_description" state="translated">
+      <segment id="insect_low" state="initial">
+        <source>fight.insect_low</source>
+        <target>fight.insect_low</target>
+      </segment>
+      <segment id="insect_mid" state="initial">
+        <source>fight.insect_mid</source>
+        <target>fight.insect_mid</target>
+      </segment>
+      <segment id="insect_high" state="initial">
+        <source>fight.insect_high</source>
+        <target>fight.insect_high</target>
+      </segment>
+      <segment id="mankarog_description" state="initial">
         <source>fight.mankarog_description</source>
         <target>fight.mankarog_description</target>
       </segment>
-      <segment id="ruins_description" state="translated">
+      <segment id="mankarog_low" state="initial">
+        <source>fight.mankarog_low</source>
+        <target>fight.mankarog_low</target>
+      </segment>
+      <segment id="mankarog_mid" state="initial">
+        <source>fight.mankarog_mid</source>
+        <target>fight.mankarog_mid</target>
+      </segment>
+      <segment id="mankarog_high" state="initial">
+        <source>fight.mankarog_high</source>
+        <target>fight.mankarog_high</target>
+      </segment>
+      <segment id="ruins_description" state="initial">
         <source>fight.ruins_description</source>
         <target>fight.ruins_description</target>
       </segment>
-      <segment id="wreck_description" state="translated">
+      <segment id="ruins_low" state="initial">
+        <source>fight.ruins_low</source>
+        <target>fight.ruins_low</target>
+      </segment>
+      <segment id="ruins_mid" state="initial">
+        <source>fight.ruins_mid</source>
+        <target>fight.ruins_mid</target>
+      </segment>
+      <segment id="ruins_high" state="initial">
+        <source>fight.ruins_high</source>
+        <target>fight.ruins_high</target>
+      </segment>
+      <segment id="wreck_description" state="initial">
         <source>fight.wreck_description</source>
         <target>fight.wreck_description</target>
       </segment>
-      <segment id="cristal_field_description" state="translated">
+      <segment id="wreck_low" state="initial">
+        <source>fight.wreck_low</source>
+        <target>fight.wreck_low</target>
+      </segment>
+      <segment id="wreck_mid" state="initial">
+        <source>fight.wreck_mid</source>
+        <target>fight.wreck_mid</target>
+      </segment>
+      <segment id="wreck_high" state="initial">
+        <source>fight.wreck_high</source>
+        <target>fight.wreck_high</target>
+      </segment>
+      <segment id="cristal_field_description" state="initial">
         <source>fight.cristal_field_description</source>
         <target>fight.cristal_field_description</target>
+      </segment>
+      <segment id="cristal_field_low" state="initial">
+        <source>fight.cristal_field_low</source>
+        <target>fight.cristal_field_low</target>
+      </segment>
+      <segment id="cristal_field_mid" state="initial">
+        <source>fight.cristal_field_mid</source>
+        <target>fight.cristal_field_mid</target>
+      </segment>
+      <segment id="cristal_field_high" state="initial">
+        <source>fight.cristal_field_high</source>
+        <target>fight.cristal_field_high</target>
       </segment>
     </unit>
     <unit id="provision">
@@ -621,6 +717,20 @@
       <segment id="lost_description" state="translated">
         <source>kill_lost.lost_description</source>
         <target>kill_lost.lost_description</target>
+      </segment>
+    </unit>
+    <unit id="new_sector">
+      <segment id="name" state="initial">
+        <source>new_sector.name</source>
+        <target>new_sector.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>new_sector.description</source>
+        <target>new_sector.description</target>
+      </segment>
+      <segment id="intelligent_description" state="initial">
+        <source>new_sector.intelligent_description</source>
+        <target>new_sector.intelligent_description</target>
       </segment>
     </unit>
   </file>

@@ -292,7 +292,7 @@
       </segment>
       <segment id="survivalist.description" state="translated">
         <source>survivalist.description</source>
-        <target>The Survivalist is great to have on exploration missions. They can defend themselves more effectively against extra-terrestrial life forms and generally deal with these encounters better than anyone else.//
+        <target>The Survivalist is great to have on exploration missions. They can defend themself more effectively against extra-terrestrial life forms and generally deal with these encounters better than anyone else.//
 :point: Expedition: All damage **you receive** is **reduced by 1**.//
 :point: Expedition: The **Provision** event yields an additional steak.//
 :point: Expedition: Last to die in case a fatality occurs.</target>
@@ -468,7 +468,7 @@
       </segment>
       <segment id="transfer.description" state="translated">
         <source>transfer.description</source>
-        <target>The Mush has passed to you one of the genotypes from our weapons of mass transmission. Help yourself!//:point: **Unique**: Allows you to **inhabit the body of another human**. They must have been **infected at least once**. Thereafter, they will find themselves in your former body... and may warn other crewmembers. Your :triumph: points will be switched.</target>
+        <target>The Mush has passed to you one of the genotypes from our weapons of mass transmission. Help yourself!//:point: **Unique**: Allows you to **inhabit the body of another human**. They must have been **infected at least once**. Thereafter, they will find themself in your former body... and may warn other crewmembers. Your :triumph: points will be switched.</target>
       </segment>
     </unit>
     <unit id="phagocyte">

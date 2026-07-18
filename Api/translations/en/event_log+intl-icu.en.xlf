@@ -25,7 +25,7 @@
         <target>{target_character_gender, select,
                     male {**{target_character}** has woken up from his peaceful sleep.}
                     female {**{target_character}** has woken up from her peaceful sleep.}
-                    other {invalid gender input}
+                    other {**{target_character}** has woken up from their peaceful sleep.}
                 }</target>
       </segment>
     </unit>
@@ -137,7 +137,7 @@
         <target>{target_character_gender, select,
                     male {An unexpected lurch caused a sheet of metal to land on **{target_character}**. He is seriously wounded!}
                     female {An unexpected lurch caused a sheet of metal to land on **{target_character}**. She is seriously injured!}
-                    other {invalid gender input}
+                    other {An unexpected lurch caused a sheet of metal to land on **{target_character}**. They are seriously hurt!}
                 }</target>
       </segment>
     </unit>
@@ -229,7 +229,7 @@
         <target>{character_gender, select,
                     male {**{character}** is violently dragged from his bed.}
                     female {**{character}** is violently dragged from her bed.}
-                    other {invalid gender input}
+                    other {**{character}** is violently dragged from their bed.}
                 }</target>
       </segment>
     </unit>
@@ -285,7 +285,7 @@
         <target>{character_gender, select,
                     male {**{target_character}** is relieved. He has managed to cure himself of his disease ({disease}).}
                     female {**{target_character}** is relieved. She has managed to cure herself of her illness ({disease}).}
-                    other {invalid gender input}
+                    other {**{target_character}** is relieved. They have managed to cure themself of their illness ({disease}).}
                 }</target>
       </segment>
     </unit>
@@ -295,7 +295,7 @@
         <target>{character_gender, select,
                     male {**{character}** feels relieved but the treatment is insufficient. He will have to start again.}
                     female {**{character}** feels relieved but the treatment is insufficient. She will have to start again.}
-                    other {invalid gender input}
+                    other {**{character}** feels relieved but the treatment is insufficient. They will have to start again.}
                 }</target>
       </segment>
     </unit>
@@ -311,7 +311,7 @@
         <target>{target_character_gender, select,
                     male {The session is a success, **{target_character}** is cured of his disease ({disease}).}
                     female {The session is a success, **{target_character}** is cured of her disease ({disease}).}
-                    other {invalid gender input}
+                    other {The session is a success, **{target_character}** is cured of their disease ({disease}).}
                 } **{character}** is very satisfied.</target>
       </segment>
     </unit>
@@ -333,7 +333,7 @@
         <target>{target_character_gender, select,
     male {:pill: **{target_character}** throws himself on the floor, wailing and calling for his mother...}
     female {:pill: **{target_character}** throws herself on the floor, wailing and calling for her mother...}
-    other {:pill: **{target_character}** throws themselves on the floor, wailing and calling for their mother...}
+    other {:pill: **{target_character}** throws themself on the floor, wailing and calling for their mother...}
 }</target>
       </segment>
     </unit>
@@ -399,7 +399,7 @@
         <target>{character_gender, select,
                     male {:ill: **{character}** is experiencing a violent cutaneous eruption, he is choking. However, we may have told them that it was nothing to do with that €µ#+ of a cat!}
                     female {:ill: **{character}** is experiencing a violent cutaneous eruption, she is choking. However, we may have told them that it was nothing to do with that €µ#+ of a cat!}
-                    other {invalid gender input}}</target>
+                    other {:ill: **{character}** is experiencing a violent cutaneous eruption, they are choking. However, we may have told them that it was nothing to do with that €µ#+ of a cat!}}</target>
       </segment>
     </unit>
     <unit id="fear_of_cats">
@@ -876,7 +876,7 @@ other{**{target_character}** has been contaminated by a Mush raid during explora
         <target>{character_gender, select,
                     male {**{character}** is sleeping peacefully in the corner of the room. He's so cute when he drools...}
                     female {**{character}** is sleeping peacefully in the corner of the room. She's so cute when strings of drool hang from her chin.}
-                    other {**{character}** is sleeping peacefully in the corner of the room. He's so cute when he drools...}
+                    other {**{character}** is sleeping peacefully in the corner of the room. They are so cute with drool dripping from their mouth...}
                 }</target>
       </segment>
     </unit>
@@ -897,8 +897,9 @@ other{**{target_character}** has been contaminated by a Mush raid during explora
         <source>confident_actions</source>
         <target>{quantity, select,
           0 {{character_gender, select, 
+            male {**{character}** tells you all about his latest cycles with fervor and passion. Not much to take from it, but he seems to be feeling better...}
             female {**{character}** tells you about her latest cycles with fervor and passion. Not much to report, but she seems to be feeling better...}
-            other {**{character}** tells you all about his latest cycles with fervor and passion. Not much to take from it, but he seems to be feeling better...}}}
+            other {**{character}** tells you all about their latest cycles with fervor and passion. Not much to take from it, but they seem to be feeling better...}}}
           1 {**{character}** tells you about their latest adventures, and even if it doesn't sound like it, you can still learn something... Their last action is {lastAction}.}
           other {**{character}** tells you about the latest adventures and even if it doesn't look like it, you can always learn something... Their last actions are {actions} and {lastAction}.}
         }</target>
@@ -1153,7 +1154,7 @@ other{**{target_character}** has been contaminated by a Mush raid during explora
     <unit id="gen_metal_success">
       <segment id="gen_metal_success" state="translated">
         <source>gen_metal_success</source>
-        <target>**{character}** emerges from {character_gender, select, female {her} other {his}} pile of debris looking delighted, {character_gender, select, female {she} other {he}} has made a find! And {target_equipment_first_letter, select, vowel {an **{target_equipment}**} other {a **{target_equipment}**}}!</target>
+        <target>**{character}** emerges from {character_gender, select, male {his} female {her} other {their}} pile of debris looking delighted, {character_gender, select, male {he has} female {she has} other {they have}} made a find! And {target_equipment_first_letter, select, vowel {an **{target_equipment}**} other {a **{target_equipment}**}}!</target>
       </segment>
     </unit>
     <unit id="gain_chef_point">

@@ -181,6 +181,24 @@
         <target>This person has never shown any interest in you...</target>
       </segment>
     </unit>
+    <unit id="relax_camera">
+      <segment id="description" state="translated">
+        <source>relax_camera.description</source>
+        <target>It's impossible to relax with NERON watching your every move.</target>
+      </segment>
+    </unit>
+    <unit id="relax_witness">
+      <segment id="description" state="translated">
+        <source>relax_witness.description</source>
+        <target>You don't need an audience for this.</target>
+      </segment>
+    </unit>
+    <unit id="relax_asleep">
+      <segment id="description" state="translated">
+        <source>relax_asleep.description</source>
+        <target>This person is sleeping, hard to spend time together in those conditions.</target>
+      </segment>
+    </unit>
     <unit id="flirt_already_flirted">
       <segment id="description" state="translated">
         <source>flirt_already_flirted.description</source>
@@ -496,7 +514,7 @@
     <unit id="already_in_bed">
       <segment id="description" state="translated">
         <source>already_in_bed.description</source>
-        <target>You are already in bed.</target>
+        <target>You are already in bed or sofa.</target>
       </segment>
     </unit>
     <unit id="reinforce_lack_ressources">

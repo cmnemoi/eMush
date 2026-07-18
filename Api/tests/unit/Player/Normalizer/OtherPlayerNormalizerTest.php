@@ -76,7 +76,7 @@ final class OtherPlayerNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('detached_crewmember.name', ['character' => 'eleesha'], 'skill', LanguageEnum::FRENCH)
+            ->with('detached_crewmember.name', ['character' => 'eleesha', 'character_gender' => 'female'], 'skill', LanguageEnum::FRENCH)
             ->andReturn('translated detached crewmember')
             ->once();
 
@@ -88,7 +88,7 @@ final class OtherPlayerNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('tracker.name', ['character' => 'eleesha'], 'skill', LanguageEnum::FRENCH)
+            ->with('tracker.name', ['character' => 'eleesha', 'character_gender' => 'female'], 'skill', LanguageEnum::FRENCH)
             ->andReturn('translated tracker')
             ->once();
 
@@ -100,7 +100,7 @@ final class OtherPlayerNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('splashproof.name', ['character' => 'eleesha'], 'skill', LanguageEnum::FRENCH)
+            ->with('splashproof.name', ['character' => 'eleesha', 'character_gender' => 'female'], 'skill', LanguageEnum::FRENCH)
             ->never();
 
         $this->translationService
@@ -156,7 +156,7 @@ final class OtherPlayerNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('splashproof.name', ['character' => 'eleesha'], 'skill', LanguageEnum::FRENCH)
+            ->with('splashproof.name', ['character' => 'eleesha', 'character_gender' => 'female'], 'skill', LanguageEnum::FRENCH)
             ->andReturn('translated splashproof')
             ->once();
         $this->translationService
@@ -166,7 +166,7 @@ final class OtherPlayerNormalizerTest extends TestCase
             ->once();
         $this->translationService
             ->shouldReceive('translate')
-            ->with('detached_crewmember.name', ['character' => 'eleesha'], 'skill', LanguageEnum::FRENCH)
+            ->with('detached_crewmember.name', ['character' => 'eleesha', 'character_gender' => 'female'], 'skill', LanguageEnum::FRENCH)
             ->andReturn('translated detached crewmember')
             ->once();
         $this->translationService

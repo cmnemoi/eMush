@@ -15,8 +15,9 @@
         <target>{team, select,
         mush {Your goals as :berzerk: Mush}
         other {{character_gender, select,
+        male {Your goals as :male_admin: human}
         female {Your goals as :female_admin: human}
-        other {Your goals as :male_admin: human}
+        other {Your goals as :et_ready: human}
         }}}</target>
       </segment>
       <segment id="teamObjectives.elements" state="translated">

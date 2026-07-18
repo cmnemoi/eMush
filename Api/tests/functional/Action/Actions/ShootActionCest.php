@@ -788,7 +788,7 @@ final class ShootActionCest extends AbstractFunctionalTest
             ],
             WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_DAMAGED_EARS->toString() => [
                 WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_DAMAGED_EARS->toString(),
-                "Que résonne le hurlement des blasters, seuls les survivants en disserteront. **Chun** est bien placée pour tenter de le savoir. **Kuan Ti** y perd le sens de l'audition.",
+                "Que résonne le hurlement des blasters, seuls les survivants en disserteront. **Chun** est bien placée pour le savoir. **Kuan Ti** y perd le sens de l'audition.",
             ],
             WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_DAMAGE_TARGET_30_TORN_TONGUE_TARGET_30_BURST_NOSE_TARGET_30_OPEN_AIR_BRAIN_TARGET_30_HEAD_TRAUMA->toString() => [
                 WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_DAMAGE_TARGET_30_TORN_TONGUE_TARGET_30_BURST_NOSE_TARGET_30_OPEN_AIR_BRAIN_TARGET_30_HEAD_TRAUMA->toString(),

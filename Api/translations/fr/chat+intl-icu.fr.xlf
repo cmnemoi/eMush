@@ -15,8 +15,9 @@
         <target>{team, select,
         mush {Vos objectifs en tant que :berzerk: Mush}
         other {{character_gender, select,
+        male {Vos objectifs en tant qu':male_admin: humain}
         female {Vos objectifs en tant qu':female_admin: humaine}
-        other {Vos objectifs en tant qu':male_admin: humain}
+        other {Vos objectifs en tant qu':et_ready: être humain}
         }}}</target>
       </segment>
       <segment id="teamObjectives.elements" state="translated">

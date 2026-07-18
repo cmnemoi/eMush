@@ -30,19 +30,19 @@
       </segment>
       <segment id="description" state="translated">
         <source>andie.description</source>
-        <target>Fayot de la Fédération.</target>
+        <target>Lèche-botte de la Fédération.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>andie.employment</source>
-        <target>***Profession :*** Sous-lieutenant de la FDS</target>
+        <target>***Profession :*** Sous-lieutenant.e de la FDS</target>
       </segment>
       <segment id="bioAbstract" state="translated">
         <source>andie.bioAbstract</source>
-        <target>***Résumé :*** Le Sous-lieutenant Andie Graham n'est toujours pas au courant que le Daedalus a coupé ses liens avec la FDS. Il/Elle pense toujours être en mission pour le bien de la fédération et participe activement à la réussite de sa mission. Apprenant que son idole, le Sergent Derek Hogan, fait partie de l'équipage du Daedelus, Andie postule pour une place à bord. Ses compétences variées font de lui/elle une recrue indispensable au succès de la mission.</target>
+        <target>***Résumé :*** Andie Graham, sous-lieutenant.e de la FDS, n'est toujours pas au courant que le Daedalus a coupé ses liens avec cette dernière. Iel pense toujours être en mission pour le bien de la fédération et participe activement à la réussite de sa mission. Apprenant que son idole, le Sergent Derek Hogan, fait partie de l'équipage du Daedelus, Andie postule pour une place à bord. Ses compétences variées font d'ellui une recrue indispensable au succès de la mission.</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>andie.abstract</source>
-        <target>Le Sous-lieutenant Andie Graham n'est toujours pas au courant que le Daedalus a coupé ses liens avec la FDS. Il/Elle pense toujours être en mission pour le bien de la fédération et participe activement à la réussite de sa mission. Apprenant que son idole, le Sergent Derek Hogan, fait partie de l'équipage du Daedelus, Andie postule pour une place à bord. Ses compétences variées font de lui/elle une recrue indispensable au succès de la mission.</target>
+        <target>Andie Graham, sous-lieutenant.e de la FDS, n'est toujours pas au courant que le Daedalus a coupé ses liens avec cette dernière. Iel pense toujours être en mission pour le bien de la fédération et participe activement à la réussite de sa mission. Apprenant que son idole, le Sergent Derek Hogan, fait partie de l'équipage du Daedelus, Andie postule pour une place à bord. Ses compétences variées font d'ellui une recrue indispensable au succès de la mission.</target>
       </segment>
       <segment id="biography" state="translated">
         <source>andie.biography</source>
@@ -50,9 +50,9 @@
 - 3130 : Abandonné.e par ses parents dès les premiers mois de son existence, Andie est récupéré.e par une commission de la FDS. Iel est directement placé.e dans un foyer spécialisé en tant que ***pupille de la FDS*** où l'on ne tardera pas à remarquer ses facultés innées. Andie est vite placé.e dans une école pour surdoué contrôlée par la FDS et entre dans ***le programme des jeunesses fédériennes***.
 - 3145 : Iel réussit brillamment ses études et entre dans la prestigieuse université de la fédération. Endoctriné.e durant toutes ses études, ***Andie ne suit plus que la voie de la fédération.*** Malgré sa naïveté, Andie est très populaire et n'a aucun mal à se faire des amis. Son visage angélique lui permet sans le vouloir d'attirer la sympathie. ***Son compagnon de chambre Viktor Carlsson***, secrètement infiltré par son frère Nils dans l'université, fera les frais de son amitié avec ellui. En lui confiant sa véritable mission au détour d'une conversation, Viktor se retrouvera arrêté pour conspiration. Andie pensera innocemment qu'il aura juste changé de cursus...
 - 3151 : Andie fait la rencontre du ***sergent instructeur Derek Hogan***. Présenté comme héros de la nation, celui-ci passe la totalité de ses cours à raconter sa vie fantasmée. Andie retrouve dans son professeur une figure paternelle manquante et se met à l'idôlatrer. Iel croit sur parole toutes ses histoires et se met à rêver de parcourir l'espace également.
-- 3153 : Andie enchaîne les études afin de servir au mieux les besoins de la fédération. Iel passe brillamment trois thèses, ***en botanique*** pour son texte sur les propriétés curatives de la bulbe brachenne de Tau-Ceti, ***en biologie*** avec son étude sur le comportement social des amibes polarisées de la mer égée de la troisième planète du système sol, et enfin ***en diplomatie*** avec son rapport de médiation, qui d'après les jury, aurait pu inspirer les négociateurs ayant échoué à prévenir la grande bataille de Sol. ***Iel devient le.a premièr.e triple lauréat.e de la fédération.***
-- 3154 : Ses études terminées, Andie décide de devenir pilote, iel s'engage donc dans la division aérienne de la fédération et passe son brevet haut la main. ***Iel demande à être affecté.e sur Xyloph-17*** et ne tarde pas à être remarqué.e par Kim Jin Su. Derek lui ne le.a reconnait pas.
-- 3154 : Loin de se douter des enjeux qui se dessine dans l'ombre, et pensant toujours servir la fédération ardemment, Andie embarque à bord du Daedalus.</target>
+- 3153 : Andie enchaîne les études afin de servir au mieux les besoins de la fédération. Iel passe brillamment trois thèses, ***en botanique*** pour son texte sur les propriétés curatives de la bulbe brachenne de Tau-Ceti, ***en biologie*** avec son étude sur le comportement social des amibes polarisées de la mer égée de la troisième planète du système sol, et enfin ***en diplomatie*** avec son rapport de médiation, qui d'après les jury, aurait pu inspirer les négociateurs ayant échoué à prévenir la grande bataille de Sol. ***Iel devient lea premièr.e triple lauréat.e de la fédération.***
+- 3154 : Ses études terminées, Andie décide de devenir pilote, iel s'engage donc dans la division aérienne de la fédération et passe son brevet haut la main. ***Iel demande à être affecté.e sur Xyloph-17*** et ne tarde pas à être remarqué.e par Kim Jin Su. Derek lui ne lea reconnait pas.
+- 3154 : Loin de se douter des enjeux qui se dessinent dans l'ombre, et pensant toujours servir la fédération ardemment, Andie embarque à bord du Daedalus.</target>
       </segment>
       <segment id="tips" state="translated">
         <source>andie.tips</source>

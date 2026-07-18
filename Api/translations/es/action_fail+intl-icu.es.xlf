@@ -64,10 +64,7 @@
     <unit id="in_space_capsule">
       <segment id="description" state="translated">
         <source>in_space_capsule.description</source>
-        <target>{character_gender, select,
-  female {No puedes actuar porque estás encerrada en una cápsula espacial.}
-  other {No puedes actuar porque estás encerrado en una cápsula espacial.}
-}</target>
+        <target>No es posible hacer nada dentro de una cápsula espacial.</target>
       </segment>
     </unit>
     <unit id="in_patroller">
@@ -91,10 +88,7 @@
     <unit id="heal_no_injury">
       <segment id="description" state="translated">
         <source>heal_no_injury.description</source>
-        <target>{character_gender, select,
-  female {No estás herida, pero eso se puede arreglar...}
-  other {No estás herido, pero eso se puede arreglar...}
-}</target>
+        <target>No tienes ninguna herida, pero eso se puede arreglar...</target>
       </segment>
     </unit>
     <unit id="dmz_core_peace">
@@ -118,10 +112,7 @@
     <unit id="dirty_restriction">
       <segment id="description" state="translated">
         <source>dirty_restriction.description</source>
-        <target>¡Alerta, no acercarse! ¡El acceso a este terminal está prohibido! Nota: "Pfff, mira cómo vienes. {character_gender, select,
-female {**Vuelve cuando estés limpia.**"}
-other {**Vuelve cuando estés limpio.**"}
-}</target>
+        <target>¡Alerta, no acercarse! ¡El acceso a este terminal está prohibido! Nota: "Pfff, mira cómo vienes. *¡Vete a limpiar primero!*"</target>
       </segment>
     </unit>
     <unit id="terminal_role_restricted">
@@ -190,28 +181,40 @@ other {**Vuelve cuando estés limpio.**"}
         <target>Esta persona nunca ha mostrado el mínimo interés hacia ti...</target>
       </segment>
     </unit>
+    <unit id="relax_camera">
+      <segment id="description" state="translated">
+        <source>do_the_thing_camera.description</source>
+        <target>Es imposible poder relajarse teniendo a NERON observando cada movimiento.</target>
+      </segment>
+    </unit>
+    <unit id="relax_witness">
+      <segment id="description" state="translated">
+        <source>do_the_thing_witness.description</source>
+        <target>No necesitas tener público para esto.</target>
+      </segment>
+    </unit>
+    <unit id="relax_asleep">
+      <segment id="description" state="translated">
+        <source>do_the_thing_asleep.description</source>
+        <target>Esta persona está durmiendo, por lo que no es posible realizar esta acción.</target>
+      </segment>
+    </unit>
     <unit id="flirt_already_flirted">
       <segment id="description" state="translated">
         <source>flirt_already_flirted.description</source>
-        <target>{character_gender, select,
-  female {Ya estás bastante relacionada con esta persona.}
-  other {Ya estás bastante relacionado con esta persona.}
-}</target>
+        <target>Tu relación con esta persona ya es lo suficientemente personal.</target>
       </segment>
     </unit>
     <unit id="flirt_antisocial">
       <segment id="description" state="translated">
         <source>flirt_antisocial.description</source>
-        <target>{character_gender, select,
-  female {No estás interesada en este tipo de interacción social...}
-  other {No estás interesado en este tipo de interacción social...}
-}</target>
+        <target>Este tipo de interacción social no te interesa...</target>
       </segment>
     </unit>
     <unit id="flirt_same_family">
       <segment id="description" state="translated">
         <source>flirt_same_family.description</source>
-        <target>Este flirteo es imposible.</target>
+        <target>Este coqueteo es imposible.</target>
       </segment>
     </unit>
     <unit id="daily_spore_limit">
@@ -295,16 +298,13 @@ other {**Vuelve cuando estés limpio.**"}
     <unit id="whisper_player_no_available_channel">
       <segment id="description" state="translated">
         <source>whisper_player_no_available_channel.description</source>
-        <target>Ya estás demasiado ocupado con otras conversaciones.</target>
+        <target>Todas tus conversaciones privadas están ocupadas por el momento.</target>
       </segment>
     </unit>
     <unit id="whisper_target_no_available_channel">
       <segment id="description" state="translated">
         <source>whisper_target_no_available_channel.description</source>
-        <target>{target_character_gender, select,
-  female {Esta tripulante ya está ocupada con otras conversaciones.}
-  other {Este tripulante ya está ocupado con otras conversaciones.}
-}</target>
+        <target>Este tripulante no puede tener más conversaciones privadas por el momento.</target>
       </segment>
     </unit>
     <unit id="target_already_outcast">
@@ -376,10 +376,7 @@ other {**Vuelve cuando estés limpio.**"}
     <unit id="consume_full_belly">
       <segment id="description" state="translated">
         <source>consume_full_belly.description</source>
-        <target>{character_gender, select,
-  female {Estás saciada.}
-  other {Estás saciado.}
-}</target>
+        <target>Tienes el estómago lleno. Espera unos ciclos para poder comer más.</target>
       </segment>
     </unit>
     <unit id="reinforce_full_hull">
@@ -517,11 +514,7 @@ other {**Vuelve cuando estés limpio.**"}
     <unit id="already_in_bed">
       <segment id="description" state="translated">
         <source>already_in_bed.description</source>
-        <target>{character_gender, select,
-            male {Ya estás recostado.}
-            female {Ya estás recostada.}
-            other {Ya estás recostado.}
-            }</target>
+        <target>Ya te encuentras descansando en una cama o sofá.</target>
       </segment>
     </unit>
     <unit id="reinforce_lack_ressources">
@@ -539,10 +532,7 @@ other {**Vuelve cuando estés limpio.**"}
     <unit id="surgery_not_lying_down">
       <segment id="description" state="translated">
         <source>surgery_not_lying_down.description</source>
-        <target>{character_gender, select,
-    female {Esta acción requiere que estés recostada.}
-    other {Esta acción requiere que estés recostado.}
-}</target>
+        <target>Esta acción requiere que estés en una cama o sofá.</target>
       </segment>
     </unit>
     <unit id="mush_remove_spore">

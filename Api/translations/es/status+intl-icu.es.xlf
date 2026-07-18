@@ -178,11 +178,7 @@
     <unit id="neron_administrator">
       <segment id="name" state="translated">
         <source>neron_administrator.name</source>
-        <target>{character_gender, select,
-            male {Administrador de NERON}
-            female {Administradora de NERON}
-            other {Administrador de NERON}
-            }</target>
+        <target>Admin. de NERON</target>
       </segment>
       <segment id="description" state="translated">
         <source>neron_administrator.description</source>
@@ -602,7 +598,7 @@ Todas tus acciones se vuelven más difíciles.</target>
     <unit id="mush_trapped.name">
       <segment state="translated">
         <source>mush_trapped.name</source>
-        <target>¡Sala atrapada!</target>
+        <target>¡Sala con trampa Mush!</target>
       </segment>
     </unit>
     <unit id="mush_trapped.description">

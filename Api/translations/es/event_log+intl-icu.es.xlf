@@ -136,7 +136,7 @@
     <unit id="metal_plate">
       <segment state="translated">
         <source>metal_plate</source>
-        <target>Una sacudida inesperada hizo caer una placa de metal sobre **{target_character}**. {target_character_gender, select, female {¡Quedó gravemente herida!} other {¡Quedó gravemente herido!}}</target>
+        <target>Una sacudida inesperada hizo caer una placa de metal sobre **{target_character}**. {target_character_gender, select, female {¡Quedó gravemente herida!} male {¡Quedó gravemente herido!} other {¡Sus heridas son muy graves!}}</target>
       </segment>
     </unit>
     <unit id="tremor_gravity">
@@ -229,7 +229,7 @@
         <target>{character_gender, select,
                     male {**{character}** es arrastrado violentamente de su cama.}
                     female {**{character}** es arrastrada violentamente de su cama.}
-                    other {invalid gender input}
+                    other {a **{character}** le arrastran violentamente de su cama.}
 }</target>
       </segment>
     </unit>
@@ -260,7 +260,7 @@
     <unit id="disorder_appear">
       <segment state="translated">
         <source>disorder_appear</source>
-        <target>:psy_disease: No te sientes bien... La cabeza te da vueltas, estás {character_gender, select, female {confundida y angustiada} other {confundido y angustiado}}. Deberías ir a ver a un *Psicólogo*. Al parecer tienes una enfermedad mental: {disease}.</target>
+        <target>:psy_disease: No te sientes bien... La cabeza te da vueltas, estás {character_gender, select, female {confundida y angustiada} male {confundido y angustiado} other {sufriendo confusión y angustia}}. Deberías ir a ver a un *Psicólogo*. Al parecer tienes una enfermedad mental: {disease}.</target>
       </segment>
     </unit>
     <unit id="disease_curred_player">
@@ -290,7 +290,7 @@
     <unit id="disorder_treated_player">
       <segment state="translated">
         <source>disorder_treated_player</source>
-        <target>**{character}** está {character_gender, select, female {satisfecha} other {satisfecho}}. La sesión de **{target_character}** fue muy positiva, pero habrá que hacer más.</target>
+        <target>**{character}** está {character_gender, select, female {satisfecha} male {satisfecho} other {feliz}}. La sesión de **{target_character}** fue muy positiva, pero habrá que hacer más.</target>
       </segment>
     </unit>
     <unit id="disorder_cured_player">
@@ -302,7 +302,7 @@
     <unit id="injury_appear">
       <segment state="translated">
         <source>injury_appear</source>
-        <target>:hurt: Has sido {target_character_gender, select, female {herida} other {herido}}: {disease}. Sufres una penalidad.</target>
+        <target>:hurt: Te han herido: {disease}. Sufres una penalidad.</target>
       </segment>
     </unit>
     <unit id="disease_overridden">
@@ -426,16 +426,13 @@
     <unit id="disease_by_sex">
       <segment id="disease_by_sex" state="translated">
         <source>disease_by_sex</source>
-        <target>Te sientes {target_character_gender, select, female {extraña} other {extraño}}... la emoción... o bien... tu pareja te ha transmitido una enfermedad ({disease}).</target>
+        <target>No te sientes muy bien... la emoción... o bien... tu pareja te ha transmitido una enfermedad ({disease}).</target>
       </segment>
     </unit>
     <unit id="trauma_disease">
       <segment id="trauma_disease" state="translated">
         <source>trauma_disease</source>
-        <target>Lo que acabas de ver te ha afectado. {character_gender, select,
-  female {Ya no serás la misma.}
-  other {Ya no serás el mismo.}
-}</target>
+        <target>Lo que acabas de ver te ha afectado. Ya no volverás a ser igual.</target>
       </segment>
     </unit>
     <unit id="hunter_death_turret">
@@ -447,25 +444,25 @@
     <unit id="infect_action">
       <segment id="infect_action" state="translated">
         <source>infect_action</source>
-        <target>**{target_character}** ha sido {target_character_gender, select, female {contaminada} other {contaminado}} con una espora por **{character}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
+        <target>**{target_character}** recibe una espora en su organismo por una infección de **{character}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_trap">
       <segment id="infect_trap" state="translated">
         <source>infect_trap</source>
-        <target>**{target_character}** ha sido {target_character_gender, select, female {contaminada} other {contaminado}} al abrir una estantería con una trampa de **{character}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
+        <target>**{target_character}** recibe una espora en su organismo al revisar una estantería con una trampa de **{character}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_std">
       <segment id="infect_std" state="translated">
         <source>infect_std</source>
-        <target>**{target_character}** ha sido {target_character_gender, select, female {contaminada} other {contaminado}} al hacerlo con **{character}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
+        <target>**{target_character}** recibe una espora en su organismo al hacerlo con **{character}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_cat">
       <segment id="infect_cat" state="translated">
         <source>infect_cat</source>
-        <target>**{target_character}** ha sido {target_character_gender, select, female {contaminada} other {contaminado}} por **{character}** al tocar a **{equipment}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
+        <target>**{target_character}** recibe una espora en su organismo por **{character}** al tocar a **{equipment}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_mush_raid">
@@ -480,7 +477,7 @@
     <unit id="infect_trapped_ration">
       <segment id="infect_trapped_ration" state="translated">
         <source>infect_trapped_ration</source>
-        <target>**{target_character}** ha sido {target_character_gender, select, female {contaminada} other {contaminado}} al consumir un alimento contaminado por **{character}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
+        <target>**{target_character}** recibe una espora en su organismo al consumir un alimento contaminado por **{character}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="mush_convert_event">
@@ -706,10 +703,7 @@
     <unit id="lost_on_planet">
       <segment state="translated">
         <source>lost_on_planet</source>
-        <target>{target_character_gender, select,
-          female {Te sientes sola y abandonada...}
-          other {Te sientes solo y abandonado...}
-        } ¿Acaso nadie piensa en ti allá arriba?</target>
+        <target>Pierdes la esperanza y te inunda la soledad... ¿Acaso nadie piensa en ti allá arriba?</target>
       </segment>
     </unit>
     <unit id="logistic_log">
@@ -891,7 +885,7 @@
       <segment id="ze_list" state="translated">
         <source>ze_list</source>
         <target>{quantity, select,
-  1 {{lastPlayer} está infectado por el Mush. Es una certeza.}
+  1 {{lastPlayer} es uno de los Mush. Es una certeza.}
   other {Al menos, uno de ellos era un agente de Mush que embarcó en Xyloph. ¡No tengo duda! {firstPlayers} y {lastPlayer}. ¿Pero quién de ellos?...}
 }</target>
       </segment>
@@ -1072,7 +1066,7 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
     <unit id="player_vaccinated">
       <segment id="player_vaccinated" state="translated">
         <source>player_vaccinated</source>
-        <target>Empiezas a vomitar. Te sientes extraño. Como si tus sentidos se hubieran silenciado, como si ya no existieras. De repente sientes una gran soledad. Vuelves a sentir ansiedad porque el fin se acerca, vuelves a sentir el miedo. Ya no eres Mush...</target>
+        <target>Empiezas a vomitar. Sientes algo extraño en tu cuerpo. Como si tus sentidos se hubieran silenciado, como si ya no existieras. De repente sientes una gran soledad. Vuelves a sentir ansiedad porque el fin se acerca, vuelves a sentir el miedo. Ya no eres Mush...</target>
       </segment>
     </unit>
     <unit id="lethargy_worked">
@@ -1090,7 +1084,7 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
     <unit id="self_sacrifice_worked">
       <segment id="self_sacrifice_worked" state="translated">
         <source>self_sacrifice_worked</source>
-        <target>Tu habilidad **Abnegación** ha dado sus frutos, no estás {target_character_gender, select, female {muerta} other {muerto}}...</target>
+        <target>Tu habilidad **Abnegación** ha dado sus frutos, no has muerto...</target>
       </segment>
     </unit>
     <unit id="research_completed">

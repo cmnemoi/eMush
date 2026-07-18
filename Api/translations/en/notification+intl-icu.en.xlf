@@ -179,6 +179,16 @@
         <target>Something has... changed. You feel different.////A calming serenity has overtaken you. You want to *share it* with your crewmates...////Comrade, **you are an agent of Mush**!////You can successfully complete your mission in two ways: by converting everyone to Mush, or by destroying the ship!////You'll begin your mission with **earned {quantity}** :triumph_mush:.</target>
       </segment>
     </unit>
+    <unit id="welcome_vaccinated">
+      <segment state="translated">
+        <source>welcome_vaccinated.title</source>
+        <target>Welcome back to humankind.</target>
+      </segment>
+      <segment state="translated">
+        <source>welcome_vaccinated.description</source>
+        <target>Something has... changed. You feel different.//// Your mind is becoming clearer... less foggy. Colors seem more vibrant. You have been vaccinated with the retrofungal serum.////**You are no longer part of the Mush!**////Now, your objectives are to survive, eliminate the remaining Mush on board, then repair the PILGRED to return to Sol, or find a new Eden.////*Are there any Mush left on board? It's up to you to decide whether you remember them or not.*</target>
+      </segment>
+    </unit>
     <unit id="welcome_on_board">
       <segment state="translated">
         <source>welcome_on_board.title</source>

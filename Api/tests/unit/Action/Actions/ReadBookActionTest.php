@@ -76,6 +76,7 @@ final class ReadBookActionTest extends AbstractActionTest
         $this->eventService->shouldReceive('callEvent');
 
         $player = $this->createPlayer($daedalus, $room);
+        $player->getCharacterConfig()->setCharacterName('chun');
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $gameItem);

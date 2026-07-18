@@ -93,6 +93,12 @@
         <target>**{character}** and **{target_character}** killed the lights and then the strange noises started... A few minutes later, the lights went back on. They seemed in great spirits afterwards. *The sofa can't say the same...*.</target>
       </segment>
     </unit>
+    <unit id="relax_success">
+      <segment id="relax_success" state="translated">
+        <source>relax_success</source>
+        <target>**{character}** and **{target_character}**  spent some time together, far from the ship's agitation and all their worries. Time flies when you're having fun, but they seem more relaxed afterwards.</target>
+      </segment>
+    </unit>
     <unit id="drop">
       <segment id="drop" state="translated">
         <source>drop</source>
@@ -124,8 +130,16 @@
           other {them}
 } leaves nobody in any doubt of his intentions.}
     female {**{character}** seems interested in **{target_character}**, the fluttering of their eyelashes is a good indicator of their most intimate thoughts.}
-    other {invalid gender input for {character}}
+    other {**{character}** seems interested in **{target_character}**. The fluttering of their eyelashes leaves nobody in any doubt of their intentions.}
 }</target>
+      </segment>
+    </unit>
+    <unit id="bond_success">
+      <segment id="bond_success" state="translated">
+        <source>bond_success</source>
+        <target>**{character}** smiles at **{target_character}**, {character_gender, select,
+                    male {he seems} female {she seems} other {they seem}} to like {target_character_gender, select,
+                    male {him} female {her} other {them}}.</target>
       </segment>
     </unit>
     <unit id="get_up">
@@ -541,7 +555,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>{character_gender, select,
     male {That's strange **{character}** takes out a powder case and daubs himself with white and black. He doesn't look good at all.}
     female {That's strange **{character}** takes out a compact and daubs herself with black and white. She doesn't look good at all.}
-    other {invalid gender input for {character}}
+    other {That's strange **{character}** takes out a powder compact and daubs themself with black and white. They don't look good at all.}
 }</target>
       </segment>
     </unit>
@@ -573,7 +587,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>{character_gender, select,
                     male {**{character}** ungagged himself.}
                     female {**{character}** ungagged herself.}
-                    other {invalid gender input for {character}}
+                    other {**{character}** ungagged themself.}
                     }</target>
       </segment>
     </unit>
@@ -595,7 +609,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>{character_gender, select,
                 male {**{character}** was obviously in a hurry, he opens a space-time portal and jumps in with both feet. We shouldn't see him again soon.}
                 female {**{character}** was obviously in a hurry, she opens a space-time portal and jumps in with both feet. We should not see her again soon.}
-                other {invalid gender input for {character}}
+                other {**{character}** was obviously in a hurry, they open a space-time portal and jump in with both feet. We shouldn't see them again soon.}
                 }</target>
       </segment>
     </unit>
@@ -701,9 +715,9 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       <segment id="auto_eject_success" state="translated">
         <source>auto_eject_success</source>
         <target>{character_gender, select,
-    male {**{character}** ejected from one-seater.}
-    female {**{character}** ejected from one-seater.}
-    other {**{character}** ejected from one-seater.}
+    male {**{character}** ejected from his one-seater.}
+    female {**{character}** ejected from her one-seater.}
+    other {**{character}** ejected from their one-seater.}
 }</target>
       </segment>
     </unit>
@@ -985,7 +999,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="cure_cat_fail">
       <segment id="cure_cat_fail" state="translated">
         <source>cure_cat_fail</source>
-        <target>**{character}** struggles with **{target_equipment}**  before it escapes from their arms. {character_gender, select, male {He} female {She} other {They}} chases it around the room while swearing, without any success, before the creature finally slips under a piece of furniture.</target>
+        <target>**{character}** struggles with **{target_equipment}**  before it escapes from their arms. {character_gender, select, male {He chases} female {She chases} other {They chase}} it around the room while swearing, without any success, before the creature finally slips under a piece of furniture.</target>
       </segment>
     </unit>
     <unit id="shoot_cat_success">
@@ -1013,8 +1027,8 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       <segment id="shoot_cat_critical_fail" state="translated">
         <source>shoot_cat_critical_fail</source>
         <target>{version, select,
-    1 {**{character}**'s magic trick has definitely failed, and she accidentally turns her weapon against themselves}
-    other {**{character}**'s magic trick has definitely failed, and she accidentally turns her weapon against themselves}
+    1 {**{character}**'s magic trick has definitely failed, and they accidentally turn their weapon against themself}
+    other {**{character}**'s magic trick has definitely failed, and they accidentally turn their weapon against themself}
 }.</target>
       </segment>
     </unit>
@@ -1039,7 +1053,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="give_nightmare_success">
       <segment id="give_nightmare_success" state="translated">
         <source>give_nightmare_success</source>
-        <target>:mush: **{character}** is getting closer to **{target_character}**... After {character_gender, select, female {that she moved away} other {that he moved away}}, this one seems to have a tormented sleep...</target>
+        <target>:mush: **{character}** is getting closer to **{target_character}**... After they move away, **{target_character}** seems to have a tormented sleep...</target>
       </segment>
     </unit>
     <unit id="neron_depress_success">
@@ -1069,7 +1083,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="open_anniversary_gift">
       <segment id="open_anniversary_gift" state="translated">
         <source>open_anniversary_gift</source>
-        <target>**{character}** throws {character_gender, select, female {herself} male {himself} other {themselves}} onto their gift and starts unwrapping impatiently... Oh, {quantity, select, 
+        <target>**{character}** throws {character_gender, select, female {herself} male {himself} other {themself}} onto their gift and starts unwrapping impatiently... Oh, {quantity, select, 
         1 {{equipment_first_letter, select, 
             vowel {an} 
             consonant {a} 

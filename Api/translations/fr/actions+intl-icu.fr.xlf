@@ -43,9 +43,27 @@
       <segment id="confirmation" state="translated">
         <source>do_the_thing.confirmation</source>
         <target>{character_gender, select,
+                male {Vous ne pouvez faire cette action qu'une fois par jour. Êtes-vous sûr de vouloir continuer ?}
+                female {Vous ne pouvez faire cette action qu'une fois par jour. Êtes-vous sûre de vouloir continuer ?}
+                other {Vous ne pouvez faire cette action qu'une fois par jour. Voulez-vous vraiment continuer ?}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="relax">
+      <segment id="name" state="translated">
+        <source>relax.name</source>
+        <target>Passer du temps ensemble</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>relax.description</source>
+        <target>Vous permet de passer quelques minutes avec une autre personne, et oublier un peu les tragédies qui se déchaînent autour de vous.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>relax.confirmation</source>
+        <target>{character_gender, select,
                 male {Vous ne pouvez le faire qu'une fois par jour. Êtes-vous sûr de vouloir continuer ?}
                 female {Vous ne pouvez le faire qu'une fois par jour. Êtes-vous sûre de vouloir continuer ?}
-                other {Vous ne pouvez le faire qu'une fois par jour. Êtes-vous sûr de vouloir continuer ?}
+                other {Vous ne pouvez le faire qu'une fois par jour. Voulez-vous vraiment continuer ?}
                 }</target>
       </segment>
     </unit>
@@ -131,7 +149,7 @@
         <target>{character_gender, select,
                 male {Le démontage d'un objet n'est pas anodin. L'objet ne pourra pas être remonté. Êtes-vous vraiment sûr de vouloir quand même le faire ?}
                 female {Le démontage d'un objet n'est pas anodin. L'objet ne pourra pas être remonté. Êtes-vous vraiment sûre de vouloir quand même le faire ?}
-                other {Le démontage d'un objet n'est pas anodin. L'objet ne pourra pas être remonté. Êtes-vous vraiment sûr de vouloir quand même le faire ?}
+                other {Le démontage d'un objet n'est pas anodin. L'objet ne pourra pas être remonté. Voulez-vous absolument le faire quand même ?}
                 }</target>
       </segment>
     </unit>
@@ -180,7 +198,25 @@
         <target>{character_gender, select,
                 male {Cette action est irrémédiable. Êtes-vous sûr de vouloir continuer ?}
                 female {Cette action est irrémédiable. Êtes-vous sûre de vouloir continuer ?}
-                other {Cette action est irrémédiable. Êtes-vous sûr de vouloir continuer ?}
+                other {Cette action est irrémédiable. Voulez-vous vraiment continuer ?}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="bond">
+      <segment id="bond" state="translated">
+        <source>bond.name</source>
+        <target>Briser la glace</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>bond.description</source>
+        <target>Permet de vous rapprocher de quelqu'un, cela lui permettra de passer du temps avec vous. Cette action est **irrémédiable**.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>bond.confirmation</source>
+        <target>{character_gender, select,
+                male {Cette action est irrémédiable. Êtes-vous sûr de vouloir continuer ?}
+                female {Cette action est irrémédiable. Êtes-vous sûre de vouloir continuer ?}
+                other {Cette action est irrémédiable. Voulez-vous vraiment continuer ?}
                 }</target>
       </segment>
     </unit>
@@ -1087,7 +1123,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>{character_gender, select,
                 male {Cette action est lourde de conséquences. Êtes-vous sûr de vouloir continuer ?}
                 female {Cette action est lourde de conséquences. Êtes-vous sûre de vouloir continuer ?}
-                other {Cette action est lourde de conséquences. Êtes-vous sûr de vouloir continuer ?}
+                other {Cette action est lourde de conséquences. Voulez-vous vraiment continuer ?}
                 }</target>
       </segment>
     </unit>
@@ -1159,7 +1195,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>{character_gender, select,
                 male {Cette action est lourde de conséquences. Êtes-vous sûr de vouloir continuer ?}
                 female {Cette action est lourde de conséquences. Êtes-vous sûre de vouloir continuer ?}
-                other {Cette action est lourde de conséquences. Êtes-vous sûr de vouloir continuer ?}
+                other {Cette action est lourde de conséquences. Voulez-vous vraiment continuer ?}
                 }</target>
       </segment>
     </unit>
@@ -1177,7 +1213,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>{character_gender, select,
                 male {Les explorations demandent de la préparation, si la planète n'a pas d'atmosphère respirable ou est habitée par des organismes hostiles, vous devriez prendre vos dispositions. Êtes-vous sûr de vouloir continuer ?}
                 female {Les explorations demandent de la préparation, si la planète n'a pas d'atmosphère respirable ou est habitée par des organismes hostiles, vous devriez prendre vos dispositions. Êtes-vous sûre de vouloir continuer ?}
-                other {Les explorations demandent de la préparation, si la planète n'a pas d'atmosphère respirable ou est habitée par des organismes hostiles, vous devriez prendre vos dispositions. Êtes-vous sûr de vouloir continuer ?}
+                other {Les explorations demandent de la préparation, si la planète n'a pas d'atmosphère respirable ou est habitée par des organismes hostiles, vous devriez prendre vos dispositions. Voulez-vous vraiment continuer ?}
                 }</target>
       </segment>
     </unit>
@@ -1195,7 +1231,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>{character_gender, select,
                 male {Les explorations demandent de la préparation, si la planète n'a pas d'atmosphère respirable ou est habitée par des organismes hostiles, vous devriez prendre vos dispositions. Êtes-vous sûr de vouloir continuer ?}
                 female {Les explorations demandent de la préparation, si la planète n'a pas d'atmosphère respirable ou est habitée par des organismes hostiles, vous devriez prendre vos dispositions. Êtes-vous sûre de vouloir continuer ?}
-                other {Les explorations demandent de la préparation, si la planète n'a pas d'atmosphère respirable ou est habitée par des organismes hostiles, vous devriez prendre vos dispositions. Êtes-vous sûr de vouloir continuer ?}
+                other {Les explorations demandent de la préparation, si la planète n'a pas d'atmosphère respirable ou est habitée par des organismes hostiles, vous devriez prendre vos dispositions. Voulez-vous vraiment continuer ?}
                 }</target>
       </segment>
     </unit>
@@ -1223,7 +1259,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action mettra immédiatement fin à la partie. {character_gender, select,
                 male {Êtes-vous sûr de vouloir continuer ?}
                 female {Êtes-vous sûre de vouloir continuer ?}
-                other {Êtes-vous sûr.e de vouloir continuer ?}}</target>
+                other {Voulez-vous vraiment continuer ?}}</target>
       </segment>
     </unit>
     <unit id="participate">
@@ -1706,7 +1742,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action mettra immédiatement fin à la partie. {character_gender, select,
                 male {Êtes-vous sûr de vouloir continuer ?}
                 female {Êtes-vous sûre de vouloir continuer ?}
-                other {Êtes-vous sûr.e de vouloir continuer ?}}</target>
+                other {Voulez-vous vraiment continuer ?}}</target>
       </segment>
     </unit>
     <unit id="shoot_cat">
@@ -1973,10 +2009,10 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="confirmation" state="translated">
         <source>use_reset_vaccine.confirmation</source>
         <target>Attention : l'effet de cette action est imprévisible et irréversible. Êtes-vous absolument, complètement {character_gender, select,
-                male {certain}
-                female {certaine}
-                other {certain}
-                } de vouloir continuer ?</target>
+                male {certain de vouloir}
+                female {certaine de vouloir}
+                other {catégorique sur le fait de}
+                } continuer ?</target>
       </segment>
     </unit>
     <unit id="protect">

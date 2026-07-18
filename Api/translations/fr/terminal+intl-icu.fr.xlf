@@ -138,7 +138,7 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
       </segment>
       <segment id="lost" state="translated">
         <source>exploration.lost</source>
-        <target>{character_gender, select, male {Vous êtes perdu sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher.} female {Vous êtes perdue sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher.} other {Vous êtes perdu sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher.}}</target>
+        <target>{character_gender, select, male {Vous êtes perdu sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher.} female {Vous êtes perdue sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher.} other {Vous êtes perdu.e sur cette planète. Votre moral va rapidement décroitre... Implorez l'équipage pour qu'il vienne vous chercher.}}</target>
       </segment>
       <segment id="finished" state="translated">
         <source>exploration.finished</source>

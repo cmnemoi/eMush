@@ -118,10 +118,14 @@
         <source>do_the_thing_success</source>
         <target>**{character}** et **{target_character}** éteignent la lumière et des bruits étranges se produisent... {target_character_gender, select, 
           female {{character_gender, select,
-            female {Quelques minutes plus tard, elles rallument. Elles ont un air satisfait.}
-            other {Quelques minutes plus tard, ils rallument. Ils ont un air satisfait.}
-          }}
-          other {Quelques minutes plus tard, ils rallument. Ils ont un air satisfait.}
+            female {Quelques minutes plus tard, elles rallument avec un air satisfait.}
+            other {Quelques minutes plus tard, les deux rallument avec un air satisfait.}
+          }}, 
+          male {{character_gender, select,
+            male {Quelques minutes plus tard, ils rallument avec un air satisfait.}
+            other {Quelques minutes plus tard, les deux rallument avec un air satisfait.}
+          }}, 
+          other {Quelques minutes plus tard, les deux rallument avec un air satisfait.}
         }</target>
       </segment>
     </unit>
@@ -171,19 +175,16 @@
         <source>flirt_success</source>
         <target>{character_gender, select,
                     male {**{character}** semble intéressé par **{target_character}**. Ce regard qu'il lui lance ne trompera personne sur ses intentions.}
-                    female {**{character}** a l'air intéressée par **{target_character}**, ce papillonnement de sourcil est tout à fait révélateur de ses pensées secrètes.}
-                    other {invalid gender input for {character}}
+                    female {**{character}** a l'air intéressée par **{target_character}**. Ce papillonnement de sourcil est tout à fait révélateur de ses pensées secrètes.}
+                    other {**{character}** montre de l'intérêt pour **{target_character}**. Ce regard est tout à fait révélateur de ses pensées secrètes.}
                 }</target>
       </segment>
     </unit>
     <unit id="bond_success">
       <segment id="bond_success" state="translated">
         <source>bond_success</source>
-        <target>{character_gender, select,
-                    male {**{character}** semble intéressé par **{target_character}**. Ce regard qu'il lui lance ne trompera personne sur ses intentions.}
-                    female {**{character}** a l'air intéressée par **{target_character}**, ce papillonnement de sourcil est tout à fait révélateur de ses pensées secrètes.}
-                    other {invalid gender input for {character}}
-                }</target>
+        <target>**{character}** sourit à **{target_character}**, on dirait {character_gender, select,
+                    male {qu'il} female {qu'elle} other {qu'iel}} l'aime bien.</target>
       </segment>
     </unit>
     <unit id="get_up">
@@ -211,18 +212,10 @@
     <unit id="infect_success">
       <segment id="infect_success" state="translated">
         <source>infect_success</source>
-        <target>:mush: {character_gender, select,
-                    male {{target_character_gender, select,
-                        male {**{character}** s'est rapproché de **{target_character}** avec un regard de prédateur... et l'a poinçonné discrètement !}
-                        female {**{character}** s'est rapproché de **{target_character}** avec un regard de prédateur... et l'a poinçonnée discrètement !}
-                        other {invalid gender input for {target_character}}
-                    }}
-                    female {{target_character_gender, select,
-                         male {**{character}** s'est rapprochée de **{target_character}** avec un regard de prédateur... et l'a poinçonné discrètement !}
-                         female {**{character}** s'est rapprochée de **{target_character}** avec un regard de prédateur... et l'a poinçonnée discrètement !}
-                         other {invalid gender input for {target_character}}
-                    }}
-                    other {invalid gender input for {character}}
+        <target>:mush: {target_character_gender, select,
+                    male {**{character}** s'approche de **{target_character}** avec un regard de prédateur... et le poinçonne discrètement !}
+                    female {**{character}** s'approche de **{target_character}** avec un regard de prédateur... et la poinçonne discrètement !}
+                    other {**{character}** s'approche de **{target_character}** avec un regard de prédateur... et lea poinçonne discrètement !}
                 }</target>
       </segment>
     </unit>
@@ -238,7 +231,7 @@
         <target>{character_gender, select,
                     male {**{character}** est entré{is_tracker, select, true { {enter_loc_prep} {place}} other {}}.}
                     female {**{character}** est entrée{is_tracker, select, true { {enter_loc_prep} {place}} other {}}.}
-                    other {**{character}** est entré{is_tracker, select, true { {enter_loc_prep} {place}} other {}}.}
+                    other {**{character}** est entré.e{is_tracker, select, true { {enter_loc_prep} {place}} other {}}.}
                 }</target>
       </segment>
     </unit>
@@ -248,7 +241,7 @@
         <target>{character_gender, select,
                     male {**{character}** est sorti{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.}
                     female {**{character}** est sortie{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.}
-                    other {**{character}** est sorti{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.}
+                    other {**{character}** est sorti.e{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.}
                 }</target>
       </segment>
     </unit>
@@ -442,7 +435,7 @@
                     4 {{target_equipment_gender, select,
                         male {**{character}** a enfin réussi les réparations sur ce maudit **{target_equipment}**.}
                         female {**{character}** a enfin réussi les réparations sur cette maudite **{target_equipment}**.}
-                        other {invalid gender input}
+                        other {**{character}** a enfin réussi les réparations sur **{target_equipment}**.}
                     }}
                     5 {{target_equipment_first_letter, select,
                         vowel {**{character}** a enfin remis l'**{target_equipment}** à neuf.}
@@ -504,7 +497,7 @@
         <target>{character_gender, select,
                     male {Vous vous lavez et vous vous sentez brûlé, meurtri par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...}
                     female {Vous vous lavez et vous vous sentez brûlée, meurtrie par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...}
-                    other {invalid gender input for {character}}
+                    other {Vous vous lavez, mais toute cette eau vous brûle et vous meurtrit... Que ne feriez vous pas pour passer pour l'un des leurs...}
                 }</target>
       </segment>
     </unit>
@@ -520,7 +513,7 @@
         <target>{character_gender, select,
                         male {Vous vous lavez et vous vous sentez brûlé, meurtri par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...}
                         female {Vous vous lavez et vous vous sentez brûlée, meurtrie par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...}
-                        other {invalid gender input for {character}}
+                        other {Vous vous lavez, mais toute cette eau vous brûle et vous meurtrit... Que ne feriez vous pas pour passer pour l'un des leurs...}
                 }</target>
       </segment>
     </unit>
@@ -577,12 +570,12 @@
                     1 {{character_gender, select,
                         male {**{character}** enlève délicatement un peu d'oxygène du réservoir. Il a l'air louche.}
                         female {**{character}** enlève délicatement un peu d'oxygène du réservoir. Elle a l'air louche.}
-                        other {invalid gender input}
+                        other {**{character}** enlève délicatement un peu d'oxygène du réservoir. Iel a l'air louche.}
                     }}
                     2 {{character_gender, select,
                         male {**{character}** enlève délicatement un peu d'oxygène du réservoir. Il a l'air tout à fait serein.}
                         female {**{character}** enlève délicatement un peu d'oxygène du réservoir. Elle a l'air tout à fait sereine.}
-                        other {invalid gender input}
+                        other {**{character}** enlève délicatement un peu d'oxygène du réservoir. Iel a l'air tout à fait tranquille.}
                     }}
                     3 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Ce rictus est inquiétant.}
                     4 {**{character}** enlève délicatement un peu d'oxygène du réservoir. Était-ce vraiment nécessaire ?}
@@ -594,7 +587,7 @@
                     10 {{character_gender, select,
                         male {**{character}** enlève délicatement un peu d'oxygène du réservoir. Vous devriez peut-être le surveiller de plus près.}
                         female {**{character}** enlève délicatement un peu d'oxygène du réservoir. Vous devriez peut-être la surveiller de plus près.}
-                        other {invalid gender input}
+                        other {**{character}** enlève délicatement un peu d'oxygène du réservoir. Vous devriez peut-être lea surveiller de plus près.}
                     }}
                     other {"invalid version number"}
                 }</target>
@@ -667,7 +660,7 @@
         <target>{character_gender, select,
                 male {Vous vous êtes soigné. Vous avez récupéré {quantity} :hp:.}
                 female {Vous vous êtes soignée. Vous avez récupéré {quantity} :hp:.}
-                other {Vous vous êtes soigné. Vous avez récupéré {quantity} :hp:.}
+                other {Vous vous êtes soigné.e. Vous avez récupéré {quantity} :hp:.}
                 }</target>
       </segment>
     </unit>
@@ -675,9 +668,9 @@
       <segment id="ultraheal_success" state="translated">
         <source>ultraheal_success</source>
         <target>{character_gender, select,
-                    male {**{character}** est entouré d'un halo lumineux. D'horribles tentacules bleus iridescents parcourent son corps. La lumière qu'il émet est aveuglante. Ses blessures sont parfaitement guéries !}
-                    female {**{character}** est entourée d'un halo lumineux. D'horribles tentacules bleus iridescents lui courent sur le corps... ses blessures semblent guérir d'elles-même !}
-                    other {ultraheal_success invalid gender input for {character}}
+                    male {**{character}** est entouré d'un halo lumineux. D'horribles tentacules bleus iridescents parcourent son corps. La lumière qu'il émet est aveuglante... ses blessures semblent s'être guéries d'elles-mêmes !}
+                    female {**{character}** est entourée d'un halo lumineux. D'horribles tentacules bleus iridescents parcourent son corps. La lumière qu'elle émet est aveuglante... ses blessures semblent s'être guéries d'elles-mêmes !}
+                    other {**{character}** se fait entourer par un halo lumineux. D'horribles tentacules bleus iridescents parcourent son corps. La lumière qu'iel émet est aveuglante... ses blessures semblent s'être guéries d'elles-mêmes !}
                 }</target>
       </segment>
     </unit>
@@ -717,7 +710,7 @@
         <target>{character_gender, select,
                     male {**{character}** essaie de résoudre cet affreux kube.}
                     female {**{character}** a décidé de tenter cet insupportable petit kube.}
-                    other {try_kube invalid gender input for {character}}
+                    other {**{character}** s'acharne sur ce kube infernal.}
                 }</target>
       </segment>
     </unit>
@@ -799,7 +792,7 @@
         <target>{character_gender, select,
                     male {C'est étrange **{character}** sort un poudrier et se badigeonne de blanc et de noir. Il n'a vraiment pas l'air dans son assiette.}
                     female {C'est étrange **{character}** sort un poudrier et se badigeonne de blanc et de noir. Elle n'a vraiment pas l'air dans son assiette.}
-                    other {invalid gender input for {character}}
+                    other {C'est étrange **{character}** sort un poudrier et se badigeonne de blanc et de noir. Iel n'a vraiment pas l'air dans son assiette.}
                     }</target>
       </segment>
     </unit>
@@ -827,7 +820,7 @@
         <target>{character_gender, select,
                     male {**{character}** s'est débâillonné.}
                     female {**{character}** s'est débâillonnée.}
-                    other {invalid gender input for {character}}
+                    other {**{character}** a enlevé son bâillon.}
                     }</target>
       </segment>
     </unit>
@@ -849,7 +842,7 @@
         <target>{character_gender, select,
                 male {**{character}** était visiblement très pressé, il ouvre un portail spatio-temporel et saute dedans à pieds joints. On ne devrait pas le revoir de sitôt.}
                 female {**{character}** était visiblement très pressée, elle ouvre un portail spatio-temporel et saute dedans à pieds joints. On ne devrait pas la revoir de sitôt.}
-                other {invalid gender input for {character}}
+                other {**{character}** n'avait pas de temps à perdre, iel ouvre un portail spatio-temporel et saute dedans à pieds joints. On ne devrait pas lea revoir de sitôt.}
                 }</target>
       </segment>
     </unit>
@@ -889,7 +882,7 @@
         <target>Le décollage de **{character}** est si mauvais {character_gender, select,
     male {qu'il a}
     female {qu'elle a}
-    other {qu'il a}} endommagé {is_tracker, select, true {{patrol_ship}} other {son appareil}}.</target>
+    other {qu'iel a}} endommagé {is_tracker, select, true {{patrol_ship}} other {son appareil}}.</target>
       </segment>
     </unit>
     <unit id="land_no_pilot">
@@ -898,7 +891,7 @@
         <target>L'atterrissage de **{character}** est si mauvais {character_gender, select,
     male {qu'il a}
     female {qu'elle a}
-    other {qu'il a}} endommagé {is_tracker, select, true {{patrol_ship}} other {son appareil}}.</target>
+    other {qu'iel a}} endommagé {is_tracker, select, true {{patrol_ship}} other {son appareil}}.</target>
       </segment>
     </unit>
     <unit id="access_terminal_success">
@@ -955,7 +948,7 @@
         <target>{character_gender, select,
         male {**{character}** s'est éjecté du monoplace.}
         female {**{character}** s'est éjectée du monoplace.}
-        other {**{character}** s'est éjecté du monoplace.}
+        other {**{character}** s'est éjecté.e du monoplace.}
       }</target>
       </segment>
     </unit>
@@ -1152,8 +1145,9 @@
       <segment id="depress_success" state="translated">
         <source>depress_success</source>
         <target>:mush: **{character}** se rapproche subrepticement de **{target_character}**. {character_gender, select,
+        male {Après qu'il s'en est éloigné, les traits de **{target_character}** se tirent et se creusent...}
         female {Après qu'elle s'en est éloignée, les traits de **{target_character}** s'affaissent...}
-        other {Après qu'il s'en est éloigné, les traits de **{target_character}** se tirent et se creusent...}}</target>
+        other {Après qu'iel s'en est éloigné.e, les traits de **{target_character}** s'assombrissent...}}</target>
       </segment>
     </unit>
     <unit id="slime_trap_success">
@@ -1177,7 +1171,7 @@
     <unit id="reinforce_success">
       <segment id="reinforce_success" state="translated">
         <source>reinforce_success</source>
-        <target>{character_gender, select, female {**{character}** s'est lancée} other {**{character}** s'est lancé}} dans une mini cathédrale autour {target_equipment_gender, select, female {d'une **{target_equipment}**} other {d'un **{target_equipment}**}}... On dirait plus un tatou crevé maintenant mais ça devrait tenir.</target>
+        <target>{character_gender, select, male {**{character}** s'est lancé} female {**{character}** s'est lancée} other {**{character}** se lance}} dans une mini cathédrale autour {target_equipment_gender, select, female {d'une **{target_equipment}**} other {d'un **{target_equipment}**}}... On dirait plus un tatou crevé maintenant mais ça devrait tenir.</target>
       </segment>
     </unit>
     <unit id="reinforce_fail">
@@ -1240,7 +1234,7 @@
     <unit id="cure_cat_fail">
       <segment id="cure_cat_fail" state="translated">
         <source>cure_cat_fail</source>
-        <target>**{character}** se débat avec **{target_equipment}** avant que celui-ci ne s'échappe de ses bras. {character_gender, select, male {Il} female {Elle} other {Il}} le poursuit dans la pièce en jurant, sans le moindre succès, avant que la créature ne finisse par se glisser sous un meuble.</target>
+        <target>**{character}** se débat avec **{target_equipment}** avant que celui-ci ne s'échappe de ses bras. {character_gender, select, male {Il} female {Elle} other {Iel}} le poursuit dans la pièce en jurant, sans le moindre succès, avant que la créature ne finisse par se glisser sous un meuble.</target>
       </segment>
     </unit>
     <unit id="shoot_cat_success">
@@ -1274,7 +1268,7 @@
                     1 {{character_gender, select,
                         male {Le tour de magie de **{character}** est décidément raté, il retourne son arme contre lui par mégarde}
                         female {Le tour de magie de **{character}** est décidément raté, elle retourne son arme contre elle par mégarde}
-                        other {invalid gender input}
+                        other {Le tour de magie de **{character}** est décidément raté, retournant son arme contre iel par mégarde.}
                     }}
                     2 {La violence est le refuge de l'incompétence. **{character}** aurait mieux fait de s'abstenir. Son arme est maintenant par terre et **{target}** l'en sait gré}
                     other {invalid version input}
@@ -1302,7 +1296,7 @@
     <unit id="give_nightmare_success">
       <segment id="give_nightmare_success" state="translated">
         <source>give_nightmare_success</source>
-        <target>:mush: **{character}** se rapproche de **{target_character}**... Après {character_gender, select, female {qu'elle s'en est éloignée} other {qu'il s'en est éloigné}}, celui-ci semble avoir un sommeil tourmenté...</target>
+        <target>:mush: **{character}** se rapproche de **{target_character}**... Après {character_gender, select, male {qu'il s'en est éloigné} female {qu'elle s'en est éloignée} other {qu'iel s'en est éloigné.e}}, **{target_character}** semble avoir un sommeil tourmenté...</target>
       </segment>
     </unit>
     <unit id="neron_depress_success">
@@ -1342,7 +1336,7 @@
         } **{equipment}** ! On espère que c'est ce qu{character_gender, select, 
         female {'elle} 
         male {'il} 
-        other {'il}
+        other {'iel}
         } voulait...</target>
       </segment>
     </unit>
@@ -1379,7 +1373,7 @@
     <unit id="mutate_success">
       <segment id="mutate_success" state="translated">
         <source>mutate_success</source>
-        <target>:mush: **{character}** se recroqueville. {character_gender, select, female {Elle} other {Il}} semble souffrir, ses cris résonnent, {character_gender, select, female {elle} other {il}} vomit une bile immonde qui fait fondre ses vêtements... Quelle horreur ! {character_gender, select, female {Elle} other {Il}} a complètement changé de forme !</target>
+        <target>:mush: **{character}** se recroqueville. {character_gender, select, male {Il}female {Elle} other {Iel}} semble souffrir, ses cris résonnent, {character_gender, select, male {il} female {elle} other {iel}} vomit une bile immonde qui fait fondre ses vêtements... Quelle horreur ! {character_gender, select, male {Il}female {Elle} other {Iel}} a complètement changé de forme !</target>
       </segment>
     </unit>
     <unit id="exchange_body_success">

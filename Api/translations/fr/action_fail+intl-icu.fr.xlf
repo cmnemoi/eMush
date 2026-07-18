@@ -68,7 +68,7 @@
         <target>{character_gender, select,
             male {Vous ne pouvez pas agir car vous êtes enfermé dans une capsule spatiale.}
             female {Vous ne pouvez pas agir car vous êtes enfermée dans une capsule spatiale.}
-            other {invalid gender input for {character}}
+            other {Vous ne pouvez pas agir car vous êtes enfermé.e dans une capsule spatiale.}
             }</target>
       </segment>
     </unit>
@@ -96,7 +96,7 @@
         <target>{character_gender, select,
             male {Vous n'êtes pas blessé, mais ça peut s'arranger...}
             female {Vous n'êtes pas blessée, mais ça peut s'arranger...}
-            other {Vous n'êtes pas blessé, mais ça peut s'arranger...}
+            other {Vous n'êtes pas blessé.e, mais ça peut s'arranger...}
             }</target>
       </segment>
     </unit>
@@ -163,7 +163,7 @@
     <unit id="do_the_thing_already_done">
       <segment id="description" state="translated">
         <source>do_the_thing_already_done.description</source>
-        <target>Vous avez déjà passer du temps avec quelqu'un aujourd'hui.</target>
+        <target>Vous avez déjà passé du temps avec quelqu'un aujourd'hui.</target>
       </segment>
     </unit>
     <unit id="do_the_thing_camera">
@@ -175,7 +175,7 @@
     <unit id="do_the_thing_witness">
       <segment id="description" state="translated">
         <source>do_the_thing_witness.description</source>
-        <target>Pas besoin qu'on vous observe dans ces moments-là...</target>
+        <target>Pas besoin d'être observé dans ces moments-là...</target>
       </segment>
     </unit>
     <unit id="do_the_thing_asleep">
@@ -192,30 +192,27 @@
     </unit>
     <unit id="relax_camera">
       <segment id="description" state="translated">
-        <source>do_the_thing_camera.description</source>
+        <source>relax_camera.description</source>
         <target>Impossible de se détendre quand NERON vous surveille.</target>
       </segment>
     </unit>
     <unit id="relax_witness">
       <segment id="description" state="translated">
-        <source>do_the_thing_witness.description</source>
+        <source>relax_witness.description</source>
         <target>Vous n'avez pas besoin d'un public.</target>
       </segment>
     </unit>
     <unit id="relax_asleep">
       <segment id="description" state="translated">
-        <source>do_the_thing_asleep.description</source>
+        <source>relax_asleep.description</source>
         <target>Cette personne est endormie, difficile de réellement passer du temps ensemble dans ces conditions.</target>
       </segment>
     </unit>
     <unit id="flirt_already_flirted">
       <segment id="description" state="translated">
         <source>flirt_already_flirted.description</source>
-        <target>{character_gender, select,
-            male {Vous êtes déjà très lié à cette personne.}
-            female {Vous êtes déjà très liée à cette personne.}
-            other {invalid gender input for {character}}
-            }</target>
+        <target>Vous êtes déjà très proche de cette personne.
+ </target>
       </segment>
     </unit>
     <unit id="flirt_antisocial">
@@ -224,14 +221,14 @@
         <target>{character_gender, select,
             male {Vous n'êtes pas intéressé par ce genre d'interaction sociale...}
             female {Vous n'êtes pas intéressée par ce genre d'interaction sociale...}
-            other {invalid gender input for {character}}
+            other {Ce genre d'interaction sociale ne vous intéresse pas.}
             }</target>
       </segment>
     </unit>
     <unit id="flirt_same_family">
       <segment id="description" state="translated">
         <source>flirt_same_family.description</source>
-        <target>Ce flirt est impossible.</target>
+        <target>Vous ne pouvez pas flirter avec cette personne...</target>
       </segment>
     </unit>
     <unit id="daily_spore_limit">
@@ -330,7 +327,7 @@
         <target>{target_character_gender, select,
             male {Cet équipier est un paria, il a déjà reçu sa peine !}
             female {Cette équipière est une paria, elle a déjà reçu sa peine !}
-            other {Cet équipier est un paria, il a déjà reçu sa peine !}
+            other {Cette personne est une paria, elle a déjà reçu sa peine !}
             }</target>
       </segment>
     </unit>
@@ -373,7 +370,7 @@
     <unit id="drone_upgrade_lack_ressources">
       <segment id="description" state="translated">
         <source>drone_upgrade_lack_ressources.description</source>
-        <target>Les améliorations des Drones demandent 2 Débris métalliques.</target>
+        <target>Les améliorations des **Drones** demandent 2 Débris métalliques.</target>
       </segment>
     </unit>
     <unit id="mage_book_already_have_skill">
@@ -400,7 +397,7 @@
         <target>{character_gender, select,
             male {Vous êtes rassasié.}
             female {Vous êtes rassasiée.}
-            other {invalid gender input for {character}}
+            other {Vous êtes rassasié.e.}
             }</target>
       </segment>
     </unit>
@@ -542,7 +539,7 @@
         <target>{character_gender, select,
             male {Vous êtes déjà couché.}
             female {Vous êtes déjà couchée.}
-            other {invalid gender input for {character}}
+            other {Vous êtes déjà couché.e.}
             }</target>
       </segment>
     </unit>
@@ -564,7 +561,7 @@
         <target>{character_gender, select,
             male {Cette action nécessite que vous soyez allongé.}
             female {Cette action nécessite que vous soyez allongée.}
-            other {invalid gender input for {character}}
+            other {Cette action nécessite que vous soyez allongé·e.}
             }</target>
       </segment>
     </unit>
@@ -598,7 +595,7 @@
         <target>{character_gender, select,
             male {Impossible de prononcer le moindre mot tant que vous ne vous serez pas débarrassé de ce fichu bout de scotch.}
             female {Impossible de prononcer le moindre mot tant que vous ne vous serez pas débarrassée de ce fichu bout de scotch.}
-            other {invalid gender input for {character}}
+            other {Impossible de prononcer le moindre mot tant que vous n'aurez pas enlevé ce fichu bout de scotch.}
             }</target>
       </segment>
     </unit>
@@ -638,7 +635,7 @@
         <target>{character_gender, select,
             male {Vous êtes immunisé contre le Mush, pourquoi vouloir vous faire du mal ?}
             female {Vous êtes immunisée contre le Mush, pourquoi vouloir vous faire du mal ?}
-            other {invalid gender input for {character}}
+            other {Vous êtes immunisé.e contre le Mush, pourquoi vouloir vous faire du mal ?}
             }</target>
       </segment>
     </unit>
@@ -918,7 +915,7 @@
         <target>{target_character_gender, select,
             male {Cet équipier}
             female {Cette équipière}
-            other {Cet.te équipier.e}} est déjà sous la protection d'un garde du corps !</target>
+            other {Cette personne}} est déjà sous la protection d'un garde du corps !</target>
       </segment>
     </unit>
     <unit id="private_property_not_owner">

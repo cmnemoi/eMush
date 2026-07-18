@@ -59,7 +59,7 @@ final class GiveNightmareCest extends AbstractFunctionalTest
         $this->whenChunGivesNightmareToKuanTi();
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: ":mush: **Chun** se rapproche de **Kuan Ti**... Après qu'elle s'en est éloignée, celui-ci semble avoir un sommeil tourmenté...",
+            expectedRoomLog: ":mush: **Chun** se rapproche de **Kuan Ti**... Après qu'elle s'en est éloignée, **Kuan Ti** semble avoir un sommeil tourmenté...",
             actualRoomLogDto: new RoomLogDto(
                 player: $this->chun,
                 log: ActionLogEnum::GIVE_NIGHTMARE_SUCCESS,

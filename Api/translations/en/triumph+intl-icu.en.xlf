@@ -842,11 +842,11 @@
       </segment>
       <segment id="lover.log" state="translated">
         <source>lover.log</source>
-        <target>You earned {quantity} :triumph: by successfully engaging in a mutual flirt as Derek!</target>
+        <target>You earned {quantity} :triumph: by successfully getting closer to someone as Derek!</target>
       </segment>
       <segment id="lover.personal_description" state="translated">
         <source>lover.personal_description</source>
-        <target>Derek earns {quantity} :triumph: for each act of mutual love.</target>
+        <target>Derek earns {quantity} :triumph: for each act of mutual affection.</target>
       </segment>
     </unit>
     <unit id="andie_fate">

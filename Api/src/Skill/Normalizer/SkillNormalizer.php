@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Skill\Normalizer;
 
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
@@ -40,7 +41,7 @@ final class SkillNormalizer implements NormalizerInterface
             'key' => $skillKey,
             'name' => $this->translationService->translate(
                 key: $skill->getNameAsString() . '.name',
-                parameters: [$player->getLogKey() => $player->getLogName()],
+                parameters: [$player->getLogKey() => $player->getLogName(), 'character_gender' => CharacterEnum::gender($player->getLogName())],
                 domain: 'skill',
                 language: $player->getLanguage(),
             ),

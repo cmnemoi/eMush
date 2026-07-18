@@ -45,6 +45,20 @@
         <target>Esta acción solo se puede realizar una vez al día. ¿Quieres continuar de todas maneras?</target>
       </segment>
     </unit>
+    <unit id="relax">
+      <segment id="name" state="translated">
+        <source>relax.name</source>
+        <target>Pasar tiempo en compañía</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>relax.description</source>
+        <target>Te permite pasar un rato con otra persona y olvidarte de las tragedias que ocurren a tu alrededor.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>relax.confirmation</source>
+        <target>Esta acción solo puede realizarse una vez al día. ¿Quieres continuar de todas formas?</target>
+      </segment>
+    </unit>
     <unit id="check_spore_level">
       <segment id="check_spore_level" state="translated">
         <source>check_spore_level.name</source>
@@ -136,13 +150,14 @@
       </segment>
       <segment id="description" state="translated">
         <source>extract_spore.description</source>
-        <target>Extírpate una espora para poder infectar a un compañero (pero ten cuidado con las cámaras).//La tripulación **Mush** aún puede crear **{quantity_remaining} esporas** hoy.</target>
+        <target>Extírpate una espora para poder infectar a un compañero (pero ten cuidado con las cámaras).//
+La tripulación **Mush** aún puede crear **{quantity_remaining} esporas** hoy.</target>
       </segment>
     </unit>
     <unit id="flirt">
       <segment id="name" state="translated">
         <source>flirt.name</source>
-        <target>Flirtear</target>
+        <target>Coquetear</target>
       </segment>
       <segment id="description" state="translated">
         <source>flirt.description</source>
@@ -151,6 +166,20 @@
       <segment id="confirmation" state="translated">
         <source>flirt.confirmation</source>
         <target>Esta acción es irreversible. ¿Quieres continuar de todas maneras?</target>
+      </segment>
+    </unit>
+    <unit id="bond">
+      <segment id="bond" state="translated">
+        <source>bond.name</source>
+        <target>Congeniar</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>bond.description</source>
+        <target>Aumenta tu vínculo con esta persona, lo que le permite pasar tiempo contigo. Esta acción es **irreversible**.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>bond.confirmation</source>
+        <target>Esta acción es irreversible. ¿Quieres continuar de todas formas?</target>
       </segment>
     </unit>
     <unit id="get_up">
@@ -749,7 +778,7 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
     <unit id="shoot">
       <segment id="name" state="translated">
         <source>shoot.name</source>
-        <target>Disparar: Blaster</target>
+        <target>Disparar: {equipment}</target>
       </segment>
       <segment id="description" state="translated">
         <source>shoot.description</source>

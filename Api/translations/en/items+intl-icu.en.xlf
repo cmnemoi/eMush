@@ -2535,6 +2535,36 @@ Expedition: + 2 added to the strength of your team during combats.//
 An old blaster originally offered to infantrymen in the Sol Defense Force. After years of tinkering, it is even stronger than more modern designs.</target>
       </segment>
     </unit>
+    <unit id="alien_blaster">
+      <segment id="name" state="translated">
+        <source>alien_blaster.name</source>
+        <target>Alien blaster</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>alien_blaster.short_name</source>
+        <target>Alien blaster</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>alien_blaster.plural_name</source>
+        <target>Alien blasters</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>alien_blaster.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>alien_blaster.first_letter</source>
+        <target>vowel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>alien_blaster.description</source>
+        <target>Proof that the number of tentacles ultimately matters very little : We're never really that different.//Expedition : +1 added to the strength of your team during combats.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>alien_blaster.examine</source>
+        <target>Proof that the number of tentacles ultimately matters very little : We're never really that different.//Expedition : +1 added to the strength of your team during combats.//According to the engraving, it's a "Zorluble" blaster. Or maybe that was the name of the previous owner?</target>
+      </segment>
+    </unit>
     <unit id="natamy_rifle">
       <segment id="name" state="translated">
         <source>natamy_rifle.name</source>
@@ -4403,6 +4433,42 @@ Allows :sk_conceptor: Designers to access the Command Terminal.</target>
         <target>"Lil' Star Hunter©" Helmet sold separately. Hand wash only. The "Lil' Star Hunter©" Blanket is not a toy. Do not eat. Do not shove in an exhaust pipe. 99% Polyester. In accordance with the 3151 Huchbert law on daily life carcinogenics, you have waived your rights to sue. No refunds. // Allows **Lying Down** in a Patrol Ship, Pasiphae, or any other spaceship.</target>
       </segment>
     </unit>
+    <unit id="alien_fruit_generic">
+      <segment id="name" state="translated">
+        <source>alien_fruit_generic.name</source>
+        <target>Alien fruit</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>alien_fruit_generic.plural_name</source>
+        <target>Alien fruits</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>alien_fruit_generic.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>alien_fruit_generic.first_letter</source>
+        <target>vowel</target>
+      </segment>
+    </unit>
+    <unit id="artefact_generic">
+      <segment id="name" state="translated">
+        <source>artefact_generic.name</source>
+        <target>Alien artefact</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>artefact_generic.plural_name</source>
+        <target>Alien artefacts</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>artefact_generic.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>artefact_generic.first_letter</source>
+        <target>vowel</target>
+      </segment>
+    </unit>
     <unit id="schoolbooks">
       <segment id="name" state="translated">
         <source>schoolbooks.name</source>
@@ -4453,6 +4519,162 @@ Allows :sk_conceptor: Designers to access the Command Terminal.</target>
       <segment id="examine" state="translated">
         <source>reset_vaccine.examine</source>
         <target>The Nunsens process extracts pure knowledge from neuro-cryptographied paper pulp by emulsifying it. In other words, this needle contains a mash of Mage Books thrown into a mixer on 'very fine' setting.//**Unique: Resets the skills of its user and replaces them with a completely random selection to choose from.**</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_tablet">
+      <segment id="name" state="translated">
+        <source>treasure_hunt_tablet.name</source>
+        <target>Alien Tablet</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>treasure_hunt_tablet.short_name</source>
+        <target>Alien Tablet</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>treasure_hunt_tablet.gender</source>
+        <target>female</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>treasure_hunt_tablet.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>treasure_hunt_tablet.description</source>
+        <target>TODO</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>treasure_hunt_tablet.examine</source>
+        <target>TODO</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_device">
+      <segment id="name" state="translated">
+        <source>treasure_hunt_device.name</source>
+        <target>Alien Device</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>treasure_hunt_device.short_name</source>
+        <target>Alien Device</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>treasure_hunt_device.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>treasure_hunt_device.first_letter</source>
+        <target>vowel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>treasure_hunt_device.description</source>
+        <target>TODO</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>treasure_hunt_device.examine</source>
+        <target>TODO</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_pet">
+      <segment id="name" state="translated">
+        <source>treasure_hunt_pet.name</source>
+        <target>Alien Pet</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>treasure_hunt_pet.short_name</source>
+        <target>Alien Pet</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>treasure_hunt_pet.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>treasure_hunt_pet.first_letter</source>
+        <target>vowel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>treasure_hunt_pet.description</source>
+        <target>TODO</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>treasure_hunt_pet.examine</source>
+        <target>TODO</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_space_chicken">
+      <segment id="name" state="translated">
+        <source>treasure_hunt_space_chicken.name</source>
+        <target>Space Chicken</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>treasure_hunt_space_chicken.short_name</source>
+        <target>Space Chicken</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>treasure_hunt_space_chicken.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>treasure_hunt_space_chicken.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>treasure_hunt_space_chicken.description</source>
+        <target>TODO</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>treasure_hunt_space_chicken.examine</source>
+        <target>TODO</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_chest_closed">
+      <segment id="name" state="translated">
+        <source>treasure_hunt_chest_closed.name</source>
+        <target>Closed Treasure Chest</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>treasure_hunt_chest_closed.short_name</source>
+        <target>Closed Treasure Chest</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>treasure_hunt_chest_closed.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>treasure_hunt_chest_closed.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>treasure_hunt_chest_closed.description</source>
+        <target>TODO</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>treasure_hunt_chest_closed.examine</source>
+        <target>TODO</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_chest_opened">
+      <segment id="name" state="translated">
+        <source>treasure_hunt_chest_opened.name</source>
+        <target>Opened Treasure Chest</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>treasure_hunt_chest_opened.short_name</source>
+        <target>Opened Treasure Chest</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>treasure_hunt_chest_opened.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>treasure_hunt_chest_opened.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>treasure_hunt_chest_opened.description</source>
+        <target>TODO</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>treasure_hunt_chest_opened.examine</source>
+        <target>TODO</target>
       </segment>
     </unit>
   </file>

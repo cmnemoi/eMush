@@ -73,6 +73,12 @@
         <target>do_the_thing_breaks_sofa</target>
       </segment>
     </unit>
+    <unit id="relax_success">
+      <segment id="relax_success" state="initial">
+        <source>relax_success</source>
+        <target>relax_success</target>
+      </segment>
+    </unit>
     <unit id="drop">
       <segment id="drop" state="translated">
         <source>drop</source>
@@ -95,6 +101,12 @@
       <segment id="flirt_success" state="translated">
         <source>flirt_success</source>
         <target>flirt_success</target>
+      </segment>
+    </unit>
+    <unit id="bond_success">
+      <segment id="bond_success" state="initial">
+        <source>bond_success</source>
+        <target>bond_success</target>
       </segment>
     </unit>
     <unit id="get_up">

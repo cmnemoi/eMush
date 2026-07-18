@@ -842,11 +842,11 @@
       </segment>
       <segment id="lover.log" state="translated">
         <source>lover.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en réussissant un flirt réciproque en tant que Derek !</target>
+        <target>Vous avez gagné {quantity} :triumph: en réussissant à vous rapprocher de quelqu'un en tant que Derek !</target>
       </segment>
       <segment id="lover.personal_description" state="translated">
         <source>lover.personal_description</source>
-        <target>Derek gagne {quantity} :triumph: pour chaque acte d'amour réciproque.</target>
+        <target>Derek gagne {quantity} :triumph: pour chaque acte d'affection réciproque.</target>
       </segment>
     </unit>
     <unit id="andie_fate">

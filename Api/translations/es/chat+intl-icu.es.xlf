@@ -13,8 +13,8 @@
       <segment id="teamObjectives.title" state="translated">
         <source>tips.teamObjectives.title</source>
         <target>{team, select,
-mush {Tus objetivos como :berzerk: Mush} other {{character_gender, select, female {Tus objetivos como :female_admin: humano}
-other {Tus objetivos como :male_admin: humano}
+mush {Tus objetivos como :berzerk: Mush} other {{character_gender, select, male {Tus objetivos como :male_admin: humano} female {Tus objetivos como :female_admin: humano}
+other {Tus objetivos como :et_ready: humano}
 }}}</target>
       </segment>
       <segment id="teamObjectives.elements" state="translated">

@@ -74,23 +74,20 @@ other {invalid gender input}}.</target>
     <unit id="do_the_thing_success">
       <segment id="do_the_thing_success" state="translated">
         <source>do_the_thing_success</source>
-        <target>**{character}** y **{target_character}** apagan la luz y se producen ruidos extraños... Algunos minutos más tarde, las vuelven a encender. {target_character_gender, select,
-  female {{character_gender, select,
-    female {Parecen satisfechas.}
-    other {Parecen satisfechos.}}}
-  other {Parecen satisfechos}
-  }</target>
+        <target>**{character}** y **{target_character}** apagan la luz y se producen ruidos extraños... Algunos minutos más tarde, las vuelven a encender. Parece que están con un mejor humor.
+   </target>
       </segment>
     </unit>
     <unit id="do_the_thing_breaks_sofa">
       <segment id="do_the_thing_breaks_sofa" state="translated">
         <source>do_the_thing_breaks_sofa</source>
-        <target>**{character}** y **{target_character}** apagan la luz y se producen ruidos extraños... Algunos minutos más tarde, las vuelven a encender. {target_character_gender, select,
-  female {{character_gender, select,
-    female {Parecen satisfechas.}
-    other {Parecen satisfechos.}}}
-  other {Parecen satisfechos}
-  } *El sofá no puede decir lo mismo...*</target>
+        <target>**{character}** y **{target_character}** apagan la luz y se producen ruidos extraños... Algunos minutos más tarde, las vuelven a encender. Parece que están con un mejor humor. *El sofá no puede decir lo mismo...*</target>
+      </segment>
+    </unit>
+    <unit id="relax_success">
+      <segment id="relax_success" state="translated">
+        <source>relax_success</source>
+        <target>**{character}** y **{target_character}** se toman un momento a solas para despejarse de la preocupación y ajetreo diario. El tiempo vuela cuando te diviertes, pero se les ve con más ánimo después de todo.</target>
       </segment>
     </unit>
     <unit id="drop">
@@ -119,10 +116,13 @@ other {invalid gender input}}}}.</target>
     <unit id="flirt_success">
       <segment id="flirt_success" state="translated">
         <source>flirt_success</source>
-        <target>{character_gender, select, male {**{character}** parece estar interesado en **{target_character}**. Esa mirada no engaña.}
-female {**{character}** parece estar interesada en **{target_character}**, ese pestañeo y esa sonrisa revelan sus intenciones.}
-other {invalid gender input}
-}</target>
+        <target>**{character}** parece sentir interés por **{target_character}**. Su mirada y su sonrisa no engañan y deja en claro sus intenciones.</target>
+      </segment>
+    </unit>
+    <unit id="bond_success">
+      <segment id="bond_success" state="translated">
+        <source>bond_success</source>
+        <target>**{character}** le sonríe a **{target_character}**. **{character}** parece sentir agrado por **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="get_up">
@@ -196,11 +196,11 @@ other {invalid gender input}
 
   1 {**{target_equipment}** del demonio... ¡Déjate reparar!}
   2 {A pesar de tu esfuerzo, no lograste reparar {target_equipment_gender, select, female {la **{target_equipment}**} other {el **{target_equipment}**}}.}
-  3 {Reparar {target_equipment_gender, select, female {la **{equipment}**} other {el **{equipment}**}} resulta ser todo un desafío.}
+  3 {Reparar {target_equipment_gender, select, female {la **{target_equipment}**} other {el **{target_equipment}**}} resulta ser todo un desafío.}
   4 {Fallaste en la reparación {target_equipment_gender, select, female {de la **{target_equipment}**} other {del **{target_equipment}**}}.}
   5 {Parece que reparar {target_equipment_gender, select, female {la **{equipment}**} other {el **{equipment}**}} no es nada fácil.}
 
-  6 {{target_equipment_gender, select, female {La} other {El}} **{target_equipment}** empieza a oler a rata quemada. Como {character_gender, select, female {reparadora eres buena antropóloga} other {reparador eres buen antropólogo}}.}
+  6 {{target_equipment_gender, select, female {La} other {El}} **{target_equipment}** empieza a oler a rata quemada. Quizás esto de reparar cosas no se te da tan bien como piensas.}
   7 {{target_equipment_gender, select, female {La} other {El}} **{target_equipment}** empieza a oler a rata quemada. Casi lo logras}
   8 {{target_equipment_gender, select, female {La} other {El}} **{target_equipment}** empieza a oler a rata quemada. Respira profundo e inténtalo de nuevo.}
   9 {{target_equipment_gender, select, female {La} other {El}} **{target_equipment}** empieza a oler a rata quemada. ¿Ya has reparado algo en tu vida?}
@@ -213,14 +213,14 @@ other {invalid gender input}
  15 {{target_equipment_gender, select, female {Esa maldita **{target_equipment}**} other {Ese maldito **{target_equipment}**}} no se deja reparar... Respira profundo e inténtalo de nuevo.}
   16 {{target_equipment_gender, select, female {Esa maldita **{target_equipment}**} other {Ese maldito **{target_equipment}**}} no se deja reparar... ¿Ya has reparado algo en tu vida?}
   17 {{target_equipment_gender, select, female {Esa maldita **{target_equipment}**} other {Ese maldito **{target_equipment}**}} no se deja reparar... Mmm... Ponle más esmero.}
-  18 {{target_equipment_gender, select, female {Esa maldita **{target_equipment}**} other {Ese maldito **{target_equipment}**}} no se deja reparar... Como {character_gender, select, female {reparadora eres buena antropóloga} other {reparador eres buen antropólogo}}.}
+  18 {{target_equipment_gender, select, female {Esa maldita **{target_equipment}**} other {Ese maldito **{target_equipment}**}} no se deja reparar... Quizás esto de reparar cosas no se te da tan bien como piensas.}
   19 {{target_equipment_gender, select, female {Esa maldita **{target_equipment}**} other {Ese maldito **{target_equipment}**}} no se deja reparar... La intención no basta, hay que perseverar.}
   20 {{target_equipment_gender, select, female {Esa maldita **{target_equipment}**} other {Ese maldito **{target_equipment}**}} no se deja reparar... Casi lo logras.}
   21 {{target_equipment_gender, select, female {Esa maldita **{target_equipment}**} other {Ese maldito **{target_equipment}**}} no se deja reparar... No, no se reparará por obra del Espíritu Santo.}
   22 {{target_equipment_gender, select, female {Esa maldita **{target_equipment}**} other {Ese maldito **{target_equipment}**}} no se deja reparar... Hay días en que es mejor no salir de la cama.}
   23 {{target_equipment_gender, select, female {Esa maldita **{target_equipment}**} other {Ese maldito **{target_equipment}**}} no se deja reparar... Tal vez no has tomado un buen desayuno.}
 
-  24 {{target_equipment_gender, select, female {Esa **{target_equipment}**} other {Ese **{target_equipment}**}} sigue fallando. Como {character_gender, select, female {reparadora eres buena antropóloga} other {reparador eres buen antropólogo}}.}
+  24 {{target_equipment_gender, select, female {Esa **{target_equipment}**} other {Ese **{target_equipment}**}} sigue fallando. Quizás esto de reparar cosas no se te da tan bien como piensas.}
   25 {{target_equipment_gender, select, female {Esa **{target_equipment}**} other {Ese **{target_equipment}**}} sigue fallando. Respira profundo e inténtalo de nuevo.}
   26 {{target_equipment_gender, select, female {Esa **{target_equipment}**} other {Ese **{target_equipment}**}} sigue fallando. Casi lo logras.}
   27 {{target_equipment_gender, select, female {Esa **{target_equipment}**} other {Ese **{target_equipment}**}} sigue fallando. ¿Ya has reparado algo en tu vida?}
@@ -230,7 +230,7 @@ other {invalid gender input}
   31 {{target_equipment_gender, select, female {Esa **{target_equipment}**} other {Ese **{target_equipment}**}} sigue fallando. Hay días en que es mejor no salir de la cama.}
   32 {{target_equipment_gender, select, female {Esa **{target_equipment}**} other {Ese **{target_equipment}**}} sigue fallando. Tal vez no has tomado un buen desayuno.}
 
-  33 {{target_equipment_gender, select, female {La **{target_equipment}**} other {El **{target_equipment}**}} no quiere funcionar. Como {character_gender, select, female {reparadora eres buena antropóloga} other {reparador eres buen antropólogo}}.}
+  33 {{target_equipment_gender, select, female {La **{target_equipment}**} other {El **{target_equipment}**}} no quiere funcionar. Quizás esto de reparar cosas no se te da tan bien como piensas.}
   34 {{target_equipment_gender, select, female {La **{target_equipment}**} other {El **{target_equipment}**}} no quiere funcionar. Respira profundo e inténtalo de nuevo.}
   35 {{target_equipment_gender, select, female {La **{target_equipment}**} other {El **{target_equipment}**}} no quiere funcionar. Casi lo logras.}
   36 {{target_equipment_gender, select, female {La **{target_equipment}**} other {El **{target_equipment}**}} no quiere funcionar. ¿Ya has reparado algo en tu vida?}
@@ -354,8 +354,8 @@ other {invalid gender input}}.</target>
 5 {**{character}** extrae delicadamente un poco de oxígeno del tanque. Algo aquí huele mal.}
 6 {**{character}** extrae delicadamente un poco de oxígeno del tanque. Te parece que algo no anda bien.}
 7 {**{character}** extrae delicadamente un poco de oxígeno del tanque. Esa sonrisa la hemos visto en algún lugar...}
-8 {**{character}** extrae delicadamente un poco de oxígeno del tanque. {character_gender, select, female {Se le ve demasiado tranquila} other {Se le ve demasiado tranquilo}}.}
-9 {**{character}** extrae delicadamente un poco de oxígeno del tanque. {character_gender, select, female {Se le ve algo sospechosa} other {Se le ve algo sospechoso}}.}
+8 {**{character}** extrae delicadamente un poco de oxígeno del tanque. Su tranqulidad es sospechosa.}
+9 {**{character}** extrae delicadamente un poco de oxígeno del tanque. Que extraño...}
 other {**{character}** extrae delicadamente un poco de oxígeno del tanque. Tal vez debamos vigilarle.}
 }</target>
       </segment>
@@ -861,7 +861,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="mass_ggedon_success">
       <segment id="mass_ggedon_success" state="translated">
         <source>mass_ggedon_success</source>
-        <target>:mush: **{character}** se pone {character_gender, select, female {tensa} other {tenso}}... Filamentos amarillos salen de su traje, se enrollan e intentan entrar al casco...</target>
+        <target>:mush: La piel de **{character}** parece endurecerse... De pronto, filamentos amarillos salen de su traje, se enrollan e intentan entrar al casco...</target>
       </segment>
     </unit>
     <unit id="reinforce_success">
@@ -873,7 +873,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="reinforce_fail">
       <segment id="reinforce_fail" state="translated">
         <source>reinforce_fail</source>
-        <target>Das un paso atrás {character_gender, select, female {orgullosa} other {orgulloso}} y... ahora es... olvídalo... tu intento de blindaje ha fallado..</target>
+        <target>Das un paso atrás, te sientes con orgullo y... ahora es... olvídalo... tu intento de blindaje ha fallado.</target>
       </segment>
     </unit>
     <unit id="collect_scrap_fail">
@@ -929,7 +929,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="cure_cat_fail">
       <segment id="cure_cat_fail" state="translated">
         <source>cure_cat_fail</source>
-        <target>**{character}** forcejea con **{target_equipment}**  antes de que se escape de sus brazos. {character_gender, select, male {El} female {Ella} other {Elle}} lo persigue por la habitación maldiciendo, sin éxito, hasta que la criatura termina por deslizarse debajo de un mueble.</target>
+        <target>**{character}** forcejea con **{target_equipment}** antes de que se escape de sus brazos. Lo persigue por la habitación maldiciendo, sin éxito, hasta que la criatura termina por deslizarse debajo de un mueble.</target>
       </segment>
     </unit>
     <unit id="shoot_cat_success">
@@ -1016,7 +1016,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
         <target>**{character}** se lanza impacientemente en su regalo y lo desenvuelve rápidamente... Oh, ¡{quantity, select,
   1 {{equipment_gender, select, female {Una} other {Un}} **{equipment}**}
   other {{quantity} **{equipment_plural_name}**}
-  }! Esperemos que esto sea lo que {character_gender, select, female {ella} other {él}} quería...</target>
+  }! Esperemos que esto sea lo que quería...</target>
       </segment>
     </unit>
     <unit id="anniversary_gift_mush_skill">
@@ -1046,13 +1046,13 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="play_with_dog">
       <segment id="play_with_dog" state="translated">
         <source>play_with_dog</source>
-        <target>Tras mucha sangre, sudor, y lágrimas, **{character}** ha conseguido el escenario perfecto. El lugar, la hora, una "pelota", las vibras... **{character}** sonríe mientras comparte un momento trascendental con **Pavlov**, jugando a traer la pelota, disfrutando de cada segundo, el mundo es perfecto... Unos minutos después, mientras **{character}** sigue {character_gender, select, female {eufórica} other {eufórico}}, **Pavlov** se le aproxima con una mirada que parece decir "Debo irme. Mi planeta me necesita."// **Pavlov** se desvanece sin dejar rastro... **{character}** rompe en llanto.</target>
+        <target>Tras mucha sangre, sudor, y lágrimas, **{character}** ha conseguido el escenario perfecto. El lugar, la hora, una "pelota", las vibras... **{character}** sonríe mientras comparte un momento trascendental con **Pavlov**, jugando a traer la pelota, disfrutando de cada segundo, el mundo es perfecto... Unos minutos después, mientras la euforia sigue consumiendo a **{character}**, **Pavlov** se le aproxima con una mirada que parece decir "Debo irme. Mi planeta me necesita."// **Pavlov** se desvanece sin dejar rastro... **{character}** rompe en llanto.</target>
       </segment>
     </unit>
     <unit id="mutate_success">
       <segment id="mutate_success" state="translated">
         <source>mutate_success</source>
-        <target>:mush: **{character}** se acurruca. Parece sufrir, sus gritos resuenan, vomita una bilis inmunda que quema su ropa... ¡Qué horror! ¡Su forma ha cambiado completamente!</target>
+        <target>:mush: **{character}** se acurruca. Parece sufrir, sus gritos resuenan por el lugar antes de vomitar una bilis inmunda que quema su ropa... ¡Qué horror! ¡**{character}** ha mutado completamente!</target>
       </segment>
     </unit>
     <unit id="exchange_body_success">
@@ -1166,7 +1166,7 @@ other {{quantity}}
     <unit id="protect_success">
       <segment id="protect_success" state="translated">
         <source>protect_success</source>
-        <target>**{character}** se acerca a **{target_character}** y comienza a seguir sus pasos y vigilar su espacio. ¡Quienquiera que intente hacerle daño a **{target_character}** tendrá que vérselas primero con {character_gender, select, male {el} female {ella} other {el}}!</target>
+        <target>**{character}** se acerca a **{target_character}** y comienza a seguir sus pasos y vigilar su espacio. ¡Quienquiera que intente hacerle daño a **{target_character}** tendrá que vérselas primero con **{character}**!</target>
       </segment>
     </unit>
     <unit id="check_jukebox_songs_success">

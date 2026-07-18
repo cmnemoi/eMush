@@ -383,39 +383,135 @@
       </segment>
       <segment id="description" state="translated">
         <source>fight.description</source>
-        <target>You are facing off against a creature.////Creature Strength: {creature_strength}////Team Strength: {expedition_strength}////{damage, select, 0 {Creature dies.} other {Team takes {damage} damage.}}</target>
+        <target>You are facing off against a creature.////Creature Strength: {creature_strength}////Team Strength: {expedition_strength}{result, select, victory{//You collect {reward_amount} {reward}.} other{}}//Team takes {damage} damages.//{bonus_loot_thanks_to_skill}{bonus_loot_thanks_to_items}</target>
       </segment>
       <segment id="intelligent_description" state="translated">
         <source>fight.intelligent_description</source>
         <target>A strange being approaches and shrieks piercingly enough to make your ears ache. You'll have to find a way to stop it.</target>
       </segment>
+      <segment id="intelligent_low" state="translated">
+        <source>fight.intelligent_low</source>
+        <target>fight.intelligent_low</target>
+      </segment>
+      <segment id="intelligent_mid" state="translated">
+        <source>fight.intelligent_mid</source>
+        <target>fight.intelligent_mid</target>
+      </segment>
+      <segment id="intelligent_high" state="translated">
+        <source>fight.intelligent_high</source>
+        <target>fight.intelligent_high</target>
+      </segment>
       <segment id="ruminant_description" state="translated">
         <source>fight.ruminant_description</source>
-        <target>While trying to sneak up on an unsuspecting Chew Chew, you quickly find yourself surrounded by its kin... You're going to have to fight your way out of this one!</target>
+        <target>While trying to sneak up on an unsuspecting Chew Chew, you quickly find yourself surrounded by its kin... You're going to have to fight your way out of this one!////{fight}</target>
+      </segment>
+      <segment id="ruminant_low" state="translated">
+        <source>fight.ruminant_low</source>
+        <target>fight.ruminant_low</target>
+      </segment>
+      <segment id="ruminant_mid" state="translated">
+        <source>fight.ruminant_mid</source>
+        <target>fight.ruminant_mid</target>
+      </segment>
+      <segment id="ruminant_high" state="translated">
+        <source>fight.ruminant_high</source>
+        <target>After easily felling one of the largest beasts, the rest of the herd scatters in a cacophony of clattering hooves and frightened mooing. The cooks will be delighted!</target>
       </segment>
       <segment id="predator_description" state="translated">
         <source>fight.predator_description</source>
-        <target>You feel like you're being watched. A hostile, hungry Skinner is studying you... Your team starts to run, but the creature pounces on you!</target>
+        <target>You feel like you're being watched. A hostile, hungry Skinner is studying you... Your team starts to run, but the creature pounces on you!////{fight}</target>
+      </segment>
+      <segment id="predator_low" state="translated">
+        <source>fight.predator_low</source>
+        <target>Flashing fangs, sharp claws and terrifying speed : You are no match for this predator that plows through your ranks as if you were nothing. Fighting for your lives, you barely manage to fend it off and it slinks back into the night with hardly a scratch on it.</target>
+      </segment>
+      <segment id="predator_mid" state="translated">
+        <source>fight.predator_mid</source>
+        <target>The skirmish is savage yet brief. Wounded and bloodied, the beast gives up and limps back to the safety of the bushes, but your group has also been marred by the encounter. {result, select, victory {In its hurry to leave, the creature left behind the remains of its previous meal.} other{}}</target>
+      </segment>
+      <segment id="predator_high" state="translated">
+        <source>fight.predator_high</source>
+        <target>The creature pounces... and immediately drops, struck down by your powerful blows. You emerge unscathed from the encounter, it would take more than that to harm the crew of the Daedalus! Its haunch should be meaty enough to celebrate this victory with something delicious.</target>
       </segment>
       <segment id="insect_description" state="translated">
         <source>fight.insect_description</source>
-        <target>While walking along the bottom of a crevasse, you see a predatory Beetlethug emerge... You'll have to defend yourself!</target>
+        <target>While walking along the bottom of a crevasse, you see a predatory Beetlethug emerge... You'll have to defend yourself!////{fight}</target>
+      </segment>
+      <segment id="insect_low" state="translated">
+        <source>fight.insect_low</source>
+        <target>The insect is much faster you would have thought given its size. Faced with its snapping mandibles and impenetrable exoskeleton, you realize you have no chance of winning and flee.</target>
+      </segment>
+      <segment id="insect_mid" state="translated">
+        <source>fight.insect_mid</source>
+        <target>The fight soon turns into a messy brawl. You manage to fend off the creature, paying the price in torn spacesuits and deep cuts. {result, select, victory {When the dust settles, you notice an alien fruit tucked in a corner of the crevasse.} other{}}</target>
+      </segment>
+      <segment id="insect_high" state="translated">
+        <source>fight.insect_high</source>
+        <target>By strategically targeting weak spots in its exoskeleton, you effortlessly eliminate that pesky insect. This leaves you free to inspect the crevasse, in which you discover what must have been its nest and the alien fruit it contains. Let's just hope there aren't any eggs in there...</target>
       </segment>
       <segment id="mankarog_description" state="translated">
         <source>fight.mankarog_description</source>
-        <target>A gigantic shadow suddenly appears over the expedition crew... And it's not a cloud...</target>
+        <target>A gigantic shadow suddenly appears over the expedition crew... And it's not a cloud...////{fight}</target>
+      </segment>
+      <segment id="mankarog_low" state="translated">
+        <source>fight.mankarog_low</source>
+        <target>As soon as the fight begins, it becomes clear that this is less of a fight and more of a natural disaster. Your attacks seem to have no impact on this humongous being, while each of its swings swats you aside as if you were mere ants. When you finally manage to flee this massacre you are battered and broken, utterly beaten.</target>
+      </segment>
+      <segment id="mankarog_mid" state="translated">
+        <source>fight.mankarog_mid</source>
+        <target>Through an abundance of blood, sweat and tears, you finally get the titan to fall back a few steps. It's barely enough to allow you to run away on the still-shaking ground, or rather limp away given your sorry state. When the Mankarog ends up turning away, you realize that you have somehow survived the impossible. {In the chaos left by its departure, something catches your eye.} other{}}</target>
+      </segment>
+      <segment id="mankarog_high" state="translated">
+        <source>fight.mankarog_high</source>
+        <target>A shiver runs through the very fabric of the universe as you accomplish the impossible. With a rumble akin to a mountain crumbling, the Mankarog crashes to the ground, finally still. The artefacts you find in its lair are nothing compared to the tales that will recount this legendary feat.</target>
       </segment>
       <segment id="ruins_description" state="translated">
         <source>fight.ruins_description</source>
-        <target>A gigantic shadow suddenly appears over the expedition crew... And it's not a cloud...</target>
+        <target>While searching the ruined city, you haven't noticed the hordes of Alien Zombies now surrounding you... It's an ambush! ////{fight}</target>
+      </segment>
+      <segment id="ruins_low" state="translated">
+        <source>fight.ruins_low</source>
+        <target>The living dead close in on you in a blur of snapping mouths and desiccated limbs. You are quickly overwhelmed by their numbers and the fight turns into a bloodbath. Eventually you manage to limp out of the ruins, examining your wounds with growing concern.</target>
+      </segment>
+      <segment id="ruins_mid" state="translated">
+        <source>fight.ruins_mid</source>
+        <target>The shuffling mass of undead just keeps coming, and for every corpse you send back to its grave two more rise to take its place. Your group ends up retreating, bleeding and covered in a dark ichor, as the hordes continue to roam the deserted streets. {result, select, victory {As you withdraw, something in the debris catches your eye.} other{}}</target>
+      </segment>
+      <segment id="ruins_high" state="translated">
+        <source>fight.ruins_high</source>
+        <target>Good equipment, closed ranks, and finding a defensible position are the ingredients of your success. Soon enough the last of the ghouls fall, leaving you free to loot the crumbled buildings until you find something worthwhile hidden in the rubble.</target>
       </segment>
       <segment id="wreck_description" state="translated">
         <source>fight.wreck_description</source>
-        <target>It would appear that the pilot of the vessel is still alive! It's quite apparent that they don't consider you their saviour...</target>
+        <target>It would appear that the pilot of the vessel is still alive! It's quite apparent that they don't consider you their saviour...////{fight}</target>
+      </segment>
+      <segment id="wreck_low" state="translated">
+        <source>fight.wreck_low</source>
+        <target>No sooner have you realized that the wreck isn't empty than its occupant rushes at you. The attack is brutal and precise, forcing you to fall back in hurried confusion. You leave with more inquiries and injuries than answers.</target>
+      </segment>
+      <segment id="wreck_mid" state="translated">
+        <source>fight.wreck_mid</source>
+        <target>Your fight against the pilot drags on, resonating through the ship's mangled corridors. After countless blows exchanged back and forth, they finally retreat out of reach, wounded but still alive. {result, select, victory {During the skirmish you stumbled upon an armory, part of which has survived the crash.} other{}}</target>
+      </segment>
+      <segment id="wreck_high" state="translated">
+        <source>fight.wreck_high</source>
+        <target>Sometimes a moment is all it takes to turn things around. When the entity finally falls amongst the twisted sheets of metal, the silence that follows confirms your victory. The weapon that was firing at you just moments ago now becomes your reward.</target>
       </segment>
       <segment id="cristal_field_description" state="translated">
         <source>fight.cristal_field_description</source>
-        <target>The fields are deserted... A sinister howl deafens you... It's a savage Mindblender! There are no words to describe this creature that came from a land with no light or warmth. Man your weapons!</target>
+        <target>The fields are deserted... A sinister howl deafens you... It's a savage Mindblender! There are no words to describe this creature that came from a land with no light or warmth. Man your weapons!////{fight}</target>
+      </segment>
+      <segment id="cristal_field_low" state="translated">
+        <source>fight.cristal_field_low</source>
+        <target>The creature slips into your minds before you even get a chance to reach for your weapons. Your screams drown out the rest as some punch at the air and others fall to their knees, not knowing the ground from the sky anymore. When you finally leave this godforsaken place, you feel as if a piece of yourself has been forever torn from you in those cristal fields.</target>
+      </segment>
+      <segment id="cristal_field_mid" state="translated">
+        <source>fight.cristal_field_mid</source>
+        <target>The cristal fields start vibrating and resonating, colors shatter as your actions are no longer quite your own. An exterior force is pitting you against each other. Fearing the worst, you manage to hold on to your senses just enough to force the creature to leave, without really knowing if you wounded or simply frustrated it. {result, select, victory {In the exact spot it was hovering in a second before, a crystalline sheen draws your eye.} other{}}</target>
+      </segment>
+      <segment id="cristal_field_high" state="translated">
+        <source>fight.cristal_field_high</source>
+        <target>Faced with the indomitable spirit of humanity, horror falters. Through sheer willpower and violence, you manage to break the abomination, which tears itself apart with a horrifying scream before dissolving among the cristallites. When the vibrations finally cease, the crystals part around a fragment of a star map, as if it had been waiting for you all along.</target>
       </segment>
     </unit>
     <unit id="provision">
@@ -562,7 +658,7 @@
         <target>{character_gender, select,
         male {In spite of tireless searching, you have found no trace of {character}. However, he's got to be somewhere around here!}
         female {In spite of tireless searching, you have found no trace of {character}. However, she's got to be somewhere around here!}
-        other {In spite of tireless searching, you have found no trace of {character}. However, they got to be somewhere around here! }}</target>
+        other {In spite of tireless searching, you have found no trace of {character}. However, they've got to be somewhere around here! }}</target>
       </segment>
     </unit>
     <unit id="item_lost">
@@ -666,6 +762,20 @@ other {{version, select,
       <segment id="lost_description" state="translated">
         <source>kill_lost.lost_description</source>
         <target>You have found {character} under a rock, and it doesn't look good. No movement at all. Aaaand, no signs of respiration. Looks like the guys down the lab are going to tell you that it's game over for this comrade...</target>
+      </segment>
+    </unit>
+    <unit id="new_sector">
+      <segment id="name" state="translated">
+        <source>new_sector.name</source>
+        <target>New sector</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>new_sector.description</source>
+        <target>A new sector added to the planet.</target>
+      </segment>
+      <segment id="intelligent_description" state="translated">
+        <source>new_sector.intelligent_description</source>
+        <target>After some incomprehensible hand signs, the creature marked a spot on your map. Seems like you should check it out.</target>
       </segment>
     </unit>
   </file>

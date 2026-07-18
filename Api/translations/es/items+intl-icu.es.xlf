@@ -2462,6 +2462,36 @@ Te ayudará a defenderte con elegancia.</target>
         <target>Un blaster fuera de lo común. Su dueño lo ha cuidado con esmero, mejorándolo con el paso de los años.// Expedición: +2 a la fuerza de tu equipo durante los combates en expediciones.// Un antiguo blaster originalmente ofrecido a la infantería de la Federación para la Defensa de Sol. Tras años de ajustes, es incluso más potente que los diseños más modernos.</target>
       </segment>
     </unit>
+    <unit id="alien_blaster">
+      <segment id="name" state="translated">
+        <source>alien_blaster.name</source>
+        <target>Blaster alien</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>alien_blaster.short_name</source>
+        <target>Blaster alien</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>alien_blaster.plural_name</source>
+        <target>Blasters alien</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>alien_blaster.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>alien_blaster.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>alien_blaster.description</source>
+        <target>Prueba de que el número de tentáculos importa muy poco: En realidad nunca somos tan diferentes.//Expedición: +1 añadido a la fuerza de tu equipo durante los combates.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>alien_blaster.examine</source>
+        <target>Prueba de que el número de tentáculos importa muy poco: En realidad nunca somos tan diferentes.//Expedición: +1 a la fuerza de tu equipo durante los combates.//Según el grabado, es un bláster "Zorluble". ¿O tal vez ese era el nombre del anterior propietario? Qué más da...</target>
+      </segment>
+    </unit>
     <unit id="natamy_rifle">
       <segment id="name" state="translated">
         <source>natamy_rifle.name</source>
@@ -2828,11 +2858,11 @@ El símbolo del espíritu solidario en tiempos de crisis. No contiene sopa ni na
         <target>{age, select,
        young {Joven }
        other {}
-}Árbol Plátano</target>
+}Árbol de Plátano</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>banana_tree.short_name</source>
-        <target>Árbol Plátano</target>
+        <target>Árbol de Plátano</target>
       </segment>
       <segment id="genre" state="translated">
         <source>banana_tree.gender</source>
@@ -2840,10 +2870,7 @@ El símbolo del espíritu solidario en tiempos de crisis. No contiene sopa ni na
       </segment>
       <segment id="first_letter" state="translated">
         <source>banana_tree.first_letter</source>
-        <target>{age, select,
-      young {consonant}
-      other {vowel}
-}</target>
+        <target>vowel</target>
       </segment>
       <segment id="description" state="translated">
         <source>banana_tree.description</source>
@@ -4320,6 +4347,42 @@ other {# **Frutos Alienígenas**}
       <segment id="examine" state="translated">
         <source>ship_blanket.examine</source>
         <target>El casco "Little Hunter©" se vende por separado. Lavar solo a mano. La cobija "Little Hunter©" no es un juguete. No ingerir. No insertar en un tubo de escape. 99 % poliéster. De acuerdo con la Ley Huchbert 3151 sobre carcinógenos diarios, usted renuncia a su derecho a demandar. No se realizarán reembolsos. //Permite **Acostarse** en un Patrullero, Pasiphae o cualquier otra nave espacial.</target>
+      </segment>
+    </unit>
+    <unit id="alien_fruit_generic">
+      <segment id="name" state="translated">
+        <source>alien_fruit_generic.name</source>
+        <target>Fruto alien</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>alien_fruit_generic.plural_name</source>
+        <target>Frutos alien</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>alien_fruit_generic.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>alien_fruit_generic.first_letter</source>
+        <target>vowel</target>
+      </segment>
+    </unit>
+    <unit id="artefact_generic">
+      <segment id="name" state="translated">
+        <source>artefact_generic.name</source>
+        <target>Artefacto alien</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>artefact_generic.plural_name</source>
+        <target>Artefactos alien</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>artefact_generic.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>artefact_generic.first_letter</source>
+        <target>vowel</target>
       </segment>
     </unit>
     <unit id="schoolbooks">

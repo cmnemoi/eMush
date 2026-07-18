@@ -179,6 +179,16 @@
         <target>welcome_mush.description</target>
       </segment>
     </unit>
+    <unit id="welcome_vaccinated">
+      <segment state="initial">
+        <source>welcome_vaccinated.title</source>
+        <target>welcome_vaccinated.title</target>
+      </segment>
+      <segment state="initial">
+        <source>welcome_vaccinated.description</source>
+        <target>welcome_vaccinated.description</target>
+      </segment>
+    </unit>
     <unit id="welcome_on_board">
       <segment state="translated">
         <source>welcome_on_board.title</source>

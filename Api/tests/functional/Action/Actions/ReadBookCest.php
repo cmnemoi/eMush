@@ -69,7 +69,7 @@ final class ReadBookCest extends AbstractFunctionalTest
         $this->whenPlayerReadsBook();
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: 'Vous avez appris la compétence **Sprinter** ! Faites en bon usage !',
+            expectedRoomLog: 'Vous avez appris la compétence **Sprinteuse** ! Faites en bon usage !',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->player,
                 log: LogEnum::LEARNED_SKILL,

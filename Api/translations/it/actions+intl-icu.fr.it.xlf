@@ -45,6 +45,20 @@
         <target>do_the_thing.confirmation</target>
       </segment>
     </unit>
+    <unit id="relax">
+      <segment id="name" state="initial">
+        <source>relax.name</source>
+        <target>relax.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>relax.description</source>
+        <target>relax.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>relax.confirmation</source>
+        <target>relax.confirmation</target>
+      </segment>
+    </unit>
     <unit id="check_spore_level">
       <segment id="check_spore_level" state="translated">
         <source>check_spore_level.name</source>
@@ -151,6 +165,20 @@
       <segment id="confirmation" state="translated">
         <source>flirt.confirmation</source>
         <target>flirt.confirmation</target>
+      </segment>
+    </unit>
+    <unit id="bond">
+      <segment id="bond" state="initial">
+        <source>bond.name</source>
+        <target>bond.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>bond.description</source>
+        <target>bond.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>bond.confirmation</source>
+        <target>bond.confirmation</target>
       </segment>
     </unit>
     <unit id="get_up">

@@ -54,7 +54,7 @@
     <unit id="exploration_closed_by_u_turn">
       <segment state="translated">
         <source>exploration_closed_by_u_turn.subTitle</source>
-        <target>{character_gender, select, female {{character} s'est mise} other {{character} s'est mis}} à hurler et tout le monde est retourné à la navette fissa !</target>
+        <target>{character_gender, select, male {{character} s'est mis} female {{character} s'est mise} other {{character} a commencé}} à hurler et tout le monde est retourné à la navette fissa !</target>
       </segment>
       <segment state="translated">
         <source>exploration_closed_by_u_turn.description</source>
@@ -169,7 +169,7 @@
         <target>{character_gender, select,
                     male {C'est dégoûtant... Vous vous êtes sali.}
                     female {C'est dégoûtant... Vous vous êtes salie.}
-                    other {invalid gender input}
+                    other {C'est dégoûtant... Vous êtes sale.}
                 }</target>
       </segment>
     </unit>

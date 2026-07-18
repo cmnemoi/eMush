@@ -36,7 +36,7 @@
       </segment>
       <segment id="disease_info" state="translated">
         <source>disease_info</source>
-        <target>{ quantity } % de probabilidades de causar la enfermedad { diseaseName }.</target>
+        <target>{ quantity } % de probabilidad de causar la enfermedad {diseaseName}.</target>
       </segment>
       <segment id="delayed_cure_info_with_range" state="translated">
         <source>delayed_cure_info_with_range</source>

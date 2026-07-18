@@ -387,39 +387,138 @@
       </segment>
       <segment id="description" state="translated">
         <source>fight.description</source>
-        <target>Te enfrentas a una criatura////Fuerza de la Criatura: {creature_strength}//Fuerza del Equipo: {expedition_strength}//{damage, select, 0 {El equipo mata a la Criatura.} 1 {El equipo recibe {damage} punto de daño.} other {El equipo recibe {damage} puntos de daño.}}</target>
+        <target>Te enfrentas a una criatura////Fuerza de la Criatura: {creature_strength}//Fuerza del Equipo: {expedition_strength}//
+El equipo recibe {result, select,
+ victory {{reward_amount} {reward}.}
+ other {{damage} {damage, select, 1 {punto} other {puntos}} de daño.}////{bonus_loot_thanks_to_skill}{bonus_loot_thanks_to_items}</target>
       </segment>
       <segment id="intelligent_description" state="translated">
         <source>fight.intelligent_description</source>
         <target>Una ser extraño se acerca a vosotros y pega un fuerte grito agudo que os está rompiendo los tímpanos. Habrá que hacer algo...</target>
       </segment>
+      <segment id="intelligent_low" state="translated">
+        <source>fight.intelligent_low</source>
+        <target>El fuego de los blasters cae desde todas direcciones, y rápidamente queda claro que están en apuros. Retrocedes en desbandada, intentando escapar, arrastrando a tus heridos bajo una lluvia de rayos de colores.</target>
+      </segment>
+      <segment id="intelligent_mid" state="translated">
+        <source>fight.intelligent_mid</source>
+        <target>El enfrentamiento rápidamente se convierte en una escaramuza brutal y caótica. Apenas logras resistir lo suficiente como para obligar a la figura a retirarse, pero todos terminan con heridas graves. {result, select, victory {Durante la batalla, el ser dejó caer un objeto extraño que logras recuperar.} other{}}</target>
+      </segment>
+      <segment id="intelligent_high" state="translated">
+        <source>fight.intelligent_high</source>
+        <target>Tomado por sorpresa, el ser ni siquiera tiene tiempo de comprender lo que le está sucediendo. Cuando su cuerpo finalmente se desmorona en polvo, descubres en él un artefacto que podría resultar muy útil.</target>
+      </segment>
       <segment id="ruminant_description" state="translated">
         <source>fight.ruminant_description</source>
-        <target>Mientras intentas sorprender a un Chab Chab desprevenido, rápidamente te encuentras rodeado por sus congéneres... ¡Vas a tener que luchar para salir de esta!</target>
+        <target>Mientras intentas sorprender a un Chab Chab desprevenido, rápidamente sus congéneres te empiezan a rodear... ¡Vas a tener que luchar para salir de esta!////{fight}</target>
+      </segment>
+      <segment id="ruminant_low" state="translated">
+        <source>fight.ruminant_low</source>
+        <target>¿Quién se hubiera imaginado que estos rumiantes podrían ser tan formidables? Con unas cuantas patas más y unos cuantos dientes menos, saldrías de allí corriendo lo más rápido posible.</target>
+      </segment>
+      <segment id="ruminant_mid" state="translated">
+        <source>fight.ruminant_mid</source>
+        <target>La batalla fue más feroz de lo esperado… Después de una caótica refriega, finalmente logras dispersarlos. {result, select, victory {Solo quedó un escuálido Chab Chab en el suelo. ¿Pisoteado por su manada o derrotado por tus ataques? No importa, carne es carne.} other{}}</target>
+      </segment>
+      <segment id="ruminant_high" state="translated">
+        <source>fight.ruminant_high</source>
+        <target>Tras abatir fácilmente a uno de los ejemplares más grandes, el resto de la manada no tardó en huir en un estruendo de galopes y mugidos. ¡Los cocineros estarán encantados!</target>
       </segment>
       <segment id="predator_description" state="translated">
         <source>fight.predator_description</source>
-        <target>Te sientes espiado. Un Desollador hostil y hambriento te observa... ¡Tus compañeros comienzan a escapar, pero la criatura se lanza sobre ti!</target>
+        <target>Te sientes espiado. Un Desollador hostil y hambriento te observa... ¡Tus compañeros comienzan a escapar, pero la criatura se lanza sobre ti!////{fight}</target>
+      </segment>
+      <segment id="predator_low" state="translated">
+        <source>fight.predator_low</source>
+        <target>Colmillos relucientes, garras afiladas y una velocidad aterradora: no tienen ninguna posibilidad contra este depredador que arrasa con todo con facilidad. Luchando por sus vidas, apenas logran repeler su ataque, y este se escabulle en la oscuridad prácticamente ileso.</target>
+      </segment>
+      <segment id="predator_mid" state="translated">
+        <source>fight.predator_mid</source>
+        <target>El combate es salvaje pero breve. Herida y ensangrentada, la bestia se rinde y cojea de vuelta a la seguridad de los arbustos, pero tú y tu grupo también han quedado marcados por el encuentro. {result, select, victory {En su prisa por marcharse, la criatura dejó atrás los restos de su comida anterior.} other{}}</target>
+      </segment>
+      <segment id="predator_high" state="translated">
+        <source>fight.predator_high</source>
+        <target>La criatura se abalanza... e inmediatamente cae, derribada por tus poderosos ataques. Sales indemne del encuentro; ¡haría falta mucho más para dañar a la tripulación del Daedalus! Su muslo debería ser lo suficientemente carnoso como para celebrar esta victoria con algo delicioso.</target>
       </segment>
       <segment id="insect_description" state="translated">
         <source>fight.insect_description</source>
-        <target>Caminando en el fondo de una grieta, ves a un scolopendro emerger... ¡Tendrás que defenderte!</target>
+        <target>Caminando en el fondo de una grieta, ves a un scolopendro emerger... ¡Tendrás que defenderte!////{fight}</target>
+      </segment>
+      <segment id="insect_low" state="translated">
+        <source>fight.insect_low</source>
+        <target>El insecto es mucho más rápido de lo que cabría esperar dado su tamaño. Ante sus mandíbulas afiladas y su exoesqueleto impenetrable, te das cuenta de que no tienes ninguna posibilidad de ganar y huyes.</target>
+      </segment>
+      <segment id="insect_mid" state="translated">
+        <source>fight.insect_mid</source>
+        <target>La pelea pronto se convierte en una contienda caótica. Logras repeler a la criatura, pagando el precio con trajes espaciales desgarrados, cortes profundos y cabelleras desaliñadas. {result, select, victory {Cuando la tranquilidad vuelve, notas una fruta alienígena escondida en un rincón de la grieta.} other{}}</target>
+      </segment>
+      <segment id="insect_high" state="translated">
+        <source>fight.insect_high</source>
+        <target>Al atacar estratégicamente los puntos débiles de su exoesqueleto, eliminas sin esfuerzo a ese molesto insecto. Esto te permite inspeccionar la grieta, donde descubres lo que debió ser su nido y el fruto alienígena que contiene. Esperemos que no haya huevos ahí dentro...</target>
       </segment>
       <segment id="mankarog_description" state="translated">
         <source>fight.mankarog_description</source>
-        <target>Una gran sombra cubre repentinamente el sendero de la expedición... Y no es una nube...</target>
+        <target>Una gran sombra cubre repentinamente el sendero de la expedición... Y no es una nube...////{fight}</target>
+      </segment>
+      <segment id="mankarog_low" state="translated">
+        <source>fight.mankarog_low</source>
+        <target>En cuanto empieza la pelea, queda claro que se trata más de un desastre natural que de una lucha. Tus ataques parecen no tener ningún efecto sobre este ser gigantesco, mientras que cada uno de sus golpes te aparta como si fueras una simple hormiga. Cuando por fin logras escapar de esta masacre, solo te queda aceptar que fue una completa derrota.</target>
+      </segment>
+      <segment id="mankarog_mid" state="translated">
+        <source>fight.mankarog_mid</source>
+        <target>Con mucha determinación, finalmente logras hacer retroceder al titán unos pasos. Apenas alcanzas escapar: el suelo sigue temblando, caen escombros y la expedición emerge del enfrentamiento en un estado lamentable. Cuando el Mankarog finalmente se da la vuelta, te das cuenta, sobre todo, de que acabas de sobrevivir a lo imposible. {result, select, victory {En el caos que deja a su paso, algo interesante llama tu atención.} other{}}</target>
+      </segment>
+      <segment id="mankarog_high" state="translated">
+        <source>fight.mankarog_high</source>
+        <target>Un escalofrío recorre los cimientos del universo al lograr lo imposible. Con un estruendo similar al de una montaña derrumbándose, el Mankarog se desploma contra el suelo, finalmente inmóvil. Los artefactos que encuentras en su guarida no son nada comparados con las historias que narrarán esta hazaña legendaria.</target>
       </segment>
       <segment id="ruins_description" state="translated">
         <source>fight.ruins_description</source>
-        <target>Mientras buscáis por la ciudad en ruinas, no lográis percibir la horda de zombies alien que os rodea... ¡Es una emboscada!</target>
+        <target>Mientras buscaban por la ciudad en ruinas, no lograron percibir la horda de zombis alienígenas que les rodea... ¡Es una emboscada! ////{fight}</target>
+      </segment>
+      <segment id="ruins_low" state="translated">
+        <source>fight.ruins_low</source>
+        <target>Los muertos vivientes se abalanzan sobre ti en una vorágine de bocas que se cierran de golpe y extremidades desecadas. Rápidamente notas que te superan en número y la lucha se convierte en una carnicería. Finalmente, logras salir cojeando de entre las ruinas, examinando tus heridas con creciente preocupación.</target>
+      </segment>
+      <segment id="ruins_mid" state="translated">
+        <source>fight.ruins_mid</source>
+        <target>La oleada titubeante de muertos vivientes no deja de llegar, y por cada cadáver que envías de vuelta a su tumba, dos más se alzan para ocupar su lugar. Tu grupo termina retirándose, sangrando y cubiertos de un oscuro líquido, mientras las hordas siguen vagando por las calles desiertas. {results, select, victory {Al retirarte, algo entre los escombros llama tu atención.} other{}}</target>
+      </segment>
+      <segment id="ruins_high" state="translated">
+        <source>fight.ruins_high</source>
+        <target>Un buen armamento, filas cerradas y encontrar una posición defendible son los ingredientes de tu éxito. Pronto caerán los últimos zombis alienígenas, dejándote el paso libre para saquear los edificios en ruinas hasta que encuentres algo valioso escondido entre los escombros.</target>
       </segment>
       <segment id="wreck_description" state="translated">
         <source>fight.wreck_description</source>
-        <target>¡Parecería que el piloto de la nave sigue vivo! Y queda claro que no os considera su salvador...</target>
+        <target>¡Parecería que el piloto de la nave sigue vivo! Y queda claro que no les considera su salvación...////{fight}</target>
+      </segment>
+      <segment id="wreck_low" state="translated">
+        <source>fight.wreck_low</source>
+        <target>De pronto te das cuenta de que la nave no está vacía cuando su ocupante se abalanza sobre ti. El ataque es brutal y preciso, obligándote a retroceder entre la confusión. Te marchas con más preguntas y heridas que respuestas.</target>
+      </segment>
+      <segment id="wreck_mid" state="translated">
+        <source>fight.wreck_mid</source>
+        <target>El duelo se prolonga en los pasillos destrozados de la nave. Tras un combate reñido, finalmente logras alejar al piloto, pero sin conseguir derribarlo. {result, select, victory {Durante el intercambio, te topas con un arsenal devastado por el accidente.} other{}}</target>
+      </segment>
+      <segment id="wreck_high" state="translated">
+        <source>fight.wreck_high</source>
+        <target>A veces, basta un instante para cambiar las cosas. Cuando la entidad finalmente cae entre las retorcidas láminas de metal, el silencio que le procede confirma tu victoria. El arma con la que te disparaba hace apenas unos instantes se convierte ahora es tu recompensa.</target>
       </segment>
       <segment id="cristal_field_description" state="translated">
         <source>fight.cristal_field_description</source>
-        <target>Los campos están desiertos... Un aullido siniestro te ensordece... ¡Un Controla-mentes! No hay palabras para describir a esta criatura de un mundo sin luz ni calor. ¡A las armas!</target>
+        <target>Los campos están desiertos... Un aullido siniestro te ensordece... ¡Un Controla-mentes! No hay palabras para describir a esta criatura de un mundo sin luz ni calor. ¡Preparen sus armas!////{fight}</target>
+      </segment>
+      <segment id="cristal_field_low" state="translated">
+        <source>fight.cristal_field_low</source>
+        <target>La criatura se introduce en la mente de todos mediante un extraño poder antes de que puedan siquiera agarrar su equipo. Tus gritos ahogan todo lo demás: algunos se estrellan contra otros, otros caen de rodillas, incapaces de distinguir el suelo del cielo. Cuando finalmente se marchan, es a costa de haber dejado una parte de ustedes entre los cristales.</target>
+      </segment>
+      <segment id="cristal_field_mid" state="translated">
+        <source>fight.cristal_field_mid</source>
+        <target>Los campos de cristal comienzan a vibrar y resonar, los colores se fragmentan y tus acciones parecen repentinamente dictadas por una fuerza externa. Aunque esperas lo peor, logras resistir lo suficiente como para obligar a la presencia a retirarse, sin saber si le has herido o simplemente perturbado. {result, select, victory {Donde la extraña presencia flotaba un momento antes, un peculiar destello cristalino permanece suspendido entre los cristales.} other{}}</target>
+      </segment>
+      <segment id="cristal_field_high" state="translated">
+        <source>fight.cristal_field_high</source>
+        <target>Ante el espíritu indomable de la humanidad, el horror flaquea. Mediante la fuerza de voluntad y la violencia, logras doblegar a la abominación, que se desgarra con un grito estruendoso antes de disolverse entre los cristales. Cuando las vibraciones cesan por fin, los cristales se abren alrededor, mostrando un fragmento de un mapa estelar, como si te hubiera estado esperando todo este tiempo.</target>
       </segment>
     </unit>
     <unit id="provision">
@@ -500,8 +599,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>disease.description</source>
-        <target>Un miembro del equipo se enferma.
-</target>
+        <target>Un miembro del equipo se enferma.</target>
       </segment>
       <segment id="forest_description" state="translated">
         <source>disease.forest_description</source>
@@ -670,8 +768,22 @@ other {{version, select,
         <target>{character_gender, select,
         male  {{character} es encontrado debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Yyyy sin signos vitales. Parece que el diagnóstico del laboratorio será "Fallecido".}
         female {{character} es encontrada debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Yyyy sin signos vitales. Parece que el diagnóstico del laboratorio será "Fallecida".}
-        other {{character} es encontrade debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Yyyy sin signos vitales. Parece que el diagnóstico del laboratorio será "Falleció".}
+        other {a {character} se le encuentra debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Yyyy sin signos vitales. Parece que el diagnóstico del laboratorio será "Falleció".}
 }</target>
+      </segment>
+    </unit>
+    <unit id="new_sector">
+      <segment id="name" state="initial">
+        <source>new_sector.name</source>
+        <target>new_sector.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>new_sector.description</source>
+        <target>new_sector.description</target>
+      </segment>
+      <segment id="intelligent_description" state="initial">
+        <source>new_sector.intelligent_description</source>
+        <target>new_sector.intelligent_description</target>
       </segment>
     </unit>
   </file>

@@ -271,7 +271,7 @@ other{Charges are the number of times you can use an object. **Charged** objects
       </segment>
       <segment id="description" state="translated">
         <source>first_time.description</source>
-        <target>You've never done it. Your first time will refill your morale to the max.</target>
+        <target>The first intimate moment you spend with someone will refill your morale to the max.</target>
       </segment>
     </unit>
     <unit id="focused">
@@ -630,7 +630,7 @@ other{Charges are the number of times you can use an object. **Charged** objects
       </segment>
       <segment id="description" state="translated">
         <source>private_property.description</source>
-        <target>This item is biometrically locked to its owner {target_character_icon}  **{target_character}**. It can only be used by {target_character_gender, select, female {her while she is} male {him while he is} other{them while they are}} still alive.</target>
+        <target>This item is biometrically locked to its owner {target_character_icon}  **{target_character}**. It can only be used by {target_character_gender, select, female {her while she is} male {him while he is} other {them while they are}} still alive.</target>
       </segment>
     </unit>
   </file>

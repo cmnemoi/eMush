@@ -464,7 +464,7 @@
     <unit id="conversion.player">
       <segment id="highlight" state="translated">
         <source>conversion.player.highlight</source>
-        <target>You have entangled **{target_character}** in your rhizomes, {target_character_gender, select, male {he} other {she}} is now Mush!</target>
+        <target>You have entangled **{target_character}** in your rhizomes, {target_character_gender, select, male {he is} female {she is} other {they are}} now Mush!</target>
       </segment>
     </unit>
     <unit id="conversion.player_target">

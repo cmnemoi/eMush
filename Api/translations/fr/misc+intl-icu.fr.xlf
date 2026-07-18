@@ -134,19 +134,19 @@
     <unit id="cryo_module">
       <segment id="awake" state="translated">
         <source>awake</source>
-        <target>{character_gender, select, male {Éveillé} female {Éveillée} other {Éveillé}}</target>
+        <target>{character_gender, select, male {Éveillé} female {Éveillée} other {Éveillé.e}}</target>
       </segment>
       <segment id="cryogenized" state="translated">
         <source>cryogenized</source>
-        <target>{character_gender, select, male {Cryogénisé} female {Cryogénisée} other {Cryogénisé}}</target>
+        <target>{character_gender, select, male {Cryogénisé} female {Cryogénisée} other {Cryogénisé.e}}</target>
       </segment>
       <segment id="dead" state="translated">
         <source>dead</source>
-        <target>{character_gender, select, male {Mort} female {Morte} other {Mort}}</target>
+        <target>{character_gender, select, male {Mort} female {Morte} other {Mort.e}}</target>
       </segment>
       <segment id="inactive" state="translated">
         <source>inactive</source>
-        <target>{character_gender, select, male {Inactif} female {Inactive} other {Inactif}}</target>
+        <target>{character_gender, select, male {Inactif} female {Inactive} other {Inactif.ve}}</target>
       </segment>
     </unit>
   </file>

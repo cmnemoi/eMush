@@ -5,7 +5,7 @@
       <segment id="blaster_successful_shot" state="translated">
         <source>blaster_successful_shot</source>
         <target>{version, select,
-            1 {Premeditated or not, **{character}** took out {character_gender, select, female {her} other {his}} weapon and opened fire on **{target_character}**.}
+            1 {Premeditated or not, **{character}** took out {character_gender, select, male {his} female {her} other {their}} weapon and opened fire on **{target_character}**.}
             2 {**{character}** turns around suddenly and fires at **{target_character}**.}
             3 {**{character}** quickly performs a few wrist flicks and fires at **{target_character}**, who is staggered for a few moments.}
             4 {**{character}** draws without hesitation and fires at **{target_character}**.}
@@ -29,7 +29,7 @@
     <unit id="blaster_target_random_injury">
       <segment id="blaster_target_random_injury" state="translated">
         <source>blaster_target_random_injury</source>
-        <target>**{character}** grabs {character_gender, select, female {her} other {his}} blaster and fires precise shots at **{target_character}**...</target>
+        <target>**{character}** grabs {character_gender, select, male {his} female {her} other {their}} blaster and fires precise shots at **{target_character}**...</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target">
@@ -41,7 +41,7 @@
     <unit id="blaster_shooter_plus_1_damage_target_damaged_ears">
       <segment id="blaster_shooter_plus_1_damage_target_damaged_ears" state="translated">
         <source>blaster_shooter_plus_1_damage_target_damaged_ears</source>
-        <target>Let the roar of blasters echo—only the survivors will talk about it. **{character}** is well-positionned to witness it. **{target_character}** loses {target_character_gender, select, female {her} other {his}} hearing.</target>
+        <target>Let the roar of blasters echo—only the survivors will talk about it. **{character}** is well-positionned to witness it. **{target_character}** loses {target_character_gender, select, male {his} female {her} other {their}} hearing.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma">
@@ -65,13 +65,13 @@
     <unit id="blaster_shooter_drop_weapon">
       <segment id="blaster_shooter_drop_weapon" state="translated">
         <source>blaster_shooter_drop_weapon</source>
-        <target>Violence is the refuge of incompetence. **{character}** should have refrained. {character_gender, select, female {Her} other {His}} weapon is now on the ground, much to **{target_character}**’s delight.</target>
+        <target>Violence is the refuge of incompetence. **{character}** should have refrained. {character_gender, select, male {His} female {Her} other {Their}} weapon is now on the ground, much to **{target_character}**’s delight.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury">
       <segment id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury" state="translated">
         <source>blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury</source>
-        <target>**{character}** fails spectacularly, accidentally turning {character_gender, select, female {her} other {his}} weapon against themselves.</target>
+        <target>**{character}** fails spectacularly, accidentally turning {character_gender, select, male {his} female {her} other {their}} weapon against themself.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_minus_1_ap_break_weapon">
@@ -106,7 +106,7 @@
     <unit id="natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury">
       <segment id="natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="translated">
         <source>natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</source>
-        <target>**{character}** takes {character_gender, select, female {her} other {his}} time to aim at **{target_character}**. Ouch...</target>
+        <target>**{character}** takes {character_gender, select, male {his} female {her} other {their}} time to aim at **{target_character}**. Ouch...</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_target_minus_1ap">
@@ -118,13 +118,13 @@
     <unit id="natamy_rifle_headshot_2">
       <segment id="natamy_rifle_headshot_2" state="translated">
         <source>natamy_rifle_headshot_2</source>
-        <target>**{character}** empties {character_gender, select, female {her} other {his}} magazine into **{target_character}**.</target>
+        <target>**{character}** empties {character_gender, select, male {his} female {her} other {their}} magazine into **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_target_mashed_foot">
       <segment id="natamy_rifle_target_mashed_foot" state="translated">
         <source>natamy_rifle_target_mashed_foot</source>
-        <target>The buttstock of {character_gender, select, female {her} other {his}} rifle gets in **{character}**’s way. **{target_character}**’s foot is now a mess.</target>
+        <target>The buttstock of {character_gender, select, male {his} female {her} other {their}} rifle gets in **{character}**’s way. **{target_character}**’s foot is now a mess.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents">
@@ -144,13 +144,13 @@
     <unit id="natamy_rifle_shooter_burnt_hand">
       <segment id="natamy_rifle_shooter_burnt_hand" state="translated">
         <source>natamy_rifle_shooter_burnt_hand</source>
-        <target>When firing at **{target_character}**, **{character}** got burnt with {character_gender, select, female {her} other {his}} weapon. Spectacular work.</target>
+        <target>When firing at **{target_character}**, **{character}** got burnt with {character_gender, select, male {his} female {her} other {their}} weapon. Spectacular work.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_broken_shoulder">
       <segment id="natamy_rifle_shooter_broken_shoulder" state="translated">
         <source>natamy_rifle_shooter_broken_shoulder</source>
-        <target>**{character}** should have better anticipated the recoil, missing **{target_character}** and injuring {character_gender, select, female {her} other {his}} own shoulder. Bravo.</target>
+        <target>**{character}** should have better anticipated the recoil, missing **{target_character}** and injuring {character_gender, select, male {his} female {her} other {their}} own shoulder. Bravo.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_failed_shot">
@@ -160,7 +160,7 @@
             1 {**{character}** tries to shoot at **{target_character}**, but a cramp stops them...}
             2 {A whistle rings past **{target_character}**’s ears...}
             3 {**{character}**’s blanks ricochet powerfully off **{target_character}**. Oops...}
-            other {**{character}** fired at **{target_character}**, but {character_gender, select, female {she} other {he}} couldn’t aim properly...}}</target>
+            other {**{character}** fired at **{target_character}**, but {character_gender, select, male {he} female {she} other {they}} couldn’t aim properly...}}</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_mashed_foot">
@@ -189,7 +189,7 @@
             2 {**{target_character}**'s face twists as **{character}** withdraws the blade that {character_gender, select, 
                 female {she} 
                 male {he}
-                other {they}} just thrust into {target_character_gender, select, female {her} other {him}}.}
+                other {they}} just thrust into {target_character_gender, select, female  male {him} {her} other {them}}.}
             3 {Despite a nice dodge, **{character}** cuts **{target_character}**, who spills some of 
                   {target_character_gender, select, 
                     male {his}
@@ -228,11 +228,7 @@
       <segment id="knife_instagib_bled" state="translated">
         <source>knife_instagib_bled</source>
         <target>{version, select,  
-            1 {The last words of **{target_character}** could have been "Et tu, **{character}**?" as **{target_character}** dies, {target_character_gender, select,  
-                female {stabbed}  
-                male {stabbed}  
-                other {stabbed}  
-                } right in the heart.}  
+            1 {The last words of **{target_character}** could have been "Et tu, **{character}**?" as **{target_character}** dies, stabbed right in the heart.}  
             2 {With a wicked gaze, **{character}** stealthily slips behind **{target_character}** and slashes their carotid artery.}  
             other {With a wicked gaze, **{character}** stealthily slips behind **{target_character}** and slashes their carotid artery.}  
 }</target>
@@ -241,7 +237,7 @@
     <unit id="knife_plus_2_damage_punctured_lung">
       <segment id="knife_plus_2_damage_punctured_lung" state="translated">
         <source>knife_plus_2_damage_punctured_lung</source>
-        <target>Perhaps a mistimed dodge, perhaps a wrong move, perhaps a poor imitation of combat seen in a holodisc... **{target_character}** impales themselves heavily on **{character}**'s blade.</target>
+        <target>Perhaps a mistimed dodge, perhaps a wrong move, perhaps a poor imitation of combat seen in a holodisc... **{target_character}** impales themself heavily on **{character}**'s blade.</target>
       </segment>
     </unit>
     <unit id="knife_failed_hit">
@@ -312,7 +308,7 @@
     <unit id="old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury">
       <segment id="old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="translated">
         <source>old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</source>
-        <target>**{character}** takes {character_gender, select, female {her} other {his}} time to aim at **{target_character}**. Ouch...</target>
+        <target>**{character}** takes {character_gender, select, male {his} female {her} other {their}} time to aim at **{target_character}**. Ouch...</target>
       </segment>
     </unit>
     <unit id="old_faithful_target_minus_1ap">
@@ -324,13 +320,13 @@
     <unit id="old_faithful_headshot_2">
       <segment id="old_faithful_headshot_2" state="translated">
         <source>old_faithful_headshot_2</source>
-        <target>**{character}** empties {character_gender, select, female {her} other {his}} magazine into **{target_character}**.</target>
+        <target>**{character}** empties {character_gender, select, male {his} female {her} other {their}} magazine into **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="old_faithful_target_mashed_foot">
       <segment id="old_faithful_target_mashed_foot" state="translated">
         <source>old_faithful_target_mashed_foot</source>
-        <target>The buttstock of {character_gender, select, female {her} other {his}} rifle gets in **{character}**’s way. **{target_character}**’s foot is now a mess.</target>
+        <target>The buttstock of {character_gender, select, male {his} female {her} other {their}} rifle gets in **{character}**’s way. **{target_character}**’s foot is now a mess.</target>
       </segment>
     </unit>
     <unit id="old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents">
@@ -350,13 +346,13 @@
     <unit id="old_faithful_shooter_burnt_hand">
       <segment id="old_faithful_shooter_burnt_hand" state="translated">
         <source>old_faithful_shooter_burnt_hand</source>
-        <target>When firing at **{target_character}**, **{character}** got burnt with {character_gender, select, female {her} other {his}} weapon. Spectacular work.</target>
+        <target>When firing at **{target_character}**, **{character}** got burnt with {character_gender, select, other {his} female {her} other {their}} weapon. Spectacular work.</target>
       </segment>
     </unit>
     <unit id="old_faithful_shooter_broken_shoulder">
       <segment id="old_faithful_shooter_broken_shoulder" state="translated">
         <source>old_faithful_shooter_broken_shoulder</source>
-        <target>**{character}** should have better anticipated the recoil, missing **{target_character}** and injuring {character_gender, select, female {her} other {his}} own shoulder. Bravo.</target>
+        <target>**{character}** should have better anticipated the recoil, missing **{target_character}** and injuring {character_gender, select, male {his} female {her} other {their}} own shoulder. Bravo.</target>
       </segment>
     </unit>
     <unit id="old_faithful_failed_shot">
@@ -366,7 +362,7 @@
             1 {**{character}** tries to shoot at **{target_character}**, but a cramp stops them...}
             2 {A whistle rings past **{target_character}**’s ears...}
             3 {**{character}**’s blanks ricochet powerfully off **{target_character}**. Oops...}
-            other {**{character}** fired at **{target_character}**, but {character_gender, select, female {she} other {he}} couldn’t aim properly...}}</target>
+            other {**{character}** fired at **{target_character}**, but {character_gender, select, male {he} female {she} other {they}} couldn’t aim properly...}}</target>
       </segment>
     </unit>
     <unit id="old_faithful_shooter_mashed_foot">
@@ -419,13 +415,13 @@
     <unit id="lizaro_jungle_headshot_2">
       <segment id="lizaro_jungle_headshot_2" state="translated">
         <source>lizaro_jungle_headshot_2</source>
-        <target>**{character}** empties {character_gender, select, female {her} other {his}} magazine into **{target_character}**.</target>
+        <target>**{character}** empties {character_gender, select, male {his} female {her} other {their}} magazine into **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_target_mashed_foot">
       <segment id="lizaro_jungle_target_mashed_foot" state="translated">
         <source>lizaro_jungle_target_mashed_foot</source>
-        <target>The buttstock of {character_gender, select, female {her} other {his}} rifle gets in **{character}**’s way. **{target_character}**’s foot is now a mess.</target>
+        <target>The buttstock of {character_gender, select, male {his} female {her} other {their}} rifle gets in **{character}**’s way. **{target_character}**’s foot is now a mess.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents">
@@ -445,13 +441,13 @@
     <unit id="lizaro_jungle_shooter_burnt_hand">
       <segment id="lizaro_jungle_shooter_burnt_hand" state="translated">
         <source>lizaro_jungle_shooter_burnt_hand</source>
-        <target>When firing at **{target_character}**, **{character}** got burnt with {character_gender, select, female {her} other {his}} weapon. Spectacular work.</target>
+        <target>When firing at **{target_character}**, **{character}** got burnt with {character_gender, select, male {his} female {her} other {their}} weapon. Spectacular work.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_shooter_broken_shoulder">
       <segment id="lizaro_jungle_shooter_broken_shoulder" state="translated">
         <source>lizaro_jungle_shooter_broken_shoulder</source>
-        <target>**{character}** should have better anticipated the recoil, missing **{target_character}** and injuring {character_gender, select, female {her} other {his}} own shoulder. Bravo.</target>
+        <target>**{character}** should have better anticipated the recoil, missing **{target_character}** and injuring {character_gender, select, male {his} female {her} other {their}} own shoulder. Bravo.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_failed_shot">
@@ -461,7 +457,7 @@
             1 {**{character}** tries to shoot at **{target_character}**, but a cramp stops them...}
             2 {A whistle rings past **{target_character}**’s ears...}
             3 {**{character}**’s blanks ricochet powerfully off **{target_character}**. Oops...}
-            other {**{character}** fired at **{target_character}**, but {character_gender, select, female {she} other {he}} couldn’t aim properly...}}</target>
+            other {**{character}** fired at **{target_character}**, but {character_gender, select, male {he} female {she} other {they}} couldn’t aim properly...}}</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_shooter_mashed_foot">
@@ -605,7 +601,7 @@
         <target>**{character}** attempted to {weapon, select, 
 bare_hands {hit **{target_character}**} 
 knife {stab **{target_character}** with a bladed weapon}
-other {shoot at **{target_character}**}}, but {target_character_gender, select, female {her} other {his}} protective clothing did its job.</target>
+other {shoot at **{target_character}**}}, but {target_character_gender, select, male {his} female {her} other {their}} protective clothing did its job.</target>
       </segment>
     </unit>
   </file>

@@ -2229,6 +2229,36 @@
         <target>security_blaster.examine</target>
       </segment>
     </unit>
+    <unit id="alien_blaster">
+      <segment id="name" state="initial">
+        <source>alien_blaster.name</source>
+        <target>alien_blaster.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>alien_blaster.short_name</source>
+        <target>alien_blaster.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>alien_blaster.plural_name</source>
+        <target>alien_blaster.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>alien_blaster.gender</source>
+        <target>alien_blaster.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>alien_blaster.first_letter</source>
+        <target>alien_blaster.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>alien_blaster.description</source>
+        <target>alien_blaster.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>alien_blaster.examine</source>
+        <target>alien_blaster.examine</target>
+      </segment>
+    </unit>
     <unit id="natamy_rifle">
       <segment id="name" state="translated">
         <source>natamy_rifle.name</source>
@@ -3947,6 +3977,42 @@
         <target>ship_blanket.examine</target>
       </segment>
     </unit>
+    <unit id="alien_fruit_generic">
+      <segment id="name" state="initial">
+        <source>alien_fruit_generic.name</source>
+        <target>alien_fruit_generic.name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>alien_fruit_generic.plural_name</source>
+        <target>alien_fruit_generic.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>alien_fruit_generic.gender</source>
+        <target>alien_fruit_generic.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>alien_fruit_generic.first_letter</source>
+        <target>alien_fruit_generic.first_letter</target>
+      </segment>
+    </unit>
+    <unit id="artefact_generic">
+      <segment id="name" state="initial">
+        <source>artefact_generic.name</source>
+        <target>artefact_generic.name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>artefact_generic.plural_name</source>
+        <target>artefact_generic.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>artefact_generic.gender</source>
+        <target>artefact_generic.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>artefact_generic.first_letter</source>
+        <target>artefact_generic.first_letter</target>
+      </segment>
+    </unit>
     <unit id="schoolbooks">
       <segment id="name" state="translated">
         <source>schoolbooks.name</source>
@@ -4008,11 +4074,11 @@
         <source>treasure_hunt_tablet.short_name</source>
         <target>Alien Tablet</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="initial">
         <source>treasure_hunt_tablet.gender</source>
         <target>treasure_hunt_tablet.gender</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="initial">
         <source>treasure_hunt_tablet.first_letter</source>
         <target>treasure_hunt_tablet.first_letter</target>
       </segment>
@@ -4034,11 +4100,11 @@
         <source>treasure_hunt_device.short_name</source>
         <target>Alien Device</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="initial">
         <source>treasure_hunt_device.gender</source>
         <target>treasure_hunt_device.gender</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="initial">
         <source>treasure_hunt_device.first_letter</source>
         <target>treasure_hunt_device.first_letter</target>
       </segment>
@@ -4060,11 +4126,11 @@
         <source>treasure_hunt_pet.short_name</source>
         <target>Alien Pet</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="initial">
         <source>treasure_hunt_pet.gender</source>
         <target>treasure_hunt_pet.gender</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="initial">
         <source>treasure_hunt_pet.first_letter</source>
         <target>treasure_hunt_pet.first_letter</target>
       </segment>
@@ -4086,11 +4152,11 @@
         <source>treasure_hunt_space_chicken.short_name</source>
         <target>Space Chicken</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="initial">
         <source>treasure_hunt_space_chicken.gender</source>
         <target>treasure_hunt_space_chicken.gender</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="initial">
         <source>treasure_hunt_space_chicken.first_letter</source>
         <target>treasure_hunt_space_chicken.first_letter</target>
       </segment>
@@ -4112,11 +4178,11 @@
         <source>treasure_hunt_chest_closed.short_name</source>
         <target>Closed Treasure Chest</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="initial">
         <source>treasure_hunt_chest_closed.gender</source>
         <target>treasure_hunt_chest_closed.gender</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="initial">
         <source>treasure_hunt_chest_closed.first_letter</source>
         <target>treasure_hunt_chest_closed.first_letter</target>
       </segment>
@@ -4138,11 +4204,11 @@
         <source>treasure_hunt_chest_opened.short_name</source>
         <target>Opened Treasure Chest</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="genre" state="initial">
         <source>treasure_hunt_chest_opened.gender</source>
         <target>treasure_hunt_chest_opened.gender</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="initial">
         <source>treasure_hunt_chest_opened.first_letter</source>
         <target>treasure_hunt_chest_opened.first_letter</target>
       </segment>

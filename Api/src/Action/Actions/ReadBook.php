@@ -21,6 +21,7 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
@@ -131,8 +132,8 @@ final class ReadBook extends AbstractAction
             player: $this->player,
             parameters: [
                 LogParameterKeyEnum::SKILL => $learnedSkill->toString(),
-                'character_gender' => 'other',
-                'character' => 'other',
+                'character_gender' => CharacterEnum::gender($this->getPlayer()->getLogName()),
+                'character' => $this->getPlayer()->getLogName(),
             ],
         );
     }

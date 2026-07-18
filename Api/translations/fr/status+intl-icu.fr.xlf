@@ -380,7 +380,7 @@
         <target>{character_gender, select,
             male {Allongé}
             female {Allongée}
-            other {Allongé}
+            other {Allongé.e}
             }</target>
       </segment>
       <segment id="description" state="translated">
@@ -388,7 +388,7 @@
         <target>{character_gender, select,
             male {Vous êtes allongé.}
             female {Vous êtes allongée.}
-            other {Vous êtes allongé.}
+            other {Vous êtes allongé.e.}
             }</target>
       </segment>
     </unit>
@@ -618,7 +618,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>bodyguard_user.description</source>
-        <target>Vous êtes actuellement en train de protéger {target_character_icon} **{target_character}**. // *Tant que vous êtes dans la même pièce,* **les actions agressives {target_character_gender, select, female {la} other{le}} ciblant coûtent 2 :pa: supplémentaires**.</target>
+        <target>Vous êtes actuellement en train de protéger {target_character_icon} **{target_character}**. // *Tant que vous êtes dans la même pièce,* **les actions agressives {target_character_gender, select, male {le} female {la} other {lea}} ciblant coûtent 2 :pa: supplémentaires**.</target>
       </segment>
     </unit>
     <unit id="bodyguard_vip">
@@ -638,7 +638,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>private_property.description</source>
-        <target>Cet objet possède un système le reliant à {target_character_gender, select, female {sa} other{son}} propriétaire {target_character_icon}  **{target_character}**. Il n'est utilisable par personne d'autre tant {target_character_gender, select, female {qu'elle} other{qu'il}} respire encore.</target>
+        <target>Cet objet possède un système le reliant à {target_character_gender, select, male {son} female {sa} other {saon}} propriétaire {target_character_icon}  **{target_character}**. Il n'est utilisable par personne d'autre tant {target_character_gender, select, male {qu'il} female {qu'elle} other {qu'iel}} respire encore.</target>
       </segment>
     </unit>
   </file>

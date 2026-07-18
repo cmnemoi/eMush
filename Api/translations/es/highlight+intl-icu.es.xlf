@@ -256,7 +256,7 @@
     <unit id="ceasefire">
       <segment id="highlight" state="translated">
         <source>ceasefire.highlight</source>
-        <target>¡Harto de este infierno, declaraste un alto al fuego!</target>
+        <target>Ya tuviste suficiente de este infierno, ¡por lo que declaraste un alto al fuego!</target>
       </segment>
     </unit>
     <unit id="exchange_body">

@@ -175,9 +175,9 @@
 			"suicide": "Suicidé avec panache !",
 			"patrol_ship_explosion": "Manœuvre ratée !"
 		},
-    "explorations": "Explorations",
-    "titles": "Titres",
-    "funFacts": "Faits Marquants",
+		"explorations": "Explorations",
+		"titles": "Titres",
+		"funFacts": "Faits Marquants",
 		"historyAndTriumph": "Historique et Triomphe",
 		"historyAndTriumphDescription": "Cliquez ici pour connaître l'historique et le triomphe de **{character}**.",
 		"triumph": "Triomphe",
@@ -967,14 +967,14 @@
 		"sanctionDetail": {
 			"sanction": {
 				"title": "Détails de la sanction",
-        "author": "Modérateur",
+				"author": "Modérateur",
 				"message": "Message du modérateur :",
 				"startDate": "Début de la sanction :",
 				"endDate": "Fin de la sanction :"
 			},
 			"report": {
 				"title": "Détails de la plainte",
-        "author": "Plaignant",
+				"author": "Plaignant",
 				"message": "Message du plaignant :",
 				"startDate": "Date de la plainte :"
 			},
@@ -997,7 +997,7 @@
 			"reason": "Motif",
 			"reporterMessage": "Message du plaignant",
 			"moderatorMessage": "Message du modérateur",
-      "evidence": "Message signalé",
+			"evidence": "Message signalé",
 			"context": "Contexte",
 			"reportDate": "Date",
 			"sanctionStartDate": "Début",
@@ -1038,7 +1038,7 @@
 		"isSanctionActive": "Sanctions en cours",
 		"sanctionType": "Type de sanction",
 		"sanctionReason": "Raison",
-			"sanctionId": "Numéro",
+		"sanctionId": "Numéro",
 		"adminMessage": "Message de la modération",
 		"startDate": "Date de début",
 		"endDate": "Date de fin",
@@ -1055,7 +1055,7 @@
 		"loadPrivateChannels": "Charger les canaux privés",
 		"loadPublicChannel": "Charger le canal public",
 		"logs": "Logs",
-			"ignoreNoise": "Ignorer le bruit",
+		"ignoreNoise": "Ignorer le bruit",
 		"mushChannel": "Canal Mush",
 		"nothingToDisplay": "Rien à afficher.",
 		"privateChannel": "Canal privé",

@@ -152,7 +152,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>assassinated.short_name</source>
-        <target>¡Asesinado por un compañero!</target>
+        <target>¡Un compañero te asesino!</target>
       </segment>
       <segment id="category" state="translated">
         <source>assassinated.category</source>

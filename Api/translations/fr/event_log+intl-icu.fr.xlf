@@ -99,8 +99,8 @@
         <source>death</source>
         <target>{target_character_gender, select,
                         male {:dead: **{target_character}** est mort. Cause : {end_cause}.}
-                        female {:dead: **{target_character}** est morte. Cause : {end_cause}.}
-                        other {:dead: **{target_character}** est mort.e. Cause : {end_cause}.}
+                        female {:dead: **{target_character}** est décédée. Cause : {end_cause}.}
+                        other {:dead: **{target_character}** a péri. Cause : {end_cause}.}
                 }</target>
       </segment>
     </unit>
@@ -127,7 +127,7 @@
         <target>{character_gender, select,
                     male {C'est dégoûtant... Vous vous êtes sali.}
                     female {C'est dégoûtant... Vous vous êtes salie.}
-                    other {C'est dégoûtant... Vous vous êtes sali.e.}
+                    other {C'est dégoûtant... Vous êtes maintenant sale.}
                 }</target>
       </segment>
     </unit>
@@ -161,7 +161,7 @@
         <target>{target_character_gender, select,
                     male {Un tremblement soudain projette une grosse plaque de métal sur **{target_character}**. Il est grièvement blessé !}
                     female {Un tremblement soudain projette une grosse plaque de métal sur **{target_character}**. Elle est grièvement blessée !}
-                    other {Un tremblement soudain projette une grosse plaque de métal sur **{target_character}**. Iel est grièvement blessée !}
+                    other {Un tremblement soudain projette une grosse plaque de métal sur **{target_character}**. Iel est grièvement blessé.e !}
                 }</target>
       </segment>
     </unit>
@@ -331,7 +331,7 @@
         <target>{character_gender, select,
                     male {**{character}** se sent soulagé mais le traitement est insuffisant. Il faudra recommencer.}
                     female {**{character}** se sent soulagée mais le traitement est insuffisant. Il faudra recommencer.}
-                    other {**{character}** se sent soulagé.e mais le traitement est insuffisant. Il faudra recommencer.}
+                    other {**{character}** se sent mieux mais le traitement est insuffisant. Il faudra recommencer.}
                 }</target>
       </segment>
     </unit>
@@ -365,7 +365,7 @@
         <target>{target_character_gender, select,
                     male {:hurt: Vous avez été blessé : {disease}. Vous subissez des malus.}
                     female {:hurt: Vous avez été blessée : {disease}. Vous subissez des malus.}
-                    other {:hurt: Vous avez été blessé.e : {disease}. Vous subissez des malus.}
+                    other {:hurt: Vous avez reçu une blessure : {disease}. Vous subissez des malus.}
                 }</target>
       </segment>
     </unit>
@@ -500,7 +500,7 @@
         <target>{character_gender, select,
                      male {Ce que vous venez de voir vous a choqué.}
                      female {Ce que vous venez de voir vous a choquée.}
-                     other {Ce que vous venez de voir vous a choqué.e.}
+                     other {Ce que vous venez de voir était profondément choquant.}
                     }
                     Vous ne serez plus jamais la même personne.</target>
       </segment>
@@ -517,7 +517,7 @@
         <target>{target_character_gender, select,
         male {**{target_character}** a été contaminé}
         female {**{target_character}** a été contaminée}
-        other {**{target_character}** a été contaminé.e}} par une spore par **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+        other {**{target_character}** s'est fait contaminer}} par une spore par **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_trap">
@@ -526,7 +526,7 @@
         <target>{target_character_gender, select,
         male {**{target_character}** a été contaminé}
         female {**{target_character}** a été contaminée}
-        other {**{target_character}** a été contaminé.e}} en ouvrant une étagère piégée par **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+        other {**{target_character}** s'est fait contaminer}} en ouvrant une étagère piégée par **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_std">
@@ -544,7 +544,7 @@
         <target>{target_character_gender, select,
         male {**{target_character}** a été contaminé}
         female {**{target_character}** a été contaminée}
-        other {**{target_character}** a été contaminé.e}} par **{character}** en prenant **{equipment}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+        other {**{target_character}** s'est fait contaminer}} par **{character}** en prenant **{equipment}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_mush_raid">
@@ -555,7 +555,7 @@
           other {{target_character_gender, select,
         male {**{target_character}** a été contaminé}
         female {**{target_character}** a été contaminée}
-        other {**{target_character}** a été contaminé.e}} par un raid Mush en exploration. Son niveau de contamination est maintenant de **{quantity}**.}
+        other {**{target_character}** s'est fait contaminer}} par un raid Mush en exploration. Son niveau de contamination est maintenant de **{quantity}**.}
         }</target>
       </segment>
     </unit>
@@ -565,7 +565,7 @@
         <target>{target_character_gender, select,
         male {**{target_character}** a été contaminé}
         female {**{target_character}** a été contaminée}
-        other {**{target_character}** a été contaminé.e}} par un aliment contaminé par **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+        other {**{target_character}** s'est fait contaminer}} par un aliment contaminé par **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="mush_convert_event">
@@ -1017,7 +1017,7 @@
         <target>{character_gender, select,
                     male {**{character}** s'endort doucement dans un coin de la pièce. Il est si mignon avec son petit filet de bave.}
                     female {**{character}** s'endort doucement dans un coin de la pièce. Le ronflement assourdissant enlève tout charme à la scène.}
-                    other {**{character}** s'endort doucement dans un coin de la pièce. On oublie presque sa présence, si ce n'est pour ses gémissements réguliers.}
+                    other {**{character}** s'endort doucement dans un coin de la pièce. On oublierait presque sa présence, si ce n'est pour ses gémissements réguliers.}
                 }</target>
       </segment>
     </unit>
@@ -1041,8 +1041,8 @@
             male {**{character}** vous raconte ses derniers cycles avec ferveur et passion. Pas grand chose à en tirer mais il a l'air de se sentir mieux...}
             female {**{character}** vous raconte ses derniers cycles avec ferveur et passion. Pas grand chose à en tirer mais elle a l'air de se sentir mieux...}
             other {**{character}** vous raconte ses derniers cycles avec ferveur et passion. Pas grand chose à en tirer mais iel a l'air de se sentir mieux...}}}
-          1 {**{character}** vous raconte ses dernières aventures et même si ça n'a pas l'air, on peut toujours apprendre quelque chose... Sa dernière action est {lastAction}.}
-          other {**{character}** vous raconte ses dernières aventures et même si ça n'a pas l'air, on peut toujours apprendre quelque chose... Ses dernières actions sont {actions} et {lastAction}.}
+          1 {**{character}** vous raconte ses dernières aventures et même si ça n'en a pas l'air, on peut toujours apprendre quelque chose... Sa dernière action est {lastAction}.}
+          other {**{character}** vous raconte ses dernières aventures et même si ça n'en a pas l'air, on peut toujours apprendre quelque chose... Ses dernières actions sont {actions} et {lastAction}.}
         }</target>
       </segment>
     </unit>
@@ -1280,7 +1280,7 @@
         <target>{target_character_gender, select,
         male {Votre compétence **Abnégation** a porté ses fruits, vous n'êtes pas mort...}
         female {Votre compétence **Abnégation** a porté ses fruits, vous n'êtes pas morte...}
-        other {Votre compétence **Abnégation** a porté ses fruits, vous n'êtes pas mort.e...}
+        other {Votre compétence **Abnégation** a porté ses fruits, vous avez évité la mort...}
         }</target>
       </segment>
     </unit>
@@ -1433,7 +1433,7 @@
         <target>{drone} et **NERON** papotent innocemment... "{version, select, 
         1{...**{target_character}** a l'air coupable.}
         2{...**{target_character}** est {target_character_gender, select, male {le suivant} female{la suivante.} other{lae suivant.e.}}}
-        3{...fois **{target_character}** disparu on pourra...}
+        3{...fois **{target_character}** {target_character_gender, select, male {disparu} female{disparue} other{disparue.e}} on pourra...}
         4{...**{target_character}** doit être {target_character_gender, select, male {nettoyé} female{nettoyée} other{nettoyé.e}}.}
         other{invalid version input}}"</target>
       </segment>

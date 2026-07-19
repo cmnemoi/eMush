@@ -1,3 +1,10 @@
+## [0.31.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.1...0.31.2) (2026-07-19)
+
+
+### Bug Fixes
+
+* migration ([3cd82ff](https://gitlab.com/eternaltwin/mush/mush/commit/3cd82ffcb356cf833af22568dc139071702196d2))
+
 ## [0.31.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.0...0.31.1) (2026-07-19)
 
 

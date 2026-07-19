@@ -180,6 +180,11 @@ class RebelBase implements ModifierProviderInterface
         return $this->contactEndDate !== null;
     }
 
+    public function getConfig(): RebelBaseConfig
+    {
+        return $this->rebelBaseConfig;
+    }
+
     private function contactDidNotStart(): bool
     {
         return $this->contactStartDate === null;

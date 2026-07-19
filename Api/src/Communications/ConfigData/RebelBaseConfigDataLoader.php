@@ -26,7 +26,8 @@ final class RebelBaseConfigDataLoader extends ConfigDataLoader
                 $rebelBaseConfigDto->name,
                 $rebelBaseConfigDto->contactOrder,
                 $this->getModifierConfigs($rebelBaseConfigDto->modifierConfigs),
-                $this->getStatusConfig($rebelBaseConfigDto->statusConfig)
+                $this->getStatusConfig($rebelBaseConfigDto->statusConfig),
+                $rebelBaseConfigDto->moral
             );
 
             if ($rebelBaseConfig === null) {

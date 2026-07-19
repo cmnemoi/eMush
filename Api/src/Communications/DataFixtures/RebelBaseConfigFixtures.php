@@ -34,7 +34,8 @@ final class RebelBaseConfigFixtures extends Fixture implements DependentFixtureI
                 $rebelBaseConfigDto->name,
                 $rebelBaseConfigDto->contactOrder,
                 $this->getModifierConfigs($rebelBaseConfigDto->modifierConfigs),
-                $this->getStatusConfig($rebelBaseConfigDto->statusConfig)
+                $this->getStatusConfig($rebelBaseConfigDto->statusConfig),
+                $rebelBaseConfigDto->moral
             );
             $manager->persist($rebelBaseConfig);
             $gameConfig->addRebelBaseConfig($rebelBaseConfig);

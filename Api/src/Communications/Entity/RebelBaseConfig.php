@@ -34,18 +34,22 @@ class RebelBaseConfig
     #[ORM\ManyToOne(targetEntity: StatusConfig::class)]
     private ?StatusConfig $statusConfig;
 
-    public function __construct(string $key, RebelBaseEnum $name, int $contactOrder, ArrayCollection $modifierConfigs, ?StatusConfig $statusConfig)
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $moral;
+
+    public function __construct(string $key, RebelBaseEnum $name, int $contactOrder, ArrayCollection $modifierConfigs, ?StatusConfig $statusConfig, int $moral)
     {
         $this->key = $key;
         $this->name = $name;
         $this->contactOrder = $contactOrder;
         $this->modifierConfigs = $modifierConfigs;
         $this->statusConfig = $statusConfig;
+        $this->moral = $moral;
     }
 
     public static function createNull(): self
     {
-        return new self('', RebelBaseEnum::NULL, 0, new ArrayCollection(), null);
+        return new self('', RebelBaseEnum::NULL, 0, new ArrayCollection(), null, 0);
     }
 
     public function getName(): RebelBaseEnum
@@ -66,6 +70,11 @@ class RebelBaseConfig
     public function getStatusConfig(): ?StatusConfig
     {
         return $this->statusConfig;
+    }
+
+    public function getMoral(): int
+    {
+        return $this->moral;
     }
 
     public function update(self $rebelBaseConfig): void

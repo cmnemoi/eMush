@@ -9,9 +9,12 @@ use Mush\Communications\Event\RebelBaseDecodedEvent;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Service\StatusServiceInterface;
 
 final readonly class DecodeRebelSignalService
@@ -32,6 +35,7 @@ final readonly class DecodeRebelSignalService
             $daedalus = $this->daedalusRepository->findByIdOrThrow($rebelBase->getDaedalusId());
             $this->createRebelBaseModifiersForDaedalus($rebelBase, $daedalus, $tags);
             $this->createRebelBaseStatusForDaedalus($rebelBase, $daedalus, $tags);
+            $this->boostMoral($rebelBase, $daedalus, $tags);
             $this->endRebelBaseContact($rebelBase);
             $this->eventService->callEvent(
                 event: new RebelBaseDecodedEvent($rebelBase, $author, $tags),
@@ -80,5 +84,24 @@ final readonly class DecodeRebelSignalService
     {
         $rebelBase->endContact();
         $this->rebelBaseRepository->save($rebelBase);
+    }
+
+    private function boostMoral(RebelBase $rebelBase, Daedalus $daedalus, array $tags): void
+    {
+        if ($rebelBase->getConfig()->getMoral() < 1) {
+            return;
+        }
+        foreach ($daedalus->getAlivePlayers() as $player) {
+            if ($player) {
+                $playerVariableEvent = new PlayerVariableEvent(
+                    $player,
+                    PlayerVariableEnum::MORAL_POINT,
+                    $rebelBase->getConfig()->getMoral(),
+                    $tags,
+                    new \DateTime(),
+                );
+                $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+            }
+        }
     }
 }

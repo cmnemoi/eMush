@@ -4,7 +4,8 @@
         "name": "wolf",
         "contactOrder": 1,
         "modifierConfigs": [],
-        "statusConfig": null
+        "statusConfig": null,
+        "moral": 0
     },
     {
         "key": "sirius_default",
@@ -13,7 +14,8 @@
         "modifierConfigs": [
             "player_plus_1_action_point_on_consume_action_if_standard_ration"
         ],
-        "statusConfig": null
+        "statusConfig": null,
+        "moral": 0
     },
     {
         "key": "centauri_default",
@@ -22,39 +24,41 @@
         "modifierConfigs": [
             "blaster_plus_1_strength_in_expedition"
         ],
-        "statusConfig": null
+        "statusConfig": null,
+        "moral": 0
     },
     {
         "key": "kaladaan_default",
         "name": "kaladaan",
         "contactOrder": 4,
-        "modifierConfigs": [
-            "plus_6_morale_points_for_all_players"
-        ],
-        "statusConfig": null
+        "modifierConfigs": [],
+        "statusConfig": null,
+        "moral": 6
     },
     {
         "key": "luyten_ceti_default",
         "name": "luyten_ceti",
         "contactOrder": 5,
         "modifierConfigs": [],
-        "statusConfig": "brainsync"
+        "statusConfig": "brainsync",
+        "moral": 0
     },
     {
         "key": "cygni_default",
         "name": "cygni",
         "contactOrder": 6,
         "modifierConfigs": [
-            "cygni_plus_3_morale_points_for_all_players",
             "cygni_plus_1_damage_patrol_ships"
         ],
-        "statusConfig": null
+        "statusConfig": null,
+        "moral": 3
     },
     {
         "key": "eridiani_default",
         "name": "eridiani",
         "contactOrder": 7,
         "modifierConfigs": [],
-        "statusConfig": null
+        "statusConfig": null,
+        "moral": 0
     }
 ]

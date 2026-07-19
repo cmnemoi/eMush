@@ -324,14 +324,13 @@ class AlertService implements AlertServiceInterface
             $filteredList->add($fireAlert);
         }
 
+        // TODO temporary fix. ¨Players should not be able to create alert by simply reloading the page
         if ($filteredList->count() !== 1) {
-            $exception = new \LogicException("this fire should be reported exactly one time. Currently reported {$filteredList->count()} times");
-            $this->logger->error($exception->getMessage(), [
-                'daedalus' => $place->getDaedalus()->getId(),
-                'place' => $place->getId(),
-            ]);
-
-            throw $exception;
+            foreach ($filteredList as $fire) {
+                if ($fire !== null && $fire !== $fireAlert) {
+                    $this->deleteAlertElement($fire);
+                }
+            }
         }
 
         return $fireAlert;

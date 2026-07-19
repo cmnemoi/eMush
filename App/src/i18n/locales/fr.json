@@ -197,8 +197,8 @@
 			"masculine": "Masculin",
 			"feminine": "Féminin"
 		}
-  },
-  "userProfile": {
+	},
+	"userProfile": {
 		"shipHistory": {
 			"character": "personnage",
 			"days": "jours",

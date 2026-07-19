@@ -182,19 +182,19 @@
       </segment>
     </unit>
     <unit id="relax_camera">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>relax_camera.description</source>
         <target>do_the_thing_camera.description</target>
       </segment>
     </unit>
     <unit id="relax_witness">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>relax_witness.description</source>
         <target>do_the_thing_witness.description</target>
       </segment>
     </unit>
     <unit id="relax_asleep">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>relax_asleep.description</source>
         <target>do_the_thing_asleep.description</target>
       </segment>

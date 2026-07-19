@@ -183,19 +183,19 @@
     </unit>
     <unit id="relax_camera">
       <segment id="description" state="translated">
-        <source>do_the_thing_camera.description</source>
+        <source>relax_camera.description</source>
         <target>Es imposible poder relajarse teniendo a NERON observando cada movimiento.</target>
       </segment>
     </unit>
     <unit id="relax_witness">
       <segment id="description" state="translated">
-        <source>do_the_thing_witness.description</source>
+        <source>relax_witness.description</source>
         <target>No necesitas tener público para esto.</target>
       </segment>
     </unit>
     <unit id="relax_asleep">
       <segment id="description" state="translated">
-        <source>do_the_thing_asleep.description</source>
+        <source>relax_asleep.description</source>
         <target>Esta persona está durmiendo, por lo que no es posible realizar esta acción.</target>
       </segment>
     </unit>

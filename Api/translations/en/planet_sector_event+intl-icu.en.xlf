@@ -387,19 +387,19 @@
       </segment>
       <segment id="intelligent_description" state="translated">
         <source>fight.intelligent_description</source>
-        <target>A strange being approaches and shrieks piercingly enough to make your ears ache. You'll have to find a way to stop it.</target>
+        <target>A strange being approaches and shrieks piercingly enough to make your ears ache. You'll have to find a way to stop it.////{fight}</target>
       </segment>
       <segment id="intelligent_low" state="translated">
         <source>fight.intelligent_low</source>
-        <target>fight.intelligent_low</target>
+        <target>Blasters shots come from every direction, and it is immediately clear that you are in a bad spot. You retreat in a disorderly fashion, carrying the wounded away from those deadly streaks of color.</target>
       </segment>
       <segment id="intelligent_mid" state="translated">
         <source>fight.intelligent_mid</source>
-        <target>fight.intelligent_mid</target>
+        <target>The standoff quickly turns into a brutal skirmish. You hold your own enough to force the silhouette to retreat, but do not emerge unscathed from the encounter. {result, select, victory {At least you do not leave empty handed, thanks to a strange object that your enemy seems to have lost during the battle.} other{}}</target>
       </segment>
       <segment id="intelligent_high" state="translated">
         <source>fight.intelligent_high</source>
-        <target>fight.intelligent_high</target>
+        <target>Superior in both numbers and armament, you kill it before its cries can alert others. A search of its limp body turns up a strange artefact that could be useful.</target>
       </segment>
       <segment id="ruminant_description" state="translated">
         <source>fight.ruminant_description</source>
@@ -407,11 +407,11 @@
       </segment>
       <segment id="ruminant_low" state="translated">
         <source>fight.ruminant_low</source>
-        <target>fight.ruminant_low</target>
+        <target>Who would have thought ruminants could be this fearsome? You flee as fast as you can, with more hoof marks and fewer teeth than you arrived with.</target>
       </segment>
       <segment id="ruminant_mid" state="translated">
         <source>fight.ruminant_mid</source>
-        <target>fight.ruminant_mid</target>
+        <target>The fight was tougher than expected, but after a messy brawl you managed to send them off. {result, select, victory {Only one weak Chew Chew is left behind. Did you kill it, or was it stampeded to death by its own herd? Regardless, meat is meat.} other{}}</target>
       </segment>
       <segment id="ruminant_high" state="translated">
         <source>fight.ruminant_high</source>

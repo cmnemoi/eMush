@@ -120,11 +120,11 @@
           female {{character_gender, select,
             female {Quelques minutes plus tard, elles rallument avec un air satisfait.}
             other {Quelques minutes plus tard, les deux rallument avec un air satisfait.}
-          }}, 
+          }}
           male {{character_gender, select,
             male {Quelques minutes plus tard, ils rallument avec un air satisfait.}
             other {Quelques minutes plus tard, les deux rallument avec un air satisfait.}
-          }}, 
+          }}
           other {Quelques minutes plus tard, les deux rallument avec un air satisfait.}
         }</target>
       </segment>

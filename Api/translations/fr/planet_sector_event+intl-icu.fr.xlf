@@ -806,19 +806,5 @@ other {{version, select,
         <target>Après une série de signes de main maladroits, la créature finit par inscrire quelque chose sur votre carte. Un petit détour semble de rigueur.</target>
       </segment>
     </unit>
-    <unit id="new_sector">
-      <segment id="name" state="translated">
-        <source>new_sector.name</source>
-        <target>Nouveau secteur</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>new_sector.description</source>
-        <target>Nouveau secteur ajouté sur la planète.</target>
-      </segment>
-      <segment id="intelligent_description" state="translated">
-        <source>new_sector.intelligent_description</source>
-        <target>Après une série de signes de main maladroits, la créature finit par inscrire quelque chose sur votre carte. Un petit détour semble de rigueur.</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

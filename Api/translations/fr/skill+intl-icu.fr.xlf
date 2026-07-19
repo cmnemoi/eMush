@@ -634,7 +634,7 @@
     <unit id="victimizer">
       <segment id="victimizer.name" state="translated">
         <source>victimizer.name</source>
-        <target>{character_gender, select, male {Persécuteur female {Persécutrice} other {Persécuteurice}}</target>
+        <target>{character_gender, select, male {Persécuteur} female {Persécutrice} other {Persécuteurice}}</target>
       </segment>
       <segment id="victimizer.description" state="translated">
         <source>victimizer.description</source>

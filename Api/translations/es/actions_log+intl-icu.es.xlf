@@ -74,8 +74,7 @@ other {invalid gender input}}.</target>
     <unit id="do_the_thing_success">
       <segment id="do_the_thing_success" state="translated">
         <source>do_the_thing_success</source>
-        <target>**{character}** y **{target_character}** apagan la luz y se producen ruidos extraños... Algunos minutos más tarde, las vuelven a encender. Parece que están con un mejor humor.
-   </target>
+        <target>**{character}** y **{target_character}** apagan la luz y se producen ruidos extraños... Algunos minutos más tarde, las vuelven a encender. Parece que están con un mejor humor.</target>
       </segment>
     </unit>
     <unit id="do_the_thing_breaks_sofa">

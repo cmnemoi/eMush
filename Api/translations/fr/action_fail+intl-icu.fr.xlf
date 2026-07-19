@@ -211,8 +211,7 @@
     <unit id="flirt_already_flirted">
       <segment id="description" state="translated">
         <source>flirt_already_flirted.description</source>
-        <target>Vous êtes déjà très proche de cette personne.
- </target>
+        <target>Vous êtes déjà très proche de cette personne.</target>
       </segment>
     </unit>
     <unit id="flirt_antisocial">

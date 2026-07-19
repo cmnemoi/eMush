@@ -1,3 +1,44 @@
+# [0.31.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.30.3...0.31.0) (2026-07-19)
+
+
+### Bug Fixes
+
+* Add missing #[Groups] annotations from AP3 migration ([389dbfd](https://gitlab.com/eternaltwin/mush/mush/commit/389dbfdd9ae4fb948ef0b20e49ef0c029e2f34fc))
+* End of Oauth2 flow do not use a user-provided callback URL anymore ([919ebc6](https://gitlab.com/eternaltwin/mush/mush/commit/919ebc6edac24fbdf960538a5bc2c6d4a74305e1))
+* Fix acces to mechanics config and its weapon tab ([0e8b5e6](https://gitlab.com/eternaltwin/mush/mush/commit/0e8b5e67943793ff63f69a8bf6edb3fc988df4b0))
+* jukebox test ([da400c0](https://gitlab.com/eternaltwin/mush/mush/commit/da400c073a1b665236cfc201b591196015ed79e2))
+* new Crowdin translations ([622714d](https://gitlab.com/eternaltwin/mush/mush/commit/622714db8f97ac9bae00f1f4d96c10045f555dba))
+* news with poll don't break the front page ([0f1fe52](https://gitlab.com/eternaltwin/mush/mush/commit/0f1fe52de014a2f4fb334aa9eed55793e3902c15))
+* removed kitchen project as it does not have any effect ([8e56597](https://gitlab.com/eternaltwin/mush/mush/commit/8e56597ad9a7800c23cf2084091259e0915710ec))
+* Restore dropped sub-resources from AP3 migration and add config name validation ([22893cb](https://gitlab.com/eternaltwin/mush/mush/commit/22893cbe0c11cce7de068397daec9825bb903d14))
+* Sanctions do not hide the screen anymore and are better reduced ([f6ce6c4](https://gitlab.com/eternaltwin/mush/mush/commit/f6ce6c4d9741ac17126b11f9d0532cd628357625))
+* temporary fix fire alert ([a8bced3](https://gitlab.com/eternaltwin/mush/mush/commit/a8bced35422d3d32a3e1700282330c9db04d4e23))
+
+
+### Features
+
+* Add a popup when a player is vaccinated ([7983ab5](https://gitlab.com/eternaltwin/mush/mush/commit/7983ab5e5e6fe4da76f15fcbf015aae8a0815a9f))
+* Add assets for the treasure hunt event ([de849c5](https://gitlab.com/eternaltwin/mush/mush/commit/de849c55a1721c604c9c2b0656aee944245dd44c))
+* Add banana, pumpkin, drone and blueprint icons. ([c4af2ad](https://gitlab.com/eternaltwin/mush/mush/commit/c4af2ad40f132f5b6b35ad75ebc70c5442199683))
+* Add CroqueMonster to the EternalTwin bar and footer ([db2aaad](https://gitlab.com/eternaltwin/mush/mush/commit/db2aaadd2b42ce486a5beaa5f377b88c87a6a2b4))
+* adjusted cristal field events weights ([8479c6d](https://gitlab.com/eternaltwin/mush/mush/commit/8479c6d9519910e044746ed74d3b14fcc9a95ed2))
+* All messages are scrambled for humans reading Mush chat ([6ec5b96](https://gitlab.com/eternaltwin/mush/mush/commit/6ec5b96c028f79c8b66ea10c466ddc97f9141aa6))
+* bodyguard reduce gard action cost by 1 ([29c9cf9](https://gitlab.com/eternaltwin/mush/mush/commit/29c9cf9490f4e0d0dd00220dabe655af4360bf9a))
+* Harmonize both the report popup across the app (no one-click reports), and the moderation UI ([baa587d](https://gitlab.com/eternaltwin/mush/mush/commit/baa587d40860c007098944896d4298cffec2fe3b))
+* lab inventory is interactible ([c35c553](https://gitlab.com/eternaltwin/mush/mush/commit/c35c553401db470592e37240d4e818fc6dd2c7d5))
+* new item alien blaster ([9de5f1d](https://gitlab.com/eternaltwin/mush/mush/commit/9de5f1d1dfd507fdfe403df53cd74bfab217096d))
+* New modifier to modify the selection of planet sector events in exploration. Diplomat and white flag replace fight with nothing happened event ([e752bc4](https://gitlab.com/eternaltwin/mush/mush/commit/e752bc4e3cf1d453da599fd19a2c2e6c9b87aa12))
+* new non-binary gender for Andie. Updated one translation file to give exemples to the translators. ([cc53b9c](https://gitlab.com/eternaltwin/mush/mush/commit/cc53b9c04b241e5cf4ff10892099c1e3d57d10dd))
+* new sector exploration event and Diplomat replace fight on intelligent life by new sector event ([69a2c38](https://gitlab.com/eternaltwin/mush/mush/commit/69a2c38ab9a0ba68663ae8a45903668362e6d6b1))
+* Pilot drone shoot twice per action, come back on the ship when it move and ignore patrol ships with not enough charges ([ba3c3ac](https://gitlab.com/eternaltwin/mush/mush/commit/ba3c3ac93d433048cf0e362b678e980940b336ad))
+* Player can be reported on the endpage even without an epitaph ([dd0d172](https://gitlab.com/eternaltwin/mush/mush/commit/dd0d17251888b0a20de570b863ee920b4fa54f58))
+* players have a % to get a reward while fighting on planets. ([4f2b373](https://gitlab.com/eternaltwin/mush/mush/commit/4f2b373c40679192d89dca0a9081c722072ad60d))
+* remove door immunity ([2d3f35a](https://gitlab.com/eternaltwin/mush/mush/commit/2d3f35a8b67387656336a35c6592e1d3b7f8ec41))
+* reworked DTT and flirt. Added Bond and Relax actions ([6c46d79](https://gitlab.com/eternaltwin/mush/mush/commit/6c46d79ed9c3fe0544ef6202d7ded09c39ad3705))
+* Spawn one trader per player becoming highly inactive on cycle change ([f1ca43c](https://gitlab.com/eternaltwin/mush/mush/commit/f1ca43c4803ed2195ca2251a81687c0b5e040101))
+* traitor never fail and always give a negative event or a nothing happened event. Moved the logic behind tracker, babel and compass on the new modifier type. ([e23a41e](https://gitlab.com/eternaltwin/mush/mush/commit/e23a41e40b2d5a20a1efd064be7ecc54869d47dd))
+* Use UUID for exploration URL and add them to end page ([2540227](https://gitlab.com/eternaltwin/mush/mush/commit/2540227742daf2357d47ef705aa41c151ca132c7))
+
 ## [0.30.3](https://gitlab.com/eternaltwin/mush/mush/compare/0.30.2...0.30.3) (2026-06-03)
 
 

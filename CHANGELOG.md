@@ -1,3 +1,11 @@
+## [0.31.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.0...0.31.1) (2026-07-19)
+
+
+### Bug Fixes
+
+* new Crowdin translations ([a9b10b2](https://gitlab.com/eternaltwin/mush/mush/commit/a9b10b244bd06e8b2cea5dd5848c1846a2b85356))
+* rebel base do not give their moral again each update ([3795bf0](https://gitlab.com/eternaltwin/mush/mush/commit/3795bf076483ddf8a768264c7380fcdc048e35c8))
+
 # [0.31.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.30.3...0.31.0) (2026-07-19)
 
 

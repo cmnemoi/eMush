@@ -90,7 +90,6 @@ class GameFruitEnum
             self::KUBINUS,
             self::CALEBOOT,
             self::FILANDRA,
-            self::JUMPKIN,
         ]);
     }
 }

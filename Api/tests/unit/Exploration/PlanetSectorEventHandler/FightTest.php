@@ -13,6 +13,7 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
@@ -94,7 +95,8 @@ final class FightTest extends TestCase
             $this->deleteEquipmentService,
             $this->diseaseCauseService,
             $this->roomLogService,
-            $this->gameEquipmentService
+            $this->gameEquipmentService,
+            self::createStub(EquipmentServiceInterface::class)
         );
     }
 

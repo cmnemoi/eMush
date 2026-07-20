@@ -41,6 +41,8 @@ final class ModerationSanctionNormalizer implements NormalizerInterface, Normali
     }
 
     /**
+     * @SuppressWarnings(PHPMD)
+     *
      * @psalm-suppress InvalidReturnType
      * @psalm-suppress InvalidReturnStatement, InvalidReturnType
      *

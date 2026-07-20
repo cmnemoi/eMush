@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
+use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Enum\PlanetSectorEventTagEnum;
@@ -51,6 +52,7 @@ final class Fight extends AbstractLootItemsEventHandler
         DiseaseCauseServiceInterface $diseaseCauseService,
         RoomLogServiceInterface $roomLogService,
         GameEquipmentServiceInterface $gameEquipmentService,
+        private EquipmentServiceInterface $equipmentService,
     ) {
         parent::__construct($entityManager, $eventService, $randomService, $translationService, $gameEquipmentService);
         $this->deleteEquipmentService = $deleteEquipmentService;
@@ -63,24 +65,13 @@ final class Fight extends AbstractLootItemsEventHandler
         return PlanetSectorEvent::FIGHT;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD)
+     */
     public function handle(PlanetSectorEvent $event): ExplorationLog
     {
         // we get the values that we will use
-        $creatureStrength = (int) $event->getConfig()->hasTag(PlanetSectorEventTagEnum::RANDOM_FIGHT)
-            ? $this->randomService->getRandomElement(PlanetSectorEventTagEnum::getRandomFightPower())
-            : $event->getConfig()->getFightStrength();
-
-        $expeditionStrength = $this->getExpeditionStrength($event);
-        $damage = max(0, $creatureStrength - $expeditionStrength);
-
-        // we handle grenade here
-        $damageWithoutGrenades = $creatureStrength - $this->getExpeditionStrength($event, includeGrenades: false);
-        if ($damageWithoutGrenades > 0) {
-            $this->removeGrenadesFromFighters($event, $damageWithoutGrenades);
-        }
-
-        // we get the % to win
-        $winChance = $this->getWinChance($creatureStrength, $expeditionStrength);
+        [$creatureStrength, $crewStrength, $damage, $winChance] = $this->getNumbersAndUseGrenades($event);
 
         // if we are fighting a Mankarog, add an event tag to shame the dead players with a special death cause
         if ($creatureStrength >= self::MANKAROG_STRENGTH) {
@@ -110,10 +101,41 @@ final class Fight extends AbstractLootItemsEventHandler
         // get the last few parameters
         $logParameters['fight'] = $this->getFightDescription($event->getPlanetSector()->getName(), $winChance, $logParameters['result'], $event->getDaedalus()->getLanguage());
         $logParameters['creature_strength'] = $creatureStrength;
-        $logParameters['expedition_strength'] = $expeditionStrength;
+        $logParameters['expedition_strength'] = $crewStrength;
         $logParameters['damage'] = $damage;
 
         return $this->createExplorationLog($event, $logParameters);
+    }
+
+    /**
+     * Return all the numbers used for the fight and also remove the grenades if necessary.
+     *
+     * @return array<int>
+     */
+    private function getNumbersAndUseGrenades(PlanetSectorEvent $event): array
+    {
+        $creatureStrength = (int) $event->getConfig()->hasTag(PlanetSectorEventTagEnum::RANDOM_FIGHT)
+            ? $this->randomService->getRandomElement(PlanetSectorEventTagEnum::getRandomFightPower())
+            : $event->getConfig()->getFightStrength();
+
+        $expeditionStrength = $this->getExpeditionStrength($event);
+        $damage = max(0, $creatureStrength - $expeditionStrength);
+
+        // we handle grenade here
+        $strengthWithoutGrenades = $this->getExpeditionStrength($event, includeGrenades: false);
+        $damageWithoutGrenades = $creatureStrength - $strengthWithoutGrenades;
+        $grenadesUsed = 0;
+        if ($damageWithoutGrenades > 0) {
+            $grenadesUsed = $this->removeGrenadesFromFighters($event, $damageWithoutGrenades);
+        }
+
+        $grenadeStrength = $this->equipmentService->findByNameAndDaedalus(ItemEnum::GRENADE, $event->getDaedalus())->getWeaponMechanicOrThrow()->getExpeditionBonus();
+        $finalStrength = $strengthWithoutGrenades + ($grenadeStrength * $grenadesUsed);
+
+        // we get the % to win
+        $winChance = $this->getWinChance($creatureStrength, $finalStrength);
+
+        return [$creatureStrength, $finalStrength, $damage, $winChance];
     }
 
     private function getExpeditionStrength(PlanetSectorEvent $event, bool $includeGrenades = true): int
@@ -152,8 +174,10 @@ final class Fight extends AbstractLootItemsEventHandler
         return $expeditionStrength;
     }
 
-    private function removeGrenadesFromFighters(PlanetSectorEvent $event, int $damageWithoutGrenades): void
+    // return number of grenade used
+    private function removeGrenadesFromFighters(PlanetSectorEvent $event, int $damageWithoutGrenades): int
     {
+        $grenadesUsed = 0;
         $fighters = $event->getExploration()->getNotLostActiveExplorators();
         foreach ($fighters as $fighter) {
             $fighterGrenades = $fighter->getEquipmentsByNames([ItemEnum::GRENADE]);
@@ -173,8 +197,12 @@ final class Fight extends AbstractLootItemsEventHandler
                     gameEquipment: $grenade,
                     tags: $event->getTags()
                 );
+
+                ++$grenadesUsed;
             }
         }
+
+        return $grenadesUsed;
     }
 
     private function inflictDamageToExplorators(PlanetSectorEvent $event, int $damage): void

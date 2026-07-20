@@ -28,7 +28,7 @@ abstract class ActionLogEnum
     public const string EXTINGUISH_FAIL = 'extinguish_fail';
     public const string EXTRACT_SPORE_SUCCESS = 'extract_spore_success';
     public const string FLIRT_SUCCESS = 'flirt_success';
-    public const string BOND_SUCCESS = 'flirt_success';
+    public const string BOND_SUCCESS = 'bond_success';
     public const string GAG_SUCCESS = 'gag_success';
     public const string GET_UP = 'get_up';
     public const string HEAL_SUCCESS = 'heal_success';

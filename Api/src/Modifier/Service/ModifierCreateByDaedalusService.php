@@ -46,7 +46,7 @@ class ModifierCreateByDaedalusService
         }
         // status
         foreach ($daedalus->getStatuses() as $status) {
-            $this->statusModifierService->deleteStatusModifiers($status);
+            $this->statusModifierService->createStatusModifiers($status);
         }
         // places
         foreach ($daedalus->getPlaces() as $place) {

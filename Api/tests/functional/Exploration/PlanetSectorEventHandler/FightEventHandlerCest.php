@@ -155,7 +155,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // + 3 points from Kuan-Ti's first grenade (12) - here we have enough points to kill the creature
         // + 3 points from Kuan-Ti's second grenade (15)
         // + 3 points from Raluca's grenade (18)
-        $this->thenExpeditionStrengthShouldBe(18, $explorationLog, $I);
+        $this->thenExpeditionStrengthShouldBe(12, $explorationLog, $I);
 
         $this->thenPlayerShouldHaveGrenades(0, $this->chun, $I);
         $this->thenPlayerShouldHaveGrenades(1, $this->kuanTi, $I);

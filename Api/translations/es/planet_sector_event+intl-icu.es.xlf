@@ -385,12 +385,12 @@
         <source>fight.name</source>
         <target>Combate</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>fight.description</source>
         <target>Te enfrentas a una criatura////Fuerza de la Criatura: {creature_strength}//Fuerza del Equipo: {expedition_strength}//
-El equipo recibe {result, select,
- victory {{reward_amount} {reward}.}
- other {{damage} {damage, select, 1 {punto} other {puntos}} de daño.}////{bonus_loot_thanks_to_skill}{bonus_loot_thanks_to_items}</target>
+{result, select,
+ victory {//El equipo recibe{reward_amount} {reward}.}
+ other {}}//El equipo recibe {damage} {damage, select, 1 {punto} other {puntos}} de daño.//{bonus_loot_thanks_to_skill}{bonus_loot_thanks_to_items}</target>
       </segment>
       <segment id="intelligent_description" state="translated">
         <source>fight.intelligent_description</source>

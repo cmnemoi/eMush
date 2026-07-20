@@ -216,7 +216,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
      *
      * @param Collection<array-key, GameEquipment> $equipments
      *
-     * @return array{0: Collection<array-key, GameEquipment>, 1: Collection<array-key, GameItem>}
+     * @return array{0: Collection<array-key, GameEquipment>, 1: Collection<array-key, GameEquipment>}
      */
     private function partitionItemsAndEquipments(Collection $equipments): array
     {
@@ -227,21 +227,14 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
                 || ($gameEquipment instanceof GameItem && $gameEquipment->shouldBeNormalizedAsEquipment())
             );
 
-        /** @var Collection<array-key, GameItem> $items */
-        $items = new ArrayCollection(
-            $partitioned[1]
-                ->filter(static fn (GameEquipment $gameEquipment): bool => $gameEquipment instanceof GameItem)
-                ->toArray()
-        );
-
-        return [$partitioned[0], $items];
+        return [$partitioned[0], $partitioned[1]];
     }
 
     /**
      * Applies the shelf-display rules (multiple instances, contaminated on top) and normalizes items.
      *
      * @param Collection<array-key, GameEquipment> $equipments
-     * @param Collection<array-key, GameItem>      $items
+     * @param Collection<array-key, GameEquipment> $items
      *
      * @throws \Exception
      */
@@ -263,10 +256,10 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     /**
      * Normalizes items in the room for the given player.
      *
-     * @param Player                                 $currentPlayer player to normalize items for
-     * @param ArrayCollection<int<0, max>, GameItem> $items         items to normalize
-     * @param ?string                                $format        format to use for normalization
-     * @param array                                  $context       context to use for normalization
+     * @param Player                                      $currentPlayer player to normalize items for
+     * @param ArrayCollection<int<0, max>, GameEquipment> $items         items to normalize
+     * @param ?string                                     $format        format to use for normalization
+     * @param array                                       $context       context to use for normalization
      *
      * @throws \Exception
      */
@@ -375,8 +368,8 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
      *
      * Items hidden from the player will not be included in the result.
      *
-     * @param Collection<int<0, max>, GameItem> $items         the collection of items to be grouped
-     * @param Player                            $currentPlayer the player for whom visibility and grouping are determined
+     * @param Collection<int<0, max>, GameEquipment> $items         the collection of items to be grouped
+     * @param Player                                 $currentPlayer the player for whom visibility and grouping are determined
      */
     private function groupItemCollectionByName(Collection $items, Player $currentPlayer): array
     {
@@ -477,9 +470,9 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     /**
      * Put contaminated items on top of the shelf.
      *
-     * @param Collection<array-key, GameItem> $items
+     * @param Collection<array-key, GameEquipment> $items
      *
-     * @return ArrayCollection<int<0, max>, GameItem>
+     * @return ArrayCollection<int<0, max>, GameEquipment>
      */
     private function putContaminatedItemsOnTop(Collection $items): ArrayCollection
     {
@@ -496,9 +489,9 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
      * Handles the logic for displaying multiple instances of specific equipment types in the shelf.
      *
      * @param Collection<array-key, GameEquipment> $equipments
-     * @param Collection<array-key, GameItem>      $items
+     * @param Collection<array-key, GameEquipment> $items
      *
-     * @return Collection<array-key, GameItem>
+     * @return Collection<array-key, GameEquipment>
      */
     private function handleMultipleInstanceEquipments(Place $room, Collection $equipments, Collection $items): Collection
     {

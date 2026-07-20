@@ -1,3 +1,14 @@
+## [0.31.3](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.2...0.31.3) (2026-07-20)
+
+
+### Bug Fixes
+
+* fixed the missing tabulatrix ([1844889](https://gitlab.com/eternaltwin/mush/mush/commit/18448899217a1b2addfc085e7acc2c719966f3df))
+* jumpkin can't be found in exploration anymore ([98a07d7](https://gitlab.com/eternaltwin/mush/mush/commit/98a07d72620b8169bb79338d1c273e6540c46697))
+* log for bond action, log for exploration fight result and migration recreate properly modifiers for the status of daedalus ([dcaab7d](https://gitlab.com/eternaltwin/mush/mush/commit/dcaab7d7963cc06d6bdb4bf7712419a61c74ae00))
+* new Crowdin translations ([78b92fe](https://gitlab.com/eternaltwin/mush/mush/commit/78b92fe60e6eb6a8b4bf186d53592c7f6232c150))
+* new Crowdin translations ([05781eb](https://gitlab.com/eternaltwin/mush/mush/commit/05781ebfe1ce9a359169e89eebce2ce0118543c6))
+
 ## [0.31.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.1...0.31.2) (2026-07-19)
 
 

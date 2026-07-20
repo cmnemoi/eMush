@@ -510,7 +510,7 @@ El equipo recibe {result, select,
       </segment>
       <segment id="cristal_field_low" state="translated">
         <source>fight.cristal_field_low</source>
-        <target>La criatura se introduce en la mente de todos mediante un extraño poder antes de que puedan siquiera agarrar su equipo. Tus gritos ahogan todo lo demás: algunos se estrellan contra otros, otros caen de rodillas, incapaces de distinguir el suelo del cielo. Cuando finalmente se marchan, es a costa de haber dejado una parte de ustedes entre los cristales.</target>
+        <target>La criatura se introduce en la mente de todos mediante un extraño poder antes de que puedan siquiera agarrar sus armas. Tus gritos ahogan todo lo demás: algunos se estrellan contra otros, otros caen de rodillas, incapaces de distinguir el suelo del cielo. Cuando finalmente se marchan, es a costa de haber dejado una parte de ustedes entre los cristales.</target>
       </segment>
       <segment id="cristal_field_mid" state="translated">
         <source>fight.cristal_field_mid</source>
@@ -773,17 +773,17 @@ other {{version, select,
       </segment>
     </unit>
     <unit id="new_sector">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>new_sector.name</source>
-        <target>new_sector.name</target>
+        <target>Nuevo sector</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>new_sector.description</source>
-        <target>new_sector.description</target>
+        <target>Un nuevo sector fue añadido al planeta.</target>
       </segment>
-      <segment id="intelligent_description" state="initial">
+      <segment id="intelligent_description" state="translated">
         <source>new_sector.intelligent_description</source>
-        <target>new_sector.intelligent_description</target>
+        <target>Después de unos cuantos ademanes incomprensibles, la criatura marca un lugar en tu mapa. No sería mala idea ir a revisar.</target>
       </segment>
     </unit>
   </file>

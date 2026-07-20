@@ -4364,7 +4364,7 @@ other {# **Frutos Alienígenas**}
       </segment>
       <segment id="first_letter" state="translated">
         <source>alien_fruit_generic.first_letter</source>
-        <target>vowel</target>
+        <target>consonant</target>
       </segment>
     </unit>
     <unit id="artefact_generic">

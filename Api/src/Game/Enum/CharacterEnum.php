@@ -159,6 +159,7 @@ abstract class CharacterEnum
             self::ROLAND => 'male',
             self::STEPHEN => 'male',
             self::TERRENCE => 'male',
+            self::SOMEONE => 'non-binary',
             default => throw new \RuntimeException("No gender for character {$character}"),
         };
     }

@@ -1,3 +1,10 @@
+## [0.31.4](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.3...0.31.4) (2026-07-21)
+
+
+### Bug Fixes
+
+* someone has gender ([4b0b07e](https://gitlab.com/eternaltwin/mush/mush/commit/4b0b07e7aacee8e696245ac157c0f7b7b5df046d))
+
 ## [0.31.3](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.2...0.31.3) (2026-07-20)
 
 

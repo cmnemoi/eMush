@@ -1,43 +1,44 @@
 <template>
-    <div class="user">
-        <img
-            v-if="actor.playerName"
-            :src="characterEnum[actor.playerName]?.head"
-            alt="Character Image"
-            style="max-width: 16px;">
-        {{ actor.username }}
-        <div v-if="status?.isAlive" class="alive">
-            {{ $t('moderation.sanction.alive') }}
-        </div>
-        <div v-if="status?.isMush" class="isMush">
-            MUSH
-        </div>
-    </div>
+        <span  v-if="isMush || !isAlive">&nbsp;</span> <!-- Keep actors name centered -->
+        <span class="user">
+            <img
+                v-if="actor.playerName"
+                class="icon"
+                :src="characterEnum[actor.playerName]?.head"
+                alt="Character Image"
+                style="max-width: 16px;"
+            >
+            {{ actor.username }}
+        </span>
+        <span>
+            <img class="icon" v-if="isMush"  :src="getImgUrl('status/berzerk.png')" />
+            <img class="icon" v-if="!isAlive"  :src="getImgUrl('ui_icons/dead.png')" />
+        </span>
 </template>
 
 <script setup lang="ts">
-import { SanctionActor } from "@/entities/ModerationSanction";
-import { characterEnum } from "@/enums/character";
+import {SanctionActor} from "@/entities/ModerationSanction";
+import {characterEnum} from "@/enums/character";
+import {getImgUrl} from "@/utils/getImgUrl";
 
-defineProps<{
+withDefaults(defineProps<{
     actor: SanctionActor,
-    status?: { isAlive: boolean | null, isMush: boolean | null } | null,
-}>();
+    isAlive?: boolean
+    isMush?: boolean
+}>(), {
+    isAlive: true,
+    isMush: false,
+});
 </script>
 
 <style lang="scss" scoped>
+.icon {
+    width: 16px;
+    height: 16px;
+}
+
 .user {
     display: inline-flex;
-    flex-direction: row;
-    align-items: center;
     gap: 5px;
-}
-
-.alive {
-    color: red;
-}
-
-.isMush {
-    color: pink;
 }
 </style>

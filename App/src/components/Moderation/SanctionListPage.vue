@@ -1,5 +1,14 @@
 <template>
-    <h2 class="sanction_heading">{{ $t('moderation.sanctionsFor', { username: username }) }}</h2>
+    <div class="heading">
+        <h2>{{ $t('moderation.sanctionsFor', {username: username}) }}</h2>
+        <router-link
+            :to="{ name: 'ModerationUserListUserPage', params: { userId: userId } }"
+            class="action-button"
+        >
+            {{ $t('moderation.goToUserProfile') }}
+        </router-link>
+    </div>
+
     <div class="table-filter-container">
         <label>{{ $t('admin.show') }}
             <select v-model="pagination.pageSize" @change="updateFilter">
@@ -63,7 +72,7 @@
             {{ $t('moderation.table.moderator') }}
         </template>
         <template #row-authorName="sanction">
-            <ModerationActorCell :actor="sanction.author" />
+            <ModerationActorCell :actor="sanction.author"/>
         </template>
 
         <template #header-reason>
@@ -77,7 +86,7 @@
             {{ $t("moderation.table.moderatorMessage") }}
         </template>
         <template #row-message="sanction">
-            <ModerationCollapsibleMessage :message="sanction.message" />
+            <ModerationCollapsibleMessage :message="sanction.message"/>
         </template>
 
         <template #header-startDate>
@@ -106,13 +115,12 @@
         <template #row-actions="sanction">
             <ModerationRowActions
                 :sanction="sanction"
-                go-to-user
                 @detail="showSanctionDetails"
             />
         </template>
     </Datatable>
 
-    <h2 class="sanction_heading">{{ $t('moderation.reportsFor', { username: username }) }}</h2>
+    <h2 class="sanction_heading">{{ $t('moderation.reportsFor', {username: username}) }}</h2>
 
     <Datatable
         :headers='reportFields'
@@ -165,7 +173,7 @@
             {{ $t("moderation.table.reporterMessage") }}
         </template>
         <template #row-message="sanction">
-            <ModerationCollapsibleMessage :message="sanction.message" />
+            <ModerationCollapsibleMessage :message="sanction.message"/>
         </template>
 
         <template #header-context>
@@ -192,7 +200,6 @@
             <ModerationRowActions
                 :sanction="sanction"
                 go-to-player
-                go-to-user
                 @detail="showSanctionDetails"
             />
         </template>
@@ -210,19 +217,19 @@
 import ModerationActorCell from "@/components/Moderation/ModerationDatatable/ModerationActorCell.vue";
 import ModerationCollapsibleMessage from "@/components/Moderation/ModerationDatatable/ModerationCollapsibleMessage.vue";
 import ModerationRowActions from "@/components/Moderation/ModerationDatatable/ModerationRowActions.vue";
-import { defineComponent } from "vue";
+import {defineComponent} from "vue";
 import urlJoin from "url-join";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import qs from "qs";
 import ApiService from "@/services/api.service";
-import { mapGetters } from "vuex";
+import {mapGetters} from "vuex";
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
-import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
-import { ModerationSanction } from "@/entities/ModerationSanction";
-import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
-import { formatModerationDate } from "@/utils/moderation/formatModerationDate";
+import {moderationReasons, moderationSanctionTypes} from "@/enums/moderation_reason.enum";
+import {ModerationSanction} from "@/entities/ModerationSanction";
+import {ModerationViewPlayer} from "@/entities/ModerationViewPlayer";
+import {formatModerationDate} from "@/utils/moderation/formatModerationDate";
 import {getDaedalusId, getPlayerMush, getPlayerStatus, loadPlayerInfo} from "@/utils/moderation/playerStatusLookup";
-import { goToReportEvidence } from "@/utils/moderation/sanctionEvidenceNavigation";
+import {goToReportEvidence} from "@/utils/moderation/sanctionEvidenceNavigation";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 
 interface SanctionListData {
@@ -295,7 +302,7 @@ export default defineComponent({
                 {
                     key: 'authorName',
                     name: 'moderation.table.moderator',
-                    slot:true
+                    slot: true
                 },
                 {
                     key: 'reason',
@@ -322,7 +329,7 @@ export default defineComponent({
                 {
                     key: 'daedalusId',
                     name: 'Daedalus',
-                    slot:true,
+                    slot: true,
                     sortable: false
                 },
                 {
@@ -333,7 +340,7 @@ export default defineComponent({
                 {
                     key: 'authorName',
                     name: 'moderation.table.moderator',
-                    slot:true
+                    slot: true
                 },
                 {
                     key: 'reason',
@@ -370,9 +377,9 @@ export default defineComponent({
             sortDirection: 'DESC',
             loading: false,
             pageSizeOptions: [
-                { text: 5, value: 5 },
-                { text: 10, value: 10 },
-                { text: 20, value: 20 }
+                {text: 5, value: 5},
+                {text: 10, value: 10},
+                {text: 20, value: 20}
             ],
             typeFilter: '',
             reasonFilter: '',
@@ -416,7 +423,7 @@ export default defineComponent({
                 params.params['username'] = this.filter;
             }
             if (this.sortField) {
-                qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
+                qs.stringify(params.params['order'] = {[this.sortField]: this.sortDirection});
             }
             if (this.typeFilter) {
                 params.params['moderationAction'] = this.typeFilter;
@@ -474,12 +481,12 @@ export default defineComponent({
             }
             if (this.sortField === selectedField.key) {
                 switch (this.sortDirection) {
-                case 'DESC':
-                    this.sortDirection = 'ASC';
-                    break;
-                case 'ASC':
-                    this.sortDirection = 'DESC';
-                    break;
+                    case 'DESC':
+                        this.sortDirection = 'ASC';
+                        break;
+                    case 'ASC':
+                        this.sortDirection = 'DESC';
+                        break;
                 }
             } else {
                 this.sortDirection = 'DESC';
@@ -522,16 +529,29 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-:deep(th), :deep(td) {
-    text-align: center !important;
-}
-
 .action-button {
-    width: 100%;
+    width: 300px;
     margin: 0.2rem;
 
     @include button-style();
 }
+
+:deep(th), :deep(td) {
+    text-align: center !important;
+
+    .action-button {
+        width: 100%;
+    }
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
 .sanction_filter_options {
     display: flex;
     flex-grow: 1;

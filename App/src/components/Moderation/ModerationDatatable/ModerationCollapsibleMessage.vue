@@ -14,5 +14,12 @@ defineProps<{
 <style lang="scss" scoped>
 summary { cursor: pointer; }
 
-details { text-align: left !important; }
+details {
+    text-align: left !important;
+}
+
+span {
+    min-width: 300px !important;
+    font-style: italic;
+}
 </style>

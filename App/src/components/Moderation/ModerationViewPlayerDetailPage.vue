@@ -13,7 +13,15 @@
             @update="closeDetailAndUpdate"
         />
 
-        <h2 class="sanction_heading">{{ $t('moderation.reportToAddress') }}</h2>
+        <div class="heading">
+            <h2>{{ $t('moderation.reportToAddress') }}</h2>
+            <router-link
+                :to="{ name: 'ModerationUserListUserPage', params: { userId: player.user.userId } }"
+                class="action-button"
+            >
+                {{ $t('moderation.goToUserProfile') }}
+            </router-link>
+        </div>
         <Datatable
             :headers='reportFields'
             :row-data="playerReports"
@@ -39,7 +47,7 @@
                 {{ $t('moderation.table.reporterMessage') }}
             </template>
             <template #row-message="report">
-                <div class="left">
+                <div class="text">
                     <span>{{ report.message }}</span>
                 </div>
             </template>
@@ -48,7 +56,7 @@
                 {{ $t('moderation.table.evidence') }}
             </template>
             <template #row-evidence="report">
-                <div class="left">
+                <div class="text">
                     <span>{{ report.sanctionEvidence.message }}</span>
                 </div>
             </template>
@@ -76,7 +84,6 @@
             <template #row-actions="report">
                 <ModerationRowActions
                     :sanction="report"
-                    go-to-user
                     sanction-list
                     @detail="showSanctionDetails"
                 />
@@ -759,16 +766,32 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.action-button {
+    width: 300px;
+    margin: 0.2rem;
+
+    @include button-style();
+}
+
 :deep(th), :deep(td) {
     text-align: center !important;
 
     .action-button {
         width: 100%;
-        @include button-style();
     }
 
-    .left {
+    .text {
+        min-width: 200px;
         text-align: left !important;
+        font-style: italic;
     }
 }
 

@@ -35,7 +35,8 @@
         <template #row-authorName="report">
             <ModerationActorCell
                 :actor="report.author"
-                :status="{ isAlive: getPlayerStatus(playerInfo, report.author.playerId), isMush: getPlayerMush(playerInfo, report.author.playerId) }"
+                :is-alive="getPlayerStatus(playerInfo, report.author.playerId)"
+                :is-mush="getPlayerMush(playerInfo, report.author.playerId)"
             />
         </template>
 
@@ -45,7 +46,8 @@
         <template #row-username="report">
             <ModerationActorCell
                 :actor="report.user"
-                :status="{ isAlive: getPlayerStatus(playerInfo, report.user.playerId), isMush: getPlayerMush(playerInfo, report.user.playerId) }"
+                :is-alive="getPlayerStatus(playerInfo, report.user.playerId)"
+                :is-mush="getPlayerMush(playerInfo, report.user.playerId)"
             />
         </template>
 
@@ -60,7 +62,7 @@
             {{ $t('moderation.table.reporterMessage') }}
         </template>
         <template #row-message="report">
-            <div class="left">
+            <div class="text">
                 <span>{{ report.message }}</span>
             </div>
         </template>
@@ -343,8 +345,10 @@ export default defineComponent({
 :deep(th), :deep(td) {
     text-align: center !important;
 
-    .left {
+    .text {
         text-align: left !important;
+        min-width: 300px !important;
+        font-style: italic;
     }
 }
 

@@ -8,12 +8,12 @@ export function findPlayerInfo(playerInfo: ModerationViewPlayer[], playerId: num
     return playerInfo.find(player => player.id === playerId);
 }
 
-export function getPlayerStatus(playerInfo: ModerationViewPlayer[], playerId: number | null): boolean | null {
-    return findPlayerInfo(playerInfo, playerId)?.isAlive ?? null;
+export function getPlayerStatus(playerInfo: ModerationViewPlayer[], playerId: number | null): boolean {
+    return findPlayerInfo(playerInfo, playerId)?.isAlive ?? true;
 }
 
-export function getPlayerMush(playerInfo: ModerationViewPlayer[], playerId: number | null): boolean | null {
-    return findPlayerInfo(playerInfo, playerId)?.isMush ?? null;
+export function getPlayerMush(playerInfo: ModerationViewPlayer[], playerId: number | null): boolean {
+    return findPlayerInfo(playerInfo, playerId)?.isMush ?? false;
 }
 
 export function getDaedalusId(playerInfo: ModerationViewPlayer[], playerId: number | null): number | null {

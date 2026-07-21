@@ -1,3 +1,10 @@
+## [0.31.5](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.4...0.31.5) (2026-07-21)
+
+
+### Bug Fixes
+
+* typo ([7b44d6a](https://gitlab.com/eternaltwin/mush/mush/commit/7b44d6a8bcfa7c286bfa4b6c072fd141fe26bb89))
+
 ## [0.31.4](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.3...0.31.4) (2026-07-21)
 
 

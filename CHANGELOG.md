@@ -1,3 +1,10 @@
+## [0.31.6](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.5...0.31.6) (2026-07-22)
+
+
+### Bug Fixes
+
+* rebel bases do not give moral ([2cf9e32](https://gitlab.com/eternaltwin/mush/mush/commit/2cf9e3259421e435a51a7ad7f961b8b9b5476f6b))
+
 ## [0.31.5](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.4...0.31.5) (2026-07-21)
 
 

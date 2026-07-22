@@ -84,5 +84,6 @@ class RebelBaseConfig
         $this->contactOrder = $rebelBaseConfig->contactOrder;
         $this->modifierConfigs = $rebelBaseConfig->modifierConfigs;
         $this->statusConfig = $rebelBaseConfig->statusConfig;
+        $this->moral = $rebelBaseConfig->moral;
     }
 }

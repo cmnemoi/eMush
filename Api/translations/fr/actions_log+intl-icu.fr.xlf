@@ -138,12 +138,16 @@
     <unit id="relax_success">
       <segment id="relax_success" state="translated">
         <source>relax_success</source>
-        <target>**{character}** et **{target_character}** éteignent la lumière et des bruits étranges se produisent... {target_character_gender, select, 
+        <target>**{character}** et **{target_character}**  passent un moment ensemble, loin de l'agitation du vaisseau et de leurs soucis. Le temps passe vite quand on est en bonne compagnie, et {target_character_gender, select, 
           female {{character_gender, select,
-            female {Quelques minutes plus tard, elles rallument. Elles ont un air satisfait.}
-            other {Quelques minutes plus tard, ils rallument. Ils ont un air satisfait.}
+            female {elles semblent plus tranquilles ensuite.}
+            other {les deux semblent plus tranquilles ensuite.}
           }}
-          other {Quelques minutes plus tard, ils rallument. Ils ont un air satisfait.}
+          male {{character_gender, select,
+            male {ils semblent plus tranquilles ensuite.}
+            other {les deux semblent plus tranquilles ensuite.}
+          }}
+          other {les deux semblent plus tranquilles ensuite.}
         }</target>
       </segment>
     </unit>

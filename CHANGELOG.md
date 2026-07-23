@@ -1,3 +1,10 @@
+## [0.31.8](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.7...0.31.8) (2026-07-23)
+
+
+### Bug Fixes
+
+* Make the report and sanction texts larger ([c9245e1](https://gitlab.com/eternaltwin/mush/mush/commit/c9245e1f51c006e27c6aa2095f70c7c5ecfb44fd))
+
 ## [0.31.7](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.6...0.31.7) (2026-07-23)
 
 

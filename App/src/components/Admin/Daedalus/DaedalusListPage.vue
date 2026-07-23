@@ -24,6 +24,12 @@
         <DropList class="align-right" :name="$t('admin.daedalus.globalActions')">
             <router-link :to="{ name: 'AdminDaedalusCreate' }">{{$t("admin.daedalus.create")}}</router-link>
             <router-link :to="{ name: 'AdminNeronAnnouncement' }">{{$t("admin.neronAnnouncement.sendNeronAnnouncement")}}</router-link>
+            <button type="button" @click="createModifiers">
+                Create all modifiers for active daedalus
+            </button>
+            <button type="button" @click="deleteModifiers">
+                Delete all modifiers for active daedalus
+            </button>
             <button type="button" @click="destroyAllDaedaluses">
                 {{$t("admin.daedalus.destroyAllDaedaluses")}}
             </button>
@@ -196,6 +202,16 @@ export default defineComponent({
         },
         destroyAllDaedaluses() {
             DaedalusService.destroyAllDaedaluses().then(() => {
+                this.loadData();
+            });
+        },
+        createModifiers() {
+            AdminService.createModifiers().then(() => {
+                this.loadData();
+            });
+        },
+        deleteModifiers() {
+            AdminService.deleteModifiers().then(() => {
                 this.loadData();
             });
         },

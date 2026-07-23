@@ -21,17 +21,13 @@ class MigrateCommand extends Command
 {
     private CreateDaedalusCommand $createDaedalusCommand;
     private LoadConfigsDataCommand $loadConfigDataCommand;
-    private DeleteAllModifiersCommand $deleteAllModifiersCommand;
-    private CreateAllModifiersCommand $createAllModifiersCommand;
 
-    public function __construct(CreateDaedalusCommand $createDaedalusCommand, LoadConfigsDataCommand $loadConfigDataCommand, DeleteAllModifiersCommand $deleteAllModifiersCommand, CreateAllModifiersCommand $createAllModifiersCommand)
+    public function __construct(CreateDaedalusCommand $createDaedalusCommand, LoadConfigsDataCommand $loadConfigDataCommand)
     {
         parent::__construct();
 
         $this->createDaedalusCommand = $createDaedalusCommand;
         $this->loadConfigDataCommand = $loadConfigDataCommand;
-        $this->deleteAllModifiersCommand = $deleteAllModifiersCommand;
-        $this->createAllModifiersCommand = $createAllModifiersCommand;
     }
 
     protected function configure(): void
@@ -46,9 +42,7 @@ class MigrateCommand extends Command
         $io->title('Migrating database...');
 
         $this->updateSchema($output);
-        $this->deleteAllModifiers($output);
         $this->loadConfigData($output);
-        $this->createAllModifiers($output);
         $this->createDaedalusCommand->execute($input, $output);
 
         $io->success('Migration completed.');
@@ -70,40 +64,6 @@ class MigrateCommand extends Command
             $output->writeln('<error>Error loading config data: ' . $e->getMessage() . '</error>');
 
             throw new \RuntimeException('Error loading config data: ' . $e->getMessage());
-        }
-    }
-
-    private function deleteAllModifiers(OutputInterface $output): void
-    {
-        $loadConfigDataArguments = [
-            'command' => 'mush:delete-all-modifiers',
-        ];
-
-        $deleteAllModifiersDataInput = new ArrayInput($loadConfigDataArguments);
-
-        try {
-            $this->deleteAllModifiersCommand->execute($deleteAllModifiersDataInput, $output);
-        } catch (\Exception $e) {
-            $output->writeln('<error>Error deleting all modifiers: ' . $e->getMessage() . '</error>');
-
-            throw new \RuntimeException('Error deleting all modifiers: ' . $e->getMessage());
-        }
-    }
-
-    private function createAllModifiers(OutputInterface $output): void
-    {
-        $loadConfigDataArguments = [
-            'command' => 'mush:create-all-modifiers',
-        ];
-
-        $createAllModifiersDataInput = new ArrayInput($loadConfigDataArguments);
-
-        try {
-            $this->createAllModifiersCommand->execute($createAllModifiersDataInput, $output);
-        } catch (\Exception $e) {
-            $output->writeln('<error>Error creating all modifiers: ' . $e->getMessage() . '</error>');
-
-            throw new \RuntimeException('Error creating all modifiers: ' . $e->getMessage());
         }
     }
 

@@ -93,6 +93,20 @@ const AdminService = {
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;
+    },
+    deleteModifiers: async(): Promise<AxiosResponse> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(urlJoin(ADMIN_ENDPOINT, 'delete-modifiers'));
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
+    createModifiers: async(): Promise<AxiosResponse> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(urlJoin(ADMIN_ENDPOINT, 'create-modifiers'));
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
     }
 
 };

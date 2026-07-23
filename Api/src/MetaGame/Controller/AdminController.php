@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Entity\Collection\AlertElementCollection;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Chat\Services\NeronMessageServiceInterface;
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Validator\ErrorHandlerTrait;
 use Mush\MetaGame\Service\AdminServiceInterface;
+use Mush\Modifier\Service\ModifierCreateByDaedalusService;
+use Mush\Modifier\Service\ModifierDeleteByDaedalusService;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Service\PlaceServiceInterface;
@@ -49,6 +54,10 @@ class AdminController extends AbstractController
         PlaceServiceInterface $placeService,
         PlayerServiceInterface $playerService,
         NeronMessageServiceInterface $neronMessageService,
+        private DaedalusRepository $daedalusRepository,
+        private EntityManagerInterface $entityManager,
+        private ModifierCreateByDaedalusService $modifierCreateByDaedalusService,
+        private ModifierDeleteByDaedalusService $modifierDeleteByDaedalusService,
     ) {
         $this->adminService = $adminService;
         $this->alertService = $alertService;
@@ -321,6 +330,58 @@ class AdminController extends AbstractController
         $this->explorationService->closeExploration($exploration, reasons: []);
 
         return $this->json('Exploration closed successfully', Response::HTTP_OK);
+    }
+
+    /**
+     * Create all modifiers for active ships.
+     */
+    #[Route('/create-modifiers', methods: ['POST'])]
+    public function createModifiers(): JsonResponse
+    {
+        $this->denyAccessIfNotAdmin();
+
+        try {
+            $this->entityManager->beginTransaction();
+            foreach ($this->daedalusRepository->findNonFinishedDaedaluses() as $daedalus) {
+                if ($daedalus instanceof Daedalus) {
+                    $this->modifierCreateByDaedalusService->execute($daedalus);
+                }
+            }
+
+            $this->entityManager->commit();
+        } catch (\Throwable $e) {
+            $this->entityManager->rollback();
+
+            throw $e;
+        }
+
+        return $this->json('Modifiers created.', Response::HTTP_OK);
+    }
+
+    /**
+     * Remove all modifiers for active ships.
+     */
+    #[Route('/delete-modifiers', methods: ['POST'])]
+    public function deleteModifiers(): JsonResponse
+    {
+        $this->denyAccessIfNotAdmin();
+
+        try {
+            $this->entityManager->beginTransaction();
+            foreach ($this->daedalusRepository->findNonFinishedDaedaluses() as $daedalus) {
+                if ($daedalus instanceof Daedalus) {
+                    $this->modifierDeleteByDaedalusService->execute($daedalus);
+                }
+            }
+
+            $this->entityManager->commit();
+        } catch (\Throwable $e) {
+            $this->entityManager->rollback();
+
+            throw $e;
+        }
+
+        return $this->json('Modifiers deleted.', Response::HTTP_OK);
     }
 
     private function alertElementHaveSameEquipmentOrPlace(AlertElement $element1, AlertElement $element2): bool

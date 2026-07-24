@@ -11,6 +11,7 @@ use Mush\Chat\Services\ChannelServiceInterface;
 use Mush\Chat\Services\MessageServiceInterface;
 use Mush\Chat\Specification\SpecificationInterface;
 use Mush\Chat\Voter\ChannelVoter;
+use Mush\Chat\Voter\MessageVoter;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Controller\AbstractGameController;
 use Mush\Game\Service\CycleServiceInterface;
@@ -29,6 +30,7 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/channel')]
@@ -390,6 +392,7 @@ class ChannelController extends AbstractGameController
      * Put a message in favorites.
      */
     #[Route('/favorite-message/{id}', requirements: ['id' => '\d+'], methods: ['POST'])]
+    #[IsGranted(MessageVoter::FAVORITE, subject: 'message')]
     public function favoriteMessageAction(Message $message): JsonResponse
     {
         if ($maintenanceView = $this->denyAccessIfGameInMaintenance()) {
@@ -398,13 +401,7 @@ class ChannelController extends AbstractGameController
 
         /** @var User $user */
         $user = $this->getUser();
-        $this->denyAccessUnlessGranted(UserVoter::USER_IN_GAME, $user);
         $player = $this->getUserPlayer($user);
-
-        $channel = $message->getChannel();
-        if ($channel->getDaedalusInfo()->getDaedalus() !== $player->getDaedalus()) {
-            return $this->json(['error' => 'You are not from this Daedalus!'], Response::HTTP_FORBIDDEN);
-        }
 
         $this->messageService->putMessageInFavoritesForPlayer($message, $player);
 

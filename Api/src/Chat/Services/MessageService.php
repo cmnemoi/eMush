@@ -187,6 +187,10 @@ final class MessageService implements MessageServiceInterface
         /** @var Message $rootMessage */
         $rootMessage = $message->isRoot() ? $message : $message->getParent();
 
+        if (!$rootMessage->getChannel()->isPublic()) {
+            throw new \InvalidArgumentException('Only public channel messages can be favorites.');
+        }
+
         $rootMessage
             ->addFavorite($player)
             ->cancelTimestampable();

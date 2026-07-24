@@ -21,6 +21,7 @@ final class MessageVoter extends Voter
 {
     public const VIEW = 'view';
     public const CREATE = 'create';
+    public const FAVORITE = 'favorite';
 
     private ChannelServiceInterface $channelService;
     private PlayerInfoRepositoryInterface $playerInfoRepository;
@@ -36,7 +37,7 @@ final class MessageVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         // if the attribute isn't one we support, return false
-        if (!\in_array($attribute, [self::VIEW, self::CREATE], true)) {
+        if (!\in_array($attribute, [self::VIEW, self::CREATE, self::FAVORITE], true)) {
             return false;
         }
 
@@ -61,15 +62,11 @@ final class MessageVoter extends Voter
         /** @var Message $subject */
         $channel = $subject->getChannel();
 
-        switch ($attribute) {
-            case self::VIEW:
-                return $this->canView($channel, $playerInfo);
-
-            case self::CREATE:
-                return $this->canCreate($channel, $playerInfo);
-        }
-
-        throw new \LogicException('This code should not be reached!');
+        return match ($attribute) {
+            self::VIEW => $this->canView($channel, $playerInfo),
+            self::CREATE => $this->canCreate($channel, $playerInfo),
+            self::FAVORITE => $this->canFavorite($channel, $playerInfo),
+        };
     }
 
     private function canView(Channel $channel, PlayerInfo $playerInfo): bool
@@ -98,5 +95,15 @@ final class MessageVoter extends Voter
                 || $channel->isPlayerParticipant($playerInfo)
                 || ($piratedPlayer && $channel->isPlayerParticipant($piratedPlayer->getPlayerInfo()))
             );
+    }
+
+    private function canFavorite(Channel $channel, PlayerInfo $playerInfo): bool
+    {
+        /** @var Player $player */
+        $player = $playerInfo->getPlayer();
+
+        return $this->canView($channel, $playerInfo)
+            && $channel->isPublic()
+            && $channel->getDaedalusInfo()->getDaedalus() === $player->getDaedalus();
     }
 }

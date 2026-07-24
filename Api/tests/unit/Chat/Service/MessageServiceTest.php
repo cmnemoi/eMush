@@ -197,11 +197,21 @@ final class MessageServiceTest extends TestCase
     public function testShouldPutMessageInFavorites(): void
     {
         $player = $this->givenPlayer();
-        $message = $this->givenMessage();
+        $message = $this->givenPublicMessage();
 
         $this->whenPuttingMessageInFavorites($player, $message);
 
         $this->thenMessageShouldBeInFavorites($player, $message);
+    }
+
+    public function testShouldNotPutPrivateMessageInFavorites(): void
+    {
+        $player = $this->givenPlayer();
+        $message = $this->givenPrivateMessage();
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->whenPuttingMessageInFavorites($player, $message);
     }
 
     public function testShouldRemoveMessageFromFavorites(): void
@@ -451,6 +461,14 @@ final class MessageServiceTest extends TestCase
         return $channel;
     }
 
+    private function givenPrivateChannel(): Channel
+    {
+        $channel = new Channel();
+        $channel->setScope(ChannelScopeEnum::PRIVATE);
+
+        return $channel;
+    }
+
     /**
      * @return Message[]
      */
@@ -504,6 +522,25 @@ final class MessageServiceTest extends TestCase
     private function givenMessage(): Message
     {
         $message = new Message();
+        $this->messageRepository->save($message);
+
+        return $message;
+    }
+
+    private function givenPublicMessage(): Message
+    {
+        return $this->givenMessageInChannel($this->givenPublicChannel());
+    }
+
+    private function givenPrivateMessage(): Message
+    {
+        return $this->givenMessageInChannel($this->givenPrivateChannel());
+    }
+
+    private function givenMessageInChannel(Channel $channel): Message
+    {
+        $message = new Message();
+        $message->setChannel($channel);
         $this->messageRepository->save($message);
 
         return $message;

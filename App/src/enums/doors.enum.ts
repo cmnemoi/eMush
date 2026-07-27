@@ -66,7 +66,7 @@ export const DoorsEnum: Array<Doors> = [
         room2: 'laboratory'
     },
     {
-        name: 'medlab_centre_bravo_turret',
+        name: 'medlab_central_bravo_turret',
         svg: 'M68.5,73.026l3,-0',
         room1: 'medlab',
         room2: 'centre_bravo_turret'
@@ -84,7 +84,7 @@ export const DoorsEnum: Array<Doors> = [
         room2: 'centre_alpha_turret'
     },
     {
-        name: 'alpha_bay_centre_alpha_turret',
+        name: 'alpha_bay_central_alpha_turret',
         svg: 'M75,16.5l0,3',
         room1: 'alpha_bay',
         room2: 'centre_alpha_turret'
@@ -162,7 +162,7 @@ export const DoorsEnum: Array<Doors> = [
         room2: 'bravo_dorm'
     },
     {
-        name: 'rear_corridor_alpha_bay_2',
+        name: 'rear_corridor_bay_alpha_2',
         svg: 'M120.469,22.99l3,-0',
         room1: 'rear_corridor',
         room2: 'alpha_bay_2'
@@ -174,7 +174,7 @@ export const DoorsEnum: Array<Doors> = [
         room2: 'nexus'
     },
     {
-        name: 'rear_corridor_icarus_bay',
+        name: 'rear_corridor_bay_icarus',
         svg: 'M125.013,76.522l-0,3',
         room1: 'rear_corridor',
         room2: 'icarus_bay'
@@ -198,7 +198,7 @@ export const DoorsEnum: Array<Doors> = [
         room2: 'alpha_bay_2'
     },
     {
-        name: 'engine_room_icarus_bay',
+        name: 'engine_room_bay_icarus',
         svg: 'M152.467,73.026l3,-0',
         room1: 'engine_room',
         room2: 'icarus_bay'
@@ -228,7 +228,7 @@ export const DoorsEnum: Array<Doors> = [
         room2: 'rear_bravo_turret'
     },
     {
-        name: 'rear_alpha_turret_alpha_bay_2',
+        name: 'rear_alpha_turret_bay_alpha_2',
         svg: 'M158.967,16.5l-0,3',
         room1: 'rear_alpha_turret',
         room2: 'alpha_bay_2'

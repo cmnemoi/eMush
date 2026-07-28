@@ -3127,6 +3127,66 @@
         <target>alien_steak.examine</target>
       </segment>
     </unit>
+    <unit id="alien_fish">
+      <segment id="name" state="translated">
+        <source>alien_fish.name</source>
+        <target>alien_fish.name</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>alien_fish.short_name</source>
+        <target>alien_fish.short_name</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>alien_fish.plural_name</source>
+        <target>alien_fish.plural_name</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>alien_fish.gender</source>
+        <target>alien_fish.gender</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>alien_fish.first_letter</source>
+        <target>alien_fish.first_letter</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>alien_fish.description</source>
+        <target>alien_fish.description</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>alien_fish.examine</source>
+        <target>alien_fish.examine</target>
+      </segment>
+    </unit>
+    <unit id="alien_insect">
+      <segment id="name" state="translated">
+        <source>alien_insect.name</source>
+        <target>alien_insect.name</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>alien_insect.short_name</source>
+        <target>alien_insect.short_name</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>alien_insect.plural_name</source>
+        <target>alien_insect.plural_name</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>alien_insect.gender</source>
+        <target>alien_insect.gender</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>alien_insect.first_letter</source>
+        <target>alien_insect.first_letter</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>alien_insect.description</source>
+        <target>alien_insect.description</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>alien_insect.examine</source>
+        <target>alien_insect.examine</target>
+      </segment>
+    </unit>
     <unit id="anabolic">
       <segment id="name" state="translated">
         <source>anabolic.name</source>

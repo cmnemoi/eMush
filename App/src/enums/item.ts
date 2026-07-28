@@ -139,6 +139,8 @@ const STANDARD_RATION = "standard_ration";
 const COOKED_RATION = "cooked_ration";
 const ORGANIC_WASTE = "organic_waste";
 const ALIEN_STEAK = "alien_steak";
+const ALIEN_FISH = "alien_fish";
+const ALIEN_INSECT = "alien_insect";
 const SUPERVITAMIN_BAR = "supervitamin_bar";
 const LOMBRICK_BAR = "lombrick_bar";
 const SPACE_POTATO = "space_potato";
@@ -480,6 +482,12 @@ export const itemEnum: {[index: string]: {image: string}} = {
     },
     [ALIEN_STEAK]: {
         'image': getImgUrl('items/alien_steak.jpg')
+    },
+    [ALIEN_FISH]: {
+        'image': getImgUrl('items/alien_fish.png')
+    },
+    [ALIEN_INSECT]: {
+        'image': getImgUrl('items/alien_insect.png')
     },
     [THERMOSENSOR]: {
         'image': getImgUrl('items/heat_seeker.jpg')

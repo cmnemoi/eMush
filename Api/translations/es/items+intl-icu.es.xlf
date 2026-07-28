@@ -3456,6 +3456,66 @@ Sirve para colocar una planta en el jardín.</target>
         <target>A veces, el mejor contacto con seres de otros planetas pasa por el estómago.</target>
       </segment>
     </unit>
+    <unit id="alien_fish">
+      <segment id="name" state="translated">
+        <source>alien_fish.name</source>
+        <target>Filete de Pez Alien</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>alien_fish.short_name</source>
+        <target>Filete de Pez Alien</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>alien_fish.plural_name</source>
+        <target>Filetes de Pez Alien</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>alien_fish.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>alien_fish.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>alien_fish.description</source>
+        <target>A veces, el mejor contacto con seres de otros planetas pasa por el estómago.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>alien_fish.examine</source>
+        <target>A veces, el mejor contacto con seres de otros planetas pasa por el estómago.</target>
+      </segment>
+    </unit>
+    <unit id="alien_insect">
+      <segment id="name" state="translated">
+        <source>alien_insect.name</source>
+        <target>Insecto Alien</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>alien_insect.short_name</source>
+        <target>Insecto Alien</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>alien_insect.plural_name</source>
+        <target>Insectos Alien</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>alien_insect.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>alien_insect.first_letter</source>
+        <target>vowel</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>alien_insect.description</source>
+        <target>A veces, el mejor contacto con seres de otros planetas pasa por el estómago.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>alien_insect.examine</source>
+        <target>A veces, el mejor contacto con seres de otros planetas pasa por el estómago.</target>
+      </segment>
+    </unit>
     <unit id="anabolic">
       <segment id="name" state="translated">
         <source>anabolic.name</source>

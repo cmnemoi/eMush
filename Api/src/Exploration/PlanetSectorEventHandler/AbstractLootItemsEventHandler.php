@@ -147,7 +147,7 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
         $exploration = $event->getExploration();
 
         return match ($event->getReward()) {
-            GameRationEnum::ALIEN_STEAK => $exploration->getNumberOfActiveSurvivalists(),
+            GameRationEnum::ALIEN_STEAK, GameRationEnum::ALIEN_FISH, GameRationEnum::ALIEN_INSECT => $exploration->getNumberOfActiveSurvivalists(),
             GameFruitEnum::ALIEN_FRUIT_GENERIC => $exploration->getNumberOfActiveBotanists(),
             default => 0,
         };
@@ -158,7 +158,7 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
         $exploration = $event->getExploration();
 
         return match ($event->getReward()) {
-            GameRationEnum::ALIEN_STEAK => $exploration->getNumberOfChefsKnives(),
+            GameRationEnum::ALIEN_STEAK, GameRationEnum::ALIEN_FISH, GameRationEnum::ALIEN_INSECT => $exploration->getNumberOfChefsKnives(),
             default => 0,
         };
     }
@@ -166,7 +166,7 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
     private function getBonusSkillFromEvent(PlanetSectorEvent $event): SkillEnum
     {
         return match ($event->getReward()) {
-            GameRationEnum::ALIEN_STEAK => SkillEnum::SURVIVALIST,
+            GameRationEnum::ALIEN_STEAK, GameRationEnum::ALIEN_FISH, GameRationEnum::ALIEN_INSECT => SkillEnum::SURVIVALIST,
             GameFruitEnum::ALIEN_FRUIT_GENERIC => SkillEnum::BOTANIST,
             default => SkillEnum::NULL,
         };

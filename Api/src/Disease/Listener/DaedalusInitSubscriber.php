@@ -35,6 +35,8 @@ class DaedalusInitSubscriber implements EventSubscriberInterface
         }
 
         $this->consumableDiseaseService->createConsumableDiseases(GameRationEnum::ALIEN_STEAK, $daedalus);
+        $this->consumableDiseaseService->createConsumableDiseases(GameRationEnum::ALIEN_FISH, $daedalus);
+        $this->consumableDiseaseService->createConsumableDiseases(GameRationEnum::ALIEN_INSECT, $daedalus);
         $this->consumableDiseaseService->createConsumableDiseases(GameRationEnum::SUPERVITAMIN_BAR, $daedalus);
     }
 }

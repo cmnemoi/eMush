@@ -482,7 +482,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             sectorName: PlanetSectorEnum::INTELLIGENT,
             events: [
                 PlanetSectorEvent::FIGHT_ALIEN => PHP_INT_MAX - 1,
-                PlanetSectorEvent::PROVISION_2 => 1,
+                PlanetSectorEvent::PROVISION_2_STEAK => 1,
             ]
         );
 
@@ -540,7 +540,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $I->assertEquals(
             expected: [
                 PlanetSectorEvent::FIGHT_ALIEN => PHP_INT_MAX - 1,
-                PlanetSectorEvent::PROVISION_2 => 1,
+                PlanetSectorEvent::PROVISION_2_STEAK => 1,
             ],
             actual: $intelligentSector->getExplorationEvents()->toArray(),
         );
@@ -590,7 +590,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
             sectorName: PlanetSectorEnum::INTELLIGENT,
             events: [
                 PlanetSectorEvent::FIGHT_ALIEN => PHP_INT_MAX - 1,
-                PlanetSectorEvent::PROVISION_2 => 1,
+                PlanetSectorEvent::PROVISION_2_STEAK => 1,
             ]
         );
 
@@ -639,7 +639,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         // given ruminant sector has only provision event
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::RUMINANT,
-            events: [PlanetSectorEvent::PROVISION_4 => 1]
+            events: [PlanetSectorEvent::PROVISION_4_STEAK => 1]
         );
 
         // given exploration is created
@@ -676,7 +676,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         // given ruminant sector has only provision event
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::RUMINANT,
-            events: [PlanetSectorEvent::PROVISION_2 => 1]
+            events: [PlanetSectorEvent::PROVISION_2_STEAK => 1]
         );
 
         // given exploration is created
@@ -971,7 +971,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         // given ruminant sector has only provision event
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::RUMINANT,
-            events: [PlanetSectorEvent::PROVISION_4 => 1]
+            events: [PlanetSectorEvent::PROVISION_4_STEAK => 1]
         );
 
         // given Chun and KT have a spacesuit
@@ -1026,7 +1026,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         // given ruminant sector has only provision event
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::RUMINANT,
-            events: [PlanetSectorEvent::PROVISION_4 => 1]
+            events: [PlanetSectorEvent::PROVISION_4_STEAK => 1]
         );
 
         // given Chun and KT have a spacesuit

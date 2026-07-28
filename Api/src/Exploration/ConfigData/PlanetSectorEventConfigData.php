@@ -136,16 +136,16 @@ final class PlanetSectorEventConfigData
                 tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
             new PlanetSectorEventConfigDto(
-                name: PlanetSectorEvent::PROVISION_1,
+                name: PlanetSectorEvent::PROVISION_1_INSECT,
                 eventName: PlanetSectorEvent::PROVISION,
                 outputQuantity: [1 => 1],
                 outputTable: [
-                    'alien_steak' => 1,
+                    'alien_insect' => 1,
                 ],
                 tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
-                name: PlanetSectorEvent::PROVISION_2,
+                name: PlanetSectorEvent::PROVISION_2_STEAK,
                 eventName: PlanetSectorEvent::PROVISION,
                 outputQuantity: [2 => 1],
                 outputTable: [
@@ -154,7 +154,25 @@ final class PlanetSectorEventConfigData
                 tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
-                name: PlanetSectorEvent::PROVISION_3,
+                name: PlanetSectorEvent::PROVISION_2_FISH,
+                eventName: PlanetSectorEvent::PROVISION,
+                outputQuantity: [2 => 1],
+                outputTable: [
+                    'alien_fish' => 1,
+                ],
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
+            ),
+            new PlanetSectorEventConfigDto(
+                name: PlanetSectorEvent::PROVISION_2_INSECT,
+                eventName: PlanetSectorEvent::PROVISION,
+                outputQuantity: [2 => 1],
+                outputTable: [
+                    'alien_insect' => 1,
+                ],
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
+            ),
+            new PlanetSectorEventConfigDto(
+                name: PlanetSectorEvent::PROVISION_3_STEAK,
                 eventName: PlanetSectorEvent::PROVISION,
                 outputQuantity: [3 => 1],
                 outputTable: [
@@ -163,7 +181,16 @@ final class PlanetSectorEventConfigData
                 tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
             new PlanetSectorEventConfigDto(
-                name: PlanetSectorEvent::PROVISION_4,
+                name: PlanetSectorEvent::PROVISION_3_FISH,
+                eventName: PlanetSectorEvent::PROVISION,
+                outputQuantity: [3 => 1],
+                outputTable: [
+                    'alien_fish' => 1,
+                ],
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
+            ),
+            new PlanetSectorEventConfigDto(
+                name: PlanetSectorEvent::PROVISION_4_STEAK,
                 eventName: PlanetSectorEvent::PROVISION,
                 outputQuantity: [4 => 1],
                 outputTable: [

@@ -520,7 +520,7 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
      */
     public function shouldBeTransformedIntoStandardRation(): bool
     {
-        return (new ArrayCollection([GameRationEnum::COOKED_RATION, GameRationEnum::ALIEN_STEAK]))->contains($this->getName());
+        return (new ArrayCollection(GameRationEnum::getAllTransformToRation()))->contains($this->getName());
     }
 
     public function isInPlaceByName(string $place): bool

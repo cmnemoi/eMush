@@ -89,7 +89,7 @@ final class PlanetSectorConfigData
             'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 7,
-                PlanetSectorEvent::PROVISION_3 => 2,
+                PlanetSectorEvent::PROVISION_3_FISH => 2,
                 PlanetSectorEvent::PLAYER_LOST => 1,
             ],
         ],
@@ -115,8 +115,8 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 4,
             'explorationEvents' => [
-                PlanetSectorEvent::PROVISION_4 => 4,
-                PlanetSectorEvent::PROVISION_2 => 3,
+                PlanetSectorEvent::PROVISION_4_STEAK => 4,
+                PlanetSectorEvent::PROVISION_2_STEAK => 3,
                 PlanetSectorEvent::ACCIDENT_3_5 => 2,
                 PlanetSectorEvent::FIGHT_CHABCHAB => 1,
             ],
@@ -132,7 +132,7 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::FIGHT_PREDATOR => 4,
                 PlanetSectorEvent::ACCIDENT_3_5 => 3,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 2,
-                PlanetSectorEvent::PROVISION_3 => 1,
+                PlanetSectorEvent::PROVISION_3_STEAK => 1,
             ],
         ],
         [
@@ -144,7 +144,9 @@ final class PlanetSectorConfigData
             'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::FIGHT_ALIEN => 4,
-                PlanetSectorEvent::PROVISION_2 => 3,
+                PlanetSectorEvent::PROVISION_2_STEAK => 1,
+                PlanetSectorEvent::PROVISION_2_FISH => 1,
+                PlanetSectorEvent::PROVISION_2_INSECT => 1,
                 PlanetSectorEvent::ARTEFACT => 2,
                 PlanetSectorEvent::ITEM_LOST => 1,
             ],
@@ -159,7 +161,7 @@ final class PlanetSectorConfigData
             'explorationEvents' => [
                 PlanetSectorEvent::ACCIDENT_3_5 => 4,
                 PlanetSectorEvent::DISEASE => 3,
-                PlanetSectorEvent::PROVISION_1 => 2,
+                PlanetSectorEvent::PROVISION_1_INSECT => 2,
                 PlanetSectorEvent::FIGHT_INSECT => 1,
             ],
         ],

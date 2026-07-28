@@ -927,7 +927,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             sectorName: PlanetSectorEnum::INSECT,
             events: [
                 PlanetSectorEvent::FIGHT_ZOMBIES => PHP_INT_MAX - 2,
-                PlanetSectorEvent::PROVISION_1 => 1,
+                PlanetSectorEvent::PROVISION_1_INSECT => 1,
                 PlanetSectorEvent::ACCIDENT_3_5 => 1,
             ]
         );
@@ -1014,7 +1014,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // given only provision event can happen in oceanic sector
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::OCEAN,
-            events: [PlanetSectorEvent::PROVISION_3 => 1]
+            events: [PlanetSectorEvent::PROVISION_3_FISH => 1]
         );
 
         $this->givenEveryoneHasZeroTriumph();
@@ -1022,10 +1022,10 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // when provision event is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
 
-        // then I should see 3 alien steaks in planet place
-        $I->assertCount(3, $this->daedalus->getPlanetPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === GameRationEnum::ALIEN_STEAK));
+        // then I should see 3 alien fish in planet place
+        $I->assertCount(3, $this->daedalus->getPlanetPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === GameRationEnum::ALIEN_FISH));
 
-        // then I should see 3 public logs in planet place to tell an explorator has found an alien steak
+        // then I should see 3 public logs in planet place to tell an explorator has found an alien fish
         $roomLogs = $I->grabEntitiesFromRepository(
             entity: RoomLog::class,
             params: [
@@ -1036,7 +1036,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
         $I->assertCount(3, $roomLogs);
         $roomLogParameters = $roomLogs[0]->getParameters();
-        $I->assertEquals(GameRationEnum::ALIEN_STEAK, $roomLogParameters['target_item']);
+        $I->assertEquals(GameRationEnum::ALIEN_FISH, $roomLogParameters['target_item']);
 
         // then the founder should be Chun, Kuan-Ti or Janice (not Derek - stuck in ship)
         $I->assertTrue(\in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName(), $this->janice->getLogName()], true));
@@ -1845,7 +1845,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
 
         $this->givenOnlyThisEventCanHappenInSector(
-            event: PlanetSectorEvent::PROVISION_4,
+            event: PlanetSectorEvent::PROVISION_4_STEAK,
             sector: PlanetSectorEnum::RUMINANT,
         );
 
@@ -1865,7 +1865,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
 
         $this->givenOnlyThisEventCanHappenInSector(
-            event: PlanetSectorEvent::PROVISION_4,
+            event: PlanetSectorEvent::PROVISION_4_STEAK,
             sector: PlanetSectorEnum::RUMINANT,
         );
 

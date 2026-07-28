@@ -62,10 +62,13 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
     public const string OXYGEN_16 = 'oxygen_16';
     public const string OXYGEN_24 = 'oxygen_24';
     public const string PROVISION = 'provision';
-    public const string PROVISION_1 = 'provision_1';
-    public const string PROVISION_2 = 'provision_2';
-    public const string PROVISION_3 = 'provision_3';
-    public const string PROVISION_4 = 'provision_4';
+    public const string PROVISION_1_INSECT = 'provision_1_insect';
+    public const string PROVISION_2_STEAK = 'provision_2_steak';
+    public const string PROVISION_2_FISH = 'provision_2_fish';
+    public const string PROVISION_2_INSECT = 'provision_2_insect';
+    public const string PROVISION_3_STEAK = 'provision_3_steak';
+    public const string PROVISION_3_FISH = 'provision_3_fish';
+    public const string PROVISION_4_STEAK = 'provision_4_steak';
     public const string STARMAP = 'starmap';
     public const string TIRED = 'tired';
     public const string TIRED_2 = 'tired_2';

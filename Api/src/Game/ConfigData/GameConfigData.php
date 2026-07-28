@@ -68,6 +68,8 @@ class GameConfigData
                     'filandra_default',
                     'jumpkin_default',
                     'alien_steak_default',
+                    'alien_fish_default',
+                    'alien_insect_default',
                     'supervitamin_bar_default',
                     'bacta_default',
                     'betapropyl_default',

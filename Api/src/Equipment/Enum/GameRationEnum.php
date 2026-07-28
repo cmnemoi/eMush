@@ -10,6 +10,8 @@ abstract class GameRationEnum
     public const ORGANIC_WASTE = 'organic_waste';
     public const PROACTIVE_PUFFED_RICE = 'proactive_puffed_rice';
     public const ALIEN_STEAK = 'alien_steak';
+    public const ALIEN_FISH = 'alien_fish';
+    public const ALIEN_INSECT = 'alien_insect';
     public const ANABOLIC = 'anabolic';
     public const COFFEE = 'coffee';
     public const COOKED_RATION = 'cooked_ration';
@@ -25,12 +27,24 @@ abstract class GameRationEnum
             self::ORGANIC_WASTE,
             self::PROACTIVE_PUFFED_RICE,
             self::ALIEN_STEAK,
+            self::ALIEN_FISH,
+            self::ALIEN_INSECT,
             self::ANABOLIC,
             self::COFFEE,
             self::COOKED_RATION,
             self::SPACE_POTATO,
             self::STANDARD_RATION,
             self::SUPERVITAMIN_BAR,
+        ];
+    }
+
+    public static function getAllTransformToRation(): array
+    {
+        return [
+            self::COOKED_RATION,
+            self::ALIEN_STEAK,
+            self::ALIEN_FISH,
+            self::ALIEN_INSECT,
         ];
     }
 }

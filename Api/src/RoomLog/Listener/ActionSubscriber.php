@@ -79,10 +79,10 @@ final class ActionSubscriber implements EventSubscriberInterface
         $this->handleMycoAlarmLog($event);
     }
 
-    private function createMushConsumeLog(Player $player): void
+    private function createMushConsumeLog(Player $player, string $log = LogEnum::CONSUME_MUSH): void
     {
         $this->roomLogService->createLog(
-            LogEnum::CONSUME_MUSH,
+            $log,
             $player->getPlace(),
             VisibilityEnum::PRIVATE,
             'event_log',
@@ -128,6 +128,13 @@ final class ActionSubscriber implements EventSubscriberInterface
     private function handleMushConsumeLog(ActionEvent $event): void
     {
         $player = $event->getAuthor();
+
+        if ($event->hasTag(ActionEvent::HUMAN_BECAME_MUSH_DURING_CONSUME)) {
+            $this->createMushConsumeLog($player, LogEnum::CONSUME_HUMAN_BECAME_MUSH);
+
+            return;
+        }
+
         if ($player->isMush()) {
             $this->createMushConsumeLog($player);
         }

@@ -8,6 +8,7 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
@@ -72,6 +73,11 @@ class Consume extends AbstractAction
             $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
+        $wasHuman = $this->player->isHuman();
         $this->eventService->callEvent($consumeEquipment, ApplyEffectEvent::CONSUME);
+
+        if ($wasHuman && $this->player->isMush()) {
+            $this->tags[] = ActionEvent::HUMAN_BECAME_MUSH_DURING_CONSUME;
+        }
     }
 }

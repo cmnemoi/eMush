@@ -603,6 +603,12 @@
         <target>Comes esa deplorable comida para enmascarar, pero no te hace nada...</target>
       </segment>
     </unit>
+    <unit id="consume_human_became_mush">
+      <segment id="consume_human_became_mush" state="translated">
+        <source>consume_human_became_mush</source>
+        <target>Sigues preguntándote por ese característico regusto a champiñón cuando una deliciosa revelación se abre paso en tu mente...</target>
+      </segment>
+    </unit>
     <unit id="daily_morale_loss">
       <segment id="daily_morale_loss" state="translated">
         <source>daily_morale_loss</source>

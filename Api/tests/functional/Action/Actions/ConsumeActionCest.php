@@ -86,6 +86,10 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $I->assertEquals(10, $this->kuanTi->getHealthPoint(), 'Kuan Ti should have 10 health points, not ' . $this->kuanTi->getHealthPoint());
         $I->assertFalse($this->kuanTi->hasEquipmentByName(GameRationEnum::STANDARD_RATION), 'Kuan Ti should not have the standard ration');
         $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::STARVING), 'Kuan Ti should not have the starving status');
+        $I->dontSeeInRepository(RoomLog::class, [
+            'playerInfo' => $this->kuanTi->getPlayerInfo(),
+            'log' => LogEnum::CONSUME_HUMAN_BECAME_MUSH,
+        ]);
     }
 
     public function testConsumeWithNegativeSatiety(FunctionalTester $I): void
@@ -151,6 +155,10 @@ final class ConsumeActionCest extends AbstractFunctionalTest
                 'log' => LogEnum::CONSUME_MUSH,
             ]
         );
+        $I->dontSeeInRepository(RoomLog::class, [
+            'playerInfo' => $this->kuanTi->getPlayerInfo(),
+            'log' => LogEnum::CONSUME_HUMAN_BECAME_MUSH,
+        ]);
     }
 
     public function shouldMakeStarvingStatusesDisappear(FunctionalTester $I): void

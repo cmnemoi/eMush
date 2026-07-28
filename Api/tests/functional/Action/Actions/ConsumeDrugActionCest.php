@@ -13,17 +13,24 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Entity\PlayerDisease;
+use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
+use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\Mechanics\Drug;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -39,6 +46,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private ConsumableDiseaseServiceInterface $consumableDiseaseService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -50,6 +58,89 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->consumableDiseaseService = $I->grabService(ConsumableDiseaseServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
+    }
+
+    public function shouldApplyContaminatedPillEffectsBeforeTurningPlayerMush(FunctionalTester $I): void
+    {
+        $terrence = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::TERRENCE);
+        $terrence
+            ->setSpores(0)
+            ->setActionPoint(0)
+            ->setMovementPoint(0)
+            ->setSatiety(0);
+        $I->haveInRepository($terrence);
+
+        $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: DiseaseEnum::COLD->toString(),
+            player: $terrence,
+            reasons: [],
+        );
+
+        $pill = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameDrugEnum::BACTA,
+            equipmentHolder: $terrence,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        $drugMechanic = $pill->getEquipment()->getMechanicByName(EquipmentMechanicEnum::DRUG);
+        $consumableEffect = (new ConsumableEffect())
+            ->setDaedalus($this->daedalus)
+            ->setRation($drugMechanic)
+            ->setActionPoint(2)
+            ->setMovementPoint(3)
+            ->setSatiety(0);
+        $I->haveInRepository($consumableEffect);
+
+        $coldCure = (new ConsumableDiseaseAttribute())
+            ->setDisease(DiseaseEnum::COLD->toString())
+            ->setType(MedicalConditionTypeEnum::CURE)
+            ->setRate(100);
+        $pillDiseaseEffects = $this->consumableDiseaseService->findConsumableDiseases(GameDrugEnum::BACTA, $this->daedalus);
+        $pillDiseaseEffects->setDiseasesAttribute(new ArrayCollection([$coldCure]));
+
+        $contaminator = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::STEPHEN);
+        $this->convertPlayerToMush($I, $contaminator);
+        for ($spore = 0; $spore < 3; ++$spore) {
+            $this->statusService->createOrIncrementChargeStatus(
+                name: EquipmentStatusEnum::CONTAMINATED,
+                holder: $pill,
+                target: $contaminator,
+            );
+        }
+
+        $this->consumeAction->loadParameters(
+            actionConfig: $this->consumeConfig,
+            actionProvider: $pill,
+            player: $terrence,
+            target: $pill,
+        );
+        $this->consumeAction->execute();
+
+        $I->assertEquals(2, $terrence->getActionPoint());
+        $I->assertEquals(3, $terrence->getMovementPoint());
+        $I->assertEquals(0, $terrence->getSatiety());
+        $I->assertNull($terrence->getMedicalConditionByName(DiseaseEnum::COLD->toString()));
+        $I->assertTrue($terrence->hasStatus(PlayerStatusEnum::MUSH));
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $terrence->getPlace()->getName(),
+                'playerInfo' => $terrence->getPlayerInfo(),
+                'log' => LogEnum::CONSUME_HUMAN_BECAME_MUSH,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ],
+        );
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $terrence->getPlace()->getName(),
+                'playerInfo' => $terrence->getPlayerInfo(),
+                'log' => LogEnum::CONSUME_MUSH,
+                'visibility' => VisibilityEnum::PRIVATE,
+            ],
+        );
     }
 
     public function shouldPreventTakingAnotherDrugForCurrentCycle(FunctionalTester $I): void

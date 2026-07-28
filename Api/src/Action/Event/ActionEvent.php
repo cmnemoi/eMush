@@ -39,6 +39,7 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
     public const string RESULT_ACTION = 'result.action';
     public const string EXECUTE_ACTION = 'execute.action';
     public const string FORCED_GET_UP = 'forced.get.up';
+    public const string HUMAN_BECAME_MUSH_DURING_CONSUME = 'human_became_mush_during_consume';
 
     private ActionConfig $actionConfig;
     private ActionProviderInterface $actionProvider;

@@ -61,10 +61,11 @@ class ApplyEffectSubscriber implements EventSubscriberInterface
 
         $consumableEffect = $this->equipmentServiceEffect->getConsumableEffect($rationType, $player->getDaedalus());
 
+        // We apply the effect of the consummable, and then the spores.
+        $this->dispatchConsumableEffects($consumableEffect, $player, $ration);
         if ($player->isHuman()) {
             $this->dispatchContaminatedFoodEffect($ration, $player, $consumeEvent->getTags());
         }
-        $this->dispatchConsumableEffects($consumableEffect, $player, $ration);
 
         // if no charges consume equipment
         $equipmentEvent = new InteractWithEquipmentEvent(

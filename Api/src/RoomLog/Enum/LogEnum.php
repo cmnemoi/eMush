@@ -24,6 +24,7 @@ abstract class LogEnum
     public const string GARDEN_DESTROYED = 'garden_destroyed';
     public const string FORCE_GET_UP = 'force_get_up';
     public const string CONSUME_MUSH = 'consume_mush';
+    public const string CONSUME_HUMAN_BECAME_MUSH = 'consume_human_became_mush';
     public const string SOIL_PREVENTED = 'soil_prevented';
     public const string HELP_DISABLED = 'help_disabled';
     public const string CLUMSINESS_PREVENTED = 'clumsiness_prevented';

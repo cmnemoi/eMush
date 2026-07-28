@@ -722,6 +722,12 @@
         <target>Vous mangez cette pitoyable nourriture pour donner le change mais elle ne vous fait rien...</target>
       </segment>
     </unit>
+    <unit id="consume_human_became_mush">
+      <segment id="consume_human_became_mush" state="translated">
+        <source>consume_human_became_mush</source>
+        <target>Vous vous interrogez encore sur ce petit arrière-goût de champignon lorsqu'une délicieuse révélation s'impose à vous...</target>
+      </segment>
+    </unit>
     <unit id="daily_morale_loss">
       <segment id="daily_morale_loss" state="translated">
         <source>daily_morale_loss</source>

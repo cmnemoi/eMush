@@ -117,7 +117,7 @@ class PlayerController extends AbstractGameController
 
         /** @var User $user */
         $user = $this->getUser();
-        $player = $this->playerService->createPlayer($daedalus, $user, $character);
+        $player = $this->playerService->createPlayer($daedalus, $user, $character, false);
 
         return $this->json($player, Response::HTTP_CREATED, [], ['currentPlayer' => $player]);
     }

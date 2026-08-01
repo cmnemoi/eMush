@@ -26,7 +26,7 @@ interface PlayerServiceInterface
 
     public function changePlace(Player $player, Place $place): Player;
 
-    public function createPlayer(Daedalus $daedalus, User $user, string $character): Player;
+    public function createPlayer(Daedalus $daedalus, User $user, string $character, bool $ignoreAntispam = true): Player;
 
     public function endPlayer(Player $player, string $message, array $likedPlayers): Player;
 

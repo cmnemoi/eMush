@@ -131,12 +131,11 @@ final class PlayerService implements PlayerServiceInterface
         return $this->persist($player);
     }
 
-    public function createPlayer(Daedalus $daedalus, User $user, string $character): Player
+    public function createPlayer(Daedalus $daedalus, User $user, string $character, bool $ignoreAntispam = true): Player
     {
         try {
             $this->playerRepository->startTransaction();
-            //if ($this->antiSpam && $user->getCreatedAt() > new \DateTime('24 hours ago')) { TODO : REVERT WHEN SITUATION IS OVER
-            if ($user->getCreatedAt() > new \DateTime('24 hours ago')) {
+            if ($ignoreAntispam === false && $this->antiSpam && $user->getCreatedAt() > new \DateTime('24 hours ago')) {
                 throw new \Exception('User too recent to play');
             }
 

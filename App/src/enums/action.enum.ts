@@ -35,6 +35,7 @@ export enum ActionEnum {
     TURN_DAEDALUS_LEFT = "turn_daedalus_left",
     TURN_DAEDALUS_RIGHT = "turn_daedalus_right",
     UPGRADE_NERON = "upgrade_neron",
+    USURP_IDENTITY = "usurp_identity",
     WRITE = "write",
 };
 

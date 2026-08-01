@@ -22,6 +22,7 @@ class ActionsFixtures extends Fixture
     public const string SUICIDE = 'suicide';
     public const string AUTO_DESTROY = 'auto_destruction';
     public const string KILL_PLAYER = 'kill_player';
+    public const string USURP_IDENTITY = 'usurp_identity';
     public const string RESET_SKILL_POINT = ActionEnum::RESET_SKILL_POINTS->value;
     public const string REJUVENATE_ALPHA = 'rejuvenate_alpha';
     public const string UPDATING_TALKIE = 'updating_talkie';
@@ -132,6 +133,9 @@ class ActionsFixtures extends Fixture
 
         $killPlayer = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::KILL_PLAYER));
         $manager->persist($killPlayer);
+
+        $usurpIdentity = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::USURP_IDENTITY));
+        $manager->persist($usurpIdentity);
 
         $rejuvenateAlpha = new ActionConfig();
         $rejuvenateAlpha
@@ -1216,6 +1220,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::FORCE_CYCLE_CHANGE->value, $forceCycleChange);
         $this->addReference(self::AUTO_DESTROY, $autoDestroy);
         $this->addReference(self::KILL_PLAYER, $killPlayer);
+        $this->addReference(self::USURP_IDENTITY, $usurpIdentity);
 
         $this->addReference(self::REJUVENATE_ALPHA, $rejuvenateAlpha);
         $this->addReference(self::RESET_SKILL_POINT, $resetSpecializationPoint);

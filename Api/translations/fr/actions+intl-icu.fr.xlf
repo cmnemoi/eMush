@@ -841,6 +841,22 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action est irrémédiable. Souhaitez-vous continuer ?</target>
       </segment>
     </unit>
+    <unit id="usurp_identity">
+      <segment id="name" state="translated">
+        <source>usurp_identity.name</source>
+        <target>Usurper l'identité</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>usurp_identity.description</source>
+        <target>L'usurpation d'identité n'est pas une blague, Kim !
+        //
+        Echange le personnage avec ce joueur, exactement comme **Transfert** mais sans aucun effet gameplay.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>usurp_identity.confirmation</source>
+        <target>Souhaitez-vous vraiment échanger votre personnage avec celui de ce joueur ?</target>
+      </segment>
+    </unit>
     <unit id="action_aggressive">
       <segment id="name" state="translated">
         <source>action_aggressive.name</source>

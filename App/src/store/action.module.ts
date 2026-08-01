@@ -95,7 +95,7 @@ async function handleActionExecution(actionExecution: ActionExecution): Promise<
     await dispatch("communication/clearRoomLogs", null, { root: true });
 
     await ActionService.executeTargetAction(target, action, params).then(async (response: AxiosResponse<ActionResponseData>) => {
-        if (action.isExchangeBodyAction()) {
+        if (action.isCharacterExchangeAction()) {
             return await handleExchangeBodyAction(response, dispatch);
         }
 

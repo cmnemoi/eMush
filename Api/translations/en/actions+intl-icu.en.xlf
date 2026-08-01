@@ -831,6 +831,22 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
         <target>This action cannot be undone. Are you sure you want to continue?</target>
       </segment>
     </unit>
+    <unit id="usurp_identity">
+      <segment id="name" state="translated">
+        <source>usurp_identity.name</source>
+        <target>Usurp identity</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>usurp_identity.description</source>
+        <target>Identity theft is not a joke, Kim!
+        //
+        Exchange characters with this player, exactly like **Transfer** but without any gameplay effect.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>usurp_identity.confirmation</source>
+        <target>Are you sure you want to exchange your character with this player's character?</target>
+      </segment>
+    </unit>
     <unit id="action_aggressive">
       <segment id="name" state="translated">
         <source>action_aggressive.name</source>

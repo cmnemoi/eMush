@@ -39,6 +39,7 @@ class CharacterConfigData
         ActionEnum::WHISPER->value,
         ActionEnum::RECHARGE_BATTERY->value,
         ActionEnum::REMOVE_BEGINNER->value,
+        ActionEnum::USURP_IDENTITY->value,
     ];
 
     public static array $dataArray = [

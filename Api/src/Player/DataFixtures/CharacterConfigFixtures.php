@@ -571,6 +571,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $killPlayerAction */
         $killPlayerAction = $this->getReference(ActionsFixtures::KILL_PLAYER);
 
+        /** @var ActionConfig $usurpIdentityAction */
+        $usurpIdentityAction = $this->getReference(ActionsFixtures::USURP_IDENTITY);
+
         /** @var ActionConfig $rejuvenateAlphaAction */
         $rejuvenateAlphaAction = $this->getReference(ActionsFixtures::REJUVENATE_ALPHA);
 
@@ -664,6 +667,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $suicideAction,
             $surgeryAction,
             $killPlayerAction,
+            $usurpIdentityAction,
             $guardAction,
             $goBerserkAction,
             $commanderOrderAction,

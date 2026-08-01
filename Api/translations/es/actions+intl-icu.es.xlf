@@ -825,6 +825,22 @@ Ya sea por una mutación genética incomprensible o por pura locura homicida, un
         <target>Esta acción es irreversible. ¿Estás seguro de querer continuar?</target>
       </segment>
     </unit>
+    <unit id="usurp_identity">
+      <segment id="name" state="translated">
+        <source>usurp_identity.name</source>
+        <target>Usurpar la identidad</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>usurp_identity.description</source>
+        <target>¡La usurpación de identidad no es ninguna broma, Kim!
+//
+Intercambia tu personaje con el de este jugador, exactamente como **Transferencia**, pero sin ningún efecto de juego.</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>usurp_identity.confirmation</source>
+        <target>¿Seguro que quieres intercambiar tu personaje con el de este jugador?</target>
+      </segment>
+    </unit>
     <unit id="action_aggressive">
       <segment id="name" state="translated">
         <source>action_aggressive.name</source>

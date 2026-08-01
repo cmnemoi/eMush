@@ -14,6 +14,7 @@ enum ActionEnum: string
     case SUICIDE = 'suicide';
     case AUTO_DESTROY = 'auto_destroy';
     case KILL_PLAYER = 'kill_player';
+    case USURP_IDENTITY = 'usurp_identity';
     case RESET_SKILL_POINTS = 'reset_skill_points';
     case TRIGGER_ALL_REBEL_CONTACTS = 'trigger_all_rebel_contacts';
     case CREATE_TRADE = 'create_trade';

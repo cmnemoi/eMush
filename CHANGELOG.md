@@ -1,3 +1,20 @@
+# [0.32.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.8...0.32.0) (2026-08-01)
+
+
+### Bug Fixes
+
+* All signaled broken door are now displayed on the minimap ([93a4f12](https://gitlab.com/eternaltwin/mush/mush/commit/93a4f1228d9d62554945aaccd2d69be18c6db2c9))
+* **chat:** prevent favoriting non-public messages which allowed unauthorized access ([c52a11f](https://gitlab.com/eternaltwin/mush/mush/commit/c52a11fa19cf00061b8ce2b27e592775e8ce0f26))
+* new Crowdin translations ([d8264aa](https://gitlab.com/eternaltwin/mush/mush/commit/d8264aa5ec960e830f494b1428af76c10f7ddd88))
+
+
+### Features
+
+* Add fish and insect meat to the game ([74f04cf](https://gitlab.com/eternaltwin/mush/mush/commit/74f04cfa63858b647801633abeaeb371b1d0856f))
+* change fungal kitchen order ([866b007](https://gitlab.com/eternaltwin/mush/mush/commit/866b007abee957902a55af43e14cedc9491e1e7e))
+* Implement the space chicken AI ([7d4fe4d](https://gitlab.com/eternaltwin/mush/mush/commit/7d4fe4d4e94b07d383ed223dfb71fbee5d5b0c19))
+* ip ban is back + add way for admin to remove IP from the list of banned one ([8712ab3](https://gitlab.com/eternaltwin/mush/mush/commit/8712ab38fc43e70bafd59c3fd6bf85f70a791c62))
+
 ## [0.31.8](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.7...0.31.8) (2026-07-23)
 
 

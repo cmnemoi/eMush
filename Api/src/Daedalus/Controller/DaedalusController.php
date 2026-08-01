@@ -155,7 +155,7 @@ class DaedalusController extends AbstractGameController
         $user = $this->getUser();
         $this->denyUnlessUserAdmin($user);
 
-        $daedalusId = $request->query->getInt('id');
+        $daedalusId = (int) $request->attributes->get('id');
 
         /** @var Daedalus $daedalus */
         $daedalus = $this->daedalusService->findById($daedalusId);

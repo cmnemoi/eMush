@@ -1,3 +1,10 @@
+# [0.33.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.32.1...0.33.0) (2026-08-01)
+
+
+### Features
+
+* Admin action to hotswap character ([2fb7216](https://gitlab.com/eternaltwin/mush/mush/commit/2fb7216ce397d4e19c9cb12d9d7ade065166cec3))
+
 ## [0.32.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.32.0...0.32.1) (2026-08-01)
 
 

@@ -1,3 +1,10 @@
+## [0.32.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.32.0...0.32.1) (2026-08-01)
+
+
+### Bug Fixes
+
+* super nova button ([48bb037](https://gitlab.com/eternaltwin/mush/mush/commit/48bb037d652af017c8e460b3bc7de0b1886ad1a4))
+
 # [0.32.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.31.8...0.32.0) (2026-08-01)
 
 

@@ -43,4 +43,22 @@ final class BannedIpRepository extends ServiceEntityRepository implements Banned
         $this->getEntityManager()->persist($bannedIp);
         $this->getEntityManager()->flush();
     }
+
+    public function deleteAll(): void
+    {
+        $entities = $this->getEntityManager()->getRepository(BannedIp::class)->findAll();
+        foreach ($entities as $e) {
+            $this->getEntityManager()->remove($e);
+        }
+        $this->getEntityManager()->flush();
+    }
+
+    public function deleteOne(int $id): void
+    {
+        $entities = $this->getEntityManager()->getRepository(BannedIp::class)->findBy(['id' => $id]);
+        foreach ($entities as $e) {
+            $this->getEntityManager()->remove($e);
+        }
+        $this->getEntityManager()->flush();
+    }
 }

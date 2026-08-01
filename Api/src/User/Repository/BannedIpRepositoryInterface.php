@@ -13,4 +13,8 @@ interface BannedIpRepositoryInterface
     public function hasAny(array $hashedIps): bool;
 
     public function save(BannedIp $bannedIp): void;
+
+    public function deleteAll(): void;
+
+    public function deleteOne(int $id): void;
 }

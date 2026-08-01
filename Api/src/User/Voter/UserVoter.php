@@ -55,7 +55,7 @@ final class UserVoter extends Voter
             return false;
         }
 
-        $ipBanned = false; // $this->bannedIpRepository->hasAny($user->getHashedIps());
+        $ipBanned = $this->bannedIpRepository->hasAny($user->getHashedIps());
 
         return match ($attribute) {
             self::USER_IN_GAME => $user->isInGame(),

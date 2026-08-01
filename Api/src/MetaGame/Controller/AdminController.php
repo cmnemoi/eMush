@@ -25,6 +25,7 @@ use Mush\Place\Service\PlaceServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
+use Mush\User\Repository\BannedIpRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,6 +59,7 @@ class AdminController extends AbstractController
         private EntityManagerInterface $entityManager,
         private ModifierCreateByDaedalusService $modifierCreateByDaedalusService,
         private ModifierDeleteByDaedalusService $modifierDeleteByDaedalusService,
+        private BannedIpRepositoryInterface $bannedIpRepository,
     ) {
         $this->adminService = $adminService;
         $this->alertService = $alertService;
@@ -382,6 +384,51 @@ class AdminController extends AbstractController
         }
 
         return $this->json('Modifiers deleted.', Response::HTTP_OK);
+    }
+
+    /**
+     * Remove all IP currently banned.
+     */
+    #[Route('/delete-banned-ip', methods: ['POST'])]
+    public function deleteBannedIp(): JsonResponse
+    {
+        $this->denyAccessIfNotAdmin();
+
+        try {
+            $this->entityManager->beginTransaction();
+            $this->bannedIpRepository->deleteAll();
+
+            $this->entityManager->commit();
+        } catch (\Throwable $e) {
+            $this->entityManager->rollback();
+
+            throw $e;
+        }
+
+        return $this->json('IP deleted.', Response::HTTP_OK);
+    }
+
+    /**
+     * Remove One IP currently banned.
+     */
+    #[Route('/delete-one-banned-ip', methods: ['POST'])]
+    public function deleteOneBannedIp(Request $request): JsonResponse
+    {
+        $this->denyAccessIfNotAdmin();
+        $id = (int) $request->query->get('id');
+
+        try {
+            $this->entityManager->beginTransaction();
+            $this->bannedIpRepository->deleteOne($id);
+
+            $this->entityManager->commit();
+        } catch (\Throwable $e) {
+            $this->entityManager->rollback();
+
+            throw $e;
+        }
+
+        return $this->json('IP deleted.', Response::HTTP_OK);
     }
 
     private function alertElementHaveSameEquipmentOrPlace(AlertElement $element1, AlertElement $element2): bool

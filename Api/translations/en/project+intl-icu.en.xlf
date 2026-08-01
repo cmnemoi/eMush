@@ -922,7 +922,7 @@
       </segment>
       <segment id="mushovore_bacteria.description" state="translated">
         <source>mushovore_bacteria.description</source>
-        <target>Humans can survive up to 3 mush spores before turning into Mush.</target>
+        <target>Humans need 4 spores to turn into a Mush.</target>
       </segment>
       <segment id="mushovore_bacteria.lore" state="translated">
         <source>mushovore_bacteria.lore</source>

@@ -538,6 +538,16 @@ other{Charges are the number of times you can use an object. **Charged** objects
         <target>Your mission is way too important to pick and choose your allies.//Every **human** crewmember **clawed** by this cat will see their **contamination level go up by one**.//*You can see this message because you are one of the Mush.*</target>
       </segment>
     </unit>
+    <unit id="chicken_infected">
+      <segment id="name" state="initial">
+        <source>chicken_infected.name</source>
+        <target>chicken_infected.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>chicken_infected.description</source>
+        <target>chicken_infected.description</target>
+      </segment>
+    </unit>
     <unit id="antique_perfume_immunized">
       <segment id="name" state="translated">
         <source>antique_perfume_immunized.name</source>

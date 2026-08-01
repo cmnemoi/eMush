@@ -535,6 +535,16 @@
         <target>cat_infected.description</target>
       </segment>
     </unit>
+    <unit id="chicken_infected">
+      <segment id="name" state="initial">
+        <source>chicken_infected.name</source>
+        <target>chicken_infected.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>chicken_infected.description</source>
+        <target>chicken_infected.description</target>
+      </segment>
+    </unit>
     <unit id="antique_perfume_immunized">
       <segment id="name" state="translated">
         <source>antique_perfume_immunized.name</source>

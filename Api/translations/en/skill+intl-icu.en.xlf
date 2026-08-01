@@ -552,7 +552,7 @@
       </segment>
       <segment id="bacterophiliac.description" state="translated">
         <source>bacterophiliac.description</source>
-        <target>Your plant bacteria can have particularly virulent applications.//:point: For 2 :pa: you can give an **illness** to a crewmember. This is a **covert** action.</target>
+        <target>Your plant bacteria can have particularly virulent applications.//:point: For 1 :pa: you can give an **illness** to a crewmember. This is a **covert** action.</target>
       </segment>
     </unit>
     <unit id="pyromaniac">

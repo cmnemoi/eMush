@@ -415,6 +415,12 @@
         <target>infect_trap</target>
       </segment>
     </unit>
+    <unit id="infect_trap_chicken">
+      <segment id="infect_trap_chicken" state="initial">
+        <source>infect_trap_chicken</source>
+        <target>infect_trap_chicken</target>
+      </segment>
+    </unit>
     <unit id="infect_std">
       <segment id="infect_std" state="translated">
         <source>infect_std</source>
@@ -449,6 +455,12 @@
       <segment id="mush_convert_cat_event" state="translated">
         <source>mush_convert_cat_event</source>
         <target>mush_convert_cat_event</target>
+      </segment>
+    </unit>
+    <unit id="mush_convert_chicken_event">
+      <segment id="mush_convert_chicken_event" state="initial">
+        <source>mush_convert_chicken_event</source>
+        <target>mush_convert_chicken_event</target>
       </segment>
     </unit>
     <unit id="player_enter_chat">
@@ -557,6 +569,12 @@
       <segment id="consume_mush" state="translated">
         <source>consume_mush</source>
         <target>consume_mush</target>
+      </segment>
+    </unit>
+    <unit id="consume_human_became_mush">
+      <segment id="consume_human_became_mush" state="initial">
+        <source>consume_human_became_mush</source>
+        <target>consume_human_became_mush</target>
       </segment>
     </unit>
     <unit id="daily_morale_loss">
@@ -873,6 +891,18 @@
       <segment id="cat_shot_dead" state="translated">
         <source>cat_shot_dead</source>
         <target>cat_shot_dead</target>
+      </segment>
+    </unit>
+    <unit id="chicken_shot_dead">
+      <segment id="chicken_shot_dead" state="initial">
+        <source>chicken_shot_dead</source>
+        <target>chicken_shot_dead</target>
+      </segment>
+    </unit>
+    <unit id="chicken_squawk">
+      <segment id="chicken_squawk" state="initial">
+        <source>chicken_squawk</source>
+        <target>chicken_squawk</target>
       </segment>
     </unit>
     <unit id="cat_hiss">

@@ -1545,6 +1545,36 @@
         <target>convert_cat.description</target>
       </segment>
     </unit>
+    <unit id="take_chicken">
+      <segment id="name" state="initial">
+        <source>take_chicken.name</source>
+        <target>take_chicken.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>take_chicken.description</source>
+        <target>take_chicken.description</target>
+      </segment>
+    </unit>
+    <unit id="cure_chicken">
+      <segment id="name" state="initial">
+        <source>cure_chicken.name</source>
+        <target>cure_chicken.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>cure_chicken.description</source>
+        <target>cure_chicken.description</target>
+      </segment>
+    </unit>
+    <unit id="convert_chicken">
+      <segment id="name" state="initial">
+        <source>convert_chicken.name</source>
+        <target>convert_chicken.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>convert_chicken.description</source>
+        <target>convert_chicken.description</target>
+      </segment>
+    </unit>
     <unit id="torture">
       <segment id="name" state="translated">
         <source>torture.name</source>
@@ -1657,6 +1687,16 @@
       <segment id="description" state="translated">
         <source>shoot_cat.description</source>
         <target>shoot_cat.description</target>
+      </segment>
+    </unit>
+    <unit id="shoot_chicken">
+      <segment id="name" state="initial">
+        <source>shoot_chicken.name</source>
+        <target>shoot_chicken.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shoot_chicken.description</source>
+        <target>shoot_chicken.description</target>
       </segment>
     </unit>
     <unit id="open_container">

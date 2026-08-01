@@ -823,6 +823,60 @@
         <target>shoot_cat_critical_fail</target>
       </segment>
     </unit>
+    <unit id="take_chicken">
+      <segment id="take_chicken" state="initial">
+        <source>take_chicken</source>
+        <target>take_chicken</target>
+      </segment>
+    </unit>
+    <unit id="convert_chicken">
+      <segment id="convert_chicken" state="initial">
+        <source>convert_chicken</source>
+        <target>convert_chicken</target>
+      </segment>
+    </unit>
+    <unit id="cure_chicken_success">
+      <segment id="cure_chicken_success" state="initial">
+        <source>cure_chicken_success</source>
+        <target>cure_chicken_success</target>
+      </segment>
+    </unit>
+    <unit id="cure_chicken_fail">
+      <segment id="cure_chicken_fail" state="initial">
+        <source>cure_chicken_fail</source>
+        <target>cure_chicken_fail</target>
+      </segment>
+    </unit>
+    <unit id="shoot_chicken_success">
+      <segment id="shoot_chicken_success" state="initial">
+        <source>shoot_chicken_success</source>
+        <target>shoot_chicken_success</target>
+      </segment>
+    </unit>
+    <unit id="shoot_chicken_critical_success">
+      <segment id="shoot_chicken_critical_success" state="initial">
+        <source>shoot_chicken_critical_success</source>
+        <target>shoot_chicken_critical_success</target>
+      </segment>
+    </unit>
+    <unit id="shoot_chicken_fail">
+      <segment id="shoot_chicken_fail" state="initial">
+        <source>shoot_chicken_fail</source>
+        <target>shoot_chicken_fail</target>
+      </segment>
+    </unit>
+    <unit id="shoot_chicken_critical_fail">
+      <segment id="shoot_chicken_critical_fail" state="initial">
+        <source>shoot_chicken_critical_fail</source>
+        <target>shoot_chicken_critical_fail</target>
+      </segment>
+    </unit>
+    <unit id="shoot_chicken_one_shot">
+      <segment id="shoot_chicken_one_shot" state="initial">
+        <source>shoot_chicken_one_shot</source>
+        <target>shoot_chicken_one_shot</target>
+      </segment>
+    </unit>
     <unit id="daunt_success">
       <segment id="daunt_success" state="translated">
         <source>daunt_success</source>

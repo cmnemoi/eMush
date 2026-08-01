@@ -453,6 +453,12 @@
         <target>**{target_character}** recibe una espora en su organismo al revisar una estantería con una trampa de **{character}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
       </segment>
     </unit>
+    <unit id="infect_trap_chicken">
+      <segment id="infect_trap_chicken" state="initial">
+        <source>infect_trap_chicken</source>
+        <target>infect_trap_chicken</target>
+      </segment>
+    </unit>
     <unit id="infect_std">
       <segment id="infect_std" state="translated">
         <source>infect_std</source>
@@ -490,6 +496,12 @@
       <segment id="mush_convert_cat_event" state="translated">
         <source>mush_convert_cat_event</source>
         <target>**{equipment}** ha sido convertido por **{target_character}**. Bienvenido al Mush, **{equipment}**.</target>
+      </segment>
+    </unit>
+    <unit id="mush_convert_chicken_event">
+      <segment id="mush_convert_chicken_event" state="initial">
+        <source>mush_convert_chicken_event</source>
+        <target>mush_convert_chicken_event</target>
       </segment>
     </unit>
     <unit id="player_enter_chat">
@@ -953,7 +965,7 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
     <unit id="strateguru_worked">
       <segment id="strateguru_worked" state="translated">
         <source>strateguru_worked</source>
-        <target>Tu habilidad **Estratega Militar* ha dado sus frutos, has perdido algunos de tus agresores en el brazo de una nebulosa.</target>
+        <target>Tu habilidad **Estratega Militar** ha dado sus frutos, has perdido algunos de tus agresores en el brazo de una nebulosa.</target>
       </segment>
     </unit>
     <unit id="opportunist_worked">
@@ -1033,6 +1045,18 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
       <segment id="cat_shot_dead" state="translated">
         <source>cat_shot_dead</source>
         <target>**{target_equipment}** ha sido {target_equipment_gender, select, female {asesinada} other {asesinado}} por **{character}**.</target>
+      </segment>
+    </unit>
+    <unit id="chicken_shot_dead">
+      <segment id="chicken_shot_dead" state="initial">
+        <source>chicken_shot_dead</source>
+        <target>chicken_shot_dead</target>
+      </segment>
+    </unit>
+    <unit id="chicken_squawk">
+      <segment id="chicken_squawk" state="initial">
+        <source>chicken_squawk</source>
+        <target>chicken_squawk</target>
       </segment>
     </unit>
     <unit id="cat_hiss">

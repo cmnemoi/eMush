@@ -619,7 +619,7 @@
       </segment>
       <segment id="bacterophiliac.description" state="translated">
         <source>bacterophiliac.description</source>
-        <target>Es lo mejor que puedes hacer con tus bacterias.//:point: Por 2 :pa: puedes causar una **enfermedad** a un compañero. Esta es una acción **furtiva**.</target>
+        <target>Es lo mejor que puedes hacer con tus bacterias.//:point: Por 1 :pa: puedes causar una **enfermedad** a un compañero. Esta es una acción **furtiva**.</target>
       </segment>
     </unit>
     <unit id="pyromaniac">

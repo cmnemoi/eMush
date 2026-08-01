@@ -922,7 +922,7 @@
       </segment>
       <segment id="mushovore_bacteria.description" state="translated">
         <source>mushovore_bacteria.description</source>
-        <target>Los humanos pueden soportar hasta 3 esporas antes de convertirse en Mush.</target>
+        <target>Los humanos pueden soportar hasta 4 esporas antes de convertirse en Mush.</target>
       </segment>
       <segment id="mushovore_bacteria.lore" state="translated">
         <source>mushovore_bacteria.lore</source>

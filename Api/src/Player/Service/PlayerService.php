@@ -135,7 +135,8 @@ final class PlayerService implements PlayerServiceInterface
     {
         try {
             $this->playerRepository->startTransaction();
-            if ($this->antiSpam && $user->getCreatedAt() > new \DateTime('24 hours ago')) {
+            //if ($this->antiSpam && $user->getCreatedAt() > new \DateTime('24 hours ago')) { TODO : REVERT WHEN SITUATION IS OVER
+            if ($user->getCreatedAt() > new \DateTime('24 hours ago')) {
                 throw new \Exception('User too recent to play');
             }
 

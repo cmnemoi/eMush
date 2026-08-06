@@ -66,6 +66,7 @@ import planet_1 from '@/game/assets/tilemaps/planet_1.png';
 import planet_2 from '@/game/assets/tilemaps/planet_2.png';
 import planet_3 from '@/game/assets/tilemaps/planet_3.png';
 import planet_4 from '@/game/assets/tilemaps/planet_4.png';
+import planet_2048 from '@/game/assets/tilemaps/planet_2048.png';
 import planet_scanner from "@/game/assets/tilemaps/planet_scanner.png";
 import pneumatic_distributor from "@/game/assets/tilemaps/pneumatic_distributor.png";
 import pneumatic_distributor_2 from "@/game/assets/tilemaps/pneumatic_distributor_2.png";
@@ -283,6 +284,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.image('planet_2', planet_2);
         this.load.image('planet_3', planet_3);
         this.load.image('planet_4', planet_4);
+        this.load.image('planet_2048', planet_2048);
         this.load.image('background', background);
 
         this.load.atlas('character', character, characterFrame);

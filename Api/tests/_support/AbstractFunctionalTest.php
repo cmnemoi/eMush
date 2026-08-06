@@ -362,13 +362,14 @@ class AbstractFunctionalTest
         );
     }
 
-    protected function createStatusOn(string $status, StatusHolderInterface $statusHolder): Status
+    protected function createStatusOn(string $status, StatusHolderInterface $statusHolder, ?StatusHolderInterface $target = null): Status
     {
         return $this->statusService->createStatusFromName(
             $status,
             $statusHolder,
             ['test'],
-            new \DateTime()
+            new \DateTime(),
+            $target
         );
     }
 

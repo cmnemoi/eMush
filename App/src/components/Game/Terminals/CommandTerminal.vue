@@ -25,7 +25,9 @@
                 <p v-html="formatText(terminal.infos.advanceDaedalusStatus.text)"></p>
             </div>
             <div class="action">
-                <ActionButton
+                <ul>
+                    <li>
+                    <ActionButton
                     v-if="advanceDaedalusAction"
                     :css-class="'wide'"
                     :key="advanceDaedalusAction.key"
@@ -39,6 +41,19 @@
                     :action="leaveOrbitAction"
                     @click="executeTargetAction(target, leaveOrbitAction)"
                 />
+                </li>
+                <li>
+                    <ActionButton
+                    v-if="travelToEventPlanetAction"
+                    :css-class="'wide'"
+                    :key="travelToEventPlanetAction.key"
+                    :action="travelToEventPlanetAction"
+                    @click="executeTargetAction(target, travelToEventPlanetAction)"
+                />
+                </li>
+                </ul>
+
+
             </div>
         </section>
 
@@ -110,6 +125,9 @@ export default defineComponent ({
             if (!action) throw new Error(`No turn_daedalus_right action found for terminal ${this.terminal?.key}`);
 
             return action;
+        },
+        travelToEventPlanetAction(): Action | null {
+            return this.terminal.getActionByKey(ActionEnum.TRAVEL_TO_EVENT_PLANET);
         },
         target(): Terminal {
             return this.terminal;
@@ -201,6 +219,9 @@ section {
     flex-direction: row;
     justify-content: space-evenly;
     margin-top: 0.6em;
+    ul {
+        flex-direction: column;
+    }
 }
 
 .daedalus-current-orientation {

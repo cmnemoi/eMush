@@ -3329,6 +3329,26 @@ class ActionData
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
+        [
+            'name' => ActionEnum::TRAVEL_TO_EVENT_PLANET->value,
+            'action_name' => ActionEnum::TRAVEL_TO_EVENT_PLANET,
+            'types' => [ActionTypeEnum::ACTION_CONFIRM],
+            'target' => ActionHolderEnum::TERMINAL,
+            'scope' => ActionRangeEnum::ROOM,
+            'visibilities' => [
+                'success' => VisibilityEnum::PUBLIC,
+                'fail' => VisibilityEnum::PUBLIC,
+                ActionOutputEnum::ARACK_PREVENTS_TRAVEL => VisibilityEnum::PUBLIC,
+            ],
+            'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => null, 'max_value' => 0],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+        ],
     ];
 
     public static function getByName(ActionEnum $name): array

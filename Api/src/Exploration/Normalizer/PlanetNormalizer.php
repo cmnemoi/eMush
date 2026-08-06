@@ -6,11 +6,13 @@ namespace Mush\Exploration\Normalizer;
 
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Exploration\Entity\Planet;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -54,8 +56,7 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
         $context[$planet->getClassName()] = $planet;
         $daedalus = $planet->getDaedalus();
 
-        // integer seed from planet name to get always the same image for the same planet
-        $planetImageId = \intval(hash('crc32', $planet->getName()->toString()), 16) % self::NUMBER_OF_PLANET_IMAGES;
+        $planetImageId = $this->getImageIdForPlanet($planet, $daedalus);
 
         // Normalize full planet only under those conditions to avoid leaking information
         // because the planet has to be normalized to be displayed in Phaser scene too
@@ -87,5 +88,15 @@ final class PlanetNormalizer implements NormalizerInterface, NormalizerAwareInte
             'actions' => $this->getNormalizedActions($planet, ActionHolderEnum::PLANET, $currentPlayer, $format, $context),
             'imageId' => $planetImageId,
         ];
+    }
+
+    private function getImageIdForPlanet(Planet $planet, Daedalus $daedalus): int
+    {
+        if ($daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT_OF_EVENT_PLANET)) {
+            return 2048;
+        }
+
+        // integer seed from planet name to get always the same image for the same planet
+        return \intval(hash('crc32', $planet->getName()->toString()), 16) % self::NUMBER_OF_PLANET_IMAGES;
     }
 }

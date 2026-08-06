@@ -28,7 +28,8 @@ final class PlanetSectorEventConfigFixtures extends Fixture implements Dependent
         $planetSectorEventConfig
             ->setOutputQuantity([1 => 1])
             ->setOutputTable([GameRationEnum::ALIEN_STEAK => 1])
-            ->setTags([PlanetSectorEventTagEnum::NEGATIVE]);
+            ->setTags([PlanetSectorEventTagEnum::NEGATIVE])
+            ->setFightStrength(1);
 
         $this->addReference($planetSectorEventConfig->getName(), $planetSectorEventConfig);
         $manager->persist($planetSectorEventConfig);

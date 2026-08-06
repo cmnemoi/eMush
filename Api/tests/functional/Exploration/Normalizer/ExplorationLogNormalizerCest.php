@@ -577,7 +577,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorName' => 'Vie intelligente',
                 'eventName' => 'Combat',
                 'eventDescription' => 'Un être étrange s\'approche de vous et lance de grands cris aigus qui vous cassent les oreilles. Il va falloir le faire taire.////Pris de vitesse, l\'être n\'a même pas le temps de comprendre ce qui lui arrive. Quand son corps s\'affaisse enfin dans la poussière, vous découvrez sur lui un artefact qui pourrait vous être bien utile.',
-                'eventOutcome' => 'Vous affrontez une créature. ////Force Créature : 0//Force Équipe : 2//Vous récupérez 1 Steak alien.//L\'équipe subit 0 points de dégâts.//',
+                'eventOutcome' => 'Vous affrontez une créature. ////Force Créature : 1//Force Équipe : 2//Vous récupérez 1 Steak alien.//L\'équipe subit 0 points de dégâts.//',
             ],
             actual: $normalizedExplorationLog,
         );

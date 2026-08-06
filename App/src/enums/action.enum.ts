@@ -37,6 +37,7 @@ export enum ActionEnum {
     UPGRADE_NERON = "upgrade_neron",
     USURP_IDENTITY = "usurp_identity",
     WRITE = "write",
+    TRAVEL_TO_EVENT_PLANET = 'travel_to_event_planet',
 };
 
 export enum ShootHunterActionsEnum {

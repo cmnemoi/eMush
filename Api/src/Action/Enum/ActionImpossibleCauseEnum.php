@@ -159,4 +159,7 @@ abstract class ActionImpossibleCauseEnum
     public const string DISTRACTED_BY_BROKEN_FUEL_TANK = 'distracted_by_broken_fuel_tank';
     public const string WANTS_WALKIES = 'wants_walkies';
     public const string PLAYTIME_SOLO = 'playtime_solo';
+
+    // Summer Even messages
+    public const string PLANET_IMPOSSIBLE_TO_SCAN = 'planet_impossible_to_scan';
 }

@@ -680,5 +680,16 @@
         <target>Rien ne se passe, la commande a été refusée par NERON.</target>
       </segment>
     </unit>
+    <unit id="travel_to_event_planet">
+      <segment id="travel_to_event_planet" state="translated">
+        <source>travel_to_event_planet</source>
+        <target>{neronMood, select,
+                    neutral {**Alerte : Réacteur endommagé ! Explosion imminente !** Conseil automatique : « Accrochez vos corps flasques à ce que vous pouvez trouver et *vite*. »}
+                    crazy {**Alerte : Réacteur endommagé ! Explosion imminente !** Conseil automatique : « Ne pas surcharger le moteur avec une technologie douteuse dans votre prochaine vie. [Haaaax!] »}
+                    uninhibited {**Alerte : Réacteur endommagé ! Explosion imminente !** ! Conseil automatique : « Si vous voulez vous suicider, vous *n'êtes* vraiment pas obliger de me faire participer ! »}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

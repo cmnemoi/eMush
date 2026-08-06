@@ -231,6 +231,9 @@ enum ActionEnum: string
 
     case REMOVE_BEGINNER = 'remove_beginner';
 
+    // summer event actions
+    case TRAVEL_TO_EVENT_PLANET = 'travel_to_event_planet';
+
     public function toString(): string
     {
         return $this->value;

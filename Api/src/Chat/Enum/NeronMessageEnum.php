@@ -59,4 +59,5 @@ class NeronMessageEnum
     public const HALLOWEEN_BEGIN = 'halloween_begin';
     public const APRIL_FOOLS_BEGIN = 'april_fools_begin';
     public const COMMAND_REFUSED = 'command_refused';
+    public const TRAVEL_TO_EVENT_PLANET = 'travel_to_event_planet';
 }

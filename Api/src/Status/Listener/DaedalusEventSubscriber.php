@@ -149,6 +149,20 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             tags: $event->getTags(),
             time: $event->getTime()
         );
+
+        $this->statusService->removeStatus(
+            statusName: DaedalusStatusEnum::IN_ORBIT_OF_EVENT_PLANET,
+            holder: $event->getDaedalus(),
+            tags: $event->getTags(),
+            time: $event->getTime()
+        );
+
+        $this->statusService->removeStatus(
+            statusName: DaedalusStatusEnum::PLANET_IMPOSSIBLE_TO_SCAN,
+            holder: $event->getDaedalus(),
+            tags: $event->getTags(),
+            time: $event->getTime()
+        );
     }
 
     private function resetNumberOfCatchingUpHunters(DaedalusEvent $event): void

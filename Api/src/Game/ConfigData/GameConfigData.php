@@ -345,6 +345,9 @@ class GameConfigData
                     PlayerStatusEnum::BODYGUARD_USER . '_default',
                     PlayerStatusEnum::BODYGUARD_VIP . '_default',
                     EquipmentStatusEnum::PRIVATE_PROPERTY . '_default',
+                    DaedalusStatusEnum::CAN_MOVE_TO_EVENT_PLANET . '_default',
+                    DaedalusStatusEnum::IN_ORBIT_OF_EVENT_PLANET . '_default',
+                    DaedalusStatusEnum::PLANET_IMPOSSIBLE_TO_SCAN . '_default',
                 ],
                 'triumphConfigs' => array_map(static fn (TriumphConfigDto $triumphConfig) => $triumphConfig->name->toConfigKey('default'), TriumphConfigData::getAll()),
                 'hunterConfigs' => [

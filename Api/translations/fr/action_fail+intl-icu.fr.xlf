@@ -935,5 +935,11 @@
         <target>La sécurité biologique sur cet objet vous refuse cette action car son propriétaire est toujours en vie.</target>
       </segment>
     </unit>
+    <unit id="planet_impossible_to_scan">
+      <segment id="description" state="translated">
+        <source>planet_impossible_to_scan.description</source>
+        <target>Un phénomène inconnu interfère avec le scanner.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

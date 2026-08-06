@@ -26,4 +26,9 @@ final class PlaceCollection extends ArrayCollection
     {
         return $this->filter(static fn (Place $place) => $place->getPlayers()->getPlayerAlive()->count() > 0);
     }
+
+    public function getAllInsideDaedalus(): self
+    {
+        return $this->filter(static fn (Place $place) => !$place->isNotARoom());
+    }
 }

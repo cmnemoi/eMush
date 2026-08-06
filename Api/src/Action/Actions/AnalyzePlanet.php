@@ -19,6 +19,7 @@ use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -46,6 +47,13 @@ final class AnalyzePlanet extends AbstractAction
             'target' => HasStatus::PLAYER,
             'statusTargetName' => EquipmentEnum::ASTRO_TERMINAL,
             'groups' => ['visibility'],
+        ]));
+        $metadata->addConstraint(new HasStatus([
+            'status' => DaedalusStatusEnum::PLANET_IMPOSSIBLE_TO_SCAN,
+            'target' => HasStatus::DAEDALUS,
+            'contain' => false,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::PLANET_IMPOSSIBLE_TO_SCAN,
         ]));
         $metadata->addConstraint(new AllPlanetSectorsRevealed(['groups' => ['visibility']]));
         $metadata->addConstraint(new HasStatus([

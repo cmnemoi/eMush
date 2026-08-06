@@ -1782,6 +1782,7 @@ class MechanicsData
                 ActionEnum::TURN_DAEDALUS_RIGHT->value,
                 ActionEnum::LEAVE_ORBIT->value,
                 ActionEnum::TRAVEL_TO_EDEN->value,
+                ActionEnum::TRAVEL_TO_EVENT_PLANET->value,
             ],
         ],
         [

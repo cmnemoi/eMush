@@ -26,4 +26,6 @@ interface PlanetServiceInterface
     public function findPlanetInDaedalusOrbit(Daedalus $daedalus): ?Planet;
 
     public function delete(array $entities): void;
+
+    public function persist(array $entities): void;
 }

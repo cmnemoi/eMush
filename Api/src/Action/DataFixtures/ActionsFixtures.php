@@ -1214,6 +1214,9 @@ class ActionsFixtures extends Fixture
         $checkSongs = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CHECK_JUKEBOX_SONGS));
         $manager->persist($checkSongs);
 
+        $travelToEventPlanet = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TRAVEL_TO_EVENT_PLANET));
+        $manager->persist($travelToEventPlanet);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1385,5 +1388,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::CHECK_JUKEBOX_SONGS->value, $checkSongs);
         $this->addReference(ActionEnum::BOND->value, $bondAction);
         $this->addReference(ActionEnum::RELAX->value, $relaxAction);
+        $this->addReference(ActionEnum::TRAVEL_TO_EVENT_PLANET->value, $travelToEventPlanet);
     }
 }

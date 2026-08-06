@@ -103,6 +103,14 @@ final class PlanetService implements PlanetServiceInterface
         $this->entityManager->flush();
     }
 
+    public function persist(array $entities): void
+    {
+        foreach ($entities as $entity) {
+            $this->entityManager->persist($entity);
+        }
+        $this->entityManager->flush();
+    }
+
     /**
      * Function to get coordinates for a planet. The rules are as follows:
      * 1) Generate all planets within a distance between 2 and 7. To get the distance, roll 2 dices [2-7] and take the average of the two rolls
@@ -279,13 +287,5 @@ final class PlanetService implements PlanetServiceInterface
             name: DaedalusStatusEnum::REMOVED_COMPLETELY_REVEALED_PLANETS,
             holder: $planet->getDaedalus(),
         );
-    }
-
-    private function persist(array $entities): void
-    {
-        foreach ($entities as $entity) {
-            $this->entityManager->persist($entity);
-        }
-        $this->entityManager->flush();
     }
 }

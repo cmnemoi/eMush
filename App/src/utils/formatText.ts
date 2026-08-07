@@ -26,8 +26,8 @@ function getMarkdownLinkRegex() {
     // Regex components
     const knownHostsRegex = "(?:(?:" + knownHosts.map(regexEscape).join(")|(?:") + "))";
     const textUrl = String.raw`\[([^\[\]]+)\]`;
-    const path = String.raw`[^;:<>!\]\[?.\s\)\(]*`;
-    const allowParenthesisPair = String.raw`(?:(?:${path})|(?:\(${path}\)))*`;
+    const path = String.raw`[^;<>!\]\[?.\s\)\(]*`;
+    const allowParenthesisPair = String.raw`${path}(?:\(${path}\)${path})*`;
     const url = String.raw`(https?:\/\/${knownHostsRegex}${allowParenthesisPair})`;
     const markdownUrl = String.raw`${textUrl}\(${url}\)`;
 

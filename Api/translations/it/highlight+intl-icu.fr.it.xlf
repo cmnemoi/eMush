@@ -421,14 +421,14 @@
         <target>travel_to_eden.highlight</target>
       </segment>
     </unit>
-    <unit id="shoot_cat">
+    <unit id="shoot_equipment">
       <segment id="highlight" state="translated">
-        <source>shoot_cat.highlight</source>
-        <target>shoot_cat.highlight</target>
+        <source>shoot_equipment.highlight</source>
+        <target>shoot_equipment.highlight</target>
       </segment>
       <segment id="highlight_fail" state="translated">
-        <source>shoot_cat.highlight_fail</source>
-        <target>shoot_cat.highlight_fail</target>
+        <source>shoot_equipment.highlight_fail</source>
+        <target>shoot_equipment.highlight_fail</target>
       </segment>
     </unit>
     <unit id="upgrade_neron">

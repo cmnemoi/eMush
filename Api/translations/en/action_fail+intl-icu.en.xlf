@@ -697,28 +697,16 @@
         <target>You can't go into this room because there's a guardian in the room.</target>
       </segment>
     </unit>
-    <unit id="cat_already_converted">
+    <unit id="pet_already_converted">
       <segment id="description" state="translated">
-        <source>cat_already_converted.description</source>
+        <source>pet_already_converted.description</source>
         <target>This animal has already joined your cause... Not that it improved its temper.</target>
       </segment>
     </unit>
-    <unit id="infect_cat_no_spore">
+    <unit id="infect_pet_no_spore">
       <segment id="description" state="translated">
-        <source>infect_cat_no_spore.description</source>
+        <source>infect_pet_no_spore.description</source>
         <target>Now here's a clever idea... Though you'll need a spore before you can spike it.</target>
-      </segment>
-    </unit>
-    <unit id="chicken_already_converted">
-      <segment id="description" state="initial">
-        <source>chicken_already_converted.description</source>
-        <target>chicken_already_converted.description</target>
-      </segment>
-    </unit>
-    <unit id="infect_chicken_no_spore">
-      <segment id="description" state="initial">
-        <source>infect_chicken_no_spore.description</source>
-        <target>infect_chicken_no_spore.description</target>
       </segment>
     </unit>
     <unit id="player_is_germaphobic">

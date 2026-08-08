@@ -61,7 +61,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
-        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SHOOT_HUNTER]);
+        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SHOOT_HUNTER_TURRET]);
         $this->action->setDirtyRate(0)->setSuccessRate(100);
 
         $I->haveInRepository($this->action);

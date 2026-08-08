@@ -421,13 +421,13 @@
         <target>You manoeuvred the Daedalus.</target>
       </segment>
     </unit>
-    <unit id="shoot_cat">
+    <unit id="shoot_equipment">
       <segment id="highlight" state="translated">
-        <source>shoot_cat.highlight</source>
+        <source>shoot_equipment.highlight</source>
         <target>You opened fire on **{target_equipment}**.</target>
       </segment>
       <segment id="highlight_fail" state="translated">
-        <source>shoot_cat.highlight_fail</source>
+        <source>shoot_equipment.highlight_fail</source>
         <target>You tried to shoot at **{target_equipment}** but failed...</target>
       </segment>
     </unit>

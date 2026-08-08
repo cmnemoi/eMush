@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
+use Mush\Action\Validator\EquipmentInfected;
 use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\Reach;
@@ -27,16 +28,12 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Class implementing the "Infectious Feed" action (converting the Space Chicken to the Mush).
- * This action is granted by the Space Chicken.
- *
- * For 1 PA and 1 spore, gives the Space Chicken the Infected status,
- * which means all future eggs laid will also trap the room.
+ * Class implementing the multiple actions that infect a pet. You need one spore and then the pet behavior change to help the mush team.
  */
-final class ConvertChicken extends AbstractAction
+final class ConvertPet extends AbstractAction
 {
     private const int SPORE_COST = 1;
-    protected ActionEnum $name = ActionEnum::CONVERT_CHICKEN;
+    protected ActionEnum $name = ActionEnum::CONVERT_PET;
 
     protected StatusServiceInterface $statusService;
 
@@ -60,18 +57,16 @@ final class ConvertChicken extends AbstractAction
             'status' => PlayerStatusEnum::MUSH,
             'target' => HasStatus::PLAYER,
             'groups' => [ClassConstraint::VISIBILITY]]));
-        $metadata->addConstraint(new HasStatus([
-            'status' => EquipmentStatusEnum::CHICKEN_INFECTED,
-            'contain' => false,
+        $metadata->addConstraint(new EquipmentInfected([
             'groups' => [ClassConstraint::EXECUTE],
-            'message' => ActionImpossibleCauseEnum::CHICKEN_ALREADY_CONVERTED]));
+            'message' => ActionImpossibleCauseEnum::PET_ALREADY_CONVERTED]));
         $metadata->addConstraint(new GameVariableLevel([
             'target' => GameVariableLevel::PLAYER,
             'variableName' => PlayerVariableEnum::SPORE,
             'checkMode' => GameVariableLevel::IS_MIN,
             'value' => self::SPORE_COST,
             'groups' => [ClassConstraint::EXECUTE],
-            'message' => ActionImpossibleCauseEnum::INFECT_CHICKEN_NO_SPORE]));
+            'message' => ActionImpossibleCauseEnum::INFECT_PET_NO_SPORE]));
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool
@@ -86,20 +81,27 @@ final class ConvertChicken extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $this->createChickenInfectedStatus();
+        $this->createInfectedStatus();
 
         $this->removeSporeFromPlayer();
     }
 
-    private function createChickenInfectedStatus(): void
+    private function createInfectedStatus(): void
     {
-        $this->statusService->createStatusFromName(
-            EquipmentStatusEnum::CHICKEN_INFECTED,
-            $this->gameEquipmentTarget(),
-            $this->getActionConfig()->getActionTags(),
-            new \DateTime(),
-            $this->player,
-        );
+        $equipment = $this->gameEquipmentTarget();
+        foreach (EquipmentStatusEnum::getPetInfectedStatus() as $itemName => $statusName) {
+            if ($equipment->getName() === $itemName) {
+                $this->statusService->createStatusFromName(
+                    $statusName,
+                    $equipment,
+                    $this->getActionConfig()->getActionTags(),
+                    new \DateTime(),
+                    $this->player,
+                );
+
+                break;
+            }
+        }
     }
 
     private function removeSporeFromPlayer(): void

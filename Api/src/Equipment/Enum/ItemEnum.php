@@ -97,6 +97,7 @@ class ItemEnum
             self::STARMAP_FRAGMENT,
             self::WATER_STICK,
             ToolItemEnum::JAR_OF_ALIEN_OIL,
+            self::TREASURE_HUNT_SPACE_CHICKEN,
         ]);
     }
 

@@ -59,6 +59,7 @@ final class BuildActionCest extends AbstractFunctionalTest
         $buildActionEntity = new ActionConfig();
         $buildActionEntity
             ->setActionName(ActionEnum::BUILD)
+            ->setName(ActionEnum::BUILD->toString())
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
 
@@ -87,6 +88,7 @@ final class BuildActionCest extends AbstractFunctionalTest
         $buildActionEntity = new ActionConfig();
         $buildActionEntity
             ->setActionName(ActionEnum::BUILD)
+            ->setName(ActionEnum::BUILD->toString())
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setRange(ActionRangeEnum::SELF);
 

@@ -69,6 +69,7 @@ final class SelfHealCest extends AbstractFunctionalTest
         $action = new ActionConfig();
         $action
             ->setActionName(ActionEnum::SELF_HEAL)
+            ->setTranslationKey(ActionEnum::SELF_HEAL->toString())
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::PLAYER)
             ->setActionCost(3)

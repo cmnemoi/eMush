@@ -408,7 +408,6 @@ abstract class ModifierConfigData
                 applyWhenTargeted: false,
                 tagConstraints: [
                     ActionTypeEnum::ACTION_ADMIN->value => ModifierRequirementEnum::NONE_TAGS,
-                    ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES->value => ModifierRequirementEnum::NONE_TAGS,
                     ActionEnum::MOVE->value => ModifierRequirementEnum::ANY_TAGS,
                 ],
                 delta: 1.0,
@@ -2139,7 +2138,7 @@ abstract class ModifierConfigData
                 applyWhenTargeted: false,
                 tagConstraints: [
                     ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
-                    ActionEnum::SHOOT_CAT->value => ModifierRequirementEnum::ANY_TAGS,
+                    ActionEnum::SHOOT_EQUIPMENT->value => ModifierRequirementEnum::ANY_TAGS,
                     ActionEnum::SHOOT_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,
                     ActionEnum::SHOOT_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
                     ActionEnum::SHOOT_RANDOM_HUNTER->value => ModifierRequirementEnum::ANY_TAGS,

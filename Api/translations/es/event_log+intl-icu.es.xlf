@@ -1041,9 +1041,9 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
 }</target>
       </segment>
     </unit>
-    <unit id="cat_shot_dead">
-      <segment id="cat_shot_dead" state="translated">
-        <source>cat_shot_dead</source>
+    <unit id="pet_shot_dead">
+      <segment id="pet_shot_dead" state="translated">
+        <source>pet_shot_dead</source>
         <target>**{target_equipment}** ha sido {target_equipment_gender, select, female {asesinada} other {asesinado}} por **{character}**.</target>
       </segment>
     </unit>

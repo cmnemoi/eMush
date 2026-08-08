@@ -13,6 +13,7 @@ use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -28,12 +29,12 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Class implementing the "Cure Chicken" action (curing the Space Chicken of the infected status).
+ * Class implementing the "Cure Pet" action (curing a pet of the infected status).
  * This action is granted by the Retro Fungal Serum.
  */
-final class CureChicken extends AttemptAction
+final class CurePet extends AttemptAction
 {
-    protected ActionEnum $name = ActionEnum::CURE_CHICKEN;
+    protected ActionEnum $name = ActionEnum::CURE_PET;
 
     protected StatusServiceInterface $statusService;
 
@@ -68,27 +69,29 @@ final class CureChicken extends AttemptAction
 
     public function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $target instanceof GameItem && $target->isSpaceChicken();
+        return $target instanceof GameItem && EquipmentEnum::canBeInfected($target->getName());
     }
 
     protected function applyEffect(ActionResult $result): void
     {
         if ($result->isASuccess()) {
-            $this->removeChickenInfectedStatus();
+            $this->removeInfectedStatus();
             $this->destroySerum();
         }
 
-        $this->putChickenInPlayerRoom();
+        $this->putItemInPlayerRoom();
     }
 
-    private function removeChickenInfectedStatus(): void
+    private function removeInfectedStatus(): void
     {
-        $this->statusService->removeStatus(
-            statusName: EquipmentStatusEnum::CHICKEN_INFECTED,
-            holder: $this->gameEquipmentTarget(),
-            tags: $this->getActionConfig()->getActionTags(),
-            time: new \DateTime(),
-        );
+        foreach (EquipmentStatusEnum::getPetInfectedStatus() as $itemName => $statusName) {
+            $this->statusService->removeStatus(
+                statusName: $statusName,
+                holder: $this->gameEquipmentTarget(),
+                tags: $this->getActionConfig()->getActionTags(),
+                time: new \DateTime(),
+            );
+        }
     }
 
     private function destroySerum(): void
@@ -106,7 +109,7 @@ final class CureChicken extends AttemptAction
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }
 
-    private function putChickenInPlayerRoom(): void
+    private function putItemInPlayerRoom(): void
     {
         $tags = $this->getTags();
         $tags[] = $this->gameItemTarget()->getName();

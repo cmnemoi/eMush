@@ -45,7 +45,7 @@ final class ShootHunterPatrolShipCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SHOOT_HUNTER_PATROL_SHIP]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SHOOT_HUNTER_PATROL_SHIP]);
         $this->shootHunterPatrolShipAction = $I->grabService(ShootHunterPatrolShip::class);
 
         /** @var GameEquipmentServiceInterface $gameEquipmentService */

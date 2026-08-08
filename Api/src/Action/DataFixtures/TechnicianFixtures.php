@@ -43,6 +43,7 @@ class TechnicianFixtures extends Fixture
         $repair1
             ->setName(ActionEnum::REPAIR->value . '_percent_1')
             ->setActionName(ActionEnum::REPAIR)
+            ->setTranslationKey(ActionEnum::REPAIR->value)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
@@ -56,6 +57,7 @@ class TechnicianFixtures extends Fixture
         $repair3
             ->setName(ActionEnum::REPAIR->value . '_percent_3')
             ->setActionName(ActionEnum::REPAIR)
+            ->setTranslationKey(ActionEnum::REPAIR->value)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
@@ -69,6 +71,7 @@ class TechnicianFixtures extends Fixture
         $repair6
             ->setName(ActionEnum::REPAIR->value . '_percent_6')
             ->setActionName(ActionEnum::REPAIR)
+            ->setTranslationKey(ActionEnum::REPAIR->value)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
@@ -82,6 +85,7 @@ class TechnicianFixtures extends Fixture
         $repair12
             ->setName(ActionEnum::REPAIR->value . '_percent_12')
             ->setActionName(ActionEnum::REPAIR)
+            ->setTranslationKey(ActionEnum::REPAIR->value)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
@@ -95,6 +99,7 @@ class TechnicianFixtures extends Fixture
         $repair25
             ->setName(ActionEnum::REPAIR->value . '_percent_25')
             ->setActionName(ActionEnum::REPAIR)
+            ->setTranslationKey(ActionEnum::REPAIR->value)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
@@ -108,6 +113,7 @@ class TechnicianFixtures extends Fixture
         $repair50
             ->setName(ActionEnum::REPAIR->value . '_percent_50')
             ->setActionName(ActionEnum::REPAIR)
+            ->setTranslationKey(ActionEnum::REPAIR->value)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
@@ -121,6 +127,7 @@ class TechnicianFixtures extends Fixture
         $dismantle312
             ->setName(ActionEnum::DISASSEMBLE->value . '_percent_12_cost_3')
             ->setActionName(ActionEnum::DISASSEMBLE)
+            ->setTranslationKey(ActionEnum::DISASSEMBLE->value)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
@@ -134,6 +141,7 @@ class TechnicianFixtures extends Fixture
         $dismantle325
             ->setName(ActionEnum::DISASSEMBLE->value . '_percent_25_cost_3')
             ->setActionName(ActionEnum::DISASSEMBLE)
+            ->setTranslationKey(ActionEnum::DISASSEMBLE->value)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
@@ -147,6 +155,7 @@ class TechnicianFixtures extends Fixture
         $dismantle350
             ->setName(ActionEnum::DISASSEMBLE->value . '_percent_50_cost_3')
             ->setActionName(ActionEnum::DISASSEMBLE)
+            ->setTranslationKey(ActionEnum::DISASSEMBLE->value)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
@@ -160,6 +169,7 @@ class TechnicianFixtures extends Fixture
         $dismantle46
             ->setName(ActionEnum::DISASSEMBLE->value . '_percent_6_cost_4')
             ->setActionName(ActionEnum::DISASSEMBLE)
+            ->setTranslationKey(ActionEnum::DISASSEMBLE->value)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
@@ -173,6 +183,7 @@ class TechnicianFixtures extends Fixture
         $dismantle412
             ->setName(ActionEnum::DISASSEMBLE->value . '_percent_12_cost_4')
             ->setActionName(ActionEnum::DISASSEMBLE)
+            ->setTranslationKey(ActionEnum::DISASSEMBLE->value)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
@@ -186,6 +197,7 @@ class TechnicianFixtures extends Fixture
         $dismantle425
             ->setName(ActionEnum::DISASSEMBLE->value . '_percent_25_cost_4')
             ->setActionName(ActionEnum::DISASSEMBLE)
+            ->setTranslationKey(ActionEnum::DISASSEMBLE->value)
             ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
@@ -199,6 +211,7 @@ class TechnicianFixtures extends Fixture
         $sabotageAction1
             ->setName(ActionEnum::SABOTAGE->value . '_percent_1')
             ->setActionName(ActionEnum::SABOTAGE)
+            ->setTranslationKey(ActionEnum::SABOTAGE->value)
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)
@@ -212,6 +225,7 @@ class TechnicianFixtures extends Fixture
         $sabotageAction3
             ->setName(ActionEnum::SABOTAGE->value . '_percent_3')
             ->setActionName(ActionEnum::SABOTAGE)
+            ->setTranslationKey(ActionEnum::SABOTAGE->value)
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)
@@ -225,6 +239,7 @@ class TechnicianFixtures extends Fixture
         $sabotageAction6
             ->setName(ActionEnum::SABOTAGE->value . '_percent_6')
             ->setActionName(ActionEnum::SABOTAGE)
+            ->setTranslationKey(ActionEnum::SABOTAGE->value)
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)
@@ -238,6 +253,7 @@ class TechnicianFixtures extends Fixture
         $sabotageAction12
             ->setName(ActionEnum::SABOTAGE->value . '_percent_12')
             ->setActionName(ActionEnum::SABOTAGE)
+            ->setTranslationKey(ActionEnum::SABOTAGE->value)
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)
@@ -251,6 +267,7 @@ class TechnicianFixtures extends Fixture
         $sabotageAction25
             ->setName(ActionEnum::SABOTAGE->value . '_percent_25')
             ->setActionName(ActionEnum::SABOTAGE)
+            ->setTranslationKey(ActionEnum::SABOTAGE->value)
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)
@@ -264,6 +281,7 @@ class TechnicianFixtures extends Fixture
         $sabotageAction50
             ->setName(ActionEnum::SABOTAGE->value . '_percent_50')
             ->setActionName(ActionEnum::SABOTAGE)
+            ->setTranslationKey(ActionEnum::SABOTAGE->value)
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->setActionCost(2)

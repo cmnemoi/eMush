@@ -42,6 +42,7 @@ enum ActionEnum: string
     case INFECT = 'infect';
     case SABOTAGE = 'sabotage';
     case GO_BERSERK = 'go_berserk';
+    case CONVERT_PET = 'convert_pet';
     case CONVERT_CAT = 'convert_cat';
     case CONVERT_CHICKEN = 'convert_chicken';
 
@@ -80,10 +81,10 @@ enum ActionEnum: string
     case UPGRADE_DRONE_TO_SENSOR = 'upgrade_drone_to_sensor';
     case TAKE_CAT = 'take_cat';
     case PET_CAT = 'pet_cat';
-    case SHOOT_CAT = 'shoot_cat';
+    case SHOOT_EQUIPMENT = 'shoot_equipment';
     case CURE_CAT = 'cure_cat';
+    case CURE_PET = 'cure_pet';
     case TAKE_CHICKEN = 'take_chicken';
-    case SHOOT_CHICKEN = 'shoot_chicken';
     case CURE_CHICKEN = 'cure_chicken';
     case OPEN_CONTAINER = 'open_container';
     case PLAY_WITH_DOG = 'play_with_dog';
@@ -111,8 +112,10 @@ enum ActionEnum: string
     case LIE_DOWN = 'lie_down';
     case DISPENSE = 'dispense';
     case SHOOT_HUNTER = 'shoot_hunter';
+    case SHOOT_HUNTER_TURRET = 'shoot_hunter_turret';
     case SHOOT_HUNTER_PATROL_SHIP = 'shoot_hunter_patrol_ship';
     case SHOOT_RANDOM_HUNTER = 'shoot_random_hunter';
+    case SHOOT_RANDOM_HUNTER_TURRET = 'shoot_random_hunter_turret';
     case SHOOT_RANDOM_HUNTER_PATROL_SHIP = 'shoot_random_hunter_patrol_ship';
     case ACCESS_TERMINAL = 'access_terminal';
     case BYPASS_TERMINAL = 'bypass_terminal';
@@ -245,8 +248,7 @@ enum ActionEnum: string
     public function isDetectedByMycoAlarm(): bool
     {
         return \in_array($this, [
-            self::CONVERT_CAT,
-            self::CONVERT_CHICKEN,
+            self::CONVERT_PET,
             self::EXCHANGE_BODY,
             self::GIVE_NIGHTMARE,
             self::GO_BERSERK,

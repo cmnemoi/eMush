@@ -6,7 +6,7 @@ namespace Mush\Tests\functional\Disease\Listener;
 
 use Mush\Action\Actions\Consume;
 use Mush\Action\Actions\Move;
-use Mush\Action\Actions\TakeCat;
+use Mush\Action\Actions\Take;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Entity\PlayerDisease;
@@ -79,7 +79,7 @@ final class SymptomsActionSubscriberCest extends AbstractFunctionalTest
 
         $schrodinger = $this->createEquipment(ItemEnum::SCHRODINGER, $this->player->getPlace());
 
-        $takeCat = $I->grabService(TakeCat::class);
+        $takeCat = $I->grabService(Take::class);
 
         $takeCat->loadParameters(
             actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TAKE_CAT])->setInjuryRate(0),

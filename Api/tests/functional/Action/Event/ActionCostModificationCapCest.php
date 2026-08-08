@@ -34,6 +34,8 @@ final class ActionCostModificationCapCest extends AbstractFunctionalTest
         $this->showerAction = $I->grabService(Shower::class);
         $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE_SHOWER]);
         $this->action->setInjuryRate(0);
+        $this->action->getGameVariables()->getVariableByName('actionPoint')->setMinValue(0);
+        $I->haveInRepository($this->action);
         $I->refreshEntities($this->action);
     }
 

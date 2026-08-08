@@ -633,7 +633,8 @@ final class ActionServiceTest extends TestCase
             ->setMoralCost($moralPointCost)
             ->setMovementCost($movementPointCost)
             ->setSuccessRate($successRate)
-            ->setActionName(ActionEnum::TAKE);
+            ->setActionName(ActionEnum::TAKE)
+            ->setName(ActionEnum::TAKE->toString());
 
         return $action;
     }

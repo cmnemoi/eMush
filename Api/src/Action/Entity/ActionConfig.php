@@ -91,6 +91,10 @@ class ActionConfig implements GameVariableHolderInterface
     #[Groups(['action_read', 'action_write'])]
     private ActionEnum $actionName;
 
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => 'sss'])]
+    #[Groups(['action_read', 'action_write'])]
+    private string $translationKey = 'sss';
+
     #[ORM\Column(type: 'array', nullable: false)]
     #[Groups(['action_read', 'action_write'])]
     private array $types = [];
@@ -125,7 +129,8 @@ class ActionConfig implements GameVariableHolderInterface
             ->setActionName($configData['action_name'])
             ->setTypes($configData['types'])
             ->setDisplayHolder($configData['target'])
-            ->setRange($configData['scope']);
+            ->setRange($configData['scope'])
+            ->setTranslationKey($configData['translationKey']);
 
         $gameVariables = $actionConfig->getGameVariables();
         $gameVariables->setValuesByName($configData['percentageInjury'], ActionVariableEnum::PERCENTAGE_INJURY);
@@ -205,7 +210,8 @@ class ActionConfig implements GameVariableHolderInterface
     public function getActionTags(): array
     {
         $tags = $this->getTypes();
-        $tags[] = $this->actionName->value;
+        $tags[] = $this->name;
+        $tags[] = $this->actionName->toString();
 
         return $tags;
     }
@@ -419,7 +425,8 @@ class ActionConfig implements GameVariableHolderInterface
             ->setActionName($configData['action_name'])
             ->setTypes($configData['types'])
             ->setDisplayHolder($configData['target'])
-            ->setRange($configData['scope']);
+            ->setRange($configData['scope'])
+            ->setTranslationKey($configData['translationKey']);
 
         $gameVariables = $this->getGameVariables();
         $gameVariables->setValuesByName($configData['percentageInjury'], ActionVariableEnum::PERCENTAGE_INJURY);
@@ -437,6 +444,18 @@ class ActionConfig implements GameVariableHolderInterface
         }
 
         $this->setVisibilities($configData['visibilities']);
+
+        return $this;
+    }
+
+    public function getTranslationKey(): string
+    {
+        return $this->translationKey;
+    }
+
+    public function setTranslationKey(string $translationKey): self
+    {
+        $this->translationKey = $translationKey;
 
         return $this;
     }

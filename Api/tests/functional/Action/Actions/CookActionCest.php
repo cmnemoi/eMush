@@ -67,6 +67,7 @@ final class CookActionCest extends AbstractFunctionalTest
         $cookActionEntity = new ActionConfig();
         $cookActionEntity
             ->setActionName(ActionEnum::COOK)
+            ->setName(ActionEnum::COOK->toString())
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
 

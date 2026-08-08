@@ -166,11 +166,8 @@ abstract class ActionLogEnum
     public const string CONVERT_CHICKEN = 'convert_chicken';
     public const string CURE_CHICKEN_SUCCESS = 'cure_chicken_success';
     public const string CURE_CHICKEN_FAIL = 'cure_chicken_fail';
-    public const string SHOOT_CHICKEN_SUCCESS = 'shoot_chicken_success';
-    public const string SHOOT_CHICKEN_FAIL = 'shoot_chicken_fail';
-    public const string SHOOT_CHICKEN_CRITICAL_SUCCESS = 'shoot_chicken_critical_success';
-    public const string SHOOT_CHICKEN_CRITICAL_FAIL = 'shoot_chicken_critical_fail';
-    public const string SHOOT_CHICKEN_ONE_SHOT = 'shoot_chicken_one_shot';
+    public const string SHOOT_EQUIPMENT_SUCCESS = 'shoot_equipment_success';
+    public const string SHOOT_EQUIPMENT_FAIL = 'shoot_equipment_fail';
     public const string DAUNT_SUCCESS = 'daunt_success';
     public const string GEN_METAL_SUCCESS = 'gen_metal_success';
     public const string GEN_METAL_FAIL = 'gen_metal_fail';
@@ -594,12 +591,9 @@ abstract class ActionLogEnum
         ActionEnum::CONVERT_CAT->value => [
             ActionOutputEnum::SUCCESS => self::PET_CAT,
         ],
-        ActionEnum::SHOOT_CAT->value => [
-            ActionOutputEnum::SUCCESS => self::SHOOT_CAT_SUCCESS,
-            ActionOutputEnum::FAIL => self::SHOOT_CAT_FAIL,
-            ActionOutputEnum::CRITICAL_FAIL => self::SHOOT_CAT_CRITICAL_FAIL,
-            ActionOutputEnum::CRITICAL_SUCCESS => self::SHOOT_CAT_CRITICAL_SUCCESS,
-            ActionOutputEnum::ONE_SHOT => self::SHOOT_CAT_ONE_SHOT,
+        ActionEnum::SHOOT_EQUIPMENT->value => [
+            ActionOutputEnum::SUCCESS => self::SHOOT_EQUIPMENT_SUCCESS,
+            ActionOutputEnum::FAIL => self::SHOOT_EQUIPMENT_FAIL,
         ],
         ActionEnum::TAKE_CHICKEN->value => [
             ActionOutputEnum::SUCCESS => self::TAKE_CHICKEN,
@@ -610,13 +604,6 @@ abstract class ActionLogEnum
         ],
         ActionEnum::CONVERT_CHICKEN->value => [
             ActionOutputEnum::SUCCESS => self::CONVERT_CHICKEN,
-        ],
-        ActionEnum::SHOOT_CHICKEN->value => [
-            ActionOutputEnum::SUCCESS => self::SHOOT_CHICKEN_SUCCESS,
-            ActionOutputEnum::FAIL => self::SHOOT_CHICKEN_FAIL,
-            ActionOutputEnum::CRITICAL_FAIL => self::SHOOT_CHICKEN_CRITICAL_FAIL,
-            ActionOutputEnum::CRITICAL_SUCCESS => self::SHOOT_CHICKEN_CRITICAL_SUCCESS,
-            ActionOutputEnum::ONE_SHOT => self::SHOOT_CHICKEN_ONE_SHOT,
         ],
         ActionEnum::DAUNT->value => [
             ActionOutputEnum::SUCCESS => self::DAUNT_SUCCESS,

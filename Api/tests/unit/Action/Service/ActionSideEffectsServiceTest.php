@@ -63,7 +63,8 @@ final class ActionSideEffectsServiceTest extends TestCase
         $room->setDaedalus($player->getDaedalus());
 
         $action
-            ->setActionName(ActionEnum::DROP);
+            ->setActionName(ActionEnum::DROP)
+            ->setName(ActionEnum::DROP->toString());
 
         $this->eventService->shouldReceive('callEvent')->twice();
 
@@ -82,7 +83,8 @@ final class ActionSideEffectsServiceTest extends TestCase
         $room->setDaedalus($player->getDaedalus());
 
         $action
-            ->setActionName(ActionEnum::DROP);
+            ->setActionName(ActionEnum::DROP)
+            ->setName(ActionEnum::DROP->toString());
         $dirtyConfig = new StatusConfig();
         $dirtyConfig->setStatusName(PlayerStatusEnum::DIRTY);
         new Status($player, $dirtyConfig);

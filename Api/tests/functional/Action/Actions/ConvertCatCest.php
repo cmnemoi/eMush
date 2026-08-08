@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Action\Actions;
 
-use Mush\Action\Actions\ConvertCat;
+use Mush\Action\Actions\ConvertPet;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
@@ -29,7 +29,7 @@ use Mush\Tests\RoomLogDto;
 final class ConvertCatCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
-    private ConvertCat $convertCat;
+    private ConvertPet $convertCat;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
@@ -40,7 +40,7 @@ final class ConvertCatCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::CONVERT_CAT->value]);
-        $this->convertCat = $I->grabService(ConvertCat::class);
+        $this->convertCat = $I->grabService(ConvertPet::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -86,7 +86,7 @@ final class ConvertCatCest extends AbstractFunctionalTest
 
         $this->whenPlayerConvertsCat();
 
-        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::CAT_ALREADY_CONVERTED, $I);
+        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::PET_ALREADY_CONVERTED, $I);
     }
 
     public function shouldNotBeExecutableIfPlayerHasNoSpore(FunctionalTester $I): void
@@ -97,7 +97,7 @@ final class ConvertCatCest extends AbstractFunctionalTest
 
         $this->whenPlayerConvertsCat();
 
-        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::INFECT_CAT_NO_SPORE, $I);
+        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::INFECT_PET_NO_SPORE, $I);
     }
 
     public function shouldNotBeVisibleIfPlayerIsNotMush(FunctionalTester $I): void

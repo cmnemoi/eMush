@@ -106,7 +106,7 @@ class ActionNormalizer implements NormalizerInterface
             if ($actionClass->isVisible()) {
                 $normalizedAction = [
                     'id' => $actionConfig->getId(),
-                    'key' => $actionConfig->getActionName()->value,
+                    'key' => $actionConfig->getTranslationKey(),
                     'actionProvider' => [
                         'id' => $actionProvider->getId(),
                         'class' => $actionProvider->getClassName(),
@@ -307,7 +307,8 @@ class ActionNormalizer implements NormalizerInterface
 
     private function getActionKey(Player $currentPlayer, AbstractAction $actionClass): string
     {
-        $actionName = $actionClass->getActionName();
+        $actionConfig = $actionClass->getActionConfig();
+        $actionName = $actionConfig->getTranslationKey();
 
         // A switch in case we need more alternative names
         switch ($actionName) {

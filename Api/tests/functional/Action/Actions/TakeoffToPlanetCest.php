@@ -382,6 +382,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
             expected: [
                 'character' => $this->player->getLogName(),
                 'target_equipment' => $this->icarus->getLogName(),
+                'item' => $this->icarus->getLogName(),
             ],
             actual: $log->getParameters(),
         );

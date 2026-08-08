@@ -6,7 +6,7 @@ namespace Mush\tests\functional\Action\Actions;
 
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Repository\PendingStatisticRepositoryInterface;
-use Mush\Action\Actions\ShootCat;
+use Mush\Action\Actions\ShootEquipment;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
@@ -36,7 +36,7 @@ use Mush\Tests\RoomLogDto;
 final class ShootCatCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
-    private ShootCat $shootCat;
+    private ShootEquipment $shootCat;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
@@ -47,8 +47,8 @@ final class ShootCatCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SHOOT_CAT->value]);
-        $this->shootCat = $I->grabService(ShootCat::class);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SHOOT_EQUIPMENT->value]);
+        $this->shootCat = $I->grabService(ShootEquipment::class);
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -65,7 +65,7 @@ final class ShootCatCest extends AbstractFunctionalTest
             RoomLog::class,
             [
                 'place' => $this->player->getPlace()->getLogName(),
-                'log' => ActionLogEnum::SHOOT_CAT_SUCCESS,
+                'log' => ActionLogEnum::SHOOT_EQUIPMENT_SUCCESS,
                 'visibility' => VisibilityEnum::PUBLIC,
             ]
         );
@@ -79,7 +79,7 @@ final class ShootCatCest extends AbstractFunctionalTest
             RoomLog::class,
             [
                 'place' => $this->player->getPlace()->getLogName(),
-                'log' => LogEnum::CAT_SHOT_DEAD,
+                'log' => LogEnum::PET_SHOT_DEAD,
                 'visibility' => VisibilityEnum::PUBLIC,
             ]
         );
@@ -378,14 +378,12 @@ final class ShootCatCest extends AbstractFunctionalTest
 
     private function givenShotIsSuccessful(FunctionalTester $I): void
     {
-        $this->actionConfig->setSuccessRate(100);
-        $I->flushToDatabase($this->actionConfig);
+        $this->blaster->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
     }
 
     private function givenShotIsFailure(FunctionalTester $I): void
     {
-        $this->actionConfig->setSuccessRate(0);
-        $I->flushToDatabase($this->actionConfig);
+        $this->blaster->getWeaponMechanicOrThrow()->setBaseAccuracy(0);
     }
 
     private function givenBlasterHasCharges(int $blasterCharges, FunctionalTester $I): void
@@ -474,6 +472,8 @@ final class ShootCatCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
+        $natamyRifle->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
+
         $this->shootCat->loadParameters(
             actionConfig: $this->actionConfig,
             actionProvider: $natamyRifle,
@@ -487,7 +487,7 @@ final class ShootCatCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: [
-                'name' => 'shoot_cat',
+                'name' => 'shoot_equipment',
                 'result' => PlayerHighlight::SUCCESS,
                 'parameters' => ['target_' . $this->schrodinger->getLogKey() => $this->schrodinger->getLogName()],
             ],

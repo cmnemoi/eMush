@@ -697,28 +697,16 @@
         <target>No puedes entrar a esta sala porque hay un guardia presente en ella.</target>
       </segment>
     </unit>
-    <unit id="cat_already_converted">
+    <unit id="pet_already_converted">
       <segment id="description" state="translated">
-        <source>cat_already_converted.description</source>
+        <source>pet_already_converted.description</source>
         <target>Este animal ya se ha unido a tu causa... a pesar de que no haya mejorado su temperamento.</target>
       </segment>
     </unit>
-    <unit id="infect_cat_no_spore">
+    <unit id="infect_pet_no_spore">
       <segment id="description" state="translated">
-        <source>infect_cat_no_spore.description</source>
+        <source>infect_pet_no_spore.description</source>
         <target>Es una buena idea... Pero tendrás que extirparte una espora antes de poder infectarlo.</target>
-      </segment>
-    </unit>
-    <unit id="chicken_already_converted">
-      <segment id="description" state="initial">
-        <source>chicken_already_converted.description</source>
-        <target>chicken_already_converted.description</target>
-      </segment>
-    </unit>
-    <unit id="infect_chicken_no_spore">
-      <segment id="description" state="initial">
-        <source>infect_chicken_no_spore.description</source>
-        <target>infect_chicken_no_spore.description</target>
       </segment>
     </unit>
     <unit id="player_is_germaphobic">

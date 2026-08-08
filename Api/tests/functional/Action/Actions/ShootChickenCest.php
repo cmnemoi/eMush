@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Action\Actions;
 
-use Mush\Action\Actions\ShootChicken;
+use Mush\Action\Actions\ShootEquipment;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
@@ -23,7 +23,7 @@ use Mush\Tests\FunctionalTester;
 final class ShootChickenCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
-    private ShootChicken $shootChicken;
+    private ShootEquipment $shootChicken;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private GameItem $chicken;
@@ -33,8 +33,8 @@ final class ShootChickenCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SHOOT_CHICKEN->value]);
-        $this->shootChicken = $I->grabService(ShootChicken::class);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SHOOT_EQUIPMENT->value]);
+        $this->shootChicken = $I->grabService(ShootEquipment::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -110,14 +110,12 @@ final class ShootChickenCest extends AbstractFunctionalTest
 
     private function givenShotIsSuccessful(FunctionalTester $I): void
     {
-        $this->actionConfig->setSuccessRate(100);
-        $I->flushToDatabase($this->actionConfig);
+        $this->blaster->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
     }
 
     private function givenShotIsFailure(FunctionalTester $I): void
     {
-        $this->actionConfig->setSuccessRate(0);
-        $I->flushToDatabase($this->actionConfig);
+        $this->blaster->getWeaponMechanicOrThrow()->setBaseAccuracy(0);
     }
 
     private function whenPlayerShoots(): void

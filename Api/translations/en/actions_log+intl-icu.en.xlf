@@ -1002,34 +1002,19 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>**{character}** struggles with **{target_equipment}**  before it escapes from their arms. {character_gender, select, male {He chases} female {She chases} other {They chase}} it around the room while swearing, without any success, before the creature finally slips under a piece of furniture.</target>
       </segment>
     </unit>
-    <unit id="shoot_cat_success">
-      <segment id="shoot_cat_success" state="translated">
-        <source>shoot_cat_success</source>
+    <unit id="shoot_equipment_success">
+      <segment id="shoot_equipment_success" state="translated">
+        <source>shoot_equipment_success</source>
         <target>Premeditated or not, **{character}** took out their weapon and opened fire on **{target_equipment}**.</target>
       </segment>
     </unit>
-    <unit id="shoot_cat_critical_success">
-      <segment id="shoot_cat_critical_success" state="translated">
-        <source>shoot_cat_critical_success</source>
-        <target>Premeditated or not, **{character}** took out their weapon and opened fire on **{target_equipment}**.</target>
-      </segment>
-    </unit>
-    <unit id="shoot_cat_fail">
-      <segment id="shoot_cat_fail" state="translated">
-        <source>shoot_cat_fail</source>
+    <unit id="shoot_equipment_fail">
+      <segment id="shoot_equipment_fail" state="translated">
+        <source>shoot_equipment_fail</source>
         <target>{version, select,
     1 {Premeditated or not, **{character}** took out their weapon and opened fire on **{target_character}**.}
     other {Premeditated or not, **{character}** took out their weapon and opened fire on **{target_character}**.}
     }</target>
-      </segment>
-    </unit>
-    <unit id="shoot_cat_critical_fail">
-      <segment id="shoot_cat_critical_fail" state="translated">
-        <source>shoot_cat_critical_fail</source>
-        <target>{version, select,
-    1 {**{character}**'s magic trick has definitely failed, and they accidentally turn their weapon against themself}
-    other {**{character}**'s magic trick has definitely failed, and they accidentally turn their weapon against themself}
-}.</target>
       </segment>
     </unit>
     <unit id="take_chicken">

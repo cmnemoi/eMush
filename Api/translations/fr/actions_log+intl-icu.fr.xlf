@@ -1241,21 +1241,20 @@
         <target>**{character}** se débat avec **{target_equipment}** avant que celui-ci ne s'échappe de ses bras. {character_gender, select, male {Il} female {Elle} other {Iel}} le poursuit dans la pièce en jurant, sans le moindre succès, avant que la créature ne finisse par se glisser sous un meuble.</target>
       </segment>
     </unit>
-    <unit id="shoot_cat_success">
-      <segment id="shoot_cat_success" state="translated">
-        <source>shoot_cat_success</source>
-        <target>L'œil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_equipment}**...</target>
+    <unit id="shoot_equipment_success">
+      <segment id="shoot_equipment_success" state="translated">
+        <source>shoot_equipment_success</source>
+        <target>{item, select, 
+        blaster {L'œil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_equipment}**.}
+        lizaro_jungle {**{character}** met en joue sa cible. Il prend son temps pour viser la tête, il retient son soufle et d'un seul mouvement de doigt, **{target_equipment}** n'est plus.}
+        old_faithful {**{target_equipment}** n'a rien le temps de comprendre : en un instant, le torrent de balles déversé par **{character}** {target_equipment_gender, select, male {le} female {la} other {}} transforme en confiture.}
+        rocket_launcher {De tout temps, les sages de l'humanité ont voulu répertorier ce qu'il était possible de détruire avec des explosifs. **{character}** peut enfin ajouter {target_equipment_gender, select, male {le} female {la} other {}} **{target_equipment}** à la liste.}
+        other {invalid weapon name}} </target>
       </segment>
     </unit>
-    <unit id="shoot_cat_critical_success">
-      <segment id="shoot_cat_critical_success" state="translated">
-        <source>shoot_cat_critical_success</source>
-        <target>L'œil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_equipment}**...</target>
-      </segment>
-    </unit>
-    <unit id="shoot_cat_fail">
-      <segment id="shoot_cat_fail" state="translated">
-        <source>shoot_cat_fail</source>
+    <unit id="shoot_equipment_fail">
+      <segment id="shoot_equipment_fail" state="translated">
+        <source>shoot_equipment_fail</source>
         <target>{version, select,
                     1 {Clic...clic...**{character}** a raté une occasion...}
                     2 {**{character}** bute sur un poney imaginaire et tombe en arrière !}
@@ -1263,20 +1262,6 @@
                     4 {**{character}** a fait feu sur **{target_equipment}** mais n'est hélas juste pas capable de viser correctement...}
                     other {invalid version input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="shoot_cat_critical_fail">
-      <segment id="shoot_cat_critical_fail" state="translated">
-        <source>shoot_cat_critical_fail</source>
-        <target>{version, select,
-                    1 {{character_gender, select,
-                        male {Le tour de magie de **{character}** est décidément raté, il retourne son arme contre lui par mégarde}
-                        female {Le tour de magie de **{character}** est décidément raté, elle retourne son arme contre elle par mégarde}
-                        other {Le tour de magie de **{character}** est décidément raté, retournant son arme contre iel par mégarde.}
-                    }}
-                    2 {La violence est le refuge de l'incompétence. **{character}** aurait mieux fait de s'abstenir. Son arme est maintenant par terre et **{target}** l'en sait gré}
-                    other {invalid version input}
-                }.</target>
       </segment>
     </unit>
     <unit id="take_chicken">
@@ -1302,50 +1287,6 @@
       <segment id="cure_chicken_fail" state="translated">
         <source>cure_chicken_fail</source>
         <target>**{character}** se débat avec **{target_equipment}** avant que celui-ci ne s'échappe de ses bras. {character_gender, select, male {Il} female {Elle} other {Iel}} le poursuit dans la pièce en jurant, sans le moindre succès, avant que la créature ne finisse par se glisser sous un meuble.</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_success">
-      <segment id="shoot_chicken_success" state="translated">
-        <source>shoot_chicken_success</source>
-        <target>L'œil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_equipment}**...</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_critical_success">
-      <segment id="shoot_chicken_critical_success" state="translated">
-        <source>shoot_chicken_critical_success</source>
-        <target>L'œil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_equipment}**...</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_fail">
-      <segment id="shoot_chicken_fail" state="translated">
-        <source>shoot_chicken_fail</source>
-        <target>{version, select,
-                    1 {Clic...clic...**{character}** a raté une occasion...}
-                    2 {**{character}** bute sur un poney imaginaire et tombe en arrière !}
-                    3 {Clic...clic... l'arme de **{character}** est enrayée.}
-                    4 {**{character}** a fait feu sur **{target_equipment}** mais n'est hélas juste pas capable de viser correctement...}
-                    other {invalid version input}
-                }</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_critical_fail">
-      <segment id="shoot_chicken_critical_fail" state="translated">
-        <source>shoot_chicken_critical_fail</source>
-        <target>{version, select,
-                    1 {{character_gender, select,
-                        male {Le tour de magie de **{character}** est décidément raté, il retourne son arme contre lui par mégarde}
-                        female {Le tour de magie de **{character}** est décidément raté, elle retourne son arme contre elle par mégarde}
-                        other {invalid gender input}
-                    }}
-                    2 {La violence est le refuge de l'incompétence. **{character}** aurait mieux fait de s'abstenir. Son arme est maintenant par terre et **{target}** l'en sait gré}
-                    other {invalid version input}
-                }.</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_one_shot">
-      <segment id="shoot_chicken_one_shot" state="translated">
-        <source>shoot_chicken_one_shot</source>
-        <target>**{character}** tire à bout portant sur **{target_equipment}**, achevant les choses sur-le-champ.</target>
       </segment>
     </unit>
     <unit id="daunt_success">

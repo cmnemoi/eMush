@@ -1142,8 +1142,7 @@ class MechanicsData
             'expeditionBonus' => 1,
             'actions' => [
                 ActionEnum::SHOOT->value,
-                ActionEnum::SHOOT_CAT->value,
-                ActionEnum::SHOOT_CHICKEN->value,
+                ActionEnum::SHOOT_EQUIPMENT->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1173,8 +1172,7 @@ class MechanicsData
             'expeditionBonus' => 2,
             'actions' => [
                 ActionEnum::SHOOT->value,
-                ActionEnum::SHOOT_CAT->value,
-                ActionEnum::SHOOT_CHICKEN->value,
+                ActionEnum::SHOOT_EQUIPMENT->value,
             ],
             'modifierConfigs' => [],
         ],
@@ -1250,8 +1248,7 @@ class MechanicsData
             'expeditionBonus' => 1,
             'actions' => [
                 ActionEnum::SHOOT,
-                ActionEnum::SHOOT_CAT,
-                ActionEnum::SHOOT_CHICKEN,
+                ActionEnum::SHOOT_EQUIPMENT,
             ],
             'modifierConfigs' => [],
         ],
@@ -1279,8 +1276,7 @@ class MechanicsData
             'expeditionBonus' => 2,
             'actions' => [
                 ActionEnum::SHOOT,
-                ActionEnum::SHOOT_CAT,
-                ActionEnum::SHOOT_CHICKEN,
+                ActionEnum::SHOOT_EQUIPMENT,
             ],
             'modifierConfigs' => [],
         ],
@@ -1308,8 +1304,7 @@ class MechanicsData
             'expeditionBonus' => 1,
             'actions' => [
                 ActionEnum::SHOOT,
-                ActionEnum::SHOOT_CAT,
-                ActionEnum::SHOOT_CHICKEN,
+                ActionEnum::SHOOT_EQUIPMENT,
             ],
             'modifierConfigs' => [],
         ],
@@ -1334,6 +1329,7 @@ class MechanicsData
             'expeditionBonus' => 3,
             'actions' => [
                 ActionEnum::SHOOT,
+                ActionEnum::SHOOT_EQUIPMENT,
             ],
             'modifierConfigs' => [],
         ],

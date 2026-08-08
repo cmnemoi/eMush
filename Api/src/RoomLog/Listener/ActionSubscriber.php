@@ -218,12 +218,12 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function tryToCreateCatNoises(ActionEvent $event): void
     {
-        if ($this->shotAtCatAndFailed($event) || $this->cureCatAndFailed($event)) {
+        if ($this->shotAtPetAndFailed($event) || $this->curePetAndFailed($event)) {
             $this->createCatHissLog($event);
 
             return;
         }
-        if ($this->shotAtCatAndSucceeded($event)) {
+        if ($this->shotAtPetAndSucceeded($event)) {
             // A dead cat shouldn't make noise.
             return;
         }
@@ -237,39 +237,24 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function tryToCreateChickenNoises(ActionEvent $event): void
     {
-        if ($this->shotAtChickenAndFailed($event) || $this->cureChickenAndFailed($event)) {
+        if ($this->shotAtPetAndSucceeded($event) || $this->curePetAndFailed($event)) {
             $this->createChickenSquawkLog($event);
         }
     }
 
-    private function shotAtCatAndFailed(ActionEvent $event): bool
+    private function shotAtPetAndFailed(ActionEvent $event): bool
     {
-        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && $event->getActionResultOrThrow()->isAFail();
+        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_EQUIPMENT && $event->getActionResultOrThrow()->isAFail();
     }
 
-    private function shotAtCatAndSucceeded(ActionEvent $event): bool
+    private function shotAtPetAndSucceeded(ActionEvent $event): bool
     {
-        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && $event->getActionResultOrThrow()->isASuccess();
+        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_EQUIPMENT && $event->getActionResultOrThrow()->isASuccess();
     }
 
-    private function cureCatAndFailed(ActionEvent $event): bool
+    private function curePetAndFailed(ActionEvent $event): bool
     {
-        return $event->getActionConfig()->getActionName() === ActionEnum::CURE_CAT && $event->getActionResultOrThrow()->isAFail();
-    }
-
-    private function shotAtChickenAndFailed(ActionEvent $event): bool
-    {
-        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CHICKEN && $event->getActionResultOrThrow()->isAFail();
-    }
-
-    private function shotAtChickenAndSucceeded(ActionEvent $event): bool
-    {
-        return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CHICKEN && $event->getActionResultOrThrow()->isASuccess();
-    }
-
-    private function cureChickenAndFailed(ActionEvent $event): bool
-    {
-        return $event->getActionConfig()->getActionName() === ActionEnum::CURE_CHICKEN && $event->getActionResultOrThrow()->isAFail();
+        return $event->getActionConfig()->getActionName() === ActionEnum::CURE_PET && $event->getActionResultOrThrow()->isAFail();
     }
 
     private function schrodingerInRoomOrPlayerInventory(ActionEvent $event): bool
@@ -361,7 +346,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if ($action === ActionEnum::CONVERT_CAT || $action === ActionEnum::CONVERT_CHICKEN) {
+        if ($action === ActionEnum::CONVERT_PET) {
             $statistic->incrementStealthActionsTaken();
 
             return;

@@ -1237,9 +1237,9 @@
                 }</target>
       </segment>
     </unit>
-    <unit id="cat_shot_dead">
-      <segment id="cat_shot_dead" state="translated">
-        <source>cat_shot_dead</source>
+    <unit id="pet_shot_dead">
+      <segment id="pet_shot_dead" state="translated">
+        <source>pet_shot_dead</source>
         <target>**{target_equipment}** a été abattu par **{character}**.</target>
       </segment>
     </unit>

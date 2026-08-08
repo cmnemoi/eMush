@@ -85,11 +85,11 @@ final readonly class EquipmentEventSubscriber implements EventSubscriberInterfac
 
     private function increaseInfectedCatShotStatistic(EquipmentEvent $event): void
     {
-        if ($event->getGameEquipment()->doesNotHaveStatus(EquipmentStatusEnum::CAT_INFECTED)) {
+        if (!$event->getGameEquipment()->hasAnyStatuses(EquipmentStatusEnum::getPetInfectedStatus()->getValues())) {
             return;
         }
 
-        if ($event->doesNotHaveTag(ActionEnum::SHOOT_CAT->toString())) {
+        if ($event->doesNotHaveTag(ActionEnum::SHOOT_EQUIPMENT->toString())) {
             return;
         }
 

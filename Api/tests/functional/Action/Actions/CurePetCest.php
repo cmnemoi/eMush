@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Action\Actions;
 
-use Mush\Action\Actions\CureCat;
+use Mush\Action\Actions\CurePet;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Chat\Entity\Message;
@@ -27,10 +27,10 @@ use Mush\Tests\FunctionalTester;
 /**
  * @internal
  */
-final class CureCatCest extends AbstractFunctionalTest
+final class CurePetCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
-    private CureCat $cureCat;
+    private CurePet $cureCat;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
@@ -42,7 +42,7 @@ final class CureCatCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::CURE_CAT->value]);
-        $this->cureCat = $I->grabService(CureCat::class);
+        $this->cureCat = $I->grabService(CurePet::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 

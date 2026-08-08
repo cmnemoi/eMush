@@ -383,7 +383,8 @@ abstract class TriumphConfigData
                 name: TriumphEnum::MUSHICIDE_CAT,
                 targetedEvent: EquipmentEvent::EQUIPMENT_DESTROYED,
                 tagConstraints: [
-                    ActionEnum::SHOOT_CAT->value => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionEnum::SHOOT_EQUIPMENT->value => TriumphSourceEventInterface::ALL_TAGS,
+                    ItemEnum::SCHRODINGER => TriumphSourceEventInterface::ALL_TAGS,
                     EquipmentStatusEnum::CAT_INFECTED => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
@@ -411,7 +412,8 @@ abstract class TriumphConfigData
                 name: TriumphEnum::HUMANOCIDE_CAT,
                 targetedEvent: EquipmentEvent::EQUIPMENT_DESTROYED,
                 tagConstraints: [
-                    ActionEnum::SHOOT_CAT->value => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionEnum::SHOOT_EQUIPMENT->value => TriumphSourceEventInterface::ALL_TAGS,
+                    ItemEnum::SCHRODINGER => TriumphSourceEventInterface::ALL_TAGS,
                     EquipmentStatusEnum::CAT_INFECTED => TriumphSourceEventInterface::NONE_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_MUSHS,
@@ -438,7 +440,8 @@ abstract class TriumphConfigData
                 name: TriumphEnum::PSYCHOCAT,
                 targetedEvent: EquipmentEvent::EQUIPMENT_DESTROYED,
                 tagConstraints: [
-                    ActionEnum::SHOOT_CAT->value => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionEnum::SHOOT_EQUIPMENT->value => TriumphSourceEventInterface::ALL_TAGS,
+                    ItemEnum::SCHRODINGER => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::PERSONAL_CHAO,
                 targetSetting: TriumphTarget::AUTHOR,

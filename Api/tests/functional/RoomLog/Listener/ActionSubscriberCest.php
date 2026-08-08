@@ -66,7 +66,9 @@ class ActionSubscriberCest
         $I->refreshEntities($player);
 
         $action = new ActionConfig();
-        $action->setActionName(ActionEnum::GET_UP);
+        $action->setActionName(ActionEnum::GET_UP)
+            ->setName(ActionEnum::GET_UP->toString())
+            ->setTranslationKey(ActionEnum::GET_UP->toString());
 
         $actionEvent = new ActionEvent($action, $player, $player, $action->getActionTags(), null);
 

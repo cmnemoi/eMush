@@ -1093,9 +1093,9 @@ other{**{target_character}** has been contaminated by a Mush raid during explora
                 }</target>
       </segment>
     </unit>
-    <unit id="cat_shot_dead">
-      <segment id="cat_shot_dead" state="translated">
-        <source>cat_shot_dead</source>
+    <unit id="pet_shot_dead">
+      <segment id="pet_shot_dead" state="translated">
+        <source>pet_shot_dead</source>
         <target>**{target_equipment}** has been killed by **{character}**.</target>
       </segment>
     </unit>

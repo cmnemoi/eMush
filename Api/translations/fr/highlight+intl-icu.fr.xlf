@@ -441,9 +441,9 @@
         <target>Vous avez fait voyager le Daedalus vers Eden.</target>
       </segment>
     </unit>
-    <unit id="shoot_cat">
+    <unit id="shoot_equipment">
       <segment id="highlight" state="translated">
-        <source>shoot_cat.highlight</source>
+        <source>shoot_equipment.highlight</source>
         <target>Vous avez ouvert le feu sur {target_equipment_gender, select,
                 male {un **{target_equipment}**}
                 female {une **{target_equipment}**}
@@ -451,7 +451,7 @@
                 }.</target>
       </segment>
       <segment id="highlight_fail" state="translated">
-        <source>shoot_cat.highlight_fail</source>
+        <source>shoot_equipment.highlight_fail</source>
         <target>Vous avez tenté de tirer sur {target_equipment_gender, select,
                 male {un **{target_equipment}**}
                 female {une **{target_equipment}**}

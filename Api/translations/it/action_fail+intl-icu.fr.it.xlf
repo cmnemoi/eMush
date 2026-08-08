@@ -697,16 +697,16 @@
         <target>cannot_go_to_this_room_because_guardian.description</target>
       </segment>
     </unit>
-    <unit id="cat_already_converted">
+    <unit id="pet_already_converted">
       <segment id="description" state="translated">
-        <source>cat_already_converted.description</source>
-        <target>cat_already_converted.description</target>
+        <source>pet_already_converted.description</source>
+        <target>pet_already_converted.description</target>
       </segment>
     </unit>
-    <unit id="infect_cat_no_spore">
+    <unit id="infect_pet_no_spore">
       <segment id="description" state="translated">
-        <source>infect_cat_no_spore.description</source>
-        <target>infect_cat_no_spore.description</target>
+        <source>infect_pet_no_spore.description</source>
+        <target>infect_pet_no_spore.description</target>
       </segment>
     </unit>
     <unit id="chicken_already_converted">

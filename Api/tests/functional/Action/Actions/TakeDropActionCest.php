@@ -95,12 +95,14 @@ class TakeDropActionCest
         $actionTake = new ActionConfig();
         $actionTake
             ->setActionName(ActionEnum::TAKE)
+            ->setTranslationKey(ActionEnum::TAKE->toString())
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
         $actionDrop = new ActionConfig();
         $actionDrop
             ->setActionName(ActionEnum::DROP)
+            ->setTranslationKey(ActionEnum::DROP->toString())
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
@@ -236,13 +238,15 @@ class TakeDropActionCest
             ->setActionName(ActionEnum::TAKE)
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->buildName(GameConfigEnum::TEST);
+            ->buildName(GameConfigEnum::TEST)
+            ->setTranslationKey(ActionEnum::TAKE->toString());
         $actionDrop = new ActionConfig();
         $actionDrop
             ->setActionName(ActionEnum::DROP)
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->buildName(GameConfigEnum::TEST);
+            ->buildName(GameConfigEnum::TEST)
+            ->setTranslationKey(ActionEnum::DROP->toString());
         $I->haveInRepository($actionTake);
         $I->haveInRepository($actionDrop);
 
@@ -383,6 +387,7 @@ class TakeDropActionCest
         $actionTake = new ActionConfig();
         $actionTake
             ->setActionName(ActionEnum::TAKE)
+            ->setTranslationKey(ActionEnum::TAKE->toString())
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);

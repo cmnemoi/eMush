@@ -77,7 +77,8 @@ abstract class AbstractActionTest extends TestCase
         $this->actionConfig
             ->setActionCost($actionPointCost)
             ->setMovementCost($movementPoint)
-            ->setActionName($name);
+            ->setActionName($name)
+            ->setName($name->toString());
 
         $this->action->setActionConfig($this->actionConfig)->setActionProvider($this->actionProvider);
     }

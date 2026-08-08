@@ -931,34 +931,19 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
         <target>**{character}** forcejea con **{target_equipment}** antes de que se escape de sus brazos. Lo persigue por la habitación maldiciendo, sin éxito, hasta que la criatura termina por deslizarse debajo de un mueble.</target>
       </segment>
     </unit>
-    <unit id="shoot_cat_success">
-      <segment id="shoot_cat_success" state="translated">
-        <source>shoot_cat_success</source>
+    <unit id="shoot_equipment_success">
+      <segment id="shoot_equipment_success" state="translated">
+        <source>shoot_equipment_success</source>
         <target>**Schrödinger** recibe un tiro certero de **{character}**.</target>
       </segment>
     </unit>
-    <unit id="shoot_cat_critical_success">
-      <segment id="shoot_cat_critical_success" state="translated">
-        <source>shoot_cat_critical_success</source>
-        <target>Sin más ni más, **{character}** saca su arma y dispara sobre **{target_equipment}**, una, dos, tres veces...</target>
-      </segment>
-    </unit>
-    <unit id="shoot_cat_fail">
-      <segment id="shoot_cat_fail" state="translated">
-        <source>shoot_cat_fail</source>
+    <unit id="shoot_equipment_fail">
+      <segment id="shoot_equipment_fail" state="translated">
+        <source>shoot_equipment_fail</source>
         <target>{version, select,
  1 {**{character}** ha disparado sobre **{target_equipment}**, pero no fue capaz de apuntar bien...}
   other {Clic...clic... **{character}** ha perdido su oportunidad...}
 }</target>
-      </segment>
-    </unit>
-    <unit id="shoot_cat_critical_fail">
-      <segment id="shoot_cat_critical_fail" state="translated">
-        <source>shoot_cat_critical_fail</source>
-        <target>{version, select,
-    1 {El truco de magia de **{character}** ha salido mal, y sin querer se ha disparado a sí mismo}
-    other {El truco de magia de **{character}** ha salido mal, y sin querer se ha disparado a sí mismo}
-}.</target>
       </segment>
     </unit>
     <unit id="take_chicken">

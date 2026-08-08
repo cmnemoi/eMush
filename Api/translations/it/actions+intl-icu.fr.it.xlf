@@ -1679,14 +1679,14 @@
         <target>travel_to_eden.confirmation</target>
       </segment>
     </unit>
-    <unit id="shoot_cat">
+    <unit id="shoot_equipment">
       <segment id="name" state="translated">
-        <source>shoot_cat.name</source>
-        <target>shoot_cat.name</target>
+        <source>shoot_equipment.name</source>
+        <target>shoot_equipment.name</target>
       </segment>
       <segment id="description" state="translated">
-        <source>shoot_cat.description</source>
-        <target>shoot_cat.description</target>
+        <source>shoot_equipment.description</source>
+        <target>shoot_equipment.description</target>
       </segment>
     </unit>
     <unit id="shoot_chicken">

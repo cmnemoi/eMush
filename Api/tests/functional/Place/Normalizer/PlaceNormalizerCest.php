@@ -61,7 +61,7 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
         $this->dropConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DROP]);
         $this->dropAction = $I->grabService(Drop::class);
 
-        $this->takeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]);
+        $this->takeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TAKE->toString()]);
         $this->takeAction = $I->grabService(Take::class);
 
         $this->placeNormalizer->setNormalizer($this->normalizer);

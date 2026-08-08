@@ -287,7 +287,7 @@ final class EdenCest extends AbstractExplorationTester
             $cat,
             $this->kuanTi,
             VisibilityEnum::PUBLIC,
-            [ActionEnum::SHOOT_CAT->toString()],
+            [ActionEnum::SHOOT_EQUIPMENT->toString()],
             new \DateTime(),
         );
         $interactEvent->addTag('cat_death_tag');

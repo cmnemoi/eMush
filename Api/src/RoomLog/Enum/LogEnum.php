@@ -92,7 +92,7 @@ abstract class LogEnum
     public const string AWAKEN_SCHRODINGER = 'awaken_schrodinger';
     public const string CAT_MEOW = 'cat_meow';
     public const string CAT_HISS = 'cat_hiss';
-    public const string CAT_SHOT_DEAD = 'cat_shot_dead';
+    public const string PET_SHOT_DEAD = 'pet_shot_dead';
     public const string CHICKEN_SHOT_DEAD = 'chicken_shot_dead';
     public const string CHICKEN_SQUAWK = 'chicken_squawk';
     public const string TORTURER_ACTIONS = 'torturer_actions';

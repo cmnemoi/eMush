@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Status\Enum;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Equipment\Enum\ItemEnum;
+
 class EquipmentStatusEnum
 {
     public const ALIEN_ARTEFACT = 'alien_artefact';
@@ -61,5 +64,13 @@ class EquipmentStatusEnum
             self::BROKEN,
             self::UPDATING,
         ];
+    }
+
+    public static function getPetInfectedStatus(): ArrayCollection
+    {
+        return new ArrayCollection([
+            ItemEnum::SCHRODINGER => self::CAT_INFECTED,
+            ItemEnum::TREASURE_HUNT_SPACE_CHICKEN => self::CHICKEN_INFECTED,
+        ]);
     }
 }

@@ -32,7 +32,7 @@ final class TakeCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->takeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]);
+        $this->takeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TAKE->toString()]);
         $this->take = $I->grabService(Take::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);

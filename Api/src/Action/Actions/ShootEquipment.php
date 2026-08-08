@@ -5,17 +5,19 @@ declare(strict_types=1);
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
-use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\PrivateProperty;
 use Mush\Action\Validator\Reach;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Weapon;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -30,12 +32,12 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Special implementation of the Shoot action that targets equipments instead of players, for the purpose of shooting at Schrodinger.
+ * Special implementation of the Shoot action that targets equipments instead of players. Destroy the equipment on success. Use the % of success from the mechanic of the weapon used.
  */
-class ShootCat extends AttemptAction
+class ShootEquipment extends AttemptAction
 {
     private const string CAT_DEATH_TAG = 'cat_death';
-    protected ActionEnum $name = ActionEnum::SHOOT_CAT;
+    protected ActionEnum $name = ActionEnum::SHOOT_EQUIPMENT;
     protected GameEquipmentServiceInterface $gameEquipmentService;
 
     private DiseaseCauseServiceInterface $diseaseCauseService;
@@ -69,7 +71,23 @@ class ShootCat extends AttemptAction
 
     public function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $target instanceof GameItem && $target->isSchrodinger();
+        return $target instanceof GameEquipment && EquipmentEnum::canGetShot($target->getName());
+    }
+
+    public function getSuccessRate(): int
+    {
+        $actionConfig = clone $this->actionConfig;
+        $baseAccuracy = $this->getGameEquipmentActionProvider()->getWeaponMechanicOrThrow()->getBaseAccuracy();
+        $actionConfig->setSuccessRate($baseAccuracy);
+
+        return $this->actionService->getActionModifiedActionVariable(
+            player: $this->player,
+            actionConfig: $actionConfig,
+            actionProvider: $this->actionProvider,
+            actionTarget: $this->target,
+            variableName: ActionVariableEnum::PERCENTAGE_SUCCESS,
+            tags: $this->getTags()
+        );
     }
 
     public function getTags(): array
@@ -77,56 +95,44 @@ class ShootCat extends AttemptAction
         $tags = parent::getTags();
 
         $tags[] = $this->itemActionProvider()->getName();
+        $tags[] = $this->gameEquipmentTarget()->getName();
 
         return $tags;
     }
 
-    // Special checkResult for Shoot action waiting for a refactor
-    protected function checkResult(): ActionResult
-    {
-        $weapon = $this->getPlayerWeapon();
-
-        $success = $this->randomService->isSuccessful($this->getSuccessRate());
-
-        if ($success) {
-            return new Success();
-        }
-
-        return new Fail();
-    }
-
     protected function applyEffect(ActionResult $result): void
     {
-        $player = $this->player;
-
         if ($result instanceof Success) {
-            $this->killCat();
+            $this->destroyEquipment();
         }
     }
 
-    private function getPlayerWeapon(): Weapon
+    private function destroyEquipment(): void
     {
-        /** @var GameItem $weaponItem */
-        $weaponItem = $this->actionProvider;
-
-        return $weaponItem->getWeaponMechanicOrThrow();
-    }
-
-    private function killCat(): void
-    {
-        $cat = $this->gameItemTarget();
+        $item = $this->gameItemTarget();
         $interactEvent = new InteractWithEquipmentEvent(
-            $cat,
+            $item,
             $this->player,
             VisibilityEnum::PUBLIC,
             $this->getTags(),
             new \DateTime(),
         );
-        $interactEvent->addTag(self::CAT_DEATH_TAG);
-        if ($cat->hasStatus(EquipmentStatusEnum::CAT_INFECTED)) {
-            $interactEvent->addTag(EquipmentStatusEnum::CAT_INFECTED);
+
+        $this->eventService->callEvent($this->addInfectedTags($interactEvent, $item), EquipmentEvent::EQUIPMENT_DESTROYED);
+    }
+
+    private function addInfectedTags(InteractWithEquipmentEvent $event, GameItem $item): InteractWithEquipmentEvent
+    {
+        if ($item->getName() === ItemEnum::SCHRODINGER) {
+            $event->addTag(self::CAT_DEATH_TAG);
         }
 
-        $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        foreach (EquipmentStatusEnum::getPetInfectedStatus() as $itemName => $statusName) {
+            if ($item->hasStatus($statusName)) {
+                $event->addTag($statusName);
+            }
+        }
+
+        return $event;
     }
 }

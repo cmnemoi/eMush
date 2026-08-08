@@ -64,6 +64,7 @@ final class PlayDynarcadeCest extends AbstractFunctionalTest
             ->setMoralPoint(7);
 
         $this->actionConfig->setSuccessRate(100);
+        $this->actionConfig->setInjuryRate(0);
 
         $this->whenThePlayActionIsLoaded();
         $this->whenChunPlay();
@@ -90,6 +91,7 @@ final class PlayDynarcadeCest extends AbstractFunctionalTest
             ->setMoralPoint(7);
 
         $this->actionConfig->setSuccessRate(0);
+        $this->actionConfig->setInjuryRate(0);
 
         $this->whenThePlayActionIsLoaded();
         $this->whenChunPlay();

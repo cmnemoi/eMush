@@ -260,6 +260,6 @@ final class CatMeowTest extends TestCase
 
     private function shootCatActionConfig(): ActionConfig
     {
-        return ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_CAT));
+        return ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_EQUIPMENT));
     }
 }

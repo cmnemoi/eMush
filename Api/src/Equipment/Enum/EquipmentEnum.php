@@ -214,4 +214,30 @@ class EquipmentEnum
             self::ICARUS,
         ]);
     }
+
+    public static function canGetShot(string $equipment): bool
+    {
+        return \in_array(
+            $equipment,
+            [
+                ItemEnum::SCHRODINGER,
+                ItemEnum::TREASURE_HUNT_PET,
+                ItemEnum::TREASURE_HUNT_SPACE_CHICKEN,
+            ],
+            true
+        );
+    }
+
+    public static function canBeInfected(string $equipment): bool
+    {
+        return \in_array(
+            $equipment,
+            [
+                ItemEnum::SCHRODINGER,
+                ItemEnum::TREASURE_HUNT_PET,
+                ItemEnum::TREASURE_HUNT_SPACE_CHICKEN,
+            ],
+            true
+        );
+    }
 }

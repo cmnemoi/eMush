@@ -887,10 +887,10 @@
         <target>cat_meow</target>
       </segment>
     </unit>
-    <unit id="cat_shot_dead">
-      <segment id="cat_shot_dead" state="translated">
-        <source>cat_shot_dead</source>
-        <target>cat_shot_dead</target>
+    <unit id="pet_shot_dead">
+      <segment id="pet_shot_dead" state="translated">
+        <source>pet_shot_dead</source>
+        <target>pet_shot_dead</target>
       </segment>
     </unit>
     <unit id="chicken_shot_dead">

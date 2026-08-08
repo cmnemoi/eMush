@@ -1727,24 +1727,14 @@ Or you simply need some fresh air.... or not.</target>
         <target>This action will immediately end the game. Are you sure you want to continue?</target>
       </segment>
     </unit>
-    <unit id="shoot_cat">
+    <unit id="shoot_equipment">
       <segment id="name" state="translated">
-        <source>shoot_cat.name</source>
+        <source>shoot_equipment.name</source>
         <target>Shoot: {equipment}</target>
       </segment>
       <segment id="description" state="translated">
-        <source>shoot_cat.description</source>
+        <source>shoot_equipment.description</source>
         <target>Fire at someone to wound them, kill them or worse if you're so inclined. It might all end in tears!</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken">
-      <segment id="name" state="initial">
-        <source>shoot_chicken.name</source>
-        <target>shoot_chicken.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>shoot_chicken.description</source>
-        <target>shoot_chicken.description</target>
       </segment>
     </unit>
     <unit id="open_container">

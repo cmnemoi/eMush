@@ -20,6 +20,7 @@ class ActionData
         [
             'name' => 'suicide',
             'action_name' => ActionEnum::SUICIDE,
+            'translationKey' => ActionEnum::SUICIDE->value,
             'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -36,6 +37,7 @@ class ActionData
         [
             'name' => ActionEnum::FORCE_CYCLE_CHANGE->value,
             'action_name' => ActionEnum::FORCE_CYCLE_CHANGE,
+            'translationKey' => ActionEnum::FORCE_CYCLE_CHANGE->value,
             'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -52,6 +54,7 @@ class ActionData
         [
             'name' => 'auto_destroy',
             'action_name' => ActionEnum::AUTO_DESTROY,
+            'translationKey' => ActionEnum::AUTO_DESTROY->value,
             'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -68,6 +71,7 @@ class ActionData
         [
             'name' => 'kill_player',
             'action_name' => ActionEnum::KILL_PLAYER,
+            'translationKey' => ActionEnum::KILL_PLAYER->value,
             'types' => [ActionTypeEnum::ACTION_ADMIN, ActionTypeEnum::ACTION_CONFIRM, ActionTypeEnum::ACTION_SPOKEN],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -84,6 +88,7 @@ class ActionData
         [
             'name' => ActionEnum::USURP_IDENTITY->value,
             'action_name' => ActionEnum::USURP_IDENTITY,
+            'translationKey' => ActionEnum::USURP_IDENTITY->value,
             'types' => [ActionTypeEnum::ACTION_ADMIN, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -98,8 +103,9 @@ class ActionData
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
         [
-            'name' => 'rejuvenate_alpha',
+            'name' => 'rejuvenate',
             'action_name' => ActionEnum::REJUVENATE,
+            'translationKey' => ActionEnum::REJUVENATE->value,
             'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -116,6 +122,7 @@ class ActionData
         [
             'name' => ActionEnum::RESET_SKILL_POINTS->value,
             'action_name' => ActionEnum::RESET_SKILL_POINTS,
+            'translationKey' => ActionEnum::RESET_SKILL_POINTS->value,
             'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -132,6 +139,7 @@ class ActionData
         [
             'name' => 'update_talkie',
             'action_name' => ActionEnum::UPDATE_TALKIE,
+            'translationKey' => ActionEnum::UPDATE_TALKIE->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -148,6 +156,7 @@ class ActionData
         [
             'name' => 'move',
             'action_name' => ActionEnum::MOVE,
+            'translationKey' => ActionEnum::MOVE->value,
             'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -164,6 +173,7 @@ class ActionData
         [
             'name' => 'search',
             'action_name' => ActionEnum::SEARCH,
+            'translationKey' => ActionEnum::SEARCH->value,
             'types' => [],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -180,6 +190,7 @@ class ActionData
         [
             'name' => 'hit',
             'action_name' => ActionEnum::HIT,
+            'translationKey' => ActionEnum::HIT->value,
             'types' => [ActionTypeEnum::ACTION_AGGRESSIVE],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -196,6 +207,7 @@ class ActionData
         [
             'name' => 'hide',
             'action_name' => ActionEnum::HIDE,
+            'translationKey' => ActionEnum::HIDE->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -212,6 +224,7 @@ class ActionData
         [
             'name' => 'take',
             'action_name' => ActionEnum::TAKE,
+            'translationKey' => ActionEnum::TAKE->value,
             'types' => [ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -228,6 +241,7 @@ class ActionData
         [
             'name' => 'drop',
             'action_name' => ActionEnum::DROP,
+            'translationKey' => ActionEnum::DROP->value,
             'types' => [ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -244,6 +258,7 @@ class ActionData
         [
             'name' => 'consume',
             'action_name' => ActionEnum::CONSUME,
+            'translationKey' => ActionEnum::CONSUME->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -260,6 +275,7 @@ class ActionData
         [
             'name' => 'consume_drug',
             'action_name' => ActionEnum::CONSUME_DRUG,
+            'translationKey' => ActionEnum::CONSUME_DRUG->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -276,6 +292,7 @@ class ActionData
         [
             'name' => 'build',
             'action_name' => ActionEnum::BUILD,
+            'translationKey' => ActionEnum::BUILD->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -292,6 +309,7 @@ class ActionData
         [
             'name' => 'read_book',
             'action_name' => ActionEnum::READ_BOOK,
+            'translationKey' => ActionEnum::READ_BOOK->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -308,6 +326,7 @@ class ActionData
         [
             'name' => 'read_document',
             'action_name' => ActionEnum::READ_DOCUMENT,
+            'translationKey' => ActionEnum::READ_DOCUMENT->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -324,6 +343,7 @@ class ActionData
         [
             'name' => 'attack',
             'action_name' => ActionEnum::ATTACK,
+            'translationKey' => ActionEnum::ATTACK->value,
             'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_ATTACK],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -340,6 +360,7 @@ class ActionData
         [
             'name' => 'extinguish',
             'action_name' => ActionEnum::EXTINGUISH,
+            'translationKey' => ActionEnum::EXTINGUISH->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -356,6 +377,7 @@ class ActionData
         [
             'name' => 'try_kube',
             'action_name' => ActionEnum::TRY_KUBE,
+            'translationKey' => ActionEnum::TRY_KUBE->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -372,6 +394,7 @@ class ActionData
         [
             'name' => 'open',
             'action_name' => ActionEnum::OPEN,
+            'translationKey' => ActionEnum::OPEN->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -388,6 +411,7 @@ class ActionData
         [
             'name' => 'cure',
             'action_name' => ActionEnum::CURE,
+            'translationKey' => ActionEnum::CURE->value,
             'types' => [],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -404,6 +428,7 @@ class ActionData
         [
             'name' => 'use_bandage',
             'action_name' => ActionEnum::USE_BANDAGE,
+            'translationKey' => ActionEnum::USE_BANDAGE->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -420,6 +445,7 @@ class ActionData
         [
             'name' => 'express_cook',
             'action_name' => ActionEnum::EXPRESS_COOK,
+            'translationKey' => ActionEnum::EXPRESS_COOK->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SHELF,
@@ -436,6 +462,7 @@ class ActionData
         [
             'name' => 'cook',
             'action_name' => ActionEnum::COOK,
+            'translationKey' => ActionEnum::COOK->value,
             'types' => [ActionTypeEnum::ACTION_COOK],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SHELF,
@@ -452,6 +479,7 @@ class ActionData
         [
             'name' => 'self_heal',
             'action_name' => ActionEnum::SELF_HEAL,
+            'translationKey' => ActionEnum::SELF_HEAL->value,
             'types' => [ActionTypeEnum::ACTION_HEAL],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -468,6 +496,7 @@ class ActionData
         [
             'name' => 'heal',
             'action_name' => ActionEnum::HEAL,
+            'translationKey' => ActionEnum::HEAL->value,
             'types' => [ActionTypeEnum::ACTION_HEAL],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -484,6 +513,7 @@ class ActionData
         [
             'name' => 'comfort',
             'action_name' => ActionEnum::COMFORT,
+            'translationKey' => ActionEnum::COMFORT->value,
             'types' => [ActionTypeEnum::ACTION_SPOKEN],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -500,6 +530,7 @@ class ActionData
         [
             'name' => 'ultraheal',
             'action_name' => ActionEnum::ULTRAHEAL,
+            'translationKey' => ActionEnum::ULTRAHEAL->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -516,6 +547,7 @@ class ActionData
         [
             'name' => 'write',
             'action_name' => ActionEnum::WRITE,
+            'translationKey' => ActionEnum::WRITE->value,
             'types' => [],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -532,6 +564,7 @@ class ActionData
         [
             'name' => ActionEnum::SHRED->value,
             'action_name' => ActionEnum::SHRED,
+            'translationKey' => ActionEnum::SHRED->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -548,6 +581,7 @@ class ActionData
         [
             'name' => 'hyperfreeze',
             'action_name' => ActionEnum::HYPERFREEZE,
+            'translationKey' => ActionEnum::HYPERFREEZE->value,
             'types' => [ActionTypeEnum::ACTION_COOK],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SHELF,
@@ -564,6 +598,7 @@ class ActionData
         [
             'name' => 'gag',
             'action_name' => ActionEnum::GAG,
+            'translationKey' => ActionEnum::GAG->value,
             'types' => [],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -580,6 +615,7 @@ class ActionData
         [
             'name' => 'ungag',
             'action_name' => ActionEnum::UNGAG,
+            'translationKey' => ActionEnum::UNGAG->value,
             'types' => [],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -596,6 +632,7 @@ class ActionData
         [
             'name' => 'take_shower',
             'action_name' => ActionEnum::TAKE_SHOWER,
+            'translationKey' => ActionEnum::TAKE_SHOWER->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -612,6 +649,7 @@ class ActionData
         [
             'name' => 'wash_in_sink',
             'action_name' => ActionEnum::WASH_IN_SINK,
+            'translationKey' => ActionEnum::WASH_IN_SINK->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -628,6 +666,7 @@ class ActionData
         [
             'name' => ActionEnum::WASH_WITH_PERFUME->value,
             'action_name' => ActionEnum::WASH_WITH_PERFUME,
+            'translationKey' => ActionEnum::WASH_WITH_PERFUME->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -644,6 +683,7 @@ class ActionData
         [
             'name' => 'insert_fuel',
             'action_name' => ActionEnum::INSERT_FUEL,
+            'translationKey' => ActionEnum::INSERT_FUEL->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::ROOM,
@@ -660,6 +700,7 @@ class ActionData
         [
             'name' => 'retrieve_fuel',
             'action_name' => ActionEnum::RETRIEVE_FUEL,
+            'translationKey' => ActionEnum::RETRIEVE_FUEL->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -676,6 +717,7 @@ class ActionData
         [
             'name' => 'insert_oxygen',
             'action_name' => ActionEnum::INSERT_OXYGEN,
+            'translationKey' => ActionEnum::INSERT_OXYGEN->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::ROOM,
@@ -692,6 +734,7 @@ class ActionData
         [
             'name' => 'retrieve_oxygen',
             'action_name' => ActionEnum::RETRIEVE_OXYGEN,
+            'translationKey' => ActionEnum::RETRIEVE_OXYGEN->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -708,6 +751,7 @@ class ActionData
         [
             'name' => 'strengthen_hull',
             'action_name' => ActionEnum::STRENGTHEN_HULL,
+            'translationKey' => ActionEnum::STRENGTHEN_HULL->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -724,6 +768,7 @@ class ActionData
         [
             'name' => 'lie_down',
             'action_name' => ActionEnum::LIE_DOWN,
+            'translationKey' => ActionEnum::LIE_DOWN->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -740,6 +785,7 @@ class ActionData
         [
             'name' => 'get_up',
             'action_name' => ActionEnum::GET_UP,
+            'translationKey' => ActionEnum::GET_UP->value,
             'types' => [],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -756,6 +802,7 @@ class ActionData
         [
             'name' => 'coffee',
             'action_name' => ActionEnum::COFFEE,
+            'translationKey' => ActionEnum::COFFEE->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -772,6 +819,7 @@ class ActionData
         [
             'name' => 'dispense',
             'action_name' => ActionEnum::DISPENSE,
+            'translationKey' => ActionEnum::DISPENSE->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -788,6 +836,7 @@ class ActionData
         [
             'name' => 'transplant',
             'action_name' => ActionEnum::TRANSPLANT,
+            'translationKey' => ActionEnum::TRANSPLANT->value,
             'types' => [ActionTypeEnum::ACTION_BOTANIST],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -804,6 +853,7 @@ class ActionData
         [
             'name' => 'treat_plant',
             'action_name' => ActionEnum::TREAT_PLANT,
+            'translationKey' => ActionEnum::TREAT_PLANT->value,
             'types' => [ActionTypeEnum::ACTION_BOTANIST],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -820,6 +870,7 @@ class ActionData
         [
             'name' => 'water_plant',
             'action_name' => ActionEnum::WATER_PLANT,
+            'translationKey' => ActionEnum::WATER_PLANT->value,
             'types' => [ActionTypeEnum::ACTION_BOTANIST],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -836,6 +887,7 @@ class ActionData
         [
             'name' => 'report_equipment',
             'action_name' => ActionEnum::REPORT_EQUIPMENT,
+            'translationKey' => ActionEnum::REPORT_EQUIPMENT->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -852,6 +904,7 @@ class ActionData
         [
             'name' => 'report_fire',
             'action_name' => ActionEnum::REPORT_FIRE,
+            'translationKey' => ActionEnum::REPORT_FIRE->value,
             'types' => [],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::ROOM,
@@ -868,6 +921,7 @@ class ActionData
         [
             'name' => 'install_camera',
             'action_name' => ActionEnum::INSTALL_CAMERA,
+            'translationKey' => ActionEnum::INSTALL_CAMERA->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -884,6 +938,7 @@ class ActionData
         [
             'name' => 'install_camera_nimble_fingers',
             'action_name' => ActionEnum::INSTALL_CAMERA,
+            'translationKey' => ActionEnum::INSTALL_CAMERA->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN, ActionTypeEnum::ACTION_MUSH, ActionTypeEnum::ACTION_MUSH_ALTERNATIVE],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::PLAYER,
@@ -900,6 +955,7 @@ class ActionData
         [
             'name' => 'remove_camera',
             'action_name' => ActionEnum::REMOVE_CAMERA,
+            'translationKey' => ActionEnum::REMOVE_CAMERA->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -916,6 +972,7 @@ class ActionData
         [
             'name' => 'remove_camera_nimble_fingers',
             'action_name' => ActionEnum::REMOVE_CAMERA,
+            'translationKey' => ActionEnum::REMOVE_CAMERA->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN, ActionTypeEnum::ACTION_MUSH, ActionTypeEnum::ACTION_MUSH_ALTERNATIVE],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::PLAYER,
@@ -932,6 +989,7 @@ class ActionData
         [
             'name' => 'examine',
             'action_name' => ActionEnum::EXAMINE,
+            'translationKey' => ActionEnum::EXAMINE->value,
             'types' => [ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -948,6 +1006,7 @@ class ActionData
         [
             'name' => 'check_spore_level',
             'action_name' => ActionEnum::CHECK_SPORE_LEVEL,
+            'translationKey' => ActionEnum::CHECK_SPORE_LEVEL->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -964,6 +1023,7 @@ class ActionData
         [
             'name' => ActionEnum::BOND->value,
             'action_name' => ActionEnum::BOND,
+            'translationKey' => ActionEnum::BOND->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -980,6 +1040,7 @@ class ActionData
         [
             'name' => 'flirt',
             'action_name' => ActionEnum::FLIRT,
+            'translationKey' => ActionEnum::FLIRT->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -996,6 +1057,7 @@ class ActionData
         [
             'name' => ActionEnum::RELAX->value,
             'action_name' => ActionEnum::RELAX,
+            'translationKey' => ActionEnum::RELAX->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1012,6 +1074,7 @@ class ActionData
         [
             'name' => 'do_the_thing',
             'action_name' => ActionEnum::DO_THE_THING,
+            'translationKey' => ActionEnum::DO_THE_THING->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1028,6 +1091,7 @@ class ActionData
         [
             'name' => 'remove_spore',
             'action_name' => ActionEnum::REMOVE_SPORE,
+            'translationKey' => ActionEnum::REMOVE_SPORE->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1044,6 +1108,7 @@ class ActionData
         [
             'name' => 'public_broadcast',
             'action_name' => ActionEnum::PUBLIC_BROADCAST,
+            'translationKey' => ActionEnum::PUBLIC_BROADCAST->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1060,6 +1125,7 @@ class ActionData
         [
             'name' => 'extinguish_manually',
             'action_name' => ActionEnum::EXTINGUISH_MANUALLY,
+            'translationKey' => ActionEnum::EXTINGUISH_MANUALLY->value,
             'types' => [],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1076,6 +1142,7 @@ class ActionData
         [
             'name' => 'motivational_speech',
             'action_name' => ActionEnum::MOTIVATIONAL_SPEECH,
+            'translationKey' => ActionEnum::MOTIVATIONAL_SPEECH->value,
             'types' => [ActionTypeEnum::ACTION_SPOKEN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1092,6 +1159,7 @@ class ActionData
         [
             'name' => 'boring_speech',
             'action_name' => ActionEnum::BORING_SPEECH,
+            'translationKey' => ActionEnum::BORING_SPEECH->value,
             'types' => [ActionTypeEnum::ACTION_SPOKEN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1108,6 +1176,7 @@ class ActionData
         [
             'name' => 'surgery',
             'action_name' => ActionEnum::SURGERY,
+            'translationKey' => ActionEnum::SURGERY->value,
             'types' => [ActionTypeEnum::ACTION_HEAL],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1124,6 +1193,7 @@ class ActionData
         [
             'name' => 'self_surgery',
             'action_name' => ActionEnum::SELF_SURGERY,
+            'translationKey' => ActionEnum::SELF_SURGERY->value,
             'types' => [ActionTypeEnum::ACTION_HEAL],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1140,6 +1210,7 @@ class ActionData
         [
             'name' => 'shoot',
             'action_name' => ActionEnum::SHOOT,
+            'translationKey' => ActionEnum::SHOOT->value,
             'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_SHOOT],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1156,6 +1227,7 @@ class ActionData
         [
             'name' => 'repair_percent_1',
             'action_name' => ActionEnum::REPAIR,
+            'translationKey' => ActionEnum::REPAIR->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1172,6 +1244,7 @@ class ActionData
         [
             'name' => 'repair_percent_3',
             'action_name' => ActionEnum::REPAIR,
+            'translationKey' => ActionEnum::REPAIR->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1188,6 +1261,7 @@ class ActionData
         [
             'name' => 'repair_percent_6',
             'action_name' => ActionEnum::REPAIR,
+            'translationKey' => ActionEnum::REPAIR->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1204,6 +1278,7 @@ class ActionData
         [
             'name' => 'repair_percent_12',
             'action_name' => ActionEnum::REPAIR,
+            'translationKey' => ActionEnum::REPAIR->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1220,6 +1295,7 @@ class ActionData
         [
             'name' => 'repair_percent_25',
             'action_name' => ActionEnum::REPAIR,
+            'translationKey' => ActionEnum::REPAIR->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1236,6 +1312,7 @@ class ActionData
         [
             'name' => 'repair_percent_50',
             'action_name' => ActionEnum::REPAIR,
+            'translationKey' => ActionEnum::REPAIR->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1252,6 +1329,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_12_cost_3',
             'action_name' => ActionEnum::DISASSEMBLE,
+            'translationKey' => ActionEnum::DISASSEMBLE->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1268,6 +1346,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_25_cost_3',
             'action_name' => ActionEnum::DISASSEMBLE,
+            'translationKey' => ActionEnum::DISASSEMBLE->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1284,6 +1363,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_50_cost_3',
             'action_name' => ActionEnum::DISASSEMBLE,
+            'translationKey' => ActionEnum::DISASSEMBLE->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1300,6 +1380,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_6_cost_4',
             'action_name' => ActionEnum::DISASSEMBLE,
+            'translationKey' => ActionEnum::DISASSEMBLE->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1316,6 +1397,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_12_cost_4',
             'action_name' => ActionEnum::DISASSEMBLE,
+            'translationKey' => ActionEnum::DISASSEMBLE->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1332,6 +1414,7 @@ class ActionData
         [
             'name' => 'disassemble_percent_25_cost_4',
             'action_name' => ActionEnum::DISASSEMBLE,
+            'translationKey' => ActionEnum::DISASSEMBLE->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1348,6 +1431,7 @@ class ActionData
         [
             'name' => 'sabotage_percent_1',
             'action_name' => ActionEnum::SABOTAGE,
+            'translationKey' => ActionEnum::SABOTAGE->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1364,6 +1448,7 @@ class ActionData
         [
             'name' => 'sabotage_percent_3',
             'action_name' => ActionEnum::SABOTAGE,
+            'translationKey' => ActionEnum::SABOTAGE->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1380,6 +1465,7 @@ class ActionData
         [
             'name' => 'sabotage_percent_6',
             'action_name' => ActionEnum::SABOTAGE,
+            'translationKey' => ActionEnum::SABOTAGE->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1396,6 +1482,7 @@ class ActionData
         [
             'name' => 'sabotage_percent_12',
             'action_name' => ActionEnum::SABOTAGE,
+            'translationKey' => ActionEnum::SABOTAGE->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1412,6 +1499,7 @@ class ActionData
         [
             'name' => 'sabotage_percent_25',
             'action_name' => ActionEnum::SABOTAGE,
+            'translationKey' => ActionEnum::SABOTAGE->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1428,6 +1516,7 @@ class ActionData
         [
             'name' => 'sabotage_percent_50',
             'action_name' => ActionEnum::SABOTAGE,
+            'translationKey' => ActionEnum::SABOTAGE->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1444,6 +1533,7 @@ class ActionData
         [
             'name' => 'extract_spore',
             'action_name' => ActionEnum::EXTRACT_SPORE,
+            'translationKey' => ActionEnum::EXTRACT_SPORE->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1460,6 +1550,7 @@ class ActionData
         [
             'name' => 'infect',
             'action_name' => ActionEnum::INFECT,
+            'translationKey' => ActionEnum::INFECT->value,
             'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1476,6 +1567,7 @@ class ActionData
         [
             'name' => 'spread_fire',
             'action_name' => ActionEnum::SPREAD_FIRE,
+            'translationKey' => ActionEnum::SPREAD_FIRE->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1492,6 +1584,7 @@ class ActionData
         [
             'name' => 'make_sick',
             'action_name' => ActionEnum::MAKE_SICK,
+            'translationKey' => ActionEnum::MAKE_SICK->value,
             'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1508,6 +1601,7 @@ class ActionData
         [
             'name' => 'fake_disease',
             'action_name' => ActionEnum::FAKE_DISEASE,
+            'translationKey' => ActionEnum::FAKE_DISEASE->value,
             'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1524,6 +1618,7 @@ class ActionData
         [
             'name' => 'screw_talkie',
             'action_name' => ActionEnum::SCREW_TALKIE,
+            'translationKey' => ActionEnum::SCREW_TALKIE->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1540,6 +1635,7 @@ class ActionData
         [
             'name' => 'eat_spore',
             'action_name' => ActionEnum::PHAGOCYTE,
+            'translationKey' => ActionEnum::PHAGOCYTE->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1556,6 +1652,7 @@ class ActionData
         [
             'name' => ActionEnum::PLAY_ARCADE->value,
             'action_name' => ActionEnum::PLAY_ARCADE,
+            'translationKey' => ActionEnum::PLAY_ARCADE->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1570,8 +1667,9 @@ class ActionData
             'outputQuantity' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
         ],
         [
-            'name' => ActionEnum::SHOOT_HUNTER->value . '_turret',
+            'name' => ActionEnum::SHOOT_HUNTER_TURRET->value,
             'action_name' => ActionEnum::SHOOT_HUNTER,
+            'translationKey' => ActionEnum::SHOOT_HUNTER->value,
             'types' => [ActionTypeEnum::ACTION_SHOOT_HUNTER],
             'target' => ActionHolderEnum::HUNTER,
             'scope' => ActionRangeEnum::ROOM,
@@ -1586,8 +1684,9 @@ class ActionData
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
         [
-            'name' => ActionEnum::SHOOT_RANDOM_HUNTER->value . '_turret',
+            'name' => ActionEnum::SHOOT_RANDOM_HUNTER_TURRET->value,
             'action_name' => ActionEnum::SHOOT_HUNTER,
+            'translationKey' => ActionEnum::SHOOT_HUNTER->value,
             'types' => [ActionTypeEnum::ACTION_SHOOT_HUNTER],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1604,6 +1703,7 @@ class ActionData
         [
             'name' => ActionEnum::SHOOT_HUNTER_PATROL_SHIP->value,
             'action_name' => ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
+            'translationKey' => ActionEnum::SHOOT_HUNTER_PATROL_SHIP->value,
             'types' => [ActionTypeEnum::ACTION_SHOOT_HUNTER],
             'target' => ActionHolderEnum::HUNTER,
             'scope' => ActionRangeEnum::ROOM,
@@ -1620,6 +1720,7 @@ class ActionData
         [
             'name' => ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value,
             'action_name' => ActionEnum::SHOOT_HUNTER_PATROL_SHIP,
+            'translationKey' => ActionEnum::SHOOT_HUNTER_PATROL_SHIP->value,
             'types' => [ActionTypeEnum::ACTION_SHOOT_HUNTER],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1636,6 +1737,7 @@ class ActionData
         [
             'name' => ActionEnum::TAKEOFF->value,
             'action_name' => ActionEnum::TAKEOFF,
+            'translationKey' => ActionEnum::TAKEOFF->value,
             'types' => [ActionTypeEnum::ACTION_PILOT],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1652,6 +1754,7 @@ class ActionData
         [
             'name' => ActionEnum::ACCESS_TERMINAL->value,
             'action_name' => ActionEnum::ACCESS_TERMINAL,
+            'translationKey' => ActionEnum::ACCESS_TERMINAL->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1668,6 +1771,7 @@ class ActionData
         [
             'name' => ActionEnum::BYPASS_TERMINAL->value,
             'action_name' => ActionEnum::BYPASS_TERMINAL,
+            'translationKey' => ActionEnum::BYPASS_TERMINAL->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1684,6 +1788,7 @@ class ActionData
         [
             'name' => ActionEnum::LAND->value,
             'action_name' => ActionEnum::LAND,
+            'translationKey' => ActionEnum::LAND->value,
             'types' => [ActionTypeEnum::ACTION_PILOT],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1703,6 +1808,7 @@ class ActionData
         [
             'name' => ActionEnum::COLLECT_SCRAP->value,
             'action_name' => ActionEnum::COLLECT_SCRAP,
+            'translationKey' => ActionEnum::COLLECT_SCRAP->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1719,6 +1825,7 @@ class ActionData
         [
             'name' => ActionEnum::RENOVATE->value,
             'action_name' => ActionEnum::RENOVATE,
+            'translationKey' => ActionEnum::RENOVATE->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1735,6 +1842,7 @@ class ActionData
         [
             'name' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value,
             'action_name' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT,
+            'translationKey' => ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value,
             'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1751,6 +1859,7 @@ class ActionData
         [
             'name' => ActionEnum::AUTO_EJECT->value,
             'action_name' => ActionEnum::AUTO_EJECT,
+            'translationKey' => ActionEnum::AUTO_EJECT->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::PLAYER,
@@ -1767,6 +1876,7 @@ class ActionData
         [
             'name' => ActionEnum::INSERT_FUEL_CHAMBER->value,
             'action_name' => ActionEnum::INSERT_FUEL_CHAMBER,
+            'translationKey' => ActionEnum::INSERT_FUEL_CHAMBER->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1783,6 +1893,7 @@ class ActionData
         [
             'name' => ActionEnum::RETRIEVE_FUEL_CHAMBER->value,
             'action_name' => ActionEnum::RETRIEVE_FUEL_CHAMBER,
+            'translationKey' => ActionEnum::RETRIEVE_FUEL_CHAMBER->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1800,6 +1911,7 @@ class ActionData
         [
             'name' => ActionEnum::CHECK_FUEL_CHAMBER_LEVEL->value,
             'action_name' => ActionEnum::CHECK_FUEL_CHAMBER_LEVEL,
+            'translationKey' => ActionEnum::CHECK_FUEL_CHAMBER_LEVEL->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1816,6 +1928,7 @@ class ActionData
         [
             'name' => ActionEnum::HACK->value,
             'action_name' => ActionEnum::HACK,
+            'translationKey' => ActionEnum::HACK->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1832,6 +1945,7 @@ class ActionData
         [
             'name' => ActionEnum::EXIT_TERMINAL->value,
             'action_name' => ActionEnum::EXIT_TERMINAL,
+            'translationKey' => ActionEnum::EXIT_TERMINAL->value,
             'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::SELF,
@@ -1848,6 +1962,7 @@ class ActionData
         [
             'name' => ActionEnum::ADVANCE_DAEDALUS->value,
             'action_name' => ActionEnum::ADVANCE_DAEDALUS,
+            'translationKey' => ActionEnum::ADVANCE_DAEDALUS->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -1869,6 +1984,7 @@ class ActionData
         [
             'name' => ActionEnum::SCAN->value,
             'action_name' => ActionEnum::SCAN,
+            'translationKey' => ActionEnum::SCAN->value,
             'types' => [],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -1885,6 +2001,7 @@ class ActionData
         [
             'name' => ActionEnum::ANALYZE_PLANET->value,
             'action_name' => ActionEnum::ANALYZE_PLANET,
+            'translationKey' => ActionEnum::ANALYZE_PLANET->value,
             'types' => [ActionTypeEnum::ACTION_IT],
             'target' => ActionHolderEnum::PLANET,
             'scope' => ActionRangeEnum::ROOM,
@@ -1901,6 +2018,7 @@ class ActionData
         [
             'name' => ActionEnum::TURN_DAEDALUS_LEFT->value,
             'action_name' => ActionEnum::TURN_DAEDALUS_LEFT,
+            'translationKey' => ActionEnum::TURN_DAEDALUS_LEFT->value,
             'types' => [],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -1917,6 +2035,7 @@ class ActionData
         [
             'name' => ActionEnum::TURN_DAEDALUS_RIGHT->value,
             'action_name' => ActionEnum::TURN_DAEDALUS_RIGHT,
+            'translationKey' => ActionEnum::TURN_DAEDALUS_RIGHT->value,
             'types' => [],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -1933,6 +2052,7 @@ class ActionData
         [
             'name' => ActionEnum::DELETE_PLANET->value,
             'action_name' => ActionEnum::DELETE_PLANET,
+            'translationKey' => ActionEnum::DELETE_PLANET->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::PLANET,
             'scope' => ActionRangeEnum::ROOM,
@@ -1949,6 +2069,7 @@ class ActionData
         [
             'name' => ActionEnum::LEAVE_ORBIT->value,
             'action_name' => ActionEnum::LEAVE_ORBIT,
+            'translationKey' => ActionEnum::LEAVE_ORBIT->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -1970,6 +2091,7 @@ class ActionData
         [
             'name' => ActionEnum::TAKEOFF_TO_PLANET->value,
             'action_name' => ActionEnum::TAKEOFF_TO_PLANET,
+            'translationKey' => ActionEnum::TAKEOFF_TO_PLANET->value,
             'types' => [ActionTypeEnum::ACTION_PILOT, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -1988,6 +2110,7 @@ class ActionData
         [
             'name' => ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP->value,
             'action_name' => ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP,
+            'translationKey' => ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP->value,
             'types' => [ActionTypeEnum::ACTION_PILOT, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2004,6 +2127,7 @@ class ActionData
         [
             'name' => ActionEnum::CHANGE_NERON_CPU_PRIORITY->value,
             'action_name' => ActionEnum::CHANGE_NERON_CPU_PRIORITY,
+            'translationKey' => ActionEnum::CHANGE_NERON_CPU_PRIORITY->value,
             'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -2020,6 +2144,7 @@ class ActionData
         [
             'name' => ActionEnum::REPAIR_PILGRED->value,
             'action_name' => ActionEnum::REPAIR_PILGRED,
+            'translationKey' => ActionEnum::REPAIR_PILGRED->value,
             'types' => [ActionTypeEnum::ACTION_PILGRED],
             'target' => ActionHolderEnum::PROJECT,
             'scope' => ActionRangeEnum::ROOM,
@@ -2036,6 +2161,7 @@ class ActionData
         [
             'name' => ActionEnum::PARTICIPATE->value,
             'action_name' => ActionEnum::PARTICIPATE,
+            'translationKey' => ActionEnum::PARTICIPATE->value,
             'types' => [ActionTypeEnum::ACTION_CONCEPTOR, ActionTypeEnum::ACTION_IT],
             'target' => ActionHolderEnum::PROJECT,
             'scope' => ActionRangeEnum::ROOM,
@@ -2052,6 +2178,7 @@ class ActionData
         [
             'name' => ActionEnum::RETURN_TO_SOL->value,
             'action_name' => ActionEnum::RETURN_TO_SOL,
+            'translationKey' => ActionEnum::RETURN_TO_SOL->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -2068,6 +2195,7 @@ class ActionData
         [
             'name' => ActionEnum::TRAP_CLOSET->value,
             'action_name' => ActionEnum::TRAP_CLOSET,
+            'translationKey' => ActionEnum::TRAP_CLOSET->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -2084,6 +2212,7 @@ class ActionData
         [
             'name' => ActionEnum::CHANGE_NERON_CREW_LOCK->value,
             'action_name' => ActionEnum::CHANGE_NERON_CREW_LOCK,
+            'translationKey' => ActionEnum::CHANGE_NERON_CREW_LOCK->value,
             'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -2100,6 +2229,7 @@ class ActionData
         [
             'name' => ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION->value,
             'action_name' => ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION,
+            'translationKey' => ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION->value,
             'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -2116,6 +2246,7 @@ class ActionData
         [
             'name' => ActionEnum::TOGGLE_PLASMA_SHIELD->value,
             'action_name' => ActionEnum::TOGGLE_PLASMA_SHIELD,
+            'translationKey' => ActionEnum::TOGGLE_PLASMA_SHIELD->value,
             'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -2132,6 +2263,7 @@ class ActionData
         [
             'name' => ActionEnum::TOGGLE_MAGNETIC_NET->value,
             'action_name' => ActionEnum::TOGGLE_MAGNETIC_NET,
+            'translationKey' => ActionEnum::TOGGLE_MAGNETIC_NET->value,
             'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -2148,6 +2280,7 @@ class ActionData
         [
             'name' => ActionEnum::CHITCHAT->value,
             'action_name' => ActionEnum::CHITCHAT,
+            'translationKey' => ActionEnum::CHITCHAT->value,
             'types' => [ActionTypeEnum::ACTION_SPOKEN],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::ROOM,
@@ -2164,6 +2297,7 @@ class ActionData
         [
             'name' => ActionEnum::WHISPER->value,
             'action_name' => ActionEnum::WHISPER,
+            'translationKey' => ActionEnum::WHISPER->value,
             'types' => [ActionTypeEnum::ACTION_SPOKEN],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::ROOM,
@@ -2180,6 +2314,7 @@ class ActionData
         [
             'name' => ActionEnum::GRAFT->value,
             'action_name' => ActionEnum::GRAFT,
+            'translationKey' => ActionEnum::GRAFT->value,
             'types' => [ActionTypeEnum::ACTION_BOTANIST, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::ROOM,
@@ -2196,6 +2331,7 @@ class ActionData
         [
             'name' => ActionEnum::CEASEFIRE->value,
             'action_name' => ActionEnum::CEASEFIRE,
+            'translationKey' => ActionEnum::CEASEFIRE->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -2212,6 +2348,7 @@ class ActionData
         [
             'name' => ActionEnum::LEARN->value,
             'action_name' => ActionEnum::LEARN,
+            'translationKey' => ActionEnum::LEARN->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -2228,6 +2365,7 @@ class ActionData
         [
             'name' => ActionEnum::PUT_THROUGH_DOOR->value,
             'action_name' => ActionEnum::PUT_THROUGH_DOOR,
+            'translationKey' => ActionEnum::PUT_THROUGH_DOOR->value,
             'types' => [],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -2244,6 +2382,7 @@ class ActionData
         [
             'name' => ActionEnum::BECOME_GENIUS->value,
             'action_name' => ActionEnum::BECOME_GENIUS,
+            'translationKey' => ActionEnum::BECOME_GENIUS->value,
             'types' => [],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -2260,6 +2399,7 @@ class ActionData
         [
             'name' => ActionEnum::PREMONITION->value,
             'action_name' => ActionEnum::PREMONITION,
+            'translationKey' => ActionEnum::PREMONITION->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -2276,6 +2416,7 @@ class ActionData
         [
             'name' => ActionEnum::GUARD->value,
             'action_name' => ActionEnum::GUARD,
+            'translationKey' => ActionEnum::GUARD->value,
             'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -2292,6 +2433,7 @@ class ActionData
         [
             'name' => ActionEnum::EXCHANGE_BODY->value,
             'action_name' => ActionEnum::EXCHANGE_BODY,
+            'translationKey' => ActionEnum::EXCHANGE_BODY->value,
             'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -2308,6 +2450,7 @@ class ActionData
         [
             'name' => ActionEnum::COMMANDER_ORDER->value,
             'action_name' => ActionEnum::COMMANDER_ORDER,
+            'translationKey' => ActionEnum::COMMANDER_ORDER->value,
             'types' => [],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -2324,6 +2467,7 @@ class ActionData
         [
             'name' => ActionEnum::ACCEPT_MISSION->value,
             'action_name' => ActionEnum::ACCEPT_MISSION,
+            'translationKey' => ActionEnum::ACCEPT_MISSION->value,
             'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -2340,6 +2484,7 @@ class ActionData
         [
             'name' => ActionEnum::REJECT_MISSION->value,
             'action_name' => ActionEnum::REJECT_MISSION,
+            'translationKey' => ActionEnum::REJECT_MISSION->value,
             'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -2356,6 +2501,7 @@ class ActionData
         [
             'name' => ActionEnum::PRINT_ZE_LIST->value,
             'action_name' => ActionEnum::PRINT_ZE_LIST,
+            'translationKey' => ActionEnum::PRINT_ZE_LIST->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2372,6 +2518,7 @@ class ActionData
         [
             'name' => ActionEnum::THROW_GRENADE->value,
             'action_name' => ActionEnum::THROW_GRENADE,
+            'translationKey' => ActionEnum::THROW_GRENADE->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM, ActionTypeEnum::ACTION_AGGRESSIVE],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2388,6 +2535,7 @@ class ActionData
         [
             'name' => ActionEnum::TOGGLE_NERON_INHIBITION->value,
             'action_name' => ActionEnum::TOGGLE_NERON_INHIBITION,
+            'translationKey' => ActionEnum::TOGGLE_NERON_INHIBITION->value,
             'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -2404,6 +2552,7 @@ class ActionData
         [
             'name' => ActionEnum::DELOG->value,
             'action_name' => ActionEnum::DELOG,
+            'translationKey' => ActionEnum::DELOG->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -2420,6 +2569,7 @@ class ActionData
         [
             'name' => ActionEnum::RUN_HOME->value,
             'action_name' => ActionEnum::RUN_HOME,
+            'translationKey' => ActionEnum::RUN_HOME->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -2436,6 +2586,7 @@ class ActionData
         [
             'name' => ActionEnum::PUTSCH->value,
             'action_name' => ActionEnum::PUTSCH,
+            'translationKey' => ActionEnum::PUTSCH->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2452,6 +2603,7 @@ class ActionData
         [
             'name' => ActionEnum::ANATHEMA->value,
             'action_name' => ActionEnum::ANATHEMA,
+            'translationKey' => ActionEnum::ANATHEMA->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM, ActionTypeEnum::ACTION_AGGRESSIVE],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -2468,6 +2620,7 @@ class ActionData
         [
             'name' => ActionEnum::MIX_RATION_SPORE->value,
             'action_name' => ActionEnum::MIX_RATION_SPORE,
+            'translationKey' => ActionEnum::MIX_RATION_SPORE->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2484,6 +2637,7 @@ class ActionData
         [
             'name' => ActionEnum::DEPRESS->value,
             'action_name' => ActionEnum::DEPRESS,
+            'translationKey' => ActionEnum::DEPRESS->value,
             'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -2500,6 +2654,7 @@ class ActionData
         [
             'name' => ActionEnum::SLIME_TRAP->value,
             'action_name' => ActionEnum::SLIME_TRAP,
+            'translationKey' => ActionEnum::SLIME_TRAP->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -2516,6 +2671,7 @@ class ActionData
         [
             'name' => ActionEnum::SLIME_OBJECT->value,
             'action_name' => ActionEnum::SLIME_OBJECT,
+            'translationKey' => ActionEnum::SLIME_OBJECT->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2532,6 +2688,7 @@ class ActionData
         [
             'name' => ActionEnum::MASS_GGEDON->value,
             'action_name' => ActionEnum::MASS_GGEDON,
+            'translationKey' => ActionEnum::MASS_GGEDON->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -2548,6 +2705,7 @@ class ActionData
         [
             'name' => ActionEnum::REINFORCE->value,
             'action_name' => ActionEnum::REINFORCE,
+            'translationKey' => ActionEnum::REINFORCE->value,
             'types' => [ActionTypeEnum::ACTION_TECHNICIAN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2564,6 +2722,7 @@ class ActionData
         [
             'name' => ActionEnum::UPGRADE_DRONE_TO_PILOT->value,
             'action_name' => ActionEnum::UPGRADE_DRONE_TO_PILOT,
+            'translationKey' => ActionEnum::UPGRADE_DRONE_TO_PILOT->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2580,6 +2739,7 @@ class ActionData
         [
             'name' => ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER->value,
             'action_name' => ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER,
+            'translationKey' => ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2596,6 +2756,7 @@ class ActionData
         [
             'name' => ActionEnum::UPGRADE_DRONE_TO_TURBO->value,
             'action_name' => ActionEnum::UPGRADE_DRONE_TO_TURBO,
+            'translationKey' => ActionEnum::UPGRADE_DRONE_TO_TURBO->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2612,6 +2773,7 @@ class ActionData
         [
             'name' => ActionEnum::UPGRADE_DRONE_TO_SENSOR->value,
             'action_name' => ActionEnum::UPGRADE_DRONE_TO_SENSOR,
+            'translationKey' => ActionEnum::UPGRADE_DRONE_TO_SENSOR->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2626,8 +2788,9 @@ class ActionData
             'outputQuantity' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
         ],
         [
-            'name' => 'take_cat',
-            'action_name' => ActionEnum::TAKE_CAT,
+            'name' => ActionEnum::TAKE_CAT->value,
+            'action_name' => ActionEnum::TAKE,
+            'translationKey' => ActionEnum::TAKE_CAT->value,
             'types' => [ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2644,6 +2807,7 @@ class ActionData
         [
             'name' => 'pet_cat',
             'action_name' => ActionEnum::PET_CAT,
+            'translationKey' => ActionEnum::PET_CAT->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2658,8 +2822,9 @@ class ActionData
             'outputQuantity' => ['value' => 3, 'min_value' => 0, 'max_value' => null],
         ],
         [
-            'name' => 'convert_cat',
-            'action_name' => ActionEnum::CONVERT_CAT,
+            'name' => ActionEnum::CONVERT_CAT->value,
+            'action_name' => ActionEnum::CONVERT_PET,
+            'translationKey' => ActionEnum::CONVERT_CAT->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2674,8 +2839,9 @@ class ActionData
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
         [
-            'name' => 'shoot_cat',
-            'action_name' => ActionEnum::SHOOT_CAT,
+            'name' => ActionEnum::SHOOT_EQUIPMENT->value,
+            'action_name' => ActionEnum::SHOOT_EQUIPMENT,
+            'translationKey' => ActionEnum::SHOOT_EQUIPMENT->value,
             'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_SHOOT],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::PLAYER,
@@ -2685,13 +2851,14 @@ class ActionData
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 50, 'min_value' => 1, 'max_value' => 99],
+            'percentageSuccess' => ['value' => 0, 'min_value' => 1, 'max_value' => 99],
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
         [
-            'name' => 'cure_cat',
-            'action_name' => ActionEnum::CURE_CAT,
+            'name' => ActionEnum::CURE_CAT->value,
+            'action_name' => ActionEnum::CURE_PET,
+            'translationKey' => ActionEnum::CURE_CAT->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::PLAYER,
@@ -2706,8 +2873,9 @@ class ActionData
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
         [
-            'name' => 'take_chicken',
-            'action_name' => ActionEnum::TAKE_CHICKEN,
+            'name' => ActionEnum::TAKE_CHICKEN->value,
+            'action_name' => ActionEnum::TAKE,
+            'translationKey' => ActionEnum::TAKE->value,
             'types' => [ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2722,8 +2890,9 @@ class ActionData
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
         [
-            'name' => 'convert_chicken',
-            'action_name' => ActionEnum::CONVERT_CHICKEN,
+            'name' => ActionEnum::CONVERT_CHICKEN->value,
+            'action_name' => ActionEnum::CONVERT_PET,
+            'translationKey' => ActionEnum::CONVERT_CHICKEN->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2738,24 +2907,9 @@ class ActionData
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
         [
-            'name' => 'shoot_chicken',
-            'action_name' => ActionEnum::SHOOT_CHICKEN,
-            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_SHOOT],
-            'target' => ActionHolderEnum::EQUIPMENT,
-            'scope' => ActionRangeEnum::PLAYER,
-            'visibilities' => ['success' => 'public', 'fail' => 'public', 'critical_success' => 'public', 'critical_fail' => 'public', 'one_shot' => 'public'],
-            'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
-            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
-            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
-            'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'percentageSuccess' => ['value' => 50, 'min_value' => 1, 'max_value' => 99],
-            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
-            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
-        ],
-        [
-            'name' => 'cure_chicken',
-            'action_name' => ActionEnum::CURE_CHICKEN,
+            'name' => ActionEnum::CURE_CHICKEN->value,
+            'action_name' => ActionEnum::CURE_PET,
+            'translationKey' => ActionEnum::CURE_CHICKEN->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::PLAYER,
@@ -2772,6 +2926,7 @@ class ActionData
         [
             'name' => ActionEnum::TORTURE->value,
             'action_name' => ActionEnum::TORTURE,
+            'translationKey' => ActionEnum::TORTURE->value,
             'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_TORTURE],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -2788,6 +2943,7 @@ class ActionData
         [
             'name' => ActionEnum::DAUNT->value,
             'action_name' => ActionEnum::DAUNT,
+            'translationKey' => ActionEnum::DAUNT->value,
             'types' => [ActionTypeEnum::ACTION_SHOOT],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -2804,6 +2960,7 @@ class ActionData
         [
             'name' => ActionEnum::GEN_METAL->value,
             'action_name' => ActionEnum::GEN_METAL,
+            'translationKey' => ActionEnum::GEN_METAL->value,
             'types' => [],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -2820,6 +2977,7 @@ class ActionData
         [
             'name' => ActionEnum::DOOR_SABOTAGE->value,
             'action_name' => ActionEnum::DOOR_SABOTAGE,
+            'translationKey' => ActionEnum::DOOR_SABOTAGE->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -2836,6 +2994,7 @@ class ActionData
         [
             'name' => ActionEnum::GIVE_NIGHTMARE->value,
             'action_name' => ActionEnum::GIVE_NIGHTMARE,
+            'translationKey' => ActionEnum::GIVE_NIGHTMARE->value,
             'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -2852,6 +3011,7 @@ class ActionData
         [
             'name' => ActionEnum::NERON_DEPRESS->value,
             'action_name' => ActionEnum::NERON_DEPRESS,
+            'translationKey' => ActionEnum::NERON_DEPRESS->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -2868,6 +3028,7 @@ class ActionData
         [
             'name' => ActionEnum::PARTICIPATE_RESEARCH->value,
             'action_name' => ActionEnum::PARTICIPATE_RESEARCH,
+            'translationKey' => ActionEnum::PARTICIPATE_RESEARCH->value,
             'types' => [ActionTypeEnum::ACTION_IT],
             'target' => ActionHolderEnum::PROJECT,
             'scope' => ActionRangeEnum::ROOM,
@@ -2884,6 +3045,7 @@ class ActionData
         [
             'name' => ActionEnum::COMPUTE_EDEN->value,
             'action_name' => ActionEnum::COMPUTE_EDEN,
+            'translationKey' => ActionEnum::COMPUTE_EDEN->value,
             'types' => [ActionTypeEnum::ACTION_IT],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -2900,6 +3062,7 @@ class ActionData
         [
             'name' => ActionEnum::TRAVEL_TO_EDEN->value,
             'action_name' => ActionEnum::TRAVEL_TO_EDEN,
+            'translationKey' => ActionEnum::TRAVEL_TO_EDEN->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -2916,6 +3079,7 @@ class ActionData
         [
             'name' => 'open_container_cost_0',
             'action_name' => ActionEnum::OPEN_CONTAINER,
+            'translationKey' => ActionEnum::OPEN_CONTAINER->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -2932,6 +3096,7 @@ class ActionData
         [
             'name' => ActionEnum::COM_MANAGER_ANNOUNCEMENT->value,
             'action_name' => ActionEnum::COM_MANAGER_ANNOUNCEMENT,
+            'translationKey' => ActionEnum::COM_MANAGER_ANNOUNCEMENT->value,
             'types' => [],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -2948,6 +3113,7 @@ class ActionData
         [
             'name' => ActionEnum::ESTABLISH_LINK_WITH_SOL->value,
             'action_name' => ActionEnum::ESTABLISH_LINK_WITH_SOL,
+            'translationKey' => ActionEnum::ESTABLISH_LINK_WITH_SOL->value,
             'types' => [ActionTypeEnum::ACTION_COMMS_CENTER, ActionTypeEnum::ACTION_IT],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -2964,6 +3130,7 @@ class ActionData
         [
             'name' => ActionEnum::UPGRADE_NERON->value,
             'action_name' => ActionEnum::UPGRADE_NERON,
+            'translationKey' => ActionEnum::UPGRADE_NERON->value,
             'types' => [ActionTypeEnum::ACTION_COMMS_CENTER, ActionTypeEnum::ACTION_IT],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -2980,6 +3147,7 @@ class ActionData
         [
             'name' => ActionEnum::DECODE_REBEL_SIGNAL->value,
             'action_name' => ActionEnum::DECODE_REBEL_SIGNAL,
+            'translationKey' => ActionEnum::DECODE_REBEL_SIGNAL->value,
             'types' => [ActionTypeEnum::ACTION_COMMS_CENTER, ActionTypeEnum::ACTION_IT],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -2996,6 +3164,7 @@ class ActionData
         [
             'name' => ActionEnum::CONTACT_XYLOPH->value,
             'action_name' => ActionEnum::CONTACT_XYLOPH,
+            'translationKey' => ActionEnum::CONTACT_XYLOPH->value,
             'types' => [ActionTypeEnum::ACTION_COMMS_CENTER, ActionTypeEnum::ACTION_IT],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -3012,6 +3181,7 @@ class ActionData
         [
             'name' => 'trigger_all_rebel_contacts',
             'action_name' => ActionEnum::TRIGGER_ALL_REBEL_CONTACTS,
+            'translationKey' => ActionEnum::TRIGGER_ALL_REBEL_CONTACTS->value,
             'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -3028,6 +3198,7 @@ class ActionData
         [
             'name' => ActionEnum::PLAY_WITH_DOG->value,
             'action_name' => ActionEnum::PLAY_WITH_DOG,
+            'translationKey' => ActionEnum::PLAY_WITH_DOG->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -3044,6 +3215,7 @@ class ActionData
         [
             'name' => ActionEnum::ACCEPT_TRADE->value,
             'action_name' => ActionEnum::ACCEPT_TRADE,
+            'translationKey' => ActionEnum::ACCEPT_TRADE->value,
             'types' => [],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -3060,6 +3232,7 @@ class ActionData
         [
             'name' => ActionEnum::REFUSE_TRADE->value,
             'action_name' => ActionEnum::REFUSE_TRADE,
+            'translationKey' => ActionEnum::REFUSE_TRADE->value,
             'types' => [],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -3076,6 +3249,7 @@ class ActionData
         [
             'name' => ActionEnum::CREATE_TRADE->value,
             'action_name' => ActionEnum::CREATE_TRADE,
+            'translationKey' => ActionEnum::CREATE_TRADE->value,
             'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -3092,6 +3266,7 @@ class ActionData
         [
             'name' => ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value,
             'action_name' => ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS,
+            'translationKey' => ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value,
             'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -3108,6 +3283,7 @@ class ActionData
         [
             'name' => ActionEnum::TOGGLE_DEATH_ANNOUNCEMENTS->value,
             'action_name' => ActionEnum::TOGGLE_DEATH_ANNOUNCEMENTS,
+            'translationKey' => ActionEnum::TOGGLE_DEATH_ANNOUNCEMENTS->value,
             'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
@@ -3124,6 +3300,7 @@ class ActionData
         [
             'name' => ActionEnum::GO_BERSERK->value,
             'action_name' => ActionEnum::GO_BERSERK,
+            'translationKey' => ActionEnum::GO_BERSERK->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -3140,6 +3317,7 @@ class ActionData
         [
             'name' => ActionEnum::CHECK_ROSTER->value,
             'action_name' => ActionEnum::CHECK_ROSTER,
+            'translationKey' => ActionEnum::CHECK_ROSTER->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -3156,6 +3334,7 @@ class ActionData
         [
             'name' => ActionEnum::ADAPT_EPIGENETICS->value,
             'action_name' => ActionEnum::ADAPT_EPIGENETICS,
+            'translationKey' => ActionEnum::ADAPT_EPIGENETICS->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -3172,6 +3351,7 @@ class ActionData
         [
             'name' => ActionEnum::BECOME_ANONYMOUS->value,
             'action_name' => ActionEnum::BECOME_ANONYMOUS,
+            'translationKey' => ActionEnum::BECOME_ANONYMOUS->value,
             'types' => [ActionTypeEnum::ACTION_MUSH, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -3188,6 +3368,7 @@ class ActionData
         [
             'name' => ActionEnum::FORCE_EXPLORATION_STEP->value,
             'action_name' => ActionEnum::FORCE_EXPLORATION_STEP,
+            'translationKey' => ActionEnum::FORCE_EXPLORATION_STEP->value,
             'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -3204,6 +3385,7 @@ class ActionData
         [
             'name' => ActionEnum::SABOTAGE_EXPLORATION->value,
             'action_name' => ActionEnum::SABOTAGE_EXPLORATION,
+            'translationKey' => ActionEnum::SABOTAGE_EXPLORATION->value,
             'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -3220,6 +3402,7 @@ class ActionData
         [
             'name' => 'recharge_battery',
             'action_name' => ActionEnum::RECHARGE_BATTERY,
+            'translationKey' => ActionEnum::RECHARGE_BATTERY->value,
             'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::PLAYER,
@@ -3236,6 +3419,7 @@ class ActionData
         [
             'name' => ActionEnum::REMOVE_BEGINNER->value,
             'action_name' => ActionEnum::REMOVE_BEGINNER,
+            'translationKey' => ActionEnum::REMOVE_BEGINNER->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM, ActionTypeEnum::ACTION_NOT_RECORDED_IN_HISTORY, ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
@@ -3252,6 +3436,7 @@ class ActionData
         [
             'name' => ActionEnum::LIE_DOWN_IN_SHIP->value,
             'action_name' => ActionEnum::LIE_DOWN_IN_SHIP,
+            'translationKey' => ActionEnum::LIE_DOWN_IN_SHIP->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -3268,6 +3453,7 @@ class ActionData
         [
             'name' => ActionEnum::READ_SCHOOLBOOKS->value,
             'action_name' => ActionEnum::READ_SCHOOLBOOKS,
+            'translationKey' => ActionEnum::READ_SCHOOLBOOKS->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -3284,6 +3470,7 @@ class ActionData
         [
             'name' => ActionEnum::USE_RESET_VACCINE->value,
             'action_name' => ActionEnum::USE_RESET_VACCINE,
+            'translationKey' => ActionEnum::USE_RESET_VACCINE->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -3300,6 +3487,7 @@ class ActionData
         [
             'name' => ActionEnum::PROTECT->value,
             'action_name' => ActionEnum::PROTECT,
+            'translationKey' => ActionEnum::PROTECT->value,
             'types' => [],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
@@ -3316,6 +3504,7 @@ class ActionData
         [
             'name' => ActionEnum::CHECK_JUKEBOX_SONGS->value,
             'action_name' => ActionEnum::CHECK_JUKEBOX_SONGS,
+            'translationKey' => ActionEnum::CHECK_JUKEBOX_SONGS->value,
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
@@ -3332,6 +3521,7 @@ class ActionData
         [
             'name' => ActionEnum::TRAVEL_TO_EVENT_PLANET->value,
             'action_name' => ActionEnum::TRAVEL_TO_EVENT_PLANET,
+            'translationKey' => ActionEnum::TRAVEL_TO_EVENT_PLANET->value,
             'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,

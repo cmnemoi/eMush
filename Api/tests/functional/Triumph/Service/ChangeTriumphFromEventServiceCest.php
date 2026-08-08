@@ -104,7 +104,7 @@ final class ChangeTriumphFromEventServiceCest extends AbstractFunctionalTest
             equipment: $cat,
             author: $this->player,
             visibility: VisibilityEnum::PUBLIC,
-            tags: [ActionEnum::SHOOT_CAT->value, EquipmentStatusEnum::CAT_INFECTED],
+            tags: [ActionEnum::SHOOT_EQUIPMENT->value, EquipmentStatusEnum::CAT_INFECTED],
             time: new \DateTime(),
         );
         $event->setEventName(EquipmentEvent::EQUIPMENT_DESTROYED);

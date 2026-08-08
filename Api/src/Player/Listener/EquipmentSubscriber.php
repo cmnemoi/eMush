@@ -96,7 +96,7 @@ final class EquipmentSubscriber implements EventSubscriberInterface
 
     private function createShootCatAuthorHighlight(EquipmentEvent $event): void
     {
-        if ($event->doesNotHaveTag(ActionEnum::SHOOT_CAT->toString())) {
+        if ($event->doesNotHaveTag(ActionEnum::SHOOT_EQUIPMENT->toString())) {
             return;
         }
 

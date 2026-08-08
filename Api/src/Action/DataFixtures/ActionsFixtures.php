@@ -11,11 +11,8 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
-use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\Enum\ActionOutputEnum;
-use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Player\Enum\PlayerVariableEnum;
 
 class ActionsFixtures extends Fixture
 {
@@ -110,15 +107,7 @@ class ActionsFixtures extends Fixture
     public const string TAKEOFF_TO_PLANET = 'takeoff_to_planet';
     public const string TAKEOFF_TO_PLANET_PATROL_SHIP = 'takeoff_to_planet_patrol_ship';
     public const string CHANGE_NERON_CPU_PRIORITY = 'change_neron_cpu_priority';
-    public const string TAKE_CAT = 'take_cat';
-    public const string PET_CAT = 'pet_cat';
-    public const string CURE_CAT = 'cure_cat';
-    public const string SHOOT_CAT = 'shoot_cat';
-    public const string TAKE_CHICKEN = 'take_chicken';
-    public const string CURE_CHICKEN = 'cure_chicken';
-    public const string SHOOT_CHICKEN = 'shoot_chicken';
     public const string OPEN_CONTAINER_COST_0 = 'open_container_cost_0';
-    public const string CHECK_ROSTER = 'check_roster';
 
     public function load(ObjectManager $manager): void
     {
@@ -137,211 +126,80 @@ class ActionsFixtures extends Fixture
         $usurpIdentity = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::USURP_IDENTITY));
         $manager->persist($usurpIdentity);
 
-        $rejuvenateAlpha = new ActionConfig();
-        $rejuvenateAlpha
-            ->setActionName(ActionEnum::REJUVENATE)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setTypes([ActionTypeEnum::ACTION_ADMIN])
-            ->buildName(GameConfigEnum::ALPHA);
+        $rejuvenateAlpha = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REJUVENATE));
         $manager->persist($rejuvenateAlpha);
 
-        $resetSpecializationPoint = new ActionConfig();
-        $resetSpecializationPoint
-            ->setActionName(ActionEnum::RESET_SKILL_POINTS)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->buildName(GameConfigEnum::ALPHA);
+        $resetSpecializationPoint = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::RESET_SKILL_POINTS));
         $manager->persist($resetSpecializationPoint);
 
-        $updatingTalkie = new ActionConfig();
-        $updatingTalkie
-            ->setName(ActionEnum::UPDATE_TALKIE->value)
-            ->setActionName(ActionEnum::UPDATE_TALKIE)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(1)
-            ->setInjuryRate(10)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
+        $updatingTalkie = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::UPDATE_TALKIE));
 
         $manager->persist($updatingTalkie);
 
-        $moveAction = new ActionConfig();
-        $moveAction
-            ->setName(ActionEnum::MOVE->value)
-            ->setActionName(ActionEnum::MOVE)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setMovementCost(1);
+        $moveAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::MOVE));
         $manager->persist($moveAction);
 
-        $searchAction = new ActionConfig();
-        $searchAction
-            ->setName(ActionEnum::SEARCH->value)
-            ->setActionName(ActionEnum::SEARCH)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setActionCost(1);
+        $searchAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SEARCH));
         $manager->persist($searchAction);
 
         $hitAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::HIT));
         $manager->persist($hitAction);
 
-        $hideAction = new ActionConfig();
-        $hideAction
-            ->setName(ActionEnum::HIDE->value)
-            ->setActionName(ActionEnum::HIDE)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
+        $hideAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::HIDE));
         $manager->persist($hideAction);
 
-        $takeItemAction = new ActionConfig();
-        $takeItemAction
-            ->setName(ActionEnum::TAKE->value)
-            ->setActionName(ActionEnum::TAKE)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setInjuryRate(1);
+        $takeItemAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TAKE));
 
         $manager->persist($takeItemAction);
 
-        $dropItemAction = new ActionConfig();
-        $dropItemAction
-            ->setName(ActionEnum::DROP->value)
-            ->setActionName(ActionEnum::DROP)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
+        $dropItemAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::DROP));
 
         $manager->persist($dropItemAction);
 
-        $rationConsumeAction = new ActionConfig();
-        $rationConsumeAction
-            ->setName(ActionEnum::CONSUME->value)
-            ->setActionName(ActionEnum::CONSUME)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setDirtyRate(15)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
+        $rationConsumeAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CONSUME));
 
         $manager->persist($rationConsumeAction);
 
-        $drugConsumeAction = new ActionConfig();
-        $drugConsumeAction
-            ->setName(ActionEnum::CONSUME_DRUG->value)
-            ->setActionName(ActionEnum::CONSUME_DRUG)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setDirtyRate(15)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET)
-            ->setTypes([ActionEnum::CONSUME]);
+        $drugConsumeAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CONSUME_DRUG));
 
         $manager->persist($drugConsumeAction);
 
-        $buildAction = new ActionConfig();
-        $buildAction
-            ->setName(ActionEnum::BUILD->value)
-            ->setActionName(ActionEnum::BUILD)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(3)
-            ->setDirtyRate(25)
-            ->setInjuryRate(5);
+        $buildAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::BUILD));
 
         $manager->persist($buildAction);
 
-        $readAction = new ActionConfig();
-        $readAction
-            ->setName(ActionEnum::READ_BOOK->value)
-            ->setActionName(ActionEnum::READ_BOOK)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(2);
+        $readAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::READ_BOOK));
 
         $manager->persist($readAction);
 
-        $readDocument = new ActionConfig();
-        $readDocument
-            ->setName(ActionEnum::READ_DOCUMENT->value)
-            ->setActionName(ActionEnum::READ_DOCUMENT)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
+        $readDocument = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::READ_DOCUMENT));
 
         $manager->persist($readDocument);
 
-        $attackAction = new ActionConfig();
-        $attackAction
-            ->setName(ActionEnum::ATTACK->value)
-            ->setActionName(ActionEnum::ATTACK)
-            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_ATTACK])
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
-            ->setActionCost(1)
-            ->setSuccessRate(60)
-            ->setDirtyRate(15)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::CRITICAL_FAIL, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::ONE_SHOT, VisibilityEnum::PUBLIC);
+        $attackAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::ATTACK));
 
         $manager->persist($attackAction);
 
         $extinguishAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::EXTINGUISH));
         $manager->persist($extinguishAction);
 
-        $tryKubeAction = new ActionConfig();
-        $tryKubeAction
-            ->setName(ActionEnum::TRY_KUBE->value)
-            ->setActionName(ActionEnum::TRY_KUBE)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(1);
+        $tryKubeAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TRY_KUBE));
 
         $manager->persist($tryKubeAction);
 
-        $openSpaceCapsuleAction = new ActionConfig();
-        $openSpaceCapsuleAction
-            ->setName(ActionEnum::OPEN->value)
-            ->setActionName(ActionEnum::OPEN)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(1)
-            ->setInjuryRate(1);
+        $openSpaceCapsuleAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::OPEN));
 
         $manager->persist($openSpaceCapsuleAction);
 
-        $injectSerumAction = new ActionConfig();
-        $injectSerumAction
-            ->setName(ActionEnum::CURE->value)
-            ->setActionName(ActionEnum::CURE)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
-            ->setActionCost(1);
+        $injectSerumAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CURE));
 
         $manager->persist($injectSerumAction);
 
-        $bandageAction = new ActionConfig();
-        $bandageAction
-            ->setName(ActionEnum::USE_BANDAGE->value)
-            ->setActionName(ActionEnum::USE_BANDAGE)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(1)
-            ->setDirtyRate(5)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setOutputQuantity(2);
+        $bandageAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::USE_BANDAGE));
 
         $manager->persist($bandageAction);
 
-        $expressCookAction = new ActionConfig();
-        $expressCookAction
-            ->setName(ActionEnum::EXPRESS_COOK->value)
-            ->setActionName(ActionEnum::EXPRESS_COOK)
-            ->setRange(ActionRangeEnum::SHELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setDirtyRate(20)
-            ->setOutputQuantity(30);
+        $expressCookAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::EXPRESS_COOK));
 
         $manager->persist($expressCookAction);
 
@@ -357,188 +215,74 @@ class ActionsFixtures extends Fixture
         $comfortAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::COMFORT));
         $manager->persist($comfortAction);
 
-        $ultraHealAction = new ActionConfig();
-        $ultraHealAction
-            ->setName(ActionEnum::ULTRAHEAL->value)
-            ->setActionName(ActionEnum::ULTRAHEAL)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
+        $ultraHealAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::ULTRAHEAL));
 
         $manager->persist($ultraHealAction);
 
-        $writeAction = new ActionConfig();
-        $writeAction
-            ->setName(ActionEnum::WRITE->value)
-            ->setActionName(ActionEnum::WRITE)
-            ->setRange(ActionRangeEnum::SHELF)
-            ->setDisplayHolder(ActionHolderEnum::TERMINAL);
+        $writeAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::WRITE));
 
         $manager->persist($writeAction);
 
-        $shredAction = new ActionConfig();
-        $shredAction
-            ->setName(ActionEnum::SHRED->value)
-            ->setActionName(ActionEnum::SHRED)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
+        $shredAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHRED));
 
         $manager->persist($shredAction);
 
         $hyperfreezeAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::HYPERFREEZE));
         $manager->persist($hyperfreezeAction);
 
-        $gagAction = new ActionConfig();
-        $gagAction
-            ->setName(ActionEnum::GAG->value)
-            ->setActionName(ActionEnum::GAG)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
-            ->setActionCost(1);
+        $gagAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::GAG));
 
         $manager->persist($gagAction);
 
-        $ungagAction = new ActionConfig();
-        $ungagAction
-            ->setName(ActionEnum::UNGAG->value)
-            ->setActionName(ActionEnum::UNGAG)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setActionCost(1);
+        $ungagAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::UNGAG));
 
         $manager->persist($ungagAction);
 
-        $showerAction = new ActionConfig();
-        $showerAction
-            ->setName(ActionEnum::TAKE_SHOWER->value)
-            ->setActionName(ActionEnum::TAKE_SHOWER)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(2)
-            ->setInjuryRate(2)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setVisibility(ActionOutputEnum::MUSH_DAMAGE, VisibilityEnum::PRIVATE);
+        $showerAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TAKE_SHOWER));
 
         $manager->persist($showerAction);
 
-        $sinkAction = new ActionConfig();
-        $sinkAction
-            ->setName(ActionEnum::WASH_IN_SINK->value)
-            ->setActionName(ActionEnum::WASH_IN_SINK)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(3)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
+        $sinkAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::WASH_IN_SINK));
 
         $manager->persist($sinkAction);
 
-        $washWithPerfumeAction = new ActionConfig();
-        $washWithPerfumeAction
-            ->setName(ActionEnum::WASH_WITH_PERFUME->value)
-            ->setActionName(ActionEnum::WASH_WITH_PERFUME)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(2)
-            ->setInjuryRate(2)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC);
+        $washWithPerfumeAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::WASH_WITH_PERFUME));
 
         $manager->persist($washWithPerfumeAction);
 
-        $fuelInjectAction = new ActionConfig();
-        $fuelInjectAction
-            ->setName(ActionEnum::INSERT_FUEL->value)
-            ->setActionName(ActionEnum::INSERT_FUEL)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setDirtyRate(15)
-            ->setInjuryRate(1)
-            ->setOutputQuantity(1); // amount of fuel inserted
+        $fuelInjectAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::INSERT_FUEL));
 
         $manager->persist($fuelInjectAction);
 
-        $retrieveFuelAction = new ActionConfig();
-        $retrieveFuelAction
-            ->setName(ActionEnum::RETRIEVE_FUEL->value)
-            ->setActionName(ActionEnum::RETRIEVE_FUEL)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setDirtyRate(15)
-            ->setInjuryRate(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
+        $retrieveFuelAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::RETRIEVE_FUEL));
 
         $manager->persist($retrieveFuelAction);
 
-        $oxygenInjectAction = new ActionConfig();
-        $oxygenInjectAction
-            ->setName(ActionEnum::INSERT_OXYGEN->value)
-            ->setActionName(ActionEnum::INSERT_OXYGEN)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setInjuryRate(1)
-            ->setOutputQuantity(1) // amount of fuel inserted
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
+        $oxygenInjectAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::INSERT_OXYGEN));
 
         $manager->persist($oxygenInjectAction);
 
-        $retrieveOxygenAction = new ActionConfig();
-        $retrieveOxygenAction
-            ->setName(ActionEnum::RETRIEVE_OXYGEN->value)
-            ->setActionName(ActionEnum::RETRIEVE_OXYGEN)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setInjuryRate(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
+        $retrieveOxygenAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::RETRIEVE_OXYGEN));
 
         $manager->persist($retrieveOxygenAction);
 
-        $strengthenHullAction = new ActionConfig();
-        $strengthenHullAction
-            ->setName(ActionEnum::STRENGTHEN_HULL->value)
-            ->setActionName(ActionEnum::STRENGTHEN_HULL)
-            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(1)
-            ->setDirtyRate(50)
-            ->setInjuryRate(5)
-            ->setSuccessRate(25)
-            ->setOutputQuantity(5);
+        $strengthenHullAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::STRENGTHEN_HULL));
 
         $manager->persist($strengthenHullAction);
 
-        $lieDownAction = new ActionConfig();
-        $lieDownAction
-            ->setName(ActionEnum::LIE_DOWN->value)
-            ->setActionName(ActionEnum::LIE_DOWN)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
+        $lieDownAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::LIE_DOWN));
 
         $manager->persist($lieDownAction);
 
-        $getUpAction = new ActionConfig();
-        $getUpAction
-            ->setName(ActionEnum::GET_UP->value)
-            ->setActionName(ActionEnum::GET_UP)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER);
+        $getUpAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::GET_UP));
 
         $manager->persist($getUpAction);
 
-        $coffeeAction = new ActionConfig();
-        $coffeeAction
-            ->setName(ActionEnum::COFFEE->value)
-            ->setActionName(ActionEnum::COFFEE)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setDirtyRate(3);
+        $coffeeAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::COFFEE));
 
         $manager->persist($coffeeAction);
 
-        $dispenseAction = new ActionConfig();
-        $dispenseAction
-            ->setName(ActionEnum::DISPENSE->value)
-            ->setActionName(ActionEnum::DISPENSE)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
+        $dispenseAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::DISPENSE));
 
         $manager->persist($dispenseAction);
 
@@ -551,21 +295,11 @@ class ActionsFixtures extends Fixture
         $waterPlantAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::WATER_PLANT));
         $manager->persist($waterPlantAction);
 
-        $reportEquipmentAction = new ActionConfig();
-        $reportEquipmentAction
-            ->setName(ActionEnum::REPORT_EQUIPMENT->value)
-            ->setActionName(ActionEnum::REPORT_EQUIPMENT)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
+        $reportEquipmentAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REPORT_EQUIPMENT));
 
         $manager->persist($reportEquipmentAction);
 
-        $reportFireAction = new ActionConfig();
-        $reportFireAction
-            ->setName(ActionEnum::REPORT_FIRE->value)
-            ->setActionName(ActionEnum::REPORT_FIRE)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER);
+        $reportFireAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REPORT_FIRE));
 
         $manager->persist($reportFireAction);
 
@@ -581,30 +315,14 @@ class ActionsFixtures extends Fixture
         $checkSporeLevelAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CHECK_SPORE_LEVEL));
         $manager->persist($checkSporeLevelAction);
 
-        $flirtAction = new ActionConfig();
-        $flirtAction
-            ->setName(ActionEnum::FLIRT->value)
-            ->setActionName(ActionEnum::FLIRT)
-            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
-            ->setActionCost(1);
+        $flirtAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::FLIRT));
 
         $manager->persist($flirtAction);
 
         $bondAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::BOND));
         $manager->persist($bondAction);
 
-        $doTheThingAction = new ActionConfig();
-        $doTheThingAction
-            ->setName(ActionEnum::DO_THE_THING->value)
-            ->setActionName(ActionEnum::DO_THE_THING)
-            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
-            ->setActionCost(1)
-            ->setOutputQuantity(2)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC);
+        $doTheThingAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::DO_THE_THING));
 
         $manager->persist($doTheThingAction);
 
@@ -614,51 +332,18 @@ class ActionsFixtures extends Fixture
         $removeSporeAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REMOVE_SPORE));
         $manager->persist($removeSporeAction);
 
-        $publicBroadcastAction = new ActionConfig();
-        $publicBroadcastAction
-            ->setName(ActionEnum::PUBLIC_BROADCAST->value)
-            ->setActionName(ActionEnum::PUBLIC_BROADCAST)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(2)
-            ->setOutputQuantity(3);
+        $publicBroadcastAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PUBLIC_BROADCAST));
 
         $manager->persist($publicBroadcastAction);
 
-        $extinguishManuallyAction = new ActionConfig();
-        $extinguishManuallyAction
-            ->setName(ActionEnum::EXTINGUISH_MANUALLY->value)
-            ->setActionName(ActionEnum::EXTINGUISH_MANUALLY)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setActionCost(1)
-            ->setDirtyRate(50)
-            ->setInjuryRate(5)
-            ->setSuccessRate(10);
+        $extinguishManuallyAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::EXTINGUISH_MANUALLY));
 
         $manager->persist($extinguishManuallyAction);
 
-        $motivationalSpeechAction = new ActionConfig();
-        $motivationalSpeechAction
-            ->setName(ActionEnum::MOTIVATIONAL_SPEECH->value)
-            ->setActionName(ActionEnum::MOTIVATIONAL_SPEECH)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setTypes([ActionTypeEnum::ACTION_SPOKEN])
-            ->setActionCost(2)
-            ->setOutputQuantity(2);
-
+        $motivationalSpeechAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::MOTIVATIONAL_SPEECH));
         $manager->persist($motivationalSpeechAction);
 
-        $boringSpeechAction = new ActionConfig();
-        $boringSpeechAction
-            ->setName(ActionEnum::BORING_SPEECH->value)
-            ->setActionName(ActionEnum::BORING_SPEECH)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setTypes([ActionTypeEnum::ACTION_SPOKEN])
-            ->setActionCost(2)
-            ->setOutputQuantity(3);
+        $boringSpeechAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::BORING_SPEECH));
 
         $manager->persist($boringSpeechAction);
 
@@ -671,341 +356,103 @@ class ActionsFixtures extends Fixture
         $shootAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT));
         $manager->persist($shootAction);
 
-        $playArcade = new ActionConfig();
-        $playArcade
-            ->setName(ActionEnum::PLAY_ARCADE->value)
-            ->setActionName(ActionEnum::PLAY_ARCADE)
-            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(1)
-            ->setSuccessRate(33)
-            ->setOutputQuantity(2);
+        $playArcade = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PLAY_ARCADE));
         $manager->persist($playArcade);
 
-        $shootHunterTurret = new ActionConfig();
-        $shootHunterTurret
-            ->setName(ActionEnum::SHOOT_HUNTER->value . '_turret')
-            ->setActionName(ActionEnum::SHOOT_HUNTER)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::HUNTER)
-            ->setTypes([ActionTypeEnum::ACTION_SHOOT_HUNTER])
-            ->setActionCost(1)
-            ->setSuccessRate(30)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN);
+        $shootHunterTurret = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_HUNTER_TURRET));
         $manager->persist($shootHunterTurret);
 
-        $shootRandomHunterTurret = new ActionConfig();
-        $shootRandomHunterTurret
-            ->setName(ActionEnum::SHOOT_RANDOM_HUNTER->value . '_turret')
-            ->setActionName(ActionEnum::SHOOT_RANDOM_HUNTER)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setTypes([ActionTypeEnum::ACTION_SHOOT_HUNTER])
-            ->setActionCost(1)
-            ->setSuccessRate(30)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN);
+        $shootRandomHunterTurret = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_RANDOM_HUNTER_TURRET));
         $manager->persist($shootRandomHunterTurret);
 
-        $takeoff = new ActionConfig();
-        $takeoff
-            ->setName(ActionEnum::TAKEOFF->value)
-            ->setActionName(ActionEnum::TAKEOFF)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setTypes([ActionTypeEnum::ACTION_PILOT])
-            ->setActionCost(2)
-            ->setSuccessRate(100)
-            ->setCriticalRate(20)
-            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::HIDDEN)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN);
+        $takeoff = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TAKEOFF));
         $manager->persist($takeoff);
 
-        $accessTerminal = new ActionConfig();
-        $accessTerminal
-            ->setName(ActionEnum::ACCESS_TERMINAL->value)
-            ->setActionName(ActionEnum::ACCESS_TERMINAL)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
+        $accessTerminal = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::ACCESS_TERMINAL));
         $manager->persist($accessTerminal);
 
-        $land = new ActionConfig();
-        $land
-            ->setName(ActionEnum::LAND->value)
-            ->setActionName(ActionEnum::LAND)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setTypes([ActionTypeEnum::ACTION_PILOT])
-            ->setActionCost(2)
-            ->setSuccessRate(100)
-            ->setCriticalRate(20)
-            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::HIDDEN)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN);
+        $land = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::LAND));
         $manager->persist($land);
 
-        $shootHunterPatrolShip = new ActionConfig();
-        $shootHunterPatrolShip
-            ->setName(ActionEnum::SHOOT_HUNTER_PATROL_SHIP->toString())
-            ->setActionName(ActionEnum::SHOOT_HUNTER_PATROL_SHIP)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::HUNTER)
-            ->setTypes([ActionTypeEnum::ACTION_SHOOT_HUNTER])
-            ->setActionCost(1)
-            ->setSuccessRate(40)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN);
+        $shootHunterPatrolShip = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_HUNTER_PATROL_SHIP));
         $manager->persist($shootHunterPatrolShip);
 
-        $shootRandomHunterPatrolShip = new ActionConfig();
-        $shootRandomHunterPatrolShip
-            ->setName(ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value)
-            ->setActionName(ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setTypes([ActionTypeEnum::ACTION_SHOOT_HUNTER])
-            ->setActionCost(1)
-            ->setSuccessRate(40)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN);
+        $shootRandomHunterPatrolShip = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP));
         $manager->persist($shootRandomHunterPatrolShip);
 
         $collectScrap = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::COLLECT_SCRAP));
         $manager->persist($collectScrap);
 
-        $renovate = new ActionConfig();
-        $renovate
-            ->setName(ActionEnum::RENOVATE->value)
-            ->setActionName(ActionEnum::RENOVATE)
-            ->setTypes([ActionTypeEnum::ACTION_TECHNICIAN])
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(2)
-            ->setSuccessRate(12)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PRIVATE);
+        $renovate = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::RENOVATE));
         $manager->persist($renovate);
 
-        $convertActionToMovement = new ActionConfig();
-        $convertActionToMovement
-            ->setName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value)
-            ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER);
-        $convertActionToMovement->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
-        $convertActionToMovement->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
+        $convertActionToMovement = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT));
         $manager->persist($convertActionToMovement);
 
-        $autoEject = new ActionConfig();
-        $autoEject
-            ->setName(ActionEnum::AUTO_EJECT->value)
-            ->setActionName(ActionEnum::AUTO_EJECT)
-            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setActionCost(1)
-            ->setInjuryRate(25)
-            ->setDirtyRate(25);
+        $autoEject = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::AUTO_EJECT));
         $manager->persist($autoEject);
 
-        $insertFuelChamber = new ActionConfig();
-        $insertFuelChamber
-            ->setName(ActionEnum::INSERT_FUEL_CHAMBER->value)
-            ->setActionName(ActionEnum::INSERT_FUEL_CHAMBER)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setDirtyRate(15)
-            ->setInjuryRate(1)
-            ->setOutputQuantity(1); // amount of oxygen inserted
+        $insertFuelChamber = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::INSERT_FUEL_CHAMBER));
         $manager->persist($insertFuelChamber);
 
-        $retrieveFuelChamber = new ActionConfig();
-        $retrieveFuelChamber
-            ->setName(ActionEnum::RETRIEVE_FUEL_CHAMBER->value)
-            ->setActionName(ActionEnum::RETRIEVE_FUEL_CHAMBER)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setDirtyRate(15)
-            ->setInjuryRate(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::SECRET);
+        $retrieveFuelChamber = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::RETRIEVE_FUEL_CHAMBER));
         $manager->persist($retrieveFuelChamber);
 
-        $checkFuelChamberLevel = new ActionConfig();
-        $checkFuelChamberLevel
-            ->setName(ActionEnum::CHECK_FUEL_CHAMBER_LEVEL->value)
-            ->setActionName(ActionEnum::CHECK_FUEL_CHAMBER_LEVEL)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setDirtyRate(5)
-            ->setInjuryRate(0)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
+        $checkFuelChamberLevel = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CHECK_FUEL_CHAMBER_LEVEL));
         $manager->persist($checkFuelChamberLevel);
 
-        $hack = new ActionConfig();
-        $hack
-            ->setName(ActionEnum::HACK->value)
-            ->setActionName(ActionEnum::HACK)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(2)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
+        $hack = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::HACK));
         $manager->persist($hack);
 
-        $exitTerminal = new ActionConfig();
-        $exitTerminal
-            ->setName(ActionEnum::EXIT_TERMINAL->value)
-            ->setActionName(ActionEnum::EXIT_TERMINAL)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::TERMINAL)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $exitTerminal = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::EXIT_TERMINAL));
         $manager->persist($exitTerminal);
 
-        $advanceDaedalus = new ActionConfig();
-        $advanceDaedalus
-            ->setName(ActionEnum::ADVANCE_DAEDALUS->value)
-            ->setActionName(ActionEnum::ADVANCE_DAEDALUS)
-            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::TERMINAL)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::NO_FUEL, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::ARACK_PREVENTS_TRAVEL, VisibilityEnum::PUBLIC);
+        $advanceDaedalus = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::ADVANCE_DAEDALUS));
         $manager->persist($advanceDaedalus);
 
-        $scan = new ActionConfig();
-        $scan
-            ->setName(ActionEnum::SCAN->value)
-            ->setActionName(ActionEnum::SCAN)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::TERMINAL)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setActionCost(3)
-            ->setSuccessRate(50);
+        $scan = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SCAN));
         $manager->persist($scan);
 
         $analyzePlanet = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::ANALYZE_PLANET));
         $manager->persist($analyzePlanet);
 
-        $turnDaedalusLeft = new ActionConfig();
-        $turnDaedalusLeft
-            ->setName(ActionEnum::TURN_DAEDALUS_LEFT->value)
-            ->setActionName(ActionEnum::TURN_DAEDALUS_LEFT)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::TERMINAL)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $turnDaedalusLeft = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TURN_DAEDALUS_LEFT));
         $manager->persist($turnDaedalusLeft);
 
-        $turnDaedalusRight = new ActionConfig();
-        $turnDaedalusRight
-            ->setName(ActionEnum::TURN_DAEDALUS_RIGHT->value)
-            ->setActionName(ActionEnum::TURN_DAEDALUS_RIGHT)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::TERMINAL)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $turnDaedalusRight = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TURN_DAEDALUS_RIGHT));
         $manager->persist($turnDaedalusRight);
 
-        $deletePlanet = new ActionConfig();
-        $deletePlanet
-            ->setName(ActionEnum::DELETE_PLANET->value)
-            ->setActionName(ActionEnum::DELETE_PLANET)
-            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::PLANET)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $deletePlanet = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::DELETE_PLANET));
         $manager->persist($deletePlanet);
 
-        $leaveOrbit = new ActionConfig();
-        $leaveOrbit
-            ->setName(ActionEnum::LEAVE_ORBIT->value)
-            ->setActionName(ActionEnum::LEAVE_ORBIT)
-            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::TERMINAL)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::NO_FUEL, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::ARACK_PREVENTS_TRAVEL, VisibilityEnum::PUBLIC);
+        $leaveOrbit = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::LEAVE_ORBIT));
         $manager->persist($leaveOrbit);
 
-        $takeoffToPlanet = new ActionConfig();
-        $takeoffToPlanet
-            ->setName(ActionEnum::TAKEOFF_TO_PLANET->value)
-            ->setActionName(ActionEnum::TAKEOFF_TO_PLANET)
-            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
-            ->setOutputQuantity(4); // max number of explorators allowed
+        $takeoffToPlanet = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TAKEOFF_TO_PLANET));
         $manager->persist($takeoffToPlanet);
 
-        $takeoffToPlanetPatrolShip = new ActionConfig();
-        $takeoffToPlanetPatrolShip
-            ->setName(ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP->value)
-            ->setActionName(ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP)
-            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
-            ->setOutputQuantity(1); // max number of explorators allowed
+        $takeoffToPlanetPatrolShip = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TAKEOFF_TO_PLANET_PATROL_SHIP));
         $manager->persist($takeoffToPlanetPatrolShip);
 
-        $changeNeronCpuPriority = new ActionConfig();
-        $changeNeronCpuPriority
-            ->setName(ActionEnum::CHANGE_NERON_CPU_PRIORITY->value)
-            ->setActionName(ActionEnum::CHANGE_NERON_CPU_PRIORITY)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::TERMINAL)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $changeNeronCpuPriority = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CHANGE_NERON_CPU_PRIORITY));
         $manager->persist($changeNeronCpuPriority);
 
         $repairPilgred = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REPAIR_PILGRED));
         $manager->persist($repairPilgred);
 
-        $returnToSol = new ActionConfig();
-        $returnToSol
-            ->setName(ActionEnum::RETURN_TO_SOL->value)
-            ->setActionName(ActionEnum::RETURN_TO_SOL)
-            ->setTypes([ActionTypeEnum::ACTION_CONFIRM])
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::TERMINAL)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $returnToSol = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::RETURN_TO_SOL));
         $manager->persist($returnToSol);
 
         $participate = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PARTICIPATE));
         $manager->persist($participate);
 
-        $changeNeronCrewLock = new ActionConfig();
-        $changeNeronCrewLock
-            ->setName(ActionEnum::CHANGE_NERON_CREW_LOCK->value)
-            ->setActionName(ActionEnum::CHANGE_NERON_CREW_LOCK)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::TERMINAL)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $changeNeronCrewLock = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CHANGE_NERON_CREW_LOCK));
         $manager->persist($changeNeronCrewLock);
 
-        $changeNeronFoodDestructionOption = new ActionConfig();
-        $changeNeronFoodDestructionOption
-            ->setName(ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION->value)
-            ->setActionName(ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::TERMINAL)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $changeNeronFoodDestructionOption = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION));
         $manager->persist($changeNeronFoodDestructionOption);
 
-        $togglePlasmaShield = new ActionConfig();
-        $togglePlasmaShield
-            ->setName(ActionEnum::TOGGLE_PLASMA_SHIELD->value)
-            ->setActionName(ActionEnum::TOGGLE_PLASMA_SHIELD)
-            ->setRange(ActionRangeEnum::ROOM)
-            ->setDisplayHolder(ActionHolderEnum::TERMINAL)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $togglePlasmaShield = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TOGGLE_PLASMA_SHIELD));
         $manager->persist($togglePlasmaShield);
 
         $toggleMagneticNet = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TOGGLE_MAGNETIC_NET));
@@ -1107,17 +554,14 @@ class ActionsFixtures extends Fixture
         $cureCat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CURE_CAT));
         $manager->persist($cureCat);
 
-        $shootCat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_CAT));
-        $manager->persist($shootCat);
+        $shootEquipment = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_EQUIPMENT));
+        $manager->persist($shootEquipment);
 
         $takeChicken = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TAKE_CHICKEN));
         $manager->persist($takeChicken);
 
         $cureChicken = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CURE_CHICKEN));
         $manager->persist($cureChicken);
-
-        $shootChicken = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_CHICKEN));
-        $manager->persist($shootChicken);
 
         $torture = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TORTURE));
         $manager->persist($torture);
@@ -1353,10 +797,9 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::TAKE_CAT->value, $takeCat);
         $this->addReference(ActionEnum::PET_CAT->value, $petCat);
         $this->addReference(ActionEnum::CURE_CAT->value, $cureCat);
-        $this->addReference(ActionEnum::SHOOT_CAT->value, $shootCat);
         $this->addReference(ActionEnum::TAKE_CHICKEN->value, $takeChicken);
         $this->addReference(ActionEnum::CURE_CHICKEN->value, $cureChicken);
-        $this->addReference(ActionEnum::SHOOT_CHICKEN->value, $shootChicken);
+        $this->addReference(ActionEnum::SHOOT_EQUIPMENT->value, $shootEquipment);
         $this->addReference(ActionEnum::TORTURE->value, $torture);
         $this->addReference(ActionEnum::DAUNT->value, $daunt);
         $this->addReference(ActionEnum::GEN_METAL->value, $genMetal);

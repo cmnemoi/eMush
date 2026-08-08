@@ -1727,13 +1727,13 @@ Da un poco de alegría la primera vez...</target>
         <target>Esta acción es irreversible. ¿Quieres continuar de todas maneras?</target>
       </segment>
     </unit>
-    <unit id="shoot_cat">
+    <unit id="shoot_equipment">
       <segment id="name" state="translated">
-        <source>shoot_cat.name</source>
+        <source>shoot_equipment.name</source>
         <target>Disparar: {equipment}</target>
       </segment>
       <segment id="description" state="translated">
-        <source>shoot_cat.description</source>
+        <source>shoot_equipment.description</source>
         <target>Dispara sobre alguien para herir o matar. ¡Cuidado, juego de manos, es de villanos!</target>
       </segment>
     </unit>

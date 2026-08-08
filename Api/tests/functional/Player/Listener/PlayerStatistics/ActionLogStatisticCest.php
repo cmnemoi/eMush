@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Player\Listener\PlayerStatistics;
 
-use Mush\Action\Actions\ConvertCat;
+use Mush\Action\Actions\ConvertPet;
 use Mush\Action\Actions\Delog;
 use Mush\Action\Actions\GoBerserk;
 use Mush\Action\Actions\MakeSick;
@@ -252,7 +252,7 @@ final class ActionLogStatisticCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        $convertCat = $I->grabService(ConvertCat::class);
+        $convertCat = $I->grabService(ConvertPet::class);
         $convertCatConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::CONVERT_CAT]);
 
         $this->kuanTi->setSpores(1);

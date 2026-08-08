@@ -42,7 +42,7 @@ final class BecomeAnonymousCest extends AbstractFunctionalTest
         $this->actionConfigBecomeAnonymous = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::BECOME_ANONYMOUS]);
         $this->actionBecomeAnonymous = $I->grabService(BecomeAnonymous::class);
 
-        $this->actionConfigTake = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]);
+        $this->actionConfigTake = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TAKE->toString()]);
         $this->actionTake = $I->grabService(Take::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);

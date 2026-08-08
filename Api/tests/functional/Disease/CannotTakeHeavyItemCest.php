@@ -31,7 +31,7 @@ final class CannotTakeHeavyItemCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->takeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]);
+        $this->takeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TAKE->toString()]);
         $this->takeAction = $I->grabService(Take::class);
 
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);

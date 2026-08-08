@@ -6,6 +6,7 @@ namespace Mush\tests\functional\Skill;
 
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
@@ -34,11 +35,13 @@ final class PanicCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
+        $this->daedalus->getDaedalusConfig()->setPlayerCount(3);
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
         $this->jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
         $this->addSkillToPlayer(SkillEnum::PANIC, $I);
     }
 
-    public function shouldGainOneExtraActionPointIfMushControlsMoreThanHalfOfTheCrew(FunctionalTester $I): void
+    public function shouldGainOneExtraActionPointIfAtLeastHalfOfTheCrewIsMushOrDead(FunctionalTester $I): void
     {
         $this->givenPlayerIsMush($this->jinSu);
 
@@ -52,7 +55,7 @@ final class PanicCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveActionPoints(2, $I);
     }
 
-    public function shouldGainOneExtraMovementPointIfMushControlsMoreThanHalfOfTheCrew(FunctionalTester $I): void
+    public function shouldGainOneExtraMovementPointIfAtLeastHalfOfTheCrewIsMushOrDead(FunctionalTester $I): void
     {
         $this->givenPlayerIsMush($this->jinSu);
 
@@ -66,7 +69,7 @@ final class PanicCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveMovementPoints(2, $I);
     }
 
-    public function shouldNotGainExtraActionPointIfMushControlsLessThanHalfOfTheCrew(FunctionalTester $I): void
+    public function shouldNotGainExtraActionPointIfLessThanHalfOfTheCrewIsMushOrDead(FunctionalTester $I): void
     {
         $this->givenPlayerIsMush($this->jinSu);
 
@@ -78,7 +81,7 @@ final class PanicCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveActionPoints(1, $I);
     }
 
-    public function shouldNotGainExtraMovementPointIfMushControlsLessThanHalfOfTheCrew(FunctionalTester $I): void
+    public function shouldNotGainExtraMovementPointIfLessThanHalfOfTheCrewIsMushOrDead(FunctionalTester $I): void
     {
         $this->givenPlayerIsMush($this->jinSu);
 
@@ -111,7 +114,7 @@ final class PanicCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNotWorkIfPlayerIsMush(FunctionalTester $I): void
+    public function shouldGainOneExtraActionPointIfPlayerIsMush(FunctionalTester $I): void
     {
         $this->givenPlayerIsMush($this->jinSu);
 
@@ -123,7 +126,35 @@ final class PanicCest extends AbstractFunctionalTest
 
         $this->whenACyclePassesForChun();
 
-        // 1AP (base)
+        // 1AP (base) + 1AP (panic bonus) = 2AP
+        $this->thenChunShouldHaveActionPoints(2, $I);
+    }
+
+    public function shouldGainOneExtraMovementPointIfPlayerIsMush(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsMush($this->jinSu);
+
+        $this->givenPlayerIsMush($this->kuanTi);
+
+        $this->givenPlayerIsMush($this->chun);
+
+        $this->givenChunHasMovementPoints(0);
+
+        $this->whenACyclePassesForChun();
+
+        // 1MP (base) + 1MP (panic bonus) = 2MP
+        $this->thenChunShouldHaveMovementPoints(2, $I);
+    }
+
+    public function shouldNotWorkBeforeGameStarts(FunctionalTester $I): void
+    {
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::STARTING);
+        $this->givenPlayerIsMush($this->jinSu);
+        $this->givenPlayerIsMush($this->kuanTi);
+        $this->givenChunHasActionPoints(0);
+
+        $this->whenACyclePassesForChun();
+
         $this->thenChunShouldHaveActionPoints(1, $I);
     }
 

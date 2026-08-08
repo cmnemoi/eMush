@@ -7,6 +7,7 @@ namespace Mush\Modifier\ModifierRequirementHandler;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
+use Mush\Player\Entity\Player;
 
 final class MushCrewProportionRequirement extends AbstractModifierRequirementHandler
 {
@@ -14,12 +15,19 @@ final class MushCrewProportionRequirement extends AbstractModifierRequirementHan
 
     public function checkRequirement(ModifierActivationRequirement $modifierRequirement, ModifierHolderInterface $holder): bool
     {
-        $alivePlayers = $holder->getDaedalus()->getAlivePlayers();
+        $daedalus = $holder->getDaedalus();
+        if (!$daedalus->getDaedalusInfo()->isDaedalusStarted()) {
+            return false;
+        }
 
-        $alivePlayersCount = $alivePlayers->count();
-        $mushPlayersCount = $alivePlayers->getMushPlayer()->count();
-        $mushProportion = $mushPlayersCount / $alivePlayersCount;
+        $players = $daedalus->getPlayers();
+        $crewCount = $daedalus->getDaedalusConfig()->getPlayerCount();
+        $cryogenizedPlayersCount = $crewCount - $players->count();
+        $mushOrDeadPlayersCount = $players
+            ->filter(static fn (Player $player): bool => $player->isMush() || $player->isDead())
+            ->count();
+        $panicProportion = ($mushOrDeadPlayersCount + $cryogenizedPlayersCount) / $crewCount;
 
-        return $mushProportion > $modifierRequirement->getValue() / 100;
+        return $panicProportion >= $modifierRequirement->getValue() / 100;
     }
 }

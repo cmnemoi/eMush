@@ -870,7 +870,7 @@
       </segment>
       <segment id="panic.description" state="translated">
         <source>panic.description</source>
-        <target>C'est lorsque tout va mal que vous révélez votre plein potentiel : Crier très fort et courir dans tous les sens.//:point: Vous gagnez **1** :pa: et **1** :pm: supplémentaire à chaque cycle tant que le **Mush contrôle plus de 50%** de l'équipage.</target>
+        <target>C'est lorsque tout va mal que vous révélez votre plein potentiel : Crier très fort et courir dans tous les sens.//:point: Vous gagnez **1** :pa: et **1** :pm: supplémentaire à chaque cycle tant qu'au moins la moitié des membres de l'équipage sont **Mush**, **morts** ou **cryogénisés**.//:point: Tant que le **système cryogénique** fonctionne, vous n'avez aucune raison de paniquer...//:point: Cette compétence fonctionne même si des **Mushs** sont **anonymes**.</target>
       </segment>
     </unit>
     <unit id="hygienist">

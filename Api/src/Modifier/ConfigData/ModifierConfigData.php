@@ -2692,7 +2692,6 @@ abstract class ModifierConfigData
                 modifierRange: ModifierHolderClassEnum::PLAYER,
                 modifierActivationRequirements: [
                     ModifierRequirementEnum::MUSH_CREW_PROPORTION_50_PERCENTS,
-                    ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
                 ],
                 targetEvent: PlayerCycleEvent::PLAYER_NEW_CYCLE,
                 priority: ModifierPriorityEnum::AFTER_INITIAL_EVENT,
@@ -2709,7 +2708,6 @@ abstract class ModifierConfigData
                 modifierRange: ModifierHolderClassEnum::PLAYER,
                 modifierActivationRequirements: [
                     ModifierRequirementEnum::MUSH_CREW_PROPORTION_50_PERCENTS,
-                    ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
                 ],
                 targetEvent: PlayerCycleEvent::PLAYER_NEW_CYCLE,
                 priority: ModifierPriorityEnum::AFTER_INITIAL_EVENT,

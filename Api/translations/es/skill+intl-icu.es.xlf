@@ -971,7 +971,7 @@
       </segment>
       <segment id="panic.description" state="translated">
         <source>panic.description</source>
-        <target>Es cuando todo va mal que puedes sacar tu verdadero potencial: Gritar a todo pulmón y correr en todos los sentidos. // :point: Ganas **1** :pa: y **1** :pm: adicional cada ciclo donde **Mush controla más del 50%** de la tripulación.</target>
+        <target>Es cuando todo va mal que puedes sacar tu verdadero potencial: Gritar a todo pulmón y correr en todos los sentidos.//:point: Ganas **1** :pa: y **1** :pm: adicional cada ciclo mientras al menos la mitad de los tripulantes sean **Mush**, estén **muertos** o **criogenizados**.//:point: Mientras el **sistema criogénico** funcione, no tienes motivos para entrar en pánico...//:point: Esta habilidad funciona incluso si algunos **Mush** son **anónimos**.</target>
       </segment>
     </unit>
     <unit id="hygienist">

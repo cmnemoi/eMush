@@ -864,7 +864,7 @@
       </segment>
       <segment id="panic.description" state="translated">
         <source>panic.description</source>
-        <target>It's when everything is going wrong that you realize your true talent: Screaming loudly and running around like a crazy person.//:point: You earn an additional **1** :pa: and **1** :pm: every cycle while **Mush controls more than 50%** of the crew.</target>
+        <target>It's when everything is going wrong that you realize your true talent: Screaming loudly and running around like a crazy person.//:point: You earn an additional **1** :pa: and **1** :pm: every cycle while at least half of the crew members are **Mush**, **dead**, or **cryogenized**.//:point: As long as the **cryogenic system** is operational, you have no reason to panic...//:point: This skill works even if some **Mush** are **anonymous**.</target>
       </segment>
     </unit>
     <unit id="hygienist">

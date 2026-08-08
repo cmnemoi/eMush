@@ -611,6 +611,7 @@ abstract class ProjectConfigData
                     ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::SOAP_IN_LABORATORY,
                     ProjectRequirementName::CHUN_IN_LABORATORY,
+                    ProjectRequirementName::STARMAP_FRAGMENT_IN_LABORATORY,
                 ],
             ],
             [

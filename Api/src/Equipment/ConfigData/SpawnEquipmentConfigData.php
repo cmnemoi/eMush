@@ -26,7 +26,7 @@ abstract class SpawnEquipmentConfigData
     public const string ONE_NARCOTICS_DISTILLER_IN_MEDLAB = 'one_narcotics_distiller_in_medlab';
     public const string TWO_NCC_LENSES_IN_LABORATORY = 'two_ncc_lenses_in_laboratory';
     public const string ONE_SPORE_SUCKER_IN_LABORATORY = 'one_spore_sucker_in_laboratory';
-    public const string FIVE_MYCOALARMS_IN_LABORATORY = 'five_mycoalarms_in_laboratory';
+    public const string THREE_MYCOALARMS_IN_LABORATORY = 'three_mycoalarms_in_laboratory';
 
     /**
      * @return SpawnEquipmentConfigDto[]
@@ -168,10 +168,10 @@ abstract class SpawnEquipmentConfigData
                 quantity: 1,
             ),
             new SpawnEquipmentConfigDto(
-                name: self::FIVE_MYCOALARMS_IN_LABORATORY,
+                name: self::THREE_MYCOALARMS_IN_LABORATORY,
                 equipmentName: ItemEnum::MYCO_ALARM,
                 placeName: RoomEnum::LABORATORY,
-                quantity: 5,
+                quantity: 3,
             ),
         ];
     }

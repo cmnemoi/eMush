@@ -3198,6 +3198,19 @@ abstract class ModifierConfigData
                 ],
             ),
             new EventModifierConfigDto(
+                key: ModifierNameEnum::PREVENT_LIE_DOWN,
+                name: ModifierNameEnum::PREVENT_LIE_DOWN,
+                strategy: ModifierStrategyEnum::PREVENT_EVENT,
+                modifierRange: 'player',
+                modifierActivationRequirements: [],
+                targetEvent: ActionEvent::PRE_ACTION,
+                priority: ModifierPriorityEnum::PREVENT_EVENT,
+                applyWhenTargeted: false,
+                tagConstraints: [
+                    ActionEnum::LIE_DOWN->value => ModifierRequirementEnum::ANY_TAGS,
+                ],
+            ),
+            new EventModifierConfigDto(
                 key: 'mute_prevent_messages',
                 name: 'mute_prevent_messages',
                 strategy: ModifierStrategyEnum::PREVENT_EVENT,

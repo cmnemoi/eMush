@@ -13,6 +13,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -69,21 +70,11 @@ final class RemoveSporeActionCest extends AbstractFunctionalTest
             'log' => ActionLogEnum::REMOVE_SPORE_SUCCESS,
         ]);
 
-        // when the player tries to remove a spore again
-        $this->removeSpore->execute();
+        // this status should be given to the player
+        $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::SPORE_SUCKER_USED));
 
-        // then they should have no spore and less HP
-        $I->assertEquals(3, $this->player->getHealthPoint());
-        $I->assertEquals(0, $this->player->getSpores());
-
-        // then they should see the failure log
-        $I->seeInRepository(RoomLog::class, [
-            'place' => $this->player->getPlace()->getName(),
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player->getPlayerInfo(),
-            'visibility' => VisibilityEnum::PRIVATE,
-            'log' => ActionLogEnum::REMOVE_SPORE_FAIL,
-        ]);
+        // when the player tries to remove a spore again it should be refused
+        $I->assertEquals('spore_sucker_used_too_recently', $this->removeSpore->cannotExecuteReason());
     }
 
     public function testRemoveSporeAsMush(FunctionalTester $I): void
@@ -120,5 +111,8 @@ final class RemoveSporeActionCest extends AbstractFunctionalTest
             'visibility' => VisibilityEnum::PRIVATE,
             'log' => ActionLogEnum::REMOVE_SPORE_MUSH,
         ]);
+
+        // this status should be given to the player
+        $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::SPORE_SUCKER_USED));
     }
 }

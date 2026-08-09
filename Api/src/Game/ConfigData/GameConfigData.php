@@ -348,6 +348,7 @@ class GameConfigData
                     DaedalusStatusEnum::CAN_MOVE_TO_EVENT_PLANET . '_default',
                     DaedalusStatusEnum::IN_ORBIT_OF_EVENT_PLANET . '_default',
                     DaedalusStatusEnum::PLANET_IMPOSSIBLE_TO_SCAN . '_default',
+                    PlayerStatusEnum::SPORE_SUCKER_USED . '_default',
                 ],
                 'triumphConfigs' => array_map(static fn (TriumphConfigDto $triumphConfig) => $triumphConfig->name->toConfigKey('default'), TriumphConfigData::getAll()),
                 'hunterConfigs' => [

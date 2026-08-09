@@ -97,6 +97,7 @@ abstract class ActionImpossibleCauseEnum
     public const string SURGERY_NOT_LYING_DOWN = 'surgery_not_lying_down';
     public const string MUSH_REMOVE_SPORE = 'mush_remove_spore';
     public const string IMMUNIZED_REMOVE_SPORE = 'immunized_remove_spore';
+    public const string SPORE_SUCKER_USED_TOO_RECENTLY = 'spore_sucker_used_too_recently';
     public const string ALREADY_DID_BORING_SPEECH = 'already_did_boring_speech';
     public const string HAVE_ALL_FAKE_DISEASES = 'have_all_fake_diseases';
     public const string SYMPTOMS_ARE_PREVENTING_ACTION = 'symptoms_are_preventing_action';

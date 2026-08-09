@@ -367,12 +367,6 @@
         <target>remove_spore_success</target>
       </segment>
     </unit>
-    <unit id="remove_spore_fail">
-      <segment id="remove_spore_fail" state="translated">
-        <source>remove_spore_fail</source>
-        <target>remove_spore_fail</target>
-      </segment>
-    </unit>
     <unit id="remove_spore_mush">
       <segment id="remove_spore_mush" state="translated">
         <source>remove_spore_mush</source>

@@ -471,13 +471,7 @@ other {Que extraño, **{character}** ha hecho que salga humo del **{target_equip
     <unit id="remove_spore_success">
       <segment id="remove_spore_success" state="translated">
         <source>remove_spore_success</source>
-        <target>Usas el extractor en este miserable forúnculo. El ruido es algo aterrador, al igual que la cantidad de sangre... Espera, ¿qué diablos es eso?</target>
-      </segment>
-    </unit>
-    <unit id="remove_spore_fail">
-      <segment id="remove_spore_fail" state="translated">
-        <source>remove_spore_fail</source>
-        <target>Usas el extractor en este miserable forúnculo. El ruido es algo aterrador, al igual que la cantidad de sangre... Afortunadamente, no hay ninguna espora que extraer.</target>
+        <target>Usas el extractor en este miserable forúnculo. El ruido es algo aterrador, al igual que la cantidad de sangre...</target>
       </segment>
     </unit>
     <unit id="remove_spore_mush">

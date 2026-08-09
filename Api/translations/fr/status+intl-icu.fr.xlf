@@ -651,5 +651,15 @@
         <target>Cet objet possède un système le reliant à {target_character_gender, select, male {son} female {sa} other {saon}} propriétaire {target_character_icon}  **{target_character}**. Il n'est utilisable par personne d'autre tant {target_character_gender, select, male {qu'il} female {qu'elle} other {qu'iel}} respire encore.</target>
       </segment>
     </unit>
+    <unit id="spore_sucker_used">
+      <segment id="name" state="translated">
+        <source>spore_sucker_used.name</source>
+        <target>Nuque endomagée</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>spore_sucker_used.description</source>
+        <target>Vous avez encore la nuque fragile après avoir utilisé cet horrible engin. Il vous sera impossible pour vous de vous en servir à nouveau ou de vous allonger {charge, select, 1 {pendant le prochain cycle.} other {pendant les {charge} prochains cycle.}}</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

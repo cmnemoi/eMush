@@ -40,7 +40,8 @@ export enum StatusPlayerNameEnum {
     BRAINSYNC = 'brainsync',
     BEGINNER = 'beginner',
     IS_ANONYMOUS = 'is_anonymous',
-    MANKIND_ONLY_HOPE_STATUS = 'mankind_only_hope_status'
+    MANKIND_ONLY_HOPE_STATUS = 'mankind_only_hope_status',
+    SPORE_SUCKER_USED = 'spore_sucker_used',
 };
 
 export const statusPlayerEnum: {[index: string]: {icon: string}} = {
@@ -163,5 +164,8 @@ export const statusPlayerEnum: {[index: string]: {icon: string}} = {
     },
     [StatusPlayerNameEnum.MANKIND_ONLY_HOPE_STATUS]: {
         'icon': getImgUrl('ui_icons/beta_icon_small.png')
+    },
+    [StatusPlayerNameEnum.SPORE_SUCKER_USED]: {
+        'icon': getImgUrl('status/injury_spore_sucker.png')
     }
 };

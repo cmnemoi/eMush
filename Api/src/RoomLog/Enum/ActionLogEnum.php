@@ -74,7 +74,6 @@ abstract class ActionLogEnum
     public const string REMOVE_CAMERA = 'remove_camera';
     public const string CHECK_SPORE_LEVEL = 'check_spore_level';
     public const string REMOVE_SPORE_SUCCESS = 'remove_spore_success';
-    public const string REMOVE_SPORE_FAIL = 'remove_spore_fail';
     public const string REMOVE_SPORE_MUSH = 'remove_spore_mush';
     public const string PUBLIC_BROADCAST = 'public_broadcast';
     public const string MOTIVATIONAL_SPEECH = 'motivational_speech';
@@ -361,7 +360,6 @@ abstract class ActionLogEnum
 
         ActionEnum::REMOVE_SPORE->value => [
             ActionOutputEnum::SUCCESS => self::REMOVE_SPORE_SUCCESS,
-            ActionOutputEnum::FAIL => self::REMOVE_SPORE_FAIL,
             ActionOutputEnum::MUSH_DAMAGE => self::REMOVE_SPORE_MUSH,
         ],
         ActionEnum::PUBLIC_BROADCAST->value => [

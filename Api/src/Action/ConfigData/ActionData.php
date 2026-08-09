@@ -1095,7 +1095,7 @@ class ActionData
             'types' => [],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
-            'visibilities' => ['success' => 'private', 'fail' => 'private', ActionOutputEnum::MUSH_DAMAGE => 'private'],
+            'visibilities' => ['success' => 'private', ActionOutputEnum::MUSH_DAMAGE => 'private'],
             'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

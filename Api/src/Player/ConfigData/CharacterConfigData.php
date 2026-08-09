@@ -23,7 +23,7 @@ class CharacterConfigData
         'auto_destroy',
         'suicide',
         'kill_player',
-        'rejuvenate_alpha',
+        'rejuvenate',
         'fake_disease',
         'trigger_all_rebel_contacts',
         'create_trade',

@@ -479,13 +479,7 @@ other {**{character}** generously sprays themself with perfume across their face
     <unit id="remove_spore_success">
       <segment id="remove_spore_success" state="translated">
         <source>remove_spore_success</source>
-        <target>You use your extractor on this wretched boil. The noise is somewhat terrifying as is the amount of blood... Hang on, what the hell is that?</target>
-      </segment>
-    </unit>
-    <unit id="remove_spore_fail">
-      <segment id="remove_spore_fail" state="translated">
-        <source>remove_spore_fail</source>
-        <target>You use your extractor on this wretched boil. The noise is somewhat terrifying as is the amount of blood... Fortunately there is no spore there to recover.</target>
+        <target>You use your extractor on this wretched boil. The noise is somewhat terrifying as is the amount of blood...</target>
       </segment>
     </unit>
     <unit id="remove_spore_mush">

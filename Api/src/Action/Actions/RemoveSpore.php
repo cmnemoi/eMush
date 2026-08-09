@@ -5,26 +5,38 @@ declare(strict_types=1);
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
-use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\MushDamage;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RemoveSpore extends AbstractAction
 {
     protected ActionEnum $name = ActionEnum::REMOVE_SPORE;
+
+    public function __construct(
+        EventServiceInterface $eventService,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        private StatusServiceInterface $statusService,
+    ) {
+        parent::__construct($eventService, $actionService, $validator);
+    }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -35,6 +47,13 @@ class RemoveSpore extends AbstractAction
                 'contain' => false,
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::IMMUNIZED_REMOVE_SPORE,
+            ]),
+            new HasStatus([
+                'status' => PlayerStatusEnum::SPORE_SUCKER_USED,
+                'target' => HasStatus::PLAYER,
+                'contain' => false,
+                'groups' => [ClassConstraint::EXECUTE],
+                'message' => ActionImpossibleCauseEnum::SPORE_SUCKER_USED_TOO_RECENTLY,
             ]),
             new PlaceType([
                 'groups' => [ClassConstraint::EXECUTE],
@@ -59,11 +78,7 @@ class RemoveSpore extends AbstractAction
             return new MushDamage();
         }
 
-        if ($nbSpores > 0) {
-            return new Success();
-        }
-
-        return new Fail();
+        return new Success();
     }
 
     protected function applyEffect(ActionResult $result): void
@@ -89,5 +104,13 @@ class RemoveSpore extends AbstractAction
             );
             $this->eventService->callEvent($sporeLossEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
+
+        // add a status with a negative modifier that also prevent from used the spore sucker again for a few cycles.
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::SPORE_SUCKER_USED,
+            $this->player,
+            $this->getTags(),
+            new \DateTime()
+        );
     }
 }

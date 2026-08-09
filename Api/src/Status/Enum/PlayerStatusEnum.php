@@ -101,6 +101,7 @@ abstract class PlayerStatusEnum
     public const string MANKIND_ONLY_HOPE_STATUS = 'mankind_only_hope_status';
     public const string BODYGUARD_USER = 'bodyguard_user';
     public const string BODYGUARD_VIP = 'bodyguard_vip';
+    public const string SPORE_SUCKER_USED = 'spore_sucker_used';
     public const array MUSH_SKILL_STATUSES_SWAPPED_BY_TRANSFER = [
         self::HAS_ADAPTED_EPIGENETICS,
         self::HAS_USED_MASS_GGEDON,

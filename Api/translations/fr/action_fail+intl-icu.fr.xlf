@@ -570,6 +570,12 @@
         <target>Pax Fungi : Le Mush ne tolère pas les actions violentes directes envers lui-même.</target>
       </segment>
     </unit>
+    <unit id="spore_sucker_used_too_recently">
+      <segment id="description" state="translated">
+        <source>spore_sucker_used_too_recently.description</source>
+        <target>Votre nuque vous fait encore souffrir et l'idée d'approcher cet engin d'elle à nouveau est bien trop terrifiante pour essayer aussi tôt.</target>
+      </segment>
+    </unit>
     <unit id="already_did_boring_speech">
       <segment id="description" state="translated">
         <source>already_did_boring_speech.description</source>

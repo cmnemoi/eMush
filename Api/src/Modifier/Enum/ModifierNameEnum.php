@@ -56,6 +56,7 @@ abstract class ModifierNameEnum
     public const string PREVENT_ATTACKING = 'prevent_attacking';
     public const string PREVENT_PICK_HEAVY = 'prevent_pick_heavy';
     public const string PREVENT_MOVE = 'prevent_move';
+    public const string PREVENT_LIE_DOWN = 'prevent_lie_down';
     public const string OPTIMIST_MODIFIER = 'optimist_modifier';
     public const string PLAYER_PLUS_2_DAMAGE_ON_HIT = 'player_+2_damage_on_hit';
     public const string PLAYER_PLUS_2_MOVEMENT_POINT_ON_EVENT_ACTION_MOVEMENT_CONVERSION_FOR_SPRINTER = 'player_+2_movement_point_on_event_action_movement_conversion_for_sprinter';

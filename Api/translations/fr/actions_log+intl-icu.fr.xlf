@@ -721,13 +721,7 @@
     <unit id="remove_spore_success">
       <segment id="remove_spore_success" state="translated">
         <source>remove_spore_success</source>
-        <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Tiens qu'est-ce que c'est que ça ?</target>
-      </segment>
-    </unit>
-    <unit id="remove_spore_fail">
-      <segment id="remove_spore_fail" state="translated">
-        <source>remove_spore_fail</source>
-        <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Heureusement vous n'aviez aucune spore à récupérer.</target>
+        <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi...</target>
       </segment>
     </unit>
     <unit id="remove_spore_mush">

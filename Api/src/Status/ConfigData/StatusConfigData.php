@@ -2415,6 +2415,20 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::SPORE_SUCKER_USED . '_default',
+            'statusName' => PlayerStatusEnum::SPORE_SUCKER_USED,
+            'visibility' => 'private',
+            'type' => 'charge_status_config',
+            'chargeVisibility' => 'private',
+            'chargeStrategy' => ChargeStrategyTypeEnum::CYCLE_DECREMENT,
+            'maxCharge' => 4,
+            'startCharge' => 4,
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => true,
+            'modifierConfigs' => [ModifierNameEnum::PREVENT_LIE_DOWN],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

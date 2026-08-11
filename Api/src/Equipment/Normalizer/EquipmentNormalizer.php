@@ -285,6 +285,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         if ($cure->getDelayMin() > 0) {
             $key = 'delayed_cure_info';
             $params = [
+                'quantity' => $cure->getRate(),
                 'diseaseName' => $cureName,
                 'start' => $cure->getDelayMin(),
             ];
@@ -296,6 +297,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         } else {
             $key = 'cure_info';
             $params = [
+                'quantity' => $cure->getRate(),
                 'diseaseName' => $cureName,
             ];
         }

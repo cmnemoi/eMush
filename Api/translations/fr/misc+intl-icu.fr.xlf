@@ -40,15 +40,15 @@
       </segment>
       <segment id="delayed_cure_info_with_range" state="translated">
         <source>delayed_cure_info_with_range</source>
-        <target>Guérit la maladie {diseaseName} dans un délai de {start} à {end} cycles</target>
+        <target>{ quantity } % de chances de guérir la maladie {diseaseName} dans un délai de {start} à {end} cycles</target>
       </segment>
       <segment id="delayed_cure_info" state="translated">
         <source>delayed_cure_info</source>
-        <target>Guérit la maladie {diseaseName} dans un délai de {start} cycles</target>
+        <target>{ quantity } % de chances de guérir la maladie {diseaseName} dans un délai de {start} cycles</target>
       </segment>
       <segment id="cure_info" state="translated">
         <source>cure_info</source>
-        <target>Guérit la maladie {diseaseName}</target>
+        <target>{ quantity } % de chances de guérir la maladie {diseaseName}</target>
       </segment>
     </unit>
     <unit id="orientation">

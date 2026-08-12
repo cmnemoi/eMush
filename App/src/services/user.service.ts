@@ -263,6 +263,16 @@ const UserService = {
             console.error(error);
             return [];
         }
+    },
+
+    switchILikeToBeMush: async function(): Promise<void> {
+        try {
+            await store.dispatch('gameConfig/setLoading', { loading: true });
+            await ApiService.post(urlJoin(userEndPoint, 'switch-like-to-be-mush'));
+            await store.dispatch('gameConfig/setLoading', { loading: false });
+        } catch (error) {
+            console.error(error);
+        }
     }
 };
 

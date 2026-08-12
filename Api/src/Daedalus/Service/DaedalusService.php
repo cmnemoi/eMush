@@ -44,6 +44,7 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
+use Mush\User\Service\UserServiceInterface;
 use Symfony\Component\Uid\Uuid;
 
 class DaedalusService implements DaedalusServiceInterface
@@ -74,7 +75,8 @@ class DaedalusService implements DaedalusServiceInterface
         PlayerServiceInterface $playerService,
         StatusServiceInterface $statusService,
         FunFactsServiceInterface $funFactsService,
-        private GetHolidayForDaedalusService $getHolidayForDaedalusService
+        private GetHolidayForDaedalusService $getHolidayForDaedalusService,
+        private UserServiceInterface $userService,
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
@@ -302,11 +304,11 @@ class DaedalusService implements DaedalusServiceInterface
                 continue;
             }
 
-            if ($character->hasStatus(PlayerStatusEnum::BEGINNER)) {
-                $mushChance = 1;
-            } else {
-                $mushChance = 2;
+            if ($this->userService->isNewPlayer($character->getUser())) {
+                continue;
             }
+            $mushChance = $character->getUser()->getAlphaSelectionWeight();
+
             $chancesArray[$character->getName()] = $mushChance;
         }
 
@@ -317,16 +319,30 @@ class DaedalusService implements DaedalusServiceInterface
         $mushNumber = (int) ceil($mushNumber * $playerNumber / $maxPlayerNumber);
 
         $mushPlayerName = $this->randomService->getRandomElementsFromProbaCollection(new ProbaCollection($chancesArray), $mushNumber);
-        foreach ($mushPlayerName as $playerName) {
-            $mush = $daedalus->getPlayerByNameOrThrow($playerName);
 
-            $playerEvent = new PlayerEvent(
-                $mush,
-                [DaedalusEvent::FULL_DAEDALUS],
-                $date
-            );
-            $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+        foreach ($daedalus->getAlivePlayers() as $character) {
+            $user = $character->getUser();
+
+            if (\in_array($character->getName(), $mushPlayerName, true)) {
+                $mush = $daedalus->getPlayerByNameOrThrow($character->getName());
+
+                $playerEvent = new PlayerEvent(
+                    $mush,
+                    [DaedalusEvent::FULL_DAEDALUS],
+                    $date
+                );
+
+                $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+
+                $user->resetAlphaSelectionWeight();
+            } else {
+                $user->IncreaseAlphaSelectionWeight();
+            }
+
+            $this->entityManager->persist($user);
         }
+
+        $this->entityManager->flush();
 
         return $daedalus;
     }

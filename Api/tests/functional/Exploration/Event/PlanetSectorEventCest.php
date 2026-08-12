@@ -582,6 +582,8 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
     public function testFightEventDoesNotRemoveHealthToExploratorsIfTheyHaveEnoughStrength(FunctionalTester $I): void
     {
+        $this->addSkillToPlayer(SkillEnum::PILOT, $I, $this->chun);
+
         // given an exploration is created
         $exploration = $this->createExploration(
             planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),

@@ -78,9 +78,21 @@ class UserService implements UserServiceInterface
         return $this->repository->findUserPastCyclesCount($user) < self::TWENTY_FOUR_DAYS_IN_CYCLES || $this->repository->findUserNumberOfPastGames($user) <= self::FOUR_GAMES;
     }
 
+    public function isNewPlayer(User $user): bool
+    {
+        return $this->repository->findUserNumberOfPastGames($user) === 0;
+    }
+
     public function acceptRules(User $user): void
     {
         $user->acceptRules();
+
+        $this->persist($user);
+    }
+
+    public function switchLikeToBeMush(User $user): void
+    {
+        $user->switchLikeToBeMush();
 
         $this->persist($user);
     }

@@ -8,6 +8,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\User\Entity\User;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -19,7 +20,8 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
     private PlayerInfoRepository $playerInfoRepository;
 
     public function __construct(
-        PlayerInfoRepository $playerInfoRepository
+        PlayerInfoRepository $playerInfoRepository,
+        private readonly TokenStorageInterface $tokenStorage,
     ) {
         $this->playerInfoRepository = $playerInfoRepository;
     }
@@ -38,8 +40,17 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
 
     public function normalize($object, ?string $format = null, array $context = []): array
     {
+        /** @var ?User $requestUser */
+        $requestUser = $this->tokenStorage->getToken()?->getUser();
+        if ($requestUser === null) {
+            return [];
+        }
+
         /** @var User $user */
         $user = $object;
+
+        $requestedByUser = $requestUser === $user;
+        $requestedByModerator = $requestUser->isModerator();
 
         if ($user->isInGame()) {
             /** @var PlayerInfo $playerInfo */
@@ -53,15 +64,24 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
             $currentPlayer = null;
         }
 
-        return [
+        $normalizedUser = [
             'id' => $user->getId(),
             'userId' => $user->getUserId(),
             'username' => $user->getUsername(),
-            'playerInfo' => $currentPlayer,
             'roles' => $user->getRoles(),
-            'isBanned' => $user->isBanned(),
-            'hasAcceptedRules' => $user->hasAcceptedRules(),
             'createdAt' => $user->getCreatedAt()?->format('Y-m-d H:i:s'),
         ];
+
+        if ($requestedByUser || $requestedByModerator) {
+            $normalizedUser['playerInfo'] = $currentPlayer;
+            $normalizedUser['isBanned'] = $user->isBanned();
+            $normalizedUser['hasAcceptedRules'] = $user->hasAcceptedRules();
+        }
+
+        if ($requestedByUser) {
+            $normalizedUser['likeToBeMush'] = $user->getLikeToBeMush();
+        }
+
+        return $normalizedUser;
     }
 }

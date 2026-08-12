@@ -7,6 +7,7 @@ type UserData = {
     playerInfo?: number;
     roles?: UserRole[];
     hasAcceptedRules?: boolean;
+    likeToBeMush?: boolean;
 };
 
 export class User {
@@ -16,6 +17,7 @@ export class User {
     public playerInfo : number|null;
     public roles : UserRole[];
     public hasAcceptedRules! : boolean;
+    public likeToBeMush? : boolean;
 
     constructor() {
         this.id = null;
@@ -32,6 +34,7 @@ export class User {
             this.playerInfo = object.playerInfo ? object.playerInfo : null;
             this.roles = object.roles;
             this.hasAcceptedRules = object.hasAcceptedRules;
+            this.likeToBeMush = object.likeToBeMush;
         }
         return this;
     }

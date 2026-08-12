@@ -47,6 +47,7 @@ use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
+use Mush\User\Service\UserServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -125,6 +126,7 @@ final class DaedalusServiceTest extends TestCase
             $this->statusService,
             $this->funFactsService,
             $this->getHolidayForDaedalusService,
+            self::createStub(UserServiceInterface::class),
         );
     }
 

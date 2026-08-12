@@ -95,6 +95,21 @@ final class UserController extends AbstractController
         return $this->json(['detail' => 'News read successfully'], Response::HTTP_OK);
     }
 
+    /**
+     * End point for option like to be mush.
+     */
+    #[OA\Tag(name: 'User')]
+    #[Route('/switch-like-to-be-mush', methods: ['POST'])]
+    public function switchLikeToBeMush(): JsonResponse
+    {
+        $this->denyAccessUnlessGranted(UserVoter::IS_CONNECTED, message: 'You must be connected to change this option.');
+
+        $user = $this->getUserOrThrow();
+        $this->userService->switchLikeToBeMush($user);
+
+        return $this->json($user, Response::HTTP_OK);
+    }
+
     private function getUserOrThrow(): User
     {
         $user = $this->getUser();

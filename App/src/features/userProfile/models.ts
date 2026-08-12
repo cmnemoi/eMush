@@ -18,4 +18,5 @@ export type User = {
     id: integer;
     userId: string;
     username: string;
+    likeToBeMush: boolean|null;
 }

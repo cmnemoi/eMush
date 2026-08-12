@@ -213,7 +213,11 @@
 			"awards": "Palmarès",
 			"trips": "Voyages"
 		},
-		"pageTitle": "Fiche de {user}"
+		"pageTitle": "Fiche de {user}",
+		"iLikeToBeMushActivated": "Je veux être mush plus souvent ! (Activé)",
+		"iLikeToBeMushDeactivated": "Je veux être mush plus souvent ! (Déactivé)",
+		"iLikeToBeMushButtonName": "Je veux être mush plus souvent !",
+		"iLikeToBeMushButtonDescription": "Le système s'assure que tout les joueurs jouent régulièrement le rôle de Mush. Mais certains veulent l'être un peu plus souvent que d'autres et cette option est là pour eux.//***Pour le bon fonctionnement du jeu, il est interdit de partager votre choix à l'intérieur ou à l'extérieur du jeu. Merci.***"
 	},
 	"login": "Connexion",
 	"logout": "Déconnexion",

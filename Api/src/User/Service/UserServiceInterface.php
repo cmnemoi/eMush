@@ -25,7 +25,11 @@ interface UserServiceInterface
 
     public function isABeginner(User $user): bool;
 
+    public function isNewPlayer(User $user): bool;
+
     public function acceptRules(User $user): void;
+
+    public function switchLikeToBeMush(User $user): void;
 
     public function readLatestNews(User $user): void;
 

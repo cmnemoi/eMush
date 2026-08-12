@@ -2,12 +2,27 @@
     <div class="box-container">
         <h1>{{ $t('userProfile.pageTitle', { user: user.username }) }}</h1>
         <div class="user-content-layout">
-            <div class="user-ships-section">
-                <UserShipHistory  />
-            </div>
             <div class="user-sidebar">
                 <UserAchievements />
             </div>
+            <div class="user-ships-section">
+                <UserShipHistory  />
+            </div>
+
+            <div v-if="user.likeToBeMush != undefined">
+                <Tippy
+                    class="action-button"
+                    tag="button"
+                    @click="switchILikeToBeMush()">
+                    <text v-if="user.likeToBeMush == true">{{$t('userProfile.iLikeToBeMushActivated')}}</text>
+                    <text v-else>{{$t('userProfile.iLikeToBeMushDeactivated')}}</text>
+                    <template #content>
+                        <h1>{{ $t('userProfile.iLikeToBeMushButtonName') }}</h1>
+                        <p v-html="formatText($t('userProfile.iLikeToBeMushButtonDescription'))" />
+                    </template>
+                </Tippy>
+            </div>
+
         </div>
     </div>
 </template>
@@ -19,6 +34,8 @@ import UserShipHistory from "@/features/userProfile/UserShipHistory.vue";
 import { computed, onBeforeMount, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
+import UserService from "@/services/user.service";
+import { formatText } from "@/utils/formatText";
 
 const route = useRoute();
 const store = useStore();
@@ -27,6 +44,11 @@ const user = computed((): User => store.getters['userProfile/user']);
 
 onBeforeMount(async () => await store.dispatch('userProfile/loadUser', route.params.userId as string));
 watch(route, async () => await store.dispatch('userProfile/loadUser', route.params.userId as string));
+
+const switchILikeToBeMush = async () => {
+    await UserService.switchILikeToBeMush();
+    await store.dispatch('userProfile/loadUser', route.params.userId as string);
+    }
 </script>
 
 <style lang="scss" scoped>

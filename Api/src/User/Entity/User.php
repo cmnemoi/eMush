@@ -48,6 +48,9 @@ class User implements UserInterface
 {
     use TimestampableEntity;
 
+    private const int MIN_ALPHA_WEIGHT_LIKE_MUSH = 16;
+    private const int MIN_ALPHA_WEIGHT = 2;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
@@ -91,6 +94,12 @@ class User implements UserInterface
 
     #[ORM\Column(type: 'json', nullable: false, options: ['default' => '{}'])]
     private array $hashedIps = [];
+
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $likeToBeMush = false;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 2])]
+    private int $alphaSelectionWeight = 2;
 
     // deprecated
     #[ORM\Embedded(PendingStatistics::class, columnPrefix: false)]
@@ -337,6 +346,46 @@ class User implements UserInterface
     public function resetCycleCounts(): self
     {
         $this->pendingStatistics->resetCycleCounts();
+
+        return $this;
+    }
+
+    public function getAlphaSelectionWeight(): int
+    {
+        if ($this->likeToBeMush && $this->alphaSelectionWeight < self::MIN_ALPHA_WEIGHT_LIKE_MUSH) {
+            $this->alphaSelectionWeight = self::MIN_ALPHA_WEIGHT_LIKE_MUSH;
+
+            return self::MIN_ALPHA_WEIGHT_LIKE_MUSH;
+        }
+
+        return $this->alphaSelectionWeight;
+    }
+
+    public function increaseAlphaSelectionWeight(): self
+    {
+        $this->alphaSelectionWeight *= 2;
+        if ($this->alphaSelectionWeight > 100000) { // don't acutally expect players to ever have that weight unless they only play Chun, but better be sure.
+            $this->alphaSelectionWeight = 100000;
+        }
+
+        return $this;
+    }
+
+    public function resetAlphaSelectionWeight(): self
+    {
+        $this->alphaSelectionWeight = self::MIN_ALPHA_WEIGHT;
+
+        return $this;
+    }
+
+    public function getLikeToBeMush(): bool
+    {
+        return $this->likeToBeMush;
+    }
+
+    public function switchLikeToBeMush(): static
+    {
+        $this->likeToBeMush = !$this->likeToBeMush;
 
         return $this;
     }

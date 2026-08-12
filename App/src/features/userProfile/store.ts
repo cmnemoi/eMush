@@ -19,7 +19,8 @@ export function createUserProfileModule(
             user: {
                 id: 0,
                 userId: '',
-                username: ''
+                username: '',
+                likeToBeMush: null,
             }
         }),
         mutations: {

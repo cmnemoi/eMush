@@ -775,12 +775,83 @@
 		"canNotVote": "No puedes votar."
 	},
 	"homePage": {
-		"joinUs": "¡ Únete !",
-		"play": "¡Jugar!",
-		"synopsis": "Estás a punto de despertar a bordo del Daedalus con otros 15 rebeldes. Como tú, huyen del <em>Mush</em>, un hongo parásito que está asolando la Tierra y amenaza a la Humanidad.",
-		"followUs": "Síguenos :",
-		"latestNews": "Últimas noticias :",
-		"seeAllNews": "Ver todas las noticias"
+		"joinUs": "Únete a la tripulación",
+		"play": "Sube a bordo",
+		"followUs": "Únete a la comunidad",
+		"latestNews": "Últimas noticias",
+		"seeAllNews": "Ver todas las noticias",
+		"pegiAlt": "Clasificación PEGI",
+		"hero": {
+			"title": "Despiertas a bordo del Daedalus con otras quince personas.",
+			"titleTwist": "Dos son traidores.",
+			"subtitle": "La Tierra está perdida. Una flota enemiga os persigue, la nave se cae a pedazos y a bordo un hongo parásito (el {mushIcon} Mush) ya ha infectado a dos personas. Tenéis varios días para descubrir a cuáles.",
+			"awardAlt": "Juego más original — European Indie Game Days",
+			"note": "La recuperación libre y comunitaria de <em>Mush</em>, el galardonado juego de Motion Twin. Es gratis, se juega en el móvil y en el ordenador, y una partida dura varios días."
+		},
+		"persistence": {
+			"title": "El Daedalus se va a instalar en tu semana.",
+			"time1": "Jueves — 08:00",
+			"beat1": "Vuelves a conectarte. El laboratorio ha ardido y la cámara del Nexus ha desaparecido.",
+			"time2": "Viernes — 12:00",
+			"beat2": "La expedición todavía espera a un piloto.",
+			"time3": "Sábado — 18:00",
+			"beat3": "Eleesha acusa a Chao. Chao jura que Eleesha es Mush.",
+			"time4": "Domingo — 23:00",
+			"beat4": "Dos puntos de acción. Las plantas necesitan agua. Se escapa el oxígeno. Toca elegir.",
+			"body1": "Algunos días le echas un vistazo dos minutos desde el móvil, lo justo para regar las plantas y ver quién ha muerto; otras noches te pasas una hora releyendo los registros y comparando las versiones de cada uno con tres personas distintas. La nave, mientras tanto, avanza un ciclo cada tres horas, estés o no.",
+			"body2": "Al cabo de unos días, conoces a la tripulación. Sabes quién repara sin que se lo pidan, quién habla demasiado y quién siempre desaparece en el peor momento. A menos que ese comandante demasiado perfecto te esté llevando por pistas falsas.",
+			"galleryLabel": "Vistas previas del juego",
+			"openScreenshot": "Ampliar: {screenshot}",
+			"closeScreenshot": "Cerrar la vista previa",
+			"participateCaption": "Participar en una investigación",
+			"participateAlt": "Terrence interactúa con un delantal en el laboratorio.",
+			"storageCaption": "Registrar una estantería",
+			"storageAlt": "Terrence registra una estantería del laboratorio.",
+			"channelsCaption": "Hablar con la tripulación",
+			"channelsAlt": "El canal del laboratorio muestra las conversaciones recientes de la tripulación."
+		},
+		"crew": {
+			"title": "Dieciocho personajes para interpretar.",
+			"subtitle": "El comandante Kim Jin-Su ha pisado mundos que nadie había visto antes que él. Frieda Bergmann nació en el siglo XXI. En mil años, nadie llegó a conocer el cielo mejor que ella. Así que la Federación fue a despertarla. Stephen Seagull ha sido botones, esclavo, senador, mercenario espacial, recaudador de impuestos y condenado a muerte. Hoy es el cocinero de a bordo.",
+			"readBiography": "Leer su biografía",
+			"selectCharacter": "Mostrar la ficha de {character}",
+			"more": "Y hay quince más."
+		},
+		"ship": {
+			"title": "eMush, ¿qué es?",
+			"surviveTitle": "¡Un juego de supervivencia!",
+			"surviveText": "Nadie tiene suficientes puntos de acción para hacerlo todo, así que hay que repartirse el trabajo y confiar en los demás. Mientras Finola investiga cómo combatir la infección, Paola contacta con las redes rebeldes y Hua prepara el Icarus para la próxima expedición.",
+			"investigateTitle": "¡Una investigación!",
+			"investigateText": "En algún lugar a bordo, los infectados contagian, mienten y esperan que acuséis a un inocente. Basta con que desaparezca un objeto o unos registros para que todo el mundo tenga una teoría.",
+			"roleplayTitle": "¡Un juego de rol!",
+			"roleplayText": "Tu personaje llega con un pasado, pero eres libre de decidir cómo interpretarlo. Entre conversaciones, alianzas y sospechas, la tripulación acaba construyendo su propia historia."
+		},
+		"counters": {
+			"title": "NERON lleva la cuenta.",
+			"daedaluses": "Daedalus en curso",
+			"mush": "Mush eliminados",
+			"messages": "mensajes enviados",
+			"expeditions": "expediciones lanzadas"
+		},
+		"voices": {
+			"title": "Recuerdos de la tripulación",
+			"one": {
+				"text": "",
+				"author": ""
+			},
+			"two": {
+				"text": "",
+				"author": ""
+			},
+			"three": {
+				"text": "",
+				"author": ""
+			}
+		},
+		"finalCta": {
+			"title": "Tu historia comienza al despertar.",
+			"subtitle": "Dentro de unos días quizá hayas salvado a la Humanidad, condenado a un inocente o reparado un tanque de combustible mientras explotaba la nave."
+		}
 	},
 	"errors": {
 		"details": {

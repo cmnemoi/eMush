@@ -15,6 +15,7 @@ final readonly class GetCharacterBiographyService
         return [
             'details' => [
                 'fullName' => $this->translateBiographyElement($characterName, 'fullname', $language),
+                'description' => $this->translateBiographyElement($characterName, 'description', $language),
                 'age' => $this->translateBiographyElement($characterName, 'age', $language),
                 'employment' => $this->translateBiographyElement($characterName, 'employment', $language),
                 'abstract' => $this->translateBiographyElement($characterName, 'bioAbstract', $language),

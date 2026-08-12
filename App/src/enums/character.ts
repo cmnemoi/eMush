@@ -206,3 +206,28 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
         'body': getImgUrl('char/body/mush.png')
     }
 };
+
+const PLAYABLE_CHARACTER_KEYS = [
+    CharacterEnum.ANDIE,
+    CharacterEnum.CHAO,
+    CharacterEnum.CHUN,
+    CharacterEnum.DEREK,
+    CharacterEnum.ELEESHA,
+    CharacterEnum.FINOLA,
+    CharacterEnum.FRIEDA,
+    CharacterEnum.GIOELE,
+    CharacterEnum.HUA,
+    CharacterEnum.IAN,
+    CharacterEnum.JANICE,
+    CharacterEnum.JIN_SU,
+    CharacterEnum.KUAN_TI,
+    CharacterEnum.PAOLA,
+    CharacterEnum.RALUCA,
+    CharacterEnum.ROLAND,
+    CharacterEnum.STEPHEN,
+    CharacterEnum.TERRENCE,
+] as const;
+
+export function getPlayableCharacters(): CharacterInfos[] {
+    return PLAYABLE_CHARACTER_KEYS.map((keyName) => characterEnum[keyName]);
+}

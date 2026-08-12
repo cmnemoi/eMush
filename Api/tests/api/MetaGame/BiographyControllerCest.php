@@ -28,6 +28,17 @@ final class BiographyControllerCest
         }
     }
 
+    public function shouldReturnNotModifiedForFreshBiography(ApiTester $I): void
+    {
+        $this->whenIRequestCharacterBiography($I, CharacterEnum::ANDIE);
+        $etag = $I->grabHttpHeader('ETag');
+
+        $I->haveHttpHeader('If-None-Match', $etag);
+        $this->whenIRequestCharacterBiography($I, CharacterEnum::ANDIE);
+
+        $I->seeResponseCodeIs(Response::HTTP_NOT_MODIFIED);
+    }
+
     private function whenIRequestCharacterBiography(ApiTester $I, string $character): void
     {
         $I->sendGetRequest('/biography/' . $character, [
@@ -38,6 +49,8 @@ final class BiographyControllerCest
     private function thenResponseShouldContainBiographyData(ApiTester $I): void
     {
         $I->seeResponseCodeIs(Response::HTTP_OK);
+        $I->seeHttpHeader('Cache-Control', 'no-cache, public');
+        $I->seeHttpHeader('ETag');
         $schema = [
             'type' => 'object',
             'properties' => [
@@ -55,6 +68,10 @@ final class BiographyControllerCest
                         'employment' => [
                             'type' => 'string',
                             'pattern' => '^\*\*\*Profession :\*\*\* .+$',
+                        ],
+                        'description' => [
+                            'type' => 'string',
+                            'pattern' => '^.+$',
                         ],
                         'abstract' => [
                             'type' => 'string',

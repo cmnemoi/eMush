@@ -28,6 +28,9 @@ import { createCharacterBiographyModule } from "@/features/biography/store";
 import { BiographyService } from "@/services/biography.service";
 import { createUserSearchModule } from "@/features/userSearch/store";
 import { gateway as userSearchGateway } from "@/features/userSearch/gateway";
+import { createHomePageModule } from "@/features/homePage/store";
+import GameCountersService from "@/services/game_counters.service";
+import NewsService from "@/services/news.service";
 
 export default createStore({
     modules: {
@@ -66,6 +69,11 @@ export default createStore({
         biography: createCharacterBiographyModule(
             BiographyService.loadCharacterBiography
         ),
+        homePage: createHomePageModule({
+            loadCharacterDetails: BiographyService.loadCharacterDetails,
+            loadGameCounters: GameCountersService.getGameCounters,
+            loadPinnedNews: NewsService.getLastPinnedNews
+        }),
         userSearch: createUserSearchModule(userSearchGateway.searchUsers)
     }
 });

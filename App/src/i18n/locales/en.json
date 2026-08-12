@@ -775,12 +775,83 @@
 		"canNotVote": "You can not vote."
 	},
 	"homePage": {
-		"joinUs": "Join us !",
-		"play": "Play now !",
-		"synopsis": "You're about to wake up aboard the Daedalus with 15 other rebels. Like you, they are fleeing the <em>Mush</em>, a parasitic fungus which is ravaging Earth and threatening Humanity.",
-		"followUs": "Follow us:",
-		"latestNews": "Last news:",
-		"seeAllNews": "Read all news"
+		"joinUs": "Join the crew",
+		"play": "Play",
+		"followUs": "Community",
+		"latestNews": "News",
+		"seeAllNews": "All news",
+		"pegiAlt": "PEGI rating",
+		"hero": {
+			"title": "You wake up aboard the Daedalus with fifteen other people.",
+			"titleTwist": "Two of them are traitors.",
+			"subtitle": "Earth is lost. An enemy fleet is chasing you, the ship is falling apart, and aboard it a parasitic fungus (the {mushIcon} Mush) has already infected two people. You have several days to work out which ones.",
+			"awardAlt": "Most Original Game — European Indie Game Days",
+			"note": "The free, community-run revival of <em>Mush</em>, the award-winning game by Motion Twin. It's free, it plays on phone and on desktop, and a game lasts several days."
+		},
+		"persistence": {
+			"title": "The Daedalus is going to move into your week.",
+			"time1": "Thursday — 08:00",
+			"beat1": "You log back in. The laboratory burned down and the Nexus camera is missing.",
+			"time2": "Friday — 12:00",
+			"beat2": "The expedition is still waiting for a pilot.",
+			"time3": "Saturday — 18:00",
+			"beat3": "Eleesha accuses Chao. Chao swears Eleesha is Mush.",
+			"time4": "Sunday — 23:00",
+			"beat4": "Two action points. The plants need water. Oxygen is leaking. You have to choose.",
+			"body1": "Some days you glance at it for two minutes on your phone, just long enough to water the plants and see who died; other evenings you spend an hour rereading the logs and comparing everyone's story with three different people. The ship, meanwhile, moves on one cycle every three hours, whether you are there or not.",
+			"body2": "After a few days, you know the crew. You know who repairs without being asked, who talks too much and who always disappears at the wrong moment. Unless that far-too-perfect commander is leading you down the wrong path.",
+			"galleryLabel": "Game previews",
+			"openScreenshot": "Enlarge: {screenshot}",
+			"closeScreenshot": "Close preview",
+			"participateCaption": "Take part in a research project",
+			"participateAlt": "Terrence interacts with an apron in the laboratory.",
+			"storageCaption": "Search a shelf",
+			"storageAlt": "Terrence searches a shelf in the laboratory.",
+			"channelsCaption": "Talk with the crew",
+			"channelsAlt": "The laboratory channel displays the crew's recent discussions."
+		},
+		"crew": {
+			"title": "Eighteen characters to play.",
+			"subtitle": "Commander Kim Jin-Su has set foot on worlds nobody had seen before him. Frieda Bergmann was born in the 21st century. In a thousand years, nobody came to know the sky better than she did. So the Federation went and woke her up. Stephen Seagull has been a bellboy, a slave, a senator, a space mercenary, a tax collector and a death row inmate. Today he is the ship's cook.",
+			"readBiography": "Read the biography",
+			"selectCharacter": "Show {character}'s file",
+			"more": "And there are fifteen others."
+		},
+		"ship": {
+			"title": "So what is eMush?",
+			"surviveTitle": "A survival game!",
+			"surviveText": "Nobody has enough action points to do everything, so you have to split the work and trust each other. While Finola researches ways to fight the infection, Paola contacts the rebel networks and Hua gets the Icarus ready for the next expedition.",
+			"investigateTitle": "An investigation!",
+			"investigateText": "Somewhere aboard, the infected spread the infection, lie and wait for you to accuse an innocent. One missing item or a gap in the logs is enough for everyone to have a theory.",
+			"roleplayTitle": "A role-playing game!",
+			"roleplayText": "Your character comes with a past, but how you play them is up to you. Through conversations, alliances and suspicions, the crew ends up building its own story."
+		},
+		"counters": {
+			"title": "NERON keeps count.",
+			"daedaluses": "Daedaluses in progress",
+			"mush": "Mush eliminated",
+			"messages": "messages sent",
+			"expeditions": "expeditions launched"
+		},
+		"voices": {
+			"title": "Memories from the crew",
+			"one": {
+				"text": "",
+				"author": ""
+			},
+			"two": {
+				"text": "",
+				"author": ""
+			},
+			"three": {
+				"text": "",
+				"author": ""
+			}
+		},
+		"finalCta": {
+			"title": "Your story begins when you wake up.",
+			"subtitle": "In a few days, you may have saved Humanity, condemned an innocent or repaired a fuel tank while the ship exploded."
+		}
 	},
 	"errors": {
 		"details": {

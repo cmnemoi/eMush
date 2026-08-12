@@ -14,10 +14,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::LANDING . '_default',
             'sectorName' => PlanetSectorEnum::LANDING,
-            'weightAtPlanetGeneration' => 0,
             'weightAtPlanetAnalysis' => 0,
             'weightAtPlanetExploration' => 0,
-            'maxPerPlanet' => 0,
             'explorationEvents' => [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 4,
                 PlanetSectorEvent::TIRED_2 => 3,
@@ -28,10 +26,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::FOREST . '_default',
             'sectorName' => PlanetSectorEnum::FOREST,
-            'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 12,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::HARVEST_2 => 4,
                 PlanetSectorEvent::AGAIN => 3,
@@ -42,10 +38,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::MOUNTAIN . '_default',
             'sectorName' => PlanetSectorEnum::MOUNTAIN,
-            'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::ACCIDENT_3_5 => 4,
                 PlanetSectorEvent::FUEL_1 => 3,
@@ -56,10 +50,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::SWAMP . '_default',
             'sectorName' => PlanetSectorEnum::SWAMP,
-            'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::DISEASE => 4,
                 PlanetSectorEvent::HARVEST_2 => 3,
@@ -70,10 +62,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::DESERT . '_default',
             'sectorName' => PlanetSectorEnum::DESERT,
-            'weightAtPlanetGeneration' => 12,
             'weightAtPlanetAnalysis' => 12,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 5,
                 PlanetSectorEvent::TIRED_2 => 4,
@@ -83,10 +73,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::OCEAN . '_default',
             'sectorName' => PlanetSectorEnum::OCEAN,
-            'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 12,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 7,
                 PlanetSectorEvent::PROVISION_3_FISH => 2,
@@ -96,10 +84,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::CAVE . '_default',
             'sectorName' => PlanetSectorEnum::CAVE,
-            'weightAtPlanetGeneration' => 4,
             'weightAtPlanetAnalysis' => 2,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::FUEL_2 => 4,
                 PlanetSectorEvent::ACCIDENT_3_5 => 3,
@@ -110,10 +96,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::RUMINANT . '_default',
             'sectorName' => PlanetSectorEnum::RUMINANT,
-            'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 4,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::PROVISION_4_STEAK => 4,
                 PlanetSectorEvent::PROVISION_2_STEAK => 3,
@@ -124,10 +108,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::PREDATOR . '_default',
             'sectorName' => PlanetSectorEnum::PREDATOR,
-            'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 2,
             'weightAtPlanetExploration' => 6,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::FIGHT_PREDATOR => 4,
                 PlanetSectorEvent::ACCIDENT_3_5 => 3,
@@ -138,10 +120,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::INTELLIGENT . '_default',
             'sectorName' => PlanetSectorEnum::INTELLIGENT,
-            'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 4,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::FIGHT_ALIEN => 4,
                 PlanetSectorEvent::PROVISION_2_STEAK => 1,
@@ -154,10 +134,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::INSECT . '_default',
             'sectorName' => PlanetSectorEnum::INSECT,
-            'weightAtPlanetGeneration' => 10,
             'weightAtPlanetAnalysis' => 2,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::ACCIDENT_3_5 => 4,
                 PlanetSectorEvent::DISEASE => 3,
@@ -168,10 +146,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::MANKAROG . '_default',
             'sectorName' => PlanetSectorEnum::MANKAROG,
-            'weightAtPlanetGeneration' => 2,
             'weightAtPlanetAnalysis' => 4,
             'weightAtPlanetExploration' => 6,
-            'maxPerPlanet' => 1,
             'explorationEvents' => [
                 PlanetSectorEvent::KILL_RANDOM => 4,
                 PlanetSectorEvent::FIGHT_MANKAROG => 3,
@@ -182,10 +158,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::HYDROCARBON . '_default',
             'sectorName' => PlanetSectorEnum::HYDROCARBON,
-            'weightAtPlanetGeneration' => 5,
             'weightAtPlanetAnalysis' => 2,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 2,
             'explorationEvents' => [
                 PlanetSectorEvent::FUEL_3_NEGATIVE => 4,
                 PlanetSectorEvent::FUEL_4 => 3,
@@ -196,10 +170,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::OXYGEN . '_default',
             'sectorName' => PlanetSectorEnum::OXYGEN,
-            'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 12,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 1,
             'explorationEvents' => [
                 PlanetSectorEvent::OXYGEN_24 => 4,
                 PlanetSectorEvent::OXYGEN_16 => 3,
@@ -210,10 +182,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::COLD . '_default',
             'sectorName' => PlanetSectorEnum::COLD,
-            'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 4,
                 PlanetSectorEvent::TIRED_2 => 3,
@@ -224,10 +194,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::HOT . '_default',
             'sectorName' => PlanetSectorEnum::HOT,
-            'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::TIRED_2 => 4,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 3,
@@ -238,10 +206,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::STRONG_WIND . '_default',
             'sectorName' => PlanetSectorEnum::STRONG_WIND,
-            'weightAtPlanetGeneration' => 8,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 6,
                 PlanetSectorEvent::TIRED_2 => 3,
@@ -251,10 +217,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::SEISMIC_ACTIVITY . '_default',
             'sectorName' => PlanetSectorEnum::SEISMIC_ACTIVITY,
-            'weightAtPlanetGeneration' => 3,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 4,
                 PlanetSectorEvent::BACK => 3,
@@ -265,10 +229,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::VOLCANIC_ACTIVITY . '_default',
             'sectorName' => PlanetSectorEnum::VOLCANIC_ACTIVITY,
-            'weightAtPlanetGeneration' => 3,
             'weightAtPlanetAnalysis' => 8,
             'weightAtPlanetExploration' => 6,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::NOTHING_TO_REPORT => 7,
                 PlanetSectorEvent::BACK => 2,
@@ -278,10 +240,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::RUINS . '_default',
             'sectorName' => PlanetSectorEnum::RUINS,
-            'weightAtPlanetGeneration' => 2,
             'weightAtPlanetAnalysis' => 2,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::ARTEFACT => 4,
                 PlanetSectorEvent::NOTHING_TO_REPORT => 3,
@@ -292,10 +252,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::WRECK . '_default',
             'sectorName' => PlanetSectorEnum::WRECK,
-            'weightAtPlanetGeneration' => 2,
             'weightAtPlanetAnalysis' => 1,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::ARTEFACT => 4,
                 PlanetSectorEvent::FUEL_3 => 3,
@@ -306,10 +264,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::FRUIT_TREES . '_default',
             'sectorName' => PlanetSectorEnum::FRUIT_TREES,
-            'weightAtPlanetGeneration' => 3,
             'weightAtPlanetAnalysis' => 1,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::HARVEST_3 => 4,
                 PlanetSectorEvent::HARVEST_1 => 3,
@@ -319,10 +275,8 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::LOST . '_default',
             'sectorName' => PlanetSectorEnum::LOST,
-            'weightAtPlanetGeneration' => 0,
             'weightAtPlanetAnalysis' => 0,
             'weightAtPlanetExploration' => 8,
-            'maxPerPlanet' => 0,
             'explorationEvents' => [
                 PlanetSectorEvent::FIND_LOST => 7,
                 PlanetSectorEvent::AGAIN => 2,
@@ -332,28 +286,22 @@ final class PlanetSectorConfigData
         [
             'name' => PlanetSectorEnum::TREASURE_HUNT_PET . '_default',
             'sectorName' => PlanetSectorEnum::TREASURE_HUNT_PET,
-            'weightAtPlanetGeneration' => 0,
             'weightAtPlanetAnalysis' => 0,
             'weightAtPlanetExploration' => 0,
-            'maxPerPlanet' => 0,
             'explorationEvents' => ['' => 0],
         ],
         [
             'name' => PlanetSectorEnum::TREASURE_HUNT_SHIP . '_default',
             'sectorName' => PlanetSectorEnum::TREASURE_HUNT_SHIP,
-            'weightAtPlanetGeneration' => 0,
             'weightAtPlanetAnalysis' => 0,
             'weightAtPlanetExploration' => 0,
-            'maxPerPlanet' => 0,
             'explorationEvents' => ['' => 0],
         ],
         [
             'name' => PlanetSectorEnum::CRISTAL_FIELD . '_default',
             'sectorName' => PlanetSectorEnum::CRISTAL_FIELD,
-            'weightAtPlanetGeneration' => 2,
             'weightAtPlanetAnalysis' => 4,
             'weightAtPlanetExploration' => 10,
-            'maxPerPlanet' => 1,
             'explorationEvents' => [
                 PlanetSectorEvent::MUSH_TRAP => 3,
                 PlanetSectorEvent::STARMAP => 3,

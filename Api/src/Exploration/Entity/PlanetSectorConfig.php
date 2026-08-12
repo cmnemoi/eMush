@@ -23,16 +23,10 @@ class PlanetSectorConfig
     private string $sectorName = '';
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private int $weightAtPlanetGeneration = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
     private int $weightAtPlanetAnalysis = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $weightAtPlanetExploration = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $maxPerPlanet = 0;
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:1:{s:0:"";i:0;}'])]
     private array $explorationEvents = ['' => 0];
@@ -66,18 +60,6 @@ class PlanetSectorConfig
         return $this;
     }
 
-    public function getWeightAtPlanetGeneration(): int
-    {
-        return $this->weightAtPlanetGeneration;
-    }
-
-    public function setWeightAtPlanetGeneration(int $weightAtPlanetGeneration): self
-    {
-        $this->weightAtPlanetGeneration = $weightAtPlanetGeneration;
-
-        return $this;
-    }
-
     public function getWeightAtPlanetAnalysis(): int
     {
         return $this->weightAtPlanetAnalysis;
@@ -98,18 +80,6 @@ class PlanetSectorConfig
     public function setWeightAtPlanetExploration(int $weightAtPlanetExploration): self
     {
         $this->weightAtPlanetExploration = $weightAtPlanetExploration;
-
-        return $this;
-    }
-
-    public function getMaxPerPlanet(): int
-    {
-        return $this->maxPerPlanet;
-    }
-
-    public function setMaxPerPlanet(int $maxPerPlanet): self
-    {
-        $this->maxPerPlanet = $maxPerPlanet;
 
         return $this;
     }

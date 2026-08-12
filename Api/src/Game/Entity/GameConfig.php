@@ -22,6 +22,7 @@ use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Exploration\Entity\Collection\PlanetSectorConfigCollection;
+use Mush\Exploration\Entity\PlanetConfig;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Game\Entity\Collection\TitleConfigCollection;
 use Mush\Game\Repository\GameConfigRepository;
@@ -141,6 +142,8 @@ class GameConfig
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     #[Groups(['game_config_read', 'game_config_write'])]
     private string $name;
+    #[ORM\ManyToMany(targetEntity: PlanetConfig::class)]
+    private Collection $planetConfigs;
 
     public function __construct()
     {
@@ -159,6 +162,7 @@ class GameConfig
         $this->rebelBaseConfigs = new ArrayCollection();
         $this->xylophConfigs = new ArrayCollection();
         $this->tradeConfigs = new ArrayCollection();
+        $this->planetConfigs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -617,6 +621,38 @@ class GameConfig
     public function addSpecialOption(string $option): static
     {
         $this->specialOptions[] = $option;
+
+        return $this;
+    }
+
+    public function getPlanetConfigs(): Collection
+    {
+        return $this->planetConfigs;
+    }
+
+    /**
+     * @psalm-param ArrayCollection<int, PlanetConfig> $planetConfigs
+     *
+     * @psalm-suppress NoValue
+     */
+    public function setPlanetConfigs(array|ArrayCollection $planetConfigs): static
+    {
+        if (\is_array($planetConfigs)) {
+            $planetConfigs = new ArrayCollection($planetConfigs);
+        }
+
+        $this->planetConfigs = $planetConfigs;
+
+        return $this;
+    }
+
+    public function addPlanetConfigs(PlanetConfig $planetConfigs): static
+    {
+        if ($this->planetConfigs->contains($planetConfigs)) {
+            return $this;
+        }
+
+        $this->planetConfigs->add($planetConfigs);
 
         return $this;
     }

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Exploration\Service;
 
-use Mush\Exploration\Entity\PlanetSectorConfig;
+use Mush\Exploration\Entity\PlanetConfig;
+use Mush\Exploration\Enum\PlanetConfigsEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -76,15 +77,19 @@ final class PlanetServiceCest extends AbstractFunctionalTest
 
     public function testCreatePlanetCorrectlyCapsNumberOfSectorPerPlanet(FunctionalTester $I): void
     {
-        // given only oxygen sector may be created
-        $availableSectorConfigs = $this->daedalus->getGameConfig()->getPlanetSectorConfigs()->filter(
-            static fn (PlanetSectorConfig $planetSectorConfig) => PlanetSectorEnum::OXYGEN === $planetSectorConfig->getSectorName()
-        );
-        $this->daedalus->getGameConfig()->setPlanetSectorConfigs($availableSectorConfigs);
+        // given only oxygen sector may be created and it can be created twice
+        /**
+         * @var PlanetConfig $planetConfig
+         */
+        $planetConfig = $this->daedalus->getGameConfig()->getPlanetConfigs()->filter(
+            static fn (PlanetConfig $config) => PlanetConfigsEnum::REGULAR === $config->getName()
+        )
+            ->first();
 
-        // given oxygen sector can only appear twice per planet
-        $oxygenSectorConfig = $availableSectorConfigs->first();
-        $oxygenSectorConfig->setMaxPerPlanet(2);
+        $planetConfig->setSectorsWeight(['oxygen' => 1]);
+        $planetConfig->setMaximumSectors(['oxygen' => 2]);
+
+        $this->daedalus->getGameConfig()->setPlanetConfigs([$planetConfig]);
 
         // given Daedalus is Day 10 so we can theorecally have huge planets
         $this->daedalus->setDay(10);
@@ -96,5 +101,30 @@ final class PlanetServiceCest extends AbstractFunctionalTest
         $I->assertCount(2, $planet->getSectors());
         // and those sectors are oxygen
         $I->assertEquals(PlanetSectorEnum::OXYGEN, $planet->getSectors()->first()->getName());
+    }
+
+    public function testPlanetGenerationWithForcedSizeAndSector(FunctionalTester $I): void
+    {
+        // given only oxygen sector may be created
+        /**
+         * @var PlanetConfig $planetConfig
+         */
+        $planetConfig = $this->daedalus->getGameConfig()->getPlanetConfigs()->filter(
+            static fn (PlanetConfig $config) => PlanetConfigsEnum::REGULAR === $config->getName()
+        )
+            ->first();
+
+        $planetConfig->setSectorsWeight(['oxygen' => 1]);
+        $planetConfig->setMaximumSectors(['oxygen' => 1]);
+
+        $this->daedalus->getGameConfig()->setPlanetConfigs([$planetConfig]);
+
+        // when we generate a planet with a size of 1 and the forced sector cave
+        $planet = $this->planetService->createPlanet($this->player, PlanetConfigsEnum::REGULAR, 'cave', 1);
+
+        // then planet has only one sectors
+        $I->assertCount(1, $planet->getSectors());
+        // and this sector is cave
+        $I->assertEquals(PlanetSectorEnum::CAVE, $planet->getSectors()->first()->getName());
     }
 }

@@ -7,11 +7,14 @@ namespace Mush\Exploration\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Exploration\Entity\Planet;
+use Mush\Exploration\Enum\PlanetConfigsEnum;
 use Mush\Player\Entity\Player;
 
 interface PlanetServiceInterface
 {
-    public function createPlanet(Player $player): Planet;
+    public function createPlanet(Player $player, string $planetConfigName = PlanetConfigsEnum::REGULAR, ?string $forcedSector = null, ?int $fixedSize = null): Planet;
+
+    public function regenerateAPlanet(Planet $planet, string $planetConfigName = PlanetConfigsEnum::REGULAR, ?string $forcedSector = null): Planet;
 
     public function revealPlanetSectors(Planet $planet, int $number): Planet;
 

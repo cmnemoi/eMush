@@ -14,6 +14,7 @@ use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Exploration\Entity\PlanetConfig;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
@@ -61,6 +62,7 @@ class GameConfigDataLoader extends ConfigDataLoader
             $this->setGameConfigXylophConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigTradeConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigSpecialOptions($gameConfig, $gameConfigData);
+            $this->setGameConfigPlanetConfigs($gameConfig, $gameConfigData);
 
             $this->entityManager->persist($gameConfig);
         }
@@ -323,6 +325,19 @@ class GameConfigDataLoader extends ConfigDataLoader
             }
 
             $gameConfig->addTradeConfig($tradeConfig);
+        }
+    }
+
+    private function setGameConfigPlanetConfigs(GameConfig $gameConfig, array $gameConfigData): void
+    {
+        foreach ($gameConfigData['planetConfigs'] as $planetConfigName) {
+            $planetConfig = $this->entityManager->getRepository(PlanetConfig::class)->findOneBy(['name' => $planetConfigName]);
+
+            if ($planetConfig === null) {
+                throw new \Exception("Planet config {$planetConfigName} not found");
+            }
+
+            $gameConfig->addPlanetConfigs($planetConfig);
         }
     }
 

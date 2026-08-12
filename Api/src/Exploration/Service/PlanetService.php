@@ -7,12 +7,12 @@ namespace Mush\Exploration\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Exploration\Entity\Collection\PlanetSectorConfigCollection;
 use Mush\Exploration\Entity\Planet;
+use Mush\Exploration\Entity\PlanetConfig;
 use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Entity\PlanetSector;
-use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Entity\SpaceCoordinates;
+use Mush\Exploration\Enum\PlanetConfigsEnum;
 use Mush\Exploration\Event\PlanetCreatedEvent;
 use Mush\Exploration\Repository\PlanetRepository;
 use Mush\Game\Service\EventServiceInterface;
@@ -33,7 +33,7 @@ final class PlanetService implements PlanetServiceInterface
         private StatusServiceInterface $statusService,
     ) {}
 
-    public function createPlanet(Player $player): Planet
+    public function createPlanet(Player $player, string $planetConfigName = PlanetConfigsEnum::REGULAR, ?string $forcedSector = null, ?int $fixedSize = null): Planet
     {
         if ($player->getPlanets()->count() === $player->getPlayerInfo()->getCharacterConfig()->getMaxDiscoverablePlanets()) {
             throw new \Exception('Player already discovered the maximum number of planets');
@@ -41,13 +41,46 @@ final class PlanetService implements PlanetServiceInterface
 
         $daedalus = $player->getDaedalus();
 
+        $size = $fixedSize ?: $this->getPlanetSize($daedalus);
+
         $planet = new Planet($player);
         $planet
             ->setName($this->getPlanetName())
-            ->setSize($this->getPlanetSize($daedalus));
+            ->setSize($size);
 
         $planet->setCoordinates($this->getCoordinatesForPlanet($planet));
-        $planet = $this->generatePlanetSectors($planet);
+
+        // we grab here the config that will be used to generate the planet
+        $planetConfig = $player->getDaedalus()->getGameConfig()->getPlanetConfigs()
+            ->filter(static fn (PlanetConfig $config) => $config->getName() === $planetConfigName)
+            ->first();
+        if (!$planetConfig instanceof PlanetConfig) {
+            throw new \Exception("Missing planet config {$planetConfigName}.");
+        }
+
+        $planet = $this->generatePlanetSectors($planet, $planetConfig, $forcedSector);
+
+        $this->persist([$planet]);
+
+        $this->eventService->callEvent(new PlanetCreatedEvent($planet), PlanetCreatedEvent::class);
+
+        return $planet;
+    }
+
+    public function regenerateAPlanet(Planet $planet, string $planetConfigName = PlanetConfigsEnum::REGULAR, ?string $forcedSector = null): Planet
+    {
+        // we delete all the current sectors
+        $this->delete($planet->getSectors()->toArray());
+        $planet->setSectors(new ArrayCollection([]));
+
+        // we grab here the config that will be used to generate the planet
+        $planetConfig = $planet->getPlayer()->getDaedalus()->getGameConfig()->getPlanetConfigs()
+            ->filter(static fn (PlanetConfig $config) => $config->getName() === $planetConfigName)
+            ->first();
+        if (!$planetConfig instanceof PlanetConfig) {
+            throw new \Exception("Missing planet config {$planetConfigName}.");
+        }
+        $planet = $this->generatePlanetSectors($planet, $planetConfig, $forcedSector);
 
         $this->persist([$planet]);
 
@@ -210,71 +243,59 @@ final class PlanetService implements PlanetServiceInterface
         return 2 + $this->randomService->random(0, 5) * 2;
     }
 
-    private function generatePlanetSectors(Planet $planet): Planet
+    private function generatePlanetSectors(Planet $planet, PlanetConfig $config, ?string $forcedSector = null): Planet
     {
+        // the array of sector returned
         /** @var ArrayCollection<int, PlanetSector> $sectors */
         $sectors = new ArrayCollection();
 
-        // We need to clone the sector configs collection because we will remove some from it
-        // during the generation process and we don't want to persist this
-        $storedSectorConfigs = $planet->getDaedalus()->getGameConfig()->getPlanetSectorConfigs();
-        $inMemorySectorConfigs = clone $storedSectorConfigs;
-        $total = $this->getSectorConfigsTotalWeight($inMemorySectorConfigs);
+        // the configs of all the sector of that game config
+        $sectorsConfig = $planet->getPlayer()->getDaedalus()->getGameConfig()->getPlanetSectorConfigs();
+
+        $sectorsMaximum = $config->getMaximumSectors();
+        $sectorWeight = $config->getSectorsWeight();
+
+        // to avoid having the forced sector being the first one on the list, we choose a random position for it
+        $sectorToReplaceByTheForcedSector = $this->randomService->random(0, $planet->getSize() - 1);
 
         // Generate a sector for each available slot on the planet
         for ($i = 0; $i < $planet->getSize(); ++$i) {
-            $random = $this->randomService->random(0, $total - 1);
-            $sum = 0;
+            // if forcedSector is not null and if we are at the selected positon, then we select that sector to be added instead of taking one randomly from the config
+            if ($i === $sectorToReplaceByTheForcedSector && $forcedSector) {
+                $sectors->add(new PlanetSector($sectorsConfig->getBySectorName($forcedSector), $planet));
+            } else {
+                $sectorSelected = $this->randomService->getSingleRandomElementFromProbaCollection($sectorWeight);
+                if (!\is_string($sectorSelected)) {
+                    throw new \Exception('No sector to be selected are left.');
+                }
 
-            // Iterate over all possible sectors
-            /** @var PlanetSectorConfig $sectorConfig */
-            foreach ($inMemorySectorConfigs as $sectorConfig) {
-                // Add the weight of this sector to the running sum
-                $sum += $sectorConfig->getWeightAtPlanetGeneration();
+                // add the selected sector the result
+                $sectors->add(new PlanetSector($sectorsConfig->getBySectorName($sectorSelected), $planet));
 
-                // If the running sum is greater than the random number, add the sector to the planet
-                if ($sum > $random) {
-                    $sectors->add(new PlanetSector($sectorConfig, $planet));
+                // get the maximum amount
+                $maximum = $sectorsMaximum->getElementProbability($sectorSelected);
 
-                    // Decrement the maximum number of times this sector can appear on a planet
-                    $sectorConfig->setMaxPerPlanet($sectorConfig->getMaxPerPlanet() - 1);
+                // Decrement the maximum number of times this sector can appear on a planet
+                --$maximum;
+                // save the result on list
+                $sectorsMaximum->setElementProbability($sectorSelected, $maximum);
 
-                    // If the maximum number of times this sector can appear on a planet has been reached, remove it from the list of available sectors
-                    if ($sectorConfig->getMaxPerPlanet() === 0) {
-                        $inMemorySectorConfigs->removeElement($sectorConfig);
-
-                        // Subtract the weight of this sector configuration from the cumulated weight for next random draw
-                        $total -= $sectorConfig->getWeightAtPlanetGeneration();
-                    }
-
-                    // Break out of the loop since we've generated a sector for this slot on the planet
-                    break;
+                // If the maximum number of times this sector can appear on a planet has been reached, remove it from the list of available sectors
+                if ($maximum === 0) {
+                    $sectorsMaximum->remove($sectorSelected);
+                    $sectorWeight->remove($sectorSelected);
                 }
             }
 
             // if there is no planet sector config available anymore, stop generation
-            if ($total === 0) {
+            if ($sectorsMaximum->isEmpty()) {
                 break;
             }
         }
 
-        // PHP is very bad at cloning objects so the original sector configs have been modified.
-        // We need to refresh them from database to get the original values back
-        $storedSectorConfigs->map(fn (PlanetSectorConfig $sectorConfig) => $this->entityManager->refresh($sectorConfig));
-
         $planet->setSectors($sectors);
 
         return $planet;
-    }
-
-    private function getSectorConfigsTotalWeight(PlanetSectorConfigCollection $sectorConfigs): int
-    {
-        $total = 0;
-        foreach ($sectorConfigs as $sectorConfig) {
-            $total += $sectorConfig->getWeightAtPlanetGeneration();
-        }
-
-        return $total;
     }
 
     private function incrementRemovedCompletelyRevealedPlanets(Planet $planet): void

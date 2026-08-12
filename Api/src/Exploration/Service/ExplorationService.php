@@ -89,6 +89,8 @@ final class ExplorationService implements ExplorationServiceInterface
 
     public function closeExploration(Exploration $exploration, array $reasons, ?Player $author = null): void
     {
+        $exploration->setNextSector(null);
+
         $closedExploration = $exploration->getClosedExploration();
 
         $explorationEvent = new ExplorationEvent(

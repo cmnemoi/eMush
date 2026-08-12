@@ -1508,5 +1508,11 @@
         <target>La compétence **Missile** de **Pavlov** a porté ses fruits...</target>
       </segment>
     </unit>
+    <unit id="summer_event_exploration_log">
+      <segment id="summer_event_exploration_log" state="translated">
+        <source>summer_event_exploration_log</source>
+        <target>Vous pouvez sentir que cette planète n'a pas livré tout ses secrets...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

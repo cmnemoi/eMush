@@ -38,6 +38,7 @@ use Mush\Equipment\ConfigData\ToolDataLoader;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
 use Mush\Equipment\ConfigData\WeaponEffectConfigDataLoader;
 use Mush\Equipment\ConfigData\WeaponEventConfigDataLoader;
+use Mush\Exploration\ConfigData\PlanetConfigDataloader;
 use Mush\Exploration\ConfigData\PlanetSectorConfigDataLoader;
 use Mush\Exploration\ConfigData\PlanetSectorEventConfigDataLoader;
 use Mush\Game\ConfigData\ConfigDataLoader;
@@ -116,6 +117,7 @@ class ConfigDataLoaderService
         ConsumableDiseaseConfigDataLoader $consumableDiseaseConfigDataLoader,
         HunterConfigDataLoader $hunterConfigDataLoader,
         PlanetSectorConfigDataLoader $planetSectorConfigDataLoader,
+        PlanetConfigDataloader $planetConfigDataloader,
         ProjectRequirementsDataLoader $projectRequirementsDataLoader,
         ProjectConfigDataLoader $projectConfigDataLoader,
         RebelBaseConfigDataLoader $rebelBaseConfigDataLoader,
@@ -177,6 +179,7 @@ class ConfigDataLoaderService
                 $consumableDiseaseConfigDataLoader,
                 $hunterConfigDataLoader,
                 $planetSectorConfigDataLoader,
+                $planetConfigDataloader,
                 $projectRequirementsDataLoader,
                 $projectConfigDataLoader,
                 $rebelBaseConfigDataLoader,

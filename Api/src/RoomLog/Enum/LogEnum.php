@@ -114,6 +114,7 @@ abstract class LogEnum
     public const string PAVLOV_TRIGGERED_SECTOR_REVISIT = 'pavlov_triggered_sector_revisit';
     public const string PAVLOV_READY_FOR_PLANET = 'pavlov_ready_for_planet';
     public const string PAVLOV_TURBO_WORKED = 'pavlov_turbo_worked';
+    public const string SUMMER_EVENT_EXPLORATION_LOG = 'summer_event_exploration_log';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

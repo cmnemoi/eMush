@@ -8,6 +8,7 @@ use Mush\Communications\Enum\RebelBaseEnum;
 use Mush\Communications\Enum\TradeEnum;
 use Mush\Communications\Enum\XylophEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Exploration\Enum\PlanetConfigsEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\TitleEnum;
@@ -586,6 +587,14 @@ class GameConfigData
                 ],
                 'specialOptions' => [
                     // GameConfigEnum::OPTION_RANDOM_SPORE,
+                ],
+                'planetConfigs' => [
+                    PlanetConfigsEnum::REGULAR,
+                    PlanetConfigsEnum::SUMMER_EVENT_1,
+                    PlanetConfigsEnum::SUMMER_EVENT_2,
+                    PlanetConfigsEnum::SUMMER_EVENT_3,
+                    PlanetConfigsEnum::SUMMER_EVENT_4,
+                    PlanetConfigsEnum::SUMMER_EVENT_5,
                 ],
             ],
         ];

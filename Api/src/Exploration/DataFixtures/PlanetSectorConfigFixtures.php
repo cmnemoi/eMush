@@ -29,10 +29,8 @@ final class PlanetSectorConfigFixtures extends Fixture implements DependentFixtu
             $planetSectorConfig
                 ->setName($data['name'])
                 ->setSectorName($data['sectorName'])
-                ->setWeightAtPlanetGeneration($data['weightAtPlanetGeneration'])
                 ->setWeightAtPlanetAnalysis($data['weightAtPlanetAnalysis'])
                 ->setWeightAtPlanetExploration($data['weightAtPlanetExploration'])
-                ->setMaxPerPlanet($data['maxPerPlanet'])
                 ->setExplorationEvents($data['explorationEvents']);
             $manager->persist($planetSectorConfig);
             $planetSectorConfigs->add($planetSectorConfig);

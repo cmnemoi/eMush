@@ -8,8 +8,10 @@ use Doctrine\ORM\EntityManager;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Exploration\Entity\PlanetConfig;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Entity\SpaceCoordinates;
+use Mush\Exploration\Enum\PlanetConfigsEnum;
 use Mush\Exploration\Enum\SpaceOrientationEnum;
 use Mush\Exploration\Repository\PlanetRepository;
 use Mush\Exploration\Service\PlanetService;
@@ -81,59 +83,17 @@ final class PlanetServiceTest extends TestCase
         $planetSectorConfig1
             ->setName('sector1_test')
             ->setSectorName('sector1')
-            ->setWeightAtPlanetGeneration(1)
             ->setWeightAtPlanetAnalysis(1)
             ->setWeightAtPlanetExploration(1)
-            ->setMaxPerPlanet(4)
             ->setExplorationEvents([]);
         $this->gameConfig->setPlanetSectorConfigs([$planetSectorConfig1]);
 
-        // when creating a planet
-        // then random name generation
-        $this->randomPlanetNameGenerationExpectations();
-        // then random coordinates generation
-        $this->randomPlanetPositionExpectations();
-        // then draw the size of the planet (here the size is 2 * 1 + 2)
-        $this->randomService->shouldReceive('random')->with(0, 5)->andReturn(1)->once();
-
-        // then pick sectors
-        $this->randomService->shouldReceive('random')->with(0, 0)->andReturn(0)->once(); // 1st sector pick is 1
-        $this->randomService->shouldReceive('random')->with(0, 0)->andReturn(0)->once(); // 2nd sector pick is 1
-        $this->randomService->shouldReceive('random')->with(0, 0)->andReturn(0)->once(); // 3rd sector pick is 1
-        $this->randomService->shouldReceive('random')->with(0, 0)->andReturn(0)->once(); // 4th sector pick is 1
-        $this->entityManager->shouldReceive('refresh')->once();
-
-        $this->entityManager->shouldReceive('persist')->once();
-        $this->entityManager->shouldReceive('flush')->once();
-
-        $planet = $this->service->createPlanet($this->player);
-
-        self::assertSame(4, $planet->getSize());
-        self::assertCount(4, $planet->getSectors());
-    }
-
-    public function testMaxSectorPerPlanetTest(): void
-    {
-        // Given two planet sector
-        $planetSectorConfig1 = new PlanetSectorConfig();
-        $planetSectorConfig1
-            ->setName('sector1_test')
-            ->setSectorName('sector1')
-            ->setWeightAtPlanetGeneration(1)
-            ->setWeightAtPlanetAnalysis(1)
-            ->setWeightAtPlanetExploration(1)
-            ->setMaxPerPlanet(4)
-            ->setExplorationEvents([]);
-        $planetSectorConfig2 = new PlanetSectorConfig();
-        $planetSectorConfig2
-            ->setName('sector2_test')
-            ->setSectorName('sector2')
-            ->setWeightAtPlanetGeneration(5)
-            ->setWeightAtPlanetAnalysis(1)
-            ->setWeightAtPlanetExploration(1)
-            ->setMaxPerPlanet(1)
-            ->setExplorationEvents([]);
-        $this->gameConfig->setPlanetSectorConfigs([$planetSectorConfig1, $planetSectorConfig2]);
+        $planetConfig = new PlanetConfig();
+        $planetConfig
+            ->setName(PlanetConfigsEnum::REGULAR)
+            ->setSectorsWeight(['sector1' => 4])
+            ->setMaximumSectors(['sector1' => 4]);
+        $this->gameConfig->setPlanetConfigs([$planetConfig]);
 
         // when creating a planet
         // then random name generation
@@ -143,13 +103,14 @@ final class PlanetServiceTest extends TestCase
         // then draw the size of the planet (here the size is 2 * 1 + 2)
         $this->randomService->shouldReceive('random')->with(0, 5)->andReturn(1)->once();
 
+        // should pick forced sector position
+        $this->randomService->shouldReceive('random')->with(0, 3)->andReturn(0)->once();
+
         // then pick sectors
-        $this->randomService->shouldReceive('random')->with(0, 5)->andReturn(0)->once(); // 1st sector pick is 1
-        $this->randomService->shouldReceive('random')->with(0, 5)->andReturn(4)->once(); // 2nd sector pick is 2
-        // then sector config 2 should be removed from the draft
-        $this->randomService->shouldReceive('random')->with(0, 0)->andReturn(0)->once(); // 3rd sector pick is 1
-        $this->randomService->shouldReceive('random')->with(0, 0)->andReturn(0)->once(); // 4th sector pick is 1
-        $this->entityManager->shouldReceive('refresh')->twice(); // once per planet sector config
+        $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')->andReturn('sector1')->once(); // 1st sector pick is 1
+        $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')->andReturn('sector1')->once(); // 2nd sector pick is 1
+        $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')->andReturn('sector1')->once(); // 3rd sector pick is 1
+        $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')->andReturn('sector1')->once(); // 4th sector pick is 1
 
         $this->entityManager->shouldReceive('persist')->once();
         $this->entityManager->shouldReceive('flush')->once();

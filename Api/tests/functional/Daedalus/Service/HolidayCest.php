@@ -14,6 +14,8 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\HolidayEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
@@ -91,6 +93,13 @@ final class HolidayCest extends AbstractFunctionalTest
         $this->givenHolidayIs(HolidayEnum::APRIL_FOOLS);
         $this->whenShipIsFull();
         $this->thenNeronAnnouncesAprilFools($I);
+    }
+
+    public function summerTreasureHuntShouldCreateTransportWhenShipIsFull(FunctionalTester $I): void
+    {
+        $this->givenHolidayIs(HolidayEnum::SUMMER_TREASURE_HUNT);
+        $this->whenShipIsFull();
+        $this->thenShouldSeeEventTransport($I);
     }
 
     private function givenHolidayIs(string $holiday): void
@@ -207,6 +216,13 @@ final class HolidayCest extends AbstractFunctionalTest
         $I->seeInRepository(Message::class, [
             'channel' => $this->publicChannel,
             'message' => NeronMessageEnum::APRIL_FOOLS_BEGIN,
+        ]);
+    }
+
+    private function thenShouldSeeEventTransport(FunctionalTester $I): void
+    {
+        $I->seeInRepository(Hunter::class, [
+            'hunterConfig' => ['hunterName' => HunterEnum::SUMMER_EVENT_TRANSPORT],
         ]);
     }
 }

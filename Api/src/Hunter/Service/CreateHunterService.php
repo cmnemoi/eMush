@@ -28,7 +28,7 @@ final readonly class CreateHunterService
         );
         $this->hunterRepository->save($hunter);
 
-        if ($hunterName === HunterEnum::TRANSPORT) {
+        if (HunterEnum::isTrader($hunterName)) {
             $this->createTransportTrade->execute($hunter->getId(), $time, $forcedTradeTypes);
         }
     }

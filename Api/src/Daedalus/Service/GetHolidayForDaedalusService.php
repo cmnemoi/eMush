@@ -34,6 +34,10 @@ class GetHolidayForDaedalusService
             return HolidayEnum::HALLOWEEN;
         }
 
+        if ($this->isSummer()) {
+            return HolidayEnum::SUMMER_TREASURE_HUNT;
+        }
+
         return HolidayEnum::NONE;
     }
 
@@ -56,5 +60,12 @@ class GetHolidayForDaedalusService
         $currentDate = new \DateTime();
 
         return ($currentDate->format('j') >= 24 && $currentDate->format('F') === 'October') || ($currentDate->format('j') <= 7 && $currentDate->format('F') === 'November');
+    }
+
+    private function isSummer(): bool
+    {
+        $currentDate = new \DateTime();
+
+        return ($currentDate->format('j') >= 16 && $currentDate->format('F') === 'August') || ($currentDate->format('j') <= 6 && $currentDate->format('F') === 'September');
     }
 }

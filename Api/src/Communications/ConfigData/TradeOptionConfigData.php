@@ -228,6 +228,26 @@ abstract class TradeOptionConfigData
                     '3_hydropots',
                 ],
             ),
+            new TradeOptionConfigDto(
+                name: 'treasure_hunt_food_vs_treasure_hunt_tablet',
+                requiredSkill: SkillEnum::NULL,
+                requiredAssets: [
+                    '3-6_cooked_rations',
+                ],
+                offeredAssets: [
+                    '1_treasure_hunt_tablet',
+                ],
+            ),
+            new TradeOptionConfigDto(
+                name: 'treasure_hunt_diplomat_human_vs_treasure_hunt_tablet',
+                requiredSkill: SkillEnum::DIPLOMAT,
+                requiredAssets: [
+                    '1_random_player',
+                ],
+                offeredAssets: [
+                    '1_treasure_hunt_tablet',
+                ],
+            ),
         ];
     }
 

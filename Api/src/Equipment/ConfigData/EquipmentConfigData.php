@@ -1773,7 +1773,7 @@ class EquipmentConfigData
                 'hide',
                 'examine',
             ],
-            'mechanics' => [],
+            'mechanics' => ['treasure_hunt_tablet_document_default'],
             'initStatuses' => [
                 'alien_artefact_default',
             ],

@@ -202,6 +202,9 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
         $transport = HunterConfig::fromConfigData(HunterConfigData::getByName(HunterEnum::TRANSPORT));
         $manager->persist($transport);
 
+        $summerEventTransport = HunterConfig::fromConfigData(HunterConfigData::getByName(HunterEnum::SUMMER_EVENT_TRANSPORT));
+        $manager->persist($summerEventTransport);
+
         /** @var ArrayCollection $hunters */
         $hunters = new ArrayCollection([
             $asteroid,
@@ -210,6 +213,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             $spider,
             $trax,
             $transport,
+            $summerEventTransport,
         ]);
         $gameConfig->setHunterConfigs($hunters);
 

@@ -29,7 +29,7 @@ class MechanicsData
         [
             'name' => 'document_default',
             'type' => 'document',
-            'content' => '',
+            'content' => 'document',
             'isTranslated' => true,
             'canShred' => true,
             'actions' => [
@@ -69,6 +69,17 @@ class MechanicsData
             'actions' => [
                 'read_document',
                 'shred',
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => 'treasure_hunt_tablet_document_default',
+            'type' => 'document',
+            'content' => 'treasure_hunt_tablet',
+            'isTranslated' => true,
+            'canShred' => false,
+            'actions' => [
+                'read_document',
             ],
             'modifierConfigs' => [],
         ],

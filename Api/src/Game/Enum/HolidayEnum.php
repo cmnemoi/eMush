@@ -11,4 +11,5 @@ abstract class HolidayEnum
     public const string ANNIVERSARY = 'anniversary';
     public const string HALLOWEEN = 'halloween';
     public const string APRIL_FOOLS = 'april_fools';
+    public const string SUMMER_TREASURE_HUNT = 'summer_treasure_hunt';
 }

@@ -20,7 +20,7 @@ class PlaceConfigData
             'type' => 'room',
             'doors' => ['bridge_front_alpha_turret', 'bridge_front_bravo_turret', 'front_corridor_bridge'],
             'items' => [],
-            'equipments' => ['communication_center', 'astro_terminal', 'command_terminal', 'tabulatrix'],
+            'equipments' => ['communication_center', 'astro_terminal', 'command_terminal', 'tabulatrix', 'commanders_manual'],
         ],
         [
             'name' => 'alpha_bay_default',
@@ -86,7 +86,7 @@ class PlaceConfigData
             'type' => 'room',
             'doors' => ['front_corridor_laboratory', 'medlab_laboratory'],
             'items' => [],
-            'equipments' => ['gravity_simulator', 'research_laboratory', 'cryo_module'],
+            'equipments' => ['gravity_simulator', 'research_laboratory', 'cryo_module', 'mush_research_review'],
         ],
         [
             'name' => 'refectory_default',

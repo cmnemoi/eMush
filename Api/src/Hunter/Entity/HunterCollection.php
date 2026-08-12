@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Order;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 
 /**
@@ -29,6 +30,14 @@ class HunterCollection extends ArrayCollection
     public function getAllExceptType(string $type): self
     {
         return $this->filter(static fn (Hunter $hunter) => ($hunter->getHunterConfig()->getHunterName() !== $type));
+    }
+
+    /**
+     * Returns a `HunterCollection` with all hunters except the specified type.
+     */
+    public function getTraders(): self
+    {
+        return $this->filter(static fn (Hunter $hunter) => $hunter->isTransport());
     }
 
     /**

@@ -13,6 +13,7 @@ enum TradeEnum: string
     case HUMAN_VS_FUEL = 'human_vs_fuel';
     case HUMAN_VS_OXY = 'human_vs_oxy';
     case HUMAN_VS_TREE = 'human_vs_tree';
+    case TREASURE_HUNT_DEAL = 'treasure_hunt_deal';
     case NULL = '';
 
     public function toString(): string
@@ -39,6 +40,23 @@ enum TradeEnum: string
      * @return TradeEnum[]
      */
     public static function getAll(): array
+    {
+        return [
+            self::FOREST_DEAL,
+            self::PILGREDISSIM,
+            self::GOOD_PROJECTIONS,
+            self::TECHNO_REWRITE,
+            self::HUMAN_VS_FUEL,
+            self::HUMAN_VS_OXY,
+            self::HUMAN_VS_TREE,
+            self::TREASURE_HUNT_DEAL,
+        ];
+    }
+
+    /**
+     * @return TradeEnum[]
+     */
+    public static function getNormalTrades(): array
     {
         return [
             self::FOREST_DEAL,

@@ -217,6 +217,31 @@ class HunterConfigData
             'bonusAfterFailedShot' => 0,
             'numberOfActionsPerCycle' => 0,
         ],
+        [
+            'name' => HunterEnum::SUMMER_EVENT_TRANSPORT . '_default',
+            'hunterName' => HunterEnum::SUMMER_EVENT_TRANSPORT,
+            'initialHealth' => 24,
+            'initialStatuses' => [],
+            'damageRange' => [0 => 1],
+            'hitChance' => 0,
+            'dodgeChance' => 0,
+            'drawCost' => 0,
+            'maxPerWave' => 0,
+            'drawWeight' => 0,
+            'spawnDifficulty' => 0,
+            'scrapDropTable' => [
+                ItemEnum::TREASURE_HUNT_TABLET => 10,
+            ],
+            'numberOfDroppedScrap' => [
+                1 => 1,
+            ],
+            'targetProbabilities' => [
+                HunterTargetEnum::PATROL_SHIP => 0,
+                HunterTargetEnum::PLAYER => 0,
+            ],
+            'bonusAfterFailedShot' => 0,
+            'numberOfActionsPerCycle' => 0,
+        ],
     ];
 
     public static function getByName(string $name): array

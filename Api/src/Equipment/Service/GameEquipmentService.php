@@ -33,6 +33,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
@@ -59,7 +60,8 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
         RandomServiceInterface $randomService,
         EventServiceInterface $eventService,
         StatusServiceInterface $statusService,
-        EquipmentEffectServiceInterface $equipmentEffectService
+        EquipmentEffectServiceInterface $equipmentEffectService,
+        private TranslationServiceInterface $translationService,
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
@@ -408,7 +410,9 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
             new \DateTime()
         );
 
-        $status->setContent($document->getContent());
+        $content = $this->translationService->translate($document->getContent(), [], 'document', $gameEquipment->getDaedalus()->getLanguage());
+
+        $status->setContent($content);
 
         return $gameEquipment;
     }

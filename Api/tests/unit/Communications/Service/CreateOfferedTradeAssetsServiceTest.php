@@ -99,6 +99,7 @@ final class CreateOfferedTradeAssetsServiceTest extends TestCase
             eventService: self::createStub(EventServiceInterface::class),
             statusService: self::createStub(StatusServiceInterface::class),
             equipmentEffectService: self::createStub(EquipmentEffectServiceInterface::class),
+            translationService: self::createStub(TranslationServiceInterface::class),
         );
 
         $this->createOfferedTradeAssets = new CreateOfferedTradeAssetsService(

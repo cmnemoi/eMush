@@ -354,7 +354,7 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
 
     public function isTransport(): bool
     {
-        return $this->getHunterConfig()->getHunterName() === HunterEnum::TRANSPORT;
+        return HunterEnum::isTrader($this->getHunterConfig()->getHunterName());
     }
 
     public function isNonHostile(): bool

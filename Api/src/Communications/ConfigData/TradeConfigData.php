@@ -79,6 +79,14 @@ abstract class TradeConfigData
                     'human_vs_tree_diplomat_2_random_players_vs_3_hydropots',
                 ],
             ),
+            new TradeConfigDto(
+                key: 'treasure_hunt_deal_default',
+                name: TradeEnum::TREASURE_HUNT_DEAL,
+                tradeOptions: [
+                    'treasure_hunt_food_vs_treasure_hunt_tablet',
+                    'treasure_hunt_diplomat_human_vs_treasure_hunt_tablet',
+                ],
+            ),
         ];
     }
 

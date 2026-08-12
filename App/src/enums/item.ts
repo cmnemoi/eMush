@@ -53,6 +53,8 @@ const BUMPJUMPKIN = 'bumpjumpkin';
 const BLUEPRINT = "blueprint";
 const SNIPER_HELMET = "sniper_helmet";
 const APPRENTRON = "apprentron";
+const COMMANDERS_MANUAL = "commanders_manual";
+const MUSH_RESEARCH_REVIEW = "mush_research_review";
 const MAD_KUBE = "mad_kube";
 const MICROWAVE = "microwave";
 const SUPERFREEZER = "superfreezer";
@@ -208,6 +210,12 @@ export const itemEnum: {[index: string]: {image: string}} = {
         'image': getImgUrl('items/plastic_scraps.jpg')
     },
     [APPRENTRON]: {
+        'image': getImgUrl('items/book.jpg')
+    },
+    [COMMANDERS_MANUAL]: {
+        'image': getImgUrl('items/book.jpg')
+    },
+    [MUSH_RESEARCH_REVIEW]: {
         'image': getImgUrl('items/book.jpg')
     },
     [BLUEPRINT]: {

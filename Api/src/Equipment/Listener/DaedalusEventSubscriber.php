@@ -7,6 +7,7 @@ namespace Mush\Equipment\Listener;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Service\PatrolShipManoeuvreServiceInterface;
+use Mush\Communications\Enum\TradeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Service\GetHolidayForDaedalusService;
@@ -21,6 +22,8 @@ use Mush\Game\Enum\HolidayEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Hunter\Enum\HunterEnum;
+use Mush\Hunter\Service\CreateHunterService;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -33,7 +36,8 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         private GameEquipmentServiceInterface $gameEquipmentService,
         private PatrolShipManoeuvreServiceInterface $patrolShipManoeuvreService,
         private RandomServiceInterface $randomService,
-        private GetHolidayForDaedalusService $getHolidayForDaedalusService
+        private GetHolidayForDaedalusService $getHolidayForDaedalusService,
+        private CreateHunterService $createHunterService,
     ) {}
 
     public static function getSubscribedEvents(): array
@@ -54,8 +58,11 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     {
         $this->createRandomApprentronInStorage($event);
         $this->spawnMushSample($event);
-        if ($this->getHolidayForDaedalusService->execute($event->getDaedalus()) === HolidayEnum::ANNIVERSARY) {
+        $holiday = $this->getHolidayForDaedalusService->execute($event->getDaedalus());
+        if ($holiday === HolidayEnum::ANNIVERSARY) {
             $this->createPresentsInPlayerInventories($event);
+        } elseif ($holiday === HolidayEnum::SUMMER_TREASURE_HUNT) {
+            $this->createHunterService->execute(HunterEnum::SUMMER_EVENT_TRANSPORT, $event->getDaedalus()->getId(), $event->getTime(), [TradeEnum::TREASURE_HUNT_DEAL]);
         }
     }
 

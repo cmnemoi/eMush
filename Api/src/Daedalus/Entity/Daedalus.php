@@ -241,7 +241,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function getAttackingHunters(): HunterCollection
     {
-        return $this->getHuntersAroundDaedalus()->getAllExceptType(HunterEnum::TRANSPORT);
+        return $this->getHuntersAroundDaedalus()->getAllExceptTypes(HunterEnum::getNonHostiles()->toArray());
     }
 
     public function getHunterPool(): HunterCollection

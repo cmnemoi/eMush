@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Hunter\Listener;
 
+use Mush\Communications\Enum\TradeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -65,7 +66,7 @@ final class HunterCycleSubscriber implements EventSubscriberInterface
         $maxTransportSpawnRate = $daedalus->getGameConfig()->getDifficultyConfig()->getMaxTransportSpawnRate();
         $transportSpawnRate = max($minTransportSpawnRate, $maxTransportSpawnRate - $daedalus->getDay());
         if ($this->d100Roll->isSuccessful($transportSpawnRate)) {
-            $this->createHunter->execute(HunterEnum::TRANSPORT, $daedalus->getId(), $event->getTime());
+            $this->createHunter->execute(HunterEnum::TRANSPORT, $daedalus->getId(), $event->getTime(), TradeEnum::getNormalTrades());
         }
     }
 

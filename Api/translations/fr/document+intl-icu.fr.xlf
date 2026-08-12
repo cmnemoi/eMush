@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="fr">
+  <file id="document.ext">
+    <unit id="treasure_hunt_tablet">
+      <segment id="treasure_hunt_tablet" state="translated">
+        <source>treasure_hunt_tablet</source>
+        <target>C'est le journal de bord de l'incroyable Grixar, il contient toutes ses aventures et plus encore. Il y raconte chaque planète pillée, chaque cœur volé, chaque amant qu'il aurait transporté dans les étoiles avec lui... Il est facile de s'imaginer être l'un d'entre eux. Mais au fil des années, les embûches s'accumulent. Des trahisons s'enchaînent : le beau Roberto le vend à la terrible Madame Trixa, la seconde belle-mère du capitaine, contre un pardon universel... Grixar finit par s'enfuir à travers l'impossible treizième dimension pour ne jamais revenir. Il est sûrement mort depuis longtemps, mais peut-être que son trésor est encore là ?//
+        Il est possible d'entrer les coordonnées de planètes, mais, en l'état, il est impossible de s'y rendre. Le Daedalus n'est simplement pas équipé pour traverser la treizième dimension. Quelqu'un devrait jeter un œil au réacteur d'urgence pour savoir comment y remédier. Mais les caractéristiques de la planète où s'est rendu Grixar sont inquiétantes. Il ne fait aucun doute que de nouveaux défis vous y attendent.</target>
+      </segment>
+    </unit>
+    <unit id="mush_research_review">
+      <segment id="mush_research_review" state="translated">
+        <source>mush_research_review</source>
+        <target>Pour effectuer de réelles avancées sur le Mush ://J'ai laissé sur le Daedalus mon plus bel échantillon de Mush. C'est un Dendrite de champignon au stade 3. On peut aussi penser que Zhong est un atout très important et l'étudier est un moyen puissant d'avancer.  Un corps de Mush cryogénisé pourrait être une source incroyable de donnée. //Enfin, le tablier est essentiel afin de conserver un niveau de propreté adapté à nos études. Il faut se montrer discret et prudent cependant. Le Mush est partout et il entravera peut-être notre recherche scientifique. La science vaincra le Mush.//Nils Carlsson</target>
+      </segment>
+    </unit>
+    <unit id="commanders_manual">
+      <segment id="commanders_manual" state="translated">
+        <source>commanders_manual</source>
+        <target>Note du Commandant Kim Jin Su.//Trop de capitaines ne savent pas encore faire fonctionner un navire interstellaire standard. De nos jours avec PILGRED, la propulsion au Fuel est révolue, reléguée au rang d'archaïsme. Cependant j'éprouve le besoin d'indiquer la procédure de voyage d'urgence au cas où je viendrais à disparaître.//1. Trouvez une planète.//2. Chargez la chambre de combustion avec les unités de fuel adéquates.//3. Assurez vous que tous les patrouilleurs sont revenus à bord, et que les communications n'ont pas de travaux en cours.//4. Orientez le vaisseau dans la bonne direction.//5. Vous pouvez désormais lancer la procédure de voyage d'urgence alimentée au fuel.//Quelle barbarie...</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

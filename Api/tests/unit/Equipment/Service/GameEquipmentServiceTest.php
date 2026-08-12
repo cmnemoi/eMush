@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
@@ -20,9 +21,12 @@ use Mush\Equipment\Service\DamageEquipmentServiceInterface;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentService;
+use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\GameVariable;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ContentStatusConfig;
@@ -70,6 +74,7 @@ final class GameEquipmentServiceTest extends TestCase
             $this->eventService,
             $this->statusService,
             $this->equipmentEffectService,
+            self::createStub(TranslationServiceInterface::class),
         );
     }
 
@@ -184,6 +189,8 @@ final class GameEquipmentServiceTest extends TestCase
         $daedalus = new Daedalus();
         $place = new Place();
         $place->setDaedalus($daedalus);
+
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig()->setLanguage('test'));
 
         $documentMechanic = new Document();
         $documentMechanic->setContent('Hello world');

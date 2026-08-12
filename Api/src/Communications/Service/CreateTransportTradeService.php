@@ -8,7 +8,6 @@ use Mush\Communications\Event\TradeCreatedEvent;
 use Mush\Communications\Repository\TradeRepositoryInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
-use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Repository\HunterRepositoryInterface;
 
 /**
@@ -40,7 +39,7 @@ final readonly class CreateTransportTradeService
 
     private function throwIfHunterIsNotATransport(Hunter $hunter): void
     {
-        if ($hunter->getHunterConfig()->getHunterName() !== HunterEnum::TRANSPORT) {
+        if (!$hunter->isTransport()) {
             throw new \InvalidArgumentException('Cannot create trade for non-transport hunter');
         }
     }

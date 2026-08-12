@@ -176,6 +176,20 @@ abstract class TradeAssetConfigData
                 assetName: ItemEnum::HYDROPOT
             ),
             new TradeAssetConfigDto(
+                name: '3-6_cooked_rations',
+                type: TradeAssetEnum::ITEM,
+                minQuantity: 3,
+                maxQuantity: 6,
+                assetName: GameRationEnum::COOKED_RATION
+            ),
+            new TradeAssetConfigDto(
+                name: '1_treasure_hunt_tablet',
+                type: TradeAssetEnum::ITEM,
+                minQuantity: 1,
+                maxQuantity: 1,
+                assetName: ItemEnum::TREASURE_HUNT_TABLET
+            ),
+            new TradeAssetConfigDto(
                 name: '3_random_players',
                 type: TradeAssetEnum::RANDOM_PLAYER,
                 minQuantity: 3,

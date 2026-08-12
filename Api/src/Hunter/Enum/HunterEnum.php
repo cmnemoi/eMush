@@ -13,6 +13,7 @@ class HunterEnum
     public const HUNTER = 'hunter';
     public const SPIDER = 'spider';
     public const TRANSPORT = 'transport';
+    public const SUMMER_EVENT_TRANSPORT = 'summer_event_transport';
     public const TRAX = 'trax';
 
     public static function getAll(): ArrayCollection
@@ -53,6 +54,24 @@ class HunterEnum
     {
         return new ArrayCollection([
             self::TRANSPORT,
+            self::SUMMER_EVENT_TRANSPORT,
         ]);
+    }
+
+    public static function getHuntersThatDoNotStopFromAcceptingTrade(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::TRANSPORT,
+            self::SUMMER_EVENT_TRANSPORT,
+            self::ASTEROID,
+        ]);
+    }
+
+    public static function isTrader(string $name): bool
+    {
+        return \in_array($name, [
+            self::TRANSPORT,
+            self::SUMMER_EVENT_TRANSPORT,
+        ], true);
     }
 }

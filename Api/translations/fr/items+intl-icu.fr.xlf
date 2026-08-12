@@ -4387,11 +4387,11 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
     <unit id="treasure_hunt_tablet">
       <segment id="name" state="translated">
         <source>treasure_hunt_tablet.name</source>
-        <target>Alien Tablet</target>
+        <target>Tablette alien mysterieuse</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>treasure_hunt_tablet.short_name</source>
-        <target>Alien Tablet</target>
+        <target>Tablette alien</target>
       </segment>
       <segment id="genre" state="translated">
         <source>treasure_hunt_tablet.gender</source>
@@ -4403,11 +4403,11 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_tablet.description</source>
-        <target>TODO</target>
+        <target>Vous n'en croyez pas vos yeux : une tablette ayant appartenu au grand **Grixar l'Intrépide** ! Après avoir pillé les 12 systèmes, il aurait disparu avec son **trésor**.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_tablet.examine</source>
-        <target>TODO</target>
+        <target>Vous n'en croyez pas vos yeux : une tablette ayant appartenu au grand **Grixar l'Intrépide** ! Après avoir pillé les 12 systèmes, il aurait disparu avec son **trésor** légendaire. On dit même qu'il conaissait le chemin vers l'Eden...//Il n'y a aucun doute que la quête vers son trésor sera extrêmement périlleuse. Il faudra se préparer au pire.</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_device">

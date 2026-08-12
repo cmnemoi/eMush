@@ -359,6 +359,7 @@ class GameConfigData
                     HunterEnum::SPIDER . '_default',
                     HunterEnum::TRAX . '_default',
                     HunterEnum::TRANSPORT . '_default',
+                    HunterEnum::SUMMER_EVENT_TRANSPORT . '_default',
                 ],
                 'planetSectorConfigs' => [
                     PlanetSectorEnum::LANDING . '_default',
@@ -584,6 +585,7 @@ class GameConfigData
                     TradeEnum::HUMAN_VS_FUEL,
                     TradeEnum::HUMAN_VS_OXY,
                     TradeEnum::HUMAN_VS_TREE,
+                    TradeEnum::TREASURE_HUNT_DEAL,
                 ],
                 'specialOptions' => [
                     // GameConfigEnum::OPTION_RANDOM_SPORE,

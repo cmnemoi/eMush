@@ -52,7 +52,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         $this->hunterService->persist($attackingHunters->toArray());
         $this->hunterService->persist($pooledHunters->toArray());
 
-        $transports = $daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::TRANSPORT);
+        $transports = $daedalus->getHuntersAroundDaedalus()->getTraders();
         foreach ($transports as $transport) {
             $this->deleteTransport->byId($transport->getId());
         }
@@ -72,7 +72,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         $huntersToDelete = $daedalus->getAttackingHunters()->getAllExceptType(HunterEnum::TRAX);
         $this->hunterService->delete($huntersToDelete->toArray());
 
-        $transports = $daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::TRANSPORT);
+        $transports = $daedalus->getHuntersAroundDaedalus()->getTraders();
         foreach ($transports as $transport) {
             $this->deleteTransport->byId($transport->getId());
         }

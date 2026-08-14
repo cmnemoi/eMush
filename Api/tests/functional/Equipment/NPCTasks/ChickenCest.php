@@ -19,7 +19,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -32,7 +31,6 @@ final class ChickenCest extends AbstractFunctionalTest
     private LaySpaceCapsuleTask $laySpaceCapsuleTask;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private Place $corridor;
 
@@ -46,7 +44,6 @@ final class ChickenCest extends AbstractFunctionalTest
         $this->laySpaceCapsuleTask = $I->grabService(LaySpaceCapsuleTask::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->corridor = $this->createExtraPlace(RoomEnum::REAR_CORRIDOR, $I, $this->daedalus);
         Door::createFromRooms($this->chun->getPlace(), $this->corridor);

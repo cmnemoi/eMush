@@ -22,7 +22,6 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -37,7 +36,7 @@ final class HitActionCest extends AbstractFunctionalTest
     private Weapon $bareHandMechanic;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private AddSkillToPlayerService $addSkillToPlayer;
 
     public function _before(FunctionalTester $I): void
@@ -50,7 +49,7 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->hitAction = $I->grabService(Hit::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
 
         $this->bareHandMechanic = $I->grabEntityFromRepository(Weapon::class, ['name' => EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::BARE_HANDS . '_' . GameConfigEnum::DEFAULT]);

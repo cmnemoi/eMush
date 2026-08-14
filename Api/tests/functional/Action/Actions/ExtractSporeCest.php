@@ -14,7 +14,6 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -28,7 +27,6 @@ final class ExtractSporeCest extends AbstractFunctionalTest
 
     private DeletePlayerSkillService $deletePlayerSkill;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -39,7 +37,6 @@ final class ExtractSporeCest extends AbstractFunctionalTest
 
         $this->deletePlayerSkill = $I->grabService(DeletePlayerSkillService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given Kuan Ti is Mush
         $this->statusService->createStatusFromName(

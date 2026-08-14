@@ -22,7 +22,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -38,7 +37,6 @@ final class AnathemaCest extends AbstractFunctionalTest
 
     private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -51,7 +49,6 @@ final class AnathemaCest extends AbstractFunctionalTest
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::VICTIMIZER, $I);
     }

@@ -14,7 +14,6 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -25,14 +24,12 @@ final class PlantNewDayCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // avoid false positive when fire tries to destroy plants
         $this->daedalus->getGameConfig()->getDifficultyConfig()->setEquipmentFireBreakRate(0);

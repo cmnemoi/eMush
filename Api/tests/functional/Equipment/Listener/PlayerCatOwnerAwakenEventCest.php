@@ -13,7 +13,6 @@ use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusService;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -30,7 +29,6 @@ final class PlayerCatOwnerAwakenEventCest extends AbstractFunctionalTest
     private Player $roland;
 
     private PlayerService $playerService;
-    private StatusService $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -38,7 +36,6 @@ final class PlayerCatOwnerAwakenEventCest extends AbstractFunctionalTest
 
         $this->playerEventSubscriber = $I->grabService(PlayerEventSubscriber::class);
         $this->playerService = $I->grabService(PlayerService::class);
-        $this->statusService = $I->grabService(StatusService::class);
     }
 
     public function ifRalucaAwakensSchrodingerShouldSpawn(FunctionalTester $I): void

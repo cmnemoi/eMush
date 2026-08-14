@@ -23,7 +23,6 @@ use Mush\Hunter\Service\CreateHunterService;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -36,7 +35,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
     private ShootHunterTask $task;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private CreateHunterService $createHunter;
 
     private Drone $drone;
@@ -49,7 +48,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->task = $I->grabService(ShootHunterTask::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->createHunter = $I->grabService(CreateHunterService::class);
 
         $this->givenAPatrolShipInBattle($I);

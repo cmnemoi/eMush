@@ -19,13 +19,12 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\DaedalusStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 
 abstract class AbstractExplorationTester extends AbstractFunctionalTest
 {
     protected ExplorationServiceInterface $explorationService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private GameEquipment $icarus;
 
     public function _before(FunctionalTester $I): void
@@ -34,7 +33,6 @@ abstract class AbstractExplorationTester extends AbstractFunctionalTest
 
         $this->explorationService = $I->grabService(ExplorationServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given there is Icarus Bay on this Daedalus
         $icarusBay = $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);

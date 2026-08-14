@@ -31,7 +31,6 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -45,7 +44,6 @@ final class ForceGetUpCest extends AbstractFunctionalTest
     private ActionConfig $hitActionConfig;
 
     private EventServiceInterface $eventService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -55,7 +53,6 @@ final class ForceGetUpCest extends AbstractFunctionalTest
         $this->hitActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::HIT]);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testForceGetUp(FunctionalTester $I): void

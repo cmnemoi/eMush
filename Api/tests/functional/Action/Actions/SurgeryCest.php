@@ -18,7 +18,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -31,7 +30,7 @@ final class SurgeryCest extends AbstractFunctionalTest
     private Surgery $surgery;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I): void
@@ -41,7 +40,7 @@ final class SurgeryCest extends AbstractFunctionalTest
         $this->surgery = $I->grabService(Surgery::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::MEDIC, $I, player: $this->chun);

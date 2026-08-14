@@ -18,7 +18,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -32,7 +31,6 @@ final class ComputeEdenCest extends AbstractFunctionalTest
     private ComputeEden $computeEden;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private GameEquipment $calculator;
 
@@ -43,7 +41,6 @@ final class ComputeEdenCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::COMPUTE_EDEN->toString()]);
         $this->computeEden = $I->grabService(ComputeEden::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenCalculatorInRoom();
     }

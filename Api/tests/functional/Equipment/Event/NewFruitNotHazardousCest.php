@@ -12,7 +12,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -23,7 +22,6 @@ final class NewFruitNotHazardousCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -31,7 +29,6 @@ final class NewFruitNotHazardousCest extends AbstractFunctionalTest
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function fruitProducedAtCycleChangeShouldNotBeHazardous(FunctionalTester $I): void

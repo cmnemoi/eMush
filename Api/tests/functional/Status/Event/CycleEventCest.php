@@ -42,7 +42,6 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Listener\StatusCycleSubscriber;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -62,7 +61,6 @@ final class CycleEventCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $equipmentService;
     private StatusCycleSubscriber $cycleSubscriber;
     private DaedalusCycleSubscriber $daedalusPlaceCycleSubscriber;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -71,7 +69,6 @@ final class CycleEventCest extends AbstractFunctionalTest
         $this->daedalusPlaceCycleSubscriber = $I->grabService(DaedalusCycleSubscriber::class);
         $this->equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->dismantleActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => 'disassemble_percent_25_cost_3']);
         $this->dismantleActionConfig->setSuccessRate(100);

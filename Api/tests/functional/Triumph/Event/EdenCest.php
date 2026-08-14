@@ -29,7 +29,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 use Mush\Triumph\Enum\TriumphEnum;
@@ -43,7 +42,6 @@ final class EdenCest extends AbstractExplorationTester
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -53,7 +51,6 @@ final class EdenCest extends AbstractExplorationTester
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // Given Chun and Kuan Ti in the ship
     }

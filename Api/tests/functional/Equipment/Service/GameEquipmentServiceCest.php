@@ -16,7 +16,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -26,13 +25,11 @@ use Mush\Tests\FunctionalTester;
 final class GameEquipmentServiceCest extends AbstractFunctionalTest
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldMovePatrolShipItemsInSpaceWhenDestroyed(FunctionalTester $I): void

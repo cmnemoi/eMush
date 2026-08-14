@@ -18,7 +18,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -31,7 +30,7 @@ final class TakeCatCest extends AbstractFunctionalTest
     private Take $takeCat;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private GameItem $schrodinger;
     private Player $jinSu;
 
@@ -42,7 +41,6 @@ final class TakeCatCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TAKE_CAT->value]);
         $this->takeCat = $I->grabService(Take::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenCatIsInShelf();
     }

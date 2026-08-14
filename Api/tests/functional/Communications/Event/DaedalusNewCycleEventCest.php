@@ -19,7 +19,6 @@ use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Service\CreateHunterService;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -31,7 +30,6 @@ final class DaedalusNewCycleEventCest extends AbstractFunctionalTest
     private CreateHunterService $createHunter;
     private EventServiceInterface $eventService;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -40,7 +38,6 @@ final class DaedalusNewCycleEventCest extends AbstractFunctionalTest
         $this->createHunter = $I->grabService(CreateHunterService::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->daedalus->getGameConfig()->getDifficultyConfig()->setMinTransportSpawnRate(0);
         $this->daedalus->getGameConfig()->getDifficultyConfig()->setMaxTransportSpawnRate(0);

@@ -4413,11 +4413,11 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
     <unit id="treasure_hunt_device">
       <segment id="name" state="translated">
         <source>treasure_hunt_device.name</source>
-        <target>Alien Device</target>
+        <target>Booster trans-dimensionnel alien</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>treasure_hunt_device.short_name</source>
-        <target>Alien Device</target>
+        <target>Booster alien</target>
       </segment>
       <segment id="genre" state="translated">
         <source>treasure_hunt_device.gender</source>
@@ -4425,15 +4425,15 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>treasure_hunt_device.first_letter</source>
-        <target>vowel</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_device.description</source>
-        <target>TODO</target>
+        <target>Avec un engin pareil, même un analphabète peut convertir un réacteur bas de gamme en machine capable de traverser les dimensions les plus interdites. Et cela tombe bien : aucune langue connue n’est incluse dans le manuel.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_device.examine</source>
-        <target>TODO</target>
+        <target>Avec un engin pareil, même un analphabète peut convertir un réacteur bas de gamme en machine capable de traverser les dimensions les plus interdites. Et cela tombe bien : aucune langue connue n’est incluse dans le manuel.//En cas d'explosion, faites comme d'habitude et rejetez la faute sur le fabricant.</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_pet">

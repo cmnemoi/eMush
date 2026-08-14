@@ -15,7 +15,6 @@ use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\SkillPointsEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -25,13 +24,11 @@ use Mush\Tests\FunctionalTester;
 final class SkillPointsCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     #[DataProvider('skillPointsDataProvider')]

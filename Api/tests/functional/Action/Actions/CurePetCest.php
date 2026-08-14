@@ -20,7 +20,6 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -33,7 +32,7 @@ final class CurePetCest extends AbstractFunctionalTest
     private CurePet $cureCat;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private GameItem $schrodinger;
     private GameItem $serum;
 
@@ -44,7 +43,6 @@ final class CurePetCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::CURE_CAT->value]);
         $this->cureCat = $I->grabService(CurePet::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenPlayerHasCatInInventory($I);
         $this->givenPlayerHasSerumInInventory($I);

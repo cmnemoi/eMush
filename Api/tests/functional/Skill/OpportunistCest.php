@@ -10,7 +10,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -20,7 +19,7 @@ use Mush\Tests\FunctionalTester;
 final class OpportunistCest extends AbstractFunctionalTest
 {
     private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
+
     private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I): void
@@ -29,7 +28,6 @@ final class OpportunistCest extends AbstractFunctionalTest
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::OPPORTUNIST, $I, $this->chun);
     }

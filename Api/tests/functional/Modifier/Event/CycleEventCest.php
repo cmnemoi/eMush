@@ -21,7 +21,6 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusCycleEvent;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -31,7 +30,7 @@ use Mush\Tests\FunctionalTester;
 final class CycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
-    private StatusServiceInterface $statusService;
+
     private RoomLogRepository $roomLogRepository;
 
     public function _before(FunctionalTester $I): void
@@ -41,7 +40,7 @@ final class CycleEventCest extends AbstractFunctionalTest
         $this->createExtraPlace(RoomEnum::ALPHA_BAY, $I, $this->daedalus);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->roomLogRepository = $I->grabService(RoomLogRepository::class);
     }
 

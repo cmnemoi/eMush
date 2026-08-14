@@ -15,7 +15,6 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
@@ -26,14 +25,12 @@ final class CycleServiceCest extends AbstractExplorationTester
 {
     private CycleServiceInterface $cycleService;
     private RebelBaseRepository $rebelBaseRepository;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->cycleService = $I->grabService(CycleServiceInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepository::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // setup
         $status = $this->statusService->createStatusFromName(

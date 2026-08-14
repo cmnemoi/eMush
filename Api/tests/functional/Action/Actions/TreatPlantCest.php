@@ -13,7 +13,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -28,7 +27,6 @@ final class TreatPlantCest extends AbstractFunctionalTest
 
     private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -39,7 +37,6 @@ final class TreatPlantCest extends AbstractFunctionalTest
 
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function botanistShouldNotConsumeActionPoints(FunctionalTester $I): void

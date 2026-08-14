@@ -36,7 +36,6 @@ use Mush\Game\Exception\GameException;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -53,7 +52,7 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private NeronVersionRepositoryInterface $neronVersionRepository;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
-    private StatusServiceInterface $statusService;
+
     private XylophRepositoryInterface $xylophRepository;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
@@ -70,7 +69,7 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 

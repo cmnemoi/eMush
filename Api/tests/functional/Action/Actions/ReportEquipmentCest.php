@@ -22,7 +22,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -35,7 +34,7 @@ final class ReportEquipmentCest extends AbstractFunctionalTest
     private ReportEquipment $reportEquipment;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private NeronMessageService $neronMessageService;
 
@@ -49,7 +48,7 @@ final class ReportEquipmentCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::REPORT_EQUIPMENT]);
         $this->reportEquipment = $I->grabService(ReportEquipment::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->neronMessageService = $I->grabService(NeronMessageService::class);
     }

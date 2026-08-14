@@ -14,7 +14,6 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -24,7 +23,6 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
     private ChooseSkillUseCase $chooseSkillUseCase;
     private ExplorationNormalizer $explorationNormalizer;
     private NormalizerInterface $normalizer;
-    private StatusServiceInterface $statusService;
 
     private Planet $planet;
     private Exploration $exploration;
@@ -36,7 +34,6 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->explorationNormalizer = $I->grabService(ExplorationNormalizer::class);
         $this->normalizer = $I->grabService(NormalizerInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->explorationNormalizer->setNormalizer($this->normalizer);
 

@@ -61,8 +61,8 @@ class AbstractFunctionalTest
     protected Channel $mushChannel;
 
     protected CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus;
+    protected StatusServiceInterface $statusService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {

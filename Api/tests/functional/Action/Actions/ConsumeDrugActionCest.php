@@ -30,7 +30,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -46,7 +45,6 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private ConsumableDiseaseServiceInterface $consumableDiseaseService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -58,7 +56,6 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->consumableDiseaseService = $I->grabService(ConsumableDiseaseServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldApplyContaminatedPillEffectsBeforeTurningPlayerMush(FunctionalTester $I): void

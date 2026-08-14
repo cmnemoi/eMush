@@ -17,7 +17,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -30,7 +29,6 @@ final class WashInSinkActionCest extends AbstractFunctionalTest
     private WashInSink $washInSinkAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private GameEquipment $kitchen;
 
@@ -42,7 +40,6 @@ final class WashInSinkActionCest extends AbstractFunctionalTest
         $this->washInSinkAction = $I->grabService(WashInSink::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->kitchen = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::KITCHEN,

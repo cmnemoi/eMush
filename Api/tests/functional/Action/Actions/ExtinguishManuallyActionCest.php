@@ -14,7 +14,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -24,15 +23,13 @@ use Mush\Tests\FunctionalTester;
 final class ExtinguishManuallyActionCest extends AbstractFunctionalTest
 {
     private ExtinguishManually $extinguishManuallyAction;
-    private StatusServiceInterface $statusService;
+
     private ActionConfig $actionConfig;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->extinguishManuallyAction = $I->grabService(ExtinguishManually::class);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::EXTINGUISH_MANUALLY]);

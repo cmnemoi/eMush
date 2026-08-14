@@ -32,7 +32,6 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -43,7 +42,7 @@ use Mush\Tests\RoomLogDto;
 final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private KillLinkWithSolService $killLinkWithSolService;
     private NeronVersionRepositoryInterface $neronVersionRepository;
@@ -59,7 +58,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->killLinkWithSolService = $I->grabService(KillLinkWithSolService::class);
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);

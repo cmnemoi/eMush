@@ -11,7 +11,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusService;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -22,7 +21,6 @@ final class FireCest extends AbstractFunctionalTest
 {
     private Fire $fire;
     private GameEquipmentService $gameEquipmentService;
-    private StatusService $statusService;
 
     private Status $fireStatus;
 
@@ -32,7 +30,6 @@ final class FireCest extends AbstractFunctionalTest
 
         $this->fire = $I->grabService(Fire::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentService::class);
-        $this->statusService = $I->grabService(StatusService::class);
     }
 
     #[DataProvider('plantProvider')]

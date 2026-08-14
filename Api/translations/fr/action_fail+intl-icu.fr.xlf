@@ -935,5 +935,11 @@
         <target>Un phénomène inconnu interfère avec le scanner.</target>
       </segment>
     </unit>
+    <unit id="need_genius_or_alien_device">
+      <segment id="description" state="translated">
+        <source>need_genius_or_alien_device.description</source>
+        <target>Il faudrait être un génie pour effectuer cette action... mais si vous n'en êtes pas un, des aliens ont sûrement abandonné le bon équipement quelque part.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

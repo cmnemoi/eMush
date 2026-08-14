@@ -26,7 +26,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -43,7 +42,6 @@ final class ParticipateCest extends AbstractFunctionalTest
     private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private NeronServiceInterface $neronService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -58,7 +56,6 @@ final class ParticipateCest extends AbstractFunctionalTest
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->neronService = $I->grabService(NeronServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given Chun is focused on NERON's cored terminal
         $this->terminal = $this->gameEquipmentService->createGameEquipmentFromName(

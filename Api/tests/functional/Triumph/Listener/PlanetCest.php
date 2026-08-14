@@ -13,7 +13,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -23,7 +22,6 @@ use Mush\Tests\FunctionalTester;
 final class PlanetCest extends AbstractFunctionalTest
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private ActionConfig $scanActionConfig;
     private Scan $scanAction;
@@ -37,7 +35,6 @@ final class PlanetCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->scanActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SCAN]);
         // Assume scanning is always successful and doesn't cost AP

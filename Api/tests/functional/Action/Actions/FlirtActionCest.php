@@ -11,7 +11,6 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -23,8 +22,6 @@ final class FlirtActionCest extends AbstractFunctionalTest
     private Flirt $flirtAction;
     private ActionConfig $action;
 
-    private StatusServiceInterface $statusService;
-
     private Player $derek;
     private Player $gioele;
     private Player $paola;
@@ -35,8 +32,6 @@ final class FlirtActionCest extends AbstractFunctionalTest
 
         $this->flirtAction = $I->grabService(Flirt::class);
         $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::FLIRT]);
-
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
         $this->gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);

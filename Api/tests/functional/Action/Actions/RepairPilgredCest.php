@@ -24,7 +24,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Triumph\Enum\TriumphEnum;
@@ -37,7 +36,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private RepairPilgred $repairPilgredAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private GameEquipment $terminal;
     private ChooseSkillUseCase $chooseSkillUseCase;
 
@@ -49,7 +48,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->repairPilgredAction = $I->grabService(RepairPilgred::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
         // given Chun is focused on PILGRED terminal

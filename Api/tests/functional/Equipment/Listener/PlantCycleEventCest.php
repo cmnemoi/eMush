@@ -19,7 +19,6 @@ use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -30,7 +29,6 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $equipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -38,7 +36,6 @@ final class PlantCycleEventCest extends AbstractFunctionalTest
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenThereIsAGardenInDaedalus($I);
     }

@@ -18,7 +18,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -33,7 +32,7 @@ final class RationCest extends AbstractFunctionalTest
 
     private AddSkillToPlayerService $addSkillToPlayer;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private RebelBaseRepositoryInterface $rebelBaseRepository;
     private DecodeRebelSignalService $decodeRebelBase;
 
@@ -46,7 +45,7 @@ final class RationCest extends AbstractFunctionalTest
 
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->decodeRebelBase = $I->grabService(DecodeRebelSignalService::class);
 

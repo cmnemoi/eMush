@@ -37,7 +37,6 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -47,7 +46,6 @@ use Mush\Tests\FunctionalTester;
 final class StatusServiceCest extends AbstractFunctionalTest
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -55,7 +53,6 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $this->createExtraPlace(RoomEnum::ALPHA_BAY, $I, $this->daedalus);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testBrokenTerminalRemovesPlayerFocusedStatus(FunctionalTester $I): void

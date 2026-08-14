@@ -15,7 +15,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusService;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -28,7 +27,6 @@ final class AutomaticGetUpCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusService $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -37,8 +35,6 @@ final class AutomaticGetUpCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::DISASSEMBLE->value . '_percent_25_cost_3']);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-
-        $this->statusService = $I->grabService(StatusService::class);
 
         $this->disassembleAction = $I->grabService(Disassemble::class);
     }

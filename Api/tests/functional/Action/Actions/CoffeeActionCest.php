@@ -21,7 +21,6 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -34,7 +33,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
     private Coffee $coffeeAction;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private Place $laboratory;
     private Place $refectory;
@@ -49,7 +48,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->daedalus->getDaedalusConfig()->setCyclePerGameDay(8);

@@ -40,7 +40,6 @@ use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -52,7 +51,6 @@ final class TravelEventCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private ExplorationServiceInterface $explorationService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -60,7 +58,6 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->explorationService = $I->grabService(ExplorationServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // do not try to spawn transports
         $this->daedalus->getGameConfig()->getDifficultyConfig()->setMinTransportSpawnRate(0);

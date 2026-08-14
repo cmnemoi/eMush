@@ -20,7 +20,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -32,7 +31,7 @@ final class PetCatCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private PetCat $petCat;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private GameItem $schrodinger;
 
@@ -43,7 +42,7 @@ final class PetCatCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::PET_CAT]);
         $this->petCat = $I->grabService(PetCat::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->givenPlayerHasCatInInventory($I);

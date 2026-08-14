@@ -17,7 +17,6 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -31,7 +30,6 @@ final class GiveNightmareCest extends AbstractFunctionalTest
     private GiveNightmare $giveNightmare;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -40,7 +38,6 @@ final class GiveNightmareCest extends AbstractFunctionalTest
         $this->giveNightmare = $I->grabService(GiveNightmare::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::NIGHTMARISH, $I);
     }

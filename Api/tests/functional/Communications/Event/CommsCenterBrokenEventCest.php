@@ -10,7 +10,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -20,7 +19,7 @@ use Mush\Tests\FunctionalTester;
 final class CommsCenterBrokenEventCest extends AbstractFunctionalTest
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
 
     private GameEquipment $commsCenter;
@@ -31,7 +30,7 @@ final class CommsCenterBrokenEventCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
 
         $this->linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalus->getId());

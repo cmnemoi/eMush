@@ -1394,6 +1394,7 @@ abstract class StatusConfigData
                 ActionEnum::REPAIR->value,
                 ActionEnum::PARTICIPATE->value,
                 ActionEnum::PARTICIPATE_RESEARCH->value,
+                ActionEnum::UPGRADE_REACTOR->value,
             ],
             'autoRemove' => true,
             'modifierConfigs' => [
@@ -2413,6 +2414,20 @@ abstract class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
             'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => DaedalusStatusEnum::REACTOR_UPGRADED . '_default',
+            'statusName' => DaedalusStatusEnum::REACTOR_UPGRADED,
+            'visibility' => 'public',
+            'type' => 'status_config',
+            'chargeVisibility' => null,
+            'chargeStrategy' => 'none',
+            'maxCharge' => null,
+            'startCharge' => null,
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => null,
+            'modifierConfigs' => [ModifierNameEnum::SUMMER_EVENT_ARTEFACT_ALIEN_DEVICE_CANCEL],
             'actionConfigs' => [],
         ],
         [

@@ -19,7 +19,6 @@ use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -32,7 +31,6 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
 
     private AddSkillToPlayerService $addSkillToPlayer;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -40,7 +38,6 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
         $this->normalizer = $I->grabService(ActionNormalizer::class);
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldNormalizeTrapClosetAction(FunctionalTester $I): void

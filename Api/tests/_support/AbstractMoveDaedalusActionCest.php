@@ -53,7 +53,6 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
         $this->alertService = $I->grabService(AlertServiceInterface::class);
         $this->planetService = $I->grabService(PlanetServiceInterface::class);

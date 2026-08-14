@@ -12,7 +12,6 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -24,8 +23,6 @@ final class ConsumeChargeOnActionCest extends AbstractFunctionalTest
     private ExpressCook $cookAction;
     private ActionConfig $cookConfig;
 
-    private StatusServiceInterface $statusService;
-
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I): void
@@ -34,8 +31,6 @@ final class ConsumeChargeOnActionCest extends AbstractFunctionalTest
 
         $this->cookConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::EXPRESS_COOK]);
         $this->cookAction = $I->grabService(ExpressCook::class);
-
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }

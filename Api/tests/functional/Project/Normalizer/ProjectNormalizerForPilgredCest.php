@@ -10,7 +10,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Project\Normalizer\ProjectNormalizer;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -22,7 +21,7 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
 {
     private ProjectNormalizer $projectNormalizer;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private GameEquipment $terminal;
     private int $repairActionId;
 
@@ -34,7 +33,6 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
         $this->projectNormalizer->setNormalizer($I->grabService(NormalizerInterface::class));
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given pilgred terminal in the room
         $this->terminal = $this->gameEquipmentService->createGameEquipmentFromName(

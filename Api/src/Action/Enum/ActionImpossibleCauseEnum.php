@@ -162,4 +162,5 @@ abstract class ActionImpossibleCauseEnum
 
     // Summer Even messages
     public const string PLANET_IMPOSSIBLE_TO_SCAN = 'planet_impossible_to_scan';
+    public const string NEED_GENIUS_OR_ALIEN_DEVICE = 'need_genius_or_alien_device';
 }

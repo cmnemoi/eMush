@@ -18,7 +18,6 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -29,7 +28,6 @@ final class FireBreakingItemsCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -37,7 +35,6 @@ final class FireBreakingItemsCest extends AbstractFunctionalTest
 
         $this->eventService = $I->grabService(EventService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenFireGuaranteesEquipmentDamage();
         $this->givenFireInRoom($I);

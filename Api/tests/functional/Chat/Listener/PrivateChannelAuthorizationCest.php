@@ -25,7 +25,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -40,7 +39,7 @@ final class PrivateChannelAuthorizationCest extends AbstractFunctionalTest
     private Drop $dropAction;
     private Move $moveAction;
     private GoBerserk $mutateAction;
-    private StatusServiceInterface $statusService;
+
     private PlayerServiceInterface $playerService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private ChannelServiceInterface $channelService;
@@ -58,7 +57,7 @@ final class PrivateChannelAuthorizationCest extends AbstractFunctionalTest
         $this->dropAction = $I->grabService(Drop::class);
         $this->moveAction = $I->grabService(Move::class);
         $this->mutateAction = $I->grabService(GoBerserk::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->channelService = $I->grabService(ChannelServiceInterface::class);

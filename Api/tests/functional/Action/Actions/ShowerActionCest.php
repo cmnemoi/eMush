@@ -23,7 +23,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -37,7 +36,7 @@ final class ShowerActionCest extends AbstractFunctionalTest
     private ActionConfig $action;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private GameEquipment $shower;
 
     public function _before(FunctionalTester $I): void
@@ -49,7 +48,7 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $this->action->setInjuryRate(0);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->shower = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::SHOWER,
             equipmentHolder: $this->player->getPlace(),

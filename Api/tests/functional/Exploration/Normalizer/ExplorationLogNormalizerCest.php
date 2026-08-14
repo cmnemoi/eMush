@@ -22,7 +22,6 @@ use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
@@ -32,7 +31,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     private ExplorationLogNormalizer $explorationLogNormalizer;
     private Exploration $exploration;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I): void
@@ -43,7 +42,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         $this->explorationLogNormalizer = $I->grabService(ExplorationLogNormalizer::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 

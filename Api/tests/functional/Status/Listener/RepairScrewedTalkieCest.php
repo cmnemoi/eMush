@@ -11,7 +11,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -24,7 +23,6 @@ final class RepairScrewedTalkieCest extends AbstractFunctionalTest
     private Repair $repairAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -36,7 +34,6 @@ final class RepairScrewedTalkieCest extends AbstractFunctionalTest
         $this->repairAction = $I->grabService(Repair::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testRepairTalkieRemovesBrokenAndScrewedStatus(FunctionalTester $I): void

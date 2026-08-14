@@ -17,7 +17,6 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -28,7 +27,6 @@ final class HygienistCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -36,7 +34,6 @@ final class HygienistCest extends AbstractFunctionalTest
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         /** @var VariableEventModifierConfig $hygienistModifier1 */
         $hygienistModifier1 = $I->grabEntityFromRepository(VariableEventModifierConfig::class, ['name' => ModifierNameEnum::PLAYER_50_PERCENT_CHANCE_TO_PREVENT_DISEASE]);

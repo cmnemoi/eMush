@@ -13,7 +13,6 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -24,7 +23,6 @@ use Mush\Tests\RoomLogDto;
 final class LogisticsExpertCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
-    private StatusServiceInterface $statusService;
 
     private Player $paola;
 
@@ -33,7 +31,6 @@ final class LogisticsExpertCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldGiveActionPointToASingleOtherPlayer(FunctionalTester $I): void

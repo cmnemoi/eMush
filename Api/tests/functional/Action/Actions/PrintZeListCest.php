@@ -24,7 +24,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -41,7 +40,7 @@ final class PrintZeListCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
+
     private GameEquipment $tabulatrix;
 
     public function _before(FunctionalTester $I): void
@@ -54,7 +53,6 @@ final class PrintZeListCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenATabulatrixInTheRoom();
         $this->givenKuanTiIsAlphaMush();

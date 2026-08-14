@@ -38,7 +38,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -51,7 +50,6 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
     private ExplorationServiceInterface $explorationService;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -61,7 +59,6 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
         $this->explorationService = $I->grabService(ExplorationServiceInterface::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testFindAllFinishedDaedaluses(FunctionalTester $I): void

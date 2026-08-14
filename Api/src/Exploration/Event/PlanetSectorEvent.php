@@ -73,6 +73,7 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
     public const string TIRED = 'tired';
     public const string TIRED_2 = 'tired_2';
     public const string PLANET_SECTOR_EVENT = 'planet_sector_event';
+    public const string SUMMER_EVENT_ARTEFACT_ALIEN_DEVICE = 'summer_event_artefact_alien_device';
 
     private PlayerCollection $explorators;
     private Place $place;

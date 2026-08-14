@@ -33,7 +33,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
@@ -41,7 +40,6 @@ final class ExplorationServiceCest extends AbstractExplorationTester
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
 
     private GameEquipment $icarus;
     private Planet $planet;
@@ -52,7 +50,6 @@ final class ExplorationServiceCest extends AbstractExplorationTester
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // grab icarus bay created by parent
         $icarusBay = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY);

@@ -24,7 +24,6 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -34,7 +33,7 @@ use Mush\Tests\FunctionalTester;
 final class DaedalusCycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
-    private StatusServiceInterface $statusService;
+
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
 
@@ -42,7 +41,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
     }

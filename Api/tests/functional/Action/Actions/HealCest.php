@@ -23,7 +23,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -36,7 +35,6 @@ final class HealCest extends AbstractFunctionalTest
     private Heal $healAction;
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
-    private StatusServiceInterface $statusService;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
@@ -48,8 +46,6 @@ final class HealCest extends AbstractFunctionalTest
 
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
-
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 

@@ -15,7 +15,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -28,7 +27,7 @@ final class ChangeNeronCrewLockCest extends AbstractFunctionalTest
     private ChangeNeronCrewLock $changeNeronCrewLockAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private GameEquipment $biosTerminal;
 
     public function _before(FunctionalTester $I): void
@@ -39,7 +38,6 @@ final class ChangeNeronCrewLockCest extends AbstractFunctionalTest
         $this->changeNeronCrewLockAction = $I->grabService(ChangeNeronCrewLock::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given I have a Bios terminal in Chun's room
         $this->biosTerminal = $this->gameEquipmentService->createGameEquipmentFromName(

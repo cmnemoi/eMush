@@ -2058,11 +2058,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
     <unit id="travel_to_event_planet">
       <segment id="name" state="translated">
         <source>travel_to_event_planet.name</source>
-        <target>Voyager jusqu'aux dernière coordonnées du vaisseau de Grixar </target>
+        <target>Voyager jusqu'aux dernières coordonnées du vaisseau de Grixar </target>
       </segment>
       <segment id="description" state="translated">
         <source>travel_to_event_planet.description</source>
-        <target>Déplace le vaisseau à travers la treizième dimension pour rejoindre la dernière position connue du légendaire pirate Grixar l'Intrépide.//Consomme le fuel dans la chambre de combustion mais n'en requiert pas pour être utiliser.//***Cette action est extrêmement dangereuse et causera de nombreux incidents dans le vaisseau. Ne l'effectuez pas sans l'accord de vos coéquipiers si vous êtes humain.***</target>
+        <target>Déplace le vaisseau à travers la treizième dimension pour rejoindre la dernière position connue du légendaire pirate Grixar l'Intrépide.//Consomme le fuel dans la chambre de combustion mais n'en requiert pas pour être utilisé.//***Cette action est extrêmement dangereuse et causera de nombreux incidents dans le vaisseau. Ne l'effectuez pas sans l'accord de vos coéquipiers si vous êtes humain.***</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>travel_to_event_planet.confirmation</source>
@@ -2071,6 +2071,16 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
                 female {Cette action est lourde de conséquences. Êtes-vous sûre de vouloir continuer ?}
                 other {Cette action est lourde de conséquences. Êtes-vous sûr de vouloir continuer ?}
                 }</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_reactor">
+      <segment id="name" state="translated">
+        <source>upgrade_reactor.name</source>
+        <target>Modifier le réacteur</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>upgrade_reactor.description</source>
+        <target>Modifier le réacteur d'urgence pour qu'il puisse vous transporter jusqu'aux coordonnées trouvées sur la tablette du capitaine Grixar. Peu de chances que la garantie soit encore valable après cela.</target>
       </segment>
     </unit>
   </file>

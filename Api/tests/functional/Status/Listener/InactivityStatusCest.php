@@ -22,7 +22,6 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Listener\PlayerCycleSubscriber;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -33,7 +32,7 @@ final class InactivityStatusCest extends AbstractFunctionalTest
 {
     private PlayerCycleSubscriber $playerCycleSubscriber;
     private EventServiceInterface $eventService;
-    private StatusServiceInterface $statusService;
+
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I): void
@@ -41,7 +40,7 @@ final class InactivityStatusCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->playerCycleSubscriber = $I->grabService(PlayerCycleSubscriber::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 

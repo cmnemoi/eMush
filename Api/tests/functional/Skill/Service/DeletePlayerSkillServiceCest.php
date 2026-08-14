@@ -20,7 +20,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -31,7 +30,6 @@ final class DeletePlayerSkillServiceCest extends AbstractFunctionalTest
 {
     private DeletePlayerSkillService $deletePlayerSkill;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private GameEquipment $neronCore;
     private Project $project;
@@ -41,7 +39,6 @@ final class DeletePlayerSkillServiceCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->deletePlayerSkill = $I->grabService(DeletePlayerSkillService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldDeletePlaceRangedSkillModifiers(FunctionalTester $I): void

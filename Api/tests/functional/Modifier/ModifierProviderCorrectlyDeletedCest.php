@@ -23,7 +23,6 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -44,7 +43,7 @@ final class ModifierProviderCorrectlyDeletedCest extends AbstractFunctionalTest
     private ActionConfig $scanActionConfig;
     private Scan $scanAction;
     private GameEquipment $biosTerminal;
-    private StatusServiceInterface $statusService;
+
     private GameEquipmentServiceInterface $gameEquipmentService;
     private EventServiceInterface $eventService;
 
@@ -53,7 +52,7 @@ final class ModifierProviderCorrectlyDeletedCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->planetService = $I->grabService(PlanetServiceInterface::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
 

@@ -15,7 +15,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -28,7 +27,7 @@ final class ReinforceCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private Reinforce $reinforce;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private GameItem $blaster;
 
     public function _before(FunctionalTester $I): void
@@ -38,7 +37,6 @@ final class ReinforceCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::REINFORCE->value]);
         $this->reinforce = $I->grabService(Reinforce::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenPlayerHasABlaster();
         $this->actionConfig->setSuccessRate(101);

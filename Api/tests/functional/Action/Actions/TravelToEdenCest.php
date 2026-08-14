@@ -21,7 +21,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -35,7 +34,7 @@ final class TravelToEdenCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
+
     private StatisticRepositoryInterface $statisticRepository;
 
     private GameEquipment $commandTerminal;
@@ -49,7 +48,7 @@ final class TravelToEdenCest extends AbstractFunctionalTest
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
         $this->createCommandTerminal();

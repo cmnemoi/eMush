@@ -26,19 +26,19 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Event\StatusCycleEvent;
 use Mush\Status\Listener\StatusCycleSubscriber;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Service\StatusService;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class DayEventCest
 {
     private StatusCycleSubscriber $cycleSubscriber;
-    private StatusServiceInterface $statusService;
+    private StatusService $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         $this->cycleSubscriber = $I->grabService(StatusCycleSubscriber::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->statusService = $I->grabService(StatusService::class);
     }
 
     // tests

@@ -14,7 +14,6 @@ use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -25,7 +24,7 @@ use Mush\Tests\RoomLogDto;
 final class PanicCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
-    private StatusServiceInterface $statusService;
+
     private Player $jinSu;
 
     public function _before(FunctionalTester $I): void
@@ -33,7 +32,6 @@ final class PanicCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->daedalus->getDaedalusConfig()->setPlayerCount(3);
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);

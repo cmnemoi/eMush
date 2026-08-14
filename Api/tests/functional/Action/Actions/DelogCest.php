@@ -23,7 +23,6 @@ use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -37,7 +36,7 @@ final class DelogCest extends AbstractFunctionalTest
     private Delog $delog;
 
     private EventServiceInterface $eventService;
-    private StatusServiceInterface $statusService;
+
     private PlayerServiceInterface $playerService;
     private RoomLogServiceInterface $roomLogService;
 
@@ -48,7 +47,7 @@ final class DelogCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::DELOG]);
         $this->delog = $I->grabService(Delog::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->roomLogService = $I->grabService(RoomLogServiceInterface::class);
 

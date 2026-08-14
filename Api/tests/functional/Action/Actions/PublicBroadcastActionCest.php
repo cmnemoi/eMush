@@ -14,7 +14,6 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -26,7 +25,6 @@ final class PublicBroadcastActionCest extends AbstractFunctionalTest
     private PublicBroadcast $publicBroadcastAction;
     private ActionConfig $actionConfig;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -36,7 +34,6 @@ final class PublicBroadcastActionCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::PUBLIC_BROADCAST]);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $tv = $this->gameEquipmentService->createGameEquipmentFromName(
             ToolItemEnum::ALIEN_HOLOGRAPHIC_TV,

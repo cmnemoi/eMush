@@ -8,7 +8,6 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -17,8 +16,6 @@ use Mush\Tests\FunctionalTester;
  */
 final class PregnantCest extends AbstractFunctionalTest
 {
-    private StatusServiceInterface $statusService;
-
     private Player $human;
     private Player $otherHuman;
     private Player $mush;
@@ -27,8 +24,6 @@ final class PregnantCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->human = $this->chun;
         $this->otherHuman = $this->kuanTi;

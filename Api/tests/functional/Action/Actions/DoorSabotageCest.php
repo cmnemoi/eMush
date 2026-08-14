@@ -15,7 +15,6 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -28,14 +27,12 @@ final class DoorSabotageCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
     private DoorSabotage $doorSabotage;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::DOOR_SABOTAGE->value]);
         $this->doorSabotage = $I->grabService(DoorSabotage::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenPlayerIsMush();
         $this->addSkillToPlayer(SkillEnum::DOORMAN, $I);

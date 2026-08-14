@@ -12,7 +12,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -23,7 +22,7 @@ final class ExitTerminalCest extends AbstractFunctionalTest
 {
     private ActionConfig $exitTerminalConfig;
     private ExitTerminal $exitTerminal;
-    private StatusServiceInterface $statusService;
+
     private GameEquipment $commandTerminal;
 
     public function _before(FunctionalTester $I): void
@@ -33,7 +32,6 @@ final class ExitTerminalCest extends AbstractFunctionalTest
 
         $this->exitTerminalConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::EXIT_TERMINAL]);
         $this->exitTerminal = $I->grabService(ExitTerminal::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given a command terminal on the bridge
         $commandTerminalConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::COMMAND_TERMINAL]);

@@ -10,7 +10,6 @@ use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -23,7 +22,7 @@ final class SelectableSkillsCest extends AbstractFunctionalTest
     private CurrentPlayerNormalizer $normalizer;
 
     private array $normalizedPlayer;
-    private StatusServiceInterface $statusService;
+
     private AddSkillToPlayerService $addSkillToPlayer;
 
     public function _before(FunctionalTester $I): void
@@ -31,7 +30,7 @@ final class SelectableSkillsCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->normalizer = $I->grabService(CurrentPlayerNormalizer::class);
         $this->normalizer->setNormalizer($I->grabService(NormalizerInterface::class));
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
     }
 

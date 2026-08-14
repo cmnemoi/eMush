@@ -36,7 +36,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -53,7 +52,7 @@ final class ContactXylophCest extends AbstractFunctionalTest
     private NeronVersionRepositoryInterface $neronVersionRepository;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
     private RoomLogServiceInterface $roomLogService;
-    private StatusServiceInterface $statusService;
+
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private XylophRepositoryInterface $xylophRepository;
 
@@ -72,7 +71,7 @@ final class ContactXylophCest extends AbstractFunctionalTest
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->roomLogService = $I->grabService(RoomLogServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
 

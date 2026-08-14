@@ -28,7 +28,6 @@ use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -41,7 +40,6 @@ final class LethargyCest extends AbstractFunctionalTest
     private DeletePlayerSkillService $deletePlayerSkill;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private Player $jinSu;
 
@@ -52,7 +50,6 @@ final class LethargyCest extends AbstractFunctionalTest
         $this->deletePlayerSkill = $I->grabService(DeletePlayerSkillService::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::LETHARGY, $I, $this->kuanTi);
     }

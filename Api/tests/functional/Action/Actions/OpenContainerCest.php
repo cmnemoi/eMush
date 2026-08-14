@@ -12,7 +12,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -25,7 +24,6 @@ final class OpenContainerCest extends AbstractFunctionalTest
     private OpenContainer $openContainer;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private GameItem $container;
 
@@ -36,7 +34,6 @@ final class OpenContainerCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => 'open_container_cost_0']);
         $this->openContainer = $I->grabService(OpenContainer::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function coffeeThermosShouldGiveCoffee(FunctionalTester $I): void

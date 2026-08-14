@@ -16,7 +16,6 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -27,7 +26,7 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
 {
     private DaedalusWidgetService $daedalusService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private EventServiceInterface $eventService;
 
     public function _before(FunctionalTester $I): void
@@ -37,7 +36,6 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
         $this->daedalusService = $I->grabService(DaedalusWidgetService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->createEquipment(ItemEnum::ITRACKIE, $this->chun);
     }

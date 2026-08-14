@@ -25,7 +25,6 @@ use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -41,7 +40,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     private NormalizerInterface $normalizer;
     private Project $pilgredProject;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private NeronVersionRepositoryInterface $neronVersionRepository;
     private string $isChunPresentText;
     private string $isAnyMushDeadText;
@@ -55,7 +54,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->terminalNormalizer->setNormalizer($this->normalizer);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
 
         $this->translationService = $I->grabService(TranslationService::class);

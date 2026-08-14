@@ -12,7 +12,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -25,15 +24,12 @@ final class AdaptEpigeneticsCest extends AbstractFunctionalTest
     private ActionConfig $adaptEpigeneticsActionConfig;
     private AdaptEpigenetics $adaptEpigenetics;
 
-    private StatusServiceInterface $statusService;
-
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->adaptEpigeneticsActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::ADAPT_EPIGENETICS]);
         $this->adaptEpigenetics = $I->grabService(AdaptEpigenetics::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenKuanTiIsMush();
         $this->givenKuanTiHasSkill(SkillEnum::EPIGENETICS, $I);

@@ -25,7 +25,6 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -47,8 +46,6 @@ final class GoBerserkCest extends AbstractFunctionalTest
 
     private Player $ian;
 
-    private StatusServiceInterface $statusService;
-
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
@@ -57,7 +54,6 @@ final class GoBerserkCest extends AbstractFunctionalTest
         $this->goBerserk = $I->grabService(GoBerserk::class);
         $this->moveActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::MOVE]);
         $this->move = $I->grabService(Move::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->kickOffActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::HIT]);
         $this->kickOffActionConfig->setSuccessRate(100);

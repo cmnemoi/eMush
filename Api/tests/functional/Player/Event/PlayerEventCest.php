@@ -25,7 +25,6 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Triumph\ConfigData\TriumphConfigData;
@@ -39,7 +38,6 @@ final class PlayerEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -47,7 +45,6 @@ final class PlayerEventCest extends AbstractFunctionalTest
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testDispatchPlayerDeath(FunctionalTester $I): void

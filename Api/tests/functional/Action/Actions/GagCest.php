@@ -14,7 +14,6 @@ use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -27,7 +26,7 @@ final class GagCest extends AbstractFunctionalTest
     private Gag $gag;
     private DeleteEquipmentServiceInterface $deleteEquipmentService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I): void
@@ -37,7 +36,7 @@ final class GagCest extends AbstractFunctionalTest
         $this->gag = $I->grabService(Gag::class);
         $this->deleteEquipmentService = $I->grabService(DeleteEquipmentServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->givenPlayerHasDuctTape();

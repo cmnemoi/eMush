@@ -13,7 +13,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -25,7 +24,7 @@ final class ShootChickenCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private ShootEquipment $shootChicken;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private GameItem $chicken;
     private GameItem $blaster;
 
@@ -36,7 +35,6 @@ final class ShootChickenCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SHOOT_EQUIPMENT->value]);
         $this->shootChicken = $I->grabService(ShootEquipment::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenChickenIsInRoom();
         $this->givenPlayerHasBlaster();

@@ -1773,7 +1773,7 @@ class EquipmentConfigData
                 'hide',
                 'examine',
             ],
-            'mechanics' => ['treasure_hunt_tablet_document_default'],
+            'mechanics' => ['gear_treasure_hunt_tablet_default', 'treasure_hunt_tablet_document_default'],
             'initStatuses' => [
                 'alien_artefact_default',
             ],
@@ -1792,7 +1792,7 @@ class EquipmentConfigData
                 'hide',
                 'examine',
             ],
-            'mechanics' => [],
+            'mechanics' => ['gear_treasure_hunt_device_default'],
             'initStatuses' => [
                 'alien_artefact_default',
             ],
@@ -2777,6 +2777,7 @@ class EquipmentConfigData
                 ActionEnum::REINFORCE->value,
                 'report_equipment',
                 'examine',
+                ActionEnum::UPGRADE_REACTOR->value,
             ],
             'mechanics' => [],
             'initStatuses' => [],

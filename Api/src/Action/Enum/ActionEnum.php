@@ -236,6 +236,7 @@ enum ActionEnum: string
 
     // summer event actions
     case TRAVEL_TO_EVENT_PLANET = 'travel_to_event_planet';
+    case UPGRADE_REACTOR = 'upgrade_reactor';
 
     public function toString(): string
     {

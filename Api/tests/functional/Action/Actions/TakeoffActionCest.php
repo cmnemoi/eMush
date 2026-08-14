@@ -36,7 +36,6 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -53,7 +52,6 @@ final class TakeoffActionCest extends AbstractFunctionalTest
     private ChargeStatus $pasiphaeArmor;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private Player $terrence;
 
@@ -62,7 +60,6 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->terrence = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::TERRENCE);
 

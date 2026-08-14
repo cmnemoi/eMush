@@ -25,7 +25,6 @@ use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -38,7 +37,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
+
     private RoomLogRepository $roomLogRepository;
 
     public function _before(FunctionalTester $I): void
@@ -49,7 +48,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->roomLogRepository = $I->grabService(RoomLogRepository::class);
     }
 

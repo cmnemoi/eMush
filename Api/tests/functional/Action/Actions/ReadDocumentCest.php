@@ -18,7 +18,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -30,8 +29,6 @@ final class ReadDocumentCest extends AbstractFunctionalTest
     private ActionConfig $readDocumentActionConfig;
     private ReadDocument $readDocumentAction;
 
-    private StatusServiceInterface $statusService;
-
     private Place $room;
     private GameItem $postIt;
     private ContentStatus $contentStatus;
@@ -39,7 +36,6 @@ final class ReadDocumentCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->readDocumentActionConfig = $I->grabEntityFromRepository(ActionConfig::class, [
             'actionName' => ActionEnum::READ_DOCUMENT,

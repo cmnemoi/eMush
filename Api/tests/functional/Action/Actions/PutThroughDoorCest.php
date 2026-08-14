@@ -19,7 +19,6 @@ use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -32,7 +31,6 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private PutThroughDoor $putThroughDoor;
     private AddSkillToPlayerService $addSkillToPlayer;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -41,7 +39,6 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::PUT_THROUGH_DOOR]);
         $this->putThroughDoor = $I->grabService(PutThroughDoor::class);
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenThereIsADoorToFrontCorridorInChunRoom($I);
         $this->givenChunIsSolid($I);

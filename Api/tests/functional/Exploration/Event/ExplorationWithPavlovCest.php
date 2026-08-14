@@ -17,7 +17,6 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
@@ -25,7 +24,6 @@ final class ExplorationWithPavlovCest extends AbstractExplorationTester
 {
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private Npc $pavlov;
 
@@ -35,7 +33,6 @@ final class ExplorationWithPavlovCest extends AbstractExplorationTester
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testPavlovJoinsExpedition(FunctionalTester $I): void

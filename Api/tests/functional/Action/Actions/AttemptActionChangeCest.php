@@ -16,7 +16,6 @@ use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -33,14 +32,12 @@ final class AttemptActionChangeCest extends AbstractFunctionalTest
     private GameEquipment $gameEquipment;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->repairAction = $I->grabService(Repair::class);
         $this->disassembleAction = $I->grabService(Disassemble::class);

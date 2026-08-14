@@ -28,7 +28,6 @@ use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -45,7 +44,6 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
-    private StatusServiceInterface $statusService;
 
     private Player $source;
     private Player $target;
@@ -61,7 +59,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->source = $this->player;
         $this->target = $this->player2;
         $this->oldMushUser = $this->source->getUser();

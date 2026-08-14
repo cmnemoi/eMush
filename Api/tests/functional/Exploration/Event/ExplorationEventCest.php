@@ -18,7 +18,6 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
@@ -26,7 +25,6 @@ final class ExplorationEventCest extends AbstractExplorationTester
 {
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -34,7 +32,6 @@ final class ExplorationEventCest extends AbstractExplorationTester
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testExplorationCyclesAreIncrementedOnNewCycles(FunctionalTester $I): void

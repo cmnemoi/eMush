@@ -7,7 +7,6 @@ namespace Mush\tests\functional\Skill;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -16,13 +15,9 @@ use Mush\Tests\FunctionalTester;
  */
 final class OcdCest extends AbstractFunctionalTest
 {
-    private StatusServiceInterface $statusService;
-
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::OCD, $I);
     }

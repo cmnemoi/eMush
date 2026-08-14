@@ -28,7 +28,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -41,7 +40,7 @@ final class ScanCest extends AbstractFunctionalTest
     private ActionConfig $scanActionConfig;
     private Scan $scanAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private Place $bridge;
     private GameEquipment $astroTerminal;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
@@ -55,7 +54,6 @@ final class ScanCest extends AbstractFunctionalTest
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->scanActionConfig->setSuccessRate(100);
 

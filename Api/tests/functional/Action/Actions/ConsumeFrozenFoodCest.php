@@ -19,7 +19,6 @@ use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -29,7 +28,7 @@ use Mush\Tests\FunctionalTester;
 final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
 {
     private Consume $consumeAction;
-    private StatusServiceInterface $statusService;
+
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private ActionConfig $action;
 
@@ -43,7 +42,7 @@ final class ConsumeFrozenFoodCest extends AbstractFunctionalTest
         $I->refreshEntities($this->action);
 
         $this->consumeAction = $I->grabService(Consume::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
     }
 

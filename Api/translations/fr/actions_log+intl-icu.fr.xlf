@@ -1510,5 +1510,11 @@
         <target>**{character}** s'installe devant le tableau de commande. {character_gender, select, male {Il} female {Elle} other {Iel}} tourne le vaisseau en direction des mystérieuses coordonnées, désactive toutes les alertes de NERON et, enfin, engage la procédure de voyage. Le vaisseau vibre alors qu'il commence à traverser la treizième dimension. L'équipage se dirige-t-il vers la gloire ou vers une mort certaine ?</target>
       </segment>
     </unit>
+    <unit id="upgrade_reactor_success">
+      <segment id="upgrade_reactor_success" state="translated">
+        <source>upgrade_reactor_success</source>
+        <target>**{character}** s'acharne sur ce pauvre réacteur jusqu'à ce que des étincelles en sortent régulièrement. Un moteur capable de transporter le Daedalus à travers la treizième dimension est une chose aussi impressionnante que dangereuse. Il vaudrait mieux garder l'œil sur les extincteurs...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

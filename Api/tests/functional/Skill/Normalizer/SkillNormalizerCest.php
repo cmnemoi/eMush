@@ -8,7 +8,6 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Normalizer\SkillNormalizer;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -18,13 +17,11 @@ use Mush\Tests\FunctionalTester;
 final class SkillNormalizerCest extends AbstractFunctionalTest
 {
     private SkillNormalizer $skillNormalizer;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->skillNormalizer = $I->grabService(SkillNormalizer::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // needed so that the character is gendered male
         $this->player->getCharacterConfig()->setCharacterName(CharacterEnum::CHAO);

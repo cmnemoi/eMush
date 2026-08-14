@@ -20,7 +20,6 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -32,7 +31,7 @@ final class AlertNormalizerCest extends AbstractFunctionalTest
     private AlertNormalizer $alertNormalizer;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private CreateHunterService $createHunter;
 
     private Place $laboratory;
@@ -44,7 +43,7 @@ final class AlertNormalizerCest extends AbstractFunctionalTest
         $this->alertNormalizer = $I->grabService(AlertNormalizer::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->createHunter = $I->grabService(CreateHunterService::class);
 
         $this->laboratory = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);

@@ -18,7 +18,6 @@ use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -31,7 +30,6 @@ final class DisorderCest extends AbstractFunctionalTest
     private ChooseSkillUseCase $chooseSkillUseCase;
     private EventServiceInterface $eventService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -40,7 +38,6 @@ final class DisorderCest extends AbstractFunctionalTest
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given Chun and KT has the shrink skill available
         $this->chun->setAvailableHumanSkills(

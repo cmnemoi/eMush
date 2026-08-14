@@ -15,7 +15,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -28,7 +27,7 @@ final class MixRationSporeCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private MixRationSpore $mixRationSpore;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private GameItem $ration;
 
     public function _before(FunctionalTester $I): void
@@ -38,7 +37,7 @@ final class MixRationSporeCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::MIX_RATION_SPORE]);
         $this->mixRationSpore = $I->grabService(MixRationSpore::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->ration = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: GameRationEnum::STANDARD_RATION,
             equipmentHolder: $this->kuanTi,

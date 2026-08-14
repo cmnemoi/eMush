@@ -24,7 +24,6 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -39,7 +38,6 @@ final class ChitchatCest extends AbstractFunctionalTest
     private Chitchat $chitchat;
     private Player $andie;
     private PlayerDiseaseServiceInterface $diseaseService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -50,7 +48,6 @@ final class ChitchatCest extends AbstractFunctionalTest
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->andie = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ANDIE);
         $this->diseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::CONFIDENT, $I, $this->andie);
     }

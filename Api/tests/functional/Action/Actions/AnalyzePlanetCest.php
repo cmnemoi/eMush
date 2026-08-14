@@ -28,7 +28,6 @@ use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -42,7 +41,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private NeronServiceInterface $neronService;
     private PlanetServiceInterface $planetService;
-    private StatusServiceInterface $statusService;
+
     private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipment $astroTerminal;
     private Place $bridge;
@@ -56,7 +55,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->planetService = $I->grabService(PlanetServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);

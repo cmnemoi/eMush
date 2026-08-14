@@ -25,7 +25,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -39,7 +38,6 @@ final class CookActionCest extends AbstractFunctionalTest
     private Cook $cookAction;
     private AddSkillToPlayerService $addSkillToPlayer;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private GameEquipment $kitchen;
     private GameItem $ration;
@@ -51,7 +49,6 @@ final class CookActionCest extends AbstractFunctionalTest
         $this->cookAction = $I->grabService(Cook::class);
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenAKitchenInRoom();
         $this->givenARationInRoom();

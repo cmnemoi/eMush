@@ -21,7 +21,6 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -33,7 +32,7 @@ final class PlayWithDogFakeCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private PlayWithDogFake $playWithDog;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private EventServiceInterface $eventService;
     private GameItem $pavlov;
 
@@ -44,7 +43,7 @@ final class PlayWithDogFakeCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::PLAY_WITH_DOG->value]);
         $this->playWithDog = $I->grabService(PlayWithDogFake::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->eventService = $I->grabService(EventServiceInterface::class);
 
         $this->pavlov = $this->gameEquipmentService->createGameEquipmentFromName(

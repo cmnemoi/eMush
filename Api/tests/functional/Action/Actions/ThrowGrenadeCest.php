@@ -29,7 +29,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -41,7 +40,6 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private ThrowGrenade $throwGrenade;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private GameItem $grenade;
 
@@ -53,7 +51,6 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         $this->throwGrenade = $I->grabService(ThrowGrenade::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenAGrenadeHeldBy($this->chun);
         $this->givenNeronIsNotInhibited();

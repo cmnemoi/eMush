@@ -18,7 +18,6 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -32,7 +31,7 @@ final class ConvertCatCest extends AbstractFunctionalTest
     private ConvertPet $convertCat;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private GameItem $schrodinger;
 
     public function _before(FunctionalTester $I): void
@@ -42,7 +41,6 @@ final class ConvertCatCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::CONVERT_CAT->value]);
         $this->convertCat = $I->grabService(ConvertPet::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenPlayerHasCatInInventory($I);
     }

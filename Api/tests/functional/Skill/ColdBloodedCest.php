@@ -12,7 +12,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -23,14 +22,12 @@ use Mush\Tests\RoomLogDto;
 final class ColdBloodedCest extends AbstractFunctionalTest
 {
     private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::COLD_BLOODED, $I, $this->chun);
     }

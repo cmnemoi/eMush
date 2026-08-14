@@ -14,7 +14,6 @@ use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -27,7 +26,7 @@ final class CalculatorTerminalNormalizerCest extends AbstractFunctionalTest
     private TerminalNormalizer $terminalNormalizer;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private NeronVersionRepositoryInterface $neronVersionRepository;
 
     private GameEquipment $calculator;
@@ -41,7 +40,7 @@ final class CalculatorTerminalNormalizerCest extends AbstractFunctionalTest
         $this->terminalNormalizer = $I->grabService(TerminalNormalizer::class);
         $this->terminalNormalizer->setNormalizer($I->grabService(NormalizerInterface::class));
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
 
         $this->givenCalcualtorInRoom();

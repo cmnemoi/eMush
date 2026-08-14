@@ -16,7 +16,6 @@ use Mush\Hunter\Repository\HunterRepositoryInterface;
 use Mush\Hunter\Service\CreateHunterService;
 use Mush\Hunter\Service\HunterServiceInterface;
 use Mush\Status\Enum\HunterStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -29,7 +28,6 @@ final class HunterNewCycleEventCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private HunterRepositoryInterface $hunterRepository;
     private HunterServiceInterface $hunterService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -38,7 +36,7 @@ final class HunterNewCycleEventCest extends AbstractFunctionalTest
         $this->createHunter = $I->grabService(CreateHunterService::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->hunterService = $I->grabService(HunterServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->hunterRepository = $I->grabService(HunterRepositoryInterface::class);
 
         // avoid false positive when fire tries to reduce hull at cycle change

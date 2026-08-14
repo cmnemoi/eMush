@@ -11,7 +11,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -21,13 +20,11 @@ use Mush\Tests\FunctionalTester;
 final class PlayerDiseaseServiceCest extends AbstractFunctionalTest
 {
     private PlayerDiseaseServiceInterface $playerDiseaseService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testIncubatingDiseaseHealsSilentlyWhenPlayerTurnsOutMush(FunctionalTester $I): void

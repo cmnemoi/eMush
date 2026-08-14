@@ -16,7 +16,6 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -30,7 +29,6 @@ final class WhisperCest extends AbstractFunctionalTest
     private Player $andie;
     private ChannelServiceInterface $channelService;
     private ChannelRepository $channelRepository;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -41,7 +39,6 @@ final class WhisperCest extends AbstractFunctionalTest
         $this->andie = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ANDIE);
         $this->channelService = $I->grabService(ChannelServiceInterface::class);
         $this->channelRepository = $I->grabService(ChannelRepository::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldNotBeVisibleIfTargetIsNotInSameRoom(FunctionalTester $I): void

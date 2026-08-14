@@ -8,7 +8,6 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -18,13 +17,11 @@ use Mush\Tests\FunctionalTester;
 final class SporesCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenPlayerIsMush();
     }

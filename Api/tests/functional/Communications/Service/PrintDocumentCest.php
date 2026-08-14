@@ -34,7 +34,6 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -49,7 +48,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RoomLogServiceInterface $roomLogService;
-    private StatusServiceInterface $statusService;
+
     private TranslationServiceInterface $translationService;
     private XylophRepositoryInterface $xylophRepository;
 
@@ -64,7 +63,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->roomLogService = $I->grabService(RoomLogServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->translationService = $I->grabService(TranslationServiceInterface::class);
         $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
 

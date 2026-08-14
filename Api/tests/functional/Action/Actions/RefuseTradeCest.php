@@ -23,7 +23,6 @@ use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Repository\HunterRepositoryInterface;
 use Mush\Hunter\Service\CreateHunterService;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -38,7 +37,7 @@ final class RefuseTradeCest extends AbstractFunctionalTest
     private CreateHunterService $createHunter;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private HunterRepositoryInterface $hunterRepository;
-    private StatusServiceInterface $statusService;
+
     private TradeRepositoryInterface $tradeRepository;
 
     private GameEquipment $commsCenter;
@@ -55,7 +54,7 @@ final class RefuseTradeCest extends AbstractFunctionalTest
         $this->createHunter = $I->grabService(CreateHunterService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->hunterRepository = $I->grabService(HunterRepositoryInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->tradeRepository = $I->grabService(TradeRepositoryInterface::class);
 
         $this->commsCenter = $this->gameEquipmentService->createGameEquipmentFromName(

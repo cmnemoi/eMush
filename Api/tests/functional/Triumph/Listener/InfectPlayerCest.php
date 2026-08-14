@@ -18,7 +18,6 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Triumph\Enum\TriumphEnum;
@@ -31,7 +30,6 @@ final class InfectPlayerCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
-    private StatusServiceInterface $statusService;
 
     private ActionConfig $actionConfig;
     private Examine $action;
@@ -44,7 +42,6 @@ final class InfectPlayerCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::EXAMINE]);
         $this->action = $this->action = $I->grabService(Examine::class);

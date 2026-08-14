@@ -20,7 +20,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -36,8 +35,6 @@ final class ReportActionCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
-    private StatusServiceInterface $statusService;
-
     private DaedalusIncidentServiceInterface $daedalusIncidentService;
 
     public function _before(FunctionalTester $I): void
@@ -49,8 +46,6 @@ final class ReportActionCest extends AbstractFunctionalTest
 
         $this->reportEquipmentAction = $I->grabService(ReportEquipment::class);
         $this->reportEquipementConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::REPORT_EQUIPMENT]);
-
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 

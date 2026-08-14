@@ -17,7 +17,6 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -31,7 +30,7 @@ final class ExtinguishCest extends AbstractFunctionalTest
     private Extinguish $extinguish;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     private GameItem $extinguisher;
@@ -44,7 +43,7 @@ final class ExtinguishCest extends AbstractFunctionalTest
         $this->derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
         $this->extinguish = $I->grabService(Extinguish::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->extinguisher = $this->gameEquipmentService->createGameEquipmentFromName(

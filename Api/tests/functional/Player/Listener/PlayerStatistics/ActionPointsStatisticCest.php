@@ -28,7 +28,6 @@ use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -39,7 +38,6 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private Move $move;
     private ActionConfig $moveConfig;
@@ -49,7 +47,6 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->move = $I->grabService(Move::class);
         $this->moveConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::MOVE]);

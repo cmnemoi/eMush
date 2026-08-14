@@ -17,7 +17,6 @@ use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -32,7 +31,6 @@ final class SearchActionCest extends AbstractFunctionalTest
     private AddSkillToPlayerService $addSkillToPlayer;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -44,7 +42,6 @@ final class SearchActionCest extends AbstractFunctionalTest
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testSearch(FunctionalTester $I): void

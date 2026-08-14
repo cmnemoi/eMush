@@ -41,19 +41,19 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Service\StatusService;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class RoomEventCest
 {
     private EventServiceInterface $eventService;
-    private StatusServiceInterface $statusService;
+    private StatusService $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->statusService = $I->grabService(StatusService::class);
     }
 
     public function testRoomEventOnNonRoomPlace(FunctionalTester $I): void

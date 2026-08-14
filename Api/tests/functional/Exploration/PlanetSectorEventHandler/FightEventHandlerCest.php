@@ -34,7 +34,6 @@ use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
@@ -42,7 +41,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 {
     private Fight $fightEventHandler;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private Player $derek;
     private Player $janice;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
@@ -56,7 +55,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $this->fightEventHandler = $I->grabService(Fight::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->decodeRebelBase = $I->grabService(DecodeRebelSignalService::class);
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);

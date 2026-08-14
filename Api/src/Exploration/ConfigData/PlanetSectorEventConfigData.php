@@ -335,6 +335,13 @@ final class PlanetSectorEventConfigData
                 name: PlanetSectorEvent::NEW_SECTOR,
                 eventName: PlanetSectorEvent::NEW_SECTOR,
             ),
+            new PlanetSectorEventConfigDto(
+                name: PlanetSectorEvent::SUMMER_EVENT_ARTEFACT_ALIEN_DEVICE,
+                eventName: PlanetSectorEvent::ARTEFACT,
+                outputQuantity: [1 => 1],
+                outputTable: [ItemEnum::TREASURE_HUNT_DEVICE => 1],
+                tags: [PlanetSectorEventTagEnum::POSITIVE],
+            ),
         ];
     }
 }

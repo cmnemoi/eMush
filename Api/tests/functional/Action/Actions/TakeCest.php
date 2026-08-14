@@ -11,7 +11,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -24,7 +23,6 @@ final class TakeCest extends AbstractFunctionalTest
     private Take $take;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private GameEquipment $blockOfPostIt;
 
@@ -36,7 +34,6 @@ final class TakeCest extends AbstractFunctionalTest
         $this->take = $I->grabService(Take::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldRemoveFocusedStatusWhenTakingPostItBlock(FunctionalTester $I): void

@@ -21,7 +21,6 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -34,7 +33,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
     private DoTheThing $doTheThingAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private PlaceServiceInterface $placeService;
 
     private Player $derek;
@@ -47,7 +46,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->doTheThingAction = $I->grabService(DoTheThing::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->placeService = $I->grabService(PlaceServiceInterface::class);
 
         $this->derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);

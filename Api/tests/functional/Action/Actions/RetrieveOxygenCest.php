@@ -12,7 +12,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -25,7 +24,7 @@ final class RetrieveOxygenCest extends AbstractFunctionalTest
     private RetrieveOxygen $retriveOxygen;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private GameEquipment $oxygenTank;
 
     public function _before(FunctionalTester $I): void
@@ -36,7 +35,6 @@ final class RetrieveOxygenCest extends AbstractFunctionalTest
         $this->retriveOxygen = $I->grabService(RetrieveOxygen::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenAnOxygenTankInRomm();
     }

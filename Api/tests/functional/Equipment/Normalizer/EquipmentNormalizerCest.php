@@ -12,7 +12,6 @@ use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Game\Service\TranslationService;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -24,7 +23,6 @@ final class EquipmentNormalizerCest extends AbstractFunctionalTest
 {
     private EquipmentNormalizer $equipmentNormalizer;
     private TranslationServiceInterface $translationService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -33,7 +31,6 @@ final class EquipmentNormalizerCest extends AbstractFunctionalTest
         $this->equipmentNormalizer = $I->grabService(EquipmentNormalizer::class);
         $this->equipmentNormalizer->setNormalizer($I->grabService(NormalizerInterface::class));
         $this->translationService = $I->grabService(TranslationService::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldNormalizeBlueprintAsBlueprint(FunctionalTester $I): void

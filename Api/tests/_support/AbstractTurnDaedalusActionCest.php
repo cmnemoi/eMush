@@ -59,8 +59,6 @@ abstract class AbstractTurnDaedalusActionCest extends AbstractFunctionalTest
             ->setEquipment($rightLateralReactorConfig);
         $I->haveInRepository($this->alphaLateralReactor);
 
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
-
         // given player is focused on the astro terminal
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::FOCUSED,

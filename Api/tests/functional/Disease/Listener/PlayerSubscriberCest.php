@@ -14,7 +14,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -27,7 +26,6 @@ final class PlayerSubscriberCest extends AbstractFunctionalTest
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private PlayerServiceInterface $playerService;
     private RoomLogServiceInterface $roomLogService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -37,7 +35,6 @@ final class PlayerSubscriberCest extends AbstractFunctionalTest
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->roomLogService = $I->grabService(RoomLogServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testDispatchSickPlayerDeath(FunctionalTester $I): void

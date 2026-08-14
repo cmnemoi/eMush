@@ -21,7 +21,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -34,7 +33,6 @@ final class SlimeObjectCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private SlimeObject $slimeObject;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private GameItem $blaster;
     private GameEquipment $camera;
@@ -45,7 +43,6 @@ final class SlimeObjectCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SLIME_OBJECT]);
         $this->slimeObject = $I->grabService(SlimeObject::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->blaster = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::BLASTER,

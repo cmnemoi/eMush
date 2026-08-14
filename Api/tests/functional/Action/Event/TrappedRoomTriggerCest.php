@@ -27,7 +27,6 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -37,7 +36,6 @@ use Mush\Tests\FunctionalTester;
 final class TrappedRoomTriggerCest extends AbstractFunctionalTest
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private ActionConfig $takeActionConfig;
     private ActionConfig $readDocumentActionConfig;
@@ -55,7 +53,6 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
     {
         parent::_before($I);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->takeActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TAKE->toString()]);
         $this->readDocumentActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::READ_DOCUMENT]);

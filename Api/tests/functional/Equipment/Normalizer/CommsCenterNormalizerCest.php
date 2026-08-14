@@ -26,7 +26,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -37,7 +36,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 final class CommsCenterNormalizerCest extends AbstractFunctionalTest
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private NeronVersionRepositoryInterface $neronVersionRepository;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
@@ -53,7 +52,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);

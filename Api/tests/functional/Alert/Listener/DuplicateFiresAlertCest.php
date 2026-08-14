@@ -29,7 +29,6 @@ use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -39,13 +38,11 @@ use Mush\Tests\FunctionalTester;
 final class DuplicateFiresAlertCest extends AbstractFunctionalTest
 {
     private ReportEquipment $reportAction;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->reportAction = $I->grabService(ReportEquipment::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testRemoveFireAndAddItAgain(FunctionalTester $I): void

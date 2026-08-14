@@ -19,7 +19,6 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Triumph\Enum\TriumphEnum;
@@ -34,7 +33,7 @@ final class SabotageCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private GameEquipment $pasiphae;
-    private StatusServiceInterface $statusService;
+
     private GameItem $blaster;
     private GameEquipment $camera;
 
@@ -54,7 +53,6 @@ final class SabotageCest extends AbstractFunctionalTest
             reasons: [],
             time: new \DateTime()
         );
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenPlayerHasABlaster();
     }

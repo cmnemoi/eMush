@@ -22,7 +22,6 @@ use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
@@ -30,7 +29,7 @@ use Mush\Tests\FunctionalTester;
 final class ExplorationSelectionEventCest extends AbstractExplorationTester
 {
     private PlayerDiseaseServiceInterface $playerDiseaseService;
-    private StatusServiceInterface $statusService;
+
     private ModifierCreationServiceInterface $modifierCreationService;
 
     private Exploration $exploration;
@@ -40,7 +39,7 @@ final class ExplorationSelectionEventCest extends AbstractExplorationTester
     {
         parent::_before($I);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->modifierCreationService = $I->grabService(ModifierCreationServiceInterface::class);
 
         // given Chun, Kuan-Ti, and Janice have a spacesuit

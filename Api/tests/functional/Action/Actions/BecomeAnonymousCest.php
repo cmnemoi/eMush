@@ -16,7 +16,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -31,7 +30,6 @@ final class BecomeAnonymousCest extends AbstractFunctionalTest
     private ActionConfig $actionConfigTake;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private GameItem $kubinus;
 
@@ -46,7 +44,6 @@ final class BecomeAnonymousCest extends AbstractFunctionalTest
         $this->actionTake = $I->grabService(Take::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::NINJA, $I, $this->player);
         $this->kubinus = $this->gameEquipmentService->createGameEquipmentFromName(GameFruitEnum::KUBINUS, $this->player->getPlace(), [], new \DateTime());

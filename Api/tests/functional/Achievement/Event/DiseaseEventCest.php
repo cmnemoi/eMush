@@ -25,7 +25,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -45,7 +44,6 @@ final class DiseaseEventCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -62,7 +60,6 @@ final class DiseaseEventCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->daedalus->getGameConfig()->getDifficultyConfig()->setCycleDiseaseRate(0);
     }

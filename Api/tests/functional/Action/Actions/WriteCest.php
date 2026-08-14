@@ -13,7 +13,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -25,14 +24,11 @@ final class WriteCest extends AbstractFunctionalTest
     private ActionConfig $writeActionConfig;
     private Write $writeAction;
 
-    private StatusServiceInterface $statusService;
-
     private GameItem $blockOfPostIt;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->writeActionConfig = $I->grabEntityFromRepository(ActionConfig::class, [
             'actionName' => ActionEnum::WRITE,

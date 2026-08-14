@@ -12,7 +12,6 @@ use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
@@ -22,7 +21,6 @@ final class UseBandageCest extends AbstractExplorationTester
     private UseBandage $useBandage;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private GameItem $bandage;
 
@@ -33,7 +31,6 @@ final class UseBandageCest extends AbstractExplorationTester
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::USE_BANDAGE]);
         $this->useBandage = $I->grabService(UseBandage::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenChunHasBandage();
     }

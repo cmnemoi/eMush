@@ -26,7 +26,6 @@ use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Triumph\Enum\TriumphEnum;
@@ -44,7 +43,7 @@ final class RepairActionCest extends AbstractFunctionalTest
 
     private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
 
     public function _before(FunctionalTester $I): void
@@ -59,7 +58,7 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
 
         $this->repairActionConfig->setSuccessRate(100);

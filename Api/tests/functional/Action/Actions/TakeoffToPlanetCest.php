@@ -37,7 +37,6 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -51,7 +50,6 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
 
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private GameEquipment $icarus;
     private Planet $planet;
@@ -65,7 +63,6 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given there is Icarus Bay on this Daedalus
         $icarusBay = $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);

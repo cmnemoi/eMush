@@ -2188,6 +2188,22 @@ class MechanicsData
                 ModifierNameEnum::BABEL_DOUBLE_ARTEFACT,
             ],
         ],
+        [
+            'name' => 'gear_treasure_hunt_tablet_default',
+            'type' => 'gear',
+            'actions' => [],
+            'modifierConfigs' => [
+                ModifierNameEnum::SUMMER_EVENT_ARTEFACT_ALIEN_DEVICE_GET,
+            ],
+        ],
+        [
+            'name' => 'gear_treasure_hunt_device_default',
+            'type' => 'gear',
+            'actions' => [],
+            'modifierConfigs' => [
+                ModifierNameEnum::SUMMER_EVENT_ARTEFACT_ALIEN_DEVICE_CANCEL,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

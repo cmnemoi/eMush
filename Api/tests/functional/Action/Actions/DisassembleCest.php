@@ -18,7 +18,6 @@ use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
-use Mush\Status\Service\StatusService;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -32,7 +31,6 @@ final class DisassembleCest extends AbstractFunctionalTest
 
     private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusService $statusService;
 
     private GameItem $blaster;
 
@@ -45,7 +43,6 @@ final class DisassembleCest extends AbstractFunctionalTest
 
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusService::class);
     }
 
     public function shouldNotBeVisibleIfPlayerIsNotATechnician(FunctionalTester $I): void

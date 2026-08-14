@@ -31,7 +31,6 @@ use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -44,7 +43,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private NeronVersionRepositoryInterface $neronVersionRepository;
-    private StatusServiceInterface $statusService;
+
     private RebelBaseRepositoryInterface $rebelBaseRepository;
     private XylophRepositoryInterface $xylophRepository;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
@@ -61,7 +60,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);

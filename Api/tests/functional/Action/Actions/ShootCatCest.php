@@ -25,7 +25,6 @@ use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -39,7 +38,7 @@ final class ShootCatCest extends AbstractFunctionalTest
     private ShootEquipment $shootCat;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private GameItem $schrodinger;
     private GameItem $blaster;
 
@@ -51,7 +50,6 @@ final class ShootCatCest extends AbstractFunctionalTest
         $this->shootCat = $I->grabService(ShootEquipment::class);
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenCatIsInShelf();
         $this->givenPlayerHasBlaster($I);

@@ -29,7 +29,6 @@ use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -43,7 +42,7 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
     private DecodeXylophDatabaseServiceInterface $decodeXylophDatabaseService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private NeronServiceInterface $neronService;
-    private StatusServiceInterface $statusService;
+
     private XylophRepositoryInterface $xylophRepository;
     private GameEquipment $terminal;
 
@@ -56,7 +55,7 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         $this->decodeXylophDatabaseService = $I->grabService(DecodeXylophDatabaseServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->neronService = $I->grabService(NeronServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
         $this->actionConfig->setDirtyRate(0);
         $this->createExtraPlace(RoomEnum::NEXUS, $I, $this->daedalus);

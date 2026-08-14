@@ -17,7 +17,6 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -29,7 +28,7 @@ final class CheckRosterCest extends AbstractFunctionalTest
     private ActionConfig $checkRosterActionConfig;
     private CheckRoster $checkRoster;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private Place $laboratory;
     private GameEquipment $cryoModule;
     private Player $janice;
@@ -43,7 +42,6 @@ final class CheckRosterCest extends AbstractFunctionalTest
         $this->checkRoster = $I->grabService(CheckRoster::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->laboratory = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
         $this->cryoModule = $this->givenACryoModuleInLaboratory();

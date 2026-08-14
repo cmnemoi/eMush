@@ -14,7 +14,6 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\PlayerNotification;
 use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -23,7 +22,6 @@ use Mush\Tests\FunctionalTester;
  */
 final class StatusAppliedCest extends AbstractFunctionalTest
 {
-    private StatusServiceInterface $statusService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private EventServiceInterface $eventService;
 
@@ -31,7 +29,6 @@ final class StatusAppliedCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }

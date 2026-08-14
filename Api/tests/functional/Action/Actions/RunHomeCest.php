@@ -15,7 +15,6 @@ use Mush\Player\Entity\PlayerNotification;
 use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusService;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
@@ -25,7 +24,6 @@ final class RunHomeCest extends AbstractExplorationTester
     private RunHome $runHome;
 
     private Exploration $exploration;
-    private StatusService $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -33,7 +31,6 @@ final class RunHomeCest extends AbstractExplorationTester
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::RUN_HOME]);
         $this->runHome = $I->grabService(RunHome::class);
-        $this->statusService = $I->grabService(StatusService::class);
 
         $this->addSkillToPlayer(SkillEnum::U_TURN, $I);
     }

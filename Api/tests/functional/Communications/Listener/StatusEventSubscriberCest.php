@@ -8,7 +8,6 @@ use Mush\Communications\Entity\Trade;
 use Mush\Communications\Enum\TradeEnum;
 use Mush\Communications\Repository\TradeRepositoryInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -17,14 +16,12 @@ use Mush\Tests\FunctionalTester;
  */
 final class StatusEventSubscriberCest extends AbstractFunctionalTest
 {
-    private StatusServiceInterface $statusService;
     private TradeRepositoryInterface $tradeRepository;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->tradeRepository = $I->grabService(TradeRepositoryInterface::class);
     }
 

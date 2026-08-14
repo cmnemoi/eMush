@@ -3723,6 +3723,39 @@ abstract class ModifierConfigData
                 eventToAdd: null,
                 weight: null
             ),
+            new ExplorationEventModifierConfigDto(
+                key: ModifierNameEnum::SUMMER_EVENT_ARTEFACT_ALIEN_DEVICE_GET,
+                name: ModifierNameEnum::SUMMER_EVENT_ARTEFACT_ALIEN_DEVICE_GET,
+                strategy: ModifierStrategyEnum::EXPLORATION_SECTOR_SELECTION_MODIFIER,
+                modifierRange: ModifierHolderClassEnum::DAEDALUS,
+                modifierActivationRequirements: [],
+                targetEvent: ExplorationSelectionEvent::SECTOR_SELECTION,
+                priority: ModifierPriorityEnum::BEFORE_EXPLORATION_DIPLOMAT,
+                tagConstraints: [
+                    PlanetSectorEnum::RUINS => ModifierRequirementEnum::ANY_TAGS,
+                    PlanetSectorEnum::WRECK => ModifierRequirementEnum::ANY_TAGS,
+                ],
+                action: ExplorationEventModifierConfig::ADD,
+                criteria: ExplorationEventModifierConfig::EVENT_NAME,
+                eventToRemove: null,
+                eventToAdd: PlanetSectorEvent::SUMMER_EVENT_ARTEFACT_ALIEN_DEVICE,
+                weight: 1000
+            ),
+            new ExplorationEventModifierConfigDto(
+                key: ModifierNameEnum::SUMMER_EVENT_ARTEFACT_ALIEN_DEVICE_CANCEL,
+                name: ModifierNameEnum::SUMMER_EVENT_ARTEFACT_ALIEN_DEVICE_CANCEL,
+                strategy: ModifierStrategyEnum::EXPLORATION_SECTOR_SELECTION_MODIFIER,
+                modifierRange: ModifierHolderClassEnum::DAEDALUS,
+                modifierActivationRequirements: [],
+                targetEvent: ExplorationSelectionEvent::SECTOR_SELECTION,
+                priority: ModifierPriorityEnum::EXPLORATION_DIPLOMAT,
+                tagConstraints: [],
+                action: ExplorationEventModifierConfig::REMOVE,
+                criteria: ExplorationEventModifierConfig::NAME,
+                eventToRemove: PlanetSectorEvent::SUMMER_EVENT_ARTEFACT_ALIEN_DEVICE,
+                eventToAdd: null,
+                weight: null
+            ),
         ];
     }
 

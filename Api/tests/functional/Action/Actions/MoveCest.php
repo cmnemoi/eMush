@@ -26,7 +26,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -41,7 +40,7 @@ final class MoveCest extends AbstractFunctionalTest
 
     private ChannelServiceInterface $channelService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
+
     private AddSkillToPlayerService $addSkillToPlayer;
 
     public function _before(FunctionalTester $I): void
@@ -63,7 +62,7 @@ final class MoveCest extends AbstractFunctionalTest
 
         $this->channelService = $I->grabService(ChannelServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
     }
 

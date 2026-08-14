@@ -33,7 +33,6 @@ use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -50,7 +49,7 @@ final class AcceptTradeCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private HunterRepositoryInterface $hunterRepository;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
-    private StatusServiceInterface $statusService;
+
     private TradeRepositoryInterface $tradeRepository;
 
     private GameEquipment $commsCenter;
@@ -66,7 +65,7 @@ final class AcceptTradeCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->hunterRepository = $I->grabService(HunterRepositoryInterface::class);
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->tradeRepository = $I->grabService(TradeRepositoryInterface::class);
 
         $this->commsCenter = $this->gameEquipmentService->createGameEquipmentFromName(

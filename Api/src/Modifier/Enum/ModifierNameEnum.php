@@ -178,4 +178,6 @@ abstract class ModifierNameEnum
     public const string DIPLOMAT_REPLACE_FIGHT = 'diplomat_replace_fight';
     public const string WHITEFLAG_REPLACE_FIGHT = 'whiteflag_replace_fight';
     public const string GUARDIAN_MINUS_1AP_COST = 'guardian_minus_1ap_cost';
+    public const string SUMMER_EVENT_ARTEFACT_ALIEN_DEVICE_GET = 'summer_event_artefact_alien_device_get';
+    public const string SUMMER_EVENT_ARTEFACT_ALIEN_DEVICE_CANCEL = 'summer_event_artefact_alien_device_cancel';
 }

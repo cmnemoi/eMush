@@ -19,7 +19,6 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -32,7 +31,6 @@ final class LandTaskCest extends AbstractFunctionalTest
     private LandTask $task;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private Drone $drone;
     private GameEquipment $patrolShip;
@@ -44,7 +42,6 @@ final class LandTaskCest extends AbstractFunctionalTest
         $this->task = $I->grabService(LandTask::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->createExtraPlace(RoomEnum::ALPHA_BAY, $I, $this->daedalus);
         $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);

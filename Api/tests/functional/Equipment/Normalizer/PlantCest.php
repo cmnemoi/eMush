@@ -15,7 +15,6 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -30,7 +29,6 @@ final class PlantCest extends AbstractFunctionalTest
 
     private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -39,7 +37,7 @@ final class PlantCest extends AbstractFunctionalTest
         $this->equipmentNormalizer = $I->grabService(EquipmentNormalizer::class);
         $this->equipmentNormalizer->setNormalizer($I->grabService(NormalizerInterface::class));
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
         $this->bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(

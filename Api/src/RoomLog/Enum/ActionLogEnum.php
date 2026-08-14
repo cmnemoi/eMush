@@ -194,6 +194,7 @@ abstract class ActionLogEnum
     public const string SABOTAGE_EXPLORATION_SUCCESS = 'sabotage_exploration_success';
     public const string USE_MYCOSCAN = 'use_mycoscan';
     public const string TRAVEL_TO_EVENT_PLANET_SUCCESS = 'travel_to_event_planet_success';
+    public const string UPGRADE_REACTOR_SUCCESS = 'upgrade_reactor_success';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -683,6 +684,9 @@ abstract class ActionLogEnum
             ActionOutputEnum::SUCCESS => self::TRAVEL_TO_EVENT_PLANET_SUCCESS,
             ActionOutputEnum::FAIL => self::ADVANCE_DAEDALUS_FAIL,
             ActionOutputEnum::ARACK_PREVENTS_TRAVEL => self::ADVANCE_DAEDALUS_ARACK_PREVENTS_TRAVEL,
+        ],
+        ActionEnum::UPGRADE_REACTOR->value => [
+            ActionOutputEnum::SUCCESS => self::UPGRADE_REACTOR_SUCCESS,
         ],
     ];
 

@@ -19,7 +19,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -34,7 +33,6 @@ final class TrapClosetCest extends AbstractFunctionalTest
 
     private AddSkillToPlayerService $addSkillToPlayer;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -43,7 +41,6 @@ final class TrapClosetCest extends AbstractFunctionalTest
         $this->trapClosetAction = $I->grabService(TrapCloset::class);
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given KT is Mush so he has the action available
         $this->statusService->createStatusFromName(

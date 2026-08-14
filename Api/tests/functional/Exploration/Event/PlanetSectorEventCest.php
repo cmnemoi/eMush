@@ -40,7 +40,6 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 use Mush\Triumph\Enum\TriumphEnum;
@@ -49,7 +48,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
-    private StatusServiceInterface $statusService;
+
     private Player $derek;
     private Player $janice;
 
@@ -58,7 +57,6 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         parent::_before($I);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given our explorators are Chun, Kuan-Ti, Derek, and Janice
         $this->chun = $this->player;
@@ -1959,6 +1957,63 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // then I should see 1 unrevealed sector on the planet
         $I->assertEquals(1, $exploration->getPlanet()->getUnrevealedSectors()->count());
+    }
+
+    public function testTreasureHuntTabletModifier(FunctionalTester $I): void
+    {
+        $this->createEquipment(ItemEnum::TREASURE_HUNT_TABLET, $this->chun->getPlace());
+
+        // given an exploration is created without Janice
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::RUINS], $I),
+            explorators: new ArrayCollection([$this->chun, $this->kuanTi, $this->derek])
+        );
+
+        // given only accident event and nothing to report can happen in lost sector
+        $lostSectorConfig = $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::RUINS,
+            events: [PlanetSectorEvent::ACCIDENT_3_5 => 1, 'nothing_to_report' => 1]
+        );
+
+        // when kill lost event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then the kill lost event is not dispatched
+        $I->seeInRepository(
+            entity: ExplorationLog::class,
+            params: [
+                'eventName' => PlanetSectorEvent::ARTEFACT,
+            ]
+        );
+    }
+
+    public function testTreasureHuntAlienDeviceModifier(FunctionalTester $I): void
+    {
+        $this->createEquipment(ItemEnum::TREASURE_HUNT_TABLET, $this->chun->getPlace());
+        $this->createEquipment(ItemEnum::TREASURE_HUNT_DEVICE, $this->chun->getPlace());
+
+        // given an exploration is created without Janice
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::RUINS], $I),
+            explorators: new ArrayCollection([$this->chun, $this->kuanTi, $this->derek])
+        );
+
+        // given only accident event and nothing to report can happen in lost sector
+        $lostSectorConfig = $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::RUINS,
+            events: [PlanetSectorEvent::ACCIDENT_3_5 => 1, 'nothing_to_report' => 1]
+        );
+
+        // when kill lost event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then the kill lost event is not dispatched
+        $I->dontSeeInRepository(
+            entity: ExplorationLog::class,
+            params: [
+                'eventName' => PlanetSectorEvent::ARTEFACT,
+            ]
+        );
     }
 
     private function givenChunIsASurvivalist(FunctionalTester $I): void

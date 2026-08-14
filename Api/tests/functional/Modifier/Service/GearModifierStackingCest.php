@@ -13,7 +13,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -31,7 +30,6 @@ final class GearModifierStackingCest extends AbstractFunctionalTest
     private ActionConfig $takeActionConfig;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private GameItem $scooter;
 
@@ -50,7 +48,6 @@ final class GearModifierStackingCest extends AbstractFunctionalTest
         $this->repairActionConfig->setSuccessRate(100);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldFixedGearRetainModifierAmount(FunctionalTester $I): void

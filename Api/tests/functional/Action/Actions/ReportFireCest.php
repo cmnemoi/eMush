@@ -17,7 +17,6 @@ use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Chat\Services\NeronMessageServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\StatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -29,7 +28,6 @@ final class ReportFireCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private ReportFire $reportFire;
 
-    private StatusServiceInterface $statusService;
     private PendingStatisticRepositoryInterface $pendingStatisticRepository;
     private NeronMessageServiceInterface $neronMessageService;
 
@@ -41,7 +39,7 @@ final class ReportFireCest extends AbstractFunctionalTest
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::REPORT_FIRE]);
         $this->reportFire = $I->grabService(ReportFire::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->pendingStatisticRepository = $I->grabService(PendingStatisticRepositoryInterface::class);
         $this->neronMessageService = $I->grabService(NeronMessageServiceInterface::class);
     }

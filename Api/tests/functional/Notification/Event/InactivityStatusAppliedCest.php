@@ -9,7 +9,6 @@ use Codeception\Example;
 use Mush\Notification\Entity\Subscription;
 use Mush\Notification\Repository\SubscriptionRepositoryInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\unit\TestDoubles\Service\FakeWebPushService;
@@ -20,14 +19,13 @@ use WebPush\WebPushService;
  */
 final class InactivityStatusAppliedCest extends AbstractFunctionalTest
 {
-    private StatusServiceInterface $statusService;
     private SubscriptionRepositoryInterface $subscriptionRepository;
     private FakeWebPushService $webPush;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->subscriptionRepository = $I->grabService(SubscriptionRepositoryInterface::class);
         $this->webPush = $I->grabService(WebPushService::class);
     }

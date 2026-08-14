@@ -14,7 +14,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusService;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
@@ -23,7 +22,6 @@ final class SabotageExplorationCest extends AbstractExplorationTester
     private ActionConfig $actionConfig;
     private SabotageExploration $sabotageExploration;
     private Exploration $exploration;
-    private StatusService $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -31,7 +29,6 @@ final class SabotageExplorationCest extends AbstractExplorationTester
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SABOTAGE_EXPLORATION]);
         $this->sabotageExploration = $I->grabService(SabotageExploration::class);
-        $this->statusService = $I->grabService(StatusService::class);
 
         $this->convertPlayerToMush($I, $this->kuanTi);
         $this->addSkillToPlayer(SkillEnum::TRAITOR, $I, $this->kuanTi);

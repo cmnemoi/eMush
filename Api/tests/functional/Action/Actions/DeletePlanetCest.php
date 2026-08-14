@@ -20,7 +20,6 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -34,7 +33,6 @@ final class DeletePlanetCest extends AbstractFunctionalTest
     private Planet $planet;
     private GameEquipment $astroTerminal;
     private PlanetServiceInterface $planetService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -42,7 +40,6 @@ final class DeletePlanetCest extends AbstractFunctionalTest
         $this->deletePlanetConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DELETE_PLANET]);
         $this->deletePlanetAction = $I->grabService(DeletePlanet::class);
         $this->planetService = $I->grabService(PlanetServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given there is an astro terminal in player room
         $astroTerminalConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::ASTRO_TERMINAL]);

@@ -25,7 +25,6 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -37,7 +36,6 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
     private AutoEject $autoEjectAction;
     private ActionConfig $actionConfig;
     private GameEquipment $pasiphae;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -54,7 +52,7 @@ final class AutoEjectActionCest extends AbstractFunctionalTest
         $this->player1->changePlace($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
 
         // given player is Mush
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::MUSH,
             $this->player1,

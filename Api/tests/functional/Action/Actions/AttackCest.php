@@ -19,7 +19,6 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -32,7 +31,6 @@ final class AttackCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private Attack $attack;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private GameItem $knife;
 
@@ -43,7 +41,6 @@ final class AttackCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::ATTACK]);
         $this->attack = $I->grabService(Attack::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenChunHasAKnife();
         $this->knife->getWeaponMechanicOrThrow()->setBaseAccuracy(100);

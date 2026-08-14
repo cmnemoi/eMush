@@ -12,7 +12,6 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -22,7 +21,6 @@ use Mush\Tests\FunctionalTester;
 final class StatusRemovedEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
-    private StatusServiceInterface $statusService;
 
     private Player $mushPlayer;
     private Status $mushStatus;
@@ -32,7 +30,6 @@ final class StatusRemovedEventCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->mushPlayer = $this->player;
 

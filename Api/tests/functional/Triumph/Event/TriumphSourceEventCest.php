@@ -30,7 +30,6 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 use Mush\Triumph\Enum\TriumphEnum;
@@ -46,7 +45,7 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
     private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
-    private StatusServiceInterface $statusService;
+
     private XylophRepositoryInterface $xylophRepository;
 
     public function _before(FunctionalTester $I): void
@@ -56,7 +55,6 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
         $this->daedalusService = $I->grabService(DaedalusServiceInterface::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->decodeRebelBase = $I->grabService(DecodeRebelSignalService::class);

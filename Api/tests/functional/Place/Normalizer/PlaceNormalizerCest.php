@@ -17,7 +17,6 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Normalizer\PlaceNormalizer;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -31,7 +30,6 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
     private NormalizerInterface $normalizer;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     private array $normalizedPlace;
     private GameItem $postIt;
@@ -55,7 +53,7 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
 
         $this->placeNormalizer = $I->grabService(PlaceNormalizer::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
         $this->normalizer = $I->grabService(NormalizerInterface::class);
 
         $this->dropConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::DROP]);

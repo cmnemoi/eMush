@@ -7,7 +7,6 @@ namespace Mush\tests\functional\Status\Normalizer;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Normalizer\StatusNormalizer;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -18,13 +17,10 @@ final class StatusNormalizerCest extends AbstractFunctionalTest
 {
     private StatusNormalizer $statusNormalizer;
 
-    private StatusServiceInterface $statusService;
-
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
         $this->statusNormalizer = $I->grabService(StatusNormalizer::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldNormalizeStatus(FunctionalTester $I): void

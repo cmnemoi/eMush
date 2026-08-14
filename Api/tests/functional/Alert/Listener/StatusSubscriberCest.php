@@ -34,18 +34,18 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Service\StatusService;
 use Mush\Tests\FunctionalTester;
 
 class StatusSubscriberCest
 {
     private StatusSubscriber $statusSubscriber;
-    private StatusServiceInterface $statusService;
+    private StatusService $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         $this->statusSubscriber = $I->grabService(StatusSubscriber::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->statusService = $I->grabService(StatusService::class);
     }
 
     public function testBreakGravitySimulator(FunctionalTester $I): void

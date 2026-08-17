@@ -30,4 +30,14 @@ final class ExplorationLogCollection extends ArrayCollection
     {
         return array_map(static fn (ExplorationLog $log) => $log->getEventName(), $this->toArray());
     }
+
+    public function getLastLog(): ExplorationLog
+    {
+        $log = $this->getLogsSortedBy('createdAt', descending: true)->first();
+        if ($log instanceof ExplorationLog === false) {
+            throw new \Exception('Exploration should have at least one log');
+        }
+
+        return $log;
+    }
 }

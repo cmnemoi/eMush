@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions\SummerEventActions;
 
 use Mush\Action\Actions\SummerEventActions\TravelToEventPlanet;
 use Mush\Action\Entity\ActionConfig;

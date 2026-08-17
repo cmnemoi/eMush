@@ -642,11 +642,14 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $reportFireAction */
         $reportFireAction = $this->getReference(ActionEnum::REPORT_FIRE->value);
 
-        /** @var ActionConfig $reportFireAction */
+        /** @var ActionConfig $bondAction */
         $bondAction = $this->getReference(ActionEnum::BOND->value);
 
-        /** @var ActionConfig $reportFireAction */
+        /** @var ActionConfig $relaxAction */
         $relaxAction = $this->getReference(ActionEnum::RELAX->value);
+
+        /** @var ActionConfig $searchTreasure */
+        $searchTreasure = $this->getReference(ActionEnum::SEARCH_FOR_THE_TREASURE->value);
 
         /** @var ArrayCollection<array-key, ActionConfig> $defaultActions */
         $defaultActions = new ArrayCollection([
@@ -678,6 +681,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $reportFireAction,
             $bondAction,
             $relaxAction,
+            $searchTreasure,
         ]);
 
         $characterConfig = new CharacterConfig();

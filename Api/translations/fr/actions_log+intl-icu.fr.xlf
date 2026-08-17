@@ -1522,5 +1522,17 @@
         <target>**{character}** se jette sur le trésor avec une avarice non dissimulée. Si vous ne {character_gender, select, male {le} female {la} other {lea}} surveillez pas, vous allez pouvoir dire adieu à votre part.</target>
       </segment>
     </unit>
+    <unit id="search_for_the_treasure_success">
+      <segment id="search_for_the_treasure_success" state="translated">
+        <source>search_for_the_treasure_success</source>
+        <target>**{character}** revient vers le groupe en hurlant à pleins poumons. {character_gender, select, male {Il} female {Elle} other {Iel}} tient une grosse boîte dorée entre ses mains : **le trésor** !</target>
+      </segment>
+    </unit>
+    <unit id="search_for_the_treasure_fail">
+      <segment id="search_for_the_treasure_fail" state="translated">
+        <source>search_for_the_treasure_fail</source>
+        <target>**{character}** s'épuise à fouiller toute la zone, mais sans rien trouver d'autre que des cailloux de forme amusante.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

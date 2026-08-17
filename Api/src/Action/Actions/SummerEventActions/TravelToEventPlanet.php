@@ -42,7 +42,7 @@ final class TravelToEventPlanet extends AbstractAction
     public const EMERGENCY_REACTOR_BROKEN = 'emergency_reactor_broken';
     public const OK = 'ok';
 
-    private const POINT_PER_ALIVE_HUMAN_ACTIVE_PLAYER = 7;
+    private const POINT_PER_ALIVE_HUMAN_ACTIVE_PLAYER = 4;
     protected ActionEnum $name = ActionEnum::TRAVEL_TO_EVENT_PLANET;
 
     public function __construct(
@@ -72,6 +72,7 @@ final class TravelToEventPlanet extends AbstractAction
             ]),
             new HasStatus([
                 'status' => DaedalusStatusEnum::CAN_MOVE_TO_EVENT_PLANET,
+                'contain' => true,
                 'target' => HasStatus::DAEDALUS,
                 'groups' => [ClassConstraint::VISIBILITY],
             ]),

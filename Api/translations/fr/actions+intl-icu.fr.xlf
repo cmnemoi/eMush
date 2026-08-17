@@ -2093,5 +2093,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Vous ne comptez pas le garder comme ça après avoir fait tout ce chemin, quand même ?</target>
       </segment>
     </unit>
+    <unit id="search_for_the_treasure">
+      <segment id="name" state="translated">
+        <source>search_for_the_treasure.name</source>
+        <target>Chercher le trésor</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>search_for_the_treasure.description</source>
+        <target>Si vous sentez que le trésor de Grixar est ici, vous pouvez prendre vos pelles, pioches ainsi que tout autre outil pour fouiller le secteur.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

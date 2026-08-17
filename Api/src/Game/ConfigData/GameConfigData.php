@@ -350,6 +350,7 @@ class GameConfigData
                     DaedalusStatusEnum::IN_ORBIT_OF_EVENT_PLANET . '_default',
                     DaedalusStatusEnum::PLANET_IMPOSSIBLE_TO_SCAN . '_default',
                     DaedalusStatusEnum::REACTOR_UPGRADED . '_default',
+                    DaedalusStatusEnum::TREASURE_SECTOR . '_default',
                     PlayerStatusEnum::SPORE_SUCKER_USED . '_default',
                 ],
                 'triumphConfigs' => array_map(static fn (TriumphConfigDto $triumphConfig) => $triumphConfig->name->toConfigKey('default'), TriumphConfigData::getAll()),
@@ -387,6 +388,7 @@ class GameConfigData
                     PlanetSectorEnum::FRUIT_TREES . '_default',
                     PlanetSectorEnum::LOST . '_default',
                     PlanetSectorEnum::CRISTAL_FIELD . '_default',
+                    PlanetSectorEnum::TREASURE_HUNT_SHIP . '_default',
                 ],
                 'titleConfigs' => [
                     TitleEnum::COMMANDER,

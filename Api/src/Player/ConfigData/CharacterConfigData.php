@@ -40,6 +40,7 @@ class CharacterConfigData
         ActionEnum::RECHARGE_BATTERY->value,
         ActionEnum::REMOVE_BEGINNER->value,
         ActionEnum::USURP_IDENTITY->value,
+        ActionEnum::SEARCH_FOR_THE_TREASURE->value,
     ];
 
     public static array $dataArray = [

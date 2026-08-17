@@ -342,6 +342,18 @@ final class PlanetSectorEventConfigData
                 outputTable: [ItemEnum::TREASURE_HUNT_DEVICE => 1],
                 tags: [PlanetSectorEventTagEnum::POSITIVE],
             ),
+            new PlanetSectorEventConfigDto(
+                name: PlanetSectorEvent::PIRATE_SHIP,
+                eventName: PlanetSectorEvent::PIRATE_SHIP,
+            ),
+            new PlanetSectorEventConfigDto(
+                name: PlanetSectorEvent::ARTEFACT_PET,
+                eventName: PlanetSectorEvent::ARTEFACT,
+                outputQuantity: [1 => 1],
+                outputTable: [
+                    ItemEnum::TREASURE_HUNT_PET => 1,
+                ],
+            ),
         ];
     }
 }

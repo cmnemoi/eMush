@@ -691,6 +691,10 @@ abstract class ActionLogEnum
         ActionEnum::OPEN_TREASURE->value => [
             ActionOutputEnum::SUCCESS => ActionEnum::OPEN_TREASURE->value . '_success',
         ],
+        ActionEnum::SEARCH_FOR_THE_TREASURE->value => [
+            ActionOutputEnum::SUCCESS => ActionEnum::SEARCH_FOR_THE_TREASURE->value . '_success',
+            ActionOutputEnum::FAIL => ActionEnum::SEARCH_FOR_THE_TREASURE->value . '_fail',
+        ],
     ];
 
     public static function dependsOnNeronMood(string $logKey): bool

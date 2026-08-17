@@ -47,6 +47,7 @@ abstract class AbstractPlanetSectorEventHandler
         $explorationLog->setPlanetSectorName($event->getPlanetSector()->getName());
         $explorationLog->setEventName($event->getName());
         $explorationLog->setParameters(array_merge($event->getLogParameters(), $parameters));
+        $explorationLog->setCreatedAt($event->getTime());
 
         $closedExploration->addLog($explorationLog);
 

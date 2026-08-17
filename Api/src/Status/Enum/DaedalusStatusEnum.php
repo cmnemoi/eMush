@@ -32,4 +32,5 @@ abstract class DaedalusStatusEnum
     public const string IN_ORBIT_OF_EVENT_PLANET = 'in_orbit_of_event_planet';
     public const string CAN_MOVE_TO_EVENT_PLANET = 'can_move_to_event_planet';
     public const string REACTOR_UPGRADED = 'reactor_upgraded';
+    public const string TREASURE_SECTOR = 'treasure_sector';
 }

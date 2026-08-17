@@ -104,4 +104,16 @@ final class PlanetSectorEnum
             self::CRISTAL_FIELD,
         ]);
     }
+
+    public static function getTreasureSectorFromCharge(int $charge): ?string
+    {
+        return match ($charge) {
+            0 => self::RUINS,
+            1 => self::CAVE,
+            2 => self::MOUNTAIN,
+            3 => self::SWAMP,
+            4 => self::WRECK,
+            default => null,
+        };
+    }
 }

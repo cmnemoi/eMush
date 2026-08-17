@@ -482,21 +482,21 @@
     <unit id="treasure_hunt_pet">
       <segment id="name" state="translated">
         <source>treasure_hunt_pet.name</source>
-        <target>Treasure Hunt Pet</target>
+        <target>Tanière</target>
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_pet.description</source>
-        <target>TODO</target>
+        <target>Présence d'une tanière d'écorcheur.</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_ship">
       <segment id="name" state="translated">
         <source>treasure_hunt_ship.name</source>
-        <target>Treasure Hunt Ship</target>
+        <target>Épave Pirate</target>
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_ship.description</source>
-        <target>TODO</target>
+        <target>Présence d'une épave portant le symbole de Grixar l'Intrépide.</target>
       </segment>
     </unit>
     <unit id="next_sector">

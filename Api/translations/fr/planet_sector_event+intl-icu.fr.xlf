@@ -313,6 +313,10 @@
         <source>artefact.wreck_description</source>
         <target>L'épave contient un artefact alien étrange... Bonne pioche !</target>
       </segment>
+      <segment id="treasure_hunt_pet_description" state="translated">
+        <source>artefact.treasure_hunt_pet_description</source>
+        <target>Vous avez découvert un groupe d'écorcheurs, terrassés par une créature inconnue, et maintenant vous vous approchez de leur tanière. Mais loin de trouver une carcasse de chab-chab encore fraîche, c'est un écorcheur juvénile qui vous attend. Il ne vous faut pas beaucoup d'efforts pour le convaincre de vous suivre.</target>
+      </segment>
     </unit>
     <unit id="always_successful_thanks_to_skill">
       <segment id="description" state="translated">
@@ -790,6 +794,26 @@ other {{version, select,
         male  {Vous avez trouvé {character} derrière un rocher ! Malheureusement, il ne bouge plus du tout. D'ailleurs, il n'a pas l'air de respirer non plus. A tous les coups, les gars du labo vont vous dire qu'il est mort…}
         female {Vous avez trouvé {character} derrière un rocher ! Malheureusement, elle ne bouge plus du tout. D'ailleurs, elle n'a pas l'air de respirer non plus. A tous les coups, les gars du labo vont vous dire qu'elle est morte…}
         other {Vous avez trouvé {character} derrière un rocher ! Malheureusement, iel ne bouge plus du tout. D'ailleurs, iel n'a pas l'air de respirer non plus. A tous les coups, les gars du labo vont vous dire qu'iel a péri…}}</target>
+      </segment>
+    </unit>
+    <unit id="pirate_ship">
+      <segment id="name" state="translated">
+        <source>pirate_ship.name</source>
+        <target>Derniers mots du capitaine Grixar</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>pirate_ship.description</source>
+        <target>Vous pouvez désormais essayer de fouiller les secteurs de la planète à la recherche du trésor.</target>
+      </segment>
+      <segment id="lost_description" state="translated">
+        <source>pirate_ship.treasure_hunt_ship_description</source>
+        <target>Vous explorez l'épave de fond en comble sans parvenir à trouver ce que vous cherchiez. Alors que vous alliez partir les mains vides, vous découvrez ces mots mystérieux :////"
+        {treasure_sector, select,
+        0 {Je m'en vais rejoindre mes ancêtres...}
+        1 {...là où aucune lumière ne peut l'atteindre... il ne le trouvera jamais...}
+        2 {Au moins, je ne pourrais pas avoir de meilleure vue...}
+        3 {Je crois que j'ai développé une infection à la jambe... et l'odeur...}
+        other {Oh, Roberto... Je ne peux t'en vouloir pour l'avoir volé... Mais tu n'aurais pas dû me suivre ici... ton vaisseau... je...}}"</target>
       </segment>
     </unit>
     <unit id="new_sector">

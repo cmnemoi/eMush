@@ -287,15 +287,17 @@ final class PlanetSectorConfigData
             'name' => PlanetSectorEnum::TREASURE_HUNT_PET . '_default',
             'sectorName' => PlanetSectorEnum::TREASURE_HUNT_PET,
             'weightAtPlanetAnalysis' => 0,
-            'weightAtPlanetExploration' => 0,
-            'explorationEvents' => ['' => 0],
+            'weightAtPlanetExploration' => 10,
+            'explorationEvents' => [PlanetSectorEvent::ARTEFACT_PET => 1],
         ],
         [
             'name' => PlanetSectorEnum::TREASURE_HUNT_SHIP . '_default',
             'sectorName' => PlanetSectorEnum::TREASURE_HUNT_SHIP,
             'weightAtPlanetAnalysis' => 0,
-            'weightAtPlanetExploration' => 0,
-            'explorationEvents' => ['' => 0],
+            'weightAtPlanetExploration' => 10,
+            'explorationEvents' => [
+                PlanetSectorEvent::PIRATE_SHIP => 1,
+            ],
         ],
         [
             'name' => PlanetSectorEnum::CRISTAL_FIELD . '_default',

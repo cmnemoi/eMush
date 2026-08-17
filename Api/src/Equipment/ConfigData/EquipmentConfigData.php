@@ -1846,6 +1846,7 @@ class EquipmentConfigData
                 'take',
                 'drop',
                 'examine',
+                ActionEnum::OPEN_TREASURE->value,
             ],
             'mechanics' => [],
             'initStatuses' => [

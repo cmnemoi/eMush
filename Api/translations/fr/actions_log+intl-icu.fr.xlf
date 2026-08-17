@@ -1516,5 +1516,11 @@
         <target>**{character}** s'acharne sur ce pauvre réacteur jusqu'à ce que des étincelles en sortent régulièrement. Un moteur capable de transporter le Daedalus à travers la treizième dimension est une chose aussi impressionnante que dangereuse. Il vaudrait mieux garder l'œil sur les extincteurs...</target>
       </segment>
     </unit>
+    <unit id="open_treasure_success">
+      <segment id="open_treasure_success" state="translated">
+        <source>open_treasure_success</source>
+        <target>**{character}** se jette sur le trésor avec une avarice non dissimulée. Si vous ne {character_gender, select, male {le} female {la} other {lea}} surveillez pas, vous allez pouvoir dire adieu à votre part.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

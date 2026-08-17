@@ -238,6 +238,8 @@ enum ActionEnum: string
     case TRAVEL_TO_EVENT_PLANET = 'travel_to_event_planet';
     case UPGRADE_REACTOR = 'upgrade_reactor';
 
+    case OPEN_TREASURE = 'open_treasure';
+
     public function toString(): string
     {
         return $this->value;

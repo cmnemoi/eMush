@@ -4491,11 +4491,11 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
     <unit id="treasure_hunt_chest_closed">
       <segment id="name" state="translated">
         <source>treasure_hunt_chest_closed.name</source>
-        <target>Closed Treasure Chest</target>
+        <target>Coffre au trésor</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>treasure_hunt_chest_closed.short_name</source>
-        <target>Closed Treasure Chest</target>
+        <target>Coffre au trésor</target>
       </segment>
       <segment id="genre" state="translated">
         <source>treasure_hunt_chest_closed.gender</source>
@@ -4507,21 +4507,21 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_chest_closed.description</source>
-        <target>TODO</target>
+        <target>Il est si magnifique que cela serait presque dommage de l'ouvrir.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_chest_closed.examine</source>
-        <target>TODO</target>
+        <target>Il est si magnifique que cela serait presque dommage de l'ouvrir.</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_chest_opened">
       <segment id="name" state="translated">
         <source>treasure_hunt_chest_opened.name</source>
-        <target>Opened Treasure Chest</target>
+        <target>Coffre au trésor</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>treasure_hunt_chest_opened.short_name</source>
-        <target>Opened Treasure Chest</target>
+        <target>Coffre au trésor</target>
       </segment>
       <segment id="genre" state="translated">
         <source>treasure_hunt_chest_opened.gender</source>
@@ -4533,11 +4533,11 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_chest_opened.description</source>
-        <target>TODO</target>
+        <target>Après l'avoir vidé de tout ce qui était utile, le coffre reste rempli de pièces d'or, de joyaux et autres couronnes en métaux inconnus. Vous n'avez pas oublié que vous deviez sauver l'humanité, n'est-ce pas ?</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_chest_opened.examine</source>
-        <target>TODO</target>
+        <target>Après l'avoir vidé de tout ce qui était utile, le coffre reste rempli de pièces d'or, de joyaux et autres couronnes en métaux inconnus. Vous n'avez pas oublié que vous deviez sauver l'humanité, n'est-ce pas ?</target>
       </segment>
     </unit>
   </file>

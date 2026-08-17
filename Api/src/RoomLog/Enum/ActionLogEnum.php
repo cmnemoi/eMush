@@ -688,6 +688,9 @@ abstract class ActionLogEnum
         ActionEnum::UPGRADE_REACTOR->value => [
             ActionOutputEnum::SUCCESS => self::UPGRADE_REACTOR_SUCCESS,
         ],
+        ActionEnum::OPEN_TREASURE->value => [
+            ActionOutputEnum::SUCCESS => ActionEnum::OPEN_TREASURE->value . '_success',
+        ],
     ];
 
     public static function dependsOnNeronMood(string $logKey): bool

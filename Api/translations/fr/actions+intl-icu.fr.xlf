@@ -2083,5 +2083,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Modifier le réacteur d'urgence pour qu'il puisse vous transporter jusqu'aux coordonnées trouvées sur la tablette du capitaine Grixar. Peu de chances que la garantie soit encore valable après cela.</target>
       </segment>
     </unit>
+    <unit id="open_treasure">
+      <segment id="name" state="translated">
+        <source>open_treasure.name</source>
+        <target>Ouvrir le trésor</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>open_treasure.description</source>
+        <target>Vous ne comptez pas le garder comme ça après avoir fait tout ce chemin, quand même ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

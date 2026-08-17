@@ -664,6 +664,9 @@ class ActionsFixtures extends Fixture
         $upgradeReactor = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::UPGRADE_REACTOR));
         $manager->persist($upgradeReactor);
 
+        $openTreasure = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::OPEN_TREASURE));
+        $manager->persist($openTreasure);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -836,5 +839,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::RELAX->value, $relaxAction);
         $this->addReference(ActionEnum::TRAVEL_TO_EVENT_PLANET->value, $travelToEventPlanet);
         $this->addReference(ActionEnum::UPGRADE_REACTOR->value, $upgradeReactor);
+        $this->addReference(ActionEnum::OPEN_TREASURE->value, $openTreasure);
     }
 }

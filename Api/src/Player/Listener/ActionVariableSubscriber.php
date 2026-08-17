@@ -102,6 +102,7 @@ final readonly class ActionVariableSubscriber implements EventSubscriberInterfac
             $event->getTagsWithout(EndCauseEnum::CLUMSINESS_CAT),
             $event->getTime()
         );
+        $playerVariableEvent->setGameEquipment($cat);
         $playerVariableEvent->setAuthor($infectAuthor);
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }

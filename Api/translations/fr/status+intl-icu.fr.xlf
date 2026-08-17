@@ -661,5 +661,25 @@
         <target>Vous avez encore la nuque fragile après avoir utilisé cet horrible engin. Il vous sera impossible pour vous de vous en servir à nouveau ou de vous allonger {charge, select, 1 {pendant le prochain cycle.} other {pendant les {charge} prochains cycle.}}</target>
       </segment>
     </unit>
+    <unit id="baby_skinner_infected">
+      <segment id="name" state="translated">
+        <source>baby_skinner_infected.name</source>
+        <target>Infecté</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>baby_skinner_infected.description</source>
+        <target>Félicitations pour avoir réussi à convertir un terrible écorcheur.//Tout membre d'équipage **humain** que Sally **mordra** se verra **contaminé par une spore.**//*Vous voyez ce message car vous faites partie du Mush.*</target>
+      </segment>
+    </unit>
+    <unit id="protected_by_pet">
+      <segment id="name" state="translated">
+        <source>protected_by_pet.name</source>
+        <target>Protégé par Sally</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>protected_by_pet.description</source>
+        <target>Cette personne est poursuivit sans relâche par une adorable boule de poils qui espère avoir plus de nourriture. Elle se met sans la moindre gêne entre elle et les autres tout en faisant des bruits de supplication.//:point: Les attaques ont moitié moins de chance de réussir.//:point: Sally surveille la main qui la nourrie et la poussera parfois en dehors du chemin des plaques de tôles.//:point: Sally peut parfois mordre les autres personne dans la pièce.//:point: Sally n'est pas très loyale, elle veut juste à manger...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

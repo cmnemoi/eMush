@@ -88,12 +88,19 @@ class PlayerSubscriber implements EventSubscriberInterface
             return;
         }
         if ($key === MushMessageEnum::INFECT_CAT) {
-            $catHolder = $player->hasEquipmentByName(ItemEnum::SCHRODINGER) ? $player : $player->getPlace();
-            $mush = $catHolder->getEquipmentByNameOrThrow(ItemEnum::SCHRODINGER)->getStatusByNameOrThrow(EquipmentStatusEnum::CAT_INFECTED)->getPlayerTargetOrThrow();
+            $mush = $event->getGameEquipmentOrThrow()->getStatusByNameOrThrow(EquipmentStatusEnum::CAT_INFECTED)->getPlayerTargetOrThrow();
 
             $params['item'] = ItemEnum::SCHRODINGER;
             $params[$mush->getLogKey()] = $mush->getLogName();
         }
+
+        if ($key === MushMessageEnum::INFECT_BABY_SKINNER_BITE) {
+            $mush = $event->getGameEquipmentOrThrow()->getStatusByNameOrThrow(EquipmentStatusEnum::BABY_SKINNER_INFECTED)->getPlayerTargetOrThrow();
+
+            $params['item'] = ItemEnum::TREASURE_HUNT_PET;
+            $params[$mush->getLogKey()] = $mush->getLogName();
+        }
+
         if ($key === MushMessageEnum::INFECT_TRAP && $event->hasTag(PlaceStatusEnum::CHICKEN_TRAPPED->value)) {
             $key = MushMessageEnum::INFECT_TRAP_CHICKEN;
             $params['item'] = ItemEnum::TREASURE_HUNT_SPACE_CHICKEN;

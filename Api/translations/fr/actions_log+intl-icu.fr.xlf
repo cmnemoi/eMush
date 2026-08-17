@@ -1504,6 +1504,12 @@
         <target>Les trois prochaines musiques sur la playlist sont **{song_1}**, **{song_2}** et **{song_3}**.</target>
       </segment>
     </unit>
+    <unit id="feed_the_pet_success">
+      <segment id="feed_the_pet_success" state="translated">
+        <source>feed_the_pet_success</source>
+        <target>{character} sort un gros morceau de chair fraîche qu' {character_gender, select, male {il} female {elle} other {iel}} tend vers l'adorable boule de poils. Le jeune écorcheur se jette dessus pour le dévorer sans attendre.</target>
+      </segment>
+    </unit>
     <unit id="travel_to_event_planet">
       <segment id="travel_to_event_planet_success" state="translated">
         <source>travel_to_event_planet_success</source>

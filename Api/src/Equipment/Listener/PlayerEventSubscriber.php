@@ -6,15 +6,19 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Equipment\Event\NPCMovedEvent;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class PlayerEventSubscriber implements EventSubscriberInterface
@@ -35,6 +39,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         return [
             PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
             PlayerEvent::NEW_PLAYER => 'onNewPlayer',
+            PlayerChangedPlaceEvent::class => ['onPlayerChangedPlace', EventPriorityEnum::LOW],
         ];
     }
 
@@ -50,6 +55,32 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
     public function onNewPlayer(PlayerEvent $event): void
     {
         $this->createPlayerStartingItems($event);
+    }
+
+    public function onPlayerChangedPlace(PlayerChangedPlaceEvent $event): void
+    {
+        // handle pet following you
+        $status = $event->getPlayer()->getStatusByName(PlayerStatusEnum::PROTECTED_BY_PET);
+        if (!$status || $event->getPlace()->isNotARoom()) {
+            return;
+        }
+
+        $pet = $status->getEquipmentTargetOrThrow();
+
+        $this->gameEquipmentService->moveEquipmentTo(
+            $pet,
+            $event->getPlace(),
+            VisibilityEnum::PUBLIC,
+            [],
+            $event->getTime()
+        );
+
+        $NPCEvent = new NPCMovedEvent(
+            NPC: $pet,
+            oldRoom: $event->getOldPlace(),
+            time: $event->getTime()
+        );
+        $this->eventService->callEvent($NPCEvent, NPCMovedEvent::class);
     }
 
     private function handlePlayerEquipment(PlayerEvent $event): void

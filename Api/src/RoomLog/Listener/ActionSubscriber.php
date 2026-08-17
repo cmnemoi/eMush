@@ -7,12 +7,14 @@ namespace Mush\RoomLog\Listener;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Repository\PlayerRepositoryInterface;
+use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
@@ -81,8 +83,11 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function tryToCreatePetNoises(ActionEvent $event): void
     {
-        $this->tryToCreateCatNoises($event);
-        $this->tryToCreateChickenNoises($event);
+        $target = $event->getActionTarget();
+
+        $this->tryToCreateCatNoises($event, $target);
+        $this->tryToCreateChickenNoises($event, $target);
+        $this->tryToCreateSkinnerNoises($event, $target);
     }
 
     private function createMushConsumeLog(Player $player, string $log = LogEnum::CONSUME_MUSH): void
@@ -216,17 +221,17 @@ final class ActionSubscriber implements EventSubscriberInterface
         ];
     }
 
-    private function tryToCreateCatNoises(ActionEvent $event): void
+    private function tryToCreateCatNoises(ActionEvent $event, ?LogParameterInterface $target): void
     {
-        if ($this->shotAtPetAndFailed($event) || $this->curePetAndFailed($event)) {
+        // noise for when the cat is targeted
+        if ($target instanceof GameItem && $target->isSchrodinger()
+            && ($this->shotAtPetAndFailed($event) || $this->curePetAndFailed($event))) {
             $this->createCatHissLog($event);
 
             return;
         }
-        if ($this->shotAtPetAndSucceeded($event)) {
-            // A dead cat shouldn't make noise.
-            return;
-        }
+        // noise from when he is just in the room
+
         if ($this->schrodingerInRoomOrPlayerInventory($event) && $this->d100Roll->isSuccessful(self::CAT_MEOW_CHANCE)) {
             $this->createCatMeowLog($event);
         }
@@ -235,10 +240,23 @@ final class ActionSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function tryToCreateChickenNoises(ActionEvent $event): void
+    private function tryToCreateChickenNoises(ActionEvent $event, ?LogParameterInterface $target): void
     {
-        if ($this->shotAtPetAndSucceeded($event) || $this->curePetAndFailed($event)) {
+        if (!$target instanceof GameItem || !$target->isSpaceChicken()) {
+            return;
+        }
+        if ($this->shotAtPetAndFailed($event) || $this->curePetAndFailed($event)) {
             $this->createChickenSquawkLog($event);
+        }
+    }
+
+    private function tryToCreateSkinnerNoises(ActionEvent $event, ?LogParameterInterface $target): void
+    {
+        if (!$target instanceof GameItem || $target->getName() !== ItemEnum::TREASURE_HUNT_PET) {
+            return;
+        }
+        if ($this->shotAtPetAndFailed($event) || $this->curePetAndFailed($event)) {
+            $this->createSkinnerLog($event);
         }
     }
 
@@ -324,6 +342,19 @@ final class ActionSubscriber implements EventSubscriberInterface
             'event_log',
             $event->getAuthor(),
             [LogParameterKeyEnum::ITEM => ItemEnum::TREASURE_HUNT_SPACE_CHICKEN],
+            $event->getTime()
+        );
+    }
+
+    private function createSkinnerLog(ActionEvent $event): void
+    {
+        $this->roomLogService->createLog(
+            LogEnum::BABY_SKINNER_YELP,
+            $event->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'event_log',
+            $event->getAuthor(),
+            [LogParameterKeyEnum::ITEM => ItemEnum::TREASURE_HUNT_PET],
             $event->getTime()
         );
     }

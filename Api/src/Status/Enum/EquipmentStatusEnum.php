@@ -38,6 +38,7 @@ class EquipmentStatusEnum
     public const DRONE_SHOOT_HUNTER_FAILED_ATTEMPTS = 'drone_shoot_hunter_failed_attempts';
     public const CAT_INFECTED = 'cat_infected';
     public const CHICKEN_INFECTED = 'chicken_infected';
+    public const BABY_SKINNER_INFECTED = 'baby_skinner_infected';
     public const SENSOR_DRONE_UPGRADE = 'sensor_drone_upgrade';
     public const EVIL_DRONE_TARGET = 'evil_drone_target';
     public const PRIVATE_PROPERTY = 'private_property';

@@ -296,6 +296,7 @@ class GameConfigData
                     PlayerStatusEnum::HAS_PETTED_CAT . '_default',
                     EquipmentStatusEnum::CAT_INFECTED . '_default',
                     EquipmentStatusEnum::CHICKEN_INFECTED . '_default',
+                    EquipmentStatusEnum::BABY_SKINNER_INFECTED . '_default',
                     PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED . '_default',
                     PlayerStatusEnum::HAS_DAUNTED . '_default',
                     PlayerStatusEnum::HAS_GEN_METAL . '_default',
@@ -352,6 +353,7 @@ class GameConfigData
                     DaedalusStatusEnum::REACTOR_UPGRADED . '_default',
                     DaedalusStatusEnum::TREASURE_SECTOR . '_default',
                     PlayerStatusEnum::SPORE_SUCKER_USED . '_default',
+                    PlayerStatusEnum::PROTECTED_BY_PET . '_default',
                 ],
                 'triumphConfigs' => array_map(static fn (TriumphConfigDto $triumphConfig) => $triumphConfig->name->toConfigKey('default'), TriumphConfigData::getAll()),
                 'hunterConfigs' => [

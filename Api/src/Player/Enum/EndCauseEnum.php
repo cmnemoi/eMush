@@ -6,6 +6,7 @@ namespace Mush\Player\Enum;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Modifier\Enum\ModifierScopeEnum;
@@ -52,6 +53,7 @@ abstract class EndCauseEnum
     public const string INFECTION = 'infection';
     public const string MANKAROG = 'mankarog';
     public const string PATROL_SHIP_EXPLOSION = 'patrol_ship_explosion';
+    public const string BABY_SKINNER_BITE = 'baby_skinner_bite';
     public const string NO_INFIRMERIE = 'no_infirmerie'; // cause of death lost in a bug
 
     public const array DEATH_CAUSE_MAP = [
@@ -112,6 +114,7 @@ abstract class EndCauseEnum
         ActionEnum::RETURN_TO_SOL->value => self::SOL_RETURN,
         PlayerStatusEnum::STARVING => self::STARVATION,
         ActionEnum::TRAVEL_TO_EDEN->value => self::EDEN,
+        ItemEnum::TREASURE_HUNT_PET => self::BABY_SKINNER_BITE,
     ];
 
     public static function getAll(): array
@@ -165,6 +168,7 @@ abstract class EndCauseEnum
             self::STARVATION,
             self::SUICIDE,
             self::SUPER_NOVA,
+            self::BABY_SKINNER_BITE,
         ]);
     }
 

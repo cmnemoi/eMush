@@ -7,6 +7,7 @@ namespace Mush\Player\Event;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusStatistics;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -40,6 +41,7 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, Tr
 
     protected string $visibility = VisibilityEnum::PRIVATE;
     protected ?CharacterConfig $characterConfig = null;
+    protected ?GameEquipment $gameEquipment = null;
 
     public function getHighlightName(): string
     {
@@ -122,6 +124,20 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, Tr
         }
 
         return $title;
+    }
+
+    public function setGameEquipment(GameEquipment $gameEquipment): void
+    {
+        $this->gameEquipment = $gameEquipment;
+    }
+
+    public function getGameEquipmentOrThrow(): GameEquipment
+    {
+        if ($this->gameEquipment === null) {
+            throw new \Exception('Event do not have gameEquipment set.');
+        }
+
+        return $this->gameEquipment;
     }
 
     protected function addEventTags(): void

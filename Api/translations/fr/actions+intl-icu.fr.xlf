@@ -2055,6 +2055,17 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Vous permet de voir les trois prochaines musiques sur la playlist. Peut-être que votre préférée passera bientôt ?</target>
       </segment>
     </unit>
+    <unit id="feed_the_pet">
+      <segment id="name" state="translated">
+        <source>feed_the_pet.name</source>
+        <target>Donner à manger</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>feed_the_pet.description</source>
+        <target>Cette adorable créature n'est pas très différente des animaux de compagnie habituels. Elle n'attend qu'une seule chose toute la journée : de la nourriture.//
+Elle ne vous lâchera plus tant qu'elle pensera que vous allez la nourrir à nouveau. Et si elle ne peut pas vraiment vous défendre, elle peut faire suffisamment de bruit pour distraire les assaillants. Quand le vaisseau s'effondrera sur vous, elle pourrait peut-être même vous sauver la vie. Faites attention à ne pas lui donner un spore par "mégarde", par contre...</target>
+      </segment>
+    </unit>
     <unit id="travel_to_event_planet">
       <segment id="name" state="translated">
         <source>travel_to_event_planet.name</source>

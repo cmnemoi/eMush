@@ -115,6 +115,10 @@ abstract class LogEnum
     public const string PAVLOV_READY_FOR_PLANET = 'pavlov_ready_for_planet';
     public const string PAVLOV_TURBO_WORKED = 'pavlov_turbo_worked';
     public const string SUMMER_EVENT_EXPLORATION_LOG = 'summer_event_exploration_log';
+    public const string BABY_SKINNER_SLEEP = 'baby_skinner_sleep';
+    public const string BABY_SKINNER_BITE = 'baby_skinner_bite';
+    public const string BABY_SKINNER_YELP = 'baby_skinner_yelp';
+    public const string BABY_SKINNER_PREVENT_METAL_PLATE = 'baby_skinner_prevent_metal_plate';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [
@@ -142,6 +146,7 @@ abstract class LogEnum
             ModifierNameEnum::ANTISOCIAL_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::CREATIVE_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::GERMAPHOBE_MODIFIER => VisibilityEnum::PRIVATE,
+            ModifierNameEnum::PREVENT_METAL_PLATE_0_7 => VisibilityEnum::PUBLIC,
         ],
         self::VALUE => [
             ModifierNameEnum::DISABLED_MOVE_MODIFIER => self::HELP_DISABLED,
@@ -166,6 +171,7 @@ abstract class LogEnum
             ModifierNameEnum::ANTISOCIAL_MODIFIER => self::ANTISOCIAL_MORALE_LOSS,
             ModifierNameEnum::CREATIVE_MODIFIER => self::CREATIVE_WORKED,
             ModifierNameEnum::GERMAPHOBE_MODIFIER => self::GERMAPHOBE_MORALE_LOSS,
+            ModifierNameEnum::PREVENT_METAL_PLATE_0_7 => self::BABY_SKINNER_PREVENT_METAL_PLATE,
         ],
     ];
 

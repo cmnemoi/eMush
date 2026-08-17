@@ -180,4 +180,6 @@ abstract class ModifierNameEnum
     public const string GUARDIAN_MINUS_1AP_COST = 'guardian_minus_1ap_cost';
     public const string SUMMER_EVENT_ARTEFACT_ALIEN_DEVICE_GET = 'summer_event_artefact_alien_device_get';
     public const string SUMMER_EVENT_ARTEFACT_ALIEN_DEVICE_CANCEL = 'summer_event_artefact_alien_device_cancel';
+    public const string ATTACKS_ON_SELF_X0_5 = 'attack_on_self_x0_5';
+    public const string PREVENT_METAL_PLATE_0_7 = 'prevent_metal_plate_o_7';
 }

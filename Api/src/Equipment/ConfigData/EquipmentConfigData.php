@@ -1812,7 +1812,7 @@ class EquipmentConfigData
             'initStatuses' => [
                 'alien_artefact_default',
             ],
-            'AIHandler' => AIHandlerEnum::NOTHING,
+            'AIHandler' => AIHandlerEnum::BABY_SKINNER,
         ],
         [
             'name' => ItemEnum::TREASURE_HUNT_SPACE_CHICKEN . '_default',

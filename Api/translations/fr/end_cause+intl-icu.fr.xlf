@@ -663,5 +663,23 @@
         <target>Ce joueur est toujours en vie.</target>
       </segment>
     </unit>
+    <unit id="baby_skinner_bite">
+      <segment id="name" state="translated">
+        <source>baby_skinner_bite.name</source>
+        <target>Morsure</target>
+      </segment>
+      <segment id="baby_skinner_bite" state="translated">
+        <source>baby_skinner_bite.short_name</source>
+        <target>Achevé par une créature un peu trop nerveuse !</target>
+      </segment>
+      <segment id="category" state="translated">
+        <source>baby_skinner_bite.category</source>
+        <target>Vous êtes mort !</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>baby_skinner_bite.description</source>
+        <target>Vous avez laissé trainer votre main là où il ne fallait pas.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

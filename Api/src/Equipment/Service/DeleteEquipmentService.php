@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Service;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
@@ -12,7 +13,7 @@ use Mush\Player\Entity\Player;
 
 final class DeleteEquipmentService implements DeleteEquipmentServiceInterface
 {
-    public function __construct(private EventServiceInterface $eventService) {}
+    public function __construct(private EventServiceInterface $eventService, private EntityManagerInterface $entityManager) {}
 
     public function execute(
         GameEquipment $gameEquipment,
@@ -20,6 +21,11 @@ final class DeleteEquipmentService implements DeleteEquipmentServiceInterface
         array $tags = [],
         \DateTime $time = new \DateTime(),
     ): void {
+        // we want to be sure we don't destroy the same item twice.
+        if (!$this->entityManager->contains($gameEquipment)) {
+            return;
+        }
+
         $tags[] = $gameEquipment->getName();
         $event = new EquipmentEvent(
             equipment: $gameEquipment,

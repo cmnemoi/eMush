@@ -100,6 +100,8 @@ final class EquipmentSubscriber implements EventSubscriberInterface
             $event->addTag('shell_explosion');
             $this->breakPlaceEquipment($event);
         }
+
+        $this->removeProtectedByPetStatus($equipment, $event);
     }
 
     public function onNewEquipmentInInventory(EquipmentEvent $event): void
@@ -204,5 +206,20 @@ final class EquipmentSubscriber implements EventSubscriberInterface
         return $holder->hasStatus(PlayerStatusEnum::BURDENED)
             && $equipment->hasStatus(EquipmentStatusEnum::HEAVY)
             && $holder->getItems()->filter(static fn (GameItem $item) => $item->hasStatus(EquipmentStatusEnum::HEAVY))->count() <= 1;
+    }
+
+    private function removeProtectedByPetStatus(GameEquipment $equipment, EquipmentEvent $event): void
+    {
+        $status = $this->statusService->getByTargetAndName($equipment, PlayerStatusEnum::PROTECTED_BY_PET);
+        if (!$status) {
+            return;
+        }
+
+        $this->statusService->removeStatus(
+            PlayerStatusEnum::PROTECTED_BY_PET,
+            $status->getOwner(),
+            $event->getTags(),
+            $event->getTime()
+        );
     }
 }

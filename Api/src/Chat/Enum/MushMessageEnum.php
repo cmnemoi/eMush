@@ -6,6 +6,7 @@ namespace Mush\Chat\Enum;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 
 class MushMessageEnum
@@ -20,6 +21,8 @@ class MushMessageEnum
     public const MUSH_CONVERT_EVENT = 'mush_convert_event';
     public const MUSH_CONVERT_CAT_EVENT = 'mush_convert_cat_event';
     public const MUSH_CONVERT_CHICKEN_EVENT = 'mush_convert_chicken_event';
+    public const MUSH_CONVERT_BABY_SKINNER_EVENT = 'mush_convert_baby_skinner_event';
+    public const INFECT_BABY_SKINNER_BITE = 'infect_baby_skinner_bite';
 
     public const PLAYER_INFECTION_LOGS = [
         ActionEnum::INFECT->value => self::INFECT_ACTION,
@@ -32,5 +35,6 @@ class MushMessageEnum
         ActionEnum::TAKE_CAT->value => self::INFECT_CAT,
         ActionEnum::PET_CAT->value => self::INFECT_CAT,
         ActionEnum::CURE_CAT->value => self::INFECT_CAT,
+        EquipmentStatusEnum::BABY_SKINNER_INFECTED => self::INFECT_BABY_SKINNER_BITE,
     ];
 }

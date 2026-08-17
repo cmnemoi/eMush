@@ -898,6 +898,7 @@ class MechanicsData
             'actions' => [
                 'consume',
                 ActionEnum::MIX_RATION_SPORE->value,
+                ActionEnum::FEED_THE_PET->value,
             ],
             'modifierConfigs' => [],
         ],

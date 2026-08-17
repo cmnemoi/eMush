@@ -239,6 +239,7 @@ enum ActionEnum: string
     case UPGRADE_REACTOR = 'upgrade_reactor';
     case OPEN_TREASURE = 'open_treasure';
     case SEARCH_FOR_THE_TREASURE = 'search_for_the_treasure';
+    case FEED_THE_PET = 'feed_the_pet';
 
     public function toString(): string
     {

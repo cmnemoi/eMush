@@ -53,6 +53,7 @@ final class StatusSubscriber implements EventSubscriberInterface
             PlayerStatusEnum::LOST => $this->channelService->updatePlayerPrivateChannels($event->getPlayerStatusHolder(), PlayerStatusEnum::LOST, $event->getTime()),
             EquipmentStatusEnum::CAT_INFECTED => $this->messageService->createSystemMessage(MushMessageEnum::MUSH_CONVERT_CAT_EVENT, $mushChannel, $params, $time),
             EquipmentStatusEnum::CHICKEN_INFECTED => $this->messageService->createSystemMessage(MushMessageEnum::MUSH_CONVERT_CHICKEN_EVENT, $mushChannel, $params, $time),
+            EquipmentStatusEnum::BABY_SKINNER_INFECTED => $this->messageService->createSystemMessage(MushMessageEnum::MUSH_CONVERT_BABY_SKINNER_EVENT, $mushChannel, $params, $time),
             DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE => $this->neronMessageService->createNeronMessage(
                 messageKey: NeronMessageEnum::SOL_CONTACT,
                 daedalus: $event->getDaedalus(),

@@ -4439,27 +4439,27 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
     <unit id="treasure_hunt_pet">
       <segment id="name" state="translated">
         <source>treasure_hunt_pet.name</source>
-        <target>Alien Pet</target>
+        <target>Sally</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>treasure_hunt_pet.short_name</source>
-        <target>Alien Pet</target>
+        <target>Sally</target>
       </segment>
       <segment id="genre" state="translated">
         <source>treasure_hunt_pet.gender</source>
-        <target>male</target>
+        <target>name</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>treasure_hunt_pet.first_letter</source>
-        <target>vowel</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_pet.description</source>
-        <target>TODO</target>
+        <target>Le premier écorcheur à voyager dans l'espace ! Il est encore trop jeune pour dévorer des chab-chab par lui-même. Il se contente donc de vous supplier du regard pour avoir un morceau de viande fraîche.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_pet.examine</source>
-        <target>TODO</target>
+        <target>Le premier écorcheur à voyager dans l'espace ! Il est encore trop jeune pour dévorer des chab-chab par lui-même. Il se contente donc de vous supplier du regard pour avoir un morceau de viande fraîche.//Faites attention aux spores dans la nourriture, un accident est si vite arrivé...</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_space_chicken">

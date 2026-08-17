@@ -595,6 +595,21 @@
         <target>**{equipment}** a été converti par **{target_character}**. Bienvenue parmi le Mush **{equipment}**.</target>
       </segment>
     </unit>
+    <unit id="mush_convert_baby_skinner_event">
+      <segment id="mush_convert_baby_skinner_event" state="translated">
+        <source>mush_convert_baby_skinner_event</source>
+        <target>**{equipment}** a été converti par **{target_character}**. Bienvenue parmi le Mush **{equipment}**.</target>
+      </segment>
+    </unit>
+    <unit id="infect_baby_skinner_bite">
+      <segment id="infect_baby_skinner_bite" state="translated">
+        <source>infect_baby_skinner_bite</source>
+        <target>{target_character_gender, select,
+        male {**{target_character}** a été contaminé}
+        female {**{target_character}** a été contaminée}
+        other {**{target_character}** s'est fait contaminer}} par **{character}** après s'être fait mordre par **{equipment}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+      </segment>
+    </unit>
     <unit id="player_enter_chat">
       <segment id="player_enter_chat" state="translated">
         <source>player_enter_chat</source>
@@ -1255,6 +1270,12 @@
         <target>:chicken: **{equipment} :** COT COT COT CODET !!</target>
       </segment>
     </unit>
+    <unit id="baby_skinner_yelp">
+      <segment id="baby_skinner_yelp" state="translated">
+        <source>baby_skinner_yelp</source>
+        <target>**{equipment} :** YIIIIIP !!! YIIP !!</target>
+      </segment>
+    </unit>
     <unit id="cat_hiss">
       <segment id="cat_hiss" state="translated">
         <source>cat_hiss</source>
@@ -1512,6 +1533,24 @@
       <segment id="summer_event_exploration_log" state="translated">
         <source>summer_event_exploration_log</source>
         <target>Vous pouvez sentir que cette planète n'a pas livré tout ses secrets...</target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_bite">
+      <segment id="baby_skinner_bite" state="translated">
+        <source>baby_skinner_bite</source>
+        <target>**Sally** semble un peu trop agitée en voyant les mouvements de {target_character}. Elle finit par refermer ses crocs sur sa main.</target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_sleep">
+      <segment id="baby_skinner_sleep" state="translated">
+        <source>baby_skinner_sleep</source>
+        <target>**Sally** semble s'être trouvé un coin confortable et elle commence à s'endormir.</target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_prevent_metal_plate">
+      <segment id="baby_skinner_prevent_metal_plate" state="translated">
+        <source>baby_skinner_prevent_metal_plate</source>
+        <target>Alors qu'un morceau du plafond commence à se détacher, **Sally** se précipite vers **{character}** et {character_gender, select, male {le} female{la} other{lae}} pousse hors de danger.</target>
       </segment>
     </unit>
   </file>

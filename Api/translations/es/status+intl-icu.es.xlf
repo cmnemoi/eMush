@@ -628,13 +628,13 @@ Todas tus acciones se vuelven más difíciles.</target>
       </segment>
     </unit>
     <unit id="chicken_infected">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>chicken_infected.name</source>
-        <target>chicken_infected.name</target>
+        <target>Infectado</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>chicken_infected.description</source>
-        <target>chicken_infected.description</target>
+        <target>Mitad Mush, mitad cíborg, mitad gallina y mitad pirata, esta ave galliforme de múltiples talentos puede poner trampas en las estanterías del Daedalus con cada huevo.</target>
       </segment>
     </unit>
     <unit id="antique_perfume_immunized">
@@ -741,9 +741,9 @@ Todas tus acciones se vuelven más difíciles.</target>
       </segment>
     </unit>
     <unit id="spore_sucker_used">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>spore_sucker_used.name</source>
-        <target>spore_sucker_used.name</target>
+        <target>Cuello lastimado</target>
       </segment>
       <segment id="description" state="translated">
         <source>spore_sucker_used.description</source>
@@ -751,23 +751,23 @@ Todas tus acciones se vuelven más difíciles.</target>
       </segment>
     </unit>
     <unit id="baby_skinner_infected">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>baby_skinner_infected.name</source>
-        <target>baby_skinner_infected.name</target>
+        <target>Infectado</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>baby_skinner_infected.description</source>
-        <target>baby_skinner_infected.description</target>
+        <target>Felicidades por convertir a este desollador en Mush.//Cualquier miembro de la tripulación **humano** al que **Sally** **muerda** quedará **contaminado por una espora**.//*Puedes ver este mensaje porque formas parte del Mush.*</target>
       </segment>
     </unit>
     <unit id="protected_by_pet">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>protected_by_pet.name</source>
-        <target>protected_by_pet.name</target>
+        <target>Resguardado por Sally</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>protected_by_pet.description</source>
-        <target>protected_by_pet.description</target>
+        <target>Esta persona es seguida constantemente por una adorable bola de pelo que espera conseguir más comida. Sin dudarlo, ella se interpone entre esa persona y los demás mientras gimotea.//:point: Los ataques tienen la mitad de probabilidades de tener éxito.//:point: Sally vigila la mano que la alimenta y, a veces, puede apartarla de placas de acero que caen.//:point: Sally no es muy leal; solo quiere comida...</target>
       </segment>
     </unit>
   </file>

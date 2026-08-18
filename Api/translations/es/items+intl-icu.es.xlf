@@ -4516,11 +4516,11 @@ other {# **Frutos Alienígenas**}
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_tablet.description</source>
-        <target>TODO</target>
+        <target>¡No puedes creer lo que ven tus ojos: una tableta que perteneció al gran **Grixar el Intrépido**! Tras saquear los doce sistemas, supuestamente desapareció con su legendario **tesoro**.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_tablet.examine</source>
-        <target>TODO</target>
+        <target>¡No puedes creer lo que ven tus ojos: una tableta que perteneció al gran **Grixar el Intrépido**! Tras saquear los doce sistemas, supuestamente desapareció con su legendario **tesoro**. Incluso se dice que conocía el camino al Edén...//Sin duda, la búsqueda de su tesoro será extremadamente peligrosa. Deberás prepararte para lo peor.</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_device">
@@ -4542,11 +4542,11 @@ other {# **Frutos Alienígenas**}
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_device.description</source>
-        <target>TODO</target>
+        <target>Con un dispositivo como este, incluso una persona analfabeta puede convertir un reactor de baja gama en una máquina capaz de atravesar las dimensiones más prohibidas. Y eso es conveniente: el manual no incluye ningún idioma conocido.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_device.examine</source>
-        <target>TODO</target>
+        <target>Con un dispositivo como este, incluso una persona analfabeta puede convertir un reactor de baja gama en una máquina capaz de atravesar las dimensiones más prohibidas. Y eso es conveniente: el manual no incluye ningún idioma conocido. // En caso de explosión, actúe como siempre y culpe al fabricante.</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_pet">
@@ -4568,25 +4568,25 @@ other {# **Frutos Alienígenas**}
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_pet.description</source>
-        <target/>
+        <target>¡El primer desollador que viaja por el espacio! Es demasiado joven para devorar chab-chabs por sí sola. En su lugar, sigue alzando esos ojos suplicantes en busca de un poco de carne fresca.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_pet.examine</source>
-        <target>TODO</target>
+        <target>¡El primer desollador que viaja por el espacio! Es demasiado joven para devorar chab-chabs por sí sola. En su lugar, sigue alzando esos ojos suplicantes en busca de un poco de carne fresca.//Cuidado con dejar esporas en la comida, los accidentes pueden pasar...</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_space_chicken">
       <segment id="name" state="translated">
         <source>treasure_hunt_space_chicken.name</source>
-        <target>Space Chicken</target>
+        <target>Gallina cibernética</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>treasure_hunt_space_chicken.short_name</source>
-        <target>Space Chicken</target>
+        <target>Gallina cibernética</target>
       </segment>
       <segment id="genre" state="translated">
         <source>treasure_hunt_space_chicken.gender</source>
-        <target>male</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>treasure_hunt_space_chicken.first_letter</source>
@@ -4594,11 +4594,12 @@ other {# **Frutos Alienígenas**}
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_space_chicken.description</source>
-        <target>TODO</target>
+        <target>Es una gallina con prótesis alienígenas y un sombrero de pirata. También es un alienígena. Te picotea furiosamente cuando intentas tocarlo.
+La gallina cibernética tiene la posibilidad de poner una cápsula espacial en cada ciclo.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_space_chicken.examine</source>
-        <target>TODO</target>
+        <target>Es una gallina con prótesis alienígenas y un sombrero de pirata. También es un alienígena. Te picotea furiosamente cuando intentas tocarle. La gallina cibernética tiene la posibilidad de poner una cápsula espacial en cada ciclo. Neron insiste en que es una gallina perfectamente normal, pero ¿por qué te sientes tan observado entonces?</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_chest_closed">
@@ -4620,11 +4621,11 @@ other {# **Frutos Alienígenas**}
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_chest_closed.description</source>
-        <target>TODO</target>
+        <target>Es tan bonito que casi sería una pena abrirlo.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_chest_closed.examine</source>
-        <target>TODO</target>
+        <target>Es tan bonito que casi sería una pena abrirlo.</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_chest_opened">
@@ -4646,11 +4647,11 @@ other {# **Frutos Alienígenas**}
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_chest_opened.description</source>
-        <target>TODO</target>
+        <target>Tras vaciarlo de todo lo útil, el cofre queda repleto de monedas de oro, joyas y otras coronas de metales desconocidos. No has olvidado que tienes que salvar a la humanidad, ¿verdad?</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_chest_opened.examine</source>
-        <target>TODO</target>
+        <target>Tras vaciarlo de todo lo útil, el cofre queda repleto de monedas de oro, joyas y otras coronas de metales desconocidos. No has olvidado que tienes que salvar a la humanidad, ¿verdad?</target>
       </segment>
     </unit>
   </file>

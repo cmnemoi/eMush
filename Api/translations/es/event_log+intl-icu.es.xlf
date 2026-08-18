@@ -103,10 +103,7 @@
     <unit id="soiled">
       <segment state="translated">
         <source>soiled</source>
-        <target>{character_gender, select,
-  female {Mírate, estás toda sucia.}
-  other {Mírate, estás todo sucio.}
-}</target>
+        <target>Que asco... te has ensuciado.</target>
       </segment>
     </unit>
     <unit id="soil_prevented">
@@ -454,9 +451,9 @@
       </segment>
     </unit>
     <unit id="infect_trap_chicken">
-      <segment id="infect_trap_chicken" state="initial">
+      <segment id="infect_trap_chicken" state="translated">
         <source>infect_trap_chicken</source>
-        <target>infect_trap_chicken</target>
+        <target>**{target_character}** recibe una espora en su organismo al revisar una estantería con una trampa de **{character}** con la ayuda de **{equipment}**. Su nivel de contaminación es ahora de **{quantity}**</target>
       </segment>
     </unit>
     <unit id="infect_std">
@@ -499,15 +496,15 @@
       </segment>
     </unit>
     <unit id="mush_convert_chicken_event">
-      <segment id="mush_convert_chicken_event" state="initial">
+      <segment id="mush_convert_chicken_event" state="translated">
         <source>mush_convert_chicken_event</source>
-        <target>mush_convert_chicken_event</target>
+        <target>**{equipment}** ha sido convertido por **{target_character}**. Bienvenido al Mush, **{equipment}**.</target>
       </segment>
     </unit>
     <unit id="mush_convert_baby_skinner_event">
-      <segment id="mush_convert_baby_skinner_event" state="initial">
+      <segment id="mush_convert_baby_skinner_event" state="translated">
         <source>mush_convert_baby_skinner_event</source>
-        <target>mush_convert_baby_skinner_event</target>
+        <target>**{equipment}** ha sido convertido por **{target_character}**. Bienvenido al Mush, **{equipment}**.</target>
       </segment>
     </unit>
     <unit id="infect_baby_skinner_bite">
@@ -1060,21 +1057,21 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
       </segment>
     </unit>
     <unit id="chicken_shot_dead">
-      <segment id="chicken_shot_dead" state="initial">
+      <segment id="chicken_shot_dead" state="translated">
         <source>chicken_shot_dead</source>
-        <target>chicken_shot_dead</target>
+        <target>**{target_equipment}** fue abatido a tiros por **{character}**.</target>
       </segment>
     </unit>
     <unit id="chicken_squawk">
-      <segment id="chicken_squawk" state="initial">
+      <segment id="chicken_squawk" state="translated">
         <source>chicken_squawk</source>
-        <target>chicken_squawk</target>
+        <target>:chicken: **{equipment}:** COO COO COO COOOO!!!</target>
       </segment>
     </unit>
     <unit id="baby_skinner_yelp">
-      <segment id="baby_skinner_yelp" state="initial">
+      <segment id="baby_skinner_yelp" state="translated">
         <source>baby_skinner_yelp</source>
-        <target>baby_skinner_yelp</target>
+        <target>**{equipment} :** YIIIIIP !!! YIIP !!</target>
       </segment>
     </unit>
     <unit id="cat_hiss">
@@ -1331,27 +1328,27 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
       </segment>
     </unit>
     <unit id="baby_skinner_bite">
-      <segment id="baby_skinner_bite" state="initial">
+      <segment id="baby_skinner_bite" state="translated">
         <source>baby_skinner_bite</source>
-        <target>baby_skinner_bite</target>
+        <target>**Sally** parece estar demasiado alterada por los movimientos de {target_character}. Termina mordiendo su mano con sus colmillos.</target>
       </segment>
     </unit>
     <unit id="baby_skinner_sleep">
-      <segment id="baby_skinner_sleep" state="initial">
+      <segment id="baby_skinner_sleep" state="translated">
         <source>baby_skinner_sleep</source>
-        <target>baby_skinner_sleep</target>
+        <target>**Sally** parece haber encontrado un sitio cómodo. Se está quedando dormida.</target>
       </segment>
     </unit>
     <unit id="baby_skinner_prevent_metal_plate">
-      <segment id="baby_skinner_prevent_metal_plate" state="initial">
+      <segment id="baby_skinner_prevent_metal_plate" state="translated">
         <source>baby_skinner_prevent_metal_plate</source>
-        <target>baby_skinner_prevent_metal_plate</target>
+        <target>Mientras un trozo del techo empieza a desprenderse, **Sally** corre hacia **{character}** y le empuja hacia un lugar seguro.</target>
       </segment>
     </unit>
     <unit id="pirate_ship_free_spore">
-      <segment id="pirate_ship_free_spore" state="initial">
+      <segment id="pirate_ship_free_spore" state="translated">
         <source>pirate_ship_free_spore</source>
-        <target>pirate_ship_free_spore</target>
+        <target>Mientras todos están ocupados explorando los restos de la nave, aprovechas la oportunidad para extirpar una espora discretamente. (Sabotaje)</target>
       </segment>
     </unit>
   </file>

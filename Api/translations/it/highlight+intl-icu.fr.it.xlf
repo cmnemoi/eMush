@@ -422,11 +422,11 @@
       </segment>
     </unit>
     <unit id="shoot_equipment">
-      <segment id="highlight" state="translated">
+      <segment id="highlight" state="initial">
         <source>shoot_equipment.highlight</source>
         <target>shoot_equipment.highlight</target>
       </segment>
-      <segment id="highlight_fail" state="translated">
+      <segment id="highlight_fail" state="initial">
         <source>shoot_equipment.highlight_fail</source>
         <target>shoot_equipment.highlight_fail</target>
       </segment>

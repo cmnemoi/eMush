@@ -299,9 +299,9 @@
         <source>artefact.wreck_description</source>
         <target>Un montículo de chatarra contiene un extraño Artefacto Alien... ¡Qué buena suerte!</target>
       </segment>
-      <segment id="treasure_hunt_pet_description" state="initial">
+      <segment id="treasure_hunt_pet_description" state="translated">
         <source>artefact.treasure_hunt_pet_description</source>
-        <target>artefact.treasure_hunt_pet_description</target>
+        <target>Encontraste un grupo de desolladores abatidos por una criatura desconocida. Te diriges a su guarida. En el interior no hay ningún cadáver fresco de chab-chab, sino un desollador joven que te espera. Lograr que te siga no requiere mucho esfuerzo.</target>
       </segment>
     </unit>
     <unit id="always_successful_thanks_to_skill">
@@ -781,13 +781,19 @@ other {{version, select,
         <source>pirate_ship.name</source>
         <target>Últimas palabras del capitán Grixar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>pirate_ship.description</source>
-        <target>pirate_ship.description</target>
+        <target>Ahora puedes intentar recorrer los sectores de este planeta en busca del tesoro.</target>
       </segment>
-      <segment id="lost_description" state="initial">
+      <segment id="lost_description" state="translated">
         <source>pirate_ship.treasure_hunt_ship_description</source>
-        <target>pirate_ship.treasure_hunt_ship_description</target>
+        <target>Exploras los restos de la nave de arriba abajo sin encontrar lo que buscabas. Al marcharte con las manos vacías, descubres esas misteriosas palabras:////"
+{treasure_sector, select,
+0 {Dejo este mundo... }
+1 {...donde la luz no puede llegar... él nunca lo encontrará... }
+2 {Al menos, no podría tener mejores vistas... }
+3 {Creo que tengo la pierna infectada... y el olor...}
+other {Oh, Roberto... No puedo culparte por haberlo robado... Pero no deberías haberme seguido hasta aquí... tu barco... yo...}}"</target>
       </segment>
     </unit>
     <unit id="new_sector">

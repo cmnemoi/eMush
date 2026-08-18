@@ -4446,11 +4446,11 @@ Allows :sk_conceptor: Designers to access the Command Terminal.</target>
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_tablet.description</source>
-        <target>TODO</target>
+        <target>You can hardly believe your eyes: a tablet that belonged to the great **Grixar the Intrepid**! After plundering the 12 systems, he reportedly vanished with his legendary **treasure**.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_tablet.examine</source>
-        <target>TODO</target>
+        <target>You can hardly believe your eyes: a tablet that belonged to the great **Grixar the Intrepid**! After plundering the 12 systems, he reportedly vanished with his legendary **treasure**. Rumor has it he even knew the way to Eden...//There is no doubt that the quest for his treasure will be extremely dangerous. You must prepare for the worst.</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_device">
@@ -4472,11 +4472,11 @@ Allows :sk_conceptor: Designers to access the Command Terminal.</target>
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_device.description</source>
-        <target>TODO</target>
+        <target>With a contraption like this, even an illiterate person can turn a low-end reactor into a machine capable of traversing the most forbidden dimensions. And that’s just as well: no known language is included in the manual.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_device.examine</source>
-        <target>TODO</target>
+        <target>With a contraption like this, even an illiterate person can turn a low-end reactor into a machine capable of traversing the most forbidden dimensions. And that’s just as well: no known language is included in the manual.//In the event of an explosion, do what you always do and blame the manufacturer.</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_pet">
@@ -4524,11 +4524,12 @@ Allows :sk_conceptor: Designers to access the Command Terminal.</target>
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_space_chicken.description</source>
-        <target>TODO</target>
+        <target>It is a chicken with alien prosthetics and a pirate hat. It is also an alien. It pecks at you furiously when you try to touch it.
+The cybernetic chicken has a chance to lay a space capsule each cycle.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_space_chicken.examine</source>
-        <target>TODO</target>
+        <target>It’s a chicken with alien prosthetics and a pirate hat. Likewise, it’s also an alien. Not only that, but it pecks at you furiously when you try to touch it. The space chicken has the chance to lay a space capsule each cycle. Neron insists it’s a perfectly normal chicken, but then why do you feel so watched?</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_chest_closed">
@@ -4550,11 +4551,11 @@ Allows :sk_conceptor: Designers to access the Command Terminal.</target>
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_chest_closed.description</source>
-        <target>TODO</target>
+        <target>It is so magnificent that it would almost be a shame to open it.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_chest_closed.examine</source>
-        <target>TODO</target>
+        <target>It is so magnificent that it would almost be a shame to open it.</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_chest_opened">
@@ -4576,11 +4577,11 @@ Allows :sk_conceptor: Designers to access the Command Terminal.</target>
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_chest_opened.description</source>
-        <target>TODO</target>
+        <target>After emptying it of everything useful, the chest remains filled with gold coins, jewels, and other crowns made of unknown metals. You haven't forgotten that you were supposed to save humanity, have you?</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_chest_opened.examine</source>
-        <target>TODO</target>
+        <target>After emptying it of everything useful, the chest remains filled with gold coins, jewels, and other crowns made of unknown metals. You haven't forgotten that you were supposed to save humanity, have you?</target>
       </segment>
     </unit>
   </file>

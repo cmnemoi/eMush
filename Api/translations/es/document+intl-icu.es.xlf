@@ -2,9 +2,9 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="es">
   <file id="document.ext">
     <unit id="treasure_hunt_tablet">
-      <segment id="treasure_hunt_tablet" state="initial">
+      <segment id="treasure_hunt_tablet" state="translated">
         <source>treasure_hunt_tablet</source>
-        <target>treasure_hunt_tablet</target>
+        <target>Este es el diario del asombroso Grixar; en él se recogen todas sus aventuras y mucho más. Relata cada planeta saqueado, cada corazón robado y cada amante con quien habría viajado entre las estrellas... Es fácil imaginarse a uno mismo como una de esas personas. Con el paso de los años, los problemas se acumularon. Las traiciones se multiplicaron: el apuesto Roberto lo vendió a la terrible Madame Trixa —madrastra por partida doble del capitán— a cambio de un indulto universal... Grixar terminó huyendo a través de la imposible decimotercera dimensión, con la intención de no regresar jamás. Seguramente lleva muerto mucho tiempo, pero ¿quizás su tesoro siga allí? // Es posible introducir las coordenadas de los planetas, pero, tal como están las cosas, es imposible llegar allí. Alguien debería revisar nuestro reactor de emergencia para saber cómo solucionar eso. Sin embargo, las características del planeta al que fue Grixar son preocupantes. Sin duda, allí te aguardan nuevos desafíos.</target>
       </segment>
     </unit>
     <unit id="mush_research_review">

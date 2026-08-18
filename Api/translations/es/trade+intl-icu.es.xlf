@@ -279,15 +279,15 @@ Os ofrecemos a cambio tecnología que podría ser útil.</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_food_vs_treasure_hunt_tablet">
-      <segment id="treasure_hunt_food_vs_treasure_hunt_tablet" state="initial">
+      <segment id="treasure_hunt_food_vs_treasure_hunt_tablet" state="translated">
         <source>treasure_hunt_food_vs_treasure_hunt_tablet</source>
-        <target>treasure_hunt_food_vs_treasure_hunt_tablet</target>
+        <target>¡Cortesía del chef!</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_diplomat_human_vs_treasure_hunt_tablet">
-      <segment id="treasure_hunt_diplomat_human_vs_treasure_hunt_tablet" state="initial">
+      <segment id="treasure_hunt_diplomat_human_vs_treasure_hunt_tablet" state="translated">
         <source>treasure_hunt_diplomat_human_vs_treasure_hunt_tablet</source>
-        <target>treasure_hunt_diplomat_human_vs_treasure_hunt_tablet</target>
+        <target>No es momento para ponerse quisquilloso.</target>
       </segment>
     </unit>
   </file>

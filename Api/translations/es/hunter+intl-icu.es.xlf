@@ -63,17 +63,17 @@ No se puede huir de él.</target>
       </segment>
       <segment id="transport_description" state="translated">
         <source>transport.description</source>
-        <target>Un transport perdido. Podría ser interesante.</target>
+        <target>Un mercader perdido. Podría ser interesante.</target>
       </segment>
     </unit>
     <unit id="summer_event_transport">
-      <segment id="summer_event_transport_name" state="initial">
+      <segment id="summer_event_transport_name" state="translated">
         <source>summer_event_transport.name</source>
-        <target>summer_event_transport.name</target>
+        <target>Mercader</target>
       </segment>
-      <segment id="summer_event_transport_description" state="initial">
+      <segment id="summer_event_transport_description" state="translated">
         <source>summer_event_transport.description</source>
-        <target>summer_event_transport.description</target>
+        <target>Un mercader perdido. Podría ser interesante.</target>
       </segment>
     </unit>
   </file>

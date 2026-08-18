@@ -1387,7 +1387,7 @@ other{**{target_character}** has been contaminated by a Mush raid during explora
     <unit id="baby_skinner_bite">
       <segment id="baby_skinner_bite" state="translated">
         <source>baby_skinner_bite</source>
-        <target>**Sally** seems a bit too agitated by {target_character} movements. She ends up biting {target_character_gender, select, male {his} female{her} other{their}} hand with her fangs. </target>
+        <target>**Sally** seems a bit too agitated by {target_character} movements. She ends up biting {target_character_gender, select, male {his} female{her} other{their}} hand with her fangs.</target>
       </segment>
     </unit>
     <unit id="baby_skinner_sleep">

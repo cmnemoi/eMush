@@ -297,7 +297,7 @@
       </segment>
       <segment id="treasure_hunt_pet_description" state="translated">
         <source>artefact.treasure_hunt_pet_description</source>
-        <target>You found a group of skinners, completely wrecked by an unknown creature. You walk toward their den. Inside, no fresh chab-chab carcass, but a juvenile skinner waiting for you. Convincing it to follow you is done without much effort. </target>
+        <target>You found a group of skinners, completely wrecked by an unknown creature. You walk toward their den. Inside, no fresh chab-chab carcass, but a juvenile skinner waiting for you. Convincing it to follow you is done without much effort.</target>
       </segment>
     </unit>
     <unit id="always_successful_thanks_to_skill">

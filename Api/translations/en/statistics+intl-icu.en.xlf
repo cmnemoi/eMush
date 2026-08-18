@@ -1556,7 +1556,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>team_mush_killed.description</source>
-        <target>Mush Invaders decimated by the crew you've travelled with. </target>
+        <target>Mush Invaders decimated by the crew you've travelled with.</target>
       </segment>
       <segment id="x1" state="translated">
         <source>team_mush_killed_1.name</source>
@@ -1572,7 +1572,7 @@
       </segment>
       <segment id="x200" state="translated">
         <source>team_mush_killed_200.name</source>
-        <target> Foe of Farmer Maggot</target>
+        <target>Foe of Farmer Maggot</target>
       </segment>
       <segment id="x500" state="translated">
         <source>team_mush_killed_500.name</source>

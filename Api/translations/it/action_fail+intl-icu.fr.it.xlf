@@ -704,18 +704,6 @@
       </segment>
     </unit>
     <unit id="pet_already_converted">
-      <segment id="description" state="translated">
-        <source>pet_already_converted.description</source>
-        <target>pet_already_converted.description</target>
-      </segment>
-    </unit>
-    <unit id="infect_pet_no_spore">
-      <segment id="description" state="translated">
-        <source>infect_pet_no_spore.description</source>
-        <target>infect_pet_no_spore.description</target>
-      </segment>
-    </unit>
-    <unit id="chicken_already_converted">
       <segment id="description" state="initial">
         <source>pet_already_converted.description</source>
         <target>pet_already_converted.description</target>

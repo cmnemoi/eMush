@@ -794,27 +794,15 @@
       </segment>
     </unit>
     <unit id="shoot_equipment_success">
-      <segment id="shoot_equipment_success" state="translated">
+      <segment id="shoot_equipment_success" state="initial">
         <source>shoot_equipment_success</source>
         <target>shoot_equipment_success</target>
       </segment>
     </unit>
-    <unit id="shoot_equipment_critical_success">
-      <segment id="shoot_equipment_critical_success" state="translated">
-        <source>shoot_equipment_critical_success</source>
-        <target>shoot_equipment_critical_success</target>
-      </segment>
-    </unit>
     <unit id="shoot_equipment_fail">
-      <segment id="shoot_equipment_fail" state="translated">
+      <segment id="shoot_equipment_fail" state="initial">
         <source>shoot_equipment_fail</source>
         <target>shoot_equipment_fail</target>
-      </segment>
-    </unit>
-    <unit id="shoot_equipment_critical_fail">
-      <segment id="shoot_equipment_critical_fail" state="translated">
-        <source>shoot_equipment_critical_fail</source>
-        <target>shoot_equipment_critical_fail</target>
       </segment>
     </unit>
     <unit id="take_chicken">

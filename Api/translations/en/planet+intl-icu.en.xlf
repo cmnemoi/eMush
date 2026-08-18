@@ -496,7 +496,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_ship.description</source>
-        <target>TODO</target>
+        <target>Presence of a wreck bearing the symbol of Grixar the Intrepid.</target>
       </segment>
     </unit>
     <unit id="next_sector">

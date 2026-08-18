@@ -1737,6 +1737,16 @@ Or you simply need some fresh air.... or not.</target>
         <target>Fire at someone to wound them, kill them or worse if you're so inclined. It might all end in tears!</target>
       </segment>
     </unit>
+    <unit id="shoot_chicken">
+      <segment id="name" state="translated">
+        <source>shoot_chicken.name</source>
+        <target>Shoot: {equipment}</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>shoot_chicken.description</source>
+        <target>Fire at someone to wound them, kill them or worse if you're so inclined. It might all end in tears!</target>
+      </segment>
+    </unit>
     <unit id="open_container">
       <segment id="name" state="translated">
         <source>open_container.name</source>

@@ -1694,11 +1694,11 @@
       </segment>
     </unit>
     <unit id="shoot_equipment">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>shoot_equipment.name</source>
         <target>shoot_equipment.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>shoot_equipment.description</source>
         <target>shoot_equipment.description</target>
       </segment>

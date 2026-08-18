@@ -486,7 +486,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_pet.description</source>
-        <target>TODO</target>
+        <target>Nido de desollador detectado.</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_ship">
@@ -496,7 +496,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_ship.description</source>
-        <target>TODO</target>
+        <target>Presencia de un naufragio que ostenta el símbolo de Grixar el Intrépido.</target>
       </segment>
     </unit>
     <unit id="next_sector">

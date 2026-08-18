@@ -573,7 +573,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>beginner.description</source>
-        <target>Tout droit sortie de l'Académie, cette nouvelle recrue aura besoin d'être épaulée dans sa prise en main des spécificités de la vie à bord du Daedalus. De plus, les chances de contamination mush avant le départ ont été moindres, grâce au régime hygiénique strict de l'Académie.</target>
+        <target>Tout droit sortie de l'Académie, cette nouvelle recrue aura besoin d'être épaulée dans sa prise en main des spécificités de la vie à bord du Daedalus.</target>
       </segment>
     </unit>
     <unit id="turbo_drone_upgrade">

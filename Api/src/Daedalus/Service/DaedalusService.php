@@ -294,47 +294,30 @@ class DaedalusService implements DaedalusServiceInterface
     {
         $gameConfig = $daedalus->getGameConfig();
 
-        // Chose alpha Mushs
-        $chancesArray = [];
-
-        /** @var Player $character */
-        foreach ($daedalus->getAlivePlayers() as $character) {
-            if ($character->hasStatus(PlayerStatusEnum::IMMUNIZED)
-            ) {
-                continue;
-            }
-
-            if ($this->userService->isNewPlayer($character->getUser())) {
-                continue;
-            }
-            $mushChance = $character->getUser()->getAlphaSelectionWeight();
-
-            $chancesArray[$character->getName()] = $mushChance;
-        }
-
+        // we calculate the number of alpha mush
         $mushNumber = $gameConfig->getDaedalusConfig()->getNbMush();
         $playerNumber = $daedalus->getAlivePlayers()->count();
         $maxPlayerNumber = $daedalus->getDaedalusConfig()->getPlayerCount();
 
         $mushNumber = (int) ceil($mushNumber * $playerNumber / $maxPlayerNumber);
 
+        // we get here the weight for the players who can be alpha
+        $chancesArray = $this->getWeightForAlphaSelection($daedalus, false);
+
+        // if we don't have enough possible players we try by allowing new players to be mush
+        if (\count($chancesArray) < $mushNumber) {
+            $chancesArray = $this->getWeightForAlphaSelection($daedalus, true);
+        }
+
+        // we select the mush
         $mushPlayerName = $this->randomService->getRandomElementsFromProbaCollection(new ProbaCollection($chancesArray), $mushNumber);
 
+        // we go trough the list of players, turn them into mush if selected or increasing the odd for them to be selected next time.
         foreach ($daedalus->getAlivePlayers() as $character) {
             $user = $character->getUser();
 
             if (\in_array($character->getName(), $mushPlayerName, true)) {
-                $mush = $daedalus->getPlayerByNameOrThrow($character->getName());
-
-                $playerEvent = new PlayerEvent(
-                    $mush,
-                    [DaedalusEvent::FULL_DAEDALUS],
-                    $date
-                );
-
-                $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
-
-                $user->resetAlphaSelectionWeight();
+                $this->selectAsAlpha($character, $date);
             } else {
                 $user->IncreaseAlphaSelectionWeight();
             }
@@ -522,6 +505,42 @@ class DaedalusService implements DaedalusServiceInterface
         }
 
         return $daedalus;
+    }
+
+    /** @return array<string, int> */
+    private function getWeightForAlphaSelection(Daedalus $daedalus, bool $newPlayersCanBeMush): array
+    {
+        $chancesArray = [];
+
+        /** @var Player $character */
+        foreach ($daedalus->getAlivePlayers() as $character) {
+            if ($character->hasStatus(PlayerStatusEnum::IMMUNIZED)
+            ) {
+                continue;
+            }
+
+            if ($this->userService->isNewPlayer($character->getUser()) && $newPlayersCanBeMush === false) {
+                continue;
+            }
+            $mushChance = $character->getUser()->getAlphaSelectionWeight();
+
+            $chancesArray[$character->getName()] = $mushChance;
+        }
+
+        return $chancesArray;
+    }
+
+    private function selectAsAlpha(Player $player, \DateTime $date): void
+    {
+        $playerEvent = new PlayerEvent(
+            $player,
+            [DaedalusEvent::FULL_DAEDALUS],
+            $date
+        );
+
+        $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+
+        $player->getUser()->resetAlphaSelectionWeight();
     }
 
     private function buildDaedalus(GameConfig $gameConfig, string $name, string $language): Daedalus

@@ -662,7 +662,7 @@ Todas tus acciones se vuelven más difíciles.</target>
       </segment>
       <segment id="description" state="translated">
         <source>beginner.description</source>
-        <target>Recién graduado de la Academia, este nuevo recluta necesitará ayuda para familiarizarse con las particularidades de la vida a bordo del Daedalus. Además, es menos probable que haya sido contaminado por el Mush antes de abordar, gracias al régimen estricto de higiene de la Academia.</target>
+        <target>Recién graduado de la Academia, este nuevo recluta necesitará ayuda para familiarizarse con las particularidades de la vida a bordo del Daedalus.</target>
       </segment>
     </unit>
     <unit id="turbo_drone_upgrade">

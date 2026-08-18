@@ -80,7 +80,7 @@ class UserService implements UserServiceInterface
 
     public function isNewPlayer(User $user): bool
     {
-        return $this->repository->findUserNumberOfPastGames($user) === 0;
+        return $this->repository->findUserNumberOfPastGames($user) === 1;
     }
 
     public function acceptRules(User $user): void

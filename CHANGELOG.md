@@ -1,3 +1,33 @@
+# [0.34.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.33.0...0.34.0) (2026-08-18)
+
+
+### Bug Fixes
+
+* can't accept summer event trade and pet sector not on the planet ([488908c](https://gitlab.com/eternaltwin/mush/mush/commit/488908ccf53780c48ba183c98d2171b9a91ba4ad))
+* descriptions for alien fruits now properly give the info that curing disease is % based. ([0348159](https://gitlab.com/eternaltwin/mush/mush/commit/03481590d237a1a57e38b5f57216aa1d00383822))
+* fix recursion error and colon handling in url regex ([8c1807a](https://gitlab.com/eternaltwin/mush/mush/commit/8c1807a3460e8763f82e92415e690a0e59081d63))
+* new Crowdin translations ([15f4dd8](https://gitlab.com/eternaltwin/mush/mush/commit/15f4dd8f4f40eecda09304552a65f853fab789bb))
+* new players can't be alpha ([63ac77e](https://gitlab.com/eternaltwin/mush/mush/commit/63ac77ece2b2bd0ad7ede8826f21316b2299d870))
+
+
+### Features
+
+* buff panic ([ec2bdca](https://gitlab.com/eternaltwin/mush/mush/commit/ec2bdca1a8f51a0bc4204fb20cbbd68b1a20a7ed))
+* can't skip pet event and pirate wreck event by sabotaging the exploration but give bonus to the mush when they do so ([0324ece](https://gitlab.com/eternaltwin/mush/mush/commit/0324ece5838b405404ed90522b8575d750fd9b02))
+* more secret stuffs ([6383a61](https://gitlab.com/eternaltwin/mush/mush/commit/6383a610a62656bac4a1b1f7fbfe2aa5388a76e5))
+* mycoalarm research give 3 myco instead of one. ([100715c](https://gitlab.com/eternaltwin/mush/mush/commit/100715cd96cd22a075e9a5f72ad3e7bb49b98d0f))
+* new icon for status protected by pet ([16b4f22](https://gitlab.com/eternaltwin/mush/mush/commit/16b4f22e7b7f8443806642e9a7103426f531764a))
+* new mush selection system that make sure all players are mush at more or less the same rythm. (No more waiting 30 games to be alpha). New option to be mush slightly more often. New players can't be mush anymore. ([3115cf4](https://gitlab.com/eternaltwin/mush/mush/commit/3115cf41cda6c7aeb441896a0da7a034155802a0))
+* new pirate ship sector. New search for the treasure action. Players can now try to find the treasure ([2c813f4](https://gitlab.com/eternaltwin/mush/mush/commit/2c813f4c956dab1fded89cee3a4eb4edb755f373))
+* open treasure action ([281eeea](https://gitlab.com/eternaltwin/mush/mush/commit/281eeead24a613377b9964823c883384ef9b0e75))
+* redesign homepage ([a9328de](https://gitlab.com/eternaltwin/mush/mush/commit/a9328deff11292710bb49c6f800730e211f6e0c9))
+* spore sucker no longer tell if you removed a spore. Spore sucker can only be used every 4 cycles. Spore sucker stop you from lying down for 4 cycles. ([cb94f73](https://gitlab.com/eternaltwin/mush/mush/commit/cb94f730b7706cc9ddebb85ae84731e06264edf0))
+* summer event is added. When the ship is filled, a new special trader appear that offer the tablet. Added back command manual and research manual to the game ! ([648210e](https://gitlab.com/eternaltwin/mush/mush/commit/648210ed23e14d5cf50aa19520bb4f7ad9ba5453))
+* super soap need cristalite shard ([4884b96](https://gitlab.com/eternaltwin/mush/mush/commit/4884b9674fde2ec5c85d812e5bbd8ac69e3b780a))
+* treasure hunt pet. New action to feed it. New status when you feed it. ([e986ffa](https://gitlab.com/eternaltwin/mush/mush/commit/e986ffa6d1577f66207bc4df48395c6de646d3bb))
+* upgrade reactor action and can find alien device on ruin and wreck. ([99a3671](https://gitlab.com/eternaltwin/mush/mush/commit/99a36718673e2cff2974bc553abc5743668fc31b))
+* very mysterious things you should not know about (please don't share if you look ! It's a secret !) ([65c7da2](https://gitlab.com/eternaltwin/mush/mush/commit/65c7da2e7830530192585789eb98c114abd83e2b))
+
 # [0.33.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.32.1...0.33.0) (2026-08-01)
 
 

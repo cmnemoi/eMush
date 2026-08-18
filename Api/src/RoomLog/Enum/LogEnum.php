@@ -119,6 +119,7 @@ abstract class LogEnum
     public const string BABY_SKINNER_BITE = 'baby_skinner_bite';
     public const string BABY_SKINNER_YELP = 'baby_skinner_yelp';
     public const string BABY_SKINNER_PREVENT_METAL_PLATE = 'baby_skinner_prevent_metal_plate';
+    public const string PIRATE_SHIP_FREE_SPORE = 'pirate_ship_free_spore';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

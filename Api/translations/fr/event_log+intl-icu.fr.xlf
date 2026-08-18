@@ -1553,5 +1553,11 @@
         <target>Alors qu'un morceau du plafond commence à se détacher, **Sally** se précipite vers **{character}** et {character_gender, select, male {le} female{la} other{lae}} pousse hors de danger.</target>
       </segment>
     </unit>
+    <unit id="pirate_ship_free_spore">
+      <segment id="pirate_ship_free_spore" state="translated">
+        <source>pirate_ship_free_spore</source>
+        <target>Vous profitez de l'exploration de l'épave pour extraire un spore en douce.(Sabotage)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -345,6 +345,7 @@ final class PlanetSectorEventConfigData
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::PIRATE_SHIP,
                 eventName: PlanetSectorEvent::PIRATE_SHIP,
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
             new PlanetSectorEventConfigDto(
                 name: PlanetSectorEvent::ARTEFACT_PET,
@@ -353,6 +354,7 @@ final class PlanetSectorEventConfigData
                 outputTable: [
                     ItemEnum::TREASURE_HUNT_PET => 1,
                 ],
+                tags: [PlanetSectorEventTagEnum::NEGATIVE],
             ),
         ];
     }

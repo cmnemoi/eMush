@@ -39,6 +39,7 @@ use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
@@ -2014,6 +2015,51 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
                 'eventName' => PlanetSectorEvent::ARTEFACT,
             ]
         );
+    }
+
+    public function testPirateShipSabotage(FunctionalTester $I): void
+    {
+        // given Kuan Ti is mush with 0 spores
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $this->kuanTi->setSpores(0);
+
+        // given an exploration is created without Janice
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::TREASURE_HUNT_SHIP], $I),
+            explorators: new ArrayCollection([$this->chun, $this->kuanTi, $this->derek])
+        );
+
+        // given exploration is sabotaged
+        $exploration->setIsSabotaged(true);
+
+        // when event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Kuan Ti has a spore
+        $I->assertEquals(1, $this->kuanTi->getSpores());
+    }
+
+    public function testPetSectorSabotage(FunctionalTester $I): void
+    {
+        // given Kuan Ti is mush with 0 spores
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $this->kuanTi->setSpores(0);
+
+        // given an exploration is created without Janice
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::TREASURE_HUNT_PET], $I),
+            explorators: new ArrayCollection([$this->chun, $this->kuanTi, $this->derek])
+        );
+
+        // given exploration is sabotaged
+        $exploration->setIsSabotaged(true);
+
+        // when event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then we have an infected pet
+        $pet = $this->kuanTi->getPlace()->getEquipmentByNameAndStatus(ItemEnum::TREASURE_HUNT_PET, EquipmentStatusEnum::BABY_SKINNER_INFECTED);
+        $I->assertNotNull($pet);
     }
 
     private function givenChunIsASurvivalist(FunctionalTester $I): void

@@ -1,3 +1,10 @@
+## [0.34.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.34.1...0.34.2) (2026-08-18)
+
+
+### Bug Fixes
+
+* new Crowdin translations ([e6877f8](https://gitlab.com/eternaltwin/mush/mush/commit/e6877f82ff4557aadceda601e45bb4e952aa636e))
+
 ## [0.34.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.34.0...0.34.1) (2026-08-18)
 
 

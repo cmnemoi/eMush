@@ -51,6 +51,7 @@ export enum EmoteStatusEnum {
     COMMANDER = 'st_commander',
     COMMS_MANAGER = 'st_comms_manager',
     NERON_MANAGER = 'st_neron_manager',
+    PROTECTED_BY_PET = 'protected_by_pet',
 }
 
 export const EmoteStatusAliases: { [index: string]: string } = {
@@ -114,7 +115,8 @@ export const EmoteStatusAliases: { [index: string]: string } = {
     ['suicidal']: EmoteStatusEnum.SUICIDAL,
     ['brainsync']: EmoteStatusEnum.THINKLINKED,
     ['antisocial']: EmoteStatusEnum.UNSOCIABLE,
-    ['outcast']: EmoteStatusEnum.UNSOCIABLE
+    ['outcast']: EmoteStatusEnum.UNSOCIABLE,
+    ['pet_protec']: EmoteStatusEnum.PROTECTED_BY_PET,
 };
 
 
@@ -168,5 +170,6 @@ export const EmoteStatusIcons: {[index: string]: {img: string; max_height: strin
     [EmoteStatusEnum.UNSOCIABLE]: { img: getImgUrl('status/unsociable.png'), max_height: "1.2em" },
     [EmoteStatusEnum.COMMANDER]: { img: getImgUrl('title_commander.png'), max_height: "1.2em" },
     [EmoteStatusEnum.COMMS_MANAGER]: { img: getImgUrl('title_com_manager.png'), max_height: "1.2em" },
-    [EmoteStatusEnum.NERON_MANAGER]: { img: getImgUrl('title_neron_manager.png'), max_height: "1.2em" }
+    [EmoteStatusEnum.NERON_MANAGER]: { img: getImgUrl('title_neron_manager.png'), max_height: "1.2em" },
+    [EmoteStatusEnum.PROTECTED_BY_PET]: { img: getImgUrl('status/she_protec.png'), max_height: "1.2em" },
 };

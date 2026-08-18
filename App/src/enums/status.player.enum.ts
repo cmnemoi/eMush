@@ -42,6 +42,7 @@ export enum StatusPlayerNameEnum {
     IS_ANONYMOUS = 'is_anonymous',
     MANKIND_ONLY_HOPE_STATUS = 'mankind_only_hope_status',
     SPORE_SUCKER_USED = 'spore_sucker_used',
+    PROTECTED_BY_PET = 'protected_by_pet',
 };
 
 export const statusPlayerEnum: {[index: string]: {icon: string}} = {
@@ -167,5 +168,8 @@ export const statusPlayerEnum: {[index: string]: {icon: string}} = {
     },
     [StatusPlayerNameEnum.SPORE_SUCKER_USED]: {
         'icon': getImgUrl('status/injury_spore_sucker.png')
-    }
+    },
+    [StatusPlayerNameEnum.PROTECTED_BY_PET]: {
+        'icon': getImgUrl('status/she_protec.png')
+    },
 };

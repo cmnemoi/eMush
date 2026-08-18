@@ -370,11 +370,11 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
       </segment>
       <segment id="description" state="translated">
         <source>creepnut.description</source>
-        <target>La Lianube est un fruit replet aux saveurs de calamar curry lait de coco...</target>
+        <target>La lianube est un fruit replet aux saveurs de calamar curry lait de coco...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>creepnut.examine</source>
-        <target>La Lianube est un fruit replet aux saveurs de calamar curry lait de coco...</target>
+        <target>La lianube est un fruit replet aux saveurs de calamar curry lait de coco...</target>
       </segment>
     </unit>
     <unit id="meztine">
@@ -396,11 +396,11 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
       </segment>
       <segment id="description" state="translated">
         <source>meztine.description</source>
-        <target>La Balargine est un fruit délicat et sucré. Sa pulpe aux propriétés proches du collagène fait un tabac dans les régions riches du sud de la France.</target>
+        <target>La balargine est un fruit délicat et sucré. Sa pulpe aux propriétés proches du collagène fait un tabac dans les régions riches du sud de la France.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>meztine.examine</source>
-        <target>La Balargine est un fruit délicat et sucré. Sa pulpe aux propriétés proches du collagène fait un tabac dans les régions riches du sud de la France.</target>
+        <target>La balargine est un fruit délicat et sucré. Sa pulpe aux propriétés proches du collagène fait un tabac dans les régions riches du sud de la France.</target>
       </segment>
     </unit>
     <unit id="guntiflop">
@@ -422,11 +422,11 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
       </segment>
       <segment id="description" state="translated">
         <source>guntiflop.description</source>
-        <target>Le Goustiflon est un fruit peu esthétique mais très sympathique.</target>
+        <target>Le goustiflon est un fruit peu esthétique mais très sympathique.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>guntiflop.examine</source>
-        <target>Le Goustiflon est un fruit peu esthétique mais très sympathique.</target>
+        <target>Le goustiflon est un fruit peu esthétique mais très sympathique.</target>
       </segment>
     </unit>
     <unit id="ploshmina">
@@ -448,11 +448,11 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
       </segment>
       <segment id="description" state="translated">
         <source>ploshmina.description</source>
-        <target>Le Toupimino sert essentiellement de jouet pour les enfants car il est pénible à manger et fait un bruit rigolo quand il tourne.</target>
+        <target>Le toupimino sert essentiellement de jouet pour les enfants car il est pénible à manger et fait un bruit rigolo quand il tourne.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>ploshmina.examine</source>
-        <target>Le Toupimino sert essentiellement de jouet pour les enfants car il est pénible à manger et fait un bruit rigolo quand il tourne.</target>
+        <target>Le toupimino sert essentiellement de jouet pour les enfants car il est pénible à manger et fait un bruit rigolo quand il tourne.</target>
       </segment>
     </unit>
     <unit id="precati">
@@ -474,11 +474,11 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
       </segment>
       <segment id="description" state="translated">
         <source>precati.description</source>
-        <target>La Precati est une espèce de courge difficile à mâcher à cause de sa consistance élastique.</target>
+        <target>La precati est une espèce de courge difficile à mâcher à cause de sa consistance élastique.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>precati.examine</source>
-        <target>La Precati est une espèce de courge difficile à mâcher à cause de sa consistance élastique.</target>
+        <target>La precati est une espèce de courge difficile à mâcher à cause de sa consistance élastique.</target>
       </segment>
     </unit>
     <unit id="bottine">
@@ -500,11 +500,11 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
       </segment>
       <segment id="description" state="translated">
         <source>bottine.description</source>
-        <target>Le fruit du Buitalien est très esthétique mais ses saveurs laissent à désirer.</target>
+        <target>Le fruit du buitalien est très esthétique mais ses saveurs laissent à désirer.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>bottine.examine</source>
-        <target>Le fruit du Buitalien est très esthétique mais ses saveurs laissent à désirer.</target>
+        <target>Le fruit du buitalien est très esthétique mais ses saveurs laissent à désirer.</target>
       </segment>
     </unit>
     <unit id="fragilane">
@@ -604,11 +604,11 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
       </segment>
       <segment id="description" state="translated">
         <source>caleboot.description</source>
-        <target>La Calebotte frappe tout de suite par ses arômes brutaux et ses parfums pêchus.</target>
+        <target>La calebotte frappe tout de suite par ses arômes brutaux et ses parfums pêchus.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>caleboot.examine</source>
-        <target>La Calebotte frappe tout de suite par ses arômes brutaux et ses parfums pêchus.</target>
+        <target>La calebotte frappe tout de suite par ses arômes brutaux et ses parfums pêchus.</target>
       </segment>
     </unit>
     <unit id="tracker">
@@ -724,11 +724,11 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
     <unit id="adjustable_wrench">
       <segment id="name" state="translated">
         <source>adjustable_wrench.name</source>
-        <target>Clé à Molette</target>
+        <target>Clé à molette</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>adjustable_wrench.short_name</source>
-        <target>Clé à Molette</target>
+        <target>Clé à molette</target>
       </segment>
       <segment id="genre" state="translated">
         <source>adjustable_wrench.gender</source>
@@ -745,21 +745,21 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
       <segment id="examine" state="translated">
         <source>adjustable_wrench.examine</source>
         <target>La meilleure amie du technicien. Augmente grandement vos compétences de réparation.
-Une clé à molette, peut servir pour faciliter la réparation des valves, tourelles, etc... Bref, tout ce qui se répare.</target>
+Une clé à molette, peut servir pour faciliter la réparation des valves, tourelles, etc. Bref, tout ce qui se répare.</target>
       </segment>
     </unit>
     <unit id="alien_bottle_opener">
       <segment id="name" state="translated">
         <source>alien_bottle_opener.name</source>
-        <target>Décapsuleur Alien</target>
+        <target>Décapsuleur alien</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>alien_bottle_opener.short_name</source>
-        <target>Décapsuleur Alien</target>
+        <target>Décapsuleur alien</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>alien_bottle_opener.plural_name</source>
-        <target>Décapsuleurs Alien</target>
+        <target>Décapsuleurs aliens</target>
       </segment>
       <segment id="genre" state="translated">
         <source>alien_bottle_opener.gender</source>
@@ -772,12 +772,12 @@ Une clé à molette, peut servir pour faciliter la réparation des valves, toure
       <segment id="description" state="translated">
         <source>alien_bottle_opener.description</source>
         <target>Initialement prévu pour les aliens amateurs de bière, cet ouvre-bouteille dernier cri rend des services inattendus pour réparer le Daedalus.
-Augmente vos chances de réparation de 50%</target>
+Augmente vos chances de réparation de 50 %.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>alien_bottle_opener.examine</source>
         <target>Initialement prévu pour les aliens amateurs de bière, cet ouvre-bouteille dernier cri rend des services inattendus pour réparer le Daedalus.
-Augmente vos chances de réparation de 50%</target>
+Augmente vos chances de réparation de 50 %.</target>
       </segment>
     </unit>
     <unit id="antigrav_scooter">
@@ -837,12 +837,12 @@ Ajoute 2 Points de Mouvement lors des transferts :pa:-:pm: (sauf si vous avez d�
       </segment>
       <segment id="description" state="translated">
         <source>rolling_boulder.description</source>
-        <target>Il secoue pas mal et fait beaucoup de bruit dans les coursives, mais il permet de se déplacer d'un bout à l'autre du Daedalus sans se fatiguer.//
+        <target>Elle secoue pas mal et fait beaucoup de bruit dans les coursives, mais elle permet de se déplacer d'un bout à l'autre du Daedalus sans se fatiguer.//
 :point: Lors des cycles pairs, vous gagnez 1 :pm: de plus lors des conversions :pa:-:pm:.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>rolling_boulder.examine</source>
-        <target>Il secoue pas mal et fait beaucoup de bruit dans les coursives, mais il permet de se déplacer d'un bout à l'autre du Daedalus sans se fatiguer.
+        <target>Elle secoue pas mal et fait beaucoup de bruit dans les coursives, mais elle permet de se déplacer d'un bout à l'autre du Daedalus sans se fatiguer.
 Lors des cycles pairs, vous gagnez 1 pm de plus lors des transferts.
 Les câlins de la bête sont littéralement insupportables, le pire, ce sont les léchouilles...</target>
       </segment>
@@ -902,11 +902,11 @@ Le casque de visée est une aide précieuse par temps de brouillard, dans le noi
       <segment id="description" state="translated">
         <source>ncc_lenses.description</source>
         <target>Les lentilles NCC améliorent votre vision
-+10% à vos actions de Tir.</target>
++10 % à vos actions de Tir.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>ncc_lenses.examine</source>
-        <target>Les lentilles NCC améliorent votre vision.//+10% à vos actions de Tir.//
+        <target>Les lentilles NCC améliorent votre vision.//+10 % à vos actions de Tir.//
 Ces lentilles ultra-sophistiquées élaborées à partir d'une technologie féline feront de vous un bien meilleur prédateur.</target>
       </segment>
     </unit>
@@ -934,12 +934,12 @@ Ces lentilles ultra-sophistiquées élaborées à partir d'une technologie féli
       <segment id="description" state="translated">
         <source>oscilloscope.description</source>
         <target>Un superbe vaguoscope dernière génération.
-+100% de réussite aux actions de réparation des Patrouilleurs et de la coque du Daedalus</target>
++100 % de réussite aux actions de réparation des Patrouilleurs et de la coque du Daedalus.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>oscilloscope.examine</source>
         <target>Un superbe vaguoscope dernière génération.
-+100% de réussite aux actions de réparation des Patrouilleurs et de la coque du Daedalus
++100 % de réussite aux actions de réparation des Patrouilleurs et de la coque du Daedalus.
 Vous n'avez jamais vraiment compris l'utilité du vaguoscope mais de toute façon tout le monde s'en fiche... sauf les pilotes de Patrouilleurs.</target>
       </segment>
     </unit>
@@ -1153,7 +1153,7 @@ L'avenir de l'Humanité sera propre ou ne sera pas.</target>
       <segment id="examine" state="translated">
         <source>babel_module.examine</source>
         <target>Un module de traduction universel.//Expédition : Chance de gains d'artefacts dans un secteur "Vie Intelligente" x2.//
-Le module Babel a été mis au point il y a de nombreuses années par un pisciculteur. Celui-ci en avait assez de voir ses poissons rouges mourir trop rapidement et a donc décidé de financer un projet de recherche visant à pouvoir communiquer avec eux. Le module décrypte les émotions des ondes pre et para-consciente Alpha et Beta et les transforme en mots intelligibles... ou presque. Bien mal lui en a pris, car ses poissons étaient en fait juste trop idiots et n'avaient aucun espèce d’intellect. Par contre, lui permettant de communiquer avec toute sorte d'autres entités vivantes, il a réussi à gagner des millions en refourguant son invention aux propriétaires de chiens... Les chats ne daignant pas répondre aux humains. Avec les premiers contacts xenomorphes, il devint très riche et eu beaucoup d'enfants.</target>
+Le module Babel a été mis au point il y a de nombreuses années par un pisciculteur. Celui-ci en avait assez de voir ses poissons rouges mourir trop rapidement et a donc décidé de financer un projet de recherche visant à pouvoir communiquer avec eux. Le module décrypte les émotions des ondes pre et para-consciente Alpha et Bêta et les transforme en mots intelligibles... ou presque. Bien mal lui en a pris, car ses poissons étaient en fait juste trop idiots et n'avaient aucun espèce d’intellect. Par contre, lui permettant de communiquer avec toute sorte d'autres entités vivantes, il a réussi à gagner des millions en refourguant son invention aux propriétaires de chiens... Les chats ne daignant pas répondre aux humains. Avec les premiers contacts xénomorphes, il devint très riche et eu beaucoup d'enfants.</target>
       </segment>
     </unit>
     <unit id="drill">
@@ -1222,11 +1222,11 @@ L' Écholocateur est un outil puissant pour les corps expéditionnaire en milieu
     <unit id="quadrimetric_compass">
       <segment id="name" state="translated">
         <source>quadrimetric_compass.name</source>
-        <target>Boussole Quadrimétrique</target>
+        <target>Boussole quadrimétrique</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>quadrimetric_compass.short_name</source>
-        <target>Boussole Quadrimétrique</target>
+        <target>Boussole quadrimétrique</target>
       </segment>
       <segment id="genre" state="translated">
         <source>quadrimetric_compass.gender</source>
@@ -1352,12 +1352,12 @@ Le drapeau blanc a été institué symbole international des peuples en demande 
       </segment>
       <segment id="description" state="translated">
         <source>alien_holographic_tv.description</source>
-        <target>Ce petit module peut projeter des séries télévisées alien grandeur nature dans le réfectoire ! De quoi remonter le moral de l'équipage.
+        <target>Ce petit module peut projeter des séries télévisées aliens grandeur nature dans le réfectoire ! De quoi remonter le moral de l'équipage.
 Unique : Permet de donner +3 :pmo: à chaque téléspectateur.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>alien_holographic_tv.examine</source>
-        <target>Ce petit module peut projeter des séries télévisées alien grandeur nature dans le réfectoire ! De quoi remonter le moral de l'équipage. Unique : Permet de donner +3 :pmo: à chaque téléspectateur. L'effet hypnotique de cet appareil vous fera oublier tous vos soucis. Et vos ennuis. Et... Vous vous appelez comment déjà ?</target>
+        <target>Ce petit module peut projeter des séries télévisées aliens grandeur nature dans le réfectoire ! De quoi remonter le moral de l'équipage. Unique : Permet de donner +3 :pmo: à chaque téléspectateur. L'effet hypnotique de cet appareil vous fera oublier tous vos soucis. Et vos ennuis. Et... Vous vous appelez comment déjà ?</target>
       </segment>
     </unit>
     <unit id="block_of_post_it">
@@ -1472,7 +1472,7 @@ L'extincteur est un dispositif de sécurité de taille standard désigné pour p
       </segment>
       <segment id="examine" state="translated">
         <source>hacker_kit.examine</source>
-        <target>Le bidouilleur vous permet de débloquer l'accès d'un module protégé tel que le Terminal de Commandement ou le Bios de NERON
+        <target>Le bidouilleur vous permet de débloquer l'accès d'un module protégé tel que le Terminal de Commandement ou le Bios de NERON.
 Le bidouilleur est objet étrange, son utilité reste à prouver et à vrai dire peu savent vraiment à quoi il sert...</target>
       </segment>
     </unit>
@@ -1557,11 +1557,11 @@ Outil moderne pour cuisiner rapidement les rations.</target>
       </segment>
       <segment id="description" state="translated">
         <source>superfreezer.description</source>
-        <target>Le Supergélateur permet de stériliser et de repackager une ration cuisinée.</target>
+        <target>Le Supergélateur permet de stériliser et de remballer une ration cuisinée.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>superfreezer.examine</source>
-        <target>Le Supergélateur permet de stériliser et de repackager une ration cuisinée.
+        <target>Le Supergélateur permet de stériliser et de remballer une ration cuisinée.
 Outil moderne qui permet de conditionner de la nourriture.</target>
       </segment>
     </unit>
@@ -1599,11 +1599,11 @@ Tout droit sortie des plus grandes imaginations de la science fiction, une machi
     <unit id="old_t_shirt">
       <segment id="name" state="translated">
         <source>old_t_shirt.name</source>
-        <target>Vieux T-shirt</target>
+        <target>Vieux t-shirt</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>old_t_shirt.short_name</source>
-        <target>Vieux T-shirt</target>
+        <target>Vieux t-shirt</target>
       </segment>
       <segment id="genre" state="translated">
         <source>old_t_shirt.gender</source>
@@ -1615,11 +1615,11 @@ Tout droit sortie des plus grandes imaginations de la science fiction, une machi
       </segment>
       <segment id="description" state="translated">
         <source>old_t_shirt.description</source>
-        <target>Un vieux T-Shirt atrocement plein de crasse.</target>
+        <target>Un vieux t-shirt atrocement plein de crasse.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>old_t_shirt.examine</source>
-        <target>Un vieux T-Shirt atrocement plein de crasse.
+        <target>Un vieux t-shirt atrocement plein de crasse.
 Répugnant... Vous devriez le brûler.</target>
       </segment>
     </unit>
@@ -1634,7 +1634,7 @@ Répugnant... Vous devriez le brûler.</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>plastic_scraps.plural_name</source>
-        <target>Débris plastique</target>
+        <target>Débris plastiques</target>
       </segment>
       <segment id="genre" state="translated">
         <source>plastic_scraps.gender</source>
@@ -1664,7 +1664,7 @@ Répugnant... Vous devriez le brûler.</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>metal_scraps.plural_name</source>
-        <target>Débris métallique</target>
+        <target>Débris métalliques</target>
       </segment>
       <segment id="genre" state="translated">
         <source>metal_scraps.gender</source>
@@ -1709,7 +1709,7 @@ Répugnant... Vous devriez le brûler.</target>
       <segment id="examine" state="translated">
         <source>thick_tube.examine</source>
         <target>Un tube creux et froid...
-Un tube épais... qu'est-ce que vous pourriez en faire...</target>
+Un tube épais... Qu'est-ce que vous pourriez en faire...</target>
       </segment>
     </unit>
     <unit id="schrodinger">
@@ -1742,7 +1742,7 @@ Un tube épais... qu'est-ce que vous pourriez en faire...</target>
     <unit id="support_drone">
       <segment id="name" state="translated">
         <source>support_drone.name</source>
-        <target>Drone de Soutien</target>
+        <target>Drone de soutien</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>support_drone.short_name</source>
@@ -1763,26 +1763,26 @@ Un tube épais... qu'est-ce que vous pourriez en faire...</target>
       <segment id="description" state="translated">
         <source>support_drone.description</source>
         <target>Le meilleur ami de l'homme du Daedalus. Ce drone pourra accomplir de nombreuses tâches à votre place.
-Le Drone effectue des actions similaires à celles des équipiers.
+Le drone effectue des actions similaires à celles des équipiers.
 Tente de réparer les équipements défectueux de la pièce avant de se déplacer.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>support_drone.examine</source>
         <target>Le meilleur ami de l'homme du Daedalus. Ce drone pourra accomplir de nombreuses tâches à votre place.
-Le Drone effectue des actions similaires à celles des équipiers.
+Le drone effectue des actions similaires à celles des équipiers.
 Tente de réparer les équipements défectueux de la pièce avant de se déplacer.
-Le drone de Soutien permet d'achever l'objectif de maintenance automatique de Magellan, grâce à son protocole Beta|-Slave ils peuvent quasiment remplacer un vrai être humain. Sauf pour le faire.
+Le drone de soutien permet d'achever l'objectif de maintenance automatique de Magellan, grâce à son protocole Beta|-Slave ils peuvent quasiment remplacer un vrai être humain. Sauf pour le faire.
 {drone_upgrades}</target>
       </segment>
     </unit>
     <unit id="jar_of_alien_oil">
       <segment id="name" state="translated">
         <source>jar_of_alien_oil.name</source>
-        <target>Lubrifiant Alien</target>
+        <target>Lubrifiant alien</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>jar_of_alien_oil.short_name</source>
-        <target>Lubrifiant Alien</target>
+        <target>Lubrifiant alien</target>
       </segment>
       <segment id="genre" state="translated">
         <source>jar_of_alien_oil.gender</source>
@@ -1796,14 +1796,14 @@ Le drone de Soutien permet d'achever l'objectif de maintenance automatique de Ma
         <source>jar_of_alien_oil.description</source>
         <target>Cette huile mi-ra-cu-leuse ne se contente pas de guérir vos blessures, elle peut également alimenter le réacteur du Daedalus !
 //
-Guérit 100% des blessures.
+Guérit 100 % des blessures.
 //
 Peut être inséré dans un réservoir pour gagner 5 unités de fuel.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>jar_of_alien_oil.examine</source>
         <target>Cette huile mi-ra-cu-leuse ne se contente pas de guérir vos blessures, elle peut également alimenter le réacteur du Daedalus !
-Guérit 100% des blessures.
+Guérit 100 % des blessures.
 Peut être inséré dans un reservoir pour gagner 5 unités de fuel.
 Ni vraiment fluide, ni vraiment solide, sa viscosité n'a d'égal que la puissance de son odeur.</target>
       </segment>
@@ -1865,11 +1865,11 @@ Après les terribles guerres du Mush, il a été décidé par les états majors,
     <unit id="retro_fungal_serum">
       <segment id="name" state="translated">
         <source>retro_fungal_serum.name</source>
-        <target>Sérum Rétro-Fongique</target>
+        <target>Sérum rétro-fongique</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>retro_fungal_serum.short_name</source>
-        <target>Sérum Rétro-Fongique</target>
+        <target>Sérum rétro-fongique</target>
       </segment>
       <segment id="genre" state="translated">
         <source>retro_fungal_serum.gender</source>
@@ -1892,15 +1892,15 @@ Le sérum retro-fongique est conçu pour anéantir le mécanisme de parthénogen
     <unit id="spore_sucker">
       <segment id="name" state="translated">
         <source>spore_sucker.name</source>
-        <target>Suceur de Spore</target>
+        <target>Extracteur de spores</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>spore_sucker.short_name</source>
-        <target>Suceur de Spore</target>
+        <target>Extracteur de spores</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>spore_sucker.plural_name</source>
-        <target>Suceurs de Spore</target>
+        <target>Extracteurs de spores</target>
       </segment>
       <segment id="genre" state="translated">
         <source>spore_sucker.gender</source>
@@ -1912,12 +1912,12 @@ Le sérum retro-fongique est conçu pour anéantir le mécanisme de parthénogen
       </segment>
       <segment id="description" state="translated">
         <source>spore_sucker.description</source>
-        <target>L'extracteur de Spore vous débarrassera des spores qui auraient commencé à vous contaminer.
+        <target>L'extracteur de spores vous débarrassera des spores qui auraient commencé à vous contaminer.
 Attention ! Cette action va vous coûter 3 :hp: !</target>
       </segment>
       <segment id="examine" state="translated">
         <source>spore_sucker.examine</source>
-        <target>L'extracteur de Spore vous débarrassera des spores qui auraient commencé à vous contaminer.
+        <target>L'extracteur de spores vous débarrassera des spores qui auraient commencé à vous contaminer.
 Attention ! Cette action va vous coûter 3 :hp: !
 Malgré son aspect, il ne fait presque aucun mal.</target>
       </segment>
@@ -1925,15 +1925,15 @@ Malgré son aspect, il ne fait presque aucun mal.</target>
     <unit id="printed_circuit_jelly">
       <segment id="name" state="translated">
         <source>printed_circuit_jelly.name</source>
-        <target>Gelée à Circuits Imprimés</target>
+        <target>Gelée à circuits imprimés</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>printed_circuit_jelly.short_name</source>
-        <target>Gelée à Circuits Imprimés</target>
+        <target>Gelée à circuits imprimés</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>printed_circuit_jelly.plural_name</source>
-        <target>Gelées à Circuits Imprimés</target>
+        <target>Gelées à circuits imprimés</target>
       </segment>
       <segment id="genre" state="translated">
         <source>printed_circuit_jelly.gender</source>
@@ -1945,12 +1945,12 @@ Malgré son aspect, il ne fait presque aucun mal.</target>
       </segment>
       <segment id="description" state="translated">
         <source>printed_circuit_jelly.description</source>
-        <target>Appliquée dans le Nexus sur les parties les plus intimes de NERON, elle permettra d'accélérer les calculs du laboratoire. // :point: Tant qu'elle se trouve dans le Nexus, la Gelée augmente l'effet de vos participations aux recherches de 3%.</target>
+        <target>Appliquée dans le Nexus sur les parties les plus intimes de NERON, elle permettra d'accélérer les calculs du laboratoire. // :point: Tant qu'elle se trouve dans le Nexus, la Gelée augmente l'effet de vos participations aux recherches de 3 %.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>printed_circuit_jelly.examine</source>
-        <target>Appliquée dans le Nexus sur les parties les plus intimes de NERON elle permettra d'accélérer de 3% les calculs du laboratoire.
-Tant qu'elle se trouve dans le Nexus, la Gelée augmente vos essais de recherche de 3%.
+        <target>Appliquée dans le Nexus sur les parties les plus intimes de NERON elle permettra d'accélérer de 3 % les calculs du laboratoire.
+Tant qu'elle se trouve dans le Nexus, la Gelée augmente vos essais de recherche de 3 %.
 On aurait pu s'en servir en cuisine, mais le chef n'en voulait pas...</target>
       </segment>
     </unit>
@@ -1973,13 +1973,13 @@ On aurait pu s'en servir en cuisine, mais le chef n'en voulait pas...</target>
       </segment>
       <segment id="description" state="translated">
         <source>invertebrate_shell.description</source>
-        <target>Incroyable, ce paisible crustacé alien en forme de tube a exactement le même diamètre que les obus tesla des tourelles du Daedalus !//+100% aux dégâts de la tourelle où il est placé. Si détruit, provoque une explosion dans la pièce.</target>
+        <target>Incroyable, ce paisible crustacé alien en forme de tube a exactement le même diamètre que les obus tesla des tourelles du Daedalus !//+100 % aux dégâts de la tourelle où il est placé. Si détruit, provoque une explosion dans la pièce.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>invertebrate_shell.examine</source>
         <target>Incroyable, ce paisible crustacé alien en forme de tube a exactement le même diamètre que les obus tesla des tourelles du Daedalus !
 //
-+100% aux dégâts de la tourelle dans laquelle il est placé. Si détruit, provoque une explosion dans la pièce.
++100 % aux dégâts de la tourelle dans laquelle il est placé. Si détruit, provoque une explosion dans la pièce.
 //
 Il n'a pas l'air tout à fait mort.</target>
       </segment>
@@ -1987,15 +1987,15 @@ Il n'a pas l'air tout à fait mort.</target>
     <unit id="magellan_liquid_map">
       <segment id="name" state="translated">
         <source>magellan_liquid_map.name</source>
-        <target>Carte Liquide de Magellan</target>
+        <target>Carte liquide de Magellan</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>magellan_liquid_map.short_name</source>
-        <target>Carte Liquide de Magellan</target>
+        <target>Carte liquide de Magellan</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>magellan_liquid_map.plural_name</source>
-        <target>Cartes Liquides de Magellan</target>
+        <target>Cartes liquides de Magellan</target>
       </segment>
       <segment id="genre" state="translated">
         <source>magellan_liquid_map.gender</source>
@@ -2008,12 +2008,12 @@ Il n'a pas l'air tout à fait mort.</target>
       <segment id="description" state="translated">
         <source>magellan_liquid_map.description</source>
         <target>Une très jolie carte en pot où l'on peut trouver des infos sur l'intégralité des planètes du nuage de Magellan. //
-Tant qu'elle se trouve sur le Pont, la Carte Liquide vous révèle une ou deux sections des planètes détectées.</target>
+Tant qu'elle se trouve sur le Pont, la carte liquide vous révèle une ou deux sections des planètes détectées.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>magellan_liquid_map.examine</source>
         <target>Une très jolie carte en pot où l'on peut trouver des infos sur l'intégralité des planètes du nuage de Magellan. //
-Tant qu'elle se trouve sur le Pont, la Carte Liquide vous révèle une ou deux sections des planètes détectés. //
+Tant qu'elle se trouve sur le Pont, la carte liquide vous révèle une ou deux sections des planètes détectés. //
 Vous avez l'impression que cette chose essaie de vous parler. Vous devez sûrement rêver.</target>
       </segment>
     </unit>
@@ -2057,15 +2057,15 @@ La caméra ne détecte pas son propre sabotage.</target>
     <unit id="mush_genome_disk">
       <segment id="name" state="translated">
         <source>mush_genome_disk.name</source>
-        <target>Disquette du Gênome Mush</target>
+        <target>Disquette du génome Mush</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>mush_genome_disk.short_name</source>
-        <target>Disquette du Gênome Mush</target>
+        <target>Disquette du génome Mush</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>mush_genome_disk.plural_name</source>
-        <target>Disquettes du Gênome Mush</target>
+        <target>Disquettes du génome Mush</target>
       </segment>
       <segment id="genre" state="translated">
         <source>mush_genome_disk.gender</source>
@@ -2230,7 +2230,7 @@ Expédition : +2 à la force de votre équipe en cas de combat.</target>
 //
 Expédition : +2 à la force de votre équipe en cas de combat.
 //
-Le fusil d'assaut automatique dit "cracheuse de plomb" F.R.A.K.U. Son débit et sa portée et ses balles enrichie et son poids... bref c'est une arme impressionnante, lourde, dangereuse...bref ça déchire.</target>
+Le fusil d'assaut automatique dit "cracheuse de plomb" F.R.A.K.U. Son débit et sa portée et ses balles enrichie et son poids... bref c'est une arme impressionnante, lourde, dangereuse... bref ça déchire.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle">
@@ -2265,7 +2265,7 @@ Expédition : +1 à la force de votre équipe en cas de combat.</target>
 //
 Expédition : +1 à la force de votre équipe en cas de combat.
 //
-Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire des dispositifs armés. Le Fusil Lizaro Jungle a été créé pendant la sale Guerre par des factions rebelles, il est peu onéreux et marche dans toutes les situations qu'il vente ou qu'il neige. Son chargeur semi-automatique rend sa cadence mortelle. À manier avec précaution.</target>
+Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire des dispositifs armés. Le fusil Lizaro Jungle a été créé pendant la Sale Guerre par des factions rebelles, il est peu onéreux et marche dans toutes les situations qu'il vente ou qu'il neige. Son chargeur semi-automatique rend sa cadence mortelle. À manier avec précaution.</target>
       </segment>
     </unit>
     <unit id="knife">
@@ -2291,11 +2291,11 @@ Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire
       </segment>
       <segment id="description" state="translated">
         <source>knife.description</source>
-        <target>Le couteau est une arme, certes un peu datée, mais qui a toujours ses amateurs.//Expédition : + 1 à la force de votre équipe en cas de combat.</target>
+        <target>Le couteau est une arme, certes un peu datée, mais qui a toujours ses amateurs.//Expédition : +1 à la force de votre équipe en cas de combat.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>knife.examine</source>
-        <target>Le couteau est une arme, certes un peu datée, mais qui a toujours ses amateurs.//Expédition : + 1 à la force de votre équipe en cas de combat.//20 cm de bonheur pour psychopathe.</target>
+        <target>Le couteau est une arme, certes un peu datée, mais qui a toujours ses amateurs.//Expédition : +1 à la force de votre équipe en cas de combat.//20 cm de bonheur pour psychopathe.</target>
       </segment>
     </unit>
     <unit id="blaster">
@@ -2321,11 +2321,11 @@ Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire
       </segment>
       <segment id="description" state="translated">
         <source>blaster.description</source>
-        <target>L'arme de base des forces de sécurité.//Expédition : + 1 à la force de votre équipe en cas de combat.</target>
+        <target>L'arme de base des forces de sécurité.//Expédition : +1 à la force de votre équipe en cas de combat.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>blaster.examine</source>
-        <target>L'arme de base des forces de sécurité.//Expédition : + 1 à la force de votre équipe en cas de combat.//Arme à faisceau d'énergie dirigée. Dernière née de la gamme BrizHotFire. Permet de se défendre, sans effort et en toute élégance, de tout danger.</target>
+        <target>L'arme de base des forces de sécurité.//Expédition : +1 à la force de votre équipe en cas de combat.//Arme à faisceau d'énergie dirigée. Dernière née de la gamme BrizHotFire. Permet de se défendre, sans effort et en toute élégance, de tout danger.</target>
       </segment>
     </unit>
     <unit id="security_blaster">
@@ -2351,25 +2351,25 @@ Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire
       </segment>
       <segment id="description" state="translated">
         <source>security_blaster.description</source>
-        <target>Un blaster tout sauf standard. Son propriétaire en a pris grand soin et l'a amélioré au fil des années.//Expédition : + 2 à la force de votre équipe en cas de combat.</target>
+        <target>Un blaster tout sauf standard. Son propriétaire en a pris grand soin et l'a amélioré au fil des années.//Expédition : +2 à la force de votre équipe en cas de combat.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>security_blaster.examine</source>
-        <target>Un blaster tout sauf standard. Son propriétaire en a pris grand soin et l'a amélioré au fil des années.//Expédition : + 2 à la force de votre équipe en cas de combat.//Un vieux blaster offert aux fantassins des Forces de Défense de Sol. Après des années de bidouillage, il est désormais encore plus redoutable que les modèles récents.</target>
+        <target>Un blaster tout sauf standard. Son propriétaire en a pris grand soin et l'a amélioré au fil des années.//Expédition : +2 à la force de votre équipe en cas de combat.//Un vieux blaster offert aux fantassins des Forces de Défense de Sol. Après des années de bidouillage, il est désormais encore plus redoutable que les modèles récents.</target>
       </segment>
     </unit>
     <unit id="alien_blaster">
       <segment id="name" state="translated">
         <source>alien_blaster.name</source>
-        <target>Blaster Alien</target>
+        <target>Blaster alien</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>alien_blaster.short_name</source>
-        <target>Blaster Alien</target>
+        <target>Blaster alien</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>alien_blaster.plural_name</source>
-        <target>Blasters Aliens</target>
+        <target>Blasters aliens</target>
       </segment>
       <segment id="genre" state="translated">
         <source>alien_blaster.gender</source>
@@ -2381,11 +2381,11 @@ Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire
       </segment>
       <segment id="description" state="translated">
         <source>alien_blaster.description</source>
-        <target>La preuve que le nombre de tentacules importe peu : nous ne sommes jamais vraiment si différents.//Expédition : + 1 à la force de votre équipe en cas de combat.</target>
+        <target>La preuve que le nombre de tentacules importe peu : nous ne sommes jamais vraiment si différents.//Expédition : +1 à la force de votre équipe en cas de combat.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>alien_blaster.examine</source>
-        <target>La preuve que le nombre de tentacules importe peu : nous ne sommes jamais vraiment si différents.//Expédition : + 1 à la force de votre équipe en cas de combat.//Un pistolet blaster modèle "Zorluble" d'après la gravure, à moins que ce ne soit le nom de l'ancien propriétaire.</target>
+        <target>La preuve que le nombre de tentacules importe peu : nous ne sommes jamais vraiment si différents.//Expédition : +1 à la force de votre équipe en cas de combat.//Un pistolet blaster modèle "Zorluble" d'après la gravure, à moins que ce ne soit le nom de l'ancien propriétaire.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle">
@@ -2411,11 +2411,11 @@ Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire
       </segment>
       <segment id="description" state="translated">
         <source>natamy_rifle.description</source>
-        <target>Le fusil Natamy est un fusil d'assaut anti-Mush.//Expédition : + 1 à la force de votre équipe en cas de combat.</target>
+        <target>Le fusil Natamy est un fusil d'assaut anti-Mush.//Expédition : +1 à la force de votre équipe en cas de combat.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>natamy_rifle.examine</source>
-        <target>Le fusil Natamy est un fusil d'assaut anti-Mush.//Expédition : + 1 à la force de votre équipe en cas de combat.//Le fusil bien particulier mis au point par l'équipage. Ses munitions au bicarbonate de sodium et à la rétro-patuline ont des propriétés anti-fongiques.</target>
+        <target>Le fusil Natamy est un fusil d'assaut anti-Mush.//Expédition : +1 à la force de votre équipe en cas de combat.//Le fusil bien particulier mis au point par l'équipage. Ses munitions au bicarbonate de sodium et à la rétro-patuline ont des propriétés anti-fongiques.</target>
       </segment>
     </unit>
     <unit id="grenade">
@@ -2445,7 +2445,7 @@ Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire
       </segment>
       <segment id="examine" state="translated">
         <source>grenade.examine</source>
-        <target>La grenade est un explosif puissant qui vous sortira de bien des situations périlleuses en exploration.//Expédition : +3 à la force de votre équipe en cas de combat.//Dessus est écrit: "Explosez votre potentiel".</target>
+        <target>La grenade est un explosif puissant qui vous sortira de bien des situations périlleuses en exploration.//Expédition : +3 à la force de votre équipe en cas de combat.//Dessus est écrit : "Explosez votre potentiel".</target>
       </segment>
     </unit>
     <unit id="rocket_launcher">
@@ -2475,7 +2475,7 @@ Depuis la nuit des temps, le tireur isolé et son arme sont une pierre angulaire
       </segment>
       <segment id="examine" state="translated">
         <source>rocket_launcher.examine</source>
-        <target>Arme très sophistiquée pour personnes qui le sont moins.//Expédition : +3 à la force de votre équipe en cas de combat.//Le Lance-Roquette fait partie de l'arsenal classique des corps expéditionnaires en milieu hostile. Sa technologie n'a pas changé depuis des centaines d'années. Il fait l’objet d'un culte un peu particulier, presque fétichiste de la part de celui qui le porte...</target>
+        <target>Arme très sophistiquée pour personnes qui le sont moins.//Expédition : +3 à la force de votre équipe en cas de combat.//Le lance-roquette fait partie de l'arsenal classique des corps expéditionnaires en milieu hostile. Sa technologie n'a pas changé depuis des centaines d'années. Il fait l’objet d'un culte un peu particulier, presque fétichiste de la part de celui qui le porte...</target>
       </segment>
     </unit>
     <unit id="survival_kit">
@@ -2596,7 +2596,7 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
       </segment>
       <segment id="description" state="translated">
         <source>lunchbox.description</source>
-        <target>Oh des Rations ! Un petit plaisir à partager.//
+        <target>Oh, des rations ! Un petit plaisir à partager.//
 Contient {quantity, plural,
         one {1 **Ration standard**}
         other {# **Rations standards**}
@@ -2604,7 +2604,7 @@ Contient {quantity, plural,
       </segment>
       <segment id="examine" state="translated">
         <source>lunchbox.examine</source>
-        <target>Oh des Rations ! Un petit plaisir à partager.//
+        <target>Oh, des rations ! Un petit plaisir à partager.//
 Contient {quantity, plural,
         one {1 **Ration standard**}
         other {# **Rations standards**}
@@ -2663,11 +2663,11 @@ La capsule OxyTron de la société AirGaz Permet de déplacer de l'oxygène sous
       </segment>
       <segment id="description" state="translated">
         <source>space_capsule.description</source>
-        <target>La capsule spatiale renferme sûrement quelque chose dont vous avez extrêmement besoin. Et puis c'est tellement bonnnn...</target>
+        <target>La capsule spatiale renferme sûrement quelque chose dont vous avez extrêmement besoin. Et puis c'est tellement boooon...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>space_capsule.examine</source>
-        <target>La capsule spatiale renferme sûrement quelque chose dont vous avez extrêmement besoin. Et puis c'est tellement bonnnn...
+        <target>La capsule spatiale renferme sûrement quelque chose dont vous avez extrêmement besoin. Et puis c'est tellement boooon...
 Une capsule contient quelque chose. Vous ne pourrez savoir ce que c'est qu'en l'ouvrant. Êtes-vous prêt pour la surprise ?</target>
       </segment>
     </unit>
@@ -2846,11 +2846,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>bifflon.description</source>
-        <target>Une vraie curiosité de la nature, le Bifalon est un arbre qui parle... mais il passe son temps à réciter du Keats. Ce qui rend sa compagnie déprimante...</target>
+        <target>Une vraie curiosité de la nature, le bifalon est un arbre qui parle... mais il passe son temps à réciter du Keats. Ce qui rend sa compagnie déprimante...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>bifflon.examine</source>
-        <target>Une vraie curiosité de la nature, le Bifalon est un arbre qui parle... mais il passe son temps à réciter du Keats. Ce qui rend sa compagnie déprimante...</target>
+        <target>Une vraie curiosité de la nature, le bifalon est un arbre qui parle... mais il passe son temps à réciter du Keats. Ce qui rend sa compagnie déprimante...</target>
       </segment>
     </unit>
     <unit id="pulminagro">
@@ -2875,11 +2875,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>pulminagro.description</source>
-        <target>Le Poulmino est un arbre issu de croisement entre un palmier et une forme de Sphègne alien. Sa particularité est de pousser en milieux peu lumineux [...]</target>
+        <target>Le poulmino est un arbre issu de croisement entre un palmier et une forme de sphègne alien. Sa particularité est de pousser en milieux peu lumineux [...]</target>
       </segment>
       <segment id="examine" state="translated">
         <source>pulminagro.examine</source>
-        <target>Le Poulmino est un arbre issu de croisement entre un palmier et une forme de Sphègne alien. Sa particularité de pousser en milieux peu lumineux [...]</target>
+        <target>Le poulmino est un arbre issu de croisement entre un palmier et une forme de sphègne alien. Sa particularité de pousser en milieux peu lumineux [...]</target>
       </segment>
     </unit>
     <unit id="precatus">
@@ -2933,11 +2933,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>buttalien.description</source>
-        <target>Le Buitalien est un arbuste rigolo, ses fruits juteux reflètent la lumière étrangement.</target>
+        <target>Le buitalien est un arbuste rigolo, ses fruits juteux reflètent la lumière étrangement.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>buttalien.examine</source>
-        <target>Le Buitalien est un arbuste rigolo, ses fruits juteux reflète la lumière étrangement.</target>
+        <target>Le buitalien est un arbuste rigolo, ses fruits juteux reflète la lumière étrangement.</target>
       </segment>
     </unit>
     <unit id="platacia">
@@ -2962,11 +2962,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>platacia.description</source>
-        <target>Le Platacia est un arbre de savane allergisant sans réel intérêt...</target>
+        <target>Le platacia est un arbre de savane allergisant sans réel intérêt...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>platacia.examine</source>
-        <target>Le Platacia est un arbre de savane allergisant sans réel intérêt...</target>
+        <target>Le platacia est un arbre de savane allergisant sans réel intérêt...</target>
       </segment>
     </unit>
     <unit id="tubiliscus">
@@ -2991,11 +2991,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>tubiliscus.description</source>
-        <target>La dernière mode en matière arboricole sur Vénus est de posséder un Tubiliscus. Ses excroissances présentent des intérêts multiples et variés.</target>
+        <target>La dernière mode en matière arboricole sur Vénus est de posséder un tubiliscus. Ses excroissances présentent des intérêts multiples et variés.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>tubiliscus.examine</source>
-        <target>La dernière mode en matière arboricole sur Vénus est de posséder un Tubiliscus. Ses excroissances présentent des intérêts multiples et variés.</target>
+        <target>La dernière mode en matière arboricole sur Vénus est de posséder un tubiliscus. Ses excroissances présentent des intérêts multiples et variés.</target>
       </segment>
     </unit>
     <unit id="graapshoot">
@@ -3020,11 +3020,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>graapshoot.description</source>
-        <target>Le Peuplimoune est un arbre design et élégant. Ses feuilles dégagent une odeur cuivrée.</target>
+        <target>Le peuplimoune est un arbre design et élégant. Ses feuilles dégagent une odeur cuivrée.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>graapshoot.examine</source>
-        <target>Le Peuplimoune est un arbre design et élégant. Ses feuilles dégagent une odeur cuivrée.</target>
+        <target>Le peuplimoune est un arbre design et élégant. Ses feuilles dégagent une odeur cuivrée.</target>
       </segment>
     </unit>
     <unit id="peniraft">
@@ -3046,11 +3046,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>peniraft.description</source>
-        <target>La Pénicule est un fruit très en vogue sur Venicia. Son intérêt culinaire assez moyen laisse quand même songeur sur les raisons de cette hype.</target>
+        <target>La pénicule est un fruit très en vogue sur Venicia. Son intérêt culinaire assez moyen laisse quand même songeur sur les raisons de cette hype.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>peniraft.examine</source>
-        <target>La Pénicule est un fruit très en vogue sur Venicia. Son intérêt culinaire assez moyen laisse quand même songeur sur les raisons de cette hype.</target>
+        <target>La pénicule est un fruit très en vogue sur Venicia. Son intérêt culinaire assez moyen laisse quand même songeur sur les raisons de cette hype.</target>
       </segment>
     </unit>
     <unit id="fiboniccus">
@@ -3075,11 +3075,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>fiboniccus.description</source>
-        <target>Lointain ancêtre du Ficcus terrestre, le fiboniccus a longtemps été méconnu. Et pour cause, il ne poussait pas sur Terre...</target>
+        <target>Lointain ancêtre du ficus terrestre, le fiboniccus a longtemps été méconnu. Et pour cause, il ne poussait pas sur Terre...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>fiboniccus.examine</source>
-        <target>Lointain ancêtre du Ficcus terrestre, le fiboniccus a longtemps été méconnu. Et pour cause, il ne poussait pas sur Terre...</target>
+        <target>Lointain ancêtre du ficus terrestre, le fiboniccus a longtemps été méconnu. Et pour cause, il ne poussait pas sur Terre...</target>
       </segment>
     </unit>
     <unit id="mycopia">
@@ -3104,11 +3104,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>mycopia.description</source>
-        <target>Le mycopia a une forme intrigante, certaines de ses propriétés ne sont pas sans rappeler celle d'un Fungus célèbre.</target>
+        <target>Le mycopia a une forme intrigante, certaines de ses propriétés ne sont pas sans rappeler celle d'un fungus célèbre.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>mycopia.examine</source>
-        <target>Le mycopia a une forme intrigante, certaines de ses propriétés ne sont pas sans rappeler celle d'un Fungus célèbre.</target>
+        <target>Le mycopia a une forme intrigante, certaines de ses propriétés ne sont pas sans rappeler celle d'un fungus célèbre.</target>
       </segment>
     </unit>
     <unit id="asperagunk">
@@ -3133,11 +3133,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>asperagunk.description</source>
-        <target>L'Asperginulk n'est pas sans rappeler l'Asparagus Terrien, à ceci près qu'il est géant.</target>
+        <target>L'asperginulk n'est pas sans rappeler l'asparagus terrien, à ceci près qu'il est géant.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>asperagunk.examine</source>
-        <target>L'Asperginulk n'est pas sans rappeler l'Asparagus Terrien, à ceci près qu'il est géant.</target>
+        <target>L'asperginulk n'est pas sans rappeler l'asparagus terrien, à ceci près qu'il est géant.</target>
       </segment>
     </unit>
     <unit id="filandra">
@@ -3159,11 +3159,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>filandra.description</source>
-        <target>Le Filandru est le fruit le plus pénible à manger qui soit...</target>
+        <target>Le filandru est le fruit le plus pénible à manger qui soit...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>filandra.examine</source>
-        <target>Le Filandru est le fruit le plus pénible à manger qui soit...</target>
+        <target>Le filandru est le fruit le plus pénible à manger qui soit...</target>
       </segment>
     </unit>
     <unit id="bumpjumpkin">
@@ -3214,11 +3214,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>jumpkin.description</source>
-        <target>La Citrouïd est un légume sans réel intérêt gustatif mais avec des propriétés tout à fait originales.</target>
+        <target>La citrouïd est un légume sans réel intérêt gustatif mais avec des propriétés tout à fait originales.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>jumpkin.examine</source>
-        <target>La Citrouïd est un légume sans réel intérêt gustatif mais avec des propriétés tout à fait originales.</target>
+        <target>La citrouïd est un légume sans réel intérêt gustatif mais avec des propriétés tout à fait originales.</target>
       </segment>
     </unit>
     <unit id="lombrick_bar">
@@ -3240,11 +3240,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>lombrick_bar.description</source>
-        <target>Un curieux mélange de chenilles et autres vers agglomérés dans une barre sous plastique. Glups...</target>
+        <target>Un curieux mélange de chenilles et autres vers agglomérés dans une barre sous plastique. Gloups...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>lombrick_bar.examine</source>
-        <target>Un curieux mélange de chenilles et autres vers agglomérés dans une barre sous plastique. Glups...</target>
+        <target>Un curieux mélange de chenilles et autres vers agglomérés dans une barre sous plastique. Gloups...</target>
       </segment>
     </unit>
     <unit id="organic_waste">
@@ -3266,11 +3266,11 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
       </segment>
       <segment id="description" state="translated">
         <source>organic_waste.description</source>
-        <target>C'est dégoûtant, ça pue le xylophide crevé depuis 2 mois enterré dans une cuve de cheddar par une après-midi de décembre.</target>
+        <target>C'est dégoûtant, ça pue le xylophide crevé depuis deux mois enterré dans une cuve de cheddar par une après-midi de décembre.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>organic_waste.examine</source>
-        <target>C'est dégoûtant, ça pue le xylophide crevé depuis 2 mois, enterré dans une cuve de cheddar par une après-midi de décembre.</target>
+        <target>C'est dégoûtant, ça pue le xylophide crevé depuis deux mois, enterré dans une cuve de cheddar par une après-midi de décembre.</target>
       </segment>
     </unit>
     <unit id="proactive_puffed_rice">
@@ -3300,7 +3300,7 @@ Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans 
 +10 :pa:
 Impérissable
 +5 satiété
-55% de chances : endommage une porte du Daedalus</target>
+55 % de chances : endommage une porte du Daedalus.</target>
       </segment>
     </unit>
     <unit id="alien_steak">
@@ -3326,11 +3326,11 @@ Impérissable
       </segment>
       <segment id="description" state="translated">
         <source>alien_steak.description</source>
-        <target>Depuis notre arrivée dans le nuage de Magellan, on a jamais réussi à communiquer avec les formes de vies aliens autrement qu'en les consommant.</target>
+        <target>Depuis notre arrivée dans le nuage de Magellan, on n'a jamais réussi à communiquer avec les formes de vies aliens autrement qu'en les consommant.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>alien_steak.examine</source>
-        <target>Depuis notre arrivée dans le nuage de Magellan, on a jamais réussi à communiquer avec les formes de vies aliens autrement qu'en les consommant.</target>
+        <target>Depuis notre arrivée dans le nuage de Magellan, on n'a jamais réussi à communiquer avec les formes de vies aliens autrement qu'en les consommant.</target>
       </segment>
     </unit>
     <unit id="alien_fish">
@@ -3356,11 +3356,11 @@ Impérissable
       </segment>
       <segment id="description" state="translated">
         <source>alien_fish.description</source>
-        <target>Depuis notre arrivée dans le nuage de Magellan, on a jamais réussi à communiquer avec les formes de vies aliens autrement qu'en les consommant.</target>
+        <target>Depuis notre arrivée dans le nuage de Magellan, on n'a jamais réussi à communiquer avec les formes de vies aliens autrement qu'en les consommant.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>alien_fish.examine</source>
-        <target>Depuis notre arrivée dans le nuage de Magellan, on a jamais réussi à communiquer avec les formes de vies aliens autrement qu'en les consommant.</target>
+        <target>Depuis notre arrivée dans le nuage de Magellan, on n'a jamais réussi à communiquer avec les formes de vies aliens autrement qu'en les consommant.</target>
       </segment>
     </unit>
     <unit id="alien_insect">
@@ -3386,11 +3386,11 @@ Impérissable
       </segment>
       <segment id="description" state="translated">
         <source>alien_insect.description</source>
-        <target>Depuis notre arrivée dans le nuage de Magellan, on a jamais réussi à communiquer avec les formes de vies aliens autrement qu'en les consommant.</target>
+        <target>Depuis notre arrivée dans le nuage de Magellan, on n'a jamais réussi à communiquer avec les formes de vies aliens autrement qu'en les consommant.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>alien_insect.examine</source>
-        <target>Depuis notre arrivée dans le nuage de Magellan, on a jamais réussi à communiquer avec les formes de vies aliens autrement qu'en les consommant.</target>
+        <target>Depuis notre arrivée dans le nuage de Magellan, on n'a jamais réussi à communiquer avec les formes de vies aliens autrement qu'en les consommant.</target>
       </segment>
     </unit>
     <unit id="anabolic">
@@ -3490,11 +3490,11 @@ Impérissable
       </segment>
       <segment id="description" state="translated">
         <source>space_potato.description</source>
-        <target>Haaa les frites de patates spatiales ! C'est bizarre les mecs adorent tous ce truc, mais les femmes de l'équipage leur ont interdit d'en manger dans le réfectoire. Il parait que ça sent les chaussettes et que c'est vraiment bourratif...</target>
+        <target>Haaa, les frites de patates spatiales ! C'est bizarre les mecs adorent tous ce truc, mais les femmes de l'équipage leur ont interdit d'en manger dans le réfectoire. Il parait que ça sent les chaussettes et que c'est vraiment bourratif...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>space_potato.examine</source>
-        <target>Haaa les frites de patates spatiales ! C'est bizarre les mecs adorent tous ce truc, mais les femmes de l'équipage leur ont interdit d'en manger dans le réfectoire. Il parait que ça sent les chaussettes et que c'est vraiment bourratif...</target>
+        <target>Haaa, les frites de patates spatiales ! C'est bizarre les mecs adorent tous ce truc, mais les femmes de l'équipage leur ont interdit d'en manger dans le réfectoire. Il parait que ça sent les chaussettes et que c'est vraiment bourratif...</target>
       </segment>
     </unit>
     <unit id="standard_ration">
@@ -3598,11 +3598,11 @@ Impérissable
     <unit id="apprentron">
       <segment id="name" state="translated">
         <source>apprentron.name</source>
-        <target>Apprentron : {skill}</target>
+        <target>Apprenton : {skill}</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>apprentron.short_name</source>
-        <target>Apprentron</target>
+        <target>Apprenton</target>
       </segment>
       <segment id="genre" state="translated">
         <source>apprentron.gender</source>
@@ -3707,11 +3707,11 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
     <unit id="post_it">
       <segment id="name" state="translated">
         <source>post_it.name</source>
-        <target>Pense-Bête</target>
+        <target>Pense-bête</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>post_it.short_name</source>
-        <target>Pense-Bête</target>
+        <target>Pense-bête</target>
       </segment>
       <segment id="genre" state="translated">
         <source>post_it.gender</source>
@@ -3728,7 +3728,7 @@ Un gros tas de cellulose avec lequel on peut à la rigueur assommer Raluca, et e
       <segment id="examine" state="translated">
         <source>post_it.examine</source>
         <target>Un pense-bête qui ne colle qu'à moitié...
-Ces insupportables petits feuillets traînent partout... Et puis qui peut en avoir réellement besoin?</target>
+Ces insupportables petits feuillets traînent partout... Et puis qui peut en avoir réellement besoin ?</target>
       </segment>
     </unit>
     <unit id="camera_item.examine">
@@ -3752,7 +3752,7 @@ La caméra ne détecte pas son propre sabotage.</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>jukebox.plural_name</source>
-        <target>Jukeboxes</target>
+        <target>Jukebox</target>
       </segment>
       <segment id="genre" state="translated">
         <source>jukebox.gender</source>
@@ -3790,11 +3790,11 @@ La caméra ne détecte pas son propre sabotage.</target>
       </segment>
       <segment id="description" state="translated">
         <source>anniversary_gift.description</source>
-        <target>Contient quelque chose qui vous serait bien utile... ou pas!</target>
+        <target>Contient quelque chose qui vous serait bien utile... ou pas !</target>
       </segment>
       <segment id="examine" state="translated">
         <source>anniversary_gift.examine</source>
-        <target>Un an de plus à survivre les contrées glacées de l'espace? Ça se fête!//Contient quelque chose qui vous serait bien utile... ou pas!//Il est interdit d'ouvrir les cadeaux des autres. C'est personnel, ces choses-là!</target>
+        <target>Un an de plus à survivre les contrées glacées de l'espace ? Ça se fête !//Contient quelque chose qui vous serait bien utile... ou pas !//Il est interdit d'ouvrir les cadeaux des autres. C'est personnel, ces choses-là !</target>
       </segment>
     </unit>
     <unit id="pavlov">
@@ -3820,7 +3820,7 @@ La caméra ne détecte pas son propre sabotage.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>pavlov.examine</source>
-        <target>Pavlov est le chien le plus joyeux que vous ayez jamais vu. Il adore jouer, est plein d'énergie, et ne cesse jamais d'aboyer; il adore se promener à bord comme bon lui semble. C'est le chien de @#p↻▦∆ĝ.</target>
+        <target>Pavlov est le chien le plus joyeux que vous ayez jamais vu. Il adore jouer, est plein d'énergie, et ne cesse jamais d'aboyer ; il adore se promener à bord comme bon lui semble. C'est le chien de @#p↻▦∆ĝ.</target>
       </segment>
     </unit>
     <unit id="itrackie_2">
@@ -3846,7 +3846,7 @@ La caméra ne détecte pas son propre sabotage.</target>
       </segment>
       <segment id="description" state="translated">
         <source>itrackie_2.description</source>
-        <target>Pff, l'autre modèle? Il est si vieux ! Si campagnard ! Si passé ! Si *démodé* ! Avec une coque en (couleur) or et plus de prise casque embarassante, ceci est une montée en classe qui vous fera vous demander, « Mais comment j'ai pu faire sans ? » !
+        <target>Pff, l'autre modèle? Il est si vieux ! Si campagnard ! Si passé ! Si *démodé* ! Avec une coque en (couleur) or et plus de prise casque embarassante, ceci est une montée en classe qui vous fera vous demander, « Mais comment j'ai pu faire sans ? »
         // :point: Permet de communiquer à distance avec les autres équipiers.
         // :point: Permet de communiquer sur le canal Général.
         // :point: Permet d'avoir accès à la mini-carte augmentée du Daedalus. **Appli ACTOPI incluse avec chaque achat !**
@@ -3897,11 +3897,11 @@ Permet de charger du carburant dans le module de combustion.</target>
     <unit id="evil_compass">
       <segment id="name" state="translated">
         <source>evil_compass.name</source>
-        <target>Elossoub Quadrimaudite</target>
+        <target>Elossoub quadrimaudite</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>evil_compass.short_name</source>
-        <target>Boussole Quadrimétrique</target>
+        <target>Boussole quadrimétrique</target>
       </segment>
       <segment id="genre" state="translated">
         <source>evil_compass.gender</source>
@@ -3913,19 +3913,19 @@ Permet de charger du carburant dans le module de combustion.</target>
       </segment>
       <segment id="description" state="translated">
         <source>evil_compass.description</source>
-        <target>L'Elossoub est un artéfact sacré du culte de La-Erenjay. Comment est-il arrivé ici ?
-        //:ic_explorer: Expédition : Chance de parcourir une des sections restantes "Mankarog", "Volcan", "Activité Sismique" x5.//:point: De loin, on pourrait la prendre pour une boussole normale...</target>
+        <target>L'elossoub est un artéfact sacré du culte de La-Erenjay. Comment est-il arrivé ici ?
+        //:ic_explorer: Expédition : Chances de parcourir une des sections restantes "Mankarog", "Volcan", "Activité Sismique" x5.//:point: De loin, on pourrait la prendre pour une boussole normale...</target>
       </segment>
       <segment id="examine" state="translated">
         <source>evil_compass.examine</source>
-        <target>L'Elossoub a été maudite non moins de quatre fois par les Frau Mages de La-Erenjay. Il est dit qu'en sa présence, les miroirs se brisent, les chats se retrouvent couverts de suie, et les trèfles poussent deux feuilles supplémentaires.
-        //:ic_explorer: Expédition : Chance de parcourir une des sections restantes "Mankarog", "Volcan", "Activité Sismique" x5.//:point: Se camoufle en **Boussole Quadrimétrique** dans le registre des pièces.</target>
+        <target>L'elossoub a été maudite non moins de quatre fois par les Frau Mages de La-Erenjay. Il est dit qu'en sa présence, les miroirs se brisent, les chats se retrouvent couverts de suie, et les trèfles poussent deux feuilles supplémentaires.
+        //:ic_explorer: Expédition : Chances de parcourir une des sections restantes "Mankarog", "Volcan", "Activité Sismique" x5.//:point: Se camoufle en **Boussole Quadrimétrique** dans le registre des pièces.</target>
       </segment>
     </unit>
     <unit id="swedish_sofa_kit">
       <segment id="name" state="translated">
         <source>swedish_sofa_kit.name</source>
-        <target>Sofa en Kit</target>
+        <target>Sofa en kit</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>swedish_sofa_kit.short_name</source>
@@ -3941,17 +3941,17 @@ Permet de charger du carburant dans le module de combustion.</target>
       </segment>
       <segment id="description" state="translated">
         <source>swedish_sofa_kit.description</source>
-        <target>Un kit complet, encore scellé après tant d'années. Garanti d'avoir tout le matériel nécessaire ! // :point: Peut être assemblé pour donner un Sofa.</target>
+        <target>Un kit complet, encore scellé après tant d'années. Garanti d'avoir tout le matériel nécessaire ! // :point: Peut être assemblé pour donner un sofa.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>swedish_sofa_kit.examine</source>
-        <target>Ce kit contient tout le nécessaire pour monter un véritable sofa suédois, y compris un mystérieux tube épais que la notice d'assemblage décrit comme essentiel.// Peut être assemblé pour donner un Sofa. Choisissez où l'assembler avec sagesse.</target>
+        <target>Ce kit contient tout le nécessaire pour monter un véritable sofa suédois, y compris un mystérieux tube épais que la notice d'assemblage décrit comme essentiel.// Peut être assemblé pour donner un sofa. Choisissez où l'assembler avec sagesse.</target>
       </segment>
     </unit>
     <unit id="jukebox_kit">
       <segment id="name" state="translated">
         <source>jukebox_kit.name</source>
-        <target>Jukebox en Kit</target>
+        <target>Jukebox en kit</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>jukebox_kit.short_name</source>
@@ -3967,11 +3967,11 @@ Permet de charger du carburant dans le module de combustion.</target>
       </segment>
       <segment id="description" state="translated">
         <source>jukebox_kit.description</source>
-        <target>Un kit complet, encore scellé après tant d'années. Garanti d'avoir tout le matériel nécessaire! // :point: Peut être assemblé pour donner un Jukebox.</target>
+        <target>Un kit complet, encore scellé après tant d'années. Garanti d'avoir tout le matériel nécessaire ! // :point: Peut être assemblé pour donner un jukebox.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>jukebox_kit.examine</source>
-        <target>Contient aussi 16 magnétovinyles 600,000 tours qualité studio, plus ou moins équivalent à un fichier 48GHz/256 bit. Il faudrait des oreilles bioniques pour percevoir ce niveau de détail sonore, mais on arrête pas le progrès.// Peut être assemblé pour donner un Jukebox. Choisissez où l'assembler avec sagesse.</target>
+        <target>Contient aussi 16 magnétovinyles 600 000 tours qualité studio, plus ou moins équivalent à un fichier 48 GHz/256 bit. Il faudrait des oreilles bioniques pour percevoir ce niveau de détail sonore, mais on arrête pas le progrès.// Peut être assemblé pour donner un jukebox. Choisissez où l'assembler avec sagesse.</target>
       </segment>
     </unit>
     <unit id="fruit_basket">
@@ -3993,7 +3993,7 @@ Permet de charger du carburant dans le module de combustion.</target>
       </segment>
       <segment id="description" state="translated">
         <source>fruit_basket.description</source>
-        <target>Sûrement y'en a un qui est comestible là-dedans ?//
+        <target>Sûrement y en a un qui est comestible là-dedans ?//
 Contient {quantity, plural,
         one {1 **Fruit alien**}
         other {# **Fruits alien**}
@@ -4073,7 +4073,7 @@ Ce modèle est une édition limitée très rare !</target>
     <unit id="chefs_knife">
       <segment id="name" state="translated">
         <source>chefs_knife.name</source>
-        <target>Couteau de Chef</target>
+        <target>Couteau de chef</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>chefs_knife.short_name</source>
@@ -4094,15 +4094,15 @@ Ce modèle est une édition limitée très rare !</target>
       <segment id="description" state="translated">
         <source>chefs_knife.description</source>
         <target>Bien aiguisé et multi-usage. Cuisine, menaces, découpage, rasage, il peut tout faire, et encore mieux : il est rien qu'à vous.
-//:point: +10% précision comparé à un couteau standard.
-//:point: Expédition : + 1 à la force de votre équipe en cas de combat.
+//:point: +10 % précision comparé à un couteau standard.
+//:point: Expédition : +1 à la force de votre équipe en cas de combat.
 //:point: Expédition : L'évènement **Provision** donne un steak de plus.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>chefs_knife.examine</source>
-        <target>Des couteaux comme ça y'en a beaucoup, des gens comme vous... moins.
-//+10% précision comparé à un couteau standard.
-//Expédition : + 1 à la force de votre équipe en cas de combat.
+        <target>Des couteaux comme ça y en a beaucoup, des gens comme vous... moins.
+//+10 % précision comparé à un couteau standard.
+//Expédition : +1 à la force de votre équipe en cas de combat.
 //Expédition : L'évènement **Provision** donne un steak de plus.</target>
       </segment>
     </unit>
@@ -4117,7 +4117,7 @@ Ce modèle est une édition limitée très rare !</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>lucky_lizaro.plural_name</source>
-        <target>Lizaros Jungle</target>
+        <target>Lizaros Fétiches</target>
       </segment>
       <segment id="genre" state="translated">
         <source>lucky_lizaro.gender</source>
@@ -4195,7 +4195,7 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
     <unit id="debris_printer">
       <segment id="name" state="translated">
         <source>debris_printer.name</source>
-        <target>Imprimante à Débris</target>
+        <target>Imprimante à débris</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>debris_printer.short_name</source>
@@ -4221,7 +4221,7 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
     <unit id="antique_perfume_item">
       <segment id="name" state="translated">
         <source>antique_perfume_item.name</source>
-        <target>Parfum Antique...?</target>
+        <target>Parfum Antique... ?</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>antique_perfume_item.short_name</source>
@@ -4241,7 +4241,7 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>antique_perfume_item.examine</source>
-        <target>"Attendez, l'objet ou la compétence?"//Permet de **se laver** une fois par jour. Laisse un registre **Public** à l'utilisation.</target>
+        <target>"Attendez, l'objet ou la compétence ?"//Permet de **se laver** une fois par jour. Laisse un registre **Public** à l'utilisation.</target>
       </segment>
     </unit>
     <unit id="megaphone">
@@ -4289,11 +4289,11 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="description" state="translated">
         <source>ship_blanket.description</source>
-        <target>**Wow !!** Avec ses couleurs DINGUE et ses ÉTOILES qui brillent dans la nuit, le Duc de Cauchemar n'a qu'à bien se tenir ! Avec la Couette et le Casque Petit Chasseur©, Voilà un Spationaute bien paré !//:point: Permet de transformer tout véhicule spatial standard en petit nid douillet.</target>
+        <target>**Wow !!** Avec ses couleurs DINGUE et ses ÉTOILES qui brillent dans la nuit, le Duc de Cauchemar n'a qu'à bien se tenir ! Avec la couette et le casque Petit Chasseur©, Voilà un spationaute bien paré !//:point: Permet de transformer tout véhicule spatial standard en petit nid douillet.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>ship_blanket.examine</source>
-        <target>Casque "Le Petit Chasseur©" vendu séparément. Lavage à la main uniquement. La Couette "Le Petit Chasseur©" n'est pas un jouet. Ne pas ingérer. Ne pas insérer dans un tuyau d'échappement. 99% Polyester. Conformément avec la loi Huchbert de 3151 sur les carcinogènes quotidiens, vous renoncez à vos droits de poursuite en justice. Aucun remboursement ne sera accordé.//Permet de **S'Allonger** en Patrouilleur, Pasiphae, ou tout autre véhicule spatial.</target>
+        <target>Casque "Le Petit Chasseur©" vendu séparément. Lavage à la main uniquement. La couette "Le Petit Chasseur©" n'est pas un jouet. Ne pas ingérer. Ne pas insérer dans un tuyau d'échappement. 99 % polyester. Conformément avec la loi Huchbert de 3151 sur les carcinogènes quotidiens, vous renoncez à vos droits de poursuite en justice. Aucun remboursement ne sera accordé.//Permet de **S'Allonger** en Patrouilleur, Pasiphae, ou tout autre véhicule spatial.</target>
       </segment>
     </unit>
     <unit id="alien_fruit_generic">
@@ -4335,11 +4335,11 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
     <unit id="schoolbooks">
       <segment id="name" state="translated">
         <source>schoolbooks.name</source>
-        <target>Set de Cahiers d'Université</target>
+        <target>Cahiers d'écolier</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>schoolbooks.short_name</source>
-        <target>Set de cahiers de cours</target>
+        <target>Cahiers d'écolier</target>
       </segment>
       <segment id="genre" state="translated">
         <source>schoolbooks.gender</source>
@@ -4351,7 +4351,7 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="description" state="translated">
         <source>schoolbooks.description</source>
-        <target>Des cahiers remplis d’une écriture soignée. Quelle aubaine de les avoir retrouvés!//:point: Faites passer votre **Polyvalence** au niveau supérieur.</target>
+        <target>Des cahiers remplis d’une écriture soignée. Quelle aubaine de les avoir retrouvés !//:point: Faites passer votre **Polyvalence** au niveau supérieur.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>schoolbooks.examine</source>
@@ -4361,7 +4361,7 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
     <unit id="reset_vaccine">
       <segment id="name" state="translated">
         <source>reset_vaccine.name</source>
-        <target>Vaccin de Réinitialisation</target>
+        <target>Vaccin de réinitialisation</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>reset_vaccine.short_name</source>
@@ -4381,7 +4381,7 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>reset_vaccine.examine</source>
-        <target>Le processus de Nawak permet d'extraire de la connaissance pure en émulsifiant la pulpe de papier neuro-crypté. En d'autres mots, cette seringue contient une grosse purée d'apprentrons jetés dans un mixeur en mode ultra-fin.//**Usage unique: Réinitialise les compétences de son utilisateur et les remplace par une sélection complètement aléatoire.**</target>
+        <target>Le processus de Nawak permet d'extraire de la connaissance pure en émulsifiant la pulpe de papier neuro-crypté. En d'autres mots, cette seringue contient une grosse purée d'apprentrons jetés dans un mixeur en mode ultra-fin.//**Usage unique : Réinitialise les compétences de son utilisateur et les remplace par une sélection complètement aléatoire.**</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_tablet">
@@ -4421,7 +4421,7 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>treasure_hunt_device.gender</source>
-        <target>male</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>treasure_hunt_device.first_letter</source>
@@ -4465,11 +4465,11 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
     <unit id="treasure_hunt_space_chicken">
       <segment id="name" state="translated">
         <source>treasure_hunt_space_chicken.name</source>
-        <target>Poule Spatiale</target>
+        <target>Cyber-poule</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>treasure_hunt_space_chicken.short_name</source>
-        <target>Poule Spatiale</target>
+        <target>Cyber-poule</target>
       </segment>
       <segment id="genre" state="translated">
         <source>treasure_hunt_space_chicken.gender</source>
@@ -4481,11 +4481,14 @@ Un chasseur et son fusil ne sont jamais séparés.</target>
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_space_chicken.description</source>
-        <target>TODO</target>
+        <target>C'est une poule avec des implants aliens et un chapeau de pirate. Il est alien lui aussi. Elle vous picore furieusement quand vous essayez d'y toucher.
+La cyber-poule a une chance de pondre une capsule spatiale à chaque cycle.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_space_chicken.examine</source>
-        <target>TODO</target>
+        <target>C'est une poule avec des implants aliens et un chapeau de pirate. Il est alien lui aussi. Elle vous picore furieusement quand vous essayez d'y toucher.
+La cyber-poule a une chance de pondre une capsule spatiale à chaque cycle.
+Neron insiste sur le fait que c'est un gallinacé tout à fait commun, mais pourquoi vous sentez-vous autant observé alors ?</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_chest_closed">

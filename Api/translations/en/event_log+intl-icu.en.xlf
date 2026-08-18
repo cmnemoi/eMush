@@ -484,9 +484,9 @@
       </segment>
     </unit>
     <unit id="infect_trap_chicken">
-      <segment id="infect_trap_chicken" state="initial">
+      <segment id="infect_trap_chicken" state="translated">
         <source>infect_trap_chicken</source>
-        <target>infect_trap_chicken</target>
+        <target>**{target_character}** was contaminated by opening a shelf trapped by **{character}** with **{equipment}** help. Their contamination level is now **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_std">
@@ -529,9 +529,21 @@ other{**{target_character}** has been contaminated by a Mush raid during explora
       </segment>
     </unit>
     <unit id="mush_convert_chicken_event">
-      <segment id="mush_convert_chicken_event" state="initial">
+      <segment id="mush_convert_chicken_event" state="translated">
         <source>mush_convert_chicken_event</source>
-        <target>mush_convert_chicken_event</target>
+        <target>**{equipment}** has been converted by **{target_character}**. Welcome to Mush, **{equipment}**.</target>
+      </segment>
+    </unit>
+    <unit id="mush_convert_baby_skinner_event">
+      <segment id="mush_convert_baby_skinner_event" state="translated">
+        <source>mush_convert_baby_skinner_event</source>
+        <target>**{equipment}** has been converted by **{target_character}**. Welcome to Mush, **{equipment}**.</target>
+      </segment>
+    </unit>
+    <unit id="infect_baby_skinner_bite">
+      <segment id="infect_baby_skinner_bite" state="translated">
+        <source>infect_baby_skinner_bite</source>
+        <target>**{target_character}** was contaminated by **{character}** after being bitten by **{equipment}**. Their contamination level is now **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="player_enter_chat">
@@ -1100,15 +1112,21 @@ other{**{target_character}** has been contaminated by a Mush raid during explora
       </segment>
     </unit>
     <unit id="chicken_shot_dead">
-      <segment id="chicken_shot_dead" state="initial">
+      <segment id="chicken_shot_dead" state="translated">
         <source>chicken_shot_dead</source>
-        <target>chicken_shot_dead</target>
+        <target>**{target_equipment}** was shot dead by **{character}**.</target>
       </segment>
     </unit>
     <unit id="chicken_squawk">
-      <segment id="chicken_squawk" state="initial">
+      <segment id="chicken_squawk" state="translated">
         <source>chicken_squawk</source>
-        <target>chicken_squawk</target>
+        <target>:chicken: **{equipment} :**  BWAK BAK BAK BAK !!!</target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_yelp">
+      <segment id="baby_skinner_yelp" state="translated">
+        <source>baby_skinner_yelp</source>
+        <target>**{equipment} :** YIIIIIP !!! YIIP !!</target>
       </segment>
     </unit>
     <unit id="cat_hiss">
@@ -1358,6 +1376,36 @@ other{**{target_character}** has been contaminated by a Mush raid during explora
       <segment id="pavlov_turbo_worked" state="translated">
         <source>pavlov_turbo_worked</source>
         <target>The **Missile** skill of **Pavlov** has borne fruit...</target>
+      </segment>
+    </unit>
+    <unit id="summer_event_exploration_log">
+      <segment id="summer_event_exploration_log" state="translated">
+        <source>summer_event_exploration_log</source>
+        <target>You can sense that this planet hasn't revealed all its secrets...</target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_bite">
+      <segment id="baby_skinner_bite" state="translated">
+        <source>baby_skinner_bite</source>
+        <target>**Sally** seems a bit too agitated by {target_character} movements. She ends up biting {target_character_gender, select, male {his} female{her} other{their}} hand with her fangs. </target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_sleep">
+      <segment id="baby_skinner_sleep" state="translated">
+        <source>baby_skinner_sleep</source>
+        <target>**Sally** seems to have found herself a comfy spot. She's starting to get asleep.</target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_prevent_metal_plate">
+      <segment id="baby_skinner_prevent_metal_plate" state="translated">
+        <source>baby_skinner_prevent_metal_plate</source>
+        <target>While a piece of the ceiling is starting to detach, **Sally** rushes towards **{character}** and pushes {character_gender, select, male {him} female{her} other{them}} them to safety.</target>
+      </segment>
+    </unit>
+    <unit id="pirate_ship_free_spore">
+      <segment id="pirate_ship_free_spore" state="translated">
+        <source>pirate_ship_free_spore</source>
+        <target>While everyone is busy exploring the wreck, you seize this opportunity to extract a spore discreetly. (Sabotage)</target>
       </segment>
     </unit>
   </file>

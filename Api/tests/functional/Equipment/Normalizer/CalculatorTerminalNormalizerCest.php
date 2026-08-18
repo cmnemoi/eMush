@@ -61,7 +61,7 @@ final class CalculatorTerminalNormalizerCest extends AbstractFunctionalTest
         $this->whenINormalizeTerminalForPlayer();
 
         $I->assertEquals(
-            expected: "Ce module permet d'effectuer des calculs savants et/ou sans intérêt. Mais parfois la science réserve de bien belles surprises...",
+            expected: "Ce module permet d'effectuer des calculs savants ou sans intérêt. Mais parfois la science réserve de bien belles surprises...",
             actual: $this->normalizedTerminal['tips']
         );
     }
@@ -104,7 +104,7 @@ final class CalculatorTerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [
                 'to_a_new_eden_title' => 'Vers un nouvel Eden',
-                'to_a_new_eden_description' => 'Le cristalite contient des coordonnées polaires qui se rapportent au centre du nuage de Magellan... Mais elles pointent hors de celui-ci, il va nous falloir une sacrée propulsion...',
+                'to_a_new_eden_description' => 'La cristallite contient des coordonnées polaires qui se rapportent au centre du nuage de Magellan... Mais elles pointent hors de celui-ci, il va nous falloir une sacrée propulsion...',
             ],
             actual: $this->normalizedTerminal['sectionTitles']
         );

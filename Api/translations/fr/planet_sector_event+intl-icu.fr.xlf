@@ -28,7 +28,7 @@
       </segment>
       <segment id="cold_description" state="translated">
         <source>nothing_to_report.cold_description</source>
-        <target>A part le froid mordant qui gèle vos doigts de pieds, il n'y a pas grand-chose d'intéressant dans cette zone… Brrrr…</target>
+        <target>À part le froid mordant qui gèle vos doigts de pieds, il n'y a pas grand-chose d'intéressant dans cette zone… Brrrr…</target>
       </segment>
       <segment id="swamp_description" state="translated">
         <source>nothing_to_report.swamp_description</source>
@@ -36,7 +36,7 @@
       </segment>
       <segment id="predator_description" state="translated">
         <source>nothing_to_report.predator_description</source>
-        <target>Vous avez remarqué la présence d'un Écorcheur. La créature rôde un moment aux alentours de votre route, mais renonce à vous attaquer… Ouf !</target>
+        <target>Vous avez remarqué la présence d'un écorcheur. La créature rôde un moment aux alentours de votre route, mais renonce à vous attaquer… Ouf !</target>
       </segment>
       <segment id="hot_description" state="translated">
         <source>nothing_to_report.hot_description</source>
@@ -90,7 +90,7 @@
       </segment>
       <segment id="ruminant_description" state="translated">
         <source>nothing_to_report.ruminant_description</source>
-        <target>Vous découvrez un troupeau de Chab Chab mort au milieu d'une clairière. Il vaut mieux continuer votre chemin avant de découvrir ce qui les a tués...</target>
+        <target>Vous découvrez un troupeau de chab chab mort au milieu d'une clairière. Il vaut mieux continuer votre chemin avant de découvrir ce qui les a tués...</target>
       </segment>
       <segment id="intelligent_description" state="translated">
         <source>nothing_to_report.intelligent_description</source>
@@ -106,7 +106,7 @@
       </segment>
       <segment id="cristal_field_description" state="translated">
         <source>nothing_to_report.cristal_field_description</source>
-        <target>Un immense champ de cristalite et aucun ennemi à l'horizon ! Malheureusement après avoir tout fouiller, il vous faut vous rendre à l'évidence que vous ne trouverez pas ce que vous cherchez ici.</target>
+        <target>Un immense champ de cristallite et aucun ennemi à l'horizon ! Malheureusement après avoir tout fouiller, il vous faut vous rendre à l'évidence que vous ne trouverez pas ce que vous cherchez ici.</target>
       </segment>
       <segment id="mountain_description" state="translated">
         <source>nothing_to_report.mountain_description</source>
@@ -173,7 +173,7 @@
       </segment>
       <segment id="ruminant_description" state="translated">
         <source>accident.ruminant_description</source>
-        <target>Alors que vous mettez en joue un Chab Chab, la créature se précipite vers vous et heurte violemment {character} avant de s'enfuir…</target>
+        <target>Alors que vous mettez en joue un chab chab, la créature se précipite vers vous et heurte violemment {character} avant de s'enfuir…</target>
       </segment>
       <segment id="insect_description" state="translated">
         <source>accident.insect_description</source>
@@ -229,7 +229,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>oxygen.description</source>
-        <target>Vous gagnez {quantity} unités d'O².</target>
+        <target>Vous gagnez {quantity} unités d'O2.</target>
       </segment>
       <segment id="oxygen_description" state="translated">
         <source>oxygen.oxygen_description</source>
@@ -303,7 +303,7 @@
       </segment>
       <segment id="mankarog_description" state="translated">
         <source>artefact.mankarog_description</source>
-        <target>Vous avez découvert la tanière d'un Mankarog. En fouillant dans son garde-manger aussi grand qu'un immeuble de 8 étages, vous mettez la main sur un artefact alien !</target>
+        <target>Vous avez découvert la tanière d'un mankarog. En fouillant dans son garde-manger aussi grand qu'un immeuble de 8 étages, vous mettez la main sur un artefact alien !</target>
       </segment>
       <segment id="ruins_description" state="translated">
         <source>artefact.ruins_description</source>
@@ -395,7 +395,7 @@
       </segment>
       <segment id="volcanic_activity_description" state="translated">
         <source>kill_all.volcanic_activity_description</source>
-        <target>Alors que la montagne la plus proche de l'expédition se met à cracher un jet de lave à plus de 500m de hauteur, le sol s'effondre sous leurs pieds et les engloutit dans un déluge de flammes.</target>
+        <target>Alors que la montagne la plus proche de l'expédition se met à cracher un jet de lave à plus de 500 m de hauteur, le sol s'effondre sous leurs pieds et les engloutit dans un déluge de flammes.</target>
       </segment>
     </unit>
     <unit id="fight">
@@ -425,7 +425,7 @@
       </segment>
       <segment id="ruminant_description" state="translated">
         <source>fight.ruminant_description</source>
-        <target>Alors que vous tentiez d'approcher discrètement d'un Chab Chab, vous êtes rapidement encerclés par ses congénères… Il va falloir lutter pour votre survie !////{fight}</target>
+        <target>Alors que vous tentiez d'approcher discrètement d'un chab chab, vous êtes rapidement encerclés par ses congénères… Il va falloir lutter pour votre survie !////{fight}</target>
       </segment>
       <segment id="ruminant_low" state="translated">
         <source>fight.ruminant_low</source>
@@ -433,7 +433,7 @@
       </segment>
       <segment id="ruminant_mid" state="translated">
         <source>fight.ruminant_mid</source>
-        <target>La bataille a été plus acharnée que prévu… Après une mêlée confuse, vous parvenez finalement à les disperser. {result, select, victory {Seul un Chab Chab malingre y est resté. Piétiné par ses congénères ou tombé sous vos coup ? Peu importe, de la viande reste de la viande.} other{}}</target>
+        <target>La bataille a été plus acharnée que prévu… Après une mêlée confuse, vous parvenez finalement à les disperser. {result, select, victory {Seul un chab chab malingre y est resté. Piétiné par ses congénères ou tombé sous vos coups ? Peu importe, de la viande reste de la viande.} other{}}</target>
       </segment>
       <segment id="ruminant_high" state="translated">
         <source>fight.ruminant_high</source>
@@ -441,7 +441,7 @@
       </segment>
       <segment id="predator_description" state="translated">
         <source>fight.predator_description</source>
-        <target>Vous vous sentez épiés. Un Écorcheur hostile et affamé vous guette... Votre équipe commence à fuir mais la créature se jette sur vous !////{fight}</target>
+        <target>Vous vous sentez épiés. Un écorcheur hostile et affamé vous guette... Votre équipe commence à fuir mais la créature se jette sur vous !////{fight}</target>
       </segment>
       <segment id="predator_low" state="translated">
         <source>fight.predator_low</source>
@@ -457,7 +457,7 @@
       </segment>
       <segment id="insect_description" state="translated">
         <source>fight.insect_description</source>
-        <target>Alors que vous marchez au pied d'une crevasse vous observez avec horreur un Carapanse en émerger... Il va falloir vous défendre !////{fight}</target>
+        <target>Alors que vous marchez au pied d'une crevasse vous observez avec horreur un carapanse en émerger... Il va falloir vous défendre !////{fight}</target>
       </segment>
       <segment id="insect_low" state="translated">
         <source>fight.insect_low</source>
@@ -469,7 +469,7 @@
       </segment>
       <segment id="insect_high" state="translated">
         <source>fight.insect_high</source>
-        <target>Quelques coups bien placés dans les jointures de la carapace vous permettent d'aisément éliminer cette forme de vie. En inspectant la crevasse, vous trouvez un nid rudimentaire, et un fruit ! Plus qu'à espérer qu'il ne soit pas rempli d'oeufs...</target>
+        <target>Quelques coups bien placés dans les jointures de la carapace vous permettent d'aisément éliminer cette forme de vie. En inspectant la crevasse, vous trouvez un nid rudimentaire, et un fruit ! Plus qu'à espérer qu'il ne soit pas rempli d'œufs...</target>
       </segment>
       <segment id="mankarog_description" state="translated">
         <source>fight.mankarog_description</source>
@@ -477,23 +477,23 @@
       </segment>
       <segment id="mankarog_low" state="translated">
         <source>fight.mankarog_low</source>
-        <target>Dès les premiers échanges, il devient évident que ce combat ressemble davantage à une catastrophe naturelle. Chacune de vos attaques paraît dérisoire face à cette masse vivante, et chaque mouvement du Mankarog balaie l'expédition comme un fétu de paille. Quand vous parvenez enfin à vous arracher à ce massacre, vous êtes brisés, hébétés, et de toute évidence, vaincus.</target>
+        <target>Dès les premiers échanges, il devient évident que ce combat ressemble davantage à une catastrophe naturelle. Chacune de vos attaques paraît dérisoire face à cette masse vivante, et chaque mouvement du mankarog balaie l'expédition comme un fétu de paille. Quand vous parvenez enfin à vous arracher à ce massacre, vous êtes brisés, hébétés, et de toute évidence, vaincus.</target>
       </segment>
       <segment id="mankarog_mid" state="translated">
         <source>fight.mankarog_mid</source>
-        <target>À force d'acharnement, vous parvenez enfin à faire reculer ce titan de quelques pas. C'est à peine suffisant pour vous enfuir : le sol tremble encore, les gravats pleuvent, et l'expédition ressort de l'affrontement en piteux état. Quand le Mankarog se détourne enfin, vous comprenez surtout que vous venez de survivre à l'impossible. {result, select, victory {Dans le chaos qu'il laisse derrière lui, quelque chose d'intéressant attire votre regard.} other{}}</target>
+        <target>À force d'acharnement, vous parvenez enfin à faire reculer ce titan de quelques pas. C'est à peine suffisant pour vous enfuir : le sol tremble encore, les gravats pleuvent, et l'expédition ressort de l'affrontement en piteux état. Quand le mankarog se détourne enfin, vous comprenez surtout que vous venez de survivre à l'impossible. {result, select, victory {Dans le chaos qu'il laisse derrière lui, quelque chose d'intéressant attire votre regard.} other{}}</target>
       </segment>
       <segment id="mankarog_high" state="translated">
         <source>fight.mankarog_high</source>
-        <target>Un frisson parcourt l'Univers tout entier alors que vous accomplissez l'impossible. Dans un fracas de montagne qui s'effondre, le Mankarog s'abat sur le sol de toute sa masse, inerte. Les artefacts que vous récupérez dans sa tanière ne sont rien comparés aux légendes qui raconteront cette aventure.</target>
+        <target>Un frisson parcourt l'Univers tout entier alors que vous accomplissez l'impossible. Dans un fracas de montagne qui s'effondre, le mankarog s'abat sur le sol de toute sa masse, inerte. Les artefacts que vous récupérez dans sa tanière ne sont rien comparés aux légendes qui raconteront cette aventure.</target>
       </segment>
       <segment id="ruins_description" state="translated">
         <source>fight.ruins_description</source>
-        <target>Alors que vous fouillez la cité en ruine, vous ne prenez pas garde à la horde de Zombies aliens qui entoure votre position... C'est une attaque surprise !////{fight}</target>
+        <target>Alors que vous fouillez la cité en ruine, vous ne prenez pas garde à la horde de zombies aliens qui entoure votre position... C'est une attaque surprise !////{fight}</target>
       </segment>
       <segment id="ruins_low" state="translated">
         <source>fight.ruins_low</source>
-        <target>Les macabés vous tombent dessus de toutes parts dans un déferlement de hurlements et de membres décharnés. Très vite, vous vous essoufflez et le combat tourne au carnage. Quand vous parvenez enfin à vous extraire des ruines, vous ne pouvez qu'observer vos blessures avec inquiétude.</target>
+        <target>Les macchabées vous tombent dessus de toutes parts dans un déferlement de hurlements et de membres décharnés. Très vite, vous vous essoufflez et le combat tourne au carnage. Quand vous parvenez enfin à vous extraire des ruines, vous ne pouvez qu'observer vos blessures avec inquiétude.</target>
       </segment>
       <segment id="ruins_mid" state="translated">
         <source>fight.ruins_mid</source>
@@ -521,7 +521,7 @@
       </segment>
       <segment id="cristal_field_description" state="translated">
         <source>fight.cristal_field_description</source>
-        <target>Les champs sont déserts... Un hululement sinistre vous assourdit... Un Torceur ! Nul mot pour décrire cette créature venue d'un monde sans lumière ni chaleur. Aux armes !////{fight}</target>
+        <target>Les champs sont déserts... Un hululement sinistre vous assourdit... Un torceur ! Nul mot pour décrire cette créature venue d'un monde sans lumière ni chaleur. Aux armes !////{fight}</target>
       </segment>
       <segment id="cristal_field_low" state="translated">
         <source>fight.cristal_field_low</source>
@@ -533,7 +533,7 @@
       </segment>
       <segment id="cristal_field_high" state="translated">
         <source>fight.cristal_field_high</source>
-        <target>Face à l'esprit indomptable de l'Humanité, l'horreur vacille. À force de volonté et de violence, vous parvenez à faire plier l'abomination, qui se déchire dans un hurlement impossible avant de se dissoudre entre les cristalites. Quand les vibrations cessent enfin, les cristaux s'écartent autour d'un morceau de carte stellaire, comme s'il vous attendait depuis toujours.</target>
+        <target>Face à l'esprit indomptable de l'Humanité, l'horreur vacille. À force de volonté et de violence, vous parvenez à faire plier l'abomination, qui se déchire dans un hurlement impossible avant de se dissoudre entre les cristallites. Quand les vibrations cessent enfin, les cristaux s'écartent autour d'un morceau de carte stellaire, comme s'il vous attendait depuis toujours.</target>
       </segment>
     </unit>
     <unit id="provision">
@@ -549,17 +549,17 @@
         <source>provision.ruminant_description</source>
         <target>{quantity, select,
         2 {Vous rencontrez une myriade de petits rongeurs. Dans la panique générale vous parvenez à attraper l'un d'entre eux.}
-        4 {Vous chassez avec succès un Chab Chab... Vous récupérez de la viande alien.}
-        other {Vous chassez avec succès un Chab Chab... Vous récupérez de la viande alien.}
+        4 {Vous chassez avec succès un chab chab... Vous récupérez de la viande alien.}
+        other {Vous chassez avec succès un chab chab... Vous récupérez de la viande alien.}
         }</target>
       </segment>
       <segment id="ocean_description" state="translated">
         <source>provision.ocean_description</source>
-        <target>En utilisant une ligne rudimentaire, vous arrivez à prendre un Empilodon. Belle pêche.</target>
+        <target>En utilisant une ligne rudimentaire, vous arrivez à prendre un empilodon. Belle pêche.</target>
       </segment>
       <segment id="predator_description" state="translated">
         <source>provision.predator_description</source>
-        <target>Vous tombez sur un Écorcheur. La créature est immobile, elle semble endormie. Vous en profitez pour lui régler rapidement son compte, à vous les rations de viande !</target>
+        <target>Vous tombez sur un écorcheur. La créature est immobile, elle semble endormie. Vous en profitez pour lui régler rapidement son compte, à vous les rations de viande !</target>
       </segment>
       <segment id="intelligent_description" state="translated">
         <source>provision.intelligent_description</source>
@@ -629,15 +629,15 @@
     <unit id="starmap">
       <segment id="name" state="translated">
         <source>starmap.name</source>
-        <target>Éclat de Carte</target>
+        <target>Éclat de carte</target>
       </segment>
       <segment id="description" state="translated">
         <source>starmap.description</source>
-        <target>Vous trouvez 1 éclat de carte stellaire en cristalite.</target>
+        <target>Vous trouvez 1 éclat de carte stellaire en cristallite.</target>
       </segment>
       <segment id="cristal_field_description" state="translated">
         <source>starmap.cristal_field_description</source>
-        <target>Ce champ de cristalite est en activité. Au centre de l'atrium principal, un éclat baignant dans des eaux métalliques fait converger des faisceaux de lumières aux couleurs inconnues. Allez hop, on l'embarque.</target>
+        <target>Ce champ de cristallite est en activité. Au centre de l'atrium principal, un éclat baignant dans des eaux métalliques fait converger des faisceaux de lumières aux couleurs inconnues. Allez hop, on l'embarque.</target>
       </segment>
     </unit>
     <unit id="mush_trap">
@@ -726,7 +726,7 @@
       </segment>
       <segment id="mankarog_description" state="translated">
         <source>back.mankarog_description</source>
-        <target>L'expédition observe à l'horizon un Mankarog passer derrière une montagne… Il vaut mieux changer de cap dès maintenant avant d'avoir des ennuis.</target>
+        <target>L'expédition observe à l'horizon un mankarog passer derrière une montagne… Il vaut mieux changer de cap dès maintenant avant d'avoir des ennuis.</target>
       </segment>
     </unit>
     <unit id="player_lost">
@@ -740,7 +740,7 @@
       </segment>
       <segment id="cristal_field_description" state="translated">
         <source>player_lost.cristal_field_description</source>
-        <target>Ces champs sont un vrai labyrinthe… Bon y a rien à secouer ici, on bouge. Est-ce que quelqu'un a vu {character} ?</target>
+        <target>Ces champs sont un vrai labyrinthe… Bon, y a rien à secouer ici, on bouge. Est-ce que quelqu'un a vu {character} ?</target>
       </segment>
       <segment id="forest_description" state="translated">
         <source>player_lost.forest_description</source>

@@ -1030,7 +1030,9 @@ Allows you to survive after being ejected into space and breathe on planets with
         <source>spacesuit.examine</source>
         <target>The spacesuit allows crew members to explore planets without oxygen.
 //
-Allows you to survive after being ejected into space and breathe on planets with no oxygen.</target>
+Allows you to survive after being ejected into space and breathe on planets with no oxygen.
+//
+The crewmate may also participate in an expedition to a planet with an unbreathable atmosphere.</target>
       </segment>
     </unit>
     <unit id="stainproof_apron">
@@ -4496,11 +4498,11 @@ Allows :sk_conceptor: Designers to access the Command Terminal.</target>
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_pet.description</source>
-        <target>TODO</target>
+        <target>The first skinner to travel through space ! It's too young to devour chab-chabs by itself. Instead, it keeps raising those pleading eyes for a bit of fresh meat.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_pet.examine</source>
-        <target>TODO</target>
+        <target>The first skinner to travel through space ! It's too young to devour chab-chabs by itself. Instead, it keeps raising those pleading eyes for a bit of fresh meat.//Beware of spores in food, an accident could happen...</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_space_chicken">

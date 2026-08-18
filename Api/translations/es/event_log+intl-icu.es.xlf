@@ -468,7 +468,7 @@
     <unit id="infect_cat">
       <segment id="infect_cat" state="translated">
         <source>infect_cat</source>
-        <target>**{target_character}** recibe una espora en su organismo por **{character}** al tocar a **{equipment}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
+        <target>**{target_character}** recibe una espora en su organismo por **{character}** al levantar a **{equipment}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_mush_raid">
@@ -502,6 +502,18 @@
       <segment id="mush_convert_chicken_event" state="initial">
         <source>mush_convert_chicken_event</source>
         <target>mush_convert_chicken_event</target>
+      </segment>
+    </unit>
+    <unit id="mush_convert_baby_skinner_event">
+      <segment id="mush_convert_baby_skinner_event" state="initial">
+        <source>mush_convert_baby_skinner_event</source>
+        <target>mush_convert_baby_skinner_event</target>
+      </segment>
+    </unit>
+    <unit id="infect_baby_skinner_bite">
+      <segment id="infect_baby_skinner_bite" state="translated">
+        <source>infect_baby_skinner_bite</source>
+        <target>**{target_character}** recibe una espora en su organismo por **{character}** al recibir una mordida de **{equipment}**. Su nivel de contaminación ahora es de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="player_enter_chat">
@@ -759,7 +771,7 @@
   23 {Terminus}
   24 {Troll}
   25 {Vortex}
-  26 {Wheatley}
+  26 {Diner}
   666 {Saki}
   other {Goku}
   } #{drone_serial_number}**</target>
@@ -1059,6 +1071,12 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
         <target>chicken_squawk</target>
       </segment>
     </unit>
+    <unit id="baby_skinner_yelp">
+      <segment id="baby_skinner_yelp" state="initial">
+        <source>baby_skinner_yelp</source>
+        <target>baby_skinner_yelp</target>
+      </segment>
+    </unit>
     <unit id="cat_hiss">
       <segment id="cat_hiss" state="translated">
         <source>cat_hiss</source>
@@ -1304,6 +1322,36 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
       <segment id="pavlov_turbo_worked" state="translated">
         <source>pavlov_turbo_worked</source>
         <target>La habilidad **Misil** de **Pavlov** ha dado frutos...</target>
+      </segment>
+    </unit>
+    <unit id="summer_event_exploration_log">
+      <segment id="summer_event_exploration_log" state="translated">
+        <source>summer_event_exploration_log</source>
+        <target>Sientes que este planeta no ha revelado todos sus secretos...</target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_bite">
+      <segment id="baby_skinner_bite" state="initial">
+        <source>baby_skinner_bite</source>
+        <target>baby_skinner_bite</target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_sleep">
+      <segment id="baby_skinner_sleep" state="initial">
+        <source>baby_skinner_sleep</source>
+        <target>baby_skinner_sleep</target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_prevent_metal_plate">
+      <segment id="baby_skinner_prevent_metal_plate" state="initial">
+        <source>baby_skinner_prevent_metal_plate</source>
+        <target>baby_skinner_prevent_metal_plate</target>
+      </segment>
+    </unit>
+    <unit id="pirate_ship_free_spore">
+      <segment id="pirate_ship_free_spore" state="initial">
+        <source>pirate_ship_free_spore</source>
+        <target>pirate_ship_free_spore</target>
       </segment>
     </unit>
   </file>

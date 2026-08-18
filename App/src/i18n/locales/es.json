@@ -175,7 +175,7 @@
 			"suicide": "¡Suicidio con estilo!",
 			"patrol_ship_explosion": "¡Una maniobra fallida!"
 		},
-		"explorations": "Exploraciones",
+		"explorations": "Expediciones",
 		"titles": "Títulos",
 		"funFacts": "Datos Curiosos",
 		"historyAndTriumph": "Historial y Gloria",
@@ -213,7 +213,11 @@
 			"awards": "Clasificación",
 			"trips": "Viajes"
 		},
-		"pageTitle": "Ficha de {user}"
+		"pageTitle": "Ficha de {user}",
+		"iLikeToBeMushActivated": "¡Quiero ser Mush más a menudo! (Activado)",
+		"iLikeToBeMushDeactivated": "¡Quiero ser Mush más a menudo! (Desactivado)",
+		"iLikeToBeMushButtonName": "¡Quiero ser Mush más a menudo!",
+		"iLikeToBeMushButtonDescription": "El sistema garantiza que todos los jugadores asuman regularmente el rol de Mush. Sin embargo, algunos jugadores desean jugar este rol con más frecuencia que otros, y esta opción es para ellos. //***Para el correcto funcionamiento del juego, está prohibido compartir tu elección dentro o fuera del juego. Gracias.***"
 	},
 	"login": "Conectarse",
 	"logout": "Desconectarse",
@@ -1068,7 +1072,7 @@
 			"reason": "Razón",
 			"reporterMessage": "Mensaje del denunciante",
 			"moderatorMessage": "Mensaje del moderador",
-			"evidence": "Message signalé",
+			"evidence": "Mensaje reportado",
 			"context": "Contexto",
 			"reportDate": "Fecha",
 			"sanctionStartDate": "Inicio",

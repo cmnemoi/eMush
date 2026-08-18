@@ -299,6 +299,10 @@
         <source>artefact.wreck_description</source>
         <target>Un montículo de chatarra contiene un extraño Artefacto Alien... ¡Qué buena suerte!</target>
       </segment>
+      <segment id="treasure_hunt_pet_description" state="initial">
+        <source>artefact.treasure_hunt_pet_description</source>
+        <target>artefact.treasure_hunt_pet_description</target>
+      </segment>
     </unit>
     <unit id="always_successful_thanks_to_skill">
       <segment id="description" state="translated">
@@ -770,6 +774,20 @@ other {{version, select,
         female {{character} es encontrada debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Yyyy sin signos vitales. Parece que el diagnóstico del laboratorio será "Fallecida".}
         other {a {character} se le encuentra debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Yyyy sin signos vitales. Parece que el diagnóstico del laboratorio será "Falleció".}
 }</target>
+      </segment>
+    </unit>
+    <unit id="pirate_ship">
+      <segment id="name" state="translated">
+        <source>pirate_ship.name</source>
+        <target>Últimas palabras del capitán Grixar</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>pirate_ship.description</source>
+        <target>pirate_ship.description</target>
+      </segment>
+      <segment id="lost_description" state="initial">
+        <source>pirate_ship.treasure_hunt_ship_description</source>
+        <target>pirate_ship.treasure_hunt_ship_description</target>
       </segment>
     </unit>
     <unit id="new_sector">

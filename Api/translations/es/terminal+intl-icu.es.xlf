@@ -417,11 +417,11 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="nothing_to_compute" state="translated">
         <source>calculator.nothing_to_compute</source>
-        <target>No hay nada que calcular por el momento.</target>
+        <target>No hay nada que calcular por el momento.//Por favor coloca el material en la estantería.</target>
       </segment>
       <segment id="eden_computed" state="translated">
         <source>calculator.eden_computed</source>
-        <target>El cálculo de las coordenadas de Edén ha sido completado con éxito. Las coordenadas han sido transferidas a *NERON. Consulta a tu ***Comandante*** para obtener más información*.</target>
+        <target>El cálculo de las coordenadas de Edén ha sido completado con éxito. Las coordenadas han sido transferidas a NERON. Consulta a tu ***Comandante*** para obtener más información.</target>
       </segment>
     </unit>
     <unit id="communication_center">

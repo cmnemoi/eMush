@@ -541,6 +541,12 @@
         <target>mush_remove_spore.description</target>
       </segment>
     </unit>
+    <unit id="spore_sucker_used_too_recently">
+      <segment id="description" state="initial">
+        <source>spore_sucker_used_too_recently.description</source>
+        <target>spore_sucker_used_too_recently.description</target>
+      </segment>
+    </unit>
     <unit id="already_did_boring_speech">
       <segment id="description" state="translated">
         <source>already_did_boring_speech.description</source>
@@ -711,14 +717,14 @@
     </unit>
     <unit id="chicken_already_converted">
       <segment id="description" state="initial">
-        <source>chicken_already_converted.description</source>
-        <target>chicken_already_converted.description</target>
+        <source>pet_already_converted.description</source>
+        <target>pet_already_converted.description</target>
       </segment>
     </unit>
-    <unit id="infect_chicken_no_spore">
+    <unit id="infect_pet_no_spore">
       <segment id="description" state="initial">
-        <source>infect_chicken_no_spore.description</source>
-        <target>infect_chicken_no_spore.description</target>
+        <source>infect_pet_no_spore.description</source>
+        <target>infect_pet_no_spore.description</target>
       </segment>
     </unit>
     <unit id="player_is_germaphobic">
@@ -893,6 +899,18 @@
       <segment id="description" state="translated">
         <source>private_property_not_owner.description</source>
         <target>private_property_not_owner.description</target>
+      </segment>
+    </unit>
+    <unit id="planet_impossible_to_scan">
+      <segment id="description" state="initial">
+        <source>planet_impossible_to_scan.description</source>
+        <target>planet_impossible_to_scan.description</target>
+      </segment>
+    </unit>
+    <unit id="need_genius_or_alien_device">
+      <segment id="description" state="initial">
+        <source>need_genius_or_alien_device.description</source>
+        <target>need_genius_or_alien_device.description</target>
       </segment>
     </unit>
   </file>

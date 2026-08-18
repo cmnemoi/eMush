@@ -298,7 +298,7 @@
                         1 {NERON}
                         2 {L'équipe de recherche}
                         3 {L'admin NERON}
-                        other {Le commandant}
+                        other {Le Commandant}
                     } fait {paranoia_version_6, select,
                         1 {nimp.}
                         2 {nawak.}

@@ -47,6 +47,12 @@ Os ofrecemos a cambio tecnología que podría ser útil.</target>
         <target>Saludos, terrícolas. Nuestro líder necesita mano de obra tercermundista. Intercambiamos alguno vuestros tripulantes por macetas nuevas.</target>
       </segment>
     </unit>
+    <unit id="treasure_hunt_deal">
+      <segment id="treasure_hunt_deal" state="translated">
+        <source>treasure_hunt_deal</source>
+        <target>... hambre... comida a cambio de un mapa para un planeta exótico.</target>
+      </segment>
+    </unit>
     <!-- Asset types -->
     <unit id="random_player">
       <segment id="random_player" state="translated">
@@ -58,6 +64,18 @@ Os ofrecemos a cambio tecnología que podría ser útil.</target>
       <segment id="oxygen" state="translated">
         <source>oxygen</source>
         <target>{quantity, plural, one {# Unidad} other {# Unidades}} de oxígeno</target>
+      </segment>
+    </unit>
+    <unit id="cooked_ration">
+      <segment id="cooked_ration" state="translated">
+        <source>cooked_ration</source>
+        <target>{quantity, plural, one {# ración cocinada} other {# raciones cocinadas}}</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_tablet">
+      <segment id="treasure_hunt_tablet" state="translated">
+        <source>treasure_hunt_tablet</source>
+        <target>{quantity, plural, one {# artefacto desconocido} other {# artefactos desconocidos}}</target>
       </segment>
     </unit>
     <unit id="fuel">
@@ -258,6 +276,18 @@ Os ofrecemos a cambio tecnología que podría ser útil.</target>
       <segment id="human_vs_fuel_botanist_4_rations_vs_2-4_fuel_capsules" state="translated">
         <source>human_vs_fuel_botanist_4_rations_vs_2-4_fuel_capsules</source>
         <target>¿Os gustan las verduras?</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_food_vs_treasure_hunt_tablet">
+      <segment id="treasure_hunt_food_vs_treasure_hunt_tablet" state="initial">
+        <source>treasure_hunt_food_vs_treasure_hunt_tablet</source>
+        <target>treasure_hunt_food_vs_treasure_hunt_tablet</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_diplomat_human_vs_treasure_hunt_tablet">
+      <segment id="treasure_hunt_diplomat_human_vs_treasure_hunt_tablet" state="initial">
+        <source>treasure_hunt_diplomat_human_vs_treasure_hunt_tablet</source>
+        <target>treasure_hunt_diplomat_human_vs_treasure_hunt_tablet</target>
       </segment>
     </unit>
   </file>

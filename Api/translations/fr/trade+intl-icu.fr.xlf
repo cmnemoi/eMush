@@ -29,7 +29,7 @@
     <unit id="techno_rewrite">
       <segment id="techno_rewrite" state="translated">
         <source>techno_rewrite</source>
-        <target>Les grandes maisons de Serres vous saluent, nous regardons votre monde primitif depuis des eons et la folle course de votre vaisseau est intriguante. Nous avons quand même quelques intérêts pour certaine de vos technologies, un petit échange pourrait profiter à tous.</target>
+        <target>Les grandes maisons de Serres vous saluent, nous regardons votre monde primitif depuis des éons et la folle course de votre vaisseau est intriguante. Nous avons quand même quelques intérêts pour certaine de vos technologies, un petit échange pourrait profiter à tous.</target>
       </segment>
     </unit>
     <unit id="human_vs_fuel">
@@ -41,7 +41,7 @@
     <unit id="human_vs_tree">
       <segment id="human_vs_tree" state="translated">
         <source>human_vs_tree</source>
-        <target>Buraroum, nous, les Dévorfeuilles avons besoin de jardinier céleste, nous vous échangeons de la main d'oeuvre contre des pots neufs.</target>
+        <target>Buraroum, nous, les Dévorfeuilles avons besoin de jardinier céleste, nous vous échangeons de la main d'œuvre contre des pots neufs.</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_deal">
@@ -176,7 +176,7 @@
     <unit id="human_vs_oxy_diplomat_2_random_players_vs_10-20_oxygen_capsules">
       <segment id="human_vs_oxy_diplomat_2_random_players_vs_10-20_oxygen_capsules" state="translated">
         <source>human_vs_oxy_diplomat_2_random_players_vs_10-20_oxygen_capsules</source>
-        <target>Ça tombe bien, on a du rabe sur les déchets organiques...</target>
+        <target>Ça tombe bien, on a du rab sur les déchets organiques...</target>
       </segment>
     </unit>
     <unit id="techno_rewrite_two_random_projects_vs_one_random_project">

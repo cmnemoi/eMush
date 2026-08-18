@@ -635,15 +635,15 @@ Permet de faire tourner cette bonne vieille carne vers la droite.</target>
     <unit id="oxygen_tank">
       <segment id="name" state="translated">
         <source>oxygen_tank.name</source>
-        <target>Réservoir d'Oxygène</target>
+        <target>Réservoir d'oxygène</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>oxygen_tank.short_name</source>
-        <target>Réservoir d'Oxygène</target>
+        <target>Réservoir d'oxygène</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>oxygen_tank.plural_name</source>
-        <target>Réservoirs d'Oxygène</target>
+        <target>Réservoirs d'oxygène</target>
       </segment>
       <segment id="genre" state="translated">
         <source>oxygen_tank.gender</source>

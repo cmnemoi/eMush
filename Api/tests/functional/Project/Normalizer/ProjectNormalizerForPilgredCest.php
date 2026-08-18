@@ -73,19 +73,19 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
                 'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre. De plus, la machine à café se régénèrera quatre fois plus vite.',
                 'lore' => '',
                 'progress' => '0%',
-                'efficiency' => 'Efficacité : 1-1%',
+                'efficiency' => 'Efficacité : 1–1 %',
                 'efficiencyTooltipHeader' => 'Efficacité',
                 'efficiencyTooltipText' => 'Pour garder une efficacité optimale, alternez le travail avec un collègue.',
                 'bonusSkills' => [
                     [
                         'key' => 'physicist',
-                        'name' => 'Physicien.ne',
-                        'description' => "Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques quantiques et de l'essence même des cordes qui composent notre Univers est son atout. Il possède des avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d'action de **réparation de PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON** et **réparer PILGRED**.",
+                        'name' => 'Physicien·ne',
+                        'description' => "Lea Physicien·ne est un·e chercheur·se en physique de haut vol, sa compréhension des mécaniques quantiques et de l'essence même des cordes qui composent notre Univers est son atout. Il possède des avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d'action de **réparation de PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON** et **réparer PILGRED**.",
                     ],
                     [
                         'key' => 'technician',
-                        'name' => 'Technicien.ne',
-                        'description' => 'Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+                        'name' => 'Technicien·ne',
+                        'description' => 'Lea Technicien·ne est qualifié·e pour réparer le matériel, les équipements et la coque du Daedalus.//
         :point: +1 :pa_eng: (point d\'action **Réparation**) par jour.//
         :point: Peut **Démonter** des objets.//
         :point: Peut **Blinder** des objets.//

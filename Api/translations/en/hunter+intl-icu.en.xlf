@@ -71,5 +71,15 @@
         <target>Lost transporter. Could be interesting.</target>
       </segment>
     </unit>
+    <unit id="summer_event_transport">
+      <segment id="summer_event_transport_name" state="translated">
+        <source>summer_event_transport.name</source>
+        <target>Transporter</target>
+      </segment>
+      <segment id="summer_event_transport_description" state="translated">
+        <source>summer_event_transport.description</source>
+        <target>Lost transporter. Could be interesting.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

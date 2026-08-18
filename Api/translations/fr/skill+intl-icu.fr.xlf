@@ -21,11 +21,11 @@
     <unit id="firefighter">
       <segment id="firefighter.name" state="translated">
         <source>firefighter.name</source>
-        <target>{character_gender, select, male {Pompier} female {Pompière} other {Pompier.e}}</target>
+        <target>{character_gender, select, male {Pompier} female {Pompière} other {Pompièr·e}}</target>
       </segment>
       <segment id="firefighter.description" state="translated">
         <source>firefighter.description</source>
-        <target>Le Pompier a une grande carrière qui lui permet de toujours réussir les actions avec l'extincteur... et il peut aussi s'en sortir sans extincteur !//
+        <target>{character_gender, select, male {Le Pompier} female {La Pompière} other {Lea Pompièr·e}} a une grande carrière qui lui permet de toujours réussir les actions avec l'extincteur... et il peut aussi s'en sortir sans extincteur !//
 :point: **Éteindre le feu** avec un extincteur réussit toujours.//
 :point: Peut **éteindre manuellement** sans extincteur.//
 :point: Bonus pour développer certains **Projets NERON**.</target>
@@ -50,13 +50,13 @@
     <unit id="radio_expert">
       <segment id="radio_expert.name" state="translated">
         <source>radio_expert.name</source>
-        <target>{character_gender, select, male {Expert radio} female {Experte radio} other {Expert.e radio}}</target>
+        <target>{character_gender, select, male {Expert radio} female {Experte radio} other {Expert·e radio}}</target>
       </segment>
       <segment id="radio_expert.description" state="translated">
         <source>radio_expert.description</source>
-        <target>L'Expert radio peut décoder les enchevêtrements les plus complexes d'ondes spatiales afin de reconstituer ou envoyer des messages à l'autre bout de l'Univers.//
+        <target>L'{character_gender, select, male {Expert radio} female {Experte radio} other {Expert·e radio}} peut décoder les enchevêtrements les plus complexes d'ondes spatiales afin de reconstituer ou envoyer des messages à l'autre bout de l'Univers.//
 :point: **Double efficacité** pour établir le **contact** vers Sol.//
-:point: Améliore les tentatives de **contact** de Sol des équipiers dans la même pièce de 50%.//
+:point: Améliore les tentatives de **contact** de Sol des équipiers dans la même pièce de 50 %.//
 :point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
@@ -67,7 +67,7 @@
       </segment>
       <segment id="robotics_expert.description" state="translated">
         <source>robotics_expert.description</source>
-        <target>L'expert en robotique peut créer et manipuler les drones comme bon lui semble.//
+        <target>L'{character_gender, select, male {Expert en robotique} female {Experte en robotique} other {Expert·e en robotique}} peut créer et manipuler les drones comme bon lui semble.//
 :point: Commence avec le **plan d'un drone**.//
 :point: Peut **améliorer les drones**.//
 :point: Bonus pour développer certains **Projets NERON**.</target>
@@ -76,11 +76,11 @@
     <unit id="physicist">
       <segment id="physicist.name" state="translated">
         <source>physicist.name</source>
-        <target>{character_gender, select, male {Physicien} female {Physicienne} other {Physicien.ne}}</target>
+        <target>{character_gender, select, male {Physicien} female {Physicienne} other {Physicien·ne}}</target>
       </segment>
       <segment id="physicist.description" state="translated">
         <source>physicist.description</source>
-        <target>Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques quantiques et de l'essence même des cordes qui composent notre Univers est son atout. Il possède des avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d'action de **réparation de PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON** et **réparer PILGRED**.</target>
+        <target>{character_gender, select, male {Le Physicien est un chercheur} female {La Physicienne est une chercheuse} other {Lea Physicien·ne est un·e chercheur·se}} en physique de haut vol, sa compréhension des mécaniques quantiques et de l'essence même des cordes qui composent notre Univers est son atout. Il possède des avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d'action de **réparation de PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON** et **réparer PILGRED**.</target>
       </segment>
     </unit>
     <unit id="technician">
@@ -89,11 +89,11 @@
         <target>{character_gender, select,
         male {Technicien}
         female {Technicienne}
-        other {Technicien.ne}}</target>
+        other {Technicien·ne}}</target>
       </segment>
       <segment id="technician.description" state="translated">
         <source>technician.description</source>
-        <target>Le Technicien est qualifié pour réparer le matériel, les équipements et la coque du Daedalus.//
+        <target>{character_gender, select, male {Le Technicien est qualifié} female {La Technicienne est qualifiée} other {Lea Technicien·ne est qualifié·e}} pour réparer le matériel, les équipements et la coque du Daedalus.//
         :point: +1 :pa_eng: (point d'action **Réparation**) par jour.//
         :point: Peut **Démonter** des objets.//
         :point: Peut **Blinder** des objets.//
@@ -105,11 +105,11 @@
     <unit id="astrophysicist">
       <segment id="astrophysicist.name" state="translated">
         <source>astrophysicist.name</source>
-        <target>{character_gender, select, male {Astrophysicien} female {Astrophysicienne} other {Astrophysicien.ne}}</target>
+        <target>{character_gender, select, male {Astrophysicien} female {Astrophysicienne} other {Astrophysicien·ne}}</target>
       </segment>
       <segment id="astrophysicist.description" state="translated">
         <source>astrophysicist.description</source>
-        <target>L'Astrophysicien est habilité à lancer des scans pour trouver des planètes à portée ou déterminer leur composition.//
+        <target>L'{character_gender, select, male {Astrophysicien est habilité} female {Astrophysicienne est habilitée} other {Astrophysicien·ne est habilité·e}} à lancer des scans pour trouver des planètes à portée ou déterminer leur composition.//
 :point: **Scanner** une nouvelle planète coûte 1 :pa: de moins.//
 :point: **Analyser** une planète trouvée révèle une section de planète supplémentaire.//
 :point: Bonus pour développer certains **Projets NERON**.</target>
@@ -118,11 +118,11 @@
     <unit id="computer">
       <segment id="it_expert.name" state="translated">
         <source>it_expert.name</source>
-        <target>{character_gender, select, male {Informaticien} female {Informaticienne} other {Informaticien.ne}}</target>
+        <target>{character_gender, select, male {Informaticien} female {Informaticienne} other {Informaticien·ne}}</target>
       </segment>
       <segment id="it_expert.description" state="translated">
         <source>it_expert.description</source>
-        <target>L'Informaticien est à l'aise dès qu'il passe derrière un écran. Il manie à la perfection les interfaces des terminaux de NERON, d'astrophysique, et de communication.//
+        <target>L'{character_gender, select, male {Informaticien} female {Informaticienne} other {Informaticien·ne}} est à l'aise dès qu'{character_gender, select, male {il} female {elle} other {iel}} passe derrière un écran. {character_gender, select, male {Il} female {Elle} other {Iel}} manie à la perfection les interfaces des terminaux de NERON, d'astrophysique, et de communication.//
 :point: +2 :pa_comp: (points d'action **Informatique**) par jour.//
 :point: Chances de réussites doublées avec le **Bidouilleur**.//
 :point: Bonus pour développer certains **Projets NERON**.</target>
@@ -148,7 +148,7 @@
       <segment id="creative.description" state="translated">
         <source>creative.description</source>
         <target>Parfois il faut savoir renverser le problème.//
-:point: Rater une action a 50% de chance de vous rendre **1** :pa:.//
+:point: Rater une action a 50 % de chance de vous rendre **1** :pa:.//
 :point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
@@ -159,8 +159,8 @@
       </segment>
       <segment id="shrink.description" state="translated">
         <source>shrink.description</source>
-        <target>Le Psy occupe un poste de soutien psychologique. Il permet de garder le moral et soigne les maladies psychologiques.//
-:point: A chaque cycle, **1 Point de Moral (:pmo:) est régénéré** à chaque personnage allongé dans sa pièce.//
+        <target>{character_gender, select, male {Le} female {La} other {Lea}} Psy occupe un poste de soutien psychologique. {character_gender, select, male {Il} female {Elle} other {Iel}} permet de garder le moral et soigne les maladies psychologiques.//
+:point: À chaque cycle, **1 Point de Moral (:pmo:) est régénéré** à chaque personnage allongé dans sa pièce.//
 :point: **Soigne les maladies Psy** de ses patients.//
 :point: Accorde l'action **Réconforter**, laquelle améliore le moral.//
 :point: Bonus pour développer certains **Projets NERON**.</target>
@@ -173,8 +173,8 @@
       </segment>
       <segment id="caffeine_junkie.description" state="translated">
         <source>caffeine_junkie.description</source>
-        <target>Le Caféinomane travaille deux fois mieux que ses collègues tant qu'il a accès à la machine à café.//
-:point: +2:pa: lorsqu'il consomme un **Café**.//
+        <target>{character_gender, select, male {Le} female {La} other {Lea}} Caféinomane travaille deux fois mieux que ses collègues tant qu'{character_gender, select, male {il} female {elle} other {iel}} a accès à la machine à café.//
+:point: +2 :pa: lorsqu'{character_gender, select, male {il} female {elle} other {iel}} consomme un **Café**.//
 :point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
@@ -184,11 +184,11 @@
         <target>{character_gender, select,
         male {Tireur}
         female {Tireuse}
-        other {Tireur.se}}</target>
+        other {Tireur·se}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>shooter.description</source>
-        <target>Le Tireur manipule les armes de tout type avec beaucoup d'aisance.//
+        <target>{character_gender, select, male {Le Tireur} female {La Tireuse} other {Lea Tireur·se}} manipule les armes de tout type avec beaucoup d'aisance.//
 :point: +2 **Tirs gratuits** :pa_shoot: par jour.//
 :point: Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.//
 :point: Bonus pour développer certains **Projets NERON**.//
@@ -202,7 +202,7 @@
       </segment>
       <segment id="chef.description" state="translated">
         <source>chef.description</source>
-        <target>Le cuisinier est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.//
+        <target>Le Cuistot est un expert redoutable pour préparer des bons petits plats. Il a également un avis éclairé sur tout ce qui se mange ou presque.//
 :point: Peut lire les **propriétés des aliments**.//
 :point: Peut lire les **propriétés des fruits**.//
 :point: +4 :pa_cook: par jour (points d'action **Cuisine**).//
@@ -212,11 +212,11 @@
     <unit id="nurse">
       <segment id="nurse.name" state="translated">
         <source>nurse.name</source>
-        <target>{character_gender, select, male {Infirmier} female {Infirmière} other {Infirmier.e}}</target>
+        <target>{character_gender, select, male {Infirmier} female {Infirmière} other {Infirmièr·e}}</target>
       </segment>
       <segment id="nurse.description" state="translated">
         <source>nurse.description</source>
-        <target>L'Infirmier est toujours prêt à rendre service.//
+        <target>L'{character_gender, select, male {Infirmier} female {Infirmière} other {Infirmièr·e}} est toujours {character_gender, select, male {prêt} female {prête} other {prêt·e}} à rendre service.//
 :point: +2 :pa_heal: chaque jour (point d'action **Soin**).//
 :point: Peut lire les **propriétés des médicaments.**//
 :point: Bonus pour participer à certains **Projets NERON**.</target>
@@ -229,7 +229,7 @@
       </segment>
       <segment id="paranoid.description" state="translated">
         <source>paranoid.description</source>
-        <target>Le Paranoïaque pense que tous ses collègues sont potentiellement dangereux, il surveille toujours ses arrières grâce aux caméras.//
+        <target>{character_gender, select, male {Le} female {La} other {Lea}} Paranoïaque pense que tous ses collègues sont potentiellement dangereux, {character_gender, select, male {il} female {elle} other {iel}} surveille toujours ses arrières grâce aux caméras.//
 :point: Commence avec 1 **Caméra** supplémentaire.//
 :point: Bonus pour développer certains **Projets NERON**.//
 :point: **Installer** et **Enlever** les caméras est **gratuit**.</target>
@@ -242,9 +242,9 @@
       </segment>
       <segment id="biologist.description" state="translated">
         <source>biologist.description</source>
-        <target>Le Biologiste est plus efficace dans les recherches du laboratoire.//
+        <target>{character_gender, select, male {Le} female {La} other {Lea}} Biologiste est plus efficace dans les recherches du laboratoire.//
 :point: Peut lire les **propriétés des médicaments**.//
-:point: **+4% de bonus** lors de vos contributions sur chacune des **Recherches** du Laboratoire.//
+:point: **+4 % de bonus** lors de vos contributions sur chacune des **Recherches** du Laboratoire.//
 :point: Bonus pour développer certains **Projets NERON**.</target>
       </segment>
     </unit>
@@ -267,7 +267,7 @@
       <segment id="leader.description" state="translated">
         <source>leader.description</source>
         <target>Un leader charismatique sait diriger efficacement l'équipage et monter le moral grâce à de furieux discours enflammés.//
-:point: Pour **2** :pa:, vous pouvez faire un **Discours Enflammé** qui permet d'augmenter le Moral (:pmo:) des équipiers présents dans la pièce.</target>
+:point: Pour **2** :pa:, vous pouvez faire un **Discours enflammé** qui permet d'augmenter le Moral (:pmo:) des équipiers présents dans la pièce.</target>
       </segment>
     </unit>
     <unit id="motivator">
@@ -277,18 +277,18 @@
       </segment>
       <segment id="motivator.description" state="translated">
         <source>motivator.description</source>
-        <target>Bla bla bla... Pitiéééééé!//
-:point: Pour **2** :pa:, vous pouvez faire un **Discours Barbant** qui donne 3 :pm: à chaque personne dans la pièce (une fois par jour).</target>
+        <target>Bla bla bla... Pitiéééééé !//
+:point: Pour **2** :pa:, vous pouvez faire un **Discours barbant** qui donne 3 :pm: à chaque personne dans la pièce (une fois par jour).</target>
       </segment>
     </unit>
     <unit id="confident">
       <segment id="confident.name" state="translated">
         <source>confident.name</source>
-        <target>{character_gender, select, other {Confident} female {Confidente} other {Confident.e}}</target>
+        <target>{character_gender, select, other {Confident} female {Confidente} other {Confident·e}}</target>
       </segment>
       <segment id="confident.description" state="translated">
         <source>confident.description</source>
-        <target>Discret et fidèle, vous attirez la sympathie et portez un peu la misère du monde quand même...//
+        <target>{character_gender, select, male {Discret} female {Discrète} other {Discrèt·e}} et fidèle, vous attirez la sympathie et portez un peu la misère du monde quand même...//
 :point: Une fois par jour et par personne, les autres équipiers peuvent se confier à vous pour **1** :pa:. En faisant cela, ils vous révèlent leurs X dernières actions où X est votre quantité de :pmo:, et regagnent ainsi 2 :pmo:.</target>
       </segment>
     </unit>
@@ -299,9 +299,9 @@
       </segment>
       <segment id="survivalist.description" state="translated">
         <source>survivalist.description</source>
-        <target>L'expert en survie est un bon atout dans les missions d'exploration. Il peut se défendre plus efficacement contre les formes de vie extraterrestre et s'en sortira mieux que les autres.//
-:point: Expédition : Chaque dégât **personnel** est **réduit d'un point**.//
-:point: Expédition : L'évènement **Provision** donne un steak de plus.//
+        <target>L'{character_gender, select, male {Expert} female {Experte} other {Expert·e}} en survie est un bon atout dans les missions d'exploration. {character_gender, select, male {Il} female {Elle} other {Iel}} peut se défendre plus efficacement contre les formes de vie extraterrestre et s'en sortira mieux que les autres.//
+:point: Expédition : Chaque dégât **personnel** est **réduit d'1 point**.//
+:point: Expédition : L'évènement **Provision** donne 1 steak supplémentaire.//
 :point: Expédition : Dernier à mourir en cas d'évènement fatal.</target>
       </segment>
     </unit>
@@ -312,7 +312,7 @@
       </segment>
       <segment id="diplomat.description" state="translated">
         <source>diplomat.description</source>
-        <target>Un bon diplomate sait comment entrer en contact avec les races extra-terrestres.//:point: Remplace l'évènement **Combat** par l'évenement **Nouveau Secteur** sur les secteurs **Vie Intelligente**.//:point: Remplace l'évènement **Combat** par l'évenement **Rien à signaler** sur les autres secteurs.//:point: Peut déclarer un cessez-le-feu une fois par partie. Le cessez-le-feu dure **3** cycles.//:point: Ouvre de nouvelles possibilités d'échanges commerciaux.</target>
+        <target>Un bon diplomate sait comment entrer en contact avec les races extraterrestres.//:point: Remplace l'évènement **Combat** par l'évenement **Nouveau secteur** sur les secteurs **Vie intelligente**.//:point: Remplace l'évènement **Combat** par l'évenement **Rien à signaler** sur les autres secteurs.//:point: Peut déclarer un cessez-le-feu une fois par partie. Le cessez-le-feu dure **3** Cycles.//:point: Ouvre de nouvelles possibilités d'échanges commerciaux.</target>
       </segment>
     </unit>
     <unit id="anonymush">
@@ -332,7 +332,7 @@
       </segment>
       <segment id="determined.description" state="translated">
         <source>determined.description</source>
-        <target>Une fois qu'il a commencé sa tâche, rien ne peut perturber l'équipier persévérant.//:point: En cas d'**échec** sur une action, les chances de réussite **augmentent par x1.5** *(au lieu de x1.25)*.</target>
+        <target>Une fois qu'il a commencé sa tâche, rien ne peut perturber l'équipier persévérant.//:point: En cas d'**échec** sur une action, les chances de réussite **augmentent de x1.5** *(au lieu de x1.25)*.</target>
       </segment>
     </unit>
     <unit id="optimist">
@@ -342,13 +342,13 @@
       </segment>
       <segment id="optimist.description" state="translated">
         <source>optimist.description</source>
-        <target>La fin de l'Humanité... Il y a pire non ?//:point: L'Optimiste perd **un :pmo: de moins par jour**.</target>
+        <target>La fin de l'Humanité... Il y a pire non ?//:point: L'Optimiste perd **1 :pmo: de moins par jour**.</target>
       </segment>
     </unit>
     <unit id="gunner">
       <segment id="gunner.name" state="translated">
         <source>gunner.name</source>
-        <target>{character_gender, select, other {Canonnier} female {Canonnière} other {Canonnier.e}}</target>
+        <target>{character_gender, select, other {Canonnier} female {Canonnière} other {Canonnièr·e}}</target>
       </segment>
       <segment id="gunner.description" state="translated">
         <source>gunner.description</source>
@@ -400,11 +400,11 @@
         <source>neron_only_friend.name</source>
         <target>{character, select,
         Janice {Seule amie de NERON}
-        other {{character_gender, select, male {Deuxième ami de NERON} female {Deuxième amie de NERON} other {Deuxième ami.e de NERON}}}}</target>
+        other {{character_gender, select, male {Deuxième ami de NERON} female {Deuxième amie de NERON} other {Deuxième ami·e de NERON}}}}</target>
       </segment>
       <segment id="neron_only_friend.description" state="translated">
         <source>neron_only_friend.description</source>
-        <target>Lorsque vous êtes {character_gender, select, male {présent dans le } female {présente dans le} other {à bord du}} vaisseau, NERON est apaisé, ses routines tournent sans erreurs et ses performances s'en trouvent grandement améliorées.//:point: Les gains de **chaque projet NERON** sont **maximisés** pour tous.</target>
+        <target>Lorsque vous êtes {character_gender, select, male {présent dans le} female {présente dans le} other {à bord du}} vaisseau, NERON est apaisé, ses routines tournent sans erreurs et ses performances s'en trouvent grandement améliorées.//:point: Les gains de **chaque projet NERON** sont **maximisés** pour tous.</target>
       </segment>
     </unit>
     <unit id="mycelium_spirit">
@@ -424,7 +424,7 @@
       </segment>
       <segment id="fertile.description" state="translated">
         <source>fertile.description</source>
-        <target>Votre production de spore est remarquable pour le genre. Spore un jour, spore toujours.//:point: Chaque jour, vous pouvez générer une spore **gratuitement**.</target>
+        <target>Votre production de spores est remarquable pour le genre. Spores un jour, spores toujours.//:point: Chaque jour, vous pouvez générer 1 spore **gratuitement**.</target>
       </segment>
     </unit>
     <unit id="splashproof">
@@ -450,11 +450,11 @@
     <unit id="sneak">
       <segment id="sneak.name" state="translated">
         <source>sneak.name</source>
-        <target>{character_gender, select, male {Fuyant} female {Fuyante} other {Fuyant.e}}</target>
+        <target>{character_gender, select, male {Fuyant} female {Fuyante} other {Fuyant·e}}</target>
       </segment>
       <segment id="sneak.description" state="translated">
         <source>sneak.description</source>
-        <target>Vous êtes d'un naturel craintif et savez naturellement vous dérober afin d'échapper à toutes les tentatives de contact physique.//:point: Les attaques de corps-à-corps reçoivent une **pénalité de 25%**.//:point: Vous pouvez vous déplacer quels que soient les **Gardiens** présents dans la pièce.</target>
+        <target>Vous êtes d'un naturel craintif et savez naturellement vous dérober afin d'échapper à toutes les tentatives de contact physique.//:point: Les attaques de corps-à-corps reçoivent une **pénalité de 25 %**.//:point: Vous pouvez vous déplacer quels que soient les **Gardiens** présents dans la pièce.</target>
       </segment>
     </unit>
     <unit id="logistics_expert">
@@ -484,13 +484,13 @@
       </segment>
       <segment id="phagocyte.description" state="translated">
         <source>phagocyte.description</source>
-        <target>En cas de coup dur, vous avez LA solution.//:point: Pour **0** :pa:, vous pouvez dévorer une **Spore** ce qui vous rend **4** :pa: et **4** :hp:.</target>
+        <target>En cas de coup dur, vous avez LA solution.//:point: Pour **0** :pa:, vous pouvez dévorer une **spore** ce qui vous rend **4** :pa: et **4** :hp:.</target>
       </segment>
     </unit>
     <unit id="wrestler">
       <segment id="wrestler.name" state="translated">
         <source>wrestler.name</source>
-        <target>{character_gender, select, other {Lutteur} female {Lutteuse} other {Lutteur.se}}</target>
+        <target>{character_gender, select, other {Lutteur} female {Lutteuse} other {Lutteur·se}}</target>
       </segment>
       <segment id="wrestler.description" state="translated">
         <source>wrestler.description</source>
@@ -500,13 +500,13 @@
     <unit id="sprinter">
       <segment id="sprinter.name" state="translated">
         <source>sprinter.name</source>
-        <target>{character_gender, select, male {Sprinter} female {Sprinteuse} other {Sprinter.se}}</target>
+        <target>{character_gender, select, male {Sprinteur} female {Sprinteuse} other {Sprinteur·se}}</target>
       </segment>
       <segment id="sprinter.description" state="translated">
         <source>sprinter.description</source>
-        <target>Le Sprinter débute toujours sa journée du bon pied ! Il profite de Points de Mouvement supplémentaires.
+        <target>Le Sprinteur débute toujours sa journée du bon pied ! Il profite de Points de Mouvement supplémentaires.
 //
-:point: Vous gagnez **2** :pm: de plus à chaque conversion :pa::pm: (non cumulatif avec la **Trottinette**).
+:point: Vous gagnez **2** :pm: de plus à chaque conversion :pa:/:pm: (non cumulatif avec la **Trottinette**).
 //
 :point: **+1 étape** en exploration.</target>
       </segment>
@@ -528,7 +528,7 @@
       </segment>
       <segment id="radio_piracy.description" state="translated">
         <source>radio_piracy.description</source>
-        <target>Ce moyen de communication préhistorique est surfait. Don't act.//:point: Pour **3** :pa: vous pouvez brouiller les communications d'un joueur possédant un **Talkie-Walkie**. Ceci **casse** son **Talkie-Walkie** et vous permet d'écrire **à sa place** jusqu'à ce qu'il le répare.</target>
+        <target>Ce moyen de communication préhistorique est surfait. Don't act.//:point: Pour **3** :pa: vous pouvez brouiller les communications d'un joueur possédant un **iTrackie®©**. Ceci **casse** son **iTrackie®©** et vous permet d'écrire **à sa place** jusqu'à ce qu'il le répare.</target>
       </segment>
     </unit>
     <unit id="trapper">
@@ -544,17 +544,17 @@
     <unit id="tracker">
       <segment id="tracker.name" state="translated">
         <source>tracker.name</source>
-        <target>{character_gender, select, male {Traqueur} female {Traqueuse} other {Traqueur.se}}</target>
+        <target>{character_gender, select, male {Traqueur} female {Traqueuse} other {Traqueur·se}}</target>
       </segment>
       <segment id="tracker.description" state="translated">
         <source>tracker.description</source>
-        <target>{character_gender, select, male {Le Traqueur} female {La Traqueuse} other {Lea Traqueur.se}} voit les provenances et les directions de chaque mouvement de l'équipage. {character_gender, select, male {Il} female {Elle} other {Iel}} peut en outre imprimer un résultat d'enquête grâce à la tabulatrice durant la partie. Il s'agit d'une liste de personnes contenant au moins un infecté Mush.//:point: Peut accéder à l'historique du registre pendant **16 cycles** *(au lieu de 8)*.//:point: Peut voir d'où viennent et repartent les équipiers dans le registre.//:point: Permet d'**imprimer LA liste secrète** à l'aide de la Tabulatrice.//:point: Expédition : Empêche l'évènement **Mort** lors de la recherche d'équipiers égarés.</target>
+        <target>{character_gender, select, male {Le Traqueur} female {La Traqueuse} other {Lea Traqueur·se}} voit les provenances et les directions de chaque mouvement de l'équipage. {character_gender, select, male {Il} female {Elle} other {Iel}} peut en outre imprimer un résultat d'enquête grâce à la tabulatrice durant la partie. Il s'agit d'une liste de personnes contenant au moins un infecté Mush.//:point: Peut accéder à l'historique du registre pendant **16 Cycles** *(au lieu de 8)*.//:point: Peut voir d'où viennent et repartent les équipiers dans le registre.//:point: Permet d'**imprimer LA liste secrète** à l'aide de la Tabulatrice.//:point: Expédition : Empêche l'évènement **Mort** lors de la recherche d'équipiers égarés.</target>
       </segment>
     </unit>
     <unit id="bacterophiliac">
       <segment id="bacterophiliac.name" state="translated">
         <source>bacterophiliac.name</source>
-        <target>Bacterophilie</target>
+        <target>Bactériophile</target>
       </segment>
       <segment id="bacterophiliac.description" state="translated">
         <source>bacterophiliac.description</source>
@@ -578,13 +578,13 @@
       </segment>
       <segment id="observant.description" state="translated">
         <source>observant.description</source>
-        <target>Vos capacités d'observation sont hors pair. Rien ne vous échappe, ni les tours de passe-passe, ni les cachettes faciles. //:point: L'action **Fouiller** vous coûte un :pa: de moins.//:point: Vous avez **25% de chances de révéler les actions :ic_covert: furtives** réalisées en votre présence.</target>
+        <target>Vos capacités d'observation sont hors pair. Rien ne vous échappe, ni les tours de passe-passe, ni les cachettes faciles. //:point: L'action **Fouiller** vous coûte un :pa: de moins.//:point: Vous avez **25 % de chances de révéler les actions :ic_covert: furtives** réalisées en votre présence.</target>
       </segment>
     </unit>
     <unit id="detached_crewmember">
       <segment id="detached_crewmember.name" state="translated">
         <source>detached_crewmember.name</source>
-        <target>{character_gender, select, male {Détaché} female {Détachée} other {Détaché.e}}</target>
+        <target>{character_gender, select, male {Détaché} female {Détachée} other {Détaché·e}}</target>
       </segment>
       <segment id="detached_crewmember.description" state="translated">
         <source>detached_crewmember.description</source>
@@ -598,7 +598,7 @@
       </segment>
       <segment id="expert.description" state="translated">
         <source>expert.description</source>
-        <target>Vos compétences sont incroyables mais vous travaillez sans vraiment vous préoccuper de certaines conséquences...//:point: Vos **réussites aux actions** sont **améliorées de 20%**, mais les **blessures** et les **salissures** le sont aussi.</target>
+        <target>Vos compétences sont incroyables mais vous travaillez sans vraiment vous préoccuper de certaines conséquences...//:point: Vos **réussites aux actions** sont **améliorées de 20 %**, mais les **blessures** et les **salissures** le sont aussi.</target>
       </segment>
     </unit>
     <unit id="defacer">
@@ -618,7 +618,7 @@
       </segment>
       <segment id="u_turn.description" state="translated">
         <source>u_turn.description</source>
-        <target>Il faut savoir changer de certitudes.//:point: Pour 2 :pa:, en expédition, vous permet de rentrer sur le Daedalus en urgence.//:beta: Vous savez **quel secteur sera visité en prochain** en expédition.</target>
+        <target>Il faut savoir changer de certitudes.//:point: Pour 2 :pa:, en expédition, vous permet de rentrer sur le Daedalus en urgence.//:beta: Vous savez **quel sera le prochain secteur visité** en expédition.</target>
       </segment>
     </unit>
     <unit id="politician">
@@ -638,7 +638,7 @@
       </segment>
       <segment id="victimizer.description" state="translated">
         <source>victimizer.description</source>
-        <target>Certaines remarques bien senties peuvent avoir des répercussions inattendues.//:point: Pour **1** :pa:, permet de jeter l'anathème sur un coéquipier.//:point: Ce coéquipier gagne le statut Paria. Le Paria perd 20% de réussite à ses actions.//:point: Ses actions :ic_covert: furtives deviennent :ic_discrete: discrètes.//:point: Le status Paria dure tant que le persécuteur est en vie, ou que le paria meurt ou devienne inactif.</target>
+        <target>Certaines remarques bien senties peuvent avoir des répercussions inattendues.//:point: Pour **1** :pa:, permet de jeter l'anathème sur un coéquipier.//:point: Ce coéquipier gagne le statut Paria. Le Paria perd 20 % de réussite à ses actions.//:point: Ses actions :ic_covert: furtives deviennent :ic_discrete: discrètes.//:point: Le status Paria dure tant que le persécuteur est en vie, ou que le paria meurt ou devienne inactif.</target>
       </segment>
     </unit>
     <unit id="frugivore">
@@ -648,7 +648,7 @@
       </segment>
       <segment id="frugivore.description" state="translated">
         <source>frugivore.description</source>
-        <target>Vous terrorisez les fruits, vous les adorez, c'est votre drogue. Quand vous croisez le regard d'un fruit, il blettit instantanément.//:point: Vous gagnez **2** :pa: supplémentaires quand vous mangez des fruits aliens, **1** :pa: pour les bananes.</target>
+        <target>Vous terrorisez les fruits, vous les adorez, c'est votre drogue. Quand vous croisez le regard d'un fruit, il blettit instantanément.//:point: Vous gagnez **2** :pa: supplémentaires quand vous mangez des fruits aliens, et **1** :pa: supplémentaire pour les bananes.</target>
       </segment>
     </unit>
     <unit id="mycologist">
@@ -710,7 +710,7 @@
       </segment>
       <segment id="slimetrap.description" state="translated">
         <source>slimetrap.description</source>
-        <target>Ces foutus champignons se reproduisent vite, trop vite, très vite... Ils sont partout !!!//:point: Pour **1** :pa:, le joueur ciblé deviendra sale dans 1 à 4 cycles.</target>
+        <target>Ces foutus champignons se reproduisent vite, trop vite, très vite... Ils sont partout !!!//:point: Pour **1** :pa:, le joueur ciblé deviendra sale dans 1 à 4 Cycles.</target>
       </segment>
     </unit>
     <unit id="green_jelly">
@@ -720,7 +720,7 @@
       </segment>
       <segment id="green_jelly.description" state="translated">
         <source>green_jelly.description</source>
-        <target>Vous produisez une gelée verte acide étrange avec vos aisselles...//:point: Pour **1** :pa:, vous pouvez provoquer la casse d'un objet électronique. Celui-ci mettra plusieurs cycles avant de se dégrader.//:point: La casse de cet objet est **toujours** annoncée par NERON.</target>
+        <target>Vous produisez une gelée verte acide étrange avec vos aisselles...//:point: Pour **1** :pa:, vous pouvez provoquer la casse d'un objet électronique. Celui-ci mettra plusieurs Cycles avant de se dégrader.//:point: La casse de cet objet est **toujours** annoncée par NERON.</target>
       </segment>
     </unit>
     <unit id="massive_mushification">
@@ -748,9 +748,9 @@
         <source>traitor.name</source>
         <target>Traître</target>
       </segment>
-      <segment id="traitor.description" state="translated">
+      <segment id="traitor.description" state="final">
         <source>traitor.description</source>
-        <target>Vous avez développé un sens pour attirer les ennuis. Tiens un Mankarog... Et si on le chatouillait pour voir...//:point: Vous savez **quel secteur sera visité en prochain** en expédition.//:point: Vous pouvez **saboter** un secteur par expédition pour garantir un évènement néfaste.//:point: Garentit l'obtention d'un piège mush en cas de sabotage sur une cristalite.</target>
+        <target>Vous avez développé un sens pour attirer les ennuis. Tiens un mankarog... Et si on le chatouillait pour voir...//:point: Vous savez **quel sera le prochain secteur visité** en expédition.//:point: Vous pouvez **saboter** un secteur par expédition pour garantir un évènement néfaste.//:point: Garantit l'obtention d'un piège Mush en cas de sabotage sur un secteur de cristallite.</target>
       </segment>
     </unit>
     <unit id="cold_blooded">
@@ -770,7 +770,7 @@
       </segment>
       <segment id="green_thumb.description" state="translated">
         <source>green_thumb.description</source>
-        <target>Les plantes poussent naturellement en votre présence, vous n'avez qu'à leur adresser un regard langoureux pour qu'elles produisent leurs plus beaux fruits.//:point: Commence la partie avec **deux pots** supplémentaires.//:point: Les **greffes** de la Main Verte commencent avec un quart de leur temps total de maturation.</target>
+        <target>Les plantes poussent naturellement en votre présence, vous n'avez qu'à leur adresser un regard langoureux pour qu'elles produisent leurs plus beaux fruits.//:point: Commence la partie avec **deux pots** supplémentaires.//:point: Les **greffes** de la Main verte commencent avec un quart de leur temps total de maturation.</target>
       </segment>
     </unit>
     <unit id="polyvalent">
@@ -790,7 +790,7 @@
       </segment>
       <segment id="strateguru.description" state="translated">
         <source>strateguru.description</source>
-        <target>À un certain degré de mégalomanie, on peut appeler ça du talent. Vous êtes expert en bataille spatiale mais tout le monde vous prend pour un fou.//:point: **50%** de chances de réduire chaque vague de Hunters de **33%**.</target>
+        <target>À un certain degré de mégalomanie, on peut appeler ça du talent. Vous êtes expert en bataille spatiale mais tout le monde vous prend pour un fou.//:point: **50 %** de chances de réduire chaque vague de Hunters de **33 %**.</target>
       </segment>
     </unit>
     <unit id="opportunist">
@@ -820,7 +820,7 @@
       </segment>
       <segment id="medic.description" state="translated">
         <source>medic.description</source>
-        <target>Le médecin possède une formation médicale, ce qui permet d'effectuer des soins rapides et précis. Il est également habilité à la chirurgie.//:point: Les actions **Soins** font gagner 2 :hp: supplémentaires.//:point: Peut effectuer des **Opérations**.//:point: Peut lire les **propriétés des médicaments**.//:point: +**4% de bonus** sur chacune des **Recherches** du Laboratoire.</target>
+        <target>Le médecin possède une formation médicale, ce qui permet d'effectuer des soins rapides et précis. Il est également habilité à la chirurgie.//:point: Les actions **Soins** font gagner 2 :hp: supplémentaires.//:point: Peut effectuer des **Opérations**.//:point: Peut lire les **propriétés des médicaments**.//:point: **+4 % de bonus** sur chacune des **Recherches** du Laboratoire.</target>
       </segment>
     </unit>
     <unit id="rebel">
@@ -840,7 +840,7 @@
       </segment>
       <segment id="torturer.description" state="translated">
         <source>torturer.description</source>
-        <target>Le bourreau connait tous les circuits nerveux les plus sensibles pour arriver à faire parvenir son message le plus important... **Tu VAS parler.**//:point: +1 **utilisation de Torturer** :pa_torture: par jour. //:point: Donne accès à l'action **Torturer**. Pour 1 :pa_torture:, votre victime perd 1 :pv: et révèle ses X dernières actions, où X est leur nombre de :pv: manquants. :beta: Il n'est pas possible de Torturer sans :pa_torture:.</target>
+        <target>Le Bourreau connait tous les circuits nerveux les plus sensibles pour arriver à faire parvenir son message le plus important... **Tu VAS parler.**//:point: +1 **utilisation de Torturer** :pa_torture: par jour. //:point: Donne accès à l'action **Torturer**. Pour 1 :pa_torture:, votre victime perd 1 :pv: et révèle ses X dernières actions, où X est leur nombre de :pv: manquants. :beta: Il n'est pas possible de Torturer sans :pa_torture:.</target>
       </segment>
     </unit>
     <unit id="ocd">
@@ -860,7 +860,7 @@
       </segment>
       <segment id="lethargy.description" state="translated">
         <source>lethargy.description</source>
-        <target>Vous n'êtes réveillé que 4 heures par jour, mais en si peu de temps, vous accomplissez des miracles !//:point: Si vous restez allongé pendant **4 cycles** au moins, vous gagnez **1** :pa: supplémentaire par cycle. Ce bonus est perdu si vous vous levez.//:point: La capacité maximum de votre jauge de :pa: est doublée.</target>
+        <target>Vous n'êtes réveillé que 4 heures par jour, mais en si peu de temps, vous accomplissez des miracles !//:point: Si vous restez allongé pendant **4 Cycles** au moins, vous gagnez **1** :pa: supplémentaire par Cycle. Ce bonus est perdu si vous vous levez.//:point: La capacité maximum de votre jauge de :pa: est doublée.</target>
       </segment>
     </unit>
     <unit id="panic">
@@ -880,7 +880,7 @@
       </segment>
       <segment id="hygienist.description" state="translated">
         <source>hygienist.description</source>
-        <target>Certes une brute mais à cheval sur la propreté quand même. Touche-moi pas tu me salis !//:point: Vous avez **50%** de chances d'être insensible aux contaminations par le Mush.//:point: Vous avez **50%** de résistance aux maladies physiques.</target>
+        <target>Certes une brute, mais à cheval sur la propreté quand même. Touche-moi pas tu me salis !//:point: Vous avez **50 %** de chances d'être insensible aux contaminations par le Mush.//:point: Vous avez **50 %** de résistance aux maladies physiques.</target>
       </segment>
     </unit>
     <unit id="antique_perfume">
@@ -980,7 +980,7 @@
       </segment>
       <segment id="neron_depression.description" state="translated">
         <source>neron_depression.description</source>
-        <target>Quand NERON se sent mal, c'est tout le Daedalus qui vomit.//:point: Pour **3** :pa:, vous pouvez embrouiller NERON au prochain cycle, ce qui modifie aléatoirement ses réglages.//:point: Ne fonctionne pas sur l'entrave DMZ si elle est bloquée.</target>
+        <target>Quand NERON se sent mal, c'est tout le Daedalus qui vomit.//:point: Pour **3** :pa:, vous pouvez embrouiller NERON au prochain cycle, ce qui modifie aléatoirement ses réglages.//:point: Ne fonctionne pas sur l'entrave DMZ lorsqu'elle est bloquée.</target>
       </segment>
     </unit>
     <unit id="epigenetics">
@@ -996,7 +996,7 @@
     <unit id="maintenance_crew">
       <segment id="maintenance_crew.name" state="translated">
         <source>maintenance_crew.name</source>
-        <target>{character_gender, select, male {Agent} female {Agente} other {Agent.e}} de maintenance</target>
+        <target>{character_gender, select, male {Agent} female {Agente} other {Agent·e}} de maintenance</target>
       </segment>
       <segment id="maintenance_crew.description" state="translated">
         <source>maintenance_crew.description</source>

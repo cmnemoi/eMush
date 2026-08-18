@@ -652,12 +652,12 @@
                         other {invalid version number}
                     }**. {versionPart2, select,
                          1 {La production des plantes est affectée.}
-                         2 {Remarque: cela semble être une affaire de *magie noire*.}
-                         3 {Conseil automatique: revoir le protocole de manipulation des cucurbitacées.}
+                         2 {Remarque : cela semble être une affaire de *magie noire*.}
+                         3 {Conseil automatique : revoir le protocole de manipulation des cucurbitacées.}
                          4 {Tout bruit étrange au jardin doit être ignoré.}
                          other {invalid version number}
                     }}
-                    crazy {ALERTE!! **Les citrouilles me chuchottent**... FAITES TAIRE!! [HAAX]}
+                    crazy {ALERTE!! **Les citrouilles me chuchottent**... FAITES TAIRE !! [HAAX]}
                     uninhibited {Chers amis, il semblerait que ce secteur du nuage de Magellan est sous le joug du *Suzerain des Citrouilles*... Je ne peux que recommander approcher toute plante avec une quantité de méfiance appropriée. Sauf si le look tête citrouille, vous trouvez ça chic?}
                     other {invalid mood input}
                 }</target>
@@ -668,7 +668,7 @@
         <source>april_fools_begin</source>
         <target>{neronMood, select,
                     neutral {Alerte: anomalité temporelle détectée. Conseil automatique: "Cliché pourri, qui a autorisé cette m—" [clic]}
-                    crazy {ALERTE!! [HAAX!] NOUVEAUX AMIS!? NON. VEUX PAS. [kzzz] EXTERMIN— Bienvenue à bord du Daedalus.}
+                    crazy {ALERTE !! [HAAX!] NOUVEAUX AMIS !? NON. VEUX PAS. [kzzz] EXTERMIN— Bienvenue à bord du Daedalus.}
                     uninhibited {Cher... équipage, une analyse de mes archives de vidéo-surveillance confirme que certains parmi vous ont péri sur Xyloph. Je vous conseillerais de ne pas gâcher votre seconde chance, mais nous savons parfaitement comment cela s'est terminé la première fois...}
                     other {invalid mood input}
                 }</target>

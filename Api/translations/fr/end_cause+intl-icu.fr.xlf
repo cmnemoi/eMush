@@ -12,7 +12,7 @@
       </segment>
       <segment id="category" state="translated">
         <source>sol_return.category</source>
-        <target>Vous êtes rentré sur Sol… mais la suite est une autre histoire !</target>
+        <target>Vous êtes rentrés sur Sol… mais la suite est une autre histoire !</target>
       </segment>
       <segment id="description" state="translated">
         <source>sol_return.description</source>
@@ -30,7 +30,7 @@
       </segment>
       <segment id="category" state="translated">
         <source>sol_return_infected.category</source>
-        <target>Vous êtes rentré sur Sol avec quelques Mush à bord… mais la suite est une autre histoire !</target>
+        <target>Vous êtes rentrés sur Sol avec quelques Mush à bord… mais la suite est une autre histoire !</target>
       </segment>
       <segment id="description" state="translated">
         <source>sol_return_infected.description</source>
@@ -70,7 +70,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>eden_infected.description</source>
-        <target>Une nouvelle planète tombe entre les mains du Mush. Il y a-t-il encore un espoir pour l'humanité... ?</target>
+        <target>Une nouvelle planète tombe entre les mains du Mush. Y a-t-il encore un espoir pour l'humanité... ?</target>
       </segment>
     </unit>
     <unit id="daedalus_destroyed">
@@ -238,7 +238,7 @@
     <unit id="self_extracted">
       <segment id="name" state="translated">
         <source>self_extracted.name</source>
-        <target>Auto-Extrait</target>
+        <target>Auto-extrait</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>self_extracted.short_name</source>
@@ -502,7 +502,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>black_bite.description</source>
-        <target>Vous succombez foudroyé par la Morsure Noire.</target>
+        <target>Vous succombez foudroyé par la morsure noire.</target>
       </segment>
     </unit>
     <unit id="metal_plate">
@@ -584,7 +584,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>mankarog.short_name</source>
-        <target>Tué par un Mankarog chafouin !</target>
+        <target>Tué par un mankarog chafouin !</target>
       </segment>
       <segment id="category" state="translated">
         <source>mankarog.category</source>

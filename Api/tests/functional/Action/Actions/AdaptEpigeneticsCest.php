@@ -78,7 +78,7 @@ final class AdaptEpigeneticsCest extends AbstractFunctionalTest
     {
         $this->whenKuanTiAdapts();
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: "Un changement de tactique s'impose! Vous avez réinitialisé vos compétences.",
+            expectedRoomLog: "Un changement de tactique s'impose ! Vous avez réinitialisé vos compétences.",
             actualRoomLogDto: new RoomLogDto(
                 player: $this->player,
                 log: ActionLogEnum::ADAPT_EPIGENETICS,

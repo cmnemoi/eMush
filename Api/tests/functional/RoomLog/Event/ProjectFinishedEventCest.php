@@ -45,7 +45,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
 
         // then I should see a public log telling me research has been completed
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: "La Recherche a progressé. L'article **Serum Rétro-Fongique** a été publié et ses applications immédiates sont prêtes.",
+            expectedRoomLog: "La Recherche a progressé. L'article **Sérum rétro-fongique** a été publié et ses applications immédiates sont prêtes.",
             actualRoomLogDto: new RoomLogDto(
                 player: $this->chun,
                 log: LogEnum::RESEARCH_COMPLETED,

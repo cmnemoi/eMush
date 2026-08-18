@@ -96,7 +96,7 @@
         <target>{character_gender, select,
             male {Vous n'êtes pas blessé, mais ça peut s'arranger...}
             female {Vous n'êtes pas blessée, mais ça peut s'arranger...}
-            other {Vous n'êtes pas blessé.e, mais ça peut s'arranger...}
+            other {Vous n'êtes pas blessé·e, mais ça peut s'arranger...}
             }</target>
       </segment>
     </unit>
@@ -311,13 +311,21 @@
     <unit id="whisper_player_no_available_channel">
       <segment id="description" state="translated">
         <source>whisper_player_no_available_channel.description</source>
-        <target>Vous êtes déjà trop pris par d'autres conversations.</target>
+        <target>{character_gender, select,
+            male {Vous êtes déjà trop pris par d'autres conversations.}
+            female {Vous êtes déjà trop prise par d'autres conversations.}
+            other {Vous êtes déjà trop pris·e par d'autres conversations.}
+            }</target>
       </segment>
     </unit>
     <unit id="whisper_target_no_available_channel">
       <segment id="description" state="translated">
         <source>whisper_target_no_available_channel.description</source>
-        <target>Cet équipier est déjà trop pris par d'autres conversations.</target>
+        <target>{target_character_gender, select,
+            male {Cet équipier est déjà trop pris par d'autres conversations.}
+            female {Cette équipière est déjà trop prise par d'autres conversations.}
+            other {Cette personne est déjà trop prise par d'autres conversations.}
+            }</target>
       </segment>
     </unit>
     <unit id="target_already_outcast">
@@ -396,7 +404,7 @@
         <target>{character_gender, select,
             male {Vous êtes rassasié.}
             female {Vous êtes rassasiée.}
-            other {Vous êtes rassasié.e.}
+            other {Vous êtes rassasié·e.}
             }</target>
       </segment>
     </unit>
@@ -505,7 +513,7 @@
     <unit id="deal_not_coms_officer">
       <segment id="description" state="translated">
         <source>deal_not_coms_officer.description</source>
-        <target>Seul le **Responsable Comm.** peut effectuer cette action !</target>
+        <target>Seul le **Resp. Communications** peut effectuer cette action !</target>
       </segment>
     </unit>
     <unit id="dismantle_reinforced">
@@ -538,14 +546,14 @@
         <target>{character_gender, select,
             male {Vous êtes déjà couché.}
             female {Vous êtes déjà couchée.}
-            other {Vous êtes déjà couché.e.}
+            other {Vous êtes déjà couché·e.}
             }</target>
       </segment>
     </unit>
     <unit id="reinforce_lack_ressources">
       <segment id="description" state="translated">
         <source>reinforce_lack_ressources.description</source>
-        <target>Cette action nécessite un **Débris Métallique**.</target>
+        <target>Cette action nécessite un **Débris métallique**.</target>
       </segment>
     </unit>
     <unit id="renovate_lack_ressources">
@@ -640,7 +648,7 @@
         <target>{character_gender, select,
             male {Vous êtes immunisé contre le Mush, pourquoi vouloir vous faire du mal ?}
             female {Vous êtes immunisée contre le Mush, pourquoi vouloir vous faire du mal ?}
-            other {Vous êtes immunisé.e contre le Mush, pourquoi vouloir vous faire du mal ?}
+            other {Vous êtes immunisé·e contre le Mush, pourquoi vouloir vous faire du mal ?}
             }</target>
       </segment>
     </unit>
@@ -665,7 +673,7 @@
     <unit id="bravo_reactor_broken">
       <segment state="translated">
         <source>bravo_reactor_broken.description</source>
-        <target>Le *Réacteur latéral beta* est en panne. Il faut le réparer si on veut pouvoir orienter cette épave dans cette direction.</target>
+        <target>Le *Réacteur latéral bêta* est en panne. Il faut le réparer si on veut pouvoir orienter cette épave dans cette direction.</target>
       </segment>
     </unit>
     <unit id="lateral_reactor_broken">
@@ -803,7 +811,7 @@
     <unit id="bothering_cat">
       <segment id="description" state="translated">
         <source>bothering_cat.description</source>
-        <target>Pavlov est déjà en train d'embêter Schrodinger.</target>
+        <target>Pavlov est déjà en train d'embêter Schrödinger.</target>
       </segment>
     </unit>
     <unit id="distracted_by_food">
@@ -815,13 +823,13 @@
     <unit id="distracted_by_plant">
       <segment id="description" state="translated">
         <source>distracted_by_plant.description</source>
-        <target>Shh... Pavlov se repose à l'ombre d'une plante en pot. Ceci n'est pas le bon moment pour l'embêter...</target>
+        <target>Chh... Pavlov se repose à l'ombre d'une plante en pot. Ceci n'est pas le bon moment pour l'embêter...</target>
       </segment>
     </unit>
     <unit id="distracted_by_broken_fuel_tank">
       <segment id="description" state="translated">
         <source>distracted_by_broken_fuel_tank.description</source>
-        <target>Comment ça, vous voulez jouer avec Pavlov quand il y a des réservoirs de fuel à réparer? Quelle honte.</target>
+        <target>Comment ça, vous voulez jouer avec Pavlov quand il y a des réservoirs de fuel à réparer ? Quelle honte.</target>
       </segment>
     </unit>
     <unit id="need_a_ball">
@@ -833,13 +841,13 @@
     <unit id="hands_full">
       <segment id="description" state="translated">
         <source>hands_full.description</source>
-        <target>Vous avez trop de choses sur vous... Impossible de bien jeter avec vos mains pleines!</target>
+        <target>Vous avez trop de choses sur vous... Impossible de bien jeter avec vos mains pleines !</target>
       </segment>
     </unit>
     <unit id="room_too_messy">
       <segment id="description" state="translated">
         <source>room_too_messy.description</source>
-        <target>Quel bazar là-dedans! Impossible de trouver un bon angle pour jeter la balle.</target>
+        <target>Quel bazar là-dedans ! Impossible de trouver un bon angle pour jeter la balle.</target>
       </segment>
     </unit>
     <unit id="room_too_small">
@@ -863,7 +871,7 @@
     <unit id="wants_walkies">
       <segment id="description" state="translated">
         <source>wants_walkies.description</source>
-        <target>Pavlov aboie comme un fou! Vu la planète, ça doit l'heure de la promenade! On ne le fera pas revoir ses priorités...</target>
+        <target>Pavlov aboie comme un fou ! Vu la planète, ça doit l'heure de la promenade. On ne le fera pas revoir ses priorités...</target>
       </segment>
     </unit>
     <unit id="playtime_solo">

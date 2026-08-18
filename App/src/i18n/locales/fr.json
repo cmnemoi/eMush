@@ -215,7 +215,7 @@
 		},
 		"pageTitle": "Fiche de {user}",
 		"iLikeToBeMushActivated": "Je veux être mush plus souvent ! (Activé)",
-		"iLikeToBeMushDeactivated": "Je veux être mush plus souvent ! (Déactivé)",
+		"iLikeToBeMushDeactivated": "Je veux être mush plus souvent ! (Désactivé)",
 		"iLikeToBeMushButtonName": "Je veux être mush plus souvent !",
 		"iLikeToBeMushButtonDescription": "Le système s'assure que tout les joueurs jouent régulièrement le rôle de Mush. Mais certains veulent l'être un peu plus souvent que d'autres et cette option est là pour eux.//***Pour le bon fonctionnement du jeu, il est interdit de partager votre choix à l'intérieur ou à l'extérieur du jeu. Merci.***"
 	},
@@ -788,21 +788,21 @@
 		"hero": {
 			"title": "Vous vous réveillez avec quinze autres personnes à bord du Daedalus.",
 			"titleTwist": "Deux d'entre elles sont des traîtres.",
-			"subtitle": "La Terre est perdue. Une flotte ennemie vous poursuit, le vaisseau tombe en morceaux, et à bord un champignon parasite (le {mushIcon} Mush) a déjà infecté deux personnes. Vous avez plusieurs jours pour découvrir lesquelles.",
-			"awardAlt": "Jeu le plus original — European Indie Game Days",
+			"subtitle": "Sol est perdu. Une flotte ennemie vous poursuit, le vaisseau tombe en morceaux, et à bord un champignon parasite (le {mushIcon} Mush) a déjà infecté deux personnes. Vous avez plusieurs jours pour découvrir qui.",
+			"awardAlt": "Jeu le plus original ~ European Indie Game Days",
 			"note": "La reprise libre et communautaire de <em>Mush</em>, le jeu récompensé de Motion Twin. C'est gratuit, ça se joue sur téléphone comme sur ordinateur, et une partie dure plusieurs jours."
 		},
 		"persistence": {
 			"title": "Le Daedalus va s'installer dans votre semaine.",
-			"time1": "Jeudi — 08:00",
+			"time1": "Jeudi, 08:00",
 			"beat1": "Vous vous reconnectez. Le laboratoire a brûlé et la caméra du Nexus a disparu.",
-			"time2": "Vendredi — 12:00",
-			"beat2": "L'expédition attend toujours un pilote.",
-			"time3": "Samedi — 18:00",
+			"time2": "Vendredi, 12:00",
+			"beat2": "L'expédition attend toujours un ou une pilote.",
+			"time3": "Samedi, 18:00",
 			"beat3": "Eleesha accuse Chao. Chao jure qu'Eleesha est Mush.",
-			"time4": "Dimanche — 23:00",
+			"time4": "Dimanche, 23:00",
 			"beat4": "Deux points d'action. Les plantes ont soif. L'oxygène fuit. Il va falloir choisir.",
-			"body1": "Certains jours, vous jetez un œil deux minutes depuis votre téléphone, le temps d'arroser les plantes et de voir qui est mort ; d'autres soirs vous restez une heure à relire les logs et à comparer les versions de chacun avec trois personnes différentes. Le vaisseau, lui, avance d'un cycle toutes les trois heures, que vous soyez là ou non.",
+			"body1": "Certains jours, vous jetez un œil deux minutes depuis votre téléphone, le temps d'arroser les plantes et de voir si tout le monde est encore vivant. D'autres soirs, vous restez une bonne heure à relire les registres et à comparer les versions de chacun avec trois personnes différentes. Le vaisseau, lui, avance d'un cycle toutes les trois heures, que vous soyez là ou non.",
 			"body2": "Au bout de quelques jours, vous connaissez l'équipage. Vous savez qui répare sans qu'on le demande, qui parle beaucoup et qui disparaît toujours au mauvais moment. À moins que ce ne soit ce commandant bien trop parfait qui vous mène sur de fausses pistes.",
 			"galleryLabel": "Aperçus du jeu",
 			"openScreenshot": "Agrandir : {screenshot}",
@@ -812,21 +812,21 @@
 			"storageCaption": "Fouiller une étagère",
 			"storageAlt": "Terrence fouille une étagère du laboratoire.",
 			"channelsCaption": "Discuter avec l'équipage",
-			"channelsAlt": "Le canal du laboratoire affiche les discussions récentes de l'équipage."
+			"channelsAlt": "Le canal général de discussion affiche les bavardages de l'équipage et les annonces de Neron."
 		},
 		"crew": {
 			"title": "Dix-huit personnages à incarner.",
 			"subtitle": "Le commandant Kim Jin-Su a posé le pied sur des mondes que personne n'avait vus avant lui. Frieda Bergmann est née au 21e siècle. En mille ans, personne n'a mieux connu le ciel qu'elle. La Fédération est donc allée la réveiller. Stephen Seagull a été groom, esclave, sénateur, mercenaire spatial, percepteur de taxes et condamné à mort. Aujourd'hui, il est cuisinier à bord.",
 			"readBiography": "Lire la biographie",
 			"selectCharacter": "Afficher le dossier de {character}",
-			"more": "Et il y en a quinze autres."
+			"more": "Et il y en a quinze autres !"
 		},
 		"ship": {
 			"title": "eMush, c'est quoi ?",
 			"surviveTitle": "De la survie !",
-			"surviveText": "Personne n'a assez de points d'action pour tout faire, il faut donc se répartir le travail et se faire confiance. Pendant que Finola mène des recherches contre l'infection, Paola contacte les réseaux rebelles et Hua prépare l'Icarus pour la prochaine expédition.",
+			"surviveText": "Personne n'a assez de points d'action ou de mouvement pour tout faire, il faut donc se répartir le travail et se faire confiance. Pendant que Finola mène des recherches contre l'infection, Paola contacte les réseaux rebelles et Hua prépare l'Icarus pour la prochaine expédition.",
 			"investigateTitle": "De l'enquête !",
-			"investigateText": "Quelque part à bord, les infectés contaminent, mentent et attendent que vous accusiez un innocent. Il suffit qu'un objet ou des logs disparaissent pour que tout le monde ait une théorie.",
+			"investigateText": "Quelque part à bord, les infectés contaminent, mentent et attendent que vous accusiez un innocent. Il suffit qu'un objet ou des logs disparaissent pour que tout le monde fabrique sa propre théorie.",
 			"roleplayTitle": "Un jeu de rôle !",
 			"roleplayText": "Votre personnage arrive avec un passé, mais vous êtes libre de choisir comment le jouer. Au fil des discussions, des alliances et des soupçons, l'équipage finit par construire sa propre histoire."
 		},
@@ -834,8 +834,8 @@
 			"title": "NERON garde les comptes.",
 			"daedaluses": "Daedalus en cours",
 			"mush": "Mushs éliminés",
-			"messages": "messages envoyés",
-			"expeditions": "expéditions lancées"
+			"messages": "Messages envoyés",
+			"expeditions": "Expéditions lancées"
 		},
 		"voices": {
 			"title": "Souvenirs de partie",
@@ -853,7 +853,7 @@
 			}
 		},
 		"finalCta": {
-			"title": "Votre histoire commence à votre réveil.",
+			"title": "Votre histoire commence à votre réveil...",
 			"subtitle": "Dans quelques jours, vous aurez peut-être sauvé l'Humanité, condamné un innocent ou réparé un réservoir de fuel pendant que le vaisseau explosait."
 		}
 	},
@@ -886,7 +886,7 @@
 		"problem": "Il y a eu un problème lors du traitement de votre requête.",
 		"reportToDevs": "Merci de rapporter cette erreur aux développeurs, avec des détails sur comment elle est apparue.",
 		"title": "ERREUR",
-		"You have been banned!": "Suite à vos agissements, vous avez été banni par un modérateur.<br><br>Si vous pensez qu'il s'agit d'une erreur, veuillez ouvrir un ticket sur le <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Discord d'Eternaltwin</a>.",
+		"You have been banned!": "Suite à vos agissements, vous avez été banni(e) par la modération.<br><br>Si vous pensez qu'il s'agit d'une erreur, veuillez ouvrir un ticket sur le <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Discord d'Eternaltwin</a>.",
 		"notFound": "La page que vous cherchez est introuvable. Encore un coup de la matière noire, du Mush ou toute autre explication farfelue générique... Désolé :)"
 	},
 	"metaSeo": {
@@ -1042,19 +1042,19 @@
 		"sanctionDetail": {
 			"sanction": {
 				"title": "Détails de la sanction",
-				"author": "Modérateur",
-				"message": "Message du modérateur :",
+				"author": "Modérateur.e",
+				"message": "Message de la modération :",
 				"startDate": "Début de la sanction :",
 				"endDate": "Fin de la sanction :"
 			},
 			"report": {
 				"title": "Détails de la plainte",
-				"author": "Plaignant",
-				"message": "Message du plaignant :",
+				"author": "Plaignant.e",
+				"message": "Message :",
 				"startDate": "Date de la plainte :"
 			},
-			"user": "Utilisateur",
-			"username": "Nom d'utilisateur :",
+			"user": "Membre",
+			"username": "Nom de compte",
 			"player": "Personnage joué :",
 			"sanctionType": "Type de sanction :",
 			"reason": "Raison :",
@@ -1066,12 +1066,12 @@
 			"to": "à"
 		},
 		"table": {
-			"moderator": "Modérateur",
-			"complainant": "Plaignant",
+			"moderator": "Modérateur.e",
+			"complainant": "Plaignant.e",
 			"target": "Cible",
 			"reason": "Motif",
-			"reporterMessage": "Message du plaignant",
-			"moderatorMessage": "Message du modérateur",
+			"reporterMessage": "Message de plainte",
+			"moderatorMessage": "Message modérant",
 			"evidence": "Message signalé",
 			"context": "Contexte",
 			"reportDate": "Date",

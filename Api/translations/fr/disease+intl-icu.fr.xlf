@@ -4,7 +4,7 @@
     <unit id="acid_reflux">
       <segment id="name" state="translated">
         <source>acid_reflux.name</source>
-        <target>Reflux Gastriques</target>
+        <target>Reflux gastriques</target>
       </segment>
       <segment id="description" state="translated">
         <source>acid_reflux.description</source>
@@ -14,7 +14,7 @@
     <unit id="food_poisoning">
       <segment id="name" state="translated">
         <source>food_poisoning.name</source>
-        <target>Intoxication Alimentaire</target>
+        <target>Intoxication alimentaire</target>
       </segment>
       <segment id="description" state="translated">
         <source>food_poisoning.description</source>
@@ -34,7 +34,7 @@
     <unit id="tapeworm">
       <segment id="name" state="translated">
         <source>tapeworm.name</source>
-        <target>Ver Solitaire</target>
+        <target>Ver solitaire</target>
       </segment>
       <segment id="description" state="translated">
         <source>tapeworm.description</source>
@@ -44,7 +44,7 @@
     <unit id="black_bite">
       <segment id="name" state="translated">
         <source>black_bite.name</source>
-        <target>Morsure Noire</target>
+        <target>Morsure noire</target>
       </segment>
       <segment id="description" state="translated">
         <source>black_bite.description</source>
@@ -74,7 +74,7 @@
     <unit id="extreme_tinnitus">
       <segment id="name" state="translated">
         <source>extreme_tinnitus.name</source>
-        <target>Acouphènes Extrême</target>
+        <target>Acouphènes extrêmes</target>
       </segment>
       <segment id="description" state="translated">
         <source>extreme_tinnitus.description</source>
@@ -98,7 +98,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>fungic_infection.description</source>
-        <target>Qu'est ce que c'est que ce truc horrible... Vous devriez faire soigner ça rapidement... Ça gratte, ça purule, ça pue...</target>
+        <target>Qu'est-ce que c'est que ce truc horrible... Vous devriez faire soigner ça rapidement... Ça gratte, ça purule, ça pue...</target>
       </segment>
     </unit>
     <unit id="junkbumpkinitis">
@@ -124,7 +124,7 @@
     <unit id="mush_allergy">
       <segment id="name" state="translated">
         <source>mush_allergy.name</source>
-        <target>Allergie au mush</target>
+        <target>Allergie au Mush</target>
       </segment>
       <segment id="description" state="translated">
         <source>mush_allergy.description</source>
@@ -248,7 +248,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>agoraphobia.description</source>
-        <target>Vous êtes effrayé par la foule et les grands espaces, vous avez, en plus, des vertiges incontrôlables... Dans l'espace, ça va pas le faire.</target>
+        <target>Vous êtes effrayé par la foule et les grands espaces, vous avez, en plus, des vertiges incontrôlables... Dans l'espace, ça ne va pas le faire.</target>
       </segment>
     </unit>
     <unit id="ailurophobia">
@@ -314,7 +314,7 @@
     <unit id="paranoia">
       <segment id="name" state="translated">
         <source>paranoia.name</source>
-        <target>Crise Paranoïaque</target>
+        <target>Crise paranoïaque</target>
       </segment>
       <segment id="description" state="translated">
         <source>paranoia.description</source>
@@ -324,7 +324,7 @@
     <unit id="psychotic_episodes">
       <segment id="name" state="translated">
         <source>psychotic_episodes.name</source>
-        <target>Épisodes Psychotiques</target>
+        <target>Épisodes psychotiques</target>
       </segment>
       <segment id="description" state="translated">
         <source>psychotic_episodes.description</source>
@@ -364,7 +364,7 @@
     <unit id="burns_50_of_body">
       <segment id="name" state="translated">
         <source>burns_50_of_body.name</source>
-        <target>Brûlure au 3ème degré sur 50%</target>
+        <target>Brûlure au 3e degré sur 50 %</target>
       </segment>
       <segment id="description" state="translated">
         <source>burns_50_of_body.description</source>
@@ -374,7 +374,7 @@
     <unit id="burns_90_of_body">
       <segment id="name" state="translated">
         <source>burns_90_of_body.name</source>
-        <target>Brûlure au 3ème degré sur 90%</target>
+        <target>Brûlure au 3e degré sur 90 %</target>
       </segment>
       <segment id="description" state="translated">
         <source>burns_90_of_body.description</source>

@@ -968,7 +968,7 @@
       </segment>
       <segment id="mycoalarm.description" state="translated">
         <source>mycoalarm.description</source>
-        <target>Genera 5 **MycoAlarmas**.</target>
+        <target>Genera 3 **MycoAlarmas**.</target>
       </segment>
       <segment id="mycoalarm.lore" state="translated">
         <source>mycoalarm.lore</source>

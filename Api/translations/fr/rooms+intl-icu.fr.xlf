@@ -40,7 +40,7 @@
     <unit id="bravo_bay">
       <segment id="name" state="translated">
         <source>bravo_bay.name</source>
-        <target>Baie Beta</target>
+        <target>Baie Bêta</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>bravo_bay.loc_prep</source>
@@ -148,7 +148,7 @@
     <unit id="hydroponic_garden">
       <segment id="name" state="translated">
         <source>hydroponic_garden.name</source>
-        <target>Jardin Hydroponique</target>
+        <target>Jardin hydroponique</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>hydroponic_garden.loc_prep</source>
@@ -184,7 +184,7 @@
     <unit id="front_alpha_turret">
       <segment id="name" state="translated">
         <source>front_alpha_turret.name</source>
-        <target>Tourelle Alpha Avant</target>
+        <target>Tourelle Alpha avant</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_alpha_turret.loc_prep</source>
@@ -202,7 +202,7 @@
     <unit id="centre_alpha_turret">
       <segment id="name" state="translated">
         <source>centre_alpha_turret.name</source>
-        <target>Tourelle Alpha Centre</target>
+        <target>Tourelle Alpha centre</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>centre_alpha_turret.loc_prep</source>
@@ -220,7 +220,7 @@
     <unit id="rear_alpha_turret">
       <segment id="name" state="translated">
         <source>rear_alpha_turret.name</source>
-        <target>Tourelle Alpha Arrière</target>
+        <target>Tourelle Alpha arrière</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_alpha_turret.loc_prep</source>
@@ -238,7 +238,7 @@
     <unit id="front_bravo_turret">
       <segment id="name" state="translated">
         <source>front_bravo_turret.name</source>
-        <target>Tourelle Beta Avant</target>
+        <target>Tourelle Bêta avant</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_bravo_turret.loc_prep</source>
@@ -256,7 +256,7 @@
     <unit id="centre_bravo_turret">
       <segment id="name" state="translated">
         <source>centre_bravo_turret.name</source>
-        <target>Tourelle Beta Centre</target>
+        <target>Tourelle Bêta centre</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>centre_bravo_turret.loc_prep</source>
@@ -274,7 +274,7 @@
     <unit id="rear_bravo_turret">
       <segment id="name" state="translated">
         <source>rear_bravo_turret.name</source>
-        <target>Tourelle Beta Arrière</target>
+        <target>Tourelle Bêta arrière</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_bravo_turret.loc_prep</source>
@@ -292,7 +292,7 @@
     <unit id="front_corridor">
       <segment id="name" state="translated">
         <source>front_corridor.name</source>
-        <target>Couloir Avant</target>
+        <target>Couloir avant</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_corridor.loc_prep</source>
@@ -310,7 +310,7 @@
     <unit id="central_corridor">
       <segment id="name" state="translated">
         <source>central_corridor.name</source>
-        <target>Couloir Central</target>
+        <target>Couloir central</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>central_corridor.loc_prep</source>
@@ -328,7 +328,7 @@
     <unit id="rear_corridor">
       <segment id="name" state="translated">
         <source>rear_corridor.name</source>
-        <target>Couloir Arrière</target>
+        <target>Couloir arrière</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_corridor.loc_prep</source>
@@ -382,7 +382,7 @@
     <unit id="bravo_dorm">
       <segment id="name" state="translated">
         <source>bravo_dorm.name</source>
-        <target>Dortoir Beta</target>
+        <target>Dortoir Bêta</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>bravo_dorm.loc_prep</source>
@@ -400,7 +400,7 @@
     <unit id="front_storage">
       <segment id="name" state="translated">
         <source>front_storage.name</source>
-        <target>Stockage Avant</target>
+        <target>Stockage avant</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>front_storage.loc_prep</source>
@@ -418,7 +418,7 @@
     <unit id="center_alpha_storage">
       <segment id="name" state="translated">
         <source>center_alpha_storage.name</source>
-        <target>Stockage Alpha Centre</target>
+        <target>Stockage Alpha centre</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>center_alpha_storage.loc_prep</source>
@@ -436,7 +436,7 @@
     <unit id="center_bravo_storage">
       <segment id="name" state="translated">
         <source>center_bravo_storage.name</source>
-        <target>Stockage Beta Centre</target>
+        <target>Stockage Bêta centre</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>center_bravo_storage.loc_prep</source>
@@ -454,7 +454,7 @@
     <unit id="rear_alpha_storage">
       <segment id="name" state="translated">
         <source>rear_alpha_storage.name</source>
-        <target>Stockage Alpha Arrière</target>
+        <target>Stockage Alpha arrière</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_alpha_storage.loc_prep</source>
@@ -472,7 +472,7 @@
     <unit id="rear_bravo_storage">
       <segment id="name" state="translated">
         <source>rear_bravo_storage.name</source>
-        <target>Stockage Beta Arrière</target>
+        <target>Stockage Bêta arrière</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>rear_bravo_storage.loc_prep</source>
@@ -490,7 +490,7 @@
     <unit id="patrol_ship_bravo_epicure">
       <segment id="name" state="translated">
         <source>patrol_ship_bravo_epicure.name</source>
-        <target>Patrouilleur Epicure</target>
+        <target>Patrouilleur Épicure</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>patrol_ship_bravo_epicure.loc_prep</source>

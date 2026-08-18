@@ -1484,7 +1484,7 @@
     <unit id="kind_person">
       <segment id="name" state="translated">
         <source>kind_person.name</source>
-        <target>Psychological Support</target>
+        <target>Psychological Supports</target>
       </segment>
       <segment id="description" state="translated">
         <source>kind_person.description</source>
@@ -1492,7 +1492,7 @@
       </segment>
       <segment id="x1" state="translated">
         <source>kind_person_1.name</source>
-        <target>Psychologist of the ages</target>
+        <target/>
       </segment>
     </unit>
     <unit id="disease_contracted">
@@ -1502,37 +1502,37 @@
       </segment>
       <segment id="description" state="translated">
         <source>disease_contracted.description</source>
-        <target>Vomiting, coughs, cold and other complaints...</target>
+        <target>Vomits, coughs, flus and other mishaps...</target>
       </segment>
       <segment id="x1" state="translated">
         <source>disease_contracted_1.name</source>
-        <target>Hypochondriac</target>
+        <target>Hypocondriac</target>
       </segment>
       <segment id="x10" state="translated">
         <source>disease_contracted_10.name</source>
-        <target>Sicknote</target>
+        <target>Scrawny</target>
       </segment>
       <segment id="x20" state="translated">
         <source>disease_contracted_20.name</source>
-        <target>Chronic Sufferer</target>
+        <target>Chronically Sick</target>
       </segment>
       <segment id="x50" state="translated">
         <source>disease_contracted_50.name</source>
-        <target>Needs to man up</target>
+        <target>Sickly Weak</target>
       </segment>
     </unit>
     <unit id="mankarog_down">
       <segment id="name" state="translated">
         <source>mankarog_down.name</source>
-        <target>Mankarogs Killed</target>
+        <target>Downed Mankarogs</target>
       </segment>
       <segment id="description" state="translated">
         <source>mankarog_down.description</source>
-        <target>Mankarogs killed by your team during expeditions.</target>
+        <target>Mankarogs killed by your team during expeditions</target>
       </segment>
       <segment id="x1" state="translated">
         <source>mankarog_down_1.name</source>
-        <target>Davy Crockett of Infinite Space</target>
+        <target>Davy Crockett Of The Unending Universe</target>
       </segment>
     </unit>
     <unit id="mush_killed">
@@ -1546,17 +1546,17 @@
       </segment>
       <segment id="x1" state="translated">
         <source>mush_killed_1.name</source>
-        <target>Sporephobe</target>
+        <target>Sporephobic</target>
       </segment>
     </unit>
     <unit id="team_mush_killed">
       <segment id="name" state="translated">
         <source>team_mush_killed.name</source>
-        <target>Soldier of Humanity</target>
+        <target>Humanity's Soldier</target>
       </segment>
       <segment id="description" state="translated">
         <source>team_mush_killed.description</source>
-        <target>Mush invaders decimated by the crews with which you have travelled.</target>
+        <target>Mush Invaders decimated by the crew you've travelled with. </target>
       </segment>
       <segment id="x1" state="translated">
         <source>team_mush_killed_1.name</source>
@@ -1572,19 +1572,19 @@
       </segment>
       <segment id="x200" state="translated">
         <source>team_mush_killed_200.name</source>
-        <target>Shroom Broom</target>
+        <target> Foe of Farmer Maggot</target>
       </segment>
       <segment id="x500" state="translated">
         <source>team_mush_killed_500.name</source>
-        <target>Meadow Menace</target>
+        <target>Nightmare Of Meadows</target>
       </segment>
       <segment id="x750" state="translated">
         <source>team_mush_killed_750.name</source>
-        <target>Grand Myconian Plague</target>
+        <target>Myconic Scourge</target>
       </segment>
       <segment id="x1000" state="translated">
         <source>team_mush_killed_1000.name</source>
-        <target>Great Tribal Leader of the Devourers of Phallic Amanite</target>
+        <target>Chief of the Cast of Death Cap Devourers</target>
       </segment>
       <segment id="x2000" state="translated">
         <source>team_mush_killed_2000.name</source>

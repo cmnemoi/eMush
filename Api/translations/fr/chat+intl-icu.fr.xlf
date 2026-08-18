@@ -88,11 +88,11 @@
     <unit id="room_log">
       <segment id="name" state="translated">
         <source>room_log.name</source>
-        <target>Événements salle</target>
+        <target>Évènements salle</target>
       </segment>
       <segment id="description" state="translated">
         <source>room_log.description</source>
-        <target>Ici vous avez l'historique des **événements de la salle où vous vous trouvez actuellement**.
+        <target>Ici vous avez l'historique des **évènements de la salle où vous vous trouvez actuellement**.
 S'il y a une caméra, les actions discrètes et furtives seront révélées.</target>
       </segment>
     </unit>
@@ -156,15 +156,15 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
       </segment>
       <segment id="message_date.more_minute" state="translated">
         <source>message_date.more_minute</source>
-        <target>{quantity}min</target>
+        <target>{quantity} min</target>
       </segment>
       <segment id="message_date.more_hour" state="translated">
         <source>message_date.more_hour</source>
-        <target>~{quantity}h</target>
+        <target>~{quantity} h</target>
       </segment>
       <segment id="message_date.more_day" state="translated">
         <source>message_date.more_day</source>
-        <target>~{quantity}j</target>
+        <target>~{quantity} j</target>
       </segment>
     </unit>
   </file>

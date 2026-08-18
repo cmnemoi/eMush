@@ -637,5 +637,16 @@ other {invalid version number}
         <target>No pasa nada, la solicitud ha sido rechazada por NERON.</target>
       </segment>
     </unit>
+    <unit id="travel_to_event_planet">
+      <segment id="travel_to_event_planet" state="translated">
+        <source>travel_to_event_planet</source>
+        <target>{neronMood, select,
+neutral {**Alerta: ¡Reactor dañado! ¡Explosión inminente!** Consejo automatizado: "Agárrense a lo que encuentren y ¡rápido!"}
+crazy {**Alerta: ¡Reactor dañado! ¡Explosión inminente!** Consejo automatizado: "No sobrecarguen el motor con tecnología dudosa en su próxima vida. [¡Haaaax!]"}
+uninhibited {**Alerta: ¡Reactor dañado! ¡Explosión inminente!** Consejo automatizado: "Si quieren suicidarse, ¡no tienen por qué involucrarme!"}
+other {invalid mood input}
+}</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

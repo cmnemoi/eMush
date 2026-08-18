@@ -663,5 +663,23 @@
         <target>Este jugador sigue vivo.</target>
       </segment>
     </unit>
+    <unit id="baby_skinner_bite">
+      <segment id="name" state="translated">
+        <source>baby_skinner_bite.name</source>
+        <target>Mordida</target>
+      </segment>
+      <segment id="baby_skinner_bite" state="translated">
+        <source>baby_skinner_bite.short_name</source>
+        <target>¡Asesinado por una criatura muy nerviosa!</target>
+      </segment>
+      <segment id="category" state="translated">
+        <source>baby_skinner_bite.category</source>
+        <target>¡Has muerto!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>baby_skinner_bite.description</source>
+        <target>Metiste tu mano en donde no debías.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

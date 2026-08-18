@@ -66,5 +66,15 @@ No se puede huir de él.</target>
         <target>Un transport perdido. Podría ser interesante.</target>
       </segment>
     </unit>
+    <unit id="summer_event_transport">
+      <segment id="summer_event_transport_name" state="initial">
+        <source>summer_event_transport.name</source>
+        <target>summer_event_transport.name</target>
+      </segment>
+      <segment id="summer_event_transport_description" state="initial">
+        <source>summer_event_transport.description</source>
+        <target>summer_event_transport.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

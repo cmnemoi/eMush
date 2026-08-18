@@ -79,7 +79,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $this->whenINormalizeTerminalForPlayer();
 
         $I->assertEquals(
-            expected: "Toute communication commence par **établir une liaison**.//Cette action simple peut être réalisée par n'importe quel membre de l'équipage. La liaison apporte des points de moral à toute l'équipe et débloque des nouvelles actions pour le Responsable Comm.//Si le contact échoue, au moins ça **améliorera la qualité du signal** et augmentera les chances de contact lors du prochain essai.",
+            expected: "Toute communication commence par **établir une liaison**.//Cette action simple peut être réalisée par n'importe quel membre de l'équipage. La liaison apporte des points de moral à toute l'équipe **la première fois** et débloque des nouvelles actions pour le Resp. Communications.//Si le contact échoue, au moins ça **améliorera la qualité du signal** et augmentera les chances de contact lors du prochain essai.",
             actual: $this->normalizedTerminal['tips']
         );
     }
@@ -91,9 +91,9 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [
                 'contact' => 'Liaison',
-                'neron_version' => 'NERON v2.09',
+                'neron_version' => 'NERON V2.09',
                 'rebel_bases_network' => 'Réseau de bases rebelles',
-                'xyloph_db' => 'Xyloph BDD',
+                'xyloph_db' => 'BDD xylophienne',
             ],
             actual: $this->normalizedTerminal['sectionTitles']
         );
@@ -107,8 +107,8 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
 
         $I->assertEquals(
             expected: [
-                'linkStrength' => 'Signal : 10%',
-                'neronUpdateStatus' => 'État de mise à jour : 9%',
+                'linkStrength' => 'Signal : 10 %',
+                'neronUpdateStatus' => 'État de mise à jour : 9 %',
                 'selectRebelBaseToDecode' => 'Choisissez une base rebelle pour pouvoir décoder son signal.',
                 'never' => 'Jamais !',
                 'seeCommunications' => 'Voir les communications',
@@ -126,8 +126,8 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
 
         $I->assertEquals(
             expected: [
-                'linkStrength' => 'Signal : 10%',
-                'neronUpdateStatus' => 'État de mise à jour : 9%',
+                'linkStrength' => 'Signal : 10 %',
+                'neronUpdateStatus' => 'État de mise à jour : 9 %',
                 'selectRebelBaseToDecode' => 'Choisissez une base rebelle pour pouvoir décoder son signal.',
                 'linkEstablished' => 'Connexion établie !',
                 'never' => 'Jamais !',
@@ -240,8 +240,8 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
 
         $I->assertEquals(
             expected: [
-                'linkStrength' => 'Signal : 0%',
-                'neronUpdateStatus' => 'État de mise à jour : 9%',
+                'linkStrength' => 'Signal : 0 %',
+                'neronUpdateStatus' => 'État de mise à jour : 9 %',
                 'selectRebelBaseToDecode' => 'Choisissez une base rebelle pour pouvoir décoder son signal.',
                 'cannotTradeUnderAttack' => 'Un autre vaisseau nous menace, il est impossible de commercer !',
                 'never' => 'Jamais !',

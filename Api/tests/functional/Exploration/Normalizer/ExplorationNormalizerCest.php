@@ -115,7 +115,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
                 ],
                 'estimated_duration' => 'Retour estimé dans 10 min.',
                 'timer' => [
-                    'name' => 'Prochain cycle',
+                    'name' => 'Prochain Cycle',
                     'description' => 'Votre montre incassable affiche le temps qu\'il reste avant le prochain **Cycle**.//Vous gagnerez alors quelques précieux :pa::pm: selon votre état de santé.',
                     'timerCycle' => (clone $this->exploration->getLastVisitAtOrThrow())->modify('+10 minutes')->format(\DateTimeInterface::ATOM),
                 ],
@@ -205,7 +205,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
                 ],
                 'estimated_duration' => 'Expédition déjà terminée.',
                 'timer' => [
-                    'name' => 'Prochain cycle',
+                    'name' => 'Prochain Cycle',
                     'description' => 'Votre montre incassable affiche le temps qu\'il reste avant le prochain **Cycle**.//Vous gagnerez alors quelques précieux :pa::pm: selon votre état de santé.',
                     'timerCycle' => null,
                 ],

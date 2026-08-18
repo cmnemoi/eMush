@@ -231,7 +231,7 @@ final class TrapClosetCest extends AbstractFunctionalTest
     private function thenMycoAlarmPrintsPublicLog(FunctionalTester $I): void
     {
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: ':mycoalarm: DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!',
+            expectedRoomLog: ':mycoalarm: DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG !!!!',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->player,
                 log: LogEnum::MYCO_ALARM_RING,

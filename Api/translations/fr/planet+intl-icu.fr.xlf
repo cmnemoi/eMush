@@ -234,11 +234,11 @@
     <unit id="cristal_field">
       <segment id="name" state="translated">
         <source>cristal_field.name</source>
-        <target>Cristalite</target>
+        <target>Cristallite</target>
       </segment>
       <segment id="description" state="translated">
         <source>cristal_field.description</source>
-        <target>Zone à concentration élevée de cristalites.</target>
+        <target>Zone à concentration élevée de cristallites.</target>
       </segment>
     </unit>
     <unit id="unknown">

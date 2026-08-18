@@ -8,7 +8,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>oxygen.description</source>
-        <target>Quantité d'**Oxygène (o²)** disponible dans le vaisseau. Pour refaire le plein, pensez à organiser des **Explorations** ou à vous occuper du **Jardin**, par exemple.{hasSelectionBeenDone, select, 
+        <target>Quantité d'**oxygène (O2)** disponible dans le vaisseau. Pour refaire le plein, pensez à organiser des **Explorations** ou à vous occuper du **Jardin**, par exemple.{hasSelectionBeenDone, select, 
         false {//*Pour l'instant, le système de survie puise dans le module cryogénique pour empêcher les réserves du vaisseau de se vider trop rapidement. Il risque par contre de ne pas tenir très longtemps...*}
         other {}}</target>
       </segment>
@@ -20,7 +20,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>fuel.description</source>
-        <target>Le **Fuel** est indispensable pour ne pas dériver dans l'espace jusqu'à la fin des temps. Cette ressource peut être trouvée lors de vos **explorations** sur les planètes. Cet indicateur n'affiche pas le fuel dans la **Chambre de Combustion**.</target>
+        <target>Le **Fuel** est indispensable pour ne pas dériver dans l'espace jusqu'à la fin des temps. Cette ressource peut être trouvée lors de vos **explorations** sur les planètes. Cet indicateur n'affiche pas le fuel dans la **Chambre de combustion**.</target>
       </segment>
     </unit>
     <unit id="shield">
@@ -58,7 +58,7 @@
     <unit id="currentCycle">
       <segment id="name" state="translated">
         <source>currentCycle.name</source>
-        <target>Prochain cycle</target>
+        <target>Prochain Cycle</target>
       </segment>
       <segment id="description" state="translated">
         <source>currentCycle.description</source>

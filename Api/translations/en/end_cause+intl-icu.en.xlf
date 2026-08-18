@@ -663,5 +663,23 @@
         <target>This player is still alive.</target>
       </segment>
     </unit>
+    <unit id="baby_skinner_bite">
+      <segment id="name" state="translated">
+        <source>baby_skinner_bite.name</source>
+        <target>Bite</target>
+      </segment>
+      <segment id="baby_skinner_bite" state="translated">
+        <source>baby_skinner_bite.short_name</source>
+        <target>Finished off by a creature that was a bit too jumpy!</target>
+      </segment>
+      <segment id="category" state="translated">
+        <source>baby_skinner_bite.category</source>
+        <target>You are dead!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>baby_skinner_bite.description</source>
+        <target>You let your hand wander where it shouldn't have.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

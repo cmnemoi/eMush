@@ -270,6 +270,10 @@
         <source>artefact.wreck_description</source>
         <target>artefact.wreck_description</target>
       </segment>
+      <segment id="treasure_hunt_pet_description" state="initial">
+        <source>artefact.treasure_hunt_pet_description</source>
+        <target>artefact.treasure_hunt_pet_description</target>
+      </segment>
     </unit>
     <unit id="always_successful_thanks_to_skill">
       <segment id="description" state="translated">
@@ -717,6 +721,20 @@
       <segment id="lost_description" state="translated">
         <source>kill_lost.lost_description</source>
         <target>kill_lost.lost_description</target>
+      </segment>
+    </unit>
+    <unit id="pirate_ship">
+      <segment id="name" state="initial">
+        <source>pirate_ship.name</source>
+        <target>pirate_ship.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>pirate_ship.description</source>
+        <target>pirate_ship.description</target>
+      </segment>
+      <segment id="lost_description" state="initial">
+        <source>pirate_ship.treasure_hunt_ship_description</source>
+        <target>pirate_ship.treasure_hunt_ship_description</target>
       </segment>
     </unit>
     <unit id="new_sector">

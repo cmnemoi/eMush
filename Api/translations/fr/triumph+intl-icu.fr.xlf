@@ -192,7 +192,7 @@
       </segment>
       <segment id="pilgred_mother.personal_description" state="translated">
         <source>pilgred_mother.personal_description</source>
-        <target>Raluca gagne {quantity} :triumph: pour chaque tranche de 20% de réparation de PILGRED effectuée.</target>
+        <target>Raluca gagne {quantity} :triumph: pour chaque tranche de 20 % de réparation de PILGRED effectuée.</target>
       </segment>
     </unit>
     <unit id="ambitious">
@@ -232,7 +232,7 @@
     <unit id="super_nova">
       <segment id="super_nova.name" state="translated">
         <source>super_nova.name</source>
-        <target>Super Nova</target>
+        <target>Supernova</target>
       </segment>
       <segment id="super_nova.log" state="translated">
         <source>super_nova.log</source>
@@ -242,11 +242,11 @@
     <unit id="chun_dead">
       <segment id="chun_dead.name" state="translated">
         <source>chun_dead.name</source>
-        <target>Sans Espoir</target>
+        <target>Sans espoir</target>
       </segment>
       <segment id="chun_dead.log" state="translated">
         <source>chun_dead.log</source>
-        <target>Vous avez gagné {quantity} :triumph_mush: car :chun: le Seul Espoir de l'Humanité a quitté ce monde.</target>
+        <target>Vous avez gagné {quantity} :triumph_mush: car :chun: le Seul espoir de l'Humanité a quitté ce monde.</target>
       </segment>
     </unit>
     <unit id="mush_fear">
@@ -256,7 +256,7 @@
       </segment>
       <segment id="mush_fear.log" state="translated">
         <source>mush_fear.log</source>
-        <target>Vous avez gagné {quantity} :triumph: car un Mush a été éliminé en votre présence en tant que Gioele !</target>
+        <target>Vous avez gagné {quantity} :triumph: car un Mush a été éliminé !</target>
       </segment>
       <segment id="mush_fear.personal_description" state="translated">
         <source>mush_fear.personal_description</source>
@@ -442,11 +442,11 @@
     <unit id="rebel_wolf">
       <segment id="rebel_wolf.name" state="translated">
         <source>rebel_wolf.name</source>
-        <target>Rebel Garou</target>
+        <target>Rebelle garou</target>
       </segment>
       <segment id="rebel_wolf.log" state="translated">
         <source>rebel_wolf.log</source>
-        <target>Vous avez gagné {quantity} :triumph: car le Daedalus a contacté les Enfants Perdus de Wolf.</target>
+        <target>Vous avez gagné {quantity} :triumph: car le Daedalus a contacté les Enfants perdus de Wolf.</target>
       </segment>
     </unit>
     <unit id="looking_for_kivanc">
@@ -534,7 +534,7 @@
       </segment>
       <segment id="tr_anathem_loss.log" state="translated">
         <source>tr_anathem_loss.log</source>
-        <target>Le Paria est crevé. Hop, -{quantity} :triumph:.</target>
+        <target>Le Paria est crevé. Hop, −{quantity} :triumph:.</target>
       </segment>
     </unit>
     <unit id="fast_forward">
@@ -544,7 +544,7 @@
       </segment>
       <segment id="fast_forward.log" state="translated">
         <source>fast_forward.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en lançant un voyage vers une planète en tant que Jin Su!</target>
+        <target>Vous avez gagné {quantity} :triumph: en lançant un voyage vers une planète en tant que Jin Su !</target>
       </segment>
       <segment id="fast_forward.personal_description" state="translated">
         <source>fast_forward.personal_description</source>
@@ -558,7 +558,7 @@
       </segment>
       <segment id="planet_searcher.log" state="translated">
         <source>planet_searcher.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en découvrant une nouvelle planète en tant que Frieda!</target>
+        <target>Vous avez gagné {quantity} :triumph: en découvrant une nouvelle planète en tant que Frieda !</target>
       </segment>
       <segment id="planet_searcher.personal_description" state="translated">
         <source>planet_searcher.personal_description</source>
@@ -642,7 +642,7 @@
     <unit id="eden_pregnant">
       <segment id="eden_pregnant.name" state="translated">
         <source>eden_pregnant.name</source>
-        <target>Futur Edeniste</target>
+        <target>Futur Edéniste</target>
       </segment>
       <segment id="eden_pregnant.log" state="translated">
         <source>eden_pregnant.log</source>

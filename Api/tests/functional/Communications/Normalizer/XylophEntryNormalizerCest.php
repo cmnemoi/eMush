@@ -81,7 +81,7 @@ final class XylophEntryNormalizerCest extends AbstractFunctionalTest
             [
                 'key' => 'version',
                 'name' => 'Accès à la base de données perdue de NERON',
-                'description' => 'Une partie des travaux de recherche de Janice sur Xyloph-17 sont intégrés à la mémoire de NERON.//**Fait avancer le niveau de mise à jour de NERON de 25%.**',
+                'description' => 'Une partie des travaux de recherche de Janice sur Xyloph-17 sont intégrés à la mémoire de NERON.//**Fait avancer le niveau de mise à jour de NERON de 25 %.**',
                 'isDecoded' => true,
             ],
         ];

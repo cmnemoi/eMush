@@ -63,7 +63,7 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
                     'value' => 4,
                 ],
                 [
-                    'name' => 'Nombre de Mush',
+                    'name' => 'Nombre de Mushs',
                     'value' => 2,
                 ],
                 [

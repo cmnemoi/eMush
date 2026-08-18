@@ -44,6 +44,12 @@
         <target>Buraroum, we, the Leaf Eaters, need a celestial gardener, we offer you labor in exchange for new pots.</target>
       </segment>
     </unit>
+    <unit id="treasure_hunt_deal">
+      <segment id="treasure_hunt_deal" state="translated">
+        <source>treasure_hunt_deal</source>
+        <target>... hungry... food in exchange for map to a precious planet.</target>
+      </segment>
+    </unit>
     <!-- Asset types -->
     <unit id="random_player">
       <segment id="random_player" state="translated">
@@ -55,6 +61,18 @@
       <segment id="oxygen" state="translated">
         <source>oxygen</source>
         <target>{quantity, plural, one {# oxygen unit} other {# oxygen units}}</target>
+      </segment>
+    </unit>
+    <unit id="cooked_ration">
+      <segment id="cooked_ration" state="translated">
+        <source>cooked_ration</source>
+        <target>{quantity, plural, one {# cooked ration} other {# cooked rations}}</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_tablet">
+      <segment id="treasure_hunt_tablet" state="translated">
+        <source>treasure_hunt_tablet</source>
+        <target>{quantity, plural, one {# unknown artefact} other {# unknown artefacts}}</target>
       </segment>
     </unit>
     <unit id="fuel">
@@ -255,6 +273,18 @@
       <segment id="human_vs_fuel_botanist_4_rations_vs_2-4_fuel_capsules" state="translated">
         <source>human_vs_fuel_botanist_4_rations_vs_2-4_fuel_capsules</source>
         <target>Do you digest greenery well?</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_food_vs_treasure_hunt_tablet">
+      <segment id="treasure_hunt_food_vs_treasure_hunt_tablet" state="translated">
+        <source>treasure_hunt_food_vs_treasure_hunt_tablet</source>
+        <target>With the chef's compliments!</target>
+      </segment>
+    </unit>
+    <unit id="treasure_hunt_diplomat_human_vs_treasure_hunt_tablet">
+      <segment id="treasure_hunt_diplomat_human_vs_treasure_hunt_tablet" state="translated">
+        <source>treasure_hunt_diplomat_human_vs_treasure_hunt_tablet</source>
+        <target>Oh, don't get picky now.</target>
       </segment>
     </unit>
   </file>

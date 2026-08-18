@@ -626,5 +626,16 @@ EVERYWHERE ACTIVATE DRY CLEANING}
         <target>Nothing happens, the order has been refused by NERON.</target>
       </segment>
     </unit>
+    <unit id="travel_to_event_planet">
+      <segment id="travel_to_event_planet" state="translated">
+        <source>travel_to_event_planet</source>
+        <target>{neronMood, select,
+neutral {**Alert: Reactor damaged! Explosion imminent!** Automated advice: "Cling to whatever you can find with your flabby bodies, and *fast*."}
+crazy {**Alert: Reactor damaged! Explosion imminent!** Automated advice: "Don't overload the engine with dodgy tech in your next life. [Haaaax!]"}
+uninhibited {**Alert: Reactor damaged! Explosion imminent!** Automated advice: "If you want to commit suicide, you *really* don't have to drag me into it!"}
+other {invalid mood input}
+}</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

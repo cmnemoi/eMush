@@ -902,7 +902,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="take_cat">
       <segment id="take_cat" state="translated">
         <source>take_cat</source>
-        <target>**{character}** ha levantado al **{target_equipment}**.</target>
+        <target>**{character}** ha levantado a **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="pet_cat">
@@ -941,57 +941,28 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
       </segment>
     </unit>
     <unit id="take_chicken">
-      <segment id="take_chicken" state="initial">
+      <segment id="take_chicken" state="translated">
         <source>take_chicken</source>
-        <target>take_chicken</target>
+        <target>**{character}** ha levantado a **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="convert_chicken">
-      <segment id="convert_chicken" state="initial">
+      <segment id="convert_chicken" state="translated">
         <source>convert_chicken</source>
-        <target>convert_chicken</target>
+        <target>**{character}** introduce una espora en el pico de **{target_equipment}**, convirtiéndolo en un agente del Mush.</target>
       </segment>
     </unit>
     <unit id="cure_chicken_success">
-      <segment id="cure_chicken_success" state="initial">
+      <segment id="cure_chicken_success" state="translated">
         <source>cure_chicken_success</source>
-        <target>cure_chicken_success</target>
+        <target>{character, select,
+**{character}** sujeta con fuerza a **{target_equipment}** para impedir que escape. El ave forcejea con todas sus fuerzas, pero es demasiado tarde: ¡le han inyectado el líquido amarillo y viscoso! En cuanto se libera la presión sobre su cuerpo, se escapa y se esconde en la habitación, cacareando furiosamente.</target>
       </segment>
     </unit>
     <unit id="cure_chicken_fail">
-      <segment id="cure_chicken_fail" state="initial">
+      <segment id="cure_chicken_fail" state="translated">
         <source>cure_chicken_fail</source>
-        <target>cure_chicken_fail</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_success">
-      <segment id="shoot_chicken_success" state="initial">
-        <source>shoot_chicken_success</source>
-        <target>shoot_chicken_success</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_critical_success">
-      <segment id="shoot_chicken_critical_success" state="initial">
-        <source>shoot_chicken_critical_success</source>
-        <target>shoot_chicken_critical_success</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_fail">
-      <segment id="shoot_chicken_fail" state="initial">
-        <source>shoot_chicken_fail</source>
-        <target>shoot_chicken_fail</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_critical_fail">
-      <segment id="shoot_chicken_critical_fail" state="initial">
-        <source>shoot_chicken_critical_fail</source>
-        <target>shoot_chicken_critical_fail</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_one_shot">
-      <segment id="shoot_chicken_one_shot" state="initial">
-        <source>shoot_chicken_one_shot</source>
-        <target>shoot_chicken_one_shot</target>
+        <target>**{character}** forcejea con **{target_equipment}** antes de que este escape de sus brazos. Lo persigue por la habitación, maldiciendo, sin el menor éxito, hasta que la criatura finalmente se desliza debajo de un mueble.</target>
       </segment>
     </unit>
     <unit id="daunt_success">
@@ -1205,6 +1176,42 @@ other {{quantity}}
       <segment id="check_jukebox_songs_success" state="translated">
         <source>check_jukebox_songs_success</source>
         <target>Las próximas tres canciones a reproducir son: **{song_1}**, **{song_2}** y **{song_3}**.</target>
+      </segment>
+    </unit>
+    <unit id="feed_the_pet_success">
+      <segment id="feed_the_pet_success" state="translated">
+        <source>feed_the_pet_success</source>
+        <target>{character} saca un gran trozo de carne fresca y se lo ofrece a la adorable bola de pelo. El joven desollador se abalanza sobre él para devorarlo sin espera.</target>
+      </segment>
+    </unit>
+    <unit id="travel_to_event_planet">
+      <segment id="travel_to_event_planet_success" state="translated">
+        <source>travel_to_event_planet_success</source>
+        <target>**{character}** toma asiento en la terminal de comando. Despues mueve la nave hacia las misteriosas coordenadas, desactiva todas las alertas de NERON y, finalmente, inicia el procedimiento de viaje. La nave vibra al comenzar a atravesar la decimotercera dimensión. ¿La tripulación se dirigirá hacia la gloria o hacia una muerte segura?</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_reactor_success">
+      <segment id="upgrade_reactor_success" state="translated">
+        <source>upgrade_reactor_success</source>
+        <target>**{character}** trabaja incansablemente en ese pobre reactor hasta que empiezan a saltar chispas de forma constante. Un motor capaz de transportar al *Daedalus* a través de la decimotercera dimensión es tan impresionante como peligroso. Más vale no perder de vista los extintores...</target>
+      </segment>
+    </unit>
+    <unit id="open_treasure_success">
+      <segment id="open_treasure_success" state="translated">
+        <source>open_treasure_success</source>
+        <target>**{character}** se abalanza sobre el tesoro con una notoria codicia. Si no vigilas las cosas, puedes despedirte de tu parte.</target>
+      </segment>
+    </unit>
+    <unit id="search_for_the_treasure_success">
+      <segment id="search_for_the_treasure_success" state="translated">
+        <source>search_for_the_treasure_success</source>
+        <target>**{character}** regresa al grupo, gritando a todo pulmón. Sostiene una gran caja dorada en sus manos: **¡el tesoro!**</target>
+      </segment>
+    </unit>
+    <unit id="search_for_the_treasure_fail">
+      <segment id="search_for_the_treasure_fail" state="translated">
+        <source>search_for_the_treasure_fail</source>
+        <target>**{character}** se agota buscando por toda la zona, pero no encuentra más que guijarros de formas extrañas.</target>
       </segment>
     </unit>
   </file>

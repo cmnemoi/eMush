@@ -1594,33 +1594,33 @@ Da un poco de alegría la primera vez...</target>
       </segment>
     </unit>
     <unit id="take_chicken">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>take_chicken.name</source>
-        <target>take_chicken.name</target>
+        <target>Levantar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>take_chicken.description</source>
-        <target>take_chicken.description</target>
+        <target>Toma esta ave y ponla en tu inventario.</target>
       </segment>
     </unit>
     <unit id="cure_chicken">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>cure_chicken.name</source>
-        <target>cure_chicken.name</target>
+        <target>Vacunar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cure_chicken.description</source>
-        <target>cure_chicken.description</target>
+        <target>La vacuna anti-Mush inyecta un poderoso compuesto retrofúngico que elimina todos los síntomas de Mush en el objetivo.//Este pájaro aletea, picotea y deja claro por todos los medios a su alcance que no quiere que esta aguja se le acerque.</target>
       </segment>
     </unit>
     <unit id="convert_chicken">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>convert_chicken.name</source>
-        <target>convert_chicken.name</target>
+        <target>Alimentación Infecciosa</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>convert_chicken.description</source>
-        <target>convert_chicken.description</target>
+        <target>Te permite infectar discretamente a la gallina con una espora para convertirle en un agente del Mush.</target>
       </segment>
     </unit>
     <unit id="torture">
@@ -1738,13 +1738,13 @@ Da un poco de alegría la primera vez...</target>
       </segment>
     </unit>
     <unit id="shoot_chicken">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>shoot_chicken.name</source>
-        <target>shoot_chicken.name</target>
+        <target>Disparar: {equipment}</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>shoot_chicken.description</source>
-        <target>shoot_chicken.description</target>
+        <target>Dispara sobre alguien para herir o matar. ¡Cuidado, juego de manos, es de villanos!</target>
       </segment>
     </unit>
     <unit id="open_container">
@@ -2024,6 +2024,60 @@ Todos tus camaradas serán *notificados* y el anuncio permanecerá en la pestañ
       <segment id="description" state="translated">
         <source>check_jukebox_songs.description</source>
         <target>Te permite ver las próximas tres canciones de la lista de reproducción. ¿Quizás tu favorita suene pronto?</target>
+      </segment>
+    </unit>
+    <unit id="feed_the_pet">
+      <segment id="name" state="translated">
+        <source>feed_the_pet.name</source>
+        <target>Alimentar</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>feed_the_pet.description</source>
+        <target>Esta adorable criatura no es muy diferente de una mascota común. Lo único que quiere todo el día es comida.// No te dejará en paz hasta que crea que le darás de comer de nuevo. Y aunque no puede defenderte, puede hacer suficiente ruido como para distraer a los atacantes. Si la nave se derrumba sobre ti, incluso podría salvarte la vida. Solo ten cuidado de no darle una espora por accidente...</target>
+      </segment>
+    </unit>
+    <unit id="travel_to_event_planet">
+      <segment id="name" state="translated">
+        <source>travel_to_event_planet.name</source>
+        <target>Viaja a las últimas coordenadas conocidas de la nave de Grixar.</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>travel_to_event_planet.description</source>
+        <target>Mueve la nave a través de la decimotercera dimensión para alcanzar la última ubicación conocida del legendario pirata Grixar el Intrépido. // Consume combustible en la cámara de combustión, pero no lo requiere para funcionar. // ***Esta acción es extremadamente peligrosa y provocará numerosos incidentes en la nave. Si eres humano, no la realices sin el consentimiento de tus compañeros de tripulación.***</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>travel_to_event_planet.confirmation</source>
+        <target>Esta acción puede tener graves consecuencias. ¿Quieres continuar de todas formas?</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_reactor">
+      <segment id="name" state="translated">
+        <source>upgrade_reactor.name</source>
+        <target>Mejorar reactor</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>upgrade_reactor.description</source>
+        <target>Mejora el reactor de emergencia para que te transporte a las coordenadas que aparecen en la tableta del Capitán Grixar. Es probable que la garantía no sea válida después de eso.</target>
+      </segment>
+    </unit>
+    <unit id="open_treasure">
+      <segment id="name" state="translated">
+        <source>open_treasure.name</source>
+        <target>Abrir tesoro</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>open_treasure.description</source>
+        <target>No piensas mantenerlo cerrado después de haber venido hasta aquí, ¿verdad?</target>
+      </segment>
+    </unit>
+    <unit id="search_for_the_treasure">
+      <segment id="name" state="translated">
+        <source>search_for_the_treasure.name</source>
+        <target>Buscar el tesoro</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>search_for_the_treasure.description</source>
+        <target>Si crees que el tesoro de Grixar está aquí, puedes llevar tus palas, picos y cualquier otra herramienta para registrar la zona.</target>
       </segment>
     </unit>
   </file>

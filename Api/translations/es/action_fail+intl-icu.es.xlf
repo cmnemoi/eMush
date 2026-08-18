@@ -541,6 +541,12 @@
         <target>Pax Fungi: El Mush no tolera acciones violentas directas contra sí mismo.</target>
       </segment>
     </unit>
+    <unit id="spore_sucker_used_too_recently">
+      <segment id="description" state="translated">
+        <source>spore_sucker_used_too_recently.description</source>
+        <target>Todavía te duele el cuello, y la idea de volver a usar ese aparato es demasiado aterradora como para intentarlo por el momento.</target>
+      </segment>
+    </unit>
     <unit id="already_did_boring_speech">
       <segment id="description" state="translated">
         <source>already_did_boring_speech.description</source>
@@ -881,6 +887,18 @@
       <segment id="description" state="translated">
         <source>private_property_not_owner.description</source>
         <target>El seguro biométrico en este objeto te impide utilizarlo. Su dueño aún está con vida.</target>
+      </segment>
+    </unit>
+    <unit id="planet_impossible_to_scan">
+      <segment id="description" state="translated">
+        <source>planet_impossible_to_scan.description</source>
+        <target>Un fenómeno desconocido interfiere con el escáner.</target>
+      </segment>
+    </unit>
+    <unit id="need_genius_or_alien_device">
+      <segment id="description" state="translated">
+        <source>need_genius_or_alien_device.description</source>
+        <target>Hay que ser un genio para poder hacer esto... pero si no lo eres, seguro que los extraterrestres han dejado el equipo adecuado en algún sitio.</target>
       </segment>
     </unit>
   </file>

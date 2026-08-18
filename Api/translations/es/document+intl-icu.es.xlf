@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="es">
+  <file id="document.ext">
+    <unit id="treasure_hunt_tablet">
+      <segment id="treasure_hunt_tablet" state="initial">
+        <source>treasure_hunt_tablet</source>
+        <target>treasure_hunt_tablet</target>
+      </segment>
+    </unit>
+    <unit id="mush_research_review">
+      <segment id="mush_research_review" state="initial">
+        <source>mush_research_review</source>
+        <target>mush_research_review</target>
+      </segment>
+    </unit>
+    <unit id="commanders_manual">
+      <segment id="commanders_manual" state="initial">
+        <source>commanders_manual</source>
+        <target>commanders_manual</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

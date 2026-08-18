@@ -82,7 +82,7 @@
     <unit id="consume_drug">
       <segment id="consume_drug" state="translated">
         <source>consume_drug</source>
-        <target>**{character}**  s'envoie un cachet.</target>
+        <target>**{character}** s'envoie un cachet.</target>
       </segment>
     </unit>
     <unit id="consume_mush">
@@ -100,7 +100,7 @@
     <unit id="disassemble_fail">
       <segment id="disassemble_fail" state="translated">
         <source>disassemble_fail</source>
-        <target>Ce machin n'est pas si mal foutu que ça... vous n'arrivez pas à le démonter...</target>
+        <target>Ce machin n'est pas si mal foutu que ça... Vous n'arrivez pas à le démonter...</target>
       </segment>
     </unit>
     <unit id="disassemble_success">
@@ -132,7 +132,18 @@
     <unit id="do_the_thing_breaks_sofa">
       <segment id="do_the_thing_breaks_sofa" state="translated">
         <source>do_the_thing_breaks_sofa</source>
-        <target>**{character}** et **{target_character}** éteignent la lumière et des bruits étranges se produisent... Quelques minutes plus tard, ils rallument. Ils ont un air satisfait. *Le sofa ne peut pas en dire autant...*</target>
+        <target>**{character}** et **{target_character}** éteignent la lumière et des bruits étranges se produisent... {target_character_gender, select, 
+          female {{character_gender, select,
+            female {Quelques minutes plus tard, elles rallument avec un air satisfait.}
+            other {Quelques minutes plus tard, les deux rallument avec un air satisfait.}
+          }}
+          male {{character_gender, select,
+            male {Quelques minutes plus tard, ils rallument avec un air satisfait.}
+            other {Quelques minutes plus tard, les deux rallument avec un air satisfait.}
+          }}
+          other {Quelques minutes plus tard, les deux rallument avec un air satisfait.}
+        }
+*Le sofa ne peut pas en dire autant...*</target>
       </segment>
     </unit>
     <unit id="relax_success">
@@ -158,7 +169,7 @@
                         male {**{character}** a lâché un **{target_equipment}**.}
                         female {**{character}** a lâché une **{target_equipment}**.}
                         name {**{character}** a lâché **{target_equipment}**.}
-                        other {(erreur de trad! signalez moi) **{character}** a lâché **{target_equipment}**.}
+                        other {(erreur de trad ! signalez moi) **{character}** a lâché **{target_equipment}**.}
                 }</target>
       </segment>
     </unit>
@@ -194,7 +205,7 @@
     <unit id="get_up">
       <segment id="get_up" state="translated">
         <source>get_up</source>
-        <target>**{character}**  se lève doucement...</target>
+        <target>**{character}** se lève doucement...</target>
       </segment>
     </unit>
     <unit id="hide_success">
@@ -210,7 +221,7 @@
     <unit id="hyperfreeze_success">
       <segment id="hyperfreeze_success" state="translated">
         <source>hyperfreeze_success</source>
-        <target>Vous avez hypercongelé et reconditionné de la nourriture.</target>
+        <target>Vous avez hypergelé et reconditionné de la nourriture.</target>
       </segment>
     </unit>
     <unit id="infect_success">
@@ -235,7 +246,7 @@
         <target>{character_gender, select,
                     male {**{character}** est entré{is_tracker, select, true { {enter_loc_prep} {place}} other {}}.}
                     female {**{character}** est entrée{is_tracker, select, true { {enter_loc_prep} {place}} other {}}.}
-                    other {**{character}** est entré.e{is_tracker, select, true { {enter_loc_prep} {place}} other {}}.}
+                    other {**{character}** est entré·e{is_tracker, select, true { {enter_loc_prep} {place}} other {}}.}
                 }</target>
       </segment>
     </unit>
@@ -245,7 +256,7 @@
         <target>{character_gender, select,
                     male {**{character}** est sorti{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.}
                     female {**{character}** est sortie{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.}
-                    other {**{character}** est sorti.e{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.}
+                    other {**{character}** est sorti·e{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.}
                 }</target>
       </segment>
     </unit>
@@ -273,7 +284,7 @@
       <segment id="repair_fail" state="translated">
         <source>repair_fail</source>
         <target>{versionPart1, select,
-                    1 {**{target_equipment}** ou pas **{target_equipment}**… Telle est la question...}
+                    1 {**{target_equipment}** ou pas **{target_equipment}**… Telle est la question…}
                     2 {{target_equipment_gender, select,
                         male {{target_equipment_first_letter, select,
                             vowel {Cet **{target_equipment}** n'est toujours pas réparé.}
@@ -545,7 +556,7 @@
         <target>{target_equipment_gender, select,
                         male {**{character}** a pris un **{target_equipment}**.}
                         female {**{character}** a pris une **{target_equipment}**.}
-                        other {(erreur de trad! signalez moi) **{character}** a pris **{target_equipment}**.}
+                        other {(erreur de trad ! signalez moi) **{character}** a pris **{target_equipment}**.}
                 }</target>
       </segment>
     </unit>
@@ -600,7 +611,7 @@
     <unit id="retrieve_fuel">
       <segment id="retrieve_fuel" state="translated">
         <source>retrieve_fuel</source>
-        <target>**{character}** a extrait une Capsule du Fuel du réservoir.</target>
+        <target>**{character}** a extrait une Capsule de fuel du réservoir.</target>
       </segment>
     </unit>
     <unit id="insert_fuel">
@@ -664,7 +675,7 @@
         <target>{character_gender, select,
                 male {Vous vous êtes soigné. Vous avez récupéré {quantity} :hp:.}
                 female {Vous vous êtes soignée. Vous avez récupéré {quantity} :hp:.}
-                other {Vous vous êtes soigné.e. Vous avez récupéré {quantity} :hp:.}
+                other {Vous vous êtes soigné·e. Vous avez récupéré {quantity} :hp:.}
                 }</target>
       </segment>
     </unit>
@@ -693,7 +704,7 @@
     <unit id="spread_fire_success">
       <segment id="spread_fire_success" state="translated">
         <source>spread_fire_success</source>
-        <target>Mais que fait  **{character}** avec l'installation électrique... ? Cela ne sent vraiment pas bon... :fires:</target>
+        <target>Mais que fait **{character}** avec l'installation électrique... ? Cela ne sent vraiment pas bon... :fires:</target>
       </segment>
     </unit>
     <unit id="install_camera">
@@ -759,8 +770,8 @@
                     13 {Nous avons été et sommes submergés par la force des champignons ! Mais le dernier mot est-il dit ? L'espérance doit-elle disparaitre ? La défaite est-elle définitive ? Non ! La flamme de la résistance ne doit pas s'éteindre et ne s'éteindra pas.}
                     14 {Nous sommes peut-être dans une situation qui semble désespérée. Peut-être que certains d'entre-vous ont perdu leurs familles et leurs amis mais sachez que vous êtes les plus chanceux ! Pourquoi me direz-vous ? Car vous m'avez pour supérieur !}
                     15 {Secouez-vous un peu, bande de moules ! L'ennemi est à nos portes mais nous allons l'atomiser ! Le Mush ne nous aura pas. Nous l’écraserons comme un vulgaire champignon. Nous sommes les meilleurs, nous vaincrons !}
-                    16 {tap tap 1, 2, 1, 2, y m'entendent, c'est bon ? Je vais vous la faire simple et brève mes pépères ! Avec Stephen on vous a préparé un maxi gâteau au chocolat, et je compte sur vous tous pour bien le dégommer ! Garanti sans laxatif ce coup-ci ! A TABLE !!!}
-                    17 {TOUS AVEC MOI ! Hunter, si j't'attrape, TU MEURS ! BoUYAAA Mush, si j'te trouve, j'TE COUCHE ! BoUYAAA Spores tremblez sous le cris de notre Stentor ! BoUYAAA Car avec le Deadalus, bientôt nous retrouverons cirrus crocus et autres prunus ! BoUYAAA}
+                    16 {*tap tap* 1, 2, 1, 2, y m'entendent, c'est bon ? Je vais vous la faire simple et bref, mes pépères ! Avec Stephen on vous a préparé un maxi gâteau au chocolat, et je compte sur vous tous pour bien le dégommer ! Garanti sans laxatif ce coup-ci ! À TABLE !!!}
+                    17 {TOUS AVEC MOI ! Hunter, si j't'attrape, TU MEURS ! BouYAAA Mush, si j'te trouve, j'TE COUCHE ! BouYAAA Spores tremblez sous le cris de notre Stentor ! BouYAAA Car avec le Deadalus, bientôt nous retrouverons cirrus crocus et autres prunus ! BouYAAA}
                     18 {Vous pourrez commencer à vous inquiéter quand le Mush m'aura infecté, mais pour l'instant vous n'avez pas à vous en faire car avec moi RIEN ne peut vous arriver ! Mais si un jour ils m'ont, et seulement à ce moment là, vous n'aurez plus aucun espoir.}
                     19 {Vous qui êtes ici bien plus que des subordonnés, je vous le dis : malgré le poids écrasant de notre responsabilité, je suis fier comme jamais de mener un équipage à nul autre pareil dans une si noble destinée !}
                     other {invalid version input}
@@ -771,7 +782,7 @@
       <segment id="boring_speech" state="translated">
         <source>boring_speech</source>
         <target>{character_icon} **{character} :** {version, select,
-                    1 {Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. PITIÉ FAITES LE TAIRE.}
+                    1 {Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. PITIÉ, FAITES LE TAIRE !}
                     2 {Moi Commandant du Daedalus, je promets la fin de la crise Mush. Moi Commandant du Daedalus, je prônerais l'égalité homme/femme. Moi Commandant du Daedalus, il faudra Le Faire une fois par jour. Moi Commandant du Daedalus, les femmes enceintes seront exemptées de travail. Moi Commandant du Daedalus, je ne vendrais aucun d'entre vous à des esclavagistes. Moi Commandant du Daedalus, nous mangerons 5 fruits et légumes par jour. Moi Commandant du Daedalus, NERON sera de bonne humeur. Moi Commandant du Daedalus, les douches seront publiques. Moi Commandant du Daedalus, nous irons sur Eden. Moi Commandant du Daedalus, …}
                     3 {Comme le dit le grand Président Maubrick, il faut toujours croire en la FDS, ne pas frapper ses voisins, et traiter les femmes avec respect. Comme le dit le grand Président Maubrick, le Mush ne peut rien face à nous. Moi d'mon temps, le Président Maubrick il...}
                     other {invalid version input}
@@ -853,13 +864,13 @@
     <unit id="play_arcade_fail">
       <segment id="play_arcade_fail" state="translated">
         <source>play_arcade_fail</source>
-        <target>Oh purée encore perdu, spa vrai qu'cette machine diabolique a failli vous tuer en plus !</target>
+        <target>Oh purée encore perdu, s'pa vrai qu'cette machine diabolique a failli vous tuer en plus !</target>
       </segment>
     </unit>
     <unit id="play_arcade_success">
       <segment id="play_arcade_success" state="translated">
         <source>play_arcade_success</source>
-        <target>OH OUIIIII. **{character}** a vaincu Xatator le boss du NIVEAUUUUU 10 !</target>
+        <target>OH OUIIIII ! **{character}** a vaincu Xatator, le boss du NIVEAAAAU 10 !</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_success">
@@ -1243,7 +1254,7 @@
         lizaro_jungle {**{character}** met en joue sa cible. Il prend son temps pour viser la tête, il retient son soufle et d'un seul mouvement de doigt, **{target_equipment}** n'est plus.}
         old_faithful {**{target_equipment}** n'a rien le temps de comprendre : en un instant, le torrent de balles déversé par **{character}** {target_equipment_gender, select, male {le} female {la} other {}} transforme en confiture.}
         rocket_launcher {De tout temps, les sages de l'humanité ont voulu répertorier ce qu'il était possible de détruire avec des explosifs. **{character}** peut enfin ajouter {target_equipment_gender, select, male {le} female {la} other {}} **{target_equipment}** à la liste.}
-        other {invalid weapon name}} </target>
+        other {invalid weapon name}}</target>
       </segment>
     </unit>
     <unit id="shoot_equipment_fail">
@@ -1304,7 +1315,7 @@
     <unit id="give_nightmare_success">
       <segment id="give_nightmare_success" state="translated">
         <source>give_nightmare_success</source>
-        <target>:mush: **{character}** se rapproche de **{target_character}**... Après {character_gender, select, male {qu'il s'en est éloigné} female {qu'elle s'en est éloignée} other {qu'iel s'en est éloigné.e}}, **{target_character}** semble avoir un sommeil tourmenté...</target>
+        <target>:mush: **{character}** se rapproche de **{target_character}**... Après {character_gender, select, male {qu'il s'en est éloigné} female {qu'elle s'en est éloignée} other {qu'iel s'en est éloigné·e}}, **{target_character}** semble avoir un sommeil tourmenté...</target>
       </segment>
     </unit>
     <unit id="neron_depress_success">
@@ -1381,7 +1392,7 @@
     <unit id="mutate_success">
       <segment id="mutate_success" state="translated">
         <source>mutate_success</source>
-        <target>:mush: **{character}** se recroqueville. {character_gender, select, male {Il}female {Elle} other {Iel}} semble souffrir, ses cris résonnent, {character_gender, select, male {il} female {elle} other {iel}} vomit une bile immonde qui fait fondre ses vêtements... Quelle horreur ! {character_gender, select, male {Il}female {Elle} other {Iel}} a complètement changé de forme !</target>
+        <target>:mush: **{character}** se recroqueville. {character_gender, select, male {Il} female {Elle} other {Iel}} semble souffrir, ses cris résonnent, {character_gender, select, male {il} female {elle} other {iel}} vomit une bile immonde qui fait fondre ses vêtements... Quelle horreur ! {character_gender, select, male {Il} female {Elle} other {Iel}} a complètement changé de forme !</target>
       </segment>
     </unit>
     <unit id="exchange_body_success">
@@ -1399,7 +1410,7 @@
     <unit id="adapt_epigenetics_success">
       <segment id="adapt_epigenetics_success" state="translated">
         <source>adapt_epigenetics_success</source>
-        <target>Un changement de tactique s'impose! Vous avez réinitialisé vos compétences.</target>
+        <target>Un changement de tactique s'impose ! Vous avez réinitialisé vos compétences.</target>
       </segment>
     </unit>
     <unit id="open_fruit_basket">

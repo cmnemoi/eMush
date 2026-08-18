@@ -1012,57 +1012,28 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       </segment>
     </unit>
     <unit id="take_chicken">
-      <segment id="take_chicken" state="initial">
+      <segment id="take_chicken" state="translated">
         <source>take_chicken</source>
-        <target>take_chicken</target>
+        <target>**{character}** has picked up **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="convert_chicken">
-      <segment id="convert_chicken" state="initial">
+      <segment id="convert_chicken" state="translated">
         <source>convert_chicken</source>
-        <target>convert_chicken</target>
+        <target>**{character}** slips a spore into **{target_equipment}**'s mouthful of food, turning it into a Mush agent.</target>
       </segment>
     </unit>
     <unit id="cure_chicken_success">
-      <segment id="cure_chicken_success" state="initial">
+      <segment id="cure_chicken_success" state="translated">
         <source>cure_chicken_success</source>
-        <target>cure_chicken_success</target>
+        <target>{character, select,
+**{character}** grips **{target_equipment}** tightly to keep it from escaping. The bird struggles as best it can, but it is too late: the viscous yellow liquid has been injected! As soon as the pressure on its body eases, it breaks free and hides in the room, clucking furiously.</target>
       </segment>
     </unit>
     <unit id="cure_chicken_fail">
-      <segment id="cure_chicken_fail" state="initial">
+      <segment id="cure_chicken_fail" state="translated">
         <source>cure_chicken_fail</source>
-        <target>cure_chicken_fail</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_success">
-      <segment id="shoot_chicken_success" state="initial">
-        <source>shoot_chicken_success</source>
-        <target>shoot_chicken_success</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_critical_success">
-      <segment id="shoot_chicken_critical_success" state="initial">
-        <source>shoot_chicken_critical_success</source>
-        <target>shoot_chicken_critical_success</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_fail">
-      <segment id="shoot_chicken_fail" state="initial">
-        <source>shoot_chicken_fail</source>
-        <target>shoot_chicken_fail</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_critical_fail">
-      <segment id="shoot_chicken_critical_fail" state="initial">
-        <source>shoot_chicken_critical_fail</source>
-        <target>shoot_chicken_critical_fail</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_one_shot">
-      <segment id="shoot_chicken_one_shot" state="initial">
-        <source>shoot_chicken_one_shot</source>
-        <target>shoot_chicken_one_shot</target>
+        <target>**{character}** struggles with **{target_equipment}** before it slips from their grasp. {character_gender, select, male {He} female {She} other {They}} chases it around the room, swearing—to no avail—before the creature finally slides underneath a piece of furniture.</target>
       </segment>
     </unit>
     <unit id="daunt_success">
@@ -1285,6 +1256,42 @@ other {a}} **{equipment}** out of {character_gender, select,
       <segment id="check_jukebox_songs_success" state="translated">
         <source>check_jukebox_songs_success</source>
         <target>The next three songs in the playlist are: **{song_1}**, **{song_2}** and **{song_3}**.</target>
+      </segment>
+    </unit>
+    <unit id="feed_the_pet_success">
+      <segment id="feed_the_pet_success" state="translated">
+        <source>feed_the_pet_success</source>
+        <target>{character} pulls out a large chunk of fresh meat and holds it out toward the adorable ball of fur. The young skinner lunges at it to devour it without delay.</target>
+      </segment>
+    </unit>
+    <unit id="travel_to_event_planet">
+      <segment id="travel_to_event_planet_success" state="translated">
+        <source>travel_to_event_planet_success</source>
+        <target>**{character}** takes a seat at the command terminal. Then, they steer the ship toward the mysterious coordinates, disable all of NERON's alerts, and finally initiate the travel sequence. The ship vibrates as it begins to traverse the thirteenth dimension. Is the crew heading toward glory or certain death?</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_reactor_success">
+      <segment id="upgrade_reactor_success" state="translated">
+        <source>upgrade_reactor_success</source>
+        <target>**{character}** relentlessly works on that poor reactor until sparks begin to fly steadily from it. An engine capable of transporting the *Daedalus* through the thirteenth dimension is as impressive as it is dangerous. It would be best to keep an eye on the fire extinguishers...</target>
+      </segment>
+    </unit>
+    <unit id="open_treasure_success">
+      <segment id="open_treasure_success" state="translated">
+        <source>open_treasure_success</source>
+        <target>**{character}** throws themselves at the treasure with undisguised greed. If you don't keep an eye on {character_gender, select, male {him} female {her} other {them}}, you can kiss your share goodbye.</target>
+      </segment>
+    </unit>
+    <unit id="search_for_the_treasure_success">
+      <segment id="search_for_the_treasure_success" state="translated">
+        <source>search_for_the_treasure_success</source>
+        <target>**{character}** runs back toward the group, screaming at the top of their lungs. {character_gender, select, male {He is} female {She is} other {They are}} holding a large golden box: **the treasure**!</target>
+      </segment>
+    </unit>
+    <unit id="search_for_the_treasure_fail">
+      <segment id="search_for_the_treasure_fail" state="translated">
+        <source>search_for_the_treasure_fail</source>
+        <target>**{character}** wears themselves out searching the entire area, but finds nothing but oddly shaped stones.</target>
       </segment>
     </unit>
   </file>

@@ -841,36 +841,6 @@
         <target>cure_chicken_fail</target>
       </segment>
     </unit>
-    <unit id="shoot_chicken_success">
-      <segment id="shoot_chicken_success" state="initial">
-        <source>shoot_chicken_success</source>
-        <target>shoot_chicken_success</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_critical_success">
-      <segment id="shoot_chicken_critical_success" state="initial">
-        <source>shoot_chicken_critical_success</source>
-        <target>shoot_chicken_critical_success</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_fail">
-      <segment id="shoot_chicken_fail" state="initial">
-        <source>shoot_chicken_fail</source>
-        <target>shoot_chicken_fail</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_critical_fail">
-      <segment id="shoot_chicken_critical_fail" state="initial">
-        <source>shoot_chicken_critical_fail</source>
-        <target>shoot_chicken_critical_fail</target>
-      </segment>
-    </unit>
-    <unit id="shoot_chicken_one_shot">
-      <segment id="shoot_chicken_one_shot" state="initial">
-        <source>shoot_chicken_one_shot</source>
-        <target>shoot_chicken_one_shot</target>
-      </segment>
-    </unit>
     <unit id="daunt_success">
       <segment id="daunt_success" state="translated">
         <source>daunt_success</source>
@@ -1043,6 +1013,42 @@
       <segment id="check_jukebox_songs_success" state="initial">
         <source>check_jukebox_songs_success</source>
         <target>check_jukebox_songs_success</target>
+      </segment>
+    </unit>
+    <unit id="feed_the_pet_success">
+      <segment id="feed_the_pet_success" state="initial">
+        <source>feed_the_pet_success</source>
+        <target>feed_the_pet_success</target>
+      </segment>
+    </unit>
+    <unit id="travel_to_event_planet">
+      <segment id="travel_to_event_planet_success" state="initial">
+        <source>travel_to_event_planet_success</source>
+        <target>travel_to_event_planet_success</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_reactor_success">
+      <segment id="upgrade_reactor_success" state="initial">
+        <source>upgrade_reactor_success</source>
+        <target>upgrade_reactor_success</target>
+      </segment>
+    </unit>
+    <unit id="open_treasure_success">
+      <segment id="open_treasure_success" state="initial">
+        <source>open_treasure_success</source>
+        <target>open_treasure_success</target>
+      </segment>
+    </unit>
+    <unit id="search_for_the_treasure_success">
+      <segment id="search_for_the_treasure_success" state="initial">
+        <source>search_for_the_treasure_success</source>
+        <target>search_for_the_treasure_success</target>
+      </segment>
+    </unit>
+    <unit id="search_for_the_treasure_fail">
+      <segment id="search_for_the_treasure_fail" state="initial">
+        <source>search_for_the_treasure_fail</source>
+        <target>search_for_the_treasure_fail</target>
       </segment>
     </unit>
   </file>

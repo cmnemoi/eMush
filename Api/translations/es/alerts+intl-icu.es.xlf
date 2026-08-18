@@ -131,7 +131,7 @@ Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</ta
       </segment>
       <segment id="description" state="translated">
         <source>hunter.description</source>
-        <target>¡Avisa a los demás o defiende tú mismo la nave!</target>
+        <target>¡Avisa a los demás o defiende la nave por tu cuenta!</target>
       </segment>
     </unit>
     <unit id="no_alert">

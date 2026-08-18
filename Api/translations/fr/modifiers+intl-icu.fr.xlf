@@ -12,7 +12,7 @@
         <source>change.variable.decrease_on_player.new.cycle.description</source>
         <target>{chance, select,
                     100 {Chaque cycle, fait perdre **{quantity}** {emote}.}
-                    other {Chaque cycle, **{chance}%** de chances de perdre **{quantity}** {emote}.}
+                    other {Chaque cycle, **{chance} %** de chances de perdre **{quantity}** {emote}.}
                 }</target>
       </segment>
     </unit>
@@ -43,7 +43,7 @@
     <unit id="roll.action.percentage_decrease_shoot">
       <segment id="description" state="translated">
         <source>roll.action.percentage_decrease_shoot.description</source>
-        <target>Précision **-{quantity}%**.</target>
+        <target>Précision **-{quantity} %**.</target>
       </segment>
     </unit>
     <unit id="biting_on_player.new.cycle">
@@ -63,7 +63,7 @@
         <source>roll.percentage_increase_cycle_disease.description</source>
         <target>{quantity, select,
                     100 {Chaque cycle, fait tomber malade.}
-                    other {Chaque cycle, **+{quantity}%** de chances de tomber malade.}
+                    other {Chaque cycle, **+{quantity} %** de chances de tomber malade.}
                     }</target>
       </segment>
     </unit>
@@ -90,7 +90,7 @@
         <source>dirtiness_on_player.new.cycle.description</source>
         <target>{chance, select,
                     100 {Chaque cycle, rend sale.}
-                    other {Chaque cycle, **{chance}%** de chances de rendre sale.}
+                    other {Chaque cycle, **{chance} %** de chances de rendre sale.}
                     }</target>
       </segment>
     </unit>

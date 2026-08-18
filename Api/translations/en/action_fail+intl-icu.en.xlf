@@ -541,6 +541,12 @@
         <target>Pax Fungi: The Mush doesn't tolerate direct violent actions against itself.</target>
       </segment>
     </unit>
+    <unit id="spore_sucker_used_too_recently">
+      <segment id="description" state="translated">
+        <source>spore_sucker_used_too_recently.description</source>
+        <target>Your neck is still hurting, and the thought of bringing that device near it again is far too terrifying to attempt so soon.</target>
+      </segment>
+    </unit>
     <unit id="already_did_boring_speech">
       <segment id="description" state="translated">
         <source>already_did_boring_speech.description</source>
@@ -881,6 +887,18 @@
       <segment id="description" state="translated">
         <source>private_property_not_owner.description</source>
         <target>The biolock on this item will not let you... Its owner is still alive.</target>
+      </segment>
+    </unit>
+    <unit id="planet_impossible_to_scan">
+      <segment id="description" state="translated">
+        <source>planet_impossible_to_scan.description</source>
+        <target>An unknown phenomenon is interfering with the scanner.</target>
+      </segment>
+    </unit>
+    <unit id="need_genius_or_alien_device">
+      <segment id="description" state="translated">
+        <source>need_genius_or_alien_device.description</source>
+        <target>You'd have to be a genius to pull this off... but if you aren't one, aliens have surely left the right equipment lying around somewhere.</target>
       </segment>
     </unit>
   </file>

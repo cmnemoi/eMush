@@ -463,6 +463,18 @@
         <target>mush_convert_chicken_event</target>
       </segment>
     </unit>
+    <unit id="mush_convert_baby_skinner_event">
+      <segment id="mush_convert_baby_skinner_event" state="initial">
+        <source>mush_convert_baby_skinner_event</source>
+        <target>mush_convert_baby_skinner_event</target>
+      </segment>
+    </unit>
+    <unit id="infect_baby_skinner_bite">
+      <segment id="infect_baby_skinner_bite" state="initial">
+        <source>infect_baby_skinner_bite</source>
+        <target>infect_baby_skinner_bite</target>
+      </segment>
+    </unit>
     <unit id="player_enter_chat">
       <segment id="player_enter_chat" state="translated">
         <source>player_enter_chat</source>
@@ -888,7 +900,7 @@
       </segment>
     </unit>
     <unit id="pet_shot_dead">
-      <segment id="pet_shot_dead" state="translated">
+      <segment id="pet_shot_dead" state="initial">
         <source>pet_shot_dead</source>
         <target>pet_shot_dead</target>
       </segment>
@@ -903,6 +915,12 @@
       <segment id="chicken_squawk" state="initial">
         <source>chicken_squawk</source>
         <target>chicken_squawk</target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_yelp">
+      <segment id="baby_skinner_yelp" state="initial">
+        <source>baby_skinner_yelp</source>
+        <target>baby_skinner_yelp</target>
       </segment>
     </unit>
     <unit id="cat_hiss">
@@ -1081,6 +1099,36 @@
       <segment id="pavlov_turbo_worked" state="translated">
         <source>pavlov_turbo_worked</source>
         <target>pavlov_turbo_worked</target>
+      </segment>
+    </unit>
+    <unit id="summer_event_exploration_log">
+      <segment id="summer_event_exploration_log" state="initial">
+        <source>summer_event_exploration_log</source>
+        <target>summer_event_exploration_log</target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_bite">
+      <segment id="baby_skinner_bite" state="initial">
+        <source>baby_skinner_bite</source>
+        <target>baby_skinner_bite</target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_sleep">
+      <segment id="baby_skinner_sleep" state="initial">
+        <source>baby_skinner_sleep</source>
+        <target>baby_skinner_sleep</target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_prevent_metal_plate">
+      <segment id="baby_skinner_prevent_metal_plate" state="initial">
+        <source>baby_skinner_prevent_metal_plate</source>
+        <target>baby_skinner_prevent_metal_plate</target>
+      </segment>
+    </unit>
+    <unit id="pirate_ship_free_spore">
+      <segment id="pirate_ship_free_spore" state="initial">
+        <source>pirate_ship_free_spore</source>
+        <target>pirate_ship_free_spore</target>
       </segment>
     </unit>
   </file>

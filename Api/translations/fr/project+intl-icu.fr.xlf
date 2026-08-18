@@ -4,7 +4,7 @@
     <unit id="efficiency">
       <segment id="efficiency" state="translated">
         <source>efficiency</source>
-        <target>Efficacité : {min_efficiency}-{max_efficiency}%</target>
+        <target>Efficacité : {min_efficiency}–{max_efficiency} %</target>
       </segment>
     </unit>
     <unit id="efficiencyTooltipHeader">
@@ -30,7 +30,7 @@
       </segment>
       <segment id="auto_watering.description" state="translated">
         <source>auto_watering.description</source>
-        <target>Chaque incendie a 25% de chance de s'éteindre automatiquement à chaque cycle.</target>
+        <target>Chaque incendie a 25 % de chance de s'éteindre automatiquement à chaque cycle.</target>
       </segment>
       <segment id="auto_watering.lore" state="translated">
         <source>auto_watering.lore</source>
@@ -120,7 +120,7 @@
       </segment>
       <segment id="heat_lamp.description" state="translated">
         <source>heat_lamp.description</source>
-        <target>Dans le jardin, chaque plante a 50% de chance de produire un fruit supplémentaire.</target>
+        <target>Dans le jardin, chaque plante a 50 % de chance de produire un fruit supplémentaire.</target>
       </segment>
       <segment id="heat_lamp.lore" state="translated">
         <source>heat_lamp.lore</source>
@@ -134,7 +134,7 @@
       </segment>
       <segment id="parasite_elim.name" state="translated">
         <source>parasite_elim.name</source>
-        <target>Nano-Coccinelles</target>
+        <target>Nano-coccinelles</target>
       </segment>
       <segment id="parasite_elim.description" state="translated">
         <source>parasite_elim.description</source>
@@ -192,7 +192,7 @@
       </segment>
       <segment id="trail_reducer.description" state="translated">
         <source>trail_reducer.description</source>
-        <target>Le nombre d'assaillants qui vous rejoignent après un voyage est réduit à 25% (au lieu de 50%).</target>
+        <target>Le nombre d'assaillants qui vous rejoignent après un voyage est réduit à 25 % (au lieu de 50 %).</target>
       </segment>
       <segment id="trail_reducer.lore" state="translated">
         <source>trail_reducer.lore</source>
@@ -228,11 +228,11 @@
       </segment>
       <segment id="extra_hydroponpots.description" state="translated">
         <source>extra_hydroponpots.description</source>
-        <target>Ajoute 3 pots au jardin pour faire pousser de nouvelles plantes.</target>
+        <target>Ajoute 3 pots au Jardin pour faire pousser de nouvelles plantes.</target>
       </segment>
       <segment id="extra_hydroponpots.lore" state="translated">
         <source>extra_hydroponpots.lore</source>
-        <target>NERON a retrouvé les plans des pots hydroponiques du jardin, en récupérant les matériaux de la couveuse il devrait être possible de créer 3 pots supplémentaires.</target>
+        <target>NERON a retrouvé les plans des pots hydroponiques du Jardin, en récupérant les matériaux de la couveuse il devrait être possible de créer 3 pots supplémentaires.</target>
       </segment>
     </unit>
     <unit id="auxiliary_terminal">
@@ -250,7 +250,7 @@
       </segment>
       <segment id="auxiliary_terminal.lore" state="translated">
         <source>auxiliary_terminal.lore</source>
-        <target>Ça serait pratique si on faisait moins de marche pour arriver jusqu'ici... En détournant la prise 100V pour les rasoirs, vous montez un bridge SCCS vers NERON.</target>
+        <target>Ça serait pratique si on faisait moins de marche pour arriver jusqu'ici... En détournant la prise 100 V pour les rasoirs, vous montez un bridge SCCS vers NERON.</target>
       </segment>
     </unit>
     <unit id="thalasso">
@@ -264,7 +264,7 @@
       </segment>
       <segment id="thalasso.description" state="translated">
         <source>thalasso.description</source>
-        <target>Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 :hp: OU + 1 :pmo: OU + 2:pm:.</target>
+        <target>Si vous n'êtes pas Mush, chaque douche a 25 % de chance de vous rapporter +1 :hp: OU + 1 :pmo: OU + 2 :pm:.</target>
       </segment>
       <segment id="thalasso.lore" state="translated">
         <source>thalasso.lore</source>
@@ -282,7 +282,7 @@
       </segment>
       <segment id="bric_broc.description" state="translated">
         <source>bric_broc.description</source>
-        <target>À chaque cycle, le Daedalus a 15% de chances de ne pas partir en miette... ce qui évite les pépins spontanés.</target>
+        <target>À chaque cycle, le Daedalus a 15 % de chances de ne pas partir en miette... ce qui évite les pépins spontanés.</target>
       </segment>
       <segment id="bric_broc.lore" state="translated">
         <source>bric_broc.lore</source>
@@ -340,7 +340,7 @@
       </segment>
       <segment id="fission_coffee_roaster.lore" state="translated">
         <source>fission_coffee_roaster.lore</source>
-        <target>Yeehaw !! En branchant un bête accélérateur de particules portatif sur l'évacuation de la pompe du torréfacteur, il est désormais possible d'obtenir un café goûtu en moins de 12h !!</target>
+        <target>Yeehaw !! En branchant un bête accélérateur de particules portatif sur l'évacuation de la pompe du torréfacteur, il est désormais possible d'obtenir un café goûtu en moins de 12 h !!</target>
       </segment>
     </unit>
     <unit id="armour_corridor">
@@ -412,7 +412,7 @@
       </segment>
       <segment id="patrolship_blaster_gun.lore" state="translated">
         <source>patrolship_blaster_gun.lore</source>
-        <target>Un canon de 40mm c'est bien. Un Blaster de 80, c'est mieux.</target>
+        <target>Un canon de 40 mm c'est bien. Un Blaster de 80, c'est mieux.</target>
       </segment>
     </unit>
     <unit id="bay_door_xxl">
@@ -426,7 +426,7 @@
       </segment>
       <segment id="bay_door_xxl.description" state="translated">
         <source>bay_door_xxl.description</source>
-        <target>Les manœuvres de décollage et d’atterrissage n'occasionnent jamais de dégats aux patrouilleurs et au Daedalus.</target>
+        <target>Les manœuvres de décollage et d’atterrissage n'occasionnent jamais de dégâts aux Patrouilleurs et au Daedalus.</target>
       </segment>
       <segment id="bay_door_xxl.lore" state="translated">
         <source>bay_door_xxl.lore</source>
@@ -448,7 +448,7 @@
       </segment>
       <segment id="trash_load.lore" state="translated">
         <source>trash_load.lore</source>
-        <target>La majorité du contenu des stockages ne vous sert à rien dans la situation actuelle. Des ballons de plage, des vêtements de rechange, des tentes et de la crème solaire... Vous étiez sensés être réveillés une fois à destination, en même temps. Mais en les passant au peigne fin, vous devriez pouvoir retrouver des choses avec un peu plus d'utilité que prévu.</target>
+        <target>La majorité du contenu des stockages ne vous sert à rien dans la situation actuelle. Des ballons de plage, des vêtements de rechange, des tentes et de la crème solaire... Vous étiez censés être réveillés une fois à destination, en même temps. Mais en les passant au peigne fin, vous devriez pouvoir retrouver des choses avec un peu plus d'utilité que prévu.</target>
       </segment>
     </unit>
     <unit id="food_retailer">
@@ -516,7 +516,7 @@
       </segment>
       <segment id="neron_targeting_assist.description" state="translated">
         <source>neron_targeting_assist.description</source>
-        <target>Augmente la visée en vol et en tourelle de 25%.</target>
+        <target>Augmente la visée en vol et en tourelle de 25 %.</target>
       </segment>
       <segment id="neron_targeting_assist.lore" state="translated">
         <source>neron_targeting_assist.lore</source>
@@ -552,7 +552,7 @@
       </segment>
       <segment id="hydroponic_incubator.description" state="translated">
         <source>hydroponic_incubator.description</source>
-        <target>Dans le jardin, les jeunes pousses croissent 2 fois plus vite.</target>
+        <target>Dans le Jardin, les jeunes pousses croissent 2 fois plus vite.</target>
       </segment>
       <segment id="hydroponic_incubator.lore" state="translated">
         <source>hydroponic_incubator.lore</source>
@@ -624,7 +624,7 @@
       </segment>
       <segment id="neron_project_thread.description" state="translated">
         <source>neron_project_thread.description</source>
-        <target>Si un projet NERON est au-dessus de 0%, il est automatiquement amélioré de 5% à chaque cycle.</target>
+        <target>Si un projet NERON est au-dessus de 0 %, il est automatiquement amélioré de 5 % à chaque cycle.</target>
       </segment>
       <segment id="neron_project_thread.lore" state="translated">
         <source>neron_project_thread.lore</source>
@@ -678,7 +678,7 @@
       </segment>
       <segment id="patrolship_extra_ammo.description" state="translated">
         <source>patrolship_extra_ammo.description</source>
-        <target>Les patrouilleurs disposent de 6 charges supplémentaires.</target>
+        <target>Les Patrouilleurs disposent de 6 charges supplémentaires.</target>
       </segment>
       <segment id="patrolship_extra_ammo.lore" state="translated">
         <source>patrolship_extra_ammo.lore</source>
@@ -696,7 +696,7 @@
       </segment>
       <segment id="noise_reducer.description" state="translated">
         <source>noise_reducer.description</source>
-        <target>Augmente de 2 le nombre de :pa: maximal de chaque équipier.</target>
+        <target>Augmente de 2 le nombre maximal de :pa: de chaque équipier.</target>
       </segment>
       <segment id="noise_reducer.lore" state="translated">
         <source>noise_reducer.lore</source>
@@ -732,7 +732,7 @@
       </segment>
       <segment id="floor_heating.description" state="translated">
         <source>floor_heating.description</source>
-        <target>Diminue de 50% les blessures dues aux actions.</target>
+        <target>Diminue de 50 % les blessures dues aux actions.</target>
       </segment>
       <segment id="floor_heating.lore" state="translated">
         <source>floor_heating.lore</source>
@@ -750,7 +750,7 @@
       </segment>
       <segment id="oxy_more.description" state="translated">
         <source>oxy_more.description</source>
-        <target>À chaque cycle, le Daedalus a 20% de chance d'économiser l'oxygène de l'équipage.</target>
+        <target>À chaque cycle, le Daedalus a 20 % de chance d'économiser l'oxygène de l'équipage.</target>
       </segment>
       <segment id="oxy_more.lore" state="translated">
         <source>oxy_more.lore</source>
@@ -768,11 +768,11 @@
       </segment>
       <segment id="beat_box.description" state="translated">
         <source>beat_box.description</source>
-        <target>Rend disponible un Jukebox en Kit au Nexus. Le Jukebox permet de se relaxer en écoutant de la musique.</target>
+        <target>Rend disponible un jukebox en kit au Nexus. Le jukebox permet de se relaxer en écoutant de la musique.</target>
       </segment>
       <segment id="beat_box.lore" state="translated">
         <source>beat_box.lore</source>
-        <target>À chaque cycle, le Jukebox diffuse une chanson différente. Chaque personnage peut gagner 2 :pmo: quand sa chanson préférée passe.</target>
+        <target>À chaque cycle, le jukebox diffuse une chanson différente. Chaque personnage peut gagner 2 :pmo: quand sa chanson préférée passe.</target>
       </segment>
     </unit>
     <unit id="anabolics">
@@ -786,7 +786,7 @@
       </segment>
       <segment id="anabolics.description" state="translated">
         <source>anabolics.description</source>
-        <target>Génère 4 Anabolisants, qui peuvent être consommés pour donner 8 :pm: .</target>
+        <target>Génère 4 anabolisants, qui peuvent être consommés pour donner 8 :pm:.</target>
       </segment>
       <segment id="anabolics.lore" state="translated">
         <source>anabolics.lore</source>
@@ -858,11 +858,11 @@
       </segment>
       <segment id="meridon_scrambler.description" state="translated">
         <source>meridon_scrambler.description</source>
-        <target>Les Hunters ont 20% de chance, à chaque tir, de cibler un des leurs.</target>
+        <target>À chaque tir, les Hunters ont 20 % de chance de cibler un des leurs.</target>
       </segment>
       <segment id="meridon_scrambler.lore" state="translated">
         <source>meridon_scrambler.lore</source>
-        <target>Le théorème de Gauss-Fréon. Voilà une arme intéressante contre la fabuleuse synchronisation Mush, en vous penchant sur les fréquence de résonance des harmoniques de Fourrier, vous vous rendez compte que cette gigantesque carcasse peut servir de haut-parleur et instiller les trauma patulique dans la cervelle fragile des Hunter. Traumatisés par les coups répétés de son son ignoble, ils semblent désarçonnés [...].</target>
+        <target>Le théorème de Gauss-Fréon. Voilà une arme intéressante contre la fabuleuse synchronisation Mush, en vous penchant sur les fréquence de résonance des harmoniques de Fourier, vous vous rendez compte que cette gigantesque carcasse peut servir de haut-parleur et instiller les trauma patulique dans la cervelle fragile des Hunter. Traumatisés par les coups répétés de son son ignoble, ils semblent désarçonnés [...].</target>
       </segment>
     </unit>
     <unit id="mush_hunter_zc16h">
@@ -940,7 +940,7 @@
       </segment>
       <segment id="mush_races.lore" state="translated">
         <source>mush_races.lore</source>
-        <target>Après l'autopsie de la variété d'axolot dite de "l'Oracle de Wupperthal", on a pu retrouver certaines convergences entre une des branches de cet invertébré et la sécrétion de la variété 764 de bacillus. On a ainsi pu démontrer que le Mush et leurs composants non-saprophytes avaient mené à une branche de champignons Procaryotes qui mutait plus vite. Si vite que la souche Mush que nous connaissons possède plusieurs sous-branches qui sont détaillées dans cet article passionnant.</target>
+        <target>Après l'autopsie de la variété d'axolotl dite de "l'Oracle de Wupperthal", on a pu retrouver certaines convergences entre une des branches de cet invertébré et la sécrétion de la variété 764 de bacillus. On a ainsi pu démontrer que le Mush et leurs composants non-saprophytes avaient mené à une branche de champignons procaryotes qui mutait plus vite. Si vite que la souche Mush que nous connaissons possède plusieurs sous-branches qui sont détaillées dans cet article passionnant.</target>
       </segment>
     </unit>
     <unit id="mush_reproductive_system">
@@ -964,11 +964,11 @@
       </segment>
       <segment id="mycoalarm.name" state="translated">
         <source>mycoalarm.name</source>
-        <target>MycoAlarme</target>
+        <target>Myco-Alarmes</target>
       </segment>
       <segment id="mycoalarm.description" state="translated">
         <source>mycoalarm.description</source>
-        <target>Génère 5 **Myco-Alarmes**.</target>
+        <target>Génère 3 **Myco-Alarmes**.</target>
       </segment>
       <segment id="mycoalarm.lore" state="translated">
         <source>mycoalarm.lore</source>
@@ -1008,7 +1008,7 @@
       </segment>
       <segment id="natamy_rifle.lore" state="translated">
         <source>natamy_rifle.lore</source>
-        <target>En disséquant l'anatomie de certains crocodiles atteints de dysplasie des sphincters droit, le professeur DipNui avait mis en exergue les qualités de la réduction du système narratif de l'estomac des faucons. Vous ne savez plus vraiment pourquoi, mais ça vous a mené à tenter une petite expérience avec votre blaster. Il semblerait que la réduction induite par les toxines de Bacillus Anthracitus ait un effet dévastateur qui transformerait les ADN Mush en ADN "Zombi", ce qui causerait des dégradations effroyables dans les […]</target>
+        <target>En disséquant l'anatomie de certains crocodiles atteints de dysplasie des sphincters droit, le professeur DipNui avait mis en exergue les qualités de la réduction du système narratif de l'estomac des faucons. Vous ne savez plus vraiment pourquoi, mais ça vous a mené à tenter une petite expérience avec votre blaster. Il semblerait que la réduction induite par les toxines de Bacillus Anthracitus ait un effet dévastateur qui transformerait les ADN Mush en ADN "Zombie", ce qui causerait des dégradations effroyables dans les […]</target>
       </segment>
     </unit>
     <unit id="ncc_contact_lenses">
@@ -1076,7 +1076,7 @@
       </segment>
       <segment id="pheromodem.lore" state="translated">
         <source>pheromodem.lore</source>
-        <target>De tous les articles produits dans le Laboratoire de Finola, celui-ci reste encore à concrétiser. En rassemblant toutes les données de génomes et certaines anciennes recherches, vous découvrez le secret de la communication Mush. C'est un outil puissant : en ajoutant un pheromodem aux trackers, tous pourront bientôt jeter leurs vieux talky-walky !</target>
+        <target>De tous les articles produits dans le Laboratoire de Finola, celui-ci reste encore à concrétiser. En rassemblant toutes les données de génomes et certaines anciennes recherches, vous découvrez le secret de la communication Mush. C'est un outil puissant : en ajoutant un pheromodem aux trackers, tous pourront bientôt jeter leurs vieux talkies-walkies !</target>
       </segment>
     </unit>
     <unit id="retro_fungal_serum">
@@ -1086,7 +1086,7 @@
       </segment>
       <segment id="retro_fungal_serum.name" state="translated">
         <source>retro_fungal_serum.name</source>
-        <target>Serum Rétro-Fongique</target>
+        <target>Sérum rétro-fongique</target>
       </segment>
       <segment id="retro_fungal_serum.description" state="translated">
         <source>retro_fungal_serum.description</source>
@@ -1104,15 +1104,15 @@
       </segment>
       <segment id="spore_sucker.name" state="translated">
         <source>spore_sucker.name</source>
-        <target>Suceur de Spore</target>
+        <target>Extracteur de spores</target>
       </segment>
       <segment id="spore_sucker.description" state="translated">
         <source>spore_sucker.description</source>
-        <target>Génère un **Extracteur de spore**.</target>
+        <target>Génère un **Extracteur de spores**.</target>
       </segment>
       <segment id="spore_sucker.lore" state="translated">
         <source>spore_sucker.lore</source>
-        <target>Ne vous fiez pas à son allure inquiétante, l'extracteur de spore pourra au prix de lésions corporelles minimes, vous débarrasser de ces saletés de glandes fongiques purulentes.</target>
+        <target>Ne vous fiez pas à son allure inquiétante, l'extracteur de spores pourra au prix de lésions corporelles minimes, vous débarrasser de ces saletés de glandes fongiques purulentes.</target>
       </segment>
     </unit>
     <unit id="super_calculator">
@@ -1122,15 +1122,15 @@
       </segment>
       <segment id="super_calculator.name" state="translated">
         <source>super_calculator.name</source>
-        <target>Super Calculateur</target>
+        <target>Supercalculateur</target>
       </segment>
       <segment id="super_calculator.description" state="translated">
         <source>super_calculator.description</source>
-        <target>Génère un équipement au Nexus qui permet d'extraire des données des cristalites.</target>
+        <target>Génère un équipement au Nexus qui permet d'extraire des données des cristallites.</target>
       </segment>
       <segment id="super_calculator.lore" state="translated">
         <source>super_calculator.lore</source>
-        <target>Neron est certes un être sensible, mais niveau calcul c'est pas trop ça... En analysant la structure moléculaire du cristalite, vous pensez pouvoir bricoler de quoi lui permettre d'interpoler les données stockées à l'intérieur.</target>
+        <target>NERON est certes un être sensible, mais niveau calcul c'est pas trop ça... En analysant la structure moléculaire de la cristallite, vous pensez pouvoir bricoler de quoi lui permettre d'interpoler les données stockées à l'intérieur.</target>
       </segment>
     </unit>
     <unit id="tesla_sup2x">
@@ -1148,7 +1148,7 @@
       </segment>
       <segment id="tesla_sup2x.lore" state="translated">
         <source>tesla_sup2x.lore</source>
-        <target>En plongeant le bâtonnet dans une cuve de tesla en fusion, nous avons pu multiplier par deux son seuil de fusion tertiaire. Il nous est maintenant possible de stocker 100% d’énergie supplémentaire dans nos tourelles.</target>
+        <target>En plongeant le bâtonnet dans une cuve de tesla en fusion, nous avons pu multiplier par deux son seuil de fusion tertiaire. Il nous est maintenant possible de stocker 100 % d’énergie supplémentaire dans nos tourelles.</target>
       </segment>
     </unit>
     <unit id="ultra_healing_pomade">
@@ -1162,7 +1162,7 @@
       </segment>
       <segment id="ultra_healing_pomade.description" state="translated">
         <source>ultra_healing_pomade.description</source>
-        <target>Les actions de soins régénèrent un PV supplémentaire.</target>
+        <target>Les actions de soins régénèrent 1 :hp: supplémentaire.</target>
       </segment>
       <segment id="ultra_healing_pomade.lore" state="translated">
         <source>ultra_healing_pomade.lore</source>

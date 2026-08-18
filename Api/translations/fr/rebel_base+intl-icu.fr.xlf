@@ -8,11 +8,11 @@
       </segment>
       <segment id="hoverName" state="translated">
         <source>wolf.hoverName</source>
-        <target>Message des Enfants Perdus de Wolf</target>
+        <target>Message des Enfants perdus de Wolf</target>
       </segment>
       <segment id="description" state="translated">
         <source>wolf.description</source>
-        <target>Les enfants perdus de Wolf ont installé plusieurs antennes sur Terre ainsi qu'un centre d’émission à Mumbaï. Nous allons pouvoir émettre sur les ondes radios terriennes les nouvelles de votre odyssée. Vous êtes des héros.//**Tout l'équipage gagne 8:triumph:.**</target>
+        <target>Les Enfants perdus de Wolf ont installé plusieurs antennes sur Terre ainsi qu'un centre d’émission à Mumbaï. Nous allons pouvoir émettre sur les ondes radios terriennes les nouvelles de votre odyssée. Vous êtes des héros.//**Tout l'équipage gagne 8 :triumph:.**</target>
       </segment>
     </unit>
     <unit id="sirius">
@@ -40,7 +40,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>centauri.description</source>
-        <target>Nous sommes heureux de pouvoir rencontrer les héros de la guerre anti-Mush. Dans notre secteur, la guerre pour le contrôle des colonies fait rage. Pour faciliter vos opérations d'exploration de surface nous venons de vous transférer les plans du PL80-Blaster, un puissant canon à plasma qui doit être manipulé avec précaution. Battez-vous jusqu'au bout !//**Chaque Blaster apporte un point de puissance supplémentaire lors d'une expédition.**</target>
+        <target>Nous sommes heureux de pouvoir rencontrer les héros de la guerre anti-Mush. Dans notre secteur, la guerre pour le contrôle des colonies fait rage. Pour faciliter vos opérations d'exploration de surface nous venons de vous transférer les plans du PL80-Blaster, un puissant canon à plasma qui doit être manipulé avec précaution. Battez-vous jusqu'au bout !//**Chaque Blaster apporte 1 point de puissance supplémentaire lors d'une expédition.**</target>
       </segment>
     </unit>
     <unit id="kaladaan">
@@ -54,7 +54,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>kaladaan.description</source>
-        <target>Ici Kaladaan ! Nous remercions tout l'équipage du Daedalus pour avoir donné au peuple de Sol l'espoir d'un avenir meilleur. Depuis votre départ la résistance s'organise et nous avons déjà infiltré plusieurs administrations Mush. La Fédération sera bientôt renversée et nous reprendrons le contrôle de Sol !//**L'équipage gagne 6:pmo:.**</target>
+        <target>Ici Kaladaan ! Nous remercions tout l'équipage du Daedalus pour avoir donné au peuple de Sol l'espoir d'un avenir meilleur. Depuis votre départ la résistance s'organise et nous avons déjà infiltré plusieurs administrations Mush. La Fédération sera bientôt renversée et nous reprendrons le contrôle de Sol !//**L'équipage gagne 6 :pmo:.**</target>
       </segment>
     </unit>
     <unit id="luyten_ceti">
@@ -82,7 +82,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>cygni.description</source>
-        <target>Nous saluons l'équipage du Daedalus. 61 Cygni a été exploré durant votre voyage. La fédération ne sait pas que l'intégralité de notre formation est humaine. Nous simulons des envois d'information réguliers a l'aide d'un Pheromodem évolué. En trompant la vigilance du Mush nous préparons la contre-attaque armée de la rébellion depuis ce système. Les plans de notre missile SP2SP-230 ont été transférés vers NERON.//**L'équipage gagne 3:pmo:.**//**Les dégâts des Patrouilleurs sont augmentés d'un point.**</target>
+        <target>Nous saluons l'équipage du Daedalus. 61 Cygni a été exploré durant votre voyage. La fédération ne sait pas que l'intégralité de notre formation est humaine. Nous simulons des envois d'information réguliers a l'aide d'un Pheromodem évolué. En trompant la vigilance du Mush nous préparons la contre-attaque armée de la rébellion depuis ce système. Les plans de notre missile SP2SP-230 ont été transférés vers NERON.//**L'équipage gagne 3 :pmo:.**//**Les dégâts des Patrouilleurs sont augmentés d'1 point.**</target>
       </segment>
     </unit>
     <unit id="eridiani">

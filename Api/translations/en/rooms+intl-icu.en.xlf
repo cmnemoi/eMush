@@ -372,7 +372,7 @@
       </segment>
       <segment id="enter_loc_prep" state="translated">
         <source>alpha_dorm.enter_loc_prep</source>
-        <target>to the</target>
+        <target>from the</target>
       </segment>
       <segment id="exit_loc_prep" state="translated">
         <source>alpha_dorm.exit_loc_prep</source>

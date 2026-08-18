@@ -283,5 +283,11 @@
         <target>command_refused</target>
       </segment>
     </unit>
+    <unit id="travel_to_event_planet">
+      <segment id="travel_to_event_planet" state="initial">
+        <source>travel_to_event_planet</source>
+        <target>travel_to_event_planet</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

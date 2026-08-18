@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="en">
+  <file id="document.ext">
+    <unit id="treasure_hunt_tablet">
+      <segment id="treasure_hunt_tablet" state="translated">
+        <source>treasure_hunt_tablet</source>
+        <target>This is the diary of the amazing Grixar, holding all its adventures and even more. He narrates each planet looted, each heart stolen, each lover he would have travelled with among the stars... It's easy to imagine yourself as one of them. Along the years, problems stacked. Treason multiply : pretty Roberto sells him to the awful Madame Trixa, twice step-mother of the captain, against an universal pardon... Grixar ends up fleeing through the impossible thirteen dimension, with intent to never come back. He's surely dead since a long time ago, but maybe his treasure will still be there?//It's possible to enter planets coordinates, but, as is, it's impossible to get there. Someone should have a look at our emergency reactor to know how to solve that. However, the caracteristics of the planet where Grixar went are worrying. Without a doubt, new challenges will wait for you there.</target>
+      </segment>
+    </unit>
+    <unit id="mush_research_review">
+      <segment id="mush_research_review" state="translated">
+        <source>mush_research_review</source>
+        <target>In an effort to allow real advances in Mush research://I've left my finest sample of Mush aboard the Daedalus. It is a stage 3 mushroom dendrite. It is also my opinion 
+that Zhong is an immensely valuable resource and studying her genetic makeup could yield incredible rewards. A cryogenized body of Mush could be an invaluable source of data. Also, wearing an apron is essential too keep our study clean.//Research must be carried out carefully and discretely though, as the Mush is everywhere and will certainly attempt to impede our research. Science will 
+defeat the Mush. It has to.//Nils Carlsson</target>
+      </segment>
+    </unit>
+    <unit id="commanders_manual">
+      <segment id="commanders_manual" state="translated">
+        <source>commanders_manual</source>
+        <target>Note from Commander Kim Jin Su.//Too many captains still have no idea how to run a standard spatial vessel. Nowadays, thanks to PILGRED, fuel propulsion has been revolutionized, relegated to archaic status. However, it would be remiss of me to not leave a record of the correct emergency voyage procedure in the event that anything should happen to me.//1. Find a planet.//2. Load the combustion chamber with the right number of fuel units.//3. Ensure that all patrol ships are back on board, and that communications have no in-progress tasks.//4. Turn the Daedalus in the right direction.//5. You may now start the emergency travel procedure powered by fuel.//I hope you will never need it, dear crew.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

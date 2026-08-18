@@ -486,7 +486,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_pet.description</source>
-        <target>TODO</target>
+        <target>Skinner den detected.</target>
       </segment>
     </unit>
     <unit id="treasure_hunt_ship">

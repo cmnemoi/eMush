@@ -101,7 +101,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>frozen.description</source>
-        <target>Cette nourriture est hyper-gelée. Sa consommation telle quelle peut s'avérer difficile.</target>
+        <target>Cette nourriture est hypergelée. Sa consommation telle quelle peut s'avérer difficile.</target>
       </segment>
     </unit>
     <unit id="contaminated">
@@ -117,7 +117,7 @@
     <unit id="plant_young">
       <segment id="name" state="translated">
         <source>plant_young.name</source>
-        <target>Jeune Plant</target>
+        <target>Jeune plant</target>
       </segment>
       <segment id="description" state="translated">
         <source>plant_young.description</source>
@@ -201,7 +201,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>berzerk.description</source>
-        <target>Vous avez muté. Vous avez un bonus à vos dommages. Vous accorde également le statut gardien permanent.</target>
+        <target>Vous avez muté. Vous avez un bonus à vos dommages. Vous accorde également le statut **Gardien** permanent.</target>
       </segment>
     </unit>
     <unit id="brainsync">
@@ -257,7 +257,7 @@
     <unit id="eureka_moment">
       <segment id="name" state="translated">
         <source>eureka_moment.name</source>
-        <target>Coup de Génie</target>
+        <target>Coup de génie</target>
       </segment>
       <segment id="description" state="translated">
         <source>eureka_moment.description</source>
@@ -267,7 +267,7 @@
     <unit id="first_time">
       <segment id="name" state="translated">
         <source>first_time.name</source>
-        <target>Première Fois</target>
+        <target>Première fois</target>
       </segment>
       <segment id="description" state="translated">
         <source>first_time.description</source>
@@ -331,7 +331,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>highly_inactive.description</source>
-        <target>Vous êtes un grand inactif, vous ne vous êtes pas connecté depuis 48h, vous pénalisez donc votre équipage qui est en droit de disposer de vous.</target>
+        <target>Vous êtes un grand inactif, vous ne vous êtes pas connecté depuis 48 h, vous pénalisez donc votre équipage qui est en droit de disposer de vous.</target>
       </segment>
     </unit>
     <unit id="hyperactive">
@@ -361,7 +361,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>inactive.description</source>
-        <target>Vous ne vous êtes pas connecté depuis 24h. Bonne chance pour la suite...</target>
+        <target>Vous ne vous êtes pas connecté depuis 24 h. Bonne chance pour la suite...</target>
       </segment>
     </unit>
     <unit id="lost">
@@ -380,7 +380,7 @@
         <target>{character_gender, select,
             male {Allongé}
             female {Allongée}
-            other {Allongé.e}
+            other {Allongé·e}
             }</target>
       </segment>
       <segment id="description" state="translated">
@@ -388,7 +388,7 @@
         <target>{character_gender, select,
             male {Vous êtes allongé.}
             female {Vous êtes allongée.}
-            other {Vous êtes allongé.e.}
+            other {Vous êtes allongé·e.}
             }</target>
       </segment>
     </unit>
@@ -409,7 +409,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>mush.description</source>
-        <target>Vous faites partie du Mush. // :point: Vous ne gagnez **pas d'énergie en mangeant**, mais **n'avez jamais faim.** // :point: Votre :pmo: moral est toujours au **maximum**. // :point: Vous pouvez lire les **propriétés des consommables**. // :point: Vous ne pouvez **pas tomber malade.**</target>
+        <target>Vous faites partie du Mush. // :point: Vous ne gagnez **pas d':pa: énergie en mangeant**, mais **n'avez jamais faim.** // :point: Votre :pmo: moral est toujours au **maximum**. // :point: Vous pouvez lire les **propriétés des consommables**. // :point: Vous ne pouvez **pas tomber malade.**</target>
       </segment>
     </unit>
     <unit id="pariah">
@@ -429,7 +429,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>pacifist.description</source>
-        <target>Dans votre pièce, toutes les actions agressives coûtent 2 :pa: supplémentaires</target>
+        <target>Dans votre pièce, toutes les actions agressives coûtent 2 :pa: supplémentaires.</target>
       </segment>
     </unit>
     <unit id="pregnant">
@@ -499,7 +499,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>updating.description</source>
-        <target>NERON installe des mises à jour. NE PAS ÉTEINDRE L'APPAREIL !!! 30%</target>
+        <target>NERON installe des mises à jour. NE PAS ÉTEINDRE L'APPAREIL !!! 30 %</target>
       </segment>
     </unit>
     <unit id="fire.name">
@@ -517,7 +517,7 @@
     <unit id="mush_trapped.name">
       <segment state="translated">
         <source>mush_trapped.name</source>
-        <target>Salle piégée!</target>
+        <target>Salle piégée !</target>
       </segment>
     </unit>
     <unit id="mush_trapped.description">
@@ -553,7 +553,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>chicken_infected.description</source>
-        <target>TODO</target>
+        <target>Mi-mush, mi-cyber, mi-poule et mi-pirate, ce gallinacé aux talents multiples piégera les étagères du Daedalus à chaque pondaison.</target>
       </segment>
     </unit>
     <unit id="antique_perfume_immunized">
@@ -579,13 +579,13 @@
     <unit id="turbo_drone_upgrade">
       <segment id="description" state="translated">
         <source>turbo_drone_upgrade.description</source>
-        <target>:point: Turbo : 80% de chance d'agir une seconde fois à chaque cycle.</target>
+        <target>:point: Turbo : 80 % de chance d'agir une seconde fois à chaque cycle.</target>
       </segment>
     </unit>
     <unit id="pilot_drone_upgrade">
       <segment id="description" state="translated">
         <source>pilot_drone_upgrade.description</source>
-        <target>:point: Pilote : Peut emprunter un patrouilleur et tenter de détruire tous les hunters avant de se déplacer. A un bonus de 20% en visée par rapport aux humains.</target>
+        <target>:point: Pilote : Peut emprunter un Patrouilleur et tenter de détruire tous les hunters avant de se déplacer. A un bonus de 20 % en visée par rapport aux humains.</target>
       </segment>
     </unit>
     <unit id="sensor_drone_upgrade">
@@ -654,7 +654,7 @@
     <unit id="spore_sucker_used">
       <segment id="name" state="translated">
         <source>spore_sucker_used.name</source>
-        <target>Nuque endomagée</target>
+        <target>Nuque endommagée</target>
       </segment>
       <segment id="description" state="translated">
         <source>spore_sucker_used.description</source>

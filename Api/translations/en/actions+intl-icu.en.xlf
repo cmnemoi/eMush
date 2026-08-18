@@ -1575,7 +1575,7 @@ Or you simply need some fresh air.... or not.</target>
     <unit id="cure_cat">
       <segment id="name" state="translated">
         <source>cure_cat.name</source>
-        <target>Innoculate</target>
+        <target>Inoculate</target>
       </segment>
       <segment id="description" state="translated">
         <source>cure_cat.description</source>
@@ -1585,7 +1585,7 @@ Or you simply need some fresh air.... or not.</target>
     <unit id="convert_cat">
       <segment id="name" state="translated">
         <source>convert_cat.name</source>
-        <target>Caresse Infectieuse</target>
+        <target>Infectious cuddling</target>
       </segment>
       <segment id="description" state="translated">
         <source>convert_cat.description</source>
@@ -1593,33 +1593,33 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
     </unit>
     <unit id="take_chicken">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>take_chicken.name</source>
-        <target>take_chicken.name</target>
+        <target>Pick up</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>take_chicken.description</source>
-        <target>take_chicken.description</target>
+        <target>Pick up this bird and put it in your inventory.</target>
       </segment>
     </unit>
     <unit id="cure_chicken">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>cure_chicken.name</source>
-        <target>cure_chicken.name</target>
+        <target>Inoculate</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cure_chicken.description</source>
-        <target>cure_chicken.description</target>
+        <target>The anti-Mush vaccine injects a powerful retro-fungal compound which removes all Mush symptoms in the target.//The bird flaps its wings, pecks, and makes it clear by every means at its disposal that it does not want that needle coming near it.</target>
       </segment>
     </unit>
     <unit id="convert_chicken">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>convert_chicken.name</source>
-        <target>convert_chicken.name</target>
+        <target>Infectious Feeding</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>convert_chicken.description</source>
-        <target>convert_chicken.description</target>
+        <target>Allows you to discreetly infect the chicken with a spore and turn it into a Mush agent.</target>
       </segment>
     </unit>
     <unit id="torture">
@@ -2011,6 +2011,61 @@ Or you simply need some fresh air.... or not.</target>
       <segment id="description" state="translated">
         <source>check_jukebox_songs.description</source>
         <target>Lets you see the next three songs in the playlist. Maybe your favorite will be playing soon?</target>
+      </segment>
+    </unit>
+    <unit id="feed_the_pet">
+      <segment id="name" state="translated">
+        <source>feed_the_pet.name</source>
+        <target>Feed</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>feed_the_pet.description</source>
+        <target>This adorable creature isn't much different from ordinary pets. It waits for just one thing all day long: food.//
+It won't leave you alone as long as it thinks you're going to feed it again. And while it can't exactly defend you, it can make enough noise to distract attackers. When the ship comes crashing down on you, it might even save your life. Just be careful not to give it a spore by "mistake," though...</target>
+      </segment>
+    </unit>
+    <unit id="travel_to_event_planet">
+      <segment id="name" state="translated">
+        <source>travel_to_event_planet.name</source>
+        <target>Travel to the last known coordinates of Grixar's ship.</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>travel_to_event_planet.description</source>
+        <target>Move the ship through the thirteenth dimension to reach the last known location of the legendary pirate Grixar the Intrepid.//Consumes fuel from the combustion chamber but does not require it to operate.//***This action is extremely dangerous and will cause numerous incidents aboard the ship. Do not perform it without your teammates' consent if you are human.***</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>travel_to_event_planet.confirmation</source>
+        <target>This action has far-reaching consequences. Are you sure you want to continue?</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_reactor">
+      <segment id="name" state="translated">
+        <source>upgrade_reactor.name</source>
+        <target>Upgrade reactor</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>upgrade_reactor.description</source>
+        <target>Upgrade the emergency reactor so it can transport you to the coordinates found on Captain Grixar's tablet. It's unlikely the warranty will still be valid after that.</target>
+      </segment>
+    </unit>
+    <unit id="open_treasure">
+      <segment id="name" state="translated">
+        <source>open_treasure.name</source>
+        <target>Open treasure</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>open_treasure.description</source>
+        <target>You aren't planning to keep it like that after coming all this way, right?</target>
+      </segment>
+    </unit>
+    <unit id="search_for_the_treasure">
+      <segment id="name" state="translated">
+        <source>search_for_the_treasure.name</source>
+        <target>Search for the treasure</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>search_for_the_treasure.description</source>
+        <target>If you think that Grixar's treasure is here, you can grab your shovels, pickaxes, and any other tools to search the area.</target>
       </segment>
     </unit>
   </file>

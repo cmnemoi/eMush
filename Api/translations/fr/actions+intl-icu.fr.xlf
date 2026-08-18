@@ -409,7 +409,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>retrieve_oxygen.description</source>
-        <target>Fantastique, le système d'Oxy Rev vous permet d'enlever de l'oxygène des réservoirs. Attention à bien fermer la vanne et à vous laver les mains.</target>
+        <target>Fantastique, le système d'OxyRev vous permet d'enlever de l'oxygène des réservoirs. Attention à bien fermer la vanne et à vous laver les mains.</target>
       </segment>
     </unit>
     <unit id="insert_fuel">
@@ -419,7 +419,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>insert_fuel.description</source>
-        <target>Injecte le Fuel dans un Réservoir.</target>
+        <target>Injecte le fuel dans un réservoir.</target>
       </segment>
     </unit>
     <unit id="retrieve_fuel">
@@ -459,7 +459,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>take_shower.description</source>
-        <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution : la douche.</target>
+        <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent... une seule solution : la douche.</target>
       </segment>
     </unit>
     <unit id="wash_in_sink">
@@ -469,7 +469,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>wash_in_sink.description</source>
-        <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution : la dou... Ça sera plutôt l'évier finalement.
+        <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent... une seule solution : la dou... Ça sera plutôt l'évier finalement.
 //
 Cette action n'est disponible qu'une fois par jour pour l'ensemble de l'équipage.
 Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.</target>
@@ -502,7 +502,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>heal.description</source>
-        <target>Rend des Points de Vie ( :hp: ) à la cible. Si celle-ci est malade, enlève un point de maladie à l'une de ses maladies.</target>
+        <target>Rend des Points de Vie (:hp:) à la cible. Si celle-ci est malade, enlève un point de maladie à l'une de ses maladies.</target>
       </segment>
     </unit>
     <unit id="self_heal">
@@ -512,7 +512,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>self_heal.description</source>
-        <target>Vous rend des Points de Vie (:hp:) . Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</target>
+        <target>Vous rend des Points de Vie (:hp:). Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</target>
       </segment>
     </unit>
     <unit id="ultraheal">
@@ -658,7 +658,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>try_kube.description</source>
-        <target>Tenter le Kube qui rend fou. Bien peu arrivent à le résoudre en moins de 26 mouvements.</target>
+        <target>Tenter le kube qui rend fou. Bien peu arrivent à le résoudre en moins de 26 mouvements.</target>
       </segment>
     </unit>
     <unit id="public_broadcast">
@@ -850,7 +850,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>usurp_identity.description</source>
         <target>L'usurpation d'identité n'est pas une blague, Kim !
         //
-        Echange le personnage avec ce joueur, exactement comme **Transfert** mais sans aucun effet gameplay.</target>
+        Échange le personnage avec ce joueur, exactement comme **Transfert** mais sans aucun effet gameplay.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>usurp_identity.confirmation</source>
@@ -1024,7 +1024,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>renovate.description</source>
         <target>Remettre à neuf un patrouilleur peut changer le cours des batailles futures.
         //
-        Nécessite un Débris Métallique.</target>
+        Nécessite un Débris métallique.</target>
       </segment>
     </unit>
     <unit id="auto_eject">
@@ -1050,7 +1050,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>insert_fuel_chamber.description</source>
-        <target>Injecte le fuel dans la Chambre de Combustion du moteur.</target>
+        <target>Injecte le fuel dans la chambre de combustion du moteur.</target>
       </segment>
     </unit>
     <unit id="retrieve_fuel_chamber">
@@ -1545,7 +1545,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>upgrade_drone_to_turbo.description</source>
-        <target>Permet d'ajouter à ce drone ://**80% de chance d'agir une seconde fois à chaque cycle.**//Le Drone est capable d'évoluer, profitez-en !</target>
+        <target>Permet d'ajouter à ce drone ://**80 % de chance d'agir une seconde fois à chaque cycle.**//Le Drone est capable d'évoluer, profitez-en !</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_firefighter">
@@ -1565,7 +1565,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>upgrade_drone_to_pilot.description</source>
-        <target>Permet d'ajouter à ce drone ://**Tente d'emprunter un patrouilleur et de détruire tous les hunters avant de se déplacer. A un bonus de 20% en visée par rapport aux humains.**//Le Drone est capable d'évoluer, profitez-en !</target>
+        <target>Permet d'ajouter à ce drone ://**Tente d'emprunter un patrouilleur et de détruire tous les hunters avant de se déplacer. A un bonus de 20 % en visée par rapport aux humains.**//Le Drone est capable d'évoluer, profitez-en !</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_sensor">
@@ -1585,7 +1585,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>take_cat.description</source>
-        <target>Soulevez ce gros matou et placez-le dans votre inventaire. Attention, il griffe!</target>
+        <target>Soulevez ce gros matou et placez-le dans votre inventaire. Attention, il griffe !</target>
       </segment>
     </unit>
     <unit id="pet_cat">
@@ -1625,7 +1625,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>take_chicken.description</source>
-        <target>Soulevez cette volaille et placez-le dans votre inventaire.</target>
+        <target>Soulevez cette volaille et placez-la dans votre inventaire.</target>
       </segment>
     </unit>
     <unit id="cure_chicken">
@@ -1645,7 +1645,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>convert_chicken.description</source>
-        <target>Permet de contaminer discrètement la poule avec une spore et d'en faire un agent du Mush. </target>
+        <target>Permet de contaminer discrètement la poule avec une spore et d'en faire un agent du Mush.</target>
       </segment>
     </unit>
     <unit id="torture">
@@ -1735,7 +1735,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>compute_eden.description</source>
-        <target>L'extraction des données du Cristalite peut vous apprendre beaucoup de choses sur les Edenistes.</target>
+        <target>L'extraction des données de la cristallite peut vous apprendre beaucoup de choses sur les Edénistes.</target>
       </segment>
     </unit>
     <unit id="travel_to_eden">
@@ -1852,7 +1852,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>play_with_dog.description</source>
-        <target>Enfin! Il est l'heure de jouer!</target>
+        <target>Enfin ! Il est l'heure de jouer !</target>
       </segment>
     </unit>
     <unit id="accept_trade">
@@ -1926,7 +1926,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>adapt_epigenetics.description</source>
-        <target>Permet de réinitialiser votre sélection de compétences Mush (excepté Epigénétique).</target>
+        <target>Permet de réinitialiser votre sélection de compétences Mush (excepté Épigénétique).</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>adapt_epigenetics.confirmation</source>
@@ -1970,7 +1970,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>force_exploration_step.description</source>
-        <target>Avance l'expédition d'un cycle. Finola estime une amélioration de survie de ±0,0002%. Étude non revue par les pairs (ni par NERON).</target>
+        <target>Avance l'expédition d'un cycle. Finola estime une amélioration de survie de ±0,0002 %. Étude non revue par les pairs (ni par NERON).</target>
       </segment>
     </unit>
     <unit id="recharge_battery">
@@ -2004,7 +2004,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>lie_down_in_ship.description</source>
-        <target>On manque de place là dedans, mais la couette promet une sieste adéquate. // S'allonger permet à chaque cycle passé de gagner 1 :pa:, ainsi que 1 :pmo: si un psy est présent... Mais monter à deux dans cet appareil serait ambitieux.</target>
+        <target>On manque de place là-dedans, mais la couette promet une sieste adéquate. // S'allonger permet à chaque cycle passé de gagner 1 :pa:, ainsi que 1 :pmo: si un psy est présent... Mais monter à deux dans cet appareil serait ambitieux.</target>
       </segment>
     </unit>
     <unit id="read_schoolbooks">
@@ -2020,11 +2020,11 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
     <unit id="use_reset_vaccine">
       <segment id="name" state="translated">
         <source>use_reset_vaccine.name</source>
-        <target>Réinvention Totale</target>
+        <target>Réinvention totale</target>
       </segment>
       <segment id="description" state="translated">
         <source>use_reset_vaccine.description</source>
-        <target>Devenez quelqu'un de nouveau de manière soudaine et permanente. Vos compétences seront déselectionnées et vous aurez accès à une toute nouvelle sélection.</target>
+        <target>Devenez quelqu'un de nouveau de manière soudaine et permanente. Vos compétences seront désélectionnées et vous aurez accès à une toute nouvelle sélection.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>use_reset_vaccine.confirmation</source>
@@ -2069,7 +2069,7 @@ Elle ne vous lâchera plus tant qu'elle pensera que vous allez la nourrir à nou
     <unit id="travel_to_event_planet">
       <segment id="name" state="translated">
         <source>travel_to_event_planet.name</source>
-        <target>Voyager jusqu'aux dernières coordonnées du vaisseau de Grixar </target>
+        <target>Voyager jusqu'aux dernières coordonnées du vaisseau de Grixar</target>
       </segment>
       <segment id="description" state="translated">
         <source>travel_to_event_planet.description</source>

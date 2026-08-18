@@ -40,7 +40,7 @@
     <unit id="mushAmount">
       <segment state="translated">
         <source>mushAmount</source>
-        <target>Nombre de Mush</target>
+        <target>Nombre de Mushs</target>
       </segment>
     </unit>
     <unit id="neronProjects">

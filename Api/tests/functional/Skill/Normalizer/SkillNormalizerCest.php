@@ -37,7 +37,7 @@ final class SkillNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals([
             'key' => 'expert',
             'name' => 'Expert',
-            'description' => 'Vos compétences sont incroyables mais vous travaillez sans vraiment vous préoccuper de certaines conséquences...//:point: Vos **réussites aux actions** sont **améliorées de 20%**, mais les **blessures** et les **salissures** le sont aussi.',
+            'description' => 'Vos compétences sont incroyables mais vous travaillez sans vraiment vous préoccuper de certaines conséquences...//:point: Vos **réussites aux actions** sont **améliorées de 20 %**, mais les **blessures** et les **salissures** le sont aussi.',
             'isMushSkill' => false,
         ], $normalized);
     }
@@ -73,10 +73,10 @@ final class SkillNormalizerCest extends AbstractFunctionalTest
 
         $I->assertEquals([
             'key' => 'disabled_sprinter',
-            'name' => 'Sprinter',
-            'description' => 'Le Sprinter débute toujours sa journée du bon pied ! Il profite de Points de Mouvement supplémentaires.
+            'name' => 'Sprinteur',
+            'description' => 'Le Sprinteur débute toujours sa journée du bon pied ! Il profite de Points de Mouvement supplémentaires.
 //
-:point: Vous gagnez **2** :pm: de plus à chaque conversion :pa::pm: (non cumulatif avec la **Trottinette**).
+:point: Vous gagnez **2** :pm: de plus à chaque conversion :pa:/:pm: (non cumulatif avec la **Trottinette**).
 //
 :point: **+1 étape** en exploration.',
             'isMushSkill' => false,

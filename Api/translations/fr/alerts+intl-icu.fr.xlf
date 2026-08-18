@@ -70,7 +70,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>low_oxygen.description</source>
-        <target>**Moins de 1 jour** d'Oxygène en réserve !
+        <target>**Moins de 1 jour** d'oxygène en réserve !
                         Si la situation ne change pas rapidement, l'équipage va mourir.</target>
       </segment>
     </unit>
@@ -81,7 +81,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>outcast.description</source>
-        <target>{character} est {character_gender, select, male {un} female {une} other {un.e}} paria, vous devriez consulter l'équipage pour savoir ce qu'il faut en faire.</target>
+        <target>{character} est {character_gender, select, male {un} female {une} other {un·e}} paria, vous devriez consulter l'équipage pour savoir ce qu'il faut en faire.</target>
       </segment>
     </unit>
     <unit id="lost_crewmate">

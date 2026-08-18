@@ -740,5 +740,35 @@ Todas tus acciones se vuelven más difíciles.</target>
         <target>Este objeto está bloqueado biométricamente a su propietario: {target_character_icon} **{target_character}**. Solo puede ser utilizado por **{target_character}** mientras este con vida.</target>
       </segment>
     </unit>
+    <unit id="spore_sucker_used">
+      <segment id="name" state="initial">
+        <source>spore_sucker_used.name</source>
+        <target>spore_sucker_used.name</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>spore_sucker_used.description</source>
+        <target>Tu cuello sigue frágil después de usar este horrible dispositivo. Te será imposible volver a usarlo o recostarte {charge, select, 1 {durante el siguiente ciclo.} other {durante los siguientes {charges} ciclos.}}</target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_infected">
+      <segment id="name" state="initial">
+        <source>baby_skinner_infected.name</source>
+        <target>baby_skinner_infected.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>baby_skinner_infected.description</source>
+        <target>baby_skinner_infected.description</target>
+      </segment>
+    </unit>
+    <unit id="protected_by_pet">
+      <segment id="name" state="initial">
+        <source>protected_by_pet.name</source>
+        <target>protected_by_pet.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>protected_by_pet.description</source>
+        <target>protected_by_pet.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

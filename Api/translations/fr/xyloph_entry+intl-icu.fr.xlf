@@ -58,7 +58,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>version.description</source>
-        <target>Une partie des travaux de recherche de Janice sur Xyloph-17 sont intégrés à la mémoire de NERON.//**Fait avancer le niveau de mise à jour de NERON de 25%.**</target>
+        <target>Une partie des travaux de recherche de Janice sur Xyloph-17 sont intégrés à la mémoire de NERON.//**Fait avancer le niveau de mise à jour de NERON de 25 %.**</target>
       </segment>
     </unit>
     <unit id="ghost_sample">
@@ -74,7 +74,7 @@
     <unit id="ghost_chun">
       <segment id="name" state="translated">
         <source>ghost_chun.name</source>
-        <target>Codex du gênome de Zhong Chun</target>
+        <target>Codex du génome de Zhong Chun</target>
       </segment>
       <segment id="description" state="translated">
         <source>ghost_chun.description</source>
@@ -88,7 +88,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>kivanc.description</source>
-        <target>Vous êtes en contact avec Kivanç Terzi qui fédère une grande partie de la rébellion sur le système Sol, son aide vous sera précieuse pour décoder les messages de bases rebelles.//**Vous accorde 100% de bonus sur les décodages de bases rebelles.**</target>
+        <target>Vous êtes en contact avec Kivanç Terzi qui fédère une grande partie de la rébellion sur le système Sol, son aide vous sera précieuse pour décoder les messages de bases rebelles.//**Vous accorde 100 % de bonus sur les décodages de bases rebelles.**</target>
       </segment>
     </unit>
     <unit id="cook">
@@ -98,7 +98,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>cook.description</source>
-        <target>Vous tombez sur un fichier contenant des recettes. Beaucoup de recettes. Beaucoup, beaucoup de recettes.//**Provoque l'impression d'un Apprentron pour devenir Cuistot.**</target>
+        <target>Vous tombez sur un fichier contenant des recettes. Beaucoup de recettes. Beaucoup, beaucoup de recettes.//**Provoque l'impression d'un Apprenton pour devenir Cuistot.**</target>
       </segment>
     </unit>
     <unit id="mage_books">
@@ -108,7 +108,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>mage_books.description</source>
-        <target>Vous avis mis la main sur l'archive du centre de formation de Xyloph ! Ce trésor d'intelligence vous aidera à former les abrutis de votre équipage...//**Provoque l'impression de 2** ***Apprentrons***.</target>
+        <target>Vous avis mis la main sur l'archive du centre de formation de Xyloph ! Ce trésor d'intelligence vous aidera à former les abrutis de votre équipage...//**Provoque l'impression de 2** ***Apprentons***.</target>
       </segment>
     </unit>
     <unit id="list">

@@ -539,13 +539,13 @@ other{Charges are the number of times you can use an object. **Charged** objects
       </segment>
     </unit>
     <unit id="chicken_infected">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>chicken_infected.name</source>
-        <target>chicken_infected.name</target>
+        <target>Infected</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>chicken_infected.description</source>
-        <target>chicken_infected.description</target>
+        <target>Half-mush, half-cyber, half-chicken and half-pirate, this gallinaceous bird of multiple talents will trap Daedalus shelves with each egg.</target>
       </segment>
     </unit>
     <unit id="antique_perfume_immunized">
@@ -641,6 +641,36 @@ other{Charges are the number of times you can use an object. **Charged** objects
       <segment id="description" state="translated">
         <source>private_property.description</source>
         <target>This item is biometrically locked to its owner {target_character_icon}  **{target_character}**. It can only be used by {target_character_gender, select, female {her while she is} male {him while he is} other {them while they are}} still alive.</target>
+      </segment>
+    </unit>
+    <unit id="spore_sucker_used">
+      <segment id="name" state="translated">
+        <source>spore_sucker_used.name</source>
+        <target>Damaged neck</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>spore_sucker_used.description</source>
+        <target>Your neck is still fragile after using this horrible device. It will be impossible for you to use it again or lie down {charge, select, 1 {until the next cycle.} other {until the next {charge} cycles.}}</target>
+      </segment>
+    </unit>
+    <unit id="baby_skinner_infected">
+      <segment id="name" state="translated">
+        <source>baby_skinner_infected.name</source>
+        <target>Infected</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>baby_skinner_infected.description</source>
+        <target>Congratulations on converting a skinner to the Mush.//Any **human** crew member that **Sally** will **bite** will be **contaminated by a spore**.//*You can see this message because you're part of the Mush.*</target>
+      </segment>
+    </unit>
+    <unit id="protected_by_pet">
+      <segment id="name" state="translated">
+        <source>protected_by_pet.name</source>
+        <target>Shielded by Sally</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>protected_by_pet.description</source>
+        <target>This person is stalked continuously by a lovely ball of fur, who hopes to get more food. She puts herself without hesitation between them and the others, whining.//:point: Attacks have half the chances to succeed.//:point: Sally monitors the hand feeding her and may sometimes push her away from falling steel plating.//:point: Sally is not very loyal, she just wants some food...</target>
       </segment>
     </unit>
   </file>

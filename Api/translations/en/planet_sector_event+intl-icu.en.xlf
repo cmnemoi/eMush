@@ -295,6 +295,10 @@
         <source>artefact.wreck_description</source>
         <target>The wreck contains a strange alien artifact... Well snatched!</target>
       </segment>
+      <segment id="treasure_hunt_pet_description" state="translated">
+        <source>artefact.treasure_hunt_pet_description</source>
+        <target>You found a group of skinners, completely wrecked by an unknown creature. You walk toward their den. Inside, no fresh chab-chab carcass, but a juvenile skinner waiting for you. Convincing it to follow you is done without much effort. </target>
+      </segment>
     </unit>
     <unit id="always_successful_thanks_to_skill">
       <segment id="description" state="translated">
@@ -762,6 +766,26 @@ other {{version, select,
       <segment id="lost_description" state="translated">
         <source>kill_lost.lost_description</source>
         <target>You have found {character} under a rock, and it doesn't look good. No movement at all. Aaaand, no signs of respiration. Looks like the guys down the lab are going to tell you that it's game over for this comrade...</target>
+      </segment>
+    </unit>
+    <unit id="pirate_ship">
+      <segment id="name" state="translated">
+        <source>pirate_ship.name</source>
+        <target>Last words from captain Grixar</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>pirate_ship.description</source>
+        <target>You may now try to go through this planet's sectors to look for the treasure.</target>
+      </segment>
+      <segment id="lost_description" state="translated">
+        <source>pirate_ship.treasure_hunt_ship_description</source>
+        <target>You explore the wreck from top to bottom without finding what you were looking for. As you were leaving, empty-handed, you discover those mysterious words:////"
+        {treasure_sector, select,
+        0 {I'm leaving this world... }
+        1 {...where no light can reach it... he will never find it... }
+        2 {At least, I could not have a better vista... }
+        3 {I think my leg is infected... and the smell...}
+        other {Oh, Roberto... I cannot blame you for stealing it... But you shouldn't have followed me here... your ship... I...}}"</target>
       </segment>
     </unit>
     <unit id="new_sector">

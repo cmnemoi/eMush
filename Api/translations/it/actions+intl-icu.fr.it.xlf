@@ -811,6 +811,20 @@
         <target>kill_player.confirmation</target>
       </segment>
     </unit>
+    <unit id="usurp_identity">
+      <segment id="name" state="initial">
+        <source>usurp_identity.name</source>
+        <target>usurp_identity.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>usurp_identity.description</source>
+        <target>usurp_identity.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>usurp_identity.confirmation</source>
+        <target>usurp_identity.confirmation</target>
+      </segment>
+    </unit>
     <unit id="action_aggressive">
       <segment id="name" state="translated">
         <source>action_aggressive.name</source>
@@ -1973,6 +1987,60 @@
       <segment id="description" state="initial">
         <source>check_jukebox_songs.description</source>
         <target>check_jukebox_songs.description</target>
+      </segment>
+    </unit>
+    <unit id="feed_the_pet">
+      <segment id="name" state="initial">
+        <source>feed_the_pet.name</source>
+        <target>feed_the_pet.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>feed_the_pet.description</source>
+        <target>feed_the_pet.description</target>
+      </segment>
+    </unit>
+    <unit id="travel_to_event_planet">
+      <segment id="name" state="initial">
+        <source>travel_to_event_planet.name</source>
+        <target>travel_to_event_planet.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>travel_to_event_planet.description</source>
+        <target>travel_to_event_planet.description</target>
+      </segment>
+      <segment id="confirmation" state="initial">
+        <source>travel_to_event_planet.confirmation</source>
+        <target>travel_to_event_planet.confirmation</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_reactor">
+      <segment id="name" state="initial">
+        <source>upgrade_reactor.name</source>
+        <target>upgrade_reactor.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>upgrade_reactor.description</source>
+        <target>upgrade_reactor.description</target>
+      </segment>
+    </unit>
+    <unit id="open_treasure">
+      <segment id="name" state="initial">
+        <source>open_treasure.name</source>
+        <target>open_treasure.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>open_treasure.description</source>
+        <target>open_treasure.description</target>
+      </segment>
+    </unit>
+    <unit id="search_for_the_treasure">
+      <segment id="name" state="initial">
+        <source>search_for_the_treasure.name</source>
+        <target>search_for_the_treasure.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>search_for_the_treasure.description</source>
+        <target>search_for_the_treasure.description</target>
       </segment>
     </unit>
   </file>

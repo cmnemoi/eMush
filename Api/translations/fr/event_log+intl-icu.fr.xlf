@@ -15,8 +15,8 @@
       <segment id="open_success" state="translated">
         <source>open_success</source>
         <target>{target_equipment_gender, select,
-                    male {**{character}** a trouvé un **{target_equipment}** dans une Capsule Spatiale.}
-                    female {**{character}** a trouvé une **{target_equipment}** dans une Capsule Spatiale.}
+                    male {**{character}** a trouvé un **{target_equipment}** dans une Capsule spatiale.}
+                    female {**{character}** a trouvé une **{target_equipment}** dans une Capsule spatiale.}
                     other {invalid gender input}
                 }</target>
       </segment>
@@ -36,7 +36,7 @@
         <target>{target_character_gender, select,
                     male {**{target_character}** s'est éveillé de son si doux sommeil.}
                     female {**{target_character}** s'est éveillée de son si doux sommeil.}
-                    other {**{target_character}** s'est éveillé.e de son si doux sommeil.}
+                    other {**{target_character}** s'est éveillé·e de son si doux sommeil.}
                 }</target>
       </segment>
     </unit>
@@ -118,7 +118,7 @@
     <unit id="oxy_low_use_capsule">
       <segment state="translated">
         <source>oxy_low_use_capsule</source>
-        <target>Vous ne respirez plus... Vous vous étouffez... Mais heureusement cette **Capsule d'Oxygène** vous a sauvé la vie...</target>
+        <target>Vous ne respirez plus... Vous vous étouffez... Mais heureusement cette **Capsule d'oxygène** vous a sauvé la vie...</target>
       </segment>
     </unit>
     <unit id="soiled">
@@ -146,7 +146,7 @@
     <unit id="clumsiness_cat">
       <segment state="translated">
         <source>clumsiness_cat</source>
-        <target>Peu importe ce que vous essayez de faire, Schrodinger vous laisse savoir qu'il est temps que cela cesse d'un coup de griffe bien placé.</target>
+        <target>Peu importe ce que vous essayez de faire, Schrödinger vous laisse savoir qu'il est temps que cela cesse d'un coup de griffe bien placé.</target>
       </segment>
     </unit>
     <unit id="clumsiness_prevented">
@@ -206,7 +206,7 @@
     <unit id="panic_crisis">
       <segment state="translated">
         <source>panic_crisis</source>
-        <target>Vous ressentez des frissons, l'espoir vous quitte, vous vous demandez ce que vous faites ici et quand cet enfer va s'arrêter... Vous êtes victime d'une Crise de Panique.</target>
+        <target>Vous ressentez des frissons, l'espoir vous quitte, vous vous demandez ce que vous faites ici et quand cet enfer va s'arrêter... Vous êtes victime d'une crise de panique.</target>
       </segment>
     </unit>
     <unit id="plant_new_fruit">
@@ -225,7 +225,7 @@
         <target>{equipment_gender, select,
                     male {Un **{equipment}** est arrivé à maturité ! Enfin !}
                     female {Une **{equipment}** est arrivée à maturité ! Enfin !}
-                    other {Un **{equipment}** est arrivé à maturité ! Enfin !}
+                    other {invalid gender input}
                 }</target>
       </segment>
     </unit>
@@ -264,7 +264,7 @@
         <target>{character_gender, select,
                     male {**{character}** est violemment tiré de son lit.}
                     female {**{character}** est violemment tirée de son lit.}
-                    other {**{character}** est violemment tiré.e de son lit.}
+                    other {**{character}** est violemment tiré·e de son lit.}
                 }</target>
       </segment>
     </unit>
@@ -299,7 +299,7 @@
                 {character_gender, select,
                 male {confus, stressé, angoissé}
                 female {confuse, stressée, angoissée}
-                other {confus.e, stressé.e, angoissé.e}
+                other {confus.e, stressé.e, angoissé·e}
                 }. Vous devriez voir un *Psy*. Vous avez développé une maladie mentale : {disease}.</target>
       </segment>
     </unit>
@@ -321,7 +321,7 @@
         <target>{character_gender, select,
                     male {**{target_character}** est soulagé. Il a réussi à se guérir de sa maladie ({disease}).}
                     female {**{target_character}** est soulagée. Elle a réussi à se guérir de sa maladie ({disease}).}
-                    other {**{target_character}** est soulagé.e. Iel a réussi à se guérir de sa maladie ({disease}).}
+                    other {**{target_character}** est soulagé·e. Iel a réussi à se guérir de sa maladie ({disease}).}
                 }</target>
       </segment>
     </unit>
@@ -341,7 +341,7 @@
         <target>{character_gender, select,
                     male {**{character}** est satisfait. La séance de **{target_character}** s'est bien passée, mais il en faudra d'autres.}
                     female {**{character}** est satisfaite. La séance de **{target_character}** s'est bien passée, mais il en faudra d'autres.}
-                    other {**{character}** est satisfait.e. La séance de **{target_character}** s'est bien passée, mais il en faudra d'autres.}
+                    other {**{character}** est satisfait·e. La séance de **{target_character}** s'est bien passée, mais il en faudra d'autres.}
                 }</target>
       </segment>
     </unit>
@@ -351,11 +351,11 @@
         <target>{target_character_gender, select,
                     male {La séance est une réussite, **{target_character}** est guéri de sa maladie ({disease}).}
                     female {La séance est une réussite, **{target_character}** est guérie de sa maladie ({disease}).}
-                    other {La séance est une réussite, **{target_character}** est guéri.e de sa maladie ({disease}).}
+                    other {La séance est une réussite, **{target_character}** est guéri·e de sa maladie ({disease}).}
                 } {character_gender, select,
                      male {**{character}** est très satisfait.}
                      female {**{character}** est très satisfaite.}
-                     other {**{character}** est très satisfait.e.}
+                     other {**{character}** est très satisfait·e.}
                  }</target>
       </segment>
     </unit>
@@ -478,7 +478,7 @@
         <target>L'opération semble durer une éternité... {version, select,
                     1 {**{character}** s'en sort admirablement.}
                     2 {l'opération s'est déroulé avec succès. **{character}** va bien et sera bientôt sur pied.}
-                    other {invalid gender input}
+                    other {invalid version input}
                     } La blessure ({disease}) de **{character}** est guérie.</target>
       </segment>
     </unit>
@@ -535,7 +535,7 @@
         <target>{target_character_gender, select,
         male {**{target_character}** a été contaminé}
         female {**{target_character}** a été contaminée}
-        other {**{target_character}** a été contaminé.e}} en ouvrant une étagère piégée par **{character}** à l'aide de la **{equipment}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+        other {**{target_character}** a été contaminé·e}} en ouvrant une étagère piégée par **{character}** à l'aide de la **{equipment}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_std">
@@ -544,7 +544,7 @@
         <target>{target_character_gender, select,
         male {**{target_character}** a été contaminé}
         female {**{target_character}** a été contaminée}
-        other {**{target_character}** a été contaminé.e}} en passant du temps avec **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
+        other {**{target_character}** a été contaminé·e}} en passant du temps avec **{character}**. Son niveau de contamination est maintenant de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_cat">
@@ -640,9 +640,9 @@
       <segment id="player_leave_chat_talky" state="translated">
         <source>player_leave_chat_talky</source>
         <target>{character_gender, select,
-                  male {**{character}** a quitté la discussion, il a quitté la pièce et n'a pas de talky...}
-                  female {**{character}** a quitté la discussion, elle a quitté la pièce et n'a pas de talky...}
-                  other {**{character}** a quitté la discussion, iel a quitté la pièce et n'a pas de talky...}
+                  male {**{character}** a quitté la discussion, il a quitté la pièce et n'a pas de talkie...}
+                  female {**{character}** a quitté la discussion, elle a quitté la pièce et n'a pas de talkie...}
+                  other {**{character}** a quitté la discussion, iel a quitté la pièce et n'a pas de talkie...}
                   }</target>
       </segment>
     </unit>
@@ -702,7 +702,7 @@
         <target>{character_gender, select,
         male {**{character}** est resté à bord car il n'avait pas sa **Combinaison**.}
         female {**{character}** est restée à bord car elle n'avait pas sa **Combinaison**.}
-        other {**{character}** est resté.e à bord car iel n'avait pas sa **Combinaison**.}
+        other {**{character}** est resté·e à bord car iel n'avait pas sa **Combinaison**.}
         }</target>
       </segment>
     </unit>
@@ -862,7 +862,7 @@
         <target>{character_gender, select,
         male {Vous n'avez pas été rapatrié... Ou on vous a oublié...}
         female {Vous n'avez pas été rapatriée... Ou on vous a oublié...}
-        other {Vous n'avez pas été rapatrié.e... Ou on vous a oublié...}
+        other {Vous n'avez pas été rapatrié·e... Ou on vous a oublié...}
         }</target>
       </segment>
     </unit>
@@ -872,7 +872,7 @@
         <target>{target_character_gender, select,
           male {Vous vous sentez seul et abandonné... Personne ne pense donc à vous là-haut ?}
           female {Vous vous sentez seule et abandonnée... Personne ne pense donc à vous là-haut ?}
-          other {Vous vous sentez seul.e et abandonné.e... Personne ne pense donc à vous là-haut ?}
+          other {Vous vous sentez seul·e et abandonné·e... Personne ne pense donc à vous là-haut ?}
         }</target>
       </segment>
     </unit>
@@ -920,33 +920,33 @@
       <segment state="translated">
         <source>drone_full_name</source>
         <target>{drone_nickname, select,
-        1 {Drone de Soutien Betty}
-        2 {Drone de Soutien Charlotte}
-        3 {Drone de Soutien Dalek}
-        4 {Drone de Soutien Dave}
-        5 {Drone de Soutien Doc}
-        6 {Drone de Soutien Doudou}
-        7 {Drone de Soutien Douglams}
-        8 {Drone de Soutien Einstein}
-        9 {Drone de Soutien Fido}
-        10 {Drone de Soutien Fito}
-        11 {Drone de Soutien Groo}
-        12 {Drone de Soutien Isaac}
-        13 {Drone de Soutien Loulou}
-        14 {Drone de Soutien Médor}
-        15 {Drone de Soutien Nabuk}
-        16 {Drone de Soutien Papitou}
-        17 {Drone de Soutien Poutou}
-        18 {Drone de Soutien Rex}
-        19 {Drone de Soutien Robbie}
-        20 {Drone de Soutien Robert}
-        21 {Drone de Soutien Selry}
-        22 {Drone de Soutien Steve}
-        23 {Drone de Soutien Terminus}
-        24 {Drone de Soutien Troll}
-        25 {Drone de Soutien Vortex}
-        26 {Drone de Soutien Wheatley}
-        666 {Drone Ménager Saki}
+        1 {Drone de soutien Betty}
+        2 {Drone de soutien Charlotte}
+        3 {Drone de soutien Dalek}
+        4 {Drone de soutien Dave}
+        5 {Drone de soutien Doc}
+        6 {Drone de soutien Doudou}
+        7 {Drone de soutien Douglams}
+        8 {Drone de soutien Einstein}
+        9 {Drone de soutien Fido}
+        10 {Drone de soutien Fito}
+        11 {Drone de soutien Groo}
+        12 {Drone de soutien Isaac}
+        13 {Drone de soutien Loulou}
+        14 {Drone de soutien Médor}
+        15 {Drone de soutien Nabuk}
+        16 {Drone de soutien Papitou}
+        17 {Drone de soutien Poutou}
+        18 {Drone de soutien Rex}
+        19 {Drone de soutien Robbie}
+        20 {Drone de soutien Robert}
+        21 {Drone de soutien Selry}
+        22 {Drone de soutien Steve}
+        23 {Drone de soutien Terminus}
+        24 {Drone de soutien Troll}
+        25 {Drone de soutien Vortex}
+        26 {Drone de soutien Wheatley}
+        666 {Drone ménager Saki}
         other {Wheatley}} #{drone_serial_number}</target>
       </segment>
     </unit>
@@ -1234,7 +1234,7 @@
                     1{miaou}
                     2{maouuuuu}
 	                  3{maouuuuu maouuuuu}
-	                  4{maou?}
+	                  4{maou ?}
 	                  5{mrrrrrou mroouuuuuu}
 	                  6{mrrrrr}
 	                  7{rrrrrrrrrr}
@@ -1281,22 +1281,22 @@
         <source>cat_hiss</source>
         <target>:cat: **{equipment} :** {version, select,
                     1{hsss...}
-                    2{hisssss!!}
-	                  3{rrrhhh!}
+                    2{hisssss !!}
+	                  3{rrrhhh !}
 	                  4{mrrrwwwr...}
 	                  5{grrrrwl...}
-	                  6{MMMMAOU!}
-	                  7{fffffsh!}
-	                  8{grrrrrr!!}
-	                  9{pffft!}
-	                  10{PSCHHH!! PSCHHH!!}
+	                  6{MMMMAOU !}
+	                  7{fffffsh !}
+	                  8{grrrrrr !!}
+	                  9{pffft !}
+	                  10{PSCHHH !! PSCHHH !!}
 	                  11{grrrrowwwl...}
-	                  12{pffff! pffff!}
-	                  13{rrrrrrrhh!}
+	                  12{pffff ! pffff !}
+	                  13{rrrrrrrhh !}
 	                  14{tsssss...}
-	                  15{mrrrrrr... hssss!!}
-	                  16{BARK BARK!}
-	                  17{meewww...}
+	                  15{mrrrrrr... hssss !!}
+	                  16{OUAH OUAH !}
+	                  17{miaouu...}
                     other {invalid version input}
                 }</target>
       </segment>
@@ -1347,7 +1347,7 @@
     <unit id="myco_alarm_ring">
       <segment id="myco_alarm_ring" state="translated">
         <source>myco_alarm_ring</source>
-        <target>:mycoalarm: DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!</target>
+        <target>:mycoalarm: DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG !!!!</target>
       </segment>
     </unit>
     <unit id="gen_metal_success">
@@ -1385,21 +1385,21 @@
         <source>dog_bark</source>
         <target>:dog: **{equipment} :** {version, select,
                     1{ouaf}
-                    2{ouaf ouaf!}
-	                  3{ouaf ouaf ouaf!!}
+                    2{ouaf ouaf !}
+	                  3{ouaf ouaf ouaf !!}
 	                  4{arf arf arf arf}
-	                  5{yip yap yip!}
+	                  5{yip yap yip !}
 	                  6{awooooooo!}
 	                  7{awoowoooooooo}
 	                  8{*remue la queue*}
-	                  9{bork!}
+	                  9{bork !}
 	                  10{*halète joyeusement*}
-	                  11{aaaaarrrwf!}
+	                  11{aaaaarrrwf !}
 	                  12{wouf}
-	                  13{wouf wouf!!}
-	                  14{bark!}
+	                  13{wouf wouf !!}
+	                  14{bark !}
 	                  15{awOOOOOOOOOO}
-	                  16{MIAOU!}
+	                  16{MIAOU !}
 	                  17{*penche la tête*}
                     other {invalid version input}
                 }</target>
@@ -1458,7 +1458,7 @@
     <unit id="food_destroyed_by_neron">
       <segment state="translated">
         <source>food_destroyed_by_neron</source>
-        <target>{equipment_gender, select, female {Une} other {Un}} **{equipment}** a été {equipment_gender, select, female {détruite} other {détruit}} par N.E.R.O.N. en accord avec sa programmation.</target>
+        <target>{equipment_gender, select, female {Une} other {Un}} **{equipment}** a été {equipment_gender, select, female {détruite} other {détruit}} par NERON en accord avec sa programmation.</target>
       </segment>
     </unit>
     <unit id="psychotic_attacks">
@@ -1476,7 +1476,7 @@
     <unit id="evil_drone">
       <segment id="evil_drone.flirt" state="translated">
         <source>evil_drone.flirt</source>
-        <target>**Robot ménager Saki** a l'air intéressée par **{target_character}**, ses bips et ses boops sont révélateurs de son code le plus secret.</target>
+        <target>**Robot ménager Saki** a l'air intéressée par **{target_character}**, ses bips et ses boups sont révélateurs de son code le plus secret.</target>
       </segment>
       <segment id="evil_drone.recycle" state="translated">
         <source>evil_drone.recycle</source>
@@ -1486,9 +1486,9 @@
         <source>evil_drone.conspire</source>
         <target>{drone} et **NERON** papotent innocemment... "{version, select, 
         1{...**{target_character}** a l'air coupable.}
-        2{...**{target_character}** est {target_character_gender, select, male {le suivant} female{la suivante.} other{lae suivant.e.}}}
-        3{...fois **{target_character}** {target_character_gender, select, male {disparu} female{disparue} other{disparue.e}} on pourra...}
-        4{...**{target_character}** doit être {target_character_gender, select, male {nettoyé} female{nettoyée} other{nettoyé.e}}.}
+        2{...**{target_character}** est {target_character_gender, select, male {le suivant} female{la suivante.} other{lea suivant·e.}}}
+        3{...fois **{target_character}** {target_character_gender, select, male {disparu} female{disparue} other{disparue·e}} on pourra...}
+        4{...**{target_character}** doit être {target_character_gender, select, male {nettoyé} female{nettoyée} other{nettoyé·e}}.}
         other{invalid version input}}"</target>
       </segment>
       <segment id="evil_drone.clean" state="translated">
@@ -1556,7 +1556,7 @@
     <unit id="pirate_ship_free_spore">
       <segment id="pirate_ship_free_spore" state="translated">
         <source>pirate_ship_free_spore</source>
-        <target>Vous profitez de l'exploration de l'épave pour extraire un spore en douce.(Sabotage)</target>
+        <target>Vous profitez de l'exploration de l'épave pour extirper un spore en douce. (Sabotage)</target>
       </segment>
     </unit>
   </file>

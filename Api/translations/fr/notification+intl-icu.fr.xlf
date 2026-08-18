@@ -84,7 +84,7 @@
     <unit id="exploration_closed_return_event_mankarog">
       <segment state="translated">
         <source>exploration_closed_return_event_mankarog.subTitle</source>
-        <target>L'expédition observe à l'horizon un Mankarog passer derrière une montagne… Il vaut mieux changer de cap dès maintenant avant d'avoir des ennuis.</target>
+        <target>L'expédition observe à l'horizon un mankarog passer derrière une montagne… Il vaut mieux changer de cap dès maintenant avant d'avoir des ennuis.</target>
       </segment>
       <segment state="translated">
         <source>exploration_closed_return_event_mankarog.description</source>
@@ -176,7 +176,7 @@
     <unit id="welcome_mush">
       <segment state="translated">
         <source>welcome_mush.title</source>
-        <target>Bienvenue parmi la cause, très cher MUSH</target>
+        <target>Bienvenue parmi la cause, très cher MUSH !</target>
       </segment>
       <segment state="translated">
         <source>welcome_mush.description</source>

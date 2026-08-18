@@ -71,7 +71,7 @@ final class TradeNormalizerCest extends AbstractFunctionalTest
                 ],
                 [
                     'id' => $trade->getTradeOptions()->last()->getId(),
-                    'name' => '[Diplomatie] Ça tombe bien, on a du rabe sur les déchets organiques...',
+                    'name' => '[Diplomatie] Ça tombe bien, on a du rab sur les déchets organiques...',
                     'description' => 'Vendre 2 équipiers au hasard vous rapportera... 24 capsules d\'oxygène.',
                     'tradeConditionsAreNotMet' => 'Les conditions de cet échange ne sont pas remplies.',
                 ],
@@ -205,7 +205,7 @@ final class TradeNormalizerCest extends AbstractFunctionalTest
             $I,
             $trade,
             $normalizedTrade,
-            'Les grandes maisons de Serres vous saluent, nous regardons votre monde primitif depuis des eons et la folle course de votre vaisseau est intriguante. Nous avons quand même quelques intérêts pour certaine de vos technologies, un petit échange pourrait profiter à tous.',
+            'Les grandes maisons de Serres vous saluent, nous regardons votre monde primitif depuis des éons et la folle course de votre vaisseau est intriguante. Nous avons quand même quelques intérêts pour certaine de vos technologies, un petit échange pourrait profiter à tous.',
             [
                 [
                     'id' => $trade->getTradeOptions()->first()->getId(),
@@ -280,7 +280,7 @@ final class TradeNormalizerCest extends AbstractFunctionalTest
             $I,
             $trade,
             $normalizedTrade,
-            'Buraroum, nous, les Dévorfeuilles avons besoin de jardinier céleste, nous vous échangeons de la main d\'oeuvre contre des pots neufs.',
+            'Buraroum, nous, les Dévorfeuilles avons besoin de jardinier céleste, nous vous échangeons de la main d\'œuvre contre des pots neufs.',
             [
                 [
                     'id' => $trade->getTradeOptions()->first()->getId(),
@@ -317,7 +317,7 @@ final class TradeNormalizerCest extends AbstractFunctionalTest
             $I,
             $trade,
             $normalizedTrade,
-            'Buraroum, nous, les Dévorfeuilles avons besoin de jardinier céleste, nous vous échangeons de la main d\'oeuvre contre des pots neufs.',
+            'Buraroum, nous, les Dévorfeuilles avons besoin de jardinier céleste, nous vous échangeons de la main d\'œuvre contre des pots neufs.',
             [
                 [
                     'id' => $trade->getTradeOptions()->first()->getId(),

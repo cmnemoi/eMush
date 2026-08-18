@@ -82,7 +82,7 @@
     <unit id="newke">
       <segment id="name" state="translated">
         <source>newke.name</source>
-        <target>Nuke</target>
+        <target>Japiyú</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>newke.short_name</source>
@@ -164,7 +164,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>pymp.short_name</source>
-        <target>Ontoy</target>
+        <target>Pimp</target>
       </segment>
       <segment id="genre" state="translated">
         <source>pymp.gender</source>
@@ -4568,7 +4568,7 @@ other {# **Frutos Alienígenas**}
       </segment>
       <segment id="description" state="translated">
         <source>treasure_hunt_pet.description</source>
-        <target>TODO</target>
+        <target/>
       </segment>
       <segment id="examine" state="translated">
         <source>treasure_hunt_pet.examine</source>

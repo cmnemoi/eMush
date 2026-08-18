@@ -175,7 +175,7 @@
 			"suicide": "Suicide with panache!",
 			"patrol_ship_explosion": "A failed maneuver!"
 		},
-		"explorations": "Explorations",
+		"explorations": "Expeditions",
 		"titles": "Titles",
 		"funFacts": "Fun Facts",
 		"historyAndTriumph": "History and Glory",
@@ -213,7 +213,11 @@
 			"awards": "Awards",
 			"trips": "Trips"
 		},
-		"pageTitle": "{user}'s file"
+		"pageTitle": "{user}'s file",
+		"iLikeToBeMushActivated": "I want to be Mush more often! (Enabled)",
+		"iLikeToBeMushDeactivated": "I want to be Mush more often! (Disabled)",
+		"iLikeToBeMushButtonName": "I want to be Mush more often!",
+		"iLikeToBeMushButtonDescription": "The system ensures that all players regularly take on the role of Mush. However, some players wish to play the role more frequently than others, and this option is designed for them.//***To ensure the game runs smoothly, you are prohibited from sharing your choice either inside or outside the game. Thank you.***"
 	},
 	"login": "Login",
 	"logout": "Logout",
@@ -1068,7 +1072,7 @@
 			"reason": "Reason",
 			"reporterMessage": "Complainant's message",
 			"moderatorMessage": "Moderator's message",
-			"evidence": "Message signalé",
+			"evidence": "Message reported",
 			"context": "Context",
 			"reportDate": "Date",
 			"sanctionStartDate": "Start",

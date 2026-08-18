@@ -663,5 +663,23 @@
         <target>still_living.description</target>
       </segment>
     </unit>
+    <unit id="baby_skinner_bite">
+      <segment id="name" state="initial">
+        <source>baby_skinner_bite.name</source>
+        <target>baby_skinner_bite.name</target>
+      </segment>
+      <segment id="baby_skinner_bite" state="initial">
+        <source>baby_skinner_bite.short_name</source>
+        <target>baby_skinner_bite.short_name</target>
+      </segment>
+      <segment id="category" state="initial">
+        <source>baby_skinner_bite.category</source>
+        <target>baby_skinner_bite.category</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>baby_skinner_bite.description</source>
+        <target>baby_skinner_bite.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

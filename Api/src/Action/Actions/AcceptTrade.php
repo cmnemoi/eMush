@@ -56,7 +56,7 @@ final class AcceptTrade extends AbstractAction
             new NumberOfAttackingHunters([
                 'mode' => NumberOfAttackingHunters::GREATER_THAN,
                 'number' => 0,
-                'exclude' => [HunterEnum::ASTEROID, HunterEnum::TRANSPORT],
+                'exclude' => HunterEnum::getHuntersThatDoNotStopFromAcceptingTrade()->toArray(),
                 'groups' => [ClassConstraint::VISIBILITY],
             ]),
             new NeedTitle([

@@ -25,6 +25,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\SpaceCoordinates;
 use Mush\Exploration\Enum\PlanetConfigsEnum;
+use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -162,7 +163,7 @@ final class TravelToEventPlanet extends AbstractAction
         $this->planetService->delete($oldPlanets->toArray());
 
         // make the event planet
-        $planet = $this->planetService->createPlanet($this->getPlayer(), PlanetConfigsEnum::SUMMER_EVENT_1, null, 8);
+        $planet = $this->planetService->createPlanet($this->getPlayer(), PlanetConfigsEnum::SUMMER_EVENT_1, PlanetSectorEnum::TREASURE_HUNT_PET, 8);
         // set it's coordinates to where the daedalus is going
         $planet->setCoordinates(new SpaceCoordinates($daedalus->getOrientation(), $daedalus->getCombustionChamberFuel()));
         $this->planetService->persist([$planet]);

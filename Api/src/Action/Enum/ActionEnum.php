@@ -241,6 +241,9 @@ enum ActionEnum: string
     case SEARCH_FOR_THE_TREASURE = 'search_for_the_treasure';
     case FEED_THE_PET = 'feed_the_pet';
 
+    // deprecated actions
+    case SHOOT_CAT = 'shoot_cat';
+
     public function toString(): string
     {
         return $this->value;

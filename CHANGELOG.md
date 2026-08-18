@@ -1,3 +1,10 @@
+## [0.34.1](https://gitlab.com/eternaltwin/mush/mush/compare/0.34.0...0.34.1) (2026-08-18)
+
+
+### Bug Fixes
+
+* added back deprecated enum* ([98a8c54](https://gitlab.com/eternaltwin/mush/mush/commit/98a8c5415444d3c58dd5828f498b9ebb00600cbe))
+
 # [0.34.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.33.0...0.34.0) (2026-08-18)
 
 

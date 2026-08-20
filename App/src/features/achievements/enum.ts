@@ -90,6 +90,7 @@ export const enum StatisticEnum {
     TRIUMPH = 'triumph',
     VENERIAN_DISEASE = 'venerian_disease',
     EDEN_BIODIVERSITY = 'eden_biodiversity',
+    EDEN_FAUNA = 'eden_fauna',
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -358,6 +359,9 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
         'icon': getImgUrl('achievements/venerian.png')
     },
     [StatisticEnum.EDEN_BIODIVERSITY]: {
-        'icon': getImgUrl('infoalert.png') // placeholder
-    }
+        'icon': getImgUrl('achievements/eden_flora.png') // placeholder
+    },
+    [StatisticEnum.EDEN_FAUNA]: {
+        'icon': getImgUrl('achievements/eden_fauna.png') // placeholder
+    },
 };

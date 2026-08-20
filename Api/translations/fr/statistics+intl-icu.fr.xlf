@@ -1933,5 +1933,39 @@
         <target>"Mais d'où sortent tous ces pots !?"</target>
       </segment>
     </unit>
+    <unit id="eden_fauna">
+      <segment id="name" state="translated">
+        <source>eden_fauna.name</source>
+        <target>Ménagerie Edenique</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eden_fauna.description</source>
+        <target>Record de variétés d'animaux amenés sur Eden.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_fauna_1.name</source>
+        <target>Un petit pas pour les félins, un grand pas pour Schrödinger.</target>
+      </segment>
+      <segment id="x2" state="translated">
+        <source>eden_fauna_2.name</source>
+        <target>Spécialiste du rodéo sur minéraux</target>
+      </segment>
+      <segment id="x3" state="translated">
+        <source>eden_fauna_3.name</source>
+        <target>30 millions d'amis</target>
+      </segment>
+      <segment id="x4" state="translated">
+        <source>eden_fauna_4.name</source>
+        <target>Qui est venu en premier ? La poule ou le chapeau ?</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>eden_fauna_5.name</source>
+        <target>Sally vous aime, les chab chab d'Eden un peu moins</target>
+      </segment>
+      <segment id="x6" state="translated">
+        <source>eden_fauna_6.name</source>
+        <target>Pavlov repart en covoiturage après le thé</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

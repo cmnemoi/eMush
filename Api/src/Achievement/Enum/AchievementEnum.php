@@ -280,6 +280,13 @@ enum AchievementEnum: string
     case EDEN_BIODIVERSITY_5 = 'eden_biodiversity_5';
     case EDEN_BIODIVERSITY_7 = 'eden_biodiversity_7';
     case EDEN_BIODIVERSITY_13 = 'eden_biodiversity_13';
+    case EDEN_FAUNA_1 = 'eden_fauna_1';
+    case EDEN_FAUNA_2 = 'eden_fauna_2';
+    case EDEN_FAUNA_3 = 'eden_fauna_3';
+    case EDEN_FAUNA_4 = 'eden_fauna_4';
+    case EDEN_FAUNA_5 = 'eden_fauna_5';
+    case EDEN_FAUNA_6 = 'eden_fauna_6';
+
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

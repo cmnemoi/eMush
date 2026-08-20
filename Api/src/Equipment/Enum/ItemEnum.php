@@ -165,4 +165,16 @@ class ItemEnum
             self::ALIEN_BLASTER,
         ]);
     }
+
+    public static function getFauna(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::SCHRODINGER,
+            self::PAVLOV,
+            self::TREASURE_HUNT_SPACE_CHICKEN,
+            self::TREASURE_HUNT_PET,
+            GearItemEnum::INVERTEBRATE_SHELL,
+            GearItemEnum::ROLLING_BOULDER,
+        ]);
+    }
 }

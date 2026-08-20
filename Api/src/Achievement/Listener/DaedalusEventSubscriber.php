@@ -12,10 +12,11 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
-use Mush\Equipment\Enum\GamePlantEnum;
+use Mush\Equipment\Enum\GameFruitEnum;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\EventPriorityEnum;
-use Mush\Place\Entity\Place;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -30,6 +31,7 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
         private PublishPendingStatisticsService $publishPendingStatisticsService,
         private UpdatePlayerStatisticService $updatePlayerStatisticService,
         private UserRepositoryInterface $userRepository,
+        private GameEquipmentServiceInterface $gameEquipmentService,
     ) {}
 
     public static function getSubscribedEvents(): array
@@ -154,6 +156,7 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
         if ($event->hasAnyTag([EndCauseEnum::EDEN, EndCauseEnum::EDEN_INFECTED, ActionEnum::TRAVEL_TO_EDEN->toString()])) {
             $this->incrementEdenPlantDiversityRecordForPlayersOnDaedalus($daedalus);
+            $this->incrementEdenFaunaDiversityRecordForPlayersOnDaedalus($daedalus);
         }
     }
 
@@ -170,18 +173,13 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
 
     private function incrementEdenPlantDiversityRecordForPlayersOnDaedalus(Daedalus $daedalus): void
     {
-        $plantNames = [];
+        $numberOfUniquePlants = 0;
 
-        /** @var Place $place */
-        foreach ($daedalus->getPlaces() as $place) {
-            $plantsInRoom = $place->getEquipmentsByNames(GamePlantEnum::getAll());
-            foreach ($plantsInRoom as $plant) {
-                $plantNames[] = $plant->getName();
+        foreach (GameFruitEnum::getGamePlants() as $fruit => $plant) {
+            if ($this->gameEquipmentService->findByNameAndDaedalus($plant, $daedalus)->isEmpty() === false) {
+                ++$numberOfUniquePlants;
             }
         }
-        // whoops this doesn't account for plants in player inventories
-
-        $numberOfUniquePlants = \count(array_unique($plantNames));
 
         /** @var Player $player */
         foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
@@ -189,6 +187,27 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
                 player: $player,
                 statisticName: StatisticEnum::EDEN_BIODIVERSITY,
                 count: $numberOfUniquePlants,
+            );
+        }
+    }
+
+    private function incrementEdenFaunaDiversityRecordForPlayersOnDaedalus(Daedalus $daedalus): void
+    {
+        $faunaCount = 0;
+
+        /** @var string $faunaName */
+        foreach (ItemEnum::getFauna() as $faunaName) {
+            if ($this->gameEquipmentService->findByNameAndDaedalus($faunaName, $daedalus)->isEmpty() === false) {
+                ++$faunaCount;
+            }
+        }
+
+        /** @var Player $player */
+        foreach ($daedalus->getPlayers()->getPlayerAlive() as $player) {
+            $this->updatePlayerStatisticService->execute(
+                player: $player,
+                statisticName: StatisticEnum::EDEN_FAUNA,
+                count: $faunaCount,
             );
         }
     }

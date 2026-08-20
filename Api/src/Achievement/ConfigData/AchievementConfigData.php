@@ -980,7 +980,12 @@ abstract class AchievementConfigData
             new AchievementConfigDto(name: AchievementEnum::EDEN_BIODIVERSITY_3, points: 5, threshold: 3),
             new AchievementConfigDto(name: AchievementEnum::EDEN_BIODIVERSITY_5, points: 20, threshold: 5),
             new AchievementConfigDto(name: AchievementEnum::EDEN_BIODIVERSITY_7, points: 0, threshold: 7),
-            new AchievementConfigDto(name: AchievementEnum::EDEN_BIODIVERSITY_13, points: 0, threshold: 13),
+            new AchievementConfigDto(name: AchievementEnum::EDEN_FAUNA_1, points: 1, threshold: 1),
+            new AchievementConfigDto(name: AchievementEnum::EDEN_FAUNA_2, points: 5, threshold: 2),
+            new AchievementConfigDto(name: AchievementEnum::EDEN_FAUNA_3, points: 10, threshold: 3),
+            new AchievementConfigDto(name: AchievementEnum::EDEN_FAUNA_4, points: 20, threshold: 4),
+            new AchievementConfigDto(name: AchievementEnum::EDEN_FAUNA_5, points: 0, threshold: 5),
+            new AchievementConfigDto(name: AchievementEnum::EDEN_FAUNA_6, points: 0, threshold: 6),
         ];
     }
 

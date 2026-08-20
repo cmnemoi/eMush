@@ -100,6 +100,7 @@ enum StatisticEnum: string
     case TRIUMPH = 'triumph';
     case VENERIAN_DISEASE = 'venerian_disease';
     case EDEN_BIODIVERSITY = 'eden_biodiversity';
+    case EDEN_FAUNA = 'eden_fauna';
     case NULL = '';
 
     public static function fromOrNull(string $value): self

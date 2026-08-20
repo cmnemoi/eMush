@@ -251,6 +251,30 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
         $this->thenEdenBiodiversityStatisticShouldEqualCountFor(7, $this->player2, $I);
     }
 
+    public function shouldUpdateEdenFaunaStatisticToCrew(FunctionalTester $I): void
+    {
+        // Given three plants
+        $this->createEquipment(ItemEnum::SCHRODINGER, $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
+        $this->createEquipment(ItemEnum::PAVLOV, $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
+        $this->createEquipment(ItemEnum::TREASURE_HUNT_PET, $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
+
+        // Given player2 has a record of 5 animals
+        $this->updateUserStatistic->__invoke(
+            new UpdateUserStatisticCommand(
+                $this->player2->getUser()->getId(),
+                StatisticEnum::EDEN_FAUNA,
+                LanguageEnum::FRENCH,
+                5
+            )
+        );
+
+        $this->whenDaedalusEndsWith(EndCauseEnum::EDEN);
+
+        $I->assertTrue($this->daedalus->getDaedalusInfo()->isDaedalusFinished());
+        $this->thenEdenFaunaStatisticShouldEqualCountFor(3, $this->player, $I);
+        $this->thenEdenFaunaStatisticShouldEqualCountFor(5, $this->player2, $I);
+    }
+
     protected function characterDataProvider(): array
     {
         return [
@@ -427,6 +451,20 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
             expected: $count,
             actual: $edenBiodiversityInStatistics,
             message: "{$player->getLogName()} with {$count} expected eden biodiversity stat has {$edenBiodiversityInStatistics} instead",
+        );
+    }
+
+    private function thenEdenFaunaStatisticShouldEqualCountFor(int $count, Player $player, FunctionalTester $I): void
+    {
+        $edenBiodiversityInStatistics = $this->statisticRepository->findByNameAndUserIdOrNull(
+            name: StatisticEnum::EDEN_FAUNA,
+            userId: $player->getUser()->getId()
+        )?->getCount();
+
+        $I->assertEquals(
+            expected: $count,
+            actual: $edenBiodiversityInStatistics,
+            message: "{$player->getLogName()} with {$count} expected eden fauna stat has {$edenBiodiversityInStatistics} instead",
         );
     }
 }

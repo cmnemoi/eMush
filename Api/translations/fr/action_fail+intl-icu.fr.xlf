@@ -946,7 +946,7 @@
     <unit id="need_genius_or_alien_device">
       <segment id="description" state="translated">
         <source>need_genius_or_alien_device.description</source>
-        <target>Il faudrait être un génie pour effectuer cette action... mais si vous n'en êtes pas un, des aliens ont sûrement abandonné le bon équipement quelque part.</target>
+        <target>Il faudrait être un génie pour effectuer cette action... Si vous n'avez personne de cette trempe à bord, il ne vous reste plus qu'à écumer les restes des civilisations éteintes de Magellan, dans l'espoir que quelqu'un ai déjà réfléchi à la question.</target>
       </segment>
     </unit>
   </file>

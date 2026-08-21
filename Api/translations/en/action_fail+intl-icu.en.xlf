@@ -22,7 +22,7 @@
     <unit id="no_shelving_unit">
       <segment id="description" state="translated">
         <source>no_shelving_unit.description</source>
-        <target>This room doesn't contain any shelf...</target>
+        <target>This room doesn't contain a shelf...</target>
       </segment>
     </unit>
     <unit id="full_inventory">
@@ -898,7 +898,7 @@
     <unit id="need_genius_or_alien_device">
       <segment id="description" state="translated">
         <source>need_genius_or_alien_device.description</source>
-        <target>You'd have to be a genius to pull this off... but if you aren't one, aliens have surely left the right equipment lying around somewhere.</target>
+        <target>You'd have to be a genius to pull this off... but if you have no one like that on the ship, you will need to skim what is left of the dead civilizations of Magellan in the hope that someone already thought about the question.</target>
       </segment>
     </unit>
   </file>

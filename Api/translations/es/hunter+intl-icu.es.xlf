@@ -73,7 +73,7 @@ No se puede huir de él.</target>
       </segment>
       <segment id="summer_event_transport_description" state="translated">
         <source>summer_event_transport.description</source>
-        <target>Un mercader perdido. Podría ser interesante.</target>
+        <target>Un mercader perdido. Parece que busca algo precioso.</target>
       </segment>
     </unit>
   </file>

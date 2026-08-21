@@ -178,7 +178,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>sinus_storm.description</source>
-        <target>Tus senos nasales, arden, se congelan y te hacen perder la cabeza. Es fuerte y no desaparece...</target>
+        <target>Tus senos nasales arden, se congelan y te hacen perder la cabeza. Es fuerte y no desaparece...</target>
       </segment>
     </unit>
     <unit id="skin_inflammation">
@@ -498,7 +498,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>critical_haemorrhage.description</source>
-        <target>Tienes una hemorragia en una arteria mayor que requiere cirugía mayor. ¡Buena suerte!</target>
+        <target>Tienes una hemorragia en una arteria principal que requiere cirugía urgente. ¡Buena suerte!</target>
       </segment>
     </unit>
     <unit id="damaged_ears">
@@ -624,7 +624,7 @@
     <unit id="punctured_lung">
       <segment id="name" state="translated">
         <source>punctured_lung.name</source>
-        <target>Pulmón con agujero</target>
+        <target>Pulmón perforado</target>
       </segment>
       <segment id="description" state="translated">
         <source>punctured_lung.description</source>

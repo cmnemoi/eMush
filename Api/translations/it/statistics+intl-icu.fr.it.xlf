@@ -1933,5 +1933,49 @@
         <target>eden_biodiversity_13.name</target>
       </segment>
     </unit>
+    <unit id="eden_fauna">
+      <segment id="name" state="initial">
+        <source>eden_fauna.name</source>
+        <target>eden_fauna.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>eden_fauna.description</source>
+        <target>eden_fauna.description</target>
+      </segment>
+      <segment id="x1" state="initial">
+        <source>eden_fauna_1.name</source>
+        <target>eden_fauna_1.name</target>
+      </segment>
+      <segment id="x2" state="initial">
+        <source>eden_fauna_2.name</source>
+        <target>eden_fauna_2.name</target>
+      </segment>
+      <segment id="x3" state="initial">
+        <source>eden_fauna_3.name</source>
+        <target>eden_fauna_3.name</target>
+      </segment>
+      <segment id="x4" state="initial">
+        <source>eden_fauna_4.name</source>
+        <target>eden_fauna_4.name</target>
+      </segment>
+      <segment id="x5" state="initial">
+        <source>eden_fauna_5.name</source>
+        <target>eden_fauna_5.name</target>
+      </segment>
+      <segment id="x6" state="initial">
+        <source>eden_fauna_6.name</source>
+        <target>eden_fauna_6.name</target>
+      </segment>
+    </unit>
+    <unit id="treasure_opened">
+      <segment id="name" state="initial">
+        <source>treasure_opened.name</source>
+        <target>treasure_opened.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>treasure_opened.description</source>
+        <target>treasure_opened.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

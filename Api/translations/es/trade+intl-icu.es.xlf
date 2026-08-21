@@ -50,7 +50,7 @@ Os ofrecemos a cambio tecnología que podría ser útil.</target>
     <unit id="treasure_hunt_deal">
       <segment id="treasure_hunt_deal" state="translated">
         <source>treasure_hunt_deal</source>
-        <target>... hambre... comida a cambio de un mapa para un planeta exótico.</target>
+        <target>... hambre... comida a cambio de un mapa para encontrar un tesoro.</target>
       </segment>
     </unit>
     <!-- Asset types -->

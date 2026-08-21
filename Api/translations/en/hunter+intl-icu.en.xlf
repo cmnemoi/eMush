@@ -78,7 +78,7 @@
       </segment>
       <segment id="summer_event_transport_description" state="translated">
         <source>summer_event_transport.description</source>
-        <target>Lost transporter. Could be interesting.</target>
+        <target>Lost transporter. Seems to be looking for something precious.</target>
       </segment>
     </unit>
   </file>

@@ -1933,5 +1933,49 @@
         <target>"Where are all these pots coming from!?"</target>
       </segment>
     </unit>
+    <unit id="eden_fauna">
+      <segment id="name" state="translated">
+        <source>eden_fauna.name</source>
+        <target>Edenist zoo</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eden_fauna.description</source>
+        <target>Number of different animals brought to Eden.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_fauna_1.name</source>
+        <target>A little step for the cats, a big step for Schrödinger.</target>
+      </segment>
+      <segment id="x2" state="translated">
+        <source>eden_fauna_2.name</source>
+        <target>Mineral rodeo specialist</target>
+      </segment>
+      <segment id="x3" state="translated">
+        <source>eden_fauna_3.name</source>
+        <target>30 million friends</target>
+      </segment>
+      <segment id="x4" state="translated">
+        <source>eden_fauna_4.name</source>
+        <target>Which came first? The chicken or the hat?</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>eden_fauna_5.name</source>
+        <target>Sally loves you; Eden's Chab Chabs, a little less so.</target>
+      </segment>
+      <segment id="x6" state="translated">
+        <source>eden_fauna_6.name</source>
+        <target>Pavlov heads back by carpool after tea.</target>
+      </segment>
+    </unit>
+    <unit id="treasure_opened">
+      <segment id="name" state="initial">
+        <source>treasure_opened.name</source>
+        <target>treasure_opened.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>treasure_opened.description</source>
+        <target>treasure_opened.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

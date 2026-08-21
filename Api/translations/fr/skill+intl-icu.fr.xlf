@@ -54,7 +54,7 @@
       </segment>
       <segment id="radio_expert.description" state="translated">
         <source>radio_expert.description</source>
-        <target>L'{character_gender, select, male {Expert radio} female {Experte radio} other {Expert·e radio}} peut décoder les enchevêtrements les plus complexes d'ondes spatiales afin de reconstituer ou envoyer des messages à l'autre bout de l'Univers.//
+        <target>{character_gender, select, male {L'Expert radio} female {L'Experte radio} other {L'Expert·e radio}} peut décoder les enchevêtrements les plus complexes d'ondes spatiales afin de reconstituer ou envoyer des messages à l'autre bout de l'Univers.//
 :point: **Double efficacité** pour établir le **contact** vers Sol.//
 :point: Améliore les tentatives de **contact** de Sol des équipiers dans la même pièce de 50 %.//
 :point: Bonus pour développer certains **Projets NERON**.</target>
@@ -67,7 +67,7 @@
       </segment>
       <segment id="robotics_expert.description" state="translated">
         <source>robotics_expert.description</source>
-        <target>L'{character_gender, select, male {Expert en robotique} female {Experte en robotique} other {Expert·e en robotique}} peut créer et manipuler les drones comme bon lui semble.//
+        <target>{character_gender, select, male {L'Expert en robotique} female {L'Experte en robotique} other {L'Expert·e en robotique}} peut créer et manipuler les drones comme bon lui semble.//
 :point: Commence avec le **plan d'un drone**.//
 :point: Peut **améliorer les drones**.//
 :point: Bonus pour développer certains **Projets NERON**.</target>
@@ -109,7 +109,7 @@
       </segment>
       <segment id="astrophysicist.description" state="translated">
         <source>astrophysicist.description</source>
-        <target>L'{character_gender, select, male {Astrophysicien est habilité} female {Astrophysicienne est habilitée} other {Astrophysicien·ne est habilité·e}} à lancer des scans pour trouver des planètes à portée ou déterminer leur composition.//
+        <target>{character_gender, select, male {L'Astrophysicien est habilité} female {L'Astrophysicienne est habilitée} other {L'Astrophysicien·ne est habilité·e}} à lancer des scans pour trouver des planètes à portée ou déterminer leur composition.//
 :point: **Scanner** une nouvelle planète coûte 1 :pa: de moins.//
 :point: **Analyser** une planète trouvée révèle une section de planète supplémentaire.//
 :point: Bonus pour développer certains **Projets NERON**.</target>
@@ -122,7 +122,7 @@
       </segment>
       <segment id="it_expert.description" state="translated">
         <source>it_expert.description</source>
-        <target>L'{character_gender, select, male {Informaticien} female {Informaticienne} other {Informaticien·ne}} est à l'aise dès qu'{character_gender, select, male {il} female {elle} other {iel}} passe derrière un écran. {character_gender, select, male {Il} female {Elle} other {Iel}} manie à la perfection les interfaces des terminaux de NERON, d'astrophysique, et de communication.//
+        <target>{character_gender, select, male {L'Informaticien} female {L'Informaticienne} other {L'Informaticien·ne}} est à l'aise dès qu'{character_gender, select, male {il} female {elle} other {iel}} passe derrière un écran. {character_gender, select, male {Il} female {Elle} other {Iel}} manie à la perfection les interfaces des terminaux de NERON, d'astrophysique, et de communication.//
 :point: +2 :pa_comp: (points d'action **Informatique**) par jour.//
 :point: Chances de réussites doublées avec le **Bidouilleur**.//
 :point: Bonus pour développer certains **Projets NERON**.</target>
@@ -216,7 +216,7 @@
       </segment>
       <segment id="nurse.description" state="translated">
         <source>nurse.description</source>
-        <target>L'{character_gender, select, male {Infirmier} female {Infirmière} other {Infirmièr·e}} est toujours {character_gender, select, male {prêt} female {prête} other {prêt·e}} à rendre service.//
+        <target>{character_gender, select, male {L'Infirmier} female {L'Infirmière} other {L'Infirmièr·e}} est toujours {character_gender, select, male {prêt} female {prête} other {prêt·e}} à rendre service.//
 :point: +2 :pa_heal: chaque jour (point d'action **Soin**).//
 :point: Peut lire les **propriétés des médicaments.**//
 :point: Bonus pour participer à certains **Projets NERON**.</target>
@@ -299,7 +299,7 @@
       </segment>
       <segment id="survivalist.description" state="translated">
         <source>survivalist.description</source>
-        <target>L'{character_gender, select, male {Expert} female {Experte} other {Expert·e}} en survie est un bon atout dans les missions d'exploration. {character_gender, select, male {Il} female {Elle} other {Iel}} peut se défendre plus efficacement contre les formes de vie extraterrestre et s'en sortira mieux que les autres.//
+        <target>{character_gender, select, male {L'Expert} female {L'Experte} other {L'Expert·e}} en survie est un bon atout dans les missions d'exploration. {character_gender, select, male {Il} female {Elle} other {Iel}} peut se défendre plus efficacement contre les formes de vie extraterrestre et s'en sortira mieux que les autres.//
 :point: Expédition : Chaque dégât **personnel** est **réduit d'1 point**.//
 :point: Expédition : L'évènement **Provision** donne 1 steak supplémentaire.//
 :point: Expédition : Dernier à mourir en cas d'évènement fatal.</target>

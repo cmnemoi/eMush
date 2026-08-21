@@ -1933,5 +1933,49 @@
         <target>"¿¡De donde salieron todas estas macetas!?"</target>
       </segment>
     </unit>
+    <unit id="eden_fauna">
+      <segment id="name" state="translated">
+        <source>eden_fauna.name</source>
+        <target>Zoológico edenista</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eden_fauna.description</source>
+        <target>Cantidad de variedad de animales llevados a Eden.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_fauna_1.name</source>
+        <target>Un pequeño paso para los gatos, un gran paso para Schrödinger.</target>
+      </segment>
+      <segment id="x2" state="translated">
+        <source>eden_fauna_2.name</source>
+        <target>Especialista en el rodeo mineral</target>
+      </segment>
+      <segment id="x3" state="translated">
+        <source>eden_fauna_3.name</source>
+        <target>30 millones de amigos</target>
+      </segment>
+      <segment id="x4" state="translated">
+        <source>eden_fauna_4.name</source>
+        <target>¿Qué vino primero? ¿El pollo o el sombrero?</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>eden_fauna_5.name</source>
+        <target>Sally te ama; los chab chabs del Eden no tanto.</target>
+      </segment>
+      <segment id="x6" state="translated">
+        <source>eden_fauna_6.name</source>
+        <target>Pavlov regresa en coche después del té.</target>
+      </segment>
+    </unit>
+    <unit id="treasure_opened">
+      <segment id="name" state="initial">
+        <source>treasure_opened.name</source>
+        <target>treasure_opened.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>treasure_opened.description</source>
+        <target>treasure_opened.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

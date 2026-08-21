@@ -1967,5 +1967,15 @@
         <target>Pavlov repart en covoiturage après le thé</target>
       </segment>
     </unit>
+    <unit id="treasure_opened">
+      <segment id="name" state="translated">
+        <source>treasure_opened.name</source>
+        <target>Trésors obtenus</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>treasure_opened.description</source>
+        <target>Vous avez déjoué tous les périls et vous avez trouvé l'incroyable trésor du Capitaine Grixar !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -91,6 +91,7 @@ export const enum StatisticEnum {
     VENERIAN_DISEASE = 'venerian_disease',
     EDEN_BIODIVERSITY = 'eden_biodiversity',
     EDEN_FAUNA = 'eden_fauna',
+    TREASURE_OPENED = 'treasure_opened',
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -363,5 +364,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.EDEN_FAUNA]: {
         'icon': getImgUrl('achievements/eden_fauna.png') // placeholder
+    },
+    [StatisticEnum.TREASURE_OPENED]: {
+        'icon': getImgUrl('achievements/treasure.png') // placeholder
     },
 };

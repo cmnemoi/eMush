@@ -105,6 +105,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::FORTYTWO_MANDATE, StatisticStrategyEnum::INCREMENT, isRare: true),
             new StatisticConfigDto(StatisticEnum::EDEN_BIODIVERSITY, StatisticStrategyEnum::MAX, isRare: true),
             new StatisticConfigDto(StatisticEnum::EDEN_FAUNA, StatisticStrategyEnum::MAX, isRare: true),
+            new StatisticConfigDto(StatisticEnum::TREASURE_OPENED, StatisticStrategyEnum::INCREMENT, isRare: true),
         ];
     }
 

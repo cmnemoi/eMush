@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Action\Actions\SummerEventActions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Services\UpdatePlayerStatisticService;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
@@ -41,6 +43,7 @@ class OpenTreasure extends AbstractAction
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
         RoomLogServiceInterface $roomLogService,
+        private UpdatePlayerStatisticService $updatePlayerStatisticService,
     ) {
         parent::__construct(
             $eventService,
@@ -74,6 +77,7 @@ class OpenTreasure extends AbstractAction
             $this->createContent($equipmentName);
         }
         $this->destroyEmptyContainer();
+        $this->giveStatsToEveryone();
     }
 
     private function getTreasureContents(): array
@@ -109,5 +113,15 @@ class OpenTreasure extends AbstractAction
             new \DateTime(),
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+    }
+
+    private function giveStatsToEveryone(): void
+    {
+        foreach ($this->getPlayer()->getDaedalus()->getAlivePlayers() as $player) {
+            $this->updatePlayerStatisticService->execute(
+                $player,
+                StatisticEnum::TREASURE_OPENED
+            );
+        }
     }
 }

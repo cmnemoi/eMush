@@ -1,3 +1,19 @@
+# [0.35.0](https://gitlab.com/eternaltwin/mush/mush/compare/0.34.2...0.35.0) (2026-08-21)
+
+
+### Bug Fixes
+
+* cure log ([3a79ccb](https://gitlab.com/eternaltwin/mush/mush/commit/3a79ccbc48a73fcb11e64054481a2de5929d2d24))
+* new Crowdin translations ([7537a67](https://gitlab.com/eternaltwin/mush/mush/commit/7537a6744a954de161fed5a2d7aa2af82e4842ee))
+
+
+### Features
+
+* during summer event, special transport come back every day up to day 6 if tablet not obtained ([d96a9be](https://gitlab.com/eternaltwin/mush/mush/commit/d96a9bec9048f595de72bce73e9032352f82bb8f))
+* icarus bay no longer limit players ([e083155](https://gitlab.com/eternaltwin/mush/mush/commit/e0831559c34c349d4b5e510cf71240fe5d93013d))
+* new stat treasure opened ([e1a1b9a](https://gitlab.com/eternaltwin/mush/mush/commit/e1a1b9a3da0dd1cb45f4d8281805c9bc987de62c))
+* new statistic eden fauna ([e897831](https://gitlab.com/eternaltwin/mush/mush/commit/e897831956c9109e9735cb42b5dd106feddcaa2b))
+
 ## [0.34.2](https://gitlab.com/eternaltwin/mush/mush/compare/0.34.1...0.34.2) (2026-08-18)
 
 

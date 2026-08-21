@@ -7,7 +7,6 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\ActionResult;
-use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Chat\Entity\ChannelPlayer;
 use Mush\Chat\Services\ChannelServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -64,107 +63,6 @@ final class MoveCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
-    }
-
-    public function testMoveActionNotExecutableIfIcarusBayHasTooMuchPeopleInside(FunctionalTester $I): void
-    {
-        // given there is a door leading to Icarus Bay
-        $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
-        $laboratory = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
-        $icarus = $this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY);
-        $door = new Door($laboratory);
-        $door
-            ->setName('door_default')
-            ->setEquipment($doorConfig)
-            ->addRoom($icarus)->addRoom($laboratory);
-        $I->haveInRepository($door);
-
-        // given all 4 players except derek are in Icarus Bay
-        /** @var Player $player */
-        foreach ($this->players as $player) {
-            $player->changePlace($this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY));
-        }
-
-        // when derek tries to move to Icarus Bay
-        $this->moveAction->loadParameters(
-            actionConfig: $this->moveConfig,
-            actionProvider: $door,
-            player: $this->derek,
-            target: $door
-        );
-        $this->moveAction->execute();
-
-        // then the action is not executable
-        $I->assertEquals(
-            expected: ActionImpossibleCauseEnum::CANNOT_GO_TO_THIS_ROOM,
-            actual: $this->moveAction->cannotExecuteReason(),
-        );
-    }
-
-    public function testMoveActionExecutableInIcarusBayIfTooMuchPeopleInside(FunctionalTester $I): void
-    {
-        // given all players are in Icarus Bay
-        /** @var Player $player */
-        foreach ($this->players as $player) {
-            $player->changePlace($this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY));
-        }
-
-        // given there is a door for exiting Icarus Bay
-        $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
-        $laboratory = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
-        $icarus = $this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY);
-        $door = new Door($icarus);
-        $door
-            ->setName('door_default')
-            ->setEquipment($doorConfig)
-            ->addRoom($icarus)->addRoom($laboratory);
-        $I->haveInRepository($door);
-
-        // when jinsu tries to move to the laboratory
-        $jinsu = $this->players->filter(static fn (Player $player) => $player->getName() === CharacterEnum::JIN_SU)->first();
-        $this->moveAction->loadParameters(
-            actionConfig: $this->moveConfig,
-            actionProvider: $door,
-            player: $jinsu,
-            target: $door
-        );
-        $this->moveAction->execute();
-
-        // then jin su is in the laboratory
-        $I->assertEquals(
-            expected: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)->getName(),
-            actual: $jinsu->getPlace()->getName(),
-        );
-    }
-
-    public function testMoveActionExecutableInOtherRoomsIfTooMuchPeopleInIcarusBay(FunctionalTester $I): void
-    {
-        // given 4 players are in Icarus Bay
-        /** @var Player $player */
-        foreach ($this->players as $player) {
-            $player->changePlace($this->daedalus->getPlaceByName(RoomEnum::ICARUS_BAY));
-        }
-
-        // given there is Front Corridor place
-        $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
-
-        // given there is a door for exiting laboratory to front corridor
-        $door = $this->createDoorFromLaboratoryToFrontCorridor($I);
-
-        // when derek tries to move to the front corridor
-        $this->moveAction->loadParameters(
-            actionConfig: $this->moveConfig,
-            actionProvider: $door,
-            player: $this->derek,
-            target: $door
-        );
-        $this->moveAction->execute();
-
-        // then derek is in the front corridor
-        $I->assertEquals(
-            expected: $this->daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR)->getName(),
-            actual: $this->derek->getPlace()->getName(),
-        );
     }
 
     public function testMoveToEmptyRoomExpulsesPlayerFromPrivateChannelIfTheyDoNotHaveATalkie(FunctionalTester $I): void
@@ -360,39 +258,8 @@ final class MoveCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenChunIsInPrivateChannelWithKuanTi(): void
-    {
-        $channel = $this->channelService->createPrivateChannel($this->chun);
-        $this->channelService->invitePlayer($this->kuanTi, $channel);
-    }
-
     private function whenChunMovesToIcarusBay(Door $door): ActionResult
     {
-        $this->moveAction->loadParameters(
-            actionConfig: $this->moveConfig,
-            actionProvider: $door,
-            player: $this->chun,
-            target: $door
-        );
-
-        return $this->moveAction->execute();
-    }
-
-    private function whenChunMovesToBridge(Door $door): ActionResult
-    {
-        $this->moveAction->loadParameters(
-            actionConfig: $this->moveConfig,
-            actionProvider: $door,
-            player: $this->chun,
-            target: $door
-        );
-
-        return $this->moveAction->execute();
-    }
-
-    private function whenChunLeavesBridge(Door $door): ActionResult
-    {
-        $this->chun->changePlace($this->daedalus->getPlaceByName(RoomEnum::BRIDGE));
         $this->moveAction->loadParameters(
             actionConfig: $this->moveConfig,
             actionProvider: $door,

@@ -91,12 +91,15 @@ class TakeoffToPlanet extends AbstractAction
 
         // draw explorators from the players in exploration craft place to avoid all crewmates
         // to participate and be overpowered
-        $playersInRoom = $explorationShip->getPlace()->getPlayers()->getPlayerAlive();
+        $pilot = $this->player;
+        $playersInRoom = $explorationShip->getPlace()->getPlayers()->getPlayerAlive()->getAllExcept($pilot);
 
         $explorators = $this->randomService->getRandomElements(
             $playersInRoom->toArray(),
-            min($this->getOutputQuantity(), $explorationShip->getPlace()->getNumberOfPlayersAlive())
+            min($this->getOutputQuantity() - 1, $explorationShip->getPlace()->getNumberOfPlayersAlive() - 1)
         );
+
+        $explorators[] = $pilot;
 
         $this->explorationService->createExploration(
             players: new PlayerCollection($explorators),

@@ -9,7 +9,6 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\CanGoToIcarusBay;
 use Mush\Action\Validator\Guardian;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
@@ -39,7 +38,6 @@ final class Move extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-        $metadata->addConstraint(new CanGoToIcarusBay(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CANNOT_GO_TO_THIS_ROOM]));
         $metadata->addConstraint(new PlaceType(['groups' => ['visibility'], 'type' => 'room']));
         $metadata->addConstraint(new Guardian(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::CANNOT_GO_TO_THIS_ROOM_BECAUSE_GUARDIAN]));
     }

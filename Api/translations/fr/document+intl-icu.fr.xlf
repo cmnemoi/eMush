@@ -5,7 +5,7 @@
       <segment id="treasure_hunt_tablet" state="translated">
         <source>treasure_hunt_tablet</source>
         <target>C'est le journal de bord de l'incroyable Grixar, il contient toutes ses aventures et plus encore. Il y raconte chaque planète pillée, chaque cœur volé, chaque amant qu'il aurait transporté dans les étoiles avec lui... Il est facile de s'imaginer être l'un d'entre eux. Mais au fil des années, les embûches s'accumulent. Des trahisons s'enchaînent : le beau Roberto le vend à la terrible Madame Trixa, la seconde belle-mère du capitaine, contre un pardon universel... Grixar finit par s'enfuir à travers l'impossible treizième dimension pour ne jamais revenir. Il est sûrement mort depuis longtemps, mais peut-être que son trésor est encore là ?//
-        Il est possible d'entrer les coordonnées de planètes, mais, en l'état, il est impossible de s'y rendre. Le Daedalus n'est simplement pas équipé pour traverser la treizième dimension. Quelqu'un devrait jeter un œil au réacteur d'urgence pour savoir comment y remédier. Mais les caractéristiques de la planète où s'est rendu Grixar sont inquiétantes. Il ne fait aucun doute que de nouveaux défis vous y attendent.</target>
+        Il est possible d'entrer les coordonnées de planètes, mais, en l'état, il est impossible de s'y rendre. Le Daedalus n'est simplement pas équipé pour traverser la treizième dimension. Quelqu'un devrait jeter un œil au **réacteur d'urgence** pour savoir comment y remédier. Mais les caractéristiques de la planète où s'est rendu Grixar sont inquiétantes. Il ne fait aucun doute que de nouveaux défis vous y attendent.</target>
       </segment>
     </unit>
     <unit id="mush_research_review">

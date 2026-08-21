@@ -11,61 +11,53 @@ class GetHolidayForDaedalusService
 {
     public function __construct() {}
 
-    public function execute(Daedalus $daedalus): string
+    public function execute(Daedalus $daedalus, \DateTime $dateTime = new \DateTime()): string
     {
         if ($daedalus->getDaedalusConfig()->getHoliday() !== HolidayEnum::CURRENT) {
             return $daedalus->getDaedalusConfig()->getHoliday();
         }
 
-        return $this->getCurrentHoliday();
+        return $this->getCurrentHoliday($dateTime);
     }
 
-    public function getCurrentHoliday(): string
+    public function getCurrentHoliday(\DateTime $dateTime): string
     {
-        if ($this->isAnniversary()) {
+        if ($this->isAnniversary($dateTime)) {
             return HolidayEnum::ANNIVERSARY;
         }
 
-        if ($this->isAprilFools()) {
+        if ($this->isAprilFools($dateTime)) {
             return HolidayEnum::APRIL_FOOLS;
         }
 
-        if ($this->isHalloween()) {
+        if ($this->isHalloween($dateTime)) {
             return HolidayEnum::HALLOWEEN;
         }
 
-        if ($this->isSummer()) {
+        if ($this->isSummer($dateTime)) {
             return HolidayEnum::SUMMER_TREASURE_HUNT;
         }
 
         return HolidayEnum::NONE;
     }
 
-    private function isAnniversary(): bool
+    private function isAnniversary(\DateTime $dateTime): bool
     {
-        $currentDate = new \DateTime();
-
-        return $currentDate->format('j') >= 3 && $currentDate->format('j') <= 24 && $currentDate->format('F') === 'January';
+        return $dateTime->format('j') >= 3 && $dateTime->format('j') <= 24 && $dateTime->format('F') === 'January';
     }
 
-    private function isAprilFools(): bool
+    private function isAprilFools(\DateTime $dateTime): bool
     {
-        $currentDate = new \DateTime();
-
-        return $currentDate->format('j') <= 14 && $currentDate->format('F') === 'April';
+        return $dateTime->format('j') <= 14 && $dateTime->format('F') === 'April';
     }
 
-    private function isHalloween(): bool
+    private function isHalloween(\DateTime $dateTime): bool
     {
-        $currentDate = new \DateTime();
-
-        return ($currentDate->format('j') >= 24 && $currentDate->format('F') === 'October') || ($currentDate->format('j') <= 7 && $currentDate->format('F') === 'November');
+        return ($dateTime->format('j') >= 24 && $dateTime->format('F') === 'October') || ($dateTime->format('j') <= 7 && $dateTime->format('F') === 'November');
     }
 
-    private function isSummer(): bool
+    private function isSummer(\DateTime $dateTime): bool
     {
-        $currentDate = new \DateTime();
-
-        return ($currentDate->format('j') >= 16 && $currentDate->format('F') === 'August') || ($currentDate->format('j') <= 6 && $currentDate->format('F') === 'September');
+        return ($dateTime->format('j') >= 16 && $dateTime->format('F') === 'August') || ($dateTime->format('j') <= 6 && $dateTime->format('F') === 'September');
     }
 }

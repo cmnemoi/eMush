@@ -47,7 +47,7 @@
     <unit id="treasure_hunt_deal">
       <segment id="treasure_hunt_deal" state="translated">
         <source>treasure_hunt_deal</source>
-        <target>... famine... repas contre plan pour planète précieuse.</target>
+        <target>... famine... repas contre plan pour trouver trésors.</target>
       </segment>
     </unit>
     <!-- Asset types -->
